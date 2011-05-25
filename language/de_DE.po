@@ -1,0 +1,798 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Platform\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-09-16 12:12-0800\n"
+"PO-Revision-Date: 2011-01-20 13:10+0100\n"
+"Last-Translator: Peter Wesche <pw@grafik-designer-hannover.de>\n"
+"Language-Team: PageLines <hello@pagelines.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: UNITED STATES\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#: comments.php:12
+#@ pagelines
+msgid "This post is password protected. Enter the password to view any comments."
+msgstr "Dieser Beitrag ist geschützt. Bitte geben Sie das Passwort ein."
+
+#: comments.php:33
+#@ pagelines
+msgid "<span class=\"meta-nav\">&larr;</span> Older Comments"
+msgstr "<span class=\"meta-nav\">&larr;</span> Ältere Kommentare"
+
+#: comments.php:34
+#@ pagelines
+msgid "Newer Comments <span class=\"meta-nav\">&rarr;</span>"
+msgstr "Neuere Komentare <span class=\"meta-nav\">&rarr;</span>"
+
+#: comments.php:46
+#@ pagelines
+msgid "Comments are closed."
+msgstr "Kommentare sind geschlossen"
+
+#: searchform.php:14
+#@ pagelines
+msgid "Search"
+msgstr "Suchen"
+
+#: core/library/library.templates.php:332
+#: core/library/library.templates.php:339
+#: sections/section.footer_nav.php:42
+#: sections/section.footer_nav.php:47
+#: sections/sidebars/section.footcols.php:57
+#: sections/sidebars/section.footcols.php:62
+#@ pagelines
+msgid "Home"
+msgstr "Start"
+
+#: core/library/library.templates.php:249
+#: sections/wp/section.postsinfo.php:36
+#@ pagelines
+msgid "Search results for "
+msgstr "Suchergebnisse für"
+
+#: core/library/library.templates.php:252
+#: sections/wp/section.postsinfo.php:39
+#@ pagelines
+msgid "Currently viewing the category: "
+msgstr "Sie befinden sich in der Kategorie: "
+
+#: core/library/library.templates.php:271
+#: sections/wp/section.postsinfo.php:58
+#@ pagelines
+msgid "Viewing archives for "
+msgstr "Archiv ansehen für "
+
+#: template.postloop.php:45
+#@ pagelines
+msgid "Permanent Link To"
+msgstr "Permanenter Link zu"
+
+#: template.postloop.php:65
+#@ pagelines
+msgid "Permanent Link to"
+msgstr "Permanenter Link zu"
+
+#: template.postloop.php:76
+#: template.postloop.php:175
+#@ pagelines
+msgid "by"
+msgstr "von"
+
+#: template.postloop.php:81
+#@ pagelines
+msgid "on"
+msgstr "über"
+
+#: template.postloop.php:86
+#@ pagelines
+msgid "View Comments"
+msgstr "Kommentare ansehen"
+
+#: template.postloop.php:91
+#@ pagelines
+msgid "in"
+msgstr "in"
+
+#: template.postloop.php:94
+#: template.postloop.php:176
+#@ pagelines
+msgid "<span class=\"editpage\">Edit</span>"
+msgstr "<span class=\"editpage\">Bearbeiten</span>"
+
+#: template.postloop.php:112
+#: template.postloop.php:186
+#@ pagelines
+msgid "View"
+msgstr "Ansehen"
+
+#: template.postloop.php:113
+#: template.postloop.php:187
+#@ pagelines
+msgid "Continue Reading"
+msgstr "Mehr lesen"
+
+#: template.postloop.php:128
+#@ pagelines
+msgid "<p>Continue reading &raquo;</p>"
+msgstr "<p>Mehr lesen &raquo;</p>"
+
+#: template.postloop.php:130
+#@ pagelines
+msgid "<p><strong>Pages:</strong>"
+msgstr "<p><strong>Seiten:</strong>"
+
+#: template.postloop.php:130
+#@ pagelines
+msgid "number"
+msgstr "Nummer"
+
+#: template.postloop.php:137
+#@ pagelines
+msgid "Tagged with: "
+msgstr "Getagged mit"
+
+#: template.postloop.php:161
+#@ pagelines
+msgid "Link To"
+msgstr "Verweis zu"
+
+#: template.postloop.php:168
+#@ pagelines
+msgid "Link to"
+msgstr "Verweis zu"
+
+#: config/config.options.php:107
+#@ pagelines
+msgid "Reset Layout"
+msgstr "Layout zurücksetzen"
+
+#: config/config.widgets.php:14
+#@ pagelines
+msgid "PageLines Pro - Grandchild Nav"
+msgstr "PageLines Pro - Grandchild Nav"
+
+#: config/config.widgets.php:29
+#@ pagelines
+msgid "There are no options for this widget."
+msgstr "Keine Optionen für dieses Widget."
+
+#: sections/section.breadcrumb.php:15
+#@ pagelines
+msgid "Breadcrumb"
+msgstr "Breadcrumb"
+
+#: sections/section.breadcrumb.php:48
+#@ pagelines
+msgid "Please activate the <strong>Breadcrumb-NavXT</strong> plug-in to use the section."
+msgstr "Bitte aktivieren Sie das <strong>Breadcrumb-NavXT</strong> plug-in um diese Sektion zu nutzen."
+
+#: sections/section.callout.php:15
+#@ pagelines
+msgid "Callout Section"
+msgstr "Callout Section"
+
+#: sections/section.callout.php:38
+#@ pagelines
+msgid "This is the \"Callout Section\""
+msgstr "This is the \"Callout Section\""
+
+#: sections/section.callout.php:41
+#@ pagelines
+msgid "Perfect for a call to action or a special offer."
+msgstr "Hier einen Aufruf starten oder etwas anbieten."
+
+#: sections/section.footer_nav.php:15
+#@ pagelines
+msgid "Simple Footer Navigation"
+msgstr "Einfache Footer Navigation"
+
+#: sections/section.footer_nav.php:20
+#@ pagelines
+msgid "A single column footer for a simpler footer navigation"
+msgstr "Einspaltiger Footer für eine einfache Footer Navigation"
+
+#: sections/section.news.php:15
+#@ pagelines
+msgid "News Banner Section"
+msgstr "Neue Banner Sektion"
+
+#: sections/section.news.php:36
+#@ pagelines
+msgid "Latest News"
+msgstr "Aktuelle Neuigkeiten"
+
+#: sections/section.news.php:43
+#@ pagelines
+msgid "Please activate the \"News-Ticker\" Plugin to use this section."
+msgstr "Bitte aktivieren Sie das \"News-Ticker\" Plugin um diese Sektion zu sehen."
+
+#: sections/section.twitterbar.php:15
+#@ pagelines
+msgid "Twitter Bar"
+msgstr "Twitter Bar"
+
+#: sections/section.twitterbar.php:44
+#@ pagelines
+msgid "Please install and activate the \"Twitter for WordPress\" plugin to use this section."
+msgstr "Um diese Sektion zu nutzen bitte das \"Twitter for WordPress\" Plugin installieren und aktivieren."
+
+#: sections/section.twitterbar.php:49
+#@ pagelines
+msgid "Set your Twitter account name in your settings to use the TwitterBar Section."
+msgstr "Aktivieren Sie Twitter mit ihrem Account Namen, um die TwitterBar Section zu nutzen."
+
+#: sections/boxes/section.boxes.php:15
+#@ pagelines
+msgid "PageLines Boxes"
+msgstr "PageLines Boxes"
+
+#: sections/boxes/section.boxes.php:40
+#@ pagelines
+msgid "Boxes"
+msgstr "Boxes"
+
+#: sections/boxes/section.boxes.php:41
+#@ pagelines
+msgid "Box"
+msgstr "Box"
+
+#: sections/boxes/section.boxes.php:46
+#@ pagelines
+msgid "Box Sets"
+msgstr "Box Sets"
+
+#: sections/boxes/section.boxes.php:47
+#@ pagelines
+msgid "Box Set"
+msgstr "Box Set"
+
+#: sections/carousel/section.carousel.php:15
+#@ pagelines
+msgid "PageLines Carousel"
+msgstr "PageLines Karoussell"
+
+#: sections/carousel/section.carousel.php:129
+#@ pagelines
+msgid "The plugin for the selected carousel mode (NextGen-Gallery or FlickrRSS) needs to be installed and activated."
+msgstr "Das Plugin für den gewählten Karussell Modus  (NextGen-Gallery oder FlickrRSS) muss installiert und aktiviert werden."
+
+#: sections/features/section.features.php:15
+#@ pagelines
+msgid "PageLines Features"
+msgstr "PageLines Features"
+
+#: sections/features/section.features.php:38
+#@ pagelines
+msgid "Features"
+msgstr "Features"
+
+#: sections/features/section.features.php:39
+#@ pagelines
+msgid "Feature"
+msgstr "Feature"
+
+#: sections/features/section.features.php:45
+#@ pagelines
+msgid "Feature Sets"
+msgstr "Feature Sets"
+
+#: sections/features/section.features.php:46
+#@ pagelines
+msgid "Feature Set"
+msgstr "Feature Set"
+
+#: sections/features/section.features.php:276
+#: sections/sidebars/section.footcols.php:95
+#@ pagelines
+msgid "More"
+msgstr "Mehr"
+
+#: sections/features/section.features.php:309
+#@ pagelines
+msgid "<span>Edit</span>"
+msgstr "Bearbeiten"
+
+#: sections/nav/section.nav.php:15
+#@ pagelines
+msgid "Navigation"
+msgstr "Navigation"
+
+#: sections/sidebars/section.footcols.php:35
+#@ pagelines
+msgid "Use this sidebar if you want to use widgets in your footer columns instead of the default."
+msgstr "Wenn Sie keine Standardwigets im Footer verwenden möchten verwenden Sie diese sidebar."
+
+#: sections/sidebars/section.footcols.php:71
+#@ pagelines
+msgid "Pages"
+msgstr "Seiten"
+
+#: sections/sidebars/section.morefoot.php:33
+#@ pagelines
+msgid "Left sidebar in \"morefoot\" element enabled in options."
+msgstr "Linke sidebar in \"morefoot\" Element aktivieren in Optionen."
+
+#: sections/sidebars/section.morefoot.php:41
+#@ pagelines
+msgid "Middle sidebar in \"morefoot\" element enabled in options."
+msgstr ""
+
+#: sections/sidebars/section.morefoot.php:49
+#@ pagelines
+msgid "Right sidebar in \"morefoot\" element enabled in options."
+msgstr ""
+
+#: sections/sidebars/section.morefoot.php:74
+#@ pagelines
+msgid "Looking for something?"
+msgstr "Suchen Sie etwas bestimmtes?"
+
+#: sections/sidebars/section.morefoot.php:75
+#@ pagelines
+msgid "Use the form below to search the site:"
+msgstr "Verwenden Sie dieses Formular zum Durchsuchen der Seite:"
+
+#: sections/sidebars/section.morefoot.php:78
+#@ pagelines
+msgid "Still not finding what you're looking for? Drop a comment on a post or contact us so we can take care of it!"
+msgstr "Sie finden immer noch nichts? Hinterlassen Sie einfach einen Kommentar oder senden eine Email, wir kümmern uns darum! "
+
+#: sections/sidebars/section.morefoot.php:91
+#@ pagelines
+msgid "Visit our friends!"
+msgstr "Besuchen Sie unsere Freunde!"
+
+#: sections/sidebars/section.morefoot.php:91
+#@ pagelines
+msgid "A few highly recommended friends..."
+msgstr "Einige empfehlenswerte Freunde ..."
+
+#: sections/sidebars/section.morefoot.php:104
+#@ pagelines
+msgid "Archives"
+msgstr "Archiv"
+
+#: sections/sidebars/section.morefoot.php:104
+#@ pagelines
+msgid "All entries, chronologically..."
+msgstr "Alle Einträge chronologisch sortiert..."
+
+#: sections/sidebars/section.sb_content.php:15
+#@ pagelines
+msgid "Content Sidebar"
+msgstr "Seitenleiste Inhalt"
+
+#: sections/sidebars/section.sb_content.php:21
+#@ pagelines
+msgid "Displays a widgetized sidebar inside the main content area. Set it up in the widgets panel"
+msgstr ""
+
+#: sections/sidebars/section.sb_fullwidth.php:15
+#@ pagelines
+msgid "Full Width Sidebar"
+msgstr "XXL Seitenleiste"
+
+#: sections/sidebars/section.sb_fullwidth.php:22
+#@ pagelines
+msgid "A widgetized full width sidebar. This sidebar will span the entire width of your website."
+msgstr "Eine Widgetfertige XXL Seitenleiste. Diese Seitenleiste nimmt die gesamte Breite der Website ein."
+
+#: sections/sidebars/section.sb_primary.php:15
+#@ pagelines
+msgid "Primary Sidebar"
+msgstr "Primary Sidebar"
+
+#: sections/sidebars/section.sb_secondary.php:15
+#@ pagelines
+msgid "Secondary Sidebar"
+msgstr "Zweite Seitenleiste"
+
+#: sections/sidebars/section.sb_tertiary.php:15
+#@ pagelines
+msgid "Tertiary Sidebar"
+msgstr "Dritte Seitenleiste"
+
+#: sections/sidebars/section.sb_universal.php:15
+#@ pagelines
+msgid "Universal Sidebar"
+msgstr "Universelle Seitenleiste"
+
+#: sections/wp/section.branding.php:15
+#@ pagelines
+msgid "Site Branding"
+msgstr "Logo"
+
+#: sections/wp/section.comments.php:15
+#@ pagelines
+msgid "Comment Form"
+msgstr "Beitragsformular"
+
+#: sections/wp/section.content.php:15
+#@ pagelines
+msgid "Content Area"
+msgstr "Content Bereich"
+
+#: sections/wp/section.noposts.php:15
+#@ pagelines
+msgid "No Posts"
+msgstr "Keine Beiträge"
+
+#: template.postloop.php:216
+#@ pagelines
+msgid "Sorry, what you are looking for isn't here."
+msgstr "Entschuldigung, das Gesuchte scheint es nicht zu geben."
+
+#: template.postloop.php:210
+#@ default
+msgid "No results for "
+msgstr "Keine Suchergebnis für"
+
+#: template.postloop.php:212
+#@ pagelines
+msgid "Try another search?"
+msgstr "Neue Suche?"
+
+#: template.postloop.php:214
+#@ pagelines
+msgid "Nothing Found"
+msgstr "Leider nichts gefunden"
+
+#: sections/wp/section.pagination.php:15
+#@ pagelines
+msgid "Pagination"
+msgstr "Pagination"
+
+#: sections/wp/section.pagination.php:37
+#@ pagelines
+msgid "&larr; Previous Entries"
+msgstr "&larr; Vorherige Einträge"
+
+#: sections/wp/section.pagination.php:38
+#@ pagelines
+msgid "Next Entries &rarr;"
+msgstr "Nächster Eintrag &rarr;"
+
+#: sections/wp/section.postnav.php:15
+#@ pagelines
+msgid "Post Navigation"
+msgstr "Beiträge"
+
+#: sections/wp/section.sharebar.php:15
+#@ pagelines
+msgid "Content Sharing Tool"
+msgstr ""
+
+#: sections/wp/section.sharebar.php:44
+#: sections/wp/section.sharebar.php:48
+#: sections/wp/section.sharebar.php:54
+#: sections/wp/section.sharebar.php:58
+#: sections/wp/section.sharebar.php:62
+#: sections/wp/section.sharebar.php:66
+#: sections/wp/section.sharebar.php:70
+#@ pagelines
+msgid "Share on"
+msgstr "Weitersagen auf"
+
+#: core/library/class.metapanel.php:124
+#: core/library/class.metapanel.php:177
+#: core/library/class.options.meta.php:121
+#: core/library/class.options.meta.php:174
+#: core/library/class.options.ui.php:580
+#@ pagelines
+msgid "SELECT"
+msgstr "AUSWAHL"
+
+#: core/library/class.metapanel.php:195
+#: core/library/class.options.meta.php:192
+#@ pagelines
+msgid "Update Options"
+msgstr "Aktualisierungsoptionen"
+
+#: core/library/class.options.ui.php:82
+#@ pagelines
+msgid "Theme Options"
+msgstr "Themen Optionen"
+
+#: core/library/class.options.ui.php:106
+#@ pagelines
+msgid "Docs"
+msgstr "Dokumente"
+
+#: core/library/class.options.ui.php:107
+#@ pagelines
+msgid "Forum"
+msgstr "Forum"
+
+#: core/library/class.options.ui.php:113
+#: core/library/class.options.ui.php:467
+#@ pagelines
+msgid "Save Options"
+msgstr "Einstellungen Speichern"
+
+#: core/library/class.options.ui.php:466
+#@ pagelines
+msgid "Customer Feedback Form &raquo;"
+msgstr "Formular für Kunden Mitteilungen &raquo;"
+
+#: core/library/class.types.php:59
+#: core/library/class.types.php:60
+#@ pagelines
+msgid "Add New "
+msgstr "Hinzufügen "
+
+#: core/library/class.types.php:61
+#: core/library/class.types.php:62
+#@ pagelines
+msgid "Edit "
+msgstr "Bearbeiten"
+
+#: core/library/class.types.php:63
+#: core/library/class.types.php:64
+#@ pagelines
+msgid "View "
+msgstr "Ansehen"
+
+#: comments.php:24
+#, php-format
+#@ pagelines
+msgid "One Response to %2$s"
+msgid_plural "%1$s Responses to %2$s"
+msgstr[0] ""
+msgstr[1] ""
+
+#: config/config.options.php:75
+#@ pagelines
+msgid "Reset Template Section Order"
+msgstr ""
+
+#: core/library/class.options.ui.php:474
+#@ pagelines
+msgid "Restore Settings"
+msgstr ""
+
+#: core/library/class.options.ui.php:487
+#@ pagelines
+msgid "Export Settings"
+msgstr ""
+
+#: core/library/class.options.ui.php:494
+#@ pagelines
+msgid "Import Settings"
+msgstr ""
+
+#: core/library/class.options.ui.php:586
+#@ pagelines
+msgid "No sets have been created and added to a post yet!"
+msgstr ""
+
+#: core/library/library.templates.php:255
+#: sections/wp/section.postsinfo.php:42
+#@ pagelines
+msgid "Currently viewing the tag: "
+msgstr ""
+
+#: core/library/library.templates.php:259
+#: sections/wp/section.postsinfo.php:46
+#@ pagelines
+msgid "Posts by author:"
+msgstr ""
+
+#: core/library/library.templates.php:262
+#: sections/wp/section.postsinfo.php:49
+#@ pagelines
+msgid "From the daily archives:"
+msgstr ""
+
+#: core/library/library.templates.php:265
+#: sections/wp/section.postsinfo.php:52
+#@ pagelines
+msgid "From the monthly archives:"
+msgstr ""
+
+#: core/library/library.templates.php:268
+#: sections/wp/section.postsinfo.php:55
+#@ pagelines
+msgid "From the yearly archives:"
+msgstr ""
+
+#: sections/boxes/section.boxes.php:194
+#@ pagelines
+msgid "[Edit Box]"
+msgstr "[Box bearbeiten]"
+
+#: sections/features/section.features.php:336
+#@ pagelines
+msgid "No feature posts matched this pages criteria"
+msgstr ""
+
+#: sections/section.banners.php:15
+#@ pagelines
+msgid "PageLines Banners"
+msgstr ""
+
+#: sections/section.banners.php:41
+#@ pagelines
+msgid "Banners"
+msgstr ""
+
+#: sections/section.banners.php:42
+#@ pagelines
+msgid "Banner"
+msgstr ""
+
+#: sections/section.banners.php:47
+#@ pagelines
+msgid "Banner Sets"
+msgstr ""
+
+#: sections/section.banners.php:48
+#@ pagelines
+msgid "Banner Set"
+msgstr ""
+
+#: sections/section.banners.php:194
+#@ pagelines
+msgid "<small>[Edit Banner]</small>"
+msgstr "<small>[Banner bearbeiten]</small>"
+
+#: sections/section.highlight.php:15
+#@ pagelines
+msgid "Highlight"
+msgstr ""
+
+#: sections/section.soapbox.php:15
+#@ pagelines
+msgid "Soapboxes"
+msgstr ""
+
+#: sections/section.soapbox.php:234
+#@ pagelines
+msgid "<small>[Edit Box]</small>"
+msgstr "<small>[Box bearbeiten]</small>"
+
+#: sections/sidebars/section.footcols.php:15
+#@ pagelines
+msgid "Footer Sidebars <small>(5-Column)</small>"
+msgstr ""
+
+#: sections/sidebars/section.morefoot.php:15
+#@ pagelines
+msgid "MoreFoot Sidebars <small>(3-Column)</small>"
+msgstr ""
+
+#: sections/wp/section.noposts.php:36
+#@ pagelines
+msgid "Direct Previewing <em>of</em> \"Special Post Types\" Not Available... Yet"
+msgstr ""
+
+#: sections/wp/section.noposts.php:37
+#@ pagelines
+msgid "Sorry, direct previewing of special \"post types\" such as <strong>\"features\"</strong> or <strong>\"boxes\"</strong> isn't unavailable. This WordPress functionality is new and rapidly developing, so it should be available soon."
+msgstr ""
+
+#: sections/wp/section.noposts.php:39
+#@ pagelines
+msgid "To preview a \"custom post type\" just view a page with that \"section\" on it."
+msgstr ""
+
+#: sections/wp/section.noposts.php:44
+#@ pagelines
+msgid "404!"
+msgstr "Fehler 404!"
+
+#: sections/wp/section.noposts.php:45
+#@ pagelines
+msgid "Sorry, This Page Does not exist."
+msgstr "Diese Seite existiert leider nicht."
+
+#: sections/wp/section.noposts.php:45
+#@ pagelines
+msgid "Go"
+msgstr "Gehe"
+
+#: sections/wp/section.noposts.php:45
+#@ pagelines
+msgid "home"
+msgstr "Startseite"
+
+#: sections/wp/section.noposts.php:45
+#@ pagelines
+msgid "or try a search?"
+msgstr "oder eine neue Suche starten?"
+
+#: sections/wp/section.postauthor.php:15
+#@ pagelines
+msgid "Post Author Info"
+msgstr ""
+
+#: sections/wp/section.postauthor.php:38
+#@ pagelines
+msgid "About The Author"
+msgstr "Über den Autor"
+
+#: sections/wp/section.postauthor.php:45
+#@ pagelines
+msgid "Visit Authors Website"
+msgstr "Website des Autors besuchen"
+
+#: sections/wp/section.postloop.php:15
+#@ pagelines
+msgid "Main Content <small>(The Loop - Required)</small>"
+msgstr ""
+
+#: template.postloop.php:131
+#@ pagelines
+msgid "Edit Page"
+msgstr "Diese Seite bearbeiten"
+
+#: template.postloop.php:131
+#@ pagelines
+msgid "Edit Post"
+msgstr "Diesen Beitrag bearbeiten"
+
+#: sections/nav/section.nav.php:36
+#@ pagelines
+msgid "Primary Website Navigation"
+msgstr ""
+
+#: sections/section.footer_nav.php:33
+#@ pagelines
+msgid "Page Navigation in Simple Footer Section"
+msgstr ""
+
+#: sections/sidebars/section.footcols.php:43
+#@ pagelines
+msgid "Page Navigation in Footer Columns"
+msgstr ""
+
+#: sections/sidebars/section.footcols.php:78
+#@ pagelines
+msgid "The Latest"
+msgstr ""
+
+#: sections/wp/section.postsinfo.php:15
+#@ pagelines
+msgid "Posts Info"
+msgstr ""
+
+#: template.dwidgets.php:3
+#@ pagelines
+msgid "Categories"
+msgstr ""
+
+#: template.dwidgets.php:12
+#@ pagelines
+msgid "Articles"
+msgstr ""
+
+#: template.dwidgets.php:21
+#@ pagelines
+msgid "Calendar"
+msgstr ""
+
+#: template.dwidgets.php:30
+#@ pagelines
+msgid "Meta"
+msgstr ""
+
+#: template.dwidgets.php:35
+#@ pagelines
+msgid "Entries (RSS)"
+msgstr ""
+
+#: template.postloop.php:113
+#: template.postloop.php:187
+#@ pagelines
+msgid "&rarr;"
+msgstr ""
+

@@ -1,0 +1,3 @@
+<?php 
+
+// Initialize pro stuff

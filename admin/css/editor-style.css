@@ -1,0 +1,49 @@
+/*
+	Editor Styling for the correct fonts, etc.. 
+	
+*/
+
+body.mceContentBody {
+	font-family: georgia, times, serif; 
+	font-size:14px;
+	line-height: 1.6em;
+	font-style:normal;
+	min-height:380px;
+
+	padding: 10px;
+}
+
+h1, h2, h3, h4, h5, h6{		
+	font-weight: normal;
+	margin:0;padding:0; 
+	line-height: 1.2em;
+	margin-bottom: .1em;
+}
+h1, h1.pagetitle{font-size: 2.5em;}
+h2{font-size: 2.0em;}
+h3{font-size: 1.5em;}
+h4{font-size: 1.3em;}
+h5{font-size: 1.1em;}
+h6{font-size: 1em;}
+
+/* @ Tables */
+.mceContentBody table {width: 100%;margin-bottom: 1em;}
+.mceContentBody table th { font-weight: normal; text-align: center; padding: .3em; font-size: 1.1em;}
+.mceContentBodytable td {padding: .35em .6em; text-align: center;}
+.mceContentBody table .label{text-align:left;}
+
+/* @ Wordpress Caption */
+	.wp-caption {
+		text-align: center;
+		padding:  5px;
+		-moz-border-radius: 3px;
+		-khtml-border-radius: 3px;
+		-webkit-border-radius: 3px;
+		border-radius: 3px;
+		max-width: 98%;
+		margin-bottom: 1em;
+	}
+		.wp-caption-text {font-size: 11px; text-align: center; margin:0;padding:6px 3px 2px;line-height: 16px;}
+		.wp-caption-dd {font-size: 11px;line-height: 17px;	padding: 0 4px 5px;	margin: 0;	}
+		.wp-caption img { margin: 0; padding: 0; border: 0 none; }
+		.wp-caption-dd { font-size: 11px; line-height: 17px; padding: 0 4px 5px; margin: 0; }

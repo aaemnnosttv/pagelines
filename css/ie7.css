@@ -1,0 +1,5 @@
+#nav ul li a{
+	whitespace:nowrap;
+}
+
+.mediablock .mediablock-content, body .clip .clip-header{ width: auto; }

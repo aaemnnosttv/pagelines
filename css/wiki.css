@@ -1,0 +1,520 @@
+/* Colors and Special Cases */ 
+.wiki_message {
+	background: #f7f7f7;
+	border: 1px solid #eee;
+	padding: 10px;
+}
+.new {color:#ff0000;}
+
+
+#wiki_content h2{
+	border-bottom: 1px solid #DADADA;
+}
+
+/* @ Table of Contents */
+#toc {
+	background: #F1F1F1;
+	border: 1px solid #DADADA;
+}
+
+#toctitle {
+	border-top: 1px solid #fff; border-left: 1px solid #fff;
+	border-bottom: 1px solid #ddd;
+	padding: 5px;
+}
+
+#toc ul { border-top: 1px solid #fff; border-left: 1px solid #fff; padding: 8px 8px 8px 15px; margin: 0;}
+
+#preftoc {
+	border-bottom: 1px solid #eee; 
+	list-style-type: none; 
+	margin:0;
+	overflow: auto; /* clear */
+	width: 100%; /* clear IE 7 */
+}
+
+#preftoc li{
+	margin: 0;
+	padding: 0;
+	float: left;
+	margin-right: 5px;
+}
+#preftoc li a{		
+	background: #fff;
+	padding: 4px 7px;
+	text-decoration: none;
+	display: block;
+	border: 1px solid transparent;
+	border-bottom:none;		
+}
+#preftoc li.selected a{ background: #f7f7f7; }
+
+/* Prefs */ 
+#wiki_content #preferences fieldset {
+	margin: 1em 0 1em 0;
+	padding: 0 1em 1em;
+	line-height: 1.5em;
+}
+
+.prefsection table {
+	width: 100%;
+}
+	.prefsection td.mw-label {
+		font-weight: 800;
+		text-align: right;
+		width: 20%;
+	}
+	.prefsection td.mw-input {
+		text-align: left;
+	}
+	.prefsection td.htmlform-tip {
+		text-align: right;
+		font-style: italic;
+		font-size: .85em;
+	}
+
+/* Formatting Stuff */
+.wiki_section_title{
+	background: #f7f7f7;
+	padding: 4px 7px;
+}
+
+.wiki_column {
+	margin:0px 6px; float:left; display: inline; width: 45%;
+}
+	.wiki_column.2wc{ width: 45%; }
+	.wiki_column.3wc{ width: 30%; }
+
+/* Buttons and Editing Stuff */
+#editpage-copywarn p{font-style:italic; color: #666; font-size: .85em}
+
+#wiki_content textarea {margin-bottom: 1em; }
+
+.editButtons{ margin: 1.58em 0; }
+
+/* Wiki Header */
+.wiki_header{
+	position: relative;
+	border-bottom: 2px solid #eee;
+}
+
+	.wiki_area_title {
+		float: left;
+		margin-top: 10px;
+		line-height: 1.6em;
+	}
+	#wiki_tools{
+		float: right;
+		font-size: .85em;
+		margin-top: 23px;
+	}
+
+
+/* Wiki Content */
+#wiki_content {
+	width: 80%;
+	float: left;
+}
+	.wiki_content_pad{
+		padding: 20px 30px 20px 10px;
+	}
+
+/* Wiki Sidebar */ 
+#wiki_sidebar {
+	width: 20%;
+	float: left;
+}
+	#wiki_sidebar .wiki_sidebar_pad{
+		padding-top: 15px;
+	}
+
+/* Common Elements */
+
+#wiki_main textarea{
+	width: 95%;
+}
+
+
+
+#wiki_content .editsection {
+	font-size: 12px;
+	margin: 0 5px 0 0;
+	float: right;
+}
+/* images */
+div.floatright, table.floatright {
+	clear: right;
+	float: right;
+	position: relative;
+	margin: 0 0 .5em .5em;
+	border: 0;
+
+}
+div.floatright p { font-style: italic; }
+div.floatleft, table.floatleft {
+	float: left;
+	clear: left;
+	position: relative;
+	margin: 0 .5em .5em 0;
+	border: 0;
+
+}
+div.floatleft p { font-style: italic; }
+/* thumbnails */
+div.thumb {
+	margin-bottom: .5em;
+	width: auto;
+}
+div.thumbinner {
+	border: 1px solid #ccc;
+	padding: 3px !important;
+	background-color: #f9f9f9;
+	font-size: 94%;
+	text-align: center;
+	overflow: hidden;
+}
+html .thumbimage {
+	border: 1px solid #ccc;
+}
+html .thumbcaption {
+	border: none;
+	text-align: left;
+	line-height: 1.4em;
+	padding: 3px !important;
+	font-size: 94%;
+}
+div.magnify {
+	float: right;
+	border: none !important;
+	background: none !important;
+}
+div.magnify a, div.magnify img {
+	display: block;
+	border: none !important;
+	background: none !important;
+}
+div.tright {
+	clear: right;
+	float: right;
+	border-width: .5em 0 .8em 1.4em;
+}
+div.tleft {
+	float: left;
+	clear: left;
+	margin-right: .5em;
+	border-width: .5em 1.4em .8em 0;
+}
+img.thumbborder {
+	border: 1px solid #dddddd;
+}
+.hiddenStructure {
+	display: none;
+}
+.mw-warning {
+	border: 1px solid #aaa;
+	background-color: #f9f9f9;
+	padding: 5px;
+	font-size: 95%;
+}
+
+#toc,
+.toc {
+	margin: 0 0 1em .5em;
+	padding: 5px;
+	border-spacing: 0;
+	width: 35%;
+	float: right;
+
+}
+
+#toc tr, #toc td {
+	margin: 0;
+	padding: 0;
+}
+
+#toctitle {
+	margin: 0 0 0 0;
+	
+}
+
+#toc h2,
+.toc h2 {
+	font-size: 1.4em;
+	border: none;
+	padding: 0;
+	text-align: left;
+}
+
+
+#toc ul,
+.toc ul {
+	list-style-type: none;
+	list-style-image: none;
+	text-align: left;
+}
+
+#toc .toctoggle,
+.toc .toctoggle {
+	font-size: 94%;
+}
+
+.mw-warning {
+	margin-left: 50px;
+	margin-right: 50px;
+	text-align: center;
+}
+
+
+
+#mw_header h1,
+#p-personal,
+#p-cactions {
+	overflow: hidden;
+}
+
+/* disable interwiki styling */
+#mw_content a.extiw,
+#mw_content a.extiw:active {
+	color: #36b;
+	background: none;
+	padding: 0;
+}
+#mw_content a.external {
+	color: #36b;
+}
+
+
+
+.redirectText {
+	font-size: 150%;
+	margin: 5px;
+}
+
+.printfooter { display: none; }
+
+.sharedUploadNotice {
+	font-style: italic;
+}
+
+span.updatedmarker {
+	color: black;
+	background-color: #0f0;
+}
+
+.previewnote {
+	text-indent: 3em;
+	color: #c00;
+	border-bottom: 1px solid #aaa;
+	padding-bottom: 1em;
+	margin-bottom: 1em;
+}
+
+.previewnote p {
+	margin: 0;
+	padding: 0;
+}
+
+.editExternally {
+	border: 1px solid gray;
+
+	padding: 3px;
+	margin-top: 0.5em;
+	float: left;
+	font-size: small;
+	text-align: center;
+}
+.editExternallyHelp {
+	font-style: italic;
+	color: gray;
+}
+
+.toggle {
+	margin-left: 2em;
+	text-indent: -2em;
+}
+
+table.collapsed tr.collapsable {
+	display: none;
+}
+
+input#wpSummary {
+	width: 80%;
+}
+
+/* @bug 1714 */
+input#wpSave, input#wpDiff {
+	margin-right: 0.33em;
+}
+
+#wpSave {
+	font-weight: bold;
+}
+
+/* Classes for article validation */
+
+table.revisionform_default {
+	border: 1px solid #000000;
+}
+
+table.revisionform_focus {
+	border: 1px solid #000000;
+	background-color:#00BBFF;
+}
+
+tr.revision_tr_default {
+	background-color:#EEEEEE;
+}
+
+tr.revision_tr_first {
+	background-color:#DDDDDD;
+}
+
+p.revision_saved {
+	color: green;
+	font-weight:bold;
+}
+
+div#searchTargetContainer {
+	left:       10px;
+	top:        10px;
+	width:      90%;
+	background: white;
+}
+
+div#searchTarget {
+	padding:    3px;
+	margin:     5px;
+	background: #F0F0F0;
+	border:     solid 1px blue;
+}
+
+div#searchTarget ul li {
+	list-style: none;
+}
+
+div#searchTarget ul li:before {
+	color: orange;
+	content: "\00BB \0020";
+}
+
+div#searchTargetHide {
+	float:right;
+	border:solid 1px black;
+	padding:2px;
+}
+
+div.multipageimagenavbox {
+   border: solid 1px silver;
+   padding: 4px;
+   margin: 1em;
+   background: #f0f0f0;
+}
+
+div.multipageimagenavbox div.thumb {
+   border: none;
+   margin-left: 2em;
+   margin-right: 2em;
+}
+
+div.multipageimagenavbox hr {
+   margin: 6px;
+}
+
+table.multipageimage td {
+   text-align: center;
+}
+
+/*
+  Table pager (e.g. Special:Imagelist)
+  - remove underlines from the navigation link
+  - collapse borders
+  - set the borders to outsets (similar to Special:Allmessages)
+  - remove line wrapping for all td and th, set background color
+  - restore line wrapping for the last two table cells (description and size)
+*/
+.TablePager_nav a { text-decoration: none; }
+.TablePager { border-collapse: collapse; }
+.TablePager, .TablePager td, .TablePager th {
+	border: 1px solid #aaaaaa;
+	padding: 0 0.15em 0 0.15em;
+}
+.TablePager th { background-color: #eeeeff }
+.TablePager td { background-color: #ffffff }
+.TablePager tr:hover td { background-color: #eeeeff }
+
+.imagelist td, .imagelist th { white-space: nowrap }
+.imagelist .TablePager_col_links { background-color: #eeeeff }
+.imagelist .TablePager_col_img_description { white-space: normal }
+.imagelist th.TablePager_sort { background-color: #ccccff }
+
+.templatesUsed { margin-top: 1.5em; }
+
+.mw-summary-preview {
+	margin: 0.1em 0;
+}
+
+/* Friendlier slave lag warnings */
+div.mw-lag-warn-normal,
+div.mw-lag-warn-high {
+	padding: 3px;
+	text-align: center;
+	margin: 3px auto;
+}
+div.mw-lag-warn-normal {
+	border: 1px solid #FFCC66;
+	background-color: #FFFFCC;
+}
+div.mw-lag-warn-high {
+	font-weight: bold;
+	border: 2px solid #FF0033;
+	background-color: #FFCCCC;
+}
+
+.MediaTransformError {
+	background-color: #ccc;
+	padding: 0.1em;
+}
+.MediaTransformError td {
+	text-align: center;
+	vertical-align: middle;
+	font-size: 90%;
+}
+
+span.subpages {
+	font-size: 80%;
+	display: block;
+}
+
+.mw-topboxes {
+	border-collapse: collapse;
+	margin: 0 -1em 1em -1em;
+	padding: 0 0 8px 0;
+}
+
+.mw-topbox p {
+	padding: 0 0 0 0;
+	margin: 0 0 0 0;
+}
+
+.mw-topbox {
+        color: black;
+        font-weight: bold;
+	margin: 0 0 0 0;
+	padding: 0 1em 0 1em;
+	vertical-align: middle;
+	border-collapse: collapse;
+	border-bottom: solid 1px #bbbbbb;
+}
+
+#siteSub {
+	background-color: #dddddd;
+}
+
+/* table standards */
+.toccolours {
+    border:1px solid #bbbbbb;
+    background-color:#f0f0f0;
+    border-spacing:0pt;
+    margin:0pt;
+    padding:0pt;
+}

@@ -1,0 +1,61 @@
+/**
+ * The buttons are added dynamically by jCarousel before
+ * the <ul> list (inside the <div> described above) and
+ * have the classnames "jcarousel-next" and "jcarousel-prev".
+ */
+
+.jcarousel-clip-horizontal { width: 100%; }
+#carousel .jcarousel-next, #carousel .jcarousel-prev {
+	z-index: 3;
+    position: absolute;
+	top: 35%;
+    width: 40px;
+    height: 40px;
+	cursor: pointer;
+}
+#carousel .jcarousel-next { 
+    right: 15px;
+    cursor: pointer;
+    background: transparent url(images/carousel_navright.png) no-repeat 0 0;
+}
+
+#carousel .jcarousel-prev {
+    left: 15px;
+    cursor: pointer;    
+    background: transparent url(images/carousel_navleft.png) no-repeat 0 0;
+}
+
+#carousel .content-pad{ margin: 1em 0; }
+
+#carousel .thecarousel{
+	position: relative;
+	font-size: 10px;
+    padding: 30px 67px 25px ;
+	overflow: hidden;
+	display: none; /* Prevents all images from showing on load; must be shown using JS ahead of carousel init. */
+}
+
+#carousel .carousel_text{ font-size: 1.5em; padding: 20px; }
+#carousel .content ul li{ float: left; text-align: center; position: relative; }
+#carousel .content ul li img { padding: 3px;  }
+
+/* for text with hover over effect */
+#carousel .content ul li a{ position: relative; display: block;}
+#carousel .content ul li a span.list-title{
+	color: #fff;
+	background: #000;
+	opacity:0.8;
+	line-height: 16px;
+	position: absolute;
+	width: 100%;
+	right: 0;
+	bottom: 1px;
+	display: none;
+	filter:alpha(opacity=95);
+}
+#carousel .content ul li a:hover span.list-title {display: block;}
+
+
+
+
+
