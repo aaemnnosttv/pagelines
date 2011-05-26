@@ -152,10 +152,6 @@ add_action('save_post', 'save_section_control_box');
 
 function add_section_control_box(){
 	
-	// Check if we are the main blog page
-	$postid = ( isset( $_GET['post'] ) ) ? $_GET['post'] : '';
-	if ( get_option( 'page_for_posts' ) === $postid ) return;
-	
 	$blacklist = array( 'banners', 'feature', 'boxes', 'attachment', 'revision', 'nav_menu_item' );
 	if ( isset( $_GET['post']) && ! in_array( get_post_type( $_GET['post'] ), $blacklist) ) add_meta_box('section_control', 'PageLines Section Control', "pagelines_section_control_callback", get_post_type( $_GET['post'] ), 'side', 'low');
 
@@ -168,8 +164,13 @@ function pagelines_section_control_callback(){
 	global $pagelines_template;
 	
 	$section_control = pagelines_option('section-control');
-	
-	echo '<div class="section_control_desc"><p>Below are all the sections that are active for this template.</p> <p>Here you can turn sections off or on (if hidden by default) for this individual page/post.</p> <p><small><strong>Note:</strong> Individual page settings do not work on the blog page (<em>use the settings panel</em>).</small></p></div>';?>
+		// Check if we are the main blog page
+	$postid = ( isset( $_GET['post'] ) ) ? $_GET['post'] : '';
+	if ( get_option( 'page_for_posts' ) === $postid ) {
+		echo '<div class="section_control_desc"><p><small><strong>Note:</strong> Individual page settings do not work on the blog page (<em>use the settings panel</em>).</small></p></div>';
+		return;
+	}
+	echo '<div class="section_control_desc"><p>Below are all the sections that are active for this template.</p><p>Here you can turn sections off or on (if hidden by default) for this individual page/post.</p></div>';?>
 		
 		<div class="admin_section_control section_control_individual">
 			<div class="section_control_pad">

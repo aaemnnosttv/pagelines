@@ -137,14 +137,14 @@ function ie_version() {
  *
  *  @package PageLines
  *  @subpackage Functions Library
- *  @since 4.0.0
+ *  @since 1.5.0
  *  
  *  Uses filter 'pagelines_shorturl_provider'
  *  Uses filter 'pagelines_shorturl_cachetimeout' 
  */
-function pagelines_shorturl($url, $timeout = 86400 ) {
+function pagelines_shorturl( $url, $timeout = 86400 ) {
 
-	$provider = 'http://pln.so/api.php?action=shorturl&format=simple&url=';
+	$provider = 'http://ggl-shortener.appspot.com/?url=';
 
 	// If cache exists send it back
 	$cache = get_transient( 'pagelines_shorturl_cache' );
@@ -159,17 +159,18 @@ function pagelines_shorturl($url, $timeout = 86400 ) {
 
 	// Check the body from the api is actually a url and not a 400 error
 	// If its OK we will cache it and return it, othwise return original url
-	$out = ( $response['response']['code'] == 200 ) ? wp_remote_retrieve_body($response) : false; 
-	if ( !$out ) return $url;
 	
+	$out = ( $response['response']['code'] == 200 ) ? $response['body'] : false; 
+	if ( !is_object( $out = json_decode( $out ) ) ) return $url;
+
 	if ( $cache == false ) {
 		unset( $cache );
 		$cache = array();
 	}
 	delete_transient( 'pagelines_shorturl_cache' );
-	$cache = array_merge( $cache, array( md5($url) => $out ) );
+	$cache = array_merge( $cache, array( md5($url) => $out->short_url ) );
 	set_transient( 'pagelines_shorturl_cache', $cache, apply_filters( 'pagelines_shorturl_cachetimeout', $timeout ) );
-	return $out;
+	return $out->short_url;
 }
 
 /**
@@ -609,13 +610,21 @@ function pagelines_get_style_ver( $tpath = false ){
 
 /**
  * Debugging, prints nice array.
+ * Sends to the footer in all cases.
  * 
- * @since 4.1.0
+ * @since 1.5.0
  */
-function plprint($data){
-	echo '<pre>';
-	print_r($data);
-	echo '</pre>';
+function plprint( $data ){
+
+			ob_start();
+			echo 'echo "<pre style=\'border: 1px solid #ccc; padding: 7px;\'>';
+			echo esc_html( print_r( $data, TRUE ) );
+			echo '</pre>";';
+			$data = ob_get_contents();
+			ob_end_clean();
+
+	add_action( 'shutdown', create_function( '', $data ) );
+
 }
 
 /**
