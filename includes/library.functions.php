@@ -610,13 +610,21 @@ function pagelines_get_style_ver( $tpath = false ){
 
 /**
  * Debugging, prints nice array.
+ * Sends to the footer in all cases.
  * 
- * @since 4.1.0
+ * @since 1.5.0
  */
-function plprint($data){
-	echo '<pre>';
-	print_r($data);
-	echo '</pre>';
+function plprint( $data ){
+
+			ob_start();
+			echo 'echo "<pre style=\'border: 1px solid #ccc; padding: 7px;\'>';
+			echo esc_html( print_r( $data, TRUE ) );
+			echo '</pre>";';
+			$data = ob_get_contents();
+			ob_end_clean();
+
+	add_action( 'shutdown', create_function( '', $data ) );
+
 }
 
 /**
