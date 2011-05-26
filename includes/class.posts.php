@@ -24,17 +24,13 @@ class PageLinesPosts {
 		global $post;
 		global $wp_query;
 		
-		$count = 1;  // Used to get the number of the post as we loop through them.
-		$clipcount = 2; // The number of clips in a row
+		$this->count = 1;  // Used to get the number of the post as we loop through them.
+		$this->clipcount = 2; // The number of clips in a row
 
-		$post_count = $wp_query->post_count;  // Used to prevent markup issues when there aren't an even # of posts.
-		$paged = intval(get_query_var('paged')); // Control output if on a paginated page
+		$this->post_count = $wp_query->post_count;  // Used to prevent markup issues when there aren't an even # of posts.
+		$this->paged = intval(get_query_var('paged')); // Control output if on a paginated page
 
-		if(is_admin()) query_posts('showposts=1'); // For parsing in admin, no posts so set it to one.
 
-		$thumb_space = get_option('thumbnail_size_w') + 33; // Space for thumb with padding
-	
-	
 	}
 	
 	function load_loop(){
@@ -47,28 +43,36 @@ class PageLinesPosts {
 	}
 	
 	function get_article(){
+		global $wp_query;
 		
-		if( pagelines_show_clip($count, $paged) ):
+		$clip = (pagelines_show_clip($this->count, $this->paged)) ? true : false;
+		$clip_row_start = ($this->clipcount % 2 == 0) ? true : false;
+		$clip_row_end = (($this->clipcount+1) % 2 == 0) ? true : false;
 		
-		if($clipcount % 2 == 0):?>
-			<div class="clip_box fix">
-			<?php pagelines_register_hook( 'pagelines_loop_clipbox_start', 'theloop' ); // Hook ?>
-			<?php $clips_in_row = 1;?>
-		<?php endif;?>
+		$pagelines_post_classes = ($clip) ? ( $clip_row_end ? 'clip clip-right' : 'clip' ) : 'fpost';
 		
-		<article <?php post_class('fpost') ?> id="post-<?php the_ID(); ?>">
-			
-			<?php pagelines_register_hook( 'pagelines_loop_post_start', 'theloop' ); // Hook ?>
-			
-			<?php $this->post_header(); ?>
-			
-			<?php $this->post_entry(); ?>
-			
-			<?php pagelines_register_hook( 'pagelines_loop_post_end', 'theloop' ); // Hook ?>
-			
-		</article>
+		if( $clip && $clip_row_start){
+			printf('<div class="clip_box fix">'); 
+			pagelines_register_hook( 'pagelines_loop_clipbox_start', 'theloop' ); // Hook 	
+		}
 		
-	<?php }
+		printf('<article class="%s" id="post-%s">', join(' ', get_post_class( $pagelines_post_classes )), get_the_ID());
+	
+			pagelines_register_hook( 'pagelines_loop_post_start', 'theloop' ); // Hook 
+			$this->post_header(); 
+			$this->post_entry(); 
+			pagelines_register_hook( 'pagelines_loop_post_end', 'theloop' ); // Hook 
+			
+		printf('</article>');
+		
+		if( $clip && ($clip_row_end || $this->count == $this->post_count ) ){
+			pagelines_register_hook( 'pagelines_loop_clipbox_end', 'theloop' ); // Hook 
+			echo "</div>";
+		}
+		
+		if( $clip ) $this->clipcount++;
+		$this->count++;
+	 }
 	
 	function post_entry(){ ?>
 		
@@ -99,7 +103,9 @@ class PageLinesPosts {
 		
 	<?php }
 	
-	function post_header(){ ?>
+	function post_header(){ 
+			$thumb_space = get_option('thumbnail_size_w') + 33; // Space for thumb with padding
+		?>
 		
 		<?php if(!is_page() || (is_page() && pagelines_option('pagetitles'))):?>
 			<section class="post-meta fix">	

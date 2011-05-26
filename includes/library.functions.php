@@ -395,9 +395,6 @@ function pagelines_show_clip($count, $paged){
 	
 	if(!VPRO) return false;
 	
-	// For Hook Parsing
-	if(is_admin()) return true;
-	
 	if(is_home() && pagelines_option('blog_layout_mode') == 'magazine' && $count <= pagelines_option('full_column_posts') && $paged == 0){
 		return false;
 	}
