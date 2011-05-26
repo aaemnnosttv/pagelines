@@ -75,6 +75,12 @@ $GLOBALS['global_pagelines_settings'] = get_option(PAGELINES_SETTINGS);
 require_once( PL_INCLUDES . '/class.types.php' );
 
 /**
+ * Posts Handling
+ */	
+require_once( PL_INCLUDES . '/class.posts.php' );
+
+
+/**
  * Load layout class and setup layout singleton
  * @global object $pagelines_layout
  */

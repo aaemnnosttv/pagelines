@@ -103,7 +103,7 @@ class PageLinesSection {
 		
 		pagelines_register_hook('pagelines_inside_bottom_'.$this->id, $this->id);
 	 	
-		if( $set_markup == 'copy' ): 
+		if( $set_markup == 'copy' )
 			printf('<div class="clear"></div></div></section>');
 		elseif( $set_markup == 'content' )
 			printf('<div class="clear"></div></div></div></div></section>');
@@ -141,9 +141,9 @@ class PageLinesSectionFactory {
 	function __contruct() { }
 
 	function register($section_class, $args) {
-		if(class_exists($section_class)){
+		
+		if(class_exists($section_class))
 			$this->sections[$section_class] = new $section_class( $args );
-		}
 		
 		/*
 			Unregisters version-controlled sections
