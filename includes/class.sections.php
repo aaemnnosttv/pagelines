@@ -88,10 +88,10 @@ class PageLinesSection {
 		pagelines_register_hook('pagelines_before_'.$this->id, $this->id);
 		
 		if( $set_markup == 'copy' ):?>
-<div id="<?php echo $this->id;?>" class="copy fix">
+<section id="<?php echo $this->id;?>" class="copy fix">
 	<div class="copy-pad">
 <?php 	elseif( $set_markup == 'content' ):?>
-<div id="<?php echo $this->id;?>" class="container fix">
+<section id="<?php echo $this->id;?>" class="container fix">
 	<div class="texture">
 		<div class="content">
 			<div class="content-pad">
@@ -110,13 +110,13 @@ class PageLinesSection {
 		if( $set_markup == 'copy' ):?>
 	<div class="clear"></div>
 	</div>
-</div>
+</section>
 <?php 	elseif( $set_markup == 'content' ):?>
 				<div class="clear"></div>
 			</div>
 		</div>
 	</div>
-</div>
+</section>
 <?php 	endif;
 		pagelines_register_hook('pagelines_after_'.$this->id, $this->id);
 	}
