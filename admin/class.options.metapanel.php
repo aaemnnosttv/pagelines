@@ -73,17 +73,12 @@ class PageLinesMetaPanel {
 	
 	function add_metapanel_box(){
 		
-		// Check if we are the main blog page
-		$postid = ( isset( $_GET['post'] ) ) ? $_GET['post'] : '';
-		if ( get_option( 'page_for_posts' ) === $postid ) return;
-		
 		foreach($this->settings['posttype'] as $post_type){
 			add_meta_box($this->settings['id'], $this->settings['name'], "pagelines_metapanel_callback", $post_type, $this->settings['location'], $this->settings['priority'], array( $this ));
 		}
 
 		
 	}
-	
 
 	function save_meta_options($postID){
 	
@@ -112,7 +107,15 @@ class PageLinesMetaPanel {
 		}
 	}
 	
-	function draw_meta_options(){ global $post_ID;  ?>
+	function draw_meta_options(){ 
+		global $post_ID;  
+
+		// Check if we are the main blog page
+		$postid = ( isset( $_GET['post'] ) ) ? $_GET['post'] : '';
+		if ( get_option( 'page_for_posts' ) === $postid ) {
+			echo '<div><p><small><strong>Note:</strong> Individual page settings do not work on the blog page (<em>use the settings panel</em>).</small></p></div>';
+			return;
+		} ?>
 		
 		<?php if(!$this->hide_tabs):
 		
