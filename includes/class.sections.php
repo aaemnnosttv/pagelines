@@ -80,44 +80,34 @@ class PageLinesSection {
 	}
 
 	function before_section( $markup = 'content' ){
-		if(isset($this->settings['markup'])){
+		if(isset($this->settings['markup']))
 			$set_markup = $this->settings['markup'];
-		} else {
+		else 
 			$set_markup = $markup;	
-		}
+		
 		pagelines_register_hook('pagelines_before_'.$this->id, $this->id);
 		
-		if( $set_markup == 'copy' ):?>
-<section id="<?php echo $this->id;?>" class="copy fix">
-	<div class="copy-pad">
-<?php 	elseif( $set_markup == 'content' ):?>
-<section id="<?php echo $this->id;?>" class="container fix">
-	<div class="texture">
-		<div class="content">
-			<div class="content-pad">
-<?php 	endif;
+		if( $set_markup == 'copy' ) 
+			printf('<section id="%s" class="copy fix"><div class="copy-pad">', $this->id);
+		elseif( $set_markup == 'content' )
+			printf('<section id="%s" class="container fix"><div class="texture"><div class="content"><div class="content-pad">', $this->id );
+
 		pagelines_register_hook('pagelines_inside_top_'.$this->id, $this->id);
  	}
 
 	function after_section( $markup = 'content' ){
-		if(isset($this->settings['markup'])){
+		if(isset($this->settings['markup']))
 			$set_markup = $this->settings['markup'];
-		} else {
+		else
 			$set_markup = $markup;	
-		}
+		
 		pagelines_register_hook('pagelines_inside_bottom_'.$this->id, $this->id);
 	 	
-		if( $set_markup == 'copy' ):?>
-	<div class="clear"></div>
-	</div>
-</section>
-<?php 	elseif( $set_markup == 'content' ):?>
-				<div class="clear"></div>
-			</div>
-		</div>
-	</div>
-</section>
-<?php 	endif;
+		if( $set_markup == 'copy' ): 
+			printf('<div class="clear"></div></div></section>');
+		elseif( $set_markup == 'content' )
+			printf('<div class="clear"></div></div></div></div></section>');
+			
 		pagelines_register_hook('pagelines_after_'.$this->id, $this->id);
 	}
 
