@@ -1,7 +1,10 @@
 <?php 
 class PageLinesUpdateCheck {
 
-    function __construct( $theme, $version ){
+    function __construct( $theme = null, $version = null, $plugin = null ){
+    	$this->plugin = $plugin;
+    	$this->url_theme = 'http://api.pagelines.com/v2/';
+    	$this->url_plugins = 'http://updates/';
     	$bad_users = array( 'admin', 'root', 'test', 'testing', '');
     	$this->theme  = $theme;
  		$this->version = $version;
@@ -12,22 +15,31 @@ class PageLinesUpdateCheck {
 			pagelines_update_option( 'lp_password', '' );
 			$this->username = '';
 			$this->password = '';
-			$this->pagelines_clear_update_transient();
+			$this->pagelines_theme_clear_update_transient();
 		}
     }
+    function pagelines_plugins_check_version() {
+  
+    	if ( get_pagelines_option('disable_updates') == true ) return;
 
-	function pagelines_check_version() {
-		add_filter( 'pagelines_options_array', array(&$this,'pagelines_update_tab') );
+    	add_filter('pre_set_site_transient_update_plugins', array(&$this,'check_for_plugin_update') );
+    	add_filter('plugins_api', array(&$this,'my_plugin_api_call'),10, 3 );
+
+
+
+    }
+	function pagelines_theme_check_version() {
+		add_filter( 'pagelines_options_array', array(&$this,'pagelines_theme_update_tab') );
 		if ( get_pagelines_option('disable_updates') == true ) return;
-		add_action('admin_notices', array(&$this,'pagelines_update_nag') );
-		add_filter('site_transient_update_themes', array(&$this,'pagelines_update_push') );
-		add_filter('transient_update_themes', array(&$this,'pagelines_update_push') );		
-		add_action('load-update.php', array(&$this,'pagelines_clear_update_transient') );
-		add_action('load-themes.php', array(&$this,'pagelines_clear_update_transient') );
+		add_action('admin_notices', array(&$this,'pagelines_theme_update_nag') );
+		add_filter('site_transient_update_themes', array(&$this,'pagelines_theme_update_push') );
+		add_filter('transient_update_themes', array(&$this,'pagelines_theme_update_push') );		
+		add_action('load-update.php', array(&$this,'pagelines_theme_clear_update_transient') );
+		add_action('load-themes.php', array(&$this,'pagelines_theme_clear_update_transient') );
 
 	}
 
-	function pagelines_update_tab( $option_array ) {
+	function pagelines_theme_update_tab( $option_array ) {
 
 		$updates = array(
 					'credentials' => array(
@@ -64,16 +76,16 @@ class PageLinesUpdateCheck {
 	}
 
 
-	function pagelines_clear_update_transient() {
+	function pagelines_theme_clear_update_transient() {
 
 		delete_transient('pagelines-update-' . $this->theme );
-		remove_action('admin_notices', array(&$this,'pagelines_update_nag') );
+		remove_action('admin_notices', array(&$this,'pagelines_theme_update_nag') );
 
 	}
 
-	function pagelines_update_push($value) {
+	function pagelines_theme_update_push($value) {
 
-		$pagelines_update = $this->pagelines_update_check();
+		$pagelines_update = $this->pagelines_theme_update_check();
 
 		if ( $pagelines_update && $pagelines_update['package'] !== 'bad' ) {
 			$value->response[strtolower($this->theme)] = $pagelines_update;
@@ -81,8 +93,8 @@ class PageLinesUpdateCheck {
 		return $value;
 	}
 	
-	function pagelines_update_nag() {
-		$pagelines_update = $this->pagelines_update_check();
+	function pagelines_theme_update_nag() {
+		$pagelines_update = $this->pagelines_theme_update_check();
 
 		if ( !is_super_admin() || !$pagelines_update )
 			return false;
@@ -96,13 +108,13 @@ class PageLinesUpdateCheck {
 		echo ( $pagelines_update['extra'] ) ? sprintf('<br />%s', $pagelines_update['extra'] ) : '';
 		echo '</div>';
 	}	
-	function pagelines_update_check() {
+	function pagelines_theme_update_check() {
 		global $wp_version;
 
 		$pagelines_update = get_transient('pagelines-update-' . $this->theme );
 
 		if ( !$pagelines_update ) {
-			$url = 'http://api.pagelines.com/v2/';
+			$url = $this->url_theme;
 			$options = array(
 					'body' => array(
 						'version' => $this->version,
@@ -138,5 +150,71 @@ class PageLinesUpdateCheck {
 
 		return $pagelines_update;
 	}
+
+function check_for_plugin_update($checked_data) {
+
+
+	if (empty($checked_data->checked))
+		return $checked_data;
+	
+	$request_args = array(
+		'slug' => $this->plugin,
+		'version' => $checked_data->checked[$this->plugin .'/'. $this->plugin .'.php'],
+	);
+	
+	$request_string = $this->prepare_request('basic_check', $request_args);
+	
+	// Start checking for an update
+	$raw_response = wp_remote_post($this->url_plugins, $request_string);
+
+	if (!is_wp_error($raw_response) && ($raw_response['response']['code'] == 200))
+		$response = unserialize($raw_response['body']);
+	
+	if (is_object($response) && !empty($response)) // Feed the update data into WP updater
+		$checked_data->response[$this->plugin .'/'. $this->plugin .'.php'] = $response;
+	
+	return $checked_data;
+}
+
+function my_plugin_api_call($def, $action, $args) {
+
+
+	if ($args->slug != $this->plugin)
+		return false;
+	
+	// Get the current version
+	$plugin_info = get_site_transient('update_plugins');
+	$current_version = $plugin_info->checked[$this->plugin .'/'. $this->plugin .'.php'];
+	$args->version = $current_version;
+	
+	$request_string = $this->prepare_request($action, $args);
+	
+	$request = wp_remote_post($this->url_plugins, $request_string);
+	
+	if (is_wp_error($request)) {
+		$res = new WP_Error('plugins_api_failed', __('An Unexpected HTTP Error occurred during the API request.</p> <p><a href="?" onclick="document.location.reload(); return false;">Try again</a>'), $request->get_error_message());
+	} else {
+		$res = unserialize($request['body']);
+		
+		if ($res === false)
+			$res = new WP_Error('plugins_api_failed', __('An unknown error occurred'), $request['body']);
+	}
+	
+	return $res;
+}
+
+
+function prepare_request($action, $args) {
+	global $wp_version;
+	
+	return array(
+		'body' => array(
+			'action' => $action, 
+			'request' => serialize($args),
+			'api-key' => md5(get_bloginfo('url'))
+		),
+		'user-agent' => 'WordPress/' . $wp_version . '; ' . get_bloginfo('url')
+	);	
+}
 
 } // end class
