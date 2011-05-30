@@ -36,6 +36,12 @@ class PageLinesPosts {
 
 	}
 	
+	/**
+	 * Loads the content using WP's standard output functions
+	 *
+	 * @since 2.0.0
+	 *
+	 */
 	function load_loop(){
 	
 		if(have_posts())
@@ -49,19 +55,23 @@ class PageLinesPosts {
 		global $wp_query;
 		
 		$clip = ($this->pagelines_show_clip($this->count, $this->paged)) ? true : false;
+		$format = ($clip) ? 'clip' : 'feature';
 		$clip_row_start = ($this->clipcount % 2 == 0) ? true : false;
 		$clip_row_end = ( ($this->clipcount+1) % 2 == 0 || $this->count == $this->post_count ) ? true : false;
 		
 		$pagelines_post_classes = ($clip) ? ( $clip_row_end ? 'clip clip-right' : 'clip' ) : 'fpost';
 		$post_classes = join(' ', get_post_class( $pagelines_post_classes ));
 		
-	
 		$wrap_start = ( $clip && $clip_row_start ) ? sprintf('<div class="clip_box fix">') : ''; 	
 		$wrap_end = ( $clip && $clip_row_end ) ? sprintf('</div>') : '';
 		
-		echo sprintf('%s<article class="%s" id="post-%s">%s%s</article>%s', $wrap_start, $post_classes, get_the_ID(), $this->post_header(), $this->post_entry(), $wrap_end);
+		echo sprintf('%s<article class="%s" id="post-%s">%s%s</article>%s', $wrap_start, $post_classes, get_the_ID(), $this->post_header( $format ), $this->post_entry(), $wrap_end);
 		
-		if( $clip ) $this->clipcount++;
+		// Count the clips
+		if( $clip ) 
+			$this->clipcount++;
+		
+		// Count the posts
 		$this->count++;
 	 }
 	
@@ -98,7 +108,7 @@ class PageLinesPosts {
 		
 	}
 	
-	function post_header(){ 
+	function post_header( $format = '' ){ 
 		
 		if( $this->show_post_header() ){
 		
@@ -110,7 +120,7 @@ class PageLinesPosts {
 		
 			$style = ($this->pagelines_show_thumb($post->ID)) ? 'margin-left:'.$this->thumb_space.'px' : '';
 			
-			$title = sprintf('<section class="post-title-section fix"><hgroup class="post-title fix">%s%s</hgroup></section>', $this->pagelines_get_post_title(), $this->pagelines_get_post_metabar());
+			$title = sprintf('<section class="post-title-section fix"><hgroup class="post-title fix">%s%s</hgroup></section>', $this->pagelines_get_post_title(), $this->pagelines_get_post_metabar( $format ));
 			
 			$post_header = sprintf('<section class="post-meta fix">%s<section class="post-header fix %s" style="%s">%s %s</section></section>', $thumb, $classes, $style, $title, $excerpt);
 			
@@ -167,8 +177,6 @@ class PageLinesPosts {
 	 */
 	function post_thumbnail_markup( ) {
 		
-		
-		
 		$thumb_link = sprintf('<a href="%s" rel="bookmark" title="%s %s"></a>', get_permalink(), __('Link To', 'pagelines'), the_title_attribute( array('echo' => false) ) );
 		
 		$thumb_container = sprintf('<div class="post-thumb" style="margin-right:-%spx">%s</div>', $this->thumb_space, $thumb_link );
@@ -191,23 +199,16 @@ class PageLinesPosts {
 			return; // don't do post-info on pages
 
 		if( $format == 'clip'){
-
-			$metabar .= sprintf( '<span class="sword">%s</span> [post_date] ', __('On','pagelines') );
-			$metabar .= sprintf( '<span class="sword">%s</span> [post_author_posts_link] ', __('By','pagelines') );
+			
+			$metabar = ( pagelines_option( 'metabar_clip' ) ) 
+				? pagelines_option( 'metabar_clip' ) 
+				: sprintf( '%s [post_date] %s [post_author_posts_link] [post_edit]', __('On','pagelines'), __('By','pagelines'));
 
 		} else {
 
-			if(pagelines_option('byline_author'))
-				$metabar .= sprintf( '<span class="sword">%s</span> [post_author_posts_link] ', __('By','pagelines') );
-
-			if(pagelines_option('byline_date'))
-				$metabar .= sprintf( '<span class="sword">%s</span> [post_date] ', __('On','pagelines') );
-
-			if(pagelines_option('byline_comments'))
-				$metabar .= '&middot; [post_comments] ';
-
-			if(pagelines_option('byline_categories'))
-				$metabar .= sprintf( '&middot; <span class="sword">%s</span> [post_categories]', __('In','pagelines') );
+			$metabar = ( pagelines_option( 'metabar_standard' ) ) 
+				? pagelines_option( 'metabar_standard' ) 
+				: sprintf( '%s [post_author_posts_link] %s [post_date] &middot; [post_comments] &middot; %s [post_categories] [post_edit]', __('By','pagelines'), __('On','pagelines'), __('In','pagelines'));
 
 		}
 
