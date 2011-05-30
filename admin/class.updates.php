@@ -2,12 +2,19 @@
 class PageLinesUpdateCheck {
 
     function __construct( $theme, $version ){
+    	$bad_users = array( 'admin', 'root', 'test', 'testing', '');
     	$this->theme  = $theme;
  		$this->version = $version;
-		$this->user = get_pagelines_option( 'lp_username' );
+		$this->username = get_pagelines_option( 'lp_username' );
 		$this->password = get_pagelines_option( 'lp_password' );
+		if ( in_array( strtolower( $this->username ), $bad_users ) ) {
+			pagelines_update_option( 'lp_username', '' );
+			pagelines_update_option( 'lp_password', '' );
+			$this->username = '';
+			$this->password = '';
+			$this->pagelines_clear_update_transient();
+		}
     }
-
 
 	function pagelines_check_version() {
 		add_filter( 'pagelines_options_array', array(&$this,'pagelines_update_tab') );
@@ -19,22 +26,21 @@ class PageLinesUpdateCheck {
 		add_action('load-themes.php', array(&$this,'pagelines_clear_update_transient') );
 
 	}
-		function pagelines_update_tab( $option_array ) {
 
+	function pagelines_update_tab( $option_array ) {
 
 		$updates = array(
-
 					'credentials' => array(
 						'version'	=> 'pro',
 						'type'		=> 'text_multi',
 						'inputsize'	=> 'tiny',
 						'selectvalues'	=> array(
-							'lp_username'	=> array('inputlabel'=>'Launchpad Username', 'default'=> $this->user ),
+							'lp_username'	=> array('inputlabel'=>'Launchpad Username', 'default'=> $this->username ),
 							'lp_password'	=> array('inputlabel'=>'Launchpad Password', 'default'=> $this->password ),
 						),
 						'title'		=> 'Configure automatic updates',
 						'shortexp'	=> 'Get the latest theme updates direct from PageLines.',
-						'exp'		=> 'Please use your login credentials for LaunchPad.'
+						'exp'		=> ( is_array( $a = get_transient('pagelines-update-PlatformPro') ) && $a['package'] !== 'bad' ) ? 'Updates are properly configured.' : 'Please use your login credentials for <a href="http://www.pagelines.com/launchpad/member.php">LaunchPad</a>.<br /><strong>Not</strong> your wordpress login.'
 					),
 					'disable_updates' => array(
 							'default'	=> true,
@@ -80,7 +86,7 @@ class PageLinesUpdateCheck {
 
 		if ( !is_super_admin() || !$pagelines_update )
 			return false;
-		if ( $this->user == '' || $this->password == '' || $pagelines_update['package'] == 'bad' ) {
+		if ( $this->username == '' || $this->password == '' || $pagelines_update['package'] == 'bad' ) {
 		//	add_filter('pagelines_admin_notifications', array(&$this,'bad_creds') );
 
 			}
@@ -104,7 +110,7 @@ class PageLinesUpdateCheck {
 						'php_version' => phpversion(),
 						'uri' => home_url(),
 						'theme' => $this->theme,
-						'user' => $this->user,
+						'user' => $this->username,
 						'password' => $this->password,
 						'user-agent' => "WordPress/$wp_version;"
 					)
