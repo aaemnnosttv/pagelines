@@ -1,0 +1,30 @@
+/*
+   objects.css
+   PageLines Platform Framework
+   
+   Created by Andrew Powers on 2011-05-30.
+   Copyright 2011 PageLines. All rights reserved.
+*/
+
+
+/* @ Inline List - Horizontal non-floated navigation/menu */
+	ul.inline-list { list-style-type: none; }
+	ul.inline-list li { display: inline ; padding: 0px 3px; }
+
+/* @ Tabbed List - Horizontal floated list, tab and navigation effects */
+	ul.tabbed-list {
+		list-style-type: none; 
+		margin:0;
+		overflow: auto; /* clear */
+		width: 100%; /* clear IE 7 */
+	}
+	ul.tabbed-list li {margin: 0; padding: 0; float: left;}
+	ul.tabbed-list li a{display: block}
+
+/* @ Mediablock - Standard Media Container  */
+	.mediablock{ overflow:hidden;overflow: visible; zoom: 1; }
+	.mediablock-image { float:left; margin-right: 10px; }
+	.iconlist .mediablock-image{ padding-top: .4em;}
+	.mediablock-content{ display: table-cell; vertical-align: top; width: 10000px;}
+	.mediablock-content p{ margin: 0 0 1em; }
+

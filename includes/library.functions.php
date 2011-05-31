@@ -10,7 +10,7 @@
  *
  *  @package PageLines
  *  @subpackage Functions Library
- *  @since 4.1
+ *  @since 1.1.0
  *
  */
 function pagelines_body_classes(){
@@ -253,11 +253,11 @@ function pagelines_is_buddypress_page(){
  */
 function pagelines_is_buddypress_active(){
 	global $bp; 
-	if(isset($bp)){
+	
+	if(isset($bp))
 		return true;
-	}else{
+	else
 		return false;
-	}
 }
 
 
@@ -311,100 +311,8 @@ function custom_trim_excerpt($text, $length) {
 	return $text.'&nbsp;[&hellip;]';
 }
 	
-function pagelines_show_thumb($post = null, $location = null){
-	
-	 if( function_exists('the_post_thumbnail') && has_post_thumbnail($post) ){
-	
-		// For Hook Parsing
-		if(is_admin() || !get_option(PAGELINES_SETTINGS)) return true;
-		
-		if($location == 'clip' && pagelines_option('thumb_clip')) return true;
-		
-		if( !isset($location) ){
-			// Thumb Page
-			if(is_single() && pagelines_option('thumb_single')) return true;
 
-			// Blog Page
-			elseif(is_home() && pagelines_option('thumb_blog')) return true;
 
-			// Search Page
-			elseif(is_search() && pagelines_option('thumb_search')) return true;
-
-			// Category Page
-			elseif(is_category() && pagelines_option('thumb_category')) return true;
-
-			// Archive Page
-			elseif(is_archive() && pagelines_option('thumb_archive')) return true;
-
-			else return false;
-		} else return false;
-	} else return false;
-	
-}
-
-function pagelines_show_excerpt($post = null){
-	
-		// For Hook Parsing
-		if(is_admin() || !get_option(PAGELINES_SETTINGS)) return true;
-		
-		// Thumb Page
-		if(is_single() && pagelines_option('excerpt_single')) return true;
-		
-		// Blog Page
-		elseif(is_home() && pagelines_option('excerpt_blog')) return true;
-		
-		// Search Page
-		elseif(is_search() && pagelines_option('excerpt_search')) return true;
-		
-		// Category Page
-		elseif(is_category() && pagelines_option('excerpt_category')) return true;
-		
-		// Archive Page
-		elseif(is_archive() && pagelines_option('excerpt_archive')) return true;
-
-		else return false;
-}
-
-function pagelines_show_content($post = null){
-		// For Hook Parsing
-		if(is_admin()) return true;
-		
-		// show on single post pages only
-		if(is_page() || is_single()) return true;
-		
-		// Blog Page
-		elseif(is_home() && pagelines_option('content_blog')) return true;
-
-		// Search Page
-		elseif(is_search() && pagelines_option('content_search')) return true;
-
-		// Category Page
-		elseif(is_category() && pagelines_option('content_category')) return true;
-		
-		// Archive Page
-		elseif(is_archive() && pagelines_option('content_archive')) return true;
-		
-		else return false;
-
-}
-
-/*
-	Show clip or full width post
-*/
-function pagelines_show_clip($count, $paged){
-	
-	if(!VPRO) return false;
-	
-	if(is_home() && pagelines_option('blog_layout_mode') == 'magazine' && $count <= pagelines_option('full_column_posts') && $paged == 0){
-		return false;
-	}
-	
-	elseif(pagelines_option('blog_layout_mode') != 'magazine') return false;
-	
-	elseif(is_page() || is_single()) return false;
-	
-	else return true;
-}
 
 function pagelines_add_page($file, $name){
 	global $pagelines_user_pages;
@@ -416,7 +324,7 @@ function pagelines_add_page($file, $name){
 /**
  * Used for Callback calls, returns nothing
  * 
- * @since 4.0.0
+ * @since 1.0.0
  */
 function pagelines_setup_menu() {
 	echo 'Add links using WordPress menus in your site admin.';
@@ -439,7 +347,7 @@ function setup_pagelines_template() {
 /**
  * Adds pages from the child theme.
  * 
- * @since 4.1.0
+ * @since 1.1.0
  */
 function pagelines_add_page_callback($page_array){
 	global $pagelines_user_pages;

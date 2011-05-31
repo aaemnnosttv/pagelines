@@ -154,8 +154,10 @@ add_theme_support( 'post-thumbnails', array('post') );
 add_theme_support( 'menus' );
 add_theme_support( 'automatic-feed-links' );
 
-// Add editor styling
-// -- relative link
+/** 
+ * Add editor styling
+ * -- relative link
+ */
 add_editor_style( 'admin/css/editor-style.css' );
 
 // Sets Content Width for Large images when adding media

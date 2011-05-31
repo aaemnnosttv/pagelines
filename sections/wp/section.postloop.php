@@ -52,7 +52,8 @@ class PageLinesPostLoop extends PageLinesSection {
 
    function section_template() { 
 		//Included in theme root for easy editing.
-		get_template_part( 'template.postloop' ); 
+		$theposts = new PageLinesPosts();
+		$theposts->load_loop();
 	}
 
 }

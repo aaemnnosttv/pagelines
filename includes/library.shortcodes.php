@@ -24,7 +24,7 @@ function pagelines_post_date_shortcode($atts) {
 	);
 	$atts = shortcode_atts( $defaults, $atts );
 	
-	$output = sprintf( '<time class="date time published" datetime="%5$s" pubdate="pubdate">%1$s%3$s%4$s%2$s</time> ', $atts['before'], $atts['after'], $atts['label'], get_the_time($atts['format']), get_the_time('Y-m-d\TH:i:sO') );
+	$output = sprintf( '<time class="date time published sc" datetime="%5$s" pubdate="pubdate">%1$s%3$s%4$s%2$s</time> ', $atts['before'], $atts['after'], $atts['label'], get_the_time($atts['format']), get_the_time('Y-m-d\TH:i:sO') );
 	
 	return apply_filters('pagelines_post_date_shortcode', $output, $atts);
 	
@@ -47,7 +47,7 @@ function pagelines_post_time_shortcode($atts) {
 	);
 	$atts = shortcode_atts( $defaults, $atts );
 	
-	$output = sprintf( '<span class="time published" title="%5$s">%1$s%3$s%4$s%2$s</span> ', $atts['before'], $atts['after'], $atts['label'], get_the_time($atts['format']), get_the_time('Y-m-d\TH:i:sO') );
+	$output = sprintf( '<span class="time published sc" title="%5$s">%1$s%3$s%4$s%2$s</span> ', $atts['before'], $atts['after'], $atts['label'], get_the_time($atts['format']), get_the_time('Y-m-d\TH:i:sO') );
 	
 	return apply_filters('pagelines_post_time_shortcode', $output, $atts);
 	
@@ -68,7 +68,7 @@ function pagelines_post_author_shortcode($atts) {
 	);
 	$atts = shortcode_atts( $defaults, $atts );
 	
-	$output = sprintf('<span class="author vcard">%2$s<span class="fn">%1$s</span>%3$s</span>', esc_html( get_the_author() ), $atts['before'], $atts['after']);
+	$output = sprintf('<span class="author vcard sc">%2$s<span class="fn">%1$s</span>%3$s</span>', esc_html( get_the_author() ), $atts['before'], $atts['after']);
 	
 	return apply_filters('pagelines_post_author_shortcode', $output, $atts);
 	
@@ -100,7 +100,7 @@ function pagelines_post_author_link_shortcode($atts) {
 		
 	}
 	
-	$output = sprintf('<span class="author vcard">%2$s<span class="fn">%1$s</span>%3$s</span>', $author, $atts['before'], $atts['after']);
+	$output = sprintf('<span class="author vcard sc">%2$s<span class="fn">%1$s</span>%3$s</span>', $author, $atts['before'], $atts['after']);
 	
 	return apply_filters('pagelines_post_author_link_shortcode', $output, $atts);
 	
@@ -126,7 +126,7 @@ function pagelines_post_author_posts_link_shortcode($atts) {
 	the_author_posts_link();
 	$author = ob_get_clean();
 	
-	$output = sprintf('<span class="author vcard">%2$s<span class="fn">%1$s</span>%3$s</span>', $author, $atts['before'], $atts['after']);
+	$output = sprintf('<span class="author vcard sc">%2$s<span class="fn">%1$s</span>%3$s</span>', $author, $atts['before'], $atts['after']);
 	
 	return apply_filters('pagelines_post_author_shortcode', $output, $atts);
 	
@@ -161,7 +161,7 @@ function pagelines_post_comments_shortcode($atts) {
 	
 	$comments = sprintf('<a href="%s">%s</a>', get_comments_link(), $comments);
 
-	$output = sprintf('<span class="post-comments">%2$s%1$s%3$s</span>', $comments, $atts['before'], $atts['after']);
+	$output = sprintf('<span class="post-comments sc">%2$s%1$s%3$s</span>', $comments, $atts['before'], $atts['after']);
 	
 	return apply_filters('pagelines_post_comments_shortcode', $output, $atts);
 	
@@ -187,7 +187,7 @@ function pagelines_post_tags_shortcode($atts) {
 	
 	if ( !$tags ) return;
 	
-	$output = sprintf('<span class="tags">%s</span> ', $tags);
+	$output = sprintf('<span class="tags sc">%s</span> ', $tags);
 	
 	return apply_filters('pagelines_post_tags_shortcode', $output, $atts);
 	
@@ -211,7 +211,7 @@ function pagelines_post_categories_shortcode($atts) {
 	
 	$cats = get_the_category_list( trim($atts['sep']) . ' ' );
 	
-	$output = sprintf('<span class="categories">%2$s%1$s%3$s</span> ', $cats, $atts['before'], $atts['after']);
+	$output = sprintf('<span class="categories sc">%2$s%1$s%3$s</span> ', $cats, $atts['before'], $atts['after']);
 	
 	return apply_filters('pagelines_post_categories_shortcode', $output, $atts);
 	
@@ -227,7 +227,7 @@ add_shortcode('post_edit', 'pagelines_post_edit_shortcode');
 function pagelines_post_edit_shortcode($atts) {
 	
 	$defaults = array(
-		'link' => __('<span class="editpage">Edit</span>', 'pagelines'),
+		'link' => __('<span class="editpage sc">Edit</span>', 'pagelines'),
 		'before' => '[',
 		'after' => ']'
 	);

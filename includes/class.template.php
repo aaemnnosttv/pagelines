@@ -399,20 +399,6 @@ function save_template_map($templatemap){
 	update_option('pagelines_template_map', $templatemap);
 }
 
-/**
- *  Determines if this page is showing several posts.
- *
- * @since 4.0.0
- */
-function pagelines_is_posts_page(){	
-	if(is_home() || is_search() || is_archive() || is_category() || is_tag()) return true; 
-	else return false;
-}
-
-function pagelines_non_meta_data_page(){
-	if(pagelines_is_posts_page() || is_404()) return true; 
-	else return false;
-}
 
 /**
  *  Used to parse section HTML for hooks
