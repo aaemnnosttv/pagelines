@@ -54,6 +54,7 @@ class PageLinesPosts {
 	function get_article(){
 		global $wp_query;
 		
+		/* clip handling */
 		$clip = ($this->pagelines_show_clip($this->count, $this->paged)) ? true : false;
 		$format = ($clip) ? 'clip' : 'feature';
 		$clip_row_start = ($this->clipcount % 2 == 0) ? true : false;
@@ -64,7 +65,7 @@ class PageLinesPosts {
 		
 		$wrap_start = ( $clip && $clip_row_start ) ? sprintf('<div class="clip_box fix">') : ''; 	
 		$wrap_end = ( $clip && $clip_row_end ) ? sprintf('</div>') : '';
-		
+
 		echo sprintf('%s<article class="%s" id="post-%s">%s%s</article>%s', $wrap_start, $post_classes, get_the_ID(), $this->post_header( $format ), $this->post_entry(), $wrap_end);
 		
 		// Count the clips
@@ -177,11 +178,11 @@ class PageLinesPosts {
 	 */
 	function post_thumbnail_markup( ) {
 		
-		$thumb_link = sprintf('<a href="%s" rel="bookmark" title="%s %s"></a>', get_permalink(), __('Link To', 'pagelines'), the_title_attribute( array('echo' => false) ) );
+		$thumb_link = sprintf('<a href="%s" rel="bookmark" title="%s %s">%s</a>', get_permalink(), __('Link To', 'pagelines'), the_title_attribute( array('echo' => false) ), get_the_post_thumbnail(null, 'thumbnail') );
 		
 		$thumb_container = sprintf('<div class="post-thumb" style="margin-right:-%spx">%s</div>', $this->thumb_space, $thumb_link );
 		
-		return apply_filter('pagelines_thumb_markup', $thumb_container);
+		return apply_filters('pagelines_thumb_markup', $thumb_container);
 		
 	}
 	
@@ -324,24 +325,31 @@ class PageLinesPosts {
 
 	function pagelines_show_content($post = null){
 			// For Hook Parsing
-			if(is_admin()) return true;
+			if(is_admin()) 
+				return true;
 
 			// show on single post pages only
-			if(is_page() || is_single()) return true;
+			if(is_page() || is_single()) 
+				return true;
 
 			// Blog Page
-			elseif(is_home() && pagelines_option('content_blog')) return true;
+			elseif(is_home() && pagelines_option('content_blog')) 
+				return true;
 
 			// Search Page
-			elseif(is_search() && pagelines_option('content_search')) return true;
+			elseif(is_search() && pagelines_option('content_search')) 
+				return true;
 
 			// Category Page
-			elseif(is_category() && pagelines_option('content_category')) return true;
+			elseif(is_category() && pagelines_option('content_category')) 
+				return true;
 
 			// Archive Page
-			elseif(is_archive() && pagelines_option('content_archive')) return true;
+			elseif(is_archive() && pagelines_option('content_archive')) 
+				return true;
 
-			else return false;
+			else 
+				return false;
 
 	}
 
@@ -350,17 +358,20 @@ class PageLinesPosts {
 	*/
 	function pagelines_show_clip($count, $paged){
 
-		if(!VPRO) return false;
-
-		if(is_home() && pagelines_option('blog_layout_mode') == 'magazine' && $count <= pagelines_option('full_column_posts') && $paged == 0){
+		if(!VPRO) 
 			return false;
-		}
 
-		elseif(pagelines_option('blog_layout_mode') != 'magazine') return false;
+		if(is_home() && pagelines_option('blog_layout_mode') == 'magazine' && $count <= pagelines_option('full_column_posts') && $paged == 0)
+			return false;
 
-		elseif(is_page() || is_single()) return false;
+		elseif(pagelines_option('blog_layout_mode') != 'magazine') 
+			return false;
 
-		else return true;
+		elseif(is_page() || is_single()) 
+			return false;
+
+		else 
+			return true;
 	}
 	
 	
