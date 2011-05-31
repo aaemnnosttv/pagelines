@@ -5,13 +5,13 @@
  *
  **/
 function pagelines_option_name( $oid, $sub_oid = null, $grand_oid = null){
-	if( isset($grand_oid) ){
+	
+	if( isset($grand_oid) )
 		echo PAGELINES_SETTINGS . '['.$oid.']' . '['.$sub_oid.']' . '['.$grand_oid.']';	
-	}elseif( isset($sub_oid) ){
+	elseif( isset($sub_oid) )
 		echo PAGELINES_SETTINGS . '['.$oid.']' . '['.$sub_oid.']';
-	} else {
+	else 
 		echo PAGELINES_SETTINGS.'['.$oid.']';
-	}
 	
 }
 
@@ -20,15 +20,13 @@ function pagelines_option_id( $oid, $sub_oid = null, $grand_oid = null){
 }
 
 function get_pagelines_option_id( $oid, $sub_oid = null, $grand_oid = null){
-	if( isset($grand_oid) ){
+
+	if( isset($grand_oid) )
 		$oid = 'pagelines_' . $oid . '_' . $sub_oid . '_' . $grand_oid;
-	}
-	elseif( isset($sub_oid) ){
+	elseif( isset($sub_oid) )
 		$oid = 'pagelines_' . $oid . '_' . $sub_oid;
-	}
-	else {
+	else 
 		$oid = 'pagelines_' . $oid;
-	}
 	
 	return $oid;
 }
@@ -62,11 +60,10 @@ function get_pagelines_option($key, $setting = null) {
 	// get setting
 	$setting = $setting ? $setting : PAGELINES_SETTINGS;
 
-	if(isset($global_pagelines_settings[$key])){
+	if(isset($global_pagelines_settings[$key]))
 		return $global_pagelines_settings[$key];
-	} else {
+	else
 		return false;
-	}
 
 }
 

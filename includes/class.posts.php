@@ -123,7 +123,7 @@ class PageLinesPosts {
 			
 			$title = sprintf('<section class="post-title-section fix"><hgroup class="post-title fix">%s%s</hgroup></section>', $this->pagelines_get_post_title(), $this->pagelines_get_post_metabar( $format ));
 			
-			$post_header = sprintf('<section class="post-meta fix">%s<section class="post-header fix %s" style="%s">%s %s</section></section>', $thumb, $classes, $style, $title, $excerpt);
+			$post_header = sprintf('<section class="post-meta media">%s<section class="bd post-header fix %s" >%s %s</section></section>', $thumb, $classes,   $title, $excerpt);
 			
 			return apply_filters( 'pagelines_post_header', $post_header );
 			
@@ -178,11 +178,11 @@ class PageLinesPosts {
 	 */
 	function post_thumbnail_markup( ) {
 		
-		$thumb_link = sprintf('<a href="%s" rel="bookmark" title="%s %s">%s</a>', get_permalink(), __('Link To', 'pagelines'), the_title_attribute( array('echo' => false) ), get_the_post_thumbnail(null, 'thumbnail') );
+		$thumb_link = sprintf('<a class="post-thumb img" href="%s" rel="bookmark" title="%s %s">%s</a>', get_permalink(), __('Link To', 'pagelines'), the_title_attribute( array('echo' => false) ), get_the_post_thumbnail(null, 'thumbnail') );
 		
-		$thumb_container = sprintf('<div class="post-thumb" style="margin-right:-%spx">%s</div>', $this->thumb_space, $thumb_link );
+		//$thumb_container = sprintf('<div class="post-thumb" style="margin-right:-%spx">%s</div>', $this->thumb_space, $thumb_link );
 		
-		return apply_filters('pagelines_thumb_markup', $thumb_container);
+		return apply_filters('pagelines_thumb_markup', $thumb_link);
 		
 	}
 	

@@ -386,11 +386,7 @@ function get_option_array( $load_unavailable = false ){
 				
 				
 				'type_secondary' => array(
-						'default' 	=> array(
-						'font' 		=> 'lucida_grande',
-						'kern'		=> '0.10em',
-						'transform'	=> 'uppercase',
-						),
+						'default' 	=> array( 'font' => 'lucida_grande' ),
 						'type' 		=> 'typography',
 						'selectors'	=> '.font2, .font-sub, ul.main-nav li a, #secondnav li a, .metabar, .subtext, .subhead, .widget-title, .post-comments, .reply a, .editpage, #pagination .wp-pagenavi, .post-edit-link, #wp-calendar caption, #wp-calendar thead th, .soapbox-links a, .fancybox, .standard-form .admin-links, #featurenav a, .pagelines-blink, .ftitle small',
 						'inputlabel' 	=> 'Select Font',
@@ -595,7 +591,7 @@ function get_option_array( $load_unavailable = false ){
 				),
 				'continue_reading_text' => array(
 						'version'	=> 'pro',
-						'default'	=> 'Continue Reading',
+						'default'	=> 'Read Full Article &rarr;',
 						'type'		=> 'text',
 						'inputlabel'	=> 'Continue Reading Link Text',
 						'title'		=> '"Continue Reading" Link Text (When Using Excerpts)',						

@@ -7,11 +7,11 @@
 */
 
 
-/* @ Inline List - Horizontal non-floated navigation/menu */
+	/* @ Inline List - Horizontal non-floated navigation/menu */
 	ul.inline-list { list-style-type: none; }
 	ul.inline-list li { display: inline ; padding: 0px 3px; }
 
-/* @ Tabbed List - Horizontal floated list, tab and navigation effects */
+	/* @ Tabbed List - Horizontal floated list, tab and navigation effects */
 	ul.tabbed-list {
 		list-style-type: none; 
 		margin:0;
@@ -25,6 +25,14 @@
 	.mediablock{ overflow:hidden;overflow: visible; zoom: 1; }
 	.mediablock-image { float:left; margin-right: 10px; }
 	.iconlist .mediablock-image{ padding-top: .4em;}
-	.mediablock-content{ display: table-cell; vertical-align: top; width: 10000px;}
-	.mediablock-content p{ margin: 0 0 1em; }
+	.mediablock-content{ display: table-cell; vertical-align: top; width: 10000px; }
+	.mediablock-content p:first-child{ margin-top: 0; }
 
+	/* For reference */
+	.media { overflow:hidden;overflow: visible; zoom: 1; }
+	.media .bd{display:table-cell; vertical-align: top; width: 10000px; *display:block; *width:auto; zoom:1;}
+	.media .bd > :first-child{margin-top:0;}
+	.media .bd > :last-child{margin-bottom:0;}
+	.media .img{float:left;margin-right: 3%;}
+	.media .img img{display:block;}
+	.media .imgExt{float:right; margin-left: 10px;}

@@ -43,12 +43,15 @@ DO NOT CUSTOMIZE THIS FILE USE BASE CHILD THEME OR SETTINGS
 /* ===============*/
 
 
-/* Headers */
-	h1, h2, h3, h4, h5, h6{font-weight:normal;}
-	h1{font-size:3em;line-height:1.333em;} 
-	h2{font-size:2em;line-height:1.1em;}
-	h3{font-size:1.4em;}
-	h4{font-size:1em;}
+/* Headers H1 - H6 */
+	h1, h2, h3, h4, h5, h6{font-weight:normal; line-height: 1.33em;}
+	h1{font-size:3em;} 
+	h2{font-size:2em;}
+	h3{font-size:1.5em;}
+	h4{font-size:1.3em;}
+	h5{font-size:1.1em;}
+	h6{font-size:1.1em;}
+	
 
 /* Header Special Cases */
 	h1 + img, h2 + img{margin-top:1em;}
@@ -75,31 +78,6 @@ aside ul, aside ol, .sidenote ul, .sidenote ol{margin-top:1.3em;line-height:1.7e
 /*Tweaks*/
 .kern{letter-spacing:-.1em;}
 
-/* ========================= */
-/* =   @ CSS Objects API   = */
-/* ========================= */
-
-	/* @ Inline List - Horizontal non-floated navigation/menu */
-	ul.inline-list { list-style-type: none; }
-	ul.inline-list li { display: inline ; padding: 0px 3px; }
-
-	/* @ Tabbed List - Horizontal floated list, tab and navigation effects */
-	ul.tabbed-list {
-		list-style-type: none; 
-		margin:0;
-		overflow: auto; /* clear */
-		width: 100%; /* clear IE 7 */
-	}
-	ul.tabbed-list li {margin: 0; padding: 0; float: left;}
-	ul.tabbed-list li a{display: block}
-
-	/* @ Mediablock - Standard Media Container  */
-	.mediablock{ overflow:hidden;overflow: visible; zoom: 1; }
-	.mediablock-image { float:left; margin-right: 10px; }
-	.iconlist .mediablock-image{ padding-top: .4em;}
-	.mediablock-content{ display: table-cell; vertical-align: top; width: 10000px;}
-	.mediablock-content p:first-child{ margin-top: 0; }
-
 
 /* @ Text Headers */
 	
@@ -115,7 +93,6 @@ aside ul, aside ol, .sidenote ul, .sidenote ol{margin-top:1.3em;line-height:1.7e
 	a {text-decoration:none;}
 	.hentry a:hover{text-decoration: underline;}
 	#subnav ul li a:active{text-decoration:none;}
-	.post-edit-link { font-size: 9px;}
 
 
 
@@ -136,8 +113,6 @@ aside ul, aside ol, .sidenote ul, .sidenote ol{margin-top:1.3em;line-height:1.7e
 	/* Secondary Font Style */
 		.font2, .font-sub, ul.main-nav li a, #secondnav li a, .metabar, .subtext, .subhead, .widget-title, .post-comments, .reply a, .editpage, #pagination .wp-pagenavi, .post-edit-link, #wp-calendar caption, #wp-calendar thead th, .soapbox-links a, .fancybox, .standard-form .admin-links, #featurenav a, .pagelines-blink, .ftitle small, .button, input[type="submit"], input[type="button"], input[type="reset"], .submit{
 			font-family: "Lucida Grande", "Lucida Sans", "Lucida Sans Unicode", sans-serif;
-			text-transform: uppercase;
-			letter-spacing: .1em;
 		}
 		
 		input[type="text"], input[type="password"], textarea, #dsq-content textarea{ font-family: "Courier New", Courier, Verdana, sans-serif; }
@@ -654,22 +629,18 @@ aside ul, aside ol, .sidenote ul, .sidenote ol{margin-top:1.3em;line-height:1.7e
 
 		/* @ Post Title Area */
 			.post-meta { margin-bottom: 1.5em; }
-			.fpost .post-header {
-				padding-top: 3px;
-				float: left;
-				display: inline; /* IE HACK */
-			}
-				.fpost .post-header.post-nothumb{ width: 100%;	}
-				.fpost .post-title-section{ position: relative; }
+			
+			
+	/*		.fpost .post-header {
+					padding-top: 3px;
+					float: left;
+					display: inline; 
+				}
+					.fpost .post-header.post-nothumb{ width: 100%;	}
+					.fpost .post-title-section{ position: relative; }*/
 				
-					.fpost .post-title h2{
-						padding-bottom: 0;
-					
-					
-						margin:0;
-						text-transform: none;
-					}
-					.fpost .post-title h2 a:hover{	text-decoration: underline;	}
+				
+				.fpost .post-title h2 a:hover{	text-decoration: underline;	}
 
 						.post-comments a:hover{ text-decoration: none; }
 				
