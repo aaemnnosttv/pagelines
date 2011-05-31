@@ -188,7 +188,7 @@ class PageLinesPosts {
 	/**
 	 * Adds the metabar or byline under the post title
 	 *
-	 * @since 4.1.0
+	 * @since 1.1.0
 	 */
 
 	function pagelines_get_post_metabar( $format = '' ) {
@@ -212,8 +212,6 @@ class PageLinesPosts {
 
 		}
 
-		$metabar .= ' [post_edit]';
-
 		return sprintf( '<div class="metabar"><em>%s</em></div>', apply_filters('pagelines_post_metabar', $metabar, $format) );
 
 	}
@@ -224,7 +222,7 @@ class PageLinesPosts {
 	 *
 	 *  @package PageLines
 	 *  @subpackage Functions Library
-	 *  @since 4.1.0
+	 *  @since 1.1.0
 	 *
 	 */
 	function pagelines_get_post_title( $format = '' ){ 

@@ -10,7 +10,7 @@
  *
  *  @package PageLines
  *  @subpackage Functions Library
- *  @since 4.1
+ *  @since 1.1.0
  *
  */
 function pagelines_body_classes(){
@@ -324,7 +324,7 @@ function pagelines_add_page($file, $name){
 /**
  * Used for Callback calls, returns nothing
  * 
- * @since 4.0.0
+ * @since 1.0.0
  */
 function pagelines_setup_menu() {
 	echo 'Add links using WordPress menus in your site admin.';
@@ -347,7 +347,7 @@ function setup_pagelines_template() {
 /**
  * Adds pages from the child theme.
  * 
- * @since 4.1.0
+ * @since 1.1.0
  */
 function pagelines_add_page_callback($page_array){
 	global $pagelines_user_pages;

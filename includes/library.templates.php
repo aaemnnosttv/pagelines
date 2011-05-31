@@ -395,7 +395,7 @@ function pagelines_page_subnav(){
  *
  *  @package PageLines
  *  @subpackage Functions Library
- *  @since 4.1.0
+ *  @since 1.1.0
  *
  */
 function pagelines_main_logo(){ 
