@@ -97,6 +97,7 @@ require_once( PL_INCLUDES . '/class.sections.php' );
  */	
 require_once( PL_INCLUDES . '/class.template.php' );
 
+
 /**
  * Load metapanel option handling class
  */
@@ -111,6 +112,12 @@ $GLOBALS['metapanel_options'] =  new PageLinesMetaPanel();
  * Load options UI
  */
 require_once( PL_ADMIN . '/class.options.ui.php' );
+
+/**
+ * Load Data Handling
+ */
+require_once( PL_ADMIN . '/library.data.php' );
+
 
 /**
  * Load Type Foundry Class

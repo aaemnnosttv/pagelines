@@ -11,23 +11,22 @@ function pagelines_add_admin_menu() {
 	global $menu;
 
 	// Create the new separator
-	$menu['58.995'] = array( '', 'edit_theme_options', 'separator-pagelines', '', 'wp-menu-separator' );
+	$menu['2.995'] = array( '', 'edit_theme_options', 'separator-pagelines', '', 'wp-menu-separator' );
 
 	// Create the new top-level Menu
-	add_menu_page ('Page Title', THEMENAME, 'edit_theme_options','pagelines', 'pagelines_build_option_interface', PL_ADMIN_IMAGES. '/favicon-pagelines.png', '58.996');
+	add_menu_page ('Page Title', THEMENAME, 'edit_theme_options','pagelines', 'pagelines_build_option_interface', PL_ADMIN_IMAGES. '/favicon-pagelines.png', '2.996');
 }
 
 // Create theme options panel
 add_action('admin_menu', 'pagelines_add_admin_submenus');
 function pagelines_add_admin_submenus() {
 	global $_pagelines_options_page_hook;
-		
-	if(!VPRO){
-		// WP themes rep. wants it under the appearance tab.
+	
+	// WP themes rep. wants it under the appearance tab.	
+	if( !VPRO )
 		$_pagelines_options_page_hook = add_theme_page( 'pagelines', 'PageLines Settings', 'edit_theme_options', 'pagelines', 'pagelines_build_option_interface' );
-	} else {
+	else 
 		$_pagelines_options_page_hook = add_submenu_page('pagelines', 'Settings', 'Settings', 'edit_theme_options', 'pagelines','pagelines_build_option_interface'); // Default
-	}
 
 }
 
@@ -60,7 +59,7 @@ function pagelines_theme_settings_scripts() {
 	wp_enqueue_script( 'jquery-ui-draggable' );	
 	wp_enqueue_script( 'jquery-ui-sortable' );
 	wp_enqueue_script( 'thickbox' );	
-	wp_enqueue_style('thickbox'); 
+	wp_enqueue_style( 'thickbox' ); 
 	wp_enqueue_script( 'jquery-layout', PL_ADMIN_JS . '/jquery.layout.js');
 }
 
@@ -69,13 +68,13 @@ function load_head(){
 
 	// Always Load
 	echo '<link rel="stylesheet" href="'.PL_ADMIN_CSS.'/admin.css?ver='.CORE_VERSION.'" type="text/css" media="screen" />';
-	if(pagelines_option('pagelines_favicon'))  echo '<link rel="shortcut icon" href="'.pagelines_option('pagelines_favicon').'" type="image/x-icon" />';
+	
+	if(pagelines_option('pagelines_favicon'))  
+		echo '<link rel="shortcut icon" href="'.pagelines_option('pagelines_favicon').'" type="image/x-icon" />';
 
 	// Load on PageLines pages
-	if(isset($_GET['page']) && ($_GET['page'] == 'pagelines')){
-			include( PL_ADMIN . '/admin.head.php' );
-			
-	}
+	if(isset($_GET['page']) && ($_GET['page'] == 'pagelines'))
+		include( PL_ADMIN . '/admin.head.php' );
 
 }
 
@@ -100,9 +99,7 @@ function pagelines_register_settings() {
 	if ( !isset($_REQUEST['page']) || $_REQUEST['page'] != 'pagelines' )
 		return;	
 	
-	/*
-		Typography Options
-	*/
+	/* Typography Options */
 	$GLOBALS['pl_foundry'] = new PageLinesFoundry;
 
 	/*

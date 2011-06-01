@@ -12,6 +12,9 @@
  */
 class PageLinesLayout {
 
+
+
+
 	// BUILD THE PAGELINES OBJECT
 		function __construct($layout_mode = null) {
 			
@@ -84,21 +87,18 @@ class PageLinesLayout {
 		
 
 		function get_layout_map(){
-			if(pagelines_option('layout')){
-				
+			
+			if( pagelines_option('layout') )
 				$this->layout_map = pagelines_option('layout');
-
-				
-			}else{
-				
+			else
 				$this->layout_map = $this->default_layout_setup();
-				
-			}
+		
 		}
 		
 
 		
 		function default_layout_setup(){
+			
 			$this->content->width = 960;
 			
 			$this->gutter->width = 20;

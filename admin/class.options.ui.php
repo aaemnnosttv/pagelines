@@ -56,7 +56,6 @@ function build_header(){?>
 						else
 							$selected_tab = 0;
 				
-					//echo $_COOKIE['PageLinesTabCookie'];
 					?>
 				
 						<script type="text/javascript">
@@ -123,15 +122,10 @@ function build_header(){?>
 								</div>
 		<?php }
 		
-		function _get_confirmations_and_system_checking(){?>
+		function _get_confirmations_and_system_checking(){
 			
-			<div class="ajax-saved" style="">
-				<div class="ajax-saved-pad">
-					<div class="ajax-saved-icon"></div>
-				</div>
-			</div>
-			
-			<?php 
+				// Load Ajax confirmation
+				printf('<div class="ajax-saved" style=""><div class="ajax-saved-pad"><div class="ajax-saved-icon"></div></div></div>');
 			
 				// get confirmations
 				pagelines_draw_confirms();
@@ -139,7 +133,7 @@ function build_header(){?>
 				// Get server error messages
 				pagelines_error_messages();
 
-}
+		}
 		
 		/**
 		 * Option Interface Body, including vertical tabbed nav
@@ -274,11 +268,10 @@ function option_engine($oid, $o){
 
 	$o = wp_parse_args( $o, $defaults );
 
-	if($o['wp_option']) {
+	if($o['wp_option']) 
 		$val = get_option($oid);
-	} else {
+	else 
 		$val = pagelines_option($oid);
-	}
 
 if( !isset( $o['version'] ) || ( isset($o['version']) && $o['version'] == 'free') || (isset($o['version']) && $o['version'] == 'pro' && VPRO ) ): 
 ?>
@@ -569,21 +562,25 @@ function _get_text_multi($oid, $o, $val){
 function _get_text_small($oid, $o, $val){ ?>
 	<p>
 		<label for="<?php echo $oid;?>" class="context"><?php echo $o['inputlabel'];?></label><br/>
-		<input class="small-text"  type="text" name="<?php pagelines_option_name($oid); ?>" id="<?php echo $oid;?>" value="<?php esc_attr_e( pagelines_option($oid) ); ?>" />
+		<input class="small-text"  type="text" name="<?php pagelines_option_name($oid); ?>" id="<?php echo $oid;?>" value="<?php pl_ehtml( pagelines_option($oid) ); ?>" />
 	</p>
 <?php }
 
-function _get_text($oid, $o, $val){ ?>
+function _get_text($oid, $o, $val){ 
+	
+	global $pl_data;
+	
+	?>
 	<p>
 		<label for="<?php echo $oid;?>" class="context"><?php echo $o['inputlabel'];?></label>
-		<input class="regular-text"  type="text" name="<?php pagelines_option_name($oid); ?>" id="<?php echo $oid;?>" value="<?php esc_attr_e( pagelines_option($oid) ); ?>" />
+		<input class="regular-text"  type="text" name="<?php pagelines_option_name($oid); ?>" id="<?php echo $oid;?>" value="<?php pl_ehtml( pagelines_option($oid) ); ?>" />
 	</p>
 <?php }
 
 function _get_textarea($oid, $o, $val){ ?>
 	<p>
 		<label for="<?php echo $oid;?>" class="context"><?php echo $o['inputlabel'];?></label><br/>
-		<textarea name="<?php pagelines_option_name($oid); ?>" class="html-textarea <?php if($o['type']=='textarea_big') echo "longtext";?>" cols="70%" rows="5"><?php esc_attr_e( pagelines_option($oid) ); ?></textarea>
+		<textarea name="<?php pagelines_option_name($oid); ?>" class="html-textarea <?php if($o['type']=='textarea_big') echo "longtext";?>" cols="70%" rows="5"><?php pl_ehtml( pagelines_option($oid) ); ?></textarea>
 	</p>
 <?php }
 
@@ -1070,34 +1067,7 @@ function _sortable_section($template, $tfield, $hook_id = null, $hook_info = arr
 															<?php endif;?>
 														</div>
 														<?php endif;?>
-														<p>
-															 <strong>Standard Hooks:</strong> 
-															<div class="moreinfolist">
-																<span>pagelines_before_<?php echo $section_id; ?></span>
-																<span>pagelines_inside_top_<?php echo  $section_id; ?></span>
-																<span>pagelines_inside_bottom_<?php echo  $section_id; ?></span>
-																<span>pagelines_after_<?php echo $section_id; ?></span>
-																<span>(View template for additional hooks &amp; filters)</span>
-																<?php if(isset($registered_hooks[$section_id]) && is_array($registered_hooks[$section_id])){
-																	foreach($registered_hooks[$section_id] as $reg_hook){
-																		echo '<span>'.$reg_hook.'</span>';
-																	}
-																}?>
-															</div>
-														</p>
-														<p><strong>CSS Selectors: </strong>
-															<div class="moreinfolist">
-																<?php if( (isset($tfield['markup']) && $tfield['markup'] == 'content') || (isset($hook_info['markup']) && $hook_info['markup'] == 'content') ):?>
-																	<span>#<?php echo $section_id; ?> <small>(Full Screen Width)</small></span>
-																	<span>#<?php echo $section_id; ?> .content <small>(Content Width)</small></span>
-																	<span>#<?php echo $section_id; ?> .content-pad <small>(Content Inner)</small></span>
-																<?php elseif( (isset($tfield['markup']) && $tfield['markup'] == 'copy') || (isset($hook_info['markup']) && $hook_info['markup'] == 'copy') ):?>
-																	<span>#<?php echo $section_id; ?> <small>(Width of Container)</small></span>
-																	<span>#<?php echo $section_id; ?> .copy <small>(Section Width)</small></span>
-																	<span>#<?php echo $section_id; ?> .copy-pad <small>(Section Inner)</small></span>
-																<?php endif;?>
-															</div>
-														</p>
+													
 													</div>
 												</div>
 											</div>

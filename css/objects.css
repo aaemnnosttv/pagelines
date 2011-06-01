@@ -22,9 +22,30 @@
 	ul.tabbed-list li a{display: block}
 
 /* @ Mediablock - Standard Media Container  */
-	.mediablock{ overflow:hidden;overflow: visible; zoom: 1; }
+/*	.mediablock{ overflow:hidden;overflow: visible; zoom: 1; }
 	.mediablock-image { float:left; margin-right: 10px; }
 	.iconlist .mediablock-image{ padding-top: .4em;}
-	.mediablock-content{ display: table-cell; vertical-align: top; width: 10000px;}
-	.mediablock-content p{ margin: 0 0 1em; }
+	.mediablock-content{ display: table-cell; vertical-align: top; width: 10000px; }
+	.mediablock-content p:first-child{ margin-top: 0; }*/
 
+	/* For reference */
+	.media { overflow:hidden;overflow: visible; zoom: 1; }
+	.media .bd{display:table-cell; vertical-align: top; width: 10000px; *display:block; *width:auto; zoom:1;}
+	.media .bd > :first-child{margin-top:0;}
+	.media .bd > :last-child{margin-bottom:0;}
+	.media .img{float:left;margin-right: 15px;}
+	.media .img img{display:block; max-width: 100%;}
+	.media .imgExt{float:right; margin-left: 10px;}
+	
+
+/* @ PageLines Proto CSS Grid */
+	.pprow { width: 100%; margin: 0 auto; overflow: hidden; }
+	.pp2, .pp3, .pp4, .pp5, .pp6 {margin: 0; padding:0; margin-right: 4%; float: left; border: none;}
+	.pprow.debug .pp2, .pprow.debug .pp3, .pprow.debug .pp4, .pprow.debug .pp5, .pprow.debug .pp6{outline: 1px solid blue;}
+	.pp1 { width: 100%; float: left;}
+	.pp2 { width: 48%; }
+	.pp3 { width: 30.6666667%; }
+	.pp4 { width: 22%; }
+	.pp5 { width: 16.8%; }
+	.pp6 { width: 13.3333333%; }
+	.pplast { margin-right: 0; }
