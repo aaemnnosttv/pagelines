@@ -49,23 +49,25 @@ class PageLinesNav extends PageLinesSection {
 		
 	}
 	
-   function section_template() { 
-		global $post; 			?>
-	<nav id="nav_row" class="main_nav fix">
-<?php 			
-		
-		if(function_exists('wp_nav_menu')){
-			
-			wp_nav_menu( array('menu_class'  => 'main-nav'.pagelines_nav_classes(), 'container' => null, 'container_class' => '', 'depth' => 3, 'theme_location'=>'primary', 'fallback_cb'=>'pagelines_nav_fallback') );
-			
-		}else{ pagelines_nav_fallback(); }
+   function section_template() {  
 	
-		if(!pagelines_option('hidesearch')){ get_search_form(); }
+	$container_class = ( pagelines_option('hidesearch') ) ? 'nosearch' : '';
+	?>
+	<div class="main_nav_container <?php echo $container_class;?>">
+		<nav id="nav_row" class="main_nav fix"><?php 			
 		
-		?>
-	</nav>
-
-<?php }
+		if(function_exists('wp_nav_menu'))
+			wp_nav_menu( array('menu_class'  => 'main-nav'.pagelines_nav_classes(), 'container' => null, 'container_class' => '', 'depth' => 3, 'theme_location'=>'primary', 'fallback_cb'=>'pagelines_nav_fallback') );
+		else
+			pagelines_nav_fallback();
+			
+	 ?>
+		</nav>
+	</div>
+	<?php if(!pagelines_option('hidesearch'))
+		get_search_form();
+	 
+	}
 
 	function section_styles(){
 		if(pagelines('enable_drop_down')){

@@ -580,7 +580,7 @@ function _get_text($oid, $o, $val){
 function _get_textarea($oid, $o, $val){ ?>
 	<p>
 		<label for="<?php echo $oid;?>" class="context"><?php echo $o['inputlabel'];?></label><br/>
-		<textarea name="<?php pagelines_option_name($oid); ?>" class="html-textarea <?php if($o['type']=='textarea_big') echo "longtext";?>" cols="70%" rows="5"><?php esc_attr_e( pagelines_option($oid) ); ?></textarea>
+		<textarea name="<?php pagelines_option_name($oid); ?>" class="html-textarea <?php if($o['type']=='textarea_big') echo "longtext";?>" cols="70%" rows="5"><?php pl_ehtml( pagelines_option($oid) ); ?></textarea>
 	</p>
 <?php }
 

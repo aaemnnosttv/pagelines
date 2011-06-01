@@ -371,7 +371,7 @@ add_filter('get_the_excerpt', 'improved_trim_excerpt');
 function improved_trim_excerpt($text) {
 	
 	// Set allowed excerpt tags
-	$allowed_tags = (pagelines_option('excerpt_tags')) ? pagelines_option('excerpt_tags') : '<p><br><a>';
+	$allowed_tags = (pagelines_option('excerpt_tags')) ? pagelines_option('excerpt_tags') : '';
 	
 	$raw_excerpt = $text;
 	if ( '' == $text ) {
@@ -414,8 +414,9 @@ function improved_trim_excerpt($text) {
 function pagelines_nav_classes(){ 
 	
 	$additional_menu_classes = '';
-	if(pagelines_option('hidesearch')){ $additional_menu_classes .= ' nosearch';}
-	if(pagelines_option('enable_drop_down')){ $additional_menu_classes .= ' sf-menu';}
+		
+	if(pagelines_option('enable_drop_down'))
+		$additional_menu_classes .= ' sf-menu';
 	
 	return $additional_menu_classes;
 }

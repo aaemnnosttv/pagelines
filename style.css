@@ -190,7 +190,7 @@ aside ul, aside ol, .sidenote ul, .sidenote ol{margin-top:1.3em;line-height:1.7e
 				border-bottom: 1px solid #E9E9E9; 
 			}
 		
-			#nav_row.main_nav, ul.sf-menu ul li{ border-bottom: 1px solid #E9E9E9; }
+			#primary-nav .content-pad, ul.sf-menu ul li{ border-bottom: 1px solid #E9E9E9; }
 			.post.fpost .entry, #soapbox .fboxinfo, #feature-footer.nonav { border-top: 1px solid #E9E9E9; } 
 
 			#feature-footer{ border: 1px solid #E9E9E9; }
@@ -363,8 +363,21 @@ aside ul, aside ol, .sidenote ul, .sidenote ol{margin-top:1.3em;line-height:1.7e
 /* @ Site Layout */
 
 	#site { position:relative; }	
-	#wrapper { padding-bottom: 50px; }
-	.content { width: 960px;  margin: 0px auto 0; }
+	#wrapper { padding-bottom: 3.5em; }
+	
+	.fixed_width #page, .fixed_width #footer, .canvas #page-canvas{ 
+		max-width: 980px;
+		width: 100%;
+		margin: 0 auto;
+		position: relative;
+	}
+		
+	.content { 
+			max-width: 960px; 
+			width: 100%;
+			margin: 0 auto;
+			position: relative;
+	}
 	
 	/* @ Layout Floating */
 		#column-wrap, #container{float: left;}
@@ -436,27 +449,32 @@ aside ul, aside ol, .sidenote ul, .sidenote ol{margin-top:1.3em;line-height:1.7e
 			.icons .rsslink:hover {background-position: 0px -22px;}
 		
 	/* @ Main Nav */
+		.main_nav_container{
+			width: 100%;
+			float: left;
+			margin-right: -230px;
+		}
 		.main_nav {			
-			line-height: 1.1em;
+			margin-right: 230px;
 			text-align: left;
 			margin-top: 0px;
 			z-index:28;  /* Fancybox Uses 30 */
 			position:relative;
 		}
+		.main_nav_container.nosearch, .nosearch .main_nav{ margin-right: 0; } /* No search adjustment */
 		
-		.main_nav .content-pad{
-			padding-top: 6px;
-		}
 			.main_nav ul{
 				list-style: none;
 				display: block;
-				margin: 0px 0px 0px 0px;
+				margin: 0;
 				padding: 0px;
 				float: left;
 			}
-			.main_nav li{position:relative;}
+			
 			.main_nav ul li{
-				margin: 0px 0px 0px 0px;
+				position:relative;
+				line-height: 1.1em;
+				margin: 0;
 				padding: 0px;
 				float: left;
 				text-align: right;
@@ -471,9 +489,7 @@ aside ul, aside ol, .sidenote ul, .sidenote ol{margin-top:1.3em;line-height:1.7e
 					
 			}
 			
-			.main-nav li a{
-				font-size: .85em; 
-			}
+			.main-nav li a{ font-size: .9em; }
 			
 			/*IE6 border color (transparent border fix)*/
 			*html .main_nav li a{ border-color: white; }
@@ -482,24 +498,12 @@ aside ul, aside ol, .sidenote ul, .sidenote ol{margin-top:1.3em;line-height:1.7e
 			.main_nav ul ul {display: none;}
 			.main_nav ul ul li {text-align: left;}
 		
-			/* @ SubNav Area */
-			#secondnav {
-				line-height: 1.1;
-				font-size: .7em; 
-			}
-				#secondnav ul{
-					line-height: .95em;
-					list-style:none;
-					margin:0;
-					
-				}
-				#secondnav .secondnav_menu { margin:0 0 0 0px; }
-				#secondnav ul li{float: left;}
-				#secondnav li a{
-					display: block;
-					padding: 10px 10px; 
-					border:none;
-				}
+/* @ SubNav Area */
+	#secondnav { line-height: 1.1; font-size: .8em; }
+		#secondnav ul{ line-height: .95em; list-style:none; margin:0; }
+		#secondnav .secondnav_menu { margin:0 0 0 0px; }
+		#secondnav ul li{float: left;}
+		#secondnav li a{ display: block; padding: 10px 10px; border:none;}
 				
 			
 
@@ -581,27 +585,26 @@ aside ul, aside ol, .sidenote ul, .sidenote ol{margin-top:1.3em;line-height:1.7e
 	.searchform {
 		position: relative;
 		width: 210px;
-		margin: 0 auto;
-		margin-top: 3px;
+		margin: 3px 5px 3px 0;
 		
 	}
+	.searchform .searchfield{
+		width: 170px;
+		height: 13px;
+		padding: 7px 30px 5px 7px;
+	}
 	
-	#header .searchform { float: right; }
+	#primary-nav .searchform { float: right; }
 	
 	.searchform input {
 		background:transparent;
 		border:none;
 	}
 	.searchform .searchfield, #forumsidebar input.forumsearchfield{
-		font-family: arial, "Helvetica Neue", Helvetica, sans-serif;
-		font-size: 13px;
+		font-family: "Lucida Grande", "Lucida Sans", "Lucida Sans Unicode", sans-serif;
+		font-size: .95em;
 	}
- 	.searchform .searchfield{
-		
-		height: 13px;
-		padding: 7px 30px 5px 7px;
-		width: 170px;
-	}
+ 	
 
 	 .searchform input.submit {
 		margin:0;

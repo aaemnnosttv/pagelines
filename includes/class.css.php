@@ -100,23 +100,22 @@ class PageLinesCSS {
 		global $pagelines_layout; 
 		global $post; 
 
-		if( $this->comments ) $this->css .= '/* Dynamic Layout --------------- */'.$this->nl2;
+		$content_width = $pagelines_layout->content->width;
+		
+		if( $this->comments ) 
+			$this->css .= '/* Dynamic Layout --------------- */'.$this->nl2;
 		
 		/* Fixed Width Page */
-		$fixed_page = $pagelines_layout->content->width + 20;
-		$this->css .= ".fixed_width #page, .fixed_width #footer, .canvas #page-canvas{width:".$fixed_page."px}".$this->nl;
+		$fixed_page = $content_width + 20;
+		$this->css .= ".fixed_width #page, .fixed_width #footer, .canvas #page-canvas{ max-width:".$fixed_page."px }".$this->nl;
 
 		
 		/* Content Width */
-		$content_with_border = $pagelines_layout->content->width + 2;
-		$this->css .= "#page-main .content{width:".$content_with_border."px}".$this->nl;
-		$this->css .= "#site{min-width:".$content_with_border."px}".$this->nl; // Fix small horizontal scroll issue
-		$this->css .= "#site .content, .wcontent, #primary-nav ul.main-nav.nosearch{width:".$pagelines_layout->content->width."px}".$this->nl;
-		
-		/* Navigation Width */
-		$nav_width = $pagelines_layout->content->width - 220;
-		$this->css .= "#primary-nav ul.main-nav{width:".$nav_width."px}".$this->nl;
-		$this->css .= $this->nl;
+		$content_with_border = $content_width + 2;
+		$this->css .= "#page-main .content{ max-width:".$content_with_border."px }".$this->nl;
+		// $this->css .= "#site{ min-width:".$content_with_border."px }".$this->nl; // Fix small horizontal scroll issue
+		$this->css .= "#site .content, .wcontent{max-width:".$content_width."px}".$this->nl2;
+
 		
 		// For inline CSS in Multisite
 		// TODO clean up layout variable handling
@@ -124,20 +123,40 @@ class PageLinesCSS {
 		
 		/* Layout Modes */
 		foreach(get_the_layouts() as $layout_mode){
+			
 			$pagelines_layout->build_layout($layout_mode);
-		
-			//Setup for CSS
+			
 			$mode = '.'.$layout_mode.' ';
-			$this->css .= $mode."#pagelines_content #column-main, ".$mode.".wmain, ".$mode."#buddypress-page #container{width:". $pagelines_layout->main_content->width."px}".$this->nl;
-			$this->css .= $mode."#pagelines_content #sidebar1, ".$mode."#buddypress-page #sidebar1{width:". $pagelines_layout->sidebar1->width."px}".$this->nl;
-			$this->css .= $mode."#pagelines_content #sidebar2, ".$mode."#buddypress-page #sidebar2{width:". $pagelines_layout->sidebar2->width."px}".$this->nl;
-			$this->css .= $mode."#pagelines_content #column-wrap, ".$mode."#buddypress-page #container{width:". $pagelines_layout->column_wrap->width."px}".$this->nl;
-			$this->css .= $mode."#pagelines_content #sidebar-wrap, ".$mode."#buddypress-page #sidebar-wrap{width:". $pagelines_layout->sidebar_wrap->width."px}".$this->nl2;
+		
+		
+			/* (target / context)*100 = percent-result */
+			$colwrap_width = $this->get_width( $pagelines_layout->column_wrap->width, $content_width ); 
+			$sbwrap_width = $this->get_width( $pagelines_layout->sidebar_wrap->width, $content_width );
+
+			$main_width = $this->get_width( $pagelines_layout->main_content->width, $pagelines_layout->column_wrap->width );
+			
+			$sb2_width = $this->get_width( $pagelines_layout->sidebar2->width, $pagelines_layout->sidebar_wrap->width );
+			
+			if($pagelines_layout->layout_mode == 'two-sidebar-center')
+				$sb1_width = $this->get_width( $pagelines_layout->sidebar1->width, $pagelines_layout->column_wrap->width ); 
+			else
+				$sb1_width = $this->get_width( $pagelines_layout->sidebar1->width, $pagelines_layout->sidebar_wrap->width );
+	
+			$this->css .= sprintf('%1$s #pagelines_content #column-main, %1$s .wmain, %1$s #buddypress-page #container{ %2$s }%3$s', $mode, $main_width, $this->nl);
+			$this->css .= sprintf('%1$s #pagelines_content #sidebar1, %1$s #buddypress-page #sidebar1{ %2$s }%3$s', $mode, $sb1_width, $this->nl);
+			$this->css .= sprintf('%1$s #pagelines_content #sidebar2, %1$s #buddypress-page #sidebar2{ %2$s }%3$s', $mode, $sb2_width, $this->nl);
+			$this->css .= sprintf('%1$s #pagelines_content #column-wrap, %1$s #buddypress-page #container{ %2$s }%3$s', $mode, $colwrap_width, $this->nl);
+			$this->css .= sprintf('%1$s #pagelines_content #sidebar-wrap, %1$s #buddypress-page #sidebar-wrap{ %2$s }%3$s', $mode, $sbwrap_width, $this->nl2);
+			
 		}
 		
 		// Put back to original mode for page layouts in multisite
 		$pagelines_layout->build_layout($page_layout);
 		
+	}
+	
+	function get_width($target, $context){
+		return sprintf( 'width:%s%%;',( $target / $context ) * 100 );
 	}
 	
 	function dynamic_grid(){
@@ -146,7 +165,9 @@ class PageLinesCSS {
 		/*
 			Generate Dynamic Column Widths & Padding
 		*/
-		if( $this->comments ) $this->css .= '/* Dynamic Grid --------------- */'.$this->nl2;
+		if( $this->comments ) 
+			$this->css .= '/* Dynamic Grid --------------- */'.$this->nl2;
+			
 		for($i = 2; $i <= 5; $i++){
 			$this->css .= '.dcol_container_'.$i.'{width: '.$pagelines_layout->dcol[$i]->container_width.'px; float: right;}'.$this->nl;
 			$this->css .= '.dcol_'.$i.'{width: '.$pagelines_layout->dcol[$i]->width.'px; margin-left: '.$pagelines_layout->dcol[$i]->gutter_width.'px;}'.$this->nl2;

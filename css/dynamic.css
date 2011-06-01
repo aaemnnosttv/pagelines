@@ -2,71 +2,69 @@
 
 /* Set Type --------------- */
 
-h1, h2, h3, h4, h5, h6, .site-title{font-family:Georgia, "Times New Roman", Times, serif;}
+h1, h2, h3, h4, h5, h6, .site-title{font-family:Georgia, "Times New Roman", Times, serif;letter-spacing:0.00em;text-transform:none;font-weight:normal;font-variant:normal;font-style:normal;}
 
-body, .font1, .font-primary, .commentlist{font-family:Georgia, "Times New Roman", Times, serif;}
+body, .font1, .font-primary, .commentlist{font-family:Georgia, "Times New Roman", Times, serif;letter-spacing:0.00em;text-transform:none;font-weight:normal;font-variant:normal;font-style:normal;}
 
-.font2, .font-sub, ul.main-nav li a, #secondnav li a, .metabar, .subtext, .subhead, .widget-title, .post-comments, .reply a, .editpage, #pagination .wp-pagenavi, .post-edit-link, #wp-calendar caption, #wp-calendar thead th, .soapbox-links a, .fancybox, .standard-form .admin-links, #featurenav a, .pagelines-blink, .ftitle small{font-family:"Lucida Grande", "Lucida Sans", "Lucida Sans Unicode", sans-serif;}
+.font2, .font-sub, ul.main-nav li a, #secondnav li a, .metabar, .subtext, .subhead, .widget-title, .post-comments, .reply a, .editpage, #pagination .wp-pagenavi, .post-edit-link, #wp-calendar caption, #wp-calendar thead th, .soapbox-links a, .fancybox, .standard-form .admin-links, #featurenav a, .pagelines-blink, .ftitle small{font-family:"Lucida Grande", "Lucida Sans", "Lucida Sans Unicode", sans-serif;letter-spacing:0.00em;text-transform:none;font-weight:normal;font-variant:normal;font-style:normal;}
 
-input[type="text"], input[type="password"], textarea, #dsq-content textarea{font-family:Courier, Verdana, sans-serif;}
+input[type="text"], input[type="password"], textarea, #dsq-content textarea{font-family:Courier, Verdana, sans-serif;letter-spacing:0.00em;text-transform:none;font-weight:normal;font-variant:normal;font-style:normal;}
 
 /* Dynamic Layout --------------- */
 
-.fixed_width #page, .fixed_width #footer, .canvas #page-canvas{width:980px}
-#page-main .content{width:962px}
-#site{min-width:962px}
-#site .content, .wcontent, #primary-nav ul.main-nav.nosearch{width:960px}
-#primary-nav ul.main-nav{width:740px}
+.fixed_width #page, .fixed_width #footer, .canvas #page-canvas{ max-width:1224px }
+#page-main .content{ max-width:1206px }
+#site .content, .wcontent{max-width:1204px}
 
-.fullwidth #pagelines_content #column-main, .fullwidth .wmain, .fullwidth #buddypress-page #container{width:960px}
-.fullwidth #pagelines_content #sidebar1, .fullwidth #buddypress-page #sidebar1{width:0px}
-.fullwidth #pagelines_content #sidebar2, .fullwidth #buddypress-page #sidebar2{width:0px}
-.fullwidth #pagelines_content #column-wrap, .fullwidth #buddypress-page #container{width:960px}
-.fullwidth #pagelines_content #sidebar-wrap, .fullwidth #buddypress-page #sidebar-wrap{width:0px}
+.fullwidth  #pagelines_content #column-main, .fullwidth  .wmain, .fullwidth  #buddypress-page #container{ width:100%; }
+.fullwidth  #pagelines_content #sidebar1, .fullwidth  #buddypress-page #sidebar1{ width:0%; }
+.fullwidth  #pagelines_content #sidebar2, .fullwidth  #buddypress-page #sidebar2{ width:0%; }
+.fullwidth  #pagelines_content #column-wrap, .fullwidth  #buddypress-page #container{ width:79.7342192691%; }
+.fullwidth  #pagelines_content #sidebar-wrap, .fullwidth  #buddypress-page #sidebar-wrap{ width:0%; }
 
-.one-sidebar-right #pagelines_content #column-main, .one-sidebar-right .wmain, .one-sidebar-right #buddypress-page #container{width:640px}
-.one-sidebar-right #pagelines_content #sidebar1, .one-sidebar-right #buddypress-page #sidebar1{width:320px}
-.one-sidebar-right #pagelines_content #sidebar2, .one-sidebar-right #buddypress-page #sidebar2{width:0px}
-.one-sidebar-right #pagelines_content #column-wrap, .one-sidebar-right #buddypress-page #container{width:640px}
-.one-sidebar-right #pagelines_content #sidebar-wrap, .one-sidebar-right #buddypress-page #sidebar-wrap{width:320px}
+.one-sidebar-right  #pagelines_content #column-main, .one-sidebar-right  .wmain, .one-sidebar-right  #buddypress-page #container{ width:100%; }
+.one-sidebar-right  #pagelines_content #sidebar1, .one-sidebar-right  #buddypress-page #sidebar1{ width:100%; }
+.one-sidebar-right  #pagelines_content #sidebar2, .one-sidebar-right  #buddypress-page #sidebar2{ width:0%; }
+.one-sidebar-right  #pagelines_content #column-wrap, .one-sidebar-right  #buddypress-page #container{ width:73.4219269103%; }
+.one-sidebar-right  #pagelines_content #sidebar-wrap, .one-sidebar-right  #buddypress-page #sidebar-wrap{ width:26.5780730897%; }
 
-.one-sidebar-left #pagelines_content #column-main, .one-sidebar-left .wmain, .one-sidebar-left #buddypress-page #container{width:640px}
-.one-sidebar-left #pagelines_content #sidebar1, .one-sidebar-left #buddypress-page #sidebar1{width:320px}
-.one-sidebar-left #pagelines_content #sidebar2, .one-sidebar-left #buddypress-page #sidebar2{width:0px}
-.one-sidebar-left #pagelines_content #column-wrap, .one-sidebar-left #buddypress-page #container{width:640px}
-.one-sidebar-left #pagelines_content #sidebar-wrap, .one-sidebar-left #buddypress-page #sidebar-wrap{width:320px}
+.one-sidebar-left  #pagelines_content #column-main, .one-sidebar-left  .wmain, .one-sidebar-left  #buddypress-page #container{ width:100%; }
+.one-sidebar-left  #pagelines_content #sidebar1, .one-sidebar-left  #buddypress-page #sidebar1{ width:100%; }
+.one-sidebar-left  #pagelines_content #sidebar2, .one-sidebar-left  #buddypress-page #sidebar2{ width:0%; }
+.one-sidebar-left  #pagelines_content #column-wrap, .one-sidebar-left  #buddypress-page #container{ width:53.1561461794%; }
+.one-sidebar-left  #pagelines_content #sidebar-wrap, .one-sidebar-left  #buddypress-page #sidebar-wrap{ width:46.8438538206%; }
 
-.two-sidebar-right #pagelines_content #column-main, .two-sidebar-right .wmain, .two-sidebar-right #buddypress-page #container{width:480px}
-.two-sidebar-right #pagelines_content #sidebar1, .two-sidebar-right #buddypress-page #sidebar1{width:240px}
-.two-sidebar-right #pagelines_content #sidebar2, .two-sidebar-right #buddypress-page #sidebar2{width:240px}
-.two-sidebar-right #pagelines_content #column-wrap, .two-sidebar-right #buddypress-page #container{width:480px}
-.two-sidebar-right #pagelines_content #sidebar-wrap, .two-sidebar-right #buddypress-page #sidebar-wrap{width:480px}
+.two-sidebar-right  #pagelines_content #column-main, .two-sidebar-right  .wmain, .two-sidebar-right  #buddypress-page #container{ width:100%; }
+.two-sidebar-right  #pagelines_content #sidebar1, .two-sidebar-right  #buddypress-page #sidebar1{ width:33.1491712707%; }
+.two-sidebar-right  #pagelines_content #sidebar2, .two-sidebar-right  #buddypress-page #sidebar2{ width:66.8508287293%; }
+.two-sidebar-right  #pagelines_content #column-wrap, .two-sidebar-right  #buddypress-page #container{ width:39.8671096346%; }
+.two-sidebar-right  #pagelines_content #sidebar-wrap, .two-sidebar-right  #buddypress-page #sidebar-wrap{ width:60.1328903654%; }
 
-.two-sidebar-left #pagelines_content #column-main, .two-sidebar-left .wmain, .two-sidebar-left #buddypress-page #container{width:480px}
-.two-sidebar-left #pagelines_content #sidebar1, .two-sidebar-left #buddypress-page #sidebar1{width:240px}
-.two-sidebar-left #pagelines_content #sidebar2, .two-sidebar-left #buddypress-page #sidebar2{width:240px}
-.two-sidebar-left #pagelines_content #column-wrap, .two-sidebar-left #buddypress-page #container{width:480px}
-.two-sidebar-left #pagelines_content #sidebar-wrap, .two-sidebar-left #buddypress-page #sidebar-wrap{width:480px}
+.two-sidebar-left  #pagelines_content #column-main, .two-sidebar-left  .wmain, .two-sidebar-left  #buddypress-page #container{ width:100%; }
+.two-sidebar-left  #pagelines_content #sidebar1, .two-sidebar-left  #buddypress-page #sidebar1{ width:33.1491712707%; }
+.two-sidebar-left  #pagelines_content #sidebar2, .two-sidebar-left  #buddypress-page #sidebar2{ width:66.8508287293%; }
+.two-sidebar-left  #pagelines_content #column-wrap, .two-sidebar-left  #buddypress-page #container{ width:39.8671096346%; }
+.two-sidebar-left  #pagelines_content #sidebar-wrap, .two-sidebar-left  #buddypress-page #sidebar-wrap{ width:60.1328903654%; }
 
-.two-sidebar-center #pagelines_content #column-main, .two-sidebar-center .wmain, .two-sidebar-center #buddypress-page #container{width:480px}
-.two-sidebar-center #pagelines_content #sidebar1, .two-sidebar-center #buddypress-page #sidebar1{width:240px}
-.two-sidebar-center #pagelines_content #sidebar2, .two-sidebar-center #buddypress-page #sidebar2{width:240px}
-.two-sidebar-center #pagelines_content #column-wrap, .two-sidebar-center #buddypress-page #container{width:720px}
-.two-sidebar-center #pagelines_content #sidebar-wrap, .two-sidebar-center #buddypress-page #sidebar-wrap{width:240px}
+.two-sidebar-center  #pagelines_content #column-main, .two-sidebar-center  .wmain, .two-sidebar-center  #buddypress-page #container{ width:66.6666666667%; }
+.two-sidebar-center  #pagelines_content #sidebar1, .two-sidebar-center  #buddypress-page #sidebar1{ width:33.3333333333%; }
+.two-sidebar-center  #pagelines_content #sidebar2, .two-sidebar-center  #buddypress-page #sidebar2{ width:100%; }
+.two-sidebar-center  #pagelines_content #column-wrap, .two-sidebar-center  #buddypress-page #container{ width:59.8006644518%; }
+.two-sidebar-center  #pagelines_content #sidebar-wrap, .two-sidebar-center  #buddypress-page #sidebar-wrap{ width:40.1993355482%; }
 
 /* Dynamic Grid --------------- */
 
-.dcol_container_2{width: 980px; float: right;}
-.dcol_2{width: 470px; margin-left: 20px;}
+.dcol_container_2{width: 1224px; float: right;}
+.dcol_2{width: 592px; margin-left: 20px;}
 
-.dcol_container_3{width: 980px; float: right;}
-.dcol_3{width: 306px; margin-left: 20px;}
+.dcol_container_3{width: 1223px; float: right;}
+.dcol_3{width: 387px; margin-left: 20px;}
 
-.dcol_container_4{width: 980px; float: right;}
-.dcol_4{width: 225px; margin-left: 20px;}
+.dcol_container_4{width: 1224px; float: right;}
+.dcol_4{width: 286px; margin-left: 20px;}
 
-.dcol_container_5{width: 980px; float: right;}
-.dcol_5{width: 176px; margin-left: 20px;}
+.dcol_container_5{width: 1220px; float: right;}
+.dcol_5{width: 224px; margin-left: 20px;}
 
 /* Options --------------- */
 
@@ -107,4 +105,4 @@ body{}
 
 
 
-/* Trigger: Page Load*/
+/* Trigger: AJAX*/
