@@ -195,15 +195,25 @@ class PageLinesBoxes extends PageLinesSection {
 	
 		$box_thumb_type = (pagelines_option('box_thumb_type', $pagelines_ID)) ? pagelines_option('box_thumb_type', $pagelines_ID) : 'inline_thumbs';
 
-		$count = $perline;
+		$post_count = count($b);
+		$current_box = 1;
+		$row_count = $perline;
+		
+		
+		
 ?>
-		<div class="dcol_container_<?php echo $perline;?> <?php echo $class;?> fboxes fix">
+		<div class="pprow <?php echo $class;?> fboxes fix">
 <?php 	foreach($b as $bpost):
 			setup_postdata($bpost); 
  			$box_link = get_post_meta($bpost->ID, 'the_box_icon_link', true);
 			$box_icon = get_post_meta($bpost->ID, 'the_box_icon', true);
+			
+			$box_row_start = ( $row_count % $perline == 0 ) ? true : false;
+			$box_row_end = ( ( $row_count + 1 ) % $perline == 0 || $current_box == $post_count ) ? true : false;
+			$grid_class = ($box_row_end) ? 'pplast pp'.$perline : 'pp'.$perline;
+			
 ?>
-			<div id="<?php echo 'fbox_'.$bpost->ID;?>" class="dcol_<?php echo $perline;?> dcol fbox">
+			<section id="<?php echo 'fbox_'.$bpost->ID;?>" class="<?php echo $grid_class;?> fbox">
 				<div class="dcol-pad <?php echo $box_thumb_type;?>">	
 					<?php if($box_icon):?>
 						<div class="fboxgraphic">
@@ -213,22 +223,25 @@ class PageLinesBoxes extends PageLinesSection {
 						<div class="fboxinfo fix">
 							<div class="fboxtitle">
 								<h3>
-<?php 							if($box_link) printf('<a href="%s">%s</a>', $box_link, $bpost->post_title );
-								else echo do_shortcode($bpost->post_title); ?>
+<?php 							if($box_link) 
+									printf('<a href="%s">%s</a>', $box_link, $bpost->post_title );
+								else 
+									echo do_shortcode($bpost->post_title); ?>
 								</h3>
 							</div>
-							<div class="fboxtext"><?php echo do_shortcode($bpost->post_content); ?><?php edit_post_link(__('[Edit Box]', 'pagelines'), '<br/>', '', $bpost->ID);?></div>
+							<div class="fboxtext">
+								<?php echo do_shortcode($bpost->post_content); ?>
+								<?php edit_post_link(__('[Edit Box]', 'pagelines'), '<br/>', '', $bpost->ID);?>
+							</div>
 						</div>
 						<?php pagelines_register_hook( 'pagelines_box_inside_bottom', $this->id ); // Hook ?>
 				</div>
-			</div>
+			</section>
 <?php 
-			$end = ($count+1) / $perline;  
-			if(is_int($end)) echo '<div class="clear"></div>';
-			$count++; 
+			$row_count++;
+			$current_box++; 
 		endforeach;	?>
 		</div>
-		<div class="clear"></div>
 <?php }
 
 

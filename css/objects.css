@@ -34,22 +34,18 @@
 	.media .bd > :first-child{margin-top:0;}
 	.media .bd > :last-child{margin-bottom:0;}
 	.media .img{float:left;margin-right: 15px;}
-	.media .img img{display:block;}
+	.media .img img{display:block; max-width: 100%;}
 	.media .imgExt{float:right; margin-left: 10px;}
+	
 
 /* @ PageLines Proto CSS Grid */
-	.pprow { width: 100%; margin: 0 auto; overflow: hidden; }/* max-width: 1140px; */
-	.pp1, .pp2, .pp3, .pp4, .pp5, .pp6, .pp7, .pp8, .pp9, .pp10, .pp11 { margin-right: 3.8%; float: left; }
-	.pp1 { width: 4.85%; }
-	.pp2 { width: 13.5%; }
-	.pp3 { width: 22.15%; }
-	.pp4 { width: 30.8%; }
-	.pp5 { width: 39.45%; }
-	.pp6 { width: 48.1%; }
-	.pp7 { width: 56.75%; }
-	.pp8 { width: 65.4%; }
-	.pp9 { width: 74.05%; }
-	.pp10 { width: 82.7%; }
-	.pp11 { width: 91.35%; }
-	.pp12 { width: 100%; float: left; }
+	.pprow { width: 100%; margin: 0 auto; overflow: hidden; }
+	.pp2, .pp3, .pp4, .pp5, .pp6 {margin: 0; padding:0; margin-right: 4%; float: left; border: none;}
+	.pprow.debug .pp2, .pprow.debug .pp3, .pprow.debug .pp4, .pprow.debug .pp5, .pprow.debug .pp6{outline: 1px solid blue;}
+	.pp1 { width: 100%; float: left;}
+	.pp2 { width: 48%; }
+	.pp3 { width: 30.6666667%; }
+	.pp4 { width: 22%; }
+	.pp5 { width: 16.8%; }
+	.pp6 { width: 13.3333333%; }
 	.pplast { margin-right: 0; }
