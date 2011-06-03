@@ -113,7 +113,6 @@ class PageLinesCSS {
 		/* Content Width */
 		$content_with_border = $content_width + 2;
 		$this->css .= "#page-main .content{ max-width:".$content_with_border."px }".$this->nl;
-		// $this->css .= "#site{ min-width:".$content_with_border."px }".$this->nl; // Fix small horizontal scroll issue
 		$this->css .= "#site .content, .wcontent{max-width:".$content_width."px}".$this->nl2;
 
 		
@@ -156,7 +155,7 @@ class PageLinesCSS {
 	}
 	
 	function get_width($target, $context){
-		return sprintf( 'width:%s%%;',( $target / $context ) * 100 );
+		return sprintf( 'width:%s%%;', ($context != 0 ) ? ( $target / $context ) * 100 : 0 );
 	}
 	
 	function dynamic_grid(){

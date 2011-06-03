@@ -178,9 +178,8 @@ class PageLinesPosts {
 	 */
 	function post_thumbnail_markup( ) {
 		
-		$thumb_link = sprintf('<a class="post-thumb img" href="%s" rel="bookmark" title="%s %s">%s</a>', get_permalink(), __('Link To', 'pagelines'), the_title_attribute( array('echo' => false) ), get_the_post_thumbnail(null, 'thumbnail') );
+		$thumb_link = sprintf('<a class="post-thumb img" href="%s" rel="bookmark" title="%s %s"><span class="c_img">%s</span></a>', get_permalink(), __('Link To', 'pagelines'), the_title_attribute( array('echo' => false) ), get_the_post_thumbnail(null, 'thumbnail') );
 		
-		//$thumb_container = sprintf('<div class="post-thumb" style="margin-right:-%spx">%s</div>', $this->thumb_space, $thumb_link );
 		
 		return apply_filters('pagelines_thumb_markup', $thumb_link);
 		
