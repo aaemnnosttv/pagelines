@@ -249,7 +249,7 @@ class PageLinesBanners extends PageLinesSection {
 
 	function section_options($optionset = null, $location = null) {
 
-		if($optionset == 'blog_and_posts' && $location == 'bottom'){
+		if($optionset == 'section_options' && $location == 'bottom'){
 			return array(
 					'banner_items' => array(
 						'default'	=> '5',

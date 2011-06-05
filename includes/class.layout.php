@@ -26,18 +26,12 @@ class PageLinesLayout {
 			/*
 				If layout mode isn't set, then use the saved default mode.
 			*/
-			if( isset($layout_mode) ) {
-				
+			if( isset($layout_mode) )
 				$this->layout_mode = $layout_mode;
-				
-			} elseif ( isset($this->layout_map['saved_layout'])  && !empty($this->layout_map['saved_layout']) ) {
-
+			elseif ( isset($this->layout_map['saved_layout'])  && !empty($this->layout_map['saved_layout']) )
 				$layout_mode = $this->layout_map['saved_layout'];	
-							
-			} else {
+			else
 				$layout_mode = 'one-sidebar-right';
-			}
-		
 		
 			$this->build_layout($layout_mode);
 			
@@ -78,11 +72,12 @@ class PageLinesLayout {
 		}
 		
 		function set_columns(){
-			if($this->layout_mode == 'two-sidebar-center' || $this->layout_mode == 'two-sidebar-left' || $this->layout_mode == 'two-sidebar-right'){
+			if($this->layout_mode == 'two-sidebar-center' || $this->layout_mode == 'two-sidebar-left' || $this->layout_mode == 'two-sidebar-right')
 				$this->num_columns = 3;
-			}elseif($this->layout_mode == 'one-sidebar-left' || $this->layout_mode == 'one-sidebar-right'){
+			elseif($this->layout_mode == 'one-sidebar-left' || $this->layout_mode == 'one-sidebar-right')
 				$this->num_columns = 2;
-			}else $this->num_columns = 1;
+			else 
+				$this->num_columns = 1;
 		}
 		
 
@@ -177,7 +172,7 @@ class PageLinesLayout {
 
 			$this->gutter->width = 30;
 			
-			$this->builder->width = 1300;
+			$this->builder->width = 1400;
 			$this->fudgefactor = 24;
 		
 			$this->hidden->width = 0;

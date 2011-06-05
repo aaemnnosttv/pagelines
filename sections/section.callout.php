@@ -56,7 +56,7 @@ class PageLinesCallout extends PageLinesSection {
 
 	function section_options($optionset = null, $location = null) {
 
-		if($optionset == 'template_setup' && $location == 'bottom'){
+		if($optionset == 'section_options' && $location == 'bottom'){
 			return array(
 					
 					'pagelines_callout_text' => array(

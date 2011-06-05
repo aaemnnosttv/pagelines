@@ -268,7 +268,7 @@ function build_header(){?>
 							<div id="<?php echo $menu;?>" class="tabinfo">
 							
 								<?php if( stripos($menu, '_') !== 0 ): ?>
-									<div class="tabtitle"><?php echo ucwords(str_replace('_',' ',$menu));?></div>
+									<div class="tabtitle"><div class="tabtitle-pad"><?php echo ucwords(str_replace('_',' ',$menu));?></div></div>
 								<?php endif;?>
 							
 								<?php foreach($oids as $oid => $o){
@@ -359,11 +359,13 @@ if( $draw_option ):
 
 		<?php if($o['exp'] && $o['type'] != 'text_content'):?>
 		<div class="theexplanation">
-			<div class="context">More Info</div>
-			<p><?php echo $o['exp'];?></p>
-			<?php if( $o['pro_note'] && !VPRO ): ?>
-				<p class="pro_note"><strong>Pro Version Note:</strong><br/><?php echo $o['pro_note']; ?></p>
-			<?php endif; ?>
+			<div class="theexplanation-pad">
+				<div class="context">More Info</div>
+				<p><?php echo $o['exp'];?></p>
+				<?php if( $o['pro_note'] && !VPRO ): ?>
+					<p class="pro_note"><strong>Pro Version Note:</strong><br/><?php echo $o['pro_note']; ?></p>
+				<?php endif; ?>
+			</div>
 		</div>
 		<?php endif;?>
 <div class="clear"></div>

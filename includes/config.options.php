@@ -95,12 +95,7 @@ function get_option_array( $load_unavailable = false ){
 			)		
 	);
 	
-	/*
-		All Section Options (Misc)
-	*/	
-	$default_options['section_options'] = array(
-				
-	);
+
 			
 	/*
 		Get Layout Editing Tools
@@ -698,6 +693,12 @@ function get_option_array( $load_unavailable = false ){
 					),
 	);
 		
+	/*
+		All Section Options (Misc)
+	*/	
+	$default_options['section_options'] = array(
+				
+	);
 	
 	$advanced = array();
 	$advanced['advanced'] = array(
