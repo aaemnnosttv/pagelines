@@ -54,7 +54,7 @@ class PageLinesUpdateCheck {
 		);				
 				
 		
-			$option_array['misc_settings'] = array_merge( $option_array['misc_settings'], $updates );
+			$option_array['advanced'] = array_merge( $option_array['advanced'], $updates );
 			return $option_array;
 		}
 	function bad_creds( $errors ) {

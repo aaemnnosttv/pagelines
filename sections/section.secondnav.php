@@ -72,7 +72,7 @@ class PageLinesSecondNav extends PageLinesSection {
 
 	function section_options($optionset = null, $location = null) {
 	
-		if($optionset == 'header_and_nav' && $location == 'bottom'){
+		if($optionset == 'header_and_footer' && $location == 'top'){
 			return array(
 				'secondnav_posts' => array(
 					'default'	=> '',

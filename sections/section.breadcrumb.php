@@ -58,7 +58,7 @@ class PageLinesBreadcrumb extends PageLinesSection {
 	
 	function section_options($optionset = null, $location = null) {
 	
-		if($optionset == 'header_and_nav' && $location == 'bottom'){
+		if($optionset == 'header_and_footer' && $location == 'bottom'){
 			return array(
 					'breadcrumb_no_link' => array(
 							'version' => 'pro',

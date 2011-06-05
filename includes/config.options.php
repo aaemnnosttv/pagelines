@@ -3,7 +3,7 @@ function get_option_array( $load_unavailable = false ){
 	
 	$default_options = array();
 	
-	$default_options['global_options'] = array(
+	$default_options['website_setup'] = array(
 				'pagelines_custom_logo' => array(
 					'default' 		=> PL_IMAGES.'/logo-platformpro.png',
 					'default_free'	=> '',
@@ -45,6 +45,29 @@ function get_option_array( $load_unavailable = false ){
 							  'Touch Products. It is an image approximately 57px by 57px in either .jpg, ' .
 							  '.gif or .png format.'
 				),
+				
+				'sidebar_no_default' => array(
+						'default'	=> '',
+						'type'		=> 'check',
+						'inputlabel'	=> 'Hide Sidebars When Empty (no widgets)',
+						'title'		=> 'Remove Default Sidebars When Empty',
+						'shortexp'	=> 'Hide default sidebars when sidebars have no widgets in them',
+						'exp'		=> 'This allows you to remove sidebars completely when they have no widgets in them.'
+				),
+				'sidebar_wrap_widgets' => array(
+						'default' 	=> 'top',
+						'version'	=> 'pro',
+						'type' 		=> 'select',
+						'selectvalues'	=> array(
+							'top'		=> array("name" => 'On Top of Sidebar'),
+							'bottom'	=> array("name" => 'On Bottom of Sidebar')
+						),
+						'inputlabel' 	=> 'Sidebar Wrap Widgets Position',
+						'title' 	=> 'Sidebar Wrap Widgets',
+						'shortexp' 	=> 'Choose whether to show the sidebar wrap widgets on the top or bottom of the sidebar.',
+						'exp' 		=> 'You can select whether to show the widgets that you place in the sidebar wrap template in either the top or the bottom of the sidebar.'
+				),
+				
 		
 	);
 		
@@ -52,14 +75,6 @@ function get_option_array( $load_unavailable = false ){
 		Get Template Setup - Drag & Drop Interface
 	*/	
 	$default_options['template_setup'] = array(
-				'template_setup'	=> array(
-					'type'		=> 'options_info',
-					'layout' 	=> 'full',
-					'exp' 		=> '<p>"Template Setup" is where you set up the various templates for your site (e.g. sidebars, page-templates, etc..).</p>'.
-							  '<p>Your templates structure can be configured using theme "sections" which are drag-and-drop bits of HTML that can moved around in your theme.</p>'.
-							  '<p><strong>To Use:</strong> Select the template you would like to edit in the drop down menu. Once you have your template selected, you will see a list of its current displayed sections on the left of the "drag and drop" area, and sections that are available to use on the right.<br />'.
-							  'To activate sections in your template, just drag the section you want to use to the "Displayed Page Content Area" column. To remove a section, just drag the section back to the "Available/Disabled" column on the right.</p>', 
-				),
 				'templates'		=> array(
 					'default'	=> '',
 					'type'		=> 'templates',
@@ -78,6 +93,13 @@ function get_option_array( $load_unavailable = false ){
 					'layout'	=> 'full',					
 					'shortexp'	=> 'Changes your template sections back to their default order and layout (options settings are not affected)',
 			)		
+	);
+	
+	/*
+		All Section Options (Misc)
+	*/	
+	$default_options['section_options'] = array(
+				
 	);
 			
 	/*
@@ -449,10 +471,7 @@ function get_option_array( $load_unavailable = false ){
 	);
 	
 	
-	/*
-		Header and Navigation Related Options
-	*/
-	$default_options['header_and_nav'] = array(
+	$default_options['header_and_footer'] = array(
 				'icon_position' => array(
 						'version'	=> 'pro',
 						'type'		=> 'text_multi',
@@ -495,7 +514,35 @@ function get_option_array( $load_unavailable = false ){
 						'shortexp'	=> 'Use this options if you want child pages in secondary nav, instead of WP menus.',
 						'exp'		=> ''
 					),
-	);
+				'footer_logo' => array(
+						'version'	=> 'pro',
+						'default'	=> PL_IMAGES.'/logo-platformpro-small.png',
+						'type'		=> 'image_upload',
+						'imagepreview'	=> '100',
+						'inputlabel'	=> 'Add Footer logo',
+						'title'		=> 'Footer Logo',
+						'shortexp'	=> 'Show a logo in the footer',
+						'exp'		=> 'Add the full url of an image for use in the footer. Recommended size: 140px wide.'
+				),
+				'footer_more' => array(
+						'default'	=> "Thanks for dropping by! Feel free to join the discussion by leaving " . 
+								"comments, and stay updated by subscribing to the <a href='".get_bloginfo('rss2_url')."'>RSS feed</a>.",
+						'type'		=> 'textarea',
+						'inputlabel'	=> 'More Statement In Footer',
+						'title'		=> 'More Statement',
+						'shortexp'	=> 'Add a quick statement for users who want to know more...',
+						'exp'		=> "This statement will show in the footer columns under the word more. It is for users who may want to know more about your company or service."
+				),
+				'footer_terms' => array(
+						'default' 	=> '&copy; '.date('Y').' '.get_bloginfo('name'),
+						'type' 		=> 'textarea',
+						'inputlabel' 	=> 'Terms line in footer:',
+						'title' 	=> 'Site Terms Statement',
+						'shortexp' 	=> 'A line in your footer for "terms and conditions text" or similar',
+						'exp' 		=> "It's sometimes a good idea to give your users a terms and conditions statement so they know how they should use your service or content."
+				)
+		);
+		
 	
 	
 	/*
@@ -652,72 +699,8 @@ function get_option_array( $load_unavailable = false ){
 	);
 		
 	
-	/*
-		Sidebar and widget related
-	*/
-	$default_options['sidebar_options'] = array(
-			
-				'sidebar_no_default' => array(
-						'default'	=> '',
-						'type'		=> 'check',
-						'inputlabel'	=> 'Hide Sidebars When Empty (no widgets)',
-						'title'		=> 'Remove Default Sidebars When Empty',
-						'shortexp'	=> 'Hide default sidebars when sidebars have no widgets in them',
-						'exp'		=> 'This allows you to remove sidebars completely when they have no widgets in them.'
-				),
-				'sidebar_wrap_widgets' => array(
-						'default' 	=> 'top',
-						'version'	=> 'pro',
-						'type' 		=> 'select',
-						'selectvalues'	=> array(
-							'top'		=> array("name" => 'On Top of Sidebar'),
-							'bottom'	=> array("name" => 'On Bottom of Sidebar')
-						),
-						'inputlabel' 	=> 'Sidebar Wrap Widgets Position',
-						'title' 	=> 'Sidebar Wrap Widgets',
-						'shortexp' 	=> 'Choose whether to show the sidebar wrap widgets on the top or bottom of the sidebar.',
-						'exp' 		=> 'You can select whether to show the widgets that you place in the sidebar wrap template in either the top or the bottom of the sidebar.'
-				),
-				
-	);
-	
-	
-	/*
-		Footer related options
-	*/		
-	$default_options['footer_options'] = array(
-				
-				'footer_logo' => array(
-						'version'	=> 'pro',
-						'default'	=> PL_IMAGES.'/logo-platformpro-small.png',
-						'type'		=> 'image_upload',
-						'imagepreview'	=> '100',
-						'inputlabel'	=> 'Add Footer logo',
-						'title'		=> 'Footer Logo',
-						'shortexp'	=> 'Show a logo in the footer',
-						'exp'		=> 'Add the full url of an image for use in the footer. Recommended size: 140px wide.'
-				),
-				'footer_more' => array(
-						'default'	=> "Thanks for dropping by! Feel free to join the discussion by leaving " . 
-								"comments, and stay updated by subscribing to the <a href='".get_bloginfo('rss2_url')."'>RSS feed</a>.",
-						'type'		=> 'textarea',
-						'inputlabel'	=> 'More Statement In Footer',
-						'title'		=> 'More Statement',
-						'shortexp'	=> 'Add a quick statement for users who want to know more...',
-						'exp'		=> "This statement will show in the footer columns under the word more. It is for users who may want to know more about your company or service."
-				),
-				'footer_terms' => array(
-						'default' 	=> '&copy; '.date('Y').' '.get_bloginfo('name'),
-						'type' 		=> 'textarea',
-						'inputlabel' 	=> 'Terms line in footer:',
-						'title' 	=> 'Site Terms Statement',
-						'shortexp' 	=> 'A line in your footer for "terms and conditions text" or similar',
-						'exp' 		=> "It's sometimes a good idea to give your users a terms and conditions statement so they know how they should use your service or content."
-				)
-	);
-	
-	$misc_settings = array();
-	$misc_settings['misc_settings'] = array(
+	$advanced = array();
+	$advanced['advanced'] = array(
 				'partner_link' => array(
 						'default'	=> '',
 						'type'		=> 'text',
@@ -933,7 +916,7 @@ function get_option_array( $load_unavailable = false ){
 		Load Section Options
 	*/
 	// Comes before, so you can load on to 'new' option sets
-	$optionarray =  array_merge(load_section_options('new', 'top', $load_unavailable), $optionarray, load_section_options('new', 'bottom', $load_unavailable), $misc_settings, $custom_code);
+	$optionarray =  array_merge(load_section_options('new', 'top', $load_unavailable), $optionarray, load_section_options('new', 'bottom', $load_unavailable), $advanced, $custom_code);
 	
 	if(isset($custom_options['custom_options']) && !empty($custom_options['custom_options']))
 		$optionarray = array_merge($optionarray, $custom_options);
