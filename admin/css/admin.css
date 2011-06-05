@@ -354,12 +354,12 @@
 		
 
 	.theinputs {
-		width: 55%;
+		width: 62%;
 		float: left;
 		text-align: left;
 	}
 		.optioninputs {
-			padding: 10px 30px;
+			padding: 20px 30px;
 		}
 	
 	.fullinput {
@@ -376,7 +376,6 @@
 	}
 	
 	.theexplanation p{
-		font-size: 11px;
 		margin: 5px 0;
 	}
 	
@@ -392,6 +391,7 @@
 	}
 		.wideinputs .optioninputs {
 			margin:0 0 1em;
+			padding: 5px 25px;
 		}
 	
 	 .wideinputs .theexplanation {
@@ -401,7 +401,7 @@
 		width: 100%;
 	}
 	
-		.wideinputs .theexplanation-pad{margin: 12px;padding: 12px; background: #efefef;}
+		.wideinputs .theexplanation-pad{margin: 20px;padding: 10px; background: #efefef;}
 	
 		.wideinputs .theexplanation .theexample {
 			width: 200px ;
@@ -1053,9 +1053,9 @@
 	}
 	.layout-main-content{
 		height: 300px;
-		margin: 10px auto;
 		font-size: 12px;
 		color: #333;
+		margin: 10px auto;
 		border: 1px solid #c1c1c1;
 		background: #eee;
 		overflow: hidden;
@@ -1159,7 +1159,7 @@
 	.layout-selections {
 		width: 530px;
 		padding: 1em 85px 1.6em 85px;
-		margin: 10px auto;
+
 		background: #e1e1e1;
 		border: 1px solid #c1c1c1;
 	}
