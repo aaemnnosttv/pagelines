@@ -42,22 +42,25 @@ class PageLinesTemplate {
 
 	function set_main_type(){
 
-		if(is_home() || is_tag() || is_search() || is_archive() || is_category()){
+		if(is_home() || is_tag() || is_search() || is_archive() || is_category())
 			return 'posts';
-		}elseif(is_single()){
+		elseif( is_single() )
 			return 'single';
-		}elseif(is_404()){
+		elseif( is_404() )
 			return '404';
-		} else { 
+		else
 			return 'default';
-		}
+			
 	}
 	function get_page_template(){
 		global $post;
 		
-		if(is_404()){ return '404';}
-		elseif(is_home() || is_tag() || is_search() || is_archive() || is_category()){ return 'posts';}
-		elseif(is_single()){return 'single';}
+		if(is_404())
+			return '404';
+		elseif(is_home() || is_tag() || is_search() || is_archive() || is_category())
+			return 'posts';
+		elseif(is_single())
+			return 'single';
 		elseif(is_page_template()){
 			/*
 				Strip the page. and .php from page.[template-name].php
@@ -65,7 +68,8 @@ class PageLinesTemplate {
 			$page_filename = str_replace('.php', '', get_post_meta($post->ID,'_wp_page_template',true));
 			$template_name = str_replace('page.', '', $page_filename);
 			return $template_name;
-		}else{return 'default';}
+		}else
+			return 'default';
 		
 	}
 	
@@ -73,13 +77,12 @@ class PageLinesTemplate {
 		function admin_set_main_type(){
 			global $post; 
 			if ( !is_object( $post ) ) return 'default';
-			if(isset($post) && $post->post_type == 'post'){
+			if(isset($post) && $post->post_type == 'post')
 				return 'single';
-			} elseif( isset($_GET['page']) && $_GET['page'] == 'pagelines' ){
+			elseif( isset($_GET['page']) && $_GET['page'] == 'pagelines' )
 				return 'posts';
-			} else {
+			else
 				return 'default';
-			}
 		}
 	
 		function admin_get_page_template(){
@@ -125,23 +128,17 @@ class PageLinesTemplate {
 			if( $hook_id == 'main' ){
 			
 				
-				if(isset($hook_info['templates'][$this->main_type]['sections'])){
-					
+				if(isset($hook_info['templates'][$this->main_type]['sections']))
 					$template_area_sections = $hook_info['templates'][$this->main_type]['sections'];
-				
-				} elseif(isset($hook_info['templates']['default']['sections'])) {
+				elseif(isset($hook_info['templates']['default']['sections']))
 					$template_area_sections = $hook_info['templates']['default']['sections'];
-				}
 				
 			} elseif( $hook_id == 'templates' ) {
 				
-				if(isset($hook_info['templates'][$this->template_type]['sections'])){
-
+				if(isset($hook_info['templates'][$this->template_type]['sections']))
 					$template_area_sections = $hook_info['templates'][$this->template_type]['sections'];
-
-				} elseif(isset($hook_info['templates']['default']['sections'])) {
+ 				elseif(isset($hook_info['templates']['default']['sections']))
 					$template_area_sections = $hook_info['templates']['default']['sections'];
-				}
 				
 			} elseif(isset($hook_info['sections'])) { 
 				
@@ -155,7 +152,8 @@ class PageLinesTemplate {
 			}
 			
 			// Set All Sections As Defined By the Map
-			if(is_array($template_area_sections)) $this->default_all_template_sections = array_merge($this->default_all_template_sections, $template_area_sections);
+			if( is_array($template_area_sections) ) 
+				$this->default_all_template_sections = array_merge($this->default_all_template_sections, $template_area_sections);
 			
 			// Remove sections deactivated by Section Control
 			$template_area_sections = $this->unset_hidden_sections($template_area_sections, $hook_id);
@@ -164,7 +162,8 @@ class PageLinesTemplate {
 			$this->$hook_id = $template_area_sections;
 			
 			// Create an array with all sections used on current page - 
-			if(is_array($this->$hook_id)) $this->all_template_sections = array_merge($this->all_template_sections, $this->$hook_id);
+			if(is_array($this->$hook_id)) 
+				$this->all_template_sections = array_merge($this->all_template_sections, $this->$hook_id);
 			
 		}
 		
@@ -173,7 +172,9 @@ class PageLinesTemplate {
 	function unset_hidden_sections($template_area_sections, $hook_id){
 			
 		global $post;
-		if ( !is_object( $post ) ) return $template_area_sections;
+		if ( !is_object( $post ) ) 
+			return $template_area_sections;
+			
 		//Global Section Control Option
 		$section_control = pagelines_option('section-control');
 		
