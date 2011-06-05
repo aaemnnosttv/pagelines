@@ -8,7 +8,7 @@
 	
 	#interfacetitle{background: #ddd;	padding: 8px;}
 	#optionstable{
-		width: 920px;
+		width: 950px;
 		margin: 20px auto;
 		padding:0;
 		text-shadow: #fff 0 1px 0;
@@ -112,8 +112,8 @@
 			Javascript Detector
 		*/
 
-		.framework_loading {margin: 15px 0;}
-		.framework_loading a {color:#aaa;}
+		.framework_loading {margin: 15px 0;background: none;}
+		.framework_loading a {color:#aaa;text-decoration: none}
 		.framework_loading .framework_loading_gif {
 			background: url(../images/ajax-loader.gif) no-repeat 0 0; 
 			display: block;
@@ -131,7 +131,7 @@
 		border: 1px solid #ccc;
 		border-top: none;
 		border-bottom: none;
-		background: #eee url('../images/bg_tabs.png') repeat-y left top;
+		background: #eee;
 	}
 	.tabtitle {
 		padding: 16px 0 0 35px;
@@ -155,10 +155,12 @@
 			display: block;
 			text-decoration:none;
 			color: #000;
-			border-bottom: 1px solid #ddd;
+			border-bottom: 1px solid #ccc;
 			border-top: 1px solid #fff;
-			border-left: 1px solid transparent;
+			border-left: 1px solid #fff;
+			background: url(../images/tabsnav-item.png) repeat-x 0 0;
 		}
+		
 			#tabsnav li span.graphic.top{
 				border-top:1px solid #fff;
 				background: none;
@@ -213,11 +215,14 @@
 			.display_options span{background: transparent url(../images/icons/color.png) no-repeat 0 0;}
 			#display_options .tabtitle{background: transparent url(../images/icons/color.png) no-repeat 10px 16px;}
 		
-			.header_and_nav span{background: transparent url(../images/icons/header.png) no-repeat 0 0;}
-			#header_and_nav .tabtitle{background: transparent url(../images/icons/header.png) no-repeat 10px 16px;}
+			.header_and_footer span{background: transparent url(../images/icons/header.png) no-repeat 0 0;}
+			#header_and_footer .tabtitle{background: transparent url(../images/icons/header.png) no-repeat 10px 16px;}
 			
-			.blog_and_posts span{background: transparent url(../images/icons/page2.png) no-repeat 0 0;}
-			#blog_and_posts .tabtitle{background: transparent url(../images/icons/page2.png) no-repeat 10px 16px;}
+			.blog_and_posts span{background: transparent url(../images/icons/blog.png) no-repeat 0 0;}
+			#blog_and_posts .tabtitle{background: transparent url(../images/icons/blog.png) no-repeat 10px 16px;}
+			
+			.section_options span{background: transparent url(../images/icons/leaf.png) no-repeat 0 0;}
+			#section_options .tabtitle{background: transparent url(../images/icons/leaf.png) no-repeat 10px 16px;}
 			
 			.media_options span{background: transparent url(../images/icons/feed.png) no-repeat 0 0;}
 			#media_options .tabtitle{background: transparent url(../images/icons/feed.png) no-repeat 10px 16px;}
@@ -234,14 +239,14 @@
 			.design_control span{background: transparent url(../images/icons/color.png) no-repeat 0 0;}
 			#design_control .tabtitle{background: transparent url(../images/icons/color.png) no-repeat 10px 16px;}
 			
-			.global_options span{background: transparent url(../images/icons/compass.png) no-repeat 0 0;}
-			#global_options .tabtitle{background: transparent url(../images/icons/compass.png) no-repeat 10px 16px;}
+			.website_setup span{background: transparent url(../images/icons/compass.png) no-repeat 0 0;}
+			#website_setup .tabtitle{background: transparent url(../images/icons/compass.png) no-repeat 10px 16px;}
 				
-			._welcome span{background: transparent url(../images/icons/welcome.png) no-repeat 0 0;}
-			#_welcome .tabtitle{background: transparent url(../images/icons/welcome.png) no-repeat 10px 16px;}
+			._welcome span{background: transparent url(../images/icons/book.png) no-repeat 0 0;}
+			#_welcome .tabtitle{background: transparent url(../images/icons/book.png) no-repeat 10px 16px;}
 			
-			.template_setup span{background: transparent url(../images/icons/layout-design.png) no-repeat 0 0;}
-			#template_setup .tabtitle{background: transparent url(../images/icons/layout-design.png) no-repeat 10px 16px;}
+			.template_setup span{background: transparent url(../images/icons/dragdrop.png) no-repeat 0 0;}
+			#template_setup .tabtitle{background: transparent url(../images/icons/dragdrop.png) no-repeat 10px 16px;}
 			
 			.layout_editor span{background: transparent url(../images/icons/layout.png) no-repeat 0 0;}
 			#layout_editor .tabtitle{background: transparent url(../images/icons/layout.png) no-repeat 10px 16px;}
@@ -258,8 +263,8 @@
 			.carousel_settings span{background: transparent url(../images/icons/carousel.png) no-repeat 0px 0px;}
 			#carousel_settings .tabtitle{background: transparent url(../images/icons/carousel.png) no-repeat 10px 16px;}
 			
-			.misc_settings span{background: transparent url(../images/icons/settings.png) no-repeat 0px 0px;}
-			#misc_settings .tabtitle{background: transparent url(../images/icons/settings.png) no-repeat 10px 16px;}
+			.advanced span{background: transparent url(../images/icons/settings.png) no-repeat 0px 0px;}
+			#advanced .tabtitle{background: transparent url(../images/icons/settings.png) no-repeat 10px 16px;}
 			
 			.update_available {background: #ddd; }
 			#tabsnav a.update_available  {border-top: 1px solid #f7f7f7; border-bottom: 1px solid #ccc }
@@ -276,15 +281,14 @@
 	
 	#thetabs {
 		margin-left: 170px;
-		width: 753px;
+		min-width: 753px;
 		background: #f7f7f7;
 		border-left: 1px solid #ccc;
 	}
 
 	.tabinfo {
 		float: left;
-		width: 99%;
-		border-left: 1px solid #fff;
+		width: 100%;
 		border-top:1px solid #fff;
 	}
 	.inforow {
@@ -312,13 +316,19 @@
 		width: 100%;
 	}
 		.optiontitle {
-			padding: 10px 15px;
+			
 			background: #eee;
 			border-top: 1px solid #ddd;
-			border-bottom: 1px solid #ddd;
-			border-right: 1px solid #ddd;
+			border-bottom: 1px solid #ccc;
+			width: 100%;
 			margin-bottom: 15px;
 		}
+			.optiontitle-pad{
+				border-top: 1px solid #fff;
+				border-left: 1px solid #fff;
+				border-right: 1px solid #ccc;
+				padding: 10px 15px;
+			}
 			.optiontitle small {
 				font-size: 11px;
 			}
@@ -376,15 +386,19 @@
 			margin: 10px 0;
 		}
 	
+	.wideinputs.optionrow {padding:0}
 	.wideinputs .theinputs{
-		width: 727px;
-		margin: 0 10px 0 0;
+		width: 90%;
+		padding : 0 5px;
 	}
+		.wideinputs .optioninputs {
+			margin:0 0 1em;
+		}
 	
 	 .wideinputs .theexplanation {
 		border-left: none;
 		margin-left: 30px;
-		width: 633px;
+		width: 100%;
 		background: #efefef;
 		font-size: 11px;
 	}
@@ -407,34 +421,39 @@
 	}
 	
 	
-	#optionsheader {
+	#optionsheader{
 		border: 1px solid #ccc;
 		border-bottom: 1px solid #bbb;
 	}
 	
-		.ohead-top{
-			background: #eaeaea url(../images/bg-optionheader.png);
+	#optionsfooter{
+		background: #eee;
+		border: 1px solid #ccc;
+		margin-bottom: 1em;
+	}
+		#optionsfooter .superlink-wrap{float: right}
+		.ohead{
+			background: #eaeaea url(../images/bg-optionheader.png) repeat-x;
 		}
-		.ohead-top-pad{ 
-			padding: 6px 8px 6px 15px;
-			overflow:auto;
+		.ohead-pad{ 
+			padding: 6px 8px 4px 15px;
 			border-top: 1px solid #f7f7f7;
 			border-bottom: 1px solid #ccc;
 		}
 		
 		.ohead-title{
 			float:left;
-			font-size: 1.4em;
-			line-height: 1.6em;
+			font-size: 1.7em;
+			line-height: 1.45em;
 			font-weight: bold;
 			font-style: normal;
-			color: #000;
+			color: #bbb;
+			margin-left: 10px;
 		}
 		.ohead-title-right{float:right}
-		.ohead-leaf{
-			float:left;
-		}
-		.ohead-top .osave-wrap{
+
+		
+		.ohead .superlink-wrap{
 			border: 1px solid #aaa; 
 			border-right: 1px solid #fff;
 			border-bottom: 1px solid #fff;
@@ -442,27 +461,56 @@
 			-moz-border-radius: 4px;
 			-khtml-border-radius: 4px;
 			-webkit-border-radius: 4px;
-			border-radius: 4px;
+			border-radius: 4px;	
+			float:left;
 		}
-		.ohead-top .osave {
-			background: #82a2ca url(../images/o-save.png) 0 0 repeat-x;
-			color: #fff;
-			padding: 4px 12px 5px;
-			font-weight: bold;
-			font-size: 1em;
-			text-shadow: #2d4a79 0 -1px 0;
-			border: 1px solid #2d4a79;
-			border-right: 1px solid #2d4a79;
-			border-bottom: 1px solid #2d4a79;
-			margin:0;
+		.ohead .superlink {
 			
+			display: block;
+			text-decoration: none;
+			margin:0;
 			-moz-border-radius: 4px;
 			-khtml-border-radius: 4px;
 			-webkit-border-radius: 4px;
 			border-radius: 4px;
+			font-weight: bold;
+			font-size: 1em;
+			color: #fff;
+			border: 1px solid #333;
+			background: #000 url(../images/superlink-sprite-black.png) 0 0 repeat-x;
+			-moz-box-sizing: content-box;
+			-webkit-box-sizing: content-box;
+			box-sizing: content-box;
 		}
+			.ohead .superlink:hover{background: #82a2ca url(../images/superlink-sprite-black.png) 0 -35px repeat-x;border: 1px solid #555;}
+			.ohead .superlink:active{background: #82a2ca url(../images/superlink-sprite-black.png) 0 -70px repeat-x;border: 1px solid #000;color: #ddd}
+			
+			.superlink-pagelines, .ohead .osave {padding: 5px 12px;height: 15px;}
+			
+		.superlink-pagelines{background: url(../images/superlink-pagelines.png) no-repeat 11px 1px; display: block; height: 16px; width: 16px; }
+		.osave-wrap{
+			border: 1px solid #aaa; 
+			border-right: 1px solid #fff;
+			border-bottom: 1px solid #fff;
+			-moz-border-radius: 4px;
+			-khtml-border-radius: 4px;
+			-webkit-border-radius: 4px;
+			border-radius: 4px;
 		
-		.ohead-top .osave:hover{background: #82a2ca url(../images/o-save.png) 0 -25px repeat-x;color: #FFF; }
+		}
+		.ohead .superlink.osave {
+			background: #82a2ca url(../images/superlink-sprite-blue.png) 0 0 repeat-x;
+			color:#fff;
+			text-shadow: #2d4a79 0 -1px 0;
+			border: 1px solid #2d4a79;
+			border-right: 1px solid #2d4a79;
+			border-bottom: 1px solid #2d4a79;
+			
+		}
+		.ohead .osave:hover{background: #82a2ca url(../images/superlink-sprite-blue.png) 0 -35px repeat-x; color: #fff}
+		.ohead .osave:active{background: #82a2ca url(../images/superlink-sprite-blue.png) 0 -70px repeat-x; color: #eee}
+		
+		
 		.options_intro {
 			float: left;
 			margin: 6px 8px;
@@ -498,20 +546,7 @@
 			height: 25px;
 			padding: 3px 8px;
 		}
-	
-	
-	#optionsfooter{
-		background: #eee;
-		border: 1px solid #ccc;
-		border-top: none;
-		margin-bottom: 1em;
-	}
-	#optionsfooter .theinputs{
-		width: 93%;
-		padding: 10px;
-		text-align:right;
-	}
-	#optionsfooter .admin_footerlink{float: left;display: block; font-size: 10px; color: #999;}
+
 	
 /* @ ChangeLog and Updating */ 
 
@@ -576,14 +611,21 @@
 		}
 
 /* @ Text Content*/
-
+	.theme_intro {
+		padding: 1.5em;
+	}
 	.admin_billboard{
 		background: #eee;
-		border: 1px solid #e1e1e1;
-		padding: 10px;
+		border: 1px solid #ccc;
+
 	}
+		.admin_billboard_pad{
+			padding: 10px;
+			border-top: 1px solid #fff;
+			border-left: 1px solid #fff;
+		}
 		.admin_billboard_content{
-			padding: 2em;
+			padding: 1em 2em 2em;
 		}
 		.admin_header {
 			margin-bottom: 1.5em;
@@ -593,13 +635,12 @@
 				margin:0;
 			}
 			.admin_header h3 {
-				font-size: 1.7em;
+				font-size: 3em;
+				line-height: 1.6em;
 			}
-			.admin_header h5 {
-				color: #999;
-				font-weight: normal;
-				text-transform: uppercase;
-				letter-spacing: 2px ;
+			.admin_header .admin_header_sub {
+		
+				font-weight: bold;
 			}
 		.admin_theme_screenshot{
 	
@@ -681,9 +722,6 @@
 				text-align: center;
 			}
 
-	.optionrow.options_info_row{
-		padding:0;
-	}
 
 	.doc_icon_links, .toggle_option_info{
 		color: #777;

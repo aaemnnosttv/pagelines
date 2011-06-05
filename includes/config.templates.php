@@ -314,10 +314,10 @@ function get_default_banners(){
 
 function get_theme_intro(){
 		
-	$intro = '<div class="admin_billboard fix"><div class="admin_theme_screenshot"><img class="" src="'.PARENT_URL.'/screenshot.png" alt="Screenshot" /></div>' .
-		'<div class="admin_billboard_content"><div class="admin_header"><h3 class="admin_header_main">Welcome to '.THEMENAME.'!</h3><h5 class="admin_header_sub">Pro Web Software From PageLines</h5></div>'.
-		'<div class="admin_billboard_text">Your framework now has tons of customization options and editing features.<br/> Here are a few tips to get you started...<br/><small>(Note: This intro can be removed below.)</small></div>'.
-		'</div></div>'.
+	$intro = '<div class="theme_intro"><div class="admin_billboard fix"><div class="admin_billboard_pad fix"><div class="admin_theme_screenshot"><img class="" src="'.PARENT_URL.'/screenshot.png" alt="Screenshot" /></div>' .
+		'<div class="admin_billboard_content"><div class="admin_header"><h3 class="admin_header_main">Congratulations!</h3><div class="admin_header_sub">You\'ll be building awesome websites in no time!</div></div>'.
+		'<div class="admin_billboard_text"> Your framework now has tons of customization options and editing features.<br/> Here are a few tips to get you started...<br/><small>(Note: This intro can be removed below.)</small></div>'.
+		'</div></div></div>'.
 		'<ul class="admin_feature_list">'.
 		'<li class="feature_firstrule"><div class="feature_icon"></div><strong>The First Rule</strong> <p>If you are a new customer of PageLines, it\'s time we introduce you to the first rule.  The first rule of PageLines is that you come first. We truly appreciate your business and support.</p></li> ' .
 		'<li class="feature_support"><div class="feature_icon"></div><strong>Support</strong> <p>For help getting started, we offer our customers tons of support including <a href="http://www.pagelines.com/docs/" target="_blank">docs</a>, <a href="http://www.youtube.com/pagelines" target="_blank">video tutorials</a>, and the <a href="http://www.pagelines.com/forum/" target="_blank">forum</a>, where users can post questions if they can\'t find the info they need.<br/> You can also visit our <a href="http://www.pagelines.com/support/" target="_blank">support page</a> for more info.</p></li> ' .
@@ -339,7 +339,7 @@ function get_theme_intro(){
 		'</ul>'.
 		'<li class="feature_dynamic"><div class="feature_icon"></div><strong>Widgets and Dynamic Layout</strong> <p>To make it super easy to customize your layout, we have added tons of sidebars and widget areas.  You can find and set these up under "<strong>appearance</strong>" &gt; "<strong>widgets</strong>"</p> <p>Find more information about your widget areas in the <a href="http://www.pagelines.com/docs">docs</a>. </p></li>' .
 		'</ul>' .
-		'<br/><h3>That\'s it for now! Have fun and good luck.</h3>';
+		'<br/><h3>That\'s it for now! Have fun and good luck.</h3></div>';
 
 		return apply_filters('pagelines_theme_intro', $intro);
 }

@@ -19,7 +19,15 @@ class PageLinesOptionsUI {
 	function __construct() {
 		$this->option_array = get_option_array();
 		
+		
+		/*
+			TODO 
+				- title
+				- settings array
+		*/
 		$this->build_header();
+		
+		
 		$this->build_body();
 		$this->build_footer();	
 		
@@ -78,13 +86,21 @@ function build_header(){?>
 								
 								<div class="clear"></div>
 								<div id="optionsheader" class="fix">
-									<div class="ohead-top" class="fix">
-										<div class="ohead-top-pad">
+									<div class="ohead" class="fix">
+										<div class="ohead-pad fix">
+											
+											<div class="superlink-wrap">
+												<a class="superlink" href="#">
+													<span class="superlink-pagelines">&nbsp;</span>
+												</a>
+											</div>
 											<div class="ohead-title">
-												<?php _e('PageLines Settings', 'pagelines');?> 
+												<?php _e('Settings', 'pagelines');?> 
 											</div>
 											<div class="ohead-title-right">
-												<div class="osave-wrap"><input class="osave" type="submit" name="submit" value="<?php _e('Save Options', 'pagelines');?>" /></div>
+												<div class="superlink-wrap osave-wrap">
+													<input class="superlink osave" type="submit" name="submit" value="<?php _e('Save Options', 'pagelines');?>" />
+												</div>
 											
 												
 											</div>
@@ -92,19 +108,6 @@ function build_header(){?>
 										
 									
 									</div>
-										<!-- <div class="superlinks ">
-																				
-																				<a class="superlink slpreview" href="<?php echo home_url(); ?>/" target="_blank" target-position="front">
-																					<img src="<?php echo PL_ADMIN_ICONS;?>/discussion.png" />
-																				</a>
-																				<a class="superlink sldocs" href="http://www.pagelines.com/docs/" target="_blank" >
-																					<img src="<?php echo PL_ADMIN_ICONS;?>/discussion.png" />
-																				</a>
-																				<a class="superlink slforum" href="http://www.pagelines.com/forum/" target="_blank" >
-																					<img src="<?php echo PL_ADMIN_ICONS;?>/discussion.png" />
-																				</a>
-																				
-																			</div> -->
 								</div>
 		<?php }
 		
@@ -120,6 +123,66 @@ function build_header(){?>
 				pagelines_error_messages();
 
 		}
+		
+		/**
+		 * Option Interface Footer
+		 *
+		 */
+		function build_footer(){?>
+				<div id="optionsfooter" class="fix">
+					<div class="ohead fix">
+						<div class="ohead-pad fix">
+							<div class="superlink-wrap osave-wrap">
+								<input class="superlink osave" type="submit" name="submit" value="<?php _e('Save Options', 'pagelines');?>" />
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="optionrestore">
+						<h4><?php _e('Restore Settings', 'pagelines'); ?></h4>
+						<p>
+							<div class="context"><input class="button-secondary reset-options" type="submit" name="<?php pagelines_option_name('reset'); ?>" onClick="return ConfirmRestore();" value="Restore Options To Default" />Use this button to restore settings to their defaults. (Note: Restore template and layout information on their individual pages.)</div>
+							<?php pl_action_confirm('ConfirmRestore', 'Are you sure? This will restore your settings information to default.');?>
+						</p>
+
+				</div>
+
+				 <!-- close entire form -->
+			  	</form>
+
+				<div class="optionrestore restore_column_holder fix">
+					<div class="restore_column_split">
+						<h4><?php _e('Export Settings', 'pagelines'); ?></h4>
+						<p class="fix">
+							<a class="button-secondary download-button" href="<?php echo admin_url('admin.php?page=pagelines&amp;download=settings'); ?>">Download Theme Settings</a>
+						</p>
+					</div>
+
+					<div class="restore_column_split">
+						<h4><?php _e('Import Settings', 'pagelines'); ?></h4>
+						<form method="post" enctype="multipart/form-data">
+							<input type="hidden" name="settings_upload" value="settings" />
+							<p class="form_input">
+								<input type="file" class="text_input" name="file" id="settings-file" />
+								<input class="button-secondary" type="submit" value="Upload New Settings" onClick="return ConfirmImportSettings();" />
+							</p>
+						</form>
+
+						<?php pl_action_confirm('ConfirmImportSettings', 'Are you sure? This will overwrite your current settings and configurations with the information in this file!');?>
+					</div>
+				</div>
+			</td></tr></tbody></table>
+
+			<div class="clear"></div>
+			<script type="text/javascript">/*<![CDATA[*/
+			jQuery(document).ready(function(){
+				jQuery('.framework_loading').hide();
+			});
+			/*]]>*/</script>
+
+			</div>
+		<?php }
 		
 		/**
 		 * Option Interface Body, including vertical tabbed nav
@@ -259,28 +322,33 @@ function option_engine($oid, $o){
 	else 
 		$val = pagelines_option($oid);
 
-if( !isset( $o['version'] ) || ( isset($o['version']) && $o['version'] == 'free') || (isset($o['version']) && $o['version'] == 'pro' && VPRO ) ): 
+	$draw_option = (!isset( $o['version'] ) || ( isset($o['version']) && $o['version'] == 'free') || (isset($o['version']) && $o['version'] == 'pro' && VPRO )) ? true : false;
+
+	$layout_class = '';
+	$layout_class .= ( isset( $o['layout'] ) && $o['layout']=='full' ) ? ' wideinputs' : '';
+
+if( $draw_option ): 
 ?>
-<div class="optionrow fix <?php if( isset( $o['layout'] ) && $o['layout']=='full' ) echo 'wideinputs'; if( $o['type'] == 'options_info' ) echo ' options_info_row';?>">
+<div class="optionrow fix <?php echo $layout_class;?>">
 		<?php if( $o['title'] ): ?>
 		<div class="optiontitle fix">
-			<?php if( $o['optionicon'] ) echo '<img src="'.$o['optionicon'].'" class="optionicon" />'; ?>
+			<div class="optiontitle-pad fix">
+				
+				<?php if( isset($o['vidlink']) ):?>
+					<a class="vidlink thickbox" title="<?php if($o['vidtitle']) echo $o['vidtitle']; ?>" href="<?php echo $o['vidlink']; ?>?hd=1&KeepThis=true&TB_iframe=true&height=450&width=700">
+						<img src="<?php echo PL_ADMIN_IMAGES . '/link-video.jpg';?>" class="docslink-video" alt="Video Tutorial" />
+					</a>
+				<?php endif;?>
 			
-			<?php if( isset($o['vidlink']) ):?>
-				<a class="vidlink thickbox" title="<?php if($o['vidtitle']) echo $o['vidtitle']; ?>" href="<?php echo $o['vidlink']; ?>?hd=1&KeepThis=true&TB_iframe=true&height=450&width=700">
-					<img src="<?php echo PL_ADMIN_IMAGES . '/link-video.jpg';?>" class="docslink-video" alt="Video Tutorial" />
-				</a>
-			<?php endif;?>
+				<?php if( isset($o['docslink']) ):?>
+					<a class="vidlink" title="<?php if($o['vidtitle']) echo $o['vidtitle']; ?>" href="<?php echo $o['docslink']; ?>" target="_blank">
+						<img src="<?php echo PL_ADMIN_IMAGES . '/link-docs.jpg';?>" class="docslink-video" alt="Video Tutorial" />
+					</a>
+				<?php endif;?>
 			
-			<?php if( isset($o['docslink']) ):?>
-				<a class="vidlink" title="<?php if($o['vidtitle']) echo $o['vidtitle']; ?>" href="<?php echo $o['docslink']; ?>" target="_blank">
-					<img src="<?php echo PL_ADMIN_IMAGES . '/link-docs.jpg';?>" class="docslink-video" alt="Video Tutorial" />
-				</a>
-			<?php endif;?>
-			
-			<strong><?php echo $o['title'];?></strong><br/>
-			<small><?php echo $o['shortexp'];?></small><br/>
-			
+				<strong><?php echo $o['title'];?></strong><br/>
+				<small><?php echo $o['shortexp'];?></small><br/>
+			</div>
 		</div>
 		<?php endif;?>
 		<div class="theinputs ">
@@ -289,7 +357,7 @@ if( !isset( $o['version'] ) || ( isset($o['version']) && $o['version'] == 'free'
 			</div>
 		</div>
 
-		<?php if($o['exp'] && $o['type'] != 'text_content' && $o['type'] != 'options_info'):?>
+		<?php if($o['exp'] && $o['type'] != 'text_content'):?>
 		<div class="theexplanation">
 			<div class="context">More Info</div>
 			<p><?php echo $o['exp'];?></p>
@@ -376,9 +444,6 @@ function option_breaker($oid, $o, $val = ''){
 				break;
 			case 'text_content' :
 				$this->_get_text_content($oid, $o, $val);
-				break;
-			case 'options_info' :
-				$this->_get_options_info($oid, $o, $val);
 				break;
 			case 'reset' :
 				$this->_get_reset_option($oid, $o, $val);
@@ -587,14 +652,6 @@ function _get_reset_option($oid, $o, $val){
 
 }
 
-function _get_options_info($oid, $o, $val){ ?>
-	<span class="toggle_option_info" onClick="jQuery(this).next().slideToggle();">Additional <?php echo ucwords(str_replace('_', ' ', $oid));?> Info &darr;</span>
-	<div class="text_content admin_option_info fix">
-		<h3>More Information on <?php echo ucwords(str_replace('_', ' ', $oid));?></h3>
-		<?php echo $o['exp'];?>
-	</div>
-<?php }
-		
 
 function _get_image_upload_option( $oid, $o, $optionvalue = ''){ 
 
@@ -1161,64 +1218,7 @@ function _sortable_section($template, $tfield, $hook_id = null, $hook_info = arr
 
 
 
-/**
- * Option Interface Footer
- *
- */
-function build_footer(){?>
-		<div id="optionsfooter">
-			<div class="hl"></div>
-				<div class="theinputs">
-	  	  			<input class="button-primary" type="submit" name="submit" value="<?php _e('Save Options', 'pagelines');?>" />
-					
-				</div>
-			<div class="clear"></div>
-		</div>
 
-		<div class="optionrestore">
-				<h4><?php _e('Restore Settings', 'pagelines'); ?></h4>
-				<p>
-					<div class="context"><input class="button-secondary reset-options" type="submit" name="<?php pagelines_option_name('reset'); ?>" onClick="return ConfirmRestore();" value="Restore Options To Default" />Use this button to restore settings to their defaults. (Note: Restore template and layout information on their individual pages.)</div>
-					<?php pl_action_confirm('ConfirmRestore', 'Are you sure? This will restore your settings information to default.');?>
-				</p>
-			
-		</div>
-
-		 <!-- close entire form -->
-	  	</form>
-	
-		<div class="optionrestore restore_column_holder fix">
-			<div class="restore_column_split">
-				<h4><?php _e('Export Settings', 'pagelines'); ?></h4>
-				<p class="fix">
-					<a class="button-secondary download-button" href="<?php echo admin_url('admin.php?page=pagelines&amp;download=settings'); ?>">Download Theme Settings</a>
-				</p>
-			</div>
-			
-			<div class="restore_column_split">
-				<h4><?php _e('Import Settings', 'pagelines'); ?></h4>
-				<form method="post" enctype="multipart/form-data">
-					<input type="hidden" name="settings_upload" value="settings" />
-					<p class="form_input">
-						<input type="file" class="text_input" name="file" id="settings-file" />
-						<input class="button-secondary" type="submit" value="Upload New Settings" onClick="return ConfirmImportSettings();" />
-					</p>
-				</form>
-
-				<?php pl_action_confirm('ConfirmImportSettings', 'Are you sure? This will overwrite your current settings and configurations with the information in this file!');?>
-			</div>
-		</div>
-	</td></tr></tbody></table>
-
-	<div class="clear"></div>
-	<script type="text/javascript">/*<![CDATA[*/
-	jQuery(document).ready(function(){
-		jQuery('.framework_loading').hide();
-	});
-	/*]]>*/</script>
-	
-	</div>
-<?php }
 
 
 } 
