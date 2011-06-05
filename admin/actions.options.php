@@ -14,7 +14,7 @@ function pagelines_add_admin_menu() {
 	$menu['2.995'] = array( '', 'edit_theme_options', 'separator-pagelines', '', 'wp-menu-separator' );
 
 	// Create the new top-level Menu
-	add_menu_page ('Page Title', THEMENAME, 'edit_theme_options','pagelines', 'pagelines_build_option_interface', PL_ADMIN_IMAGES. '/favicon-pagelines.png', '2.996');
+	add_menu_page ('Page Title', 'PageLines', 'edit_theme_options','pagelines', 'pagelines_build_option_interface', PL_ADMIN_IMAGES. '/favicon-pagelines.png', '2.996');
 }
 
 // Create theme options panel

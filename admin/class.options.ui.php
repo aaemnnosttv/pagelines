@@ -75,50 +75,36 @@ function build_header(){?>
 
 								});
 						</script>
-								<div id="optionsheader">
-									<div class="hl"></div>
-									<div id="optionstop" class="fix">
-										<!-- Form Title -->
-
-										<!-- Configuration intro text -->
-										<div class="options_intro">
-											<div class="form_title">
-												<?php echo THEMENAME;?> <?php _e('Settings', 'pagelines');?> 
+								
+								<div class="clear"></div>
+								<div id="optionsheader" class="fix">
+									<div class="ohead-top" class="fix">
+										<div class="ohead-top-pad">
+											<div class="ohead-title">
+												<?php _e('PageLines Settings', 'pagelines');?> 
 											</div>
+											<div class="ohead-title-right">
+												<div class="osave-wrap"><input class="osave" type="submit" name="submit" value="<?php _e('Save Options', 'pagelines');?>" /></div>
 											
-											<strong>Welcome to your <?php echo THEMENAME;?> settings.</strong> 
-											This section allows you to customize the global form and function of your site. <br/>
-											<?php if(!VPRO):?>
-												If you'd like more features; please check out <a href="<?php echo PROVERSIONOVERVIEW;?>"><?php echo PROVERSION;?></a> for tons more templates, options and support.
-											<?php endif;?>
-										</div>
-
-										<!-- Pagelines Link -->
-										<a class="optionsheader_plink" href="http://www.pagelines.com/" target="_blank">&nbsp;</a>
-									</div>
-
-
-
-									<div id="optionssubheader">
-										<div class="hl"></div>
-										<div class="padding fix">
-											<div class="subheader_links">
-												<a class="sh_preview" href="<?php echo home_url(); ?>/" target="_blank" target-position="front">View Site</a>
-												<a class="sh_docs" href="http://www.pagelines.com/docs/" target="_blank" ><?php _e('Docs', 'pagelines');?></a>
-												<a class="sh_forum" href="http://www.pagelines.com/forum/" target="_blank" ><?php _e('Forum', 'pagelines');?></a>
-											
-											</div>
-
-											<div class="subheader_right">
-
-												<input class="button-primary" type="submit" name="submit" value="<?php _e('Save Options', 'pagelines');?>" />
+												
 											</div>
 										</div>
+										
+									
 									</div>
-
-
-
-									<div class="clear"></div>
+										<!-- <div class="superlinks ">
+																				
+																				<a class="superlink slpreview" href="<?php echo home_url(); ?>/" target="_blank" target-position="front">
+																					<img src="<?php echo PL_ADMIN_ICONS;?>/discussion.png" />
+																				</a>
+																				<a class="superlink sldocs" href="http://www.pagelines.com/docs/" target="_blank" >
+																					<img src="<?php echo PL_ADMIN_ICONS;?>/discussion.png" />
+																				</a>
+																				<a class="superlink slforum" href="http://www.pagelines.com/forum/" target="_blank" >
+																					<img src="<?php echo PL_ADMIN_ICONS;?>/discussion.png" />
+																				</a>
+																				
+																			</div> -->
 								</div>
 		<?php }
 		
@@ -1183,7 +1169,6 @@ function build_footer(){?>
 		<div id="optionsfooter">
 			<div class="hl"></div>
 				<div class="theinputs">
-					<?php if(VPRO):?><a class="admin_footerlink" href="http://www.pagelines.com/feedback/" target="_blank"><?php _e('Customer Feedback Form &raquo;', 'pagelines');?></a><?php endif;?>
 	  	  			<input class="button-primary" type="submit" name="submit" value="<?php _e('Save Options', 'pagelines');?>" />
 					
 				</div>
