@@ -1095,7 +1095,7 @@ function _sortable_section($template, $tfield, $hook_id = null, $hook_info = arr
 												
 												?>
 												<div class="section-moreinfo">
-													<div><span class="section-moreinfo-toggle" onClick="jQuery(this).parent().next('.section-moreinfo-info').slideToggle();">Advanced Setup &darr;</span></div>
+													<div><span class="section-moreinfo-toggle" onClick="jQuery(this).parent().next('.section-moreinfo-info').toggle('fast');">Advanced Setup &darr;</span></div>
 													<div class="section-moreinfo-info">
 														<?php if(!$default_display_check_disabled):?>
 														<strong>Settings</strong> 
