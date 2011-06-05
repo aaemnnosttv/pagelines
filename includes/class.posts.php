@@ -112,7 +112,9 @@ class PageLinesPosts {
 	function post_header( $format = '' ){ 
 		
 		if( $this->show_post_header() ){
-		
+			
+			global $post;
+			
 			$thumb = ( $this->pagelines_show_thumb( get_the_ID() ) ) ? $this->post_thumbnail_markup() : '';
 			
 			$excerpt = ( $this->pagelines_show_excerpt( get_the_ID() ) ) ? $this->post_excerpt_markup( ) : '';
