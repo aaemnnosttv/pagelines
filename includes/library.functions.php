@@ -562,3 +562,22 @@ add_filter('request_filesystem_credentials', '__return_true' );
 
 	return true;
 }
+/**
+ * return array of PageLines plugins.
+ * Since 2.0
+ */
+function pagelines_register_plugins() {
+	
+	$pagelines_plugins = array();
+	$plugins = get_option('active_plugins');
+	if ( $plugins ) {
+		foreach( $plugins as $plugin ) {
+			$a = get_file_data( WP_PLUGIN_DIR . '/' . $plugin, $default_headers = array( 'pagelines' => 'PageLines' ) );
+			if ( !empty( $a['pagelines'] ) ) {
+				$pagelines_plugins[] = rtrim( basename($plugin), '.php');
+			}
+
+		}
+	}
+	return $pagelines_plugins;
+}
