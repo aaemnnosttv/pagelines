@@ -204,13 +204,16 @@ class PageLinesFeatures extends PageLinesSection {
 		$fsync   = (pagelines_option('fremovesync')) ? 0 : 1;
 		$autostop = ( has_filter('pagelines_feature_autostop') ) ? ', autostop: 1, autostopCount: ' . apply_filters( 'pagelines_feature_autostop', 0) : '';
 	
+		
+		$args = sprintf("slideResize: 0, fit: 1,  fx: '%s', sync: %d, timeout: %d, speed: %d, cleartype: true, cleartypeNoBg: true, pager: 'div#featurenav'%s", $feffect, $fsync, $timeout, $speed, $autostop);
+		
 ?><script type="text/javascript">
 /* <![CDATA[ */
 	var $j = jQuery.noConflict();
 	$j(document).ready(function () {
 <?php 
 	//Feature Cycle Setup
-	printf( "\$j('#cycle').cycle({fx: '%s', sync: %d, timeout: %d, speed: %d, cleartype: true, cleartypeNoBg: true, pager: 'div#featurenav'%s});", $feffect, $fsync, $timeout, $speed, $autostop );
+	printf( "\$j('#cycle').cycle({ %s });", $args);
 	
 	$this->_js_feature_loop($f);
 

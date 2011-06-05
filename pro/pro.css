@@ -22,7 +22,9 @@
 		overflow: hidden;
 		width: 100%;
 	}
+	#cycle {width: 100% !important;}
 	#feature-area .fcontainer{	
+		width: 100%;
 		background: #000 url(../images/feature-area-bg.png) repeat-x left bottom;
 	}
 
@@ -44,6 +46,7 @@
 		/* Feature Layouts */ 
 		.feature-wrap {
 			position: relative;
+			max-width: 100%;
 		}
 			/* Text on Right Or Left */
 			#feature_slider .text-right .fexcerpt, #feature_slider .text-left .fexcerpt{
