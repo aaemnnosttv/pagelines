@@ -442,7 +442,7 @@ function option_breaker($oid, $o, $val = ''){
 				$this->_get_layout_select($oid, $o); 
 				break;
 			case 'templates' :
-				$this->_get_template_builder(); 
+				$this->do_template_builder(); 
 				break;
 			case 'text_content' :
 				$this->_get_text_content($oid, $o, $val);
@@ -939,6 +939,13 @@ function _get_layout_select($optionid, $option_settings){ ?>
 	<div class="clear"></div>
 <?php }
 
+function do_template_builder(){
+	
+	$builder = new PageLinesTemplateBuilder();
+	$builder->draw_template_builder();
+	
+}
+
 /**
  * 
  *
@@ -1023,8 +1030,7 @@ function _sortable_section($template, $tfield, $hook_id = null, $hook_info = arr
 		$dtoggle = (get_option('pl_section_desc_toggle')) ? get_option('pl_section_desc_toggle') : 'show'; 
 		
 			?>
-		
-				<div id="template_data" class="<?php echo $template_slug; ?> layout-type-<?php echo $template_area;?>">
+			<div id="template_data" class="<?php echo $template_slug; ?> layout-type-<?php echo $template_area;?>">
 					<div class="editingtemplate fix">
 						<span class="edit_template_title"><?php echo $tfield['name'];?> Template Sections</span>
 

@@ -113,8 +113,8 @@ class PageLinesCSS {
 		/* Content Width */
 		$content_with_border = $content_width + 2;
 		$this->css .= "#page-main .content{ max-width:".$content_with_border."px }".$this->nl;
-		$this->css .= "#site .content, .wcontent{max-width:".$content_width."px}".$this->nl2;
-
+		$this->css .= "#site .content, .wcontent{max-width:".$content_width."px; width: 100%}".$this->nl2;
+		//$this->css .= "#site{min-width: 100%}".$this->nl; // Fix small horizontal scroll issue
 		
 		// For inline CSS in Multisite
 		// TODO clean up layout variable handling

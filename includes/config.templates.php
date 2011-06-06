@@ -315,8 +315,8 @@ function get_default_banners(){
 function get_theme_intro(){
 		
 	$intro = '<div class="theme_intro"><div class="admin_billboard fix"><div class="admin_billboard_pad fix"><div class="admin_theme_screenshot"><img class="" src="'.PARENT_URL.'/screenshot.png" alt="Screenshot" /></div>' .
-		'<div class="admin_billboard_content"><div class="admin_header"><h3 class="admin_header_main">Congratulations!</h3><div class="admin_header_sub">You\'ll be building awesome websites in no time!</div></div>'.
-		'<div class="admin_billboard_text"> Your framework now has tons of customization options and editing features.<br/> Here are a few tips to get you started...<br/><small>(Note: This intro can be removed below.)</small></div>'.
+		'<div class="admin_billboard_content"><div class="admin_header"><h3 class="admin_header_main">Congratulations!</h3><div class="admin_header_sub">You\'re on your way to an AWESOME website.</div></div>'.
+		'<div class="admin_billboard_text"> Your framework now has tons of customization options and editing features. Here are a few tips to get you started...<br/><small>(Note: This intro can be removed below.)</small></div>'.
 		'</div></div></div>'.
 		'<ul class="admin_feature_list">'.
 		'<li class="feature_firstrule"><div class="feature_icon"></div><strong>The First Rule</strong> <p>If you are a new customer of PageLines, it\'s time we introduce you to the first rule.  The first rule of PageLines is that you come first. We truly appreciate your business and support.</p></li> ' .

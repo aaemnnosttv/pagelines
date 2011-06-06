@@ -96,7 +96,7 @@
 	}
 	
 	function setEmpty(sortablelist){
-		if(!jQuery(sortablelist).has('.section_bar').length){
+		if(!jQuery(sortablelist).has('.section-bar').length){
 			jQuery(sortablelist).addClass('nosections');
 		} else {
 			jQuery(sortablelist).removeClass('nosections');

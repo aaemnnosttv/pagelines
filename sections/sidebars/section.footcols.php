@@ -48,10 +48,10 @@ class PageLinesFootCols extends PageLinesSection {
 	
 	function section_template() { 
 		?>
-			<div id="fcolumns_container" class="dcol_container_5 fix">
+			<div id="fcolumns_container" class="pprow fix">
 				
 				<?php if (!dynamic_sidebar($this->name) ) : ?>
-					<div class="dcol_5 dcol">
+					<div class="pp5 footcol">
 						<div class="dcol-pad">
 							<?php if(pagelines_option('footer_logo') && VPRO):?>
 								<a class="home" href="<?php echo home_url(); ?>" title="<?php _e('Home','pagelines');?>">
@@ -66,14 +66,14 @@ class PageLinesFootCols extends PageLinesSection {
 							<?php endif;?>
 						</div>
 					</div>
-					<div class="dcol_5 dcol">
+					<div class="pp5 footcol">
 						<div class="dcol-pad">
 							<h3 class="widget-title"><?php _e('Pages','pagelines');?></h3>
 								<?php wp_nav_menu( array('menu_class' => 'footer-links list-links', 'theme_location'=>'footer_nav', 'depth' => 1) ); ?>
 
 						</div>
 					</div>
-					<div class="dcol_5 dcol">
+					<div class="pp5 footcol">
 						<div class="dcol-pad">
 							<h3 class="widget-title"><?php _e('The Latest','pagelines');?></h3>
 								<ul class="latest_posts">
@@ -88,7 +88,7 @@ class PageLinesFootCols extends PageLinesSection {
 								<?php endforeach;?></ul>
 						</div>
 					</div>
-					<div class="dcol_5 dcol">
+					<div class="pp5 footcol">
 						<div class="dcol-pad">
 							<h3 class="widget-title"><?php _e('More','pagelines');?></h3>
 							<div class="findent footer-more">
@@ -96,7 +96,7 @@ class PageLinesFootCols extends PageLinesSection {
 							</div>
 						</div>
 					</div>
-					<div class="dcol_5 dcol">
+					<div class="pp5 footcol">
 						<div class="dcol-pad">
 							<div class="findent terms">
 								<?php print_pagelines_option('footer_terms');?>

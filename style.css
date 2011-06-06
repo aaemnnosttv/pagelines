@@ -3,7 +3,7 @@ Theme Name: Platform
 
 Description: Platform is an drag-and-drop theme-design framework for WordPress and HTML5. It will help you do amazing things with your site, faster & easier than ever before. Designed and developed by <a href="http://pagelines.com/">PageLines</a> in California. Twitter @pagelines
 
-Version: 2.0.b2
+Version: 2.0.b3
 
 Author: PageLines
 
@@ -433,6 +433,7 @@ aside ul, aside ol, .sidenote ul, .sidenote ol{margin-top:1.3em;line-height:1.7e
 				font-size: 2.6em; 
 				line-height: 1em;
 			}
+			#branding .mainlogo-link, #branding .mainlogo-img{max-width: 100%;}
 		/* @ Header Icons */
 			.icons {text-align: right;position: absolute;bottom: 15px; right:0px;line-height: 20px;height: 24px;}
 			.icons a {display: block;width: 22px; height: 22px; margin-left: 7px; float: right;text-align: right;}

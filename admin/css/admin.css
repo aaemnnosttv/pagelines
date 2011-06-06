@@ -1260,6 +1260,42 @@
 				option.disabled_option{color: #AAA;font-style: italic;}
 				#tselect option small{font-size: .85em;}
 				
+		.template-selector{width: 100%; }
+		.tgraph {float: left; width: 50%;font-size: .85em}
+		.tgraph-pad{padding: 0px 75px;}
+		
+		.tgraph-templates .tgraph-pad{ padding: 0 120px; }
+		.tgraph-content .tgraph-pad{ padding-top: 20px; }
+		.tgraph .tg-format{
+			
+			text-align: center;
+			color: #777;
+			float: left;
+			width: 100%;
+			border-left: 1px solid #ddd;
+			border-right: 1px solid #ccc;
+			border-bottom: 1px solid #ccc;
+			background: #eee;
+		}
+		.tgraph .tg-content-area, .tgraph .tg-wrap, .tgraph .tg-header{border-top: 1px solid #ddd;}
+		.tgraph .tg-templates .tg-pad { height: 40px;  line-height: 40px}
+		.tgraph .tg-pad{
+			border-top: 1px solid #fff;
+			border-left: 1px solid #fff;
+			padding: 5px;
+			height: 8px;
+			line-height: 13px;
+			margin-bottom: 5px;
+		}
+			
+			.tgraph .tg-content-area .tg-pad{height: 77px; line-height: 77px}
+			.tgraph .tg-sidebar1 .tg-pad, .tgraph .tg-sidebar2 .tg-pad{ height: 52px; }
+			.tgraph .tg-content-area{width: 60%;float: left;}
+			.tgraph .tg-wrap{width: 40%;float: left;}
+			.tgraph .tg-sidebar1, .tgraph .tg-sidebar2{width: 50%;float: left;}
+			
+			
+			
 /* @ Section Layout */
 	#template_data{display: none;}
 	
@@ -1268,30 +1304,31 @@
 	.the_template_builder {
 		margin-top: 2.5em;
 		min-height: 300px;
+		border: 1px solid #ccc;
+		background: #eee;
 	}
-		.template-edit-panel{
-			padding: 8px 10px;
+		.the_template_builder_pad{
+			border-top: 1px solid #fff;
+			border-left: 1px solid #fff;
 		}
 	
 	#template_data.selected_template{
 		display: block;
-		border: 1px solid #ccc;
-		background: #eee;
-		width: 700px;
+		
 	}
 	
-	.sbank{
-	
-		background: #e1e1e1;
-		border: 1px solid #d1d1d1;
-		border-left: 1px solid #c1c1c1;
-		border-top: 1px solid #c1c1c1;
-
-		padding: 10px;
-		margin: 1em;
+	.sbank{		
 		float:left;
-		width: 292px;
+		width: 50%;
 	}
+		.sbank-pad{
+			background: #e1e1e1;
+			border: 1px solid #fff;
+			border-left: 1px solid #c1c1c1;
+			border-top: 1px solid #c1c1c1;
+			padding: 10px;
+			margin: 1em;
+		}
 		.sbank .sortable_sections, .sbank .sortable_template {
 			min-height: 50px;
 			padding: 10px 0;
@@ -1301,9 +1338,11 @@
 			border: 5px dashed #ccc;
 			height: 150px;
 		}
-		.sbank li.section_bar{
+		.sbank li{
+			margin: 5px;	
+		}
+		.sbank li .section-bar{
 			
-			margin: 5px;
 			border: 1px solid #ccc;
 			border-right: 1px solid #aaa;
 			border-bottom: 1px solid #aaa;
@@ -1315,23 +1354,18 @@
 			background: #F3F3F4 url(../images/section-up.png) repeat-x left bottom;
 		}
 		
-			.sbank li.section_bar.required-section{
+			.sbank li .section-bar.required-section{
 				background: #E6E7E8 url(../images/section-required.png) repeat-x left bottom;
 			}
-				.sbank li.section_bar.required-section:hover{cursor: auto;	background: #E6E7E8 url(../images/section-required.png) repeat-x left bottom;}
-				.sbank li.required-section .section-pad{
+				.sbank li .section-bar.required-section:hover{cursor: auto;	background: #E6E7E8 url(../images/section-required.png) repeat-x left bottom;}
+				.sbank li .required-section .section-bar-pad{
 						color:#000;
 						border-top: 1px solid #eee;
 						border-left: 1px solid #eee;
 				}
-					li.required-section .section-pad .section-moreinfo-toggle{
-						color: #555;
-					}
-					li.required-section .section-pad .section-moreinfo-toggle:hover{
-						color: #222;
-					}
+					
 				
-		.sbank li .section-pad{
+		.sbank li .section-bar-pad{
 			border-top: 1px solid #fff;
 			border-left: 1px solid #fff;
 			padding: 5px 10px 5px 35px;
@@ -1341,30 +1375,71 @@
 			-webkit-border-radius: 4px;
 			border-radius: 4px;
 		}
-		.sbank li.section_bar:hover{
+		.sbank li .section-bar:hover{
 			background:#fff url(../images/section-hover.png) repeat-x left bottom;
 			cursor: move;
 		}
-			.sbank h4 {
-				margin: 2px 0 0px 0;
-			}
+	
+			.sbank h4 { margin: 2px 0 0px 0; }
 			.sbank .s-description {padding-bottom: 4px; color: #444;}
-			.section-pad .section-moreinfo, .section-pad .section-moreinfo p{
-				font-size: 10px;
-			}
-			.section-pad .section-moreinfo-toggle{
 			
+			li.required-section  .section-moreinfo-toggle{
+				color: #555;
+			}
+			li.required-section .section-moreinfo-toggle:hover{
+				color: #222;
+			}
+			
+			.section-controls-toggle{
 				color: #888;
+				font-size: .9em;
 			}
-			.section-pad .section-moreinfo-toggle:hover{
-			
+			.section-controls-toggle:hover{
 				color: #444;
 				cursor: pointer;
 			}
-			.section-pad .section-moreinfo-info{display: none; padding: 8px 0; margin-top: 8px; }
-			.section-pad .section-moreinfo-info p{margin: 0 0 5px 0;}
-			.section-pad .section-moreinfo-info .moreinfolist{margin: 0 0 8px 0px; color: #666;cursor: text;}
-			.section-pad .section-moreinfo-info .moreinfolist span{margin: 0 0 0 4px; font-style: italic; display: block;}
+			.section-controls{
+				display: none; 
+				background: #dadada;
+				border: 1px solid #c1c1c1;
+				border-top: none;
+				border-right: 1px solid #eee;
+				border-bottom: 1px solid #eee;
+				-webkit-border-bottom-right-radius: 4px;
+				-webkit-border-bottom-left-radius: 4px;
+				-moz-border-radius-bottomright: 4px;
+				-moz-border-radius-bottomleft: 4px;
+				border-bottom-right-radius: 4px;
+				border-bottom-left-radius: 4px;
+			}
+			.section-controls-pad{
+				border-top: none;
+				padding: 8px; 
+			}
+			.section-controls-pad .moreinfolist{margin: 0 0 8px 0px; cursor: text;}
+			.section-controls-pad .moreinfolist span{margin: 0 0 0 4px; font-style: italic; display: block;}
+		
+			.section-options{
+				font-size: 10px;
+				
+				padding: 5px 10px 2px;
+			
+			}
+				.section-options .section-options-row{
+					padding: 3px 0;
+				}
+				.section-options input.section_control_check{
+					vertical-align: baseline;
+
+				}
+				.section-options label{
+
+					vertical-align: baseline;
+
+				}
+				.section-options label:hover{
+					color: #000;
+				}
 		
 		#nested_sortable{
 			background: #bbb;
@@ -1494,31 +1569,7 @@
 		}
 	
 	
-	.section-options{
-		font-size: 10px;
-		color: #666;
-		background: #EEE;
-		padding: 5px 10px 2px;
-		border: 1px solid #ddd;
-		border-left: 1px solid #d1d1d1;
-		border-top: 1px solid #d1d1d1;
-		margin-bottom: 1em;
-	}
-		.section-options .section-options-row{
-			padding: 3px 0;
-		}
-		.section-options input.section_control_check{
-			vertical-align: baseline;
-			
-		}
-		.section-options label{
-
-			vertical-align: baseline;
-			
-		}
-		.section-options label:hover{
-			color: #000;
-		}
+	
 	
 	/* Free Version */
 	.vpro_sections_call {
