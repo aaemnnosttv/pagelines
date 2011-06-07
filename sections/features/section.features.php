@@ -379,7 +379,7 @@ function draw_features($f, $class) {
 													<?php pagelines_register_hook( 'pagelines_feature_text_top', $this->id ); // Hook ?>
 													<div class="fexcerpt">
 													<?php 
-														if(pagelines_option('feature_source') == 'posts') the_excerpt();
+														if(pagelines_option('feature_source') == 'posts') echo apply_filters( 'pagelines_feature_output', get_the_excerpt() );
 													 	else the_content(); 
 													?>
 													</div>
