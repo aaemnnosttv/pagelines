@@ -38,11 +38,13 @@ class PageLinesTemplateBuilder {
 			$this->do_confirms_and_hidden_fields();
 		
 			echo '<div class="tbuilder">';
-			$this->draw_template_select(); 
 			
-			$this->do_template_builder();
+				$this->draw_template_select(); 
+			
+				$this->do_template_builder();
 	
-			$this->do_template_select(); 
+				//$this->do_template_select(); 
+				
 			echo '</div>';
 	}
 
@@ -51,7 +53,7 @@ class PageLinesTemplateBuilder {
 		
 		?>
 		<input type="hidden" value="<?php echo $dtoggle;?>" id="describe_toggle" class="describe_toggle" name="describe_toggle"  />	
-		<div class="confirm_save">Template Configuration Saved!</div>
+		
 <?php }
 
 	function do_template_select(){ ?>
@@ -82,18 +84,21 @@ class PageLinesTemplateBuilder {
 	 *
 	 *
 	 */
-	function draw_template_select(){ ?>	
+	function draw_template_select(){ 
+		global $pagelines_template;
+		global $unavailable_section_areas;
+		?>	
 	<div class="template-selector fix">	
 		<div class="template-selector-pad fix">
-			<h4 class="over s-description" <?php $this->help_control();?>>1. Select Template Area</h4>
+			<h4 class="over">1. Select Template Area</h4>
 			<div class="tgraph tgraph-templates">
 				<div class="tgraph-pad">
 					<div class="tgraph-controls">
 						<div class="tgraph-controls-pad fix">
-							<div class="tg-format tg-header"><div class="tg-pad">Header</div></div>
-							<div class="tg-format tg-templates"><div class="tg-pad">Page Templates</div></div>
-							<div class="tg-format tg-morefoot"><div class="tg-pad">Morefoot</div></div>
-							<div class="tg-format tg-footer"><div class="tg-pad">Footer</div></div>
+							<div id="ta-header" class="load-build tg-format tg-header"><div class="tg-pad">Header</div></div>
+							<div id="ta-templates" class="tg-format tg-templates"><div class="tg-pad">Page Templates</div></div>
+							<div id="ta-morefoot" class="load-build tg-format tg-morefoot"><div class="tg-pad">Morefoot</div></div>
+							<div id="ta-footer" class="load-build tg-format tg-footer"><div class="tg-pad">Footer</div></div>
 						</div>
 					</div>
 				</div>
@@ -115,7 +120,7 @@ class PageLinesTemplateBuilder {
 							<div class="tg-wrap">
 								<div class="tg-sidebarwrap">
 									<div class="tgc">
-										<div class="tg-format">
+										<div id="ta-sidebar_wrap" class="tg-format">
 											<div class="tg-pad">Sidebar Wrap</div>
 										</div>
 									</div>
@@ -123,7 +128,7 @@ class PageLinesTemplateBuilder {
 								<div class="tg-sidebar1">
 									<div class="tg-mmr">
 										<div class="tgc">
-											<div class="tg-format">
+											<div id="ta-sidebar1" class="tg-format">
 												<div class="tg-pad">SB1</div>
 											</div>
 										</div>
@@ -132,7 +137,7 @@ class PageLinesTemplateBuilder {
 								<div class="tg-sidebar2">
 									<div class="tg-mml">
 										<div class="tgc">
-											<div class="tg-format">
+											<div id="ta-sidebar2" class="tg-format">
 												<div class="tg-pad">SB2</div>
 											</div>
 										</div>
@@ -144,8 +149,24 @@ class PageLinesTemplateBuilder {
 					</div>
 				</div>
 			</div>
+			
 		</div>
 	</div>	
+	<div class="clear"></div>
+	<div class="sub-template-selector fix">
+		<div class="sub-templates fix">
+			<h4 class="over">Which Template?</h4>
+			<?php 	foreach(the_template_map() as $hook => $hook_info):
+			 			if($hook == 'templates'){ 
+							foreach($hook_info['templates'] as $template => $tfield){
+									if(!isset($tfield['version']) || ($tfield['version'] == 'pro' && VPRO))
+										printf('<a href="%s">%s</a>', $hook . '-' . $template, $tfield['name']);
+							}
+						}
+					endforeach;?>
+		</div>
+		
+	</div>
 <?php }
 
 	function do_template_builder(){
@@ -185,16 +206,19 @@ class PageLinesTemplateBuilder {
 
 			$available_sections = $pl_section_factory->sections;
 
-			$template_slug = ( isset($hook_id) ) ? $hook_id.'-'.$template : $template;
+			$template_slug = ( isset($hook_id) ) ? join('-', array( $hook_id, $template )) : $template;
 
 			$template_area = ( isset($hook_id) ) ? $hook_id : $template;
-
+plprint(get_option('pagelines_template_map'));
 				?>
 				
 				<div id="template_data" class="<?php echo $template_slug; ?> layout-type-<?php echo $template_area;?>">
-					<div class="ttitle"><span>Editing &rarr;</span> <?php echo $tfield['name'];?></div>
+					<div class="ttitle" id="highlightme">
+						<span>Editing &rarr;</span> <?php echo $tfield['name'];?> 
+						<div class="confirm_save"><div class="confirm_save_pad">Section Order Saved!</div></div>
+					</div>
 					<div id="section_map" class="template-edit-panel ">
-						<h4 class='over s-description' <?php $this->help_control();?>>2. Arrange Sections In Area With Drag &amp; Drop</h4>
+						<h4 class='over' >2. Arrange Sections In Area With Drag &amp; Drop</h4>
 						<div class="sbank template_layout">
 							<div class="sbank-pad">
 								<div class="bank_title">Displayed <?php echo $tfield['name'];?> Sections</div>

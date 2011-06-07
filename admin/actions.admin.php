@@ -117,16 +117,16 @@ function pagelines_check_php(){
 		parse_str($section_order);
 		
 		/* Selected Template */
-		$selected_template = esc_attr($_GET['template']);
+		$selected_template = esc_attr( $_GET['template'] );
 		
 			/* Explode by slash to get heirarchy */
 			$template_heirarchy = explode('-', $selected_template);
 			
-			if(isset($template_heirarchy[1])){
+			if( isset($template_heirarchy[1]) )
 				$templatemap[$template_heirarchy[0]]['templates'][$template_heirarchy[1]]['sections'] = urlencode_deep($section);
-			} else {
+			else
 				$templatemap[$selected_template]['sections'] = $section;
-			}
+			
 		
 		
 		save_template_map($templatemap);

@@ -49,7 +49,7 @@ function pagelines_theme_settings_init() {
 	wp_enqueue_script( 'jquery-cookie', PL_ADMIN_JS . '/jquery.ckie.js');
 	wp_enqueue_script( 'jquery-ui-core' );
 	wp_enqueue_script( 'jquery-ui-tabs' );
-	
+	wp_enqueue_script( 'jquery-ui-effects',PL_ADMIN_JS . '/jquery.effects.js', array('jquery')); // just has highlight effect
 	add_action('load-'.$_pagelines_options_page_hook, 'pagelines_theme_settings_scripts');
 	wp_enqueue_script( 'platform-admin-js', PL_ADMIN_JS . '/platform.admin.js');
 }

@@ -215,9 +215,10 @@ class PageLinesTemplate {
 	*/
 	function hook_and_print_sections(){
 		
-		foreach($this->map as $hook_id => $hook_info){
+		foreach( $this->map as $hook_id => $h ){
 
-			add_action($hook_info['hook'], array(&$this, 'print_section_html'));
+			if( isset($h['hook']) )
+				add_action( $h['hook'], array(&$this, 'print_section_html') );
 
 		}		
 		

@@ -96,20 +96,7 @@ global $pagelines_template;
 
 ?>
 
-	var stemplate = jQuery('#tselect').val();
 
-	jQuery('.'+stemplate).addClass('selected_template');
-
-	setSortable(stemplate);
-
-	jQuery('#tselect').change(function() {
-	
-		stemplate = jQuery(this).val();
-		jQuery('.selected_template').removeClass('selected_template');
-		jQuery('.'+stemplate).addClass('selected_template');
-		setSortable(stemplate);
-	
-	});
 
 /*
 	Layout Builder Control	

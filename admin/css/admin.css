@@ -1145,19 +1145,19 @@
 	/* Layout Selector */
 	.layoutinput, .confirm_save {display:none;}
 	.confirm_save{
-		position: absolute;
-		right: 5px;
-		top: 10px;
-		color:#FFF;
-		text-shadow: #000 0 -1px 0;
-		font-size: 1.4em;
-		font-weight: bold;
-		padding: 15px 40px;
-		background: transparent url('../images/bg_option_confirm.png') repeat 0 0;
-		-moz-border-radius: 5px;
-		-khtml-border-radius: 5px;
-		-webkit-border-radius: 5px;
-		border-radius: 5px;
+		/*position: absolute;
+				right: 5px;
+				top: 10px;
+	
+				
+				text-shadow: #000 0 -1px 0;
+				font-size: 1.4em;
+				font-weight: bold;
+				background: transparent url('../images/bg_option_confirm.png') repeat 0 0;*/
+	
+		float: right;
+		color:#AAA;
+		
 	}
 	
 
@@ -1319,6 +1319,7 @@
 			margin-bottom: 3px;
 		}
 			.tgraph .tg-format:hover{
+				cursor:pointer;
 				background:#fff url(../images/section-hover.png) repeat-x left bottom;
 			}
 		
@@ -1346,7 +1347,7 @@
 			
 			
 			
-			 .template-selector h4{
+			 .template-selector h4, .sub-template-selector h4{
 				text-align: center;
 				margin: .5em 0 1em;
 				color:#999;
@@ -1356,6 +1357,25 @@
 				text-align: center;
 				margin: 15px 0 0;
 				
+			}
+			
+		.tbuilder .sub-template-selector{
+			border: 1px solid #ccc;
+			border-top: 1px solid #bbb;
+			border-bottom: none;
+			background: #ddd;
+			padding: 10px;
+			display: none;
+		}
+			.sub-template-selector a{
+				float:left;
+				background: #ccc;
+				border: 1px solid #bbb;
+				font-weight: bold;
+				color: #000;
+				padding: 5px 7px;
+				margin: 4px;
+				text-decoration: none;
 			}
 /* @ Section Layout */
 	#template_data{display: none;}
@@ -1372,14 +1392,11 @@
 			border-top: 1px solid #fff;
 			border-left: 1px solid #fff;
 		}
-		.ttitle{ font-size: 1.5em; font-weight: bold; color:#999; padding:15px 10px;background:#f7f7f7;border-bottom:1px solid #ddd}
+		.ttitle{ font-size: 1.5em; font-weight: bold; color:#999; padding:18px 10px;background:#f7f7f7;border-bottom:1px solid #ddd}
 		.ttitle span{color:#ccc}
 		.template-edit-panel {border-top: 1px solid #fff}
 		
-	#template_data.selected_template{
-		display: block;
-		
-	}
+	#template_data.selected_builder{ display: block; }
 	
 	.sbank{		
 		float:left;

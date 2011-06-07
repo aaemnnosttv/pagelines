@@ -47,12 +47,12 @@
  *   Sortable Sections
  * ###########################
  */
-	function setSortable(selected_template){
+	function setSortable( selected_builder ){
 		
-		setEmpty(".selected_template #sortable_template");
-		setEmpty(".selected_template #sortable_sections");
+		setEmpty(".selected_builder #sortable_template");
+		setEmpty(".selected_builder #sortable_sections");
 	
-		jQuery(".selected_template #sortable_template").sortable({ 
+		jQuery(".selected_builder #sortable_template").sortable({ 
 				connectWith: '.connectedSortable',
 				cancel: '.required-section',
 				
@@ -60,39 +60,48 @@
 				
 				update: function() {
 					
-					setEmpty(".selected_template #sortable_template");
-					setEmpty(".selected_template #sortable_sections");
+					var saveText = jQuery('.selected_builder .confirm_save_pad');
 					
-		            var order = jQuery('.selected_template #sortable_template').sortable('serialize');
+					setEmpty(".selected_builder #sortable_template");
+					setEmpty(".selected_builder #sortable_sections");
+					
+		            var order = jQuery('.selected_builder #sortable_template').sortable('serialize');
 		          
 					var data = {
 							action: 'pagelines_save_sortable',
 							orderdata: order,
-							template: selected_template, 
+							template: selected_builder, 
 							field: 'sections'
 						};
 
-						// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
-						jQuery.ajax({
-							type: 'GET',
-							url: ajaxurl,
-							data: data,
-							success: function(response) { jQuery('.confirm_save').fadeIn(100).delay(1000).fadeOut(700); }
-						});
+					// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
+					jQuery.ajax({
+						type: 'GET',
+						url: ajaxurl,
+						data: data,
+						beforeSend: function(){
+						},
+						success: function(response) {
+							jQuery('.selected_builder .ttitle').effect("highlight", {color: "#FFFFFF"}, 1500); 
+							jQuery('.selected_builder .confirm_save').show().delay(800).fadeOut(700); 
+						}
+					});
+					
+					
 		        }                                         
 		    }
 		);
 		
-		jQuery(".selected_template #sortable_sections").sortable({ 
+		jQuery(".selected_builder #sortable_sections").sortable({ 
 				connectWith: '.connectedSortable',
 				cancel: '.required-section',
 				
 				items: 'li:not(.bank_title)',
 				
-				update: function() { setEmpty(".selected_template #sortable_sections"); }                                         
+				update: function() { setEmpty(".selected_builder #sortable_sections"); }                                         
 		});
 		
-		jQuery(".selected_template #sortable_template, .selected_template #sortable_sections").disableSelection();	
+		jQuery(".selected_builder #sortable_template, .selected_builder #sortable_sections").disableSelection();	
 	}
 	
 	function setEmpty(sortablelist){
@@ -103,6 +112,54 @@
 		}
 	}
 
+/*
+ * ###########################
+ *   Template Builder Select
+ * ###########################
+ */
+jQuery(document).ready(function(){
+	// var stemplate = jQuery('#tselect').val();
+	// 
+	// jQuery('.'+stemplate).addClass('selected_template');
+	// 
+	// setSortable(stemplate);
+	// 
+	// jQuery('#tselect').change(function() {
+	// 
+	// 	stemplate = jQuery(this).val();
+	// 	jQuery('.selected_template').removeClass('selected_template');
+	// 	jQuery('.'+stemplate).addClass('selected_template');
+	// 	setSortable(stemplate);
+	// 
+	// });
+	
+	var stemplate = 'header';
+	
+	jQuery('.'+stemplate).addClass('selected_builder');
+
+	setSortable(stemplate);
+	
+	jQuery('.load-build').click(function() {
+	
+		var stemplate_id = jQuery(this).attr('id');
+		var stemplate = stemplate_id.replace('ta-', '');
+		
+		jQuery('.selected_builder').removeClass('selected_builder');
+		jQuery('.'+stemplate).addClass('selected_builder');
+		setSortable(stemplate);
+	
+	});
+	
+	jQuery('.tg-templates').click(function() {
+		
+		jQuery('.sub-template-selector').slideToggle();
+		var stemplate = 'templates-default';
+		jQuery('.selected_builder').removeClass('selected_builder');
+		jQuery('.'+stemplate).addClass('selected_builder');
+
+		setSortable(stemplate);
+	});
+});
 
 /*
  * ###########################
