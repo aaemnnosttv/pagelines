@@ -161,7 +161,10 @@ jQuery(document).ready(function(){
 	
 	jQuery('.tg-templates').click(function() {
 		var stemplate = 'templates-default';
+		jQuery('.sss-selected').removeClass('sss-selected');
 		jQuery('.sub-template-selector #'+stemplate).addClass('sss-selected');
+		
+		
 		jQuery('.sel-templates-sub.sub-template-selector').slideDown();
 	
 		jQuery('.selected_builder').removeClass('selected_builder');
@@ -172,7 +175,9 @@ jQuery(document).ready(function(){
 	
 	jQuery('.tg-content-templates').click(function() {
 		var stemplate = 'main-default';
+		jQuery('.sss-selected').removeClass('sss-selected');
 		jQuery('.sub-template-selector #'+stemplate).addClass('sss-selected');
+		
 		
 		jQuery('.sel-content-sub.sub-template-selector').slideDown();
 		
