@@ -385,8 +385,13 @@
 			margin: 10px 0;
 		}
 	
-	.wideinputs.optionrow {padding:0}
-	.wideinputs .theinputs{
+	.interface .optioninputs{
+		padding: 0;
+	}
+	.interface .optiontitle{margin-bottom: 0}
+	
+	.interface .optioninputs, .wideinputs.optionrow {padding:0}
+	.interface .theinputs, .wideinputs .theinputs{
 		width: 100%;
 	}
 		.wideinputs .optioninputs {
@@ -1259,23 +1264,41 @@
 			
 				option.disabled_option{color: #AAA;font-style: italic;}
 				#tselect option small{font-size: .85em;}
+			
+			
+		.tbuilder{
+			margin: 30px;
+		}		
+		.template-selector{
+			width: 100%; 	
+			
+			background: #eee;
+			border: 1px solid #ddd;
+			border-bottom: none;
+		}
+			.template-selector-pad{
 				
-		.template-selector{width: 100%; }
+				padding: 20px 0;
+				
+				
+				border-top: 1px solid #fff;
+				border-left: 1px solid #fff;
+			}
 		.tgraph {float: left; width: 50%;font-size: .85em}
-		.tgraph-pad{padding: 0px 75px;}
-		
+		.tgraph-pad{padding: 0px 65px;}
 		.tgraph-templates .tgraph-pad{ padding: 0 120px; }
 		.tgraph-content .tgraph-pad{ padding-top: 20px; }
+		
 		.tgraph .tg-format{
 			
 			text-align: center;
-			color: #777;
+			color: #666;
 			float: left;
 			width: 100%;
 			border-left: 1px solid #ddd;
 			border-right: 1px solid #ccc;
-			border-bottom: 1px solid #ccc;
-			background: #eee;
+			border-bottom: 1px solid #ddd;
+			background: #fff url(../images/bg-builder.png) repeat-x left bottom;
 		}
 		.tgraph .tg-content-area, .tgraph .tg-wrap, .tgraph .tg-header{border-top: 1px solid #ddd;}
 		.tgraph .tg-templates .tg-pad { height: 40px;  line-height: 40px}
@@ -1302,15 +1325,16 @@
 	#template_setup .optioninputs{position: relative; }
 	
 	.the_template_builder {
-		margin-top: 2.5em;
 		min-height: 300px;
-		border: 1px solid #ccc;
+		border: 1px solid #ddd;
 		background: #eee;
+		width: 100%;
 	}
 		.the_template_builder_pad{
 			border-top: 1px solid #fff;
 			border-left: 1px solid #fff;
 		}
+		.ttitle{background: #e1e1e1; padding: 5px 10px;}
 	
 	#template_data.selected_template{
 		display: block;
@@ -1326,8 +1350,8 @@
 			border: 1px solid #fff;
 			border-left: 1px solid #c1c1c1;
 			border-top: 1px solid #c1c1c1;
-			padding: 10px;
-			margin: 1em;
+			margin: 20px;
+			padding: 15px;
 		}
 		.sbank .sortable_sections, .sbank .sortable_template {
 			min-height: 50px;

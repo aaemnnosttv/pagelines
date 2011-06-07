@@ -37,11 +37,13 @@ class PageLinesTemplateBuilder {
 		
 			$this->do_confirms_and_hidden_fields();
 		
+			echo '<div class="tbuilder">';
 			$this->draw_template_select(); 
 			
 			$this->do_template_builder();
 	
 			$this->do_template_select(); 
+			echo '</div>';
 	}
 
 	function do_confirms_and_hidden_fields(){ 
@@ -168,8 +170,11 @@ class PageLinesTemplateBuilder {
 			$template_area = ( isset($hook_id) ) ? $hook_id : $template;
 
 				?>
+				
 				<div id="template_data" class="<?php echo $template_slug; ?> layout-type-<?php echo $template_area;?>">
+						<div class="ttitle"><?php echo $tfield['name'];?></div>
 					<div id="section_map" class="template-edit-panel ">
+					
 						<div class="sbank template_layout">
 							<div class="sbank-pad">
 								<div class="bank_title">Displayed <?php echo $tfield['name'];?> Sections</div>
@@ -184,6 +189,8 @@ class PageLinesTemplateBuilder {
 														$section_id =  $s->id;
 
 														$section_args = array(
+															'section'	=> $section,
+															'template'	=> $template,
 															'id'		=> 'section_' . $section, 
 															'icon'		=> $s->settings['icon'], 
 															'name'		=> $s->name, 
@@ -225,7 +232,9 @@ class PageLinesTemplateBuilder {
 
 											if(isset( $works_with[$template] ) || isset( $works_with[$hook_id]) || isset($works_with[$hook_id.'-'.$template]) || isset($works_with[$markup_type])):
 												$section_args = array(
-													'id'		=> 'section_' . $sectionclass, 
+													'id'		=> 'section_' . $sectionclass,
+													'template'	=> $template,
+													'section'	=> $sectionclass, 
 													'icon'		=> $section->settings['icon'], 
 													'name'		=> $section->name, 
 													'desc'		=> $section->settings['description']
@@ -253,6 +262,8 @@ class PageLinesTemplateBuilder {
 	function draw_section( $args ){ 
 		
 		$defaults = array(
+			'section'		=> '',
+			'template'		=> '',
 			'id' 			=> '',
 			'icon'		 	=> '',
 			'name' 			=> '',
@@ -284,14 +295,14 @@ class PageLinesTemplateBuilder {
 			</div>
 			<?php
 				if($a['controls'] == true)
-					$this->inline_section_control($a['name'], $a['tslug'], $a['tarea']);
+					$this->inline_section_control($a['name'], $a['template'], $a['section'], $a['tslug'], $a['tarea']);
 			
 			?>
 		</li>
 		
 	<?php }
 	
-	function inline_section_control($name, $template_slug, $template_area){
+	function inline_section_control($name, $template, $section, $template_slug, $template_area){
 
 		$section_control = pagelines_option('section-control');
 

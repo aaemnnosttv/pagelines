@@ -326,6 +326,7 @@ function option_engine($oid, $o){
 
 	$layout_class = '';
 	$layout_class .= ( isset( $o['layout'] ) && $o['layout']=='full' ) ? ' wideinputs' : '';
+	$layout_class .= ( isset( $o['layout'] ) && $o['layout']=='interface' ) ? ' interface' : '';
 
 if( $draw_option ): 
 ?>
