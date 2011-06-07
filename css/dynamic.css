@@ -1,4 +1,4 @@
-/* PageLines - Copyright 2011 - Version 2.0.b2 */
+/* PageLines - Copyright 2011 - Version 2.0.b3 */
 
 /* Set Type --------------- */
 
@@ -14,7 +14,7 @@ input[type="text"], input[type="password"], textarea, #dsq-content textarea{font
 
 .fixed_width #page, .fixed_width #footer, .canvas #page-canvas{ max-width:820px }
 #page-main .content{ max-width:802px }
-#site .content, .wcontent{max-width:800px}
+#site .content, .wcontent{max-width:800px; width: 100%}
 
 .fullwidth  #pagelines_content #column-main, .fullwidth  .wmain, .fullwidth  #buddypress-page #container{ width:100%; }
 .fullwidth  #pagelines_content #sidebar1, .fullwidth  #buddypress-page #sidebar1{ width:0%; }

@@ -1322,16 +1322,28 @@
 				cursor:pointer;
 				background:#fff url(../images/section-hover.png) repeat-x left bottom;
 			}
-			.tgraph .tg-format.builder_selected_area{
+			.tgraph .tg-format:active{
 				background:#ddd;
 				color:#000;
 				border: 1px solid #c1c1c1;
 				border-right: 1px solid #d1d1d1;
 				border-bottom: 1px solid #d1d1d1;
 			}
-				.tgraph .tg-format.builder_selected_area .tg-pad{
+				.tgraph .tg-format:active .tg-pad{
 					border-top: 1px solid #ddd;
 					border-left: 1px solid #ddd;
+				}
+			.tgraph .tg-format.builder_selected_area{
+				background: #8FCBFD url(../images/sprite-navigation.png) repeat-x left bottom;
+				border: 1px solid #196BCE;
+				border-left: 1px solid #74AFD7;
+				border-top: 1px solid #74AFD7;
+				color: #fff;
+				text-shadow: #196BCE 0 -1px 0;
+			}
+				.tgraph .tg-format.builder_selected_area .tg-pad{
+					border-top: 1px solid #8FCBFD;
+					border-left: 1px solid #8FCBFD;
 				}
 		
 			.tgraph-templates .tgraph .tg-format, .tgraph-content .tgc{width: 100%;}
@@ -1379,6 +1391,7 @@
 			display: none;
 		}
 			.sub-template-selector a{
+				cursor: pointer;
 				float:left;
 				background: #ccc;
 				border: 1px solid #bbb;
@@ -1388,6 +1401,14 @@
 				margin: 4px;
 				text-decoration: none;
 			}
+				.sub-template-selector a.sss-selected{
+					background: #8FCBFD url(../images/sprite-navigation.png) repeat-x left bottom;
+					border: 1px solid #196BCE;
+					border-left: 1px solid #539AE6;
+					border-top: 1px solid #539AE6;
+					color: #fff;
+					text-shadow: #196BCE 0 -1px 0;
+				}
 /* @ Section Layout */
 	#template_data{display: none;}
 	

@@ -82,8 +82,8 @@
 						beforeSend: function(){
 						},
 						success: function(response) {
-							jQuery('.selected_builder .ttitle').effect("highlight", {color: "#FFFFFF"}, 1500); 
-							jQuery('.selected_builder .confirm_save').show().delay(800).fadeOut(700); 
+							jQuery('.selected_builder .ttitle').effect("highlight", {color: "#ddd"}, 2000); 
+							jQuery('.selected_builder .confirm_save').show().delay(1200).fadeOut(700); 
 						}
 					});
 					
@@ -118,43 +118,41 @@
  * ###########################
  */
 jQuery(document).ready(function(){
-	// var stemplate = jQuery('#tselect').val();
-	// 
-	// jQuery('.'+stemplate).addClass('selected_template');
-	// 
-	// setSortable(stemplate);
-	// 
-	// jQuery('#tselect').change(function() {
-	// 
-	// 	stemplate = jQuery(this).val();
-	// 	jQuery('.selected_template').removeClass('selected_template');
-	// 	jQuery('.'+stemplate).addClass('selected_template');
-	// 	setSortable(stemplate);
-	// 
-	// });
-	
-	var stemplate = 'header';
-	
-	jQuery('.'+stemplate).addClass('selected_builder');
 
+
+	// Set the default template area... always the header
+	/*
+		TODO make default the default page, or posts page?
+	*/
+	var stemplate = 'header';
+	jQuery('.'+stemplate).addClass('selected_builder');
 	jQuery('.tg-header').addClass('builder_selected_area');
-	
 	setSortable(stemplate);
 	
+	// when a user clicks, highlight the area; slide up the sub selector panels (if they're open)
 	jQuery('.tg-format').click(function() {
 		// For select interface selection
 		jQuery('.builder_selected_area').removeClass('builder_selected_area');
 		jQuery(this).addClass('builder_selected_area');
-		if(!jQuery(this).hasClass('tg-templates')) jQuery('.sub-template-selector').slideUp();
+		if(!jQuery(this).hasClass('tg-templates')) jQuery('.sel-templates-sub.sub-template-selector').slideUp();
+		if(!jQuery(this).hasClass('tg-content-templates')) jQuery('.sel-content-sub.sub-template-selector').slideUp();
 	});
 	
+	jQuery('.sss-button').click(function() {
+		// For select interface selection
+		jQuery('.sss-selected').removeClass('sss-selected');
+		jQuery(this).addClass('sss-selected');
+		var stemplate = jQuery(this).attr('id');
+		jQuery('.selected_builder').removeClass('selected_builder');
+		jQuery('.'+stemplate).addClass('selected_builder');
+		setSortable(stemplate);
+	});
+	
+	// Load the ID of the element if it has a load build class on it
 	jQuery('.load-build').click(function() {
 	
 		var stemplate_id = jQuery(this).attr('id');
 		var stemplate = stemplate_id.replace('ta-', '');
-		
-		
-		
 		jQuery('.selected_builder').removeClass('selected_builder');
 		jQuery('.'+stemplate).addClass('selected_builder');
 		setSortable(stemplate);
@@ -162,9 +160,22 @@ jQuery(document).ready(function(){
 	});
 	
 	jQuery('.tg-templates').click(function() {
-		
-		jQuery('.sub-template-selector').slideDown();
 		var stemplate = 'templates-default';
+		jQuery('.sub-template-selector #'+stemplate).addClass('sss-selected');
+		jQuery('.sel-templates-sub.sub-template-selector').slideDown();
+	
+		jQuery('.selected_builder').removeClass('selected_builder');
+		jQuery('.'+stemplate).addClass('selected_builder');
+
+		setSortable(stemplate);
+	});
+	
+	jQuery('.tg-content-templates').click(function() {
+		var stemplate = 'main-default';
+		jQuery('.sub-template-selector #'+stemplate).addClass('sss-selected');
+		
+		jQuery('.sel-content-sub.sub-template-selector').slideDown();
+		
 		jQuery('.selected_builder').removeClass('selected_builder');
 		jQuery('.'+stemplate).addClass('selected_builder');
 

@@ -111,7 +111,7 @@ class PageLinesTemplateBuilder {
 							
 								<div class="tg-rm">
 									<div clas="tgc">
-										<div class="tg-format">
+										<div class="tg-format tg-content-templates">
 											<div class="tg-pad">Content Area</div>
 										</div>
 									</div>
@@ -120,7 +120,7 @@ class PageLinesTemplateBuilder {
 							<div class="tg-wrap">
 								<div class="tg-sidebarwrap">
 									<div class="tgc">
-										<div id="ta-sidebar_wrap" class="tg-format">
+										<div id="ta-sidebar_wrap" class="load-build tg-format">
 											<div class="tg-pad">Sidebar Wrap</div>
 										</div>
 									</div>
@@ -128,7 +128,7 @@ class PageLinesTemplateBuilder {
 								<div class="tg-sidebar1">
 									<div class="tg-mmr">
 										<div class="tgc">
-											<div id="ta-sidebar1" class="tg-format">
+											<div id="ta-sidebar1" class="load-build tg-format">
 												<div class="tg-pad">SB1</div>
 											</div>
 										</div>
@@ -137,7 +137,7 @@ class PageLinesTemplateBuilder {
 								<div class="tg-sidebar2">
 									<div class="tg-mml">
 										<div class="tgc">
-											<div id="ta-sidebar2" class="tg-format">
+											<div id="ta-sidebar2" class="load-build tg-format">
 												<div class="tg-pad">SB2</div>
 											</div>
 										</div>
@@ -153,17 +153,33 @@ class PageLinesTemplateBuilder {
 		</div>
 	</div>	
 	<div class="clear"></div>
-	<div class="sub-template-selector fix">
+	<div class="sub-template-selector fix sel-templates-sub">
 		<div class="sub-templates fix">
 			<h4 class="over">Which Template?</h4>
-			<?php 	foreach(the_template_map() as $hook => $hook_info):
+			<?php 	foreach(the_template_map() as $hook => $hook_info){
 			 			if($hook == 'templates'){ 
 							foreach($hook_info['templates'] as $template => $tfield){
 									if(!isset($tfield['version']) || ($tfield['version'] == 'pro' && VPRO))
-										printf('<a href="%s">%s</a>', $hook . '-' . $template, $tfield['name']);
+										printf('<a id="%s" href="#" class="sss-button">%s</a>', $hook . '-' . $template, $tfield['name']);
 							}
 						}
-					endforeach;?>
+					}?>
+		</div>
+		
+	</div>
+	<div class="sub-template-selector fix sel-content-sub">
+		<div class="sub-templates fix">
+			<h4 class="over">Which Content Area Type?</h4>
+			<?php 	
+					foreach(the_template_map() as $hook => $h){
+			 			if($hook == 'main'){ 
+							foreach($h['templates'] as $template => $t){
+								if(!isset($t['version']) || ($t['version'] == 'pro' && VPRO))
+									printf('<a href="%s">%s</a>', $hook . '-' . $template, $t['name']);
+							}
+						}
+					}
+			?>
 		</div>
 		
 	</div>
