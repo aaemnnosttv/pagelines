@@ -139,10 +139,19 @@ jQuery(document).ready(function(){
 
 	setSortable(stemplate);
 	
+	jQuery('.tg-format').click(function() {
+		// For select interface selection
+		jQuery('.builder_selected_area').removeClass('builder_selected_area');
+		jQuery(this).addClass('builder_selected_area');
+		if(!jQuery(this).hasClass('tg-templates')) jQuery('.sub-template-selector').slideUp();
+	});
+	
 	jQuery('.load-build').click(function() {
 	
 		var stemplate_id = jQuery(this).attr('id');
 		var stemplate = stemplate_id.replace('ta-', '');
+		
+		
 		
 		jQuery('.selected_builder').removeClass('selected_builder');
 		jQuery('.'+stemplate).addClass('selected_builder');
@@ -152,7 +161,7 @@ jQuery(document).ready(function(){
 	
 	jQuery('.tg-templates').click(function() {
 		
-		jQuery('.sub-template-selector').slideToggle();
+		jQuery('.sub-template-selector').slideDown();
 		var stemplate = 'templates-default';
 		jQuery('.selected_builder').removeClass('selected_builder');
 		jQuery('.'+stemplate).addClass('selected_builder');

@@ -1322,6 +1322,17 @@
 				cursor:pointer;
 				background:#fff url(../images/section-hover.png) repeat-x left bottom;
 			}
+			.tgraph .tg-format.builder_selected_area{
+				background:#ddd;
+				color:#000;
+				border: 1px solid #ccc;
+				border-right: 1px solid #ddd;
+				border-bottom: 1px solid #ddd;
+			}
+				.tgraph .tg-format.builder_selected_area .tg-pad{
+					border-top: 1px solid #ddd;
+					border-left: 1px solid #ddd;
+				}
 		
 			.tgraph-templates .tgraph .tg-format, .tgraph-content .tgc{width: 100%;}
 			
