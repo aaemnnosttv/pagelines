@@ -30,10 +30,12 @@ class PageLinesPostNav extends PageLinesSection {
    }
 
    function section_template() { ?>
+   	<?php pagelines_register_hook( 'pagelines_section_before_postnav' ); // Hook ?>
 		<div class="post-nav fix"> 
 			<span class="previous"><?php previous_post_link('%link') ?></span> 
 			<span class="next"><?php next_post_link('%link') ?></span>
 		</div>
+	<?php pagelines_register_hook( 'pagelines_section_after_postnav' ); // Hook ?>
 <?php }
 
 }
