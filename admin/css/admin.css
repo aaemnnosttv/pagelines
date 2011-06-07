@@ -1349,7 +1349,7 @@
 			 .template-selector h4{
 				text-align: center;
 				margin: .5em 0 1em;
-				color:#777;
+				color:#999;
 			}
 			.template-edit-panel h4.over{
 				color:#BBB;
@@ -1372,7 +1372,7 @@
 			border-top: 1px solid #fff;
 			border-left: 1px solid #fff;
 		}
-		.ttitle{ font-size: 1.5em; font-weight: bold; color:#999; padding:10px;background:#f7f7f7;border-bottom:1px solid #ddd}
+		.ttitle{ font-size: 1.5em; font-weight: bold; color:#999; padding:15px 10px;background:#f7f7f7;border-bottom:1px solid #ddd}
 		.ttitle span{color:#ccc}
 		.template-edit-panel {border-top: 1px solid #fff}
 		

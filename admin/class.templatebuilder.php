@@ -47,7 +47,7 @@ class PageLinesTemplateBuilder {
 	}
 
 	function do_confirms_and_hidden_fields(){ 
-		$dtoggle = (get_option('pl_section_desc_toggle')) ? get_option('pl_section_desc_toggle') : 'hide'; 
+		$dtoggle = (get_option('pl_section_desc_toggle')) ? get_option('pl_section_desc_toggle') : 'show'; 
 		
 		?>
 		<input type="hidden" value="<?php echo $dtoggle;?>" id="describe_toggle" class="describe_toggle" name="describe_toggle"  />	
@@ -85,7 +85,7 @@ class PageLinesTemplateBuilder {
 	function draw_template_select(){ ?>	
 	<div class="template-selector fix">	
 		<div class="template-selector-pad fix">
-			<h4>Select Template Area</h4>
+			<h4 class="over s-description" <?php $this->help_control();?>>1. Select Template Area</h4>
 			<div class="tgraph tgraph-templates">
 				<div class="tgraph-pad">
 					<div class="tgraph-controls">
@@ -194,7 +194,7 @@ class PageLinesTemplateBuilder {
 				<div id="template_data" class="<?php echo $template_slug; ?> layout-type-<?php echo $template_area;?>">
 					<div class="ttitle"><span>Editing &rarr;</span> <?php echo $tfield['name'];?></div>
 					<div id="section_map" class="template-edit-panel ">
-						<h4 class='over'>Arrange Sections In Area With Drag &amp; Drop</h4>
+						<h4 class='over s-description' <?php $this->help_control();?>>2. Arrange Sections In Area With Drag &amp; Drop</h4>
 						<div class="sbank template_layout">
 							<div class="sbank-pad">
 								<div class="bank_title">Displayed <?php echo $tfield['name'];?> Sections</div>
@@ -376,9 +376,9 @@ class PageLinesTemplateBuilder {
 				<span class="setup_control_text">
 					<?php 
 					if($this->help()) 
-						echo 'Hide Section Descriptions';
+						echo 'Hide Help and Descriptions';
 					else
-						echo 'Show Section Descriptions';
+						echo 'Show Help and Descriptions';
 					?>
 				</span>
 			</span>
