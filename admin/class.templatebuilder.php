@@ -85,43 +85,62 @@ class PageLinesTemplateBuilder {
 	function draw_template_select(){ ?>	
 	<div class="template-selector fix">	
 		<div class="template-selector-pad fix">
+			<h4>Select Template Area</h4>
 			<div class="tgraph tgraph-templates">
 				<div class="tgraph-pad">
 					<div class="tgraph-controls">
-						<div class="tg-format tg-header"><div class="tg-pad">Header</div></div>
-						<div class="tg-format tg-templates"><div class="tg-pad">Page Templates</div></div>
-						<div class="tg-format tg-morefoot"><div class="tg-pad">Morefoot</div></div>
-						<div class="tg-format tg-footer"><div class="tg-pad">Footer</div></div>
+						<div class="tgraph-controls-pad fix">
+							<div class="tg-format tg-header"><div class="tg-pad">Header</div></div>
+							<div class="tg-format tg-templates"><div class="tg-pad">Page Templates</div></div>
+							<div class="tg-format tg-morefoot"><div class="tg-pad">Morefoot</div></div>
+							<div class="tg-format tg-footer"><div class="tg-pad">Footer</div></div>
+						</div>
 					</div>
 				</div>
 			</div>
 			<div class="tgraph tgraph-content">
 				<div class="tgraph-pad">
 					<div class="tgraph-controls">
-						<div class="tg-content-area">
+						<div class="tgraph-controls-pad fix">
+							<div class="tg-content-area">
 							
-							<div class="tg-rm"><div class="tg-format">
-								<div class="tg-pad">Content Area</div>
-							</div></div>
+								<div class="tg-rm">
+									<div clas="tgc">
+										<div class="tg-format">
+											<div class="tg-pad">Content Area</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="tg-wrap">
+								<div class="tg-sidebarwrap">
+									<div class="tgc">
+										<div class="tg-format">
+											<div class="tg-pad">Sidebar Wrap</div>
+										</div>
+									</div>
+								</div>
+								<div class="tg-sidebar1">
+									<div class="tg-mmr">
+										<div class="tgc">
+											<div class="tg-format">
+												<div class="tg-pad">SB1</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="tg-sidebar2">
+									<div class="tg-mml">
+										<div class="tgc">
+											<div class="tg-format">
+												<div class="tg-pad">SB2</div>
+											</div>
+										</div>
+									</div>
+								</div>
+					
+							</div>
 						</div>
-					<div class="tg-wrap">
-							<div class="tg-sidebarwrap">
-								<div class="tg-format">
-									<div class="tg-pad">Sidebar Wrap</div>
-								</div>
-							</div>
-							<div class="tg-sidebar1">
-								<div class="tg-format">
-									<div class="tg-pad">SB1</div>
-								</div>
-							</div>
-							<div class="tg-sidebar2">
-								<div class="tg-format">
-									<div class="tg-pad">SB2</div>
-								</div>
-							</div>
-						
-					</div>
 					</div>
 				</div>
 			</div>
@@ -136,6 +155,7 @@ class PageLinesTemplateBuilder {
 		?>
 		<div class="the_template_builder">
 			<div class="the_template_builder_pad">
+				
 <?php 
 			foreach($pagelines_template->map as $hook_id => $hook_info){
 				if(isset($hook_info['templates'])){
@@ -173,6 +193,7 @@ class PageLinesTemplateBuilder {
 				
 				<div id="template_data" class="<?php echo $template_slug; ?> layout-type-<?php echo $template_area;?>">
 						<div class="ttitle"><?php echo $tfield['name'];?></div>
+						<h4>Drag &amp; Drop Sections In Area</h4>
 					<div id="section_map" class="template-edit-panel ">
 					
 						<div class="sbank template_layout">
