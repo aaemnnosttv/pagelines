@@ -137,6 +137,8 @@ jQuery(document).ready(function(){
 	
 	jQuery('.'+stemplate).addClass('selected_builder');
 
+	jQuery('.tg-header').addClass('builder_selected_area');
+	
 	setSortable(stemplate);
 	
 	jQuery('.tg-format').click(function() {

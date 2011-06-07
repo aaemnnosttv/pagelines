@@ -1325,9 +1325,9 @@
 			.tgraph .tg-format.builder_selected_area{
 				background:#ddd;
 				color:#000;
-				border: 1px solid #ccc;
-				border-right: 1px solid #ddd;
-				border-bottom: 1px solid #ddd;
+				border: 1px solid #c1c1c1;
+				border-right: 1px solid #d1d1d1;
+				border-bottom: 1px solid #d1d1d1;
 			}
 				.tgraph .tg-format.builder_selected_area .tg-pad{
 					border-top: 1px solid #ddd;
