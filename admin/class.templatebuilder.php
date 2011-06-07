@@ -192,10 +192,9 @@ class PageLinesTemplateBuilder {
 				?>
 				
 				<div id="template_data" class="<?php echo $template_slug; ?> layout-type-<?php echo $template_area;?>">
-						<div class="ttitle"><?php echo $tfield['name'];?></div>
-						<h4>Drag &amp; Drop Sections In Area</h4>
+					<div class="ttitle"><span>Editing &rarr;</span> <?php echo $tfield['name'];?></div>
 					<div id="section_map" class="template-edit-panel ">
-					
+						<h4 class='over'>Arrange Sections In Area With Drag &amp; Drop</h4>
 						<div class="sbank template_layout">
 							<div class="sbank-pad">
 								<div class="bank_title">Displayed <?php echo $tfield['name'];?> Sections</div>
