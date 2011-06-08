@@ -9,4 +9,4 @@
 
 */
 
-require_once(TEMPLATEPATH . "/includes/core.init.php");
+require_once(TEMPLATEPATH . "/includes/init.php");

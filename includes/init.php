@@ -30,7 +30,7 @@ define('PL_INCLUDES', TEMPLATEPATH . "/includes");
 /**
  * Setup all the globals for the framework
  */
-require_once( PL_INCLUDES . '/core.globals.php');
+require_once( PL_INCLUDES . '/init.globals.php');
 
 /**
  * Localization - Needs to come after config_theme and before localized config files
@@ -109,15 +109,24 @@ require_once( PL_ADMIN . '/class.options.metapanel.php' );
 $GLOBALS['metapanel_options'] =  new PageLinesMetaPanel();
 
 /**
- * Load options UI
+ * Load Drag and Drop UI
  */
-require_once( PL_ADMIN . '/class.templatebuilder.php' );
+require_once( PL_ADMIN . '/class.ui.templates.php' );
+
+/**
+ * Load Layout Setup UI
+ */
+require_once( PL_ADMIN . '/class.ui.layout.php' );
 
 /**
  * Load options UI
  */
 require_once( PL_ADMIN . '/class.options.ui.php' );
 
+/**
+ * Load options engine and breaker
+ */
+require_once( PL_ADMIN . '/class.options.engine.php' );
 
 /**
  * Load Data Handling
