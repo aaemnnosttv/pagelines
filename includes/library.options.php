@@ -171,6 +171,8 @@ function get_pagelines_meta($option, $post){
  * Used as a filter on the master option array generated for settings
  *
  * @param $optionarray the master option array
+ * @return rebuilt $optionsarray with addon options if plugin is active.
+ * @since 2.0
  **/
 function pagelines_merge_addon_options( $optionarray ) {
 	$options = get_option( 'pagelines_addons_options' );
@@ -190,8 +192,8 @@ function pagelines_merge_addon_options( $optionarray ) {
 
 /**
  * Used to register and handle new plugin options
- * TODO document further, does this handle mult. plugins?
- *
+ * Use with register_activation_hook()
+ * @since 2.0
  **/
 function pagelines_register_addon_options( $addon_name, $addon_options ) {
 
@@ -203,6 +205,18 @@ function pagelines_register_addon_options( $addon_name, $addon_options ) {
 	}
 }
 
+/**
+ * Used to remove options when addons are deleted.
+ * Use with register_deactivation_hook()
+ * @since 2.0
+ **/
+function pagelines_remove_addon_options( $addon_name ) {
+	$options = get_option( 'pagelines_addons_options' );
+	if (is_array($options) && isset( $options[$addon_name] ) ) {
+		unset($options[$addon_name]);
+		update_option( 'pagelines_addons_options', $options );
+	}
+}
 	
 /**
  * This function registers the default values for pagelines theme settings
