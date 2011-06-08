@@ -1349,7 +1349,7 @@
 			.tgraph-templates .tgraph .tg-format, .tgraph-content .tgc{width: 100%;}
 			
 		.tgraph .tg-templates .tg-pad { height: 40px;  line-height: 40px; }
-		
+	
 		.tgraph .tg-pad{
 			border-top: 1px solid #fff;
 			border-left: 1px solid #fff;
@@ -1390,7 +1390,7 @@
 			padding: 10px;
 			display: none;
 		}
-			.sub-template-selector a{
+			.sub-template-selector .sss-button{
 				cursor: pointer;
 				float:left;
 				background: #ccc;
@@ -1401,7 +1401,8 @@
 				margin: 4px;
 				text-decoration: none;
 			}
-				.sub-template-selector a.sss-selected{
+				.sub-template-selector .sss-button:hover{background: #c5c5c5;}
+				.sub-template-selector .sss-button.sss-selected{
 					background: #8FCBFD url(../images/sprite-navigation.png) repeat-x left bottom;
 					border: 1px solid #196BCE;
 					border-left: 1px solid #539AE6;

@@ -106,7 +106,7 @@ function get_option_array( $load_unavailable = false ){
 					'default' 	=> "one-sidebar-right",
 					'type' 		=> 'layout_select',
 					'title' 	=> 'Default Layout Mode',	
-					'layout' 	=> 'full',						
+					'layout' 	=> 'interface',						
 					'shortexp' 	=> 'Select your default layout mode, this can be changed on individual pages.<br />Once selected, you can adjust the layout in the Layout Builder.',
 					'exp' 		=> 'The default layout for your site; your blog page will always have this layout. Dimensions can be changed using the content layout editor.',
 					'docslink'	=> 'http://www.pagelines.com/docs/editing-layout'
@@ -114,7 +114,7 @@ function get_option_array( $load_unavailable = false ){
 				'layout' => array(
 					'default'	=> 'one-sidebar-right',
 					'type'		=> 'layout',
-					'layout'	=> 'full',
+					'layout'	=> 'interface',
 					'title'		=> 'Content Layout Editor',						
 					'shortexp'	=> 'Configure the default layout for your site which is initially selected in the Default Layout Mode option in Global Options. <br/>This option allows you to adjust columns and margins for the default layout.',
 				), 

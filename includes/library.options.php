@@ -167,27 +167,41 @@ function get_pagelines_meta($option, $post){
 		}
 	}
 
-	function pagelines_merge_addon_options( $optionarray ) {
-		$options = get_option( 'pagelines_addons_options' );
-		$plugins = pagelines_register_plugins();
-		if ( is_array( $options ) ) {
-			$build_options = array();
-			foreach( $options as $optionname => $option ){
-				if ( in_array( $optionname, $plugins ) ) $build_options[$optionname] = $option;
-			}
-			return array_merge( $optionarray, $build_options );
-		}
-	}
+/**
+ * Used as a filter on the master option array generated for settings
+ *
+ * @param $optionarray the master option array
+ **/
+function pagelines_merge_addon_options( $optionarray ) {
+	$options = get_option( 'pagelines_addons_options' );
+	$plugins = pagelines_register_plugins();
+	if ( is_array( $options ) ) {
+		
+		$build_options = array();
+		
+		foreach( $options as $optionname => $option )
+			if ( in_array( $optionname, $plugins ) ) $build_options[$optionname] = $option;
+		
+		return array_merge( $optionarray, $build_options );
+		
+	} else
+		return $optionarray;
+}
 
-	function pagelines_register_addon_options( $addon_name, $addon_options ) {
+/**
+ * Used to register and handle new plugin options
+ * TODO document further, does this handle mult. plugins?
+ *
+ **/
+function pagelines_register_addon_options( $addon_name, $addon_options ) {
 
-		$addon_saved_options = get_option( 'pagelines_addons_options' );
-		if ( !is_array( $addon_saved_options ) ) $addon_saved_options = array();
-		if ( !isset($addon_saved_options[$addon_name] ) ) {
-			$addon_saved_options[$addon_name] = $addon_options;
-			update_option( 'pagelines_addons_options', $addon_saved_options );
-		}
+	$addon_saved_options = get_option( 'pagelines_addons_options' );
+	if ( !is_array( $addon_saved_options ) ) $addon_saved_options = array();
+	if ( !isset($addon_saved_options[$addon_name] ) ) {
+		$addon_saved_options[$addon_name] = $addon_options;
+		update_option( 'pagelines_addons_options', $addon_saved_options );
 	}
+}
 
 	
 /**

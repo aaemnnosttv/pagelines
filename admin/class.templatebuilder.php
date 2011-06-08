@@ -153,37 +153,30 @@ class PageLinesTemplateBuilder {
 		</div>
 	</div>	
 	<div class="clear"></div>
-	<div class="sub-template-selector fix sel-templates-sub">
-		<div class="sub-templates fix">
-			<h4 class="over">Which Template?</h4>
-			<?php 	foreach(the_template_map() as $hook => $hook_info){
-			 			if($hook == 'templates'){ 
-							foreach($hook_info['templates'] as $template => $tfield){
-									if(!isset($tfield['version']) || ($tfield['version'] == 'pro' && VPRO))
-										printf('<a id="%s" href="#" class="sss-button">%s</a>', $hook . '-' . $template, $tfield['name']);
-							}
-						}
-					}?>
-		</div>
+	<?php
+	
+		$this->_sub_selector('templates', 'sel-templates-sub', 'Which Template?');
 		
-	</div>
-	<div class="sub-template-selector fix sel-content-sub">
-		<div class="sub-templates fix">
-			<h4 class="over">Which Content Area Type?</h4>
-			<?php 	
-					foreach(the_template_map() as $hook => $h){
-			 			if($hook == 'main'){ 
-							foreach($h['templates'] as $template => $t){
-								if(!isset($t['version']) || ($t['version'] == 'pro' && VPRO))
-									printf('<a href="%s">%s</a>', $hook . '-' . $template, $t['name']);
-							}
-						}
-					}
-			?>
-		</div>
+		$this->_sub_selector('main', 'sel-content-sub', 'Which Content Area Type?');
 		
-	</div>
+	?>
+
 <?php }
+
+	function _sub_selector($type = 'templates', $class, $title = '', $subtitle = ''){ ?>
+		<div class="sub-template-selector fix <?php echo $class;?>">
+			<div class="sub-templates fix">
+				<h4 class="over"><?php echo $title; ?></h4>
+				<?php 	
+						$h = the_template_map();
+						foreach($h[$type]['templates'] as $template => $t){
+							if(!isset($t['version']) || ($t['version'] == 'pro' && VPRO))
+								printf('<div id="%s" class="sss-button">%s</div>', join( '-', array($type, $template) ), $t['name']);
+						}
+				?>
+			</div>
+		</div>
+	<?php }
 
 	function do_template_builder(){
 		
@@ -225,7 +218,6 @@ class PageLinesTemplateBuilder {
 			$template_slug = ( isset($hook_id) ) ? join('-', array( $hook_id, $template )) : $template;
 
 			$template_area = ( isset($hook_id) ) ? $hook_id : $template;
-plprint(get_option('pagelines_template_map'));
 				?>
 				
 				<div id="template_data" class="<?php echo $template_slug; ?> layout-type-<?php echo $template_area;?>">

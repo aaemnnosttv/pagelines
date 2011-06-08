@@ -143,9 +143,7 @@ jQuery(document).ready(function(){
 		jQuery('.sss-selected').removeClass('sss-selected');
 		jQuery(this).addClass('sss-selected');
 		var stemplate = jQuery(this).attr('id');
-		jQuery('.selected_builder').removeClass('selected_builder');
-		jQuery('.'+stemplate).addClass('selected_builder');
-		setSortable(stemplate);
+		viewAndSort(stemplate);
 	});
 	
 	// Load the ID of the element if it has a load build class on it
@@ -153,9 +151,7 @@ jQuery(document).ready(function(){
 	
 		var stemplate_id = jQuery(this).attr('id');
 		var stemplate = stemplate_id.replace('ta-', '');
-		jQuery('.selected_builder').removeClass('selected_builder');
-		jQuery('.'+stemplate).addClass('selected_builder');
-		setSortable(stemplate);
+		viewAndSort(stemplate);
 	
 	});
 	
@@ -163,14 +159,9 @@ jQuery(document).ready(function(){
 		var stemplate = 'templates-default';
 		jQuery('.sss-selected').removeClass('sss-selected');
 		jQuery('.sub-template-selector #'+stemplate).addClass('sss-selected');
-		
-		
 		jQuery('.sel-templates-sub.sub-template-selector').slideDown();
 	
-		jQuery('.selected_builder').removeClass('selected_builder');
-		jQuery('.'+stemplate).addClass('selected_builder');
-
-		setSortable(stemplate);
+		viewAndSort(stemplate);
 	});
 	
 	jQuery('.tg-content-templates').click(function() {
@@ -181,12 +172,17 @@ jQuery(document).ready(function(){
 		
 		jQuery('.sel-content-sub.sub-template-selector').slideDown();
 		
-		jQuery('.selected_builder').removeClass('selected_builder');
-		jQuery('.'+stemplate).addClass('selected_builder');
-
-		setSortable(stemplate);
+		viewAndSort(stemplate);
+		
 	});
 });
+
+function viewAndSort( stemplate ){
+	jQuery('.selected_builder').removeClass('selected_builder');
+	jQuery('.'+stemplate).addClass('selected_builder');
+
+	setSortable(stemplate);
+}
 
 /*
  * ###########################
