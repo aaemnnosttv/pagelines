@@ -166,6 +166,29 @@ function get_pagelines_meta($option, $post){
 			echo $alt;
 		}
 	}
+
+	function pagelines_merge_addon_options( $optionarray ) {
+		$options = get_option( 'pagelines_addons_options' );
+		$plugins = pagelines_register_plugins();
+		if ( is_array( $options ) ) {
+			$build_options = array();
+			foreach( $options as $optionname => $option ){
+				if ( in_array( $optionname, $plugins ) ) $build_options[$optionname] = $option;
+			}
+			return array_merge( $optionarray, $build_options );
+		}
+	}
+
+	function pagelines_register_addon_options( $addon_name, $addon_options ) {
+
+		$addon_saved_options = get_option( 'pagelines_addons_options' );
+		if ( !is_array( $addon_saved_options ) ) $addon_saved_options = array();
+		if ( !isset($addon_saved_options[$addon_name] ) ) {
+			$addon_saved_options[$addon_name] = $addon_options;
+			update_option( 'pagelines_addons_options', $addon_saved_options );
+		}
+	}
+
 	
 /**
  * This function registers the default values for pagelines theme settings
