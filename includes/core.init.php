@@ -133,7 +133,7 @@ require_once( PL_INCLUDES . '/class.typography.php' );
 /**
  * Load Colors
  */
-//require_once( PL_INCLUDES . '/class.colors.php' );
+require_once( PL_INCLUDES . '/class.colors.php' );
 
 /**
  * Load dynamic CSS handling

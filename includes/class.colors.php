@@ -28,6 +28,12 @@ class PageLinesColor {
 	
 	}
 	
+	function contrast( $adjustment, $surrounding = ''){
+		
+		return $this->base_hsl['lightness'];
+		
+	}
+	
 	function adjust( $adjustment, $mode = 'lightness' ){
 		
 		
@@ -73,7 +79,6 @@ class PageLinesColor {
 		
 		$new_hsl = array( 'hugh' => $h, 'saturation' => $s, 'lightness' => $l );
 		
-		plprint($new_hsl);
 		
 		return $this->hsl_to_hex( $new_hsl );
 	}
