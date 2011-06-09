@@ -49,7 +49,7 @@ class PageLinesOptionsArray {
 				'title'			=> 'Email Updates',						
 				'shortexp' 		=> 'Optionally sign up for email updates and notifications.',
 				'exp' 			=> 'Adding your email here will allow us to send you email notifications about updates and new software from PageLines'
-			),	
+			),
 			'pagelines_custom_logo' => array(
 				'default' 		=> PL_IMAGES.'/logo-platformpro.png',
 				'default_free'	=> '',
@@ -115,7 +115,7 @@ class PageLinesOptionsArray {
 			),
 		
 		);
-		
+		if ( get_option( 'pagelines_email_sent') ) unset($a['email_capture']);
 		return apply_filters('pagelines_options_website_setup', $a);
 	}
 	
