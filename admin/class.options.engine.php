@@ -195,6 +195,10 @@ class PageLinesOptionEngine {
 			case 'reset' :
 				$this->_get_reset_option($oid, $o, $val);
 				break;
+				
+			case 'email_capture' :
+				$this->_get_email_capture($oid, $o, $val);
+				break;
 
 			default :
 				do_action( 'pagelines_options_' . $o['type'] , $oid, $o);
@@ -203,6 +207,19 @@ class PageLinesOptionEngine {
 		} 
 
 	}
+
+	function _get_email_capture($oid, $o){ ?>
+		<p>
+		
+			<div class="email_capture_container">
+					<label for="<?php pagelines_option_id($oid); ?>" class="context"><?php echo $o['inputlabel'];?></label><br/>
+				<input type="text" id="email_capture_input" class="email_capture" value="<?php echo get_option('pagelines_email_sent');?>" />
+				<input type="button" id="" class="button-secondary" onClick="sendEmailToMothership(jQuery('#email_capture_input').val(), '#email_capture_input');" value="Send" />
+				<div class="the_email_response"></div>
+			</div>
+		</p>
+
+	<?php }
 
 	function _get_menu_select($oid, $o){ ?>
 		<p>

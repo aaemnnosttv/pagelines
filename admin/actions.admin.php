@@ -149,6 +149,7 @@ function pagelines_check_php(){
 	}
 	
 	
+	
 	// Creates Dynamic CSS file when saving with AJAX
 	add_action('wp_ajax_pagelines_ajax_create_dynamic_css', 'pagelines_ajax_create_dynamic_css_callback');
 	function pagelines_ajax_create_dynamic_css_callback() {

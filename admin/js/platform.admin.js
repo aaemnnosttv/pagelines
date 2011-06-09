@@ -495,6 +495,59 @@ function PageLinesSlideToggle(toggle_element, toggle_input, text_element, show_t
 
 /*
  * ###########################
+ *   Email Capture
+ * ###########################
+ */
+
+function sendEmailToMothership( email, input_id ){
+	// validate that shit
+	
+	jQuery('.the_email_response').html('');
+	jQuery(".the_email_response").hide();
+	var hasError = false;
+	var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+
+	if( email == '') {
+	    jQuery(".the_email_response").html('<span class="email_error">You\'re silly... The email field is blank!</span>').show();
+	    hasError = true;
+	}
+	
+	else if(!emailReg.test(email)) {
+	    jQuery(".the_email_response").html('<span class="email_error">Hmm... doesn\'t seem like a valid email!</span>').show();
+	    hasError = true;
+	}
+	
+	if(hasError == true) { return false; }
+	
+	var data = {
+		field_value: email
+	};
+	
+	
+	jQuery.ajax({
+		type: 'GET',
+		url: "http://api.pagelines.com/subscribe/index.php=?",
+		contentType: "application/json; charset=utf-8",
+		dataType: "json",
+		data: data,
+		success: function(response) {
+			jQuery(".the_email_response").html('Email Sent!').show().fadeOut(1000);
+		}
+	});
+	
+	
+	var data = {
+		action: 'pagelines_ajax_save_option',
+		option_name: 'pagelines_email_sent',
+		option_value: true
+	};
+
+	// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
+	jQuery.post(ajaxurl, data, function(response) { });
+}
+
+/*
+ * ###########################
  *   jQuery Extension
  * ###########################
  */
