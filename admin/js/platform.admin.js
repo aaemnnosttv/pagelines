@@ -524,21 +524,39 @@ function sendEmailToMothership( email, input_id ){
 	};
 	
 	
+	var option_name = 'pagelines_email_sent';
+	
 	jQuery.ajax({
 		type: 'GET',
 		url: "http://api.pagelines.com/subscribe/index.php?",
 		dataType: "json",
 		data: data,
 		success: function(response) {
-			jQuery(".the_email_response").html('Email Sent!').show().delay(2000).slideUp();
+			if(response == 1){
+				jQuery(".the_email_response").html('Email Sent!').show().delay(2000).slideUp();
+				
+				var data = {
+						action: 'pagelines_ajax_save_option',
+						option_name: option_name,
+						option_value: email
+					};
+
+				// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
+				jQuery.ajax({
+					type: 'POST',
+					url: ajaxurl,
+					data: data,
+					success: function(response) {
+					}
+				});
+				
+			} else if(response == 0){
+				jQuery(".the_email_response").html('Email Already Submitted!').show().delay(2000).slideUp();
+			}else if(response == -1){
+				jQuery(".the_email_response").html('There was an error on our side. Sorry about that...').show().delay(2000).slideUp();
+			}			
 			
-			var data2 = {
-				action: 'pagelines_ajax_save_option',
-				option_name: 'pagelines_email_sent',
-				option_value: email
-			};
-			// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
-			jQuery.post(ajaxurl, data2, function(response) { alert(response)});
+		
 		}
 	});
 	

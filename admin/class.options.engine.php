@@ -60,7 +60,7 @@ class PageLinesOptionEngine {
 		else 
 			$val = pagelines_option($oid);
 
-		$draw_option = (!isset( $o['version'] ) || ( isset($o['version']) && $o['version'] == 'free') || (isset($o['version']) && $o['version'] == 'pro' && VPRO )) ? true : false;
+		$draw_option = (!isset( $o['version'] ) || ( isset($o['version']) && $o['version'] == 'free' && !VPRO) || (isset($o['version']) && $o['version'] == 'pro' && VPRO )) ? true : false;
 
 		$layout_class = '';
 		$layout_class .= ( isset( $o['layout'] ) && $o['layout']=='full' ) ? ' wideinputs' : '';
@@ -208,7 +208,8 @@ class PageLinesOptionEngine {
 
 	}
 
-	function _get_email_capture($oid, $o){ ?>
+	function _get_email_capture($oid, $o){
+		 ?>
 		<p>
 			<div class="email_capture_container">
 					<label for="<?php pagelines_option_id($oid); ?>" class="context"><?php echo $o['inputlabel'];?></label><br/>

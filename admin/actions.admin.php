@@ -136,16 +136,24 @@ function pagelines_check_php(){
 		die();
 	}
 	
-	add_action('pagelines_ajax_save_option', 'pagelines_ajax_save_option_callback');
+	add_action('wp_ajax_pagelines_ajax_save_option', 'pagelines_ajax_save_option_callback');
 	function pagelines_ajax_save_option_callback() {
 		global $wpdb; // this is how you get access to the database
-
 		$option_name = $_POST['option_name'];
 		$option_value = $_POST['option_value'];
 
 		update_option($option_name, $option_value);
 		
-		return $option_name;
+		
+		
+		die();
+	}
+	
+	add_action('wp_ajax_pagelines_test_ajax', 'pagelines_test_ajax_callback');
+	function pagelines_test_ajax_callback() {
+		global $wpdb; // this is how you get access to the database
+		
+		echo 'hello';
 		
 		die();
 	}
