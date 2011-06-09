@@ -210,7 +210,6 @@ class PageLinesOptionEngine {
 
 	function _get_email_capture($oid, $o){ ?>
 		<p>
-		
 			<div class="email_capture_container">
 					<label for="<?php pagelines_option_id($oid); ?>" class="context"><?php echo $o['inputlabel'];?></label><br/>
 				<input type="text" id="email_capture_input" class="email_capture" value="<?php echo get_option('pagelines_email_sent');?>" />

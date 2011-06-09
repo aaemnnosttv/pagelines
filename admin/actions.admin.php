@@ -145,6 +145,8 @@ function pagelines_check_php(){
 
 		update_option($option_name, $option_value);
 		
+		return $option_name;
+		
 		die();
 	}
 	

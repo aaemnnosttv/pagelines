@@ -508,12 +508,12 @@ function sendEmailToMothership( email, input_id ){
 	var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
 
 	if( email == '') {
-	    jQuery(".the_email_response").html('<span class="email_error">You\'re silly... The email field is blank!</span>').show();
+	    jQuery(".the_email_response").html('<span class="email_error">You\'re silly... The email field is blank!</span>').show().delay(2000).slideUp();
 	    hasError = true;
 	}
 	
 	else if(!emailReg.test(email)) {
-	    jQuery(".the_email_response").html('<span class="email_error">Hmm... doesn\'t seem like a valid email!</span>').show();
+	    jQuery(".the_email_response").html('<span class="email_error">Hmm... doesn\'t seem like a valid email!</span>').show().delay(2000).slideUp();
 	    hasError = true;
 	}
 	
@@ -530,19 +530,19 @@ function sendEmailToMothership( email, input_id ){
 		dataType: "json",
 		data: data,
 		success: function(response) {
-			jQuery(".the_email_response").html('Email Sent!').show().fadeOut(1000);
+			jQuery(".the_email_response").html('Email Sent!').show().delay(2000).slideUp();
+			
+			var data2 = {
+				action: 'pagelines_ajax_save_option',
+				option_name: 'pagelines_email_sent',
+				option_value: email
+			};
+			// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
+			jQuery.post(ajaxurl, data2, function(response) { alert(response)});
 		}
 	});
 	
-	
-	var data = {
-		action: 'pagelines_ajax_save_option',
-		option_name: 'pagelines_email_sent',
-		option_value: true
-	};
 
-	// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
-	jQuery.post(ajaxurl, data, function(response) { });
 }
 
 /*

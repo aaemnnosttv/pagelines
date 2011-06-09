@@ -1710,7 +1710,18 @@
 
 	.colorpicker_label small{display: block; font-weight: normal; color:#888;}
 		
-		
+
+/* Email Capture */
+.the_email_response{
+	margin: .5em 0;
+	background:#eee;
+	padding: 10px; 
+	font-size: .9em;
+	font-weight: bold;
+	color:#999;
+	display: none;
+}
+
 /* @ Restore/Import/Export */
 
 .download-button{
