@@ -520,14 +520,13 @@ function sendEmailToMothership( email, input_id ){
 	if(hasError == true) { return false; }
 	
 	var data = {
-		field_value: email
+		email: email
 	};
 	
 	
 	jQuery.ajax({
 		type: 'GET',
-		url: "http://api.pagelines.com/subscribe/index.php=?",
-		contentType: "application/json; charset=utf-8",
+		url: "http://api.pagelines.com/subscribe/index.php?",
 		dataType: "json",
 		data: data,
 		success: function(response) {
