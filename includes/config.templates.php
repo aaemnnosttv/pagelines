@@ -39,45 +39,42 @@ function pagelines_register_sections(){
 		}
 	}
 
-if (is_child_theme() && is_dir( STYLESHEETPATH . '/sections/' ) ) {
-	
-	$child_sections = array();
-	$it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator( STYLESHEETPATH . '/sections/', RecursiveIteratorIterator::LEAVES_ONLY));
-	foreach( $it as $fullFileName => $fileSPLObject ) {
-		if (pathinfo($fileSPLObject->getFilename(), PATHINFO_EXTENSION ) == 'php') {
-			$folder = ( preg_match( '/sections\/(.*)\//', $fullFileName, $match) ) ? $match[1] : '';
-			$headers = get_file_data( $fullFileName, $default_headers = array( 'classname' => 'Class Name', 'depends' => 'Depends' ) );
-			$filename = str_replace( '.php', '', str_replace( 'section.', '', $fileSPLObject->getFilename() ) );
-		$child_sections[$headers['classname']] = array(
-			'filename' => $filename,
-			'path' => $fullFileName,
-			'folder' => $folder,
-			'class' => $headers['classname'],
-			'depends' => $headers['depends']
-			);	
+	if (is_child_theme() && is_dir( STYLESHEETPATH . '/sections/' ) ) {
+		$child_sections = array();
+		$it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator( STYLESHEETPATH . '/sections/', RecursiveIteratorIterator::LEAVES_ONLY));
+		foreach( $it as $fullFileName => $fileSPLObject ) {
+			if (pathinfo($fileSPLObject->getFilename(), PATHINFO_EXTENSION ) == 'php') {
+				$folder = ( preg_match( '/sections\/(.*)\//', $fullFileName, $match) ) ? $match[1] : '';
+				$headers = get_file_data( $fullFileName, $default_headers = array( 'classname' => 'Class Name', 'depends' => 'Depends' ) );
+				$filename = str_replace( '.php', '', str_replace( 'section.', '', $fileSPLObject->getFilename() ) );
+				$child_sections[$headers['classname']] = array(
+					'filename' => $filename,
+					'path' => $fullFileName,
+					'folder' => $folder,
+					'class' => $headers['classname'],
+					'depends' => $headers['depends']
+					);	
 
-		}
+			}
 	}	
-	
-	
 	foreach ( $child_sections as $section ) {
 
 		if ($section['depends'] != '') {
 			pagelines_register_section( $parent_sections[$section['depends']]['class'], $parent_sections[$section['depends']]['folder'], $parent_sections[$section['depends']]['filename'] );	
 		}
 
-		pagelines_register_section( $section['class'], $section['folder'], $section['filename'] );
-	}	
-}
-
-foreach ( $parent_sections as $section ) {
-	
-	if ($section['depends'] != '') {
-		pagelines_register_section( $parent_sections[$section['depends']]['class'], $parent_sections[$section['depends']]['folder'], $parent_sections[$section['depends']]['filename'] );	
+		pagelines_register_section( $section['class'], $section['filename'], null, array('child' => true ) );
+		}	
 	}
+
+	foreach ( $parent_sections as $section ) {
+	
+		if ($section['depends'] != '') {
+			pagelines_register_section( $parent_sections[$section['depends']]['class'], $parent_sections[$section['depends']]['folder'], $parent_sections[$section['depends']]['filename'] );	
+		}
 	
 	pagelines_register_section( $section['class'], $section['folder'], $section['filename'] );
-}
+	}
 
 // Do a hook for registering sections
 	pagelines_register_hook('pagelines_register_sections'); // Hook
