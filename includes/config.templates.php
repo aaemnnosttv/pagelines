@@ -70,7 +70,6 @@ function pagelines_register_sections(){
  * @return array
  * @author Simon Prosser
  **/
-function ();
 function pagelines_getsections( $dir, $type ) {
 
 	if ( is_child_theme() == false && $type == 'child' || ! is_dir($dir) ) return;
