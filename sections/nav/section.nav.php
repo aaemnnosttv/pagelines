@@ -5,7 +5,7 @@
 	Author: Adam Munns
 	Description: Creates site navigation, with optional superfish dropdowns.
 	Version: 1.0.0
-	
+	Class Name: PageLinesNav
 */
 
 class PageLinesNav extends PageLinesSection {

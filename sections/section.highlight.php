@@ -5,7 +5,7 @@
 	Author: Andrew Powers
 	Description: Adds a highlight sections with a splash image and 2-big lines of text.
 	Version: 1.0.0
-	
+	Class Name: PageLinesHighlight
 */
 
 class PageLinesHighlight extends PageLinesSection {

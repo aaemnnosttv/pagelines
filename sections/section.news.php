@@ -5,7 +5,7 @@
 	Author: Adam Munns
 	Description: Shows a banner with a news style ticker in it
 	Version: 1.0.0
-	
+	Class Name: PageLinesNews
 */
 
 class PageLinesNews extends PageLinesSection {

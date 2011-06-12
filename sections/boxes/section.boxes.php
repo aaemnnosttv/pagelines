@@ -5,7 +5,7 @@
 	Author: Andrew Powers
 	Description: Creates boxes and box layouts
 	Version: 1.0.0
-	
+	Class Name: PageLinesBoxes
 */
 
 class PageLinesBoxes extends PageLinesSection {

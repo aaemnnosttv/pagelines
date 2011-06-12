@@ -5,7 +5,7 @@
 	Author: Andrew Powers
 	Description: Paginates posts, shows a numerical post navigation
 	Version: 1.0.0
-	
+	Class Name: PageLinesPostLoop
 */
 
 class PageLinesPostLoop extends PageLinesSection {

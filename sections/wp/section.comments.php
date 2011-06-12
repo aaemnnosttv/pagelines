@@ -5,7 +5,7 @@
 	Author: Andrew Powers
 	Description: Adds comments to main on pages/single posts
 	Version: 1.0.0
-	
+	Class Name: PageLinesComments
 */
 
 class PageLinesComments extends PageLinesSection {

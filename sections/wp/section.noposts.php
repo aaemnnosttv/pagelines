@@ -5,7 +5,7 @@
 	Author: Andrew Powers
 	Description: Shown when no posts or 404 is returned
 	Version: 1.0.0
-	
+	Class Name: PageLinesNoPosts
 */
 
 class PageLinesNoPosts extends PageLinesSection {

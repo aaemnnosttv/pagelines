@@ -5,7 +5,7 @@
 	Author: Andrew Powers
 	Description: Shows the main site logo or the site title and description.
 	Version: 1.0.0
-	
+	Class Name: PageLinesBranding
 */
 
 class PageLinesBranding extends PageLinesSection {

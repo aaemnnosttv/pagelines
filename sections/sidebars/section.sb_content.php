@@ -5,7 +5,7 @@
 	Author: Andrew Powers
 	Description: Shows sidebar inside the main column content area
 	Version: 1.0.0
-	
+	Class Name: ContentSidebar
 */
 
 class ContentSidebar extends PageLinesSection {

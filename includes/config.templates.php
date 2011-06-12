@@ -20,52 +20,64 @@
  *
  */
 function pagelines_register_sections(){
-	
-// Common WP 
-	pagelines_register_section('PageLinesContent', 'wp', 'content');
-	pagelines_register_section('PageLinesPostLoop', 'wp', 'postloop');
-	pagelines_register_section('PageLinesPostNav', 'wp', 'postnav');
-	pagelines_register_section('PageLinesComments', 'wp', 'comments');
-	pagelines_register_section('PageLinesPagination', 'wp', 'pagination');
-	pagelines_register_section('PageLinesShareBar', 'wp', 'sharebar');
-	pagelines_register_section('PageLinesNoPosts', 'wp', 'noposts');
-	pagelines_register_section('PageLinesPostAuthor', 'wp', 'postauthor');
-	pagelines_register_section('PageLinesPostsInfo', 'wp', 'postsinfo');
-	
-// In Header
-	pagelines_register_section('PageLinesNav', 'nav');
-	pagelines_register_section('PageLinesSecondNav', 'secondnav');
-	pagelines_register_section('PageLinesBranding', 'wp', 'branding');	
-	pagelines_register_section('BrandNav', 'brandnav', 'brandnav', array('deps'=>'PageLinesNav') );	
-	pagelines_register_section('PageLinesBreadcrumb', 'breadcrumb');
 
-// Sections With Custom Post Types
-	pagelines_register_section('PageLinesFeatures', 'features'); // 'features'
-	pagelines_register_section('PageLinesBoxes', 'boxes'); // 'boxes'
-	pagelines_register_section('PageLinesBanners', 'banners'); // 'boxes'
+	$parent_sections = array();
+	$it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(PL_SECTIONS, RecursiveIteratorIterator::LEAVES_ONLY));
+	foreach( $it as $fullFileName => $fileSPLObject ) {
+		if (pathinfo($fileSPLObject->getFilename(), PATHINFO_EXTENSION ) == 'php') {
+			$folder = ( preg_match( '/sections\/(.*)\//', $fullFileName, $match) ) ? $match[1] : '';
+			$headers = get_file_data( $fullFileName, $default_headers = array( 'classname' => 'Class Name', 'depends' => 'Depends' ) );
+			$filename = str_replace( '.php', '', str_replace( 'section.', '', $fileSPLObject->getFilename() ) );
+		$parent_sections[$headers['classname']] = array(
+			'filename' => $filename,
+			'path' => $fullFileName,
+			'folder' => $folder,
+			'class' => $headers['classname'],
+			'depends' => $headers['depends']
+			);	
 
-// Sidebar Sections & Widgets
-	pagelines_register_section('PrimarySidebar', 'sidebars', 'sb_primary');
-	pagelines_register_section('SecondarySidebar', 'sidebars', 'sb_secondary');
-	pagelines_register_section('TertiarySidebar', 'sidebars', 'sb_tertiary');
-	pagelines_register_section('UniversalSidebar', 'sidebars', 'sb_universal');
+		}
+	}
+
+if (is_child_theme() && is_dir( STYLESHEETPATH . '/sections/' ) ) {
 	
-	pagelines_register_section('FullWidthSidebar', 'sidebars', 'sb_fullwidth');
-	pagelines_register_section('ContentSidebar', 'sidebars', 'sb_content');
+	$child_sections = array();
+	$it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator( STYLESHEETPATH . '/sections/', RecursiveIteratorIterator::LEAVES_ONLY));
+	foreach( $it as $fullFileName => $fileSPLObject ) {
+		if (pathinfo($fileSPLObject->getFilename(), PATHINFO_EXTENSION ) == 'php') {
+			$folder = ( preg_match( '/sections\/(.*)\//', $fullFileName, $match) ) ? $match[1] : '';
+			$headers = get_file_data( $fullFileName, $default_headers = array( 'classname' => 'Class Name', 'depends' => 'Depends' ) );
+			$filename = str_replace( '.php', '', str_replace( 'section.', '', $fileSPLObject->getFilename() ) );
+		$child_sections[$headers['classname']] = array(
+			'filename' => $filename,
+			'path' => $fullFileName,
+			'folder' => $folder,
+			'class' => $headers['classname'],
+			'depends' => $headers['depends']
+			);	
+
+		}
+	}	
 	
-	pagelines_register_section('PageLinesMorefoot', 'sidebars', 'morefoot');
-	pagelines_register_section('PageLinesFootCols', 'sidebars', 'footcols');
 	
-// Misc & Dependent Sections
+	foreach ( $child_sections as $section ) {
 
-	pagelines_register_section('PageLinesSoapbox', 'soapbox');
-	pagelines_register_section('PageLinesCarousel', 'carousel');
-	pagelines_register_section('PageLinesHighlight', 'highlight');
-	pagelines_register_section('PageLinesTwitterBar', 'twitterbar');
-	pagelines_register_section('PageLinesSimpleFooterNav', 'footer_nav');
+		if ($section['depends'] != '') {
+			pagelines_register_section( $parent_sections[$section['depends']]['class'], $parent_sections[$section['depends']]['folder'], $parent_sections[$section['depends']]['filename'] );	
+		}
 
-	pagelines_register_section('PageLinesCallout','callout');
+		pagelines_register_section( $section['class'], $section['folder'], $section['filename'] );
+	}	
+}
 
+foreach ( $parent_sections as $section ) {
+	
+	if ($section['depends'] != '') {
+		pagelines_register_section( $parent_sections[$section['depends']]['class'], $parent_sections[$section['depends']]['folder'], $parent_sections[$section['depends']]['filename'] );	
+	}
+	
+	pagelines_register_section( $section['class'], $section['folder'], $section['filename'] );
+}
 
 // Do a hook for registering sections
 	pagelines_register_hook('pagelines_register_sections'); // Hook

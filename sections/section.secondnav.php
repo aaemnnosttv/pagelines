@@ -5,7 +5,7 @@
 	Author: Andrew Powers
 	Description: Creates secondary site navigation.
 	Version: 1.3.0
-	
+	Class Name: PageLinesSecondNav
 */
 
 class PageLinesSecondNav extends PageLinesSection {
