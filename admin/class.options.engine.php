@@ -76,7 +76,7 @@ class PageLinesOptionEngine {
 				</div>
 			</div>
 
-			<?php if($o['exp'] && $o['type'] != 'text_content'):?>
+			<?php if($o['exp'] && $o['type'] != 'text_content' && $o['layout'] != 'interface'):?>
 			<div class="oexp">
 				<div class="oexp-effect">
 					<div class="oexp-pad">

@@ -638,35 +638,32 @@
 
 /* @ Text Content*/
 	.theme_intro {
-		padding: 1.5em;
-	}
-	.admin_billboard{
+		margin: 1.5em 0;
 		background: #eee;
 		border: 1px solid #ccc;
-
 	}
-		.admin_billboard_pad{
+		.theme_intro_pad{
 			padding: 10px;
 			border-top: 1px solid #fff;
 			border-left: 1px solid #fff;
 		}
+	
 		.admin_billboard_content{
 			padding: 1em 2em 2em;
 		}
-		.admin_header {
-			margin-bottom: 1.5em;
-		}
-		
-			.admin_header h3, .admin_header h5{
+
+			h3.admin_header_main {
 				margin:0;
-			}
-			.admin_header h3 {
 				font-size: 3em;
 				line-height: 1.6em;
 			}
-			.admin_header .admin_header_sub {
-		
+			.admin_billboard_text{
+				font-size: 1.2em;
 				font-weight: bold;
+				line-height: 1.5em;
+			}
+			.plugins_billboard .admin_billboard_content{
+				padding-left: 70px;
 			}
 		.admin_theme_screenshot{
 	
@@ -677,25 +674,50 @@
 			border-right: 1px solid #d1d1d1;
 			border-bottom: 1px solid #d1d1d1;
 			background: #f7f7f7;
+			margin-left: 15px;
 		}
 			.admin_theme_screenshot img{
-				width: 200px; 
+				width: 250px;
 				border: 1px solid #eee;
 			}
 		.admin_feature_list li{
 			margin:0;
 			padding: 20px 10px 10px 60px;
-			border-bottom: 1px solid #ddd;
-			border-top: 1px solid #fff;
+
 		}
 			.admin_feature_list li strong{
 				color:#000;
 			}
-			.admin_feature_list li .feature_icon{
+			
+			.welcome_feature_list{margin: 1.5em 0;}
+		
+			.welcomef{
+				width: 46%;
+				margin: 0 2% 10px;
+				float: left;
+				background:#e1e1e1;
+				
+			}
+			
+				.welcomef-pad{
+					height: 85px;
+					padding: 20px 20px;
+					padding-left: 70px;
+					border: 1px solid #ccc;
+					border-right: 1px solid #ddd;
+					border-bottom: 1px solid #ddd;
+				}
+					.welcome_feature_list p{margin: 0 0 1em 0;}
+					
+			.welcome_feature_list li .feature_icon, .admin_feature_list li .feature_icon, .admin_billboard_content .feature_icon{
 				float:left;
-				margin-left: -60px;
+				margin-left: -55px;
 				height: 40px;
 				width: 40px;
+			}
+			.admin_billboard_content .feature_icon{margin-top: 8px;}
+			.plugins_billboard .admin_billboard_content .feature_icon{
+				background: url(../images/icons/sprite-admin-features.png) no-repeat 0px -160px;
 			}
 			
 			.feature_firstrule .feature_icon{
@@ -716,38 +738,33 @@
 			.feature_dynamic .feature_icon{
 				background: url(../images/icons/sprite-admin-features.png) no-repeat 0px -200px;
 			}
+			.feature_meta .feature_icon{
+				background: url(../images/icons/sprite-admin-features.png) no-repeat 0px -240px;
+			}
 		
-		
-			.admin_feature_list li ul{
-				border: 1px solid #e1e1e1;
-				border-right: 1px solid #fff;
-				border-bottom: 1px solid #fff;
-				font-weight: bold;
-				background: #eee;
-				padding: 0;
-				margin-left: 20px;
-				margin-bottom: 1em;
+	
+		.welcome_plugin_list{
+			font-weight: bold;
+		}
+			.welcome_plugin_list a{text-decoration:none;}
+			.welcome_plugin_list li{
+				background:#f1f1f1;
+				border:1px solid #ddd;
 			}
-			.admin_feature_list li ul li{
-				border-right: 1px solid #e1e1e1;
-				border-top: 1px solid #f7f7f7;
-				padding: 5px 20px;
-			}
-				.admin_feature_list li ul li.first{ border-top: none;}
-			.text_content p, .text_content ul{
-				font-size: 1em;
-			}
-			
-			.shoutout_box {
-				background: #eee;
-				border: 1px solid #d1d1d1;
-				border-right: 1px solid #ddd;
-				border-bottom: 1px solid #ddd;
-				padding: 8px 15px 5px;
-				width: 200px;
-				text-align: center;
-			}
-
+				.welcome_plugin_list li .li-pad{
+					padding: 10px;
+					border-left: 1px solid #fff;
+					border-top: 1px solid #fff;
+				}
+				
+		.finally {
+			background:#e5e5e5;
+			padding: 20px;
+			text-align: center;
+			font-size: 1.3em;
+		}
+	
+/* @ doc icon links */
 
 	.doc_icon_links, .toggle_option_info{
 		color: #777;
@@ -1073,35 +1090,34 @@
 /* @ Layout Builder */
 	.layouteditor { display: none; }
 	.layouteditor.selectededitor{ display: block; }
+	.layout-selections, .layout-main-content{
+		margin: 18px auto;
+	}
 	.layout-main-content{
 		height: 300px;
 		font-size: 12px;
 		color: #333;
-		margin: 10px 0;
-		border: 1px solid #c1c1c1;
+		border: 1px solid #ccc;
+		border-bottom: 1px solid #c1c1c1;
+		border-right: 1px solid #c1c1c1;
 		background: #eee;
 		overflow: hidden;
 		font-weight: bold;
 	}
 	.layout-inner-content{
-		width: 480px;
+		width: 484px;
 		height: 300px;
 	}
 
-	.locontent {
-		background: #fff;
-	}
+	.locontent { background: #fff; }
 	.loelement-pad{	
 		overflow: hidden;
 		text-align: center;
 		padding: 5px;
 		font-size: 1em;
-
 	}
 
-	.loelement-info{
-		padding: 10px 0;
-	}
+	.loelement-info{ padding: 10px 0; }
 
 	.loelement-pad .width{
 
@@ -1112,9 +1128,13 @@
 	}
 
 	.margin-east, .margin-west{
-		background: #ddd;
-		color: #999;
+		border:1px solid #eee;
+		border-left: 1px solid #fff;
+		border-top: 1px solid #fff;
+		background: #E5E5E5 url(../images/bg-indent-tall.png) repeat-x 0 0;
+		color: #777;
 		overflow:hidden;
+		
 	}
 
 	.sidebar-dual{
@@ -1150,11 +1170,18 @@
 
 
 	
-	.layoutinputs{
-		font-size: 10px;
-		padding: 1em 20px 1em 45px;
+	.layoutinputs, .sel_layout_exp{
+		font-size: 11px;
 		background: #eee;
+		width: 700px;
+		margin: 18px auto;
 	}
+		.sel_layout_exp_pad{
+			padding: 1.5em;
+		}
+		.layoutinputs-pad{
+			padding: 1em 20px 1em 45px;
+		}
 		.layoutinputs input{margin-right: 30px;}
 	
 	
@@ -1162,32 +1189,29 @@
 	/* Layout Selector */
 	.layoutinput, .confirm_save {display:none;}
 	.confirm_save{
-		/*position: absolute;
-				right: 5px;
-				top: 10px;
-	
-				
-				text-shadow: #000 0 -1px 0;
-				font-size: 1.4em;
-				font-weight: bold;
-				background: transparent url('../images/bg_option_confirm.png') repeat 0 0;*/
-	
 		float: right;
 		color:#AAA;
 		
 	}
 	
-
-	.layout-selections {
-		width: 530px;
-		padding: 1em 85px 1.6em 85px;
-
-		background: #e1e1e1;
-		border: 1px solid #c1c1c1;
+	.layout-selections{
+		width: 700px;
+		background: #E5E5E5 url(../images/bg-indent.png) repeat-x 0 0;
+		border: 1px solid #ccc;
+		border-bottom: 1px solid #c1c1c1;
+		border-right: 1px solid #c1c1c1;
 	}
+	.layout-selections-pad {
+		
+		padding: 1em 85px 1.6em 85px;
+		border:1px solid #eee;
+		border-left: 1px solid #fff;
+		border-top: 1px solid #fff;
+	}
+	
 	.layout-overview {
-		font-size: 10px;
-		color: #999;
+		font-size: 11px;
+		color: #777;
 		text-align: center;
 		font-weight: bold;
 		margin-bottom: 7px;

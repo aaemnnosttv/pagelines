@@ -296,7 +296,8 @@ function viewAndSort( stemplate ){
 		});
 		window['InnerLayout'] = jQuery("."+LayoutMode+" .layout-inner-content").layout({ 
 
-						closable:				false
+				    	closable: 				true 
+					,   togglerLength_open: 	0 
 					,	resizable:				true
 					,	slidable:				false	
 					, 	north__resizable: 		false

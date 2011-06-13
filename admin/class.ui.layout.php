@@ -38,29 +38,29 @@ class PageLinesLayoutControl {
 
 
 			<div id="layout-dimensions" class="template-edit-panel">
-				<h3>Configure Layout Dimensions</h3>
 				<div class="select-edit-layout">
 					<div class="layout-selections layout-builder-select fix">
-						<div class="layout-overview">Select Layout To Edit</div>
-						<?php
+						<div class="layout-selections-pad fix">
+							<div class="layout-overview">Select Layout To Edit</div>
+							<?php
 
 
-						global $pagelines_layout;
-						foreach(get_the_layouts() as $layout):
+							global $pagelines_layout;
+							foreach(get_the_layouts() as $layout):
 
-							$the_last_edited = (pagelines_sub_option('layout', 'last_edit')) ? pagelines_sub_option('layout', 'last_edit') : 'one-sidebar-right';
+								$the_last_edited = (pagelines_sub_option('layout', 'last_edit')) ? pagelines_sub_option('layout', 'last_edit') : 'one-sidebar-right';
 
-							$load_layout = ($the_last_edited == $layout) ? true : false;
+								$load_layout = ($the_last_edited == $layout) ? true : false;
 
-						?>
-						<div class="layout-select-item">
-							<span class="layout-image-border <?php if($load_layout) echo 'selectedlayout';?>">
-								<span class="layout-image <?php echo $layout;?>">&nbsp;</span>
-							</span>
-							<input type="radio" class="layoutinput" name="<?php pagelines_option_name('layout', 'last_edit'); ?>" value="<?php echo $layout;?>" <?php if($load_layout) echo 'checked';?> />
+							?>
+							<div class="layout-select-item">
+								<span class="layout-image-border <?php if($load_layout) echo 'selectedlayout';?>">
+									<span class="layout-image <?php echo $layout;?>">&nbsp;</span>
+								</span>
+								<input type="radio" class="layoutinput" name="<?php pagelines_option_name('layout', 'last_edit'); ?>" value="<?php echo $layout;?>" <?php if($load_layout) echo 'checked';?> />
+							</div>
+							<?php endforeach;?>
 						</div>
-						<?php endforeach;?>
-
 					</div>	
 				</div>
 				<?php
@@ -112,7 +112,8 @@ class PageLinesLayoutControl {
 					</div>
 
 
-						<div class="layoutinputs">
+					<div class="layoutinputs">
+						<div class="layoutinputs-pad">
 							<label class="context" for="input-content-width">Global Content Width</label>
 							<input type="text" name="<?php pagelines_option_name('layout', 'content_width'); ?>" id="input-content-width" value="<?php echo $buildlayout->content->width;?>" size=5 readonly/>
 							<label class="context"  for="input-maincolumn-width">Main Column Width</label>
@@ -121,6 +122,7 @@ class PageLinesLayoutControl {
 							<label class="context"  for="input-primarysidebar-width">Sidebar1 Width</label>
 							<input type="text" name="<?php pagelines_option_name('layout', $layout, 'primarysidebar_width'); ?>" id="input-primarysidebar-width" value="<?php echo  $buildlayout->sidebar1->width;?>" size=5 readonly/>
 						</div>
+					</div>
 			</div>
 			<?php endforeach;?>
 
@@ -128,25 +130,36 @@ class PageLinesLayoutControl {
 	</div>
 	<?php }
 	
-	function get_layout_selector($optionid, $option_settings){ ?>
+	function get_layout_selector( $oid, $o ){ ?>
 		<div id="layout_selector" class="template-edit-panel">
 
 			<div class="layout-selections layout-select-default fix">
-				<div class="layout-overview">Default Layout</div>
-				<?php
+				<div class="layout-selections-pad fix">
+					<div class="layout-overview"><?php echo $o['inputlabel'];?></div>
+					<?php
 
 
-				global $pagelines_layout;
-				foreach(get_the_layouts() as $layout):
-				?>
-				<div class="layout-select-item">
-					<span class="layout-image-border <?php if($pagelines_layout->layout_map['saved_layout'] == $layout) echo 'selectedlayout';?>"><span class="layout-image <?php echo $layout;?>">&nbsp;</span></span>
-					<input type="radio" class="layoutinput" name="<?php pagelines_option_name('layout', 'saved_layout'); ?>" value="<?php echo $layout;?>" <?php if($pagelines_layout->layout_map['saved_layout'] == $layout) echo 'checked';?>>
+					global $pagelines_layout;
+					foreach(get_the_layouts() as $layout):
+				
+						$saved_layout = $pagelines_layout->layout_map['saved_layout'];
+					?>
+					<div class="layout-select-item">
+						<span class="layout-image-border <?php if($saved_layout == $layout) echo 'selectedlayout';?>">
+							<span class="layout-image <?php echo $layout;?>">&nbsp;</span>
+						</span>
+						<input type="radio" class="layoutinput" name="<?php pagelines_option_name('layout', 'saved_layout'); ?>" value="<?php echo $layout;?>" <?php checked($layout, $saved_layout); ?>>
+					</div>
+					<?php endforeach;?>
 				</div>
-				<?php endforeach;?>
-
+				
 			</div>
-
+			
+		</div>
+		<div class="sel_layout_exp">
+			<div class="sel_layout_exp_pad">
+				<?php echo $o['exp'];?>
+			</div>
 		</div>
 		<div class="clear"></div>
 	<?php }
@@ -188,7 +201,7 @@ jQuery(document).ready(function(){
 
 
 				// Get previous selected layout margin
-				var mwidth = jQuery('.selectededitor .margin-west').width();
+				var mwidth = jQuery('.selectededitor .margin-west').width(); // substract border
 
 				// Control selector class & visualization
 				LayoutSelectControl(this);
@@ -208,7 +221,7 @@ jQuery(document).ready(function(){
 					$ewidth = $mylayout->east->bwidth;
 					$wwidth = $mylayout->west->bwidth;
 				?>if (LayoutMode == '<?php echo $layout;?>') { 
-						marginwidth = mwidth;
+						marginwidth = mwidth + 2;
 						innereastwidth = <?php echo $ewidth;?>;
 						innerwestwidth = <?php echo $wwidth;?>; 
 						gtrwidth = 10

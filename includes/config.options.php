@@ -162,17 +162,18 @@ class PageLinesOptionsArray {
 			'layout_default' => array(
 				'default' 	=> "one-sidebar-right",
 				'type' 		=> 'layout_select',
-				'title' 	=> 'Default Layout Mode',	
+				'title' 	=> 'Default Layout Mode',
+				'inputlabel'	=> 'Select Default Layout',	
 				'layout' 	=> 'interface',						
 				'shortexp' 	=> 'Select your default layout mode, this can be changed on individual pages.<br />Once selected, you can adjust the layout in the Layout Builder.',
-				'exp' 		=> 'The default layout for your site; your blog page will always have this layout. Dimensions can be changed using the content layout editor.',
+				'exp' 		=> 'The default layout for pages and posts on your site. Dimensions can be changed using the Layout Dimension Editor.',
 				'docslink'	=> 'http://www.pagelines.com/docs/editing-layout'
 			),
 			'layout' => array(
 				'default'	=> 'one-sidebar-right',
 				'type'		=> 'layout',
 				'layout'	=> 'interface',
-				'title'		=> 'Content Layout Editor',						
+				'title'		=> 'Layout Dimension Editor',						
 				'shortexp'	=> 'Configure the default layout for your site which is initially selected in the Default Layout Mode option in Global Options. <br/>This option allows you to adjust columns and margins for the default layout.',
 			), 
 			'resetlayout' => array(
@@ -659,20 +660,14 @@ class PageLinesOptionsArray {
 				),
 
 			'posts_page_layout' => array(
-					'type'		=> 'select',
-					'selectvalues'=> array(
-						'fullwidth'		=> array( 'name' => 'Fullwidth layout', 'version' => 'pro' ),
-						'one-sidebar-right' 	=> array( 'name' => 'One sidebar on right' ),
-						'one-sidebar-left'	=> array( 'name' => 'One sidebar on left' ),
-						'two-sidebar-right' 	=> array( 'name' => 'Two sidebars on right', 'version' => 'pro' ),
-						'two-sidebar-left' 	=> array( 'name' => 'Two sidebars on left', 'version' => 'pro' ),
-						'two-sidebar-center' 	=> array( 'name' => 'Two sidebars, one on each side', 'version' => 'pro' ),
-					),
-					'title'		=> "Posts Page-Content Layout",
-					'shortexp'	=> "Select the content layout on posts pages only",
-					'inputlabel'	=> 'Posts Page Layout Mode (optional)',
-					'exp'		=> 'Use this option to change the content layout mode on all posts pages (if different than default layout).'
-				),
+				'default' 	=> "one-sidebar-right",
+				'type' 		=> 'layout_select',
+				'title' 	=> 'Default Posts Page Layout',
+				'inputlabel'	=> 'Select Default Posts Layout',	
+				'layout' 	=> 'interface',						
+				'shortexp' 	=> 'Select the layout that will be used on posts pages',
+				'exp' 		=> 'This layout will be used on all non-meta posts pages. These include author pages, tags, categories, and most importantly your blog page. Set up the dimensions of these in the Layout Editor panel.',
+			),
 			'thumb_handling' => array(
 					'type'		=> 'check_multi',
 					'selectvalues'	=> array(
@@ -1008,12 +1003,14 @@ class PageLinesOptionsArray {
 	 * @since 2.0.0
 	 */
 	function welcome(){
-
+		
+		$welcome = new PageLinesWelcome();
+		
 		$a = array(
 			'theme_introduction'	=> array(
 				'type'		=> 'text_content',
 				'layout'	=> 'full',
-				'exp'		=> get_theme_intro()
+				'exp'		=> $welcome->get_welcome()
 			),
 			'hide_introduction'	=> array(
 				'default'	=> '',
@@ -1092,34 +1089,167 @@ function get_option_array( $load_unavailable = false ){
  *
  *
  */
-function get_theme_intro(){
+
+class PageLinesWelcome {
+	
+	
+	function __contruct(){
 		
-	$intro = '<div class="theme_intro"><div class="admin_billboard fix"><div class="admin_billboard_pad fix"><div class="admin_theme_screenshot"><img class="" src="'.PARENT_URL.'/screenshot.png" alt="Screenshot" /></div>' .
-		'<div class="admin_billboard_content"><div class="admin_header"><h3 class="admin_header_main">Congratulations!</h3></div>'.
-		'<div class="admin_billboard_text">You are ready to start building an awesome website. PageLines has built you tons of customization options and editing features. Here are a few tips to get you started...<br/><small>(Note: This intro can be removed below.)</small></div>'.
-		'</div></div></div>'.
-		'<ul class="admin_feature_list">'.
-		'<li class="feature_firstrule"><div class="feature_icon"></div><strong>The First Rule</strong> <p>If you are a new customer of PageLines, it\'s time we introduce you to the first rule.  The first rule of PageLines is that you come first. We truly appreciate your business and support.</p></li> ' .
-		'<li class="feature_support"><div class="feature_icon"></div><strong>Support</strong> <p>For help getting started, we offer our customers tons of support including <a href="http://www.pagelines.com/docs/" target="_blank">docs</a>, <a href="http://www.youtube.com/pagelines" target="_blank">video tutorials</a>, and the <a href="http://www.pagelines.com/forum/" target="_blank">forum</a>, where users can post questions if they can\'t find the info they need.<br/> You can also visit our <a href="http://www.pagelines.com/support/" target="_blank">support page</a> for more info.</p></li> ' .
-		'<li class="feature_templates"><div class="feature_icon"></div><strong>Drag and Drop Template Setup</strong> <p>'.THEMENAME.' is equipped with advanced template customization tools. This is how you will control elements like feature sliders, or carousels using drag and drop on your site.</p></p> <p>To learn how it works, please visit the <a href="http://www.pagelines.com/docs/template-setup" target="_blank">template setup</a> page in the docs. </p></li>' .
-		'<li class="feature_options"><div class="feature_icon"></div><strong>Settings &amp; Setup</strong> <p>This panel is where you will start the customization of your website. Any options applied through this interface will make changes site-wide.</p><p> There are also several more options that you will find on the bottom of each WordPress page and post interface where you create and edit content. These allow you to set options specifically related to that page or post.</p><p><small>Note: create and save the page or post before setting these options.</small></p></li>' .
-		'<li class="feature_plugins"><div class="feature_icon"></div><strong>Install Plugins</strong> <p>Although '.THEMENAME.' is universally plugin compatible, we have added "advanced" graphical/functional support for several WordPress plugins.</p><p> It\'s your responsibility to install and activate each plugin, which can be done through "<strong>plugins</strong>" &gt; "<strong>Add New</strong>" or through the <strong>developers site</strong> where you can download them manually (e.g. CForms).</p><p>Pre-configured plugins:</p>'.
-		'<ul>'.
-		'<li class="first"><p><a href="http://buddypress.org/" target="_blank">BuddyPress</a> &amp; <a href="http://wordpress.org/extend/plugins/bp-template-pack/" target="_blank">BuddyPress Template Pack</a> - Social networking for your WordPress site.</p></li>'.
-		'<li class=""><p><a href="http://bbpress.org/" target="_blank">bbPress Forum</a> - Matching forum theme for bbPress (Developer Edition Only)</p></li>'.
-		'<li><p><a href="http://wordpress.org/extend/plugins/twitter-for-wordpress/" target="_blank">Twitter For WordPress</a> - Latest Twitter Post and Twitter Post Widgets</p></li>'.
-		'<li><p><a href="http://wordpress.org/extend/plugins/disqus-comment-system/" target="_blank">Disqus</a> or <a href="http://wordpress.org/extend/plugins/facebook-comments-for-wordpress/" target="_blank">Facebook Comments</a> - Improve your commenting system.</p></li>'.
-		'<li class="first"><p><a href="http://wordpress.org/extend/plugins/post-types-order/" target="_blank">Post Types Order</a> - Allows you to re-order custom post types like features and boxes.</p></li>'.
-		'<li><p><a href="http://www.deliciousdays.com/cforms-plugin/" target="_blank">CFormsII</a> - Advanced contact forms that can be used for creating mailing lists, etc..</p></li>'.
-		'<li><p><a href="http://wordpress.org/extend/plugins/wp125/" target="_blank">WP125</a> - Used to show 125px by 125px ads or images in your sidebar. (Widget)</p></li>'.
-		'<li><p><a href="http://eightface.com/wordpress/flickrrss/" target="_blank">FlickrRSS</a> - Shows pictures from your Flickr Account.  (Widget &amp; Carousel Section)</p></li>'.
-		'<li><p><a href="http://wordpress.org/extend/plugins/nextgen-gallery/" target="_blank">NextGen-Gallery</a> - Allows you to create image galleries with special effects.  (Carousel Section)</p></li>'.
-		'<li><p><a href="http://wordpress.org/extend/plugins/wp-pagenavi/" target="_blank">Wp-PageNavi</a> - Creates advanced "paginated" post navigation..</p></li>'.
-		'<li><p><a href="http://wordpress.org/extend/plugins/breadcrumb-navxt/" target="_blank">Breadcrumb NavXT</a> - Displays a configurable breadcrumb nav on your site</p></li>'.
-		'</ul>'.
-		'<li class="feature_dynamic"><div class="feature_icon"></div><strong>Widgets and Dynamic Layout</strong> <p>To make it super easy to customize your layout, we have added tons of sidebars and widget areas.  You can find and set these up under "<strong>appearance</strong>" &gt; "<strong>widgets</strong>"</p> <p>Find more information about your widget areas in the <a href="http://www.pagelines.com/docs">docs</a>. </p></li>' .
-		'</ul>' .
-		'<br/><h3>That\'s it for now! Have fun and good luck.</h3></div>';
+	}
+	
+	function get_welcome(){
+		
+		$count = 1; 
+		
+		$intro = '<div class="theme_intro"><div class="theme_intro_pad">';
+		
+		$intro .= $this->get_welcome_billboard();
+		
+		$intro .= '<ul class="welcome_feature_list">';
+		foreach($this->get_welcome_features() as $k => $i){
+			$endrow = ($count % 2 == 0) ? true : false;
+			$intro .= sprintf('<li class="welcomef %s %s"><div class="welcomef-pad"><div class="feature_icon"></div><strong>%s</strong><p>%s</p></div></li>', $i['class'], ($endrow) ? 'rlast' : '', $i['name'], $i['desc']);
+			if($endrow) $intro .= '<div class="clear"></div>';
+			$count++; 
+		}
+		$intro .= '<div class="clear"></div></ul>';
+		
+		
+		$intro .= '<div class="admin_billboard plugins_billboard"><div class="admin_billboard_content"><div class="feature_icon"></div><h3 class="admin_header_main">Plugins</h3> <p>Although '.THEMENAME.' is universally plugin compatible, we have added "advanced" graphical/functional support for several WordPress plugins.</p><p> It\'s your responsibility to install each plugin, which can be done through "<strong>plugins</strong>" &gt; "<strong>Add New</strong>" or through the <strong>developer\'s site</strong> where you can download them manually (e.g. CForms).</p>';
+			
+		$intro .= '<ul class="welcome_plugin_list">';
+		foreach($this->get_welcome_plugins() as $k => $i){
+			if(isset( $i['name2'] ))
+				$intro .= sprintf('<li><div class="li-pad"><a href="%s" target="_blank">%s</a> &amp; <a href="%s" target="_blank">%s</a> %s</div></li>', $i['url'], $i['name'], $i['url2'], $i['name2'], $i['desc']);
+			else
+				$intro .= sprintf('<li><div class="li-pad"><a href="%s" target="_blank">%s</a> %s</div></li>', $i['url'], $i['name'], $i['desc']);
+		
+		}
+		$intro .= '</ul></div></div>';
+		
+		
+		$intro .= '<div class="finally"><h3>That\'s it for now! Have fun and good luck.</h3></div>';
+		
+		$intro .= '</div></div>';
 
 		return apply_filters('pagelines_theme_intro', $intro);
+	}
+	
+	function get_welcome_billboard(){
+		
+		$bill = '<div class="admin_billboard fix"><div class="admin_billboard_pad fix">';
+		$bill .= '<div class="admin_theme_screenshot"><img class="" src="'.PARENT_URL.'/screenshot.png" alt="Screenshot" /></div>';
+		$bill .= '<div class="admin_billboard_content"><div class="admin_header"><h3 class="admin_header_main">Congratulations!</h3></div>';
+		$bill .= '<div class="admin_billboard_text">You\'re ready to build an professional website.<br/> Here are a few tips to get you started...<br/><small>(Note: This intro can be removed below.)</small></div>';
+		$bill .= '</div></div></div>';
+		
+		return apply_filters('pagelines_welcome_billboard', $bill);
+	}
+	
+	function get_welcome_features(){
+		$f = array(
+			'1strule'	=> array(
+				'name'			=> 'The First Rule',
+				'desc'			=> 'It\'s time we introduce you to the first rule.  The first rule of PageLines is that you come first. We truly appreciate your business and support.',
+				'class'			=> 'feature_firstrule', 
+				'icon'			=> '',
+			),
+			'support'	=> array(
+				'name'			=> 'World Class Support',
+				'desc'			=> 'For help getting started, we offer our customers tons of support including comprehensive <a href="http://www.pagelines.com/docs/" target="_blank">docs</a>, and an active and moderated <a href="http://www.pagelines.com/forum/" target="_blank">forum</a>.',
+				'class'			=> 'feature_support', 
+				'icon'			=> '',
+			),
+			'dragdrop'	=> array(
+				'name'			=> 'Drag &amp; Drop Templates',
+				'desc'			=> 'Check out the Template Setup panel! This is how you will control site elements using drag &amp; drop on your site. Learn more in the <a href="http://docs.pagelines.com/">docs</a>.',
+				'class'			=> 'feature_templates', 
+				'icon'			=> '',
+			),
+			'settings'	=> array(
+				'name'			=> 'Your Settings',
+				'desc'			=> 'This panel is where you will start the customization of your website. Any options applied through this interface will make changes site-wide.<br/> ',
+				'class'			=> 'feature_options', 
+				'icon'			=> '',
+			),
+			'widgets'	=> array(
+				'name'			=> 'Draggable Layout &amp; Widgets',
+				'desc'			=> 'Use the Layout Editor to control your content layout.  There are also several "widgetized" areas are controlled through your widgets panel.',
+				'class'			=> 'feature_dynamic', 
+				'icon'			=> '',
+			),
+			'metapanel'	=> array(
+				'name'			=> 'MetaPanel',
+				'desc'			=> 'You\'ll find the MetaPanel at the bottom of WordPress page/post creation pages.  It will allow you to set options specific to that page or post.',
+				'class'			=> 'feature_meta', 
+				'icon'			=> '',
+			),
+		);
+		
+		return apply_filters('pagelines_welcome_features', $f);
+	}
+	
+	function get_welcome_plugins(){
+		$plugins = array(
+			'buddypress'	=> array(
+				'name'			=> 'BuddyPress',
+				'url'			=> 'http://buddypress.org/', 
+				'name2'			=> 'BuddyPress Template Pack',
+				'url2'			=> 'http://wordpress.org/extend/plugins/bp-template-pack/',
+				'desc'			=> 'Social networking for your WordPress site.',
+			),
+			'bbpress'	=> array(
+				'name'			=> 'bbPress Forums',
+				'url'			=> 'http://bbpress.org/', 
+				'desc'			=> 'Matching forum theme for bbPress (Developer Edition Only)',
+			),
+			'postorder'	=> array(
+				'name'			=> 'Post Types Order',
+				'url'			=> 'http://wordpress.org/extend/plugins/post-types-order/', 
+				'desc'			=> 'Allows you to re-order custom post types like features and boxes.',
+			),
+			'twitterwp'	=> array(
+				'name'			=> 'Twitter for WordPress',
+				'url'			=> 'http://wordpress.org/extend/plugins/twitter-for-wordpress/', 
+				'desc'			=> 'Latest Twitter Post and Twitter Post Widgets.',
+			),
+			'disqus'	=> array(
+				'name'			=> 'Disqus Comments',
+				'url'			=> 'http://wordpress.org/extend/plugins/disqus-comment-system/', 
+				'desc'			=> 'Improve your commenting system',
+			),
+			'cforms'	=> array(
+				'name'			=> 'CForms',
+				'url'			=> 'http://www.deliciousdays.com/cforms-plugin/', 
+				'desc'			=> 'Advanced contact forms that can be used for creating mailing lists, etc..',
+			),
+			'wp125'	=> array(
+				'name'			=> 'WP125',
+				'url'			=> 'http://wordpress.org/extend/plugins/wp125/', 
+				'desc'			=> 'Used to show 125px by 125px ads or images in your sidebar. (Widget)',
+			),
+			'flickrrss'	=> array(
+				'name'			=> 'FlickrRSS Images',
+				'url'			=> 'http://eightface.com/wordpress/flickrrss/', 
+				'desc'			=> 'Shows pictures from your Flickr Account.  (Widget &amp; Carousel Section)',
+			),
+			'nextgen'	=> array(
+				'name'			=> 'NextGen-Gallery',
+				'url'			=> 'http://wordpress.org/extend/plugins/nextgen-gallery/', 
+				'desc'			=> 'Allows you to create image galleries with special effects.  (Carousel Section)',
+			),
+			'pagenavi'	=> array(
+				'name'			=> 'Wp-PageNavi',
+				'url'			=> 'http://wordpress.org/extend/plugins/wp-pagenavi/', 
+				'desc'			=> 'Creates advanced "paginated" post navigation..',
+			),
+			'breadcrumb'	=> array(
+				'name'			=> 'Breadcrumb NavXT',
+				'url'			=> 'http://wordpress.org/extend/plugins/breadcrumb-navxt/', 
+				'desc'			=> 'Displays a configurable breadcrumb nav on your site',
+			)
+		);
+		
+		return apply_filters('pagelines_welcome_plugins', $plugins);
+	}
 }
