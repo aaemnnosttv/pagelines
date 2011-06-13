@@ -93,4 +93,7 @@ jQuery('#message.slideup_message').delay(5000).slideUp('fast');
 	endforeach;
 
 
-?> /*]]>*/</script>
+
+?> 
+}); // close ready() event 
+/*]]>*/</script>

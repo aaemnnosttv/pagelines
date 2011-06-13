@@ -68,47 +68,58 @@ class PageLinesOptionEngine {
 
 	if( $draw_option ):  ?>
 	<div class="optionrow fix <?php echo $layout_class;?>">
-			<?php if( $o['title'] ): ?>
-			<div class="optiontitle fix">
-				<div class="optiontitle-pad fix">
-
-					<?php if( isset($o['vidlink']) ):?>
-						<a class="vidlink thickbox" title="<?php if($o['vidtitle']) echo $o['vidtitle']; ?>" href="<?php echo $o['vidlink']; ?>?hd=1&KeepThis=true&TB_iframe=true&height=450&width=700">
-							<img src="<?php echo PL_ADMIN_IMAGES . '/link-video.jpg';?>" class="docslink-video" alt="Video Tutorial" />
-						</a>
-					<?php endif;?>
-
-					<?php if( isset($o['docslink']) ):?>
-						<a class="vidlink" title="<?php if($o['vidtitle']) echo $o['vidtitle']; ?>" href="<?php echo $o['docslink']; ?>" target="_blank">
-							<img src="<?php echo PL_ADMIN_IMAGES . '/link-docs.jpg';?>" class="docslink-video" alt="Video Tutorial" />
-						</a>
-					<?php endif;?>
-
-					<strong><?php echo $o['title'];?></strong><br/>
-					<small><?php echo $o['shortexp'];?></small><br/>
-				</div>
-			</div>
-			<?php endif;?>
-			<div class="theinputs ">
-				<div class="optioninputs">
+		<?php $this->get_option_title( $oid, $o ); ?>
+		
+			<div class="oinputs">
+				<div class="oinputs-pad">
 					<?php $this->option_breaker($oid, $o, $val); ?>
 				</div>
 			</div>
 
 			<?php if($o['exp'] && $o['type'] != 'text_content'):?>
-			<div class="theexplanation">
-				<div class="theexplanation-pad">
-					<div class="context">More Info</div>
-					<p><?php echo $o['exp'];?></p>
-					<?php if( $o['pro_note'] && !VPRO ): ?>
-						<p class="pro_note"><strong>Pro Version Note:</strong><br/><?php echo $o['pro_note']; ?></p>
-					<?php endif; ?>
+			<div class="oexp">
+				<div class="oexp-effect">
+					<div class="oexp-pad">
+						<h5>More Info</h5>
+						<p>
+							<?php echo $o['exp'];?>
+						</p>
+						<?php 
+							if( $o['pro_note'] && !VPRO )
+								printf('<p class="pro_note"><strong>Pro Version Note:</strong><br/>%s</p>',  $o['pro_note']);
+						 
+						?>
+					</div>
 				</div>
 			</div>
 			<?php endif;?>
-	<div class="clear"></div>
+			
+			<div class="clear"></div>
 	</div>
 <?php endif; 
+	}
+	
+	function get_option_title($oid, $o){ 
+		if( $o['title'] ): ?>
+		<div class="optiontitle fix">
+			<div class="optiontitle-pad fix">
+				<?php if( isset($o['vidlink']) ):?>
+					<a class="vidlink thickbox" title="<?php if($o['vidtitle']) echo $o['vidtitle']; ?>" href="<?php echo $o['vidlink']; ?>?hd=1&KeepThis=true&TB_iframe=true&height=450&width=700">
+						<img src="<?php echo PL_ADMIN_IMAGES . '/link-video.jpg';?>" class="docslink-video" alt="Video Tutorial" />
+					</a>
+				<?php endif;?>
+
+				<?php if( isset($o['docslink']) ):?>
+					<a class="vidlink" title="<?php if($o['vidtitle']) echo $o['vidtitle']; ?>" href="<?php echo $o['docslink']; ?>" target="_blank">
+						<img src="<?php echo PL_ADMIN_IMAGES . '/link-docs.jpg';?>" class="docslink-video" alt="Video Tutorial" />
+					</a>
+				<?php endif;?>
+
+				<strong><?php echo $o['title'];?></strong><br/>
+				<small><?php echo $o['shortexp'];?></small><br/>
+			</div>
+		</div>
+		<?php endif;
 	}
 	
 

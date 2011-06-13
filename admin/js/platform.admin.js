@@ -249,50 +249,50 @@ function viewAndSort( stemplate ){
 	
 		window['OuterLayout'] = jQuery("."+LayoutMode+" .layout-main-content").layout({ 
 
-						center__paneSelector:	".layout-inner-content"
-					,	east__paneSelector:		".margin-east"
-					,	west__paneSelector: 	".margin-west"
-					,	closable:				false	// pane can open & close
-					,	resizable:				true	// when open, pane can be resized 
-					,	slidable:				false
-					,	resizeWhileDragging:	true
-					,	west__resizable:		true	// Set to TRUE to activate dynamic margin
-					,	east__resizable:		true	// Set to TRUE to activate dynamic margin
-					,	east__resizerClass: 	'pagelines-resizer-east'
-					,	west__resizerClass: 	'pagelines-resizer-west'
-					,	east__size:				margin
-					,	west__size:				margin
-					,	east__minSize:			10
-					,	west__minSize:			10
-					, 	east__maxSize:  		113
-					, 	west__maxSize:  		113
-					, 	west__onresize: function (pane, $Pane, paneState) {
-					    var width  = paneState.innerWidth;
-						var realwidth = width * 2;
-						var currentElement = jQuery("."+LayoutMode+" .margin-east");
-						
-						// This will fire in Firefox in strange times, make sure it's visible before doing anything
-						if(currentElement.is(':visible')){
-							currentElement.width(width);
-							var position = jQuery("."+LayoutMode+" .pagelines-resizer-west").position();
-							jQuery("."+LayoutMode+" .pagelines-resizer-east").css('right', position.left);
-							updateDimensions(LayoutMode, 'Margin West Resize');
-						}
-						
-					} 
-					, 	east__onresize: function (pane, $Pane, paneState) {
-					    var width  = paneState.innerWidth;
-						var realwidth = width * 2;
-						var currentElement = jQuery("."+LayoutMode+" .margin-west");
-						
-						// This will fire in Firefox in strange times, make sure it's visible before doing anything
-						if(currentElement.is(':visible')){
-							currentElement.width(width);
-							var position = jQuery("."+LayoutMode+" .pagelines-resizer-east").css('right');
-							jQuery("."+LayoutMode+" .pagelines-resizer-west").css('left', position);
-							updateDimensions(LayoutMode, 'Margin East Resize');
-						}
-					}
+				center__paneSelector:	".layout-inner-content"
+			,	east__paneSelector:		".margin-east"
+			,	west__paneSelector: 	".margin-west"
+			,	closable:				false	// pane can open & close
+			,	resizable:				true	// when open, pane can be resized 
+			,	slidable:				false
+			,	resizeWhileDragging:	true
+			,	west__resizable:		true	// Set to TRUE to activate dynamic margin
+			,	east__resizable:		true	// Set to TRUE to activate dynamic margin
+			,	east__resizerClass: 	'pagelines-resizer-east'
+			,	west__resizerClass: 	'pagelines-resizer-west'
+			,	east__size:				margin
+			,	west__size:				margin
+			,	east__minSize:			10
+			,	west__minSize:			10
+			, 	east__maxSize:  		188
+			, 	west__maxSize:  		188
+			, 	west__onresize: function (pane, $Pane, paneState) {
+			    var width  = paneState.innerWidth;
+				var realwidth = width * 2;
+				var currentElement = jQuery("."+LayoutMode+" .margin-east");
+				
+				// This will fire in Firefox in strange times, make sure it's visible before doing anything
+				if(currentElement.is(':visible')){
+					currentElement.width(width);
+					var position = jQuery("."+LayoutMode+" .pagelines-resizer-west").position();
+					jQuery("."+LayoutMode+" .pagelines-resizer-east").css('right', position.left);
+					updateDimensions(LayoutMode, 'Margin West Resize');
+				}
+				
+			} 
+			, 	east__onresize: function (pane, $Pane, paneState) {
+			    var width  = paneState.innerWidth;
+				var realwidth = width * 2;
+				var currentElement = jQuery("."+LayoutMode+" .margin-west");
+				
+				// This will fire in Firefox in strange times, make sure it's visible before doing anything
+				if(currentElement.is(':visible')){
+					currentElement.width(width);
+					var position = jQuery("."+LayoutMode+" .pagelines-resizer-east").css('right');
+					jQuery("."+LayoutMode+" .pagelines-resizer-west").css('left', position);
+					updateDimensions(LayoutMode, 'Margin East Resize');
+				}
+			}
 		});
 		window['InnerLayout'] = jQuery("."+LayoutMode+" .layout-inner-content").layout({ 
 
@@ -304,9 +304,11 @@ function viewAndSort( stemplate ){
 					,	resizeWhileDragging:	true
 					,	east__resizerClass: 	'gutter'
 					,	west__resizerClass: 	'gutter'
-					,	east__minSize: 			60
-					,	west__minSize: 			60
-					,	center__minWidth: 		60
+					,	east__minSize: 			30
+					,	west__minSize: 			30
+					,	center__minWidth: 		20
+					, 	east__closable:  		false
+					, 	west__closable:  		false
 					,   east__spacing_open:     gutter
 					, 	west__spacing_open: 	gutter
 					,	east__size: 			innereast
