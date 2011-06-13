@@ -19,7 +19,7 @@ class PageLinesLayoutControl {
 	 */
 	function __construct() {
 		
-
+		
 	}
 
 	/**
@@ -150,5 +150,78 @@ class PageLinesLayoutControl {
 		</div>
 		<div class="clear"></div>
 	<?php }
+
+	function layout_control_javascript(){ ?>
+<script type="text/javascript">/*<![CDATA[*/
+jQuery(document).ready(function(){
+
+		/*
+			Layout Builder Control	
+		*/
+			// Default Layout Select
+			jQuery(' .layout-select-default .layout-image-border').click(function(){
+				LayoutSelectControl(this);
+			});
+
+			<?php 
+				$the_last_edited = (pagelines_sub_option('layout', 'last_edit')) ? pagelines_sub_option('layout', 'last_edit') : null;
+
+				// Set up layout object for loaded page
+				$load_layout = new PageLinesLayout($the_last_edited);
+
+				// Values for loading layout
+				$layout_mode = $load_layout->layout_mode;
+				$load_margin = $load_layout->margin->bwidth;
+				$load_west = $load_layout->west->bwidth;
+				$load_east = $load_layout->east->bwidth;
+				$load_gutter = $load_layout->gutter->bwidth;
+
+			?>
+			setLayoutBuilder('<?php echo $layout_mode; ?>', <?php echo $load_margin;?>, <?php echo $load_east;?>, <?php echo $load_west;?>, 10);
+
+			jQuery('.selected_template .layout-builder-select .layout-image-border').click(function(){
+				var LayoutMode;
+				var marginwidth;
+				var innerwestwidth;
+				var innereastwidth;
+				var gtrwidth;
+
+
+				// Get previous selected layout margin
+				var mwidth = jQuery('.selectededitor .margin-west').width();
+
+				// Control selector class & visualization
+				LayoutSelectControl(this);
+
+
+				// For Layout Builder mode e.g. 'one-sidebar-right'
+				LayoutMode = jQuery(this).parent().find('.layoutinput').val();
+
+				deactivateCurrentBuilder();
+
+				// Display selected builder
+				jQuery('.'+LayoutMode).addClass('selectededitor');
+
+			<?php foreach(get_the_layouts() as $layout):
+					$mylayout = new PageLinesLayout($layout);
+					$default_margin = $mylayout->margin->bwidth;
+					$ewidth = $mylayout->east->bwidth;
+					$wwidth = $mylayout->west->bwidth;
+				?>if (LayoutMode == '<?php echo $layout;?>') { 
+						marginwidth = mwidth;
+						innereastwidth = <?php echo $ewidth;?>;
+						innerwestwidth = <?php echo $wwidth;?>; 
+						gtrwidth = 10
+					}
+			<?php endforeach;?>
+
+				setLayoutBuilder(LayoutMode, marginwidth, innereastwidth, innerwestwidth, gtrwidth);
+
+			});	
+
+
+});
+		
+/*]]>*/</script><?php }
 
 }

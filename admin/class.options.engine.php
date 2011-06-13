@@ -564,15 +564,7 @@ class PageLinesOptionEngine {
 
 
 	/**
-	 * 
-	 *
 	 *  Layout Builder (Layout Drag & Drop)
-	 *
-	 *
-	 *  @package PageLines Core
-	 *  @subpackage Options
-	 *  @since 4.0
-	 *
 	 */
 	function _get_layout_builder($oid, $o){ 
 		
@@ -581,15 +573,7 @@ class PageLinesOptionEngine {
 	 }
 
 	/**
-	 * 
-	 *
 	 *  Layout Select (Layout Selector)
-	 *
-	 *
-	 *  @package PageLines Core
-	 *  @subpackage Options
-	 *  @since 4.0
-	 *
 	 */
 	function _get_layout_select($oid, $o){
 		
@@ -597,6 +581,9 @@ class PageLinesOptionEngine {
 		$builder->get_layout_selector($oid, $o);
 	}
 
+	/**
+	 *  Template Drag and Drop (Sortable Sections)
+	 */
 	function do_template_builder(){
 
 		$builder = new PageLinesTemplateBuilder();
