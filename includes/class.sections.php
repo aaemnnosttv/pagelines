@@ -178,22 +178,6 @@ function pagelines_register_section($section_class, $section_folder, $init_file 
 	
 	// Don't register class twice.
 	if( class_exists ( $section_class )) return;
-	
-	// If the section depends on other sections
-	if(isset($args['deps'])){
-		
-		if(is_array($args['deps'])){
-			// Check to make sure it is registered
-			foreach($args['deps'] as $parent_section){
-				if(!isset($pl_section_factory->sections[$parent_section])) return;
-			}
-		} else {
-			
-			if(!isset($pl_section_factory->sections[ $args['deps'] ])) return;
-
-		}
-		
-	}
 
 	/*
 		Refine & modify filename
@@ -203,8 +187,6 @@ function pagelines_register_section($section_class, $section_folder, $init_file 
 
 
 	if($register_child_section){
-		
-		
 		
 		/*
 		 	Set up possible paths to section

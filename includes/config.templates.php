@@ -49,7 +49,9 @@ function pagelines_register_sections(){
 		foreach( $sections['child'] as $section ) {
 			
 			if ($section['depends'] != '') {
-				pagelines_register_section( $sections['parent'][$section['depends']]['class'], $sections['parent'][$section['depends']]['folder'], $sections['parent'][$section['depends']]['filename'] );	
+				if (isset( $sections['parent'][$section['depends']]['class']) && file_exists( $sections['parent'][$section['depends']]['filename'] ) ) {
+					pagelines_register_section( $sections['parent'][$section['depends']]['class'], $sections['parent'][$section['depends']]['folder'], $sections['parent'][$section['depends']]['filename'] );	
+				}
 			} else {
 				pagelines_register_section( $section['class'], $section['filename'], null, array('child' => true ) );
 			}
@@ -58,7 +60,9 @@ function pagelines_register_sections(){
 	foreach( $sections['parent'] as $section ) {
 			
 		if ($section['depends'] != '') {
-			pagelines_register_section( $sections['parent'][$section['depends']]['class'], $sections['parent'][$section['depends']]['folder'], $sections['parent'][$section['depends']]['filename'] );	
+			if (isset( $sections['parent'][$section['depends']]['class']) && file_exists( $sections['parent'][$section['depends']]['filename'] ) ) {
+				pagelines_register_section( $sections['parent'][$section['depends']]['class'], $sections['parent'][$section['depends']]['folder'], $sections['parent'][$section['depends']]['filename'] );	
+			}
 		} else {
 			pagelines_register_section( $section['class'], $section['folder'], $section['filename'] );
 		}
