@@ -222,13 +222,13 @@ function pagelines_title_tag(){
 	echo "\n<title>";
 
 	// BuddyPress has its own title.
-	if( pagelines_bbpress_forum() ){
+	if( pagelines_bbpress_forum() )
 		bb_title();
-	} elseif( pagelines_is_buddypress_page() ) {
+	elseif( pagelines_is_buddypress_page() )
 		bp_page_title();
-	} elseif( pagelines_mediawiki() ) {
+	elseif( pagelines_mediawiki() )
 		mediawiki_title();
-	} else {
+	else {
 		if ( !function_exists( 'aiosp_meta' ) && !function_exists( 'wpseo_get_value' ) ) {
 		// Pagelines seo titles.
 			global $page, $paged;
@@ -242,11 +242,11 @@ function pagelines_title_tag(){
 
 			// Add a page number if necessary:
 			$title .= ( $paged >= 2 || $page >= 2 ) ? ' | ' . sprintf( __( 'Page %s', 'pagelines' ), max( $paged, $page ) ) : '';
-		} else {
+		} else
 			$title = trim( wp_title( '', false ) );
-		}
-	// Print the title.
-	echo apply_filters( 'pagelines_meta_title', $title );
+		
+		// Print the title.
+		echo apply_filters( 'pagelines_meta_title', $title );
 	}
 	echo "</title>\n";
 }	
@@ -256,7 +256,9 @@ function do_dynamic_css(){
 		// If multisite is used, then dynamic styles need to be inline.
 		// TODO is there a better solution?
 
-	if( is_multisite() || pagelines_option('inline_dynamic_css') || !is_writable(PAGELINES_DCSS ) ){
+		global $blog_id;
+
+	if( (is_multisite() && $blog_id != 1) || pagelines_option('inline_dynamic_css') || !is_writable(PAGELINES_DCSS ) ){
 		get_dynamic_css();
 	} else {
 		

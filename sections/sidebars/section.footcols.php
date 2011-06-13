@@ -96,7 +96,7 @@ class PageLinesFootCols extends PageLinesSection {
 							</div>
 						</div>
 					</div>
-					<div class="pp5 footcol">
+					<div class="pp5 pplast footcol">
 						<div class="dcol-pad">
 							<div class="findent terms">
 								<?php print_pagelines_option('footer_terms');?>

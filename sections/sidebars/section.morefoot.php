@@ -65,8 +65,8 @@ class PageLinesMorefoot extends PageLinesSection {
 
 			<div class="morefoot_back fix">
 				<div id="morefootbg" class=" fix">
-					<div class="dcol_container_3">
-						<div class="dcol_3 dcol wcontain fix">	
+					<div class="pprow">
+						<div class="pp3 dcol wcontain fix">	
 							<div class="dcol-pad">
 								<?php if (!dynamic_sidebar('MoreFoot Left') ) : ?>
 								<div class="widget">
@@ -82,7 +82,7 @@ class PageLinesMorefoot extends PageLinesSection {
 								<?php endif; ?>
 							</div>
 						</div>
-						<div class="dcol_3 dcol wcontain">
+						<div class="pp3 dcol wcontain">
 							<div class="dcol-pad">
 								<?php if ( !dynamic_sidebar('MoreFoot Middle') ) : ?>
 								<div class="widget">
@@ -95,7 +95,7 @@ class PageLinesMorefoot extends PageLinesSection {
 								<?php endif; ?>
 							</div>
 						</div>
-						<div class="dcol_3 lastcol dcol wcontain">
+						<div class="pp3 pplast dcol wcontain">
 							<div class="dcol-pad">
 							<?php if (!dynamic_sidebar('MoreFoot Right') ) : ?>
 								<div class="widget">

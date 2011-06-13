@@ -41,4 +41,3 @@
 				<div id="dynamic-content" class="outline fix">
 					<?php pagelines_integration_top();?>
 					
-				

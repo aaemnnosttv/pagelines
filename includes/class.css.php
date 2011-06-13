@@ -31,7 +31,6 @@ class PageLinesCSS {
 		$this->intro();
 		$this->typography();
 		$this->layout();
-		$this->dynamic_grid();
 		$this->options();
 		$this->custom_css();
 		
@@ -113,7 +112,12 @@ class PageLinesCSS {
 		/* Content Width */
 		$content_with_border = $content_width + 2;
 		$this->css .= "#page-main .content{ max-width:".$content_with_border."px }".$this->nl;
-		$this->css .= "#site .content, .wcontent{max-width:".$content_width."px; width: 100%}".$this->nl2;
+	
+		if(pagelines_option('responsive_layout'))
+			$this->css .= "#site .content, .wcontent, #footer .content{ width: 100%; max-width:".$content_width."px;}".$this->nl2;
+		else
+			$this->css .= "#site .content, .wcontent, #footer .content{ width:".$content_width."px;}".$this->nl2;
+	
 		//$this->css .= "#site{min-width: 100%}".$this->nl; // Fix small horizontal scroll issue
 		
 		// For inline CSS in Multisite
@@ -158,21 +162,6 @@ class PageLinesCSS {
 		return sprintf( 'width:%s%%;', ($context != 0 ) ? ( $target / $context ) * 100 : 0 );
 	}
 	
-	function dynamic_grid(){
-		global $pagelines_layout; 
-		
-		/*
-			Generate Dynamic Column Widths & Padding
-		*/
-		if( $this->comments ) 
-			$this->css .= '/* Dynamic Grid --------------- */'.$this->nl2;
-			
-		for($i = 2; $i <= 5; $i++){
-			$this->css .= '.dcol_container_'.$i.'{width: '.$pagelines_layout->dcol[$i]->container_width.'px; float: right;}'.$this->nl;
-			$this->css .= '.dcol_'.$i.'{width: '.$pagelines_layout->dcol[$i]->width.'px; margin-left: '.$pagelines_layout->dcol[$i]->gutter_width.'px;}'.$this->nl2;
-		}
-		
-	}
 	
 	function options(){
 		/*
@@ -280,15 +269,17 @@ class PageLinesCSS {
  */
 function pagelines_build_dynamic_css( $trigger = 'N/A' ){
 
+	global $blog_id;
+
 	// Create directories and folders for storing dynamic files
 	if(!file_exists(PAGELINES_DCSS) ) {
 		if ( false === pagelines_make_uploads() ); {
-		pagelines_update_option( 'inline_dynamic_css', true );
-		return;
+			pagelines_update_option( 'inline_dynamic_css', true );
+			return;
 		}	
 	}
 	// Write to dynamic files
-	if ( is_writable(PAGELINES_DCSS) && !is_multisite() ){
+	if ( is_writable(PAGELINES_DCSS) && (!is_multisite() || (is_multisite() && $blog_id == 1) ) ){
 		$pagelines_dynamic_css = new PageLinesCSS;
 		$pagelines_dynamic_css->create('texturize');
 		pagelines_make_uploads($pagelines_dynamic_css->css ."\n\n/* Trigger: ". $trigger . '*/');

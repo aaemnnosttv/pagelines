@@ -4,59 +4,45 @@
 
 /* Dynamic Layout --------------- */
 
-.fixed_width #page, .fixed_width #footer, .canvas #page-canvas{ max-width:920px }
-#page-main .content{ max-width:902px }
-#site .content, .wcontent{max-width:900px; width: 100%}
+.fixed_width #page, .fixed_width #footer, .canvas #page-canvas{ max-width:980px }
+#page-main .content{ max-width:962px }
+#site .content, .wcontent, #footer .content{ width:960px;}
 
 .fullwidth  #pagelines_content #column-main, .fullwidth  .wmain, .fullwidth  #buddypress-page #container{ width:100%; }
 .fullwidth  #pagelines_content #sidebar1, .fullwidth  #buddypress-page #sidebar1{ width:0%; }
 .fullwidth  #pagelines_content #sidebar2, .fullwidth  #buddypress-page #sidebar2{ width:0%; }
-.fullwidth  #pagelines_content #column-wrap, .fullwidth  #buddypress-page #container{ width:106.666666667%; }
+.fullwidth  #pagelines_content #column-wrap, .fullwidth  #buddypress-page #container{ width:100%; }
 .fullwidth  #pagelines_content #sidebar-wrap, .fullwidth  #buddypress-page #sidebar-wrap{ width:0%; }
 
 .one-sidebar-right  #pagelines_content #column-main, .one-sidebar-right  .wmain, .one-sidebar-right  #buddypress-page #container{ width:100%; }
 .one-sidebar-right  #pagelines_content #sidebar1, .one-sidebar-right  #buddypress-page #sidebar1{ width:100%; }
 .one-sidebar-right  #pagelines_content #sidebar2, .one-sidebar-right  #buddypress-page #sidebar2{ width:0%; }
-.one-sidebar-right  #pagelines_content #column-wrap, .one-sidebar-right  #buddypress-page #container{ width:64.4444444444%; }
-.one-sidebar-right  #pagelines_content #sidebar-wrap, .one-sidebar-right  #buddypress-page #sidebar-wrap{ width:35.5555555556%; }
+.one-sidebar-right  #pagelines_content #column-wrap, .one-sidebar-right  #buddypress-page #container{ width:66.6666666667%; }
+.one-sidebar-right  #pagelines_content #sidebar-wrap, .one-sidebar-right  #buddypress-page #sidebar-wrap{ width:33.3333333333%; }
 
 .one-sidebar-left  #pagelines_content #column-main, .one-sidebar-left  .wmain, .one-sidebar-left  #buddypress-page #container{ width:100%; }
 .one-sidebar-left  #pagelines_content #sidebar1, .one-sidebar-left  #buddypress-page #sidebar1{ width:100%; }
 .one-sidebar-left  #pagelines_content #sidebar2, .one-sidebar-left  #buddypress-page #sidebar2{ width:0%; }
-.one-sidebar-left  #pagelines_content #column-wrap, .one-sidebar-left  #buddypress-page #container{ width:71.1111111111%; }
-.one-sidebar-left  #pagelines_content #sidebar-wrap, .one-sidebar-left  #buddypress-page #sidebar-wrap{ width:28.8888888889%; }
+.one-sidebar-left  #pagelines_content #column-wrap, .one-sidebar-left  #buddypress-page #container{ width:66.6666666667%; }
+.one-sidebar-left  #pagelines_content #sidebar-wrap, .one-sidebar-left  #buddypress-page #sidebar-wrap{ width:33.3333333333%; }
 
 .two-sidebar-right  #pagelines_content #column-main, .two-sidebar-right  .wmain, .two-sidebar-right  #buddypress-page #container{ width:100%; }
-.two-sidebar-right  #pagelines_content #sidebar1, .two-sidebar-right  #buddypress-page #sidebar1{ width:57.1428571429%; }
-.two-sidebar-right  #pagelines_content #sidebar2, .two-sidebar-right  #buddypress-page #sidebar2{ width:42.8571428571%; }
-.two-sidebar-right  #pagelines_content #column-wrap, .two-sidebar-right  #buddypress-page #container{ width:53.3333333333%; }
-.two-sidebar-right  #pagelines_content #sidebar-wrap, .two-sidebar-right  #buddypress-page #sidebar-wrap{ width:46.6666666667%; }
+.two-sidebar-right  #pagelines_content #sidebar1, .two-sidebar-right  #buddypress-page #sidebar1{ width:50%; }
+.two-sidebar-right  #pagelines_content #sidebar2, .two-sidebar-right  #buddypress-page #sidebar2{ width:50%; }
+.two-sidebar-right  #pagelines_content #column-wrap, .two-sidebar-right  #buddypress-page #container{ width:50%; }
+.two-sidebar-right  #pagelines_content #sidebar-wrap, .two-sidebar-right  #buddypress-page #sidebar-wrap{ width:50%; }
 
 .two-sidebar-left  #pagelines_content #column-main, .two-sidebar-left  .wmain, .two-sidebar-left  #buddypress-page #container{ width:100%; }
-.two-sidebar-left  #pagelines_content #sidebar1, .two-sidebar-left  #buddypress-page #sidebar1{ width:57.1428571429%; }
-.two-sidebar-left  #pagelines_content #sidebar2, .two-sidebar-left  #buddypress-page #sidebar2{ width:42.8571428571%; }
-.two-sidebar-left  #pagelines_content #column-wrap, .two-sidebar-left  #buddypress-page #container{ width:53.3333333333%; }
-.two-sidebar-left  #pagelines_content #sidebar-wrap, .two-sidebar-left  #buddypress-page #sidebar-wrap{ width:46.6666666667%; }
+.two-sidebar-left  #pagelines_content #sidebar1, .two-sidebar-left  #buddypress-page #sidebar1{ width:50%; }
+.two-sidebar-left  #pagelines_content #sidebar2, .two-sidebar-left  #buddypress-page #sidebar2{ width:50%; }
+.two-sidebar-left  #pagelines_content #column-wrap, .two-sidebar-left  #buddypress-page #container{ width:50%; }
+.two-sidebar-left  #pagelines_content #sidebar-wrap, .two-sidebar-left  #buddypress-page #sidebar-wrap{ width:50%; }
 
 .two-sidebar-center  #pagelines_content #column-main, .two-sidebar-center  .wmain, .two-sidebar-center  #buddypress-page #container{ width:66.6666666667%; }
 .two-sidebar-center  #pagelines_content #sidebar1, .two-sidebar-center  #buddypress-page #sidebar1{ width:33.3333333333%; }
 .two-sidebar-center  #pagelines_content #sidebar2, .two-sidebar-center  #buddypress-page #sidebar2{ width:100%; }
-.two-sidebar-center  #pagelines_content #column-wrap, .two-sidebar-center  #buddypress-page #container{ width:80%; }
-.two-sidebar-center  #pagelines_content #sidebar-wrap, .two-sidebar-center  #buddypress-page #sidebar-wrap{ width:20%; }
-
-/* Dynamic Grid --------------- */
-
-.dcol_container_2{width: 920px; float: right;}
-.dcol_2{width: 440px; margin-left: 20px;}
-
-.dcol_container_3{width: 920px; float: right;}
-.dcol_3{width: 286px; margin-left: 20px;}
-
-.dcol_container_4{width: 920px; float: right;}
-.dcol_4{width: 210px; margin-left: 20px;}
-
-.dcol_container_5{width: 920px; float: right;}
-.dcol_5{width: 164px; margin-left: 20px;}
+.two-sidebar-center  #pagelines_content #column-wrap, .two-sidebar-center  #buddypress-page #container{ width:75%; }
+.two-sidebar-center  #pagelines_content #sidebar-wrap, .two-sidebar-center  #buddypress-page #sidebar-wrap{ width:25%; }
 
 /* Options --------------- */
 
