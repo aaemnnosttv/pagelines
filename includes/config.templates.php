@@ -37,11 +37,13 @@ function pagelines_register_sections(){
 		'child' => STYLESHEETPATH . '/sections/'
 		);
 		
-	foreach ( apply_filters( 'pagelines_sections_dirs', $section_dirs) as $type => $dir ) {
-		
-		$sections[$type] = pagelines_getsections( $dir, $type );
+	if ( !$sections = get_transient( 'pagelines_sections' ) ) {
+		foreach ( apply_filters( 'pagelines_sections_dirs', $section_dirs) as $type => $dir ) {
+			$sections[$type] = pagelines_getsections( $dir, $type );
+			set_transient( 'pagelines_sections', $sections, apply_filters( 'pagelines_section_cache_timeout', 120 ) );
+		}
 	}
-
+	$sections = apply_filters( 'pagelines_section_admin', $sections );
 	if ( isset( $sections['child'] ) ) {
 			
 		foreach( $sections['child'] as $section ) {
