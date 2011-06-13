@@ -114,6 +114,11 @@ $GLOBALS['metapanel_options'] =  new PageLinesMetaPanel();
 require_once( PL_ADMIN . '/class.ui.templates.php' );
 
 /**
+ * Load Layout Controls
+ */
+require_once( PL_ADMIN . '/class.ui.layout.php' );
+
+/**
  * Load Layout Setup UI
  */
 require_once( PL_ADMIN . '/class.ui.layout.php' );
