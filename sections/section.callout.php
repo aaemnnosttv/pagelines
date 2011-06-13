@@ -5,7 +5,7 @@
 	Author: Adam Munns
 	Description: Shows a callout banner with optional graphic call to action
 	Version: 1.0.0
-	
+	Class Name: PageLinesCallout
 */
 
 class PageLinesCallout extends PageLinesSection {

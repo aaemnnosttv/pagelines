@@ -5,7 +5,7 @@
 	Author: Adam Munns
 	Description: Creates footer navigation.
 	Version: 1.0.0
-	
+	Class Name: PageLinesSimpleFooterNav
 */
 
 class PageLinesSimpleFooterNav extends PageLinesSection {

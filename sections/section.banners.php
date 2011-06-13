@@ -5,7 +5,7 @@
 	Author: Andrew Powers
 	Description: Creates banners, great for product tours.
 	Version: 1.0.0
-	
+	Class Name: PageLinesBanners
 */
 
 class PageLinesBanners extends PageLinesSection {

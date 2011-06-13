@@ -5,7 +5,7 @@
 	Author: Adam Munns
 	Description: Displays Breadcrumb Navigation on your site.
 	Version: 1.0.0
-	
+	Class Name: PageLinesBreadcrumb
 */
 
 class PageLinesBreadcrumb extends PageLinesSection {

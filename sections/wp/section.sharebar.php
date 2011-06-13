@@ -5,7 +5,7 @@
 	Author: Andrew Powers
 	Description: Adds ways to share content on pages/single posts
 	Version: 1.0.0
-	
+	Class Name: PageLinesShareBar
 */
 
 class PageLinesShareBar extends PageLinesSection {

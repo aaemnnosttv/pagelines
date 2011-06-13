@@ -4,7 +4,8 @@
 	Author: PageLines
 	Description: Branding and Nav Inline
 	Version: 1.0.0
-
+	Class Name: BrandNav
+	Depends: PageLinesNav
 */
 class BrandNav extends PageLinesNav {
    function __construct( $registered_settings = array() ) {

@@ -5,7 +5,7 @@
 	Author: Andrew Powers
 	Description: Three widgetized sidebars above footer
 	Version: 1.0.0
-	
+	Class Name: PageLinesMorefoot
 */
 
 class PageLinesMorefoot extends PageLinesSection {

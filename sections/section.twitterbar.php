@@ -5,7 +5,7 @@
 	Author: Andrew Powers
 	Description: Loads twitter feed into the site footer
 	Version: 1.0.0
-	
+	Class Name: PageLinesTwitterBar
 */
 
 class PageLinesTwitterBar extends PageLinesSection {

@@ -11,65 +11,88 @@
 
 
 /**
- * 
- *  Register HTML sections for use in the theme.
+ *  Scans THEMEDIR/sections recursively for section files and auto loads them.
+ *  Child section folder also scanned if found and dependencies resolved.
+ *
+ *  Section files MUST include a class header and optional depends header.
+ *
+ *  Example section header:
+ *
+ *	Section: BrandNav Section
+ *	Author: PageLines
+ *	Description: Branding and Nav Inline
+ *	Version: 1.0.0
+ *	Class Name: BrandNav
+ *	Depends: PageLinesNav
  *
  *  @package Platform
  *  @subpackage Config
- *  @since 1.4.0
+ *  @since 2.0
  *
  */
 function pagelines_register_sections(){
-	
-// Common WP 
-	pagelines_register_section('PageLinesContent', 'wp', 'content');
-	pagelines_register_section('PageLinesPostLoop', 'wp', 'postloop');
-	pagelines_register_section('PageLinesPostNav', 'wp', 'postnav');
-	pagelines_register_section('PageLinesComments', 'wp', 'comments');
-	pagelines_register_section('PageLinesPagination', 'wp', 'pagination');
-	pagelines_register_section('PageLinesShareBar', 'wp', 'sharebar');
-	pagelines_register_section('PageLinesNoPosts', 'wp', 'noposts');
-	pagelines_register_section('PageLinesPostAuthor', 'wp', 'postauthor');
-	pagelines_register_section('PageLinesPostsInfo', 'wp', 'postsinfo');
-	
-// In Header
-	pagelines_register_section('PageLinesNav', 'nav');
-	pagelines_register_section('PageLinesSecondNav', 'secondnav');
-	pagelines_register_section('PageLinesBranding', 'wp', 'branding');	
-	pagelines_register_section('BrandNav', 'brandnav', 'brandnav', array('deps'=>'PageLinesNav') );	
-	pagelines_register_section('PageLinesBreadcrumb', 'breadcrumb');
 
-// Sections With Custom Post Types
-	pagelines_register_section('PageLinesFeatures', 'features'); // 'features'
-	pagelines_register_section('PageLinesBoxes', 'boxes'); // 'boxes'
-	pagelines_register_section('PageLinesBanners', 'banners'); // 'boxes'
+	$section_dirs = array( 
+		'parent' => PL_SECTIONS,
+		'child' => STYLESHEETPATH . '/sections/'
+		);
+		
+	foreach ( apply_filters( 'pagelines_sections_dirs', $section_dirs) as $type => $dir ) {
+		
+		$sections[$type] = pagelines_getsections( $dir, $type );
+	}
 
-// Sidebar Sections & Widgets
-	pagelines_register_section('PrimarySidebar', 'sidebars', 'sb_primary');
-	pagelines_register_section('SecondarySidebar', 'sidebars', 'sb_secondary');
-	pagelines_register_section('TertiarySidebar', 'sidebars', 'sb_tertiary');
-	pagelines_register_section('UniversalSidebar', 'sidebars', 'sb_universal');
-	
-	pagelines_register_section('FullWidthSidebar', 'sidebars', 'sb_fullwidth');
-	pagelines_register_section('ContentSidebar', 'sidebars', 'sb_content');
-	
-	pagelines_register_section('PageLinesMorefoot', 'sidebars', 'morefoot');
-	pagelines_register_section('PageLinesFootCols', 'sidebars', 'footcols');
-	
-// Misc & Dependent Sections
-
-	pagelines_register_section('PageLinesSoapbox', 'soapbox');
-	pagelines_register_section('PageLinesCarousel', 'carousel');
-	pagelines_register_section('PageLinesHighlight', 'highlight');
-	pagelines_register_section('PageLinesTwitterBar', 'twitterbar');
-	pagelines_register_section('PageLinesSimpleFooterNav', 'footer_nav');
-
-	pagelines_register_section('PageLinesCallout','callout');
-
-
-// Do a hook for registering sections
+	if ( isset( $sections['child'] ) ) {
+			
+		foreach( $sections['child'] as $section ) {
+			
+			if ($section['depends'] != '') {
+				pagelines_register_section( $sections['parent'][$section['depends']]['class'], $sections['parent'][$section['depends']]['folder'], $sections['parent'][$section['depends']]['filename'] );	
+			} else {
+				pagelines_register_section( $section['class'], $section['filename'], null, array('child' => true ) );
+			}
+		}
+	}
+	foreach( $sections['parent'] as $section ) {
+			
+		if ($section['depends'] != '') {
+			pagelines_register_section( $sections['parent'][$section['depends']]['class'], $sections['parent'][$section['depends']]['folder'], $sections['parent'][$section['depends']]['filename'] );	
+		} else {
+			pagelines_register_section( $section['class'], $section['folder'], $section['filename'] );
+		}
+	}
 	pagelines_register_hook('pagelines_register_sections'); // Hook
+}
 
+/**
+ * Helper function 
+ * Returns array of section files.
+ * @return array
+ * @author Simon Prosser
+ **/
+function pagelines_getsections( $dir, $type ) {
+
+	if ( is_child_theme() == false && $type == 'child' || ! is_dir($dir) ) return;
+
+	$sections = array();
+	$it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator( $dir, RecursiveIteratorIterator::LEAVES_ONLY));
+
+	foreach( $it as $fullFileName => $fileSPLObject ) {
+		if (pathinfo($fileSPLObject->getFilename(), PATHINFO_EXTENSION ) == 'php') {
+			$folder = ( preg_match( '/sections\/(.*)\//', $fullFileName, $match) ) ? $match[1] : '';
+			$headers = get_file_data( $fullFileName, $default_headers = array( 'classname' => 'Class Name', 'depends' => 'Depends' ) );
+			$filename = str_replace( '.php', '', str_replace( 'section.', '', $fileSPLObject->getFilename() ) );
+
+			$sections[$headers['classname']] = array(
+				'filename' => $filename,
+				'path' => $fullFileName,
+				'folder' => $folder,
+				'class' => $headers['classname'],
+				'depends' => $headers['depends']
+			);	
+		}
+	}
+	return $sections;	
 }
 
 /*

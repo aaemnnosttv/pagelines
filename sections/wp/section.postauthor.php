@@ -5,7 +5,7 @@
 	Author: Andrew Powers
 	Description: Adds post author to page/single post.
 	Version: 1.0.0
-	
+	Class Name: PageLinesPostAuthor
 */
 
 class PageLinesPostAuthor extends PageLinesSection {
