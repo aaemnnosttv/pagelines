@@ -37,17 +37,21 @@ function pagelines_register_sections(){
 		'child' => STYLESHEETPATH . '/sections/'
 		);
 		
-	foreach ( apply_filters( 'pagelines_sections_dirs', $section_dirs) as $type => $dir ) {
-		
-		$sections[$type] = pagelines_getsections( $dir, $type );
+	if ( !$sections = get_transient( 'pagelines_sections' ) ) {
+		foreach ( apply_filters( 'pagelines_sections_dirs', $section_dirs) as $type => $dir ) {
+			$sections[$type] = pagelines_getsections( $dir, $type );
+			set_transient( 'pagelines_sections', $sections, apply_filters( 'pagelines_section_cache_timeout', 120 ) );
+		}
 	}
-
+	$sections = apply_filters( 'pagelines_section_admin', $sections );
 	if ( isset( $sections['child'] ) ) {
 			
 		foreach( $sections['child'] as $section ) {
 			
 			if ($section['depends'] != '') {
-				pagelines_register_section( $sections['parent'][$section['depends']]['class'], $sections['parent'][$section['depends']]['folder'], $sections['parent'][$section['depends']]['filename'] );	
+				if (isset( $sections['parent'][$section['depends']]['class']) && file_exists( $sections['parent'][$section['depends']]['filename'] ) ) {
+					pagelines_register_section( $sections['parent'][$section['depends']]['class'], $sections['parent'][$section['depends']]['folder'], $sections['parent'][$section['depends']]['filename'] );	
+				}
 			} else {
 				pagelines_register_section( $section['class'], $section['filename'], null, array('child' => true ) );
 			}
@@ -56,7 +60,9 @@ function pagelines_register_sections(){
 	foreach( $sections['parent'] as $section ) {
 			
 		if ($section['depends'] != '') {
-			pagelines_register_section( $sections['parent'][$section['depends']]['class'], $sections['parent'][$section['depends']]['folder'], $sections['parent'][$section['depends']]['filename'] );	
+			if (isset( $sections['parent'][$section['depends']]['class']) && file_exists( $sections['parent'][$section['depends']]['filename'] ) ) {
+				pagelines_register_section( $sections['parent'][$section['depends']]['class'], $sections['parent'][$section['depends']]['folder'], $sections['parent'][$section['depends']]['filename'] );	
+			}
 		} else {
 			pagelines_register_section( $section['class'], $section['folder'], $section['filename'] );
 		}
