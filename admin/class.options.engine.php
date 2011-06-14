@@ -71,7 +71,7 @@ class PageLinesOptionEngine {
 			</div>
 		</div>
 
-		<?php echo $this->_get_explanation();?>
+		<?php echo $this->_get_explanation($oid, $o);?>
 			
 		<div class="clear"></div>
 	</div>
