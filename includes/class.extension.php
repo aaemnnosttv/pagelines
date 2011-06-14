@@ -57,8 +57,9 @@ function pagelines_register_sections(){
 	
 
 	$section_dirs = array( 
-		'parent' => PL_SECTIONS,
-		'child' => STYLESHEETPATH . '/sections/'
+		'child' => STYLESHEETPATH . '/sections/',	
+		'parent' => PL_SECTIONS
+
 		);
 	
 	// check for cached array	
@@ -72,30 +73,23 @@ function pagelines_register_sections(){
 	// main array containing child and parent sections
 	$sections = apply_filters( 'pagelines_section_admin', $sections );
 	
-	if ( isset( $sections['child'] ) ) {
-			
-		foreach( $sections['child'] as $section ) {
-			
+	foreach ( $sections as $type ) {
+	
+		foreach( $type as $section ) {
 			if ($section['depends'] != '') { // do we have a dependency?
 				if (isset( $sections['parent'][$section['depends']]['class']) && file_exists( $sections['parent'][$section['depends']]['filename'] ) ) {
 					pagelines_register_section( $sections['parent'][$section['depends']]['class'], $sections['parent'][$section['depends']]['folder'], $sections['parent'][$section['depends']]['filename'] );	
 				}
 			} else {
-				pagelines_register_section( $section['class'], $section['filename'], null, array('child' => true ) );
+				if ( $section['type'] == 'child') {
+					pagelines_register_section( $section['class'], $section['filename'], null, array('child' => true ) );
+				} else {
+					pagelines_register_section( $section['class'], $section['folder'], $section['filename'] );
+				}
 			}
 		}
 	}
-	foreach( $sections['parent'] as $section ) {
-			
-		if ($section['depends'] != '') { // do we have a dependency?
-			if (isset( $sections['parent'][$section['depends']]['class']) && file_exists( $sections['parent'][$section['depends']]['filename'] ) ) {
-				pagelines_register_section( $sections['parent'][$section['depends']]['class'], $sections['parent'][$section['depends']]['folder'], $sections['parent'][$section['depends']]['filename'] );	
-			}
-		} else {
-			pagelines_register_section( $section['class'], $section['folder'], $section['filename'] );
-		}
-	}
-	
+
 	pagelines_register_hook('pagelines_register_sections'); // Hook
 }
 
@@ -123,7 +117,8 @@ function pagelines_getsections( $dir, $type ) {
 				'path' => $fullFileName,
 				'folder' => $folder,
 				'class' => $headers['classname'],
-				'depends' => $headers['depends']
+				'depends' => $headers['depends'],
+				'type' => $type
 			);	
 		}
 	}
