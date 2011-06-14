@@ -70,6 +70,12 @@ $GLOBALS['global_pagelines_settings'] = get_option(PAGELINES_SETTINGS);
 
 
 /**
+ * Add Extension Handlers
+ */
+require_once( PL_INCLUDES . '/class.extension.php' );
+
+
+/**
  * Load Custom Post Type Class
  */
 require_once( PL_INCLUDES . '/class.types.php' );
