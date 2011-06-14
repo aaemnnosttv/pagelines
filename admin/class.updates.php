@@ -41,6 +41,10 @@ class PageLinesUpdateCheck {
 
 	function pagelines_theme_update_tab( $option_array ) {
 
+		$updates_exp = ( is_array( $a = get_transient('pagelines-update-PlatformPro') ) && isset($a['package']) && $a['package'] !== 'bad' ) 
+							? 'Updates are properly configured.' 
+							: 'Please use your login credentials for <a href="http://www.pagelines.com/launchpad/member.php">LaunchPad</a>.<br /><strong>Not</strong> your WordPress login.';
+
 		$updates = array(
 					'credentials' => array(
 						'version'	=> 'pro',
@@ -52,7 +56,7 @@ class PageLinesUpdateCheck {
 						),
 						'title'		=> 'Configure automatic updates',
 						'shortexp'	=> 'Get the latest theme updates direct from PageLines.',
-						'exp'		=> ( is_array( $a = get_transient('pagelines-update-PlatformPro') ) && $a['package'] !== 'bad' ) ? 'Updates are properly configured.' : 'Please use your login credentials for <a href="http://www.pagelines.com/launchpad/member.php">LaunchPad</a>.<br /><strong>Not</strong> your wordpress login.'
+						'exp'		=> $updates_exp
 					),
 					'disable_updates' => array(
 							'default'	=> true,

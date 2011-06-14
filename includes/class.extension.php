@@ -79,12 +79,14 @@ class PageLinesExtension{
 				foreach( $type as $section ) {
 				
 					// consolidate array vars
-					$dep = $section['depends'];
-					$dep_file = $sections['parent'][$section['depends']]['filename'];
-					$dep_class = $sections['parent'][$section['depends']]['class'];
-					$dep_folder = $sections['parent'][$section['depends']]['folder'];
+					$dep = ($section['depends'] != '') ? $section['depends'] : null;
+					$parent_dep = (isset($sections['parent'][$section['depends']])) ? $sections['parent'][$section['depends']] : null;
 				
-					if ($dep != '') { // do we have a dependency?
+					$dep_file = (isset($parent_dep['filename'])) ? $parent_dep['filename'] : null;
+					$dep_class = (isset($parent_dep['class'])) ? $parent_dep['class'] : null;
+					$dep_folder = (isset($parent_dep['folder'])) ? $parent_dep['folder'] : null;
+				
+					if (isset($dep)) { // do we have a dependency?
 						if (isset( $dep_class ) && file_exists( $dep_file ) ) 
 							pagelines_register_section( $dep_class, $dep_folder, $dep_file ); 
 					
