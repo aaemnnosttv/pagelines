@@ -34,28 +34,33 @@ class PageLinesExtension{
 	function pagelines_register_sections(){
 
 		global $pl_section_factory;
-		
-		// Load our two main section folders 
-		// @filter pagelines_section_dirs
-		//
+
+		/**
+		* Load our two main section folders
+		* @filter pagelines_section_dirs
+		*/
 		$section_dirs = apply_filters( 'pagelines_sections_dirs', array( 
 			'child' 	=> STYLESHEETPATH . '/sections/',	
 			'parent' 	=> PL_SECTIONS
 		) );
 
-		// check for cached array	
+		/**
+		* If cache exists load into $sections array
+		* If not populate array and prime cache
+		*/
 		if ( !$sections = get_transient( 'pagelines_sections' ) ) {
 			foreach ( $section_dirs as $type => $dir ) {
-				
-				// Load each section into array
 				$sections[$type] = $this->pagelines_getsections( $dir, $type );
 			}
-		// Set transient to prevent performance problems.
-		// @filter pagelines_section_cache_timeout
-		// @default 120s
-		// TODO switch this to activation/deactivation interface
-		// TODO better idea, clear cached vars on settings save.
-		set_transient( 'pagelines_sections', $sections, apply_filters( 'pagelines_section_cache_timeout', 120 ) );	
+
+			/**
+			* Set transient to prevent performance problems.
+			* @filter pagelines_section_cache_timeout
+			* @default 120s
+			* TODO switch this to activation/deactivation interface
+			* TODO better idea, clear cached vars on settings save.
+			*/
+			set_transient( 'pagelines_sections', $sections, apply_filters( 'pagelines_section_cache_timeout', 120 ) );	
 		}
 
 		// filter main array containing child and parent and any custom sections
@@ -66,8 +71,10 @@ class PageLinesExtension{
 			if(is_array($type)){
 				foreach( $type as $section ) {
 					
-					// using pagelines_section_admin filter we can disable sections from loading
-					// by setting the disabled bit.
+					/**
+					* using pagelines_section_admin filter we can disable sections from loading
+					* by setting the disabled bit.
+					*/
 					if (isset( $section['disabled'] ) )
 						break;
 					
@@ -124,6 +131,7 @@ class PageLinesExtension{
 				// If no pagelines class headers ignore this file.
 				if ( !$headers['classname'] )
 					break;
+
 				$filename = str_replace( '.php', '', str_replace( 'section.', '', $fileSPLObject->getFilename() ) );
 				$sections[$headers['classname']] = array(
 					'class' => $headers['classname'],
