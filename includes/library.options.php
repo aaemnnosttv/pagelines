@@ -55,23 +55,31 @@ function pagelines_settings_callback( $input ) {
  **/
 function get_pagelines_option($key, $setting = null) {
 
-	global $global_pagelines_settings;
+
 
 	// get setting
 	$setting = $setting ? $setting : PAGELINES_SETTINGS;
 
-	if(isset($global_pagelines_settings[$key]))
-		return $global_pagelines_settings[$key];
-	else
-		return false;
+	if(!isset($setting) || $setting == PAGELINES_SETTINGS){
+		
+		global $global_pagelines_settings;
+		
+		if(isset($global_pagelines_settings[$key]))
+			return $global_pagelines_settings[$key];
+		else
+			return false;
+		
+	}
+
+	
 
 }
 
 function pagelines_option( $key, $post_id = null, $setting = null){
 	
 	if(isset($post_id) && get_post_meta($post_id, $key, true)){
-		//if option is set for a page/post
-		return get_post_meta($post_id, $key, true);
+		
+		return get_post_meta($post_id, $key, true); //if option is set for a page/post
 		
 	}elseif( get_pagelines_option($key, $setting) ){
 		

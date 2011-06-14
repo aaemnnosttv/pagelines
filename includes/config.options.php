@@ -1084,6 +1084,56 @@ function get_option_array( $load_unavailable = false ){
 /**
  * 
  *
+ *  Returns Options Array
+ *
+ *
+ *
+ */
+function testingarray(  ){
+	
+	
+	$d = array(
+		'Themes' => array(
+			'google_ie' => array(
+					'default'	=> false,
+					'type'		=> 'check',
+					'inputlabel'	=> 'Include Google IE Compatibility Script?',
+					'title'		=> 'Google IE Compatibility Fix',
+					'shortexp'	=> 'Include a Google JS script that fixes problems with IE.',
+					'exp'		=> 'More info on this can be found here: <strong>http://code.google.com/p/ie7-js/</strong>.'
+			),
+
+		),
+		'Sections' => array(
+			'partner_link' => array(
+					'default'	=> '',
+					'type'		=> 'text',
+					'inputlabel'	=> 'Enter Partner Link',
+					'title'		=> 'PageLines Partner Link',
+					'shortexp'	=> 'Change your PageLines footer link to a partner link',
+					'exp'		=> 'If you are a <a href="http://www.pagelines.com/partners">PageLines Partner</a> enter your link here and the footer link will become a partner or affiliate link.'
+			),
+
+		),
+		'plugins' => array(
+			'partner_link' => array(
+					'default'	=> '',
+					'type'		=> 'text',
+					'inputlabel'	=> 'Enter Partner Link',
+					'title'		=> 'PageLines Partner Link',
+					'shortexp'	=> 'Change your PageLines footer link to a partner link',
+					'exp'		=> 'If you are a <a href="http://www.pagelines.com/partners">PageLines Partner</a> enter your link here and the footer link will become a partner or affiliate link.'
+			),
+
+		),
+	);
+	
+	return apply_filters('testingarray', $d); 
+}
+
+/**
+ * 
+ *
  *  Returns Welcome
  *
  *

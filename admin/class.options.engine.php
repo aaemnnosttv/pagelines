@@ -15,7 +15,9 @@
 
 class PageLinesOptionEngine {
 
-	function __construct() {
+	function __construct( $settings_field = '' ) {
+		
+		$this->settings_field = $settings_field;
 		
 		$this->defaults = array(
 			'default' 				=> '',
@@ -60,13 +62,12 @@ class PageLinesOptionEngine {
 		else 
 			$val = pagelines_option($oid);
 
-		$draw_option = (!isset( $o['version'] ) || ( isset($o['version']) && $o['version'] == 'free' && !VPRO) || (isset($o['version']) && $o['version'] == 'pro' && VPRO )) ? true : false;
 
 		$layout_class = '';
 		$layout_class .= ( isset( $o['layout'] ) && $o['layout']=='full' ) ? ' wideinputs' : '';
 		$layout_class .= ( isset( $o['layout'] ) && $o['layout']=='interface' ) ? ' interface' : '';
 
-	if( $draw_option ):  ?>
+	if( $this->_do_the_option() ):  ?>
 	<div class="optionrow fix <?php echo $layout_class;?>">
 		<?php $this->get_option_title( $oid, $o ); ?>
 		
@@ -122,6 +123,11 @@ class PageLinesOptionEngine {
 		<?php endif;
 	}
 	
+	function _do_the_option(){
+		
+		$draw = (!isset( $o['version'] ) || ( isset($o['version']) && $o['version'] == 'free' && !VPRO) || (isset($o['version']) && $o['version'] == 'pro' && VPRO )) ? true : false;
+		return $draw;
+	}
 
 	/**
 	 * 

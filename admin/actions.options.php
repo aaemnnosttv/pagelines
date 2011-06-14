@@ -25,15 +25,21 @@ function pagelines_add_admin_submenus() {
 	// WP themes rep. wants it under the appearance tab.	
 	if( !VPRO )
 		$_pagelines_options_page_hook = add_theme_page( 'pagelines', 'PageLines Settings', 'edit_theme_options', 'pagelines', 'pagelines_build_option_interface' );
-	else 
+	else {
 		$_pagelines_options_page_hook = add_submenu_page('pagelines', 'Settings', 'Settings', 'edit_theme_options', 'pagelines','pagelines_build_option_interface'); // Default
-
+		$_pagelines_ext_page_hook = add_submenu_page('pagelines', 'Extension', 'Extension', 'edit_theme_options', 'extension','pagelines_build_extension_interface');
+	}
 }
 
 // Build option interface
 function pagelines_build_option_interface(){ 
 	pagelines_register_hook('pagelines_before_optionUI');
 	$optionUI = new PageLinesOptionsUI;
+}
+
+// Build option interface
+function pagelines_build_extension_interface(){ 
+	$optionUI = new PageLinesOptionsUI('Extension','testingarray', 'pagelines-extension');
 }
 
 /**
@@ -43,6 +49,7 @@ function pagelines_build_option_interface(){
 add_action('admin_menu', 'pagelines_theme_settings_init');
 function pagelines_theme_settings_init() {
 	global $_pagelines_options_page_hook;
+	global $_pagelines_ext_page_hook;
 	
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'jquery-ajaxupload', PL_ADMIN_JS . '/jquery.ajaxupload.js');
@@ -51,11 +58,13 @@ function pagelines_theme_settings_init() {
 	wp_enqueue_script( 'jquery-ui-tabs' );
 	
 	add_action('load-'.$_pagelines_options_page_hook, 'pagelines_theme_settings_scripts');
-	wp_enqueue_script( 'platform-admin-js', PL_ADMIN_JS . '/platform.admin.js');
+	add_action('load-'.$_pagelines_ext_page_hook, 'pagelines_theme_settings_scripts');
+	wp_enqueue_script( 'script-pagelines-common', PL_ADMIN_JS . '/script.common.js');
 }
 
 function pagelines_theme_settings_scripts() {	
-
+	
+	wp_enqueue_script( 'script-pagelines-settings', PL_ADMIN_JS . '/script.settings.js');
 	wp_enqueue_script( 'jquery-ui-effects',PL_ADMIN_JS . '/jquery.effects.js', array('jquery')); // just has highlight effect
 	wp_enqueue_script( 'jquery-ui-draggable' );	
 	wp_enqueue_script( 'jquery-ui-sortable' );
