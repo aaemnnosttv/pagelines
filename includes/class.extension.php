@@ -60,7 +60,8 @@ function pagelines_register_sections(){
 		'parent' => PL_SECTIONS,
 		'child' => STYLESHEETPATH . '/sections/'
 		);
-		
+	
+	// check for cached array	
 	if ( !$sections = get_transient( 'pagelines_sections' ) ) {
 		foreach ( apply_filters( 'pagelines_sections_dirs', $section_dirs) as $type => $dir ) {
 			$sections[$type] = pagelines_getsections( $dir, $type );
@@ -68,13 +69,14 @@ function pagelines_register_sections(){
 		}
 	}
 	
+	// main array containing child and parent sections
 	$sections = apply_filters( 'pagelines_section_admin', $sections );
 	
 	if ( isset( $sections['child'] ) ) {
 			
 		foreach( $sections['child'] as $section ) {
 			
-			if ($section['depends'] != '') {
+			if ($section['depends'] != '') { // do we have a dependency?
 				if (isset( $sections['parent'][$section['depends']]['class']) && file_exists( $sections['parent'][$section['depends']]['filename'] ) ) {
 					pagelines_register_section( $sections['parent'][$section['depends']]['class'], $sections['parent'][$section['depends']]['folder'], $sections['parent'][$section['depends']]['filename'] );	
 				}
@@ -85,7 +87,7 @@ function pagelines_register_sections(){
 	}
 	foreach( $sections['parent'] as $section ) {
 			
-		if ($section['depends'] != '') {
+		if ($section['depends'] != '') { // do we have a dependency?
 			if (isset( $sections['parent'][$section['depends']]['class']) && file_exists( $sections['parent'][$section['depends']]['filename'] ) ) {
 				pagelines_register_section( $sections['parent'][$section['depends']]['class'], $sections['parent'][$section['depends']]['folder'], $sections['parent'][$section['depends']]['filename'] );	
 			}
@@ -100,7 +102,7 @@ function pagelines_register_sections(){
 /**
  * Helper function 
  * Returns array of section files.
- * @return array
+ * @return array of php files
  * @author Simon Prosser
  **/
 function pagelines_getsections( $dir, $type ) {
