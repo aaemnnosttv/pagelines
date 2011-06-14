@@ -247,9 +247,12 @@ function pagelines_settings_defaults() {
 					}
 
 				}else{ 
-					if(!VPRO && isset($o['version_set_default']) && $o['version_set_default'] == 'pro') $default_options[$optionid] = null;
-					elseif(!VPRO && isset($o['default_free'])) $default_options[$optionid] = $o['default_free'];
-					elseif(isset($o['default'])) $default_options[$optionid] = $o['default'];
+					if(!VPRO && isset($o['version_set_default']) && $o['version_set_default'] == 'pro') 
+						$default_options[$optionid] = null;
+					elseif(!VPRO && isset($o['default_free'])) 
+						$default_options[$optionid] = $o['default_free'];
+					elseif(isset($o['default'])) 
+						$default_options[$optionid] = $o['default'];
 				}
 
 			}
@@ -258,34 +261,6 @@ function pagelines_settings_defaults() {
 	return apply_filters('pagelines_settings_defaults', $default_options);
 }
 
-/**
- * This function registers the default values for wp_option theme settings 
- */
-function pagelines_wp_option_defaults($reset = false) {
-
-
-	foreach(get_option_array() as $menuitem => $options ){
-		foreach($options as $optionid => $o ){
-			if( isset($o['wp_option']) && $o['wp_option'] ){
-
-				if($reset){
-					
-					if(!VPRO && isset($o['version_set_default']) && $o['version_set_default'] == 'pro') update_option( $optionid, null);
-					elseif(!VPRO && isset($o['default_free'])) update_option( $optionid, $o['default_free']);
-					elseif(isset($o['default'])) update_option( $optionid, $o['default']);
-					
-				}else{
-					if(!VPRO && isset($o['version_set_default']) && $o['version_set_default'] == 'pro') add_option( $optionid, null);
-					elseif(!VPRO && isset($o['default_free'])) add_option( $optionid, $o['default_free']);
-					elseif(isset($o['default'])) add_option( $optionid, $o['default']);
-				}
-
-			}
-
-		}
-	}
-
-}
 
 
 function pagelines_process_reset_options() {

@@ -53,22 +53,16 @@ class PageLinesOptionEngine {
 	 * Option generation engine
 	 *
 	 */
-	function option_engine($oid, $o){
+	function option_engine($oid, $o, $postID = null, $setting = null){
 
 		$o = wp_parse_args( $o, $this->defaults );
 
-		if($o['wp_option']) 
-			$val = get_option($oid);
-		else 
-			$val = pagelines_option($oid);
-
-
-		$layout_class = '';
-		$layout_class .= ( isset( $o['layout'] ) && $o['layout']=='full' ) ? ' wideinputs' : '';
-		$layout_class .= ( isset( $o['layout'] ) && $o['layout']=='interface' ) ? ' interface' : '';
+		$val = pagelines_option( $oid, $postID, $setting );
+		$name = pagelines_option( $oid, $postID, $setting );
+		$id = pagelines_option( $oid, $postID, $setting );		
 
 	if( $this->_do_the_option() ):  ?>
-	<div class="optionrow fix <?php echo $layout_class;?>">
+	<div class="optionrow fix <?php echo $this->_layout_class();?>">
 		<?php $this->get_option_title( $oid, $o ); ?>
 		
 			<div class="oinputs">
@@ -77,27 +71,38 @@ class PageLinesOptionEngine {
 				</div>
 			</div>
 
-			<?php if($o['exp'] && $o['type'] != 'text_content' && $o['layout'] != 'interface'):?>
-			<div class="oexp">
-				<div class="oexp-effect">
-					<div class="oexp-pad">
-						<h5>More Info</h5>
-						<p>
-							<?php echo $o['exp'];?>
-						</p>
-						<?php 
-							if( $o['pro_note'] && !VPRO )
-								printf('<p class="pro_note"><strong>Pro Version Note:</strong><br/>%s</p>',  $o['pro_note']);
-						 
-						?>
-					</div>
-				</div>
-			</div>
-			<?php endif;?>
+			<?php echo $this->get_explanation();?>
 			
 			<div class="clear"></div>
 	</div>
 <?php endif; 
+	}
+	
+	function _get_explanation($oid, $o){
+		if($o['exp'] && $o['type'] != 'text_content' && $o['layout'] != 'interface'):?>
+		<div class="oexp">
+			<div class="oexp-effect">
+				<div class="oexp-pad">
+					<h5>More Info</h5>
+					<p>
+						<?php echo $o['exp'];?>
+					</p>
+					<?php 
+						if( $o['pro_note'] && !VPRO )
+							printf('<p class="pro_note"><strong>Pro Version Note:</strong><br/>%s</p>',  $o['pro_note']);
+					 
+					?>
+				</div>
+			</div>
+		</div>
+<?php endif;
+	}
+	
+	function _layout_class(){
+		$layout_class = '';
+		$layout_class .= ( isset( $o['layout'] ) && $o['layout']=='full' ) ? ' wideinputs' : '';
+		$layout_class .= ( isset( $o['layout'] ) && $o['layout']=='interface' ) ? ' interface' : '';
+		return $layout_class;
 	}
 	
 	function get_option_title($oid, $o){ 
@@ -140,10 +145,10 @@ class PageLinesOptionEngine {
 		switch ( $o['type'] ){
 
 			case 'select' :
-				$this->_get_select_option($oid, $o);
+				$this->_get_select_option($oid, $o, $val);
 				break;
 			case 'select_same' :
-				$this->_get_select_option($oid, $o);
+				$this->_get_select_option($oid, $o, $val);
 				break;
 			case 'radio' :
 				$this->_get_radio_option($oid, $o);
@@ -476,7 +481,7 @@ class PageLinesOptionEngine {
 
 	<?php }
 
-	function _get_select_option( $oid, $o ){ ?>
+	function _get_select_option( $oid, $o, $val ){ ?>
 
 			<p>
 				<label for="<?php echo $oid;?>" class="context"><?php echo $o['inputlabel'];?></label><br/>

@@ -103,8 +103,6 @@ function pagelines_register_settings() {
 	 */
 		add_option( PAGELINES_SETTINGS, pagelines_settings_defaults() ); // only fires first time
 	
-		pagelines_wp_option_defaults(); // Add stand alone wp options, only fires first time
-	
 
 	if ( !isset($_REQUEST['page']) || $_REQUEST['page'] != 'pagelines' )
 		return;	
@@ -140,7 +138,7 @@ function pagelines_register_settings() {
 	
 	if ( pagelines_option('reset') ) {
 		update_option(PAGELINES_SETTINGS, pagelines_settings_defaults());
-		pagelines_wp_option_defaults(true);
+
 		pagelines_build_dynamic_css( 'Reset' );
 		wp_redirect( admin_url( 'admin.php?page=pagelines&reset=true' ) );
 		exit;
