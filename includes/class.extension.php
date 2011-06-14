@@ -48,19 +48,16 @@ class PageLinesExtension{
 		* If cache exists load into $sections array
 		* If not populate array and prime cache
 		*/
-		if ( !$sections = get_transient( 'pagelines_sections' ) ) {
+		if ( !$sections = get_option( 'pagelines_sections_cache' ) ) {
 			foreach ( $section_dirs as $type => $dir ) {
 				$sections[$type] = $this->pagelines_getsections( $dir, $type );
 			}
 
 			/**
-			* Set transient to prevent performance problems.
-			* @filter pagelines_section_cache_timeout
-			* @default 120s
 			* TODO switch this to activation/deactivation interface
 			* TODO better idea, clear cached vars on settings save.
 			*/
-			set_transient( 'pagelines_sections', $sections, apply_filters( 'pagelines_section_cache_timeout', 120 ) );	
+			update_option( 'pagelines_sections_cache', $sections );	
 		}
 
 		// filter main array containing child and parent and any custom sections
