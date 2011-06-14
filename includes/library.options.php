@@ -4,31 +4,31 @@
  * Sets up option name for saving of option settings
  *
  **/
-function pagelines_option_name( $oid, $sub_oid = null, $grand_oid = null){
+function pagelines_option_name( $oid, $sub_oid = null, $grand_oid = null, $setting = PAGELINES_SETTINGS){
 	
 	if( isset($grand_oid) )
-		echo PAGELINES_SETTINGS . '['.$oid.']' . '['.$sub_oid.']' . '['.$grand_oid.']';	
+		echo $setting . '['.$oid.']' . '['.$sub_oid.']' . '['.$grand_oid.']';	
 	elseif( isset($sub_oid) )
-		echo PAGELINES_SETTINGS . '['.$oid.']' . '['.$sub_oid.']';
+		echo $setting . '['.$oid.']' . '['.$sub_oid.']';
 	else 
-		echo PAGELINES_SETTINGS.'['.$oid.']';
+		echo $setting .'['.$oid.']';
 	
 }
 
-function pagelines_option_id( $oid, $sub_oid = null, $grand_oid = null){
-	echo get_pagelines_option_id($oid, $sub_oid, $grand_oid);
+function pagelines_option_id( $oid, $sub_oid = null, $grand_oid = null, $namespace = 'pagelines'){
+	echo get_pagelines_option_id($oid, $sub_oid, $grand_oid, $namespace);
 }
 
-function get_pagelines_option_id( $oid, $sub_oid = null, $grand_oid = null){
+function get_pagelines_option_id( $oid, $sub_oid = null, $grand_oid = null, $namespace = 'pagelines'){
 
 	if( isset($grand_oid) )
-		$oid = 'pagelines_' . $oid . '_' . $sub_oid . '_' . $grand_oid;
+		$a = array($namespace, $oid, $sub_oid, $grand_oid);
 	elseif( isset($sub_oid) )
-		$oid = 'pagelines_' . $oid . '_' . $sub_oid;
+		$a = array($namespace, $oid, $sub_oid);
 	else 
-		$oid = 'pagelines_' . $oid;
-	
-	return $oid;
+		$a = array($namespace, $oid);
+		
+	return join('_', $a);
 }
 
 /**
@@ -96,7 +96,8 @@ function pagelines_sub_option( $key, $subkey, $post_id = '', $setting = null){
 	
 	if(is_array($primary_option) && isset($primary_option[$subkey]))
 		return $primary_option[$subkey];
-	else return false;
+	else 
+		return false;
 
 }
 
@@ -112,8 +113,10 @@ function e_pagelines($key, $alt = null, $post_id = null, $setting = null){
 
 function pagelines_pro($key, $post_id = null, $setting = null){
 
-	if(VPRO) return pagelines_option($key, $post_id, $setting);
-	else return false;
+	if(VPRO) 
+		return pagelines_option($key, $post_id, $setting);
+	else 
+		return false;
 }
 
 function print_pagelines_option($key, $alt = null, $post_id = null, $setting = null) {

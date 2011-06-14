@@ -520,13 +520,21 @@ function pagelines_get_style_ver( $tpath = false ){
  * 
  * @since 1.5.0
  */
-function plprint( $data ){
+function plprint( $data, $title = false){
 
 			ob_start();
-			echo 'echo "<pre style=\'border: 1px solid #ccc; padding: 7px;\'>';
-			echo esc_html( print_r( $data, TRUE ) );
-			echo '</pre>";';
-			$data = ob_get_contents();
+			
+				echo 'echo "<pre style=\'border: 1px solid #ccc; padding: 7px;\'>';
+			
+				if($title) 
+					echo sprintf('<h3>%s</h3>', $title);
+				
+				echo esc_html( print_r( $data, TRUE ) );
+				
+				echo '</pre>";';
+				
+				$data = ob_get_contents();
+				
 			ob_end_clean();
 
 	add_action( 'shutdown', create_function( '', $data ) );

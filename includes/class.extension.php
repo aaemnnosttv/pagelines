@@ -60,8 +60,7 @@ class PageLinesExtension{
 				
 				// Set transient to prevent performance problems.
 				// TODO switch this to activation/deactivation interface
-				// TODO better idea, clear cached vars on settings save.
-				set_transient( 'pagelines_sections', $sections, apply_filters( 'pagelines_section_cache_timeout', 1 ) );
+				set_transient( 'pagelines_sections', $sections, apply_filters( 'pagelines_section_cache_timeout', 120 ) );
 				
 			}
 		}
@@ -86,29 +85,16 @@ class PageLinesExtension{
 					$dep_file = (isset($parent_dep['filename'])) ? $parent_dep['filename'] : null;
 					$dep_class = (isset($parent_dep['class'])) ? $parent_dep['class'] : null;
 					$dep_folder = (isset($parent_dep['folder'])) ? $parent_dep['folder'] : null;
-					
+				
 					if (isset($dep)) { // do we have a dependency?
 						if (isset( $dep_class ) && file_exists( $dep_file ) ) 
 							pagelines_register_section( $dep_class, $dep_folder, $dep_file ); 
 					
 					} else {
-						if ( $section['type'] == 'child') {
-//
-// This is the original remove comments it works							
-//						pagelines_register_section( $section['class'], $section['filename'], null, array('child' => true ) );
-		
-
-
-// new test function using same vars..
-							my_register( $section['class'], array( 'child' => true, 'base_dir' => $section['base_dir'], 'base_url' => $section['base_url'], 'base_file' => $section['base_file'] ) );
-
-
-
-
-
-						 } else
-							break;
-//							pagelines_register_section( $section['class'], $section['folder'], $section['filename'] );
+						if ( $section['type'] == 'child')
+							pagelines_register_section( $section['class'], $section['filename'], null, array('child' => true ) );
+						else
+							pagelines_register_section( $section['class'], $section['folder'], $section['filename'] );
 					}
 				}
 			}
@@ -132,19 +118,15 @@ class PageLinesExtension{
 
 		foreach( $it as $fullFileName => $fileSPLObject ) {
 			if (pathinfo($fileSPLObject->getFilename(), PATHINFO_EXTENSION ) == 'php') {
-				$folder = ( preg_match( '/sections\/(.*)\//', $fullFileName, $match) ) ? '/' . $match[1] : '';
+				$folder = ( preg_match( '/sections\/(.*)\//', $fullFileName, $match) ) ? $match[1] : '';
 				$headers = get_file_data( $fullFileName, $default_headers = array( 'classname' => 'Class Name', 'depends' => 'Depends' ) );
 				$filename = str_replace( '.php', '', str_replace( 'section.', '', $fileSPLObject->getFilename() ) );
-				$urlfolder = ( $folder != '' ) ? $folder : $filename;
 				$sections[$headers['classname']] = array(
 					'filename' => $filename,
 					'folder' => $folder,
 					'class' => $headers['classname'],
 					'depends' => $headers['depends'],
-					'type' => $type,
-					'base_url' => ( $type == 'child' ) ? CHILD_URL . '/sections/' . $urlfolder : SECTION_ROOT . $urlfolder,
-					'base_dir' => ( $type == 'child' ) ? CHILD_DIR . '/sections' . $folder : PL_SECTIONS . $folder,
-					'base_file' => $fullFileName
+					'type' => $type
 				);	
 			}
 		}
@@ -152,15 +134,9 @@ class PageLinesExtension{
 	}	
 }
 
-// here is the test function should work the same as the mess below.
 
-function my_register( $class, $args = array() ) {
 
-	global $pl_section_factory;
-	plprint($args);
-	$pl_section_factory->register($class, $args);
-	plprint($pl_section_factory);
-}
+
 
 
 /**
@@ -247,7 +223,6 @@ function pagelines_register_section($section_class, $section_folder, $init_file 
 		$args['base_dir'] = $base_dir;  	
 		$args['base_url'] = $base_url;
 		$args['base_file'] = $base_file;
-		plprint($args);
 	}
 
 	/*

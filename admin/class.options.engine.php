@@ -53,13 +53,13 @@ class PageLinesOptionEngine {
 	 * Option generation engine
 	 *
 	 */
-	function option_engine($oid, $o, $postID = null, $setting = null){
+	function option_engine($oid, $o, $pid = null, $setting = null){
 
 		$o = wp_parse_args( $o, $this->defaults );
 
-		$val = pagelines_option( $oid, $postID, $setting );
-		$name = pagelines_option( $oid, $postID, $setting );
-		$id = pagelines_option( $oid, $postID, $setting );		
+		$o['val'] = pagelines_option( $oid, $pid, $setting );
+		$o['input_name'] = pagelines_option( $oid, $pid, $setting );
+		$o['input_id'] = pagelines_option( $oid, $pid, $setting );		
 
 	if( $this->_do_the_option() ):  ?>
 	<div class="optionrow fix <?php echo $this->_layout_class( $o );?>">
@@ -67,7 +67,7 @@ class PageLinesOptionEngine {
 		
 		<div class="oinputs">
 			<div class="oinputs-pad">
-				<?php $this->option_breaker($oid, $o, $val); ?>
+				<?php $this->option_breaker($oid, $o); ?>
 			</div>
 		</div>
 
