@@ -171,7 +171,8 @@ $GLOBALS['pl_section_factory'] = new PageLinesSectionFactory();
 /**
  * Register and load all sections
  */
-pagelines_register_sections();
+$load_sections = new PageLinesExtension();
+$load_sections->pagelines_register_sections();
 
 pagelines_register_hook('pagelines_setup'); // Hook
 
