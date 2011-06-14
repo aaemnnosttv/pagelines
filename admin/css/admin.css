@@ -658,6 +658,7 @@
 				line-height: 1.6em;
 			}
 			.admin_billboard_text{
+				margin-top: 1em;
 				font-size: 1.2em;
 				font-weight: bold;
 				line-height: 1.5em;
@@ -689,14 +690,15 @@
 				color:#000;
 			}
 			
-			.welcome_feature_list{margin: 1.5em 0;}
+			.welcome_feature_list{margin: .5em 0;}
 		
 			.welcomef{
-				width: 46%;
+				width: 45.5%;
 				margin: 0 2% 10px;
 				float: left;
 				background:#e1e1e1;
-				
+					border-right: 1px solid #fff;
+					border-bottom: 1px solid #fff;
 			}
 			
 				.welcomef-pad{
@@ -750,6 +752,8 @@
 			.welcome_plugin_list li{
 				background:#f1f1f1;
 				border:1px solid #ddd;
+				border-right:1px solid #d5d5d5;
+				border-bottom:1px solid #d5d5d5;
 			}
 				.welcome_plugin_list li .li-pad{
 					padding: 10px;

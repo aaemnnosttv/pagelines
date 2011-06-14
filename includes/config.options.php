@@ -1114,19 +1114,7 @@ class PageLinesWelcome {
 		}
 		$intro .= '<div class="clear"></div></ul>';
 		
-		
-		$intro .= '<div class="admin_billboard plugins_billboard"><div class="admin_billboard_content"><div class="feature_icon"></div><h3 class="admin_header_main">Plugins</h3> <p>Although '.THEMENAME.' is universally plugin compatible, we have added "advanced" graphical/functional support for several WordPress plugins.</p><p> It\'s your responsibility to install each plugin, which can be done through "<strong>plugins</strong>" &gt; "<strong>Add New</strong>" or through the <strong>developer\'s site</strong> where you can download them manually (e.g. CForms).</p>';
-			
-		$intro .= '<ul class="welcome_plugin_list">';
-		foreach($this->get_welcome_plugins() as $k => $i){
-			if(isset( $i['name2'] ))
-				$intro .= sprintf('<li><div class="li-pad"><a href="%s" target="_blank">%s</a> &amp; <a href="%s" target="_blank">%s</a> %s</div></li>', $i['url'], $i['name'], $i['url2'], $i['name2'], $i['desc']);
-			else
-				$intro .= sprintf('<li><div class="li-pad"><a href="%s" target="_blank">%s</a> %s</div></li>', $i['url'], $i['name'], $i['desc']);
-		
-		}
-		$intro .= '</ul></div></div>';
-		
+		$intro .= $this->get_plugins_billboard();
 		
 		$intro .= '<div class="finally"><h3>That\'s it for now! Have fun and good luck.</h3></div>';
 		
@@ -1141,7 +1129,7 @@ class PageLinesWelcome {
 		$bill .= '<div class="admin_theme_screenshot"><img class="" src="'.PARENT_URL.'/screenshot.png" alt="Screenshot" /></div>';
 		$bill .= '<div class="admin_billboard_content"><div class="admin_header"><h3 class="admin_header_main">Congratulations!</h3></div>';
 		$bill .= '<div class="admin_billboard_text">You\'re ready to build an professional website.<br/> Here are a few tips to get you started...<br/><small>(Note: This intro can be removed below.)</small></div>';
-		$bill .= '</div></div></div>';
+		$bill .= '<div class="clear"></div></div></div></div>';
 		
 		return apply_filters('pagelines_welcome_billboard', $bill);
 	}
@@ -1187,6 +1175,23 @@ class PageLinesWelcome {
 		);
 		
 		return apply_filters('pagelines_welcome_features', $f);
+	}
+	
+	function get_plugins_billboard(){
+		
+		$billboard .= '<div class="admin_billboard plugins_billboard"><div class="admin_billboard_content"><div class="feature_icon"></div><h3 class="admin_header_main">Plugins</h3> <p>Although '.THEMENAME.' is universally plugin compatible, we have added "advanced" graphical/functional support for several WordPress plugins.</p><p> It\'s your responsibility to install each plugin, which can be done through "<strong>plugins</strong>" &gt; "<strong>Add New</strong>" or through the <strong>developer\'s site</strong> where you can download them manually (e.g. CForms).</p>';
+			
+		$billboard .= '<ul class="welcome_plugin_list">';
+		foreach($this->get_welcome_plugins() as $k => $i){
+			if(isset( $i['name2'] ))
+				$billboard .= sprintf('<li><div class="li-pad"><a href="%s" target="_blank">%s</a> &amp; <a href="%s" target="_blank">%s</a> %s</div></li>', $i['url'], $i['name'], $i['url2'], $i['name2'], $i['desc']);
+			else
+				$billboard .= sprintf('<li><div class="li-pad"><a href="%s" target="_blank">%s</a> %s</div></li>', $i['url'], $i['name'], $i['desc']);
+		
+		}
+		$billboard .= '</ul></div></div>';
+		
+		return $billboard;
 	}
 	
 	function get_welcome_plugins(){
