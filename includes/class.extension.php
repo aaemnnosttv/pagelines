@@ -65,7 +65,12 @@ class PageLinesExtension{
 
 			if(is_array($type)){
 				foreach( $type as $section ) {
-				
+					
+					// using pagelines_section_admin filter we can disable sections from loading
+					// by setting the disabled bit.
+					if (isset( $section['disabled'] ) )
+						break;
+					
 					// consolidate array vars
 					$dep = ($section['depends'] != '') ? $section['depends'] : null;
 					$parent_dep = (isset($sections['parent'][$section['depends']])) ? $sections['parent'][$section['depends']] : null;
