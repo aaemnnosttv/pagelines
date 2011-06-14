@@ -11,9 +11,6 @@
 
 class PageLinesExtension{
 	
-	function __contruct(){ }
-
-
 	/**
 	 *  Scans THEMEDIR/sections recursively for section files and auto loads them.
 	 *  Child section folder also scanned if found and dependencies resolved.
@@ -36,65 +33,72 @@ class PageLinesExtension{
 	 */
 	function pagelines_register_sections(){
 
-		/*
-			TODO 
-				- this should be broken down into 2 functions
-					- 1 $this->scan_directory();
-					- 2 $this->register_files();
-		*/
+		global $pl_section_factory;
 
-		$section_dirs = array( 
+		/**
+		* Load our two main section folders
+		* @filter pagelines_section_dirs
+		*/
+		$section_dirs = apply_filters( 'pagelines_sections_dirs', array( 
 			'child' 	=> STYLESHEETPATH . '/sections/',	
 			'parent' 	=> PL_SECTIONS
-		);
+		) );
 
-		// check for cached array	
-		if ( !$sections = get_transient( 'pagelines_sections' ) ) {
-			foreach ( apply_filters( 'pagelines_sections_dirs', $section_dirs) as $type => $dir ) {
-				
-				// Recurse through directory, 
-				/*
-					TODO  define $type in documentation
-				*/
+		/**
+		* If cache exists load into $sections array
+		* If not populate array and prime cache
+		*/
+		if ( !$sections = get_option( 'pagelines_sections_cache' ) ) {
+			foreach ( $section_dirs as $type => $dir ) {
 				$sections[$type] = $this->pagelines_getsections( $dir, $type );
-				
-				// Set transient to prevent performance problems.
-				// TODO switch this to activation/deactivation interface
-				set_transient( 'pagelines_sections', $sections, apply_filters( 'pagelines_section_cache_timeout', 120 ) );
-				
 			}
+
+			/**
+			* TODO switch this to activation/deactivation interface
+			* TODO better idea, clear cached vars on settings save.
+			*/
+			update_option( 'pagelines_sections_cache', $sections );	
 		}
 
-		// main array containing child and parent sections
+		// filter main array containing child and parent and any custom sections
 		$sections = apply_filters( 'pagelines_section_admin', $sections );
 
-		/*
-			TODO 
-				- Simon review changes below for enhancements to readability (Pro Tip)
-				- I got a non array warning on $type, fixed, but what's the issue?
-		*/
 		foreach ( $sections as $type ) {
 
 			if(is_array($type)){
 				foreach( $type as $section ) {
-				
+					
+					/**
+					* using pagelines_section_admin filter we can disable sections from loading
+					* by setting the disabled bit.
+					*/
+					if (isset( $section['disabled'] ) )
+						break;
+					
 					// consolidate array vars
 					$dep = ($section['depends'] != '') ? $section['depends'] : null;
 					$parent_dep = (isset($sections['parent'][$section['depends']])) ? $sections['parent'][$section['depends']] : null;
-				
-					$dep_file = (isset($parent_dep['filename'])) ? $parent_dep['filename'] : null;
-					$dep_class = (isset($parent_dep['class'])) ? $parent_dep['class'] : null;
-					$dep_folder = (isset($parent_dep['folder'])) ? $parent_dep['folder'] : null;
-				
-					if (isset($dep)) { // do we have a dependency?
-						if (isset( $dep_class ) && file_exists( $dep_file ) ) 
-							pagelines_register_section( $dep_class, $dep_folder, $dep_file ); 
-					
+
+					$dep_data = array(
+						'base_dir'  => (isset($parent_dep['base_dir'])) ? $parent_dep['base_dir'] : null,
+						'base_url'  => (isset($parent_dep['base_url'])) ? $parent_dep['base_url'] : null,
+						'base_file' => (isset($parent_dep['base_file'])) ? $parent_dep['base_file'] : null
+					);
+					$section_data = array(
+						'base_dir'  => $section['base_dir'],
+						'base_url'  => $section['base_url'],
+						'base_file' => $section['base_file']	
+					);
+					if ( isset( $dep ) ) { // do we have a dependency?
+						if ( isset( $dep_class ) && !class_exists( $dep_class ) && file_exists( $dep_file ) ) {
+							include( $section['dep_file'] );
+							$pl_section_factory->register( $dep_class, $dep_data );
+						}
 					} else {
-						if ( $section['type'] == 'child')
-							pagelines_register_section( $section['class'], $section['filename'], null, array('child' => true ) );
-						else
-							pagelines_register_section( $section['class'], $section['folder'], $section['filename'] );
+							if ( !class_exists( $section['class'] ) ) {
+								include( $section['base_file'] );
+								$pl_section_factory->register( $section['class'], $section_data );
+							}
 					}
 				}
 			}
@@ -118,115 +122,25 @@ class PageLinesExtension{
 
 		foreach( $it as $fullFileName => $fileSPLObject ) {
 			if (pathinfo($fileSPLObject->getFilename(), PATHINFO_EXTENSION ) == 'php') {
-				$folder = ( preg_match( '/sections\/(.*)\//', $fullFileName, $match) ) ? $match[1] : '';
+				$folder = ( preg_match( '/sections\/(.*)\//', $fullFileName, $match) ) ? '/' . $match[1] : '';
 				$headers = get_file_data( $fullFileName, $default_headers = array( 'classname' => 'Class Name', 'depends' => 'Depends' ) );
+
+				// If no pagelines class headers ignore this file.
+				if ( !$headers['classname'] )
+					break;
+
 				$filename = str_replace( '.php', '', str_replace( 'section.', '', $fileSPLObject->getFilename() ) );
 				$sections[$headers['classname']] = array(
-					'filename' => $filename,
-					'folder' => $folder,
 					'class' => $headers['classname'],
 					'depends' => $headers['depends'],
-					'type' => $type
+					'type' => $type,
+					'base_url' => ( $type == 'child' ) ? CHILD_URL . '/sections/' . $folder : SECTION_ROOT . $folder,
+					'base_dir' => ( $type == 'child' ) ? CHILD_DIR . '/sections' . $folder : PL_SECTIONS . $folder,
+					'base_file' => $fullFileName
 				);	
 			}
 		}
 		return $sections;	
-	}	
-}
-
-
-
-
-
-
-/**
- * Registers and loads the section files
- *
- * @package PageLines Core
- * @subpackage Sections
- * @since 4.0
- */
-function pagelines_register_section($section_class, $section_folder, $init_file = null, $args = array()){
-	
-
-	global $pl_section_factory;
-
-	if(isset($args['child']) && $args['child'] == true) $register_child_section = true; 
-	else $register_child_section = false; 
-	
-	// Don't register class twice.
-	if( class_exists ( $section_class )) return;
-
-	/*
-		Refine & modify filename
-	*/
-	if(!isset($init_file) && !strpos($init_file, '.php')) $init_file = $section_folder.'.php';
-	elseif(!strpos($init_file, '.php')) $init_file = $init_file.'.php';
-
-
-	if($register_child_section){
+	}
 		
-		/*
-		 	Set up possible paths to section
-		 */
-		$section_init_file_section = CHILD_DIR.'/sections/section.'.$init_file;
-		$section_init_folder_section = CHILD_DIR.'/sections/'.$section_folder.'/section.'.$init_file;
-
-		/*
-			Include and set directory/location information
-		*/
-		if(file_exists($section_init_file_section)){
-
-			include($section_init_file_section);
-			$base_dir = CHILD_DIR.'/sections';
-			$base_url = CHILD_URL.'/sections/'.$section_folder;
-			$base_file = $section_init_file_section;
-
-		}elseif(file_exists($section_init_folder_section)){
-
-			include($section_init_folder_section);
-			$base_dir = CHILD_DIR.'/sections/'.$section_folder;
-			$base_url = CHILD_URL.'/sections/'.$section_folder;
-			$base_file = $section_init_folder_section;
-
-		}
-	}else{
-		 /*
-		 	Set up possible paths to section
-		 */
-		$section_init_file_section = PL_SECTIONS.'/section.'.$init_file;
-		$section_init_folder_section = PL_SECTIONS.'/'.$section_folder.'/section.'.$init_file;
-
-
-		/*
-			Include and set directory/location information
-		*/
-		if(file_exists($section_init_file_section)){
-
-			include($section_init_file_section);
-			$base_dir = PL_SECTIONS;
-			$base_url = SECTION_ROOT.'/'.$section_folder;
-			$base_file = $section_init_file_section;
-
-		}elseif(file_exists($section_init_folder_section)){
-
-			include($section_init_folder_section);
-			$base_dir = PL_SECTIONS.'/'.$section_folder;
-			$base_url = SECTION_ROOT.'/'.$section_folder;
-			$base_file = $section_init_folder_section;
-
-		}
-	}
-
-	
-	if( isset($base_file) ){
-		$args['base_dir'] = $base_dir;  	
-		$args['base_url'] = $base_url;
-		$args['base_file'] = $base_file;
-	}
-
-	/*
-		Add to the section factory singleton for use as global
-	*/
-	$pl_section_factory->register($section_class, $args);	
-}
+} // end class
