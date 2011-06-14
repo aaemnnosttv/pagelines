@@ -65,10 +65,10 @@
 	}
 	
 	.confirmation {
-		background: #f7f7f7;
+		background: #ddd;
 		border: 1px solid #aaa;
 		border-right: 1px solid #ccc;
-		border-bottom: 1px solid #aaa;
+		border-bottom: 1px solid #ccc;
 		margin-bottom: -1px;
 		font-weight: bold;
 		position: relative;

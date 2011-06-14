@@ -1179,7 +1179,7 @@ class PageLinesWelcome {
 	
 	function get_plugins_billboard(){
 		
-		$billboard .= '<div class="admin_billboard plugins_billboard"><div class="admin_billboard_content"><div class="feature_icon"></div><h3 class="admin_header_main">Plugins</h3> <p>Although '.THEMENAME.' is universally plugin compatible, we have added "advanced" graphical/functional support for several WordPress plugins.</p><p> It\'s your responsibility to install each plugin, which can be done through "<strong>plugins</strong>" &gt; "<strong>Add New</strong>" or through the <strong>developer\'s site</strong> where you can download them manually (e.g. CForms).</p>';
+		$billboard = '<div class="admin_billboard plugins_billboard"><div class="admin_billboard_content"><div class="feature_icon"></div><h3 class="admin_header_main">Plugins</h3> <p>Although '.THEMENAME.' is universally plugin compatible, we have added "advanced" graphical/functional support for several WordPress plugins.</p><p> It\'s your responsibility to install each plugin, which can be done through "<strong>plugins</strong>" &gt; "<strong>Add New</strong>" or through the <strong>developer\'s site</strong> where you can download them manually (e.g. CForms).</p>';
 			
 		$billboard .= '<ul class="welcome_plugin_list">';
 		foreach($this->get_welcome_plugins() as $k => $i){
