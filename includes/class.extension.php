@@ -42,7 +42,7 @@ class PageLinesExtension{
 					- 1 $this->scan_directory();
 					- 2 $this->register_files();
 		*/
-
+		global $pl_section_factory;
 		$section_dirs = array( 
 			'child' 	=> STYLESHEETPATH . '/sections/',	
 			'parent' 	=> PL_SECTIONS
@@ -86,29 +86,20 @@ class PageLinesExtension{
 					$dep_file = (isset($parent_dep['filename'])) ? $parent_dep['filename'] : null;
 					$dep_class = (isset($parent_dep['class'])) ? $parent_dep['class'] : null;
 					$dep_folder = (isset($parent_dep['folder'])) ? $parent_dep['folder'] : null;
-					
+					$args = array(
+					'base_dir' => $section['base_dir'],
+					'base_url' => $section['base_url'],
+					'base_file' => $section['base_file']	
+					);
 					if (isset($dep)) { // do we have a dependency?
 						if (isset( $dep_class ) && file_exists( $dep_file ) ) 
 							pagelines_register_section( $dep_class, $dep_folder, $dep_file ); 
 					
 					} else {
-						if ( $section['type'] == 'child') {
-//
-// This is the original remove comments it works							
-//						pagelines_register_section( $section['class'], $section['filename'], null, array('child' => true ) );
-		
-
-
-// new test function using same vars..
-							my_register( $section['class'], array( 'child' => true, 'base_dir' => $section['base_dir'], 'base_url' => $section['base_url'], 'base_file' => $section['base_file'] ) );
-
-
-
-
-
-						 } else
-							break;
-//							pagelines_register_section( $section['class'], $section['folder'], $section['filename'] );
+							if ( !class_exists( $section['class'] ) ) {
+								include( $section['base_file'] );
+								$pl_section_factory->register($section['class'], $args);
+							}
 					}
 				}
 			}
@@ -134,124 +125,20 @@ class PageLinesExtension{
 			if (pathinfo($fileSPLObject->getFilename(), PATHINFO_EXTENSION ) == 'php') {
 				$folder = ( preg_match( '/sections\/(.*)\//', $fullFileName, $match) ) ? '/' . $match[1] : '';
 				$headers = get_file_data( $fullFileName, $default_headers = array( 'classname' => 'Class Name', 'depends' => 'Depends' ) );
+				if ( !$headers['classname'] )
+					break;
 				$filename = str_replace( '.php', '', str_replace( 'section.', '', $fileSPLObject->getFilename() ) );
-				$urlfolder = ( $folder != '' ) ? $folder : $filename;
 				$sections[$headers['classname']] = array(
-					'filename' => $filename,
-					'folder' => $folder,
 					'class' => $headers['classname'],
 					'depends' => $headers['depends'],
 					'type' => $type,
-					'base_url' => ( $type == 'child' ) ? CHILD_URL . '/sections/' . $urlfolder : SECTION_ROOT . $urlfolder,
+					'base_url' => ( $type == 'child' ) ? CHILD_URL . '/sections/' . $folder : SECTION_ROOT . $folder,
 					'base_dir' => ( $type == 'child' ) ? CHILD_DIR . '/sections' . $folder : PL_SECTIONS . $folder,
 					'base_file' => $fullFileName
 				);	
 			}
 		}
 		return $sections;	
-	}	
-}
-
-// here is the test function should work the same as the mess below.
-
-function my_register( $class, $args = array() ) {
-
-	global $pl_section_factory;
-	plprint($args);
-	$pl_section_factory->register($class, $args);
-	plprint($pl_section_factory);
-}
-
-
-/**
- * Registers and loads the section files
- *
- * @package PageLines Core
- * @subpackage Sections
- * @since 4.0
- */
-function pagelines_register_section($section_class, $section_folder, $init_file = null, $args = array()){
-	
-
-	global $pl_section_factory;
-
-	if(isset($args['child']) && $args['child'] == true) $register_child_section = true; 
-	else $register_child_section = false; 
-	
-	// Don't register class twice.
-	if( class_exists ( $section_class )) return;
-
-	/*
-		Refine & modify filename
-	*/
-	if(!isset($init_file) && !strpos($init_file, '.php')) $init_file = $section_folder.'.php';
-	elseif(!strpos($init_file, '.php')) $init_file = $init_file.'.php';
-
-
-	if($register_child_section){
+	}
 		
-		/*
-		 	Set up possible paths to section
-		 */
-		$section_init_file_section = CHILD_DIR.'/sections/section.'.$init_file;
-		$section_init_folder_section = CHILD_DIR.'/sections/'.$section_folder.'/section.'.$init_file;
-
-		/*
-			Include and set directory/location information
-		*/
-		if(file_exists($section_init_file_section)){
-
-			include($section_init_file_section);
-			$base_dir = CHILD_DIR.'/sections';
-			$base_url = CHILD_URL.'/sections/'.$section_folder;
-			$base_file = $section_init_file_section;
-
-		}elseif(file_exists($section_init_folder_section)){
-
-			include($section_init_folder_section);
-			$base_dir = CHILD_DIR.'/sections/'.$section_folder;
-			$base_url = CHILD_URL.'/sections/'.$section_folder;
-			$base_file = $section_init_folder_section;
-
-		}
-	}else{
-		 /*
-		 	Set up possible paths to section
-		 */
-		$section_init_file_section = PL_SECTIONS.'/section.'.$init_file;
-		$section_init_folder_section = PL_SECTIONS.'/'.$section_folder.'/section.'.$init_file;
-
-
-		/*
-			Include and set directory/location information
-		*/
-		if(file_exists($section_init_file_section)){
-
-			include($section_init_file_section);
-			$base_dir = PL_SECTIONS;
-			$base_url = SECTION_ROOT.'/'.$section_folder;
-			$base_file = $section_init_file_section;
-
-		}elseif(file_exists($section_init_folder_section)){
-
-			include($section_init_folder_section);
-			$base_dir = PL_SECTIONS.'/'.$section_folder;
-			$base_url = SECTION_ROOT.'/'.$section_folder;
-			$base_file = $section_init_folder_section;
-
-		}
-	}
-
-	
-	if( isset($base_file) ){
-		$args['base_dir'] = $base_dir;  	
-		$args['base_url'] = $base_url;
-		$args['base_file'] = $base_file;
-		plprint($args);
-	}
-
-	/*
-		Add to the section factory singleton for use as global
-	*/
-	$pl_section_factory->register($section_class, $args);	
-}
+} // end class
