@@ -65,15 +65,15 @@ class PageLinesOptionEngine {
 	<div class="optionrow fix <?php echo $this->_layout_class();?>">
 		<?php $this->get_option_title( $oid, $o ); ?>
 		
-			<div class="oinputs">
-				<div class="oinputs-pad">
-					<?php $this->option_breaker($oid, $o, $val); ?>
-				</div>
+		<div class="oinputs">
+			<div class="oinputs-pad">
+				<?php $this->option_breaker($oid, $o, $val); ?>
 			</div>
+		</div>
 
-			<?php echo $this->get_explanation();?>
+		<?php echo $this->_get_explanation();?>
 			
-			<div class="clear"></div>
+		<div class="clear"></div>
 	</div>
 <?php endif; 
 	}
