@@ -11,9 +11,6 @@
 
 class PageLinesExtension{
 	
-	function __contruct(){ }
-
-
 	/**
 	 *  Scans THEMEDIR/sections recursively for section files and auto loads them.
 	 *  Child section folder also scanned if found and dependencies resolved.
@@ -36,44 +33,34 @@ class PageLinesExtension{
 	 */
 	function pagelines_register_sections(){
 
-		/*
-			TODO 
-				- this should be broken down into 2 functions
-					- 1 $this->scan_directory();
-					- 2 $this->register_files();
-		*/
 		global $pl_section_factory;
-		$section_dirs = array( 
+		
+		// Load our two main section folders 
+		// @filter pagelines_section_dirs
+		//
+		$section_dirs = apply_filters( 'pagelines_sections_dirs', array( 
 			'child' 	=> STYLESHEETPATH . '/sections/',	
 			'parent' 	=> PL_SECTIONS
-		);
+		) );
 
 		// check for cached array	
 		if ( !$sections = get_transient( 'pagelines_sections' ) ) {
-			foreach ( apply_filters( 'pagelines_sections_dirs', $section_dirs) as $type => $dir ) {
+			foreach ( $section_dirs as $type => $dir ) {
 				
-				// Recurse through directory, 
-				/*
-					TODO  define $type in documentation
-				*/
+				// Load each section into array
 				$sections[$type] = $this->pagelines_getsections( $dir, $type );
-				
-				// Set transient to prevent performance problems.
-				// TODO switch this to activation/deactivation interface
-				// TODO better idea, clear cached vars on settings save.
-				set_transient( 'pagelines_sections', $sections, apply_filters( 'pagelines_section_cache_timeout', 1 ) );
-				
 			}
+		// Set transient to prevent performance problems.
+		// @filter pagelines_section_cache_timeout
+		// @default 120s
+		// TODO switch this to activation/deactivation interface
+		// TODO better idea, clear cached vars on settings save.
+		set_transient( 'pagelines_sections', $sections, apply_filters( 'pagelines_section_cache_timeout', 120 ) );	
 		}
 
-		// main array containing child and parent sections
+		// filter main array containing child and parent and any custom sections
 		$sections = apply_filters( 'pagelines_section_admin', $sections );
 
-		/*
-			TODO 
-				- Simon review changes below for enhancements to readability (Pro Tip)
-				- I got a non array warning on $type, fixed, but what's the issue?
-		*/
 		foreach ( $sections as $type ) {
 
 			if(is_array($type)){
@@ -82,23 +69,26 @@ class PageLinesExtension{
 					// consolidate array vars
 					$dep = ($section['depends'] != '') ? $section['depends'] : null;
 					$parent_dep = (isset($sections['parent'][$section['depends']])) ? $sections['parent'][$section['depends']] : null;
-				
-					$dep_file = (isset($parent_dep['filename'])) ? $parent_dep['filename'] : null;
-					$dep_class = (isset($parent_dep['class'])) ? $parent_dep['class'] : null;
-					$dep_folder = (isset($parent_dep['folder'])) ? $parent_dep['folder'] : null;
-					$args = array(
-					'base_dir' => $section['base_dir'],
-					'base_url' => $section['base_url'],
-					'base_file' => $section['base_file']	
+
+					$dep_data = array(
+						'base_dir'  => (isset($parent_dep['base_dir'])) ? $parent_dep['base_dir'] : null,
+						'base_url'  => (isset($parent_dep['base_url'])) ? $parent_dep['base_url'] : null,
+						'base_file' => (isset($parent_dep['base_file'])) ? $parent_dep['base_file'] : null
 					);
-					if (isset($dep)) { // do we have a dependency?
-						if (isset( $dep_class ) && file_exists( $dep_file ) ) 
-							pagelines_register_section( $dep_class, $dep_folder, $dep_file ); 
-					
+					$section_data = array(
+						'base_dir'  => $section['base_dir'],
+						'base_url'  => $section['base_url'],
+						'base_file' => $section['base_file']	
+					);
+					if ( isset( $dep ) ) { // do we have a dependency?
+						if ( isset( $dep_class ) && !class_exists( $dep_class ) && file_exists( $dep_file ) ) {
+							include( $section['dep_file'] );
+							$pl_section_factory->register( $dep_class, $dep_data );
+						}
 					} else {
 							if ( !class_exists( $section['class'] ) ) {
 								include( $section['base_file'] );
-								$pl_section_factory->register($section['class'], $args);
+								$pl_section_factory->register( $section['class'], $section_data );
 							}
 					}
 				}
@@ -125,6 +115,8 @@ class PageLinesExtension{
 			if (pathinfo($fileSPLObject->getFilename(), PATHINFO_EXTENSION ) == 'php') {
 				$folder = ( preg_match( '/sections\/(.*)\//', $fullFileName, $match) ) ? '/' . $match[1] : '';
 				$headers = get_file_data( $fullFileName, $default_headers = array( 'classname' => 'Class Name', 'depends' => 'Depends' ) );
+
+				// If no pagelines class headers ignore this file.
 				if ( !$headers['classname'] )
 					break;
 				$filename = str_replace( '.php', '', str_replace( 'section.', '', $fileSPLObject->getFilename() ) );
