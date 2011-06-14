@@ -62,7 +62,7 @@ class PageLinesOptionEngine {
 		$id = pagelines_option( $oid, $postID, $setting );		
 
 	if( $this->_do_the_option() ):  ?>
-	<div class="optionrow fix <?php echo $this->_layout_class();?>">
+	<div class="optionrow fix <?php echo $this->_layout_class( $o );?>">
 		<?php $this->get_option_title( $oid, $o ); ?>
 		
 		<div class="oinputs">
@@ -98,7 +98,7 @@ class PageLinesOptionEngine {
 <?php endif;
 	}
 	
-	function _layout_class(){
+	function _layout_class( $o ){
 		$layout_class = '';
 		$layout_class .= ( isset( $o['layout'] ) && $o['layout']=='full' ) ? ' wideinputs' : '';
 		$layout_class .= ( isset( $o['layout'] ) && $o['layout']=='interface' ) ? ' interface' : '';
