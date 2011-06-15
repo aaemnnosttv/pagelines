@@ -199,7 +199,7 @@ class PageLinesOptionEngine {
 				$this->_get_menu_select($oid, $o);
 				break;
 			case 'image_upload' :
-				$this->_get_image_upload_option($oid, $o, $val);
+				$this->_get_image_upload_option($oid, $o);
 				break;
 			case 'background_image' :
 				$this->_get_background_image_control($oid, $o); 
@@ -328,7 +328,7 @@ class PageLinesOptionEngine {
 
 		// Bold? 
 		$this->_get_type_select($oid, array('id' => 'weight', 'inputlabel' => 'Weight', 'prop' => 'font-weight', 'selectvalues' => array('normal' => 'Normal', 'bold' => 'Bold'), 'default' => 'normal'));
-		// 
+
 		// Italic?
 		$this->_get_type_select($oid, array('id' => 'style', 'inputlabel' => 'Style', 'prop' => 'font-style',  'selectvalues' => array('normal' => 'Normal', 'italic' => 'Italic'), 'default' => 'normal'));
 	}
@@ -413,7 +413,7 @@ class PageLinesOptionEngine {
 			// Output
 			$input = sprintf('<input class="admin_checkbox" type="checkbox" id="%s" name="%s" %s />', $id, $name, $value);
 			
-			printf('<p><label for="%s" class="context">%s</label></p>', $mid, $m['inputlabel'], $input);
+			printf('<p><label for="%s" class="context">%s %s</label></p>', $mid, $input, $m['inputlabel']);
 
 		endforeach; 
 	}
@@ -538,49 +538,68 @@ class PageLinesOptionEngine {
 	 * @author Andrew Powers
 	 * 
 	 **/
-	function _get_image_upload_option( $oid, $o, $optionvalue = ''){ 
+	function _get_image_upload_option( $oid, $o ){ 
 
-		?><p>	
-			<label class="context" for="<?php echo $oid;?>"><?php echo $o['inputlabel'];?></label><br/>
-			<input class="regular-text uploaded_url" type="text" name="<?php pagelines_option_name($oid); ?>" value="<?php echo esc_url(pagelines_option($oid));?>" /><br/><br/>
-			<span id="<?php echo $oid; ?>" class="image_upload_button button">Upload Image</span>
-			<?php printf('<span title="%1$s" id="reset_%1$s" class="image_reset_button button">Remove</span>', $oid); ?>
-		</p>
-		<?php
+		$label = sprintf('<label class="context" for="%s">%s</label><br/>', $oid, $o['inputlabel']); 
+		$up_url = sprintf('<input class="regular-text uploaded_url" type="text" name="%s" value="%s" /><br/><br/>', $o['input_name'], esc_url($o['val'])); 
+		$up_button =  sprintf('<span id="%s" class="image_upload_button button">Upload Image</span>', $oid); 
+		$reset_button = sprintf('<span title="%1$s" id="reset_%1$s" class="image_reset_button button">Remove</span>', $oid); 
+		$ajax_url = sprintf('<input type="hidden" class="ajax_action_url" name="wp_ajax_action_url" value="%s" />', admin_url("admin-ajax.php"));
+		$preview_size = sprintf('<input type="hidden" class="image_preview_size" name="img_size_%s" value="%s"/>', $oid, $o['imagepreview']);
 		
-		
-		printf('<input type="hidden" class="ajax_action_url" name="wp_ajax_action_url" value="%s" />', admin_url("admin-ajax.php"));
-		printf('<input type="hidden" class="image_preview_size" name="img_size_%s" value="%s"/>', $oid, $o['imagepreview']);
-	
+		printf('<p>%s %s %s %s %s %s</p>', $label, $up_url, $up_button, $reset_button, $ajax_url, $preview_size);		
+				
 		if($o['val'])
 			printf('<img class="pagelines_image_preview" id="image_%s" src="%s" style="max-width:%spx"/>', $oid, $o['val'], $o['imagepreview']);
 	}
 
-	function _get_count_select_option( $oid, $o, $optionvalue = '' ){ ?>
+	/**
+	 * 
+	 * Gets a select field based on a count parameter
+	 * Starts at 0 or if a start value is given, starts there
+	 * 
+	 * @param count_start = starting value
+	 * @param count_number = ending value
+	 * 
+	 * @since 1.0.0
+	 * @author Andrew Powers
+	 * 
+	 **/
+	function _get_count_select_option( $oid, $o ){ 
+		
+		
+		$label = sprintf('<label for="%s" class="context">%s</label><br/>', $oid, $o['inputlabel']);
+		
+		$count_start = (isset($o['count_start'])) ? $o['count_start'] : 0;
+		
+		$opts = '';
+		for($i = $count_start; $i <= $o['count_number']; $i++)
+			$opts .= sprintf('<option value="%1$s" %2$s>%1$s</option>', $i, selected($i, $o['val'], false));
+		
+		printf('<select id="%s" name="%s"><option value="">&mdash;SELECT&mdash;</option>%s</select>', $oid, $o['input_name'], $opts);
+		
+	}
 
-			<p>
-				<label for="<?php echo $oid;?>" class="context"><?php echo $o['inputlabel'];?></label><br/>
-				<select id="<?php echo $oid;?>" name="<?php pagelines_option_name($oid); ?>">
-					<option value="">&mdash;SELECT&mdash;</option>
-					<?php if(isset($o['count_start'])): $count_start = $o['count_start']; else: $count_start = 0; endif;?>
-					<?php for($i = $count_start; $i <= $o['count_number']; $i++):?>
-							<option value="<?php echo $i;?>" <?php selected($i, pagelines_option($oid)); ?>><?php echo $i;?></option>
-					<?php endfor;?>
-				</select>
-			</p>
-
-	<?php }
-
-	function _get_radio_option( $oid, $o ){ ?>
-
-			<?php foreach($o['selectvalues'] as $selectid => $selecttext):?>
-				<p>
-					<input type="radio" id="<?php echo $oid;?>_<?php echo $selectid;?>" name="<?php pagelines_option_name($oid); ?>" value="<?php echo $selectid;?>" <?php checked($selectid, pagelines_option($oid)); ?>> 
-					<label for="<?php echo $oid;?>_<?php echo $selectid;?>"><?php echo $selecttext;?></label>
-				</p>
-			<?php endforeach;?>
-
-	<?php }
+	/**
+	 * 
+	 * Get Radio Options
+	 * 
+	 * @param selectvalues array a set of options to select from
+	 * 
+	 * @since 1.0.0
+	 * @author Andrew Powers
+	 * 
+	 **/
+	function _get_radio_option( $oid, $o ){
+		
+		foreach($o['selectvalues'] as $sid => $s){
+			
+			$checked = checked($sid, $o[$val], false);
+			$input = sprintf('<input type="radio" id="%1$s_%2$s" name="%3$s" value="%2$s" %4$s> ', $oid, $sid, $o['input_name'], $checked);
+			printf('<p>%s<label for="%s_%s">%s</label></p>', $input, $oid, $sid, $s);
+			
+		}
+	}
 
 	function _get_select_option( $oid, $o, $val ){ ?>
 
@@ -620,13 +639,12 @@ class PageLinesOptionEngine {
 
 	function _get_color_multi($oid, $o){ 	
 
-		foreach($o['selectvalues'] as $mid => $m):
+		foreach($o['selectvalues'] as $mid => $m){
 
-			if( !isset($m['version']) || (isset($m['version']) && $m['version'] != 'pro') || (isset($m['version']) && $m['version'] == 'pro' && VPRO )):
+			if( !isset($m['version']) || (isset($m['version']) && $m['version'] != 'pro') || (isset($m['version']) && $m['version'] == 'pro' && VPRO ))
 				$this->_get_color_picker($mid, $m);
-			endif;
 
-		endforeach; 
+		}
 
 	}
 

@@ -2,6 +2,14 @@
 
 /* Set Type --------------- */
 
+h1, h2, h3, h4, h5, h6, .site-title{font-family:Georgia, "Times New Roman", Times, serif;}
+
+body, .font1, .font-primary, .commentlist{font-family:Georgia, "Times New Roman", Times, serif;}
+
+.font2, .font-sub, ul.main-nav li a, #secondnav li a, .metabar, .subtext, .subhead, .widget-title, .post-comments, .reply a, .editpage, #pagination .wp-pagenavi, .post-edit-link, #wp-calendar caption, #wp-calendar thead th, .soapbox-links a, .fancybox, .standard-form .admin-links, #featurenav a, .pagelines-blink, .ftitle small{font-family:"Lucida Grande", "Lucida Sans", "Lucida Sans Unicode", sans-serif;}
+
+input[type="text"], input[type="password"], textarea, #dsq-content textarea{font-family:Courier, Verdana, sans-serif;}
+
 /* Dynamic Layout --------------- */
 
 .fixed_width #page, .fixed_width #footer, .canvas #page-canvas{ max-width:980px }
@@ -83,4 +91,4 @@ body{}
 
 
 
-/* Trigger: AJAX*/
+/* Trigger: Page Load*/
