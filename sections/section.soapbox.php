@@ -110,10 +110,10 @@ class PageLinesSoapbox extends PageLinesSection {
 					 						'hide_tabs'	=> true
 					 					);
 					 
-					$boxes_meta_panel =  new PageLinesMetaPanel( $type_metapanel_settings );
+					
 					
 					global $boxes_meta_panel;
-						
+					$boxes_meta_panel =  new PageLinesMetaPanel( $type_metapanel_settings );	
 						
 
 					$type_metatab_settings = array(
