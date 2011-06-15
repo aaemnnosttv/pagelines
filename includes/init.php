@@ -33,6 +33,11 @@ define('PL_INCLUDES', TEMPLATEPATH . "/includes");
 require_once( PL_INCLUDES . '/init.globals.php');
 
 /**
+ * Load deprecated functions
+ */
+require_once (PL_INCLUDES.'/deprecated.php');
+
+/**
  * Localization - Needs to come after config_theme and before localized config files
  */
 require_once( PL_INCLUDES . '/library.I18n.php');

@@ -193,7 +193,7 @@ class PageLinesBanners extends PageLinesSection {
 							<div class="banner-title"><h2><?php echo do_shortcode($post->post_title); ?></h2></div>
 							<div class="banner-content">
 								<?php echo do_shortcode($post->post_content); ?>
-								<?php edit_post_link(__('[Edit Banner]', 'pagelines'), '', '');?>
+								<?php edit_post_link(__('[Edit Banner]', 'pagelines'), '', '', $post->ID);?>
 							</div>
 
 					</div>

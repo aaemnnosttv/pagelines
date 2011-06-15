@@ -27,9 +27,9 @@ class PageLinesOptionsArray {
 		$this->options['template_setup'] = $this->template_setup();
 		$this->options['layout_editor'] = $this->layout_editor();
 		$this->options['design_control'] = $this->design_control();
+		$this->options['typography'] = $this->typography();
 		$this->options['header_and_footer'] = $this->header_footer();
 		$this->options['blog_and_posts'] = $this->blog_posts();
-		
 		$this->last_options['section_options'] = $this->section_options();
 		
 		if( pagelines_option('forum_options') )
