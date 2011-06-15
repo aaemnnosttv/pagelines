@@ -69,11 +69,6 @@ require_once( PL_INCLUDES . '/config.templates.php' );
 $GLOBALS['global_pagelines_settings'] = get_option(PAGELINES_SETTINGS);	
 
 
-/**
- * Add Extension Handlers
- */
-require_once( PL_INCLUDES . '/class.extension.php' );
-
 
 /**
  * Load Custom Post Type Class
@@ -167,6 +162,10 @@ require_once( PL_INCLUDES . '/class.css.php' );
  * @since 4.0.0
  */
 $GLOBALS['pl_section_factory'] = new PageLinesSectionFactory();
+/**
+ * Add Extension Handlers
+ */
+require_once( PL_INCLUDES . '/class.extension.php' );
 
 /**
  * Register and load all sections
@@ -179,7 +178,6 @@ pagelines_register_hook('pagelines_setup'); // Hook
 load_section_persistent(); // Load persistent section functions (e.g. custom post types)
 if(is_admin()) load_section_admin(); // Load admin only functions from sections
 do_global_meta_options(); // Load the global meta settings tab
-
 	
 /**
  * Support optional WordPress functionality
@@ -187,6 +185,7 @@ do_global_meta_options(); // Load the global meta settings tab
 add_theme_support( 'post-thumbnails', array('post') );
 add_theme_support( 'menus' );
 add_theme_support( 'automatic-feed-links' );
+
 
 /** 
  * Add editor styling
@@ -231,7 +230,6 @@ require_once (PL_ADMIN.'/actions.admin.php');
  */
 require_once (PL_ADMIN.'/actions.options.php');
 
-
 /**
  * Load site actions
  */
@@ -241,7 +239,6 @@ require_once (PL_INCLUDES.'/actions.site.php');
  * Load actions list
  */
 //require_once (PL_INCLUDES.'/class.actions.php');
-
 
 /**
  * Run the pagelines_init Hook
