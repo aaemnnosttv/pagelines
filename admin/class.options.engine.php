@@ -57,9 +57,11 @@ class PageLinesOptionEngine {
 
 		$o = wp_parse_args( $o, $this->defaults );
 
+		$o['setting'] = (isset($setting)) ? $setting : PAGELINES_SETTINGS;
+		$o['pid'] = $pid;
 		$o['val'] = pagelines_option( $oid, $pid, $setting );
-		$o['input_name'] = pagelines_option( $oid, $pid, $setting );
-		$o['input_id'] = pagelines_option( $oid, $pid, $setting );		
+		$o['input_name'] = get_pagelines_option_name( $oid, null, null, $setting );
+		$o['input_id'] = get_pagelines_option_id( $oid, null, null, $setting );		
 
 	if( $this->_do_the_option() ):  ?>
 	<div class="optionrow fix <?php echo $this->_layout_class( $o );?>">
@@ -140,7 +142,7 @@ class PageLinesOptionEngine {
 	 * Switches through an option array, generating the option handling and markup
 	 *
 	 */
-	function option_breaker($oid, $o, $val = ''){
+	function option_breaker($oid, $o, $setting = '', $val = ''){
 
 		switch ( $o['type'] ){
 
@@ -274,7 +276,9 @@ class PageLinesOptionEngine {
 			<option value="">&mdash;SELECT&mdash;</option>
 			<?php foreach($fonts as $fid => $f):
 
-				if(!VPRO && !$f['free']):
+				$free = (isset($f['free']) && $f['free']) ? true : false;
+
+				if(!VPRO && !$free):
 
 				else: 
 					$font_name = $f['name']; 
@@ -370,71 +374,148 @@ class PageLinesOptionEngine {
 		</div>
 	<?php }	
 
-	function _get_check_option($oid, $o){ ?>
-		<p>
-			<label for="<?php pagelines_option_id($oid); ?>" class="context">
-				<input class="admin_checkbox" type="checkbox" id="<?php pagelines_option_id($oid); ?>" name="<?php pagelines_option_name($oid); ?>" <?php checked((bool) pagelines_option($oid)); ?> />
-				<?php echo $o['inputlabel'];?>
-			</label>
-		</p>
-	<?php }	
+
+	/**
+	 * 
+	 * Standard Checkbox Option
+	 * 
+	 * @since 1.0.0
+	 * @author Andrew Powers
+	 * 
+	 **/
+	function _get_check_option($oid, $o){ 
+		
+		$checked = checked((bool) $o['val'], true, false);
+				
+		$input = sprintf('<input class="admin_checkbox" type="checkbox" id="%s" name="%s" %s />', $o['input_id'], $o['input_name'], $checked);
+				
+		printf('<label for="%s" class="context">%s %s</label>', $o['input_id'], $input, $o['inputlabel']);
+
+	}	
 
 	function _get_check_multi($oid, $o, $val){ 
-		foreach($o['selectvalues'] as $mid => $mo):?>
+		
+		foreach($o['selectvalues'] as $mid => $mo):
+?>
 		<p>
-			<label for="<?php echo $mid;?>" class="context"><input class="admin_checkbox" type="checkbox" id="<?php echo $mid;?>" name="<?php pagelines_option_name($mid); ?>" <?php checked((bool) pagelines_option($mid)); ?>  /><?php echo $mo['inputlabel'];?></label>
+			<label for="<?php echo $mid;?>" class="context">
+				<input class="admin_checkbox" type="checkbox" id="<?php echo $mid;?>" name="<?php pagelines_option_name($mid); ?>" <?php checked((bool) pagelines_option($mid)); ?>  /><?php echo $mo['inputlabel'];?>
+			</label>
 		</p>
-	<?php endforeach; 
+		
+<?php 
+		endforeach; 
 	}
 
+
+	/**
+	 * 
+	 * Multiple Text Fields
+	 * Shows several text fields based on 'selectvalues' attr
+	 * 
+	 * @since 1.0.0
+	 * @author Andrew Powers
+	 * 
+	 **/
 	function _get_text_multi($oid, $o, $val){ 
-		foreach($o['selectvalues'] as $mid => $m):?>
-		<p>
-			<label for="<?php echo $mid;?>" class="context"><?php echo $m['inputlabel'];?></label><br/>
-			<input class="<?php echo $o['inputsize'];?>-text" <?php echo ( strpos( $mid, 'password' ) ) ? 'type="password"' : 'type="text"'; ?> id="<?php echo $mid;?>" name="<?php pagelines_option_name($mid); ?>" value="<?php echo esc_attr( pagelines_option($mid) ); ?>"  />
-		</p>
-		<?php endforeach;
+		foreach($o['selectvalues'] as $mid => $m){
+			
+			$attr = ( strpos( $mid, 'password' ) ) ? 'type="password"' : 'type="text"';
+			
+			$id = get_pagelines_option_id( $mid );
+			
+			$name = get_pagelines_option_name($mid, null, null, $o['setting']);
+			
+			$value = pl_html( pagelines_option($mid, $o['pid'], $o['setting']) );
+			
+			
+			// Output
+			$input = sprintf('<input class="%s-text" %s id="%s" name="%s" value="%s"  />', $o['inputsize'], $attr, $mid, $name, $value);
+			
+			printf('<p><label for="%s" class="context">%s</label><br/>%s</p>', $mid, $m['inputlabel'], $input);
+		}
 	}
 
-	function _get_text_small($oid, $o, $val){ ?>
-		<p>
-			<label for="<?php echo $oid;?>" class="context"><?php echo $o['inputlabel'];?></label><br/>
-			<input class="small-text"  type="text" name="<?php pagelines_option_name($oid); ?>" id="<?php echo $oid;?>" value="<?php pl_ehtml( pagelines_option($oid) ); ?>" />
-		</p>
-	<?php }
 
+	/**
+	 * 
+	 * Small Text Option Field
+	 * Displays Small Text Option & Escapes HTML
+	 * 
+	 * @since 1.0.0
+	 * @author Andrew Powers
+	 * 
+	 **/
+	function _get_text_small($oid, $o, $val){ 
+		
+		printf('<label for="%s" class="context">%s</label><br/>', $o['input_id'], $o['inputlabel']);
+		printf('<input class="small-text"  type="text" name="%s" id="%s" value="%s" />', $o['input_name'], $o['input_id'], pl_html($o['val']) );
+	
+	}
+
+	/**
+	 * 
+	 * Regular Text Field
+	 * 
+	 * @since 1.0.0
+	 * @author Andrew Powers
+	 * 
+	 **/
 	function _get_text($oid, $o, $val){ 
 
-		global $pl_data;
+		printf('<label for="%s" class="context">%s</label><br/>', $o['input_id'], $o['inputlabel']);
+		printf('<input class="regular-text" type="text" name="%s" id="%s" value="%s" />', $o['input_name'], $o['input_id'], pl_html($o['val']) );
+		
+	}
 
-		?>
-		<p>
-			<label for="<?php echo $oid;?>" class="context"><?php echo $o['inputlabel'];?></label>
-			<input class="regular-text"  type="text" name="<?php pagelines_option_name($oid); ?>" id="<?php echo $oid;?>" value="<?php pl_ehtml( pagelines_option($oid) ); ?>" />
-		</p>
-	<?php }
+	/**
+	 * 
+	 * Regular Textarea
+	 * 
+	 * @since 1.0.0
+	 * @author Andrew Powers
+	 * 
+	 **/
+	function _get_textarea($oid, $o, $val){ 
+		
+		$class = ($o['type']=='textarea_big') ? 'longtext' : '';
+		
+		printf('<label for="%s" class="context">%s</label><br/>', $o['input_id'], $o['inputlabel']);
+		printf('<textarea class="html-textarea %s" type="text" name="%s" id="%s" />%s</textarea>', $class, $o['input_name'], $o['input_id'], pl_html($o['val']) );
+	
+	}
 
-	function _get_textarea($oid, $o, $val){ ?>
-		<p>
-			<label for="<?php echo $oid;?>" class="context"><?php echo $o['inputlabel'];?></label><br/>
-			<textarea name="<?php pagelines_option_name($oid); ?>" class="html-textarea <?php if($o['type']=='textarea_big') echo "longtext";?>" cols="70%" rows="5"><?php pl_ehtml( pagelines_option($oid) ); ?></textarea>
-		</p>
-	<?php }
+	/**
+	 * 
+	 * Text or Written Content. E.g. Welcome Screen
+	 * 
+	 * @since 1.0.0
+	 * @author Andrew Powers
+	 * 
+	 **/
+	function _get_text_content($oid, $o, $val){ 	
+		printf('<div class="text_content fix">%s</div>', $o['exp']);
+	}
 
-
-	function _get_text_content($oid, $o, $val){ ?>
-		<div class="text_content fix"><?php echo $o['exp'];?></div>
-	<?php }
-
+	/**
+	 * 
+	 * Prints a button that can be used to reset an option
+	 * Works with 'pagelines_process_reset_options()' & a callback in the option array
+	 * 
+	 * @since 1.0.0
+	 * @author Andrew Powers
+	 * 
+	 **/
 	function _get_reset_option($oid, $o, $val){ 
 
-		pl_action_confirm('Confirm'.$oid, 'Are you sure?');
+		$confirmID = 'Confirm'.$oid;
 
-	?>
-		<div class="insidebox context">
-			<input class="button-secondary reset-options" type="submit" name="<?php pagelines_option_name($oid); ?>" onClick="return Confirm<?php echo $oid;?>();" value="<?php echo $o['inputlabel'];?>" /> <?php echo $o['exp'];?>
-		</div>
-	<?php 
+		pl_action_confirm($confirmID, 'Are you sure?'); // print JS confirmation script
+		
+		$input = sprintf('<input class="button-secondary reset-options" type="submit" name="%s" onClick="return %s();" value="%s" />', $o['input_name'], $confirmID, $o['inputlabel']);
+		
+		printf('<div class="insidebox context">%s %s</div>', $input, $o['exp']);
+
 
 	}
 

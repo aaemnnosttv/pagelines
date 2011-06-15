@@ -74,6 +74,7 @@ blockquote, input, textarea, .searchform .searchfield, .wp-caption, .widget-defa
 #footer, #footer li.link-list a, #footer .latest_posts li .list-excerpt{color:#999999;}
 #footer a, #footer .widget-title,  #footer li h5 a{color:#FFFFFF;}
 #footer, .fixed_width #footer{ text-shadow:#000000 0 -1px 0;}
+#feature-area, .feature-wrap, #feature_slider .fmedia, #feature_slider .fcontent, #feature_slider .text-bottom .fmedia .dcol-pad, #feature_slider .text-bottom .feature-pad, #feature_slider .text-none .fmedia .dcol-pad{height:330px;}
 
 
 /* Custom CSS */
@@ -82,4 +83,4 @@ body{}
 
 
 
-/* Trigger: Page Load*/
+/* Trigger: AJAX*/

@@ -5,14 +5,21 @@
  *
  **/
 function pagelines_option_name( $oid, $sub_oid = null, $grand_oid = null, $setting = PAGELINES_SETTINGS){
+	echo get_pagelines_option_name( $oid, $sub_oid, $grand_oid, $setting );
+}
+
+function get_pagelines_option_name( $oid, $sub_oid = null, $grand_oid = null, $setting = PAGELINES_SETTINGS ){
+	
+	$set = (!isset($setting) || $setting == PAGELINES_SETTINGS) ? PAGELINES_SETTINGS : $setting;
 	
 	if( isset($grand_oid) )
-		echo $setting . '['.$oid.']' . '['.$sub_oid.']' . '['.$grand_oid.']';	
+		$name = $set . '['.$oid.']' . '['.$sub_oid.']' . '['.$grand_oid.']';	
 	elseif( isset($sub_oid) )
-		echo $setting . '['.$oid.']' . '['.$sub_oid.']';
+		$name = $set . '['.$oid.']' . '['.$sub_oid.']';
 	else 
-		echo $setting .'['.$oid.']';
-	
+		$name = $set .'['.$oid.']';
+		
+	return $name;
 }
 
 function pagelines_option_id( $oid, $sub_oid = null, $grand_oid = null, $namespace = 'pagelines'){
@@ -21,12 +28,14 @@ function pagelines_option_id( $oid, $sub_oid = null, $grand_oid = null, $namespa
 
 function get_pagelines_option_id( $oid, $sub_oid = null, $grand_oid = null, $namespace = 'pagelines'){
 
+	$nm = (!isset($namespace) || $namespace == 'pagelines') ? 'pagelines' : $namespace;
+
 	if( isset($grand_oid) )
-		$a = array($namespace, $oid, $sub_oid, $grand_oid);
+		$a = array($nm, $oid, $sub_oid, $grand_oid);
 	elseif( isset($sub_oid) )
-		$a = array($namespace, $oid, $sub_oid);
+		$a = array($nm, $oid, $sub_oid);
 	else 
-		$a = array($namespace, $oid);
+		$a = array($nm, $oid);
 		
 	return join('_', $a);
 }
@@ -77,17 +86,15 @@ function get_pagelines_option($key, $setting = null) {
 
 function pagelines_option( $key, $post_id = null, $setting = null){
 	
-	if(isset($post_id) && get_post_meta($post_id, $key, true)){
-		
+	if(isset($post_id) && get_post_meta($post_id, $key, true))
 		return get_post_meta($post_id, $key, true); //if option is set for a page/post
 		
-	}elseif( get_pagelines_option($key, $setting) ){
-		
+	elseif( get_pagelines_option($key, $setting) )	
 		return get_pagelines_option($key, $setting);
 			
-	}else {
+	else 
 		return false;
-	}
+	
 }
 
 function pagelines_sub_option( $key, $subkey, $post_id = '', $setting = null){

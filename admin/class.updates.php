@@ -70,9 +70,9 @@ class PageLinesUpdateCheck {
 		);				
 				
 		
-			$option_array['advanced'] = array_merge( $option_array['advanced'], $updates );
-			return $option_array;
-		}
+		$option_array['advanced'] = array_merge( $option_array['advanced'], $updates );
+		return $option_array;
+	}
 	function bad_creds( $errors ) {
 		$errors['api']['title'] = 'API error';
 		$errors['api']['text'] = 'Launchpad Username and Password are required for automatic updates.';
