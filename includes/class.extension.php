@@ -95,7 +95,7 @@ class PageLinesExtension{
 							$pl_section_factory->register( $dep_class, $dep_data );
 						}
 					} else {
-							if ( !class_exists( $section['class'] ) ) {
+							if ( !class_exists( $section['class'] ) && file_exists( $section['base_file'] ) {
 								include( $section['base_file'] );
 								$pl_section_factory->register( $section['class'], $section_data );
 							}
