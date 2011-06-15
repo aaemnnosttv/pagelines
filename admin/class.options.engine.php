@@ -393,17 +393,28 @@ class PageLinesOptionEngine {
 
 	}	
 
+	/**
+	 * 
+	 * Multiple Checkbox Fields
+	 * Shows several checkbox fields based on 'selectvalues' attr
+	 * 
+	 * @since 1.0.0
+	 * @author Andrew Powers
+	 * 
+	 **/
 	function _get_check_multi($oid, $o, $val){ 
 		
-		foreach($o['selectvalues'] as $mid => $mo):
-?>
-		<p>
-			<label for="<?php echo $mid;?>" class="context">
-				<input class="admin_checkbox" type="checkbox" id="<?php echo $mid;?>" name="<?php pagelines_option_name($mid); ?>" <?php checked((bool) pagelines_option($mid)); ?>  /><?php echo $mo['inputlabel'];?>
-			</label>
-		</p>
+		foreach($o['selectvalues'] as $mid => $m):
 		
-<?php 
+			$id = get_pagelines_option_id( $mid );
+			$name = get_pagelines_option_name($mid, null, null, $o['setting']);
+			$value = checked((bool) pagelines_option($mid, $o['pid'], $o['setting']), true, false);
+		
+			// Output
+			$input = sprintf('<input class="admin_checkbox" type="checkbox" id="%s" name="%s" %s />', $id, $name, $value);
+			
+			printf('<p><label for="%s" class="context">%s</label></p>', $mid, $m['inputlabel'], $input);
+
 		endforeach; 
 	}
 
@@ -519,22 +530,31 @@ class PageLinesOptionEngine {
 
 	}
 
-
+	/**
+	 * 
+	 * Creates An AJAX Image Uploader
+	 * 
+	 * @since 1.0.0
+	 * @author Andrew Powers
+	 * 
+	 **/
 	function _get_image_upload_option( $oid, $o, $optionvalue = ''){ 
 
 		?><p>	
 			<label class="context" for="<?php echo $oid;?>"><?php echo $o['inputlabel'];?></label><br/>
 			<input class="regular-text uploaded_url" type="text" name="<?php pagelines_option_name($oid); ?>" value="<?php echo esc_url(pagelines_option($oid));?>" /><br/><br/>
 			<span id="<?php echo $oid; ?>" class="image_upload_button button">Upload Image</span>
-			<span title="<?php echo $oid;?>" id="reset_<?php echo $oid; ?>" class="image_reset_button button">Remove</span>
-			<input type="hidden" class="ajax_action_url" name="wp_ajax_action_url" value="<?php echo admin_url("admin-ajax.php"); ?>" />
-			<input type="hidden" class="image_preview_size" name="img_size_<?php echo $oid;?>" value="<?php echo $o['imagepreview'];?>"/>
+			<?php printf('<span title="%1$s" id="reset_%1$s" class="image_reset_button button">Remove</span>', $oid); ?>
 		</p>
-		<?php if(pagelines_option($oid)):?>
-			<img class="pagelines_image_preview" id="image_<?php echo $oid;?>" src="<?php echo pagelines_option($oid);?>" style="max-width:<?php echo $o['imagepreview'];?>px"/>
-		<?php endif;?>
-
-	<?php }
+		<?php
+		
+		
+		printf('<input type="hidden" class="ajax_action_url" name="wp_ajax_action_url" value="%s" />', admin_url("admin-ajax.php"));
+		printf('<input type="hidden" class="image_preview_size" name="img_size_%s" value="%s"/>', $oid, $o['imagepreview']);
+	
+		if($o['val'])
+			printf('<img class="pagelines_image_preview" id="image_%s" src="%s" style="max-width:%spx"/>', $oid, $o['val'], $o['imagepreview']);
+	}
 
 	function _get_count_select_option( $oid, $o, $optionvalue = '' ){ ?>
 
