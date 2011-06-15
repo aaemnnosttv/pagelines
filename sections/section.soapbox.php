@@ -103,17 +103,18 @@ class PageLinesSoapbox extends PageLinesSection {
 
 					$post_types = array($this->settings['posttype']);
 					
-					// $type_metapanel_settings = array(
-					// 						'id' 		=> 'soapbox-metapanel',
-					// 						'name' 		=> "Soapbox Section Options",
-					// 						'posttype' 	=> $post_types, 
-					// 						'hide_tabs'	=> true
-					// 					);
-					// 
-					// 				$type_meta_panel =  new PageLinesMetaPanel( $type_metapanel_settings );
+					 $type_metapanel_settings = array(
+					 						'id' 		=> 'soapbox-metapanel',
+					 						'name' 		=> "Soapbox Section Options",
+					 						'posttype' 	=> $post_types, 
+					 						'hide_tabs'	=> true
+					 					);
+					 
+					 				$type_meta_panel =  new PageLinesMetaPanel( $type_metapanel_settings );
 					
 					global $boxes_meta_panel;
-				
+						
+						
 
 						$type_metatab_settings = array(
 							'id' 		=> 'soapbox-type-metatab',
