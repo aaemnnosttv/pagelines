@@ -8,7 +8,7 @@
 <link rel="stylesheet" media="screen" type="text/css" href="<?php echo PL_ADMIN_JS;?>/colorpicker/css/colorpicker.css" />
 <script type="text/javascript" src="<?php echo PL_ADMIN_JS;?>/colorpicker/js/colorpicker.js"></script>
 <script type="text/javascript">/*<![CDATA[*/
-jQuery(document).ready(function(){
+jQuery(document).ready(function(){ 
 <?php 
 
 /**

@@ -2,10 +2,35 @@
 /* = PageLines Admin CSS - Copyright 2008-2010 = */
 /* ============================================= */
 
-	.ui-tabs .ui-tabs-hide {
-	     display: none;
-	}
+
 	
+	.oinputs p{ font-size: 1em }
+	
+/* Labels */
+	.lbl {
+		font-weight: bold; 
+		font-size: .92em;
+		line-height: 1.3em;
+		
+		display: block;
+	}
+		.lbl.context{
+			margin: 15px 0 2px 0;
+		}
+			.lbl.context small{
+				font-size: .95em;
+				font-weight: normal;
+				display: block;
+				color: #888;
+				margin: 0 0 3px 0;
+			}
+		.lbl.inln{
+			margin: 14px 0;
+			vertical-align: top;
+		}
+		
+/* Interface */
+	.ui-tabs .ui-tabs-hide { display: none; }
 	#interfacetitle{background: #ddd;	padding: 8px;}
 	#optionstable{
 		width: 950px;
@@ -32,6 +57,8 @@
 	}
 	
 	#pagelines-settings-form{position:relative;}
+	
+/* @ Ajax Saving Popup */
 	.ajax-saved {
 		display: none;
 		text-shadow: #000 0px -1px 0;
@@ -60,9 +87,9 @@
 		.success-text, .uploading-text{display:none;}
 			.ajax-saved.success .success-text{display: inline;}
 			.ajax-saved.uploading .uploading-text{display: inline;}
-	.message_area {
-		height: 35px;
-	}
+
+
+	.message_area { height: 35px; }
 	
 	.confirmation {
 		background: #ddd;
@@ -591,7 +618,11 @@
 		.thelog .button-secondary {color:#888; }
 		.emph {font-size: 1.4em; line-height: 2em; font-weight: bold}
 		.emph.subtle{color: #BBB}
-		
+	
+/* Image Upload Text Field */
+	.uploaded_url{margin-bottom: 1em}
+	
+	
 /* @ Typography Option */
 	
 	.button.active_button {

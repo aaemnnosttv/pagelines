@@ -1,5 +1,4 @@
 <?php
-
 /**
  * 
  *
@@ -12,7 +11,6 @@
  *  @since 4.0
  *
  */
-
 class PageLinesOptionEngine {
 
 	function __construct( $settings_field = '' ) {
@@ -45,7 +43,6 @@ class PageLinesOptionEngine {
 			'css_prop'				=> '',
 			'pro_note'				=> false
 		);
-		
 		
 	}
 
@@ -86,9 +83,7 @@ class PageLinesOptionEngine {
 			<div class="oexp-effect">
 				<div class="oexp-pad">
 					<h5>More Info</h5>
-					<p>
-						<?php echo $o['exp'];?>
-					</p>
+					<p><?php echo $o['exp'];?></p>
 					<?php 
 						if( $o['pro_note'] && !VPRO )
 							printf('<p class="pro_note"><strong>Pro Version Note:</strong><br/>%s</p>',  $o['pro_note']);
@@ -147,10 +142,10 @@ class PageLinesOptionEngine {
 		switch ( $o['type'] ){
 
 			case 'select' :
-				$this->_get_select_option($oid, $o, $val);
+				$this->_get_select_option($oid, $o);
 				break;
 			case 'select_same' :
-				$this->_get_select_option($oid, $o, $val);
+				$this->_get_select_option($oid, $o);
 				break;
 			case 'radio' :
 				$this->_get_radio_option($oid, $o);
@@ -191,9 +186,8 @@ class PageLinesOptionEngine {
 			case 'check_multi' :
 				$this->_get_check_multi($oid, $o, $val);
 				break;
-
 			case 'typography' :
-				$this->_get_typography_option($oid, $o, $val);
+				$this->_get_type_control($oid, $o);
 				break;
 			case 'select_menu' :
 				$this->_get_menu_select($oid, $o);
@@ -232,147 +226,42 @@ class PageLinesOptionEngine {
 
 	}
 
-	function _get_email_capture($oid, $o){
-		 ?>
-		<p>
-			<div class="email_capture_container">
-					<label for="<?php pagelines_option_id($oid); ?>" class="context"><?php echo $o['inputlabel'];?></label><br/>
-				<input type="text" id="email_capture_input" class="email_capture" value="<?php echo get_option('pagelines_email_sent');?>" />
-				<input type="button" id="" class="button-secondary" onClick="sendEmailToMothership(jQuery('#email_capture_input').val(), '#email_capture_input');" value="Send" />
-				<div class="the_email_response"></div>
-			</div>
-		</p>
-
-	<?php }
-
-	function _get_menu_select($oid, $o){ ?>
-		<p>
-			<label for="<?php pagelines_option_id($oid); ?>" class="context"><?php echo $o['inputlabel'];?></label><br/>
-			<select id="<?php pagelines_option_id($oid); ?>" name="<?php pagelines_option_name($oid); ?>">
-				<option value="">&mdash;SELECT&mdash;</option>
-				<?php	$menus = wp_get_nav_menus( array('orderby' => 'name') );
-						foreach ( $menus as $menu )
-							printf( '<option value="%d" %s>%s</option>', $menu->term_id, selected($menu->term_id, pagelines_option($oid)), esc_html( $menu->name ) );
-				?>
-			</select>
-		</p>
-
-	<?php }
-
-	function _get_typography_option($oid, $o, $val){
-
-		global $pl_foundry; 
-
-		$fonts = $pl_foundry->foundry; 
-
-		$preview_styles = '';
-
-		$preview_styles = $pl_foundry->get_type_css(pagelines_option($oid));
-
-		// Choose Font
-		?>
-		<label for="<?php pagelines_option_id($oid, 'font'); ?>" class="context">Select Font</label><br/>
-		<select id="<?php pagelines_option_id($oid, 'font'); ?>" name="<?php pagelines_option_name($oid, 'font'); ?>" onChange="PageLinesStyleFont(this, 'font-family')" class="fontselector" size="1" >
-			<option value="">&mdash;SELECT&mdash;</option>
-			<?php foreach($fonts as $fid => $f):
-
-				$free = (isset($f['free']) && $f['free']) ? true : false;
-
-				if(!VPRO && !$free):
-
-				else: 
-					$font_name = $f['name']; 
-
-					if($f['web_safe']) $font_name .= ' *';
-					if($f['google']) $font_name .= ' G';
-
-			?>
-				<option value='<?php echo $fid;?>' id='<?php echo $f['family'];?>' title="<?php echo $pl_foundry->gfont_key($fid);?>" <?php selected( $fid, pagelines_sub_option($oid, 'font') ); ?>><?php echo $font_name;?></option>
-			<?php endif; endforeach;?>
-		</select>
-		<div class="font_preview_wrap">
-			<label class="context">Preview</label>
-			<div class="font_preview" >
-				<div class="font_preview_pad" style='<?php echo $preview_styles;?>' >
-					The quick brown fox jumps over the lazy dog.
-				</div>
-			</div>
-		</div>
-		<span id="<?php pagelines_option_id($oid, '_set_styling_button'); ?>" class="button" onClick="PageLinesSimpleToggle('#<?php pagelines_option_id($oid, '_set_styling'); ?>', '#<?php pagelines_option_id($oid, '_set_advanced'); ?>')">Edit Font Styling</span>
-
-		<span id="<?php pagelines_option_id($oid, '_set_advanced_button'); ?>" class="button" onClick="PageLinesSimpleToggle('#<?php pagelines_option_id($oid, '_set_advanced'); ?>', '#<?php pagelines_option_id($oid, '_set_styling'); ?>')">Advanced</span>
-
-		<div id="<?php pagelines_option_id($oid, '_set_styling'); ?>" class="font_styling type_inputs">
-			<?php $this->get_type_styles($oid, $o); ?>
-			<div class="clear"></div>
-		</div>
-
-		<div id="<?php pagelines_option_id($oid, '_set_advanced'); ?>" class="advanced_type type_inputs">
-			<?php $this->get_type_advanced($oid, $o); ?>
-			<div class="clear"></div>
-		</div>
-
-
-	<?php }
-
-	function get_type_styles($oid, $o){
-
-		// Set Letter Spacing (em)
-		$this->_get_type_em_select($oid, array());
-
-		// Convert to caps, small-caps?
-		$this->_get_type_select($oid, array('id' => 'transform', 'inputlabel' => 'Text Transform', 'prop' => 'text-transform',  'selectvalues' => array('none' => 'None', 'uppercase' => 'Uppercase', 'capitalize' => 'Capitalize', 'lowercase' => 'lowercase'), 'default' => 'none'));
-
-		// Small Caps?
-		$this->_get_type_select($oid, array('id' => 'variant', 'inputlabel' => 'Variant', 'prop' => 'font-variant',  'selectvalues' => array('normal' => 'Normal', 'small-caps' => 'Small-Caps'), 'default' => 'normal'));
-
-		// Bold? 
-		$this->_get_type_select($oid, array('id' => 'weight', 'inputlabel' => 'Weight', 'prop' => 'font-weight', 'selectvalues' => array('normal' => 'Normal', 'bold' => 'Bold'), 'default' => 'normal'));
-
-		// Italic?
-		$this->_get_type_select($oid, array('id' => 'style', 'inputlabel' => 'Style', 'prop' => 'font-style',  'selectvalues' => array('normal' => 'Normal', 'italic' => 'Italic'), 'default' => 'normal'));
+	/**
+	 * 
+	 * Gets a menu selector for WP menus. Can be used in navigation, etc...
+	 * 
+	 * @since 1.0.0
+	 * @author Andrew Powers
+	 * 
+	 **/
+	function _get_menu_select($oid, $o){
+		
+		
+		echo $this->input_label($o['input_id'], $o['inputlabel']);
+		
+		$menus = wp_get_nav_menus( array('orderby' => 'name') );
+		$opts = '';
+		foreach ( $menus as $menu )
+			$opts = $this->input_option($menu->term_id, selected($menu->term_id, $o['val']), esc_html( $menu->name ) );
+		
+		echo $this->input_select($o['input_id'], $o['input_name'], $opts);
+	
 	}
 
-	function get_type_advanced($oid, $o){ ?>
-		<div class="type_advanced">
-			<label for="<?php pagelines_option_id($oid, 'selectors'); ?>" class="context">Additional Selectors</label><br/>
-			<textarea class=""  name="<?php pagelines_option_name($oid, 'selectors'); ?>" id="<?php pagelines_option_id($oid, 'selectors'); ?>" rows="3"><?php esc_attr_e( pagelines_sub_option($oid, 'selectors'), 'pagelines' ); ?></textarea>
-		</div>
-	<?php }
-
-	function _get_type_em_select($oid, $o){ 
-
-		$option_value = ( pagelines_sub_option($oid, 'kern') ) ? pagelines_sub_option($oid, 'kern') : '0.00em';
-		?>
-		<div class="type_select">
-		<label for="<?php pagelines_option_id($oid, 'kern'); ?>" class="context">Letter Spacing</label><br/>
-		<select id="<?php pagelines_option_id($oid, 'kern'); ?>" name="<?php pagelines_option_name($oid, 'kern'); ?>" onChange="PageLinesStyleFont(this, 'letter-spacing')">
-			<option value="">&mdash;SELECT&mdash;</option>
-			<?php 
-				$count_start = -.3;
-				for($i = $count_start; $i <= 1; $i += 0.05):
-					$em = number_format(round($i, 2), 2).'em';
-			?>
-					<option value="<?php echo $em;?>" <?php selected($em, $option_value); ?>><?php echo $em;?></option>
-			<?php endfor;?>
-		</select>
-		</div>
-	<?php }
-
-	function _get_type_select($oid, $o){ 
-
-		$option_value = ( pagelines_sub_option($oid, $o['id']) ) ? pagelines_sub_option($oid, $o['id']) : $o['default'];
-		?>
-		<div class="type_select">
-			<label for="<?php pagelines_option_id($oid, $o['id']); ?>" class="context"><?php echo $o['inputlabel'];?></label><br/>
-			<select id="<?php pagelines_option_id($oid, $o['id']); ?>" name="<?php pagelines_option_name($oid, $o['id']); ?>" onChange="PageLinesStyleFont(this, '<?php echo $o['prop'];?>')">
-				<option value="">&mdash;SELECT&mdash;</option>
-				<?php foreach($o['selectvalues'] as $sid => $s):?>
-						<option value="<?php echo $sid;?>" <?php selected($sid, $option_value); ?>><?php echo $s;?></option>
-				<?php endforeach;?>
-			</select>
-		</div>
-	<?php }	
+	/**
+	 * 
+	 * Gets Typography Control Panel
+	 * 
+	 * @since 1.0.0
+	 * @author Andrew Powers
+	 * 
+	 **/
+	function _get_type_control($oid, $o){
+		
+		$control = new PageLinesTypeUI();
+		
+		$control->build_typography_control( $oid, $o );
+	}
 
 
 	/**
@@ -387,11 +276,12 @@ class PageLinesOptionEngine {
 		
 		$checked = checked((bool) $o['val'], true, false);
 				
-		$input = sprintf('<input class="admin_checkbox" type="checkbox" id="%s" name="%s" %s />', $o['input_id'], $o['input_name'], $checked);
-				
-		printf('<label for="%s" class="context">%s %s</label>', $o['input_id'], $input, $o['inputlabel']);
-
+		$input = $this->input_checkbox($o['input_id'], $o['input_name'], $checked);
+			
+		echo $this->input_label_inline($o['input_id'], $input, $o['inputlabel']);
 	}	
+	
+	
 
 	/**
 	 * 
@@ -411,9 +301,9 @@ class PageLinesOptionEngine {
 			$value = checked((bool) pagelines_option($mid, $o['pid'], $o['setting']), true, false);
 		
 			// Output
-			$input = sprintf('<input class="admin_checkbox" type="checkbox" id="%s" name="%s" %s />', $id, $name, $value);
+			$input = $this->input_checkbox($id, $name, $value);
 			
-			printf('<p><label for="%s" class="context">%s %s</label></p>', $mid, $input, $m['inputlabel']);
+			echo $this->input_label_inline($mid, $input, $m['inputlabel']);
 
 		endforeach; 
 	}
@@ -431,7 +321,7 @@ class PageLinesOptionEngine {
 	function _get_text_multi($oid, $o, $val){ 
 		foreach($o['selectvalues'] as $mid => $m){
 			
-			$attr = ( strpos( $mid, 'password' ) ) ? 'type="password"' : 'type="text"';
+			$attr = ( strpos( $mid, 'password' ) ) ? 'password' : 'text';
 			
 			$id = get_pagelines_option_id( $mid );
 			
@@ -439,11 +329,12 @@ class PageLinesOptionEngine {
 			
 			$value = pl_html( pagelines_option($mid, $o['pid'], $o['setting']) );
 			
+			$class = $o['inputsize'].'-text';
 			
 			// Output
-			$input = sprintf('<input class="%s-text" %s id="%s" name="%s" value="%s"  />', $o['inputsize'], $attr, $mid, $name, $value);
-			
-			printf('<p><label for="%s" class="context">%s</label><br/>%s</p>', $mid, $m['inputlabel'], $input);
+			echo $this->input_label($mid, $m['inputlabel']);
+			echo $this->input_text($mid, $name, $value, $class, $attr );
+
 		}
 	}
 
@@ -459,9 +350,8 @@ class PageLinesOptionEngine {
 	 **/
 	function _get_text_small($oid, $o, $val){ 
 		
-		printf('<label for="%s" class="context">%s</label><br/>', $o['input_id'], $o['inputlabel']);
-		printf('<input class="small-text"  type="text" name="%s" id="%s" value="%s" />', $o['input_name'], $o['input_id'], pl_html($o['val']) );
-	
+		echo $this->input_label($o['input_id'], $o['inputlabel']);
+		echo $this->input_text($o['input_id'], $o['input_name'], pl_html($o['val']), 'small-text');
 	}
 
 	/**
@@ -474,10 +364,12 @@ class PageLinesOptionEngine {
 	 **/
 	function _get_text($oid, $o, $val){ 
 
-		printf('<label for="%s" class="context">%s</label><br/>', $o['input_id'], $o['inputlabel']);
-		printf('<input class="regular-text" type="text" name="%s" id="%s" value="%s" />', $o['input_name'], $o['input_id'], pl_html($o['val']) );
+		echo $this->input_label($o['input_id'], $o['inputlabel']);
+		echo $this->input_text($o['input_id'], $o['input_name'], pl_html($o['val']));
 		
 	}
+
+
 
 	/**
 	 * 
@@ -491,7 +383,8 @@ class PageLinesOptionEngine {
 		
 		$class = ($o['type']=='textarea_big') ? 'longtext' : '';
 		
-		printf('<label for="%s" class="context">%s</label><br/>', $o['input_id'], $o['inputlabel']);
+		// Output
+		echo $this->input_label($o['input_id'], $o['inputlabel']);
 		printf('<textarea class="html-textarea %s" type="text" name="%s" id="%s" />%s</textarea>', $class, $o['input_name'], $o['input_id'], pl_html($o['val']) );
 	
 	}
@@ -540,18 +433,20 @@ class PageLinesOptionEngine {
 	 **/
 	function _get_image_upload_option( $oid, $o ){ 
 
-		$label = sprintf('<label class="context" for="%s">%s</label><br/>', $oid, $o['inputlabel']); 
-		$up_url = sprintf('<input class="regular-text uploaded_url" type="text" name="%s" value="%s" /><br/><br/>', $o['input_name'], esc_url($o['val'])); 
+		$up_url = sprintf('<input class="regular-text uploaded_url" type="text" name="%s" value="%s" /><br/>', $o['input_name'], esc_url($o['val'])); 
 		$up_button =  sprintf('<span id="%s" class="image_upload_button button">Upload Image</span>', $oid); 
 		$reset_button = sprintf('<span title="%1$s" id="reset_%1$s" class="image_reset_button button">Remove</span>', $oid); 
 		$ajax_url = sprintf('<input type="hidden" class="ajax_action_url" name="wp_ajax_action_url" value="%s" />', admin_url("admin-ajax.php"));
 		$preview_size = sprintf('<input type="hidden" class="image_preview_size" name="img_size_%s" value="%s"/>', $oid, $o['imagepreview']);
 		
-		printf('<p>%s %s %s %s %s %s</p>', $label, $up_url, $up_button, $reset_button, $ajax_url, $preview_size);		
+		// Output
+		$label = $this->input_label($oid, $o['inputlabel']);
+		printf('<p>%s %s %s %s %s %s</p>',$label, $up_url, $up_button, $reset_button, $ajax_url, $preview_size);		
 				
 		if($o['val'])
 			printf('<img class="pagelines_image_preview" id="image_%s" src="%s" style="max-width:%spx"/>', $oid, $o['val'], $o['imagepreview']);
 	}
+
 
 	/**
 	 * 
@@ -568,15 +463,16 @@ class PageLinesOptionEngine {
 	function _get_count_select_option( $oid, $o ){ 
 		
 		
-		$label = sprintf('<label for="%s" class="context">%s</label><br/>', $oid, $o['inputlabel']);
-		
 		$count_start = (isset($o['count_start'])) ? $o['count_start'] : 0;
 		
 		$opts = '';
 		for($i = $count_start; $i <= $o['count_number']; $i++)
-			$opts .= sprintf('<option value="%1$s" %2$s>%1$s</option>', $i, selected($i, $o['val'], false));
+			$opts .= $this->input_option($i, selected($i, $o['val'], false), $i);
 		
-		printf('<select id="%s" name="%s"><option value="">&mdash;SELECT&mdash;</option>%s</select>', $oid, $o['input_name'], $opts);
+		
+		// Output
+		echo $this->input_label($o['input_id'], $o['inputlabel']);
+		echo $this->input_select($o['input_id'], $o['input_name'], $opts);
 		
 	}
 
@@ -594,46 +490,72 @@ class PageLinesOptionEngine {
 		
 		foreach($o['selectvalues'] as $sid => $s){
 			
-			$checked = checked($sid, $o[$val], false);
+			$checked = checked($sid, $o['val'], false);
 			$input = sprintf('<input type="radio" id="%1$s_%2$s" name="%3$s" value="%2$s" %4$s> ', $oid, $sid, $o['input_name'], $checked);
 			printf('<p>%s<label for="%s_%s">%s</label></p>', $input, $oid, $sid, $s);
 			
 		}
 	}
 
-	function _get_select_option( $oid, $o, $val ){ ?>
 
-			<p>
-				<label for="<?php echo $oid;?>" class="context"><?php echo $o['inputlabel'];?></label><br/>
-				<select id="<?php echo $oid;?>" name="<?php pagelines_option_name($oid); ?>">
-					<option value="">&mdash;SELECT&mdash;</option>
 
-					<?php foreach($o['selectvalues'] as $sval => $select_set):?>
-						<?php if($o['type'] == 'select_same'):?>
-								<option value="<?php echo $select_set;?>" <?php selected($select_set, pagelines_option($oid)); ?>><?php echo $select_set;?></option>
-						<?php else:?>
-								<option value="<?php echo $sval;?>" <?php selected($sval, pagelines_option($oid)); ?>><?php echo $select_set['name'];?></option>
-						<?php endif;?>
+	/**
+	 * 
+	 * Get Select Option 
+	 * 'select_same' means both value and name are the same
+	 * 
+	 * @param selectvalues array a set of options to select from
+	 * 
+	 * @since 1.0.0
+	 * @author Andrew Powers
+	 * 
+	 **/
+	function _get_select_option( $oid, $o ){ 
+		
+		echo $this->input_label($o['input_id'], $o['inputlabel']);
+		
+		$opts = '';
+		
+		foreach($o['selectvalues'] as $sval => $s){
+			
+			if($o['type'] == 'select_same')
+				$opts .= $this->input_option($s, selected($s, $o['val'], false), $s);
+			else
+				$opts .= $this->input_option($sval, selected($sval, $o['val'], false), $s['name']);
+	
+		}
+		
+		echo $this->input_select($o['input_id'], $o['input_name'], $opts);
 
-					<?php endforeach;?>
-				</select>
-			</p>
-	<?php }
+	}
 
+
+	/**
+	 * 
+	 * Get Taxonomy Selector
+	 * Based on all applied to a post type
+	 * 
+	 * 
+	 * @since 1.0.0
+	 * @author Andrew Powers
+	 * 
+	 **/
 	function _get_taxonomy_select( $oid, $o ){ 
+		
 		$terms_array = get_terms( $o['taxonomy_id']); 
 
-		if(is_array($terms_array) && !empty($terms_array)):	?>
-			<label for="<?php echo $oid;?>" class="context"><?php echo $o['inputlabel'];?></label><br/>
-			<select id="<?php echo $oid;?>" name="<?php pagelines_option_name($oid); ?>">
-				<option value="">&mdash;<?php _e("SELECT", 'pagelines');?>&mdash;</option>
-				<?php foreach($terms_array as $term):?>
-					<option value="<?php echo $term->slug;?>" <?php if( pagelines_option($oid) == $term->slug ) echo 'selected';?>><?php echo $term->name; ?></option>
-				<?php endforeach;?>
-			</select>
-	<?php else:?>
-			<div class="meta-message"><?php _e('No sets have been created and added to a post yet!', 'pagelines');?></div>
-	<?php endif;
+		if(is_array($terms_array) && !empty($terms_array)){
+		
+			echo $this->input_label($o['input_id'], $o['inputlabel']);
+			
+			$opts = '';
+			foreach($terms_array as $term)
+				$opts .= $this->input_option($term->slug, selected($term->slug, $o['val'], false), $term->name);
+			
+			echo $this->input_select($o['input_id'], $o['input_name'], $opts);
+			
+		} else
+			printf('<div class="meta-message">%s</div>', __('No sets have been created and added to this post-type yet!', 'pagelines')); 
 
 	}
 
@@ -653,20 +575,27 @@ class PageLinesOptionEngine {
 		?>
 
 		<div class="the_picker">
-			<label for="<?php echo $oid;?>" class="colorpicker_label context"><?php echo $o['inputlabel'];?></label>
+			<?php echo $this->input_label($oid, $o['inputlabel']); ?>
 			<div id="<?php echo $oid;?>_picker" class="colorSelector"><div></div></div>
 			<input class="colorpickerclass"  type="text" name="<?php pagelines_option_name($oid); ?>" id="<?php echo $oid;?>" value="<?php echo pagelines_option($oid); ?>" />
 		</div>
 	<?php  }
 
-	function _get_background_image_control($oid, $option_settings){
+	function _get_background_image_control($oid, $o){
 
-		$bg_fields = $this->_background_image_array();
+		$bg = $this->_background_image_array();
 
-		$this->_get_image_upload_option($oid.'_url', $bg_fields['_url'], pagelines_option($oid.'_url'));
-		$this->_get_select_option($oid.'_repeat', $bg_fields['_repeat']);
-		$this->_get_count_select_option( $oid.'_pos_vert', $bg_fields['_pos_vert']);
-		$this->_get_count_select_option( $oid.'_pos_hor', $bg_fields['_pos_hor']);
+		// set value, id, name
+		foreach($bg as $k => $i){
+			$bg[$k]['val'] = pagelines_option($oid.$k, $o['pid'], $o['setting']);
+			$bg[$k]['input_id'] = get_pagelines_option_id( $oid, $k );
+			$bg[$k]['input_name'] = get_pagelines_option_name($oid.$k, null, null, $o['setting']);
+		}
+		
+		$this->_get_image_upload_option($oid.'_url', $bg['_url']);
+		$this->_get_select_option($oid.'_repeat', $bg['_repeat']);
+		$this->_get_count_select_option( $oid.'_pos_vert', $bg['_pos_vert']);
+		$this->_get_count_select_option( $oid.'_pos_hor', $bg['_pos_hor']);
 
 	}
 
@@ -703,6 +632,17 @@ class PageLinesOptionEngine {
 		);
 	}
 
+	/**
+	 *  Creates an email capture field that sends emails to PageLines.com
+	 */
+	function _get_email_capture($oid, $o){ ?>
+		<div class="email_capture_container">
+			<?php echo $this->input_label($o['input_id'], $o['inputlabel']); ?>
+			<input type="text" id="email_capture_input" class="email_capture" value="<?php echo get_option('pagelines_email_sent');?>" />
+			<input type="button" id="" class="button-secondary" onClick="sendEmailToMothership(jQuery('#email_capture_input').val(), '#email_capture_input');" value="Send" />
+			<div class="the_email_response"></div>
+		</div>
+<?php }
 
 	/**
 	 *  Layout Builder (Layout Drag & Drop)
@@ -730,6 +670,34 @@ class PageLinesOptionEngine {
 		$builder = new PageLinesTemplateBuilder();
 		$builder->draw_template_builder();
 
+	}
+	
+	
+	/**
+	 *  INPUT HELPERS
+	 */
+	function input_text($id, $name, $value, $class = 'regular-text', $attr = 'text'){
+		return sprintf('<input type="%s" id="%s" name="%s" value="%s" class="regular-text" />', $attr, $id, $name, $value, $class );
+	}
+	
+	function input_checkbox($id, $name, $value, $class = 'admin_checkbox'){
+		return sprintf('<input type="checkbox" id="%s" name="%s" class="%s" %s />', $id, $name, $class, $value);
+	}
+	
+	function input_label_inline($id, $input, $text, $class = 'inln'){
+		return sprintf('<label for="%s" class="lbl %s">%s %s</label>', $id, $class, $input, $text);
+	}
+	
+	function input_label($id, $text, $class = 'context'){
+		return sprintf('<label for="%s" class="lbl %s">%s</label>', $id, $class, $text);
+	}
+	
+	function input_select($id, $name, $opts){
+		return sprintf('<select id="%s" name="%s"><option value="">&mdash;SELECT&mdash;</option>%s</select>', $id, $name, $opts);
+	}
+	
+	function input_option($value, $selected, $text){
+		return sprintf('<option value="%s" %s>%s</option>', $value, $selected, $text);
 	}
 
 } // End of Class

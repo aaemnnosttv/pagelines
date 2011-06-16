@@ -27,7 +27,8 @@ function pagelines_add_admin_submenus() {
 		$_pagelines_options_page_hook = add_theme_page( 'pagelines', 'PageLines Settings', 'edit_theme_options', 'pagelines', 'pagelines_build_option_interface' );
 	else {
 		$_pagelines_options_page_hook = add_submenu_page('pagelines', 'Settings', 'Settings', 'edit_theme_options', 'pagelines','pagelines_build_option_interface'); // Default
-		$_pagelines_ext_page_hook = add_submenu_page('pagelines', 'Extension', 'Extension', 'edit_theme_options', 'extension','pagelines_build_extension_interface');
+		$_pagelines_ext_page_hook = add_submenu_page('pagelines', 'Extension', 'Extension', 'edit_theme_options', 'pl_extension','pagelines_build_extension_interface');
+		$_pagelines_tools_page_hook = add_submenu_page('pagelines', 'Tools', 'Tools', 'edit_theme_options', 'pl_tools','pagelines_build_extension_interface');
 	}
 }
 
@@ -68,8 +69,10 @@ function pagelines_theme_settings_scripts() {
 	wp_enqueue_script( 'jquery-ui-effects',PL_ADMIN_JS . '/jquery.effects.js', array('jquery')); // just has highlight effect
 	wp_enqueue_script( 'jquery-ui-draggable' );	
 	wp_enqueue_script( 'jquery-ui-sortable' );
+	
 	wp_enqueue_script( 'thickbox' );	
 	wp_enqueue_style( 'thickbox' ); 
+	
 	wp_enqueue_script( 'jquery-layout', PL_ADMIN_JS . '/jquery.layout.js');
 }
 

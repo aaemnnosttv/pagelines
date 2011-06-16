@@ -35,7 +35,7 @@ class PrimarySidebar extends PageLinesSection {
 	}
 
    function section_template() { 
-	 	 pagelines_draw_sidebar($this->id, $this->name, 'template.dwidgets');
+	 	 pagelines_draw_sidebar($this->id, $this->name, 'includes/widgets.default');
 	}
 
 }

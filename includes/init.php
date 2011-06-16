@@ -125,9 +125,14 @@ require_once( PL_ADMIN . '/class.ui.templates.php' );
 require_once( PL_ADMIN . '/class.ui.layout.php' );
 
 /**
- * Load Layout Setup UI
+ * Load Type Control
  */
-require_once( PL_ADMIN . '/class.ui.layout.php' );
+require_once( PL_ADMIN . '/class.ui.typography.php' );
+
+/**
+ * Load Color Controls
+ */
+require_once( PL_ADMIN . '/class.ui.color.php' );
 
 /**
  * Load options UI
