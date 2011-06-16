@@ -176,7 +176,7 @@ function build_header(){?>
 		 *
 		 */
 		function build_body(){
-			$option_engine = new PageLinesOptionEngine( $this->setfield );
+			$option_engine = new OptEngine( $this->setfield );
 			global $pl_section_factory; 
 ?>
 			<div id="tabs">	

@@ -11,7 +11,7 @@
  *  @since 4.0
  *
  */
-class PageLinesOptionEngine {
+class OptEngine {
 
 	function __construct( $settings_field = '' ) {
 		
@@ -60,6 +60,18 @@ class PageLinesOptionEngine {
 		$o['input_name'] = get_pagelines_option_name( $oid, null, null, $setting );
 		$o['input_id'] = get_pagelines_option_id( $oid, null, null, $setting );		
 
+	
+
+		if(!empty($o['selectvalues'])){
+			foreach($o['selectvalues'] as $sid => $s){
+					 
+				$o['selectvalues'][$sid]['val'] = pagelines_option( $sid, $pid, $setting );
+				$o['selectvalues'][$sid]['input_id'] = get_pagelines_option_id( $sid );
+				$o['selectvalues'][$sid]['input_name'] = get_pagelines_option_name($sid, null, null, $setting);
+			 
+			}
+		}
+		
 	if( $this->_do_the_option() ):  ?>
 	<div class="optionrow fix <?php echo $this->_layout_class( $o );?>">
 		<?php $this->get_option_title( $oid, $o ); ?>
@@ -296,14 +308,13 @@ class PageLinesOptionEngine {
 		
 		foreach($o['selectvalues'] as $mid => $m):
 		
-			$id = get_pagelines_option_id( $mid );
-			$name = get_pagelines_option_name($mid, null, null, $o['setting']);
-			$value = checked((bool) pagelines_option($mid, $o['pid'], $o['setting']), true, false);
+			$value = checked((bool) $m['val'], true, false);
+			
 		
 			// Output
-			$input = $this->input_checkbox($id, $name, $value);
+			$input = $this->input_checkbox($m['input_id'], $m['input_name'], $value);
 			
-			echo $this->input_label_inline($mid, $input, $m['inputlabel']);
+			echo $this->input_label_inline($m['input_id'], $input, $m['inputlabel']);
 
 		endforeach; 
 	}
@@ -323,17 +334,11 @@ class PageLinesOptionEngine {
 			
 			$attr = ( strpos( $mid, 'password' ) ) ? 'password' : 'text';
 			
-			$id = get_pagelines_option_id( $mid );
-			
-			$name = get_pagelines_option_name($mid, null, null, $o['setting']);
-			
-			$value = pl_html( pagelines_option($mid, $o['pid'], $o['setting']) );
-			
 			$class = $o['inputsize'].'-text';
 			
 			// Output
-			echo $this->input_label($mid, $m['inputlabel']);
-			echo $this->input_text($mid, $name, $value, $class, $attr );
+			echo $this->input_label($m['input_id'], $m['inputlabel']);
+			echo $this->input_text($m['input_id'], $m['input_name'], pl_html($m['val']), $class, $attr );
 
 		}
 	}
@@ -385,9 +390,11 @@ class PageLinesOptionEngine {
 		
 		// Output
 		echo $this->input_label($o['input_id'], $o['inputlabel']);
-		printf('<textarea class="html-textarea %s" type="text" name="%s" id="%s" />%s</textarea>', $class, $o['input_name'], $o['input_id'], pl_html($o['val']) );
-	
+		echo $this->input_textarea($o['input_id'], $o['input_name'], pl_html($o['val']), $class);
 	}
+
+	
+	
 
 	/**
 	 * 
@@ -433,11 +440,13 @@ class PageLinesOptionEngine {
 	 **/
 	function _get_image_upload_option( $oid, $o ){ 
 
-		$up_url = sprintf('<input class="regular-text uploaded_url" type="text" name="%s" value="%s" /><br/>', $o['input_name'], esc_url($o['val'])); 
+		$up_url = $this->input_text($o['input_id'], $o['input_name'], esc_url($o['val']), 'regular-text uploaded_url');
+		
 		$up_button =  sprintf('<span id="%s" class="image_upload_button button">Upload Image</span>', $oid); 
 		$reset_button = sprintf('<span title="%1$s" id="reset_%1$s" class="image_reset_button button">Remove</span>', $oid); 
-		$ajax_url = sprintf('<input type="hidden" class="ajax_action_url" name="wp_ajax_action_url" value="%s" />', admin_url("admin-ajax.php"));
-		$preview_size = sprintf('<input type="hidden" class="image_preview_size" name="img_size_%s" value="%s"/>', $oid, $o['imagepreview']);
+		
+		$ajax_url = $this->input_hidden('', 'wp_ajax_action_url', admin_url("admin-ajax.php"), 'ajax_action_url');
+		$preview_size = $this->input_hidden('', 'img_size_'.$oid, $o['imagepreview'], 'image_preview_size'); 
 		
 		// Output
 		$label = $this->input_label($oid, $o['inputlabel']);
@@ -446,6 +455,8 @@ class PageLinesOptionEngine {
 		if($o['val'])
 			printf('<img class="pagelines_image_preview" id="image_%s" src="%s" style="max-width:%spx"/>', $oid, $o['val'], $o['imagepreview']);
 	}
+	
+
 
 
 	/**
@@ -487,16 +498,18 @@ class PageLinesOptionEngine {
 	 * 
 	 **/
 	function _get_radio_option( $oid, $o ){
-		
+	
 		foreach($o['selectvalues'] as $sid => $s){
 			
 			$checked = checked($sid, $o['val'], false);
-			$input = sprintf('<input type="radio" id="%1$s_%2$s" name="%3$s" value="%2$s" %4$s> ', $oid, $sid, $o['input_name'], $checked);
-			printf('<p>%s<label for="%s_%s">%s</label></p>', $input, $oid, $sid, $s);
+			
+			$input = $this->input_radio($s['input_id'], $o['input_name'], $sid, $checked);
+			echo $this->input_label_inline($s['input_id'], $input, $s['name']);
 			
 		}
 	}
 
+	
 
 
 	/**
@@ -576,11 +589,15 @@ class PageLinesOptionEngine {
 
 		<div class="the_picker">
 			<?php echo $this->input_label($oid, $o['inputlabel']); ?>
-			<div id="<?php echo $oid;?>_picker" class="colorSelector"><div></div></div>
-			<input class="colorpickerclass"  type="text" name="<?php pagelines_option_name($oid); ?>" id="<?php echo $oid;?>" value="<?php echo pagelines_option($oid); ?>" />
+			<div id="<?php echo $oid;?>_picker" class="colorSelector">
+				<div></div>
+			</div>
+			<?php echo $this->input_text($oid, get_pagelines_option_name($oid), get_pagelines_option($oid), 'colorpickerclass'); ?>
+			
 		</div>
 	<?php  }
-
+	
+	
 	function _get_background_image_control($oid, $o){
 
 		$bg = $this->_background_image_array();
@@ -637,12 +654,17 @@ class PageLinesOptionEngine {
 	 */
 	function _get_email_capture($oid, $o){ ?>
 		<div class="email_capture_container">
-			<?php echo $this->input_label($o['input_id'], $o['inputlabel']); ?>
-			<input type="text" id="email_capture_input" class="email_capture" value="<?php echo get_option('pagelines_email_sent');?>" />
+			<?php 
+			echo $this->input_label($o['input_id'], $o['inputlabel']); 
+			echo $this->input_text('email_capture_input', '', get_option('pagelines_email_sent'), 'email_capture');
+			
+			?>
 			<input type="button" id="" class="button-secondary" onClick="sendEmailToMothership(jQuery('#email_capture_input').val(), '#email_capture_input');" value="Send" />
 			<div class="the_email_response"></div>
 		</div>
 <?php }
+
+
 
 	/**
 	 *  Layout Builder (Layout Drag & Drop)
@@ -676,8 +698,15 @@ class PageLinesOptionEngine {
 	/**
 	 *  INPUT HELPERS
 	 */
+	function input_hidden($id, $name, $value, $class = ''){
+		return sprintf('<input type="hidden" id="%s" name="%s" value="%s" class="%s" />', $id, $name, $value, $class);
+	}
+	function input_textarea($id, $name, $value, $class = 'regular-text' ){
+		return sprintf('<textarea id="%s" name="%s" class="html-textarea %s" />%s</textarea>', $id, $name, $class, $value );
+	}
+	
 	function input_text($id, $name, $value, $class = 'regular-text', $attr = 'text'){
-		return sprintf('<input type="%s" id="%s" name="%s" value="%s" class="regular-text" />', $attr, $id, $name, $value, $class );
+		return sprintf('<input type="%s" id="%s" name="%s" value="%s" class="%s" />', $attr, $id, $name, $value, $class );
 	}
 	
 	function input_checkbox($id, $name, $value, $class = 'admin_checkbox'){
@@ -688,16 +717,20 @@ class PageLinesOptionEngine {
 		return sprintf('<label for="%s" class="lbl %s">%s %s</label>', $id, $class, $input, $text);
 	}
 	
+	function input_radio($id, $name, $value, $checked, $class = ''){
+		return sprintf('<input type="radio" id="%s" name="%s" value="%s" class="%s" %s> ', $id, $name, $value, $class, $checked);
+	}
+	
 	function input_label($id, $text, $class = 'context'){
 		return sprintf('<label for="%s" class="lbl %s">%s</label>', $id, $class, $text);
 	}
 	
-	function input_select($id, $name, $opts){
-		return sprintf('<select id="%s" name="%s"><option value="">&mdash;SELECT&mdash;</option>%s</select>', $id, $name, $opts);
+	function input_select($id, $name, $opts, $class = '', $extra = ''){
+		return sprintf('<select id="%s" name="%s" class="%s" %s><option value="">&mdash;SELECT&mdash;</option>%s</select>', $id, $name, $class, $extra, $opts);
 	}
 	
-	function input_option($value, $selected, $text){
-		return sprintf('<option value="%s" %s>%s</option>', $value, $selected, $text);
+	function input_option($value, $selected, $text, $id = '', $extra = ''){ 
+		return sprintf('<option id=\'%s\' value="%s" %s %s>%s</option>', $id, $value, $extra, $selected, $text);
 	}
 
 } // End of Class

@@ -19,60 +19,59 @@ jQuery(document).ready(function(){
  */
 // Allow users to disable AJAX saving... 
 if(!pagelines_option('disable_ajax_save')): ?>	
-	jQuery("#pagelines-settings-form").submit(function() {
-		
-		var ajaxAction = "<?php echo admin_url("admin-ajax.php"); ?>";
-		
-		formData = jQuery("#pagelines-settings-form");
-		serializedData = jQuery(formData).serialize();
-		
-		if(jQuery("#input-full-submit").val() == 1){
-			return true;
-		} else {
-			jQuery('.ajax-saved').center('#pagelines-settings-form');
-			url = 'options.php';
-			var saveText = jQuery('.ajax-saved .ajax-saved-pad .ajax-saved-icon');
-			jQuery.ajax({
-				type: 'POST',
-				url: url,
-				data: serializedData,
-				beforeSend: function(){
-					
-					jQuery('.ajax-saved').removeClass('success').show().addClass('uploading');
-
-					saveText.text('Saving'); // text while saving
-					
-					// add some dots while saving.
-					interval = window.setInterval(function(){
-						var text = saveText.text();
-						if (text.length < 10){	saveText.text(text + '.'); }
-						else { saveText.text('Saving'); } 
-					}, 400);
-					
-				},
-			  	success: function(data){
-					window.clearInterval(interval); // clear dots...
-					jQuery('.ajax-saved').removeClass('uploading').addClass('success');
-					saveText.text('Settings Saved!'); // change button text, when user selects file	
-					
-					jQuery('.ajax-saved').show().delay(800).fadeOut('slow');
-					
-					jQuery.ajax({
-						type: 'GET',
-						url: ajaxAction, 
-						data: { action: 'pagelines_ajax_create_dynamic_css' },
-					});
-				}
-			});
-			return false;
-		}
-	  
-	});
+jQuery("#pagelines-settings-form").submit(function() {
 	
+	var ajaxAction = "<?php echo admin_url("admin-ajax.php"); ?>";
+	
+	formData = jQuery("#pagelines-settings-form");
+	serializedData = jQuery(formData).serialize();
+	
+	if(jQuery("#input-full-submit").val() == 1){
+		return true;
+	} else {
+		jQuery('.ajax-saved').center('#pagelines-settings-form');
+		url = 'options.php';
+		var saveText = jQuery('.ajax-saved .ajax-saved-pad .ajax-saved-icon');
+		jQuery.ajax({
+			type: 'POST',
+			url: url,
+			data: serializedData,
+			beforeSend: function(){
+				
+				jQuery('.ajax-saved').removeClass('success').show().addClass('uploading');
+
+				saveText.text('Saving'); // text while saving
+				
+				// add some dots while saving.
+				interval = window.setInterval(function(){
+					var text = saveText.text();
+					if (text.length < 10){	saveText.text(text + '.'); }
+					else { saveText.text('Saving'); } 
+				}, 400);
+				
+			},
+		  	success: function(data){
+				window.clearInterval(interval); // clear dots...
+				jQuery('.ajax-saved').removeClass('uploading').addClass('success');
+				saveText.text('Settings Saved!'); // change button text, when user selects file	
+				
+				jQuery('.ajax-saved').show().delay(800).fadeOut('slow');
+				
+				jQuery.ajax({
+					type: 'GET',
+					url: ajaxAction, 
+					data: { action: 'pagelines_ajax_create_dynamic_css' },
+				});
+			}
+		});
+		return false;
+	}
+  
+});
+
 <?php endif;?>
 
-// Slide up notifications and messages
-jQuery('#message.slideup_message').delay(5000).slideUp('fast');
+
 
 <?php
 /*
@@ -92,8 +91,6 @@ jQuery('#message.slideup_message').delay(5000).slideUp('fast');
 		endforeach;
 	endforeach;
 
-
-
 ?> 
-}); // close ready() event 
+}); 
 /*]]>*/</script>

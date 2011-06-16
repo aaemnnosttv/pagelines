@@ -6,47 +6,24 @@
  */
 
 
-/*
- * ###########################
- *   Typography
- * ###########################
- */
 
-function PageLinesStyleFont(element, property){
-	
-	var currentSelect = jQuery(element).attr("id");
-	
-	var selectedOption = '#'+currentSelect +' option:selected';
-
-	if(jQuery(element).hasClass("fontselector")) {
-		
-		var previewProp = jQuery(selectedOption).attr("id");
-		
-		var gFontKey = jQuery('#'+currentSelect +' option:selected').attr("title");
-
-		var gFontBase = 'http://fonts.googleapis.com/css?family=';
-		
-		var stylesheetId = '#' + currentSelect + '_style';
-		
-		jQuery(stylesheetId).attr("href", gFontBase + gFontKey);
-	} else {
-		
-		var previewProp = jQuery(selectedOption).val();
-		
-	}
-	
-	jQuery(element).parent().parent().parent().find('.font_preview_pad').css(property, previewProp);
-	
-	
-}
-
-
-/*
- * ###########################
- *   AJAX Uploading
- * ###########################
+/**
+ * On Ready Stuff
+ *
  */
 jQuery(document).ready(function(){
+	
+	/**
+	 * Hide Error messages after 5 seconds
+	 */
+	jQuery('#message.slideup_message').delay(5000).slideUp('fast');
+	
+	
+	
+	
+	/**
+	 * AJAX Image Uploading
+	 */
 	jQuery('.image_upload_button').each(function(){
 
 		var clickedObject = jQuery(this);
@@ -103,14 +80,16 @@ jQuery(document).ready(function(){
 
 		});
 
-		//AJAX Remove (clear option value)
+		/**
+		 * AJAX Remove Option Value
+		 */
 		jQuery('.image_reset_button').click(function(){
 
 			var clickedObject = jQuery(this);
 			var clickedID = jQuery(this).attr('id');
 			var theID = jQuery(this).attr('title');	
 			var actionURL = jQuery(this).parent().find('.ajax_action_url').val();
-			
+
 			var ajax_url = actionURL;
 
 			var data = {
@@ -134,6 +113,92 @@ jQuery(document).ready(function(){
 
 });
 // End AJAX Uploading
+
+
+/**
+ * AJAX Saving Options
+ */
+function PageLinesSaveSettingsAJAX( form, ajaxAction ){
+	formData = jQuery( form );
+	serializedData = jQuery(formData).serialize();
+	
+	if(jQuery("#input-full-submit").val() == 1){
+		return true;
+	} else {
+		jQuery('.ajax-saved').center( form );
+		url = 'options.php';
+		var saveText = jQuery('.ajax-saved .ajax-saved-pad .ajax-saved-icon');
+		jQuery.ajax({
+			type: 'POST',
+			url: url,
+			data: serializedData,
+			beforeSend: function(){
+				
+				jQuery('.ajax-saved').removeClass('success').show().addClass('uploading');
+
+				saveText.text('Saving'); // text while saving
+				
+				// add some dots while saving.
+				interval = window.setInterval(function(){
+					var text = saveText.text();
+					if (text.length < 10){	saveText.text(text + '.'); }
+					else { saveText.text('Saving'); } 
+				}, 400);
+				
+			},
+		  	success: function(data){
+				window.clearInterval(interval); // clear dots...
+				jQuery('.ajax-saved').removeClass('uploading').addClass('success');
+				saveText.text('Settings Saved!'); // change button text, when user selects file	
+				
+				jQuery('.ajax-saved').show().delay(800).fadeOut('slow');
+				
+				jQuery.ajax({
+					type: 'GET',
+					url: ajaxAction, 
+					data: { action: 'pagelines_ajax_create_dynamic_css' },
+				});
+			}
+		});
+		return false;
+	}
+}
+
+
+/**
+ * Typography
+ * Creates a preview of a font in admin
+ */
+function PageLinesStyleFont(element, property){
+	
+	var currentSelect = jQuery(element).attr("id");
+	
+	var selectedOption = '#'+currentSelect +' option:selected';
+
+	if(jQuery(element).hasClass("fontselector")) {
+		
+		var previewProp = jQuery(selectedOption).attr("id");
+		
+		var gFontKey = jQuery('#'+currentSelect +' option:selected').attr("title");
+
+		var gFontBase = 'http://fonts.googleapis.com/css?family=';
+		
+		var stylesheetId = '#' + currentSelect + '_style';
+		
+		jQuery(stylesheetId).attr("href", gFontBase + gFontKey);
+	} else {
+		
+		var previewProp = jQuery(selectedOption).val();
+		
+	}
+	
+	jQuery(element).parent().parent().parent().find('.font_preview_pad').css(property, previewProp);
+	
+	
+}
+
+
+
 
 /*
  * ###########################

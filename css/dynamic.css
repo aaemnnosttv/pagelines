@@ -2,17 +2,13 @@
 
 /* Import Google Fonts --------------- */
 
-@import url(http://fonts.googleapis.com/css?family=Dancing+Script:regular,bold);
+@import url(http://fonts.googleapis.com/css?family=Molengo|Crimson+Text);
 
 /* Set Type --------------- */
 
-h1, h2, h3, h4, h5, h6, .site-title{font-family:"Dancing Script", arial, serif;letter-spacing:0.00em;text-transform:none;font-weight:normal;font-variant:normal;font-style:normal;}
+h1, h2, h3, h4, h5, h6, .site-title{font-family:Molengo, "Trebuchet MS", Corbel, Arial, sans-serif;letter-spacing:0.00em;text-transform:none;font-weight:normal;font-variant:normal;font-style:normal;}
 
-body, .font1, .font-primary, .commentlist{font-family:Georgia, "Times New Roman", Times, serif;letter-spacing:0.00em;text-transform:none;font-weight:normal;font-variant:normal;font-style:normal;}
-
-.font2, .font-sub, ul.main-nav li a, #secondnav li a, .metabar, .subtext, .subhead, .widget-title, .post-comments, .reply a, .editpage, #pagination .wp-pagenavi, .post-edit-link, #wp-calendar caption, #wp-calendar thead th, .soapbox-links a, .fancybox, .standard-form .admin-links, #featurenav a, .pagelines-blink, .ftitle small{font-family:"Lucida Grande", "Lucida Sans", "Lucida Sans Unicode", sans-serif;letter-spacing:0.00em;text-transform:none;font-weight:normal;font-variant:normal;font-style:normal;}
-
-input[type="text"], input[type="password"], textarea, #dsq-content textarea{font-family:Courier, Verdana, sans-serif;letter-spacing:0.00em;text-transform:none;font-weight:normal;font-variant:normal;font-style:normal;}
+body, .font1, .font-primary, .commentlist{font-family:"Crimson Text", "Times New Roman", Times, serif;letter-spacing:0.00em;text-transform:none;font-weight:normal;font-variant:normal;font-style:normal;}
 
 /* Dynamic Layout --------------- */
 
@@ -58,13 +54,10 @@ input[type="text"], input[type="password"], textarea, #dsq-content textarea{font
 
 /* Options --------------- */
 
-body, body.fixed_width{background-color:#000000;}
+body, body.fixed_width{background-color:#ff00ff;}
 body #page, .sf-menu li, #primary-nav ul.sf-menu a:focus, .sf-menu a:hover, .sf-menu a:active, .commentlist ul.children .even, .alt #commentform textarea{background-color:#FFFFFF;}
 .canvas #page-canvas{background-color:#FFFFFF;}
 hr, .fpost, .clip_box, .widget-title, #buddypress-page .item-list li, .metabar a, #morefoot .widget-title, #site #dsq-content h3, .post.fpost .entry, #soapbox .fboxinfo,  #primary-nav #nav_row, .fpost.sticky{border-color:#E9E9E9;}
-.canvas #page, .full_width #page, body.fixed_width{background-image:url('http://localhost/wp1/wp-content/uploads/2011/06/PageLines-Logo-v5.jpg');}
-.canvas #page, .full_width #page, body.fixed_width{background-repeat:no-repeat;}
-.canvas #page, .full_width #page, body.fixed_width{background-position:0% 0%;}
 h1, h2, h3, h4, h5, h6, h1 a, h2 a, h3 a, h4 a, h5 a, h6 a, a.site-title, .entry-title a, .entry-title a:hover, .widget-title a:hover, h3.widget-title a:hover{color:#000000;}
 #page, .tcolor1, #subnav ul li a:active, .commentlist cite a, #breadcrumb a, .metabar a:hover, .post-nav a:hover, .post-footer a, #buddypress-page #object-nav ul li a, #buddypress-page table.forum .td-title a, #buddypress-page #subnav a:hover, #buddypress-page #subnav li.current a, #twitterbar a, #carousel .carousel_text, #site #dsq-content .dsq-request-user-info td a, #pagination .wp-pagenavi a:hover, #pagination .wp-pagenavi .current, #featurenav a.activeSlide, .content-pagination a:hover .cp-num{color:#000000;}
 .tcolor2, .lcolor2 a, .subhead, .widget-title,  .post-edit-link, .metabar .sword, #branding .site-description, #callout, #commentform .required, #postauthor .subtext, #buddypress-page .standard-form .admin-links, #wp-calendar caption, #carousel .thecarousel, #pagination .wp-pagenavi span.pages, .commentlist .comment-meta  a,  #highlight .highlight-subhead, .content-pagination span, .content-pagination a .cp-num, .searchform .searchfield{color:#AFAFAF;}

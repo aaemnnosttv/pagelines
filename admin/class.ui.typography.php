@@ -33,30 +33,34 @@ class PageLinesTypeUI {
 		$preview_styles = '';
 
 		$preview_styles = $pl_foundry->get_type_css( pagelines_option($oid) );
+		
+		echo OptEngine::input_label( get_pagelines_option_id($oid, 'font'), __('Select Font', 'pagelines'));
+		
+		$opts = '';
+		foreach($fonts as $fid => $f){
+			$free = (isset($f['free']) && $f['free']) ? true : false;
 
-		// Choose Font
+			if(!VPRO && !$free){
+			}else{
+				$font_name = $f['name']; 
+
+				if($f['web_safe']) $font_name .= ' *';
+				if($f['google']) $font_name .= ' G';
+			
+				$title = sprintf('title="%s"', $pl_foundry->gfont_key($fid));
+			
+				$opts .= OptEngine::input_option( $fid, selected( $fid, pagelines_sub_option($oid, 'font'), false), $font_name, $f['family'], $title);
+			}
+			
+		}
+		
+		$extra = 'onChange="PageLinesStyleFont(this, \'font-family\')" size="1"';
+		
+		echo OptEngine::input_select( get_pagelines_option_id($oid, 'font'), get_pagelines_option_name($oid, 'font'), $opts, 'fontselector', $extra);
+		
 		?>
-		<label for="<?php pagelines_option_id($oid, 'font'); ?>" class="lbl context">Select Font</label><br/>
-		<select id="<?php pagelines_option_id($oid, 'font'); ?>" name="<?php pagelines_option_name($oid, 'font'); ?>" onChange="PageLinesStyleFont(this, 'font-family')" class="fontselector" size="1" >
-			<option value="">&mdash;SELECT&mdash;</option>
-			<?php foreach($fonts as $fid => $f):
-
-				$free = (isset($f['free']) && $f['free']) ? true : false;
-
-				if(!VPRO && !$free):
-
-				else: 
-					$font_name = $f['name']; 
-
-					if($f['web_safe']) $font_name .= ' *';
-					if($f['google']) $font_name .= ' G';
-
-			?>
-				<option value='<?php echo $fid;?>' id='<?php echo $f['family'];?>' title="<?php echo $pl_foundry->gfont_key($fid);?>" <?php selected( $fid, pagelines_sub_option($oid, 'font') ); ?>><?php echo $font_name;?></option>
-			<?php endif; endforeach;?>
-		</select>
 		<div class="font_preview_wrap">
-			<label class="context">Preview</label>
+			<?php echo OptEngine::input_label( '', __('Preview', 'pagelines')); ?>
 			<div class="font_preview" >
 				<div class="font_preview_pad" style='<?php echo $preview_styles;?>' >
 					The quick brown fox jumps over the lazy dog.
@@ -103,7 +107,7 @@ class PageLinesTypeUI {
 
 	function get_type_advanced($oid, $o){ ?>
 		<div class="type_advanced">
-			<label for="<?php pagelines_option_id($oid, 'selectors'); ?>" class="context">Additional Selectors</label><br/>
+			<?php echo OptEngine::input_label( get_pagelines_option_id($oid, 'selectors'), __('Additional Selectors', 'pagelines')); ?>
 			<textarea class=""  name="<?php pagelines_option_name($oid, 'selectors'); ?>" id="<?php pagelines_option_id($oid, 'selectors'); ?>" rows="3"><?php esc_attr_e( pagelines_sub_option($oid, 'selectors'), 'pagelines' ); ?></textarea>
 		</div>
 	<?php }
@@ -113,17 +117,17 @@ class PageLinesTypeUI {
 		$option_value = ( pagelines_sub_option($oid, 'kern') ) ? pagelines_sub_option($oid, 'kern') : '0.00em';
 		?>
 		<div class="type_select">
-		<label for="<?php pagelines_option_id($oid, 'kern'); ?>" class="context">Letter Spacing</label><br/>
-		<select id="<?php pagelines_option_id($oid, 'kern'); ?>" name="<?php pagelines_option_name($oid, 'kern'); ?>" onChange="PageLinesStyleFont(this, 'letter-spacing')">
-			<option value="">&mdash;SELECT&mdash;</option>
-			<?php 
-				$count_start = -.3;
-				for($i = $count_start; $i <= 1; $i += 0.05):
-					$em = number_format(round($i, 2), 2).'em';
-			?>
-					<option value="<?php echo $em;?>" <?php selected($em, $option_value); ?>><?php echo $em;?></option>
-			<?php endfor;?>
-		</select>
+			<?php echo OptEngine::input_label( get_pagelines_option_id($oid, 'kern'), __('Letter Spacing', 'pagelines')); ?>
+			<select id="<?php pagelines_option_id($oid, 'kern'); ?>" name="<?php pagelines_option_name($oid, 'kern'); ?>" onChange="PageLinesStyleFont(this, 'letter-spacing')">
+				<option value="">&mdash;SELECT&mdash;</option>
+				<?php 
+					$count_start = -.3;
+					for($i = $count_start; $i <= 1; $i += 0.05):
+						$em = number_format(round($i, 2), 2).'em';
+				?>
+						<option value="<?php echo $em;?>" <?php selected($em, $option_value); ?>><?php echo $em;?></option>
+				<?php endfor;?>
+			</select>
 		</div>
 	<?php }
 
@@ -132,7 +136,7 @@ class PageLinesTypeUI {
 		$option_value = ( pagelines_sub_option($oid, $o['id']) ) ? pagelines_sub_option($oid, $o['id']) : $o['default'];
 		?>
 		<div class="type_select">
-			<label for="<?php pagelines_option_id($oid, $o['id']); ?>" class="context"><?php echo $o['inputlabel'];?></label><br/>
+			<?php echo OptEngine::input_label( get_pagelines_option_id($oid, $o['id']), $o['inputlabel']); ?>
 			<select id="<?php pagelines_option_id($oid, $o['id']); ?>" name="<?php pagelines_option_name($oid, $o['id']); ?>" onChange="PageLinesStyleFont(this, '<?php echo $o['prop'];?>')">
 				<option value="">&mdash;SELECT&mdash;</option>
 				<?php foreach($o['selectvalues'] as $sid => $s):?>
