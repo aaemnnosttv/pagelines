@@ -19,9 +19,29 @@ class PageLinesTemplateBuilder {
 	 */
 	function __construct() {
 		
-
+		$this->sc_settings = pagelines_option('section-control');
+		$this->sc_namespace = PAGELINES_SETTINGS."['section-control']";
 	}
 
+	function sc_name( $ta, $section, $field, $sub = null){
+		
+		
+		if(isset($sub))
+			return sprintf('%s[%s][%s][%s][%s]', $this->sc_namespace, $ta, $section, $field, $sub);
+		else 
+			return sprintf('%s[%s][%s][%s]', $this->sc_namespace, $ta, $section, $field);
+		
+	}
+	
+	function sc_value( $ta, $section, $field, $sub = null){
+		if(isset($sub))
+			return isset($this->sc_settings[$ta][$section][$field][$sub]) ? $this->sc_settings[$ta][$section][$field][$sub] : null;
+		else 
+			return isset($this->sc_settings[$ta][$section][$field]) ? $this->sc_settings[$ta][$section][$field] : null;
+	}
+
+	
+	
 	/**
 	 * 
 	 *
@@ -220,7 +240,7 @@ class PageLinesTemplateBuilder {
 			$template_area = ( isset($hook_id) ) ? $hook_id : $template;
 				?>
 				
-				<div id="template_data" class="<?php echo $template_slug; ?> layout-type-<?php echo $template_area;?>">
+				<div id="template_data" class="<?php echo $template_slug; ?> layout-type-<?php echo $template_area;?>" title="<?php echo $template_slug; ?>">
 					<div class="ttitle" id="highlightme">
 						<span>Editing &rarr;</span> <?php echo $tfield['name'];?> 
 						<div class="confirm_save"><div class="confirm_save_pad">Section Order Saved!</div></div>
@@ -305,7 +325,6 @@ class PageLinesTemplateBuilder {
 							</div>
 						</div>
 						<div class="clear"></div>
-						<?php $this->inline_docs(); ?>	
 					</div>
 
 	<?php
@@ -337,51 +356,46 @@ class PageLinesTemplateBuilder {
 					<span class="s-description" <?php $this->help_control();?>>
 						<?php echo $a['desc'];?>
 					</span>
-					<?php if($a['controls'] == true): ?>
+					<?php if($a['controls'] == true && $this->show_sc( $a['template'] )): ?>
 					<span class="section-controls-toggle" onClick="jQuery(this).parent().parent().next('.section-controls').slideToggle('fast');">
 							Section Control &darr;
 					</span>
 				
 					<?php endif;?>
+					
 				</div>
 			</div>
 			<?php
 				if($a['controls'] == true)
-					$this->inline_section_control($a['name'], $a['template'], $a['section'], $a['tslug'], $a['tarea']);
+					$this->inline_section_control($a['id'], $a['name'], $a['template'], $a['section'], $a['tslug'], $a['tarea']);
 			
 			?>
 		</li>
 		
 	<?php }
 	
-	function inline_section_control($name, $template, $section, $template_slug, $template_area){
-
-		$section_control = pagelines_option('section-control');
+	function inline_section_control($id, $name, $template, $section, $template_slug, $template_area){
 
 		// Options 
-		$check_name = PAGELINES_SETTINGS.'[section-control]['.$template_slug.']['.$section.'][hide]';
-		$check_value = isset($section_control[$template_slug][$section]['hide']) ? $section_control[$template_slug][$section]['hide'] : null;
+		$check_name = $this->sc_name($template_slug, $section, 'hide');
+		$check_value = $this->sc_value($template_slug, $section, 'hide'); 
 
-		$posts_check_type = ($check_value) ? 'show' : 'hide';
-
-		if($template == 'posts' || $template == 'single' || $template == '404' )
-			$default_display_check_disabled = true;
-		else
-			$default_display_check_disabled = false;
+		$posts_action = ($check_value) ? 'show' : 'hide';
 
 		if($template_area == 'main' || $template_area == 'templates')
 			$posts_check_disabled = true;
 		else {
-			$posts_check_label = ucfirst($posts_check_type) .' On Posts Pages';
-			$posts_check_name = PAGELINES_SETTINGS.'[section-control]['.$template_slug.']['.$section.'][posts-page]['.$posts_check_type.']';
-			$posts_check_value = isset($section_control[$template_slug][$section]['posts-page'][$posts_check_type]) ? $section_control[$template_slug][$section]['posts-page'][$posts_check_type] : null;
+			$posts_check_label = ucfirst($posts_action) .' On Posts Pages';
+			$posts_check_name = $this->sc_name($template_slug, $section, 'posts-page', $posts_action);
+			$posts_check_value = $this->sc_value($template_slug, $section, 'posts-page', $posts_action);
 			$posts_check_disabled = false;
 		}
 
+		if($this->show_sc( $template )):
 		?>
 		<div class="section-controls">
 			<div class="section-controls-pad">
-				<?php if(!$default_display_check_disabled):?>
+				<a class="cloner" onClick="cloneSection('<?php echo $id;?>');">Clone This</a><br/><br/>
 					<strong>Section Settings</strong> 
 					<div class="section-options">
 						<div class="section-options-row">
@@ -395,11 +409,22 @@ class PageLinesTemplateBuilder {
 						</div>
 						<?php endif;?>
 					</div>
-				<?php endif;?>
 
 			</div>
 		</div>
-	<?php }
+	<?php endif;
+	}
+	
+	
+	/**
+	 * Show section control?
+	 * On some template areas, e.g. posts, single, 404, they have their own interface.. so none is needed
+	 */
+	function show_sc( $t ){
+			
+		return ( $t == 'posts' || $t == 'single' || $t == '404' ) ? false : true;
+	}
+
 	
 	function section_setup_controls(){?>
 		
@@ -417,47 +442,7 @@ class PageLinesTemplateBuilder {
 		</div>
 	<?php }
 	
-	function inline_docs(){ ?>
-		
-		<div class="vpro_sections_call s-description" <?php $this->help_control();?>>
-			<?php if(!VPRO):?>
 
-					<p>
-						<strong>A Note To Free Version Users:</strong><br/> 
-						In the Pro version of this product you will find several more "template areas" and HTML sections to play around with.
-					</p>
-					<p class="mod">
-						<?php if(isset($pl_section_factory->unavailable_sections) && is_array($pl_section_factory->unavailable_sections)):?>
-							<strong>Missing Pro Sections</strong><br/>
-							<?php foreach( $pl_section_factory->unavailable_sections as $unavailable_section ):?>
-								<?php echo $unavailable_section->name;if($unavailable_section !== end($pl_section_factory->unavailable_sections)) echo ',';?>
-							<?php endforeach;?>
-						<?php endif;?>
-					</p>
-					<p class="mod">
-						<?php if(isset($unavailable_section_areas) && is_array($unavailable_section_areas)):?>
-							<strong>Missing Pro Templates &amp; Section Areas</strong> (i.e. places to put sections)<br/>
-							<?php foreach( $unavailable_section_areas as $unavailable_section_area_name ):?>
-								<?php echo $unavailable_section_area_name; if($unavailable_section_area_name !== end($unavailable_section_areas)) echo ',';?> 
-							<?php endforeach;?>
-						<?php endif;?>
-					</p>
-
-
-			<?php endif;?>
-
-				<p class="">
-					<strong>Section Quick Start</strong><br/> 
-					Sections are a super powerful way to control the content on your website. Building your site using sections has just 3 steps...
-					<ol>
-						<li><strong>Place</strong> Place sections in your templates using the interface above. This controls their order and loading.</li>
-						<li><strong>Control</strong> If you want more control over where cross-template sections show; use section settings (under "Advanced Setup").  You can hide 'cross-template' sections, like sidebars, by default and activate them on individual pages/posts or on your blog page.</li>
-						<li><strong>Customize</strong> Customize your sections using the theme settings on individual pages/posts and in this panel.  You can also do advanced customization through hooks and custom css (for more info please see the <a href="http://www.pagelines.com/docs/">docs</a>).</li>
-					</ol>
-				</p>
-		</div>
-		
-	<?php }
 	
 	function help_control(){
 		if(!$this->help()) 

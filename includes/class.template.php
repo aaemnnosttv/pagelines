@@ -235,6 +235,9 @@ class PageLinesTemplate {
 		
 		$section_control = pagelines_option('section-control');
 
+		/**
+		 * Sections assigned to array already in get_loaded_sections
+		 */
 		if( is_array( $this->$hook_id ) ){
 
 			$markup_type = $this->map[$hook_id]['markup'];
@@ -245,8 +248,20 @@ class PageLinesTemplate {
 				
 				$sc = (isset($section_control[$template_slug][$section])) ? $section_control[$template_slug][$section] : null;
 				
+				/**
+				 * If this is a cloned element, remove the clone flag before instantiation here.
+				 */
+				
+				if(strpos($section, '__') !== false) {
+					$pieces = explode("__", $section);
+					$section = $pieces[0];
+					$clone_id = $pieces[1];
+				} else {
+					$clone_id = null;
+				}
+				
 				if(isset($pl_section_factory->sections[$section]) && is_object($pl_section_factory->sections[ $section ])){
-					$pl_section_factory->sections[ $section ]->before_section( $markup_type );
+					$pl_section_factory->sections[ $section ]->before_section( $markup_type, $clone_id);
 					
 					// If overridden in child theme get that, if not load the class template function
 					$pl_section_factory->sections[ $section ]->section_template_load();

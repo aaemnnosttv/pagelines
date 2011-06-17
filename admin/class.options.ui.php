@@ -46,75 +46,47 @@ class PageLinesOptionsUI {
  *
  */
 function build_header(){?>
-			<div class='wrap'>
-				<table id="optionstable"><tbody><tr><td valign="top" width="100%">
-					
-				  <form id="pagelines-settings-form" method="post" action="options.php" class="main_settings_form">
+	<div class='wrap'>
+		<table id="optionstable"><tbody><tr><td valign="top" width="100%">
+			
+		  <form id="pagelines-settings-form" method="post" action="options.php" class="main_settings_form">
+		
+					<?php 
+						wp_nonce_field('update-options'); // security for option saving
+						settings_fields($this->setfield); // namespace for options important!  
+					 	
+						echo OptEngine::input_hidden('input-full-submit', 'input-full-submit', 0); // submit the form fully, page refresh needed
+					 	
+						$this->get_tab_setup();
 				
-					<?php wp_nonce_field('update-options') ?>
-					<?php settings_fields($this->setfield); // important! ?>
-					
-					<input type="hidden" name="<?php echo $this->setfield; ?>[theme_version]>" value="<?php echo esc_attr(pagelines_option('theme_version')); ?>" />
-					<input type="hidden" name="<?php echo $this->setfield; ?>[selectedtab]" id="selectedtab" value="<?php print_pagelines_option('selectedtab', 0); ?>" />
-					<input type="hidden" name="<?php echo $this->setfield; ?>[just_saved]" id="just_saved" value="1" />
-					<input type="hidden" id="input-full-submit" name="input-full-submit" value="0" />
-					
-					<?php $this->_get_confirmations_and_system_checking(); ?>
-					
-
-					<?php
-					
-						if(isset($_COOKIE['PageLinesTabCookie']))
-							$selected_tab = (int) $_COOKIE['PageLinesTabCookie'];
-						elseif(pagelines_option('selectedtab'))
-							$selected_tab = pagelines_option('selectedtab');
-						else
-							$selected_tab = 0;
-				
+						$this->_get_confirmations_and_system_checking(); 
 					?>
-				
-						<script type="text/javascript">
-								jQuery.noConflict();
-								jQuery(document).ready(function($) {						
-									var $myTabs = $("#tabs").tabs({ fx: { opacity: "toggle", duration: "fast" }, selected: <?php echo $selected_tab; ?>});
-									
-									$('#tabs').bind('tabsshow', function(event, ui) {
-										
-										var selectedTab = $('#tabs').tabs('option', 'selected');
-										
-										$("#selectedtab").val(selectedTab);
-										
-										$.cookie('PageLinesTabCookie', selectedTab);
-										
-									});
-
-								});
-						</script>
-								
-								<div class="clear"></div>
-								<div id="optionsheader" class="fix">
-									<div class="ohead" class="fix">
-										<div class="ohead-pad fix">
-											
-											<div class="superlink-wrap">
-												<a class="superlink" href="#">
-													<span class="superlink-pagelines">&nbsp;</span>
-												</a>
-											</div>
-											<div class="ohead-title">
-												<?php echo $this->titleUI; ?> 
-											</div>
-											<div class="ohead-title-right">
-												<div class="superlink-wrap osave-wrap">
-													<input class="superlink osave" type="submit" name="submit" value="<?php _e('Save Options', 'pagelines');?>" />
-												</div>
-											
-											</div>
-										</div>
-										
-									
-									</div>
+					
+				<div class="clear"></div>
+				<div id="optionsheader" class="fix">
+					<div class="ohead" class="fix">
+						<div class="ohead-pad fix">
+							
+							<div class="superlink-wrap">
+								<a class="superlink" href="#">
+									<span class="superlink-pagelines">&nbsp;</span>
+								</a>
+							</div>
+							<div class="ohead-title">
+								<?php echo $this->titleUI; ?> 
+							</div>
+							<div class="ohead-title-right">
+								<div class="superlink-wrap osave-wrap">
+									<input class="superlink osave" type="submit" name="submit" value="<?php _e('Save Options', 'pagelines');?>" />
 								</div>
+							
+							</div>
+						</div>
+						
+					
+					</div>
+				</div>
+				
 		<?php }
 		
 		function _get_confirmations_and_system_checking(){
@@ -252,8 +224,47 @@ function build_header(){?>
 		
 	<?php }	
 	
+	/**
+	 *  Tab Stuff
+	 */
+	function get_tab_setup(){
+		
+		echo OptEngine::input_hidden('selectedtab', $this->setfield, load_pagelines_option('selectedtab', 0)); // tracks last tab active 
+	
+		if(isset($_COOKIE['PageLinesTabCookie']))
+			$selected_tab = (int) $_COOKIE['PageLinesTabCookie'];
+		elseif(pagelines_option('selectedtab'))
+			$selected_tab = pagelines_option('selectedtab');
+		else
+			$selected_tab = 0;
+
+		$this->get_tab_setup_script( $selected_tab );
+	}
+	
+	function get_tab_setup_script( $selected_tab ){ ?>
+		<script type="text/javascript">
+				jQuery.noConflict();
+				jQuery(document).ready(function($) {						
+					var $myTabs = $("#tabs").tabs({ fx: { opacity: "toggle", duration: "fast" }, selected: <?php echo $selected_tab; ?>});
+					
+					$('#tabs').bind('tabsshow', function(event, ui) {
+						
+						var selectedTab = $('#tabs').tabs('option', 'selected');
+						
+						$("#selectedtab").val(selectedTab);
+						
+						$.cookie('PageLinesTabCookie', selectedTab);
+						
+					});
+
+				});
+		</script>
+	<?php }
+	
 	function get_pro_call(){
 		global $pl_section_factory; 
+		
+		$usections = $pl_section_factory->unavailable_sections;
 		
 		?>
 	
@@ -275,11 +286,12 @@ function build_header(){?>
 			</div>
 			<div class="whatsmissing">
 				 <h3>Pro Only Features</h3>
-				<?php if(isset($pl_section_factory->unavailable_sections) && is_array($pl_section_factory->unavailable_sections)):?>
+				<?php if(isset($usections) && is_array($usections)):?>
 					<p class="mod"><strong>Pro Sections</strong> (drag &amp; drop)<br/>
-					<?php foreach( $pl_section_factory->unavailable_sections as $unavailable_section ):?>
-						<?php echo $unavailable_section->name;if($unavailable_section !== end($pl_section_factory->unavailable_sections)) echo ' &middot; ';?>
-					<?php endforeach;?></p>
+					<?php 
+						foreach( $usections as $unavailable_section )
+							echo $unavailable_section->name;if($unavailable_section !== end($usections)) echo ' &middot; ';?>
+					</p>
 				<?php endif;?>
 				
 				<?php 
@@ -307,7 +319,4 @@ function build_header(){?>
 	
 	<?php }
 
-} 
-// ===============================
-// = END OF OPTIONS LAYOUT CLASS =
-// ===============================
+} // End Class 

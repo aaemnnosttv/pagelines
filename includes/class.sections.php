@@ -79,7 +79,10 @@ class PageLinesSection {
 		
 	}
 
-	function before_section( $markup = 'content' ){
+	function before_section( $markup = 'content', $clone_id = null){
+		
+		$clone_class = (isset($clone_id)) ? 'clone_'.$clone_id : '';
+		
 		if(isset($this->settings['markup']))
 			$set_markup = $this->settings['markup'];
 		else 
@@ -88,9 +91,9 @@ class PageLinesSection {
 		pagelines_register_hook('pagelines_before_'.$this->id, $this->id);
 		
 		if( $set_markup == 'copy' ) 
-			printf('<section id="%s" class="copy fix"><div class="copy-pad">', $this->id);
+			printf('<section id="%s" class="copy fix %s"><div class="copy-pad">', $this->id, $clone_class);
 		elseif( $set_markup == 'content' )
-			printf('<section id="%s" class="container fix"><div class="texture"><div class="content"><div class="content-pad">', $this->id );
+			printf('<section id="%s" class="container fix %s"><div class="texture"><div class="content"><div class="content-pad">', $this->id, $clone_class);
 
 		pagelines_register_hook('pagelines_inside_top_'.$this->id, $this->id);
  	}

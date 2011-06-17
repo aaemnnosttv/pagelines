@@ -15,35 +15,7 @@
 				items: 'li:not(.bank_title)',
 				
 				update: function() {
-					
-					var saveText = jQuery('.selected_builder .confirm_save_pad');
-					
-					setEmpty(".selected_builder #sortable_template");
-					setEmpty(".selected_builder #sortable_sections");
-					
-		            var order = jQuery('.selected_builder #sortable_template').sortable('serialize');
-		          
-					var data = {
-							action: 'pagelines_save_sortable',
-							orderdata: order,
-							template: selected_builder, 
-							field: 'sections'
-						};
-
-					// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
-					jQuery.ajax({
-						type: 'GET',
-						url: ajaxurl,
-						data: data,
-						beforeSend: function(){
-						},
-						success: function(response) {
-							jQuery('.selected_builder .ttitle').effect("highlight", {color: "#ddd"}, 2000); 
-							jQuery('.selected_builder .confirm_save').show().delay(1200).fadeOut(700); 
-						}
-					});
-					
-					
+					saveSectionOrder( selected_builder );				
 		        }                                         
 		    }
 		);
@@ -58,6 +30,49 @@
 		});
 		
 		jQuery(".selected_builder #sortable_template, .selected_builder #sortable_sections").disableSelection();	
+	}
+	
+	function cloneSection( sectionId ){
+		
+		var selected_builder = jQuery('.selected_builder').attr('title');
+		
+		jQuery('#'+sectionId).clone().insertAfter('#'+sectionId).attr('id', sectionId+ '__' + 2);
+		
+
+		
+		
+		//jQuery(old_section).next().attr('id', );
+		
+		saveSectionOrder( selected_builder );	
+		
+	}
+	
+	function saveSectionOrder( selected_builder ){
+		var saveText = jQuery('.selected_builder .confirm_save_pad');
+		
+		setEmpty(".selected_builder #sortable_template");
+		setEmpty(".selected_builder #sortable_sections");
+		
+        var order = jQuery('.selected_builder #sortable_template').sortable('serialize');
+      
+		var data = {
+				action: 'pagelines_save_sortable',
+				orderdata: order,
+				template: selected_builder, 
+				field: 'sections'
+			};
+
+		// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
+		jQuery.ajax({
+			type: 'GET',
+			url: ajaxurl,
+			data: data,
+			beforeSend: function(){ },
+			success: function(response) {
+				jQuery('.selected_builder .ttitle').effect("highlight", {color: "#ddd"}, 2000); 
+				jQuery('.selected_builder .confirm_save').show().delay(1200).fadeOut(700); 
+			}
+		});
 	}
 	
 	function setEmpty(sortablelist){
