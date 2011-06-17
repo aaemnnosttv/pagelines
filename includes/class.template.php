@@ -76,7 +76,10 @@ class PageLinesTemplate {
 	
 		function admin_set_main_type(){
 			global $post; 
-			if ( !is_object( $post ) ) return 'default';
+			
+			if ( !is_object( $post ) ) 
+				return 'default';
+				
 			if(isset($post) && $post->post_type == 'post')
 				return 'single';
 			elseif( isset($_GET['page']) && $_GET['page'] == 'pagelines' )
@@ -169,36 +172,34 @@ class PageLinesTemplate {
 		
 	}
 	
-	function unset_hidden_sections($template_area_sections, $hook_id){
+	function unset_hidden_sections($ta_sections, $hook_id){
 			
 		global $post;
+		
+		// Non-meta page
 		if ( !is_object( $post ) ) 
-			return $template_area_sections;
+			return $ta_sections;
+	
 			
 		//Global Section Control Option
-		$section_control = pagelines_option('section-control');
+		$section_control = pagelines_option('section-control');	
 		
+		if(is_array($ta_sections)){
 		
-		if(is_array($template_area_sections)){
-		
-			foreach($template_area_sections as $key => $section){
+			foreach($ta_sections as $key => $section){
 				
-				 
-				if($hook_id == 'templates') {
+				// Get template slug
+				if($hook_id == 'templates')
 					$template_slug = $hook_id.'-'.$this->template_type;
-				} elseif ($hook_id == 'main'){
+				elseif ($hook_id == 'main')
 					$template_slug = $hook_id.'-'.$this->main_type;
-				} else {
+				else
 					$template_slug = $hook_id;
-				}
 				
 				$sc = (isset($section_control[$template_slug][$section])) ? $section_control[$template_slug][$section] : null;
 
-					if( isset($sc['hide']) && (!isset($post) || ( isset($post) && !m_pagelines('_show_'.$section, $post->ID ))) && (!is_home() || ( is_home() && !isset($sc['posts-page']['show']))) ){
-						unset($template_area_sections[$key]);
-					} elseif ( (is_home() && isset($sc['posts-page']['hide'])) || (isset($post) && m_pagelines('_hide_'.$section, $post->ID ))) {
-						unset($template_area_sections[$key]);
-					} 
+				if($this->unset_section($section, $sc))
+					unset($ta_sections[$key]);
 				
 				
 			}
@@ -209,10 +210,33 @@ class PageLinesTemplate {
 		
 	}
 	
+	/**
+	 * Unset section based on Section Control
+	 */
+	function unset_section( $section, $sc ){
+		
+		// General hide + show options
+		$general_hide = (isset($sc['hide'])) ? true : false;
+		$meta_reverse = (isset($post) && m_pagelines('_show_'.$section, $post->ID )) ? true : false;
+		$blog_page_reverse = ((!is_home() || ( is_home() && isset($sc['posts-page']['show']))) ? true : false;
+		
+		// Hiding on meta
+		$meta_hide = (isset($post) && m_pagelines('_hide_'.$section, $post->ID )) ? true : false;
+		$blog_page_hide = (is_home() && isset($sc['posts-page']['hide'])) ? true : false;
+		
+		if( $general_hide && !$meta_reverse && !$blog_page_reverse)
+			return true;
+			
+		elseif($meta_hide || $posts_hide)
+			return true;
+		
+	}
 	
-	/*
-		Hook section areas to actual theme hooks
-	*/
+
+	/**
+	 * Hook up sections to hooks throughout the theme
+	 * Specifically, the hooks should link w/ template map slugs
+	 */
 	function hook_and_print_sections(){
 		
 		foreach( $this->map as $hook_id => $h ){
@@ -224,9 +248,9 @@ class PageLinesTemplate {
 		
 	}
 
-	/*
-		Called by hooks in the theme with args
-	*/
+	/**
+	 * Print section HTML from hooks.
+	 */
 	function print_section_html( $hook_id ){
 	
 		global $pl_section_factory;
@@ -242,6 +266,9 @@ class PageLinesTemplate {
 
 			$markup_type = $this->map[$hook_id]['markup'];
 
+			/**
+			 * Parse through sections assigned to this hooks
+			 */
 			foreach( $this->$hook_id as $section ){
 
 				$template_slug = ($hook_id == 'templates' || $hook_id == 'main') ? $hook_id.'-'.$this->template_type : $hook_id;
@@ -401,7 +428,7 @@ class PageLinesTemplate {
 /**
  * PageLines Template Object 
  * @global object $pagelines_template
- * @since 4.0.0
+ * @since 1.0.0
  */
 function build_pagelines_template(){	
 	$GLOBALS['pagelines_template'] = new PageLinesTemplate;	
@@ -410,7 +437,7 @@ function build_pagelines_template(){
 /**
  * Save Site Template Map
  *
- * @since 4.0.0
+ * @since 1.0.0
  */
 function save_template_map($templatemap){	
 	update_option('pagelines_template_map', $templatemap);
