@@ -19,12 +19,22 @@ class PageLinesTemplate {
 	var $layout;	// Layout type selected
 	var $sections = array(); // HTML sections/effects for the page
 	
+	var $tsections = array(); 
+	var $allsections = array();
+	var $default_allsections = array();
+	
 	
 	/**
 	 * PHP5 constructor
 	 *
 	 */
 	function __construct( $postID = null ) {
+		
+		global $pl_section_factory;
+		$this->factory = $pl_section_factory->sections;
+		
+		// All section control settings
+		$this->scontrol = pagelines_option('section-control');
 		
 		if(is_admin()){
 			$this->template_type = $this->admin_get_page_template();
@@ -36,7 +46,7 @@ class PageLinesTemplate {
 
 		$this->map = $this->get_map();
 	
-		$this->get_loaded_sections();
+		$this->load_sections_on_hook_names();
 	}
 	
 
@@ -109,69 +119,76 @@ class PageLinesTemplate {
 		}
 	
 	/*
-		TODO Account for different types of loads. e.g sidebar2 should only load if it is shown in the layout.
-	*/
+		
 	
-	function get_loaded_sections(){
+	/**
+	 *
+	 * Load sections on to class attributes the correspond w/ hook args
+	 *
+	 * TODO Account for different types of loads. e.g sidebar2 should only load if it is shown in the layout
+	 *
+	 */
+	function load_sections_on_hook_names(){
 		
-		global $post;
-		$this->all_template_sections = array();
-		$this->default_all_template_sections = array();
-		
-		//Global Section Control Option
-		$section_control = pagelines_option('section-control');
-		
-		
-		
-		foreach( $this->map as $hook_id => $hook_info ){
+		foreach( $this->map as $hook => $h ){
 			
-			
-			$template_area_sections = array();
-			
-			if( $hook_id == 'main' ){
-			
-				
-				if(isset($hook_info['templates'][$this->main_type]['sections']))
-					$template_area_sections = $hook_info['templates'][$this->main_type]['sections'];
-				elseif(isset($hook_info['templates']['default']['sections']))
-					$template_area_sections = $hook_info['templates']['default']['sections'];
-				
-			} elseif( $hook_id == 'templates' ) {
-				
-				if(isset($hook_info['templates'][$this->template_type]['sections']))
-					$template_area_sections = $hook_info['templates'][$this->template_type]['sections'];
- 				elseif(isset($hook_info['templates']['default']['sections']))
-					$template_area_sections = $hook_info['templates']['default']['sections'];
-				
-			} elseif(isset($hook_info['sections'])) { 
-				
-				// Get Sections assigned in map
-				$template_area_sections = $hook_info['sections'];
-	
-			} else {
-				
-				$template_area_sections = array();
-				
-			}
+			$tsections = $this->sections_at_hook( $hook, $h );
 			
 			// Set All Sections As Defined By the Map
-			if( is_array($template_area_sections) ) 
-				$this->default_all_template_sections = array_merge($this->default_all_template_sections, $template_area_sections);
+			if( is_array($tsections) ) 
+				$this->default_allsections = array_merge($this->default_allsections, $tsections);
 			
 			// Remove sections deactivated by Section Control
-			$template_area_sections = $this->unset_hidden_sections($template_area_sections, $hook_id);
+			$tsections = $this->unset_hidden_sections($tsections, $hook);
 			
 			// Set Property after Template Hook Args
-			$this->$hook_id = $template_area_sections;
+			$this->$hook = $tsections;
 			
 			// Create an array with all sections used on current page - 
-			if(is_array($this->$hook_id)) 
-				$this->all_template_sections = array_merge($this->all_template_sections, $this->$hook_id);
+			if(is_array($this->$hook)) 
+				$this->allsections = array_merge($this->allsections, $this->$hook);
 			
 		}
 		
 	}
 	
+	
+	/**
+	 * For a given hook, see which sections are placed there and return them
+	 */
+	function sections_at_hook( $hook, $h ){
+		
+		if( $hook == 'main' ){
+	
+			if(isset($h['templates'][$this->main_type]['sections']))
+				$tsections = $h['templates'][$this->main_type]['sections'];
+			elseif(isset($h['templates']['default']['sections']))
+				$tsections = $h['templates']['default']['sections'];
+			
+		} elseif( $hook == 'templates' ) {
+			
+			if(isset($h['templates'][$this->template_type]['sections']))
+				$tsections = $h['templates'][$this->template_type]['sections'];
+			elseif(isset($h['templates']['default']['sections']))
+				$tsections = $h['templates']['default']['sections'];
+			
+		} elseif(isset($h['sections'])) { 
+			
+			// Get Sections assigned in map
+			$tsections = $h['sections'];
+
+		} else {
+			
+			$tsections = array();
+			
+		}
+		
+		return $tsections;
+	}
+	
+	/**
+	 * Unset sections based on section
+	 */
 	function unset_hidden_sections($ta_sections, $hook_id){
 			
 		global $post;
@@ -181,32 +198,39 @@ class PageLinesTemplate {
 			return $ta_sections;
 	
 			
-		//Global Section Control Option
-		$section_control = pagelines_option('section-control');	
-		
 		if(is_array($ta_sections)){
 		
 			foreach($ta_sections as $key => $section){
 				
-				// Get template slug
-				if($hook_id == 'templates')
-					$template_slug = $hook_id.'-'.$this->template_type;
-				elseif ($hook_id == 'main')
-					$template_slug = $hook_id.'-'.$this->main_type;
-				else
-					$template_slug = $hook_id;
+				$sc = $this->sc_settings( $hook_id, $section );
 				
-				$sc = (isset($section_control[$template_slug][$section])) ? $section_control[$template_slug][$section] : null;
-
 				if($this->unset_section($section, $sc))
 					unset($ta_sections[$key]);
-				
 				
 			}
 			
 		}
 		
-		return $template_area_sections;
+		return $ta_sections;
+		
+	}
+	
+	/**
+	 * Get Section Control Settings for Section
+	 */
+	function sc_settings( $hook_id, $section ){
+		
+		// Get template slug
+		if($hook_id == 'templates')
+			$template_slug = $hook_id.'-'.$this->template_type;
+		elseif ($hook_id == 'main')
+			$template_slug = $hook_id.'-'.$this->main_type;
+		else
+			$template_slug = $hook_id;
+			
+		$sc = (isset($this->scontrol[$template_slug][$section])) ? $this->scontrol[$template_slug][$section] : null;
+	
+		return $sc;	
 		
 	}
 	
@@ -218,7 +242,7 @@ class PageLinesTemplate {
 		// General hide + show options
 		$general_hide = (isset($sc['hide'])) ? true : false;
 		$meta_reverse = (isset($post) && m_pagelines('_show_'.$section, $post->ID )) ? true : false;
-		$blog_page_reverse = ((!is_home() || ( is_home() && isset($sc['posts-page']['show']))) ? true : false;
+		$blog_page_reverse = (!is_home() || ( is_home() && isset($sc['posts-page']['show']))) ? true : false;
 		
 		// Hiding on meta
 		$meta_hide = (isset($post) && m_pagelines('_hide_'.$section, $post->ID )) ? true : false;
@@ -227,7 +251,7 @@ class PageLinesTemplate {
 		if( $general_hide && !$meta_reverse && !$blog_page_reverse)
 			return true;
 			
-		elseif($meta_hide || $posts_hide)
+		elseif($meta_hide || $blog_page_hide)
 			return true;
 		
 	}
@@ -251,29 +275,25 @@ class PageLinesTemplate {
 	/**
 	 * Print section HTML from hooks.
 	 */
-	function print_section_html( $hook_id ){
+	function print_section_html( $hook ){
 	
-		global $pl_section_factory;
 		global $post;
 		global $pagelines_post;		
 		
-		$section_control = pagelines_option('section-control');
 
 		/**
 		 * Sections assigned to array already in get_loaded_sections
 		 */
-		if( is_array( $this->$hook_id ) ){
+		if( is_array( $this->$hook ) ){
 
-			$markup_type = $this->map[$hook_id]['markup'];
+			$markup_type = $this->map[$hook]['markup'];
 
 			/**
 			 * Parse through sections assigned to this hooks
 			 */
-			foreach( $this->$hook_id as $section ){
+			foreach( $this->$hook as $section ){
 
-				$template_slug = ($hook_id == 'templates' || $hook_id == 'main') ? $hook_id.'-'.$this->template_type : $hook_id;
-				
-				$sc = (isset($section_control[$template_slug][$section])) ? $section_control[$template_slug][$section] : null;
+				$sc = $this->sc_settings( $hook, $section );
 				
 				/**
 				 * If this is a cloned element, remove the clone flag before instantiation here.
@@ -287,13 +307,12 @@ class PageLinesTemplate {
 					$clone_id = null;
 				}
 				
-				if(isset($pl_section_factory->sections[$section]) && is_object($pl_section_factory->sections[ $section ])){
-					$pl_section_factory->sections[ $section ]->before_section( $markup_type, $clone_id);
+				if( $this->in_factory( $section ) ){
+					$this->factory[ $section ]->before_section( $markup_type, $clone_id);
+				
+					$this->factory[ $section ]->section_template_load(); // If in child theme get that, if not load the class template function
 					
-					// If overridden in child theme get that, if not load the class template function
-					$pl_section_factory->sections[ $section ]->section_template_load();
-					
-					$pl_section_factory->sections[ $section ]->after_section( $markup_type );
+					$this->factory[ $section ]->after_section( $markup_type );
 				}
 			
 				$post = $pagelines_post; // Set the $post variable back to the default for the page (prevents sections from messing with others)
@@ -302,28 +321,35 @@ class PageLinesTemplate {
 		}
 	}
 	
+	function in_factory( $section ){
+		
+		return ( isset($this->factory[ $section ]) && is_object($this->factory[ $section ]) ) ? true : false;
+	}
+	
 	/*
 		Used for when the default map is updated 
 	*/
 	function update_template_config($map){
 		
 		foreach(the_template_map() as $hook_id => $hook_info){
-			if( !isset( $map[$hook_id] ) || !is_array( $map[$hook_id] ) ){
+			
+			if( !isset( $map[$hook_id] ) || !is_array( $map[$hook_id] ) )
 				$map[$hook_id] = $hook_info;
-			}
 		
 			$map[$hook_id]['name'] = $hook_info['name'];
 			$map[$hook_id]['hook'] = $hook_info['hook'];
 			$map[$hook_id]['markup'] = $hook_info['markup'];
 			
 			if(isset($hook_info['templates']) && is_array($hook_info['templates'])){
+				
 				foreach($hook_info['templates'] as $sub_template => $stemplate){
-					if( !isset( $map[$hook_id]['templates'][$sub_template] ) ){
+					
+					if( !isset( $map[$hook_id]['templates'][$sub_template] ) )
 						$map[$hook_id]['templates'][$sub_template] = $stemplate;
-					}
 					
 					$map[$hook_id]['templates'][$sub_template]['name'] = $stemplate['name'];
 				}
+				
 			}
 		}
 		
@@ -350,13 +376,13 @@ class PageLinesTemplate {
 
 	function print_template_section_headers(){
 
-		global $pl_section_factory;
-		if(is_array($this->all_template_sections)){ 
+		if(is_array($this->allsections)){ 
 			
-			foreach($this->all_template_sections as $section){
-				if(isset($pl_section_factory->sections[$section]) && is_object($pl_section_factory->sections[$section])){
-					$pl_section_factory->sections[$section]->section_head();
-				}
+			foreach($this->allsections as $section){
+				
+				if( $this->in_factory( $section ) )
+					$this->factory[$section]->section_head();
+					
 			}
 			
 		}
@@ -369,30 +395,27 @@ class PageLinesTemplate {
 	 *
 	 */
 	function print_template_section_styles(){
-
-		global $pl_section_factory;
 	
-		if(is_array($this->all_template_sections)){
-			foreach($this->all_template_sections as $section){
-				if(isset($pl_section_factory->sections[$section]) && is_object( $pl_section_factory->sections[$section] )){
-					$pl_section_factory->sections[$section]->section_styles();
-				}
+		if(is_array($this->allsections)){
+			foreach($this->allsections as $section){
+				
+				if($this->in_factory( $section )) 
+					$this->factory[$section]->section_styles();
+					
 			}	
 		}
 	
 	}
 	
 
-	
 	function print_template_section_scripts(){
 
-		global $pl_section_factory;
 
-		foreach($this->all_template_sections as $section){
+		foreach($this->allsections as $section){
 
-			if(isset($pl_section_factory->sections[$section]) && is_object($pl_section_factory->sections[$section])){
+			if($this->in_factory( $section )){
 				
-				$section_scripts = $pl_section_factory->sections[$section]->section_scripts();
+				$section_scripts = $this->factory[$section]->section_scripts();
 				
 				
 				if(is_array( $section_scripts )){
@@ -421,8 +444,7 @@ class PageLinesTemplate {
 	
 
 
-}
-/////// END OF TEMPLATE CLASS ////////
+} /* ------ END CLASS ------ */
 
 
 /**

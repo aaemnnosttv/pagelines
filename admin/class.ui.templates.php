@@ -21,6 +21,9 @@ class PageLinesTemplateBuilder {
 		
 		$this->sc_settings = pagelines_option('section-control');
 		$this->sc_namespace = PAGELINES_SETTINGS."['section-control']";
+		
+		global $pl_section_factory;
+		$this->factory = $pl_section_factory->sections;
 	}
 
 	function sc_name( $ta, $section, $field, $sub = null){
@@ -207,12 +210,15 @@ class PageLinesTemplateBuilder {
 			<div class="the_template_builder_pad">
 				
 <?php 
-			foreach($pagelines_template->map as $hook_id => $hook_info){
-				if(isset($hook_info['templates'])){
-					foreach($hook_info['templates'] as $template_id => $template_info )
-						$this->_sortable_section($template_id, $template_info, $hook_id, $hook_info);	
+			foreach($pagelines_template->map as $hook => $h){
+				
+				if( isset($h['templates']) ){
+					
+					foreach($h['templates'] as $tid => $t )
+						$this->section_banks( $tid, $t, $hook, $h );	
+						
 				} else 
-					$this->_sortable_section($hook_id, $hook_info);
+					$this->section_banks( $hook, $h );
 			
 			}?>
 			</div>
@@ -230,15 +236,11 @@ class PageLinesTemplateBuilder {
 	 *  @since 4.0
 	 *
 	 */
-	function _sortable_section($template, $tfield, $hook_id = null, $hook_info = array()){
-			global $pl_section_factory;
-
-			$available_sections = $pl_section_factory->sections;
-
-			$template_slug = ( isset($hook_id) ) ? join('-', array( $hook_id, $template )) : $template;
-
-			$template_area = ( isset($hook_id) ) ? $hook_id : $template;
-				?>
+	function section_banks($template, $tfield, $hook = null, $hook_info = array()){
+		
+			$template_slug = ( isset($hook) ) ? join('-', array( $hook, $template )) : $template;
+			$template_area = ( isset($hook) ) ? $hook : $template;
+?>
 				
 				<div id="template_data" class="<?php echo $template_slug; ?> layout-type-<?php echo $template_area;?>" title="<?php echo $template_slug; ?>">
 					<div class="ttitle" id="highlightme">
@@ -251,93 +253,98 @@ class PageLinesTemplateBuilder {
 							<div class="sbank-pad">
 								<div class="bank_title">Displayed <?php echo $tfield['name'];?> Sections</div>
 								<ul id="sortable_template" class="connectedSortable ">
-										<?php if( isset($tfield['sections']) && is_array($tfield['sections'])):?>
-											<?php foreach($tfield['sections'] as $section):
-
-													if(strpos($section, '#') !== false) {
-														$pieces = explode("#", $section);
-														$section = $pieces[0];
-														$clone_id = $pieces[1];
-														$the_section_id = 'section_' . $section . '#' . $clone_id; 
-													} else {
-														$clone_id = null;
-														$the_section_id = 'section_' . $section;
-													}
-
-											 		if(isset( $pl_section_factory->sections[$section] )):
-
-														$s = $pl_section_factory->sections[$section];
-
-														$section_id =  $s->id;
-
-														$section_args = array(
-															'section'	=> $section,
-															'template'	=> $template,
-															'id'		=> $the_section_id, 
-															'icon'		=> $s->settings['icon'], 
-															'name'		=> $s->name, 
-															'desc'		=> $s->settings['description'],
-															'req'		=> $s->settings['required'],
-															'controls'	=> true,
-															'tslug'		=> $template_slug,
-															'tarea'		=> $template_area,
-														
-														);
-
-														$this->draw_section( $section_args );
-
-											
-												if(isset($available_sections[$section]))
-													unset($available_sections[$section]);
-											
-												 endif; endforeach;
-											endif;?>
+								 	<?php  $this->active_bank( $template, $tfield, $template_area, $template_slug ); ?>
 								</ul>
 								<?php $this->section_setup_controls(); ?>
 								
 							</div>
 								
 						</div>
-							<div class="sbank available_sections">
-								<div class="sbank-pad">
-									<div class="bank_title">Available/Disabled Sections</div>
-									<ul id="sortable_sections" class="connectedSortable ">
-										<?php 
-										foreach($available_sections as $sectionclass => $section):
-
-
-											/* Flip values and keys */
-											$works_with = array_flip($section->settings['workswith']);
-											$fails_with = array_flip($section->settings['failswith']);
-
-											$markup_type = (!empty($hook_info)) ? $hook_info['markup'] : $tfield['markup'];
-
-											if(isset( $works_with[$template] ) || isset( $works_with[$hook_id]) || isset($works_with[$hook_id.'-'.$template]) || isset($works_with[$markup_type])):
-												$section_args = array(
-													'id'		=> 'section_' . $sectionclass,
-													'template'	=> $template,
-													'section'	=> $sectionclass, 
-													'icon'		=> $section->settings['icon'], 
-													'name'		=> $section->name, 
-													'desc'		=> $section->settings['description']
-												);
-										
-												if( !isset($fails_with[$template]) && !isset($fails_with[$hook_id]) )
-													$this->draw_section( $section_args );
-												
-													
-											endif;
-										endforeach;
-									?>
-									</ul>
-								</div>
-								<div class="clear"></div>
+						<div class="sbank available_sections">
+							<div class="sbank-pad">
+								<div class="bank_title">Available/Disabled Sections</div>
+								<ul id="sortable_sections" class="connectedSortable ">
+									<?php $this->passive_bank( $template, $tfield, $hook, $hook_info ); ?>
+								</ul>
 							</div>
+							<div class="clear"></div>
 						</div>
-						<div class="clear"></div>
 					</div>
+					<div class="clear"></div>
+				</div>
 
-	<?php plprint(get_option('pagelines_template_map'));
+<?php  }
+	
+	function active_bank( $tid, $t, $ta, $ts ){
+		 
+		if( isset($t['sections']) && is_array($t['sections'])): 
+		  
+				foreach($t['sections'] as $section):
+
+					if(strpos($section, '#') !== false) {
+						$pieces = explode("#", $section);
+						$section = $pieces[0];
+						$clone_id = $pieces[1];
+						$the_section_id = 'section_' . $section . '#' . $clone_id; 
+					} else {
+						$clone_id = null;
+						$the_section_id = 'section_' . $section;
+					}
+
+			 		if(isset( $this->factory[$section] )):
+
+						$s = $this->factory[$section];
+
+						$section_id =  $s->id;
+
+						$section_args = array(
+							'section'	=> $section,
+							'template'	=> $tid,
+							'id'		=> $the_section_id, 
+							'icon'		=> $s->settings['icon'], 
+							'name'		=> $s->name, 
+							'desc'		=> $s->settings['description'],
+							'req'		=> $s->settings['required'],
+							'controls'	=> true,
+							'tslug'		=> $ts,
+							'tarea'		=> $ta,
+						
+						);
+
+						$this->draw_section( $section_args );
+
+			
+				if(isset($this->factory[$section]))
+					unset($this->factory[$section]);
+			
+				 endif; endforeach;
+			endif;
+	} 
+	
+	function passive_bank( $template, $t, $hook, $h ){
+		 
+		foreach( $this->factory as $sid => $s){
+
+			/* Flip values and keys */
+			$works_with = array_flip( $s->settings['workswith'] );
+			$fails_with = array_flip( $s->settings['failswith'] );
+
+			$markup_type = (!empty($h)) ? $h['markup'] : $t['markup'];
+
+			if(isset( $works_with[ $template ] ) || isset( $works_with[ $hook ]) || isset( $works_with[ $hook.'-'.$template ] ) || isset($works_with[$markup_type])){
+				$section_args = array(
+					'id'		=> 'section_' . $sid,
+					'template'	=> $template,
+					'section'	=> $sid, 
+					'icon'		=> $s->settings['icon'], 
+					'name'		=> $s->name, 
+					'desc'		=> $s->settings['description']
+				);
+		
+				if( !isset($fails_with[ $template ]) && !isset($fails_with[ $hook ]) )
+					$this->draw_section( $section_args );
+			}
+		}
 	}
 	
 	function draw_section( $args ){ 
