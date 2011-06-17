@@ -286,8 +286,6 @@ class PageLinesTemplateBuilder {
 				$section = (string) $pieces[0];
 				$clone_id = (isset($pieces[1])) ? $pieces[1] : null;
 
-				plprint($section);
-
 			 	if(isset( $this->factory[$section] )){
 
 					$s = $this->factory[$section];

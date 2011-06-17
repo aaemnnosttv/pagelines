@@ -1553,7 +1553,8 @@
 						border-top: 1px solid #eee;
 						border-left: 1px solid #eee;
 				}
-					
+	
+		/* @ Cloning */
 		.clone_button{
 			font-weight: bold;
 			background: #e1e1e1;
@@ -1580,6 +1581,10 @@
 					border-left: 1px solid #999;
 					border-top: 1px solid #999;
 				}
+			
+			.the_clone_id{
+				color:#777;
+			}
 				
 		.sbank li .section-bar-pad{
 			border-top: 1px solid #fff;

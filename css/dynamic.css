@@ -1,14 +1,14 @@
 /* PageLines - Copyright 2011 - Version 2.0.b3 */
 
-/* Import Google Fonts --------------- */
-
-@import url(http://fonts.googleapis.com/css?family=Molengo|Crimson+Text);
-
 /* Set Type --------------- */
 
-h1, h2, h3, h4, h5, h6, .site-title{font-family:Molengo, "Trebuchet MS", Corbel, Arial, sans-serif;letter-spacing:0.00em;text-transform:none;font-weight:normal;font-variant:normal;font-style:normal;}
+h1, h2, h3, h4, h5, h6, .site-title{font-family:Georgia, "Times New Roman", Times, serif;}
 
-body, .font1, .font-primary, .commentlist{font-family:"Crimson Text", "Times New Roman", Times, serif;letter-spacing:0.00em;text-transform:none;font-weight:normal;font-variant:normal;font-style:normal;}
+body, .font1, .font-primary, .commentlist{font-family:Georgia, "Times New Roman", Times, serif;}
+
+.font2, .font-sub, ul.main-nav li a, #secondnav li a, .metabar, .subtext, .subhead, .widget-title, .post-comments, .reply a, .editpage, #pagination .wp-pagenavi, .post-edit-link, #wp-calendar caption, #wp-calendar thead th, .soapbox-links a, .fancybox, .standard-form .admin-links, #featurenav a, .pagelines-blink, .ftitle small{font-family:"Lucida Grande", "Lucida Sans", "Lucida Sans Unicode", sans-serif;}
+
+input[type="text"], input[type="password"], textarea, #dsq-content textarea{font-family:Courier, Verdana, sans-serif;}
 
 /* Dynamic Layout --------------- */
 
@@ -54,7 +54,7 @@ body, .font1, .font-primary, .commentlist{font-family:"Crimson Text", "Times New
 
 /* Options --------------- */
 
-body, body.fixed_width{background-color:#ff00ff;}
+body, body.fixed_width{background-color:#000000;}
 body #page, .sf-menu li, #primary-nav ul.sf-menu a:focus, .sf-menu a:hover, .sf-menu a:active, .commentlist ul.children .even, .alt #commentform textarea{background-color:#FFFFFF;}
 .canvas #page-canvas{background-color:#FFFFFF;}
 hr, .fpost, .clip_box, .widget-title, #buddypress-page .item-list li, .metabar a, #morefoot .widget-title, #site #dsq-content h3, .post.fpost .entry, #soapbox .fboxinfo,  #primary-nav #nav_row, .fpost.sticky{border-color:#E9E9E9;}
@@ -91,4 +91,4 @@ body{}
 
 
 
-/* Trigger: AJAX*/
+/* Trigger: Page Load*/

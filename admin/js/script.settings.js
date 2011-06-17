@@ -51,9 +51,13 @@
 		
 		var newID = sectionId+ 'ID' + $i;
 		
-		jQuery('#'+sectionId).clone().hide().insertAfter('#'+sectionId).attr('id', newID).slideDown();
+		jQuery('#'+sectionId).clone().hide().insertAfter('#'+sectionId).attr('id', newID);
 		
 		jQuery('#'+newID).find('.the_clone_id').html($i);
+		
+		jQuery('#'+newID).find('.section-controls').hide();
+		
+		jQuery('#'+newID).slideDown();
 		
 		saveSectionOrder( selected_builder );	
 		
