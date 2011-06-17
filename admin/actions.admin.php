@@ -137,8 +137,8 @@ function pagelines_ajax_callback() {
 				$templatemap[$selected_template]['sections'] = $section;
 			
 		
-		
 		save_template_map($templatemap);
+		//print_r($templatemap);
 		
 		echo true;
 		

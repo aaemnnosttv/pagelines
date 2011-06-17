@@ -254,6 +254,16 @@ class PageLinesTemplateBuilder {
 										<?php if( isset($tfield['sections']) && is_array($tfield['sections'])):?>
 											<?php foreach($tfield['sections'] as $section):
 
+													if(strpos($section, '#') !== false) {
+														$pieces = explode("#", $section);
+														$section = $pieces[0];
+														$clone_id = $pieces[1];
+														$the_section_id = 'section_' . $section . '#' . $clone_id; 
+													} else {
+														$clone_id = null;
+														$the_section_id = 'section_' . $section;
+													}
+
 											 		if(isset( $pl_section_factory->sections[$section] )):
 
 														$s = $pl_section_factory->sections[$section];
@@ -263,7 +273,7 @@ class PageLinesTemplateBuilder {
 														$section_args = array(
 															'section'	=> $section,
 															'template'	=> $template,
-															'id'		=> 'section_' . $section, 
+															'id'		=> $the_section_id, 
 															'icon'		=> $s->settings['icon'], 
 															'name'		=> $s->name, 
 															'desc'		=> $s->settings['description'],
@@ -327,7 +337,7 @@ class PageLinesTemplateBuilder {
 						<div class="clear"></div>
 					</div>
 
-	<?php
+	<?php plprint(get_option('pagelines_template_map'));
 	}
 	
 	function draw_section( $args ){ 

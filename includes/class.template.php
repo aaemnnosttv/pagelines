@@ -252,8 +252,8 @@ class PageLinesTemplate {
 				 * If this is a cloned element, remove the clone flag before instantiation here.
 				 */
 				
-				if(strpos($section, '__') !== false) {
-					$pieces = explode("__", $section);
+				if(strpos($section, '#') !== false) {
+					$pieces = explode("#", $section);
 					$section = $pieces[0];
 					$clone_id = $pieces[1];
 				} else {

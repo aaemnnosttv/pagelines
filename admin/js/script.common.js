@@ -362,3 +362,4 @@ jQuery.fn.center = function ( relative_element ) {
     return this;
 }
 
+jQuery.fn.exists = function(){return jQuery(this).length>0;}

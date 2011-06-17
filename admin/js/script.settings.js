@@ -36,7 +36,20 @@
 		
 		var selected_builder = jQuery('.selected_builder').attr('title');
 		
-		jQuery('#'+sectionId).clone().insertAfter('#'+sectionId).attr('id', sectionId+ '__' + 2);
+		$new_clone_id = false;
+		$i = 2;
+		while(!$new_clone_id){
+			
+			if(jQuery('#'+sectionId+'#'+$i).exists()){
+				$i++;
+			} else {
+				$new_clone_id = true;
+			}
+			
+		}
+		
+
+		jQuery('#'+sectionId).clone().insertAfter('#'+sectionId).attr('id', sectionId+ '#' + $i);
 		
 
 		
@@ -71,6 +84,7 @@
 			success: function(response) {
 				jQuery('.selected_builder .ttitle').effect("highlight", {color: "#ddd"}, 2000); 
 				jQuery('.selected_builder .confirm_save').show().delay(1200).fadeOut(700); 
+				//alert(response);
 			}
 		});
 	}
