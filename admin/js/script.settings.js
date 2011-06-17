@@ -40,21 +40,20 @@
 		$i = 2;
 		while(!$new_clone_id){
 			
-			if(jQuery('#'+sectionId+'#'+$i).exists()){
+			if(jQuery('#'+ sectionId + 'ID' + $i).exists()){
 				$i++;
+		
 			} else {
 				$new_clone_id = true;
 			}
 			
 		}
 		
-
-		jQuery('#'+sectionId).clone().insertAfter('#'+sectionId).attr('id', sectionId+ '#' + $i);
+		var newID = sectionId+ 'ID' + $i;
 		
-
+		jQuery('#'+sectionId).clone().hide().insertAfter('#'+sectionId).attr('id', newID).slideDown();
 		
-		
-		//jQuery(old_section).next().attr('id', );
+		jQuery('#'+newID).find('.the_clone_id').html($i);
 		
 		saveSectionOrder( selected_builder );	
 		

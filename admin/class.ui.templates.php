@@ -24,6 +24,7 @@ class PageLinesTemplateBuilder {
 		
 		global $pl_section_factory;
 		$this->factory = $pl_section_factory->sections;
+		$this->avail = $this->factory; 
 	}
 
 	function sc_name( $ta, $section, $field, $sub = null){
@@ -277,53 +278,49 @@ class PageLinesTemplateBuilder {
 	
 	function active_bank( $tid, $t, $ta, $ts ){
 		 
-		if( isset($t['sections']) && is_array($t['sections'])): 
+		if( isset($t['sections']) && is_array($t['sections'])){
 		  
-				foreach($t['sections'] as $section):
+			foreach($t['sections'] as $sid){
 
-					if(strpos($section, '#') !== false) {
-						$pieces = explode("#", $section);
-						$section = $pieces[0];
-						$clone_id = $pieces[1];
-						$the_section_id = 'section_' . $section . '#' . $clone_id; 
-					} else {
-						$clone_id = null;
-						$the_section_id = 'section_' . $section;
-					}
+				$pieces = explode("ID", $sid);		
+				$section = (string) $pieces[0];
+				$clone_id = (isset($pieces[1])) ? $pieces[1] : null;
 
-			 		if(isset( $this->factory[$section] )):
+				plprint($section);
 
-						$s = $this->factory[$section];
+			 	if(isset( $this->factory[$section] )){
 
-						$section_id =  $s->id;
+					$s = $this->factory[$section];
 
-						$section_args = array(
-							'section'	=> $section,
-							'template'	=> $tid,
-							'id'		=> $the_section_id, 
-							'icon'		=> $s->settings['icon'], 
-							'name'		=> $s->name, 
-							'desc'		=> $s->settings['description'],
-							'req'		=> $s->settings['required'],
-							'controls'	=> true,
-							'tslug'		=> $ts,
-							'tarea'		=> $ta,
-						
-						);
+					$section_args = array(
+						'section'	=> $section,
+						'template'	=> $tid,
+						'id'		=> 'section_' . $sid, 
+						'icon'		=> $s->settings['icon'], 
+						'name'		=> $s->name, 
+						'desc'		=> $s->settings['description'],
+						'req'		=> $s->settings['required'],
+						'controls'	=> true,
+						'tslug'		=> $ts,
+						'tarea'		=> $ta,
+						'clone'		=> $clone_id
+					
+					);
 
-						$this->draw_section( $section_args );
+					$this->draw_section( $section_args );
 
-			
-				if(isset($this->factory[$section]))
-					unset($this->factory[$section]);
-			
-				 endif; endforeach;
-			endif;
+		
+					if(isset($this->avail[$section]))
+						unset($this->avail[$section]);
+		
+			 	} 
+			}
+		}
 	} 
 	
 	function passive_bank( $template, $t, $hook, $h ){
 		 
-		foreach( $this->factory as $sid => $s){
+		foreach( $this->avail as $sid => $s){
 
 			/* Flip values and keys */
 			$works_with = array_flip( $s->settings['workswith'] );
@@ -359,7 +356,8 @@ class PageLinesTemplateBuilder {
 			'controls'		=> false,
 			'tslug' 		=> '',				
 			'tarea' 		=> '',
-			'req'			=> false
+			'req'			=> false, 
+			'clone'			=> '1'
 		);
 
 		$a = wp_parse_args( $args, $defaults );
@@ -369,7 +367,8 @@ class PageLinesTemplateBuilder {
 		<li id="<?php echo $a['id'];?>">
 			<div class="section-bar <?php if($a['req'] == true) echo 'required-section';?>">
 				<div class="section-bar-pad fix" style="background: url(<?php echo $a['icon'];?>) no-repeat 10px 6px;">
-					<h4><?php echo $a['name'];?></h4>
+					
+					<h4 class="section-bar-title"><?php echo $a['name'];?> <span class="the_clone_id"><?php if($a['clone'] != 1) echo $a['clone'];?></span></h4>
 					<span class="s-description" <?php $this->help_control();?>>
 						<?php echo $a['desc'];?>
 					</span>
@@ -412,7 +411,8 @@ class PageLinesTemplateBuilder {
 		?>
 		<div class="section-controls">
 			<div class="section-controls-pad">
-				<a class="cloner" onClick="cloneSection('<?php echo $id;?>');">Clone This</a><br/><br/>
+					<div class="clone_button" onClick="cloneSection('<?php echo $id;?>');"><div class="clone_button_pad">Clone</div></div>
+					
 					<strong>Section Settings</strong> 
 					<div class="section-options">
 						<div class="section-options-row">

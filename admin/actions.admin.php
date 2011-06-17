@@ -123,7 +123,7 @@ function pagelines_ajax_callback() {
 		$section_order =  $_GET['orderdata'];
 		
 		/* Get array / variable format */
-		parse_str($section_order);
+		parse_str( $section_order );
 		
 		/* Selected Template */
 		$selected_template = esc_attr( $_GET['template'] );
@@ -138,7 +138,7 @@ function pagelines_ajax_callback() {
 			
 		
 		save_template_map($templatemap);
-		//print_r($templatemap);
+		//print_r($section);
 		
 		echo true;
 		

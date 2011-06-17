@@ -291,21 +291,16 @@ class PageLinesTemplate {
 			/**
 			 * Parse through sections assigned to this hooks
 			 */
-			foreach( $this->$hook as $section ){
+			foreach( $this->$hook as $sid ){
 
-				$sc = $this->sc_settings( $hook, $section );
+				$sc = $this->sc_settings( $hook, $sid );
 				
 				/**
 				 * If this is a cloned element, remove the clone flag before instantiation here.
 				 */
-				
-				if(strpos($section, '#') !== false) {
-					$pieces = explode("#", $section);
-					$section = $pieces[0];
-					$clone_id = $pieces[1];
-				} else {
-					$clone_id = null;
-				}
+				$pieces = explode("ID", $sid);		
+				$section = $pieces[0];
+				$clone_id = (isset($pieces[1])) ? $pieces[1] : null;
 				
 				if( $this->in_factory( $section ) ){
 					$this->factory[ $section ]->before_section( $markup_type, $clone_id);
