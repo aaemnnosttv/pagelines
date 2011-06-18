@@ -24,7 +24,7 @@ class PageLinesTemplateBuilder {
 		
 		global $pl_section_factory;
 		$this->factory = $pl_section_factory->sections;
-		$this->avail = $this->factory; 
+		
 	}
 
 	function sc_name( $ta, $section, $field, $sub = null){
@@ -278,6 +278,7 @@ class PageLinesTemplateBuilder {
 	
 	function active_bank( $tid, $t, $ta, $ts ){
 		 
+		$this->avail = $this->factory; 
 		if( isset($t['sections']) && is_array($t['sections'])){
 		  
 			foreach($t['sections'] as $sid){
