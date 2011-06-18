@@ -111,7 +111,22 @@ class PageLinesTemplateBuilder {
 	function draw_template_select(){ 
 		global $pagelines_template;
 		global $unavailable_section_areas;
+		
 		?>	
+		
+			<script type="text/javascript">
+				jQuery(document).ready(function() {		 
+					// 
+					// jQuery('.tg-format').click( function() {
+					// 
+					// 	var area = jQuery(this).attr('id');
+					// 
+					// 	$.cookie('PageLinesTemplateTab', area);
+					// 
+					// });
+
+				});
+			</script>
 	<div class="template-selector fix">	
 		<div class="template-selector-pad fix">
 			<h4 class="over">1. Select Template Area</h4>
@@ -135,7 +150,7 @@ class PageLinesTemplateBuilder {
 							
 								<div class="tg-rm">
 									<div clas="tgc">
-										<div class="tg-format tg-content-templates">
+										<div id="ta-content" class="tg-format tg-content-templates">
 											<div class="tg-pad">Content Area</div>
 										</div>
 									</div>
@@ -405,7 +420,7 @@ class PageLinesTemplateBuilder {
 			$posts_check_disabled = false;
 		}
 
-		if($this->show_sc( $a['template'] )): ?>
+		 ?>
 		<div class="section-controls" <?php if(!$a['controls']) echo 'style="display:none;"'?>>
 			<div class="section-controls-pad">
 					
@@ -435,11 +450,12 @@ class PageLinesTemplateBuilder {
 							<?php endif;?>
 						</div>
 					<?php else: ?>
-						No section settings for this template area.
+						No settings in this template area.
 					<?php endif;?>
+					<div class="clear"></div>
 			</div>
 		</div>
-	<?php endif;
+	<?php 
 	}
 	
 	

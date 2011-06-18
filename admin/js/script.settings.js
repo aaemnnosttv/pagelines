@@ -36,6 +36,7 @@
 	function cloneSection( sectionId ){
 		
 		var selected_builder = jQuery('.selected_builder').attr('title');
+		var prefix = '.selected_builder #';
 		
 		var exp = sectionId.split('ID');
 		var section = exp[0];
@@ -45,7 +46,7 @@
 		
 		while( !$new_clone_id ){
 			
-			if( !jQuery('#'+ section + 'ID' + $i).exists() ){
+			if( !jQuery( prefix + section + 'ID' + $i ).exists() ){
 				
 				$new_clone_id = true;
 				
@@ -59,14 +60,14 @@
 
 		var newID = section+ 'ID' + $i;
 		
-		jQuery( '#'+sectionId ).clone().hide().insertAfter( '#'+sectionId ).attr( 'id', newID );
+		jQuery( prefix+sectionId ).clone().hide().insertAfter( prefix+sectionId ).attr( 'id', newID );
 		
-		jQuery( '#'+newID ).find( '.the_clone_id' ).html( '#'+$i );
+		jQuery( prefix+newID ).find( '.the_clone_id' ).html( '#'+$i );
 		
-		jQuery( '#'+newID ).find( '.section-controls' ).hide();
-		jQuery( '#'+newID ).find( '.clone_remove' ).show();
+		jQuery( prefix+newID ).find( '.section-controls' ).hide();
+		jQuery( prefix+newID ).find( '.clone_remove' ).show();
 		
-		jQuery( '#'+newID ).slideDown();
+		jQuery( prefix+newID ).slideDown();
 		
 		saveSectionOrder( selected_builder );	
 		
@@ -135,10 +136,8 @@ jQuery(document).ready(function(){
 	/*
 		TODO make default the default page, or posts page?
 	*/
-	var stemplate = 'header';
-	jQuery('.'+stemplate).addClass('selected_builder');
-	jQuery('.tg-header').addClass('builder_selected_area');
-	setSortable(stemplate);
+	doTemplatesSelect();
+	jQuery('.tg-templates').addClass('builder_selected_area');
 	
 	// when a user clicks, highlight the area; slide up the sub selector panels (if they're open)
 	jQuery('.tg-format').click(function() {
@@ -167,12 +166,7 @@ jQuery(document).ready(function(){
 	});
 	
 	jQuery('.tg-templates').click(function() {
-		var stemplate = 'templates-default';
-		jQuery('.sss-selected').removeClass('sss-selected');
-		jQuery('.sub-template-selector #'+stemplate).addClass('sss-selected');
-		jQuery('.sel-templates-sub.sub-template-selector').slideDown();
-	
-		viewAndSort(stemplate);
+		doTemplatesSelect();
 	});
 	
 	jQuery('.tg-content-templates').click(function() {
@@ -187,6 +181,15 @@ jQuery(document).ready(function(){
 		
 	});
 });
+
+function doTemplatesSelect(){
+	var stemplate = 'templates-default';
+	jQuery('.sss-selected').removeClass('sss-selected');
+	jQuery('.sub-template-selector #'+stemplate).addClass('sss-selected');
+	jQuery('.sel-templates-sub.sub-template-selector').slideDown();
+
+	viewAndSort(stemplate);
+}
 
 function viewAndSort( stemplate ){
 	jQuery('.selected_builder').removeClass('selected_builder');

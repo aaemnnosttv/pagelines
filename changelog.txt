@@ -11,6 +11,14 @@
 
 ****************************
 
+
+Version 2.0 beta 1 through 3
+- Sections Cloning
+- Advanced Template Selector
+- Improved Graphics 
+- Updated JS Libs
+- Rewrote Option Engine
+
 Version 1.5.0 -
 - Bug Fix - Using categories for feature slider
 - API - Use WordPress updates system
