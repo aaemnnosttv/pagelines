@@ -364,16 +364,16 @@ class PageLinesTemplateBuilder {
 		 
 		<li id="<?php echo $a['id'];?>">
 			<div class="section-bar <?php if($a['req'] == true) echo 'required-section';?>">
-				<div class="section-bar-pad fix" style="background: url(<?php echo $a['icon'];?>) no-repeat 10px 6px;">
-					
+				<div class="section-bar-pad fix" style="background: url(<?php echo $a['icon'];?>) no-repeat 10px 9px;">
+					<span class="section-controls-toggle" onClick="jQuery(this).parent().parent().next('.section-controls').slideToggle('fast');">
+							Section Control &darr;
+					</span>
 					<h4 class="section-bar-title"><?php echo $a['name'];?> <span class="the_clone_id"><?php if($a['clone'] != 1) echo $a['clone'];?></span></h4>
 					<span class="s-description" <?php $this->help_control();?>>
 						<?php echo $a['desc'];?>
 					</span>
 					<?php if($a['controls'] == true && $this->show_sc( $a['template'] )): ?>
-					<span class="section-controls-toggle" onClick="jQuery(this).parent().parent().next('.section-controls').slideToggle('fast');">
-							Section Control &darr;
-					</span>
+					
 				
 					<?php endif;?>
 					
