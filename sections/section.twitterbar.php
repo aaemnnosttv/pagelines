@@ -23,7 +23,8 @@ class PageLinesTwitterBar extends PageLinesSection {
 			'folder' 		=> '', 
 			'init_file' 	=> 'twitterbar.php',
 			'icon'			=> PL_ADMIN_ICONS . '/twitter.png',
-			'version'		=> 'pro'
+			'version'		=> 'pro', 
+			'cloning'		=> true
 		);
 		
 		$settings = wp_parse_args( $registered_settings, $default_settings );

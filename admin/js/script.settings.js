@@ -15,6 +15,7 @@
 				items: 'li:not(.bank_title)',
 				
 				update: function() {
+					jQuery(this).find('.section-controls-toggle:hidden').fadeIn();
 					saveSectionOrder( selected_builder );				
 		        }                                         
 		    }
@@ -36,37 +37,59 @@
 		
 		var selected_builder = jQuery('.selected_builder').attr('title');
 		
+		var exp = sectionId.split('ID');
+		var section = exp[0];
+		
 		$new_clone_id = false;
 		$i = 2;
-		while(!$new_clone_id){
-			
-			if(jQuery('#'+ sectionId + 'ID' + $i).exists()){
-				$i++;
 		
-			} else {
+		while( !$new_clone_id ){
+			
+			if( !jQuery('#'+ section + 'ID' + $i).exists() ){
+				
 				$new_clone_id = true;
-			}
+				
+			} else {
+				
+				$i++;
+			
+			 }
 			
 		}
+
+		var newID = section+ 'ID' + $i;
 		
-		var newID = sectionId+ 'ID' + $i;
+		jQuery( '#'+sectionId ).clone().hide().insertAfter( '#'+sectionId ).attr( 'id', newID );
 		
-		jQuery('#'+sectionId).clone().hide().insertAfter('#'+sectionId).attr('id', newID);
+		jQuery( '#'+newID ).find( '.the_clone_id' ).html( '#'+$i );
 		
-		jQuery('#'+newID).find('.the_clone_id').html($i);
+		jQuery( '#'+newID ).find( '.section-controls' ).hide();
+		jQuery( '#'+newID ).find( '.clone_remove' ).show();
 		
-		jQuery('#'+newID).find('.section-controls').hide();
-		
-		jQuery('#'+newID).slideDown();
+		jQuery( '#'+newID ).slideDown();
 		
 		saveSectionOrder( selected_builder );	
 		
 	}
 	
-	function saveSectionOrder( selected_builder ){
-		var saveText = jQuery('.selected_builder .confirm_save_pad');
+	function deleteSection( clicked ){
 		
-		setEmpty(".selected_builder #sortable_template");
+		var element = jQuery(clicked).parent().parent().parent().parent();
+		
+		
+		element.slideUp('fast').attr('id', '');
+		
+	//	element.remove();
+		
+		var selected_builder = jQuery( '.selected_builder' ).attr('title');
+		saveSectionOrder( selected_builder );	
+		
+	}
+	
+	function saveSectionOrder( selected_builder ){
+		var saveText = jQuery( '.selected_builder .confirm_save_pad' );
+		
+		setEmpty( ".selected_builder #sortable_template" );
 		setEmpty(".selected_builder #sortable_sections");
 		
         var order = jQuery('.selected_builder #sortable_template').sortable('serialize');

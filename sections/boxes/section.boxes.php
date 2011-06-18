@@ -19,6 +19,7 @@ class PageLinesBoxes extends PageLinesSection {
 			'description' 	=> 'Inline boxes on your page that support images and media.  Great for feature lists, and media.',
 			'icon'			=> PL_ADMIN_ICONS . '/boxes.png', 
 			'version'		=> 'pro',
+			'cloning'		=> true
 		);
 		
 		$settings = wp_parse_args( $registered_settings, $default_settings );

@@ -21,7 +21,8 @@ class PageLinesContent extends PageLinesSection {
 			'workswith' 	=> array('templates'),
 			'failswith'		=> array('404'),
 			
-			'icon'			=> PL_ADMIN_ICONS . '/document.png'
+			'icon'			=> PL_ADMIN_ICONS . '/document.png', 
+			'cloning'		=> false
 		);
 		
 

@@ -27,7 +27,8 @@ class PageLinesNav extends PageLinesSection {
 			'description' 	=> 'Primary Site Navigation.',
 			'folder' 		=> 'nav', 
 			'init_file' 	=> 'nav.php',
-			'icon'			=> PL_ADMIN_ICONS . '/map.png'
+			'icon'			=> PL_ADMIN_ICONS . '/map.png', 
+			'cloning'		=> false
 		);
 		
 		$settings = wp_parse_args( $registered_settings, $default_settings );

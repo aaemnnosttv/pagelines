@@ -21,6 +21,7 @@ class PageLinesSoapbox extends PageLinesSection {
 			'version'		=> 'pro',
 			'dependence'	=> 'PageLinesBoxes', 
 			'posttype'		=> 'boxes',
+			'cloning'		=> true
 		);
 		
 		$settings = wp_parse_args( $registered_settings, $default_settings );

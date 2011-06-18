@@ -21,7 +21,8 @@ class PageLinesHighlight extends PageLinesSection {
 			'workswith' 	=> array('templates', 'main', 'header', 'morefoot'),
 			'failswith'		=> array('posts', '404'),
 			'icon'			=> PL_ADMIN_ICONS . '/highlight.png', 
-			'version'		=> 'pro'
+			'version'		=> 'pro', 
+			'cloning'		=> true
 		);
 		
 		$settings = wp_parse_args( $registered_settings, $default_settings );

@@ -19,7 +19,9 @@ class PageLinesBanners extends PageLinesSection {
 			'description' 	=> 'Creates "banners" (image on one side text on the other). Great for product tours, portfolios, etc...',
 			'icon'			=> PL_ADMIN_ICONS . '/banners.png', 
 			'version'		=> 'pro',
-			'failswith'		=> array('404', 'posts')
+			'failswith'		=> array('404', 'posts'), 
+			'cloning'		=> true
+			
 		);
 		
 		$settings = wp_parse_args( $registered_settings, $default_settings );

@@ -37,7 +37,8 @@ class PageLinesSection {
 				'base_url'			=> SECTION_ROOT,
 				'dependence'		=> '', 
 				'posttype'			=> '',
-				'failswith'			=> array()
+				'failswith'			=> array(), 
+				'cloning'			=> false
 			);
 		
 		$this->settings = wp_parse_args( $settings, $defaults );

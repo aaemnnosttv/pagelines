@@ -21,7 +21,8 @@ class PageLinesCallout extends PageLinesSection {
 			'workswith' 	=> array('content'),
 			'folder' 		=> '', 
 			'init_file' 	=> 'callout.php', 
-			'icon'			=> PL_ADMIN_ICONS . '/speaker.png'
+			'icon'			=> PL_ADMIN_ICONS . '/speaker.png',
+			'cloning'		=> true
 		);
 		
 		$settings = wp_parse_args( $registered_settings, $default_settings );

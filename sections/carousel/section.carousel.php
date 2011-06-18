@@ -21,6 +21,7 @@ class PageLinesCarousel extends PageLinesSection {
 			'workswith'		=> array('content', 'header', 'footer'),
 			'icon'			=> PL_ADMIN_ICONS . '/carousel.png',
 			'version'		=> 'pro',
+			'cloning'		=> true
 		);
 		
 		$settings = wp_parse_args( $registered_settings, $default_settings );

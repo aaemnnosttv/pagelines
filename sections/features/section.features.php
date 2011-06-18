@@ -22,6 +22,7 @@ class PageLinesFeatures extends PageLinesSection {
 			'description'	=> 'This is your main feature slider.  Add feature text and media through the admin panel.',
 			'icon'			=> $this->section_root_url.'/features.png',
 			'version'		=> 'pro',	
+			'cloning'		=> true
 		);
 		
 		$settings = wp_parse_args( $registered_settings, $default_settings );

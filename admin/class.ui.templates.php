@@ -284,7 +284,7 @@ class PageLinesTemplateBuilder {
 
 				$pieces = explode("ID", $sid);		
 				$section = (string) $pieces[0];
-				$clone_id = (isset($pieces[1])) ? $pieces[1] : null;
+				$clone_id = (isset($pieces[1])) ? $pieces[1] : 1;
 
 			 	if(isset( $this->factory[$section] )){
 
@@ -301,7 +301,8 @@ class PageLinesTemplateBuilder {
 						'controls'	=> true,
 						'tslug'		=> $ts,
 						'tarea'		=> $ta,
-						'clone'		=> $clone_id
+						'clone'		=> $clone_id, 
+						'cloning'	=> $s->settings['cloning']
 					
 					);
 
@@ -355,7 +356,8 @@ class PageLinesTemplateBuilder {
 			'tslug' 		=> '',				
 			'tarea' 		=> '',
 			'req'			=> false, 
-			'clone'			=> '1'
+			'clone'			=> '1', 
+			'cloning'		=> false
 		);
 
 		$a = wp_parse_args( $args, $defaults );
@@ -365,66 +367,73 @@ class PageLinesTemplateBuilder {
 		<li id="<?php echo $a['id'];?>">
 			<div class="section-bar <?php if($a['req'] == true) echo 'required-section';?>">
 				<div class="section-bar-pad fix" style="background: url(<?php echo $a['icon'];?>) no-repeat 10px 9px;">
-					<span class="section-controls-toggle" onClick="jQuery(this).parent().parent().next('.section-controls').slideToggle('fast');">
-							Section Control &darr;
-					</span>
-					<h4 class="section-bar-title"><?php echo $a['name'];?> <span class="the_clone_id"><?php if($a['clone'] != 1) echo $a['clone'];?></span></h4>
+		
+					
+					<div class="section-controls-toggle" onClick="jQuery(this).parent().parent().next('.section-controls').slideToggle('fast');" <?php if(!$a['controls']) echo 'style="display:none;"'?>>
+							<div class="section-controls-toggle-pad">Options</div>
+					</div>
+					
+			
+					<h4 class="section-bar-title"><?php echo $a['name'];?> <span class="the_clone_id"><?php if($a['clone'] != 1) echo '#'.$a['clone'];?></span></h4>
 					<span class="s-description" <?php $this->help_control();?>>
 						<?php echo $a['desc'];?>
 					</span>
-					<?php if($a['controls'] == true && $this->show_sc( $a['template'] )): ?>
-					
-				
-					<?php endif;?>
 					
 				</div>
 			</div>
-			<?php
-				if($a['controls'] == true)
-					$this->inline_section_control($a['id'], $a['name'], $a['template'], $a['section'], $a['tslug'], $a['tarea']);
-			
-			?>
+			<?php $this->inline_section_control($a); ?>
 		</li>
 		
 	<?php }
 	
-	function inline_section_control($id, $name, $template, $section, $template_slug, $template_area){
+	function inline_section_control($a){
 
 		// Options 
-		$check_name = $this->sc_name($template_slug, $section, 'hide');
-		$check_value = $this->sc_value($template_slug, $section, 'hide'); 
+		$check_name = $this->sc_name($a['tslug'], $a['section'], 'hide');
+		$check_value = $this->sc_value($a['tslug'], $a['section'], 'hide'); 
 
 		$posts_action = ($check_value) ? 'show' : 'hide';
 
-		if($template_area == 'main' || $template_area == 'templates')
+		if($a['tarea'] == 'main' || $a['tarea'] == 'templates')
 			$posts_check_disabled = true;
 		else {
 			$posts_check_label = ucfirst($posts_action) .' On Posts Pages';
-			$posts_check_name = $this->sc_name($template_slug, $section, 'posts-page', $posts_action);
-			$posts_check_value = $this->sc_value($template_slug, $section, 'posts-page', $posts_action);
+			$posts_check_name = $this->sc_name($a['tslug'], $a['section'], 'posts-page', $posts_action);
+			$posts_check_value = $this->sc_value($a['tslug'], $a['section'], 'posts-page', $posts_action);
 			$posts_check_disabled = false;
 		}
 
-		if($this->show_sc( $template )):
-		?>
-		<div class="section-controls">
+		if($this->show_sc( $a['template'] )): ?>
+		<div class="section-controls" <?php if(!$a['controls']) echo 'style="display:none;"'?>>
 			<div class="section-controls-pad">
-					<div class="clone_button" onClick="cloneSection('<?php echo $id;?>');"><div class="clone_button_pad">Clone</div></div>
+					<?php if($a['cloning']):?>
+						<div class="sc_buttons">
+							<div class="clone_button" onClick="cloneSection('<?php echo $a['id'];?>');"><div class="clone_button_pad">Clone</div></div>
+							<div class="clone_button clone_remove" style="<?php if($a['clone'] == 1) echo 'display: none;';?>" onClick="deleteSection(this, '<?php echo $a['id'];?>');"><div class="clone_button_pad">Remove</div></div>
+						</div>
+					<?php endif;
 					
-					<strong>Section Settings</strong> 
-					<div class="section-options">
-						<div class="section-options-row">
-							<input class="section_control_check" type="checkbox" id="<?php echo $check_name; ?>" name="<?php echo $check_name; ?>" <?php checked((bool) $check_value); ?> />
-							<label for="<?php echo $check_name; ?>">Hide This By Default</label>
+					if($this->show_sc( $a['template'] )):?>
+						<strong>
+							<?php echo $a['name'];?> 
+							<?php if($a['clone'] != 1):?><span class="the_clone_id"><?php echo '#'.$a['clone']; ?></span><?php endif;?> 
+							Settings
+						</strong> 
+						<div class="section-options">
+							<div class="section-options-row">
+								<input class="section_control_check" type="checkbox" id="<?php echo $check_name; ?>" name="<?php echo $check_name; ?>" <?php checked((bool) $check_value); ?> />
+								<label for="<?php echo $check_name; ?>">Hide This By Default</label>
+							</div>
+							<?php if(!$posts_check_disabled):?>
+							<div class="section-options-row">
+									<input class="section_control_check" type="checkbox" id="<?php echo $posts_check_name; ?>" name="<?php echo $posts_check_name; ?>" <?php checked((bool) $posts_check_value); ?>/>
+									<label for="<?php echo $posts_check_name; ?>" class="<?php echo 'check_type_'.$posts_check_type; ?>"><?php echo $posts_check_label;?></label>
+							</div>
+							<?php endif;?>
 						</div>
-						<?php if(!$posts_check_disabled):?>
-						<div class="section-options-row">
-								<input class="section_control_check" type="checkbox" id="<?php echo $posts_check_name; ?>" name="<?php echo $posts_check_name; ?>" <?php checked((bool) $posts_check_value); ?>/>
-								<label for="<?php echo $posts_check_name; ?>" class="<?php echo 'check_type_'.$posts_check_type; ?>"><?php echo $posts_check_label;?></label>
-						</div>
-						<?php endif;?>
-					</div>
-
+					<?php else: ?>
+						No section settings for this template area.
+					<?php endif;?>
 			</div>
 		</div>
 	<?php endif;
