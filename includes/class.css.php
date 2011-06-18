@@ -113,7 +113,7 @@ class PageLinesCSS {
 		$content_with_border = $content_width + 2;
 		$this->css .= "#page-main .content{ max-width:".$content_with_border."px }".$this->nl;
 	
-		if(pagelines_option('responsive_layout'))
+		if(!pagelines_option('responsive_layout'))
 			$this->css .= "#site .content, .wcontent, #footer .content{ width: 100%; max-width:".$content_width."px;}".$this->nl2;
 		else
 			$this->css .= "#site .content, .wcontent, #footer .content{ width:".$content_width."px;}".$this->nl2;

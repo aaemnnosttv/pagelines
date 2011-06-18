@@ -123,9 +123,9 @@ class PageLinesPosts {
 		
 			$style = ($this->pagelines_show_thumb($post->ID)) ? 'margin-left:'.$this->thumb_space.'px' : '';
 			
-			$title = sprintf('<section class="post-title-section fix"><hgroup class="post-title fix">%s%s</hgroup></section>', $this->pagelines_get_post_title(), $this->pagelines_get_post_metabar( $format ));
+			$title = sprintf('<section class="bd post-title-section fix"><hgroup class="post-title fix">%s%s</hgroup></section>', $this->pagelines_get_post_title(), $this->pagelines_get_post_metabar( $format ));
 			
-			$post_header = sprintf('<section class="post-meta media fix">%s<section class="bd post-header fix %s" >%s %s</section></section>', $thumb, $classes,   $title, $excerpt);
+			$post_header = sprintf('<section class="post-meta media fix">%s<section class="bd post-header fix %s" >%s %s</section></section>', $thumb, $classes, $title, $excerpt);
 			
 			return apply_filters( 'pagelines_post_header', $post_header );
 			

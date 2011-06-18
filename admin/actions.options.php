@@ -229,7 +229,7 @@ function save_section_control_box($postID){
 
 	if(isset($_POST['update']) || isset($_POST['save']) || isset($_POST['publish'])){
 
-		foreach($save_template->default_all_template_sections as $section){
+		foreach($save_template->default_allsections as $section){
 					
 			$option_value =  isset($_POST['_hide_'.$section]) ? $_POST['_hide_'.$section] : null;
 			
