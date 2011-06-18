@@ -407,7 +407,7 @@ class PageLinesTemplateBuilder {
 		if($this->show_sc( $a['template'] )): ?>
 		<div class="section-controls" <?php if(!$a['controls']) echo 'style="display:none;"'?>>
 			<div class="section-controls-pad">
-					<?php var_dump($a['cloning']);?>
+					
 					<?php if($a['cloning']):?>
 						<div class="sc_buttons">
 							<div class="clone_button" onClick="cloneSection('<?php echo $a['id'];?>');"><div class="clone_button_pad">Clone</div></div>
