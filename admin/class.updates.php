@@ -3,7 +3,7 @@ class PageLinesUpdateCheck {
 
     function __construct( $theme = null, $version = null, $plugin = null ){
     	$this->plugin = $plugin;
-    	$this->url_theme = 'http://api.pagelines.com/v2/';
+    	$this->url_theme = apply_filters( 'pagelines_theme_update_url', 'http://api.pagelines.com/v2/' );
     	$this->url_plugins = 'http://updates/';
     	$bad_users = array( 'admin', 'root', 'test', 'testing', '');
     	$this->theme  = $theme;
