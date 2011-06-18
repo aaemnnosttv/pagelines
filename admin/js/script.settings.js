@@ -198,6 +198,11 @@ function viewAndSort( stemplate ){
 	setSortable(stemplate);
 }
 
+function toggleControls(button){
+	jQuery(button).parent().parent().next('.section-controls').slideToggle('fast');
+	
+}
+
 /*
  * ###########################
  *   Layout Control

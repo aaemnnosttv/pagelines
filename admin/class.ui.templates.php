@@ -386,7 +386,7 @@ class PageLinesTemplateBuilder {
 				<div class="section-bar-pad fix" style="background: url(<?php echo $a['icon'];?>) no-repeat 10px 9px;">
 		
 					
-					<div class="section-controls-toggle" onClick="jQuery(this).parent().parent().next('.section-controls').slideToggle('fast');" <?php if(!$a['controls']) echo 'style="display:none;"'?>>
+					<div class="section-controls-toggle" onClick="toggleControls(this);" <?php if(!$a['controls']) echo 'style="display:none;"'?>>
 							<div class="section-controls-toggle-pad">Options</div>
 					</div>
 					

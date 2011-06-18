@@ -1640,10 +1640,14 @@
 					border-left: 1px solid #f7f7f7;
 					padding: 3px 6px 2px 5px; 
 				}
+				
+				
 			.section-controls-toggle:hover{
-				color: #444;
+				color: #333;
 				cursor: pointer;
+				background:#ddd;
 			}
+			
 			.section-controls{
 				display: none; 
 				background: #dadada;
