@@ -135,6 +135,8 @@ function pagelines_head_common(){
 	// Get Common CSS & Reset
 	pagelines_load_css_relative('css/common.css', 'pagelines-common');
 
+
+	
 	// Get CSS Objects & Grids
 	pagelines_load_css_relative('css/objects.css', 'pagelines-objects');
 
@@ -257,17 +259,8 @@ function do_dynamic_css(){
 		// TODO is there a better solution?
 
 		global $blog_id;
-
-	if( (is_multisite() && $blog_id != 1) || pagelines_option('inline_dynamic_css') || !is_writable(PAGELINES_DCSS ) ){
 		get_dynamic_css();
-	} else {
-		
-		$date_modified = filemtime(PAGELINES_DCSS);
-		$dcss_cache_ver = str_replace('.', '', CORE_VERSION) .'-'. date('mdyGis', $date_modified); 
-		
-		printf('<link rel="stylesheet" id="dynamic-css" href="%s?ver=%s" type="text/css" media="all" />%s', PAGELINES_DCSS_URI, $dcss_cache_ver, "\n");
-	
-	} 
+
 }	
 	
 /**

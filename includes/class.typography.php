@@ -459,11 +459,11 @@ class PageLinesFoundry {
 	function get_type_css($typesettings){
 		$defaults = array(
 			'font' 		=> null, 
-			'kern'		=> null,
-			'transform'	=> null, 
-			'weight'	=> null, 
-			'variant'	=> null,
-			'style'		=> null, 
+			'kern'		=> '0.00em',
+			'transform'	=> 'none', 
+			'weight'	=> 'normal', 
+			'variant'	=> 'normal',
+			'style'		=> 'normal', 
 			'selectors'	=> null, 
 			'prepend'	=> null
 		);
@@ -475,21 +475,73 @@ class PageLinesFoundry {
 			$type_css = 'font-family:' . $pre . $this->get_stack($t['font']) .';';	
 		}
 		
-		if( isset($t['kern']) && !empty($t['kern']) ) 
+		if( '0.00em' != (string) $t['kern'] ) 
 			$type_css .= 'letter-spacing:'. $t['kern'] .';';
 
-		if( isset($t['transform']) && !empty($t['transform']) ) 
+		if( $t['transform'] != 'none' ) 
 			$type_css .= 'text-transform:'. $t['transform'] .';';
 
-		if( isset($t['weight']) && !empty($t['weight']) ) 
+		if( $t['weight'] != 'normal' ) 
 			$type_css .= 'font-weight:'. $t['weight'] .';';
 
-		if( isset($t['variant']) && !empty($t['variant']) ) 
+		if( $t['variant'] != 'normal' ) 
 			$type_css .= 'font-variant:'. $t['variant'] .';';
 
-		if( isset($t['style']) && !empty($t['style']) ) 
+		if( $t['style'] != 'normal' ) 
 			$type_css .= 'font-style:'. $t['style'] .';';
 			
 		return ( isset( $type_css ) ) ? $type_css : '';
+	}
+	
+	function render_css(){
+		$css = '';
+		foreach (get_option_array() as $mid){
+			
+			foreach($mid as $oid => $o){ 
+				
+				if($o['type'] == 'typography'){
+					
+					$type = pagelines_option($oid);
+					
+					$font_id = $type['font'];
+					
+					// Don't render if font isn't set.
+					if(isset($font_id) && isset($this->foundry[$font_id]) ){
+						
+						if($this->foundry[$font_id]['google'])
+							$google_fonts[] = $font_id;
+
+						$type_selectors = $o['selectors']; 
+
+						if( isset($type['selectors']) && !empty($type['selectors']) ) $type_selectors .=  ',' . trim(trim($type['selectors']), ",");
+
+						$type_css = $this->get_type_css($type);
+					
+					
+						$type_css_keys[] = $type_selectors . "{".$type_css."}";
+					}
+					
+				}
+				
+			}
+		}
+		
+		if(isset($google_fonts) && is_array($google_fonts )){
+			
+			$css .= $this->google_import($google_fonts);
+			
+		}
+		
+
+		
+		// Render the font CSS
+		if(isset($type_css_keys) && is_array($type_css_keys)){
+			foreach($type_css_keys as $typeface)
+				$css .= $typeface;
+			
+		}
+		
+		return $css;
+		
 	}
 }

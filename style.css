@@ -1,7 +1,7 @@
 /*  
-Theme Name: Platform
+Theme Name: PageLines Framework
 
-Description: Platform is an drag-and-drop theme-design framework for WordPress and HTML5. It will help you do amazing things with your site, faster & easier than ever before. Designed and developed by <a href="http://pagelines.com/">PageLines</a> in California. Twitter @pagelines
+Description: PageLines Framework is an drag-and-drop theme-design framework for WordPress and HTML5. It will help you do amazing things with your site, faster & easier than ever before. Designed and developed by <a href="http://pagelines.com/">PageLines</a> in California. Twitter @pagelines
 
 Version: 2.0.b4
 
@@ -9,39 +9,32 @@ Author: PageLines
 
 Author URI: http://www.pagelines.com
 
-Theme URI: http://www.pagelines.com/themes/platformpro
+Theme URI: http://www.pagelines.com/framework
 
 Tags: buddypress, rtl-language-support, editor-style, theme-options, one-column, two-columns, three-columns, left-sidebar, right-sidebar, flexible-width, custom-menu, fixed-width, threaded-comments, custom-background,  custom-header, custom-colors, custom-menu, photoblogging, translation-ready, white, silver, light, blue, green, yellow
-
-***** IMPORTANT ***** 
-Don't pirate this theme. Themes are typically hacked and injected with spam files and scripts that will get you 'black-listed' from search engines and create security risks on your server.
-FYI - http://wpmu.org/why-you-should-never-search-for-free-wordpress-themes-in-google-or-anywhere-else/
-
 License: GPL
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-DO NOT CUSTOMIZE THIS FILE USE BASE CHILD THEME OR SETTINGS 
+*Important* Don't add customizations to this file!
 - Customization CSS in PageLines Themes
-	- Customize PageLines themes by adding CSS in the theme settings or in the Base child theme (w Pro)
+	- Customize PageLines themes by adding CSS in the theme settings or in the Base child theme or plugin
 	- Don't add it here; as it will either get overwritten by updates, or prevent you from updating at all
-	- (Trust us on this one!)
+	
+-------------------------------------------------------------- 
+
+	PAGELINES FRAMEWORK DEFAULT CSS
+	   
+	1st Rule - You come first. 
+	PageLines truly appreciates your business and support.
+	
+	Developed by Andrew Powers, Simon Prosser, Adam Munns
+	Copyright 2011 PageLines Inc. All rights reserved.
+
+---------------------------------------------------------------  		
 */
 
-/* ========================================================================= */
-/* = PLATFORM THEME CSS by PageLines - PageLines Copyright 2008 - 2011 = */
-/* ========================================================================= */
 
-
-/* Formatting Setup */
-	body{ font-size:82.5%; line-height:1.58em; height:100%; padding-top: 5px; } 
-	#page, #dynamic-content { min-height: 500px; zoom:1;}
-	#page-canvas{ margin: 0 auto; }
-		
-
-/* ===============*/
-/* =   @ Type   = */
-/* ===============*/
-
+body{ font-size:82.5%; line-height:1.58em; height:100%; padding-top: 5px; } 			
 
 /* Headers H1 - H6 */
 	h1, h2, h3, h4, h5, h6{font-weight:normal; line-height: 1.33em;}
@@ -360,57 +353,6 @@ aside ul, aside ol, .sidenote ul, .sidenote ol{margin-top:1.3em;line-height:1.7e
 /* = Formatting  = */
 /* =============== */		
 
-/* @ Site Layout */
-
-	#site { position:relative; }	
-	#wrapper { padding-bottom: 3.5em; }
-	
-	.fixed_width #page, .fixed_width #footer, .canvas #page-canvas{ 
-		max-width: 980px;
-		width: 100%;
-		margin: 0 auto;
-		position: relative;
-	}
-		
-	.content { 
-			max-width: 960px; 
-			width: 100%;
-			margin: 0 auto;
-			position: relative;
-	}
-	
-	/* @ Layout Floating */
-		#column-wrap, #container{float: left;}
-		#sidebar-wrap{float:right;}
-		.two-sidebar-left #column-wrap, .one-sidebar-left #column-wrap, .two-sidebar-left #buddypress-page #container, .one-sidebar-left #buddypress-page #container{ float: right; }
-		.two-sidebar-left #sidebar-wrap, .one-sidebar-left #sidebar-wrap{ float: left; }
-		.two-sidebar-left #column-main, .one-sidebar-left #column-main, .two-sidebar-left #buddypress-page #container, .one-sidebar-left #buddypress-page #container{ float: right; }
-		.two-sidebar-center #column-main { float: right;}
-	
-	/* @ Layout Column Padding */
-		.mcolumn-pad {padding-top: 2em;}
-		.two-sidebar-center #column-main .mcolumn-pad{ padding-right: 20px; padding-left: 20px;}
-		.fullwidth #column-main .mcolumn-pad{ padding-right: 15px; padding-left: 15px;}
-	
-		.one-sidebar-right #column-main .mcolumn-pad, .one-sidebar-right #container #content, .two-sidebar-right #column-main .mcolumn-pad, .two-sidebar-right #container #content{ 
-			padding: 2em 30px 0 15px;
-		}
-		.one-sidebar-left #column-main .mcolumn-pad , .one-sidebar-left #container #content, .two-sidebar-left #column-main .mcolumn-pad , .two-sidebar-left #container #content{ 
-			padding: 2em 15px 0 30px;
-		}
-		
-	#page-main .content {border-right: 1px solid transparent; border-left: 1px solid transparent;}
-	
-	#column-main {
-		float: left;
-		width: 630px;
-		display: inline;
-	}
-	
-	#sidebar1, #sidebar2{
-		float: left;
-		overflow:hidden;
-	}
 	
 /* @ #header */	
 	#header .outline{

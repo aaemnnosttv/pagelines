@@ -696,6 +696,101 @@ class OptEngine {
 	
 	
 	/**
+	 *  CSS Rendering In <head>
+	 */
+	function render_css(){
+		$css = '';
+		
+		foreach (get_option_array() as $menu){
+
+			foreach($menu as $oid => $o){ 
+				
+				if($o['type'] == 'css_option' && pagelines_option($oid)){
+					
+					if(pagelines_option($oid) == $o['default']){
+						// do nothing
+					} elseif(isset($o['css_prop']) && isset($o['selectors'])){
+						
+						$css_units = (isset($o['css_units'])) ? $o['css_units'] : '';
+						
+						$css .= $o['selectors'].'{'.$o['css_prop'].':'.pagelines_option($oid).$css_units.';}';
+					}
+
+				}
+				
+				if( $o['type'] == 'background_image' && pagelines_option($oid.'_url')){
+					
+					$bg_repeat = (pagelines_option($oid.'_repeat')) ? pagelines_option($oid.'_repeat'): 'no-repeat';
+					$bg_pos_vert = (pagelines_option($oid.'_pos_vert') || pagelines_option($oid.'_pos_vert') == 0 ) ? (int) pagelines_option($oid.'_pos_vert') : '0';
+					$bg_pos_hor = (pagelines_option($oid.'_pos_hor') || pagelines_option($oid.'_pos_hor') == 0 ) ? (int) pagelines_option($oid.'_pos_hor') : '50';
+					$bg_selector = (pagelines_option($oid.'_selector')) ? pagelines_option($oid.'_selector') : $o['selectors'];
+					$bg_url = pagelines_option($oid.'_url');
+					
+					$css .= sprintf('%s{ background-image:url(%s);}', $bg_selector, $bg_url);
+					$css .= sprintf('%s{ background-repeat: %s;}', $bg_selector, $bg_repeat);
+					$css .= sprintf('%s{ background-position: %s%% %s%%;}', $bg_selector, $bg_pos_hor, $bg_pos_vert);
+					
+					
+				}
+	
+				
+				if($o['type'] == 'colorpicker')
+					$css .= $this->render_css_colors($oid, $o['selectors'], $o['css_prop']);
+
+				
+				elseif($o['type'] == 'color_multi'){
+					
+					foreach($o['selectvalues'] as $mid => $m){
+						
+						$selectors = (isset($m['selectors'])) ? $m['selectors'] : null ;
+						$property = (isset($m['css_prop'])) ? $m['css_prop'] : null ;
+						
+						$css .= $this->render_css_colors($mid, $m, $selectors, $property);
+					}
+					
+				}
+			} 
+		}
+		return $css;
+
+	}
+	
+	function render_css_colors( $oid, $o, $selectors = null, $css_prop = null ){
+		if( pagelines_option($oid)){
+			$css = '';
+			if( isset($o['default']) && pagelines_option($oid) == $o['default']){
+				// do nothing
+			}elseif(isset($css_prop)){
+			
+				if(is_array($css_prop)){
+				
+					foreach( $css_prop as $css_property => $css_selectors ){
+
+						if($css_property == 'text-shadow')
+							$css .= $css_selectors . '{ text-shadow:'.pagelines_option($oid).' 0 1px 0;}';		
+						elseif($css_property == 'text-shadow-top')
+							$css .= $css_selectors . '{ text-shadow:'.pagelines_option($oid).' 0 -1px 0;}';		
+						else
+							$css .= $css_selectors . '{'.$css_property.':'.pagelines_option($oid).';}';		
+						
+					}
+				
+				}else
+					$css .= $selectors.'{'.$css_prop.':'.pagelines_option($oid).';}';
+				
+			
+			} else
+				$css .= $selectors.'{color:'.pagelines_option($oid).';}';
+			
+			
+			return $css;
+		} else 
+			return '';
+	}
+
+	
+	
+	/**
 	 *  INPUT HELPERS
 	 */
 	function input_hidden($id, $name, $value, $class = ''){

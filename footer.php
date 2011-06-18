@@ -17,7 +17,7 @@ pagelines_integration_bottom(); ?>
 <div class="clear"></div>
 				
 </div> <!-- END #page-main from header -->
-</div> <!-- END #page-canvas from header -->
+</div> <!-- END .page-canvas from header -->
 </div> <!-- END #page from header -->
 
 <footer id="footer">

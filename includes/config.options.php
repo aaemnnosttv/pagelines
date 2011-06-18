@@ -237,7 +237,7 @@ class PageLinesOptionsArray {
 				'page_content_bg'	=> array(				
 					'version'	=> 'pro',
 					'default' 	=> '#FFFFFF',
-					'selectors'	=>	'.canvas #page-canvas',
+					'selectors'	=>	'.canvas .page-canvas',
 					'css_prop'	=> 'background-color',
 					'inputlabel' 	=> 'Page Canvas Background Color <small>The Background Color Site Content (Canvas Mode Only)</small>',
 					),

@@ -159,20 +159,6 @@ function pagelines_ajax_save_option_callback() {
 }
 
 
-
-
-
-// Creates Dynamic CSS file when saving with AJAX
-add_action('wp_ajax_pagelines_ajax_create_dynamic_css', 'pagelines_ajax_create_dynamic_css_callback');
-function pagelines_ajax_create_dynamic_css_callback() {
-	global $wpdb; // this is how you get access to the database
-
-	pagelines_build_dynamic_css( 'AJAX' );
-	
-	die();
-}
-
-	
 // Check Platform version with API
 
 add_action( 'admin_init', 'pagelines_check_version' );

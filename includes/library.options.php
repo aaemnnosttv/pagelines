@@ -341,7 +341,6 @@ function pagelines_import_export(){
 				wp_cache_clean_cache($file_prefix); 
 			}
 
-			pagelines_build_dynamic_css();
 			wp_redirect(admin_url( 'admin.php?page=pagelines&pageaction=import&imported=true' )); 
 		}
 		

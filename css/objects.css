@@ -9,6 +9,38 @@
 /* @ Responsive Design */
 	body img {max-width: 100%; height: auto;}
 
+/* @ Layout Framework */
+
+	#site { position:relative; }	
+	#wrapper { padding-bottom: 3.5em; }
+	#page, #dynamic-content { min-height: 500px; zoom:1;}
+	
+	.fixed_width #page, .fixed_width #footer, .canvas .page-canvas{ width: 100%; margin: 0 auto; position: relative; max-width: 980px; }
+	.page-canvas{ margin: 0 auto; }
+	.content { width: 100%; margin: 0 auto; position: relative; max-width: 960px;  }
+	#page-main .content {border-right: 1px solid transparent; border-left: 1px solid transparent;}
+	
+	/* @ Layout Floating */
+		#column-wrap, #container{float: left;}
+		#sidebar-wrap{float:right;}
+		.two-sidebar-left #column-wrap, .one-sidebar-left #column-wrap, .two-sidebar-left #buddypress-page #container, .one-sidebar-left #buddypress-page #container{ float: right; }
+		.two-sidebar-left #sidebar-wrap, .one-sidebar-left #sidebar-wrap{ float: left; }
+		.two-sidebar-left #column-main, .one-sidebar-left #column-main, .two-sidebar-left #buddypress-page #container, .one-sidebar-left #buddypress-page #container{ float: right; }
+		.two-sidebar-center #column-main { float: right;}
+		#column-main { float: left; width: 630px; display: inline; }
+		#sidebar1, #sidebar2{ float: left; overflow:hidden; }
+
+	/* @ Layout Column Padding */
+		.mcolumn-pad {padding-top: 2em;}
+		.two-sidebar-center #column-main .mcolumn-pad{ padding-right: 20px; padding-left: 20px;}
+		.fullwidth #column-main .mcolumn-pad{ padding-right: 15px; padding-left: 15px;}
+		.one-sidebar-right #column-main .mcolumn-pad, .one-sidebar-right #container #content, .two-sidebar-right #column-main .mcolumn-pad, .two-sidebar-right #container #content{ 
+			padding: 2em 30px 0 15px;
+		}
+		.one-sidebar-left #column-main .mcolumn-pad , .one-sidebar-left #container #content, .two-sidebar-left #column-main .mcolumn-pad , .two-sidebar-left #container #content{ 
+			padding: 2em 15px 0 30px;
+		}
+
 
 /* @ Inline List - Horizontal non-floated navigation/menu */
 	ul.inline-list { list-style-type: none; }

@@ -12,9 +12,6 @@
  */
 class PageLinesLayout {
 
-
-
-
 	// BUILD THE PAGELINES OBJECT
 		function __construct($layout_mode = null) {
 			
@@ -343,6 +340,60 @@ class PageLinesLayout {
 			return floor($actual_pixels / $ratio);
 		}
 
+
+		function draw_layout_inline(){
+			printf('<style type="text/css" id="dynamic-css">%1$s %2$s %1$s</style>%1$s', "\n", $this->get_layout_inline());
+		}
+
+		function get_layout_inline(){
+			
+			$l = $this->calculate_dimensions($this->layout_mode);
+			$mode = '.'.$this->layout_mode.' ';
+			$css = '';
+			$c = $this->content->width;
+			
+			$css .= sprintf('body.fixed_width #page, body.fixed_width #footer, body.canvas .page-canvas{ max-width:%spx; }', $c + 20);
+			$css .= sprintf('#page-main .content{ max-width: %spx; }', $c + 2);
+
+			if(!pagelines_option('responsive_layout'))
+				$css .= sprintf('#site .content, .wcontent, #footer .content{ width: 100%%; max-width:%spx;}', $c);
+			else
+				$css .= sprintf('#site .content, .wcontent, #footer .content{ width:%spx;}', $c);
+
+			
+			$css .= sprintf('%1$s #pagelines_content #column-main, %1$s .wmain, %1$s #buddypress-page #container{ %2$s }', $mode, $l['main']);
+			$css .= sprintf('%1$s #pagelines_content #sidebar1, %1$s #buddypress-page #sidebar1{ %2$s }', $mode, $l['sb1']);
+			$css .= sprintf('%1$s #pagelines_content #sidebar2, %1$s #buddypress-page #sidebar2{ %2$s }', $mode, $l['sb2']);
+			$css .= sprintf('%1$s #pagelines_content #column-wrap, %1$s #buddypress-page #container{ %2$s }', $mode, $l['colwrap']);
+			$css .= sprintf('%1$s #pagelines_content #sidebar-wrap, %1$s #buddypress-page #sidebar-wrap{ %2$s }', $mode, $l['sbwrap']);
+
+			return $css;
+		}
+		
+		function calculate_dimensions( $layout_mode ){
+			
+			$l = array();
+
+			/* (target / context)*100 = percent-result */
+			$l['colwrap'] = $this->get_width( $this->column_wrap->width, $this->content->width ); 
+			$l['sbwrap'] = $this->get_width( $this->sidebar_wrap->width, $this->content->width );
+
+			$l['main'] = $this->get_width( $this->main_content->width, $this->column_wrap->width );
+
+			$l['sb2'] = $this->get_width( $this->sidebar2->width, $this->sidebar_wrap->width );
+
+			if($this->layout_mode == 'two-sidebar-center')
+				$l['sb1'] = $this->get_width( $this->sidebar1->width, $this->column_wrap->width ); 
+			else
+				$l['sb1'] = $this->get_width( $this->sidebar1->width, $this->sidebar_wrap->width );
+
+
+			return $l;
+		}
+		
+		function get_width($target, $context){
+			return sprintf( 'width:%s%%;', ($context != 0 ) ? ( $target / $context ) * 100 : 0 );
+		}
 
 
 }

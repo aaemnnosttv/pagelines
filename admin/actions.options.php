@@ -127,7 +127,7 @@ function pagelines_register_settings() {
 	$new_version_regen = ( !get_option("pl_dynamic_version") || get_option("pl_dynamic_version") != CORE_VERSION ) ? true : false;
 
 	if ( isset($_GET['activated']) || isset($_GET['updated']) || isset($_GET['reset']) || isset($_GET['settings-updated']) || $new_version_regen ) {
-		pagelines_build_dynamic_css( 'Page Load' );
+	
 		if ( get_pagelines_option('lp_username') && get_pagelines_option('lp_password') ) {
 			if ( $update = get_transient('pagelines-update-' . THEMENAME ) ) {
 				$update = maybe_unserialize($update);
@@ -142,7 +142,6 @@ function pagelines_register_settings() {
 	if ( pagelines_option('reset') ) {
 		update_option(PAGELINES_SETTINGS, pagelines_settings_defaults());
 
-		pagelines_build_dynamic_css( 'Reset' );
 		wp_redirect( admin_url( 'admin.php?page=pagelines&reset=true' ) );
 		exit;
 	}

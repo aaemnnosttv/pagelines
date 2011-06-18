@@ -28,8 +28,8 @@
 
 ?><div id="site" class="<?php echo pagelines_layout_mode();?>"> <!-- #site // Wraps #header, #page-main, #footer - closed in footer -->
 <?php pagelines_register_hook('pagelines_before_page'); // Hook ?>
-	<div id="page"> <!-- #page // Wraps #header, #page-main - closed in footer -->
-		<div id="page-canvas">
+	<div id="page"> <!-- .page // Wraps #header, #page-main - closed in footer -->
+		<div class="page-canvas">
 			<?php pagelines_register_hook('pagelines_before_header');?>
 			<header id="header" class="container-group fix">
 				<div class="outline">
