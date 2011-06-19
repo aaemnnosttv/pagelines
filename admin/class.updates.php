@@ -35,7 +35,7 @@ class PageLinesUpdateCheck {
 
 		if ( is_multisite() && ! is_super_admin() )
 			return;
-		add_filter( 'pagelines_options_array', array(&$this,'pagelines_update_tab') );
+		add_filter( 'pagelines_options_array', array(&$this,'pagelines_theme_update_tab') );
 		if ( get_pagelines_option('disable_updates') == true )
 			return;
 		add_action('admin_notices', array(&$this,'pagelines_theme_update_nag') );
