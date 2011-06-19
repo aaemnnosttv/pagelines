@@ -183,7 +183,7 @@ class PageLinesDebug {
 				'level'	=> false
 			);
 			
-			if ( get_pagelines_option('disable_updates') == true ) {
+			if ( get_pagelines_option('disable_updates') == true || ( is_multisite() && ! is_super_admin() ) ) {
 				$this->debug_info[] = array(
 					'title'	=> "Automatic Updates",
 					'value' => 'Disabled',

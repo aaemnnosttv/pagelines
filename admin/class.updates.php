@@ -20,8 +20,11 @@ class PageLinesUpdateCheck {
     }
     function pagelines_plugins_check_version() {
   
-    	if ( get_pagelines_option('disable_updates') == true ) return;
-
+    	if ( is_multisite() && ! is_super_admin() )
+			return;
+		add_filter( 'pagelines_options_array', array(&$this,'pagelines_update_tab') );
+		if ( get_pagelines_option('disable_updates') == true )
+			return;
     	add_filter('pre_set_site_transient_update_plugins', array(&$this,'check_for_plugin_update') );
     	add_filter('plugins_api', array(&$this,'my_plugin_api_call'),10, 3 );
 
@@ -29,8 +32,12 @@ class PageLinesUpdateCheck {
 
     }
 	function pagelines_theme_check_version() {
-		add_filter( 'pagelines_options_array', array(&$this,'pagelines_theme_update_tab') );
-		if ( get_pagelines_option('disable_updates') == true ) return;
+
+		if ( is_multisite() && ! is_super_admin() )
+			return;
+		add_filter( 'pagelines_options_array', array(&$this,'pagelines_update_tab') );
+		if ( get_pagelines_option('disable_updates') == true )
+			return;
 		add_action('admin_notices', array(&$this,'pagelines_theme_update_nag') );
 		add_filter('site_transient_update_themes', array(&$this,'pagelines_theme_update_push') );
 		add_filter('transient_update_themes', array(&$this,'pagelines_theme_update_push') );		
