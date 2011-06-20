@@ -231,6 +231,12 @@ if ( get_pagelines_option( 'enable_debug' ) ) {
 require_once (PL_ADMIN.'/class.updates.php');
 
 /**
+ * Load plugin installer class
+ */
+require_once ( PL_ADMIN . '/class.plugins.php' );
+$plugins_installer = new PagelinesPlugins;
+
+/**
  * Load admin actions
  */
 require_once (PL_ADMIN.'/actions.admin.php'); 

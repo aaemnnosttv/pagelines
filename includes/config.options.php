@@ -1091,7 +1091,8 @@ function get_option_array( $load_unavailable = false ){
  */
 function testingarray(  ){
 	
-	
+	global $plugins_installer;
+
 	$d = array(
 		'Themes' => array(
 			'google_ie' => array(
@@ -1118,11 +1119,9 @@ function testingarray(  ){
 		'plugins' => array(
 			'partner_link' => array(
 					'default'	=> '',
-					'type'		=> 'text',
-					'inputlabel'	=> 'Enter Partner Link',
-					'title'		=> 'PageLines Partner Link',
-					'shortexp'	=> 'Change your PageLines footer link to a partner link',
-					'exp'		=> 'If you are a <a href="http://www.pagelines.com/partners">PageLines Partner</a> enter your link here and the footer link will become a partner or affiliate link.'
+					'type'		=> 'text_content',
+					'layout'	=> 'full',
+					'exp'		=> $plugins_installer->plugin_installer_ui()
 			),
 
 		),
