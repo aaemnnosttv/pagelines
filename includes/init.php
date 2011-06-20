@@ -192,7 +192,7 @@ do_global_meta_options(); // Load the global meta settings tab
 /**
  * Support optional WordPress functionality
  */
-add_theme_support( 'post-thumbnails', array('post') );
+add_theme_support( 'post-thumbnails', apply_filters( 'pagelines_post-thumbnails', array('post') ) );
 add_theme_support( 'menus' );
 add_theme_support( 'automatic-feed-links' );
 
