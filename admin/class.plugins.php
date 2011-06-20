@@ -42,18 +42,31 @@ plprint( pagelines_register_plugins(), 'pagelines_register_plugins');
 				$text .= '<br />Version: ' . $plugin->version;
 				$text .= '<br />blurb: ' . $plugin->text;
 
-				$text .= '<br />Status: ' . $this->plugin_check_status( WP_PLUGIN_DIR . $plugin->file );
-
 				// Remember this form is a hack up!
 				// 
 				// here we need to check if our plugin is installed already, and change the form to ajax activate/deactivate
 				// 
 
-				$text .= '<form method="post" action="'. admin_url('plugin-install.php?tab=pagelines') . '">';
-				$text .= '<input type="hidden" name="pluginurl" value="' . $plugin->url . '" />';
-				$text .= wp_nonce_field( 'plugin-pagelines');
-				$text .= '<input type="submit" class="button" value="Install Now" style="display:block;margin-top:5px;" />';
-				$text .= '</form></p>';		
+				switch ( $this->plugin_check_status( WP_PLUGIN_DIR . $plugin->file ) ) {
+					
+
+					case 'active':
+						$text .= '<br />Activated - show deactivate ajax button';
+						break;
+					
+					case 'notactive':
+						$text .= '<br />Not active - show activate ajax button';
+						break;
+					
+					default:
+						// were not installed, show the form!
+						$text .= '<form method="post" action="'. admin_url('plugin-install.php?tab=pagelines') . '">';
+						$text .= '<input type="hidden" name="pluginurl" value="' . $plugin->url . '" />';
+						$text .= wp_nonce_field( 'plugin-pagelines');
+						$text .= '<input type="submit" class="button" value="Install Now" style="display:block;margin-top:5px;" />';
+						$text .= '</form></p>';	
+						break;
+				}
 			}
 		}
 		return $text;
@@ -61,12 +74,13 @@ plprint( pagelines_register_plugins(), 'pagelines_register_plugins');
 
 	function plugin_check_status( $file ) {
 		
-		if ( file_exists( $file ) )
-			if (in_array( str_replace( '.php', '', basename($file) ), pagelines_register_plugins() ) )
-				return 'Active!';
-			else
-				return 'Not active!';
-		return 'Not installed!';
+		if ( !file_exists( $file ) )
+			return ;
+			 
+		if (in_array( str_replace( '.php', '', basename($file) ), pagelines_register_plugins() ) )
+			return 'active';
+		else
+			return 'notactive';
 	}
 
 	function plugin_installer_url() {
