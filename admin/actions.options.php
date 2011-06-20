@@ -160,7 +160,7 @@ add_action('save_post', 'save_section_control_box');
 function add_section_control_box(){
 	
 	$blacklist = array( 'banners', 'feature', 'boxes', 'attachment', 'revision', 'nav_menu_item' );
-	if ( isset( $_GET['post']) && ! in_array( get_post_type( $_GET['post'] ), $blacklist) ) add_meta_box('section_control', 'PageLines Section Control', "pagelines_section_control_callback", get_post_type( $_GET['post'] ), 'side', 'low');
+	if ( isset( $_GET['post']) && ! in_array( get_post_type( $_GET['post'] ), apply_filters( 'pagelines_meta_blacklist', $blacklist ) ) ) add_meta_box('section_control', 'PageLines Section Control', "pagelines_section_control_callback", get_post_type( $_GET['post'] ), 'side', 'low');
 
 }
 

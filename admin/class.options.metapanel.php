@@ -26,7 +26,7 @@ class PageLinesMetaPanel {
 				
 				'id' 		=> 'pagelines-metapanel',
 				'name' 		=> 'PageLines Meta Settings',
-				'posttype' 	=> ( isset( $_GET['post'] ) && ! in_array( get_post_type( $_GET['post'] ), $this->blacklist ) ) ? array( 'post', 'page', get_post_type( $_GET['post'] ) ) : array( 'post', 'page' ),
+				'posttype' 	=> ( isset( $_GET['post'] ) && ! in_array( get_post_type( $_GET['post'] ), apply_filters( 'pagelines_meta_blacklist', $this->blacklist ) ) ) ? array( 'post', 'page', get_post_type( $_GET['post'] ) ) : array( 'post', 'page' ),
 				'location' 	=> 'normal', 
 				'priority' 	=> 'low', 
 				'hide_tabs'	=> false
