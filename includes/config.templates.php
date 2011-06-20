@@ -131,6 +131,26 @@ function pagelines_get_page_templates(){
 				'sections' 		=> array( 'PageLinesHighlight', 'PageLinesBanners', 'PageLinesContent' ),
 				'version'		=> 'pro'
 			),
+		'tag' => array(
+				'name'			=> 'Tags Page',
+				'sections' 		=> array('PageLinesContent'),
+				'version'		=> 'pro'
+			),
+		'archive' => 	array(
+				'name'			=> 'Archive Page',
+				'sections' 		=> array('PageLinesContent'),
+				'version'		=> 'pro'
+			),
+		'category' => 	array(
+				'name'			=> 'Category Page',
+				'sections' 		=> array('PageLinesContent'),
+				'version'		=> 'pro'
+			),
+		'search' => 	array(
+				'name'			=> 'Search Results Page',
+				'sections' 		=> array('PageLinesContent'),
+				'version'		=> 'pro'
+			)
 		
 	);
 
@@ -152,7 +172,47 @@ function pagelines_get_content_templates(){
 		'single' => array(
 				'name'			=> 'Single Post Content Area',
 				'sections' 		=> array('PageLinesPostNav', 'PageLinesPostLoop', 'PageLinesShareBar', 'PageLinesComments', 'PageLinesPagination')
-			)
+			), 
+		'tag' => array(
+				'name'			=> 'Tags Page',
+				'sections' 		=> array('PageLinesPostLoop'),
+				'version'		=> 'pro'
+			),
+		'archive' => 	array(
+				'name'			=> 'Archive Page',
+				'sections' 		=> array('PageLinesPostLoop'),
+				'version'		=> 'pro'
+			),
+		'category' => 	array(
+				'name'			=> 'Category Page',
+				'sections' 		=> array('PageLinesPostLoop'),
+				'version'		=> 'pro'
+			),
+		'search' => 	array(
+				'name'			=> 'Search Results Page',
+				'sections' 		=> array('PageLinesPostLoop'),
+				'version'		=> 'pro'
+			), 
+		'alpha' => array(
+				'name'			=> 'Feature Page',
+				'sections' 		=> array('PageLinesFeatures', 'PageLinesBoxes', 'PageLinesContent'),
+				'version'		=> 'pro'
+			),
+		'beta' => 	array(
+				'name'			=> 'Carousel Page',
+				'sections' 		=> array('PageLinesCarousel', 'PageLinesContent'),
+				'version'		=> 'pro'
+			),
+		'gamma' => 	array(
+				'name'			=> 'Box Page',
+				'sections' 		=> array( 'PageLinesHighlight', 'PageLinesSoapbox', 'PageLinesBoxes' ),
+				'version'		=> 'pro'
+			),
+		'delta' => 	array(
+				'name'			=> 'Highlight Page',
+				'sections' 		=> array( 'PageLinesHighlight', 'PageLinesContent' ),
+				'version'		=> 'pro'
+			),
 	);
 	
 	return apply_filters('pagelines_content_template_array', $content_templates); 

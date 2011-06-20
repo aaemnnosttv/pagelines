@@ -341,10 +341,6 @@ class PageLinesLayout {
 		}
 
 
-		function draw_layout_inline(){
-			printf('<style type="text/css" id="dynamic-css">%1$s %2$s %1$s</style>%1$s', "\n", $this->get_layout_inline());
-		}
-
 		function get_layout_inline(){
 			
 			$l = $this->calculate_dimensions($this->layout_mode);

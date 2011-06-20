@@ -56,37 +56,48 @@ class OptEngine {
 
 		$o['setting'] = (isset($setting)) ? $setting : PAGELINES_SETTINGS;
 		$o['pid'] = $pid;
-		$o['val'] = pagelines_option( $oid, $pid, $setting );
-		$o['input_name'] = get_pagelines_option_name( $oid, null, null, $setting );
-		$o['input_id'] = get_pagelines_option_id( $oid, null, null, $setting );		
+		
+		if($this->settings_field == 'meta'){
+			
+			$o['val'] = m_pagelines($oid, $pid);
+			$o['input_name'] = $oid;
+			$o['input_id'] = get_pagelines_option_id( $oid );
+			
+		} else {
+			$o['val'] = pagelines_option( $oid, $pid, $setting );
+			$o['input_name'] = get_pagelines_option_name( $oid, null, null, $setting );
+			$o['input_id'] = get_pagelines_option_id( $oid, null, null, $setting );		
 
-	
+			if(!empty($o['selectvalues'])){
+				foreach($o['selectvalues'] as $sid => $s){
 
-		if(!empty($o['selectvalues'])){
-			foreach($o['selectvalues'] as $sid => $s){
-					 
-				$o['selectvalues'][$sid]['val'] = pagelines_option( $sid, $pid, $setting );
-				$o['selectvalues'][$sid]['input_id'] = get_pagelines_option_id( $sid );
-				$o['selectvalues'][$sid]['input_name'] = get_pagelines_option_name($sid, null, null, $setting);
-			 
+					$o['selectvalues'][$sid]['val'] = pagelines_option( $sid, $pid, $setting );
+					$o['selectvalues'][$sid]['input_id'] = get_pagelines_option_id( $sid );
+					$o['selectvalues'][$sid]['input_name'] = get_pagelines_option_name($sid, null, null, $setting);
+
+				}
 			}
 		}
 		
-	if( $this->_do_the_option() ):  ?>
-	<div class="optionrow fix <?php echo $this->_layout_class( $o );?>">
-		<?php $this->get_option_title( $oid, $o ); ?>
 		
-		<div class="oinputs">
-			<div class="oinputs-pad">
-				<?php $this->option_breaker($oid, $o); ?>
-			</div>
-		</div>
-
-		<?php echo $this->_get_explanation($oid, $o);?>
-			
-		<div class="clear"></div>
-	</div>
-<?php endif; 
+		
+		if( $this->_do_the_option() ){
+		
+			printf('<div class="optionrow fix %s">', $this->_layout_class( $o ));
+		
+			$this->get_option_title( $oid, $o ); 
+		
+			printf('<div class="oinputs"><div class="oinputs-pad">');
+	
+			$this->option_breaker($oid, $o);
+	
+			printf('</div></div>');
+		
+			echo $this->_get_explanation($oid, $o);
+		
+			echo '<div class="clear"></div></div>';
+		
+		}
 	}
 	
 	function _get_explanation($oid, $o){

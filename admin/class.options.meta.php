@@ -10,7 +10,7 @@
  *  @since 4.0
  *
  */
-class PageLinesMetaPanel {
+class PageLinesMetaUI {
 
 	var $tabs = array();	// Controller for drawing meta options
 
@@ -110,93 +110,77 @@ class PageLinesMetaPanel {
 	function draw_meta_options(){ 
 		global $post_ID;  
 
-		$option_engine = new OptEngine( 'meta' );
-
 		// Check if we are the main blog page
 		$postid = ( isset( $_GET['post'] ) ) ? $_GET['post'] : '';
 		if ( get_option( 'page_for_posts' ) === $postid ) {
 			echo '<div><p><small><strong>Note:</strong> Individual page settings do not work on the blog page (<em>use the settings panel</em>).</small></p></div>';
 			return;
-		} 
+		} ?>
 		
+		<?php if(!$this->hide_tabs):
 		
-		$this->tabs_setup(); ?>
-		
-			<div id="metatabs" class="pagelines_metapanel fix">
-				<div class="pagelines_metapanel_pad fix">
-					<?php if(!$this->hide_tabs):?>
-					<ul id="tabsnav" class="mp_tabs">
-					
-						<?php foreach($this->tabs as $tab => $t):?>
-							<li>
-								<a class="<?php echo $tab;?>  metapanel-tab" href="#<?php echo $tab;?>">
-									<span class="metatab_icon" style="background: url(<?php echo $t->icon; ?>) no-repeat 0 0;display: block;"><?php echo $t->name; ?></span>
-								</a>
-							</li>
-						<?php endforeach;?>
-					</ul>
-					<?php endif;?>
-					<div class="mp_panel fix <?php if($this->hide_tabs) echo 'hide_tabs';?>">
-						<div class="mp_panel_pad fix">
-						
-							<div class="pagelines_metapanel_options">
-						
-								<div class="pagelines_metapanel_options_pad">
-									<?php foreach($this->tabs as $tab => $t):?>
-										<div id="<?php echo $tab;?>" class="pagelines_metatab">
-											<div class="metatab_title" style="background: url(<?php echo $t->icon; ?>) no-repeat 10px 13px;" ><?php echo $t->name; ?></div>
-											<?php 
-											foreach($t->options as $oid => $o)
-												$option_engine->option_engine($oid, $o, $post_ID);
-											?>
-									
-										</div>
-									<?php endforeach;?>
-								</div>
-							</div>
-						</div>
-					
-					</div>
-				</div>
-				
-			</div>
-			<div class="ohead mp_footer ">
-				<div class="mp_footer_pad fix ">
-					<input type="hidden" name="_posttype" value="<?php echo $this->settings['posttype'];?>" />
-				
-				
-					<div class="superlink-wrap osave-wrap">
-						<input id="update" class="superlink osave" type="submit" value="<?php _e("Save Meta Settings",'pagelines'); ?>"  name="update" />
-					</div>
-				</div>
-			</div>
-			
-		<?php 
-	
-	}
-		
-	function tabs_setup(){
-		if(!$this->hide_tabs):
-
 			if(isset($_COOKIE['PageLinesMetaTabCookie']))
 				$selected_tab = (int) $_COOKIE['PageLinesMetaTabCookie'];
 			else
 				$selected_tab = 0;
 		?>
 			<script type="text/javascript">
-				jQuery(document).ready(function() {						
-					var $myTabs = jQuery("#metatabs").tabs({ fx: { opacity: "toggle", duration: "fast" }, selected: <?php echo $selected_tab; ?>});
+					jQuery.noConflict();
+					jQuery(document).ready(function($) {						
+						var $myTabs = $("#metatabs").tabs({ fx: { opacity: "toggle", duration: "fast" }, selected: <?php echo $selected_tab; ?>});
 
-					jQuery('#metatabs').bind('tabsshow', function(event, ui) {
-						var selectedTab = jQuery('#metatabs').tabs('option', 'selected');
+						$('#metatabs').bind('tabsshow', function(event, ui) {
+							var selectedTab = $('#metatabs').tabs('option', 'selected');
+							
+							$.cookie('PageLinesMetaTabCookie', selectedTab);
+						});
 
-						jQuery.cookie('PageLinesMetaTabCookie', selectedTab);
 					});
-
-				});
 			</script>
-		<?php endif;
+		<?php endif;?>
+		
+			<div id="metatabs" class="pagelines_metapanel fix">
+				<?php if(!$this->hide_tabs):?>
+					<ul id="metatabsnav" class="pagelines_metapanel_tabs">
+					
+					<?php foreach($this->tabs as $tab => $t):?>
+						<li>
+							<a class="<?php echo $tab;?>  metapanel-tab" href="#<?php echo $tab;?>">
+								<span class="metatab_icon" style="background: url(<?php echo $t->icon; ?>) no-repeat 0 0;display: block;"><?php echo $t->name; ?></span>
+							</a>
+						</li>
+					<?php endforeach;?>
+				</ul>
+				<?php endif;?>
+				<div class="pagelines_metapanel_pad fix <?php if($this->hide_tabs) echo 'hide_tabs';?>">
+					<div class="metapanel_panes fix">
+						
+						<div class="pagelines_metapanel_options">
+						
+							<div class="pagelines_metapanel_options_pad">
+								<?php foreach($this->tabs as $tab => $t):?>
+									<div id="<?php echo $tab;?>" class="pagelines_metatab">
+										<div class="metatab_title" style="background: url(<?php echo $t->icon; ?>) no-repeat 10px 13px;" ><?php echo $t->name; ?></div>
+										<?php foreach($t->options as $oid => $o){ $this->meta_option_engine($oid, $o); } ?>
+									
+									</div>
+								<?php endforeach;?>
+							</div>
+						</div>
+					</div>
+					<div class="pagelines_metapanel_footer fix">
+							<input type="hidden" name="_posttype" value="<?php echo $this->settings['posttype'];?>" />
+							<input id="update" class="button-primary" type="submit" value="<?php _e("Save Meta Settings",'pagelines'); ?>" accesskey="p" tabindex="5" name="update"/>
+					</div>
+				</div>
+				
+			</div>
+			
+			
+		<?php 
+	
 	}
+		
 
 	function meta_option_engine($oid, $o){
 		

@@ -193,7 +193,7 @@ function section_control_checkbox($section, $template_slug, $template_area, $tem
 		global $post;
 		
 		$s = $pl_section_factory->sections[$section];
-		
+	
 		// Load Global Section Control Options
 		$section_control = pagelines_option('section-control');
 		$hidden_by_default = isset($section_control[$template_slug][$section]['hide']) ? $section_control[$template_slug][$section]['hide'] : null;

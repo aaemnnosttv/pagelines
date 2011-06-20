@@ -152,9 +152,7 @@ function pagelines_ajax_save_option_callback() {
 	$option_value = $_POST['option_value'];
 
 	update_option($option_name, $option_value);
-	
-	
-	
+
 	die();
 }
 

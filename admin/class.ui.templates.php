@@ -379,29 +379,20 @@ class PageLinesTemplateBuilder {
 
 		$a = wp_parse_args( $args, $defaults );
 		
-		?>
-		 
-		<li id="<?php echo $a['id'];?>">
-			<div class="section-bar <?php if($a['req'] == true) echo 'required-section';?>">
-				<div class="section-bar-pad fix" style="background: url(<?php echo $a['icon'];?>) no-repeat 10px 9px;">
-		
-					
-					<div class="section-controls-toggle" onClick="toggleControls(this);" <?php if(!$a['controls']) echo 'style="display:none;"'?>>
-							<div class="section-controls-toggle-pad">Options</div>
-					</div>
-					
-			
-					<h4 class="section-bar-title"><?php echo $a['name'];?> <span class="the_clone_id"><?php if($a['clone'] != 1) echo '#'.$a['clone'];?></span></h4>
-					<span class="s-description" <?php $this->help_control();?>>
-						<?php echo $a['desc'];?>
-					</span>
-					
-				</div>
+?><li id="<?php echo $a['id'];?>">
+	<div class="section-bar <?php if($a['req'] == true) echo 'required-section';?>">
+		<div class="section-bar-pad fix" style="background: url(<?php echo $a['icon'];?>) no-repeat 10px 9px;">	
+			<div class="section-controls-toggle" onClick="toggleControls(this);" <?php if(!$a['controls']) echo 'style="display:none;"'?>>
+					<div class="section-controls-toggle-pad">Options</div>
 			</div>
-			<?php $this->inline_section_control($a); ?>
-		</li>
-		
-	<?php }
+			<h4 class="section-bar-title"><?php echo $a['name'];?> <span class="the_clone_id"><?php if($a['clone'] != 1) echo '#'.$a['clone'];?></span></h4>
+			<span class="s-description" <?php $this->help_control();?>>
+				<?php echo $a['desc'];?>
+			</span>
+		</div>
+	</div>
+	<?php $this->inline_section_control($a); ?>
+</li><?php }
 	
 	function inline_section_control($a){
 

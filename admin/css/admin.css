@@ -188,7 +188,7 @@
 			border-bottom: 1px solid #ccc;
 			border-top: 1px solid #fff;
 			border-left: 1px solid #fff;
-			background: url(../images/tabsnav-item.png) repeat-x 0 0;
+			background: url(../images/tabsnav-item.png) repeat-x left bottom;
 		}
 		
 			#tabsnav li span.graphic.top{
@@ -348,7 +348,7 @@
 	
 /* @ Option Title Area */
 	.optiontitle {
-		
+		line-height: 1.4em;
 		background: #eee;
 		border-top: 1px solid #ddd;
 		border-bottom: 1px solid #ccc;
@@ -358,7 +358,6 @@
 		.optiontitle-pad{
 			border-top: 1px solid #fff;
 			border-left: 1px solid #fff;
-			border-right: 1px solid #ccc;
 			padding: 10px 15px;
 		}
 		.optiontitle small {
@@ -388,7 +387,7 @@
 		float: left;
 		text-align: left;
 	}
-		.oinputs-pad { padding: 20px 40px 10px; }
+		.oinputs-pad { padding: 10px 40px; }
 	
 	.oexp {
 		width: 38%;
@@ -1022,22 +1021,23 @@
 
 .pagelines_metapanel {
 	background: #eee;
-	border: 1px solid #dadada;
+	border: 1px solid #ccc;
+	border-top: 1px solid #ddd;
+	border-left: 1px solid #ddd;
 	text-shadow: #fff 0 1px 0;
 }
 	.pagelines_metapanel_pad {
 		border-top: 1px solid #fff;
-		border-left: 1px solid #fff;
 	}
 		.metapanel_panes{
 		
 			border-bottom: 1px solid #d5d5d5;
 		}
 
-	.pagelines_metapanel .pagelines_metapanel_tabs {
+	.pagelines_metapanel #tabsnav {
 		float: left;
-		width: 30%;		
-		margin: 5px 0;
+		width: 28%;	
+		margin: 5px -28% 0 0;
 		border-top: 1px solid #ddd;
 		border-bottom: 1px solid #fafafa;
 	}
@@ -1062,26 +1062,25 @@
 		.metatab_icon{
 			padding-left: 22px;
 		}
-	.pagelines_metapanel .pagelines_metapanel_options {
+		
+	.mp_panel{
+		margin-left: 28%;
+		width: 72%;
 		float: left;
-		margin-left:-1px;
-		width: 70%;
 		background:#f7f7f7;
-		border-left: 1px solid #d5d5d5;
-		min-height: 400px;
 	}
+	 	.mp_panel_pad{	
+			border-left: 1px solid #d5d5d5;
+			min-height: 400px;
+		}
 		.pagelines_metapanel .hide_tabs .pagelines_metapanel_options{width: 100%; border-left: none;margin-left: 0;}
-		.pagelines_metapanel .pagelines_metapanel_options_pad{
-			border-left: 1px solid #fff;
-			border-right: 1px solid #fff;
-		} 
+
 			.pagelines_metapanel .hide_tabs .pagelines_metapanel_options_pad{border-left: none;}
 			
 		
 		.metatab_title{
 			font-size: 1.4em;
 			padding: 14px 15px 15px 33px;
-		
 			font-weight: bold;
 		}
 			
@@ -1092,10 +1091,7 @@
 		}
 			.metatab_option_header{font-weight: bold;margin-bottom: 3px;}
 			.metatab_option_subheader{font-size: .9em;color: #666;line-height: 1.4em;}
-		.metapanel_option{
-			margin-bottom: 1.5em;
-		}
-		
+
 			.metapanel_option_input_pad{padding: 15px 10px 15px 30px;}
 			
 			.metapanel_option_input.input_with_exp, .hide_tabs .metapanel_option_input{
@@ -1116,11 +1112,16 @@
 		}
 			.metapanel_option_exp_pad{padding: 15px;border-left: 1px solid #fff;}
 	
-		.pagelines_metapanel_footer{
-			background: #e5e5e5;
-			padding: 5px 10px;
+		.mp_footer{
+		
+			border: 1px solid #ccc;
 			border-top: 1px solid #fff;
 		}
+			.mp_footer_pad{
+				
+				padding: 5px 10px;
+				
+			}
 	
 /* @ Layout Builder */
 	.layouteditor { display: none; }

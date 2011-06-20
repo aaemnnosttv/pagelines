@@ -39,38 +39,37 @@ class PageLinesHighlight extends PageLinesSection {
 			$metatab_array = array(
 
 					'_highlight_head' => array(
-						'version' 	=> 'pro',
-						'type' 		=> 'text',
-						'size'		=> 'big',		
-						'title' 	=> 'Highlight Header Text (Optional)',
-						'desc' 		=> 'Add the main header text for the highlight section.'
+						'version' 		=> 'pro',
+						'type' 			=> 'text',
+						'size'			=> 'big',		
+						'title' 		=> 'Highlight Header Text (Optional)',
+						'shortexp' 		=> 'Add the main header text for the highlight section.'
 					),
 					'_highlight_subhead' => array(
-						'version' 	=> 'pro',
-						'type' 		=> 'text',
-						'size'		=> 'big',		
-						'title' 	=> 'Highlight Subheader Text (Optional)',
-						'desc' 		=> 'Add the main subheader text for the highlight section.'
+						'version' 		=> 'pro',
+						'type' 			=> 'text',
+						'size'			=> 'big',		
+						'title' 		=> 'Highlight Subheader Text (Optional)',
+						'shortexp' 		=> 'Add the main subheader text for the highlight section.'
 					),
 					
 					'_highlight_splash' => array(
-						'version' 	=> 'pro',
-						'type' 		=> 'image_upload',	
-						'label'		=> 'Upload Splash Image',	
-						'title' 	=> 'Highlight Splash Image (Optional)',
-						'desc' 		=> 'Upload an image to use in the highlight section (if activated)'
+						'version' 		=> 'pro',
+						'type' 			=> 'image_upload',	
+						'inputlabel'	=> 'Upload Splash Image',	
+						'title' 		=> 'Highlight Splash Image (Optional)',
+						'shortexp' 		=> 'Upload an image to use in the highlight section (if activated)'
 					),
 					'_highlight_splash_position' => array(
-						'version' 	=> 'pro',
-						'type' 		=> 'select',		
-						'title' 	=> 'Highlight Image Position',
-						'desc' 		=> 'Select the position of the highlight image.',
+						'version' 		=> 'pro',
+						'type' 			=> 'select',		
+						'title' 		=> 'Highlight Image Position',
+						'shortexp' 		=> 'Select the position of the highlight image.',
 						'selectvalues'=> array(
 							'top'			=> array( 'name' => 'Top' ),
 							'bottom'	 	=> array( 'name' => 'Bottom' )
 						),
 					),
-
 				);
 			
 			$metatab_settings = array(

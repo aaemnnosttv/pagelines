@@ -40,8 +40,8 @@ class PageLinesTemplate {
 			$this->template_type = $this->admin_get_page_template();
 			$this->main_type = $this->admin_set_main_type();
 		}else{
-			$this->template_type = $this->get_page_template();
-			$this->main_type = $this->set_main_type();
+			$this->template_type = $this->page_type_breaker();
+			$this->main_type = $this->page_type_breaker();
 		}
 
 		$this->map = $this->get_map();
@@ -81,6 +81,34 @@ class PageLinesTemplate {
 		}else
 			return 'default';
 		
+	}
+	
+	function page_type_breaker(){
+		global $post;
+		
+		if(is_404())
+			return '404';
+		elseif(is_tag())
+			return 'tag';
+		elseif(is_search())
+			return 'search';
+		elseif(is_category())
+			return 'category';
+		elseif(is_archive())
+			return 'archive';
+		elseif(is_home())
+			return 'posts';
+		elseif(is_single())
+			return 'single';
+		elseif(is_page_template()){
+			/*
+				Strip the page. and .php from page.[template-name].php
+			*/
+			$page_filename = str_replace('.php', '', get_post_meta($post->ID,'_wp_page_template',true));
+			$template_name = str_replace('page.', '', $page_filename);
+			return $template_name;
+		}else
+			return 'default';
 	}
 	
 	
@@ -143,7 +171,7 @@ class PageLinesTemplate {
 			
 			// Set Property after Template Hook Args
 			$this->$hook = $tsections;
-			
+		
 			// Create an array with all sections used on current page - 
 			if(is_array($this->$hook)) 
 				$this->allsections = array_merge($this->allsections, $this->$hook);

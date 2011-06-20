@@ -5,7 +5,7 @@
 	Author: Andrew Powers
 	Description: The main widgetized sidebar
 	Version: 1.0.0
-	Class Name: SecondrySidebar
+	Class Name: SecondarySidebar
 */
 
 class SecondarySidebar extends PageLinesSection {
