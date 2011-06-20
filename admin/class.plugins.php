@@ -28,6 +28,7 @@
 
 	function plugin_installer_ui() {
 
+plprint( pagelines_register_plugins(), 'pagelines_register_plugins');
 		$api = wp_remote_get( 'http://api.pagelines.com/plugins/' );
 
 		$plugins = json_decode( $api['body'] );
@@ -40,6 +41,8 @@
 				$text .= '<p>Plugin name: ' . $plugin->name;
 				$text .= '<br />Version: ' . $plugin->version;
 				$text .= '<br />blurb: ' . $plugin->text;
+
+				$text .= '<br />Status: ' . $this->plugin_check_status( WP_PLUGIN_DIR . $plugin->file );
 
 				// Remember this form is a hack up!
 				// 
@@ -54,6 +57,16 @@
 			}
 		}
 		return $text;
+	}
+
+	function plugin_check_status( $file ) {
+		
+		if ( file_exists( $file ) )
+			if (in_array( str_replace( '.php', '', basename($file) ), pagelines_register_plugins() ) )
+				return 'Active!';
+			else
+				return 'Not active!';
+		return 'Not installed!';
 	}
 
 	function plugin_installer_url() {
