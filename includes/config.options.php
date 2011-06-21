@@ -1091,17 +1091,15 @@ function get_option_array( $load_unavailable = false ){
  */
 function testingarray(  ){
 	
-	global $plugins_installer;
+	global $extension_control;
 
 	$d = array(
 		'Themes' => array(
-			'google_ie' => array(
-					'default'	=> false,
-					'type'		=> 'check',
-					'inputlabel'	=> 'Include Google IE Compatibility Script?',
-					'title'		=> 'Google IE Compatibility Fix',
-					'shortexp'	=> 'Include a Google JS script that fixes problems with IE.',
-					'exp'		=> 'More info on this can be found here: <strong>http://code.google.com/p/ie7-js/</strong>.'
+		'partner_link' => array(
+				'default'	=> '',
+				'type'		=> 'text_content',
+				'layout'	=> 'full',
+				'exp'		=> $extension_control->extension_themes()
 			),
 
 		),
@@ -1121,7 +1119,7 @@ function testingarray(  ){
 					'default'	=> '',
 					'type'		=> 'text_content',
 					'layout'	=> 'full',
-					'exp'		=> $plugins_installer->plugin_installer_ui()
+					'exp'		=> $extension_control->extension_plugins()
 			),
 
 		),

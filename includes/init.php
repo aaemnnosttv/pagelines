@@ -233,8 +233,8 @@ require_once (PL_ADMIN.'/class.updates.php');
 /**
  * Load plugin installer class
  */
-require_once ( PL_ADMIN . '/class.plugins.php' );
-$plugins_installer = new PagelinesPlugins;
+require_once ( PL_ADMIN . '/class.extend.php' );
+$extension_control = new PagelinesExtensions;
 
 /**
  * Load admin actions
