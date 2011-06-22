@@ -120,7 +120,7 @@
 					data: data,
 					beforeSend: function(){
 
-						saveText.slideDown().html('Installing');
+						saveText.html('Installing').slideDown();
 						
 						// add some dots while saving.
 						interval = window.setInterval(function(){
@@ -152,25 +152,26 @@
 	 * 
 	 */
 	function extension_install(  ) {
+		
 		// 1. Libraries
-		include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+			include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
 		
 		// 2. Variable Setup
-		$type =  $_POST['extend_type'];
-		$url =  $_POST['extend_url'];
+			$type =  $_POST['extend_type'];
+			$url =  $_POST['extend_url'];
 		
 		// 3. Do our thing...
-		$upgrader = ( $type == 'theme' ) ? new Theme_Upgrader() : new Plugin_Upgrader();
+			$upgrader = ( $type == 'theme' ) ? new Theme_Upgrader() : new Plugin_Upgrader();
 
-		@$upgrader->install($url);
+			@$upgrader->install($url);
 	
-		if ( is_wp_error($upgrader->skin->result ) )
-			$error = $upgrader->skin->result->get_error_message();
+			if ( is_wp_error($upgrader->skin->result ) )
+				$error = $upgrader->skin->result->get_error_message();
 		
 		// 4. Output
-		$out = ( !isset($error) ) ? true : 'error'; // nothing needs to be returned, just echo'd
+			$out = ( !isset($error) ) ? true : 'error'; // nothing needs to be returned, just echo'd
 	
-		die(); // needed at the end of ajax callbacks
+			die(); // needed at the end of ajax callbacks
 	}
 
 	function plugin_check_status( $file ) {
