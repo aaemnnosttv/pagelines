@@ -32,13 +32,14 @@
 
 	
 		if ( is_object($plugins) ) {
-			$count = 3;
+			$rn = 2;
+			$count = $rn;
 			$output = '';
-			$output .= sprintf('<div class="install_response"></div><div class="clear"></div>');
-			foreach( $plugins as $plugin ) {
+			
+			foreach( $plugins as $key => $plugin ) {
 				
-				$start_row = ($count % 3 == 0) ? true : false;
-				$end_row = ( ($count+1) % 3 == 0) ? true : false;
+				$start_row = ($count % $rn == 0) ? true : false;
+				$end_row = ( ($count+1) % $rn == 0 || $plugin == end($plugins)) ? true : false;
 				$cl = ($end_row) ? 'pplast' : '';
 			
 				/**
@@ -49,21 +50,21 @@
 				 */
 				$url = 'http://api.pagelines.com/plugins/test1.zip';
 				
-				$install_js_call = sprintf('onClick="extendInstall(\'%s\', \'%s\')"', 'plugin', $url);
+				$install_js_call = sprintf('onClick="extendInstall(\'%s\', \'%s\', \'%s\')"', $key, 'plugin', $url);
 				
 				switch ( $this->plugin_check_status( WP_PLUGIN_DIR . $plugin->file ) ) {
 
 					case 'active':
-						$button = OptEngine::input_button('ID', 'Deactivate Plugin', '', 'onClick="extendInstall"');
+						$button = OptEngine::superlink('Deactivate Plugin');
 						break;
 					
 					case 'notactive':
-						$button = OptEngine::input_button('ID', 'Activate Plugin');
+						$button = OptEngine::superlink('Activate Plugin');
 						break;
 					
 					default:
 						// were not installed, show the form!
-						$button = OptEngine::input_button('ID', 'Install Plugin', '', $install_js_call);
+						$button = OptEngine::superlink('Install Plugin', '', '', '', $install_js_call);
 						break;
 						
 				}
@@ -74,9 +75,16 @@
 				
 				//if($start_row) $output .= sprintf('<div class="pprow">');
 				
-				$t = sprintf('<h3 class="pane-title">%s</h3><div class="pane-sub">%s</div><div class="pane-desc">%s</div><div class="pane-button">%s</div>', $plugin->name, 'Version '.$plugin->version, $plugin->text, $button);
 				
-				$output .= sprintf('<div class="plpane pane-plugin pp3 %s"><div class="plpane-hl fix"><div class="plpane-pad fix">%s</div></div></div>', $cl, $t);
+				$buttons = sprintf('<div class="pane-buttons">%s</div>', $button);
+				
+				$title = sprintf('<div class="pane-head"><div class="pane-head-pad"><h3 class="pane-title">%s</h3><div class="pane-sub">%s</div></div></div>', $plugin->name, 'Version ' . $plugin->version);
+				
+				$body = sprintf('<div class="pane-desc"><div class="pane-desc-pad">%s<div class="pane-dets">by <a href="%s">%s</a></div></div></div>', $plugin->text, '#', 'Plugin Maker');	
+				
+				$output .= sprintf('<div class="plpane pane-plugin %s"><div class="plpane-hl fix"><div class="plpane-pad fix">%s %s %s</div></div></div>', $cl, $title, $body, $buttons);
+				
+				$output .= sprintf('<div id="response%s" class="install_response"><div class="rp"></div></div>', $key);
 				
 				//if($end_row) $output .= sprintf('</div>');
 				$count++;
@@ -97,7 +105,7 @@
 		
 		<script type="text/javascript">/*<![CDATA[*/
 
-		function extendInstall(type, url){
+		function extendInstall(key, type, url){
 			
 				var data = {
 					action: 'pagelines_ajax_extension_install',
@@ -105,10 +113,31 @@
 					extend_url: url
 				};
 
-				// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
-				jQuery.post(ajaxurl, data, function(response) {
+				var saveText = jQuery('#response'+key);
+				jQuery.ajax({
+					type: 'POST',
+					url: ajaxurl,
+					data: data,
+					beforeSend: function(){
+
+						saveText.slideDown().html('Installing');
+						
+						// add some dots while saving.
+						interval = window.setInterval(function(){
+							var text = saveText.text();
+							if (text.length < 13){	saveText.text(text + '.'); }
+							else { saveText.text('Installing'); } 
+						}, 400);
+
+					},
+				  	success: function( response ){
 					
-					jQuery('.install_response').show().html(response).delay(10000).slideUp();
+						window.clearInterval(interval); // clear dots...
+						
+						saveText.html(response).delay(5000).slideUp();
+						
+
+					}
 				});
 			
 		}
@@ -139,7 +168,7 @@
 			$error = $upgrader->skin->result->get_error_message();
 		
 		// 4. Output
-		echo ( !isset($error) ) ? true : 'error'; // nothing needs to be returned, just echo'd
+		$out = ( !isset($error) ) ? true : 'error'; // nothing needs to be returned, just echo'd
 	
 		die(); // needed at the end of ajax callbacks
 	}

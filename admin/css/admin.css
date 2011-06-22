@@ -498,7 +498,7 @@
 		.ohead-title-right{float:right}
 
 		
-		.ohead .superlink-wrap{
+		.superlink-wrap{
 			border: 1px solid #aaa; 
 			border-right: 1px solid #fff;
 			border-bottom: 1px solid #fff;
@@ -509,8 +509,8 @@
 			border-radius: 4px;	
 			float:left;
 		}
-		.ohead .superlink {
-			
+		.superlink {
+			text-shadow: #000 0 -1px 0;
 			display: block;
 			text-decoration: none;
 			margin:0;
@@ -520,17 +520,19 @@
 			border-radius: 4px;
 			font-weight: bold;
 			font-size: 1em;
+			line-height: 15px;
 			color: #fff;
 			border: 1px solid #333;
 			background: #000 url(../images/superlink-sprite-black.png) 0 0 repeat-x;
 			-moz-box-sizing: content-box;
 			-webkit-box-sizing: content-box;
 			box-sizing: content-box;
+			cursor: pointer;
 		}
-			.ohead .superlink:hover{background: #82a2ca url(../images/superlink-sprite-black.png) 0 -35px repeat-x;border: 1px solid #555;}
-			.ohead .superlink:active{background: #82a2ca url(../images/superlink-sprite-black.png) 0 -70px repeat-x;border: 1px solid #000;color: #ddd}
+			.superlink:hover{background: #82a2ca url(../images/superlink-sprite-black.png) 0 -35px repeat-x;border: 1px solid #555;}
+			.superlink:active{background: #82a2ca url(../images/superlink-sprite-black.png) 0 -70px repeat-x;border: 1px solid #000;color: #ddd}
 			
-			.superlink-pagelines, .ohead .osave {padding: 5px 12px;height: 15px;}
+			.superlink-pad, .superlink-pagelines, .ohead .osave {padding: 5px 12px;height: 15px;display: block}
 			
 		.superlink-pagelines{background: url(../images/superlink-pagelines.png) no-repeat 11px 1px; display: block; height: 16px; width: 16px; }
 		.osave-wrap{
@@ -1868,28 +1870,53 @@
 
 .install_response{
 	background: #eee;
+	border: 1px solid #ccc;
+	border-right: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
 	font-size: .9em;
 	font-weight: bold;
-	padding: 20px;
+	padding: 10px 20px;
 	display: none;
 	margin-bottom: 1em;
 }
+	.install_response p:last-child {color: #225E9B;font-size:1.3em}
+	.install_response h2,.install_response .icon32{display: none}
 
-.pprow .plpane{
+.plpane{
 	
-	margin-bottom: 1.3em;
+	margin-top: 1.3em;
 }
-	.pprow .plpane-pad{
+	 .plpane-pad{
 		
-		border-top: 1px solid #fff;
+		
 		border-left: 1px solid #fff;
+		border-top: 1px solid #fff;
 	}
-	.pprow .plpane-hl{
+	 .plpane-hl{
 		border: 1px solid #ddd;
+		border-bottom: 1px solid #ccc;
 	}
-	.plpane h3{margin: 0;font-size: 1.5em;}
+	.plpane .superlink-wrap{float:right}
+	 h3{margin: 0;font-size: 1.3em;}
+	
+	.pane-head{
+		width: 25%;
+		float: left;
+	}
+		.pane-head-pad{padding: 0 8px 0 5px; border-right: 1px solid #ccc}
+	.pane-desc{
+		width: 50%;
+		float: left;
+	}
+		.pane-desc-pad{padding: 0 8px 0 12px; border-left: 1px solid #fff}
+		.pane-dets{ font-size:.8em}
+	.pane-buttons{
+		width: 25%;
+		float:left;
+	}
+	
 	.pane-sub {color: #999;font-size: .9em; font-weight: bold;}
-	.pane-desc{margin: .7em 0 1.2em;}
+
 	.plpane .button {
 		display: block;
 		float: left;

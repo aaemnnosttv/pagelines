@@ -806,6 +806,14 @@ class OptEngine {
 	/**
 	 *  INPUT HELPERS
 	 */
+
+	function superlink($text, $color = 'grey', $class = '', $link = '', $extra=''){
+		
+		$att = ($link == '') ? 'div' : 'a';
+		
+		return sprintf('<div class="%3$s-wrap superlink-wrap sl-%2$s"><%6$s id="%4$s" class="%3$s superlink" href="%4$s" %5$s ><span class="superlink-pad">%1$s</span></%6$s></div>', $text, $color, $class, $link, $extra, $att);
+	}
+	
 	function input_hidden($id, $name, $value, $class = ''){
 		return sprintf('<input type="hidden" id="%s" name="%s" value="%s" class="%s" />', $id, $name, $value, $class);
 	}
