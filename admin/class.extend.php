@@ -1,6 +1,9 @@
 <?php
 /**
- * Plugin installer class
+ * Plugin/theme installer class and section control.
+ *
+ * TODO cache api query.
+ * TODO add enable all to sections.
  *
  * Install PageLines plugins and looks after them.
  *
@@ -45,7 +48,9 @@
 
  	function extension_sections() {
 
- 		// TODO clear cache here!
+ 		global $load_sections;
+ 		delete_option( 'pagelines_sections_cache' );
+ 		$load_sections->pagelines_register_sections();
  		$available = get_option( 'pagelines_sections_cache' );
  		$disabled = get_option( 'pagelines_sections_disabled', array() );
 		$rn = 2;
@@ -70,7 +75,7 @@
 				
 				$title = sprintf('<div class="pane-head"><div class="pane-head-pad"><h3 class="pane-title">%s</h3></div></div>', $section['name']);
 				
-				$body = sprintf('<div class="pane-desc"><div class="pane-desc-pad">%s</div></div>', $section['description'] );	
+				$body = sprintf('<div class="pane-desc"><div class="pane-desc-pad">%s<div class="pane-dets">by <a href="%s">%s</a></div></div></div>', $section['description'], $section['authoruri'], $section['author']);
 				
 				$output .= sprintf('<div class="plpane pane-plugin %s"><div class="plpane-hl fix"><div class="plpane-pad fix">%s %s %s</div></div></div>', $cl, $title, $body, $buttons);
 				
