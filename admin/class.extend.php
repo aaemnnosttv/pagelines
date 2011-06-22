@@ -23,6 +23,7 @@
  		$file =  $_POST['extend_url'];
  		activate_plugin( $file );
  		echo 'Activation complete! ';
+ 		$this->page_reload( 'pagelines_extend_plugins' );
  		die();
  	}
 
@@ -30,19 +31,24 @@
  		$file =  $_POST['extend_url'];
  		deactivate_plugins( array($file) );
  		echo 'Deactivation complete! ';
+ 		$this->page_reload( 'pagelines_extend_plugins' );
  		die();
  	}
 
-
+ 	function page_reload( $location ) {
+ 		echo '<script type="text/javascript">window.location = \'' . admin_url( 'admin.php?page=' . $location ) . '\';</script>';
+ 	}
 	function extension_themes() {
 		return 'Fetch from api list of themes and show ajax buttons...';		
 	}
 
 	function extension_plugins() {
 
-		plprint( pagelines_register_plugins(), 'pagelines_register_plugins');
-		
 		$api = wp_remote_get( 'http://api.pagelines.com/plugins/' );
+
+		//
+		// TODO cache the api query above, it'll hardly EVER change, no need to fetch it on every page load!
+		//
 
 		$plugins = json_decode( $api['body'] );
 
@@ -252,8 +258,8 @@
 				$error = $upgrader->skin->result->get_error_message();
 		
 		// 4. Output
-			$out = ( !isset($error) ) ? true : 'error'; // nothing needs to be returned, just echo'd
-	
+		//	$out = ( !isset($error) ) ? true : 'error'; // nothing needs to be returned, just echo'd
+			$this->page_reload( 'pagelines_extend_plugins' );
 			die(); // needed at the end of ajax callbacks
 	}
 
