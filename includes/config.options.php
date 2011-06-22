@@ -1084,12 +1084,12 @@ function get_option_array( $load_unavailable = false ){
 /**
  * 
  *
- *  Returns Options Array
+ *  Returns Plugins Options Array
  *
  *
  *
  */
-function testingarray(  ){
+function plugin_array(  ){
 	
 	global $extension_control;
 
@@ -1105,9 +1105,35 @@ function testingarray(  ){
 		),
 	);
 	
-	return apply_filters('testingarray', $d); 
+	return apply_filters('plugin_array', $d); 
 }
 
+/**
+ * 
+ *
+ *  Returns Sections Options Array
+ *
+ *
+ *
+ */
+function section_array(  ){
+	
+	global $extension_control;
+
+	$d = array(
+		'sections' => array(
+			'partner_link' => array(
+					'default'	=> '',
+					'type'		=> 'text_content',
+					'layout'	=> 'full',
+					'exp'		=> $extension_control->extension_sections()
+			),
+
+		),
+	);
+	
+	return apply_filters('plugin_array', $d); 
+}
 /**
  * 
  *
