@@ -134,7 +134,7 @@
 					
 						window.clearInterval(interval); // clear dots...
 						
-						saveText.html(response).delay(5000).slideUp();
+						saveText.html(response).delay(6500).slideUp();
 						
 
 					}
