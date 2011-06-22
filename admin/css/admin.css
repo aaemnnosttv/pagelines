@@ -1863,6 +1863,44 @@
 	display: none;
 }
 
+
+/* *** @ Extension *** */
+
+.install_response{
+	background: #eee;
+	font-size: .9em;
+	font-weight: bold;
+	padding: 20px;
+	display: none;
+	margin-bottom: 1em;
+}
+
+.pprow .plpane{
+	
+	margin-bottom: 1.3em;
+}
+	.pprow .plpane-pad{
+		
+		border-top: 1px solid #fff;
+		border-left: 1px solid #fff;
+	}
+	.pprow .plpane-hl{
+		border: 1px solid #ddd;
+	}
+	.plpane h3{margin: 0;font-size: 1.5em;}
+	.pane-sub {color: #999;font-size: .9em; font-weight: bold;}
+	.pane-desc{margin: .7em 0 1.2em;}
+	.plpane .button {
+		display: block;
+		float: left;
+		margin: 0;
+	}
+	
+.plpane-pad{
+	background: #eee;
+	padding: 10px;
+}
+
 /* @ Restore/Import/Export */
 
 .download-button{
@@ -1945,4 +1983,14 @@
 	.fix{display:inline-block;} 
 	* html .fix{height:1%;}
 	.fix{display:block;}
-
+	
+	.pprow { width: 100%; margin: 0 auto; overflow: hidden; }
+	.pp2, .pp3, .pp4, .pp5, .pp6 {margin: 0; padding:0; margin-right: 4%; float: left; border: none;}
+	.pprow.debug .pp2, .pprow.debug .pp3, .pprow.debug .pp4, .pprow.debug .pp5, .pprow.debug .pp6{outline: 1px solid blue;}
+	.pp1 { width: 100%; float: left;}
+	.pp2 { width: 48%; }
+	.pp3 { width: 30.6666667%; }
+	.pp4 { width: 22%; }
+	.pp5 { width: 16.8%; }
+	.pp6 { width: 13.3333333%; }
+	.pplast { margin-right: 0; }

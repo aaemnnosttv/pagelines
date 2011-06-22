@@ -452,8 +452,10 @@ class OptEngine {
 	function _get_image_upload_option( $oid, $o ){ 
 
 		$up_url = $this->input_text($o['input_id'], $o['input_name'], esc_url($o['val']), 'regular-text uploaded_url');
+
 		
-		$up_button =  sprintf('<span id="%s" class="image_upload_button button">Upload Image</span>', $oid); 
+		$up_button = $this->input_button($oid, 'Upload Image', 'image_upload_button');
+		
 		$reset_button = sprintf('<span title="%1$s" id="reset_%1$s" class="image_reset_button button">Remove</span>', $oid); 
 		
 		$ajax_url = $this->input_hidden('', 'wp_ajax_action_url', admin_url("admin-ajax.php"), 'ajax_action_url');
@@ -838,5 +840,9 @@ class OptEngine {
 	function input_option($value, $selected, $text, $id = '', $extra = ''){ 
 		return sprintf('<option id=\'%s\' value="%s" %s %s>%s</option>', $id, $value, $extra, $selected, $text);
 	}
+		
+	function input_button($id, $text, $class = '', $extra = ''){ 
+		return sprintf('<span id=\'%s\' class="%s button" %s >%s</span>', $id, $class, $extra, $text);
+	}	
 
 } // End of Class
