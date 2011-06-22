@@ -14,8 +14,24 @@
 
 		add_action('admin_head', array(&$this, 'extension_js'));
 		add_action('wp_ajax_pagelines_ajax_extension_install', array(&$this, 'extension_install'));
+		add_action('wp_ajax_pagelines_ajax_extension_activate', array(&$this, 'extension_activate'));
+		add_action('wp_ajax_pagelines_ajax_extension_deactivate', array(&$this, 'extension_deactivate'));
  	}
 
+
+ 	function extension_activate() {
+ 		$file =  $_POST['extend_url'];
+ 		activate_plugin( $file );
+ 		echo 'Activation complete! ';
+ 		die();
+ 	}
+
+ 	function extension_deactivate() {
+ 		$file =  $_POST['extend_url'];
+ 		deactivate_plugins( array($file) );
+ 		echo 'Deactivation complete! ';
+ 		die();
+ 	}
 
 
 	function extension_themes() {
@@ -48,18 +64,18 @@
 				 * TODO here we need to check if our plugin is installed already, and change the form to ajax activate/deactivate
 				 *
 				 */
-				$url = 'http://api.pagelines.com/plugins/test1.zip';
-				
-				$install_js_call = sprintf('onClick="extendInstall(\'%s\', \'%s\', \'%s\')"', $key, 'plugin', $url);
-				
+				$install_js_call = sprintf('onClick="extendInstall(\'%s\', \'%s\', \'%s\')"', $key, 'plugin', $plugin->url);
+				$activate_js_call = sprintf('onClick="extendActivate(\'%s\', \'%s\', \'%s\')"', $key, 'plugin', $plugin->file);
+				$deactivate_js_call = sprintf('onClick="extendDeactivate(\'%s\', \'%s\', \'%s\')"', $key, 'plugin', $plugin->file);
+
 				switch ( $this->plugin_check_status( WP_PLUGIN_DIR . $plugin->file ) ) {
 
 					case 'active':
-						$button = OptEngine::superlink('Deactivate Plugin');
+						$button = OptEngine::superlink('Deactivate Plugin', '', '', '', $deactivate_js_call);
 						break;
 					
 					case 'notactive':
-						$button = OptEngine::superlink('Activate Plugin');
+						$button = OptEngine::superlink('Activate Plugin', '', '', '', $activate_js_call);
 						break;
 					
 					default:
@@ -69,18 +85,15 @@
 						
 				}
 				
-				
 				// Output
 				
-				
 				//if($start_row) $output .= sprintf('<div class="pprow">');
-				
 				
 				$buttons = sprintf('<div class="pane-buttons">%s</div>', $button);
 				
 				$title = sprintf('<div class="pane-head"><div class="pane-head-pad"><h3 class="pane-title">%s</h3><div class="pane-sub">%s</div></div></div>', $plugin->name, 'Version ' . $plugin->version);
 				
-				$body = sprintf('<div class="pane-desc"><div class="pane-desc-pad">%s<div class="pane-dets">by <a href="%s">%s</a></div></div></div>', $plugin->text, '#', 'Plugin Maker');	
+				$body = sprintf('<div class="pane-desc"><div class="pane-desc-pad">%s<div class="pane-dets">by <a href="%s">%s</a></div></div></div>', $plugin->text, $plugin->author_url, $plugin->author );	
 				
 				$output .= sprintf('<div class="plpane pane-plugin %s"><div class="plpane-hl fix"><div class="plpane-pad fix">%s %s %s</div></div></div>', $cl, $title, $body, $buttons);
 				
@@ -90,9 +103,6 @@
 				$count++;
 			}
 		}
-		
-		
-		
 		return $output;
 	}
 	
@@ -142,6 +152,79 @@
 			
 		}
 
+		function extendActivate(key, type, url){
+			
+				var data = {
+					action: 'pagelines_ajax_extension_activate',
+					extend_type: type,
+					extend_url: url
+				};
+
+				var saveText = jQuery('#response'+key);
+				jQuery.ajax({
+					type: 'POST',
+					url: ajaxurl,
+					data: data,
+					beforeSend: function(){
+
+						saveText.html('Activating').slideDown();
+						
+						// add some dots while saving.
+						interval = window.setInterval(function(){
+							var text = saveText.text();
+							if (text.length < 13){	saveText.text(text + '.'); }
+							else { saveText.text('Activated'); } 
+						}, 400);
+
+					},
+				  	success: function( response ){
+					
+						window.clearInterval(interval); // clear dots...
+						
+						saveText.html(response).delay(6500).slideUp();
+						
+
+					}
+				});
+			
+		}
+
+		function extendDeactivate(key, type, url){
+			
+				var data = {
+					action: 'pagelines_ajax_extension_deactivate',
+					extend_type: type,
+					extend_url: url
+				};
+
+				var saveText = jQuery('#response'+key);
+				jQuery.ajax({
+					type: 'POST',
+					url: ajaxurl,
+					data: data,
+					beforeSend: function(){
+
+						saveText.html('Deactivating').slideDown();
+						
+						// add some dots while saving.
+						interval = window.setInterval(function(){
+							var text = saveText.text();
+							if (text.length < 13){	saveText.text(text + '.'); }
+							else { saveText.text('Deactivated'); } 
+						}, 400);
+
+					},
+				  	success: function( response ){
+					
+						window.clearInterval(interval); // clear dots...
+						
+						saveText.html(response).delay(6500).slideUp();
+						
+
+					}
+				});
+			
+		}
 		/*]]>*/</script>
 		
 <?php }
@@ -185,4 +268,4 @@
 			return 'notactive';
 	}
 
- } // end PagelinesPlugins class
+ } // end PagelinesExtensions class
