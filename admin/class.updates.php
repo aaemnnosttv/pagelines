@@ -179,7 +179,7 @@ function check_for_plugin_update($checked_data) {
 	$raw_response = wp_remote_post($this->url_plugins, $request_string);
 
 	if (!is_wp_error($raw_response) && ($raw_response['response']['code'] == 200))
-		$response = unserialize($raw_response['body']);
+		$response = ( is_serialized( $raw_response['body'] ) ) ? unserialize($raw_response['body']) : '';
 	
 	if (is_object($response) && !empty($response)) // Feed the update data into WP updater
 		$checked_data->response[$this->plugin .'/'. $this->plugin .'.php'] = $response;
