@@ -3,6 +3,7 @@
 
 	Section: Breadcrumb
 	Author: Adam Munns
+	Author URI: http://adammunns.com
 	Description: Displays Breadcrumb Navigation on your site.
 	Version: 1.0.0
 	Class Name: PageLinesBreadcrumb

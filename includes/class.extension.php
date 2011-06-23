@@ -62,7 +62,7 @@ class PageLinesExtension{
 
 		// filter main array containing child and parent and any custom sections
 		$sections = apply_filters( 'pagelines_section_admin', $sections );
-
+		$disabled = get_option( 'pagelines_sections_disabled' );
 		foreach ( $sections as $type ) {
 
 			if(is_array($type)){
@@ -72,8 +72,9 @@ class PageLinesExtension{
 					* using pagelines_section_admin filter we can disable sections from loading
 					* by setting the disabled bit.
 					*/
-					if (isset( $section['disabled'] ) )
-						break;
+
+					if (isset( $disabled[$section['type']][$section['class']] ) )
+						continue;
 					
 					// consolidate array vars
 					$dep = ($section['depends'] != '') ? $section['depends'] : null;
@@ -123,7 +124,7 @@ class PageLinesExtension{
 		foreach( $it as $fullFileName => $fileSPLObject ) {
 			if (pathinfo($fileSPLObject->getFilename(), PATHINFO_EXTENSION ) == 'php') {
 				$folder = ( preg_match( '/sections\/(.*)\//', $fullFileName, $match) ) ? '/' . $match[1] : '';
-				$headers = get_file_data( $fullFileName, $default_headers = array( 'classname' => 'Class Name', 'depends' => 'Depends' ) );
+				$headers = get_file_data( $fullFileName, $default_headers = array( 'version' => 'Version', 'author' => 'Author', 'authoruri' => 'Author URI', 'section' => 'Section', 'description' => 'Description', 'classname' => 'Class Name', 'depends' => 'Depends' ) );
 
 				// If no pagelines class headers ignore this file.
 				if ( !$headers['classname'] )
@@ -131,12 +132,17 @@ class PageLinesExtension{
 
 				$filename = str_replace( '.php', '', str_replace( 'section.', '', $fileSPLObject->getFilename() ) );
 				$sections[$headers['classname']] = array(
-					'class' => $headers['classname'],
-					'depends' => $headers['depends'],
-					'type' => $type,
-					'base_url' => ( $type == 'child' ) ? CHILD_URL . '/sections/' . $folder : SECTION_ROOT . $folder,
-					'base_dir' => ( $type == 'child' ) ? CHILD_DIR . '/sections' . $folder : PL_SECTIONS . $folder,
-					'base_file' => $fullFileName
+					'class'			=> $headers['classname'],
+					'depends'		=> $headers['depends'],
+					'type'			=> $type,
+					'author'		=> $headers['author'],
+					'version'		=> $headers['version'],
+					'authoruri'		=> ( isset( $headers['authoruri'] ) ) ? $headers['authoruri'] : '',
+					'description'	=> $headers['description'],
+					'name'			=> $headers['section'],
+					'base_url'		=> ( $type == 'child' ) ? CHILD_URL . '/sections/' . $folder : SECTION_ROOT . $folder,
+					'base_dir'		=> ( $type == 'child' ) ? CHILD_DIR . '/sections' . $folder : PL_SECTIONS . $folder,
+					'base_file'		=> $fullFileName
 				);	
 			}
 		}

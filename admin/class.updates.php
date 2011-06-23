@@ -22,7 +22,7 @@ class PageLinesUpdateCheck {
   
     	if ( is_multisite() && ! is_super_admin() )
 			return;
-		add_filter( 'pagelines_options_array', array(&$this,'pagelines_update_tab') );
+		add_filter( 'pagelines_options_array', array(&$this,'pagelines_theme_update_tab') );
 		if ( get_pagelines_option('disable_updates') == true )
 			return;
     	add_filter('pre_set_site_transient_update_plugins', array(&$this,'check_for_plugin_update') );
@@ -179,7 +179,7 @@ function check_for_plugin_update($checked_data) {
 	$raw_response = wp_remote_post($this->url_plugins, $request_string);
 
 	if (!is_wp_error($raw_response) && ($raw_response['response']['code'] == 200))
-		$response = unserialize($raw_response['body']);
+		$response = ( is_serialized( $raw_response['body'] ) ) ? unserialize($raw_response['body']) : '';
 	
 	if (is_object($response) && !empty($response)) // Feed the update data into WP updater
 		$checked_data->response[$this->plugin .'/'. $this->plugin .'.php'] = $response;

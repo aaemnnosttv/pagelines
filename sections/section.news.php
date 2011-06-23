@@ -3,6 +3,7 @@
 
 	Section: News Banner
 	Author: Adam Munns
+	Author URI: http://adammunns.com
 	Description: Shows a banner with a news style ticker in it
 	Version: 1.0.0
 	Class Name: PageLinesNews

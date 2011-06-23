@@ -3,6 +3,7 @@
 
 	Section: No Posts
 	Author: Andrew Powers
+	Author URI: http://www.pagelines.com
 	Description: Shown when no posts or 404 is returned
 	Version: 1.0.0
 	Class Name: PageLinesNoPosts
