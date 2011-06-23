@@ -3,6 +3,7 @@
 
 	Section: PostLoop
 	Author: Andrew Powers
+	Author URI: http://www.pagelines.com
 	Description: Paginates posts, shows a numerical post navigation
 	Version: 1.0.0
 	Class Name: PageLinesPostLoop

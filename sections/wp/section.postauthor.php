@@ -3,6 +3,7 @@
 
 	Section: PostAuthor
 	Author: Andrew Powers
+	Author URI: http://www.pagelines.com
 	Description: Adds post author to page/single post.
 	Version: 1.0.0
 	Class Name: PageLinesPostAuthor

@@ -11,7 +11,6 @@
  */
 
  class PagelinesExtensions {
- 	
 
  	function __construct() {
 
@@ -21,10 +20,10 @@
 		add_action('wp_ajax_pagelines_ajax_extension_plugin_deactivate', array(&$this, 'extension_plugin_deactivate'));
 		add_action('wp_ajax_pagelines_ajax_extension_section_activate', array(&$this, 'extension_section_activate'));
 		add_action('wp_ajax_pagelines_ajax_extension_section_deactivate', array(&$this, 'extension_section_deactivate'));
-
  	}
 
  	function extension_section_activate() {
+
  		$file = $_POST['extend_url'];
  		$type = $_POST['extend_type'];
  		$available = get_option( 'pagelines_sections_disabled' );
@@ -36,6 +35,7 @@
  	}
 
  	function extension_section_deactivate() {
+
  		$file = $_POST['extend_url'];
  		$type = $_POST['extend_type'];
  		$disabled = get_option( 'pagelines_sections_disabled', array( 'child' => array(), 'parent' => array()) );
@@ -48,11 +48,17 @@
 
  	function extension_sections() {
 
+ 		/*
+ 		*
+ 		* Clear section cache and re-generate
+ 		*
+ 		*/
  		global $load_sections;
  		delete_option( 'pagelines_sections_cache' );
  		$load_sections->pagelines_register_sections();
  		$available = get_option( 'pagelines_sections_cache' );
  		$disabled = get_option( 'pagelines_sections_disabled', array() );
+
 		$rn = 2;
 		$count = $rn;
 		$output = '';
@@ -73,7 +79,7 @@
 
 				$buttons = sprintf('<div class="pane-buttons">%s</div>', $button);
 				
-				$title = sprintf('<div class="pane-head"><div class="pane-head-pad"><h3 class="pane-title">%s</h3></div></div>', $section['name']);
+				$title = sprintf('<div class="pane-head"><div class="pane-head-pad"><h3 class="pane-title">%s</h3><div class="pane-sub">%s</div></div></div>', $section['name'], 'Version ' . $section['version'] );
 				
 				$body = sprintf('<div class="pane-desc"><div class="pane-desc-pad">%s<div class="pane-dets">by <a href="%s">%s</a></div></div></div>', $section['description'], $section['authoruri'], $section['author']);
 				
@@ -81,7 +87,6 @@
 				
 				$output .= sprintf('<div id="response%s" class="install_response"><div class="rp"></div></div>', $key);
 				
-				//if($end_row) $output .= sprintf('</div>');
 				$count++;
 
  			}	// end main loop
@@ -90,7 +95,14 @@
 	return $output;
  	}
 
+ 	/*
+ 	*
+ 	* Here is the themes function
+ 	* TODO TODO TODO
+ 	*
+ 	*/
 	function extension_themes() {
+
 		return 'Fetch from api list of themes and show ajax buttons...';		
 	}
 
@@ -103,7 +115,6 @@
 		//
 
 		$plugins = json_decode( $api['body'] );
-
 	
 		if ( is_object($plugins) ) {
 			$rn = 2;
@@ -115,13 +126,7 @@
 				$start_row = ($count % $rn == 0) ? true : false;
 				$end_row = ( ($count+1) % $rn == 0 || $plugin == end($plugins)) ? true : false;
 				$cl = ($end_row) ? 'pplast' : '';
-			
-				/**
-				 * 
-				 * Remember this form is a hack up!
-				 * TODO here we need to check if our plugin is installed already, and change the form to ajax activate/deactivate
-				 *
-				 */
+
 				$install_js_call = sprintf('onClick="extend_plugin_Install(\'%s\', \'%s\', \'%s\')"', $key, 'plugin', $plugin->url);
 				$activate_js_call = sprintf('onClick="extend_plugin_Activate(\'%s\', \'%s\', \'%s\')"', $key, 'plugin', $plugin->file);
 				$deactivate_js_call = sprintf('onClick="extend_plugin_Deactivate(\'%s\', \'%s\', \'%s\')"', $key, 'plugin', $plugin->file);
@@ -144,9 +149,7 @@
 				}
 				
 				// Output
-				
-				//if($start_row) $output .= sprintf('<div class="pprow">');
-				
+		
 				$buttons = sprintf('<div class="pane-buttons">%s</div>', $button);
 				
 				$title = sprintf('<div class="pane-head"><div class="pane-head-pad"><h3 class="pane-title">%s</h3><div class="pane-sub">%s</div></div></div>', $plugin->name, 'Version ' . $plugin->version);
@@ -157,7 +160,6 @@
 				
 				$output .= sprintf('<div id="response%s" class="install_response"><div class="rp"></div></div>', $key);
 				
-				//if($end_row) $output .= sprintf('</div>');
 				$count++;
 			}
 		}
@@ -203,11 +205,8 @@
 						window.clearInterval(interval); // clear dots...
 						
 						saveText.html(response).delay(6500).slideUp();
-						
-
 					}
 				});
-			
 		}
 
 		function extend_plugin_Activate(key, type, url){
@@ -240,11 +239,8 @@
 						window.clearInterval(interval); // clear dots...
 						
 						saveText.html(response).delay(6500).slideUp();
-						
-
 					}
 				});
-			
 		}
 
 		function extend_plugin_Deactivate(key, type, url){
@@ -277,15 +273,9 @@
 						window.clearInterval(interval); // clear dots...
 						
 						saveText.html(response).delay(6500).slideUp();
-						
-
 					}
 				});
-			
 		}
-
-
-
 
 		function extend_section_Activate(key, type, url){
 			
@@ -317,14 +307,9 @@
 						window.clearInterval(interval); // clear dots...
 						
 						saveText.html(response).delay(6500).slideUp();
-						
-
 					}
 				});
-			
 		}
-
-
 
 				function extend_section_Deactivate(key, type, url){
 			
@@ -357,30 +342,9 @@
 						window.clearInterval(interval); // clear dots...
 						
 						saveText.html(response).delay(6500).slideUp();
-						
-
 					}
 				});
-			
 		}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 		/*]]>*/</script>
 		
 <?php }

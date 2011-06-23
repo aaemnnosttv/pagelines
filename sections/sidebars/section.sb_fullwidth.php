@@ -3,6 +3,7 @@
 
 	Section: Full Width Sidebar
 	Author: Andrew Powers
+	Author URI: http://www.pagelines.com
 	Description: Shows full width widgetized sidebar
 	Version: 1.0.0
 	Class Name: FullWidthSidebar

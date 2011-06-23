@@ -3,6 +3,7 @@
 
 	Section: Content Sidebar
 	Author: Andrew Powers
+	Author URI: http://www.pagelines.com
 	Description: Shows sidebar inside the main column content area
 	Version: 1.0.0
 	Class Name: ContentSidebar

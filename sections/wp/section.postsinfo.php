@@ -3,6 +3,7 @@
 
 	Section: PageLines PostsInfo
 	Author: Andrew Powers
+	Author URI: http://www.pagelines.com
 	Description: Shows information about posts being viewed (e.g. "Currently Viewing Archives from...")
 	Version: 1.0.0
 	Class Name: PageLinesPostsInfo

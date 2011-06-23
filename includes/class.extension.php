@@ -124,7 +124,7 @@ class PageLinesExtension{
 		foreach( $it as $fullFileName => $fileSPLObject ) {
 			if (pathinfo($fileSPLObject->getFilename(), PATHINFO_EXTENSION ) == 'php') {
 				$folder = ( preg_match( '/sections\/(.*)\//', $fullFileName, $match) ) ? '/' . $match[1] : '';
-				$headers = get_file_data( $fullFileName, $default_headers = array( 'author' => 'Author', 'authoruri' => 'Author URI', 'section' => 'Section', 'description' => 'Description', 'classname' => 'Class Name', 'depends' => 'Depends' ) );
+				$headers = get_file_data( $fullFileName, $default_headers = array( 'version' => 'Version', 'author' => 'Author', 'authoruri' => 'Author URI', 'section' => 'Section', 'description' => 'Description', 'classname' => 'Class Name', 'depends' => 'Depends' ) );
 
 				// If no pagelines class headers ignore this file.
 				if ( !$headers['classname'] )
@@ -132,16 +132,17 @@ class PageLinesExtension{
 
 				$filename = str_replace( '.php', '', str_replace( 'section.', '', $fileSPLObject->getFilename() ) );
 				$sections[$headers['classname']] = array(
-					'class' => $headers['classname'],
-					'depends' => $headers['depends'],
-					'type' => $type,
-					'author' => $headers['author'],
-					'authoruri' => ( isset( $headers['authoruri'] ) ) ? $headers['authoruri'] : '',
-					'description' => $headers['description'],
-					'name' => $headers['section'],
-					'base_url' => ( $type == 'child' ) ? CHILD_URL . '/sections/' . $folder : SECTION_ROOT . $folder,
-					'base_dir' => ( $type == 'child' ) ? CHILD_DIR . '/sections' . $folder : PL_SECTIONS . $folder,
-					'base_file' => $fullFileName
+					'class'			=> $headers['classname'],
+					'depends'		=> $headers['depends'],
+					'type'			=> $type,
+					'author'		=> $headers['author'],
+					'version'		=> $headers['version'],
+					'authoruri'		=> ( isset( $headers['authoruri'] ) ) ? $headers['authoruri'] : '',
+					'description'	=> $headers['description'],
+					'name'			=> $headers['section'],
+					'base_url'		=> ( $type == 'child' ) ? CHILD_URL . '/sections/' . $folder : SECTION_ROOT . $folder,
+					'base_dir'		=> ( $type == 'child' ) ? CHILD_DIR . '/sections' . $folder : PL_SECTIONS . $folder,
+					'base_file'		=> $fullFileName
 				);	
 			}
 		}
