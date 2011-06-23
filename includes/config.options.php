@@ -51,7 +51,7 @@ class PageLinesOptionsArray {
 				'exp' 			=> 'Adding your email here will allow us to send you email notifications about updates and new software from PageLines'
 			),
 			'pagelines_custom_logo' => array(
-				'default' 		=> PL_IMAGES.'/logo-platformpro.png',
+				'default' 		=> PL_IMAGES.'/logo-default.png',
 				'default_free'	=> PL_IMAGES.'/logo-platform.png',
 				'type' 			=> 'image_upload',
 				'imagepreview' 	=> '270',
