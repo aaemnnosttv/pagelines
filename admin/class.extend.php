@@ -68,14 +68,13 @@
  			
  			foreach( $type as $key => $section) { // main loop
  			
-				$start_row = ($count % $rn == 0) ? true : false;
-				$end_row = ( ($count+1) % $rn == 0 || $section == end($type)) ? true : false;
-				$cl = ($end_row) ? 'pplast' : '';
 
 				$activate_js_call = sprintf('onClick="extend_section_Activate(\'%s\', \'%s\', \'%s\')"', $key, $section['type'], $section['class']);
 				$deactivate_js_call = sprintf('onClick="extend_section_Deactivate(\'%s\', \'%s\', \'%s\')"', $key, $section['type'], $section['class']);
 
-				$button = ( !isset( $disabled[$section['type']][$section['class']] ) ) ? OptEngine::superlink('Deactivate', '', '', '', $deactivate_js_call) : OptEngine::superlink('Activate', '', '', '', $activate_js_call);
+				$button = ( !isset( $disabled[$section['type']][$section['class']] ) ) 
+							? OptEngine::superlink('Deactivate', 'grey', '', '', $deactivate_js_call) 
+							: OptEngine::superlink('Activate', 'grey', '', '', $activate_js_call);
 
 				$buttons = sprintf('<div class="pane-buttons">%s</div>', $button);
 				
@@ -230,7 +229,7 @@
 						interval = window.setInterval(function(){
 							var text = saveText.text();
 							if (text.length < 13){	saveText.text(text + '.'); }
-							else { saveText.text('Activated'); } 
+							else { saveText.text('Activating'); } 
 						}, 400);
 
 					},
@@ -264,7 +263,7 @@
 						interval = window.setInterval(function(){
 							var text = saveText.text();
 							if (text.length < 13){	saveText.text(text + '.'); }
-							else { saveText.text('Deactivated'); } 
+							else { saveText.text('Deactivating'); } 
 						}, 400);
 
 					},
@@ -298,7 +297,7 @@
 						interval = window.setInterval(function(){
 							var text = saveText.text();
 							if (text.length < 13){	saveText.text(text + '.'); }
-							else { saveText.text('Activated'); } 
+							else { saveText.text('Activating'); } 
 						}, 400);
 
 					},
@@ -311,39 +310,39 @@
 				});
 		}
 
-				function extend_section_Deactivate(key, type, url){
-			
-				var data = {
-					action: 'pagelines_ajax_extension_section_deactivate',
-					extend_type: type,
-					extend_url: url,
-					extend_key: key
-				};
+			function extend_section_Deactivate(key, type, url){
+		
+			var data = {
+				action: 'pagelines_ajax_extension_section_deactivate',
+				extend_type: type,
+				extend_url: url,
+				extend_key: key
+			};
 
-				var saveText = jQuery('#response'+key);
-				jQuery.ajax({
-					type: 'POST',
-					url: ajaxurl,
-					data: data,
-					beforeSend: function(){
+			var saveText = jQuery('#response'+key);
+			jQuery.ajax({
+				type: 'POST',
+				url: ajaxurl,
+				data: data,
+				beforeSend: function(){
 
-						saveText.html('Deactivating').slideDown();
-						
-						// add some dots while saving.
-						interval = window.setInterval(function(){
-							var text = saveText.text();
-							if (text.length < 13){	saveText.text(text + '.'); }
-							else { saveText.text('Deactivated'); } 
-						}, 400);
-
-					},
-				  	success: function( response ){
+					saveText.html('Deactivating').slideDown();
 					
-						window.clearInterval(interval); // clear dots...
-						
-						saveText.html(response).delay(6500).slideUp();
-					}
-				});
+					// add some dots while saving.
+					interval = window.setInterval(function(){
+						var text = saveText.text();
+						if (text.length < 13){	saveText.text(text + '.'); }
+						else { saveText.text('Deactivating'); } 
+					}, 400);
+
+				},
+			  	success: function( response ){
+				
+					window.clearInterval(interval); // clear dots...
+					
+					saveText.html(response).delay(6500).slideUp();
+				}
+			});
 		}
 		/*]]>*/</script>
 		

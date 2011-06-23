@@ -16,22 +16,22 @@ class PageLinesOptionsUI {
 /*
 	Build The Layout
 */
-	function __construct( $title = 'Settings', $option_callback = null, $settings_field = PAGELINES_SETTINGS ) {
+	function __construct( $args = array() ) {
 		
-		// Set primary title
-		$this->titleUI = $title;
+		$defaults = array(
+				'title'			=> 'Settings',
+				'callback'		=> null,
+				'settings'		=> PAGELINES_SETTINGS, 
+				'show_save'		=> true,
+				'show_reset'	=> true
+			);
 		
-		// Set settings field
-		$this->setfield = $settings_field;
-		
+		$this->set = wp_parse_args( $args, $defaults );
+
 		// Set option array callbacks
-		if(isset($option_callback))
-			$this->option_array = call_user_func($option_callback);
-		else
-			$this->option_array = get_option_array();
+		$this->option_array = (isset($this->set['callback'])) ? call_user_func( $this->set['callback'] ) : get_option_array();
 		
-		
-		$this->primary_settings = ($settings_field == PAGELINES_SETTINGS) ? true : false;
+		$this->primary_settings = ($this->set['settings'] == PAGELINES_SETTINGS) ? true : false;
 		
 		
 		// Draw the thing
@@ -53,7 +53,7 @@ function build_header(){?>
 		
 					<?php 
 						wp_nonce_field('update-options'); // security for option saving
-						settings_fields($this->setfield); // namespace for options important!  
+						settings_fields($this->set['settings']); // namespace for options important!  
 					 	
 						echo OptEngine::input_hidden('input-full-submit', 'input-full-submit', 0); // submit the form fully, page refresh needed
 					 	
@@ -67,18 +67,20 @@ function build_header(){?>
 					<div class="ohead" class="fix">
 						<div class="ohead-pad fix">
 							
-							<div class="superlink-wrap">
+							<div class="sl-black superlink-wrap">
 								<a class="superlink" href="#">
 									<span class="superlink-pagelines">&nbsp;</span>
 								</a>
 							</div>
 							<div class="ohead-title">
-								<?php echo $this->titleUI; ?> 
+								<?php echo $this->set['title']; ?> 
 							</div>
 							<div class="ohead-title-right">
+								<?php if($this->set['show_save']):?>
 								<div class="superlink-wrap osave-wrap">
 									<input class="superlink osave" type="submit" name="submit" value="<?php _e('Save Options', 'pagelines');?>" />
 								</div>
+								<?php endif;?>
 							
 							</div>
 						</div>
@@ -110,13 +112,20 @@ function build_header(){?>
 				<div id="optionsfooter" class="fix">
 					<div class="ohead fix">
 						<div class="ohead-pad fix">
+							<?php if($this->set['show_save']):?>
 							<div class="superlink-wrap osave-wrap">
 								<input class="superlink osave" type="submit" name="submit" value="<?php _e('Save Options', 'pagelines');?>" />
 							</div>
+							<?php else:?>
+								<div class="superlink-wrap">
+									<a class="superlink" href="http://www.pagelines.com/"><span class="superlink-pad">Visit PageLines Site &rarr;</span></a>
+								</div>
+							<?php endif;?>
 						</div>
 					</div>
 				</div>
 
+				<?php if($this->set['show_reset']):?>
 				<div class="optionrestore">
 						<h4><?php _e('Restore Settings', 'pagelines'); ?></h4>
 						<p>
@@ -125,6 +134,7 @@ function build_header(){?>
 						</p>
 
 				</div>
+				<?php endif;?>
 
 				 
 			  	</form><!-- close entire form -->
@@ -148,7 +158,7 @@ function build_header(){?>
 		 *
 		 */
 		function build_body(){
-			$option_engine = new OptEngine( $this->setfield );
+			$option_engine = new OptEngine( $this->set['settings'] );
 			global $pl_section_factory; 
 ?>
 			<div id="tabs">	
@@ -229,7 +239,7 @@ function build_header(){?>
 	 */
 	function get_tab_setup(){
 		
-		echo OptEngine::input_hidden('selectedtab', $this->setfield, load_pagelines_option('selectedtab', 0)); // tracks last tab active 
+		echo OptEngine::input_hidden('selectedtab', $this->set['settings'], load_pagelines_option('selectedtab', 0)); // tracks last tab active 
 	
 		if(isset($_COOKIE['PageLinesTabCookie']))
 			$selected_tab = (int) $_COOKIE['PageLinesTabCookie'];

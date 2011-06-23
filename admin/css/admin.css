@@ -509,8 +509,8 @@
 			border-radius: 4px;	
 			float:left;
 		}
-		.superlink {
-			text-shadow: #000 0 -1px 0;
+		.superlink-wrap	.superlink {
+			
 			display: block;
 			text-decoration: none;
 			margin:0;
@@ -521,16 +521,36 @@
 			font-weight: bold;
 			font-size: 1em;
 			line-height: 15px;
-			color: #fff;
-			border: 1px solid #333;
-			background: #000 url(../images/superlink-sprite-black.png) 0 0 repeat-x;
+			color:#666;
+			text-shadow: #fff 0 1px 0;
+			
+			border: 1px solid #999;
+			border-top: 1px solid #f7f7f7;
+			border-left: 1px solid #f7f7f7;
+			background: #ddd url(../images/superlink-sprite-grey.png) 0 0 repeat-x;
 			-moz-box-sizing: content-box;
 			-webkit-box-sizing: content-box;
 			box-sizing: content-box;
 			cursor: pointer;
 		}
-			.superlink:hover{background: #82a2ca url(../images/superlink-sprite-black.png) 0 -35px repeat-x;border: 1px solid #555;}
-			.superlink:active{background: #82a2ca url(../images/superlink-sprite-black.png) 0 -70px repeat-x;border: 1px solid #000;color: #ddd}
+			.superlink:hover{
+				background: #82a2ca url(../images/superlink-sprite-grey.png) 0 -35px repeat-x;
+				border: 1px solid #aaa;
+				border-top: 1px solid #fff;
+				border-left: 1px solid #fff;
+				
+			}
+			.superlink:active{background: #82a2ca url(../images/superlink-sprite-grey.png) 0 -70px repeat-x;border: 1px solid #666;color: #000}
+			
+			
+		.sl-black .superlink{
+			color: #fff;
+			border: 1px solid #333;
+			background: #eee url(../images/superlink-sprite-black.png) 0 0 repeat-x;
+			text-shadow: #000 0 -1px 0;
+		}
+			.sl-black .superlink:hover{background: #82a2ca url(../images/superlink-sprite-black.png) 0 -35px repeat-x;border: 1px solid #555;}
+			.sl-black .superlink:active{background: #82a2ca url(../images/superlink-sprite-black.png) 0 -70px repeat-x;border: 1px solid #000;color: #ddd}
 			
 			.superlink-pad, .superlink-pagelines, .ohead .osave {padding: 5px 12px;height: 15px;display: block}
 			

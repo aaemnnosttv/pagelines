@@ -40,12 +40,27 @@ function pagelines_build_option_interface(){
 
 // Build option interface - plugins
 function pagelines_build_extension_plugins_interface(){ 
-	$optionUI = new PageLinesOptionsUI('Plugins','plugin_array', 'pagelines-extension');
+	
+	$args = array(
+		'title'			=> 'Plugins', 
+		'settings' 		=> 'pagelines-extension',
+		'callback'		=> 'plugin_array',
+		'show_save'		=> false, 
+		'show_reset'	=> false	
+	);
+	$optionUI = new PageLinesOptionsUI($args);
 }
 
 // Build option interface - sections
 function pagelines_build_extension_sections_interface(){ 
-	$optionUI = new PageLinesOptionsUI('Sections','section_array', 'pagelines-extension');
+	$args = array(
+		'title'			=> 'Sections', 
+		'settings' 		=> 'pagelines-extension',
+		'callback'		=> 'section_array',
+		'show_save'		=> false, 
+		'show_reset'	=> false	
+	);
+	$optionUI = new PageLinesOptionsUI($args);
 }
 
 
