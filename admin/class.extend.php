@@ -65,7 +65,7 @@
  		foreach( $available as $type ) {
  			if ( !$type )
  				continue;
- 			
+ 			asort($type); // sort
  			foreach( $type as $key => $section) { // main loop
  			
 
