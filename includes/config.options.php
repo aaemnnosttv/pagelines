@@ -1082,52 +1082,6 @@ function get_option_array( $load_unavailable = false ){
 }
 
 
-/**
- *
- *  Returns Extension Array Config
- *
- */
-function extension_array(  ){
-	
-	global $extension_control;
-
-	$d = array(
-		'PageLines_Sections' => array(
-			'htabs' 	=> array(
-				'installed'	=> array(
-					'title'		=> "Installed PageLines Sections",
-					'callback'	=> $extension_control->extension_sections()
-					),
-				'featured'	=> array(
-					'title'		=> "Featured PageLines Sections",
-					'callback'	=> $extension_control->extension_sections()
-					),
-				'popular'	=> array(
-					'title'		=> "Popular PageLines Sections",
-					'callback'	=> $extension_control->extension_sections()
-					),
-				'newest'	=> array(
-					'title'		=> "Newest PageLines Sections",
-					'callback'	=> $extension_control->extension_sections()
-					)
-						
-			),
-
-		),
-		'PageLines_Plugins' => array(
-			'plugins_panel' => array(
-				'default'	=> '',
-				'type'		=> 'text_content',
-				'layout'	=> 'full',
-				'exp'		=> $extension_control->extension_plugins()
-			),
-
-		),
-		
-	);
-	
-	return apply_filters('extension_array', $d); 
-}
 
 /**
  * 
