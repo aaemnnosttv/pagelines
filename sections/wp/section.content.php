@@ -1,11 +1,10 @@
 <?php
 /*
-
 	Section: Content
 	Author: Andrew Powers
 	Author URI: http://www.pagelines.com
 	Description: Creates a flickr, nextgen, or featured image carousel.
-	Version: 1.0.0
+	Internal: core
 	Class Name: PageLinesContent
 */
 
@@ -21,7 +20,7 @@ class PageLinesContent extends PageLinesSection {
 			'description' 	=> 'This is the section that contains the main content for your site, including sidebars and page/post content.',
 			'workswith' 	=> array('templates'),
 			'failswith'		=> array('404'),
-			
+	
 			'icon'			=> PL_ADMIN_ICONS . '/document.png', 
 			'cloning'		=> false
 		);

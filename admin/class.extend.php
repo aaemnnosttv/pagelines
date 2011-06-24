@@ -48,7 +48,6 @@
 	 		 * Sort Alphabetically
 	 		 */
  			$type = pagelines_array_sort( $type, 'name' );
-
  			foreach( $type as $key => $section) { // main loop
  			
 
@@ -64,7 +63,8 @@
 						'version'	=> $section['version'], 
 						'desc'		=> $section['description'], 
 						'auth_url'	=> $section['authoruri'], 
-						'auth'		=> $section['author'], 
+						'auth'		=> $section['author'],
+						'importance'=> $section['importance'],
 						'buttons'	=> $button, 
 						'key'		=> $key
 				);
@@ -123,7 +123,7 @@
 						'desc'		=> $plugin->text, 
 						'auth_url'	=> $plugin->author_url, 
 						'auth'		=> $plugin->author, 
-						'buttons'	=> $button, 
+						'buttons'	=> $button,
 						'key'		=> $key
 				);
 				
@@ -145,7 +145,8 @@
 				'desc'		=> '', 
 				'auth_url'	=> '', 
 				'auth'		=> '', 
-				'buttons'	=> '', 
+				'buttons'	=> '',
+				'importance'=> '',
 				'key'		=> ''
 		);
 		
