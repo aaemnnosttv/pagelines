@@ -47,7 +47,7 @@
 			/*
 	 		 * Sort Alphabetically
 	 		 */
- 			asort($type); 
+ 			$type = pagelines_array_sort( $type, 'name' );
 
  			foreach( $type as $key => $section) { // main loop
  			

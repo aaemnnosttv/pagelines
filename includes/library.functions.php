@@ -589,3 +589,21 @@ function pagelines_register_plugins() {
 	}
 	return $pagelines_plugins;
 }
+
+/**
+ *
+ * Return sorted array based on supplied key
+ * 
+ * @since 2.0
+ * @return sorted array
+ */
+	function pagelines_array_sort( $a, $subkey ) {
+		foreach( $a as $k => $v ) {
+			$b[$k] = strtolower( $v[$subkey] );
+		}
+		asort( $b );
+		foreach( $b as $key => $val ) {
+			$c[] = $a[$key];
+		}
+		return $c;
+	}
