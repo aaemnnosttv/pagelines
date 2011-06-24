@@ -37,7 +37,7 @@
  		$load_sections->pagelines_register_sections();
  		$available = get_option( 'pagelines_sections_cache' );
  		$disabled = get_option( 'pagelines_sections_disabled', array() );
-
+plprint($disabled); 
 		$output = '';
  		foreach( $available as $type ) {
 	
@@ -48,8 +48,11 @@
 	 		 * Sort Alphabetically
 	 		 */
  			$type = pagelines_array_sort( $type, 'name' );
+
  			foreach( $type as $key => $section) { // main loop
  			
+  				if ( $section['type'] == 'parent' && isset( $available['child'][$section['class']] ) )
+ 					continue;
 
 				$activate_js_call = sprintf($this->exprint, 'section_activate', $key, $section['type'], $section['class'], 'Activating');
 				$deactivate_js_call = sprintf($this->exprint, 'section_deactivate', $key, $section['type'], $section['class'], 'Deactivating');

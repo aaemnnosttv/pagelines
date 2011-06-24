@@ -62,16 +62,19 @@ class PageLinesExtension{
 
 		// filter main array containing child and parent and any custom sections
 		$sections = apply_filters( 'pagelines_section_admin', $sections );
-		$disabled = get_option( 'pagelines_sections_disabled' );
+		$disabled = get_option( 'pagelines_sections_disabled', array( 'child' => array(), 'parent' => array()) );
 		foreach ( $sections as $type ) {
 
 			if(is_array($type)){
 				foreach( $type as $section ) {
 					
 					/**
-					* using pagelines_section_admin filter we can disable sections from loading
-					* by setting the disabled bit.
+					* Checks to see if we are a child section, if so disable the parent
+					* Also if a parent section and disabled, skip.
 					*/
+
+					if ( $section['type'] == 'child' && isset( $sections['parent'][$section['class']]) )
+						$disabled['parent'][$section['class']] = true;
 
 					if (isset( $disabled[$section['type']][$section['class']] ) )
 						continue;
