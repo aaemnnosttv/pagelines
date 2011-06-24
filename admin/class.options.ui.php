@@ -33,6 +33,7 @@ class PageLinesOptionsUI {
 		
 		$this->primary_settings = ($this->set['settings'] == PAGELINES_SETTINGS) ? true : false;
 		
+		$this->tab_cookie = 'PLTab_'.$this->set["settings"];
 		
 		// Draw the thing
 		$this->build_header();	
@@ -241,8 +242,8 @@ function build_header(){?>
 		
 		echo OptEngine::input_hidden('selectedtab', $this->set['settings'], load_pagelines_option('selectedtab', 0)); // tracks last tab active 
 	
-		if(isset($_COOKIE['PageLinesTabCookie']))
-			$selected_tab = (int) $_COOKIE['PageLinesTabCookie'];
+		if(isset($_COOKIE[$this->tab_cookie]))
+			$selected_tab = (int) $_COOKIE[$this->tab_cookie];
 		elseif(pagelines_option('selectedtab'))
 			$selected_tab = pagelines_option('selectedtab');
 		else
@@ -253,17 +254,16 @@ function build_header(){?>
 	
 	function get_tab_setup_script( $selected_tab ){ ?>
 		<script type="text/javascript">
-				jQuery.noConflict();
-				jQuery(document).ready(function($) {						
-					var $myTabs = $("#tabs").tabs({ fx: { opacity: "toggle", duration: "fast" }, selected: <?php echo $selected_tab; ?>});
+				jQuery(document).ready(function() {						
+					var myTabs = jQuery("#tabs").tabs({ fx: { opacity: "toggle", duration: "fast" }, selected: <?php echo $selected_tab; ?>});
 					
-					$('#tabs').bind('tabsshow', function(event, ui) {
+					jQuery('#tabs').bind('tabsshow', function(event, ui) {
 						
-						var selectedTab = $('#tabs').tabs('option', 'selected');
+						var selectedTab = jQuery('#tabs').tabs('option', 'selected');
 						
-						$("#selectedtab").val(selectedTab);
+						jQuery("#selectedtab").val(selectedTab);
 						
-						$.cookie('PageLinesTabCookie', selectedTab);
+						jQuery.cookie('<?php echo $this->tab_cookie;?>', selectedTab);
 						
 					});
 
