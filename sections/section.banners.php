@@ -5,7 +5,6 @@
 	Author: Andrew Powers
 	Author URI: http://www.pagelines.com
 	Description: Creates banners, great for product tours.
-	Version: 1.0.0
 	Class Name: PageLinesBanners
 */
 

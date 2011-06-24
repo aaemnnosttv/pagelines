@@ -5,7 +5,6 @@
 	Author: Andrew Powers
 	Author URI: http://www.pagelines.com
 	Description: The main widgetized sidebar
-	Version: 1.0.0
 	Class Name: SecondarySidebar
 */
 

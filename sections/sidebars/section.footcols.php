@@ -5,7 +5,6 @@
 	Author: Andrew Powers
 	Author URI: http://www.pagelines.com
 	Description: A 5 column widgetized sidebar in the footer
-	Version: 1.0.0
 	Class Name: PageLinesFootCols
 */
 
