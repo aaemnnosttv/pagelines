@@ -5,7 +5,6 @@
 	Author: Andrew Powers
 	Author URI: http://www.pagelines.com
 	Description: Shows the main site logo or the site title and description.
-	Version: 1.0.0
 	Class Name: PageLinesBranding
 */
 

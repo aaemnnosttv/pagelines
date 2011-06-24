@@ -5,7 +5,6 @@
 	Author: Andrew Powers
 	Author URI: http://www.pagelines.com
 	Description: Adds ways to share content on pages/single posts
-	Version: 1.0.0
 	Class Name: PageLinesShareBar
 */
 

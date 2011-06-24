@@ -5,7 +5,6 @@
 	Author: Andrew Powers
 	Author URI: http://www.pagelines.com
 	Description: Creates secondary site navigation.
-	Version: 1.3.0
 	Class Name: PageLinesSecondNav
 */
 

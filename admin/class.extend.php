@@ -60,7 +60,7 @@
 
 				$args = array(
 						'name' 		=> $section['name'], 
-						'version'	=> $section['version'], 
+						'version'	=> !empty( $section['version'] ) ? $section['version'] : CORE_VERSION, 
 						'desc'		=> $section['description'], 
 						'auth_url'	=> $section['authoruri'], 
 						'auth'		=> $section['author'],

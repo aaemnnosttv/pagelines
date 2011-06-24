@@ -5,7 +5,6 @@
 	Author: Andrew Powers
 	Author URI: http://www.pagelines.com
 	Description: Creates a flickr, nextgen, or featured image carousel.
-	Version: 1.0.0
 	Class Name: PageLinesCarousel
 */
 

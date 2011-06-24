@@ -4,7 +4,6 @@
 	Author: PageLines
 	Author URI: http://www.pagelines.com
 	Description: Branding and Nav Inline
-	Version: 1.0.0
 	Class Name: BrandNav
 	Depends: PageLinesNav
 */
