@@ -357,7 +357,7 @@
 		border: 1px solid #ccc;
 		border-right: 1px solid #bbb;
 		border-bottom: none;
-		margin: 0 0 0 15px;
+	
 	}
 	.horizontal-tabs .ui-tabs-selected a, .horizontal-tabs .ui-tabs-selected a:hover{
 
@@ -368,7 +368,9 @@
 		border-right: 1px solid #2d4a79;
 		margin-bottom: -1px !important;
 	}
-			.horizontal-tabs a:hover{ 
+
+			.horizontal-tabs a:hover{color:#000}
+			.horizontal-tabs a:active{ 
 				background: #d1d1d1; 
 				color:#000;
 				border: 1px solid #bbb;
@@ -378,6 +380,10 @@
 		
 	.htab-content { }
 	.htab-content-pad {padding: 15px 20px; border-top: 1px solid #fff}
+	.htab-content .htab-title{margin: .5em 0 1em; color:#ccc}
+	
+	#htabs .horizontal-tabs li.ht-left{margin-left: 15px}
+	.horizontal-tabs li.ht-right{float: right;margin-right: 15px}
 	
 /* @ Option Title Area */
 	.optiontitle {

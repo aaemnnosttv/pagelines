@@ -203,9 +203,11 @@ function build_header(){?>
 								
 								<div id="htabs">	
 									<ul class="tabbed-list horizontal-tabs fix">
-										<?php foreach($oids['htabs'] as $key => $t)
-												printf('<li><a href="#%s">%s</a></li>', $key, ucfirst($key));
-											?>
+										<?php foreach($oids['htabs'] as $key => $t){
+												$class = (isset($t['class'])) ? $t['class'] : 'left';
+												printf('<li class="ht-%s"><a href="#%s" >%s</a></li>', $class, $key,  ucfirst($key));
+											}
+										?>
 									</ul>
 									<?php foreach($oids['htabs'] as $key => $t)
 											printf('<div id="%s" class="htab-content"><div class="htab-content-pad"><h3 class="htab-title">%s</h3>%s</div></div>', $key, $t['title'], $t['callback']);

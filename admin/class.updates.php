@@ -18,6 +18,10 @@ class PageLinesUpdateCheck {
 			$this->pagelines_theme_clear_update_transient();
 		}
     }
+
+	/**
+	 * TODO Document!
+	 */
     function pagelines_plugins_check_version() {
   
     	if ( is_multisite() && ! is_super_admin() )
@@ -27,10 +31,11 @@ class PageLinesUpdateCheck {
 			return;
     	add_filter('pre_set_site_transient_update_plugins', array(&$this,'check_for_plugin_update') );
     	add_filter('plugins_api', array(&$this,'my_plugin_api_call'),10, 3 );
-
-
-
     }
+
+	/**
+	 * TODO Document!
+	 */
 	function pagelines_theme_check_version() {
 
 		if ( is_multisite() && ! is_super_admin() )
@@ -46,6 +51,9 @@ class PageLinesUpdateCheck {
 
 	}
 
+	/**
+	 * TODO Document!
+	 */
 	function pagelines_theme_update_tab( $option_array ) {
 
 		$updates_exp = ( is_array( $a = get_transient('pagelines-update-' . $this->theme ) ) && isset($a['package']) && $a['package'] !== 'bad' ) 
@@ -80,13 +88,19 @@ class PageLinesUpdateCheck {
 		$option_array['advanced'] = array_merge( $option_array['advanced'], $updates );
 		return $option_array;
 	}
+	
+	/**
+	 * TODO Document!
+	 */
 	function bad_creds( $errors ) {
 		$errors['api']['title'] = 'API error';
 		$errors['api']['text'] = 'Launchpad Username and Password are required for automatic updates.';
 		return $errors;
 	}
 
-
+	/**
+	 * TODO Document!
+	 */
 	function pagelines_theme_clear_update_transient() {
 
 		delete_transient('pagelines-update-' . $this->theme );
@@ -94,6 +108,9 @@ class PageLinesUpdateCheck {
 
 	}
 
+	/**
+	 * TODO Document!
+	 */
 	function pagelines_theme_update_push($value) {
 
 		$pagelines_update = $this->pagelines_theme_update_check();
@@ -104,6 +121,9 @@ class PageLinesUpdateCheck {
 		return $value;
 	}
 	
+	/**
+	 * TODO Document!
+	 */
 	function pagelines_theme_update_nag() {
 		$pagelines_update = $this->pagelines_theme_update_check();
 
@@ -119,6 +139,10 @@ class PageLinesUpdateCheck {
 		echo ( $pagelines_update['extra'] ) ? sprintf('<br />%s', $pagelines_update['extra'] ) : '';
 		echo '</div>';
 	}	
+	
+	/**
+	 * TODO Document!
+	 */
 	function pagelines_theme_update_check() {
 		global $wp_version;
 
@@ -187,31 +211,37 @@ function check_for_plugin_update($checked_data) {
 	return $checked_data;
 }
 
+/**
+ * TODO Document!
+ * TODO This is erroring out WP plugin install pages.. e.g featured (under add new)
+ */
 function my_plugin_api_call($def, $action, $args) {
 
 
-	if ($args->slug != $this->plugin)
+	if (isset($args->slug) && ($args->slug != $this->plugin))
 		return false;
 	
 	// Get the current version
 	$plugin_info = get_site_transient('update_plugins');
+	
 	$current_version = $plugin_info->checked[$this->plugin .'/'. $this->plugin .'.php'];
 	$args->version = $current_version;
-	
+
 	$request_string = $this->prepare_request($action, $args);
-	
+
 	$request = wp_remote_post($this->url_plugins, $request_string);
-	
+
 	if (is_wp_error($request)) {
 		$res = new WP_Error('plugins_api_failed', __('An Unexpected HTTP Error occurred during the API request.</p> <p><a href="?" onclick="document.location.reload(); return false;">Try again</a>'), $request->get_error_message());
 	} else {
 		$res = unserialize($request['body']);
-		
+	
 		if ($res === false)
 			$res = new WP_Error('plugins_api_failed', __('An unknown error occurred'), $request['body']);
 	}
-	
+
 	return $res;
+
 }
 
 
