@@ -23,7 +23,8 @@ class PageLinesOptionsUI {
 				'callback'		=> null,
 				'settings'		=> PAGELINES_SETTINGS, 
 				'show_save'		=> true,
-				'show_reset'	=> true
+				'show_reset'	=> true, 
+				'title_size'	=> 'normal'
 			);
 		
 		$this->set = wp_parse_args( $args, $defaults );
@@ -191,14 +192,17 @@ function build_header(){?>
 						
 							<div id="<?php echo $menu;?>" class="tabinfo">
 							
-								<?php if( stripos($menu, '_') !== 0 ): ?>
-									<div class="tabtitle"><div class="tabtitle-pad"><?php echo ucwords(str_replace('_',' ',$menu));?></div></div>
-								<?php endif;?>
-							
-								<?php 
+							<?php if( stripos($menu, '_') !== 0 ): ?>
+								<div class="tabtitle tt-size-<?php echo $this->set['title_size'];?>">
+									<div class="tabtitle-pad"><?php echo ucwords(str_replace('_',' ',$menu));?></div>
+								</div>
+							<?php endif; ?>
 								
-									foreach($oids as $oid => $o)
+								
+								
+								<?php foreach($oids as $oid => $o)
 										$option_engine->option_engine($oid, $o);
+										
 								 ?>
 								<div class="clear"></div>
 							</div>

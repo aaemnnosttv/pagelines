@@ -170,6 +170,10 @@
 		.tabtitle-pad{
 			padding: 16px 0 16px 35px;
 		}
+		
+	.tabtitle.tt-size-large{font-size: 2.5em}
+		.tabtitle.tt-size-large .tabtitle-pad{padding: 18px 0 18px 39px;}
+		
 	#tabsnav {
 		float: left;
 		width: 170px;
@@ -298,9 +302,16 @@
 			
 			.update_available {background: #ddd; }
 			#tabsnav a.update_available  {border-top: 1px solid #f7f7f7; border-bottom: 1px solid #ccc }
+			
 			.update_available span{background: transparent url(../images/icons/download.png) no-repeat 0px 0px;}
 			#update_available .tabtitle{background: transparent url(../images/icons/download.png) no-repeat 10px 16px;}
 
+
+			.PageLines_Sections span{ background: transparent url(../images/icons/extend-sections.png) no-repeat 0px 0px; }
+			#PageLines_Sections .tabtitle{background: transparent url(../images/icons/extend-sections.png) no-repeat 10px 16px;}
+			
+			.PageLines_Plugins span{ background: transparent url(../images/icons/extend-plugins.png) no-repeat 0px 0px; }
+			#PageLines_Plugins .tabtitle{background: transparent url(../images/icons/extend-plugins.png) no-repeat 10px 16px;}
 			
 			#flickr .tabtitle{background: transparent url(../images/icons/flickr.png) no-repeat 10px 16px;}
 			

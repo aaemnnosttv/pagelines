@@ -45,7 +45,7 @@ function pagelines_build_extension_interface(){
 		'settings' 		=> 'pagelines-extension',
 		'callback'		=> 'extension_array',
 		'show_save'		=> false, 
-		'show_reset'	=> false	
+		'show_reset'	=> false, 
 	);
 	$optionUI = new PageLinesOptionsUI($args);
 }
@@ -89,7 +89,9 @@ add_action( 'admin_head', 'load_head' );
 function load_head(){
 
 	// Always Load
+	echo '<link rel="stylesheet" href="'.PL_CSS.'/objects.css?ver='.CORE_VERSION.'" type="text/css" media="screen" />';
 	echo '<link rel="stylesheet" href="'.PL_ADMIN_CSS.'/admin.css?ver='.CORE_VERSION.'" type="text/css" media="screen" />';
+	
 	
 	if(pagelines_option('pagelines_favicon'))  
 		echo '<link rel="shortcut icon" href="'.pagelines_option('pagelines_favicon').'" type="image/x-icon" />';

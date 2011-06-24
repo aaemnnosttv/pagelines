@@ -146,12 +146,15 @@
 				'auth_url'	=> '', 
 				'auth'		=> '', 
 				'buttons'	=> '', 
-				'key'		=> ''
+				'key'		=> '', 
+				'icon'		=> PL_ADMIN_ICONS.'/section.png'
 		);
 		
 		$s = wp_parse_args( $args, $d);
 		
 		$buttons = sprintf('<div class="pane-buttons">%s</div>', $s['buttons']);
+		
+	
 		
 		$title = sprintf('<div class="pane-head"><div class="pane-head-pad"><h3 class="pane-title">%s</h3><div class="pane-sub">%s</div></div></div>', $s['name'], 'Version ' . $s['version'] );
 		

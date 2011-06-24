@@ -1083,11 +1083,8 @@ function get_option_array( $load_unavailable = false ){
 
 
 /**
- * 
  *
  *  Returns Extension Array Config
- *
- *
  *
  */
 function extension_array(  ){
@@ -1095,43 +1092,39 @@ function extension_array(  ){
 	global $extension_control;
 
 	$d = array(
-		'plugins' => array(
-			'plugins_panel' => array(
-					'default'	=> '',
-					'type'		=> 'text_content',
-					'layout'	=> 'full',
-					'exp'		=> $extension_control->extension_plugins()
-			),
-
-		),
-		'sections' => array(
+		'PageLines_Sections' => array(
 			'sections_panel' => array(
-					'default'	=> '',
-					'type'		=> 'text_content',
-					'layout'	=> 'full',
-					'exp'		=> $extension_control->extension_sections()
+				'default'	=> '',
+				'type'		=> 'text_content',
+				'layout'	=> 'full',
+				'exp'		=> $extension_control->extension_sections()
 			),
 
 		),
+		'PageLines_Plugins' => array(
+			'plugins_panel' => array(
+				'default'	=> '',
+				'type'		=> 'text_content',
+				'layout'	=> 'full',
+				'exp'		=> $extension_control->extension_plugins()
+			),
+
+		),
+		
 	);
 	
 	return apply_filters('extension_array', $d); 
 }
+
 /**
  * 
- *
  *  Returns Welcome
  *
- *
- *
  */
-
 class PageLinesWelcome {
 	
 	
-	function __contruct(){
-		
-	}
+	function __contruct(){ }
 	
 	function get_welcome(){
 		
