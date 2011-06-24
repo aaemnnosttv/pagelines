@@ -190,20 +190,34 @@ function build_header(){?>
 					 
 					foreach($this->option_array as $menu => $oids):?>
 						
-							<div id="<?php echo $menu;?>" class="tabinfo">
+							<div id="<?php echo $menu;?>" class="tabinfo <?php if( isset($oids['htabs'])) echo 'htabs-interface';?>">
 							
 							<?php if( stripos($menu, '_') !== 0 ): ?>
 								<div class="tabtitle tt-size-<?php echo $this->set['title_size'];?>">
 									<div class="tabtitle-pad"><?php echo ucwords(str_replace('_',' ',$menu));?></div>
 								</div>
 							<?php endif; ?>
+							
+							<?php if( isset($oids['htabs'])): ?>
 								
 								
+								<div id="htabs">	
+									<ul class="tabbed-list horizontal-tabs fix">
+										<?php foreach($oids['htabs'] as $key => $t)
+												printf('<li><a href="#%s">%s</a></li>', $key, ucfirst($key));
+											?>
+									</ul>
+									<?php foreach($oids['htabs'] as $key => $t)
+											printf('<div id="%s" class="htab-content"><div class="htab-content-pad"><h3 class="htab-title">%s</h3>%s</div></div>', $key, $t['title'], $t['callback']);
+										?>
+								</div>
 								
-								<?php foreach($oids as $oid => $o)
+						<?php else:
+							
+									foreach( $oids as $oid => $o )
 										$option_engine->option_engine($oid, $o);
 										
-								 ?>
+							endif;?>
 								<div class="clear"></div>
 							</div>
 						
@@ -260,6 +274,8 @@ function build_header(){?>
 		<script type="text/javascript">
 				jQuery(document).ready(function() {						
 					var myTabs = jQuery("#tabs").tabs({ fx: { opacity: "toggle", duration: "fast" }, selected: <?php echo $selected_tab; ?>});
+					
+					var hTabs = jQuery("#htabs").tabs({ fx: { opacity: "toggle", duration: "fast" }});
 					
 					jQuery('#tabs').bind('tabsshow', function(event, ui) {
 						

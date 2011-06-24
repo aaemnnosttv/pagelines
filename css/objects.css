@@ -50,11 +50,11 @@
 	ul.tabbed-list {
 		list-style-type: none; 
 		margin:0;
-		overflow: auto; /* clear */
+
 		width: 100%; /* clear IE 7 */
 	}
 	ul.tabbed-list li {margin: 0; padding: 0; float: left;}
-	ul.tabbed-list li a{display: block}
+	ul.tabbed-list li a{display: block; }
 
 /* @ Mediablock - Standard Media Format  */
 	.media { overflow:hidden;overflow: visible; zoom: 1; }

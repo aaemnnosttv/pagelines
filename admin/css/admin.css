@@ -332,30 +332,52 @@
 		width: 100%;
 		border-top:1px solid #fff;
 	}
-	.inforow {
-		border-top: 1px solid #ddd;
-		border-bottom: 1px solid #ddd;
-		padding: 15px;
-		margin: 15px;
-		width:650px;
-	
-	}
-		.inforow p, .inforow ul{
-			font-size: 1em;
-			line-height: 1.3em;
+		.htabs-interface{
+			background:#eee;
 		}
-		.inforow ul {
-			margin: .4em 0 1em 0;
-		}
-		.inforow ul li{
-			list-style-type: square;
-			margin-left: 20px;
-		}
+			.htabs-interface .htab-content{background:#f7f7f7}
 	
 	.optionrow {
 		padding: 0 0 25px 0;
 		width: 100%;
 	}
+	
+	/* @ Horizontal Navigation */
+	
+	#htabs {margin-top: 10px; }
+	.horizontal-tabs{border-bottom: 1px solid #bbb;}
+	.horizontal-tabs li a{
+		padding: 5px 12px;
+		font-size: 1.2em;
+		text-decoration:none;
+		background:#dfdfdf;
+		font-weight: bold;
+
+		color: #222;
+		border: 1px solid #ccc;
+		border-right: 1px solid #bbb;
+		border-bottom: none;
+		margin: 0 0 0 15px;
+	}
+	.horizontal-tabs .ui-tabs-selected a, .horizontal-tabs .ui-tabs-selected a:hover{
+
+		background: #82a2ca url(../images/superlink-sprite-blue.png) 0 0 repeat-x;
+		color:#fff;
+		text-shadow: #2d4a79 0 -1px 0;
+		border: 1px solid #2d4a79;
+		border-right: 1px solid #2d4a79;
+		margin-bottom: -1px !important;
+	}
+			.horizontal-tabs a:hover{ 
+				background: #d1d1d1; 
+				color:#000;
+				border: 1px solid #bbb;
+				border-right: 1px solid #aaa;
+				border-bottom: none;
+			}
+		
+	.htab-content { }
+	.htab-content-pad {padding: 15px 20px; border-top: 1px solid #fff}
 	
 /* @ Option Title Area */
 	.optiontitle {
@@ -399,7 +421,7 @@
 		text-align: left;
 	}
 		.oinputs-pad { padding: 10px 40px; }
-	
+		
 	.oexp {
 		width: 38%;
 		float:left;

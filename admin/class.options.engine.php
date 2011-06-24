@@ -41,7 +41,8 @@ class OptEngine {
 			'inputsize'				=> 'regular',
 			'callback'				=> '',
 			'css_prop'				=> '',
-			'pro_note'				=> false
+			'pro_note'				=> false, 
+			'htabs'					=> array()
 		);
 		
 	}
@@ -240,6 +241,10 @@ class OptEngine {
 			case 'email_capture' :
 				$this->_get_email_capture($oid, $o, $val);
 				break;
+			case 'horizontal_tabs' :
+				$this->get_horizontal_nav($oid, $o);
+				break;
+			
 
 			default :
 				do_action( 'pagelines_options_' . $o['type'] , $oid, $o);
@@ -555,6 +560,26 @@ class OptEngine {
 
 	}
 
+	/**
+	 * 
+	 * Horizontal Navigation Option w/ Callbacks
+	 * 
+	 * @since 1.0.0
+	 * @author Andrew Powers
+	 * 
+	 **/
+	function get_horizontal_nav( $oid, $o ){ ?>
+	<div id="htabs">	
+		<ul class="inline-list horizontal-tabs">
+			<?php foreach($o['htabs'] as $key => $t)
+					printf('<li><a href="#%s">%s</a></li>', $key, ucfirst($key));
+				?>
+		</ul>
+		<?php foreach($o['htabs'] as $key => $t)
+				printf('<div id="%s"><div class="oinputs"><div class="oinputs-pad">%s</div></div></div>', $key, $t['callback']);
+			?>
+	</div>
+	<?php }
 
 	/**
 	 * 

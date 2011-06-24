@@ -1093,11 +1093,24 @@ function extension_array(  ){
 
 	$d = array(
 		'PageLines_Sections' => array(
-			'sections_panel' => array(
-				'default'	=> '',
-				'type'		=> 'text_content',
-				'layout'	=> 'full',
-				'exp'		=> $extension_control->extension_sections()
+			'htabs' 	=> array(
+				'installed'	=> array(
+					'title'		=> "Installed PageLines Sections",
+					'callback'	=> $extension_control->extension_sections()
+					),
+				'featured'	=> array(
+					'title'		=> "Featured PageLines Sections",
+					'callback'	=> $extension_control->extension_sections()
+					),
+				'popular'	=> array(
+					'title'		=> "Popular PageLines Sections",
+					'callback'	=> $extension_control->extension_sections()
+					),
+				'newest'	=> array(
+					'title'		=> "Newest PageLines Sections",
+					'callback'	=> $extension_control->extension_sections()
+					)
+						
 			),
 
 		),
