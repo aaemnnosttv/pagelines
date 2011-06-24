@@ -37,7 +37,6 @@
  		$load_sections->pagelines_register_sections();
  		$available = get_option( 'pagelines_sections_cache' );
  		$disabled = get_option( 'pagelines_sections_disabled', array() );
-plprint($disabled); 
 		$output = '';
  		foreach( $available as $type ) {
 	
