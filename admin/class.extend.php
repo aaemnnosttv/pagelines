@@ -6,6 +6,8 @@
  * TODO add enable all to sections.
  *
  * Install PageLines plugins and looks after them.
+ * 
+ * @author Simon Prosser (the one and only)
  *
  * @since 2.0.b3
  */
@@ -247,6 +249,11 @@
 	 * 
 	 */
 	function extend_it_callback(  ) {
+		
+		
+	/*
+		TODO reload callbacks just go to the panel, need tab as well
+	*/	
 		
 		// 1. Libraries
 			include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';

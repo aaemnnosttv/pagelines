@@ -850,10 +850,6 @@
 			height: 85px;
 			margin-bottom: .5em;
 		}
-		
-	
-			
-		}
 		#vpro_billboard .vpro_desc{
 			float: left;
 			width: 520px;
@@ -1889,18 +1885,18 @@
 	.install_response h2,.install_response .icon32{display: none}
 
 .plpane{
-	
-	margin-top: 1.3em;
+	margin-top: .5em;
 }
 	 .plpane-pad{
-		
-		
 		border-left: 1px solid #fff;
 		border-top: 1px solid #fff;
+		background: #eee url(../images/pane.png) repeat-x left bottom;
+		padding: 10px;
 	}
 	 .plpane-hl{
-		border: 1px solid #ddd;
-		border-bottom: 1px solid #ccc;
+		border: 1px solid #ccc;
+		border-right: 1px solid #bbb;
+		border-bottom: 1px solid #bbb;
 	}
 	.plpane .superlink-wrap{float:right}
 	 h3{margin: 0;font-size: 1.3em;}
@@ -1928,11 +1924,7 @@
 		float: left;
 		margin: 0;
 	}
-	
-.plpane-pad{
-	background: #eee;
-	padding: 10px;
-}
+
 
 /* @ Restore/Import/Export */
 
@@ -1970,20 +1962,6 @@
 	}
 	#tabs .regular-text, #metatabs .regular-text, .metatext-big, .metatext-reg{width: 90%;}
 	#tabs .tiny-text, #metatabs .tiny-text, .metatext-small{width: 100px;}
-	
-	.border{
-		border: 1px solid #ddd;
-		border-right: 1px solid #ccc;
-		border-bottom: 1px solid #ccc;
-	}
-	
-	.hl, .hl2 {
-		background: url(../images/hl-dot.gif) repeat-x top;
-		clear: both;
-		height: 2px;
-		overflow: hidden;
-		width: 100%;
-	}
 	
 	.pagelines_image_preview{
 		background: #fff url(../images/stripe.png) repeat 0 0;
