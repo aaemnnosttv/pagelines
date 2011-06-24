@@ -23,7 +23,55 @@
 		add_action('wp_ajax_pagelines_ajax_extend_it_callback', array(&$this, 'extend_it_callback'));
  	}
 
- 	
+ 	function extension_sections_install() {
+ 		
+ 		/*
+ 			TODO make error checking better...
+ 		*/
+ 		if ( !is_child_theme() )
+ 			return;
+ 		if ( !is_dir( STYLESHEETPATH . '/sections' ) )
+ 			return 'No sections dir found! You need to make folder: ' . STYLESHEETPATH . '/sections';
+
+		/*
+			TODO cache this api query, it'll hardly EVER change, no need to fetch it on every page load!
+		*/
+		$api = wp_remote_get( 'http://api.pagelines.com/sections/' );
+		
+		$available = get_option( 'pagelines_sections_cache' );
+
+		$sections = json_decode( $api['body'] );
+	
+		if ( is_object($sections) ) {
+
+			$output = '';
+
+			foreach( $sections as $key => $section ) {
+				
+				if ( file_exists( STYLESHEETPATH . '/sections/' . $section->name . '/' . $section->name . '.php' ) )
+					continue;
+				$key = str_replace( '.', '', $key );
+				$install_js_call = sprintf( $this->exprint, 'section_install', $key, 'section', $section->url, 'Installing');
+
+						$button = OptEngine::superlink('Install Section', 'black', '', '', $install_js_call);
+				
+				$args = array(
+						'name' 		=> $section->name, 
+						'version'	=> $section->version, 
+						'desc'		=> $section->text, 
+						'auth_url'	=> $section->author_url, 
+						'auth'		=> $section->author, 
+						'buttons'	=> $button,
+						'key'		=> $key
+				);
+				
+				$output .= $this->pane_template($args);
+				
+			}
+		}
+		return $output;
+ 	}
+
 	/*
 	 * Document!
 	 */
@@ -326,6 +374,21 @@
 			$this->page_reload( 'pagelines_extend' );
 	 	
 	
+		} elseif ( $mode == 'section_install' ) {
+			
+			$upgrader = new Plugin_Upgrader();
+
+			$options = array( 	'package' => $url, 
+					'destination' => STYLESHEETPATH .'/sections/' . rtrim( basename( $url ), '.zip' ), 
+					'clear_destination' => false,
+					'clear_working' => false,
+					'is_multi' => false,
+					'hook_extra' => array() 
+			);
+
+			@$upgrader->run($options);
+			echo 'Installed';
+			$this->page_reload( 'pagelines_extend' );
 		}
 		
 	
@@ -384,7 +447,7 @@ function extension_array(  ){
 				'newest'	=> array(
 					'title'		=> "Newest PageLines Sections",
 					'class'		=> "right",
-					'callback'	=> $extension_control->extension_sections()
+					'callback'	=> $extension_control->extension_sections_install()
 					)
 
 			),
