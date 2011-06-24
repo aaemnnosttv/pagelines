@@ -27,8 +27,7 @@ function pagelines_add_admin_submenus() {
 		$_pagelines_options_page_hook = add_theme_page( 'pagelines', 'PageLines Settings', 'edit_theme_options', 'pagelines', 'pagelines_build_option_interface' );
 	else {
 		$_pagelines_options_page_hook = add_submenu_page('pagelines', 'Settings', 'Settings', 'edit_theme_options', 'pagelines','pagelines_build_option_interface'); // Default
-		$_pagelines_ext_plugins_hook = add_submenu_page('pagelines', 'Extension', 'Extension - Plugins', 'edit_theme_options', 'pagelines_extend_plugins','pagelines_build_extension_plugins_interface');
-		$_pagelines_ext_sections_hook = add_submenu_page('pagelines', 'Extension', 'Extension - Sections', 'edit_theme_options', 'pagelines_extend_sections','pagelines_build_extension_sections_interface');
+		$_pagelines_ext_hook = add_submenu_page('pagelines', 'Extension', 'Extension', 'edit_theme_options', 'pagelines_extend','pagelines_build_extension_interface');
 	}
 }
 
@@ -39,29 +38,18 @@ function pagelines_build_option_interface(){
 }
 
 // Build option interface - plugins
-function pagelines_build_extension_plugins_interface(){ 
+function pagelines_build_extension_interface(){ 
 	
 	$args = array(
-		'title'			=> 'Plugins', 
+		'title'			=> 'Extension', 
 		'settings' 		=> 'pagelines-extension',
-		'callback'		=> 'plugin_array',
+		'callback'		=> 'extension_array',
 		'show_save'		=> false, 
 		'show_reset'	=> false	
 	);
 	$optionUI = new PageLinesOptionsUI($args);
 }
 
-// Build option interface - sections
-function pagelines_build_extension_sections_interface(){ 
-	$args = array(
-		'title'			=> 'Sections', 
-		'settings' 		=> 'pagelines-extension',
-		'callback'		=> 'section_array',
-		'show_save'		=> false, 
-		'show_reset'	=> false	
-	);
-	$optionUI = new PageLinesOptionsUI($args);
-}
 
 
 /**
@@ -71,8 +59,7 @@ function pagelines_build_extension_sections_interface(){
 add_action('admin_menu', 'pagelines_theme_settings_init');
 function pagelines_theme_settings_init() {
 	global $_pagelines_options_page_hook;
-	global $_pagelines_ext_plugins_hook;
-	global $_pagelines_ext_sections_hook;
+	global $_pagelines_ext_hook;
 	
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'jquery-ajaxupload', PL_ADMIN_JS . '/jquery.ajaxupload.js');
@@ -81,7 +68,7 @@ function pagelines_theme_settings_init() {
 	wp_enqueue_script( 'jquery-ui-tabs' );
 	
 	add_action('load-'.$_pagelines_options_page_hook, 'pagelines_theme_settings_scripts');
-	add_action('load-'.$_pagelines_ext_plugins_hook, 'pagelines_theme_settings_scripts');
+	add_action('load-'.$_pagelines_ext_hook, 'pagelines_theme_settings_scripts');
 	wp_enqueue_script( 'script-pagelines-common', PL_ADMIN_JS . '/script.common.js');
 }
 

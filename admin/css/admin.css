@@ -498,6 +498,8 @@
 		.ohead-title-right{float:right}
 
 		
+		
+/* @ The Amazing Superlink! */
 		.superlink-wrap{
 			border: 1px solid #aaa; 
 			border-right: 1px solid #fff;
@@ -541,7 +543,7 @@
 				
 			}
 			.superlink:active{background: #82a2ca url(../images/superlink-sprite-grey.png) 0 -70px repeat-x;border: 1px solid #666;color: #000}
-			
+			.superlink-pad, .superlink-pagelines, .ohead .osave {padding: 5px 12px;height: 15px;display: block}
 			
 		.sl-black .superlink{
 			color: #fff;
@@ -552,20 +554,9 @@
 			.sl-black .superlink:hover{background: #82a2ca url(../images/superlink-sprite-black.png) 0 -35px repeat-x;border: 1px solid #555;}
 			.sl-black .superlink:active{background: #82a2ca url(../images/superlink-sprite-black.png) 0 -70px repeat-x;border: 1px solid #000;color: #ddd}
 			
-			.superlink-pad, .superlink-pagelines, .ohead .osave {padding: 5px 12px;height: 15px;display: block}
-			
-		.superlink-pagelines{background: url(../images/superlink-pagelines.png) no-repeat 11px 1px; display: block; height: 16px; width: 16px; }
-		.osave-wrap{
-			border: 1px solid #aaa; 
-			border-right: 1px solid #fff;
-			border-bottom: 1px solid #fff;
-			-moz-border-radius: 4px;
-			-khtml-border-radius: 4px;
-			-webkit-border-radius: 4px;
-			border-radius: 4px;
-		
-		}
-		.ohead .superlink.osave {
+	
+		.sl-blue.superlink-wrap{border-top: 1px solid #999;border-left: 1px solid #999;}
+		.sl-blue .superlink, .ohead .superlink.osave {
 			background: #82a2ca url(../images/superlink-sprite-blue.png) 0 0 repeat-x;
 			color:#fff;
 			text-shadow: #2d4a79 0 -1px 0;
@@ -574,19 +565,14 @@
 			border-bottom: 1px solid #2d4a79;
 			
 		}
-		.ohead .osave:hover{background: #82a2ca url(../images/superlink-sprite-blue.png) 0 -35px repeat-x; color: #fff}
-		.ohead .osave:active{background: #82a2ca url(../images/superlink-sprite-blue.png) 0 -70px repeat-x; color: #eee}
+			.sl-blue .superlink:hover, .ohead .osave:hover{background: #82a2ca url(../images/superlink-sprite-blue.png) 0 -35px repeat-x; color: #fff}
+			.sl-blue .superlink:active, .ohead .osave:active{background: #82a2ca url(../images/superlink-sprite-blue.png) 0 -70px repeat-x; color: #eee}
 		
+		/* PageLines Superlink Link */
+		.superlink-pagelines{background: url(../images/superlink-pagelines.png) no-repeat 11px 1px; display: block; height: 16px; width: 16px; }
 		
-		.options_intro {
-			float: left;
-			margin: 6px 8px;
-			padding-left: 22px;
-		
-		}
-			.options_intro small{ font-size: 11px; }
 			
-	
+	/* Superlinks group */
 	.superlinks{
 		
 		float:right;

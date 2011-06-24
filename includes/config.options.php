@@ -1081,21 +1081,22 @@ function get_option_array( $load_unavailable = false ){
 	return apply_filters('pagelines_options_array', $optionarray); 
 }
 
+
 /**
  * 
  *
- *  Returns Plugins Options Array
+ *  Returns Extension Array Config
  *
  *
  *
  */
-function plugin_array(  ){
+function extension_array(  ){
 	
 	global $extension_control;
 
 	$d = array(
-		'Plugins' => array(
-			'partner_link' => array(
+		'plugins' => array(
+			'plugins_panel' => array(
 					'default'	=> '',
 					'type'		=> 'text_content',
 					'layout'	=> 'full',
@@ -1103,26 +1104,8 @@ function plugin_array(  ){
 			),
 
 		),
-	);
-	
-	return apply_filters('plugin_array', $d); 
-}
-
-/**
- * 
- *
- *  Returns Sections Options Array
- *
- *
- *
- */
-function section_array(  ){
-	
-	global $extension_control;
-
-	$d = array(
 		'sections' => array(
-			'partner_link' => array(
+			'sections_panel' => array(
 					'default'	=> '',
 					'type'		=> 'text_content',
 					'layout'	=> 'full',
@@ -1132,7 +1115,7 @@ function section_array(  ){
 		),
 	);
 	
-	return apply_filters('plugin_array', $d); 
+	return apply_filters('extension_array', $d); 
 }
 /**
  * 
