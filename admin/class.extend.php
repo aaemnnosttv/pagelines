@@ -27,9 +27,10 @@
  		
  		/*
  			TODO make error checking better...
+			TODO Use plugin?
  		*/
  		if ( !is_child_theme() )
- 			return;
+ 			return 'No child theme found!';
  		if ( !is_dir( STYLESHEETPATH . '/sections' ) )
  			return 'No sections dir found! You need to make folder: ' . STYLESHEETPATH . '/sections';
 
