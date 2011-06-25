@@ -2,7 +2,6 @@
 /**
  * Plugin/theme installer class and section control.
  *
- * TODO cache api query.
  * TODO add enable all to sections.
  * TODO Make some use of the tags system
  *
@@ -36,7 +35,7 @@
 		
 		$available = get_option( 'pagelines_sections_cache' );
 
-		$sections = $this->get_latest_sections();
+		$sections = $this->get_latest_cached( 'sections' );
 	
 		if ( is_object($sections) ) {
 
@@ -81,7 +80,7 @@
  		$load_sections->pagelines_register_sections();
  		$available = get_option( 'pagelines_sections_cache' );
  		$disabled = get_option( 'pagelines_sections_disabled', array() );
-		$upgradable = $this->get_latest_sections();
+		$upgradable = $this->get_latest_cached( 'sections' );
 		$output = '';
  		foreach( $available as $type ) {
 	
@@ -141,14 +140,8 @@
 	 */
 	function extension_plugins() {
 
-		
-		/*
-			TODO cache this api query, it'll hardly EVER change, no need to fetch it on every page load!
-		*/
-		$api = wp_remote_get( 'http://api.pagelines.com/plugins/' );
+		$plugins = $this->get_latest_cached( 'plugins' );
 
-		$plugins = json_decode( $api['body'] );
-	
 		if ( is_object($plugins) ) {
 			
 			$output = '';
@@ -437,12 +430,19 @@
 			return 'notactive';
 	}
 
-
-	function get_latest_sections() {
+	/**
+	* Simple cache for plugins and sections
+	* @return object
+	*/
+	function get_latest_cached( $type ) {
 		
-		$api = wp_remote_get( 'http://api.pagelines.com/sections/' );
-		$sections = json_decode( $api['body'] );
-		return $sections;
+		$api = ( ! false == get_transient( 'pagelines_sections_api_' . $type ) )
+				? get_transient( 'pagelines_sections_api_' . $type )
+				: wp_remote_get( 'http://api.pagelines.com/' . $type . '/' );
+
+		set_transient( 'pagelines_sections_api_' . $type, $api, 300 );
+
+		return json_decode( $api['body'] );
 	}
 
  } // end PagelinesExtensions class
