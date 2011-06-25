@@ -1,12 +1,12 @@
 <?php
 /*
-
 	Section: Navigation
 	Author: Adam Munns
 	Author URI: http://adammunns.com/
 	Description: Creates site navigation, with optional superfish dropdowns.
 	Version: 1.0.0
 	Class Name: PageLinesNav
+	Tags: internal
 */
 
 class PageLinesNav extends PageLinesSection {

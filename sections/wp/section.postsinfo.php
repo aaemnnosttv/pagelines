@@ -1,11 +1,11 @@
 <?php
 /*
-
 	Section: PageLines PostsInfo
 	Author: Andrew Powers
 	Author URI: http://www.pagelines.com
 	Description: Shows information about posts being viewed (e.g. "Currently Viewing Archives from...")
 	Class Name: PageLinesPostsInfo
+	Tags: internal
 */
 
 class PageLinesPostsInfo extends PageLinesSection {

@@ -1,11 +1,11 @@
 <?php
 /*
-
 	Section: Content Sidebar
 	Author: Andrew Powers
 	Author URI: http://www.pagelines.com
 	Description: Shows sidebar inside the main column content area
 	Class Name: ContentSidebar
+	Tags: internal
 */
 
 class ContentSidebar extends PageLinesSection {

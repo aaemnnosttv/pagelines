@@ -1,11 +1,11 @@
 <?php
 /*
-
 	Section: PostAuthor
 	Author: Andrew Powers
 	Author URI: http://www.pagelines.com
 	Description: Adds post author to page/single post.
 	Class Name: PageLinesPostAuthor
+	Tags: internal
 */
 
 class PageLinesPostAuthor extends PageLinesSection {

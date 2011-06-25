@@ -1,12 +1,12 @@
 <?php
 /*
-
 	Section: Simple Footer Navigation
 	Author: Adam Munns
 	Author URI: http://adammunns.com
 	Description: Creates footer navigation.
 	Version: 1.0.0
 	Class Name: PageLinesSimpleFooterNav
+	Tags: internal
 */
 
 class PageLinesSimpleFooterNav extends PageLinesSection {

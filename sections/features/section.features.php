@@ -1,11 +1,11 @@
 <?php
 /*
-
 	Section: PageLines Features
 	Author: Andrew Powers
 	Author URI: http://www.pagelines.com
 	Description: Creates a feature slider and custom post type
 	Class Name: PageLinesFeatures
+	Tags: internal
 */
 
 class PageLinesFeatures extends PageLinesSection {

@@ -1,11 +1,11 @@
 <?php
 /*
-
 	Section: Morefoot Sidebars
 	Author: Andrew Powers
 	Author URI: http://www.pagelines.com
 	Description: Three widgetized sidebars above footer
 	Class Name: PageLinesMorefoot
+	Tags: internal
 */
 
 class PageLinesMorefoot extends PageLinesSection {

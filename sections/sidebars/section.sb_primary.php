@@ -1,11 +1,11 @@
 <?php
 /*
-
 	Section: Primary Sidebar
 	Author: Andrew Powers
 	Author URI: http://www.pagelines.com
 	Description: The main widgetized sidebar
 	Class Name: PrimarySidebar
+	Tags: internal
 */
 
 class PrimarySidebar extends PageLinesSection {

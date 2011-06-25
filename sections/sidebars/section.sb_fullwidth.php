@@ -1,11 +1,11 @@
 <?php
 /*
-
 	Section: Full Width Sidebar
 	Author: Andrew Powers
 	Author URI: http://www.pagelines.com
 	Description: Shows full width widgetized sidebar
 	Class Name: FullWidthSidebar
+	Tags: internal
 */
 
 class FullWidthSidebar extends PageLinesSection {

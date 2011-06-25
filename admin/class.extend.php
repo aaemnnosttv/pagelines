@@ -4,6 +4,7 @@
  *
  * TODO cache api query.
  * TODO add enable all to sections.
+ * TODO Make some use of the tags system
  *
  * Install PageLines plugins and looks after them.
  * 
@@ -112,7 +113,8 @@
 				$args = array(
 						'name' 		=> $section['name'], 
 						'version'	=> !empty( $section['version'] ) ? $section['version'] : CORE_VERSION, 
-						'desc'		=> $section['description'], 
+						'desc'		=> $section['description'],
+						'tags'		=> $section['tags'],
 						'auth_url'	=> $section['authoruri'], 
 						'auth'		=> $section['author'],
 						'importance'=> $section['importance'],
@@ -204,12 +206,10 @@
 		$s = wp_parse_args( $args, $d);
 		
 		$buttons = sprintf('<div class="pane-buttons">%s</div>', $s['buttons']);
-		
 	
-		
 		$title = sprintf('<div class="pane-head"><div class="pane-head-pad"><h3 class="pane-title">%s</h3><div class="pane-sub">%s</div></div></div>', $s['name'], 'Version ' . $s['version'] );
 		
-		$auth = sprintf('<div class="pane-dets">by <a href="%s">%s</a></div>', $s['auth_url'], $s['auth']);
+		$auth = sprintf('<div class="pane-dets">by <a href="%s">%s</a><br />Tags: %s</div>', $s['auth_url'], $s['auth'], $s['tags']);
 		
 		$body = sprintf('<div class="pane-desc"><div class="pane-desc-pad">%s %s</div></div>', $s['desc'], $auth);
 		

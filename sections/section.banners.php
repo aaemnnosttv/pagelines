@@ -1,11 +1,11 @@
 <?php
 /*
-
 	Section: PageLines Banners	
 	Author: Andrew Powers
 	Author URI: http://www.pagelines.com
 	Description: Creates banners, great for product tours.
 	Class Name: PageLinesBanners
+	Tags: internal
 */
 
 class PageLinesBanners extends PageLinesSection {

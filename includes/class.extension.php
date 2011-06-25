@@ -127,7 +127,7 @@ class PageLinesExtension{
 		foreach( $it as $fullFileName => $fileSPLObject ) {
 			if (pathinfo($fileSPLObject->getFilename(), PATHINFO_EXTENSION ) == 'php') {
 				$folder = ( preg_match( '/sections\/(.*)\//', $fullFileName, $match) ) ? '/' . $match[1] : '';
-				$headers = get_file_data( $fullFileName, $default_headers = array( 'internal' => 'Internal', 'version' => 'Version', 'author' => 'Author', 'authoruri' => 'Author URI', 'section' => 'Section', 'description' => 'Description', 'classname' => 'Class Name', 'depends' => 'Depends' ) );
+				$headers = get_file_data( $fullFileName, $default_headers = array( 'tags' => 'Tags', 'internal' => 'Internal', 'version' => 'Version', 'author' => 'Author', 'authoruri' => 'Author URI', 'section' => 'Section', 'description' => 'Description', 'classname' => 'Class Name', 'depends' => 'Depends' ) );
 
 				// If no pagelines class headers ignore this file.
 				if ( !$headers['classname'] )
@@ -138,6 +138,7 @@ class PageLinesExtension{
 					'class'			=> $headers['classname'],
 					'depends'		=> $headers['depends'],
 					'type'			=> $type,
+					'tags'			=> $headers['tags'],
 					'importance'	=> $headers['internal'],
 					'author'		=> $headers['author'],
 					'version'		=> $headers['version'],
