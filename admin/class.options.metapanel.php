@@ -14,30 +14,55 @@ class PageLinesMetaPanel {
 
 	var $tabs = array();	// Controller for drawing meta options
 
+	
 	var $blacklist = array( 'banners', 'feature', 'boxes', 'attachment', 'revision', 'nav_menu_item' );
 	
 	/**
 	 * PHP5 constructor
-	 *
 	 */
 	function __construct( $settings = array() ) {
 
-		$defaults = array(
-				
-				'id' 		=> 'pagelines-metapanel',
-				'name' 		=> 'PageLines Meta Settings',
-				'posttype' 	=> ( isset( $_GET['post'] ) && ! in_array( get_post_type( $_GET['post'] ), apply_filters( 'pagelines_meta_blacklist', $this->blacklist ) ) ) ? array( 'post', 'page', get_post_type( $_GET['post'] ) ) : array( 'post', 'page' ),
-				'location' 	=> 'normal', 
-				'priority' 	=> 'low', 
-				'hide_tabs'	=> false
-			);
+		global $post; 
 		
-		$this->settings = wp_parse_args($settings, $defaults); // settings for post type
+		// Setup post, not auto-set for single post pages
+		$post = (!isset($post) && isset($_GET['post'])) ? get_post($_GET['post'], 'object') : null;
 		
-		$this->register_actions();
+		// Get current post type
+		$posttype = ( isset( $_GET['post'] ) && ! in_array( get_post_type( $_GET['post'] ), apply_filters( 'pagelines_meta_blacklist', $this->blacklist ) ) ) 
+						? array( 'post', 'page', get_post_type( $_GET['post'] ) ) 
+						: array( 'post', 'page' );
 		
-		$this->hide_tabs = $this->settings['hide_tabs'];
-	
+		$this->non_meta = (!isset($post) || get_option( 'page_for_posts' ) === $post->ID ) ? true : false;
+		
+		// Only run the metapanel if it should be on this post type
+		if(isset($post) && in_array($post->post_type, $posttype)){
+		
+			$this->ctemplate = ( isset($post) && 'page' == $post->post_type && 0 != count( get_page_templates() ) && !empty($post->page_template)) 
+			 					? $post->page_template
+								: ( $post->post_type == 'post' )
+									? 'Single Post' 		
+									: ( $this->non_meta ) 
+										? 'Non Meta Page'
+										: 'Default Template';
+										
+		}
+		
+		
+			$defaults = array(
+					'id' 		=> 'pagelines-metapanel',
+					'name' 		=> 'PageLines Meta - '.$this->ctemplate,
+					'posttype' 	=> $posttype,
+					'location' 	=> 'normal', 
+					'priority' 	=> 'low', 
+					'hide_tabs'	=> false
+				);
+		
+			$this->settings = wp_parse_args($settings, $defaults); // settings for post type
+		
+			$this->register_actions();
+		
+			$this->hide_tabs = $this->settings['hide_tabs'];
+		
 	}
 	
 	function register_tab( $option_settings = array(), $option_array = array(), $location = 'bottom') {
@@ -109,16 +134,12 @@ class PageLinesMetaPanel {
 	
 	function draw_meta_options(){ 
 		global $post_ID;  
-
-		$option_engine = new OptEngine( 'meta' );
-
-		// Check if we are the main blog page
-		$postid = ( isset( $_GET['post'] ) ) ? $_GET['post'] : '';
-		if ( get_option( 'page_for_posts' ) === $postid ) {
-			echo '<div><p><small><strong>Note:</strong> Individual page settings do not work on the blog page (<em>use the settings panel</em>).</small></p></div>';
-			return;
-		} 
 		
+		// if page doesn't support settings
+		if ( $this->non_meta )
+			$this->non_meta_template(); return;
+		
+		$option_engine = new OptEngine( 'meta' );
 		
 		$this->tabs_setup(); ?>
 		
@@ -174,6 +195,15 @@ class PageLinesMetaPanel {
 		<?php 
 	
 	}
+	
+	function non_meta_template(){?>
+		<div class="metapanel_banner">
+			<p>
+				<strong>Note:</strong> Individual page settings do not work on the blog page (<em>use the settings panel</em>).
+			</p>
+		</div>
+		
+	<?php }
 		
 	function tabs_setup(){
 		if(!$this->hide_tabs):

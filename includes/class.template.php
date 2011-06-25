@@ -48,40 +48,7 @@ class PageLinesTemplate {
 	
 		$this->load_sections_on_hook_names();
 	}
-	
 
-	function set_main_type(){
-
-		if(is_home() || is_tag() || is_search() || is_archive() || is_category())
-			return 'posts';
-		elseif( is_single() )
-			return 'single';
-		elseif( is_404() )
-			return '404';
-		else
-			return 'default';
-			
-	}
-	function get_page_template(){
-		global $post;
-		
-		if(is_404())
-			return '404';
-		elseif(is_home() || is_tag() || is_search() || is_archive() || is_category())
-			return 'posts';
-		elseif(is_single())
-			return 'single';
-		elseif(is_page_template()){
-			/*
-				Strip the page. and .php from page.[template-name].php
-			*/
-			$page_filename = str_replace('.php', '', get_post_meta($post->ID,'_wp_page_template',true));
-			$template_name = str_replace('page.', '', $page_filename);
-			return $template_name;
-		}else
-			return 'default';
-		
-	}
 	
 	function page_type_breaker(){
 		global $post;
@@ -128,12 +95,14 @@ class PageLinesTemplate {
 	
 		function admin_get_page_template(){
 			global $post;
-			if ( !is_object( $post ) ) return 'default';
-			if(isset($post) && $post->post_type == 'post'){
+			if ( !is_object( $post ) ) 
+				return 'default';
+			
+			if(isset($post) && $post->post_type == 'post')
 				return 'single';
-			} elseif( isset($_GET['page']) && $_GET['page'] == 'pagelines' ){
+			elseif( isset($_GET['page']) && $_GET['page'] == 'pagelines' )
 				return 'posts';
-			} elseif(isset($post) && !empty($post->page_template) && $post->post_type == "page") {
+			elseif(isset($post) && !empty($post->page_template) && $post->post_type == "page") {
 				$page_filename = str_replace('.php', '', $post->page_template);
 				$template_name = str_replace('page.', '', $page_filename);
 				return $template_name;
@@ -141,9 +110,9 @@ class PageLinesTemplate {
 				$page_filename = str_replace('.php', '', get_post_meta($post->ID,'_wp_page_template',true));
 				$template_name = str_replace('page.', '', $page_filename);
 				return $template_name;
-			} else {
+			} else 
 				return 'default';
-			}
+			
 		}
 	
 	/*

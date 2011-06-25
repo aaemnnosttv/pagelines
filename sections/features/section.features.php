@@ -171,14 +171,16 @@ class PageLinesFeatures extends PageLinesSection {
 							'type' 		=> 'text',	
 							'size'		=> 'small', 				
 							'title' 	=> 'Number of Feature Slides',
-							'desc' 		=> 'Enter the max number of feature slides to show on this page. Note: If left blank, the number of posts selected under reading settings in the admin will be used.'
+							'shortexp'	=> 'The amount of slides to show on this page',
+							'exp' 		=> 'Enter the max number of feature slides to show on this page. Note: If left blank, the number of posts selected under reading settings in the admin will be used.'
 						),
 						'feature_set' => array(
-							'version' 	=> 'pro',
-							'type' 		=> 'select_taxonomy',
+							'version' 		=> 'pro',
+							'type' 			=> 'select_taxonomy',
 							'taxonomy_id'	=> "feature-sets",				
-							'title' 	=> 'Select Feature Set To Show',
-							'desc' 		=> 'If you are using the feature section, select the feature set you would like to show on this page.'
+							'title' 		=> 'Select Feature Set To Show',
+							'shortexp'		=> 'The "set" or category of feature posts',
+							'exp' 			=> 'If you are using the feature section, select the feature set you would like to show on this page.'
 						)
 					);
 
