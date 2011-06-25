@@ -36,14 +36,17 @@ class PageLinesExtension{
 		global $pl_section_factory;
 
 		/**
-		* Load our two main section folders
+		* Load our main section folders
 		* @filter pagelines_section_dirs
 		*/
-		$section_dirs = apply_filters( 'pagelines_sections_dirs', array( 
-			'child' 	=> STYLESHEETPATH . '/sections/',	
-			'parent' 	=> PL_SECTIONS
-		) );
+		$section_dirs =  array(
 
+			'child'		=> WP_PLUGIN_DIR . '/pagelines-sections/sections',
+			'parent'	=> PL_SECTIONS			
+			);
+		
+		$section_dirs = apply_filters( 'pagelines_sections_dirs', $section_dirs );
+		
 		/**
 		* If cache exists load into $sections array
 		* If not populate array and prime cache
@@ -59,7 +62,6 @@ class PageLinesExtension{
 			*/
 			update_option( 'pagelines_sections_cache', $sections );	
 		}
-
 		// filter main array containing child and parent and any custom sections
 		$sections = apply_filters( 'pagelines_section_admin', $sections );
 		$disabled = get_option( 'pagelines_sections_disabled', array( 'child' => array(), 'parent' => array()) );
@@ -118,7 +120,7 @@ class PageLinesExtension{
 	 **/
 	function pagelines_getsections( $dir, $type ) {
 
-		if ( is_child_theme() == false && $type == 'child' || ! is_dir($dir) ) 
+		if ( $type == 'child' && ! is_dir($dir) ) 
 			return;
 
 		$sections = array();
@@ -145,13 +147,13 @@ class PageLinesExtension{
 					'authoruri'		=> ( isset( $headers['authoruri'] ) ) ? $headers['authoruri'] : '',
 					'description'	=> $headers['description'],
 					'name'			=> $headers['section'],
-					'base_url'		=> ( $type == 'child' ) ? CHILD_URL . '/sections/' . $folder : SECTION_ROOT . $folder,
-					'base_dir'		=> ( $type == 'child' ) ? CHILD_DIR . '/sections' . $folder : PL_SECTIONS . $folder,
+					'base_url'		=> ( $type == 'child' ) ? WP_PLUGIN_URL . '/pagelines-sections/sections/' . $folder : SECTION_ROOT . $folder,
+					'base_dir'		=> ( $type == 'child' ) ? WP_PLUGIN_DIR . '/pagelines-sections/sections/' . $folder : PL_SECTIONS . $folder,
 					'base_file'		=> $fullFileName
 				);	
 			}
 		}
-		return $sections;	
+		return $sections;
 	}
 		
 } // end class

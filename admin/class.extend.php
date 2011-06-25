@@ -30,10 +30,8 @@
  			TODO make error checking better...
 			TODO Use plugin?
  		*/
- 		if ( !is_child_theme() )
- 			return 'No child theme found!';
- 		if ( !is_dir( STYLESHEETPATH . '/sections' ) )
- 			return 'No sections dir found! You need to make folder: ' . STYLESHEETPATH . '/sections';
+ 		if ( !is_dir( WP_PLUGIN_DIR . '/pagelines-sections/sections' ) )
+ 			return 'You need to install Pagelines-Contol Plugin';
 
 		/*
 			TODO cache this api query, it'll hardly EVER change, no need to fetch it on every page load!
@@ -50,7 +48,7 @@
 
 			foreach( $sections as $key => $section ) {
 				
-				if ( file_exists( STYLESHEETPATH . '/sections/' . $section->name . '/' . $section->name . '.php' ) )
+				if ( file_exists( WP_PLUGIN_DIR . '/pagelines-sections/sections/' . $section->name . '/' . $section->name . '.php' ) )
 					continue;
 				$key = str_replace( '.', '', $key );
 				$install_js_call = sprintf( $this->exprint, 'section_install', $key, 'section', $section->url, 'Installing');
@@ -173,7 +171,8 @@
 				$args = array(
 						'name' 		=> $plugin->name, 
 						'version'	=> $plugin->version, 
-						'desc'		=> $plugin->text, 
+						'desc'		=> $plugin->text,
+						'tags'		=> $plugin->tags,
 						'auth_url'	=> $plugin->author_url, 
 						'auth'		=> $plugin->author, 
 						'buttons'	=> $button,
@@ -380,7 +379,7 @@
 			$upgrader = new Plugin_Upgrader();
 
 			$options = array( 	'package' => $url, 
-					'destination' => STYLESHEETPATH .'/sections/' . rtrim( basename( $url ), '.zip' ), 
+					'destination' => WP_PLUGIN_DIR .'/pagelines-sections/sections/' . rtrim( basename( $url ), '.zip' ), 
 					'clear_destination' => false,
 					'clear_working' => false,
 					'is_multi' => false,
