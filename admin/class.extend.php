@@ -33,14 +33,10 @@
  		if ( !is_dir( WP_PLUGIN_DIR . '/pagelines-sections/sections' ) )
  			return 'You need to install Pagelines-Contol Plugin';
 
-		/*
-			TODO cache this api query, it'll hardly EVER change, no need to fetch it on every page load!
-		*/
-		$api = wp_remote_get( 'http://api.pagelines.com/sections/' );
 		
 		$available = get_option( 'pagelines_sections_cache' );
 
-		$sections = json_decode( $api['body'] );
+		$sections = $this->get_latest_sections();
 	
 		if ( is_object($sections) ) {
 
@@ -85,6 +81,7 @@
  		$load_sections->pagelines_register_sections();
  		$available = get_option( 'pagelines_sections_cache' );
  		$disabled = get_option( 'pagelines_sections_disabled', array() );
+		$upgradable = $this->get_latest_sections();
 		$output = '';
  		foreach( $available as $type ) {
 	
@@ -97,17 +94,27 @@
  			$type = pagelines_array_sort( $type, 'name' );
 
  			foreach( $type as $key => $section) { // main loop
- 			
+	
   				if ( $section['type'] == 'parent' && isset( $available['child'][$section['class']] ) )
  					continue;
 
 				$activate_js_call = sprintf($this->exprint, 'section_activate', $key, $section['type'], $section['class'], 'Activating');
 				$deactivate_js_call = sprintf($this->exprint, 'section_deactivate', $key, $section['type'], $section['class'], 'Deactivating');
-
+				
 				$button = ( !isset( $disabled[$section['type']][$section['class']] ) ) 
 							? OptEngine::superlink('Deactivate', 'grey', '', '', $deactivate_js_call) 
 							: OptEngine::superlink('Activate', 'blue', '', '', $activate_js_call);
 
+				$file = basename($section['base_dir']);
+				if ( is_object( $upgradable ) && isset( $upgradable->$file ) ) {
+				
+					$install_js_call = sprintf( $this->exprint, 'section_upgrade', $key, $file, $upgradable->$file->url, 'Upgrading to version ' . $upgradable->$file->version );
+
+					$button = ( isset( $upgradable->$file ) && $section['version'] < $upgradable->$file->version )
+								? OptEngine::superlink('Upgrade available!', 'black', '', '', $install_js_call)
+								: $button;
+				}
+				
 				$args = array(
 						'name' 		=> $section['name'], 
 						'version'	=> !empty( $section['version'] ) ? $section['version'] : CORE_VERSION, 
@@ -389,9 +396,24 @@
 			@$upgrader->run($options);
 			echo 'Installed';
 			$this->page_reload( 'pagelines_extend' );
+
+		} elseif ( $mode == 'section_upgrade' ) {
+
+			$upgrader = new Plugin_Upgrader();
+
+			$options = array( 	'package' => $url, 
+					'destination' => WP_PLUGIN_DIR .'/pagelines-sections/sections/' . $type, 
+					'clear_destination' => true,
+					'clear_working' => false,
+					'is_multi' => false,
+					'hook_extra' => array() 
+			);
+
+			@$upgrader->run($options);
+			echo 'Ugraded';
+			$this->page_reload( 'pagelines_extend' );	
 		}
-		
-	
+
 		die(); // needed at the end of ajax callbacks
 	}
 	
@@ -413,6 +435,14 @@
 			return 'active';
 		else
 			return 'notactive';
+	}
+
+
+	function get_latest_sections() {
+		
+		$api = wp_remote_get( 'http://api.pagelines.com/sections/' );
+		$sections = json_decode( $api['body'] );
+		return $sections;
 	}
 
  } // end PagelinesExtensions class
