@@ -5,6 +5,7 @@
 	Author URI: http://www.pagelines.com
 	Description: Creates a flickr, nextgen, or featured image carousel.
 	Class Name: PageLinesContent
+	Tags: internal, core
 */
 
 class PageLinesContent extends PageLinesSection {

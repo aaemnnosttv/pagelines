@@ -1,11 +1,11 @@
 <?php
 /*
-
 	Section: PostLoop
 	Author: Andrew Powers
 	Author URI: http://www.pagelines.com
 	Description: Paginates posts, shows a numerical post navigation
 	Class Name: PageLinesPostLoop
+	Tags: internal, core
 */
 
 class PageLinesPostLoop extends PageLinesSection {

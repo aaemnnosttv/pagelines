@@ -2,8 +2,8 @@
 /**
  * Plugin/theme installer class and section control.
  *
- * TODO cache api query.
  * TODO add enable all to sections.
+ * TODO Make some use of the tags system
  *
  * Install PageLines plugins and looks after them.
  * 
@@ -27,20 +27,15 @@
  		
  		/*
  			TODO make error checking better...
+			TODO Use plugin?
  		*/
- 		if ( !is_child_theme() )
- 			return;
- 		if ( !is_dir( STYLESHEETPATH . '/sections' ) )
- 			return 'No sections dir found! You need to make folder: ' . STYLESHEETPATH . '/sections';
+ 		if ( !is_dir( WP_PLUGIN_DIR . '/pagelines-sections/sections' ) )
+ 			return 'You need to install Pagelines-Contol Plugin';
 
-		/*
-			TODO cache this api query, it'll hardly EVER change, no need to fetch it on every page load!
-		*/
-		$api = wp_remote_get( 'http://api.pagelines.com/sections/' );
 		
 		$available = get_option( 'pagelines_sections_cache' );
 
-		$sections = json_decode( $api['body'] );
+		$sections = $this->get_latest_cached( 'sections' );
 	
 		if ( is_object($sections) ) {
 
@@ -48,7 +43,7 @@
 
 			foreach( $sections as $key => $section ) {
 				
-				if ( file_exists( STYLESHEETPATH . '/sections/' . $section->name . '/' . $section->name . '.php' ) )
+				if ( file_exists( WP_PLUGIN_DIR . '/pagelines-sections/sections/' . $section->name . '/' . $section->name . '.php' ) )
 					continue;
 				$key = str_replace( '.', '', $key );
 				$install_js_call = sprintf( $this->exprint, 'section_install', $key, 'section', $section->url, 'Installing');
@@ -85,6 +80,7 @@
  		$load_sections->pagelines_register_sections();
  		$available = get_option( 'pagelines_sections_cache' );
  		$disabled = get_option( 'pagelines_sections_disabled', array() );
+		$upgradable = $this->get_latest_cached( 'sections' );
 		$output = '';
  		foreach( $available as $type ) {
 	
@@ -97,21 +93,32 @@
  			$type = pagelines_array_sort( $type, 'name' );
 
  			foreach( $type as $key => $section) { // main loop
- 			
+	
   				if ( $section['type'] == 'parent' && isset( $available['child'][$section['class']] ) )
  					continue;
 
 				$activate_js_call = sprintf($this->exprint, 'section_activate', $key, $section['type'], $section['class'], 'Activating');
 				$deactivate_js_call = sprintf($this->exprint, 'section_deactivate', $key, $section['type'], $section['class'], 'Deactivating');
-
+				
 				$button = ( !isset( $disabled[$section['type']][$section['class']] ) ) 
 							? OptEngine::superlink('Deactivate', 'grey', '', '', $deactivate_js_call) 
 							: OptEngine::superlink('Activate', 'blue', '', '', $activate_js_call);
 
+				$file = basename($section['base_dir']);
+				if ( is_object( $upgradable ) && isset( $upgradable->$file ) ) {
+				
+					$install_js_call = sprintf( $this->exprint, 'section_upgrade', $key, $file, $upgradable->$file->url, 'Upgrading to version ' . $upgradable->$file->version );
+
+					$button = ( isset( $upgradable->$file ) && $section['version'] < $upgradable->$file->version )
+								? OptEngine::superlink('Upgrade available!', 'black', '', '', $install_js_call)
+								: $button;
+				}
+				
 				$args = array(
 						'name' 		=> $section['name'], 
 						'version'	=> !empty( $section['version'] ) ? $section['version'] : CORE_VERSION, 
-						'desc'		=> $section['description'], 
+						'desc'		=> $section['description'],
+						'tags'		=> $section['tags'],
 						'auth_url'	=> $section['authoruri'], 
 						'auth'		=> $section['author'],
 						'importance'=> $section['importance'],
@@ -133,14 +140,8 @@
 	 */
 	function extension_plugins() {
 
-		
-		/*
-			TODO cache this api query, it'll hardly EVER change, no need to fetch it on every page load!
-		*/
-		$api = wp_remote_get( 'http://api.pagelines.com/plugins/' );
+		$plugins = $this->get_latest_cached( 'plugins' );
 
-		$plugins = json_decode( $api['body'] );
-	
 		if ( is_object($plugins) ) {
 			
 			$output = '';
@@ -170,7 +171,8 @@
 				$args = array(
 						'name' 		=> $plugin->name, 
 						'version'	=> $plugin->version, 
-						'desc'		=> $plugin->text, 
+						'desc'		=> $plugin->text,
+						'tags'		=> $plugin->tags,
 						'auth_url'	=> $plugin->author_url, 
 						'auth'		=> $plugin->author, 
 						'buttons'	=> $button,
@@ -203,12 +205,10 @@
 		$s = wp_parse_args( $args, $d);
 		
 		$buttons = sprintf('<div class="pane-buttons">%s</div>', $s['buttons']);
-		
 	
-		
 		$title = sprintf('<div class="pane-head"><div class="pane-head-pad"><h3 class="pane-title">%s</h3><div class="pane-sub">%s</div></div></div>', $s['name'], 'Version ' . $s['version'] );
 		
-		$auth = sprintf('<div class="pane-dets">by <a href="%s">%s</a></div>', $s['auth_url'], $s['auth']);
+		$auth = sprintf('<div class="pane-dets">by <a href="%s">%s</a><br />Tags: %s</div>', $s['auth_url'], $s['auth'], $s['tags']);
 		
 		$body = sprintf('<div class="pane-desc"><div class="pane-desc-pad">%s %s</div></div>', $s['desc'], $auth);
 		
@@ -379,7 +379,7 @@
 			$upgrader = new Plugin_Upgrader();
 
 			$options = array( 	'package' => $url, 
-					'destination' => STYLESHEETPATH .'/sections/' . rtrim( basename( $url ), '.zip' ), 
+					'destination' => WP_PLUGIN_DIR .'/pagelines-sections/sections/' . rtrim( basename( $url ), '.zip' ), 
 					'clear_destination' => false,
 					'clear_working' => false,
 					'is_multi' => false,
@@ -389,9 +389,24 @@
 			@$upgrader->run($options);
 			echo 'Installed';
 			$this->page_reload( 'pagelines_extend' );
+
+		} elseif ( $mode == 'section_upgrade' ) {
+
+			$upgrader = new Plugin_Upgrader();
+
+			$options = array( 	'package' => $url, 
+					'destination' => WP_PLUGIN_DIR .'/pagelines-sections/sections/' . $type, 
+					'clear_destination' => true,
+					'clear_working' => false,
+					'is_multi' => false,
+					'hook_extra' => array() 
+			);
+
+			@$upgrader->run($options);
+			echo 'Ugraded';
+			$this->page_reload( 'pagelines_extend' );	
 		}
-		
-	
+
 		die(); // needed at the end of ajax callbacks
 	}
 	
@@ -413,6 +428,21 @@
 			return 'active';
 		else
 			return 'notactive';
+	}
+
+	/**
+	* Simple cache for plugins and sections
+	* @return object
+	*/
+	function get_latest_cached( $type ) {
+		
+		$api = ( ! false == get_transient( 'pagelines_sections_api_' . $type ) )
+				? get_transient( 'pagelines_sections_api_' . $type )
+				: wp_remote_get( 'http://api.pagelines.com/' . $type . '/' );
+
+		set_transient( 'pagelines_sections_api_' . $type, $api, 300 );
+
+		return json_decode( $api['body'] );
 	}
 
  } // end PagelinesExtensions class

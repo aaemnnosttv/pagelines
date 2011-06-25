@@ -1,11 +1,11 @@
 <?php
 /*
-
 	Section: Tertiary Sidebar
 	Author: Andrew Powers
 	Author URI: http://www.pagelines.com
 	Description: The main widgetized sidebar
 	Class Name: TertiarySidebar
+	Tags: internal
 */
 
 class TertiarySidebar extends PageLinesSection {

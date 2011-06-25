@@ -1,11 +1,11 @@
 <?php
 /*
-
 	Section: PageLines Soapbox
 	Author: Andrew Powers
 	Author URI: http://www.pagelines.com
 	Description: Creates boxes and box layouts
 	Class Name: PageLinesSoapbox
+	Tags: internal
 */
 
 class PageLinesSoapbox extends PageLinesSection {
