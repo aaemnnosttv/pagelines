@@ -118,7 +118,7 @@
 						'name' 		=> $section['name'], 
 						'version'	=> !empty( $section['version'] ) ? $section['version'] : CORE_VERSION, 
 						'desc'		=> $section['description'],
-						'tags'		=> $section['tags'],
+						'tags'		=> ( isset( $section['tags'] ) ) ? $section['tags'] : '',
 						'auth_url'	=> $section['authoruri'], 
 						'auth'		=> $section['author'],
 						'importance'=> $section['importance'],
@@ -172,7 +172,7 @@
 						'name' 		=> $plugin->name, 
 						'version'	=> $plugin->version, 
 						'desc'		=> $plugin->text,
-						'tags'		=> $plugin->tags,
+						'tags'		=> ( isset( $plugin->tags ) ) ? $plugin->tags : '',
 						'auth_url'	=> $plugin->author_url, 
 						'auth'		=> $plugin->author, 
 						'buttons'	=> $button,
@@ -205,10 +205,12 @@
 		$s = wp_parse_args( $args, $d);
 		
 		$buttons = sprintf('<div class="pane-buttons">%s</div>', $s['buttons']);
+		
+		$tags =  ( $s['tags'] ) ? sprintf('<br />Tags: %s</div>', $s['tags']) : '</div>';
 	
 		$title = sprintf('<div class="pane-head"><div class="pane-head-pad"><h3 class="pane-title">%s</h3><div class="pane-sub">%s</div></div></div>', $s['name'], 'Version ' . $s['version'] );
 		
-		$auth = sprintf('<div class="pane-dets">by <a href="%s">%s</a><br />Tags: %s</div>', $s['auth_url'], $s['auth'], $s['tags']);
+		$auth = sprintf('<div class="pane-dets">by <a href="%s">%s</a>%s', $s['auth_url'], $s['auth'], $tags);
 		
 		$body = sprintf('<div class="pane-desc"><div class="pane-desc-pad">%s %s</div></div>', $s['desc'], $auth);
 		
