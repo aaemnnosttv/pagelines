@@ -166,14 +166,3 @@ function pagelines_check_version() {
 		$pl_update->pagelines_theme_check_version();
 	}
 }
-
-add_action( 'admin_init', 'pagelines_check_plugins', 30 );
-function pagelines_check_plugins() {
-set_site_transient('update_plugins', null);
-	if ( VPRO ) {
-		foreach( pagelines_register_plugins() as $plugin ) {
-			$pl_update = new PageLinesUpdateCheck( null, null, $plugin );
-			$pl_update->pagelines_plugins_check_version();
-		}
-	}
-}
