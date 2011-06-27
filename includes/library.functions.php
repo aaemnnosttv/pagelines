@@ -597,13 +597,37 @@ function pagelines_register_plugins() {
  * @since 2.0
  * @return sorted array
  */
-	function pagelines_array_sort( $a, $subkey ) {
-		foreach( $a as $k => $v ) {
-			$b[$k] = strtolower( $v[$subkey] );
-		}
-		asort( $b );
-		foreach( $b as $key => $val ) {
-			$c[] = $a[$key];
-		}
-		return $c;
+function pagelines_array_sort( $a, $subkey ) {
+	foreach( $a as $k => $v ) {
+		$b[$k] = strtolower( $v[$subkey] );
 	}
+	asort( $b );
+	foreach( $b as $key => $val ) {
+		$c[] = $a[$key];
+	}
+	return $c;
+}
+	
+	
+/**
+ *
+ * Load 'child' style and functions.
+ * 
+ * @since 2.0
+ * 
+ */	
+add_action( 'wp_enqueue_scripts', 'load_child_style' );
+add_action( 'template_redirect', 'load_child_functions' );
+
+function load_child_style() {
+
+	$file = '/pagelines-child/themes/' . basename( STYLESHEETPATH ) . '/style.css';
+	if ( file_exists( WP_PLUGIN_DIR . $file ) )
+		wp_enqueue_style( 'child', plugins_url( $file ) );
+}
+
+function load_child_functions() {
+	$file = '/pagelines-child/themes/' . basename( STYLESHEETPATH ) . '/functions.php';
+	if ( file_exists( WP_PLUGIN_DIR . $file ) )
+		include( WP_PLUGIN_DIR . $file );
+}
