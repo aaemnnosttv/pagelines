@@ -135,7 +135,7 @@
 	/*
 	 * Document!
 	 */
-	function extension_plugins() {
+	function extension_plugins( $tab = '' ) {
 
 		$plugins = $this->get_latest_cached( 'plugins' );
 
@@ -146,25 +146,33 @@
 				
 
 				$status = $this->plugin_check_status( WP_PLUGIN_DIR . $plugin->file );
+				
+				if ($tab != 'free' && !$status['status'] )
+					continue;
+				if ($tab == 'free' && ( $status['status'] == 'active' || $status['status'] == 'notactive' ) )
+					continue;
 
 				$install_js_call = sprintf( $this->exprint, 'plugin_install', $key, 'plugin', $plugin->url, 'Installing');
 				$activate_js_call = sprintf( $this->exprint, 'plugin_activate', $key, 'plugin', $plugin->file, 'Activating');
 				$deactivate_js_call = sprintf( $this->exprint, 'plugin_deactivate', $key, 'plugin', $plugin->file, 'Deactivating');
 				$upgrade_js_call = sprintf( $this->exprint, 'plugin_upgrade', $key, 'plugin', $plugin->url, 'Upgrading');
+				$delete_js_call = sprintf( $this->exprint, 'plugin_delete', $key, 'plugin', $plugin->file, 'Deleting');
 
 				if ( !isset( $status['status'] ) )
 					$status = array( 'status' => '' );
 
 				if ( $status['status'] && $plugin->version > $status['data']['Version'])
 					$status['status'] = 'upgrade';
-				switch ( $status['status'] ) {
 
+				switch ( $status['status'] ) {
+					
 					case 'active':
-						$button = OptEngine::superlink('Deactivate Plugin', 'grey', '', '', $deactivate_js_call);
+						$button = OptEngine::superlink('Deactivate', 'grey', '', '', $deactivate_js_call);
 						break;
 					
 					case 'notactive':
-						$button = OptEngine::superlink('Activate Plugin', 'blue', '', '', $activate_js_call);
+						$button = OptEngine::superlink('Activate', 'blue', '', '', $activate_js_call);
+						$button .= OptEngine::superlink('Delete', 'grey', '', '', $delete_js_call);
 						break;
 					
 					case 'upgrade':
@@ -172,8 +180,8 @@
 						break;
 
 					default:
-						// were not installed, show the form!
-						$button = OptEngine::superlink('Install Plugin', 'black', '', '', $install_js_call);
+						// were not installed, show the form! ( if we are on install tab )
+						$button = OptEngine::superlink('Install', 'black', '', '', $install_js_call);
 						break;
 						
 				}
@@ -204,7 +212,8 @@
 		$d = array(
 				'name' 		=> 'No Name', 
 				'version'	=> 'No Version', 
-				'desc'		=> '', 
+				'desc'		=> '',
+				'tags'		=> '', 
 				'auth_url'	=> '', 
 				'auth'		=> '', 
 				'buttons'	=> '',
@@ -429,6 +438,11 @@
 			@$upgrader->run($options);
 			echo 'Upgraded';
 			$this->page_reload( 'pagelines_extend' );			
+		} elseif( $mode == 'plugin_delete' ) {
+	
+			delete_plugins( array( ltrim( $url, '/' ) ) );
+			echo 'Deleted';
+			$this->page_reload( 'pagelines_extend' );	
 		}
 
 		die(); // needed at the end of ajax callbacks
@@ -484,6 +498,7 @@ function extension_array(  ){
 
 	$d = array(
 		'PageLines_Sections' => array(
+			
 			'htabs' 	=> array(
 				'installed'	=> array(
 					'title'		=> "Installed PageLines Sections",
@@ -494,30 +509,34 @@ function extension_array(  ){
 					'class'		=> "right",
 					'callback'	=> $extension_control->extension_sections()
 					),
-				'popular'	=> array(
-					'title'		=> "Popular PageLines Sections",
+				'premium'	=> array(
+					'title'		=> "Premium PageLines Sections",
 					'class'		=> "right",
 					'callback'	=> $extension_control->extension_sections()
 					),
-				'newest'	=> array(
-					'title'		=> "Newest PageLines Sections",
+				'free'	=> array(
+					'title'		=> "Free PageLines Sections",
 					'class'		=> "right",
 					'callback'	=> $extension_control->extension_sections_install()
 					)
-
-			),
-
-		),
-		'PageLines_Plugins' => array(
-			'plugins_panel' => array(
-				'default'	=> '',
-				'type'		=> 'text_content',
-				'layout'	=> 'full',
-				'exp'		=> $extension_control->extension_plugins()
 			),
 
 		),
 
+'PageLines_Plugins' => array(
+		'htabs' 	=> array(
+			'installed'	=> array(
+				'title'		=> "Installed PageLines Plugins",
+				'callback'	=> $extension_control->extension_plugins()
+				),
+			'free'	=> array(
+				'title'		=> "Free Plugins",
+				'class'		=> "right",
+				'callback'	=> $extension_control->extension_plugins( $tab = 'free' )
+				)
+		)
+
+	)
 	);
 
 	return apply_filters('extension_array', $d); 
