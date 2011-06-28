@@ -18,12 +18,18 @@ class PageLinesTemplateBuilder {
 	 * Construct
 	 */
 	function __construct() {
+		global $pagelines_template;
+		global $pl_section_factory;
 		
 		$this->sc_settings = pagelines_option('section-control');
 		$this->sc_namespace = PAGELINES_SETTINGS."['section-control']";
 		
-		global $pl_section_factory;
+		$this->template_map = get_option('pagelines_template_map');
+		
+		
 		$this->factory = $pl_section_factory->sections;
+		
+		$this->template = $pagelines_template;
 		
 	}
 
@@ -476,7 +482,154 @@ class PageLinesTemplateBuilder {
 		</div>
 	<?php }
 	
+	/**
+	 * 
+	 *
+	 *  Show Section Control Option in MetaPanel
+	 *
+	 *
+	 *  @package PageLines Core
+	 *  @subpackage Options
+	 *  @since 4.0
+	 *
+	 */
+	function section_control_interface(){ 
+		
+		$template_slug = join( '-', array('templates', $this->template->template_type) );
+		$main_slug = join( '-', array('main', $this->template->template_type) );
+		
+		global $metapanel_options;
+		
+		?>
+		
+		<div class="section_control_wrap">
+			<div class="sc_gap fix">
+				<div class="sc_gap_title"><?php echo $metapanel_options->edit_slug;?> - Basic Template</div>
+				<div class="sc_gap_pad">
+					
+					<div class="sc_area sc_header ntb">
+						<div class="sc_area_pad fix">
+							<div class="scta_head">Header</div>
+							<?php $this->sc_inputs('header', $this->template->header); ?>
+						</div>
+					</div>
+					<div class="sc_area sc_templates">
+						<div class="sc_area_pad fix">
+							<div class="scta_head">Template</div>
+							<?php $this->sc_inputs($template_slug, $this->template->templates); ?>
+						</div>
+					</div>
+					<div class="sc_area sc_morefoot">
+						<div class="sc_area_pad fix">
+							<div class="scta_head">Morefoot</div>
+							<?php $this->sc_inputs('morefoot', $this->template->morefoot); ?>
+						</div>
+					</div>
+					<div class="sc_area sc_footer nbb">
+						<div class="sc_area_pad fix">
+							<div class="scta_head">Footer</div>
+							<?php $this->sc_inputs('footer', $this->template->footer); ?>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="sc_gap fix">
+				<div class="sc_gap_title"><?php echo $metapanel_options->edit_slug;?> - Content Area</div>
+				<div class="sc_gap_pad">
+				
+					<div class="sc_area sc_header ntb">
+						<div class="sc_area_pad fix">
+							<div class="scta_head">Content</div>
+							<?php $this->sc_inputs($main_slug, $this->template->main); ?>
+						</div>
+					</div>
+					<div class="sc_area sc_header">
+						<div class="sc_area_pad fix">
+							<div class="scta_head">Wrap</div>
+							<?php $this->sc_inputs('sidebar_wrap', $this->template->sidebar_wrap); ?>
+						</div>
+					</div>
+					<div class="sc_area sc_header">
+						<div class="sc_area_pad fix">
+							<div class="scta_head">Sidebar 1</div>
+							<?php $this->sc_inputs('sidebar1', $this->template->sidebar1); ?>
+						</div>
+					</div>
+					<div class="sc_area sc_header nbb">
+						<div class="sc_area_pad fix">
+							<div class="scta_head">Sidebar 2</div>
+							<?php $this->sc_inputs('sidebar2', $this->template->sidebar2); ?>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	<?php }
 
+	
+	function sc_inputs( $template_slug, $sections ){
+		global $post; 
+
+		
+		if(empty($sections)){
+			echo '<div class="sc_inputs"><div class="emptyarea">Area is empty.</div></div>';
+			return;
+		}
+		
+		echo '<div class="sc_inputs">';
+		foreach($sections as $key => $section_slug){
+			
+			
+			$pieces = explode("ID", $section_slug);		
+			$section = (string) $pieces[0];
+			$clone_id = (isset($pieces[1])) ? $pieces[1] : 1;
+			
+			// Get section information
+			if( isset($this->factory[ $section ]) ){
+				
+				$section_data = $this->factory[ $section ];		
+			
+				$hidden_by_default = isset($this->sc_settings[$template_slug][$section_slug]['hide']) ? $this->sc_settings[$template_slug][$section_slug]['hide'] : null;
+
+				$check_type = ( $hidden_by_default ) ? 'show' : 'hide';
+				
+				// Make the field 'key'
+				$option_name = $this->sc_option_name( array($check_type, $template_slug, $section, $clone_id) );
+
+				// The name of the section
+				$clone = ($clone_id != 1) ? ' #'.$clone_id : '';
+				$check_label = ucfirst($check_type)." " . $section_data->name.$clone;
+
+				$check_value = get_pagelines_meta($option_name, $post->ID);
+		
+				?>
+				<div class="sc_wrap <?php echo 'type_'.$check_type;?>" >
+					<label class="sc_button" for="<?php echo $option_name;?>">
+						<span class="sc_button_pad fix" >
+							<span class="sc_check_wrap"><input class="sc_check" type="checkbox" id="<?php echo $option_name; ?>" name="<?php echo $option_name; ?>" <?php checked((bool) $check_value); ?> /></span>
+							<span class="sc_label" >
+								<span class="sc_label_pad" style="background: url(<?php echo $section_data->icon;?>) no-repeat 8px 5px"><?php echo $check_label;?></span>
+							</span>
+						</span>
+					</label>
+
+				</div>
+		
+		
+		<?php 
+			}
+		}
+		echo '</div>';
+		
+	}
+
+	
+	function sc_option_name( $array ){
+		
+		return '_'.join('_', $array);
+		
+	}
 	
 	function help_control(){
 		if(!$this->help()) 

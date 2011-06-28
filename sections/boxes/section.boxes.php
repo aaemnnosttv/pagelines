@@ -116,16 +116,17 @@ class PageLinesBoxes extends PageLinesSection {
 								'type' 			=> 'select_taxonomy',
 								'taxonomy_id'	=> "box-sets",				
 								'title'		 	=> 'Select Box Set To Show',
-								'desc' 			=> 'If you are using the box section, select the box set you would like to show on this page.'
+								'shortexp' 			=> 'If you are using the box section, select the box set you would like to show on this page.'
 							), 
 							'box_col_number' => array(
-								'type' 			=> 'select_count',
+								'type' 			=> 'count_select',
 								'count_number'	=> '5', 
 								'count_start'	=> '2',
 								'inputlabel' 	=> 'Number of Feature Box Columns',
 								'title' 		=> 'Box Columns',
-								'label' 		=> "Select the number of columns to show boxes in.",
-								'desc' 			=> "The number you select here will be the number of boxes listed in a row on a page. Note: This won't work on the blog page (use the global option)."
+								'inputlabel' 		=> "Select the number of columns to show boxes in.",
+								'shortexp' 			=> "The number you select here will be the number of boxes listed in a row on a page.",
+								'exp'				=> "Note: This won't work on the blog page (use the global option)."
 							), 
 							'box_thumb_type' => array(
 								'version' => 'pro',
@@ -136,7 +137,7 @@ class PageLinesBoxes extends PageLinesSection {
 										'only_thumbs'	=> array("name" => "Only The Image, No Text")
 									), 
 								'title' => 'Box Thumb Position',				
-								'desc' => 'Choose between thumbs on left and thumbs on top of boxes.',
+								'shortexp' => 'Choose between thumbs on left and thumbs on top of boxes.',
 								
 							),
 							'box_thumb_size' => array(
@@ -144,8 +145,8 @@ class PageLinesBoxes extends PageLinesSection {
 								'type' 			=> 'text',
 								'size'			=> 'small',
 								'title' 		=> 'Box Icon Size (in Pixels)',
-								'label' 		=> "Enter the icon size in pixels",
-								'desc' 			=> "Select the default icon size in pixels, set the images when creating new boxes.",
+								'inputlabel' 		=> "Enter the icon size in pixels",
+								'shortexp' 			=> "Select the default icon size in pixels, set the images when creating new boxes.",
 							),
 							'box_items' => array(
 								'version'		=> 'pro',
@@ -153,7 +154,7 @@ class PageLinesBoxes extends PageLinesSection {
 								'size'			=> 'small',
 								'inputlabel' 	=> 'Maximum Boxes To Show On Page',
 								'title' 		=> 'Max Number of Boxes',
-								'desc' 			=> "Select the max number of boxes to show on this page (overrides default).",
+								'shortexp' 			=> "Select the max number of boxes to show on this page (overrides default).",
 							),
 						);
 

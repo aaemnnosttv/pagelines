@@ -12,7 +12,7 @@ class PageLinesMorefoot extends PageLinesSection {
 
    function __construct( $registered_settings = array() ) {
 	
-		$name = __('MoreFoot Sidebars <small>(3-Column)</small>', 'pagelines');
+		$name = __('MoreFoot Sidebars', 'pagelines');
 		$id = 'morefoot';
 	
 		

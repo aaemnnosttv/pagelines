@@ -18,7 +18,9 @@ jQuery(document).ready(function(){
 	 */
 	jQuery('#message.slideup_message').delay(5000).slideUp('fast');
 	
-	
+	jQuery('.graphic_selector .graphic_select_border').click(function(){
+		GraphicSelect(this);
+	});
 	
 	
 	/**
@@ -197,6 +199,15 @@ function PageLinesStyleFont(element, property){
 	
 }
 
+/**
+ * Graphic Selector Option
+ * Changes input val based on image click....
+ */
+function GraphicSelect ( ClickedLayout ){
+	jQuery(ClickedLayout).parent().parent().find('.graphic_select_border').removeClass('selectedgraphic');
+	jQuery(ClickedLayout).addClass('selectedgraphic');
+	jQuery(ClickedLayout).parent().find('.graphic_select_input').attr("checked", "checked");
+}
 
 
 

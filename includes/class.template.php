@@ -37,8 +37,8 @@ class PageLinesTemplate {
 		$this->scontrol = pagelines_option('section-control');
 		
 		if(is_admin()){
-			$this->template_type = $this->admin_get_page_template();
-			$this->main_type = $this->admin_set_main_type();
+			$this->template_type = $this->admin_page_type_breaker();
+			$this->main_type = $this->admin_page_type_breaker();
 		}else{
 			$this->template_type = $this->page_type_breaker();
 			$this->main_type = $this->page_type_breaker();
@@ -78,44 +78,30 @@ class PageLinesTemplate {
 			return 'default';
 	}
 	
+
+	function admin_page_type_breaker(){
+		global $post;
+		if ( !is_object( $post ) ) 
+			return 'default';
+		
+		if(isset($post) && $post->post_type == 'post')
+			return 'single';
+		elseif( isset($_GET['page']) && $_GET['page'] == 'pagelines' )
+			return 'posts';
+		elseif(isset($post) && !empty($post->page_template) && $post->post_type == "page") {
+			$page_filename = str_replace('.php', '', $post->page_template);
+			$template_name = str_replace('page.', '', $page_filename);
+			return $template_name;
+		} elseif(isset($post) && get_post_meta($post->ID,'_wp_page_template',true)){
+			$page_filename = str_replace('.php', '', get_post_meta($post->ID,'_wp_page_template',true));
+			$template_name = str_replace('page.', '', $page_filename);
+			return $template_name;
+		} else 
+			return 'default';
+		
+	}
 	
-		function admin_set_main_type(){
-			global $post; 
-			
-			if ( !is_object( $post ) ) 
-				return 'default';
-				
-			if(isset($post) && $post->post_type == 'post')
-				return 'single';
-			elseif( isset($_GET['page']) && $_GET['page'] == 'pagelines' )
-				return 'posts';
-			else
-				return 'default';
-		}
-	
-		function admin_get_page_template(){
-			global $post;
-			if ( !is_object( $post ) ) 
-				return 'default';
-			
-			if(isset($post) && $post->post_type == 'post')
-				return 'single';
-			elseif( isset($_GET['page']) && $_GET['page'] == 'pagelines' )
-				return 'posts';
-			elseif(isset($post) && !empty($post->page_template) && $post->post_type == "page") {
-				$page_filename = str_replace('.php', '', $post->page_template);
-				$template_name = str_replace('page.', '', $page_filename);
-				return $template_name;
-			} elseif(isset($post) && get_post_meta($post->ID,'_wp_page_template',true)){
-				$page_filename = str_replace('.php', '', get_post_meta($post->ID,'_wp_page_template',true));
-				$template_name = str_replace('page.', '', $page_filename);
-				return $template_name;
-			} else 
-				return 'default';
-			
-		}
-	
-	/*
+
 		
 	
 	/**
@@ -434,7 +420,42 @@ class PageLinesTemplate {
 		}
 	}
 	
+	/**
+	 * This was taken from core WP because the function hasn't loaded yet, and isn't accessible.
+	 */
+	function get_page_templates() {
+		$themes = get_themes();
+		$theme = get_current_theme();
+		$templates = $themes[$theme]['Template Files'];
+		$page_templates = array();
 
+		if ( is_array( $templates ) ) {
+			$base = array( trailingslashit(get_template_directory()), trailingslashit(get_stylesheet_directory()) );
+
+			foreach ( $templates as $template ) {
+				$basename = str_replace($base, '', $template);
+
+				// don't allow template files in subdirectories
+				if ( false !== strpos($basename, '/') )
+					continue;
+
+				if ( 'functions.php' == $basename )
+					continue;
+
+				$template_data = implode( '', file( $template ));
+
+				$name = '';
+				if ( preg_match( '|Template Name:(.*)$|mi', $template_data, $name ) )
+					$name = _cleanup_header_comment($name[1]);
+
+				if ( !empty( $name ) ) {
+					$page_templates[trim( $name )] = $basename;
+				}
+			}
+		}
+
+		return $page_templates;
+	}
 
 } /* ------ END CLASS ------ */
 

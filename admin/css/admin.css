@@ -4,7 +4,8 @@
 
 
 	
-	.oinputs p{ font-size: 1em }
+	.oinputs p{ font-size: 1em; }
+	.oinputs {line-height: 1.5em}
 	
 /* Labels */
 	.lbl {
@@ -28,7 +29,11 @@
 			margin: 14px 0;
 			vertical-align: top;
 		}
-		
+	.option_default_statement{
+		padding: 10px;
+		background: #eee;
+		margin: 4px 0;
+	}
 /* Interface */
 	.ui-tabs .ui-tabs-hide { display: none; }
 	#interfacetitle{background: #ddd;	padding: 8px;}
@@ -342,7 +347,7 @@
 		width: 100%;
 	}
 	
-	/* @ Horizontal Navigation */
+/* @ Horizontal Navigation */
 	
 	#htabs {margin-top: 10px; }
 	.horizontal-tabs{border-bottom: 1px solid #bbb;}
@@ -378,7 +383,7 @@
 				border-bottom: none;
 			}
 		
-	.htab-content { }
+
 	.htab-content-pad {padding: 15px 20px; border-top: 1px solid #fff}
 	.htab-content .htab-title{margin: .5em 0 1em; color:#ccc}
 	
@@ -1009,56 +1014,91 @@
 			border: 1px solid #ddd;
 		}
 
-	.section_control {
-		margin-bottom: 15px;
-	
-		color: #666;
-	}
-		.showbox{	font-weight: bold;}
-		.section_control_checkboxes{
-			margin-bottom: 5px;
-			padding-left: 10px;
-		}
+/* @ Section Control Meta */
 
-	
-	.section_checkbox_row{
-		font-size: .85em;
+.sc_gap{
+	width: 45%;
+	float:left; 
+	margin: 20px 0 20px 3%;
+	background:#eee;
+	border: 1px solid #ddd;
+	border-right: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+}
+	.sc_gap_title{
+		text-align: center;
+		padding: 10px;
+		border-top: 1px solid #fff;
+		border-left: 1px solid #fff;
+		border-bottom: 1px solid #ddd;
 		font-weight: bold;
+		color:#BBB;
+		font-size: 1.2em;
+	}
+	.sc_gap_pad{
+		border-top: 1px solid #fff;
+		border-left: 1px solid #fff;
+		padding: 10px;
+	}
+	.sc_area{
 		
-		padding: 2px 0 0 2px;
+		border-bottom: 1px solid #ddd;
+		border-top: 1px solid #fff;
 	}
-		.section_control_individual .section_checkbox_row{
-			padding: 3px 0 3px 10px;
-		}
-		
-		#poststuff .inside .section_control_desc p {
-			font-size: 9px;
-			line-height: 1.6em;
-		}
-	.section_control_check{
-		margin: 0 5px 0 0;
+	.sc_area_pad{
+		padding: 5px;
 	}
-	.admin_section_control{
-		margin-bottom: 1.5em;
-	}
-	.admin_split_box{
+	.scta_head{
+		font-weight: bold;
+		margin-bottom: 3px;
 		float: left;
-		width: 225px;
+		width: 25%;
+		padding-right: 2%;
 	}
-	.admin_split_box.split_two{
-		width: 345px;
+
+	.sc_inputs{
+		float: left;
+		width: 73%;
 	}
-		.split_box_pad {
-			padding: 5px 8px;
+	.emptyarea{
+		padding: 5px 10px;
+		color:#999;
+		background:#ddd;
+	}
+.sc_button{
+	display: block;
+
+	border: 1px solid #ccc;
+	border-right: 1px solid #bbb;
+	border-bottom: 1px solid #bbb;
+	margin-bottom: 3px;
+	background: #F3F3F4 url(../images/section-up.png) repeat-x left bottom;
+}
+	.sc_button_pad{
+		display: block;
+		
+	
+		border-top: 1px solid #eee;
+		border-left: 1px solid #eee;
+	}
+	.sc_label{
+		
+		display: block;
+		border-left: 1px solid #bbb;
+		margin-left: 25px;
+	}
+		.sc_label_pad{
+			padding: 5px 10px 5px 33px;
+			display: block;
+			border-left:1px solid #eee;
 		}
-	.admin_split_box label {padding-top: 3px;}
-	.admin_split_box label.disabled {color:#999;cursor: default;}
-	.admin_split_box label small, .section_control_checkboxes label small{display: none;}
-	
-	.area_title {font-weight: bold; color: #555; margin: 8px 0 6px;display: block;border-bottom: 1px solid #ddd;font-size: .8em; background: #eee;padding: 7px 0 5px 4px;line-height: 1em;}
-	
-	.labelsubtle{color: #444;}
-	
+	.sc_check_wrap{
+		width: 15px;
+		margin-right: -15px;
+		padding: 7px 5px 5px;
+		float:left;
+	}
+		
 	
 /* @ PageLines MetaPanel Type Options */
 
@@ -1169,6 +1209,7 @@
 /* @ Layout Builder */
 	.layouteditor { display: none; }
 	.layouteditor.selectededitor{ display: block; }
+	
 	.layout-selections, .layout-main-content{
 		margin: 18px auto;
 	}
@@ -1266,12 +1307,8 @@
 	
 	
 	/* Layout Selector */
-	.layoutinput, .confirm_save {display:none;}
-	.confirm_save{
-		float: right;
-		color:#AAA;
-		
-	}
+	.layoutinput, .confirm_save, .graphic_select_input{display:none;}
+	.confirm_save{ float: right; color:#AAA; }
 	
 	.layout-selections{
 		width: 700px;
@@ -1347,7 +1384,68 @@
 		.layout-image.two-sidebar-center{
 			background: url(../images/sprite-layouts.png) no-repeat 0 -250px;
 		}
+
+/* @ Graphic Selector */ 
+	.graphic_selector_wrap{
+		padding: 20px 20px;
+	}
+		.graphic_selector{ 
+			width: 100%;
+			background: #E5E5E5 url(../images/bg-indent.png) repeat-x 0 0;
+			border: 1px solid #ccc;
+			border-bottom: 1px solid #c1c1c1;
+			border-right: 1px solid #c1c1c1;
+			text-align: center;
+		}
+			.graphic_selector_pad {
+				padding: 15px 20px 20px;
+				border:1px solid #eee;
+				border-left: 1px solid #fff;
+				border-top: 1px solid #fff;
+			}
+		.graphic_selector_overview{
+			color: #777;
+			text-align: center;
+			font-weight: bold;
+			margin-bottom: 10px;
+			display: block;
+		}
+		.layout-selections{
+			width: 700px;
+			
+		}
 		
+	.graphic_select_border {
+		display: inline-block;
+		border: 1px solid #ccc;
+		border-right: 1px solid #aaa;
+		border-bottom: 1px solid #aaa;
+		padding: 6px;
+		background: #F3F3F4 url(../images/section-hover.png) repeat-x left bottom;
+		
+		margin-left: 20px;
+		-moz-border-radius: 6px;
+		-khtml-border-radius: 6px;
+		-webkit-border-radius: 6px;
+		border-radius: 6px;
+	}
+	.graphic_select_border:hover {
+		border: 1px solid #aaa;
+		border-right: 1px solid #777;
+		border-bottom: 1px solid #777;
+		cursor: pointer;
+	}
+	.graphic_select_border:active, .graphic_select_border.selectedgraphic {
+		border: 1px solid #888;
+		border-right: 1px solid #aaa;
+		border-bottom: 1px solid #aaa;
+		cursor: pointer;
+		background: #bbb;
+	}
+	.graphic_select_image{
+		display: block;
+		text-indent: -3333em;
+	}
 	
 /* @ Template Option */ 
 	.tselect_label{
@@ -2028,6 +2126,9 @@
 		margin-right: 15px;
 		margin-bottom: 10px;
 	}
+	
+	.ntb{border-top: none}
+	.nbb{border-bottom: none}
 	
 	.fix:after{content:".";display:block;height:0;clear:both;visibility:hidden;}
 	.fix{display:inline-block;} 

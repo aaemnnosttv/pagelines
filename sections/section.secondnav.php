@@ -34,9 +34,10 @@ class PageLinesSecondNav extends PageLinesSection {
 		
 			$metatab_array = array(
 					'_second_nav_menu' => array(
-						'type' => 'select_menu',			
-						'title' => 'Select Secondary Nav Menu',
-						'desc' => 'Select the menu you would like to use for your secondary nav.'
+						'type' 			=> 'select_menu',			
+						'title' 		=> 'Select Secondary Nav Menu',
+						'shortexp' 		=> 'Select the menu you would like to use for your secondary nav.', 
+						'inputlabel'	=> 'Select Secondary Navigation Menu'
 					)
 				);
 				

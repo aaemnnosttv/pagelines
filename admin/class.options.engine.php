@@ -42,7 +42,10 @@ class OptEngine {
 			'callback'				=> '',
 			'css_prop'				=> '',
 			'pro_note'				=> false, 
-			'htabs'					=> array()
+			'htabs'					=> array(), 
+			'height'				=> '0px',
+			'width'					=> '0px',
+			'sprite'				=> ''
 		);
 		
 	}
@@ -231,6 +234,9 @@ class OptEngine {
 			case 'templates' :
 				$this->do_template_builder(); 
 				break;
+			case 'section_control' :
+				$this->do_section_control(); 
+				break;
 			case 'text_content' :
 				$this->_get_text_content($oid, $o, $val);
 				break;
@@ -244,8 +250,9 @@ class OptEngine {
 			case 'horizontal_tabs' :
 				$this->get_horizontal_nav($oid, $o);
 				break;
-			
-
+			case 'graphic_selector' :
+				$this->graphic_selector($oid, $o);
+				break;
 			default :
 				do_action( 'pagelines_options_' . $o['type'] , $oid, $o);
 				break;
@@ -272,8 +279,10 @@ class OptEngine {
 		foreach ( $menus as $menu )
 			$opts = $this->input_option($menu->term_id, selected($menu->term_id, $o['val']), esc_html( $menu->name ) );
 		
-		echo $this->input_select($o['input_id'], $o['input_name'], $opts);
-	
+		if($opts != '')
+			echo $this->input_select($o['input_id'], $o['input_name'], $opts);
+		else
+			printf('<div class="option_default_statement">WP menus need to be created to use this option!<br/> Edit <a href="%s">WordPress Menus</a></div>', admin_url( 'nav-menus.php'));
 	}
 
 	/**
@@ -559,6 +568,51 @@ class OptEngine {
 		echo $this->input_select($o['input_id'], $o['input_name'], $opts);
 
 	}
+	
+	/**
+	 * 
+	 * Graphical Selector
+	 * 
+	 * @param selectvalues array a set of options to select from
+	 * 
+	 * @since 2.0.b3
+	 * @author Andrew Powers
+	 * 
+	 **/
+	function graphic_selector( $oid, $o ){ 
+		
+		
+		?>
+		<div id="graphic_selector_option" class="graphic_selector_wrap">
+			<div class="graphic_selector fix">
+				<div class="graphic_selector_pad fix">
+					<label for="<?php echo $o['input_id'];?>" class="graphic_selector_overview"><?php echo $o['inputlabel'];?></label>
+					
+<?php 					foreach( $o['selectvalues'] as $sid => $s ): 
+							$css = sprintf('background: url(%s) no-repeat %s; width: %s; height: %s;', $o['sprite'], $s['offset'], $o['width'], $o['height']);
+					?>
+					<span class="graphic_select_item">
+						<span class="graphic_select_border <?php if($sid == $o['val']) echo 'selectedgraphic';?>">
+							<span class="graphic_select_image <?php echo $sid;?>" style="<?php echo $css;?>">
+								&nbsp;
+							</span>
+						</span>
+						<input type="radio" id="<?php echo $o['input_id'];?>" class="graphic_select_input" name="<?php echo $o['input_name']; ?>" value="<?php echo $sid;?>" <?php checked($sid, $o['val']); ?>>
+					</span>
+					<?php endforeach;?>
+				</div>
+				
+			</div>
+			
+		</div>
+		<div class="graphic_selector_exp">
+			<div class="graphic_selector_exp_pad">
+				<?php echo $o['exp'];?>
+			</div>
+		</div>
+		<div class="clear"></div>
+	<?php }
+	
 
 	/**
 	 * 
@@ -729,6 +783,16 @@ class OptEngine {
 
 		$builder = new PageLinesTemplateBuilder();
 		$builder->draw_template_builder();
+
+	}
+	
+	/**
+	 *  Template Drag and Drop (Sortable Sections)
+	 */
+	function do_section_control(){
+
+		$builder = new PageLinesTemplateBuilder();
+		$builder->section_control_interface();
 
 	}
 	

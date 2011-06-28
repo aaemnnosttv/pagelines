@@ -25,29 +25,16 @@ class PageLinesMetaPanel {
 		global $post; 
 		global $pagenow;
 		
-		/**
-		 * Only load on new post or post edit pages
-		 * Makes sure there are no errors outside it, and improves processing
-		 */
-		if($pagenow == 'post.php' || $pagenow == 'post-new.php'){
 	
 			/**
 			 * Single post pages have post as GET, not $post as object
 			 */
 			$post = (!isset($post) && isset($_GET['post'])) ? get_post($_GET['post'], 'object') : null;
 	
-			/**
-			 * Get current post type, set as GET on 'add new' pages
-			 */
-			$this->ptype = ( !isset($post) && isset($_GET['post_type']) ) 
-								? $_GET['post_type'] 
-								: ( isset($post) && isset($post->post_type) ? $post->post_type : 
-									($pagenow == 'post-new.php' ? 'post' : null));		
-							
+			
+			$this->ptype = $this->current_admin_post_type();
 		
 			$this->page_for_posts = ( isset($post) && get_option( 'page_for_posts' ) === $post->ID ) ? true : false;			
-			
-
 		
 
 			$defaults = array(
@@ -65,9 +52,10 @@ class PageLinesMetaPanel {
 	
 			$this->hide_tabs = $this->settings['hide_tabs'];
 			
-		}
-		
+
 	}
+	
+
 	
 	function get_the_post_types(){
 		$the_post_types = ( isset( $_GET['post'] ) && ! in_array( get_post_type( $_GET['post'] ), apply_filters( 'pagelines_meta_blacklist', $this->blacklist ) ) ) 
@@ -77,15 +65,30 @@ class PageLinesMetaPanel {
 		return $the_post_types;
 	}
 	
+	/**
+	 * Get current post type, set as GET on 'add new' pages
+	 */
+	function current_admin_post_type(){
+		global $pagenow;
+		global $post;
+		$current_post_type = ( !isset($post) && isset($_GET['post_type']) ) 
+							? $_GET['post_type'] 
+							: ( isset($post) && isset($post->post_type) ? $post->post_type : 
+								($pagenow == 'post-new.php' ? 'post' : null));		
+		
+		return $current_post_type;
+		
+	}
+	
 	function get_the_title(){
 		global $post;
 		$this->base_name = 'PageLines Meta Settings';
 		$name = $this->base_name;
-		
+		 
 		if($this->ptype == 'post' || $this->ptype == 'page'){
 			$current_template = (isset($post)) ? get_post_meta($post->ID, '_wp_page_template', true) : false;
 	
-			$this->page_templates = array_flip($this->get_page_templates());
+			$this->page_templates = array_flip( PageLinesTemplate::get_page_templates() );
 		
 			if(  $this->ptype == 'page' && $current_template && $current_template != 'default') {
 
@@ -93,7 +96,7 @@ class PageLinesMetaPanel {
 					$slug = $this->page_templates[$current_template];
 		
 			}elseif(  $this->ptype == 'page' )
-				$slug = 'Default';
+				$slug = 'Default Page';
 			elseif( $this->ptype == 'post' )
 				$slug = 'Single Post';
 			elseif( $this->page_for_posts )
@@ -101,11 +104,14 @@ class PageLinesMetaPanel {
 			else 
 				$slub = '';
 		
+			$this->edit_slug = $slug;
+		
 			$name .= sprintf(' <small style="font-style:italic">(%s)</small>', $slug);
 		} 
 		
 		return $name;
 	}
+	
 	
 	function register_tab( $option_settings = array(), $option_array = array(), $location = 'bottom') {
 		
@@ -162,16 +168,74 @@ class PageLinesMetaPanel {
 				// Loop through tab options
 				foreach($t->options as $oid => $o){
 				
-					// Note: If the value is null, then test to see if the option is already set to something
-					// create and overwrite the option to null in that case (i.e. it is being set to empty)
-					$option_value =  isset($_POST[$oid]) ? $_POST[$oid] : null;
+					if($oid == 'section_control'){
+						$this->save_sc( $postID );
+					} else {
+						
+						// Note: If the value is null, then test to see if the option is already set to something
+						// create and overwrite the option to null in that case (i.e. it is being set to empty)
+						$option_value =  isset($_POST[$oid]) ? $_POST[$oid] : null;
 
-					if(!empty($option_value) || get_post_meta($postID, $oid)){
-						update_post_meta($postID, $oid, $option_value );
+						if(!empty($option_value) || get_post_meta($postID, $oid))
+							update_post_meta($postID, $oid, $option_value );
+						
 					}
 				}
 			}
 		}
+	}
+	
+	
+	function save_sc( $postID ){
+		global $pagelines_template;
+
+		global $post; 
+
+		$save_template = new PageLinesTemplate();
+
+	
+		foreach( $save_template->map as $hook => $h ){
+
+			if(isset($h['sections'])){
+				foreach($h['sections'] as $key => $section_slug){
+					$this->save_section_control($postID,  $section_slug, $hook );					
+				}
+			} elseif (isset($h['templates'])){
+				foreach($h['templates'] as $template => $t){
+					foreach($t['sections'] as $key => $section_slug){
+
+						$template_slug = $hook.'-'.$template;
+						$this->save_section_control($postID,  $section_slug, $template_slug );				
+					}
+				}
+			}
+			
+		}
+	
+	}
+	
+	function save_section_control($postID,  $section_slug, $template_slug ){
+		
+		$pieces = explode("ID", $section_slug);		
+		$section = (string) $pieces[0];
+		$clone_id = (isset($pieces[1])) ? $pieces[1] : 1;
+		
+		$check_name_hide = PageLinesTemplateBuilder::sc_option_name( array('hide', $template_slug, $section, $clone_id) );
+
+		$this->save_meta($postID, $check_name_hide);
+		
+		$check_name_show = PageLinesTemplateBuilder::sc_option_name( array('show', $template_slug, $section, $clone_id) );
+	
+		$this->save_meta($postID, $check_name_show);
+		
+	}
+	
+	function save_meta($postID, $name){
+		
+		$option_value =  isset($_POST[ $name ]) ? $_POST[ $name ] : null;
+	
+		if(!empty($option_value) || get_post_meta($postID, $name))
+			update_post_meta($postID, $name, $option_value );
 	}
 	
 	function draw_meta_options(){ 
@@ -272,44 +336,7 @@ class PageLinesMetaPanel {
 		<?php endif;
 	}
 
-	
-	
-	/**
-	 * This was taken from core WP because the function hasn't loaded yet, and isn't accessible.
-	 */
-	function get_page_templates() {
-		$themes = get_themes();
-		$theme = get_current_theme();
-		$templates = $themes[$theme]['Template Files'];
-		$page_templates = array();
 
-		if ( is_array( $templates ) ) {
-			$base = array( trailingslashit(get_template_directory()), trailingslashit(get_stylesheet_directory()) );
-
-			foreach ( $templates as $template ) {
-				$basename = str_replace($base, '', $template);
-
-				// don't allow template files in subdirectories
-				if ( false !== strpos($basename, '/') )
-					continue;
-
-				if ( 'functions.php' == $basename )
-					continue;
-
-				$template_data = implode( '', file( $template ));
-
-				$name = '';
-				if ( preg_match( '|Template Name:(.*)$|mi', $template_data, $name ) )
-					$name = _cleanup_header_comment($name[1]);
-
-				if ( !empty( $name ) ) {
-					$page_templates[trim( $name )] = $basename;
-				}
-			}
-		}
-
-		return $page_templates;
-	}
 	
 }
 /////// END OF MetaOptions CLASS ////////
@@ -331,10 +358,13 @@ function register_metatab($settings, $option_array, $location = 'bottom'){
 }
 
 
-function add_global_meta_options( $meta_array = array()){
+function add_global_meta_options( $meta_array = array(), $location = 'bottom'){
 	global $global_meta_options;
-	
-	$global_meta_options = array_merge($global_meta_options, $meta_array);
+
+	if($location == 'top')
+		$global_meta_options = array_merge($meta_array, $global_meta_options);
+	else
+		$global_meta_options = array_merge($global_meta_options, $meta_array);
 	
 }
 

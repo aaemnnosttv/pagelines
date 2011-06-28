@@ -12,7 +12,7 @@ class PageLinesFootCols extends PageLinesSection {
 
    function __construct( $registered_settings = array() ) {
 	
-		$name = __('Footer Sidebars <small>(5-Column)</small>', 'pagelines');
+		$name = __('Footer Sidebars', 'pagelines');
 		$id = 'footcols';
 	
 		
