@@ -32,11 +32,8 @@
  		if ( !is_dir( WP_PLUGIN_DIR . '/pagelines-sections/sections' ) )
  			return 'You need to install Pagelines-Contol Plugin';
 
-		
-		$available = get_option( 'pagelines_sections_cache' );
-
 		$sections = $this->get_latest_cached( 'sections' );
-	
+
 		if ( is_object($sections) ) {
 
 			$output = '';
@@ -48,7 +45,7 @@
 				$key = str_replace( '.', '', $key );
 				$install_js_call = sprintf( $this->exprint, 'section_install', $key, 'section', $section->url, 'Installing');
 
-						$button = OptEngine::superlink('Install Section', 'black', '', '', $install_js_call);
+				$button = OptEngine::superlink('Install Section', 'black', '', '', $install_js_call);
 				
 				$args = array(
 						'name' 		=> $section->name, 
@@ -118,7 +115,7 @@
 						'name' 		=> $section['name'], 
 						'version'	=> !empty( $section['version'] ) ? $section['version'] : CORE_VERSION, 
 						'desc'		=> $section['description'],
-						'tags'		=> $section['tags'],
+						'tags'		=> ( isset( $section['tags'] ) ) ? $section['tags'] : '',
 						'auth_url'	=> $section['authoruri'], 
 						'auth'		=> $section['author'],
 						'importance'=> $section['importance'],
@@ -147,11 +144,20 @@
 			$output = '';
 			foreach( $plugins as $key => $plugin ) {
 				
+
+				$status = $this->plugin_check_status( WP_PLUGIN_DIR . $plugin->file );
+
 				$install_js_call = sprintf( $this->exprint, 'plugin_install', $key, 'plugin', $plugin->url, 'Installing');
 				$activate_js_call = sprintf( $this->exprint, 'plugin_activate', $key, 'plugin', $plugin->file, 'Activating');
 				$deactivate_js_call = sprintf( $this->exprint, 'plugin_deactivate', $key, 'plugin', $plugin->file, 'Deactivating');
+				$upgrade_js_call = sprintf( $this->exprint, 'plugin_upgrade', $key, 'plugin', $plugin->url, 'Upgrading');
 
-				switch ( $this->plugin_check_status( WP_PLUGIN_DIR . $plugin->file ) ) {
+				if ( !isset( $status['status'] ) )
+					$status = array( 'status' => '' );
+
+				if ( $status['status'] && $plugin->version > $status['data']['Version'])
+					$status['status'] = 'upgrade';
+				switch ( $status['status'] ) {
 
 					case 'active':
 						$button = OptEngine::superlink('Deactivate Plugin', 'grey', '', '', $deactivate_js_call);
@@ -161,6 +167,10 @@
 						$button = OptEngine::superlink('Activate Plugin', 'blue', '', '', $activate_js_call);
 						break;
 					
+					case 'upgrade':
+						$button = OptEngine::superlink('Upgrade to ' . $plugin->version, 'black', '', '', $upgrade_js_call);
+						break;
+
 					default:
 						// were not installed, show the form!
 						$button = OptEngine::superlink('Install Plugin', 'black', '', '', $install_js_call);
@@ -170,9 +180,9 @@
 				
 				$args = array(
 						'name' 		=> $plugin->name, 
-						'version'	=> $plugin->version, 
+						'version'	=> ( !empty( $status['status'] ) ) ? $status['data']['Version'] : $plugin->version, 
 						'desc'		=> $plugin->text,
-						'tags'		=> $plugin->tags,
+						'tags'		=> ( isset( $plugin->tags ) ) ? $plugin->tags : '',
 						'auth_url'	=> $plugin->author_url, 
 						'auth'		=> $plugin->author, 
 						'buttons'	=> $button,
@@ -205,10 +215,12 @@
 		$s = wp_parse_args( $args, $d);
 		
 		$buttons = sprintf('<div class="pane-buttons">%s</div>', $s['buttons']);
+		
+		$tags =  ( $s['tags'] ) ? sprintf('<br />Tags: %s</div>', $s['tags']) : '</div>';
 	
 		$title = sprintf('<div class="pane-head"><div class="pane-head-pad"><h3 class="pane-title">%s</h3><div class="pane-sub">%s</div></div></div>', $s['name'], 'Version ' . $s['version'] );
 		
-		$auth = sprintf('<div class="pane-dets">by <a href="%s">%s</a><br />Tags: %s</div>', $s['auth_url'], $s['auth'], $s['tags']);
+		$auth = sprintf('<div class="pane-dets">by <a href="%s">%s</a>%s', $s['auth_url'], $s['auth'], $tags);
 		
 		$body = sprintf('<div class="pane-desc"><div class="pane-desc-pad">%s %s</div></div>', $s['desc'], $auth);
 		
@@ -229,8 +241,6 @@
 		return 'Fetch from api list of themes and show ajax buttons...';		
 	}
 
-	
-	
 	/**
 	 * 
 	 * Add Javascript to header (hook in contructor)
@@ -320,9 +330,7 @@
 		
 		if( $mode == 'plugin_install' ){
 			
-			$upgrader = ( $type == 'theme' ) 
-				? new Theme_Upgrader() 
-				: new Plugin_Upgrader();
+			$upgrader = new Plugin_Upgrader();
 
 			@$upgrader->install($url);
 	
@@ -404,7 +412,23 @@
 
 			@$upgrader->run($options);
 			echo 'Ugraded';
-			$this->page_reload( 'pagelines_extend' );	
+			$this->page_reload( 'pagelines_extend' );
+			
+		} elseif ( $mode == 'plugin_upgrade' ) {
+			
+			$upgrader = new Plugin_Upgrader();
+
+			$options = array( 	'package' => $url, 
+					'destination' => WP_PLUGIN_DIR .'/' . rtrim( basename( $url ), '.zip' ), 
+					'clear_destination' => true,
+					'clear_working' => false,
+					'is_multi' => false,
+					'hook_extra' => array() 
+			);
+
+			@$upgrader->run($options);
+			echo 'Upgraded';
+			$this->page_reload( 'pagelines_extend' );			
 		}
 
 		die(); // needed at the end of ajax callbacks
@@ -423,11 +447,12 @@
 		
 		if ( !file_exists( $file ) )
 			return ;
-			 
-		if (in_array( str_replace( '.php', '', basename($file) ), pagelines_register_plugins() ) )
-			return 'active';
+		$data = get_plugin_data( $file );
+
+		if (in_array( str_replace( '.php', '', basename($file) ), pagelines_register_plugins() ) ) 
+			return array( 'status' => 'active', 'version' => $data['Version'], 'data' => $data);
 		else
-			return 'notactive';
+			return array( 'status' => 'notactive', 'version' => $data['Version'], 'data' => $data);
 	}
 
 	/**

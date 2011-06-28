@@ -4,7 +4,6 @@ class PageLinesUpdateCheck {
     function __construct( $theme = null, $version = null, $plugin = null ){
     	$this->plugin = $plugin;
     	$this->url_theme = apply_filters( 'pagelines_theme_update_url', 'http://api.pagelines.com/v2/' );
-    	$this->url_plugins = 'http://updates/';
     	$bad_users = array( 'admin', 'root', 'test', 'testing', '');
     	$this->theme  = $theme;
  		$this->version = $version;
@@ -17,20 +16,6 @@ class PageLinesUpdateCheck {
 			$this->password = '';
 			$this->pagelines_theme_clear_update_transient();
 		}
-    }
-
-	/**
-	 * TODO Document!
-	 */
-    function pagelines_plugins_check_version() {
-  
-    	if ( is_multisite() && ! is_super_admin() )
-			return;
-		add_filter( 'pagelines_options_array', array(&$this,'pagelines_theme_update_tab') );
-		if ( get_pagelines_option('disable_updates') == true )
-			return;
-    	add_filter('pre_set_site_transient_update_plugins', array(&$this,'check_for_plugin_update') );
-    	add_filter('plugins_api', array(&$this,'my_plugin_api_call'),10, 3 );
     }
 
 	/**
@@ -185,77 +170,4 @@ class PageLinesUpdateCheck {
 
 		return $pagelines_update;
 	}
-
-function check_for_plugin_update($checked_data) {
-
-
-	if (empty($checked_data->checked))
-		return $checked_data;
-	
-	$request_args = array(
-		'slug' => $this->plugin,
-		'version' => $checked_data->checked[$this->plugin .'/'. $this->plugin .'.php'],
-	);
-	
-	$request_string = $this->prepare_request('basic_check', $request_args);
-	
-	// Start checking for an update
-	$raw_response = wp_remote_post($this->url_plugins, $request_string);
-
-	if (!is_wp_error($raw_response) && ($raw_response['response']['code'] == 200))
-		$response = ( is_serialized( $raw_response['body'] ) ) ? unserialize($raw_response['body']) : '';
-	
-	if (is_object($response) && !empty($response)) // Feed the update data into WP updater
-		$checked_data->response[$this->plugin .'/'. $this->plugin .'.php'] = $response;
-	
-	return $checked_data;
-}
-
-/**
- * TODO Document!
- * TODO This is erroring out WP plugin install pages.. e.g featured (under add new)
- */
-function my_plugin_api_call($def, $action, $args) {
-
-
-	if (isset($args->slug) && ($args->slug != $this->plugin))
-		return false;
-	
-	// Get the current version
-	$plugin_info = get_site_transient('update_plugins');
-	
-	$current_version = $plugin_info->checked[$this->plugin .'/'. $this->plugin .'.php'];
-	$args->version = $current_version;
-
-	$request_string = $this->prepare_request($action, $args);
-
-	$request = wp_remote_post($this->url_plugins, $request_string);
-
-	if (is_wp_error($request)) {
-		$res = new WP_Error('plugins_api_failed', __('An Unexpected HTTP Error occurred during the API request.</p> <p><a href="?" onclick="document.location.reload(); return false;">Try again</a>'), $request->get_error_message());
-	} else {
-		$res = unserialize($request['body']);
-	
-		if ($res === false)
-			$res = new WP_Error('plugins_api_failed', __('An unknown error occurred'), $request['body']);
-	}
-
-	return $res;
-
-}
-
-
-function prepare_request($action, $args) {
-	global $wp_version;
-	
-	return array(
-		'body' => array(
-			'action' => $action, 
-			'request' => serialize($args),
-			'api-key' => md5(get_bloginfo('url'))
-		),
-		'user-agent' => 'WordPress/' . $wp_version . '; ' . get_bloginfo('url')
-	);	
-}
-
 } // end class
