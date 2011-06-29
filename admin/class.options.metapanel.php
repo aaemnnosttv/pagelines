@@ -132,8 +132,7 @@ class PageLinesMetaPanel {
 		
 
 			$tab_id = $o['id'].$o['clone_id'];
-	
-			plprint($tab_id);
+
 		
 		if( $o['clone_id'] != 1 ){
 			

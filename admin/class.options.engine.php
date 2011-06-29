@@ -448,9 +448,14 @@ class OptEngine {
 
 		pl_action_confirm($confirmID, 'Are you sure?'); // print JS confirmation script
 		
-		$input = sprintf('<input class="button-secondary reset-options" type="submit" name="%s" onClick="return %s();" value="%s" />', $o['input_name'], $confirmID, $o['inputlabel']);
 		
-		printf('<div class="insidebox context">%s %s</div>', $input, $o['exp']);
+		$extra = sprintf('onClick="return %s();"', $confirmID);
+		
+		$input = $this->superlink($o['inputlabel'], 'grey', 'reset-options', 'submit', $extra);
+		
+		//$input = sprintf('<input class="button-secondary reset-options" type="submit" name="%s" onClick="return %s();" value="%s" />', $o['input_name'], $confirmID, $o['inputlabel']);
+		
+		printf('<div class="insidebox context fix">%s %s</div>', $input, $o['exp']);
 
 
 	}
@@ -896,11 +901,21 @@ class OptEngine {
 	 *  INPUT HELPERS
 	 */
 
-	function superlink($text, $color = 'grey', $class = '', $link = '', $extra=''){
+	function superlink($text, $color = 'grey', $class = '', $type = '', $extra=''){
 		
-		$att = ($link == '') ? 'div' : 'a';
+		if(false !== strpos($type, 'http'))
+			$att = 'a';
+		else 
+			$att = 'div';
 		
-		return sprintf('<div class="%3$s-wrap superlink-wrap sl-%2$s"><%6$s id="%4$s" class="%3$s superlink" href="%4$s" %5$s ><span class="superlink-pad">%1$s</span></%6$s></div>', $text, $color, $class, $link, $extra, $att);
+		if ($type == 'submit')
+			$button = sprintf('<input class="superlink supersave %s" type="submit" name="submit" value="%s" %s />', $class, $text, $extra);
+		else
+			$button = sprintf('<%s id="%s" class="%s superlink" href="%s" %s ><span class="superlink-pad">%s</span></%s>', $att, $class, $class, $type, $extra, $text, $att);
+		
+		$wrap = sprintf('<div class="%s-wrap superlink-wrap sl-%s">%s</div>', $class, $color, $button);
+		
+		return $wrap;
 	}
 	
 	function input_hidden($id, $name, $value, $class = ''){

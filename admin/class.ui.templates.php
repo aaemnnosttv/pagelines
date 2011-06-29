@@ -22,7 +22,7 @@ class PageLinesTemplateBuilder {
 		global $pl_section_factory;
 		
 		$this->sc_settings = pagelines_option('section-control');
-		$this->sc_namespace = PAGELINES_SETTINGS."['section-control']";
+		$this->sc_namespace = PAGELINES_SETTINGS."[section-control]";
 		
 		$this->template_map = get_option('pagelines_template_map');
 		
@@ -402,6 +402,7 @@ class PageLinesTemplateBuilder {
 	
 	function inline_section_control($a){
 
+		
 		// Options 
 		$check_name = $this->sc_name($a['tslug'], $a['section'], 'hide');
 		$check_value = $this->sc_value($a['tslug'], $a['section'], 'hide'); 
@@ -570,8 +571,8 @@ class PageLinesTemplateBuilder {
 	
 	function sc_inputs( $template_slug, $sections ){
 		global $post; 
-
 		
+		// No sections in area
 		if(empty($sections)){
 			echo '<div class="sc_inputs"><div class="emptyarea">Area is empty.</div></div>';
 			return;
@@ -589,7 +590,7 @@ class PageLinesTemplateBuilder {
 			if( isset($this->factory[ $section ]) ){
 				
 				$section_data = $this->factory[ $section ];		
-			
+				
 				$hidden_by_default = isset($this->sc_settings[$template_slug][$section_slug]['hide']) ? $this->sc_settings[$template_slug][$section_slug]['hide'] : null;
 
 				$check_type = ( $hidden_by_default ) ? 'show' : 'hide';

@@ -579,15 +579,15 @@
 			box-sizing: content-box;
 			cursor: pointer;
 		}
-			.superlink:hover{
+			.superlink-wrap .superlink:hover{
 				background: #82a2ca url(../images/superlink-sprite-grey.png) 0 -35px repeat-x;
 				border: 1px solid #aaa;
 				border-top: 1px solid #fff;
 				border-left: 1px solid #fff;
 				
 			}
-			.superlink:active{background: #82a2ca url(../images/superlink-sprite-grey.png) 0 -70px repeat-x;border: 1px solid #666;color: #000}
-			.superlink-pad, .superlink-pagelines, .ohead .osave {padding: 5px 12px;height: 15px;display: block}
+			.superlink-wrap .superlink:active{background: #82a2ca url(../images/superlink-sprite-grey.png) 0 -70px repeat-x;border: 1px solid #666;color: #000}
+			.superlink-pad, .supersave, .superlink-pagelines, .ohead .osave {padding: 5px 12px;height: 15px;display: block}
 			
 		.sl-black .superlink{
 			color: #fff;
