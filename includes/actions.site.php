@@ -16,13 +16,26 @@ global $pagelines_template;
  * Must be built inside the page (wp_head) so conditionals can be used to identify the template
  * In the admin, the template doesn't need to be identified so its loaded in the init action
  * @global object $pagelines_template
- * @since 4.0.0
+ * @since 1.0.0
  */
 add_action('pagelines_before_html', 'build_pagelines_template');
 
-// In Admin
+/**
+ * Build the template in the admin... doesn't need to load in the page
+ * @since 1.0.0
+ */
 add_action('admin_head', 'build_pagelines_template');
+
+/**
+ * Optionator
+ * Does "just in time" loading of section option in meta; 
+ * Will only load section options if the section is present, handles clones
+ * @since 1.0.0
+ */
+add_action('admin_head', array(&$pagelines_template, 'load_section_optionator'));
+
 add_filter( 'pagelines_options_array', 'pagelines_merge_addon_options' );
+
 // In Site
 add_action('wp_head', array(&$pagelines_template, 'print_template_section_headers'));
 add_action('wp_print_styles', 'workaround_pagelines_template_styles'); // Used as workaround on WP login page (and other pages with wp_print_styles and no wp_head/pagelines_before_html)

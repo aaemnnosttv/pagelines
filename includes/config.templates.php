@@ -175,42 +175,42 @@ function pagelines_get_content_templates(){
 			), 
 		'tag' => array(
 				'name'			=> 'Tags Page',
-				'sections' 		=> array('PageLinesPostLoop'),
+				'sections' 		=> array( 'PageLinesPostLoop' ),
 				'version'		=> 'pro'
 			),
 		'archive' => 	array(
 				'name'			=> 'Archive Page',
-				'sections' 		=> array('PageLinesPostLoop'),
+				'sections' 		=> array( 'PageLinesPostLoop' ),
 				'version'		=> 'pro'
 			),
 		'category' => 	array(
 				'name'			=> 'Category Page',
-				'sections' 		=> array('PageLinesPostLoop'),
+				'sections' 		=> array( 'PageLinesPostLoop' ),
 				'version'		=> 'pro'
 			),
 		'search' => 	array(
 				'name'			=> 'Search Results Page',
-				'sections' 		=> array('PageLinesPostLoop'),
+				'sections' 		=> array( 'PageLinesPostLoop' ),
 				'version'		=> 'pro'
 			), 
 		'alpha' => array(
 				'name'			=> 'Feature Page',
-				'sections' 		=> array('PageLinesFeatures', 'PageLinesBoxes', 'PageLinesContent'),
+				'sections' 		=> array( 'PageLinesPostLoop' ),
 				'version'		=> 'pro'
 			),
 		'beta' => 	array(
 				'name'			=> 'Carousel Page',
-				'sections' 		=> array('PageLinesCarousel', 'PageLinesContent'),
+				'sections' 		=> array( 'PageLinesPostLoop' ),
 				'version'		=> 'pro'
 			),
 		'gamma' => 	array(
 				'name'			=> 'Box Page',
-				'sections' 		=> array( 'PageLinesHighlight', 'PageLinesSoapbox', 'PageLinesBoxes' ),
+				'sections' 		=> array( 'PageLinesPostLoop' ),
 				'version'		=> 'pro'
 			),
 		'delta' => 	array(
 				'name'			=> 'Highlight Page',
-				'sections' 		=> array( 'PageLinesHighlight', 'PageLinesContent' ),
+				'sections' 		=> array( 'PageLinesPostLoop' ),
 				'version'		=> 'pro'
 			),
 	);

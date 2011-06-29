@@ -28,55 +28,53 @@ class PageLinesCarousel extends PageLinesSection {
 		
 		parent::__construct($name, $id, $settings);    
    }
-
-
-	function section_admin(){
+	
+	function section_optionator( $settings ){
+		$settings = wp_parse_args($settings, $this->optionator_default);
 		
-		
-			
-
 			$metatab_array = array(
 
 					'carousel_items' => array(
-						'version' 	=> 'pro',
-						'type' 		=> 'text',
-						'size'		=> 'small',					
-						'title'	 	=> 'Max Carousel Items (Carousel Page Template)',
-						'desc' 		=> 'The number of items/thumbnails to show in the carousel.',
-						'label'		=> 'Enter the number of carousel items'
+						'version' 			=> 'pro',
+						'type' 				=> 'text_small',			
+						'title'	 			=> 'Max Carousel Items (Carousel Page Template)',
+						'shortexp' 			=> 'The number of items/thumbnails to show in the carousel.',
+						'inputlabel'		=> 'Enter the number of carousel items'
 					),
 					'carousel_mode' => array(
 						'version' => 'pro',
 						'type' => 'select',	
 						'selectvalues'=> array(
-							'flickr'		=> 'Flickr (default)',
-							'posts' 		=> 'Post Thumbnails',
-							'ngen_gallery' 	=> 'NextGen Gallery', 
-							'hook'			=> 'Hook: "pagelines_carousel_list"'
+							'flickr'		=> array( 'name' => 'Flickr (default)'),
+							'posts' 		=> array( 'name' => 'Post Thumbnails'),
+							'ngen_gallery' 	=> array( 'name' => 'NextGen Gallery'), 
+							'hook'			=> array( 'name' => 'Hook: "pagelines_carousel_list"')
 						),					
-						'title' => 'Carousel Image/Link Mode (Carousel Page Template)',
-						'desc' => 'Select the mode that the carousel should use for its thumbnails.<br/><br/>' .
-								 '<strong>Flickr</strong> - (default) Uses thumbs from FlickrRSS plugin.<br/><strong> Post Thumbnails</strong> - Uses links and thumbnails from posts <br/>' .
-								 '<strong>NextGen Gallery</strong> - Uses an image gallery from the NextGen Gallery Plugin'
+						'title' 	=> 'Carousel Image/Link Mode (Carousel Page Template)',
+						'shortexp' 	=> 'Select the mode that the carousel should use for its thumbnails.<br/><br/>',
+						'exp'		=> '<strong>Flickr</strong> - (default) Uses thumbs from FlickrRSS plugin.<br/><strong> Post Thumbnails</strong> - Uses links and thumbnails from posts <br/><strong>NextGen Gallery</strong> - Uses an image gallery from the NextGen Gallery Plugin'
 					),
 					'carousel_ngen_gallery' => array(
 						'version' => 'pro',
 						'type' => 'text',					
 						'title' => 'NextGen Gallery ID For Carousel (Carousel Page Template / NextGen Mode)',
-						'desc' => 'Enter the ID of the NextGen Image gallery for the carousel. <strong>The NextGen Gallery and carousel template must be selected.</strong>'
+						'shortexp' => 'Enter the ID of the NextGen Image gallery for the carousel.', 
+						'exp'		=> '<strong>Note:</strong>The NextGen Gallery and carousel template must be selected.'
 					),
 					'carousel_post_id' => array(
 						'version' => 'pro',
 						'type' => 'text',					
 						'title' => 'Enter Category Slug (Carousel Posts Mode)',
-						'desc' => 'Enter the name or slug of the category that the carousel should use for its images (posts mode only).'
+						'shortexp' => 'Enter the name or slug of the category that the carousel should use for its images (posts mode only).'
 					)
 				);
 			
 			$metatab_settings = array(
-					'id' => 'carousel_meta',
-					'name' => "Carousel Section",
-					'icon' => $this->icon
+					'id' 		=> 'carousel_meta',
+					'name'	 	=> "Carousel Section",
+					'icon' 		=> $this->icon,
+					'clone_id'	=> $settings['clone_id'], 
+					'active'	=> $settings['active']
 				);
 			
 			register_metatab($metatab_settings, $metatab_array);

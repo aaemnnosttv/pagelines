@@ -162,36 +162,42 @@ class PageLinesFeatures extends PageLinesSection {
 			$type_meta_panel->register_tab( $type_metatab_settings, $type_meta_array );
 			
 			
-			/*
-				Do Page/Post Options
-			*/	
-				$page_metatab_array = array(
-						'feature_items' => array(
-							'version' 	=> 'pro',
-							'type' 		=> 'text',	
-							'size'		=> 'small', 				
-							'title' 	=> 'Number of Feature Slides',
-							'shortexp'	=> 'The amount of slides to show on this page',
-							'exp' 		=> 'Enter the max number of feature slides to show on this page. Note: If left blank, the number of posts selected under reading settings in the admin will be used.'
-						),
-						'feature_set' => array(
-							'version' 		=> 'pro',
-							'type' 			=> 'select_taxonomy',
-							'taxonomy_id'	=> "feature-sets",				
-							'title' 		=> 'Select Feature Set To Show',
-							'shortexp'		=> 'The "set" or category of feature posts',
-							'exp' 			=> 'If you are using the feature section, select the feature set you would like to show on this page.'
-						)
-					);
+			
 
-				$metatab_settings = array(
-						'id' => 'feature_meta',
-						'name' => "Feature Slider Section",
-						'icon' => $this->icon
-					);
+	}
 
-				register_metatab($metatab_settings, $page_metatab_array);
+	function section_optionator( $settings ){
+		$settings = wp_parse_args($settings, $this->optionator_default);
+		
+			$page_metatab_array = array(
+					'feature_items' 	=> array(
+						'version' 		=> 'pro',
+						'type' 			=> 'text_small',
+						'inputlabel'	=> 'Number of features to show',
+						'title' 		=> 'Number of Feature Slides',
+						'shortexp'		=> 'The amount of slides to show on this page',
+						'exp' 			=> 'Enter the max number of feature slides to show on this page. Note: If left blank, the number of posts selected under reading settings in the admin will be used.'
+					),
+					'feature_set' => array(
+						'version' 		=> 'pro',
+						'type' 			=> 'select_taxonomy',
+						'taxonomy_id'	=> "feature-sets",				
+						'title' 		=> 'Select Feature Set To Show',
+						'shortexp'		=> 'The "set" or category of feature posts',
+						'inputlabel'	=> 'Select Feature Set',
+						'exp' 			=> 'If you are using the feature section, select the feature set you would like to show on this page.'
+					)
+				);
 
+			$metatab_settings = array(
+					'id' 		=> 'feature_meta',
+					'name' 		=> "Feature Slider Section",
+					'icon' 		=> $this->icon, 
+					'clone_id'	=> $settings['clone_id'], 
+					'active'	=> $settings['active']
+				);
+
+			register_metatab($metatab_settings, $page_metatab_array);
 	}
 
 	function section_head() {   

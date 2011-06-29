@@ -135,34 +135,43 @@ class PageLinesBanners extends PageLinesSection {
 					$type_meta_panel->register_tab( $type_metatab_settings, $type_meta_array );
 
 					
-					$metatab_array = array(
-							
-							'banner_set' => array(
-								'version' => 'pro',
-								'type' => 'select_taxonomy',
-
-								'taxonomy_id'	=> "banner-sets",				
-								'title' => 'Select Banner Set To Show',
-								'desc' => 'If you are using the Banner section, select the banner set you would like to show on this page.'
-							),
-							'banner_items' => array(
-								'version' 	=> 'pro',
-								'type' 		=> 'text',
-								'size'		=> 'small',				
-								'title' 	=> 'Max Number of Banners',
-								'desc' 		=> 'Enter the max number of banners to show on this page. If left blank, the number of posts selected under settings > "reading" will be used.'
-							),
-
-						);
-
-					$metatab_settings = array(
-							'id' => 'banner_page_meta',
-							'name' => "Banner Section",
-							'icon' =>  $this->icon,
-						);
-
-					register_metatab($metatab_settings, $metatab_array);
+				
 						
+	}
+
+
+	function section_optionator( $settings ){
+		$settings = wp_parse_args($settings, $this->optionator_default);
+		
+		$metatab_array = array(
+				
+				'banner_set' => array(
+					'version' => 'pro',
+					'type' => 'select_taxonomy',
+
+					'taxonomy_id'	=> "banner-sets",				
+					'title' => 'Select Banner Set To Show',
+					'desc' => 'If you are using the Banner section, select the banner set you would like to show on this page.'
+				),
+				'banner_items' => array(
+					'version' 	=> 'pro',
+					'type' 		=> 'text',
+					'size'		=> 'small',				
+					'title' 	=> 'Max Number of Banners',
+					'desc' 		=> 'Enter the max number of banners to show on this page. If left blank, the number of posts selected under settings > "reading" will be used.'
+				),
+
+			);
+
+		$metatab_settings = array(
+				'id' 		=> 'banner_page_meta',
+				'name' 		=> "Banner Section",
+				'icon' 		=>  $this->icon,
+				'clone_id'	=> $settings['clone_id'], 
+				'active'	=> $settings['active']
+			);
+
+		register_metatab($metatab_settings, $metatab_array);
 	}
 
    function section_template() {    

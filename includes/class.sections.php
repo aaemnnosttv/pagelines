@@ -53,6 +53,11 @@ class PageLinesSection {
 		$this->base_url = $this->settings['base_url'];
 		
 		$this->icon = $this->settings['icon'];
+		
+		$this->optionator_default = array(
+			'clone_id'	=> 1,
+			'active'	=> true
+		);
 	}
 
 	/** Echo the section content.
@@ -124,6 +129,8 @@ class PageLinesSection {
 	function section_styles(){}
 	
 	function section_options(){}
+		
+	function section_optionator( $settings ){}
 	
 	function section_scripts(){}
 
@@ -136,7 +143,7 @@ class PageLinesSection {
  *
  * @package PageLines Core
  * @subpackage Sections
- * @since 4.0
+ * @since 1.0.0
  */
 class PageLinesSectionFactory {
 	var $sections  = array();
@@ -174,14 +181,13 @@ class PageLinesSectionFactory {
  *
  * @package PageLines Core
  * @subpackage Sections
- * @since 4.0
+ * @since 1.0.0
  */
 function load_section_persistent(){
 	global $pl_section_factory;
 	
-	foreach($pl_section_factory->sections as $section){
+	foreach($pl_section_factory->sections as $section)
 		$section->section_persistent();
-	}
 
 }
 
@@ -190,14 +196,13 @@ function load_section_persistent(){
  *
  * @package PageLines Core
  * @subpackage Sections
- * @since 4.0
+ * @since 1.0.0
  */
 function load_section_admin(){
 	global $pl_section_factory;
 	
-	foreach($pl_section_factory->sections as $section){
+	foreach($pl_section_factory->sections as $section)
 		$section->section_admin();
-	}
 
 }
 

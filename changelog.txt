@@ -12,8 +12,16 @@
 ****************************
 
 
-Version 2.0 beta 1 through 3
+Version 2.0 
+BETA - 4
+- Section Control Rewrite
+	- Fixes issues with hiding same sections
+- Metapanel rewrite
+- Cloning & Meta Options
+BETA - 1, 2, 3
 - Sections Cloning
+- Admin Rewrite
+- Responsive Design
 - Advanced Template Selector
 - Improved Graphics 
 - Updated JS Libs

@@ -112,23 +112,65 @@ class PageLinesMetaPanel {
 		return $name;
 	}
 	
-	
-	function register_tab( $option_settings = array(), $option_array = array(), $location = 'bottom') {
+	/**
+	 * Register a new tab for the meta panel
+	 * This will look at Clone values and draw cloned tabs for cloned sections
+	 *
+	 * @since 2.0.b4
+	 */
+	function register_tab( $o = array(), $option_array = array(), $location = 'bottom') {
 		
-		$key = $option_settings['id'];
+		$d = array(
+				'id' 		=> '',
+				'name' 		=> '',
+				'icon' 		=> '',
+				'clone_id' 	=> 1, 
+				'active'	=> true
+			);
+
+		$o = wp_parse_args($o, $d);
+		
+
+			$tab_id = $o['id'].$o['clone_id'];
+	
+			plprint($tab_id);
+		
+		if( $o['clone_id'] != 1 ){
+			
+			$name = $o['name'].' (Clone #'.$o['clone_id'].')';
+			
+			/**
+			 * For cloned tab, unset keys and change to new val w/ key
+			 */
+			foreach($option_array as $key => $opt){
+				
+				$newkey = join( '_', array($key, $o['clone_id']) );
+				
+				$opt['title'] = $opt['title']. ' ('.$o['clone_id'].')';
+				$option_array[$newkey] = $opt;
+				unset( $option_array[$key] );
+				
+			}
+			
+		} else 
+			$name = $o['name'];
+		
 		
 		if($location == 'top'){
 			
-			$top[$key]->options = $option_array;
-			$top[$key]->icon = $option_settings['icon'];
-			$top[$key]->name = $option_settings['name'];
+			$top[$tab_id]->options = $option_array;
+			$top[$tab_id]->icon = $o['icon'];
+			$top[$tab_id]->active = $o['active'];
+			$top[$tab_id]->name = $name;
+			
 
 			$this->tabs = array_merge($top, $this->tabs);
 			
 		} else {
-			$this->tabs[$key]->options = $option_array;
-			$this->tabs[$key]->icon = $option_settings['icon'];
-			$this->tabs[$key]->name = $option_settings['name'];
+			$this->tabs[$tab_id]->options = $option_array;
+			$this->tabs[$tab_id]->icon = $o['icon'];
+			$this->tabs[$tab_id]->active = $o['active'];
+			$this->tabs[$tab_id]->name = $name;
 		}
 		
 	}
@@ -153,7 +195,14 @@ class PageLinesMetaPanel {
 		
 	}
 
-	function save_meta_options($postID){
+	/**
+	 * Save Meta Options
+	 * 
+	 * Use tabs array to save options... 
+	 * Need to identify if the option is being set to empty or has never been set
+	 * *Section Control* gets its own saving schema
+	 */
+	function save_meta_options( $postID ){
 	
 		// Make sure we are saving on the correct post type...
 	
@@ -240,6 +289,8 @@ class PageLinesMetaPanel {
 	
 	function draw_meta_options(){ 
 		global $post_ID;  
+		global $pagelines_template;
+		
 		
 		// if page doesn't support settings
 		if ( $this->page_for_posts ){
@@ -258,8 +309,15 @@ class PageLinesMetaPanel {
 					
 						<?php foreach($this->tabs as $tab => $t):?>
 							<li>
-								<a class="<?php echo $tab;?>  metapanel-tab" href="#<?php echo $tab;?>">
-									<span class="metatab_icon" style="background: url(<?php echo $t->icon; ?>) no-repeat 0 0;display: block;"><?php echo $t->name; ?></span>
+								<a class="<?php echo $tab;?>  metapanel-tabn <?php if(!$t->active) echo 'inactive-tab';?>" href="#<?php echo $tab;?>">
+									<span class="metatab_icon" style="background: url(<?php echo $t->icon; ?>) no-repeat 0 0;display: block;">
+										<?php 
+											echo $t->name;
+											if(!$t->active) 
+												printf('<span class="tab_inactive">inactive</span>');
+										
+										 ?>
+									</span>
 								</a>
 							</li>
 						<?php endforeach;?>
@@ -273,7 +331,15 @@ class PageLinesMetaPanel {
 								<div class="pagelines_metapanel_options_pad">
 									<?php foreach($this->tabs as $tab => $t):?>
 										<div id="<?php echo $tab;?>" class="pagelines_metatab">
-											<div class="metatab_title" style="background: url(<?php echo $t->icon; ?>) no-repeat 10px 13px;" ><?php echo $t->name; ?></div>
+											<div class="metatab_title" style="background: url(<?php echo $t->icon; ?>) no-repeat 10px 13px;" >
+												<?php 
+												
+													echo $t->name;
+												
+													if(!$t->active) 
+														printf('<span class="tab_inactive">(inactive on template)</span>');
+												 ?>
+											</div>
 											<?php 
 											foreach($t->options as $oid => $o)
 												$option_engine->option_engine($oid, $o, $post_ID);

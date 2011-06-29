@@ -1021,23 +1021,21 @@
 	float:left; 
 	margin: 20px 0 20px 3%;
 	background:#eee;
-	border: 1px solid #ddd;
-	border-right: 1px solid #ccc;
-	border-bottom: 1px solid #ccc;
+	border: 1px solid #d1d1d1;
+	border-right: 1px solid #fff;
+	border-bottom: 1px solid #fff;
 }
 	.sc_gap_title{
 		text-align: center;
 		padding: 10px;
-		border-top: 1px solid #fff;
-		border-left: 1px solid #fff;
-		border-bottom: 1px solid #ddd;
 		font-weight: bold;
+		background:#ededed;
 		color:#BBB;
 		font-size: 1.2em;
 	}
 	.sc_gap_pad{
-		border-top: 1px solid #fff;
-		border-left: 1px solid #fff;
+		border-right: 1px solid #ddd;
+		border-bottom: 1px solid #ddd;
 		padding: 10px;
 	}
 	.sc_area{
@@ -1145,7 +1143,9 @@
 		.metatab_icon{
 			padding-left: 22px;
 		}
-		
+		#metatabs li a.inactive-tab{ color: #999 }
+		#metatabs li a.inactive-tab .tab_inactive{float:right; color:#AAA; font-size:.85em; font-weight: normal}
+		.metatab_title .tab_inactive{float:right;color:#bbb}
 	.mp_panel{
 		margin-left: 28%;
 		width: 72%;
@@ -1296,12 +1296,8 @@
 		width: 700px;
 		margin: 18px auto;
 	}
-		.sel_layout_exp_pad{
-			padding: 1.5em;
-		}
-		.layoutinputs-pad{
-			padding: 1em 20px 1em 45px;
-		}
+		.sel_layout_exp_pad{ padding: 1.5em; }
+		.layoutinputs-pad{ padding: 1em 20px 1em 45px; }
 		.layoutinputs input{margin-right: 30px;}
 	
 	

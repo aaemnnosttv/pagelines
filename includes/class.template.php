@@ -299,6 +299,10 @@ class PageLinesTemplate {
 		}
 	}
 	
+	/**
+	 * Tests if the section is in the factory singleton
+	 * @since 1.0.0
+	 */
 	function in_factory( $section ){
 		
 		return ( isset($this->factory[ $section ]) && is_object($this->factory[ $section ]) ) ? true : false;
@@ -334,7 +338,11 @@ class PageLinesTemplate {
 		return $map;
 		
 	}
-
+	
+	/**
+	 * Gets template map, sets option if not present
+	 * @since 1.0.0
+	 */
 	function get_map(){
 		
 		// Get Section / Layout Map
@@ -365,6 +373,40 @@ class PageLinesTemplate {
 			
 		}
 		
+	}
+	
+	/**
+	 * Runs the options w/ cloning
+	 *
+	 * @package PageLines Core
+	 * @subpackage Sections
+	 * @since 2.0.b3
+	 */
+	function load_section_optionator(){
+	
+		foreach( $this->default_allsections as $section_slug ){
+			
+			$pieces = explode("ID", $section_slug);		
+			$section = (string) $pieces[0];
+			$clone_id = (isset($pieces[1])) ? $pieces[1] : 1;
+			
+			if(isset($this->factory[$section]))
+				$this->factory[$section]->section_optionator( array( 'clone_id' => $clone_id ) );
+		
+			
+		}
+	
+	
+		
+		// Get inactive
+		foreach( $this->factory as $key => $section ){
+			
+			$inactive = ( !in_array( $key, $this->default_allsections) ) ? true : false;
+			
+			if($inactive)
+				$section->section_optionator( array('clone_id' => $clone_id, 'active' => false) );
+		}
+
 	}
 	
 	

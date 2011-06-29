@@ -107,64 +107,70 @@ class PageLinesBoxes extends PageLinesSection {
 					$boxes_meta_panel->register_tab( $type_metatab_settings, $type_meta_array );
 						
 						
-		/*
-			Build Ind. Page and Post Options
-		*/
-					$metatab_array = array(
-							'box_set' => array(
-								'version' 		=> 'pro',
-								'type' 			=> 'select_taxonomy',
-								'taxonomy_id'	=> "box-sets",				
-								'title'		 	=> 'Select Box Set To Show',
-								'shortexp' 			=> 'If you are using the box section, select the box set you would like to show on this page.'
-							), 
-							'box_col_number' => array(
-								'type' 			=> 'count_select',
-								'count_number'	=> '5', 
-								'count_start'	=> '2',
-								'inputlabel' 	=> 'Number of Feature Box Columns',
-								'title' 		=> 'Box Columns',
-								'inputlabel' 		=> "Select the number of columns to show boxes in.",
-								'shortexp' 			=> "The number you select here will be the number of boxes listed in a row on a page.",
-								'exp'				=> "Note: This won't work on the blog page (use the global option)."
-							), 
-							'box_thumb_type' => array(
-								'version' => 'pro',
-								'type' => 'select',
-								'selectvalues'	=> array(
-										'inline_thumbs'	=> array("name" => "Image At Left"),
-										'top_thumbs'	=> array("name" => "Image On Top"), 
-										'only_thumbs'	=> array("name" => "Only The Image, No Text")
-									), 
-								'title' => 'Box Thumb Position',				
-								'shortexp' => 'Choose between thumbs on left and thumbs on top of boxes.',
-								
-							),
-							'box_thumb_size' => array(
-								'version'		=> 'pro',
-								'type' 			=> 'text',
-								'size'			=> 'small',
-								'title' 		=> 'Box Icon Size (in Pixels)',
-								'inputlabel' 		=> "Enter the icon size in pixels",
-								'shortexp' 			=> "Select the default icon size in pixels, set the images when creating new boxes.",
-							),
-							'box_items' => array(
-								'version'		=> 'pro',
-								'type' 			=> 'text',
-								'size'			=> 'small',
-								'inputlabel' 	=> 'Maximum Boxes To Show On Page',
-								'title' 		=> 'Max Number of Boxes',
-								'shortexp' 			=> "Select the max number of boxes to show on this page (overrides default).",
-							),
-						);
+		
+	}
 
-					$metatab_settings = array(
-							'id' => 'fboxes_meta',
-							'name' => "Boxes Section",
-							'icon' => $this->icon
-						);
+	function section_optionator( $settings ){
+		
+		$settings = wp_parse_args($settings, $this->optionator_default);
+		
+			$metatab_array = array(
+					'box_set' => array(
+						'version' 		=> 'pro',
+						'type' 			=> 'select_taxonomy',
+						'taxonomy_id'	=> "box-sets",				
+						'title'		 	=> 'Select Box Set To Show',
+						'shortexp' 			=> 'If you are using the box section, select the box set you would like to show on this page.'
+					), 
+					'box_col_number' => array(
+						'type' 			=> 'count_select',
+						'count_number'	=> '5', 
+						'count_start'	=> '2',
+						'inputlabel' 	=> 'Number of Feature Box Columns',
+						'title' 		=> 'Box Columns',
+						'inputlabel' 		=> "Select the number of columns to show boxes in.",
+						'shortexp' 			=> "The number you select here will be the number of boxes listed in a row on a page.",
+						'exp'				=> "Note: This won't work on the blog page (use the global option)."
+					), 
+					'box_thumb_type' => array(
+						'version' => 'pro',
+						'type' => 'select',
+						'selectvalues'	=> array(
+								'inline_thumbs'	=> array("name" => "Image At Left"),
+								'top_thumbs'	=> array("name" => "Image On Top"), 
+								'only_thumbs'	=> array("name" => "Only The Image, No Text")
+							), 
+						'title' => 'Box Thumb Position',				
+						'shortexp' => 'Choose between thumbs on left and thumbs on top of boxes.',
+						
+					),
+					'box_thumb_size' => array(
+						'version'		=> 'pro',
+						'type' 			=> 'text',
+						'size'			=> 'small',
+						'title' 		=> 'Box Icon Size (in Pixels)',
+						'inputlabel' 		=> "Enter the icon size in pixels",
+						'shortexp' 			=> "Select the default icon size in pixels, set the images when creating new boxes.",
+					),
+					'box_items' => array(
+						'version'		=> 'pro',
+						'type' 			=> 'text',
+						'size'			=> 'small',
+						'inputlabel' 	=> 'Maximum Boxes To Show On Page',
+						'title' 		=> 'Max Number of Boxes',
+						'shortexp' 			=> "Select the max number of boxes to show on this page (overrides default).",
+					),
+				);
 
-					register_metatab($metatab_settings, $metatab_array);
+			$metatab_settings = array(
+					'id' 		=> 'fboxes_meta',
+					'name' 		=> "Boxes Section",
+					'icon' 		=> $this->icon, 
+					'clone_id'	=> $settings['clone_id'], 
+					'active'	=> $settings['active']
+				);
+
+			register_metatab($metatab_settings, $metatab_array);
 	}
 
    function section_template() {    
