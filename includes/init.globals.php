@@ -96,7 +96,8 @@ define('PAGELINES_PRO_ROOT', PARENT_URL . '/pro' );
 /**
  * Define language constants
  */
-define('PAGELINES_LANGUAGE_DIR', TEMPLATEPATH.'/language');
+$lang = ( is_dir( WP_PLUGIN_DIR . '/pagelines-child/themes/' . basename( STYLESHEETPATH ) . '/language' ) ) ? WP_PLUGIN_DIR . '/pagelines-child/themes/' . basename( STYLESHEETPATH ) . '/language' : TEMPLATEPATH . '/language';
+define( 'PAGELINES_LANGUAGE_DIR', $lang );
 
 /**
  * Functional Singletons - Used to work around hooks/filters

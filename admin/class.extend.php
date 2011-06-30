@@ -43,8 +43,9 @@
 			$output = '';
 
 			foreach( $sections as $key => $section ) {
-				
-				if ( file_exists( WP_PLUGIN_DIR . '/pagelines-sections/sections/' . $section->name . '/' . $section->name . '.php' ) )
+				plprint($section);
+				$check_file = WP_PLUGIN_DIR . '/pagelines-sections/sections/' . str_replace( '.zip', '', basename( $section->url ) ) . '/' . str_replace( '.zip', '', basename( $section->url ) ) . '.php';
+				if ( file_exists( $check_file ) )
 					continue;
 				$key = str_replace( '.', '', $key );
 				$install_js_call = sprintf( $this->exprint, 'section_install', $key, 'section', $section->url, 'Installing');
@@ -56,7 +57,8 @@
 						'version'	=> $section->version, 
 						'desc'		=> $section->text, 
 						'auth_url'	=> $section->author_url, 
-						'auth'		=> $section->author, 
+						'auth'		=> $section->author,
+						'image'		=> $section->image,
 						'buttons'	=> $button,
 						'key'		=> $key
 				);
@@ -219,7 +221,8 @@
 				'desc'		=> '',
 				'tags'		=> '', 
 				'auth_url'	=> '', 
-				'auth'		=> '', 
+				'auth'		=> '',
+				'image'		=> '',
 				'buttons'	=> '',
 				'importance'=> '',
 				'key'		=> ''
@@ -228,15 +231,19 @@
 		$s = wp_parse_args( $args, $d);
 		
 		$buttons = sprintf('<div class="pane-buttons">%s</div>', $s['buttons']);
-	
-	
+		
+		$tags =  ( $s['tags'] ) ? sprintf('<br />Tags: %s</div>', $s['tags']) : '</div>';
+		
+		$screenshot = ( $s['image'] ) ? sprintf('<a class="screenshot-' . rtrim( $s['image'], '.jpg' ) . '" href="http://api.pagelines.com/sections/img/%s" rel="http://api.pagelines.com/sections/img/%s">Screenshot</a>' , $s['image'], $s['image']) : '';
+		$js =  ( $screenshot ) ? "<script type='text/javascript' />jQuery('a.screenshot-" . rtrim( $s['image'], '.jpg' ) . "').imgPreview({imgCSS:{width:200}});</script>" : '';
+		
 		$title = sprintf('<div class="pane-head"><div class="pane-head-pad"><h3 class="pane-title">%s</h3><div class="pane-sub">%s</div></div></div>', $s['name'], 'Version ' . $s['version'] );
 		
-		$auth = sprintf('<div class="pane-dets">by <a href="%s">%s</a></div>', $s['auth_url'], $s['auth'] );
+		$auth = sprintf('<div class="pane-dets">by <a href="%s">%s</a> %s%s', $s['auth_url'], $s['auth'], $screenshot, $tags);
 		
 		$body = sprintf('<div class="pane-desc"><div class="pane-desc-pad">%s %s</div></div>', $s['desc'], $auth);
 		
-		$r = sprintf('<div id="response%s" class="install_response"><div class="rp"></div></div>', $s['key']);
+		$r = sprintf('<div id="response%s" class="install_response"><div class="rp"></div></div>%s', $s['key'], $js);
 		
 		return sprintf('<div class="plpane pane-plugin"><div class="plpane-hl fix"><div class="plpane-pad fix">%s %s %s</div></div></div>%s', $title, $body, $buttons, $r);
 			
