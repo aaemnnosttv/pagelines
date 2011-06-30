@@ -39,8 +39,9 @@
 			$output = '';
 
 			foreach( $sections as $key => $section ) {
-				
-				if ( file_exists( WP_PLUGIN_DIR . '/pagelines-sections/sections/' . $section->name . '/' . $section->name . '.php' ) )
+				plprint($section);
+				$check_file = WP_PLUGIN_DIR . '/pagelines-sections/sections/' . str_replace( '.zip', '', basename( $section->url ) ) . '/' . str_replace( '.zip', '', basename( $section->url ) ) . '.php';
+				if ( file_exists( $check_file ) )
 					continue;
 				$key = str_replace( '.', '', $key );
 				$install_js_call = sprintf( $this->exprint, 'section_install', $key, 'section', $section->url, 'Installing');
