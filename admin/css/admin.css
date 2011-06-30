@@ -579,14 +579,14 @@
 			box-sizing: content-box;
 			cursor: pointer;
 		}
-			.superlink-wrap .superlink:hover{
+			.superlink:hover, .superlink.supersave:hover{
 				background: #82a2ca url(../images/superlink-sprite-grey.png) 0 -35px repeat-x;
 				border: 1px solid #aaa;
 				border-top: 1px solid #fff;
 				border-left: 1px solid #fff;
 				
 			}
-			.superlink-wrap .superlink:active{background: #82a2ca url(../images/superlink-sprite-grey.png) 0 -70px repeat-x;border: 1px solid #666;color: #000}
+			.superlink:active, superlink.supersave:active{background: #82a2ca url(../images/superlink-sprite-grey.png) 0 -70px repeat-x;border: 1px solid #666;color: #000}
 			.superlink-pad, .supersave, .superlink-pagelines, .ohead .osave {padding: 5px 12px;height: 15px;display: block}
 			
 		.sl-black .superlink{
@@ -612,6 +612,7 @@
 			.sl-blue .superlink:hover, .ohead .osave:hover{background: #82a2ca url(../images/superlink-sprite-blue.png) 0 -35px repeat-x; color: #fff}
 			.sl-blue .superlink:active, .ohead .osave:active{background: #82a2ca url(../images/superlink-sprite-blue.png) 0 -70px repeat-x; color: #eee}
 		
+		.sl-right-wrap{float:right}
 		/* PageLines Superlink Link */
 		.superlink-pagelines{background: url(../images/superlink-pagelines.png) no-repeat 11px 1px; display: block; height: 16px; width: 16px; }
 		
@@ -2058,6 +2059,16 @@
 		margin: 0;
 	}
 
+	.install-control{
+		border: 4px dashed #DDD;
+		padding: 80px 50px;
+		font-weight: bold;
+		color: #555;
+	}
+		.install-control .banner-text{
+			font-size: 1.4em;
+			line-height: 1.6em;
+		}
 
 /* @ Restore/Import/Export */
 

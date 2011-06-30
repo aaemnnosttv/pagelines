@@ -29,8 +29,12 @@
  			TODO make error checking better...
 			TODO Use plugin?
  		*/
- 		if ( !is_dir( WP_PLUGIN_DIR . '/pagelines-sections/sections' ) )
- 			return 'You need to install Pagelines-Contol Plugin';
+ 		if ( !is_dir( WP_PLUGIN_DIR . '/pagelines-sections/sections' ) ){
+ 		
+			$install_button = OptEngine::superlink("Install It Now!", 'blue', 'install_now sl-right', '', '');
+			return sprintf('<div class="install-control fix"><span class="banner-text">You need to install PageLines Base Plugin</span> %s</div>', $install_button);
+			
+		}
 
 		$sections = $this->get_latest_cached( 'sections' );
 
@@ -224,12 +228,11 @@
 		$s = wp_parse_args( $args, $d);
 		
 		$buttons = sprintf('<div class="pane-buttons">%s</div>', $s['buttons']);
-		
-		$tags =  ( $s['tags'] ) ? sprintf('<br />Tags: %s</div>', $s['tags']) : '</div>';
+	
 	
 		$title = sprintf('<div class="pane-head"><div class="pane-head-pad"><h3 class="pane-title">%s</h3><div class="pane-sub">%s</div></div></div>', $s['name'], 'Version ' . $s['version'] );
 		
-		$auth = sprintf('<div class="pane-dets">by <a href="%s">%s</a>%s', $s['auth_url'], $s['auth'], $tags);
+		$auth = sprintf('<div class="pane-dets">by <a href="%s">%s</a></div>', $s['auth_url'], $s['auth'] );
 		
 		$body = sprintf('<div class="pane-desc"><div class="pane-desc-pad">%s %s</div></div>', $s['desc'], $auth);
 		
@@ -519,24 +522,27 @@ function extension_array(  ){
 					'class'		=> "right",
 					'callback'	=> $extension_control->extension_sections_install()
 					)
-			),
-
-		),
-
-'PageLines_Plugins' => array(
-		'htabs' 	=> array(
-			'installed'	=> array(
-				'title'		=> "Installed PageLines Plugins",
-				'callback'	=> $extension_control->extension_plugins()
 				),
-			'free'	=> array(
-				'title'		=> "Free Plugins",
-				'class'		=> "right",
-				'callback'	=> $extension_control->extension_plugins( $tab = 'free' )
-				)
-		)
 
-	)
+			),
+		
+		'PageLines_Plugins' => array(
+			
+			'htabs' 	=> array(
+				
+				'installed'	=> array(
+					'title'		=> "Installed PageLines Plugins",
+					'callback'	=> $extension_control->extension_plugins()
+					),
+				'free'		=> array(
+					'title'		=> "Free Plugins",
+					'class'		=> "right",
+					'callback'	=> $extension_control->extension_plugins( 'free' )
+					)
+					
+				)
+
+			)
 	);
 
 	return apply_filters('extension_array', $d); 

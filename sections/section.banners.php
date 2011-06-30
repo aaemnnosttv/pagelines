@@ -70,73 +70,73 @@ class PageLinesBanners extends PageLinesSection {
 			Meta Options
 		*/
 		
-				/*
-					Create meta fields for the post type
-				*/
-					$type_meta_array = array(
-						
-						'the_banner_image' 	=> array(
-								'version' => 'pro',
-								'type' => 'image_upload',					
-								'title' => 'Banner Media',
-								'desc' => 'Upload an image for the banner.'
-							),
-						'the_banner_media' 		=> array(
-								'version' => 'pro',
-								'type' => 'textarea',					
-								'title' => 'Banner Media',
-								'desc' => 'Add HTML Media for the banner, e.g. Youtube embed code. This option is used if there is no image uploaded.'
-							),
-						'banner_text_width' => array(
-								'version' 	=> 'pro',
-								'type' 		=> 'text',		
-								'size'		=> 'small',			
-								'title'		=> 'Banner Text Width (In %)',
-								'desc' 		=> 'Set the width of the text area as a percentage of full content width.  The media area will fill the rest.'
-							),
-						'banner_align' => array(
-							'version' => 'pro',
-							'type' => 'select',
-							'selectvalues'	=> array(
-									'banner_right'	=> array("name" => "Banner Right"),
-									'banner_left'	=> array("name" => "Banner Left")
-								), 
-							'title' => 'Banner Alignment',				
-							'desc' => 'Put the media on the right or the left?',
-							
-						),
-						'banner_text_padding' => array(
-							'version' 	=> 'pro',
-							'type' 		=> 'text',
-							'size'		=> 'small',					
-							'title' 	=> 'Banner Text Padding',
-							'desc' 		=> '(optional) Set the padding for the text area. Use CSS shorthand, for example:<strong> 25px 30px 25px 35px</strong>; for top, right, bottom, then left padding.'
-							
-						),
-					);
-
-					$post_types = array($this->id); 
-
-					$type_metapanel_settings = array(
-							'id' 		=> 'banner-metapanel',
-							'name' 		=> "Banner Setup Options",
-							'posttype' 	=> $post_types, 
-							'hide_tabs'	=> true
-						);
-
-					$type_meta_panel =  new PageLinesMetaPanel( $type_metapanel_settings );
-					
-					$type_metatab_settings = array(
-						'id' 		=> 'banner-type-metatab',
-						'name' 		=> "Banner Setup Options",
-						'icon' 		=> $this->icon,
-					);
-
-					$type_meta_panel->register_tab( $type_metatab_settings, $type_meta_array );
-
-					
+		/*
+			Create meta fields for the post type
+		*/
+			$type_meta_array = array(
 				
-						
+				'the_banner_image' 	=> array(
+						'version' => 'pro',
+						'type' => 'image_upload',					
+						'title' => 'Banner Media',
+						'desc' => 'Upload an image for the banner.'
+					),
+				'the_banner_media' 		=> array(
+						'version' => 'pro',
+						'type' => 'textarea',					
+						'title' => 'Banner Media',
+						'desc' => 'Add HTML Media for the banner, e.g. Youtube embed code. This option is used if there is no image uploaded.'
+					),
+				'banner_text_width' => array(
+						'version' 	=> 'pro',
+						'type' 		=> 'text',		
+						'size'		=> 'small',			
+						'title'		=> 'Banner Text Width (In %)',
+						'desc' 		=> 'Set the width of the text area as a percentage of full content width.  The media area will fill the rest.'
+					),
+				'banner_align' => array(
+					'version' => 'pro',
+					'type' => 'select',
+					'selectvalues'	=> array(
+							'banner_right'	=> array("name" => "Banner Right"),
+							'banner_left'	=> array("name" => "Banner Left")
+						), 
+					'title' => 'Banner Alignment',				
+					'desc' => 'Put the media on the right or the left?',
+					
+				),
+				'banner_text_padding' => array(
+					'version' 	=> 'pro',
+					'type' 		=> 'text',
+					'size'		=> 'small',					
+					'title' 	=> 'Banner Text Padding',
+					'desc' 		=> '(optional) Set the padding for the text area. Use CSS shorthand, for example:<strong> 25px 30px 25px 35px</strong>; for top, right, bottom, then left padding.'
+					
+				),
+			);
+
+			$post_types = array($this->id); 
+
+			$type_metapanel_settings = array(
+					'id' 		=> 'banner-metapanel',
+					'name' 		=> "Banner Setup Options",
+					'posttype' 	=> $post_types, 
+					'hide_tabs'	=> true
+				);
+
+			$type_meta_panel =  new PageLinesMetaPanel( $type_metapanel_settings );
+			
+			$type_metatab_settings = array(
+				'id' 		=> 'banner-type-metatab',
+				'name' 		=> "Banner Setup Options",
+				'icon' 		=> $this->icon,
+			);
+
+			$type_meta_panel->register_tab( $type_metatab_settings, $type_meta_array );
+
+			
+		
+				
 	}
 
 
@@ -151,14 +151,15 @@ class PageLinesBanners extends PageLinesSection {
 
 					'taxonomy_id'	=> "banner-sets",				
 					'title' => 'Select Banner Set To Show',
-					'desc' => 'If you are using the Banner section, select the banner set you would like to show on this page.'
+					'shortexp' => 'If you are using the Banner section, select the banner set you would like to show on this page.'
 				),
 				'banner_items' => array(
 					'version' 	=> 'pro',
 					'type' 		=> 'text',
 					'size'		=> 'small',				
 					'title' 	=> 'Max Number of Banners',
-					'desc' 		=> 'Enter the max number of banners to show on this page. If left blank, the number of posts selected under settings > "reading" will be used.'
+					'shortexp'	=> 'Enter the max number of banners to show on this page. ',
+					'exp' 		=> 'If left blank, the number of posts selected under settings > "reading" will be used.'
 				),
 
 			);
