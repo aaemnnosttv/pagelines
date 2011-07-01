@@ -41,6 +41,7 @@ class PageLinesOptionsArray {
 
 	function website_setup(){
 		$a = array(
+			'icon'			=> PL_ADMIN_ICONS.'/compass.png',
 			'email_capture'	=> array(
 				'default'		=> '',
 				'version'		=> 'free',
@@ -127,6 +128,7 @@ class PageLinesOptionsArray {
 	function template_setup(){
 
 		 $a = array(
+			'icon'			=> PL_ADMIN_ICONS.'/dragdrop.png',
 			'templates'		=> array(
 				'default'	=> '',
 				'type'		=> 'templates',
@@ -159,6 +161,7 @@ class PageLinesOptionsArray {
 	function layout_editor(){
 
 		$a = array(
+			'icon'			=> PL_ADMIN_ICONS.'/layout.png',
 			'layout_default' => array(
 				'default' 	=> "one-sidebar-right",
 				'type' 		=> 'layout_select',
@@ -199,6 +202,7 @@ class PageLinesOptionsArray {
 	function design_control(){
 
 		$a = array(	
+			'icon'			=> PL_ADMIN_ICONS.'/color.png',
 			'site_design_mode'	=> array(
 				'version'	=> 'pro',
 				'default'	=> 'canvas',
@@ -449,7 +453,7 @@ class PageLinesOptionsArray {
 	function typography(){
 
 		$a = array(
-
+			'icon'			=> PL_ADMIN_ICONS.'/typography.png',
 			'type_headers' => array(
 					'default' 	=> array(
 					'font' 		=> 'georgia',
@@ -552,6 +556,7 @@ class PageLinesOptionsArray {
 	function header_footer(){
 
 		$a = array(
+			'icon'			=> PL_ADMIN_ICONS.'/header.png',
 			'icon_position' => array(
 					'version'	=> 'pro',
 					'type'		=> 'text_multi',
@@ -635,6 +640,7 @@ class PageLinesOptionsArray {
 	function blog_posts(){
 
 		$a = array(
+			'icon'			=> PL_ADMIN_ICONS.'/blog.png',
 			'blog_layout_mode'	=> array(
 					'version'		=> 'pro',
 					'default'		=> 'magazine',
@@ -790,7 +796,8 @@ class PageLinesOptionsArray {
 	function advanced(){
 
 		$a = array(
-			'partner_link' => array(
+			'icon'			=> PL_ADMIN_ICONS.'/settings.png',
+			'partner_link' 	=> array(
 					'default'	=> '',
 					'type'		=> 'text',
 					'inputlabel'	=> 'Enter Partner Link',
@@ -814,15 +821,6 @@ class PageLinesOptionsArray {
 					'title' 	=> 'Activate Forum Options',
 					'shortexp'	=> 'If you have integrated a PageLines bbPress forum, activate its options here.',
 					'exp' 		=> 'This theme has some integrated options for its bbPress forum addon (if installed).'
-			),
-			'multisite_options' => array(
-					'default' 	=> '',
-					'version'	=> 'pro',
-					'type' 		=> 'check',
-					'inputlabel' 	=> 'Show Multisite Options',
-					'title' 	=> 'Activate Multisite Options',
-					'shortexp'	=> 'If you have multisite enabled, activate its options here.',
-					'exp' 		=> ''
 			),
 
 			'disable_ajax_save' => array(
@@ -876,6 +874,7 @@ class PageLinesOptionsArray {
 	function custom_code(){
 
 		$a = array(
+			'icon'			=> PL_ADMIN_ICONS.'/code.png',
 			'customcss' => array(
 					'version' 	=> 'pro',
 					'default' 	=> 'body{}',
@@ -932,6 +931,7 @@ class PageLinesOptionsArray {
 	function forum_options(){
 
 		$a = array(
+			'icon'			=> PL_ADMIN_ICONS.'/forum_options.png',
 			'forum_tags'		=> array(
 				'default'	=> true,
 				'type'		=> 'check',
@@ -1007,6 +1007,7 @@ class PageLinesOptionsArray {
 		$welcome = new PageLinesWelcome();
 		
 		$a = array(
+			'icon'			=> PL_ADMIN_ICONS.'/book.png',
 			'theme_introduction'	=> array(
 				'type'		=> 'text_content',
 				'layout'	=> 'full',
@@ -1034,7 +1035,9 @@ class PageLinesOptionsArray {
 	 */
 	function section_options(){
 
-		$a = array(	);
+		$a = array(	
+			'icon'			=> PL_ADMIN_ICONS.'/leaf.png',
+		);
 		
 		return apply_filters('pagelines_options_section_options', $a);
 		

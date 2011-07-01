@@ -55,6 +55,26 @@ class PageLinesMetaPanel {
 
 	}
 	
+	
+	
+	function register_actions(){
+		
+		// Adds the box
+		add_action("admin_menu",  array(&$this, 'add_metapanel_box'));
+		
+		// Saves the options.
+		add_action('save_post', array(&$this, 'save_meta_options'));
+		
+	}
+	
+	function add_metapanel_box(){
+		
+		foreach($this->settings['posttype'] as $post_type){
+			add_meta_box($this->settings['id'], $this->settings['name'], "pagelines_metapanel_callback", $post_type, $this->settings['location'], $this->settings['priority'], array( $this ));
+		}	
+	}
+	
+	
 
 	
 	function get_the_post_types(){
@@ -107,7 +127,10 @@ class PageLinesMetaPanel {
 			$this->edit_slug = $slug;
 		
 			$name .= sprintf(' <small style="font-style:italic">(%s)</small>', $slug);
-		} 
+		
+		} elseif(isset($_GET['page']) && $_GET['page'] == 'pagelines_meta')
+			$this->edit_slug = 'Posts Meta';
+
 		
 		return $name;
 	}
@@ -131,7 +154,7 @@ class PageLinesMetaPanel {
 		$o = wp_parse_args($o, $d);
 		
 
-			$tab_id = $o['id'].$o['clone_id'];
+		$tab_id = $o['id'].$o['clone_id'];
 
 		
 		if( $o['clone_id'] != 1 ){
@@ -173,26 +196,211 @@ class PageLinesMetaPanel {
 		}
 		
 	}
-	
-	
-	function register_actions(){
-		
-		// Adds the box
-		add_action("admin_menu",  array(&$this, 'add_metapanel_box'));
-		
-		// Saves the options.
-		add_action('save_post', array(&$this, 'save_meta_options'));
-		
-	}
-	
-	function add_metapanel_box(){
-		
-		foreach($this->settings['posttype'] as $post_type){
-			add_meta_box($this->settings['id'], $this->settings['name'], "pagelines_metapanel_callback", $post_type, $this->settings['location'], $this->settings['priority'], array( $this ));
-		}
 
+
+	
+	function draw_meta_options(){ 
+		global $post_ID;  
+		global $pagelines_template;
+		
+		
+		// if page doesn't support settings
+		if ( $this->page_for_posts ){
+			$this->non_meta_template(); 
+			return;
+		}
+		
+		$option_engine = new OptEngine( 'meta' );
+		
+		$this->tabs_setup(); ?>
+		
+			<div id="metatabs" class="pagelines_metapanel fix">
+				<div class="pagelines_metapanel_pad fix">
+					<?php if(!$this->hide_tabs):?>
+					<ul id="tabsnav" class="mp_tabs">
+					
+						<?php foreach($this->tabs as $tab => $t):?>
+							<li>
+								<a class="<?php echo $tab;?>  metapanel-tabn <?php if(!$t->active) echo 'inactive-tab';?>" href="#<?php echo $tab;?>">
+									<span class="metatab_icon" style="background: url(<?php echo $t->icon; ?>) no-repeat 0 0;display: block;">
+										<?php 
+											echo $t->name;
+											if(!$t->active) 
+												printf('<span class="tab_inactive">inactive</span>');
+										
+										 ?>
+									</span>
+								</a>
+							</li>
+						<?php endforeach;?>
+					</ul>
+					<?php endif;?>
+					<div class="mp_panel fix <?php if($this->hide_tabs) echo 'hide_tabs';?>">
+						<div class="mp_panel_pad fix">
+						
+							<div class="pagelines_metapanel_options">
+						
+								<div class="pagelines_metapanel_options_pad">
+									<?php foreach($this->tabs as $tab => $t):?>
+										<div id="<?php echo $tab;?>" class="pagelines_metatab">
+											<div class="metatab_title" style="background: url(<?php echo $t->icon; ?>) no-repeat 10px 13px;" >
+												<?php 
+												
+													echo $t->name;
+												
+													if(!$t->active) 
+														echo OptEngine::superlink('Inactive On Template', 'black', 'right', admin_url('admin.php?page=pagelines&selectedtab=2'));
+												 ?>
+											</div>
+											<?php 
+											foreach($t->options as $oid => $o)
+												$option_engine->option_engine($oid, $o, $post_ID);
+											?>
+									
+										</div>
+									<?php endforeach;?>
+								</div>
+							</div>
+						</div>
+					
+					</div>
+				</div>
+				
+			</div>
+			<div class="ohead mp_footer ">
+				<div class="mp_footer_pad fix ">
+					<input type="hidden" name="_posttype" value="<?php echo $this->settings['posttype'];?>" />
+				
+				
+					<div class="superlink-wrap osave-wrap">
+						<input id="update" class="superlink osave" type="submit" value="<?php _e("Save Meta Settings",'pagelines'); ?>"  name="update" />
+					</div>
+				</div>
+			</div>
+			
+		<?php 
+	
+	}
+	
+	function posts_metapanel( $type ){
+		
+		
+		$option_engine = new OptEngine( 'meta' );
+		
+		$handle = 'postsTabs'.$type;
+		
+		// Zero Out Tabs
+		$this->tabs = array();
+		
+		do_global_meta_options();
+	 	$special_template = new PageLinesTemplate( $type );	
+		
+		$special_template->load_section_optionator();
+		
+	
+		
+		ob_start();
+		?>
+	<script type="text/javascript"> 
+		jQuery(document).ready(function() {	
+			var <?php echo $handle;?> = jQuery("#<?php echo $handle;?>").tabs({ 
+				fx: { opacity: "toggle", duration: "fast" }
+			}); 
+		});
+	</script>
+	
+		<div id="<?php echo $handle;?>" class="plist-nav fix">
+			
+			<ul class="fix plist">
+				<lh class="hlist-header">Select Settings Panel</lh>
+				<?php foreach($this->tabs as $tab => $t):?>
+					<li>
+						<a class="<?php echo $tab;?>  metapanel-tab <?php if(!$t->active) echo 'inactive-tab';?>" href="#<?php echo $tab;?>">
+							<span class="metatab_pad fix">
+								<span class="metatab_icon" style="background: transparent url(<?php echo $t->icon; ?>) no-repeat 0 0;display: block;">
+									<?php 
+										if(!$t->active) 
+											printf('<span class="tab_inactive">inactive</span>');
+											
+										echo $t->name;
+										
+										
+						
+									 ?>
+								</span>
+							</span>
+						</a>
+					</li>
+				<?php endforeach;?>
+			</ul>
+		
+
+			<?php foreach($this->tabs as $tab => $t):?>
+		
+				<div id="<?php echo $tab;?>" class="posts_tab_content">
+					<div class="posts_tab_content_pad">
+						<div class="metatab_title" style="background: url(<?php echo $t->icon; ?>) no-repeat 10px 13px;" >
+							
+							<?php 
+					
+								echo $t->name;
+					
+								if(!$t->active) 
+									echo OptEngine::superlink('Inactive On Template', 'black', 'right', admin_url('admin.php?page=pagelines&selectedtab=2'));
+							 ?>
+						</div>
+				
+						<?php 
+						foreach($t->options as $oid => $o)
+							if($oid != 'section_control')
+								$option_engine->option_engine($oid, $o);
+						?>
+					</div>
+				</div>
+		
+			<?php endforeach;?>
+		</div>
+		<?php
+
+		return ob_get_clean();
+	}
+	
+	function non_meta_template(){?>
+		<div class="metapanel_banner">
+			<p>
+				<strong>Note:</strong> Individual page settings do not work on the blog page (<em>use the settings panel</em>).
+			</p>
+		</div>
+		
+	<?php }
+		
+	function tabs_setup( $selector = 'metatabs', $cookie_id = 'PageLinesMetaTabCookie', $var = 'TheTabs'){
+		if(!$this->hide_tabs):
+		
+			if(isset($_COOKIE[$cookie_id]) && $cookie_id != false)
+				$selected_tab = (int) $_COOKIE[$cookie_id];
+			else
+				$selected_tab = 0;
+				
+		?>
+		<script type="text/javascript">
+			jQuery(document).ready(function() {						
+				var <?php echo $selector;?> = jQuery("#<?php echo $selector;?>").tabs({ fx: { opacity: "toggle", duration: "fast" }, selected: <?php echo $selected_tab; ?>});
+
+				jQuery('#<?php echo $selector;?>').bind('tabsshow', function(event, ui) {
+					var selectedTab = jQuery('#<?php echo $selector;?>').tabs('option', 'selected');
+
+					<?php 
+						if($cookie_id != false)
+							printf('jQuery.cookie(\'%s\', selectedTab);', $cookie_id);
+					?>
+				});
+
+			});
+		</script><?php endif;
 		
 	}
+
 
 	/**
 	 * Save Meta Options
@@ -285,121 +493,7 @@ class PageLinesMetaPanel {
 		if(!empty($option_value) || get_post_meta($postID, $name))
 			update_post_meta($postID, $name, $option_value );
 	}
-	
-	function draw_meta_options(){ 
-		global $post_ID;  
-		global $pagelines_template;
-		
-		
-		// if page doesn't support settings
-		if ( $this->page_for_posts ){
-			$this->non_meta_template(); 
-			return;
-		}
-		
-		$option_engine = new OptEngine( 'meta' );
-		
-		$this->tabs_setup(); ?>
-		
-			<div id="metatabs" class="pagelines_metapanel fix">
-				<div class="pagelines_metapanel_pad fix">
-					<?php if(!$this->hide_tabs):?>
-					<ul id="tabsnav" class="mp_tabs">
-					
-						<?php foreach($this->tabs as $tab => $t):?>
-							<li>
-								<a class="<?php echo $tab;?>  metapanel-tabn <?php if(!$t->active) echo 'inactive-tab';?>" href="#<?php echo $tab;?>">
-									<span class="metatab_icon" style="background: url(<?php echo $t->icon; ?>) no-repeat 0 0;display: block;">
-										<?php 
-											echo $t->name;
-											if(!$t->active) 
-												printf('<span class="tab_inactive">inactive</span>');
-										
-										 ?>
-									</span>
-								</a>
-							</li>
-						<?php endforeach;?>
-					</ul>
-					<?php endif;?>
-					<div class="mp_panel fix <?php if($this->hide_tabs) echo 'hide_tabs';?>">
-						<div class="mp_panel_pad fix">
-						
-							<div class="pagelines_metapanel_options">
-						
-								<div class="pagelines_metapanel_options_pad">
-									<?php foreach($this->tabs as $tab => $t):?>
-										<div id="<?php echo $tab;?>" class="pagelines_metatab">
-											<div class="metatab_title" style="background: url(<?php echo $t->icon; ?>) no-repeat 10px 13px;" >
-												<?php 
-												
-													echo $t->name;
-												
-													if(!$t->active) 
-														printf('<span class="tab_inactive">(inactive on template)</span>');
-												 ?>
-											</div>
-											<?php 
-											foreach($t->options as $oid => $o)
-												$option_engine->option_engine($oid, $o, $post_ID);
-											?>
-									
-										</div>
-									<?php endforeach;?>
-								</div>
-							</div>
-						</div>
-					
-					</div>
-				</div>
-				
-			</div>
-			<div class="ohead mp_footer ">
-				<div class="mp_footer_pad fix ">
-					<input type="hidden" name="_posttype" value="<?php echo $this->settings['posttype'];?>" />
-				
-				
-					<div class="superlink-wrap osave-wrap">
-						<input id="update" class="superlink osave" type="submit" value="<?php _e("Save Meta Settings",'pagelines'); ?>"  name="update" />
-					</div>
-				</div>
-			</div>
-			
-		<?php 
-	
-	}
-	
-	function non_meta_template(){?>
-		<div class="metapanel_banner">
-			<p>
-				<strong>Note:</strong> Individual page settings do not work on the blog page (<em>use the settings panel</em>).
-			</p>
-		</div>
-		
-	<?php }
-		
-	function tabs_setup(){
-		if(!$this->hide_tabs):
 
-			if(isset($_COOKIE['PageLinesMetaTabCookie']))
-				$selected_tab = (int) $_COOKIE['PageLinesMetaTabCookie'];
-			else
-				$selected_tab = 0;
-		?>
-			<script type="text/javascript">
-				jQuery(document).ready(function() {						
-					var $myTabs = jQuery("#metatabs").tabs({ fx: { opacity: "toggle", duration: "fast" }, selected: <?php echo $selected_tab; ?>});
-
-					jQuery('#metatabs').bind('tabsshow', function(event, ui) {
-						var selectedTab = jQuery('#metatabs').tabs('option', 'selected');
-
-						jQuery.cookie('PageLinesMetaTabCookie', selectedTab);
-					});
-
-				});
-			</script>
-		<?php endif;
-	}
 
 
 	
@@ -437,12 +531,56 @@ function do_global_meta_options(){
 	global $global_meta_options;
 	
 	$metatab_settings = array(
-			'id' => 'general_page_meta',
-			'name' => "General Page Setup",
-			'icon' =>  PL_ADMIN_ICONS . '/ileaf.png'
+			'id' 	=> 'general_page_meta',
+			'name' 	=> "Page Setup",
+			'icon' 	=>  PL_ADMIN_ICONS . '/ileaf.png'
 		);
 
 	register_metatab($metatab_settings,  $global_meta_options, 'top');
+}
+
+/**
+ *
+ *  Returns Extension Array Config
+ *
+ */
+function special_page_settings_array(  ){
+
+	global $metapanel_options;
+	
+	$d = array(
+	
+		'blog_page' => array(
+			'metapanel' => $metapanel_options->posts_metapanel( 'posts' ),
+			'icon'		=> PL_ADMIN_ICONS.'/blog.png'
+		),		
+		'archive_page' => array(
+			'metapanel' => $metapanel_options->posts_metapanel( 'archive' ),
+			'icon'		=> PL_ADMIN_ICONS.'/archives.png'
+		),
+		'category_page' => array(
+			'metapanel' => $metapanel_options->posts_metapanel( 'category' ),
+			'icon'		=> PL_ADMIN_ICONS.'/category.png'
+		),
+		'search_results' => array(
+			'metapanel' => $metapanel_options->posts_metapanel('search'),
+			'icon'		=> PL_ADMIN_ICONS.'/search.png'
+		),
+		'tag_listing' => array(
+			'metapanel' => $metapanel_options->posts_metapanel('tag'),
+			'icon'		=> PL_ADMIN_ICONS.'/tag.png'
+		),
+		'author_posts' => array(
+			'metapanel' => $metapanel_options->posts_metapanel('author'),
+			'icon'		=> PL_ADMIN_ICONS.'/author.png'
+		),
+		'404_page' => array(
+			'metapanel' => $metapanel_options->posts_metapanel('404'),
+			'icon'		=> PL_ADMIN_ICONS.'/404.png'
+		),
+	);
+
+	return apply_filters('postsmeta_settings_array', $d); 
 }
 
 

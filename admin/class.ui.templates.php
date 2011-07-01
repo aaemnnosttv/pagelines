@@ -496,6 +496,9 @@ class PageLinesTemplateBuilder {
 	 */
 	function section_control_interface(){ 
 		
+		if($_GET['page'] == 'pagelines_meta')
+			return;
+		
 		$template_slug = join( '-', array('templates', $this->template->template_type) );
 		$main_slug = join( '-', array('main', $this->template->template_type) );
 		

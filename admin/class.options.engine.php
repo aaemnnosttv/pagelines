@@ -926,7 +926,7 @@ class OptEngine {
 		else
 			$button = sprintf('<%s id="%s" class="%s superlink" href="%s" %s ><span class="superlink-pad">%s</span></%s>', $att, $class, $class, $type, $extra, $text, $att);
 		
-		$wrap = sprintf('<div class="%s-wrap superlink-wrap sl-%s">%s</div>', $class, $color, $button);
+		$wrap = sprintf('<div class="superlink-%s-wrap superlink-wrap sl-%s">%s</div>', $class, $color, $button);
 		
 		return $wrap;
 	}

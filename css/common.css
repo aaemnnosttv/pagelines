@@ -1,16 +1,16 @@
-/* =============================================================================== */
-/* = COMMON CSS Framework for PageLines Themes - Copyright PageLines 2008 - 2010 = */
-/* =============================================================================== */
+/*
+   common.css
+   Common WordPress Objects Default Formatting
+   
+   Created by Andrew Powers on 2011-05-30.
+   Copyright 2011 PageLines. All rights reserved.
+*/
 
 /* Reset CSS Defaults */
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outline:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {  display: block; }
 
-/* ============================================================================== */
-/* = PAGELINES COMMON                                                           = */
-/* ============================================================================== */
-
-/* Common */
+/* @ Common Text Element Styling */
 	a:focus{outline:1px dotted invert;}
 	input::-moz-focus-inner { border: 0; } 
 	hr{border:0 transparent solid;border-bottom-width:1px;clear:both;height:0}
@@ -36,7 +36,6 @@ input{
 	font-weight:normal;
 	line-height:normal;
 	padding: 5px;
-	
 }
 input[type="text"]{
 	width: 96%;
@@ -116,21 +115,4 @@ input[type="submit"], .submit, input[type="button"], .button, input[type="reset"
 			}
 	.nocomments{display:none;}
 
-/* FLOATING AND ALIGNMENT */
-	.hidden {display: none; visibility: hidden;}
-	.aligncenter,.alignnone {display: block;margin-left: auto;margin-right: auto;}
-	.center, .textcenter {text-align: center;}
-	.alignleft {float: left;margin:0 1.4em .4em 0;}
-	.left {	float: left; }
-	.textleft {text-align: left;}
-	.alignright {float: right;margin:0 0 .4em 1.4em;}
-	.right { float: right; }
-	.textright {text-align:right;}
-	.clear {clear:both;}
-	.block{display:block;}
-	img.center, img[align="center"] {display: block;margin-left: auto;margin-right: auto;}
-	img.left, img[align="left"] { float:left;margin: 2px 10px 5px 0px;}
-	img.right, img[align="right"] {	float:right;margin: 2px 0px 5px 10px;}
-	
-/* CLEARFIX -- fixes clearing issue for floated elements */
-	.fix:after{content:".";display:block;height:0;clear:both;visibility:hidden;} .fix{display:inline-block;} * html .fix{height:1%;} .fix{display:block;}
+

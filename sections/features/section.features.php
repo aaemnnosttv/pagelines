@@ -191,7 +191,7 @@ class PageLinesFeatures extends PageLinesSection {
 
 			$metatab_settings = array(
 					'id' 		=> 'feature_meta',
-					'name' 		=> "Feature Slider Section",
+					'name' 		=> "Feature Slider",
 					'icon' 		=> $this->icon, 
 					'clone_id'	=> $settings['clone_id'], 
 					'active'	=> $settings['active']

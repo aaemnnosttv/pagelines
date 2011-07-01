@@ -28,6 +28,7 @@ function pagelines_add_admin_submenus() {
 	else {
 		$_pagelines_options_page_hook = add_submenu_page('pagelines', 'Settings', 'Settings', 'edit_theme_options', 'pagelines','pagelines_build_option_interface'); // Default
 		$_pagelines_ext_hook = add_submenu_page('pagelines', 'Extension', 'Extension', 'edit_theme_options', 'pagelines_extend','pagelines_build_extension_interface');
+		$_pagelines_posts_hook = add_submenu_page('pagelines', 'Special', 'Special', 'edit_theme_options', 'pagelines_special','pagelines_build_special');
 	}
 }
 
@@ -37,7 +38,10 @@ function pagelines_build_option_interface(){
 	$optionUI = new PageLinesOptionsUI;
 }
 
-// Build option interface - plugins
+/**
+ * Build Extension Interface
+ * Will handle adding additional sections, plugins, child themes
+ */
 function pagelines_build_extension_interface(){ 
 	
 	$args = array(
@@ -46,6 +50,20 @@ function pagelines_build_extension_interface(){
 		'callback'		=> 'extension_array',
 		'show_save'		=> false, 
 		'show_reset'	=> false, 
+	);
+	$optionUI = new PageLinesOptionsUI($args);
+}
+
+/**
+ * Build Meta Interface
+ * Will handle meta for non-meta pages.. e.g. tags, categories
+ */
+function pagelines_build_special(){ 
+	
+	$args = array(
+		'title'			=> 'Special Page Meta', 
+		'settings' 		=> 'pagelines-special',
+		'callback'		=> 'special_page_settings_array',
 	);
 	$optionUI = new PageLinesOptionsUI($args);
 }
@@ -60,17 +78,25 @@ add_action('admin_menu', 'pagelines_theme_settings_init');
 function pagelines_theme_settings_init() {
 	global $_pagelines_options_page_hook;
 	global $_pagelines_ext_hook;
+	global $_pagelines_posts_hook;
 	
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'jquery-ajaxupload', PL_ADMIN_JS . '/jquery.ajaxupload.js');
-	wp_enqueue_script( 'jquery-cookie', PL_ADMIN_JS . '/jquery.ckie.js');
+	wp_enqueue_script( 'jquery-cookie', PL_ADMIN_JS . '/jquery.ckie.js'); 
 	wp_enqueue_script( 'jquery-ui-core' );
 	wp_enqueue_script( 'jquery-ui-tabs' );
-		wp_enqueue_script( 'jquery-imgpreview',PL_ADMIN_JS . '/jquery.imgpreview.js', array('jquery'));
+	
+	wp_enqueue_script( 'jquery-imgpreview',PL_ADMIN_JS . '/jquery.imgpreview.js', array('jquery'));
+	
+	// Call only on PL pages
 	add_action('load-'.$_pagelines_options_page_hook, 'pagelines_theme_settings_scripts');
 	add_action('load-'.$_pagelines_ext_hook, 'pagelines_theme_settings_scripts');
 	wp_enqueue_script( 'script-pagelines-common', PL_ADMIN_JS . '/script.common.js');
+	
+	// PageLines CSS objects
+	pagelines_load_css_relative('css/objects.css', 'pagelines-objects');
 }
+
 
 function pagelines_theme_settings_scripts() {	
 	

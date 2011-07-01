@@ -28,7 +28,7 @@ class PageLinesTemplate {
 	 * PHP5 constructor
 	 *
 	 */
-	function __construct( $postID = null ) {
+	function __construct( $template_type = false ) {
 		
 		global $pl_section_factory;
 		$this->factory = $pl_section_factory->sections;
@@ -36,20 +36,32 @@ class PageLinesTemplate {
 		// All section control settings
 		$this->scontrol = pagelines_option('section-control');
 		
-		if(is_admin()){
-			$this->template_type = $this->admin_page_type_breaker();
-			$this->main_type = $this->admin_page_type_breaker();
-		}else{
-			$this->template_type = $this->page_type_breaker();
-			$this->main_type = $this->page_type_breaker();
+		
+		/**
+		 * Template Type
+		 * This is how we decide which sections belong on the page
+		 */
+		if( $template_type != false )
+			$this->template_type = $template_type;
+	
+		else{
+			if(is_admin())
+				$this->template_type = $this->admin_page_type_breaker();
+			else
+				$this->template_type = $this->page_type_breaker();
 		}
+		
+		$this->main_type = $this->template_type;
 
 		$this->map = $this->get_map();
 	
 		$this->load_sections_on_hook_names();
+		
 	}
 
-	
+	/**
+	 * Returns template type based on WordPress conditionals
+	 */
 	function page_type_breaker(){
 		global $post;
 		
@@ -78,7 +90,9 @@ class PageLinesTemplate {
 			return 'default';
 	}
 	
-
+	/**
+	 * Returns template type based on elements in WP admin
+	 */
 	function admin_page_type_breaker(){
 		global $post;
 		if ( !is_object( $post ) ) 
@@ -396,8 +410,6 @@ class PageLinesTemplate {
 			
 		}
 	
-	
-		
 		// Get inactive
 		foreach( $this->factory as $key => $section ){
 			
@@ -563,98 +575,5 @@ function workaround_pagelines_template_styles(){
 		$pagelines_template->print_template_section_styles();
 	}
 	else return;
-}
-
-/**
- * Processes through the multi-level template map and calls a callback function 
- * related to the currenly selected template. 
- * This solves a problem in that to process this map; several conditionals and foreach loops are needed.
- *
- * @since 4.0.0
- */
-function pagelines_process_template_map( $callback , $args = array()){
-
-	$defaults = array(
-			
-			'section_point' 	=> false,
-			'area_point' 		=> false,
-			'count_point' 		=> false,
-			'count_string' 		=> false,
-			'area_titles'		=> false, 
-			'area_point'		=> false,
-		);
-		
-	$settings = wp_parse_args($args, $defaults); // settings for post type
-	
-	global $pagelines_template;
-	
-	$count = 0;
-	
-	foreach($pagelines_template->map as $template => $template_info):
-
-		
-		if($template == 'templates'){
-			
-			if($settings['area_titles']) echo '<span class="area_title">Template Area</span>';
-			
-			if(is_array($template_info['templates'][$pagelines_template->template_type]['sections'])){
-				foreach( $template_info['templates'][$pagelines_template->template_type]['sections'] as $section ):
-			
-					$template_slug = 'templates-'.$pagelines_template->template_type;
-					call_user_func( $callback, $section, $template_slug, 'templates', $pagelines_template->template_type);
-				
-					if( $settings['section_point'] ){
-						$count++;  if($count == $settings['count_point']) { echo $settings['count_string']; $count = 0; }
-					}
-				endforeach;
-			}
-			if( $settings['area_point'] ){
-				
-				$count++;  if($count == $settings['count_point']) { echo $settings['count_string']; $count = 0; }
-			}
-			
-		}elseif($template == 'main'){
-		
-			if($settings['area_titles']) echo '<span class="area_title">Main Content Area</span>';
-			
-			if(is_array($template_info['templates'][$pagelines_template->main_type]['sections'])){
-				foreach( $template_info['templates'][$pagelines_template->main_type]['sections'] as $section ):
-				
-					$template_slug = 'main-'.$pagelines_template->main_type;
-					call_user_func( $callback, $section, $template_slug, 'main', $pagelines_template->main_type);
-				
-					if( $settings['section_point'] ){
-						$count++;  if($count == $settings['count_point']) { echo $settings['count_string']; $count = 0; }
-					}
-				endforeach;
-			}
-		
-			if( $settings['area_point'] ){
-				$count++;  if($count == $settings['count_point']) { echo $settings['count_string']; $count = 0; }
-			}
-			
-		}else{
-		
-			if($settings['area_titles']) echo '<span class="area_title">'. ucwords(str_replace('_',' ',$template)) .'</span>';
-			
-			if(is_array($template_info['sections'] )){
-				 foreach( $template_info['sections'] as $section ):
-			
-					$template_slug = $template;
-					call_user_func( $callback, $section, $template_slug, $template, $template);
-				
-					if( $settings['section_point'] ){
-						$count++;  if($count == $settings['count_point']) { echo $settings['count_string']; $count = 0; }
-					}
-				 endforeach;
-			}
-			
-			if( $settings['area_point'] ){
-				$count++;  if($count == $settings['count_point']) { echo $settings['count_string']; $count = 0; }
-			}
-		}
-	
-			
-	endforeach;
 }
 

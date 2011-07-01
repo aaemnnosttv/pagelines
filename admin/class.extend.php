@@ -508,7 +508,7 @@ function extension_array(  ){
 
 	$d = array(
 		'PageLines_Sections' => array(
-			
+			'icon'		=> PL_ADMIN_ICONS.'/extend-sections.png',
 			'htabs' 	=> array(
 				'installed'	=> array(
 					'title'		=> "Installed PageLines Sections",
@@ -534,7 +534,7 @@ function extension_array(  ){
 			),
 		
 		'PageLines_Plugins' => array(
-			
+			'icon'		=> PL_ADMIN_ICONS.'/extend-plugins.png',
 			'htabs' 	=> array(
 				
 				'installed'	=> array(

@@ -1,6 +1,6 @@
 /*
    objects.css
-   PageLines Platform Framework
+   PageLines Objects - CSS Framework
    
    Created by Andrew Powers on 2011-05-30.
    Copyright 2011 PageLines. All rights reserved.
@@ -27,7 +27,7 @@
 		.two-sidebar-left #sidebar-wrap, .one-sidebar-left #sidebar-wrap{ float: left; }
 		.two-sidebar-left #column-main, .one-sidebar-left #column-main, .two-sidebar-left #buddypress-page #container, .one-sidebar-left #buddypress-page #container{ float: right; }
 		.two-sidebar-center #column-main { float: right;}
-		#column-main { float: left; width: 630px; display: inline; }
+		#column-main { float: left; display: inline; width: 630px; }
 		#sidebar1, #sidebar2{ float: left; overflow:hidden; }
 
 	/* @ Layout Column Padding */
@@ -40,8 +40,7 @@
 		.one-sidebar-left #column-main .mcolumn-pad , .one-sidebar-left #container #content, .two-sidebar-left #column-main .mcolumn-pad , .two-sidebar-left #container #content{ 
 			padding: 2em 15px 0 30px;
 		}
-
-
+		
 /* @ Inline List - Horizontal non-floated navigation/menu */
 	ul.inline-list { list-style-type: none; }
 	ul.inline-list li { display: inline ; padding: 0px 3px; }
@@ -50,7 +49,6 @@
 	ul.tabbed-list {
 		list-style-type: none; 
 		margin:0;
-
 		width: 100%; /* clear IE 7 */
 	}
 	ul.tabbed-list li {margin: 0; padding: 0; float: left;}
@@ -64,7 +62,6 @@
 	.media .img{float:left;margin-right: 15px;}
 	.media .img img{display:block; max-width: 100%;}
 	.media .imgExt{float:right; margin-left: 10px;}
-	
 
 /* @ PageLines Proto CSS Grid */
 	.pprow { width: 100%; margin: 0 auto; overflow: hidden; }
@@ -77,4 +74,33 @@
 	.pp5 { width: 16.8%; }
 	.pp6 { width: 13.3333333%; }
 	.pplast { margin-right: 0; }
+
+/* @ Border Tricks */
+	.ntb{border-top: none}
+	.nbb{border-bottom: none}
+
+	.r4{
+		-moz-border-radius: 4px;
+		-khtml-border-radius: 4px;
+		-webkit-border-radius: 4px;
+		border-radius: 4px;
+	}
 	
+/* @ Floating and Alignment */
+	.hidden {display: none; visibility: hidden;}
+	.aligncenter,.alignnone {display: block;margin-left: auto;margin-right: auto;}
+	.center, .textcenter {text-align: center;}
+	.alignleft {float: left;margin:0 1.4em .4em 0;}
+	.left {	float: left; }
+	.textleft {text-align: left;}
+	.alignright {float: right;margin:0 0 .4em 1.4em;}
+	.right { float: right; }
+	.textright {text-align:right;}
+	.clear {clear:both;}
+	.block{display:block;}
+	img.center, img[align="center"] {display: block;margin-left: auto;margin-right: auto;}
+	img.left, img[align="left"] { float:left;margin: 2px 10px 5px 0px;}
+	img.right, img[align="right"] {	float:right;margin: 2px 0px 5px 10px;}
+	
+/* @ Clearfixing */
+	.fix:after{content:".";display:block;height:0;clear:both;visibility:hidden;} .fix{display:inline-block;} * html .fix{height:1%;} .fix{display:block;}

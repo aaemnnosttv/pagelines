@@ -524,7 +524,7 @@ function plprint( $data, $title = false){
 
 			ob_start();
 			
-				echo 'echo "<pre style=\'border: 1px solid #ccc; padding: 7px;\'>';
+				echo 'echo "<pre class=\'plprint\'>';
 			
 				if($title) 
 					echo sprintf('<h3>%s</h3>', $title);

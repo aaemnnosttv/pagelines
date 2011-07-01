@@ -139,14 +139,14 @@ class PageLinesSoapbox extends PageLinesSection {
 					'type' 			=> 'select_taxonomy',
 					'taxonomy_id'	=> "box-sets",				
 					'title' 		=> 'Select Box-Set To Use For Soapbox Section',
-					'desc' 			=> 'If you are using the soapbox section, select the box-set you would it to use on this page.'
+					'shortexp'		=> 'If you are using the soapbox section, select the box-set you would it to use on this page.'
 				), 
 				'_soapbox_items' => array(
 					'type' 		=> 'text',
 					'size'		=> 'small',
 					'label'		=> 'Enter max number of soapboxes',
 					'title' 	=> 'Soapbox Posts Limit',					
-					'desc' 		=> 'Add the limit or soapboxes that can be shown on this page. Default is 10.',
+					'shortexp' 	=> 'Add the limit or soapboxes that can be shown on this page. Default is 10.',
 					),
 				'_soapbox_height_media' => array(
 					'version' 	=> 'pro',
@@ -154,37 +154,38 @@ class PageLinesSoapbox extends PageLinesSection {
 					'size'		=> 'small',
 					'label'		=> 'Enter height in pixels',
 					'title' 	=> 'Soapbox Media Height (in Pixels)',
-					'desc' 		=> 'For the "soapboxes" to line up correctly, the height of the media needs to be set. Add it here in pixels.'
+					'shortexp' 	=> 'For the "soapboxes" to line up correctly, the height of the media needs to be set. Add it here in pixels.'
 					), 
 				'_soapbox_link_1_text' => array(
 					'type' 		=> 'text',
 					'title' 	=> $this->name.' Link 1 Text',						
-					'desc' 		=> 'Add text to be used in this link. Can be overridden in the box meta options.',
+					'shortexp' 		=> 'Add text to be used in this link. Can be overridden in the box meta options.',
 					),	
 				'_soapbox_link_1_class' => array(
 					'type' 			=> 'text',
 					'title' 	=> $this->name.' Link 1 Classes',						
-					'desc' 		=> 'Add CSS classes for this link.  <strong>Tip:</strong> add <strong>"soapbox_callout"</strong> for a blue link or <strong>"fancybox"</strong> to use with the fancybox plugin.',
+					'shortexp' 		=> 'Add CSS classes for this link.  <strong>Tip:</strong> add <strong>"soapbox_callout"</strong> for a blue link or <strong>"fancybox"</strong> to use with the fancybox plugin.',
 					),
 				'_soapbox_link_2_text' => array(
 					'type' 			=> 'text',
 					'title' 	=> $this->name.' Link 2 Text',			
-					'desc' 		=> 'Add text to be used in this link. Can be overridden in the box meta options.',
+					'shortexp' 		=> 'Add text to be used in this link. Can be overridden in the box meta options.',
 					),
 				'_soapbox_link_2_class' => array(
 					'type' 			=> 'text',
 					'title' 	=> $this->name.' Link 2 Classes',			
-					'desc' 		=> 'Add CSS classes for this link.  <strong>Tip:</strong> add <strong>"soapbox_callout"</strong> for a blue link or <strong>"fancybox"</strong> to use with the fancybox plugin.',
+					'shortexp' 		=> 'Add CSS classes for this link.  <strong>Tip:</strong> add <strong>"soapbox_callout"</strong> for a blue link or <strong>"fancybox"</strong> to use with the fancybox plugin.',
 					),
 				'_soapbox_link_3_text' => array(
 					'type' 			=> 'text',
 					'title' 	=> $this->name.' Link 3 Text - Callout Link',						
-					'desc' 		=> 'Add text to be used in this link. Can be overridden in the box meta options.',
+					'shortexp' 		=> 'Add text to be used in this link. Can be overridden in the box meta options.',
 					),
 				'_soapbox_link_3_class' => array(
 					'type' 			=> 'text',
-					'title' 	=> $this->name.' Link 3 Classes',						
-					'desc' 		=> 'Add CSS classes for this link.  <strong>Tip:</strong> add <strong>"soapbox_callout"</strong> for a blue link or <strong>"fancybox"</strong> to use with the fancybox plugin.',
+					'title' 		=> $this->name.' Link 3 Classes',						
+					'shortexp' 		=> 'Add CSS classes for this link.',
+					'exp'			=> '<strong>Tip:</strong> add <strong>"soapbox_callout"</strong> for a blue link or <strong>"fancybox"</strong> to use with the fancybox plugin.',
 					),
 			
 				);

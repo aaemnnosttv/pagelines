@@ -43,53 +43,51 @@ class PageLinesOptionsUI {
 		
 	}
 		
-/**
- * Option Interface Header
- *
- */
-function build_header(){?>
-	<div class='wrap'>
-		<table id="optionstable"><tbody><tr><td valign="top" width="100%">
+		/**
+		 * Option Interface Header
+		 *
+		 */
+		function build_header(){?>
+			<div class='wrap'>
+				<table id="optionstable"><tbody><tr><td valign="top" width="100%">
 			
-		  <form id="pagelines-settings-form" method="post" action="options.php" class="main_settings_form">
+				  <form id="pagelines-settings-form" method="post" action="options.php" class="main_settings_form">
 		
-					<?php 
-						wp_nonce_field('update-options'); // security for option saving
-						settings_fields($this->set['settings']); // namespace for options important!  
+							<?php 
+								wp_nonce_field('update-options'); // security for option saving
+								settings_fields($this->set['settings']); // namespace for options important!  
 					 	
-						echo OptEngine::input_hidden('input-full-submit', 'input-full-submit', 0); // submit the form fully, page refresh needed
+								echo OptEngine::input_hidden('input-full-submit', 'input-full-submit', 0); // submit the form fully, page refresh needed
 					 	
-						$this->get_tab_setup();
+								$this->get_tab_setup();
 				
-						$this->_get_confirmations_and_system_checking(); 
-					?>
+								$this->_get_confirmations_and_system_checking(); 
+							?>
 					
-				<div class="clear"></div>
-				<div id="optionsheader" class="fix">
-					<div class="ohead" class="fix">
-						<div class="ohead-pad fix">
-							
-							<div class="sl-black superlink-wrap">
-								<a class="superlink" href="#">
-									<span class="superlink-pagelines">&nbsp;</span>
-								</a>
-							</div>
-							<div class="ohead-title">
-								<?php echo $this->set['title']; ?> 
-							</div>
-							<div class="ohead-title-right">
-								<?php if($this->set['show_save']):?>
-								<div class="superlink-wrap osave-wrap">
-									<input class="superlink osave" type="submit" name="submit" value="<?php _e('Save Options', 'pagelines');?>" />
+						<div class="clear"></div>
+						<div id="optionsheader" class="fix">
+							<div class="ohead" class="fix">
+								<div class="ohead-pad fix">
+									<div class="sl-black superlink-wrap">
+										<a class="superlink" href="#">
+											<span class="superlink-pagelines">&nbsp;</span>
+										</a>
+									</div>
+									<div class="ohead-title">
+										<?php echo $this->set['title']; ?> 
+									</div>
+									<div class="ohead-title-right">
+										<?php if($this->set['show_save']):?>
+										<div class="superlink-wrap osave-wrap">
+											<input class="superlink osave" type="submit" name="submit" value="<?php _e('Save Options', 'pagelines');?>" />
+										</div>
+										<?php endif;?>
+									</div>
 								</div>
-								<?php endif;?>
-							
-							</div>
-						</div>
 						
 					
-					</div>
-				</div>
+							</div>
+						</div>
 				
 		<?php }
 		
@@ -147,11 +145,8 @@ function build_header(){?>
 
 			<div class="clear"></div>
 			<script type="text/javascript">/*<![CDATA[*/
-			jQuery(document).ready(function(){
-				jQuery('.framework_loading').hide();
-			});
+			jQuery(document).ready(function(){ jQuery('.framework_loading').hide(); });
 			/*]]>*/</script>
-
 			</div>
 		<?php }
 		
@@ -166,13 +161,16 @@ function build_header(){?>
 			<div id="tabs">	
 				<ul id="tabsnav">
 					<li><span class="graphic top">&nbsp;</span></li>
-				
 					<?php 
-					foreach($this->option_array as $menu => $oids)
-							printf('<li><a class="%1$s tabnav-element" href="#%1$s"><span>%2$s</span></a></li>', $menu, ucwords( str_replace('_',' ',$menu)));
-					?>
+					
+					
+					foreach($this->option_array as $menu => $oids){
 						
-
+						$bg = (isset($oids['icon'])) ? sprintf('style="background: transparent url(%s) no-repeat 0 0;"', $oids['icon']) : '';
+						
+						printf('<li><a class="%1$s tabnav-element" href="#%1$s"><span %3$s >%2$s</span></a></li>', $menu, ucwords( str_replace('_',' ',$menu)), $bg);
+					}
+					?>
 					<li><span class="graphic bottom">&nbsp;</span></li>
 					
 					<div class="framework_loading"> 
@@ -183,37 +181,39 @@ function build_header(){?>
 				</ul>
 				
 				<div id="thetabs" class="fix">
-					
-					<?php 
-					
-					if(!VPRO) $this->get_pro_call();
+<?php 				if(!VPRO) $this->get_pro_call();
 					 
-					foreach($this->option_array as $menu => $oids):?>
+					foreach($this->option_array as $menu => $oids){
+						$bg = (isset($oids['icon'])) ? sprintf('style="background: transparent url(%s) no-repeat 10px 16px;"', $oids['icon']) : '';
 						
-							<div id="<?php echo $menu;?>" class="tabinfo <?php if( isset($oids['htabs'])) echo 'htabs-interface';?>">
+						$is_htabs = ( isset($oids['htabs']) ) ? true : false;
+						
+						// The tab container start....
+						printf('<div id="%s" class="tabinfo %s">', $menu, ($is_htabs) ? 'htabs-interface' : '');
+					
+							// Draw Menu Title w/ Icon
+							if( stripos($menu, '_') !== 0 )
+								printf('<div class="tabtitle" %s><div class="tabtitle-pad">%s</div></div>', $bg, ucwords(str_replace('_',' ',$menu)));
 							
-							<?php if( stripos($menu, '_') !== 0 ): ?>
-								<div class="tabtitle tt-size-<?php echo $this->set['title_size'];?>">
-									<div class="tabtitle-pad"><?php echo ucwords(str_replace('_',' ',$menu));?></div>
-								</div>
-							<?php endif; ?>
 							
-							<?php 
-								if( isset($oids['htabs']))
-										OptEngine::get_horizontal_nav( $menu, $oids );
-								else{
-							
-									foreach( $oids as $oid => $o )
+							// Render Options
+							if( isset($oids['htabs']))
+								OptEngine::get_horizontal_nav( $menu, $oids );
+								
+							elseif( isset($oids['metapanel']))
+								echo $oids['metapanel'];
+								
+							else
+								foreach( $oids as $oid => $o )
+									if( $oid != 'icon' )
 										$option_engine->option_engine($oid, $o);
-										
-								}
-							?>
-								<div class="clear"></div>
-							</div>
-						
-					<?php endforeach; ?>	
-				</div> <!-- End the tabs -->
-			</div> <!-- End tabs -->
+								
+								
+						echo '<div class="clear"></div></div>';
+					}
+					?>	
+				</div>
+			</div>
 <?php 	}
 		
 	function get_import_export(){ ?>
@@ -250,7 +250,9 @@ function build_header(){?>
 		
 		echo OptEngine::input_hidden('selectedtab', $this->set['settings'], load_pagelines_option('selectedtab', 0)); // tracks last tab active 
 	
-		if(isset($_COOKIE[$this->tab_cookie]))
+		if(isset($_GET['selectedtab']))
+			$selected_tab = $_GET['selectedtab'];
+		elseif(isset($_COOKIE[$this->tab_cookie]))
 			$selected_tab = (int) $_COOKIE[$this->tab_cookie];
 		elseif(pagelines_option('selectedtab'))
 			$selected_tab = pagelines_option('selectedtab');
@@ -265,8 +267,6 @@ function build_header(){?>
 				jQuery(document).ready(function() {						
 					var myTabs = jQuery("#tabs").tabs({ fx: { opacity: "toggle", duration: "fast" }, selected: <?php echo $selected_tab; ?>});
 					
-					
-					
 					jQuery('#tabs').bind('tabsshow', function(event, ui) {
 						
 						var selectedTab = jQuery('#tabs').tabs('option', 'selected');
@@ -276,7 +276,6 @@ function build_header(){?>
 						jQuery.cookie('<?php echo $this->tab_cookie;?>', selectedTab);
 						
 					});
-
 				});
 		</script>
 	<?php }
