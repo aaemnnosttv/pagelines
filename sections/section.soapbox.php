@@ -192,7 +192,7 @@ class PageLinesSoapbox extends PageLinesSection {
 
 			$metatab_settings = array(
 					'id' => 'soapbox_meta',
-					'name' => "Soapbox Section",
+					'name' => "Soapbox Meta",
 					'icon' => $this->icon,
 					'clone_id'	=> $settings['clone_id'], 
 					'active'	=> $settings['active']
