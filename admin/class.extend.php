@@ -43,7 +43,7 @@
 			$output = '';
 
 			foreach( $sections as $key => $section ) {
-				plprint($section);
+
 				$check_file = WP_PLUGIN_DIR . '/pagelines-sections/sections/' . str_replace( '.zip', '', basename( $section->url ) ) . '/' . str_replace( '.zip', '', basename( $section->url ) ) . '.php';
 				if ( file_exists( $check_file ) )
 					continue;
@@ -200,7 +200,8 @@
 						'auth_url'	=> $plugin->author_url, 
 						'auth'		=> $plugin->author, 
 						'buttons'	=> $button,
-						'key'		=> $key
+						'key'		=> $key,
+						'count'		=> $plugin->count
 				);
 				
 				$output .= $this->pane_template($args);
@@ -225,21 +226,24 @@
 				'image'		=> '',
 				'buttons'	=> '',
 				'importance'=> '',
-				'key'		=> ''
+				'key'		=> '',
+				'count'		=> ''
 		);
 		
 		$s = wp_parse_args( $args, $d);
 		
 		$buttons = sprintf('<div class="pane-buttons">%s</div>', $s['buttons']);
 		
-		$tags =  ( $s['tags'] ) ? sprintf('<br />Tags: %s</div>', $s['tags']) : '</div>';
+		$tags =  ( $s['tags'] ) ? sprintf('<br />Tags: %s', $s['tags']) : '';
+		
+		$count = ( $s['count'] ) ? sprintf('<br />Downloads: %s', $s['count']) : '';
 		
 		$screenshot = ( $s['image'] ) ? sprintf('<a class="screenshot-' . rtrim( $s['image'], '.jpg' ) . '" href="http://api.pagelines.com/sections/img/%s" rel="http://api.pagelines.com/sections/img/%s">Screenshot</a>' , $s['image'], $s['image']) : '';
 		$js =  ( $screenshot ) ? "<script type='text/javascript' />jQuery('a.screenshot-" . rtrim( $s['image'], '.jpg' ) . "').imgPreview({imgCSS:{width:200}});</script>" : '';
 		
 		$title = sprintf('<div class="pane-head"><div class="pane-head-pad"><h3 class="pane-title">%s</h3><div class="pane-sub">%s</div></div></div>', $s['name'], 'Version ' . $s['version'] );
 		
-		$auth = sprintf('<div class="pane-dets">by <a href="%s">%s</a> %s%s', $s['auth_url'], $s['auth'], $screenshot, $tags);
+		$auth = sprintf('<div class="pane-dets">by <a href="%s">%s</a> %s%s%s</div>', $s['auth_url'], $s['auth'], $screenshot, $tags, $count);
 		
 		$body = sprintf('<div class="pane-desc"><div class="pane-desc-pad">%s %s</div></div>', $s['desc'], $auth);
 		
