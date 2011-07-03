@@ -350,115 +350,113 @@
 			$url =  $_POST['extend_url'];
 		
 		// 3. Do our thing...
-		
-		if( $mode == 'plugin_install' ){
+
+		switch ( $mode ) {
 			
-			$upgrader = new Plugin_Upgrader();
+			case 'plugin_install':
 
-			@$upgrader->install($url);
-	
-			if ( is_wp_error($upgrader->skin->result ) )
-				$error = $upgrader->skin->result->get_error_message();
-		
-			$this->page_reload( 'pagelines_extend' );
+				$upgrader = new Plugin_Upgrader();
+				
+				@$upgrader->install($url);
+				if ( is_wp_error($upgrader->skin->result ) )
+					$error = $upgrader->skin->result->get_error_message();
+
+				$this->page_reload( 'pagelines_extend' );
+			break;	
+
+			case 'plugin_activate':
+
+			 	activate_plugin( $url );
+			 	echo 'Activation complete! ';
+			 	$this->page_reload( 'pagelines_extend' );
+			break;
+					
+			case 'plugin_deactivate':
+
+				deactivate_plugins( array( $url ) );
+				// Output
+		 		echo 'Deactivation complete! ';
+		 		$this->page_reload( 'pagelines_extend' );			
+			break;
 			
-		} elseif( $mode == 'plugin_activate' ){
+			case 'section_activate':
+
+				$available = get_option( 'pagelines_sections_disabled' );
+				unset( $available[$type][$url] );
+				update_option( 'pagelines_sections_disabled', $available );
+				// Output
+				echo 'Activated';
+				$this->page_reload( 'pagelines_extend' );	
+			break;
 			
-	 		activate_plugin( $url );
-	
-	 		echo 'Activation complete! ';
-	
-	 		$this->page_reload( 'pagelines_extend' );
+			case 'section_deactivate':
+
+				$disabled = get_option( 'pagelines_sections_disabled', array( 'child' => array(), 'parent' => array()) );
+				$disabled[$type][$url] = true; 
+				update_option( 'pagelines_sections_disabled', $disabled );
+				// Output
+				echo 'Deactivated';
+				$this->page_reload( 'pagelines_extend' );		
+			break;
 			
-		} elseif( $mode == 'plugin_deactivate' ){
+			case 'section_install':
 
-			deactivate_plugins( array( $url ) );
-
-	 		echo 'Deactivation complete! ';
-
-	 		$this->page_reload( 'pagelines_extend' );
-
-		} elseif ( $mode == 'section_activate' ){
+				$upgrader = new Plugin_Upgrader();
+				$options = array( 'package' => $url, 
+						'destination'		=> WP_PLUGIN_DIR .'/pagelines-sections/sections/' . rtrim( basename( $url ), '.zip' ), 
+						'clear_destination' => false,
+						'clear_working'		=> false,
+						'is_multi'			=> false,
+						'hook_extra'		=> array() 
+				);
+				
+				@$upgrader->run($options);
+				// Output
+				echo 'Installed';
+				$this->page_reload( 'pagelines_extend' );		
+			break;
 			
-			$available = get_option( 'pagelines_sections_disabled' );
+			case 'section_upgrade':
+
+				$upgrader = new Plugin_Upgrader();
+				$options = array( 'package' => $url, 
+						'destination'		=> WP_PLUGIN_DIR .'/pagelines-sections/sections/' . $type, 
+						'clear_destination' => true,
+						'clear_working'		=> false,
+						'is_multi'			=> false,
+						'hook_extra'		=> array() 
+				);
+				
+				@$upgrader->run($options);
+				// Output
+				echo 'Upgraded';
+				$this->page_reload( 'pagelines_extend' );	
+			break;
 			
-			unset( $available[$type][$url] );
+			case 'plugin_upgrade':
+
+				$upgrader = new Plugin_Upgrader();
+				$options = array( 'package' => $url, 
+						'destination'		=> WP_PLUGIN_DIR .'/' . rtrim( basename( $url ), '.zip' ), 
+						'clear_destination' => true,
+						'clear_working'		=> false,
+						'is_multi'			=> false,
+						'hook_extra'		=> array() 
+				);
+
+				@$upgrader->run($options);
+				// Output
+				echo 'Upgraded';
+				$this->page_reload( 'pagelines_extend' );		
+			break;
 			
-			update_option( 'pagelines_sections_disabled', $available );
-	 		
-			// Output
-			echo 'Activated';
-	
-			$this->page_reload( 'pagelines_extend' );
-	 		
-		} elseif ( $mode == 'section_deactivate' ){
-			
-			$disabled = get_option( 'pagelines_sections_disabled', array( 'child' => array(), 'parent' => array()) );
-	 		
-			$disabled[$type][$url] = true; 
-	 		
-			update_option( 'pagelines_sections_disabled', $disabled );
-	 		
-			// Output
-			echo 'Deactivated';
-	
-			$this->page_reload( 'pagelines_extend' );
-	 	
-	
-		} elseif ( $mode == 'section_install' ) {
-			
-			$upgrader = new Plugin_Upgrader();
+			case 'plugin_delete':
 
-			$options = array( 	'package' => $url, 
-					'destination' => WP_PLUGIN_DIR .'/pagelines-sections/sections/' . rtrim( basename( $url ), '.zip' ), 
-					'clear_destination' => false,
-					'clear_working' => false,
-					'is_multi' => false,
-					'hook_extra' => array() 
-			);
-
-			@$upgrader->run($options);
-			echo 'Installed';
-			$this->page_reload( 'pagelines_extend' );
-
-		} elseif ( $mode == 'section_upgrade' ) {
-
-			$upgrader = new Plugin_Upgrader();
-
-			$options = array( 	'package' => $url, 
-					'destination' => WP_PLUGIN_DIR .'/pagelines-sections/sections/' . $type, 
-					'clear_destination' => true,
-					'clear_working' => false,
-					'is_multi' => false,
-					'hook_extra' => array() 
-			);
-
-			@$upgrader->run($options);
-			echo 'Ugraded';
-			$this->page_reload( 'pagelines_extend' );
-			
-		} elseif ( $mode == 'plugin_upgrade' ) {
-			
-			$upgrader = new Plugin_Upgrader();
-
-			$options = array( 	'package' => $url, 
-					'destination' => WP_PLUGIN_DIR .'/' . rtrim( basename( $url ), '.zip' ), 
-					'clear_destination' => true,
-					'clear_working' => false,
-					'is_multi' => false,
-					'hook_extra' => array() 
-			);
-
-			@$upgrader->run($options);
-			echo 'Upgraded';
-			$this->page_reload( 'pagelines_extend' );			
-		} elseif( $mode == 'plugin_delete' ) {
-	
-			delete_plugins( array( ltrim( $url, '/' ) ) );
-			echo 'Deleted';
-			$this->page_reload( 'pagelines_extend' );	
+				delete_plugins( array( ltrim( $url, '/' ) ) );
+				echo 'Deleted';
+				$this->page_reload( 'pagelines_extend' );
+			break;
 		}
-
 		die(); // needed at the end of ajax callbacks
 	}
 	
