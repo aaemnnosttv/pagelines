@@ -31,7 +31,7 @@
  		*/
  		if ( !is_dir( WP_PLUGIN_DIR . '/pagelines-sections/sections' ) ){
  		
-			$install_button = OptEngine::superlink("Install It Now!", 'blue', 'install_now sl-right', '', '');
+			$install_button = OptEngine::superlink('Install It Now!', 'blue', 'install_now sl-right', '', '');
 			return sprintf('<div class="install-control fix"><span class="banner-text">You need to install PageLines Base Plugin</span> %s</div>', $install_button);
 			
 		}
@@ -513,22 +513,22 @@ function extension_array(  ){
 			'icon'		=> PL_ADMIN_ICONS.'/extend-sections.png',
 			'htabs' 	=> array(
 				'installed'	=> array(
-					'title'		=> "Installed PageLines Sections",
+					'title'		=> 'Installed PageLines Sections',
 					'callback'	=> $extension_control->extension_sections()
 					),
 				'featured'	=> array(
-					'title'		=> "Featured on PageLines.com",
-					'class'		=> "right",
+					'title'		=> 'Featured on PageLines.com',
+					'class'		=> 'right',
 					'callback'	=> $extension_control->extension_sections()
 					),
 				'premium'	=> array(
-					'title'		=> "Premium PageLines Sections",
-					'class'		=> "right",
+					'title'		=> 'Premium PageLines Sections',
+					'class'		=> 'right',
 					'callback'	=> $extension_control->extension_sections()
 					),
 				'free'	=> array(
-					'title'		=> "Free PageLines Sections",
-					'class'		=> "right",
+					'title'		=> 'Free PageLines Sections',
+					'class'		=> 'right',
 					'callback'	=> $extension_control->extension_sections_install()
 					)
 				),
@@ -540,18 +540,39 @@ function extension_array(  ){
 			'htabs' 	=> array(
 				
 				'installed'	=> array(
-					'title'		=> "Installed PageLines Plugins",
+					'title'		=> 'Installed PageLines Plugins',
 					'callback'	=> $extension_control->extension_plugins()
 					),
 				'free'		=> array(
-					'title'		=> "Free Plugins",
-					'class'		=> "right",
+					'title'		=> 'Free Plugins',
+					'class'		=> 'right',
 					'callback'	=> $extension_control->extension_plugins( 'free' )
 					)
 					
 				)
 
+			),
+
+		'PageLines_Themes' => array(
+			'icon'		=> PL_ADMIN_ICONS.'/extend-plugins.png',
+			'htabs' 	=> array(
+				
+				'installed'	=> array(
+					'title'		=> 'Installed PageLines Themes',
+					'callback'	=> ''
+					),
+				'free'		=> array(
+					'title'		=> 'Free Themes',
+					'class'		=> 'right',
+					'callback'	=> ''
+					)
+					
+				)
+
 			)
+
+
+
 	);
 
 	return apply_filters('extension_array', $d); 
