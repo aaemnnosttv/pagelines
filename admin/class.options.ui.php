@@ -270,11 +270,8 @@ class PageLinesOptionsUI {
 					var myTabs = jQuery("#tabs").tabs({ fx: { opacity: "toggle", duration: "fast" }, selected: <?php echo $selected_tab; ?>});
 					
 					jQuery('#tabs').bind('tabsshow', function(event, ui) {
-						
 						var selectedTab = jQuery('#tabs').tabs('option', 'selected');
-						
 						jQuery("#selectedtab").val(selectedTab);
-						
 						jQuery.cookie('<?php echo $this->tab_cookie;?>', selectedTab);
 						
 					});

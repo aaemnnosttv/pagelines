@@ -409,5 +409,5 @@ function pagelines_non_meta_data_page(){
 }
 
 function pagelines_special_pages(){
-	return array('main-posts', 'main-search', 'main-archive', 'main-tag', 'main-category', 'main-404');
+	return array('posts', 'search', 'archive', 'tag', 'category', '404');
 }
