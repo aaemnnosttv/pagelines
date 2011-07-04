@@ -38,34 +38,36 @@
 
 		$sections = $this->get_latest_cached( 'sections' );
 
-		if ( is_object($sections) ) {
+		if ( ! is_object($sections) ) 
+			return $sections;
 
-			$output = '';
+		$output = '';
 
-			foreach( $sections as $key => $section ) {
+		foreach( $sections as $key => $section ) {
 
-				$check_file = WP_PLUGIN_DIR . '/pagelines-sections/sections/' . str_replace( '.zip', '', basename( $section->url ) ) . '/' . str_replace( '.zip', '', basename( $section->url ) ) . '.php';
-				if ( file_exists( $check_file ) )
-					continue;
-				$key = str_replace( '.', '', $key );
-				$install_js_call = sprintf( $this->exprint, 'section_install', $key, 'section', $section->url, 'Installing');
+			$check_file = WP_PLUGIN_DIR . '/pagelines-sections/sections/' . str_replace( '.zip', '', basename( $section->url ) ) . '/' . str_replace( '.zip', '', basename( $section->url ) ) . '.php';
 
-				$button = OptEngine::superlink('Install Section', 'black', '', '', $install_js_call);
+			if ( file_exists( $check_file ) )
+				continue;
+
+			$key = str_replace( '.', '', $key );
+			$install_js_call = sprintf( $this->exprint, 'section_install', $key, 'section', $section->url, 'Installing');
+
+			$button = OptEngine::superlink('Install Section', 'black', '', '', $install_js_call);
 				
-				$args = array(
-						'name' 		=> $section->name, 
-						'version'	=> $section->version, 
-						'desc'		=> $section->text, 
-						'auth_url'	=> $section->author_url, 
-						'auth'		=> $section->author,
-						'image'		=> $section->image,
-						'buttons'	=> $button,
-						'key'		=> $key
-				);
+			$args = array(
+					'name' 		=> $section->name, 
+					'version'	=> $section->version, 
+					'desc'		=> $section->text, 
+					'auth_url'	=> $section->author_url, 
+					'auth'		=> $section->author,
+					'image'		=> $section->image,
+					'buttons'	=> $button,
+					'key'		=> $key
+			);
 				
-				$output .= $this->pane_template($args);
+			$output .= $this->pane_template($args);
 				
-			}
 		}
 		return $output;
  	}
@@ -145,68 +147,69 @@
 
 		$plugins = $this->get_latest_cached( 'plugins' );
 
-		if ( is_object($plugins) ) {
-		plprint($plugins);	
-			$output = '';
-			foreach( $plugins as $key => $plugin ) {
+		if ( !is_object($plugins) ) 
+			return $plugins;
+			
+		$output = '';
+		
+		foreach( $plugins as $key => $plugin ) {
+		
+			$status = $this->plugin_check_status( WP_PLUGIN_DIR . $plugin->file );
 				
+			if ($tab != 'free' && !$status['status'] )
+				continue;
 
-				$status = $this->plugin_check_status( WP_PLUGIN_DIR . $plugin->file );
-				
-				if ($tab != 'free' && !$status['status'] )
-					continue;
-				if ($tab == 'free' && ( $status['status'] == 'active' || $status['status'] == 'notactive' ) )
-					continue;
+			if ($tab == 'free' && ( $status['status'] == 'active' || $status['status'] == 'notactive' ) )
+				continue;
 
-				$install_js_call = sprintf( $this->exprint, 'plugin_install', $key, $plugin->name, $plugin->url, 'Installing');
-				$activate_js_call = sprintf( $this->exprint, 'plugin_activate', $key, $plugin->name, $plugin->file, 'Activating');
-				$deactivate_js_call = sprintf( $this->exprint, 'plugin_deactivate', $key, $plugin->name, $plugin->file, 'Deactivating');
-				$upgrade_js_call = sprintf( $this->exprint, 'plugin_upgrade', $key, $plugin->name, $plugin->url, 'Upgrading');
-				$delete_js_call = sprintf( $this->exprint, 'plugin_delete', $key, $plugin->name, $plugin->file, 'Deleting');
+			$install_js_call = sprintf( $this->exprint, 'plugin_install', $key, $plugin->name, $plugin->url, 'Installing');
+			$activate_js_call = sprintf( $this->exprint, 'plugin_activate', $key, $plugin->name, $plugin->file, 'Activating');
+			$deactivate_js_call = sprintf( $this->exprint, 'plugin_deactivate', $key, $plugin->name, $plugin->file, 'Deactivating');
+			$upgrade_js_call = sprintf( $this->exprint, 'plugin_upgrade', $key, $plugin->name, $plugin->url, 'Upgrading');
+			$delete_js_call = sprintf( $this->exprint, 'plugin_delete', $key, $plugin->name, $plugin->file, 'Deleting');
 
-				if ( !isset( $status['status'] ) )
-					$status = array( 'status' => '' );
+			if ( !isset( $status['status'] ) )
+				$status = array( 'status' => '' );
 
-				if ( $status['status'] && $plugin->version > $status['data']['Version'])
-					$status['status'] = 'upgrade';
+			if ( $status['status'] && $plugin->version > $status['data']['Version'])
+				$status['status'] = 'upgrade';
 
-				switch ( $status['status'] ) {
+			switch ( $status['status'] ) {
 					
-					case 'active':
-						$button = OptEngine::superlink('Deactivate', 'grey', '', '', $deactivate_js_call);
-						break;
+				case 'active':
+					$button = OptEngine::superlink('Deactivate', 'grey', '', '', $deactivate_js_call);
+				break;
 					
-					case 'notactive':
-						$button = OptEngine::superlink('Activate', 'blue', '', '', $activate_js_call);
-						$button .= OptEngine::superlink('Delete', 'grey', '', '', $delete_js_call);
-						break;
+				case 'notactive':
+					$button = OptEngine::superlink('Activate', 'blue', '', '', $activate_js_call);
+					$button .= OptEngine::superlink('Delete', 'grey', '', '', $delete_js_call);
+				break;
 					
-					case 'upgrade':
-						$button = OptEngine::superlink('Upgrade to ' . $plugin->version, 'black', '', '', $upgrade_js_call);
-						break;
+				case 'upgrade':
+					$button = OptEngine::superlink('Upgrade to ' . $plugin->version, 'black', '', '', $upgrade_js_call);
+				break;
 
-					default:
-						// were not installed, show the form! ( if we are on install tab )
-						$button = OptEngine::superlink('Install', 'black', '', '', $install_js_call);
-						break;
+				default:
+					// were not installed, show the form! ( if we are on install tab )
+					$button = OptEngine::superlink('Install', 'black', '', '', $install_js_call);
+				break;
 						
-				}
-				
-				$args = array(
-						'name' 		=> $plugin->name, 
-						'version'	=> ( !empty( $status['status'] ) ) ? $status['data']['Version'] : $plugin->version, 
-						'desc'		=> $plugin->text,
-						'tags'		=> ( isset( $plugin->tags ) ) ? $plugin->tags : '',
-						'auth_url'	=> $plugin->author_url, 
-						'auth'		=> $plugin->author, 
-						'buttons'	=> $button,
-						'key'		=> $key,
-						'count'		=> $plugin->count
-				);
-				
-				$output .= $this->pane_template($args);
-				
 			}
+				
+			$args = array(
+					'name' 		=> $plugin->name, 
+					'version'	=> ( !empty( $status['status'] ) ) ? $status['data']['Version'] : $plugin->version, 
+					'desc'		=> $plugin->text,
+					'tags'		=> ( isset( $plugin->tags ) ) ? $plugin->tags : '',
+					'auth_url'	=> $plugin->author_url, 
+					'auth'		=> $plugin->author, 
+					'buttons'	=> $button,
+					'key'		=> $key,
+					'count'		=> $plugin->count
+			);
+				
+			$output .= $this->pane_template($args);
+				
 		}
 		return $output;
 	}
@@ -216,11 +219,13 @@
 
 		$themes = $this->get_latest_cached( 'themes' );
 
-		if ( is_object($themes) ) {
-	
-			$output = '';
-			$status = '';
-			foreach( $themes as $key => $theme ) {
+		if ( !is_object($themes) ) 
+			return $themes;
+			
+		$output = '';
+		$status = '';
+
+		foreach( $themes as $key => $theme ) {
 			
 			if ( file_exists( WP_CONTENT_DIR . '/themes/' . $theme->name . '/style.css' ) )
 				if ( $data =  get_theme_data( WP_CONTENT_DIR . '/themes/' . $theme->name . '/style.css' ) ) 
@@ -270,7 +275,6 @@
 				$output .= $this->pane_template($args);
 				
 			}
-		}
 		return $output;
 	}
 
@@ -579,6 +583,9 @@
 		$api = ( ! false == get_transient( 'pagelines_sections_api_' . $type ) )
 				? get_transient( 'pagelines_sections_api_' . $type )
 				: wp_remote_get( 'http://api.pagelines.com/' . $type . '/' );
+
+		if( is_wp_error( $api ) )
+			return '<h2>Unable to fetch from API</h2>';
 
 		set_transient( 'pagelines_sections_api_' . $type, $api, 300 );
 
