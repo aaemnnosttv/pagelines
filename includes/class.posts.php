@@ -407,3 +407,7 @@ function pagelines_non_meta_data_page(){
 	if(pagelines_is_posts_page() || is_404()) return true; 
 	else return false;
 }
+
+function pagelines_special_pages(){
+	return array('main-posts', 'main-search', 'main-archive', 'main-tag', 'main-category', 'main-404');
+}

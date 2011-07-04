@@ -19,9 +19,8 @@ class PageLinesPostNav extends PageLinesSection {
 		$settings = array(
 			'type' 			=> 'main',
 			'description' 	=> 'Post Navigation - Shows titles for next and previous post.',
-			'workswith' 	=> array('main-single', 'main-default'),
-			'folder' 		=> 'wp', 
-			'init_file' 	=> 'postnav', 
+			'workswith' 	=> array('main'),
+			'failswith'		=> pagelines_special_pages(),
 			'icon'			=> PL_ADMIN_ICONS . '/map.png'
 		);
 		

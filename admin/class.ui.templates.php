@@ -86,10 +86,12 @@ class PageLinesTemplateBuilder {
 		
 <?php }
 
-	function do_template_select(){ ?>
+	function do_template_select(){ 
+		global $pagelines_template;
+		?>
 	<label for="tselect" class="tselect_label">Select Template Area</label>
 	<select name="tselect" id="tselect" class="template_select" >
-	<?php 	foreach(the_template_map() as $hook => $hook_info):
+	<?php 	foreach($pagelines_template->map as $hook => $hook_info):
 	 			if(isset($hook_info['templates'])): ?>
 					<optgroup label="<?php echo $hook_info['name'];?>" class="selectgroup_header">
 	<?php 			
@@ -200,7 +202,7 @@ class PageLinesTemplateBuilder {
 	<div class="clear"></div>
 	<?php
 	
-		$this->_sub_selector('templates', 'sel-templates-sub', 'Which Template?');
+		$this->_sub_selector('templates', 'sel-templates-sub', 'For Which Type of Page?');
 		
 		$this->_sub_selector('main', 'sel-content-sub', 'Which Content Area Type?');
 		
@@ -208,16 +210,20 @@ class PageLinesTemplateBuilder {
 
 <?php }
 
-	function _sub_selector($type = 'templates', $class, $title = '', $subtitle = ''){ ?>
+	function _sub_selector($type = 'templates', $class, $title = '', $subtitle = ''){
+		global $pagelines_template;
+		 ?>
 		<div class="sub-template-selector fix <?php echo $class;?>">
 			<div class="sub-templates fix">
 				<h4 class="over"><?php echo $title; ?></h4>
 				<?php 	
-						$h = the_template_map();
+						$h = $pagelines_template->map;
 						foreach($h[$type]['templates'] as $template => $t){
-							if(!isset($t['version']) || ($t['version'] == 'pro' && VPRO))
-								printf('<div id="%s" class="sss-button">%s</div>', join( '-', array($type, $template) ), $t['name']);
+							
+							if( (!isset($t['version']) || ($t['version'] == 'pro' && VPRO)) && isset($t['name']))
+								printf('<div id="%s" class="sss-button"><div class="sss-button-pad">%s</div></div>', join( '-', array($type, $template) ), $t['name']);
 						}
+					
 				?>
 			</div>
 		</div>
@@ -496,7 +502,7 @@ class PageLinesTemplateBuilder {
 	 */
 	function section_control_interface(){ 
 		
-		if($_GET['page'] == 'pagelines_meta')
+		if(isset($_GET['page']) && $_GET['page'] == 'pagelines_meta')
 			return;
 		
 		$template_slug = join( '-', array('templates', $this->template->template_type) );

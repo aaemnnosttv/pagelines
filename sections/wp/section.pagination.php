@@ -19,7 +19,8 @@ class PageLinesPagination extends PageLinesSection {
 		$settings = array(
 			'type' 			=> 'main',
 			'description' 	=> 'Pagination - A numerical post/page navigation. (Supports WP-PageNavi)',
-			'workswith' 	=> array('main-single', 'main-default', 'main-posts'),
+			'workswith' 	=> array('main'),
+			'failswith'		=> pagelines_special_pages(),
 			'folder' 		=> 'wp', 
 			'init_file' 	=> 'pagination', 
 			'icon'			=> PL_ADMIN_ICONS . '/pagination.png'

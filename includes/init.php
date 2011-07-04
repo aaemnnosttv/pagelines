@@ -67,7 +67,6 @@ require_once( PL_INCLUDES . '/library.shortcodes.php');
  * Theme configuration files
  */
 require_once( PL_INCLUDES . '/config.options.php' );
-require_once( PL_INCLUDES . '/config.templates.php' );
 
 
 /* Options Singleton */

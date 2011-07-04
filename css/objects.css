@@ -76,8 +76,8 @@
 	.pplast { margin-right: 0; }
 
 /* @ Border Tricks */
-	.ntb{border-top: none}
-	.nbb{border-bottom: none}
+	body .ntb{border-top: none}
+	body .nbb{border-bottom: none}
 
 	.r4{
 		-moz-border-radius: 4px;

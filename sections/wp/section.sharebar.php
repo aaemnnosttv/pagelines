@@ -18,7 +18,8 @@ class PageLinesShareBar extends PageLinesSection {
 		
 		$settings = array(
 			'description' 	=> 'Creates a way for users to share your content using their favorite social media or news services.',
-			'workswith' 	=> array('main-single', 'main-default'),
+			'workswith' 	=> array('main'),
+			'failswith'		=> pagelines_special_pages(),
 			'icon'			=> PL_ADMIN_ICONS . '/feed.png'
 		);
 		

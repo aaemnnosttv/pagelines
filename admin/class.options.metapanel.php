@@ -32,7 +32,7 @@ class PageLinesMetaPanel {
 			$post = (!isset($post) && isset($_GET['post'])) ? get_post($_GET['post'], 'object') : null;
 	
 			
-			$this->ptype = $this->current_admin_post_type();
+			$this->ptype = PageLinesTemplate::current_admin_post_type();
 		
 			$this->page_for_posts = ( isset($post) && get_option( 'page_for_posts' ) === $post->ID ) ? true : false;			
 		
@@ -85,27 +85,13 @@ class PageLinesMetaPanel {
 		return $the_post_types;
 	}
 	
-	/**
-	 * Get current post type, set as GET on 'add new' pages
-	 */
-	function current_admin_post_type(){
-		global $pagenow;
-		global $post;
-		$current_post_type = ( !isset($post) && isset($_GET['post_type']) ) 
-							? $_GET['post_type'] 
-							: ( isset($post) && isset($post->post_type) ? $post->post_type : 
-								($pagenow == 'post-new.php' ? 'post' : null));		
-		
-		return $current_post_type;
-		
-	}
 	
-	function get_the_title(){
+	
+	function get_edit_type(){
 		global $post;
-		$this->base_name = 'PageLines Meta Settings';
-		$name = $this->base_name;
 		 
 		if($this->ptype == 'post' || $this->ptype == 'page'){
+			
 			$current_template = (isset($post)) ? get_post_meta($post->ID, '_wp_page_template', true) : false;
 	
 			$this->page_templates = array_flip( PageLinesTemplate::get_page_templates() );
@@ -122,17 +108,32 @@ class PageLinesMetaPanel {
 			elseif( $this->page_for_posts )
 				$slug = 'Blog Page';
 			else 
-				$slub = '';
+				$slug = '';
 		
-			$this->edit_slug = $slug;
-		
-			$name .= sprintf(' <small style="font-style:italic">(%s)</small>', $slug);
-		
-		} elseif(isset($_GET['page']) && $_GET['page'] == 'pagelines_meta')
-			$this->edit_slug = 'Posts Meta';
+			
+		} elseif( $this->ptype )
+			$slug = $this->ptype;
+		elseif(isset($_GET['page']) && $_GET['page'] == 'pagelines_special')
+			$slug = 'Special Meta';
+		else
+			$slug = 'Default';
 
 		
-		return $name;
+		$this->edit_slug = $slug;
+		
+		return $slug;
+	}
+	
+	function get_the_title(){
+			global $post;
+			$this->base_name = 'PageLines Meta Settings';
+			$name = $this->base_name;
+
+			$slug = $this->get_edit_type();
+
+			$name .= sprintf(' <small style="font-style:italic">(%s)</small>', $slug);
+			
+			return $name;
 	}
 	
 	/**

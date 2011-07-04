@@ -43,6 +43,7 @@ class PageLinesBanners extends PageLinesSection {
 					'label' 			=> __('Banners', 'pagelines'),  
 					'singular_label' 	=> __('Banner', 'pagelines'),
 					'description' 		=> 'For creating banners in banner section layouts.',
+					'menu_icon'			=> $this->icon
 				);
 			$taxonomies = array(
 				"banner-sets" => array(	
@@ -351,4 +352,8 @@ function pagelines_default_banners($post_type){
 			update_post_meta($newPostID, 'banner_text_padding', $dp['pad']);
 
 	}
+}
+
+function get_default_banners(){
+	return apply_filters('pagelines_default_banners', array());
 }

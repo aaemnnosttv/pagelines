@@ -19,9 +19,7 @@ class PageLinesPostLoop extends PageLinesSection {
 		$settings = array(
 			'type' 			=> 'main',
 			'description' 	=> 'The Main Posts Loop. Includes content and post information',
-			'workswith' 	=> array('main-single', 'main-default', 'main-posts'),
-			'folder' 		=> 'wp', 
-			'init_file' 	=> 'postloop',
+			'workswith' 	=> array('main'),
 			'required'		=> true, 
 			'icon'			=> PL_ADMIN_ICONS . '/document.png'
 		);

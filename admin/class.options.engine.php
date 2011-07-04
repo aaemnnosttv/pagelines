@@ -451,7 +451,7 @@ class OptEngine {
 		
 		$extra = sprintf('onClick="return %s();"', $confirmID);
 		
-		$input = $this->superlink($o['inputlabel'], 'grey', 'reset-options', 'submit', $extra);
+		$input = $this->superlink($o['inputlabel'], 'grey', 'reset-options', 'submit', $extra, $o['input_name']);
 		
 		//$input = sprintf('<input class="button-secondary reset-options" type="submit" name="%s" onClick="return %s();" value="%s" />', $o['input_name'], $confirmID, $o['inputlabel']);
 		
@@ -914,7 +914,7 @@ class OptEngine {
 	 *  INPUT HELPERS
 	 */
 
-	function superlink($text, $color = 'grey', $class = '', $type = '', $extra=''){
+	function superlink($text, $color = 'grey', $class = '', $type = '', $extra='', $name = ''){
 		
 		if(false !== strpos($type, 'http'))
 			$att = 'a';
@@ -922,7 +922,7 @@ class OptEngine {
 			$att = 'div';
 		
 		if ($type == 'submit')
-			$button = sprintf('<input class="superlink supersave %s" type="submit" name="submit" value="%s" %s />', $class, $text, $extra);
+			$button = sprintf('<input class="superlink supersave %s" type="submit" name="%s" value="%s" %s />', $class, $name, $text, $extra);
 		else
 			$button = sprintf('<%s id="%s" class="%s superlink" href="%s" %s ><span class="superlink-pad">%s</span></%s>', $att, $class, $class, $type, $extra, $text, $att);
 		

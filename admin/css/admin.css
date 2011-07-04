@@ -1,13 +1,27 @@
-/* ============================================= */
-/* = PageLines Admin CSS - Copyright 2008-2010 = */
-/* ============================================= */
+/*
+   admin.css
+   git-platform-framework
+   
+   Created by Andrew Powers on 2011-07-03.
+   Copyright 2011 __MyCompanyName__. All rights reserved.
+*/
+
+/*
+ * WordPress Overrides
+ */
+	#adminmenu .wp-menu-image img {
+		padding: 4px 0 0 1px;
+	}
 
 
+/*
+ * Common Admin Elements
+ */
 	
 	.oinputs p{ font-size: 1em; }
 	.oinputs {line-height: 1.5em}
 	
-/* Labels */
+/* @ Labels */
 	.lbl {
 		font-weight: bold; 
 		font-size: .92em;
@@ -15,9 +29,7 @@
 		
 		display: block;
 	}
-		.lbl.context{
-			margin: 15px 0 2px 0;
-		}
+		.lbl.context{ margin: 15px 0 2px 0; }
 			.lbl.context small{
 				font-size: .95em;
 				font-weight: normal;
@@ -34,7 +46,8 @@
 		background: #eee;
 		margin: 4px 0;
 	}
-/* Interface */
+	
+/* @ Interface */
 	.ui-tabs .ui-tabs-hide { display: none; }
 	#interfacetitle{background: #ddd;	padding: 8px;}
 	#optionstable{
@@ -140,19 +153,7 @@
 		}
 		
 		
-		/*
-			Javascript Detector
-		*/
 
-		.framework_loading {margin: 15px 0;background: none;}
-		.framework_loading a {color:#aaa;text-decoration: none}
-		.framework_loading .framework_loading_gif {
-			background: url(../images/ajax-loader.gif) no-repeat 0 0; 
-			display: block;
-			width: 32px; 
-			height: 32px;
-			margin: 0px auto;
-		}
 		
 	.wrap .updated, .wrap .error {
 		margin:0;
@@ -566,6 +567,7 @@
 			-webkit-border-radius: 4px;
 			border-radius: 4px;	
 			float:left;
+			margin-right: 10px;
 		}
 		.superlink-wrap	.superlink {
 			
@@ -634,7 +636,7 @@
 			.sl-red .superlink:hover{background: #ff0000 url(../images/superlink-sprite-red.png) 0 -35px repeat-x;border: 1px solid #555;}
 			.sl-red .superlink:active{background: #ff0000 url(../images/superlink-sprite-red.png) 0 -70px repeat-x;border: 1px solid #000;color: #ddd}
 		
-		.superlink-right-wrap{float:right}
+		.superlink-right-wrap{float:right; margin-left: 10px;}
 		
 		/* PageLines Superlink Link */
 		.superlink-pagelines{background: url(../images/superlink-pagelines.png) no-repeat 11px 1px; display: block; height: 16px; width: 16px; }
@@ -1626,18 +1628,28 @@
 			background: #ddd;
 			padding: 10px;
 			display: none;
+			text-align: left;
 		}
 			.sub-template-selector .sss-button{
 				cursor: pointer;
-				float:left;
+				display: inline-block;
+				text-align: center;
 				background: #ccc;
 				border: 1px solid #bbb;
+				border-right: 1px solid #aaa;
+				border-bottom: 1px solid #aaa;
 				font-weight: bold;
 				color: #000;
-				padding: 5px 7px;
+				font-size: .85em;
+				width: 105px;
 				margin: 4px;
 				text-decoration: none;
 			}
+				.sss-button-pad{
+					border-top: 1px solid #ddd;
+					border-left: 1px solid #ddd;
+					padding: 5px 7px;
+				}
 				.sub-template-selector .sss-button:hover{background: #c5c5c5;}
 				.sub-template-selector .sss-button.sss-selected{
 					background: #8FCBFD url(../images/sprite-navigation.png) repeat-x left bottom;
@@ -1647,6 +1659,10 @@
 					color: #fff;
 					text-shadow: #196BCE 0 -1px 0;
 				}
+					.sub-template-selector .sss-selected .sss-button-pad{
+						border-top: 1px solid transparent;
+						border-left: 1px solid transparent;
+					}
 /* @ Section Layout */
 	#template_data{display: none;}
 	
@@ -2023,7 +2039,7 @@
 		border-right: 1px solid #bbb;
 		border-bottom: 1px solid #bbb;
 	}
-	.plpane .superlink-wrap{float:right}
+	.plpane .superlink-wrap{float:right; margin-right: 0}
 	 h3{ margin: 0; font-size: 1.3em; }
 	
 	.pane-head{
@@ -2063,14 +2079,21 @@
 
 /* @ Restore/Import/Export */
 
-.download-button{
-	float: left;
-	display: block;
-}
-
-.restore_column_holder { width:920px; }
+	.download-button{ float: left; display: block; }
+	.restore_column_holder { width:920px; }
 	.restore_column_split{float: left;width: 50%;}
 
+
+/* @ Javascript Detector */
+	.framework_loading {margin: 15px 0;background: none;}
+	.framework_loading a {color:#aaa;text-decoration: none}
+	.framework_loading .framework_loading_gif {
+		background: url(../images/ajax-loader.gif) no-repeat 0 0; 
+		display: block;
+		width: 32px; 
+		height: 32px;
+		margin: 0px auto;
+	}
 
 /* universal stuff */
 	#tabs textarea, #metatabs textarea{

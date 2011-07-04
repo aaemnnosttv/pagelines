@@ -29,8 +29,11 @@ class PageLinesTemplate {
 	 *
 	 */
 	function __construct( $template_type = false ) {
-		
+		global $post;
 		global $pl_section_factory;
+	
+		$post = (!isset($post) && isset($_GET['post'])) ? get_post($_GET['post'], 'object') : $post;
+		
 		$this->factory = $pl_section_factory->sections;
 		
 		// All section control settings
@@ -56,7 +59,7 @@ class PageLinesTemplate {
 		$this->map = $this->get_map();
 	
 		$this->load_sections_on_hook_names();
-		
+	
 	}
 
 	/**
@@ -77,8 +80,6 @@ class PageLinesTemplate {
 			return 'archive';
 		elseif(is_home())
 			return 'posts';
-		elseif(is_single())
-			return 'single';
 		elseif(is_page_template()){
 			/*
 				Strip the page. and .php from page.[template-name].php
@@ -86,32 +87,59 @@ class PageLinesTemplate {
 			$page_filename = str_replace('.php', '', get_post_meta($post->ID,'_wp_page_template',true));
 			$template_name = str_replace('page.', '', $page_filename);
 			return $template_name;
-		}else
+		}elseif( get_post_type() && get_post_type() != 'post' && get_post_type() != 'page' )
+			return get_post_type();
+		elseif( is_single() )
+			return 'single';
+		else
 			return 'default';
 	}
+	
+	
+	
 	
 	/**
 	 * Returns template type based on elements in WP admin
 	 */
 	function admin_page_type_breaker(){
 		global $post;
+		
+		
 		if ( !is_object( $post ) ) 
 			return 'default';
 		
-		if(isset($post) && $post->post_type == 'post')
+		if( isset($post) && $post->post_type == 'post' )
 			return 'single';
 		elseif( isset($_GET['page']) && $_GET['page'] == 'pagelines' )
 			return 'posts';
-		elseif(isset($post) && !empty($post->page_template) && $post->post_type == "page") {
+		elseif( isset($post) && !empty($post->page_template) && $post->post_type == "page" ) {
 			$page_filename = str_replace('.php', '', $post->page_template);
 			$template_name = str_replace('page.', '', $page_filename);
 			return $template_name;
-		} elseif(isset($post) && get_post_meta($post->ID,'_wp_page_template',true)){
+		} elseif( isset($post) && get_post_meta($post->ID,'_wp_page_template',true) ){
 			$page_filename = str_replace('.php', '', get_post_meta($post->ID,'_wp_page_template',true));
 			$template_name = str_replace('page.', '', $page_filename);
 			return $template_name;
-		} else 
+		} elseif( isset($post) && isset($post->post_type) )
+			return $post->post_type;
+		else 
 			return 'default';
+		
+	}
+	
+		
+	/**
+	 * Get current post type, set as GET on 'add new' pages
+	 */
+	function current_admin_post_type(){
+		global $pagenow;
+		global $post;
+		$current_post_type = ( !isset($post) && isset($_GET['post_type']) ) 
+							? $_GET['post_type'] 
+							: ( isset($post) && isset($post->post_type) ? $post->post_type : 
+								($pagenow == 'post-new.php' ? 'post' : null));		
+		
+		return $current_post_type;
 		
 	}
 	
@@ -317,40 +345,8 @@ class PageLinesTemplate {
 	 * Tests if the section is in the factory singleton
 	 * @since 1.0.0
 	 */
-	function in_factory( $section ){
-		
+	function in_factory( $section ){	
 		return ( isset($this->factory[ $section ]) && is_object($this->factory[ $section ]) ) ? true : false;
-	}
-	
-	/*
-		Used for when the default map is updated 
-	*/
-	function update_template_config($map){
-		
-		foreach(the_template_map() as $hook_id => $hook_info){
-			
-			if( !isset( $map[$hook_id] ) || !is_array( $map[$hook_id] ) )
-				$map[$hook_id] = $hook_info;
-		
-			$map[$hook_id]['name'] = $hook_info['name'];
-			$map[$hook_id]['hook'] = $hook_info['hook'];
-			$map[$hook_id]['markup'] = $hook_info['markup'];
-			
-			if(isset($hook_info['templates']) && is_array($hook_info['templates'])){
-				
-				foreach($hook_info['templates'] as $sub_template => $stemplate){
-					
-					if( !isset( $map[$hook_id]['templates'][$sub_template] ) )
-						$map[$hook_id]['templates'][$sub_template] = $stemplate;
-					
-					$map[$hook_id]['templates'][$sub_template]['name'] = $stemplate['name'];
-				}
-				
-			}
-		}
-		
-		return $map;
-		
 	}
 	
 	/**
@@ -365,10 +361,65 @@ class PageLinesTemplate {
 			return $this->update_template_config($map);
 			
 		}else{
-			update_option('pagelines_template_map', the_template_map());
-			return the_template_map();
+		
+			$config = $this->update_template_config( the_template_map() );
+			update_option('pagelines_template_map', $config );
+			return $config;
 		}
 	}
+	
+	/**
+	 * When the default map is updated, we need to pull in the additional w/o the option val
+	 * This will also be used for post types, that are added to add them to the map
+	 *
+	 * @since 1.0.0
+	 * 
+	 */
+	function update_template_config( $map ){
+		
+		$map_setup = the_template_map();
+		
+		// Use the map config array, and parse against the option value
+		foreach( $map_setup as $hook_id => $hook_info ){
+			
+			if( !isset( $map[$hook_id] ) || !is_array( $map[$hook_id] ) )
+				$map[$hook_id] = $hook_info;
+		
+			// Use the names from the config instead
+			$map[$hook_id]['name'] = $hook_info['name'];
+			$map[$hook_id]['hook'] = $hook_info['hook'];
+			$map[$hook_id]['markup'] = $hook_info['markup'];
+			
+			// Go through the sub-templates as well
+			if(isset($hook_info['templates'])){
+				
+				foreach($hook_info['templates'] as $sub_template => $stemplate){
+					
+					if( !isset( $map[$hook_id]['templates'][$sub_template] ) )
+						$map[$hook_id]['templates'][$sub_template] = $stemplate;
+					
+					$map[$hook_id]['templates'][$sub_template]['name'] = $stemplate['name'];
+				}
+				
+			}
+		}
+	
+		foreach( $map['templates']['templates'] as $hook => $h ){
+			
+			if(!isset($map_setup['templates']['templates'][$hook]))
+				unset($map['templates']['templates'][$hook]);
+				
+			if(!isset($map_setup['main']['templates'][$hook]))
+				unset($map['main']['templates'][$hook]);
+			
+		}
+
+		
+		return $map;
+		
+	}
+	
+
 	
 	function reset_templates_to_default(){
 		update_option('pagelines_template_map', the_template_map());
@@ -577,3 +628,191 @@ function workaround_pagelines_template_styles(){
 	else return;
 }
 
+/*
+	TEMPLATE MAP
+	
+	This array controls the default template map of section in the theme
+	Each top level needs a hook; and the top-level template needs to be included 
+	as an arg in said hook...
+*/
+function the_template_map() {
+	
+	$template_map = array();
+	
+	$page_templates = the_sub_templates('templates');
+	$content_templates = the_sub_templates('main');
+	
+	$template_map['header'] = array(
+		'hook' 			=> 'pagelines_header', 
+		'name'			=> 'Site Header',
+		'markup'		=> 'content', 
+		'sections' 		=> array( 'PageLinesBranding' , 'PageLinesNav', 'PageLinesSecondNav' )
+	);
+	
+	$template_map['footer'] = array(
+		'hook' 			=> 'pagelines_footer', 
+		'name'			=> 'Site Footer', 
+		'markup'		=> 'content', 
+		'sections' 		=> array('PageLinesFootCols')
+	);
+	
+	$template_map['templates'] = array(
+		'hook'			=> 'pagelines_template', 
+		'name'			=> 'Page Templates', 
+		'markup'		=> 'content', 
+		'templates'		=> $page_templates,
+	);
+	
+	$template_map['main'] = array(
+		'hook'			=> 'pagelines_main', 
+		'name'			=> 'Text Content Area',
+		'markup'		=> 'copy', 
+		'templates'		=> $content_templates,
+	);
+	
+	$template_map['morefoot'] = array(
+		'name'			=> 'Morefoot Area',
+		'hook' 			=> 'pagelines_morefoot',
+		'markup'		=> 'content', 
+		'version'		=> 'pro',
+		'sections' 		=> array('PageLinesMorefoot', 'PageLinesTwitterBar')
+	);
+	
+	$template_map['sidebar1'] = array(
+		'name'			=> 'Sidebar 1',
+		'hook' 			=> 'pagelines_sidebar1',
+		'markup'		=> 'copy', 
+		'sections' 		=> array('PrimarySidebar')
+	);
+	
+	$template_map['sidebar2'] = array(
+		'name'			=> 'Sidebar 2',
+		'hook' 			=> 'pagelines_sidebar2',
+		'markup'		=> 'copy', 
+		'sections' 		=> array('SecondarySidebar')
+	);
+	
+	$template_map['sidebar_wrap'] = array(
+		'name'			=> 'Sidebar Wrap',
+		'hook' 			=> 'pagelines_sidebar_wrap',
+		'markup'		=> 'copy', 
+		'version'		=> 'pro',
+		'sections' 		=> array()
+	);
+	
+	return apply_filters('pagelines_template_map', $template_map); 
+}
+
+
+function the_sub_templates( $t = 'templates' ){
+	
+	$map = array(
+		'default' => array(
+				'name'			=> 'Default Page',
+				'sections' 		=> ($t == 'main') ? array('PageLinesPostLoop', 'PageLinesComments') : array('PageLinesContent')
+		),
+		'posts' => array(
+				'name'			=> 'Blog Posts',
+				'sections' 		=> ($t == 'main') ? array('PageLinesPostsInfo','PageLinesPostLoop', 'PageLinesPagination') : array('PageLinesContent')
+			),
+		'single' => array(
+				'name'			=> 'Blog Post',
+				'sections' 		=> ($t == 'main') ? array('PageLinesPostNav', 'PageLinesPostLoop', 'PageLinesShareBar', 'PageLinesComments', 'PageLinesPagination') : array('PageLinesContent')
+			),
+		'alpha' => array(
+				'name'			=> 'Feature Page',
+				'sections' 		=> ($t == 'main') ? array( 'PageLinesPostLoop' ) : array('PageLinesFeatures', 'PageLinesBoxes', 'PageLinesContent'),
+				'version'		=> 'pro'
+			),
+		'beta' => 	array(
+				'name'			=> 'Carousel Page',
+				'sections' 		=> ($t == 'main') ? array( 'PageLinesPostLoop' ) : array('PageLinesCarousel', 'PageLinesContent'),
+				'version'		=> 'pro'
+			),
+		'gamma' => 	array(
+				'name'			=> 'Box Page',
+				'sections' 		=> ($t == 'main') ? array( 'PageLinesPostLoop' ) : array( 'PageLinesHighlight', 'PageLinesSoapbox', 'PageLinesBoxes' ),
+				'version'		=> 'pro'
+			),
+		'delta' => 	array(
+				'name'			=> 'Highlight Page',
+				'sections' 		=> ($t == 'main') ? array( 'PageLinesPostLoop' ) : array( 'PageLinesHighlight', 'PageLinesContent' ),
+				'version'		=> 'pro'
+			),
+		'epsilon' => 	array(
+				'name'			=> 'Banner Page',
+				'sections' 		=> ($t == 'main') ? array( 'PageLinesPostLoop' ) : array( 'PageLinesHighlight', 'PageLinesBanners', 'PageLinesContent' ),
+				'version'		=> 'pro'
+			),
+		'tag' => array(
+				'name'			=> 'Tags Page',
+				'sections' 		=> ($t == 'main') ? array( 'PageLinesPostLoop' ) : array('PageLinesContent'),
+				'version'		=> 'pro'
+			),
+		'archive' => 	array(
+				'name'			=> 'Archive Page',
+				'sections' 		=> ($t == 'main') ? array( 'PageLinesPostLoop' ) : array('PageLinesContent'),
+				'version'		=> 'pro'
+			),
+		'category' => 	array(
+				'name'			=> 'Category Page',
+				'sections' 		=> ($t == 'main') ? array( 'PageLinesPostLoop' ) : array('PageLinesContent'),
+				'version'		=> 'pro'
+			),
+		'search' => 	array(
+				'name'			=> 'Search Page',
+				'sections' 		=> ($t == 'main') ? array( 'PageLinesPostLoop' ) : array('PageLinesContent'),
+				'version'		=> 'pro'
+			),
+		
+		
+	);
+	
+	if($t == 'templates'){
+		$map["404"] = array(
+			'name'			=> '404 Error',
+			'sections' 		=> array( 'PageLinesNoPosts' ),
+		);
+	}
+	
+	
+	$pt = custom_post_type_handler( $t );
+
+	$map = array_merge($map, $pt);
+
+	return apply_filters('the_sub_templates', $map, $t);
+	
+}
+
+/**
+ * Handles custom post types, and adds panel if applicable
+ */
+function custom_post_type_handler( $area = 'main' ){
+	global $post;
+	
+	// Get all 'public' post types
+	$pts = get_post_types(array( 'publicly_queryable' => true ));
+
+	
+	if(isset($pts['page']))
+		unset($pts['page']);
+	
+	if(isset($pts['post']))
+		unset($pts['post']);
+
+	$post_type_array = array();
+
+	foreach($pts as $public_post_type){
+		
+		$sections = ($area == 'template') ? 'PageLinesContent' : 'PageLinesPostLoop';
+	
+		$post_type_array[$public_post_type] = array(
+			'name'		=> ucfirst($public_post_type), 
+			'sections'	=> array($sections)
+		);
+		
+	}
+	
+	return $post_type_array;
+	
+}

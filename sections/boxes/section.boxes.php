@@ -38,9 +38,10 @@ class PageLinesBoxes extends PageLinesSection {
 			Create Custom Post Type 
 		*/
 			$args = array(
-					'label' => __('Boxes', 'pagelines'),  
-					'singular_label' => __('Box', 'pagelines'),
-					'description' => 'For creating boxes in box type layouts.',
+					'label' 			=> __('Boxes', 'pagelines'),  
+					'singular_label' 	=> __('Box', 'pagelines'),
+					'description' 		=> 'For creating boxes in box type layouts.',
+					'menu_icon'			=> $this->icon
 				);
 			$taxonomies = array(
 				"box-sets" => array(	
@@ -394,4 +395,26 @@ function pagelines_default_boxes($post_type){
 			wp_set_object_terms($newPostID, $dp['set'], 'box-sets', true);
 
 	}
+}
+
+function get_default_fboxes(){
+	$default_boxes[] = array(
+	        				'title' => 'Drag&amp;Drop Design',
+			        		'text' 	=> 'In voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur occaecat cupidatat non proident, in culpas officia deserunt.',
+							'media' => PL_IMAGES.'/fbox3.png'
+	    				);
+
+	$default_boxes[] = array(
+	        				'title' => 'PageLines Framework',
+			        		'text' 	=> 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in.',
+							'media' => PL_IMAGES.'/fbox2.png'
+	    				);
+
+	$default_boxes[] = array(
+	        				'title'	=> 'Rock The Web!',
+	        				'text' 	=> 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim.', 
+							'media' => PL_IMAGES.'/fbox1.png'
+	    				);
+	
+	return apply_filters('pagelines_default_boxes', $default_boxes);
 }

@@ -18,7 +18,8 @@ class PageLinesPostAuthor extends PageLinesSection {
 		
 		$settings = array(
 			'description' 	=> 'Adds information about the author of a blog post or page. Add user information under "users" in the admin.',
-			'workswith' 	=> array('main-single', 'main-default'),
+			'workswith' 	=> array('main'),
+			'failswith'		=> pagelines_special_pages(),
 			'icon'			=> PL_ADMIN_ICONS . '/author.png'
 		);
 		
