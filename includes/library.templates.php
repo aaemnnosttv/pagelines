@@ -64,9 +64,9 @@ function pagelines_standard_sidebar($name, $description){
  * @param string $name Function name, to be used in the input
  * @param string $text The text of the confirmation
  */
-function pl_action_confirm($name, $text){ ?>
-	<script language="jscript" type="text/javascript">
-		function <?php echo $name;?>(){	
+function pl_action_confirm($name, $text){ 
+	?>
+	<script language="jscript" type="text/javascript"> function <?php echo $name;?>(){	
 			var a = confirm ("<?php echo esc_js( $text );?>");
 			if(a) {
 				jQuery("#input-full-submit").val(1);

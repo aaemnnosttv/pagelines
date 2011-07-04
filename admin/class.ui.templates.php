@@ -212,22 +212,21 @@ class PageLinesTemplateBuilder {
 
 	function _sub_selector($type = 'templates', $class, $title = '', $subtitle = ''){
 		global $pagelines_template;
-		 ?>
-		<div class="sub-template-selector fix <?php echo $class;?>">
-			<div class="sub-templates fix">
-				<h4 class="over"><?php echo $title; ?></h4>
-				<?php 	
-						$h = $pagelines_template->map;
-						foreach($h[$type]['templates'] as $template => $t){
-							
-							if( (!isset($t['version']) || ($t['version'] == 'pro' && VPRO)) && isset($t['name']))
-								printf('<div id="%s" class="sss-button"><div class="sss-button-pad">%s</div></div>', join( '-', array($type, $template) ), $t['name']);
-						}
-					
-				?>
-			</div>
-		</div>
-	<?php }
+		
+		
+		// The Buttons
+		$buttons = '';
+		foreach($pagelines_template->map[$type]['templates'] as $template => $t){
+			
+			if( (!isset($t['version']) || ($t['version'] == 'pro' && VPRO)) && isset($t['name']))
+				$buttons .= sprintf('<div id="%s" class="sss-button"><div class="sss-button-pad">%s</div></div>', join( '-', array($type, $template) ), $t['name']);
+				
+		}
+		
+		// Output
+		printf('<div class="sub-template-selector fix %s"><div class="sub-templates fix"><h4 class="over">%s</h4>%s</div></div>', $class, $title, $buttons);
+		
+	}
 
 	function do_template_builder(){
 		
@@ -435,27 +434,34 @@ class PageLinesTemplateBuilder {
 						</div>
 					<?php endif;
 					
-					if($this->show_sc( $a['template'] )):?>
-						<strong>
-							<?php echo $a['name'];?> 
-							<?php if($a['clone'] != 1):?><span class="the_clone_id"><?php echo '#'.$a['clone']; ?></span><?php endif;?> 
-							Settings
-						</strong> 
+					if($this->show_sc( $a['template'] )):
+						$clone = ($a['clone'] != 1) ? sprintf('<span class="the_clone_id">%s</span>', '#' . $a['clone']) : '';
+						printf('<strong>%s %s %s</strong>', $a['name'], $clone, 'Settings')
+						
+						
+							?>
+
 						<div class="section-options">
 							<div class="section-options-row">
 								<input class="section_control_check" type="checkbox" id="<?php echo $check_name; ?>" name="<?php echo $check_name; ?>" <?php checked((bool) $check_value); ?> />
 								<label for="<?php echo $check_name; ?>">Hide This By Default</label>
 							</div>
-							<?php if(!$posts_check_disabled):?>
-							<div class="section-options-row">
-									<input class="section_control_check" type="checkbox" id="<?php echo $posts_check_name; ?>" name="<?php echo $posts_check_name; ?>" <?php checked((bool) $posts_check_value); ?>/>
-									<label for="<?php echo $posts_check_name; ?>" class="<?php echo 'check_type_'.$posts_check_type; ?>"><?php echo $posts_check_label;?></label>
-							</div>
-							<?php endif;?>
+							<?php 
+							
+							if(!$posts_check_disabled){
+								$checkbox = sprintf('<input class="section_control_check" type="checkbox" id="%1$s" name="%1$s" %2$s/>', $posts_check_name, checked((bool) $posts_check_value, true, false));
+								$label = sprintf('<label for="%s" class="%s">%s</label>', $posts_check_name, 'check_type_' . $posts_check_type, $posts_check_label);
+								
+								printf('<div class="section-options-row">%s %s</div>', $checkbox, $label);
+							}
+							
+							?>
 						</div>
-					<?php else: ?>
-						No settings in this template area.
-					<?php endif;?>
+					<?php 
+						else:
+					 		echo 'No settings in this template area.';
+						
+						endif;?>
 					<div class="clear"></div>
 			</div>
 		</div>

@@ -712,7 +712,7 @@ function the_sub_templates( $t = 'templates' ){
 				'sections' 		=> ($t == 'main') ? array('PageLinesPostLoop', 'PageLinesComments') : array('PageLinesContent')
 		),
 		'posts' => array(
-				'name'			=> 'Blog Posts',
+				'name'			=> 'Blog',
 				'sections' 		=> ($t == 'main') ? array('PageLinesPostsInfo','PageLinesPostLoop', 'PageLinesPagination') : array('PageLinesContent')
 			),
 		'single' => array(
