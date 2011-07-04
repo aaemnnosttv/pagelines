@@ -146,7 +146,7 @@
 		$plugins = $this->get_latest_cached( 'plugins' );
 
 		if ( is_object($plugins) ) {
-			
+		plprint($plugins);	
 			$output = '';
 			foreach( $plugins as $key => $plugin ) {
 				
@@ -158,11 +158,11 @@
 				if ($tab == 'free' && ( $status['status'] == 'active' || $status['status'] == 'notactive' ) )
 					continue;
 
-				$install_js_call = sprintf( $this->exprint, 'plugin_install', $key, 'plugin', $plugin->url, 'Installing');
-				$activate_js_call = sprintf( $this->exprint, 'plugin_activate', $key, 'plugin', $plugin->file, 'Activating');
-				$deactivate_js_call = sprintf( $this->exprint, 'plugin_deactivate', $key, 'plugin', $plugin->file, 'Deactivating');
-				$upgrade_js_call = sprintf( $this->exprint, 'plugin_upgrade', $key, 'plugin', $plugin->url, 'Upgrading');
-				$delete_js_call = sprintf( $this->exprint, 'plugin_delete', $key, 'plugin', $plugin->file, 'Deleting');
+				$install_js_call = sprintf( $this->exprint, 'plugin_install', $key, $plugin->name, $plugin->url, 'Installing');
+				$activate_js_call = sprintf( $this->exprint, 'plugin_activate', $key, $plugin->name, $plugin->file, 'Activating');
+				$deactivate_js_call = sprintf( $this->exprint, 'plugin_deactivate', $key, $plugin->name, $plugin->file, 'Deactivating');
+				$upgrade_js_call = sprintf( $this->exprint, 'plugin_upgrade', $key, $plugin->name, $plugin->url, 'Upgrading');
+				$delete_js_call = sprintf( $this->exprint, 'plugin_delete', $key, $plugin->name, $plugin->file, 'Deleting');
 
 				if ( !isset( $status['status'] ) )
 					$status = array( 'status' => '' );
@@ -202,6 +202,69 @@
 						'buttons'	=> $button,
 						'key'		=> $key,
 						'count'		=> $plugin->count
+				);
+				
+				$output .= $this->pane_template($args);
+				
+			}
+		}
+		return $output;
+	}
+
+
+	function extension_themes( $tab = '' ) {
+
+		$themes = $this->get_latest_cached( 'themes' );
+
+		if ( is_object($themes) ) {
+	
+			$output = '';
+			$status = '';
+			foreach( $themes as $key => $theme ) {
+			
+			if ( file_exists( WP_CONTENT_DIR . '/themes/' . $theme->name . '/style.css' ) )
+				if ( $data =  get_theme_data( WP_CONTENT_DIR . '/themes/' . $theme->name . '/style.css' ) ) 
+					$status = 'installed';
+
+				if ($tab == 'free' && $status == 'installed' )
+					continue;
+					
+				if ( !$tab && !$status)
+					continue;
+
+				$install_js_call = sprintf( $this->exprint, 'theme_install', $key, $theme->name, $theme->url, 'Installing');
+				$upgrade_js_call = sprintf( $this->exprint, 'theme_upgrade', $key, $theme->name, $theme->url, 'Upgrading');
+
+				if ( isset($data) && $data['Version'] && $theme->version > $data['Version'])
+					$status = 'upgrade';
+
+				switch ( $status ) {
+					
+					case 'installed':
+						$button = '';
+						break;
+					
+					case 'upgrade':
+						$button = OptEngine::superlink('Upgrade to ' . $theme->version, 'black', '', '', $upgrade_js_call);
+						break;
+
+					default:
+						// were not installed, show the form! ( if we are on install tab )
+						$button = OptEngine::superlink('Install', 'black', '', '', $install_js_call);
+						break;
+						
+				}
+				
+				$args = array(
+						'name' 		=> $theme->name, 
+						'version'	=> ( !empty( $status ) ) ? $data['Version'] : $theme->version, 
+						'desc'		=> $theme->text,
+						'tags'		=> ( isset( $theme->tags ) ) ? $theme->tags : '',
+						'auth_url'	=> $theme->author_url, 
+						'auth'		=> $theme->author, 
+						'buttons'	=> $button,
+						'key'		=> $key,
+						'count'		=> $theme->count
 				);
 				
 				$output .= $this->pane_template($args);
@@ -253,16 +316,7 @@
 			
 	}
 
- 	/*
- 	*
- 	* Here is the themes function
- 	* TODO TODO TODO
- 	*
- 	*/
-	function extension_themes() {
 
-		return 'Fetch from api list of themes and show ajax buttons...';		
-	}
 
 	/**
 	 * 
@@ -403,7 +457,7 @@
 
 				$upgrader = new Plugin_Upgrader();
 				$options = array( 'package' => $url, 
-						'destination'		=> WP_PLUGIN_DIR .'/pagelines-sections/sections/' . rtrim( basename( $url ), '.zip' ), 
+						'destination'		=> WP_PLUGIN_DIR .'/pagelines-sections/sections/' . $type , 
 						'clear_destination' => false,
 						'clear_working'		=> false,
 						'is_multi'			=> false,
@@ -437,7 +491,7 @@
 
 				$upgrader = new Plugin_Upgrader();
 				$options = array( 'package' => $url, 
-						'destination'		=> WP_PLUGIN_DIR .'/' . rtrim( basename( $url ), '.zip' ), 
+						'destination'		=> WP_PLUGIN_DIR .'/' . $type, 
 						'clear_destination' => true,
 						'clear_working'		=> false,
 						'is_multi'			=> false,
@@ -456,6 +510,41 @@
 				echo 'Deleted';
 				$this->page_reload( 'pagelines_extend' );
 			break;
+			
+			case 'theme_upgrade':
+
+				$upgrader = new Plugin_Upgrader();
+				$options = array( 'package' => $url, 
+						'destination'		=> WP_CONTENT_DIR .'/themes/' . $type, 
+						'clear_destination' => true,
+						'clear_working'		=> false,
+						'is_multi'			=> false,
+						'hook_extra'		=> array() 
+				);
+
+				@$upgrader->run($options);
+				// Output
+				echo 'Upgraded';
+				$this->page_reload( 'pagelines_extend' );		
+			break;			
+			
+			case 'theme_install':
+
+				$upgrader = new Plugin_Upgrader();
+				$options = array( 'package' => $url, 
+						'destination'		=> WP_CONTENT_DIR .'/themes/' . $type, 
+						'clear_destination' => true,
+						'clear_working'		=> false,
+						'is_multi'			=> false,
+						'hook_extra'		=> array() 
+				);
+
+				@$upgrader->run($options);
+				// Output
+				echo 'Installed';
+				$this->page_reload( 'pagelines_extend' );		
+			break;			
+			
 		}
 		die(); // needed at the end of ajax callbacks
 	}
@@ -559,12 +648,12 @@ function extension_array(  ){
 				
 				'installed'	=> array(
 					'title'		=> 'Installed PageLines Themes',
-					'callback'	=> ''
+					'callback'	=> $extension_control->extension_themes()
 					),
 				'free'		=> array(
 					'title'		=> 'Free Themes',
 					'class'		=> 'right',
-					'callback'	=> ''
+					'callback'	=> $extension_control->extension_themes( 'free' )
 					)
 					
 				)
