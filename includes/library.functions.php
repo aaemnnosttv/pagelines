@@ -144,6 +144,9 @@ function ie_version() {
  */
 function pagelines_shorturl( $url, $timeout = 86400 ) {
 
+	if ( !pagelines_option( 'share_twitter_cache' ) )
+		return $url;
+
 	$provider = 'http://ggl-shortener.appspot.com/?url=';
 
 	// If cache exists send it back
