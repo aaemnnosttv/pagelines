@@ -938,8 +938,8 @@ class OptEngine {
 		return sprintf('<textarea id="%s" name="%s" class="html-textarea %s" />%s</textarea>', $id, $name, $class, $value );
 	}
 	
-	function input_text($id, $name, $value, $class = 'regular-text', $attr = 'text'){
-		return sprintf('<input type="%s" id="%s" name="%s" value="%s" class="%s" />', $attr, $id, $name, $value, $class );
+	function input_text($id, $name, $value, $class = 'regular-text', $attr = 'text', $extra = ''){
+		return sprintf('<input type="%s" id="%s" name="%s" value="%s" class="%s" %s />', $attr, $id, $name, $value, $class, $extra);
 	}
 	
 	function input_checkbox($id, $name, $value, $class = 'admin_checkbox'){

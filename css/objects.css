@@ -54,7 +54,7 @@
 	}
 	
 /* @ Floating and Alignment */
-	.hidden {display: none; visibility: hidden;}
+	.hidden {display: none;}
 	.aligncenter,.alignnone {display: block;margin-left: auto;margin-right: auto;}
 	.center, .textcenter {text-align: center;}
 	.alignleft {float: left;margin:0 1.4em .4em 0;}

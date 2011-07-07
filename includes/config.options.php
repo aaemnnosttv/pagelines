@@ -179,6 +179,19 @@ class PageLinesOptionsArray {
 				'title'		=> 'Layout Dimension Editor',						
 				'shortexp'	=> 'Configure the default layout for your site which is initially selected in the Default Layout Mode option in Global Options. <br/>This option allows you to adjust columns and margins for the default layout.',
 			), 
+			'layout_handling' => array(
+				'default'	=> 'pixels',
+				'type'		=> 'select',
+				'inputlabel'	=> 'How should layout be handled?',
+				'selectvalues'	=> array(
+					'pixels'		=> array( 'name' => 'Responsive with pixel based content width' ), 
+					'percent'		=> array( 'name' => 'Responsive with percentage based content width' ), 
+					'static'		=> array( 'name' => 'Static with pixel based content width' )
+				),
+				'title'		=> 'Layout Handling',						
+				'shortexp'	=> 'Select between responsive vs. static; pixel based or percentage based layout',
+				'exp'		=> 'Responsive layout adjusts to the size of your user\'s browser window; static is fixed width. Use this option to switch between the pixel based site width and a percentage based one.'
+			),
 			'resetlayout' => array(
 				'default'	=> '',
 				'inputlabel'	=> __("Reset Layout", 'pagelines'),
