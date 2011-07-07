@@ -760,6 +760,7 @@ class PageLinesOptionsArray {
 					'selectvalues'	=> array(
 						'share_facebook'	=> array('inputlabel'=>'Facebook Sharing Icon', 'default'=> true),
 						'share_twitter'		=> array('inputlabel'=>'Twitter Sharing Icon', 'default'=> true),
+						'share_twitter_cache'=>array('inputlabel'=>'Enable twitter short urls', 'default'=> false),
 						'share_delicious'	=> array('inputlabel'=>'Del.icio.us Sharing Icon', 'default'=> true),
 						'share_mixx'		=> array('inputlabel'=>'Mixx Sharing Icon', 'default'=> false),
 						'share_reddit'		=> array('inputlabel'=>'Reddit Sharing Icon', 'default'=> true),

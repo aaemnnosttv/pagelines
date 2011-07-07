@@ -45,13 +45,13 @@
 
 		foreach( $sections as $key => $section ) {
 
-			$check_file = WP_PLUGIN_DIR . '/pagelines-sections/sections/' . str_replace( '.zip', '', basename( $section->url ) ) . '/' . str_replace( '.zip', '', basename( $section->url ) ) . '.php';
+			$check_file = WP_PLUGIN_DIR . '/pagelines-sections/sections/' . $section->name . '/' . str_replace( 'download.php?d=', '', str_replace( '.zip', '', basename( $section->url ) ) ) . '.php';
 
 			if ( file_exists( $check_file ) )
 				continue;
 
 			$key = str_replace( '.', '', $key );
-			$install_js_call = sprintf( $this->exprint, 'section_install', $key, 'section', $section->url, 'Installing');
+			$install_js_call = sprintf( $this->exprint, 'section_install', $key, $section->name, $section->url, 'Installing');
 
 			$button = OptEngine::superlink('Install Section', 'black', '', '', $install_js_call);
 				
@@ -461,7 +461,7 @@
 
 				$upgrader = new Plugin_Upgrader();
 				$options = array( 'package' => $url, 
-						'destination'		=> WP_PLUGIN_DIR .'/pagelines-sections/sections/' . $type , 
+						'destination'		=> WP_PLUGIN_DIR .'/pagelines-sections/sections/' . $type, 
 						'clear_destination' => false,
 						'clear_working'		=> false,
 						'is_multi'			=> false,
