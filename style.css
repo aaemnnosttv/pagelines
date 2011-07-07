@@ -34,42 +34,44 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 
-body{ font-size:82.5%; line-height:1.58em; height:100%; padding-top: 5px; } 			
 
-/* Headers H1 - H6 */
+body{ font-size:82.5%; line-height:1.6em; height:100%; padding-top: 5px; } 			
+
+
+/******* Text Styles *******/
+
+/* @ Headers H1 - H6 */
 	h1, h2, h3, h4, h5, h6{font-weight:normal; line-height: 1.33em;}
-	h1{font-size:3em;} 
+	h1{font-size:3.3em;} 
 	h2{font-size:2em;}
 	h3{font-size:1.5em;}
 	h4{font-size:1.3em;}
 	h5{font-size:1.1em;}
 	h6{font-size:1.1em;}
 	
-
-/* Header Special Cases */
+	/* Header Special Cases */
 	h1 + img, h2 + img{margin-top:1em;}
 	h1.entry-title{ margin:0; }
 
-/* Paragraph Handling */
-	p{margin:1.58em 0;}
+/* @ Paragraphs */
+	p{margin:1.6em 0;}
 	.hentry p:first-child{margin-top: .3em;}
 	p {hyphenate: auto;hyphenate-before:2;hyphenate-after:3;hyphenate-lines: 3;orphans:4}
 	p span.pullquote{text-indent:0;}
 
-/* Lists */ 
-.hentry ul, .hentry ol { margin: 1.58em 0; margin-left: 16px;}
+/* @ Lists */ 
+	.hentry ul, .hentry ol { margin: 1.58em 0; margin-left: 16px;}
  
-aside p, .sidenote p{line-height:1.7em;margin:0;}
-aside ul, aside ol, .sidenote ul, .sidenote ol{margin-top:1.3em;line-height:1.7em;}
+/* @ Special Text Elements */ 
+	aside p, .sidenote p{line-height:1.7em;margin:0;}
+	aside ul, aside ol, .sidenote ul, .sidenote ol{margin-top:1.3em;line-height:1.7em;}
 
-.footnote{font-size:.75em;margin-top:3.5em;}
-.footnote li{margin:1.5em 0 1.5em;word-spacing:.1em;line-height:1.75em;}
-.caption{font-size:.8em;font-style:italic;margin:.6em 0 -.2em;}
-.kicker .run-in{text-transform:uppercase;font-style:normal;letter-spacing:.25em;font-size:.9em;}
-.drop-cap {display:block;font-style:normal;font-size:8em;float:left;margin:.04em .1em 0 0;line-height:.67em;}
-
-/*Tweaks*/
-.kern{letter-spacing:-.1em;}
+	.footnote{font-size:.75em;margin-top:3.5em;}
+	.footnote li{margin:1.5em 0 1.5em;word-spacing:.1em;line-height:1.75em;}
+	.caption{font-size:.8em;font-style:italic;margin:.6em 0 -.2em;}
+	.kicker .run-in{text-transform:uppercase;font-style:normal;letter-spacing:.25em;font-size:.9em;}
+	.drop-cap {display:block;font-style:normal;font-size:8em;float:left;margin:.04em .1em 0 0;line-height:.67em;}
+	.kern{letter-spacing:-.1em;}
 
 
 /* @ Text Headers */
@@ -89,10 +91,9 @@ aside ul, aside ol, .sidenote ul, .sidenote ol{margin-top:1.3em;line-height:1.7e
 
 
 
-/* ============================ */
-/* =   @ Default Type Faces   = */
-/* ============================ */
-
+/* 
+ * @ Default Type Faces
+ */
 	/* Primary Font Style */
 		body, .font1, .font-primary, .commentlist, input{ 
 			font-family:Georgia, 'Times New Roman', Times, serif; 
@@ -176,8 +177,6 @@ aside ul, aside ol, .sidenote ul, .sidenote ol{margin-top:1.3em;line-height:1.7e
 	
 	
 	/* Borders */
-
-	
 		/* Primary Border Color */
 			hr, .fpost, .clip_box, .widget-title, #buddypress-page .item-list li, .metabar a, #morefoot .widget-title, #site #dsq-content h3{ 
 				border-bottom: 1px solid #E9E9E9; 

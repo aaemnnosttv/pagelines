@@ -58,9 +58,10 @@ class PageLinesPosts {
 		$clip = ($this->pagelines_show_clip($this->count, $this->paged)) ? true : false;
 		$format = ($clip) ? 'clip' : 'feature';
 		$clip_row_start = ($this->clipcount % 2 == 0) ? true : false;
-		$clip_row_end = ( ($this->clipcount+1) % 2 == 0 || $this->count == $this->post_count ) ? true : false;
+		$clip_right = ( ($this->clipcount+1) % 2 == 0 ) ? true : false;
+		$clip_row_end = ( $clip_right || $this->count == $this->post_count ) ? true : false;
 		
-		$pagelines_post_classes = ($clip) ? ( $clip_row_end ? 'clip clip-right' : 'clip' ) : 'fpost';
+		$pagelines_post_classes = ($clip) ? ( $clip_right ? 'clip clip-right' : 'clip' ) : 'fpost';
 		$post_classes = join(' ', get_post_class( $pagelines_post_classes ));
 		
 		$wrap_start = ( $clip && $clip_row_start ) ? sprintf('<div class="clip_box fix">') : ''; 	
@@ -92,18 +93,19 @@ class PageLinesPosts {
 	
 	function post_content(){
 	
-		ob_start();
-			pagelines_register_hook( 'pagelines_loop_before_post_content', 'theloop' ); // Hook
-			the_content( __('<p>Continue reading &raquo;</p>','pagelines') );
-			echo '<div class="clear"></div>';
+	
+			// pagelines_register_hook( 'pagelines_loop_before_post_content', 'theloop' ); // Hook
+		
+			$the_content = get_the_content( __('<p>Continue reading &raquo;</p>','pagelines') );
+			$the_content .= '<div class="clear"></div>';
 			if( is_single() || is_page() ) 
-				wp_link_pages(array('before'=> __('<p class="content-pagination"><span class="cp-desc">pages:</span>', 'pagelines'), 'after' => '</p>', 'pagelink' => '<span class="cp-num">%</span>')); 
+				$the_content .= wp_link_pages(array('echo'=> false, 'before'=> __('<p class="content-pagination"><span class="cp-desc">pages:</span>', 'pagelines'), 'after' => '</p>', 'pagelink' => '<span class="cp-num">%</span>')); 
 		
 			// Edit Link
 			$edit_type = (is_page()) ? __('Edit Page','pagelines') : __('Edit Post','pagelines');
-			edit_post_link( '['.$edit_type.']', '', '');
-			pagelines_register_hook( 'pagelines_loop_after_post_content', 'theloop' ); // Hook 
-		$the_content = ob_get_clean();
+			$the_content .= get_edit_post_link( '['.$edit_type.']', '', '');
+			//pagelines_register_hook( 'pagelines_loop_after_post_content', 'theloop' ); // Hook 
+
 		
 		return $the_content;
 		

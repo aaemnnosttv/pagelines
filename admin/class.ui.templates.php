@@ -439,14 +439,14 @@ class PageLinesTemplateBuilder {
 					
 							
 							$checkbox = sprintf('<input class="section_control_check" type="checkbox" id="%1$s" name="%1$s" %2$s/>', $check_name, checked((bool) $check_value, true, false));
-							$label = sprintf('<label for="%s" class="%s">%s</label>', $check_name,  'Hide This By Default');
+							$label = sprintf('<label for="%s" class="%s">%s</label>', $check_name, '', 'Hide This By Default');
 							
 							printf('<div class="section-options-row">%s %s</div>', $checkbox, $label);
 						
 							
 							if(!$posts_check_disabled){
 								$checkbox = sprintf('<input class="section_control_check" type="checkbox" id="%1$s" name="%1$s" %2$s/>', $posts_check_name, checked((bool) $posts_check_value, true, false));
-								$label = sprintf('<label for="%s" class="%s">%s</label>', $posts_check_name, 'check_type_' . $posts_check_type, $posts_check_label);
+								$label = sprintf('<label for="%s" class="%s">%s</label>', $posts_check_name, 'check_type_' . $posts_action, $posts_check_label);
 								
 								printf('<div class="section-options-row">%s %s</div>', $checkbox, $label);
 							}

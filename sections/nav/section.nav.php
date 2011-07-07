@@ -48,7 +48,6 @@ class PageLinesNav extends PageLinesSection {
 		
 		register_nav_menus( array( 'primary' => __( 'Primary Website Navigation', 'pagelines' ) ) );
 		
-		
 	}
 	
    function section_template() {  

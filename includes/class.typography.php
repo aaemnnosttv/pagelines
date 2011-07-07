@@ -52,6 +52,13 @@ class PageLinesFoundry {
 				'google' => false,
 				'monospace' => false
 			),
+			'cabin' => array(
+				'name' => 'Cabin',
+				'family' => 'Cabin, Arial, Verdana, sans-serif',
+				'web_safe' => true,
+				'google' => array('regular', 'italic', 'bold', 'bolditalic'),
+				'monospace' => false
+			),
 			'cantarell' => array(
 				'name' => 'Cantarell',
 				'family' => 'Cantarell, Candara, Verdana, sans-serif',
@@ -165,6 +172,14 @@ class PageLinesFoundry {
 				'family' => 'Lobster, Arial, sans-serif',
 				'web_safe' => true,
 				'google' => true,
+				'monospace' => false, 
+				'free'		=> true
+			),
+			'merriweather' => array(
+				'name' 		=> 'Merriweather',
+				'family' 	=> 'Merriweather, georgia, times, serif',
+				'web_safe' 	=> true,
+				'google' 	=> true,
 				'monospace' => false, 
 				'free'		=> true
 			),
