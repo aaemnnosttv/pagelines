@@ -26,8 +26,6 @@ class PageLinesNav extends PageLinesSection {
 			'type' 			=> 'header',
 			'workswith' 	=> array('header'),
 			'description' 	=> 'Primary Site Navigation.',
-			'folder' 		=> 'nav', 
-			'init_file' 	=> 'nav.php',
 			'icon'			=> PL_ADMIN_ICONS . '/map.png', 
 			'cloning'		=> false
 		);

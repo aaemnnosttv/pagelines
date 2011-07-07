@@ -19,8 +19,6 @@ class SecondarySidebar extends PageLinesSection {
 		$default_settings = array(
 			'description' 	=> 'The secondary widgetized sidebar for the theme.',
 			'workswith' 	=> array('sidebar1', 'sidebar2', 'sidebar_wrap'),
-			'folder' 		=> 'sidebars', 
-			'init_file' 	=> 'section.sb_secondary.php',
 			'icon'			=> PL_ADMIN_ICONS . '/sidebar.png'
 		);
 		

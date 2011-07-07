@@ -20,8 +20,6 @@ class PrimarySidebar extends PageLinesSection {
 		$settings = array(
 			'description' 	=> 'The main widgetized sidebar for the theme.',
 			'workswith' 	=> array('sidebar1', 'sidebar2', 'sidebar_wrap'),
-			'folder' 		=> 'sidebars', 
-			'init_file' 	=> 'sidebar_primary.php', 
 			'icon'			=> PL_ADMIN_ICONS . '/sidebar.png'
 		);
 		

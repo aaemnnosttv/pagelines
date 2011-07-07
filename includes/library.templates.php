@@ -135,7 +135,8 @@ function pagelines_head_common(){
 	// Get Common CSS & Reset
 	pagelines_load_css_relative('css/common.css', 'pagelines-common');
 
-
+	// Get CSS Layout
+	pagelines_load_css_relative('css/layout.css', 'pagelines-layout');
 	
 	// Get CSS Objects & Grids
 	pagelines_load_css_relative('css/objects.css', 'pagelines-objects');
