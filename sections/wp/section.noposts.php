@@ -20,9 +20,7 @@ class PageLinesNoPosts extends PageLinesSection {
 			'type' 			=> 'main',
 			'description' 	=> 'Shows 404 error to users.',
 			'workswith' 	=> array('404'),
-			'folder' 		=> 'wp', 
 			'required'		=> true, 
-			'init_file' 	=> 'noposts'
 		);
 		
 

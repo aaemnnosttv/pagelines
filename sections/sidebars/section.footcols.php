@@ -20,8 +20,6 @@ class PageLinesFootCols extends PageLinesSection {
 			'type' 			=> 'standard',
 			'description' 	=> 'Displays a 5 column sidebar in the footer that can be setup to use widgets or theme options. Add widgets in the widgets panel to activate widget mode.',
 			'workswith' 	=> array('footer'),
-			'folder' 		=> '', 
-			'init_file' 	=> 'footcols.php', 
 			'icon'			=> PL_ADMIN_ICONS . '/column.png'
 		);
 		

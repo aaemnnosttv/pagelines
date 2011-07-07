@@ -19,8 +19,6 @@ class TertiarySidebar extends PageLinesSection {
 		$settings = array(
 			'description' 	=> 'A 3rd widgetized sidebar for the theme that can be used in standard sidebar templates.',
 			'workswith' 	=> array('sidebar1', 'sidebar2', 'sidebar_wrap'),
-			'folder' 		=> 'sidebars', 
-			'init_file' 	=> 'section.sb_tertiary.php',
 			'icon'			=> PL_ADMIN_ICONS . '/sidebar.png'
 		);
 		

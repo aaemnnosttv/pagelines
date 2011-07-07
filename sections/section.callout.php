@@ -20,8 +20,6 @@ class PageLinesCallout extends PageLinesSection {
 		$default_settings = array(
 			'description' 	=> 'Callout Section - A banner displaying a call to action or simple text.',
 			'workswith' 	=> array('content'),
-			'folder' 		=> '', 
-			'init_file' 	=> 'callout.php', 
 			'icon'			=> PL_ADMIN_ICONS . '/speaker.png',
 			'cloning'		=> true
 		);

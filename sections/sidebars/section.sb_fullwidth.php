@@ -21,8 +21,6 @@ class FullWidthSidebar extends PageLinesSection {
 		$default_settings = array(
 			'description' 	=> __('A widgetized full width sidebar. This sidebar will span the entire width of your website.', 'pagelines'),
 			'workswith' 	=> array('templates', 'footer', 'morefoot'),
-			'folder' 		=> '', 
-			'init_file' 	=> 'fullwidth_sidebar.php', 
 			'icon'			=> PL_ADMIN_ICONS . '/sidebar.png',
 			'version'		=> 'pro'
 		);

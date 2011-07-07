@@ -20,8 +20,6 @@ class ContentSidebar extends PageLinesSection {
 		$settings = array(
 			'description' 	=> __('Displays a widgetized sidebar inside the main content area. Set it up in the widgets panel', 'pagelines'),
 			'workswith' 	=> array('main-default', 'main-posts', 'main-single', 'main-404'),
-			'folder' 		=> '', 
-			'init_file' 	=> 'fullwidth_sidebar.php', 
 			'icon'			=> PL_ADMIN_ICONS . '/sidebar.png'
 		);
 		
