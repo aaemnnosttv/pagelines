@@ -236,7 +236,11 @@
 					
 				if ( !$tab && !$status)
 					continue;
-
+				if ( $status == 'installed' && $theme->name == basename( STYLESHEETPATH ) )
+					$status = 'activated';
+				
+				$activate_js_call = sprintf( $this->exprint, 'theme_activate', $key, $theme->name, $theme->url, 'Activating');
+				$deactivate_js_call = sprintf( $this->exprint, 'theme_deactivate', $key, $theme->name, $theme->url, 'Deactivating');
 				$install_js_call = sprintf( $this->exprint, 'theme_install', $key, $theme->name, $theme->url, 'Installing');
 				$upgrade_js_call = sprintf( $this->exprint, 'theme_upgrade', $key, $theme->name, $theme->url, 'Upgrading');
 
@@ -245,8 +249,12 @@
 
 				switch ( $status ) {
 					
+					case 'activated':
+						$button = OptEngine::superlink('Deactivate', 'black', '', '', $deactivate_js_call);
+						break;					
+					
 					case 'installed':
-						$button = '';
+						$button = OptEngine::superlink('Activate', 'black', '', '', $activate_js_call);
 						break;
 					
 					case 'upgrade':
@@ -548,6 +556,22 @@
 				echo 'Installed';
 				$this->page_reload( 'pagelines_extend' );		
 			break;			
+			
+			case 'theme_activate':
+
+				switch_theme( strtolower( THEMENAME ), strtolower( $type ) );
+				// Output
+				echo 'Activated';
+				$this->page_reload( 'pagelines' );	
+			break;
+
+			case 'theme_deactivate':
+			
+				switch_theme( strtolower( THEMENAME ), strtolower( THEMENAME ) );
+				// Output
+				echo 'Deactivated';
+				$this->page_reload( 'pagelines_extend' );
+			break;
 			
 		}
 		die(); // needed at the end of ajax callbacks
