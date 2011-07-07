@@ -428,11 +428,16 @@ function pagelines_main_logo(){
  */
 function pagelines_settings_menu_link(  ){ 
 	global $wp_admin_bar;
-
+	global $pagelines_template;
 	if ( !current_user_can('edit_theme_options') )
 		return;
 
 	$wp_admin_bar->add_menu( array( 'id' => 'pagelines_settings_adminbar', 'title' => __("PageLines Settings", 'pagelines'), 'href' => admin_url( 'admin.php?page=pagelines' ) ) );
+
+	if(isset($pagelines_template->template_type)){
+		$page_type = __("Template: ", 'pagelines') . ucfirst($pagelines_template->template_name);
+		$wp_admin_bar->add_menu( array( 'id' => 'template_type', 'title' => $page_type, 'href' => admin_url( 'admin.php?page=pagelines&selectedtab=2' ) ) );
+	}
 }
 
 /**

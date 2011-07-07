@@ -58,6 +58,8 @@ class PageLinesTemplate {
 
 		$this->map = $this->get_map();
 	
+		$this->template_name = $this->page_type_name();
+	
 		$this->load_sections_on_hook_names();
 	
 	}
@@ -96,7 +98,9 @@ class PageLinesTemplate {
 	}
 	
 	
-	
+	function page_type_name(){
+		return $this->map['templates']['templates'][$this->template_type]['name'];
+	}
 	
 	/**
 	 * Returns template type based on elements in WP admin
