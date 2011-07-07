@@ -296,9 +296,17 @@ class PageLinesLayout {
 			$page_width_sel = 'body.fixed_width #page, body.fixed_width #footer, body.canvas .page-canvas';
 			$content_width_sel = '#site .content, .wcontent, #footer .content';
 			
+			$design_mode = pagelines_option('site_design_mode');
+			$contained = (pagelines_option('site_design_mode') == 'fixed_width' || pagelines_option('site_design_mode') == 'canvas') ? true : false;
+			
 			if( pagelines_option('layout_handling') == 'percent'){
-				$css .= sprintf($page_width_sel . '{ width: %s%%; }', $p + 3);
-				$css .= sprintf($content_width_sel . '{ width: %s%%; }', $p);
+				if($contained){
+					$css .= sprintf($page_width_sel . '{ width: %s%%; padding: 0 10px;}', $p);
+					$css .= sprintf($content_width_sel . '{ width: %s%%; }', '100');
+				} else {
+					$css .= sprintf($content_width_sel . '{ width: %s%%; }', $p);
+				}
+				
 			} elseif( pagelines_option('layout_handling') == 'pixels' ){
 				$css .= sprintf($page_width_sel . '{ max-width:%spx; }', $c + 20);
 				$css .= sprintf($content_width_sel . '{ width: 100%%; max-width:%spx;}', $c);

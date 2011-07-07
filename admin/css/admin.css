@@ -41,6 +41,10 @@
 			margin: 14px 0;
 			vertical-align: top;
 		}
+		.lbl.lbl-inline{
+			display: inline;
+			margin: 10px;
+		}
 	.option_default_statement{
 		padding: 10px;
 		background: #eee;
@@ -63,11 +67,7 @@
 	
 	#optionstable input:focus, .oinputs-pad textarea:focus{border: 1px solid #888;}
 
-	#optionstable input[readonly]  {
-		background-color:#ddd;
-		border: 1px solid #ccc;
-		color: #555;
-	}
+
 	
 	.pagelines_panel{
 		position: relative;
@@ -1322,8 +1322,30 @@
 		margin: 18px auto;
 	}
 		.sel_layout_exp_pad{ padding: 1.5em; }
-		.layoutinputs-pad{ padding: 1em 20px 1em 45px; }
-		.layoutinputs input{margin-right: 30px;}
+		
+		.layoutinputs .lbl-layout input[readonly]{
+			width: 70px;
+			text-align: center;
+			border: 1px solid #d1d1d1;
+			border-left: 1px solid #bbb;
+			border-top: 1px solid #bbb;
+			text-shadow: #fff 0 1px 0;
+			background-color:#ddd;
+			font-weight: bold;
+			color: #555;
+		}
+		.layoutinputs .lbl-layout{
+			display: block;
+			padding: 15px;
+			width: 20.5%;
+			float: left;
+			text-align: center;
+		}
+			.lbl-layout span{
+				display: block;
+				margin-top: 4px;
+			}
+		
 
 	
 	/* Layout Selector */

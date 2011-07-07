@@ -179,6 +179,24 @@ class PageLinesOptionsArray {
 				'title'		=> 'Layout Dimension Editor',						
 				'shortexp'	=> 'Configure the default layout for your site which is initially selected in the Default Layout Mode option in Global Options. <br/>This option allows you to adjust columns and margins for the default layout.',
 			), 
+			
+			'site_design_mode'	=> array(
+				'version'	=> 'pro',
+				'default'	=> 'canvas',
+				'type'		=> 'select',
+				'layout'	=> 'full',
+				'selectvalues'	=> array(
+					'canvas'	=> array("name" => "Full-Width Design With Canvas"),
+					'full_width'	=> array("name" => "Full-Width Design Framework"),
+					'fixed_width'	=> array("name" => "Fixed-Width Design Framework", "version" => "pro")
+				), 
+				'inputlabel'	=> 'Site Design Mode',
+				'title'		=> 'Site Design Mode',						
+				'shortexp'	=> 'Choose between full width HTML or fixed width HTML',
+				'exp'		=> 'There are three css design modes available for '.THEMENAME.'. Each allows a different style of design.<br/><br/><strong>Full-Width Mode With Canvas</strong> This design mode has a full-width page area, and a canvas area behind your content that can be controlled seperately.<br/><br/><strong>Full-Width Mode</strong> Full width design mode allows you to have aspects of your site that are the full-width of your screen; while others are the width of the content area.<br/><br/><strong>Fixed-Width Mode</strong> Fixed width design mode creates a fixed with "page" that can be used as the area for your design.  You can set a background to the page; and the content will have a seperate "fixed-width" background area (i.e. the width of the content).',
+				'vidlink'	=> 'http://www.youtube.com/embed/hnaXANV0nlk?hd=1', 
+				'vidtitle'	=> 'Design Control Overview'
+			),
 			'layout_handling' => array(
 				'default'	=> 'pixels',
 				'type'		=> 'select',
@@ -216,23 +234,6 @@ class PageLinesOptionsArray {
 
 		$a = array(	
 			'icon'			=> PL_ADMIN_ICONS.'/color.png',
-			'site_design_mode'	=> array(
-				'version'	=> 'pro',
-				'default'	=> 'canvas',
-				'type'		=> 'select',
-				'layout'	=> 'full',
-				'selectvalues'	=> array(
-					'canvas'	=> array("name" => "Full-Width Design With Canvas"),
-					'full_width'	=> array("name" => "Full-Width Design Framework"),
-					'fixed_width'	=> array("name" => "Fixed-Width Design Framework", "version" => "pro")
-				), 
-				'inputlabel'	=> 'Site Design Mode',
-				'title'		=> 'Site Design Mode',						
-				'shortexp'	=> 'Choose between full width HTML or fixed width HTML',
-				'exp'		=> 'There are three css design modes available for '.THEMENAME.'. Each allows a different style of design.<br/><br/><strong>Full-Width Mode With Canvas</strong> This design mode has a full-width page area, and a canvas area behind your content that can be controlled seperately.<br/><br/><strong>Full-Width Mode</strong> Full width design mode allows you to have aspects of your site that are the full-width of your screen; while others are the width of the content area.<br/><br/><strong>Fixed-Width Mode</strong> Fixed width design mode creates a fixed with "page" that can be used as the area for your design.  You can set a background to the page; and the content will have a seperate "fixed-width" background area (i.e. the width of the content).',
-				'vidlink'	=> 'http://www.youtube.com/embed/hnaXANV0nlk?hd=1', 
-				'vidtitle'	=> 'Design Control Overview'
-			),
 			'page_colors'		=> array(
 				'title' 	=> 'Basic Layout Colors',						
 				'shortexp' 	=> 'The Main Layout Colors For Your Site',

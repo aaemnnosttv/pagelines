@@ -947,7 +947,7 @@ class OptEngine {
 	}
 	
 	function input_label_inline($id, $input, $text, $class = 'inln'){
-		return sprintf('<label for="%s" class="lbl %s">%s %s</label>', $id, $class, $input, $text);
+		return sprintf('<label for="%s" class="lbl %s">%s <span>%s</span></label>', $id, $class, $input, $text);
 	}
 	
 	function input_radio($id, $name, $value, $checked, $class = ''){
