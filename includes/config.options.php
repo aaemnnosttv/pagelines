@@ -232,9 +232,9 @@ class PageLinesOptionsArray {
 				'width'			=> '130px',
 				'layout' 		=> 'interface',	
 				'selectvalues'	=> array(
-					'canvas'	=> array("name" => "Full-Width With Canvas", 'offset' => '0px -88px'),
+					'canvas'	=> array("name" => "Full-Width Page With Canvas", 'offset' => '0px -88px'),
 					'full_width'	=> array("name" => "Full-Width Sections", 'offset' => '0px 0px'),
-					'fixed_width'	=> array("name" => "Fixed-Width Design Framework", "version" => "pro", 'offset' => '0px -176px')
+					'fixed_width'	=> array("name" => "Content Width Page", "version" => "pro", 'offset' => '0px -176px')
 				), 
 				'inputlabel'	=> 'Site Design Mode',
 				'title'		=> 'Site Design Mode',						
