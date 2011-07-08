@@ -162,6 +162,24 @@ class PageLinesOptionsArray {
 
 		$a = array(
 			'icon'			=> PL_ADMIN_ICONS.'/layout.png',
+			'layout_handling' => array(
+				'default'		=> 'pixels',
+				'type'			=> 'graphic_selector',
+				'inputlabel'	=> 'How should layout be handled?',
+				'showname'		=> true,
+				'sprite'		=> PL_ADMIN_IMAGES.'/sprite-layout-modes.png',
+				'height'		=> '88px', 
+				'width'			=> '130px',
+				'layout'		=> 'interface',
+				'selectvalues'	=> array(
+					'pixels'		=> array( 'name' => 'Responsive with Pixel Width', 'offset' => '0px 0px' ), 
+					'percent'		=> array( 'name' => 'Responsive with Percent Width', 'offset' => '0px -88px' ), 
+					'static'		=> array( 'name' => 'Static with Pixel Width', 'offset' => '0px -176px' )
+				),
+				'title'		=> 'Layout Handling',						
+				'shortexp'	=> 'Select between responsive vs. static; pixel based or percentage based layout',
+				'exp'		=> 'Responsive layout adjusts to the size of your user\'s browser window; static is fixed width. Use this option to switch between the pixel based site width and a percentage based one.'
+			),
 			'layout_default' => array(
 				'default' 	=> "one-sidebar-right",
 				'type' 		=> 'layout_select',
@@ -179,19 +197,7 @@ class PageLinesOptionsArray {
 				'title'		=> 'Layout Dimension Editor',						
 				'shortexp'	=> 'Configure the default layout for your site which is initially selected in the Default Layout Mode option in Global Options. <br/>This option allows you to adjust columns and margins for the default layout.',
 			), 
-			'layout_handling' => array(
-				'default'	=> 'pixels',
-				'type'		=> 'select',
-				'inputlabel'	=> 'How should layout be handled?',
-				'selectvalues'	=> array(
-					'pixels'		=> array( 'name' => 'Responsive with pixel based content width' ), 
-					'percent'		=> array( 'name' => 'Responsive with percentage based content width' ), 
-					'static'		=> array( 'name' => 'Static with pixel based content width' )
-				),
-				'title'		=> 'Layout Handling',						
-				'shortexp'	=> 'Select between responsive vs. static; pixel based or percentage based layout',
-				'exp'		=> 'Responsive layout adjusts to the size of your user\'s browser window; static is fixed width. Use this option to switch between the pixel based site width and a percentage based one.'
-			),
+			
 			'resetlayout' => array(
 				'default'	=> '',
 				'inputlabel'	=> __("Reset Layout", 'pagelines'),
@@ -219,37 +225,21 @@ class PageLinesOptionsArray {
 			'site_design_mode'	=> array(
 				'version'	=> 'pro',
 				'default'	=> 'canvas',
-				'type'		=> 'select',
-				'layout'	=> 'full',
-				'selectvalues'	=> array(
-					'canvas'	=> array("name" => "Full-Width Design With Canvas"),
-					'full_width'	=> array("name" => "Full-Width Design Framework"),
-					'fixed_width'	=> array("name" => "Fixed-Width Design Framework", "version" => "pro")
-				), 
-				'inputlabel'	=> 'Site Design Mode',
-				'title'		=> 'Site Design Mode',						
-				'shortexp'	=> 'Choose between full width HTML or fixed width HTML',
-				'exp'		=> 'There are three css design modes available for '.THEMENAME.'. Each allows a different style of design.<br/><br/><strong>Full-Width Mode With Canvas</strong> This design mode has a full-width page area, and a canvas area behind your content that can be controlled seperately.<br/><br/><strong>Full-Width Mode</strong> Full width design mode allows you to have aspects of your site that are the full-width of your screen; while others are the width of the content area.<br/><br/><strong>Fixed-Width Mode</strong> Fixed width design mode creates a fixed with "page" that can be used as the area for your design.  You can set a background to the page; and the content will have a seperate "fixed-width" background area (i.e. the width of the content).',
-				'vidlink'	=> 'http://www.youtube.com/embed/hnaXANV0nlk?hd=1', 
-				'vidtitle'	=> 'Design Control Overview'
-			),
-			'site_design_mode'	=> array(
-				'version'	=> 'pro',
-				'default'	=> 'canvas',
 				'type'		=> 'graphic_selector',
+				'showname'	=> true,
 				'sprite'		=> PL_ADMIN_IMAGES.'/sprite-design-modes.png',
-				'height'		=> '70px', 
-				'width'			=> '100px',
+				'height'		=> '88px', 
+				'width'			=> '130px',
 				'layout' 		=> 'interface',	
 				'selectvalues'	=> array(
-					'canvas'	=> array("name" => "Full-Width Design With Canvas", 'offset' => '0px 0px'),
-					'full_width'	=> array("name" => "Full-Width Design Framework", 'offset' => '0px -70px'),
-					'fixed_width'	=> array("name" => "Fixed-Width Design Framework", "version" => "pro", 'offset' => '0px -140px')
+					'canvas'	=> array("name" => "Full-Width With Canvas", 'offset' => '0px -88px'),
+					'full_width'	=> array("name" => "Full-Width Sections", 'offset' => '0px 0px'),
+					'fixed_width'	=> array("name" => "Fixed-Width Design Framework", "version" => "pro", 'offset' => '0px -176px')
 				), 
 				'inputlabel'	=> 'Site Design Mode',
 				'title'		=> 'Site Design Mode',						
 				'shortexp'	=> 'Choose between full width HTML or fixed width HTML',
-				'exp'		=> 'There are three css design modes available for '.THEMENAME.'. Each allows a different style of design.<br/><br/><strong>Full-Width Mode With Canvas</strong> This design mode has a full-width page area, and a canvas area behind your content that can be controlled seperately.<br/><br/><strong>Full-Width Mode</strong> Full width design mode allows you to have aspects of your site that are the full-width of your screen; while others are the width of the content area.<br/><br/><strong>Fixed-Width Mode</strong> Fixed width design mode creates a fixed with "page" that can be used as the area for your design.  You can set a background to the page; and the content will have a seperate "fixed-width" background area (i.e. the width of the content).',
+				'exp'		=> 'There are three css design modes available. Each allows a different style of design.<ul><li><strong>Full-Width Mode With Canvas</strong> This design mode has a full-width page area, and a canvas area behind your content that can be controlled seperately.</li><li><strong>Full-Width Mode</strong> Full width design mode allows you to have aspects of your site that are the full-width of your screen; while others are the width of the content area.</li><li><strong>Fixed-Width Mode</strong> Fixed width design mode creates a fixed with "page" that can be used as the area for your design.  You can set a background to the page; and the content will have a seperate "fixed-width" background area (i.e. the width of the content).</li></ul>',
 				'vidlink'	=> 'http://www.youtube.com/embed/hnaXANV0nlk?hd=1', 
 				'vidtitle'	=> 'Design Control Overview',
 				

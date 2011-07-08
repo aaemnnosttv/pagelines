@@ -45,7 +45,8 @@ class OptEngine {
 			'htabs'					=> array(), 
 			'height'				=> '0px',
 			'width'					=> '0px',
-			'sprite'				=> ''
+			'sprite'				=> '',
+			'showname'				=> false
 		);
 		
 	}
@@ -597,24 +598,37 @@ class OptEngine {
 							$css = sprintf('background: url(%s) no-repeat %s; width: %s; height: %s;', $o['sprite'], $s['offset'], $o['width'], $o['height']);
 					?>
 					<span class="graphic_select_item">
-						<span class="graphic_select_border <?php if($sid == $o['val']) echo 'selectedgraphic';?>">
+						<span class="graphic_select_border <?php if($sid == $o['val']) echo 'selectedgraphic';?> fix">
 							<span class="graphic_select_image <?php echo $sid;?>" style="<?php echo $css;?>">
 								&nbsp;
 							</span>
 						</span>
+						<?php if($o['showname'] && isset($s['name'])): ?>
+						<span class="graphic_title clear">
+							<?php echo $s['name'];?>
+						</span>
+						<?php endif; ?>
 						<input type="radio" id="<?php echo $o['input_id'];?>" class="graphic_select_input" name="<?php echo $o['input_name']; ?>" value="<?php echo $sid;?>" <?php checked($sid, $o['val']); ?>>
 					</span>
 					<?php endforeach;?>
+					
+					<?php if(isset($o['exp']) && $o['exp'] != ''):?>
+					<div class="gselect_toggle" onclick="jQuery('.exp_gselect').slideToggle();">
+						<div class="gselect_toggle_pad">More Info &darr;</div>
+					</div>
+					<?php endif;?>
 				</div>
 				
 			</div>
-			
-		</div>
-		<div class="graphic_selector_exp">
-			<div class="graphic_selector_exp_pad">
-				<?php echo $o['exp'];?>
+			<?php if(isset($o['exp']) && $o['exp'] != ''):?>
+			<div class="exp_gselect" style="display: none">
+				<div class="exp_pad">
+					<?php echo $o['exp'];?>
+				</div>
 			</div>
+			<?php endif;?>
 		</div>
+		
 		<div class="clear"></div>
 	<?php }
 	
