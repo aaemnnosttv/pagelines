@@ -227,8 +227,8 @@
 
 		foreach( $themes as $key => $theme ) {
 			
-			if ( file_exists( WP_CONTENT_DIR . '/themes/' . $theme->name . '/style.css' ) )
-				if ( $data =  get_theme_data( WP_CONTENT_DIR . '/themes/' . $theme->name . '/style.css' ) ) 
+			if ( file_exists( WP_CONTENT_DIR . '/themes/' . strtolower( $theme->name ) . '/style.css' ) )
+				if ( $data =  get_theme_data( WP_CONTENT_DIR . '/themes/' . strtolower( $theme->name ) . '/style.css' ) ) 
 					$status = 'installed';
 
 				if ($tab == 'free' && $status == 'installed' )
@@ -236,7 +236,7 @@
 					
 				if ( !$tab && !$status)
 					continue;
-				if ( $status == 'installed' && $theme->name == basename( STYLESHEETPATH ) )
+				if ( $status == 'installed' && strtolower( $theme->name ) == basename( STYLESHEETPATH ) )
 					$status = 'activated';
 				
 				$activate_js_call = sprintf( $this->exprint, 'theme_activate', $key, $theme->name, $theme->url, 'Activating');
@@ -544,7 +544,7 @@
 
 				$upgrader = new Plugin_Upgrader();
 				$options = array( 'package' => $url, 
-						'destination'		=> WP_CONTENT_DIR .'/themes/' . $type, 
+						'destination'		=> WP_CONTENT_DIR .'/themes/' . strtolower( $type ), 
 						'clear_destination' => true,
 						'clear_working'		=> false,
 						'is_multi'			=> false,
@@ -559,7 +559,7 @@
 			
 			case 'theme_activate':
 
-				switch_theme( strtolower( THEMENAME ), strtolower( $type ) );
+				switch_theme( basename( get_template_directory() ), strtolower( $type ) );
 				// Output
 				echo 'Activated';
 				$this->page_reload( 'pagelines' );	
@@ -567,7 +567,7 @@
 
 			case 'theme_deactivate':
 			
-				switch_theme( strtolower( THEMENAME ), strtolower( THEMENAME ) );
+				switch_theme( basename( get_template_directory() ), basename( get_template_directory() ) );
 				// Output
 				echo 'Deactivated';
 				$this->page_reload( 'pagelines_extend' );
