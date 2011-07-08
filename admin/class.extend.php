@@ -274,7 +274,9 @@
 						'desc'		=> $theme->text,
 						'tags'		=> ( isset( $theme->tags ) ) ? $theme->tags : '',
 						'auth_url'	=> $theme->author_url, 
-						'auth'		=> $theme->author, 
+						'auth'		=> $theme->author,
+						'image'		=> ( isset( $theme->image ) ) ? $theme->image : '',
+						'type'		=> 'themes',
 						'buttons'	=> $button,
 						'key'		=> $key,
 						'count'		=> $theme->count
@@ -302,6 +304,7 @@
 				'buttons'	=> '',
 				'importance'=> '',
 				'key'		=> '',
+				'type'		=> '',
 				'count'		=> ''
 		);
 		
@@ -313,8 +316,8 @@
 		
 		$count = ( $s['count'] ) ? sprintf('<br />Downloads: %s', $s['count']) : '';
 		
-		$screenshot = ( $s['image'] ) ? sprintf('<a class="screenshot-' . rtrim( $s['image'], '.jpg' ) . '" href="http://api.pagelines.com/sections/img/%s" rel="http://api.pagelines.com/sections/img/%s">Screenshot</a>' , $s['image'], $s['image']) : '';
-		$js =  ( $screenshot ) ? "<script type='text/javascript' />jQuery('a.screenshot-" . rtrim( $s['image'], '.jpg' ) . "').imgPreview({imgCSS:{width:200}});</script>" : '';
+		$screenshot = ( $s['image'] ) ? sprintf('<a class="screenshot-%s" href="http://api.pagelines.com/%s/img/%s.png" rel="http://api.pagelines.com/%s/img/%s.png"><img src="http://api.pagelines.com/%s/img/thumb-%s.png"></a>' ,$s['image'], $s['type'], $s['image'], $s['type'], $s['image'], $s['type'], $s['image']) : '';
+		$js =  ( $screenshot ) ? "<script type='text/javascript' />jQuery('a.screenshot-" . $s['image'] . "').imgPreview({imgCSS:{ }});</script>" : '';
 		
 		$title = sprintf('<div class="pane-head"><div class="pane-head-pad"><h3 class="pane-title">%s</h3><div class="pane-sub">%s</div></div></div>', $s['name'], 'Version ' . $s['version'] );
 		
