@@ -15,6 +15,8 @@ class PageLinesLayout {
 	// BUILD THE PAGELINES OBJECT
 		function __construct($layout_mode = null) {
 			
+			$this->builder->width = 1400;
+			
 			/*
 				Get the layout map from DB, or use default
 			*/
@@ -61,10 +63,6 @@ class PageLinesLayout {
 			*/
 			$this->set_builder_dimensions();
 			
-			/*
-				Generate dynamic column layout
-			*/
-			$this->generate_dynamic_columns();
 			
 		}
 		
@@ -92,6 +90,7 @@ class PageLinesLayout {
 		function default_layout_setup(){
 			
 			$this->content->width = 960;
+			$this->content->percent = $this->get_content_percent($this->content->width);
 			
 			$this->gutter->width = 20;
 			
@@ -105,6 +104,7 @@ class PageLinesLayout {
 					'saved_layout' 			=> 'one-sidebar-right',
 					'last_edit' 			=> 'one-sidebar-right',
 					'content_width' 		=> $this->content->width,
+					'responsive_width' 		=> $this->content->percent,
 					'one-sidebar-right' 	=> array(	
 							'maincolumn_width' 		=> $def_main_two,
 							'primarysidebar_width'	=> $def_sb_two,
@@ -147,7 +147,9 @@ class PageLinesLayout {
 			return $default_map;
 		}
 
-		
+		function get_content_percent( $content_width ){
+			return ( $content_width / $this->builder->width ) * 100;
+		}
 
 		
 		function set_layout_data(){
@@ -168,13 +170,14 @@ class PageLinesLayout {
 			$this->content->width = 960;
 
 			$this->gutter->width = 30;
+		
 			
-			$this->builder->width = 1400;
 			$this->fudgefactor = 24;
 		
 			$this->hidden->width = 0;
 			
 			$this->content->width = $this->layout_map['content_width'];
+			$this->content->percent = $this->get_content_percent( $this->layout_map['content_width'] );
 			
 			foreach($this->layout_map as $layoutmode => $settings){
 				if($this->layout_mode == $layoutmode && ($layoutmode == 'one-sidebar-right' || $layoutmode == 'one-sidebar-left')){
@@ -276,66 +279,6 @@ class PageLinesLayout {
 			}
 		}
 		
-	
-		function generate_dynamic_grid(){
-			
-			
-			
-		}
-		
-		function generate_dynamic_columns(){
-			
-			$config_dynamic_layout = array(
-				
-					2 => array(
-							'gutter' => 20
-						),
-					3 => array(
-							'gutter' => 20 
-						),
-					4 => array(
-							'gutter' => 20
-						), 
-					5 => array(
-							'gutter' => 20
-						)
-					
-				);
-			foreach($config_dynamic_layout as $no_cols => $col_settings){
-					$column_gutter = $col_settings['gutter'];
-					$number_of_columns = $no_cols;
-					
-					
-					$round_amount = fmod($this->content->width / $number_of_columns, 1) * $number_of_columns ;
-					/*
-						Set Container width (content + gutter as margin prevents the wider area from being seen)
-					*/
-					$this->dcol[ $number_of_columns ]->container_width = $this->content->width + $column_gutter - $round_amount;
-				
-					$column_space = floor( $this->dcol[ $number_of_columns ]->container_width / $number_of_columns );
-		
-					/*
-						Base Column Width
-					*/
-					$this->dcol[ $number_of_columns ]->width = $column_space - $column_gutter;
-					
-					// Set Gutter Width
-					$this->dcol[ $number_of_columns ]->gutter_width = $column_gutter;
-					
-					/*
-						Generate Column Spans
-					*/
-					$this->dcol[ $number_of_columns ]->span2 = 2 * $this->dcol[ $number_of_columns ]->width + $column_gutter;
-					$this->dcol[ $number_of_columns ]->span3 = 3 * $this->dcol[ $number_of_columns ]->width + 2 * $column_gutter;
-					$this->dcol[ $number_of_columns ]->span4 = 4 * $this->dcol[ $number_of_columns ]->width + 3 * $column_gutter;
-				
-			}
-		
-			
-		
-		}
-		
-		
 		function downscale($actual_pixels, $ratio = 2){
 			return floor($actual_pixels / $ratio);
 		}
@@ -347,15 +290,30 @@ class PageLinesLayout {
 			$mode = '.'.$this->layout_mode.' ';
 			$css = '';
 			$c = $this->content->width;
+			$p = $this->content->percent;
 			
-			$css .= sprintf('body.fixed_width #page, body.fixed_width #footer, body.canvas .page-canvas{ max-width:%spx; }', $c + 20);
-			$css .= sprintf('#page-main .content{ max-width: %spx; }', $c + 2);
-
-			if(!pagelines_option('responsive_layout'))
-				$css .= sprintf('#site .content, .wcontent, #footer .content{ width: 100%%; max-width:%spx;}', $c);
-			else
-				$css .= sprintf('#site .content, .wcontent, #footer .content{ width:%spx;}', $c);
-
+			
+			$page_width_sel = 'body.fixed_width #page, body.fixed_width #footer, body.canvas .page-canvas';
+			$content_width_sel = '#site .content, .wcontent, #footer .content';
+			
+			$design_mode = pagelines_option('site_design_mode');
+			$contained = (pagelines_option('site_design_mode') == 'fixed_width' || pagelines_option('site_design_mode') == 'canvas') ? true : false;
+			
+			if( pagelines_option('layout_handling') == 'percent'){
+				if($contained){
+					$css .= sprintf($page_width_sel . '{ width: %s%%; padding: 0 10px;}', $p);
+					$css .= sprintf($content_width_sel . '{ width: %s%%; }', '100');
+				} else {
+					$css .= sprintf($content_width_sel . '{ width: %s%%; }', $p);
+				}
+				
+			} elseif( pagelines_option('layout_handling') == 'pixels' ){
+				$css .= sprintf($page_width_sel . '{ max-width:%spx; }', $c + 20);
+				$css .= sprintf($content_width_sel . '{ width: 100%%; max-width:%spx;}', $c);
+			}else{
+				$css .= sprintf($page_width_sel . '{ max-width:%spx; }', $c + 20);
+				$css .= sprintf($content_width_sel . '{ width:%spx;}', $c);
+			}
 			
 			$css .= sprintf('%1$s #pagelines_content #column-main, %1$s .wmain, %1$s #buddypress-page #container{ %2$s }', $mode, $l['main']);
 			$css .= sprintf('%1$s #pagelines_content #sidebar1, %1$s #buddypress-page #sidebar1{ %2$s }', $mode, $l['sb1']);

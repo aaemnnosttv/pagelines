@@ -19,7 +19,7 @@ class PageLinesOptionsUI {
 	function __construct( $args = array() ) {
 		
 		$defaults = array(
-				'title'			=> 'Settings',
+				'title'			=> ( STYLESHEETPATH == TEMPLATEPATH ) ? 'Settings' : ucfirst( CHILDTHEMENAME ) . ' - Settings',
 				'callback'		=> null,
 				'settings'		=> PAGELINES_SETTINGS, 
 				'show_save'		=> true,
@@ -74,7 +74,7 @@ class PageLinesOptionsUI {
 										</a>
 									</div>
 									<div class="ohead-title">
-										<?php echo $this->set['title']; ?> 
+										<?php echo apply_filters( 'pagelines_settings_main_title', $this->set['title'] ); ?> 
 									</div>
 									<div class="ohead-title-right">
 										<?php if($this->set['show_save']):?>

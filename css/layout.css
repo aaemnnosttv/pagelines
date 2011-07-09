@@ -45,9 +45,9 @@
 	#wrapper { padding-bottom: 3.5em; }
 	#page, #dynamic-content { min-height: 500px; zoom:1;}
 	
-	.fixed_width #page, .fixed_width #footer, .canvas .page-canvas{ width: 100%; margin: 0 auto; position: relative; max-width: 980px; }
+	.fixed_width #page, .fixed_width #footer, .canvas .page-canvas{ width: 100%; margin: 0 auto; position: relative; }
 	.page-canvas{ margin: 0 auto; }
-	.content { width: 100%; margin: 0 auto; position: relative; max-width: 960px;  }
+	.content { width: 100%; margin: 0 auto; position: relative; }
 	#page-main .content {border-right: 1px solid transparent; border-left: 1px solid transparent;}
 	
 	/* @ Layout Floating */

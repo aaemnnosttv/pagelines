@@ -113,14 +113,49 @@ class PageLinesLayoutControl {
 
 
 					<div class="layoutinputs">
-						<div class="layoutinputs-pad">
-							<label class="context" for="input-content-width">Global Content Width</label>
-							<input type="text" name="<?php pagelines_option_name('layout', 'content_width'); ?>" id="input-content-width" value="<?php echo $buildlayout->content->width;?>" size=5 readonly/>
-							<label class="context"  for="input-maincolumn-width">Main Column Width</label>
-							<input type="text" name="<?php pagelines_option_name('layout', $layout, 'maincolumn_width'); ?>" id="input-maincolumn-width" value="<?php echo $buildlayout->main_content->width;?>" size=5 readonly/>
-
-							<label class="context"  for="input-primarysidebar-width">Sidebar1 Width</label>
-							<input type="text" name="<?php pagelines_option_name('layout', $layout, 'primarysidebar_width'); ?>" id="input-primarysidebar-width" value="<?php echo  $buildlayout->sidebar1->width;?>" size=5 readonly/>
+						<div class="layoutinputs-pad fix">
+							<?php 
+							
+								// Content Width
+								$id = 'input-content-width';
+								$value = $buildlayout->content->width;
+								$name = get_pagelines_option_name('layout', 'content_width');
+							
+								// Output
+								$input = OptEngine::input_text($id, $name, $value, 'small-text', 'text', 'readonly');
+								echo OptEngine::input_label_inline($id, $input, 'Global Content Width (px)', 'lbl-layout');
+								
+								// Main Column
+								$id = 'input-maincolumn-width';
+								$value = $buildlayout->main_content->width;
+								$name = get_pagelines_option_name('layout', $layout, 'maincolumn_width');
+								
+								// Output
+								
+								$input = OptEngine::input_text($id, $name, $value, 'small-text', 'text', 'readonly');
+								echo OptEngine::input_label_inline($id, $input, 'Main Column Width (px)', 'lbl-layout');
+								
+								// Sidebar 1
+								$id = 'input-primarysidebar-width';
+								$value = $buildlayout->sidebar1->width;
+								$name = get_pagelines_option_name('layout', $layout, 'primarysidebar_width');
+						
+								// Output
+								
+								$input = OptEngine::input_text($id, $name, $value, 'small-text', 'text', 'readonly');
+								echo OptEngine::input_label_inline($id, $input, 'Sidebar1 Width (px)', 'lbl-layout');
+								
+								// Responsive
+								$id = 'input-responsive-width';
+								$value = ($buildlayout->content->width / $buildlayout->builder->width) * 100;
+								$name = get_pagelines_option_name('layout', 'responsive_width');
+						
+								// Output
+								$input = OptEngine::input_text($id, $name, $value, 'small-text', 'text', 'readonly');
+								echo OptEngine::input_label_inline($id, $input, 'Content Percent (%)', 'lbl-layout');
+								
+							
+							?>
 						</div>
 					</div>
 			</div>

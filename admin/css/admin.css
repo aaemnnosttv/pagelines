@@ -20,7 +20,13 @@
 	
 	.oinputs p{ font-size: 1em; }
 	.oinputs {line-height: 1.5em}
-	
+
+	.exp_pad ul{
+		padding: 1em;
+	}
+	.exp_pad ul li{
+		margin-bottom: 1em;
+	}
 /* @ Labels */
 	.lbl {
 		font-weight: bold; 
@@ -41,6 +47,10 @@
 			margin: 14px 0;
 			vertical-align: top;
 		}
+		.lbl.lbl-inline{
+			display: inline;
+			margin: 10px;
+		}
 	.option_default_statement{
 		padding: 10px;
 		background: #eee;
@@ -56,6 +66,7 @@
 		padding:0;
 		text-shadow: #fff 0 1px 0;
 		position: relative;
+		line-height: 1.6em;
 	}
 	#optionstable td {
 		font-family: helvetica, arial;
@@ -63,11 +74,7 @@
 	
 	#optionstable input:focus, .oinputs-pad textarea:focus{border: 1px solid #888;}
 
-	#optionstable input[readonly]  {
-		background-color:#ddd;
-		border: 1px solid #ccc;
-		color: #555;
-	}
+
 	
 	.pagelines_panel{
 		position: relative;
@@ -1322,8 +1329,30 @@
 		margin: 18px auto;
 	}
 		.sel_layout_exp_pad{ padding: 1.5em; }
-		.layoutinputs-pad{ padding: 1em 20px 1em 45px; }
-		.layoutinputs input{margin-right: 30px;}
+		
+		.layoutinputs .lbl-layout input[readonly]{
+			width: 70px;
+			text-align: center;
+			border: 1px solid #d1d1d1;
+			border-left: 1px solid #bbb;
+			border-top: 1px solid #bbb;
+			text-shadow: #fff 0 1px 0;
+			background-color:#ddd;
+			font-weight: bold;
+			color: #555;
+		}
+		.layoutinputs .lbl-layout{
+			display: block;
+			padding: 15px;
+			width: 20.5%;
+			float: left;
+			text-align: center;
+		}
+			.lbl-layout span{
+				display: block;
+				margin-top: 4px;
+			}
+		
 
 	
 	/* Layout Selector */
@@ -1410,15 +1439,16 @@
 		padding: 20px 20px;
 	}
 		.graphic_selector{ 
-			width: 100%;
-			background: #E5E5E5 url(../images/bg-indent.png) repeat-x 0 0;
+	
+			background: #EFEFF0 url(../images/bg-indent.png) repeat-x left bottom;
 			border: 1px solid #ccc;
 			border-bottom: 1px solid #c1c1c1;
 			border-right: 1px solid #c1c1c1;
 			text-align: center;
+			position: relative;
 		}
 			.graphic_selector_pad {
-				padding: 15px 20px 20px;
+				padding: 15px 20px 23px;
 				border:1px solid #eee;
 				border-left: 1px solid #fff;
 				border-top: 1px solid #fff;
@@ -1433,21 +1463,58 @@
 		.layout-selections{
 			width: 700px;	
 		}
-		
-	.graphic_select_border {
+	.graphic_select_item{
+		display: inline-block;
+		margin-left: 3%;
+	}
+	.graphic_select_border{
 		display: inline-block;
 		border: 1px solid #ccc;
 		border-right: 1px solid #aaa;
 		border-bottom: 1px solid #aaa;
 		padding: 6px;
 		background: #F3F3F4 url(../images/section-hover.png) repeat-x left bottom;
-		
-		margin-left: 3%;
 		-moz-border-radius: 6px;
 		-khtml-border-radius: 6px;
 		-webkit-border-radius: 6px;
 		border-radius: 6px;
 	}
+		.graphic_title{
+			margin-top: 4px;
+			display: block;
+			font-weight: bold;
+			font-size: .85em;
+			color: #777;
+		}
+		.gselect_toggle{
+			position: absolute;
+			right: 0px;
+			bottom: 0px;
+			font-size: .75em;
+			border-left: 1px solid #ccc;
+			border-top: 1px solid #ccc;
+			color:#666;
+			text-transform: uppercase;
+		}
+			.gselect_toggle_pad{
+				padding: 0px 8px;
+				border-left: 1px solid #f7f7f7;
+				border-top: 1px solid #f7f7f7;
+			}
+			.gselect_toggle:hover{background:#ddd; cursor: pointer;}
+		.exp_gselect{
+			background:#dfdfdf;
+			border-left: 1px solid #bbb;
+			border-right: 1px solid #fff;
+			border-bottom: 1px solid #fff;
+			font-size: .85em;
+		}
+			.exp_gselect .exp_pad{
+				padding: 10px;
+				border: 1px solid transparent;
+				border-right: 1px solid #d1d1d1;
+				border-bottom: 1px solid #d1d1d1;
+			}
 	
 	
 	.graphic_select_border:hover {

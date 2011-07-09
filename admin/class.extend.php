@@ -227,8 +227,8 @@
 
 		foreach( $themes as $key => $theme ) {
 			
-			if ( file_exists( WP_CONTENT_DIR . '/themes/' . $theme->name . '/style.css' ) )
-				if ( $data =  get_theme_data( WP_CONTENT_DIR . '/themes/' . $theme->name . '/style.css' ) ) 
+			if ( file_exists( WP_CONTENT_DIR . '/themes/' . strtolower( $theme->name ) . '/style.css' ) )
+				if ( $data =  get_theme_data( WP_CONTENT_DIR . '/themes/' . strtolower( $theme->name ) . '/style.css' ) ) 
 					$status = 'installed';
 
 				if ($tab == 'free' && $status == 'installed' )
@@ -236,7 +236,11 @@
 					
 				if ( !$tab && !$status)
 					continue;
-
+				if ( $status == 'installed' && strtolower( $theme->name ) == basename( STYLESHEETPATH ) )
+					$status = 'activated';
+				
+				$activate_js_call = sprintf( $this->exprint, 'theme_activate', $key, $theme->name, $theme->url, 'Activating');
+				$deactivate_js_call = sprintf( $this->exprint, 'theme_deactivate', $key, $theme->name, $theme->url, 'Deactivating');
 				$install_js_call = sprintf( $this->exprint, 'theme_install', $key, $theme->name, $theme->url, 'Installing');
 				$upgrade_js_call = sprintf( $this->exprint, 'theme_upgrade', $key, $theme->name, $theme->url, 'Upgrading');
 
@@ -245,8 +249,12 @@
 
 				switch ( $status ) {
 					
+					case 'activated':
+						$button = OptEngine::superlink('Deactivate', 'black', '', '', $deactivate_js_call);
+						break;					
+					
 					case 'installed':
-						$button = '';
+						$button = OptEngine::superlink('Activate', 'black', '', '', $activate_js_call);
 						break;
 					
 					case 'upgrade':
@@ -266,7 +274,9 @@
 						'desc'		=> $theme->text,
 						'tags'		=> ( isset( $theme->tags ) ) ? $theme->tags : '',
 						'auth_url'	=> $theme->author_url, 
-						'auth'		=> $theme->author, 
+						'auth'		=> $theme->author,
+						'image'		=> ( isset( $theme->image ) ) ? $theme->image : '',
+						'type'		=> 'themes',
 						'buttons'	=> $button,
 						'key'		=> $key,
 						'count'		=> $theme->count
@@ -294,6 +304,7 @@
 				'buttons'	=> '',
 				'importance'=> '',
 				'key'		=> '',
+				'type'		=> '',
 				'count'		=> ''
 		);
 		
@@ -305,8 +316,8 @@
 		
 		$count = ( $s['count'] ) ? sprintf('<br />Downloads: %s', $s['count']) : '';
 		
-		$screenshot = ( $s['image'] ) ? sprintf('<a class="screenshot-' . rtrim( $s['image'], '.jpg' ) . '" href="http://api.pagelines.com/sections/img/%s" rel="http://api.pagelines.com/sections/img/%s">Screenshot</a>' , $s['image'], $s['image']) : '';
-		$js =  ( $screenshot ) ? "<script type='text/javascript' />jQuery('a.screenshot-" . rtrim( $s['image'], '.jpg' ) . "').imgPreview({imgCSS:{width:200}});</script>" : '';
+		$screenshot = ( $s['image'] ) ? sprintf('<a class="screenshot-%s" href="http://api.pagelines.com/%s/img/%s.png" rel="http://api.pagelines.com/%s/img/%s.png"><img src="http://api.pagelines.com/%s/img/thumb-%s.png"></a>' ,$s['image'], $s['type'], $s['image'], $s['type'], $s['image'], $s['type'], $s['image']) : '';
+		$js =  ( $screenshot ) ? "<script type='text/javascript' />jQuery('a.screenshot-" . $s['image'] . "').imgPreview({imgCSS:{ }});</script>" : '';
 		
 		$title = sprintf('<div class="pane-head"><div class="pane-head-pad"><h3 class="pane-title">%s</h3><div class="pane-sub">%s</div></div></div>', $s['name'], 'Version ' . $s['version'] );
 		
@@ -536,7 +547,7 @@
 
 				$upgrader = new Plugin_Upgrader();
 				$options = array( 'package' => $url, 
-						'destination'		=> WP_CONTENT_DIR .'/themes/' . $type, 
+						'destination'		=> WP_CONTENT_DIR .'/themes/' . strtolower( $type ), 
 						'clear_destination' => true,
 						'clear_working'		=> false,
 						'is_multi'			=> false,
@@ -548,6 +559,22 @@
 				echo 'Installed';
 				$this->page_reload( 'pagelines_extend' );		
 			break;			
+			
+			case 'theme_activate':
+
+				switch_theme( basename( get_template_directory() ), strtolower( $type ) );
+				// Output
+				echo 'Activated';
+				$this->page_reload( 'pagelines' );	
+			break;
+
+			case 'theme_deactivate':
+			
+				switch_theme( basename( get_template_directory() ), basename( get_template_directory() ) );
+				// Output
+				echo 'Deactivated';
+				$this->page_reload( 'pagelines_extend' );
+			break;
 			
 		}
 		die(); // needed at the end of ajax callbacks

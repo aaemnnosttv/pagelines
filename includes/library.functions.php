@@ -147,14 +147,14 @@ function pagelines_shorturl( $url, $timeout = 86400 ) {
 	if ( !pagelines_option( 'share_twitter_cache' ) )
 		return $url;
 
-	$provider = 'http://ggl-shortener.appspot.com/?url=';
+	$provider = 'http://pln.so/api.php?action=shorturl&format=json&url=';
 
 	// If cache exists send it back
 	$cache = get_transient( 'pagelines_shorturl_cache' );
 	if ( is_array( $cache) && array_key_exists( md5($url), $cache ) ) {
 		return $cache[md5($url)];
 	}
-	
+
 	// Fetch the short url from the api
 	$response = wp_remote_get(  apply_filters( 'pagelines_shorturl_provider' , $provider ) . $url );
 
@@ -171,9 +171,9 @@ function pagelines_shorturl( $url, $timeout = 86400 ) {
 		$cache = array();
 	}
 	delete_transient( 'pagelines_shorturl_cache' );
-	$cache = array_merge( $cache, array( md5($url) => $out->short_url ) );
+	$cache = array_merge( $cache, array( md5($url) => $out->shorturl ) );
 	set_transient( 'pagelines_shorturl_cache', $cache, apply_filters( 'pagelines_shorturl_cachetimeout', $timeout ) );
-	return $out->short_url;
+	return $out->shorturl;
 }
 
 /**

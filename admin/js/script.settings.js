@@ -224,6 +224,8 @@ function toggleControls(button){
 
 		function updateDimensions( LayoutMode, Source ) {
 			var contentwidth = jQuery("."+LayoutMode+"  #contentwidth").width() * 2 - 24;
+			var builderwidth = jQuery(".layout-main-content").width() * 2;
+			var contentpercent = (contentwidth / builderwidth) * 100;
 			var innereastwidth = jQuery("."+LayoutMode+"  .innereast").width() * 2;
 			var innerwestwidth = jQuery("."+LayoutMode+"  .innerwest").width() * 2;
 			var gutterwidth = (jQuery("."+LayoutMode+" #innerlayout .gutter").width()+2) * 2;
@@ -250,9 +252,13 @@ function toggleControls(button){
 
 				jQuery(".layout_controls").find("#input-content-width").val(wcontent);
 
+				jQuery(".layout_controls").find("#input-responsive-width").val(contentpercent);
+
 				jQuery("."+LayoutMode+" #input-primarysidebar-width").val(primarysidebar);
 
 				jQuery("."+LayoutMode+" #input-maincolumn-width").val(maincontent);
+				
+				
 				
 			} 
 			
@@ -281,8 +287,6 @@ function toggleControls(button){
 			,	west__resizerClass: 	'pagelines-resizer-west'
 			,	east__size:				margin
 			,	west__size:				margin
-			,	east__minSize:			10
-			,	west__minSize:			10
 			, 	east__maxSize:  		188
 			, 	west__maxSize:  		188
 			, 	west__onresize: function (pane, $Pane, paneState) {
