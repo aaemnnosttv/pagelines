@@ -72,22 +72,22 @@ class PageLinesOptionsArray {
 							'browser favorites and tabs.<br/> (<strong>Must be .png or .ico file - 16px by 16px</strong> ).'
 			),		
 			'twittername' => array(
-				'default' => '',
-				'type' => 'text',
-				'inputlabel' => 'Your Twitter Username',
-				'title' => 'Twitter Integration',
-				'shortexp' => 'Places your Twitter feed in your site (<em>"Twitter for WordPress" plugin required</em>)',
-				'exp' => 'This places your Twitter feed on the site. Leave blank if you want to hide or not use.<br/><br/><strong>Note: "Twitter for WordPress" plugin is required for this to work.</strong>'
+				'default' 		=> '',
+				'type' 			=> 'text',
+				'inputlabel' 	=> 'Your Twitter Username',
+				'title' 		=> 'Twitter Integration',
+				'shortexp'	 	=> 'Places your Twitter feed in your site (<em>"Twitter for WordPress" plugin required</em>)',
+				'exp' 			=> 'This places your Twitter feed on the site. Leave blank if you want to hide or not use.<br/><br/><strong>Note: "Twitter for WordPress" plugin is required for this to work.</strong>'
 			),
 	
 			'pagelines_touchicon'	=> array(
-				'version' 	=> 'pro',
-				'default' 	=> '',
-				'type' 		=> 	'image_upload',
+				'version' 		=> 'pro',
+				'default' 		=> '',
+				'type' 			=> 	'image_upload',
 				'imagepreview' 	=> 	'60',
-				'title' 	=> 'Apple Touch Image',						
-				'shortexp' 	=> 'Input Full URL to Apple touch image (.jpg, .gif, .png)',
-				'exp'		=> 'Enter the full URL location of your Apple Touch Icon which is visible when ' .
+				'title' 		=> 'Apple Touch Image',						
+				'shortexp' 		=> 'Input Full URL to Apple touch image (.jpg, .gif, .png)',
+				'exp'			=> 'Enter the full URL location of your Apple Touch Icon which is visible when ' .
 						  'your users set your site as a <strong>webclip</strong> in Apple Iphone and ' . 
 						  'Touch Products. It is an image approximately 57px by 57px in either .jpg, ' .
 						  '.gif or .png format.'

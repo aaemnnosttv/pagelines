@@ -33,9 +33,7 @@ div#item-header div#item-header-avatar {
 	
 .fpost .post-title h2 a:hover { text-decoration: none; }	
 	
-.hentry a:hover {
-	text-decoration: none;
-	}
+.hentry a:hover { text-decoration: none; }
 
 #branding .content-pad { padding: 25px 0 25px 0; }
 
@@ -55,7 +53,7 @@ body #primary-nav ul.sf-menu li { float:right; }
     text-transform: none;
 }
 
-a.pagelines-blink, a.soapbox_link, #feature_slider .fcontent a.post-edit-link, .button, input[type="submit"], input[type="button"], .submit {
+a.blink, a.soapbox_link, #feature_slider .fcontent a.post-edit-link, .button, input[type="submit"], input[type="button"], .submit {
     letter-spacing: 0px;
     text-transform: none;
 }

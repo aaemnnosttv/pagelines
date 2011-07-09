@@ -49,10 +49,18 @@ body{ font-size:82.5%; line-height:1.6em; height:100%; padding-top: 5px; }
 	h5{font-size:1.1em;}
 	h6{font-size:1.1em;}
 	
-	/* Header Special Cases */
+	/* @ Header Special Cases */
 	h1 + img, h2 + img{margin-top:1em;}
 	h1.entry-title{ margin:0; }
 
+	/* @ Text Headers */
+	.subhead { margin-bottom: 1.6em; }
+
+/* @ Font Sizes */
+
+	.subhead, .caption, .footnote{ font-size: .8em }
+
+	.kicker .run-in{font-size:.9em;}
 /* @ Paragraphs */
 	p{margin:1.6em 0;}
 	.hentry p:first-child{margin-top: .3em;}
@@ -66,20 +74,12 @@ body{ font-size:82.5%; line-height:1.6em; height:100%; padding-top: 5px; }
 	aside p, .sidenote p{line-height:1.7em;margin:0;}
 	aside ul, aside ol, .sidenote ul, .sidenote ol{margin-top:1.3em;line-height:1.7em;}
 
-	.footnote{font-size:.75em;margin-top:3.5em;}
+	.footnote{margin-top:3.5em;}
 	.footnote li{margin:1.5em 0 1.5em;word-spacing:.1em;line-height:1.75em;}
-	.caption{font-size:.8em;font-style:italic;margin:.6em 0 -.2em;}
-	.kicker .run-in{text-transform:uppercase;font-style:normal;letter-spacing:.25em;font-size:.9em;}
+	.caption{font-style:italic;margin:.6em 0 -.2em;}
+	.kicker .run-in{text-transform:uppercase;font-style:normal;letter-spacing:.25em;}
 	.drop-cap {display:block;font-style:normal;font-size:8em;float:left;margin:.04em .1em 0 0;line-height:.67em;}
 	.kern{letter-spacing:-.1em;}
-
-
-/* @ Text Headers */
-	
-	.subhead {
-		margin-bottom: 1.6em;
-		font-size: .8em;
-	}
 
 		.comment blockquote{border: none;padding-right: 10px;}
 		.comment blockquote blockquote{margin-bottom:0;}
@@ -88,9 +88,7 @@ body{ font-size:82.5%; line-height:1.6em; height:100%; padding-top: 5px; }
 	a {text-decoration:none;}
 	.hentry a:hover{text-decoration: underline;}
 	#subnav ul li a:active{text-decoration:none;}
-
-
-
+	
 /* 
  * @ Default Type Faces
  */
@@ -105,7 +103,7 @@ body{ font-size:82.5%; line-height:1.6em; height:100%; padding-top: 5px; }
 		}
 
 	/* Secondary Font Style */
-		.font2, .font-sub, ul.main-nav li a, #secondnav li a, .metabar, .subtext, .subhead, .widget-title, .post-comments, .reply a, .editpage, #pagination .wp-pagenavi, .post-edit-link, #wp-calendar caption, #wp-calendar thead th, .soapbox-links a, .fancybox, .standard-form .admin-links, #featurenav a, .pagelines-blink, .ftitle small, .button, input[type="submit"], input[type="button"], input[type="reset"], .submit{
+		.font2, .font-sub, ul.main-nav li a, #secondnav li a, .metabar, .subtext, .subhead, .widget-title, .post-comments, .reply a, .editpage, #pagination .wp-pagenavi, .post-edit-link, #wp-calendar caption, #wp-calendar thead th, .soapbox-links a, .fancybox, .standard-form .admin-links, #featurenav a, .blink, .ftitle small, .button, input[type="submit"], input[type="button"], input[type="reset"], .submit{
 			font-family: "Lucida Grande", "Lucida Sans", "Lucida Sans Unicode", sans-serif;
 		}
 		
@@ -263,7 +261,7 @@ body{ font-size:82.5%; line-height:1.6em; height:100%; padding-top: 5px; }
 		
 	/* Box Link Styles */
 	
-		a.pagelines-blink, a.soapbox_link, #feature_slider .fcontent a.post-edit-link, .button, input[type="submit"], input[type="button"],input[type="reset"],  .submit{
+		a.blink, a.soapbox_link, #feature_slider .fcontent a.post-edit-link, .button, input[type="submit"], input[type="button"],input[type="reset"],  .submit{
 			
 			text-decoration: none;
 			font-size: 12px;
@@ -278,16 +276,16 @@ body{ font-size:82.5%; line-height:1.6em; height:100%; padding-top: 5px; }
 			text-shadow: #fff 0 1px 0;
 			margin-right: .8em;
 		}
-			a.pagelines-blink:hover, a.soapbox_link:hover, .button:hover, input[type="submit"]:hover, .submit:hover{color: #777;}
+			a.blink:hover, a.soapbox_link:hover, .button:hover, input[type="submit"]:hover, .submit:hover{color: #777;}
 			
-			a.pagelines-blink .pagelines-blink-pad, a.soapbox_link .soapbox_link-pad, #feature_slider .fcontent a.post-edit-link{
+			a.blink .blink-pad, a.soapbox_link .soapbox_link-pad, #feature_slider .fcontent a.post-edit-link{
 				display: block;
 				padding: 5px 7px;
 				border:1px solid transparent;
 				border-top: 1px solid #fff;
 				border-left: 1px solid #fff;
 			}
-			a.pagelines-blink .pagelines-blink-pad .blink-arrow, a.soapbox_link .soapbox_arrow{
+			a.blink .blink-pad .blink-arrow, a.soapbox_link .soapbox_arrow{
 				padding-right: 9px;
 				background: url(./images/more-black.png) no-repeat right center; /* Black Arrow */
 			}
@@ -306,7 +304,7 @@ body{ font-size:82.5%; line-height:1.6em; height:100%; padding-top: 5px; }
 			}
 			
 		/* Blue Link Box */
-			a.pagelines-blink.blue-blink, a.soapbox_link.soapbox_callout{
+			a.blink.blue-blink, a.soapbox_link.soapbox_callout{
 				background: #225E9B;
 				border: 1px solid #000;
 				border-top: 1px solid #2D7ED1;
@@ -314,17 +312,17 @@ body{ font-size:82.5%; line-height:1.6em; height:100%; padding-top: 5px; }
 				text-shadow: #000 0 -1px 0;
 				color: #fff;
 			}
-				a.pagelines-blink.blue-blink:hover, a.soapbox_link.soapbox_callout:hover{color:#eee;}
-				a.pagelines-blink.blue-blink .pagelines-blink-pad, a.soapbox_link.soapbox_callout .soapbox_link-pad{
+				a.blink.blue-blink:hover, a.soapbox_link.soapbox_callout:hover{color:#eee;}
+				a.blink.blue-blink .blink-pad, a.soapbox_link.soapbox_callout .soapbox_link-pad{
 					border-top: 1px solid #2C7AC9;
 					border-left: 1px solid #2C7AC9;
 				}
-				a.pagelines-blink.blue-blink .pagelines-blink-pad .blink-arrow, a.soapbox_link.soapbox_callout .soapbox_arrow{ 
+				a.blink.blue-blink .blink-pad .blink-arrow, a.soapbox_link.soapbox_callout .soapbox_arrow{ 
 					background: url(./images/more.png) no-repeat right center;	
 				}
 			
 		/* Black Link Box */
-			a.pagelines-blink.black-blink, #feature_slider .fcontent a, #feature_slider .fcontent a.post-edit-link{
+			a.blink.black-blink, #feature_slider .fcontent a, #feature_slider .fcontent a.post-edit-link{
 				background: #111;
 				border: 1px solid #000;
 				border-top: 1px solid #111;
@@ -332,15 +330,15 @@ body{ font-size:82.5%; line-height:1.6em; height:100%; padding-top: 5px; }
 				color:#fff;
 				text-shadow: none;
 			}
-				a.pagelines-blink.black-blink:hover, #feature_slider .fcontent a:hover, #feature_slider .fcontent a.post-edit-link:hover{background:#333; border-bottom: 1px solid #000;}
-				a.pagelines-blink.black-blink .pagelines-blink-pad, #feature_slider .fcontent a.post-edit-link{
+				a.blink.black-blink:hover, #feature_slider .fcontent a:hover, #feature_slider .fcontent a.post-edit-link:hover{background:#333; border-bottom: 1px solid #000;}
+				a.blink.black-blink .blink-pad, #feature_slider .fcontent a.post-edit-link{
 					border-top: 1px solid #444;
 					border-left: 1px solid #444;
 				}
-				a.pagelines-blink.black-blink .pagelines-blink-pad .blink-arrow{ 
+				a.blink.black-blink .blink-pad .blink-arrow{ 
 					background: url(./images/more.png) no-repeat right center;	
 				}
-				a.pagelines-blink.black-blink:active .pagelines-blink-pad , #feature_slider .fcontent a.post-edit-link:active{
+				a.blink.black-blink:active .blink-pad , #feature_slider .fcontent a.post-edit-link:active{
 					background: #000;
 					border: 1px solid #000;
 					border-right: 1px solid #444;

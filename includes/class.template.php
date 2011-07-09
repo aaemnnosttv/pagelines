@@ -58,7 +58,8 @@ class PageLinesTemplate {
 
 		$this->map = $this->get_map();
 	
-		$this->template_name = $this->page_type_name();
+		if(!is_admin())
+			$this->template_name = $this->page_type_name();
 	
 		$this->load_sections_on_hook_names();
 	
@@ -749,22 +750,27 @@ function the_sub_templates( $t = 'templates' ){
 				'version'		=> 'pro'
 			),
 		'tag' => array(
-				'name'			=> 'Tags Page',
+				'name'			=> 'Tag',
 				'sections' 		=> ($t == 'main') ? array( 'PageLinesPostLoop' ) : array('PageLinesContent'),
 				'version'		=> 'pro'
 			),
 		'archive' => 	array(
-				'name'			=> 'Archive Page',
+				'name'			=> 'Archive',
 				'sections' 		=> ($t == 'main') ? array( 'PageLinesPostLoop' ) : array('PageLinesContent'),
 				'version'		=> 'pro'
 			),
 		'category' => 	array(
-				'name'			=> 'Category Page',
+				'name'			=> 'Category',
 				'sections' 		=> ($t == 'main') ? array( 'PageLinesPostLoop' ) : array('PageLinesContent'),
 				'version'		=> 'pro'
 			),
 		'search' => 	array(
-				'name'			=> 'Search Page',
+				'name'			=> 'Search',
+				'sections' 		=> ($t == 'main') ? array( 'PageLinesPostLoop' ) : array('PageLinesContent'),
+				'version'		=> 'pro'
+			),
+		'author' => 	array(
+				'name'			=> 'Author',
 				'sections' 		=> ($t == 'main') ? array( 'PageLinesPostLoop' ) : array('PageLinesContent'),
 				'version'		=> 'pro'
 			),

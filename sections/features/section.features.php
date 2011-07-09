@@ -394,13 +394,16 @@ function draw_features($f, $class) {
 													?>
 													</div>
 													<?php if(get_post_meta($post->ID, 'feature-link-url', true)):?>
-														<a class="pagelines-blink black-blink flink" href="<?php echo get_post_meta($post->ID, 'feature-link-url', true);?>">
-															<span class="pagelines-blink-pad">
+														<a class="blink black-blink flink" href="<?php echo get_post_meta($post->ID, 'feature-link-url', true);?>">
+															<span class="blink-pad">
 																<span class="blink-arrow featurelink" ><?php echo $flink_text;?></span>
 															</span>
 														</a>
 													<?php endif;?>
-													<?php pagelines_register_hook( 'pagelines_feature_text_bottom', $this->id ); // Hook ?>
+													<?php pagelines_register_hook( 'pagelines_feature_text_bottom', $this->id ); // Hook 
+													
+														echo ObjectEngine::button( array('text' => 'edit', 'type' => 'edit_post', 'id' => $post->ID, 'color' => 'black'));
+													?>
 													<?php edit_post_link(__('<span>Edit</span>', 'pagelines'), '', '');?>
 												</div>
 												<?php pagelines_register_hook( 'pagelines_fcontent_after', $this->id ); // Hook ?>

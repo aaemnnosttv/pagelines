@@ -7,6 +7,37 @@
  * @example <code>[post_something before="<b>" after="</b>" foo="bar"]</code>
  */
 
+
+/**
+ * Used to create general buttons and button links
+ * 
+ * @example <code>[button]</code> is the default usage
+ * @example <code>[button format="edit_post" before="<b>" after="</b>"]</code>
+ */
+add_shortcode('button', 'pagelines_button_shortcode');
+function pagelines_button_shortcode($atts) {
+	
+	$defaults = array(
+		'color'	=> 'grey', 
+		'size'	=> 'normal',
+		'align'	=> 'right', 
+		'style'	=> '',
+		'type'	=> 'button', 
+		'text'	=> '&nbsp;',
+		'pid'	=> 0, 
+		'class'	=> null, 
+	);
+	$atts = shortcode_atts( $defaults, $atts );
+	
+	$button = sprintf( '<div class="blink"><div class="blink-pad">%s</div></div>', $text);
+	
+	$output = sprintf('<div class="%s %s %s blink-wrap">%s</div>', $special, $size, $color, $button);
+	
+	return apply_filters('pagelines_button_shortcode', $output, $atts);
+	
+}
+
+
 /**
  * This function produces the date of post publication
  * 
