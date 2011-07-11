@@ -70,14 +70,6 @@ function pagelines_ajax_callback() {
 		pagelines_update_option( $clickedID , $uploaded_file['url'] );
 
 		$name = 'PageLines- ' . addslashes( $filename['name'] );
-		$old_file = $wpdb->get_row("
-			SELECT ID
-			FROM {$wpdb->posts}
-			WHERE post_title = '{$name}'
-			AND post_type = 'attachment'
-			");
-
-		if ( $old_file ) wp_delete_attachment( $old_file->ID );
 
 		$attachment = array(
                                'post_mime_type' => $uploaded_file_type,
