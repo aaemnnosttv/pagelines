@@ -19,7 +19,6 @@ class PageLinesBanners extends PageLinesSection {
 			'description' 	=> 'Creates "banners" (image on one side text on the other). Great for product tours, portfolios, etc...',
 			'icon'			=> PL_ADMIN_ICONS . '/banners.png', 
 			'version'		=> 'pro',
-			'failswith'		=> array('404', 'posts'), 
 			'cloning'		=> true
 			
 		);
@@ -193,27 +192,27 @@ class PageLinesBanners extends PageLinesSection {
 		<div class="banner_container fix <?php echo $class;?>">
 	<?php 
 		
-		foreach($b as $post) : setup_postdata($post); $custom = get_post_custom($post->ID); 
-
-			$banner_text_width = (pagelines('banner_text_width', $post->ID)) ? pagelines('banner_text_width', $post->ID) : 50;
+		foreach($b as $bpost) : 
+			
+			$banner_text_width = (pagelines('banner_text_width', $bpost->ID)) ? pagelines('banner_text_width', $bpost->ID) : 50;
 			$banner_media_width = 100 - $banner_text_width; // Math
-			$banner_align = (get_pagelines_meta('banner_align', $post->ID)) ? get_pagelines_meta('banner_align', $post->ID) : 'banner_left';
-			$banner_text_padding = (get_pagelines_meta('banner_text_padding', $post->ID)) ? "padding:".get_pagelines_meta('banner_text_padding', $post->ID).";" : "padding: 20px 60px"; 
+			$banner_align = (get_pagelines_meta('banner_align', $bpost->ID)) ? get_pagelines_meta('banner_align', $bpost->ID) : 'banner_left';
+			$banner_text_padding = (get_pagelines_meta('banner_text_padding', $bpost->ID)) ? "padding:".get_pagelines_meta('banner_text_padding', $bpost->ID).";" : "padding: 20px 60px"; 
 ?>
 			<div class="banner-area <?php echo $banner_align;?>">
 				<div class="banner-text" style="width:<?php echo $banner_text_width; ?>%;">
 					<div class="banner-text-pad" style="<?php echo $banner_text_padding;?>">
-							<div class="banner-title"><h2><?php echo do_shortcode($post->post_title); ?></h2></div>
+							<div class="banner-title"><h2><?php echo do_shortcode($bpost->post_title); ?></h2></div>
 							<div class="banner-content">
-								<?php echo do_shortcode($post->post_content); ?>
-								<?php edit_post_link(__('[Edit Banner]', 'pagelines'), '', '', $post->ID);?>
+								<?php echo do_shortcode($bpost->post_content); ?>
+								<?php edit_post_link(__('[Edit Banner]', 'pagelines'), '', '', $bpost->ID);?>
 							</div>
 
 					</div>
 				</div>
 				<div class="banner-media" style="width:<?php echo $banner_media_width; ?>%;" >
 					<div class="banner-media-pad">
-						<?php echo self::_get_banner_media( $post );?>
+						<?php echo self::_get_banner_media( $bpost );?>
 					</div>
 				</div>
 				<div class="clear"></div>
@@ -226,13 +225,14 @@ class PageLinesBanners extends PageLinesSection {
 
 	
 	function _get_banner_media( $bpost ){
-			global $pagelines_ID;
+		
 			
-			if(get_pagelines_meta('the_banner_image', $bpost->ID)){
+			if(get_pagelines_meta('the_banner_image', $bpost->ID))
 				$banner_media = '<img src="'.get_pagelines_meta('the_banner_image', $bpost->ID).'" alt="'.get_the_title().'" />';
-			} elseif(get_pagelines_meta('the_banner_media', $bpost->ID)){
+			elseif(get_pagelines_meta('the_banner_media', $bpost->ID))
 				$banner_media = get_pagelines_meta('the_banner_media', $bpost->ID);
-			} else { $banner_media = ''; }
+			else 
+				$banner_media = '';
 			
 			// Filter output
 			return apply_filters('pl_banner_image', $banner_media, $bpost->ID);

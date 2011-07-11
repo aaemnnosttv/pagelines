@@ -160,13 +160,16 @@ function pagelines_update_option($optionid, $optionval){
 		update_option(PAGELINES_SETTINGS, $settings);
 }
 
+function plmeta( $key, $pid ){
+	
+}
+
 function get_pagelines_meta($option, $post){
 	$meta = get_post_meta($post, $option, true);
-	if(isset($meta) && !pagelines_is_posts_page()){
+	if(isset($meta))
 		return $meta;
-	}else{
+	else
 		return false;
-	}
 }
 
 	/* Deprecated in favor of get_pagelines_meta */
