@@ -224,12 +224,14 @@ class PageLinesBoxes extends PageLinesSection {
 ?>
 			<section id="<?php echo 'fbox_'.$bpost->ID;?>" class="<?php echo $grid_class;?> fbox">
 				<div class="dcol-pad <?php echo $box_thumb_type;?>">	
+					
 					<?php if($box_icon):?>
 						<div class="fboxgraphic">
 							<?php echo self::_get_box_image( $bpost, $box_icon, $box_link ); ?>
 						</div>
 					<?php endif;?>
 						<div class="fboxinfo fix">
+							<?php echo PLObs::button(__('Edit', 'pagelines'), 'edit_post', 'grey', array('id' => $bpost->ID, 'align' => 'right')); ?>
 							<div class="fboxtitle">
 								<h3>
 <?php 							if($box_link) 
@@ -239,8 +241,10 @@ class PageLinesBoxes extends PageLinesSection {
 								</h3>
 							</div>
 							<div class="fboxtext">
+								
+								
 								<?php echo do_shortcode($bpost->post_content); ?>
-								<?php edit_post_link(__('[Edit Box]', 'pagelines'), '<br/>', '', $bpost->ID);?>
+								
 							</div>
 						</div>
 						<?php pagelines_register_hook( 'pagelines_box_inside_bottom', $this->id ); // Hook ?>

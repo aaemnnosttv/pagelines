@@ -8,6 +8,7 @@
 	Depends: PageLinesNav
 	Tags: internal
 */
+
 class BrandNav extends PageLinesNav {
    function __construct( $registered_settings = array() ) {
 	

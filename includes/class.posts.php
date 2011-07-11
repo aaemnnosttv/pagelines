@@ -94,20 +94,21 @@ class PageLinesPosts {
 	function post_content(){
 	
 	
-			// pagelines_register_hook( 'pagelines_loop_before_post_content', 'theloop' ); // Hook
-		
-			$the_content = get_the_content( __('<p>Continue reading &raquo;</p>','pagelines') );
-			$the_content .= '<div class="clear"></div>';
-			if( is_single() || is_page() ) 
-				$the_content .= wp_link_pages(array('echo'=> false, 'before'=> __('<p class="content-pagination"><span class="cp-desc">pages:</span>', 'pagelines'), 'after' => '</p>', 'pagelink' => '<span class="cp-num">%</span>')); 
-		
-			// Edit Link
-			$edit_type = (is_page()) ? __('Edit Page','pagelines') : __('Edit Post','pagelines');
-			$the_content .= get_edit_post_link( '['.$edit_type.']', '', '');
-			//pagelines_register_hook( 'pagelines_loop_after_post_content', 'theloop' ); // Hook 
+		ob_start();
+		pagelines_register_hook( 'pagelines_loop_before_post_content', 'theloop' ); // Hook
+		the_content( __('<p>Continue reading &raquo;</p>','pagelines') );
+		echo '<div class="clear"></div>';
+		if( is_single() || is_page() ) 
+			wp_link_pages(array('before'=> __('<p class="content-pagination"><span class="cp-desc">pages:</span>', 'pagelines'), 'after' => '</p>', 'pagelink' => '<span class="cp-num">%</span>')); 
 
-		
+		// Edit Link
+		$edit_type = (is_page()) ? __('Edit Page','pagelines') : __('Edit Post','pagelines');
+		edit_post_link( '['.$edit_type.']', '', '');
+		pagelines_register_hook( 'pagelines_loop_after_post_content', 'theloop' ); // Hook 
+		$the_content = ob_get_clean();
+
 		return $the_content;
+	
 		
 	}
 	

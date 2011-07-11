@@ -669,16 +669,61 @@ class PageLinesOptionsArray {
 			'blog_layout_mode'	=> array(
 					'version'		=> 'pro',
 					'default'		=> 'magazine',
-					'type'			=> 'select',
+					'type'			=> 'graphic_selector',
+					'showname'		=> true,
+					'sprite'		=> PL_ADMIN_IMAGES.'/sprite-blog-modes.png',
+					'height'		=> '90px', 
+					'width'			=> '140px',
+					'layout'		=> 'interface',
 					'selectvalues'	=> array(
-						'magazine'	=> array("name" => "Magazine Layout Mode", "version" => "pro"),
-						'blog'		=> array("name" => "Blog Layout Mode")
+						'magazine'	=> array("name" => "Magazine Layout Mode", "version" => "pro", 'offset' => '0px -90px'),
+						'blog'		=> array("name" => "Blog Layout Mode", 'offset' => '0px 0px')
 						), 
-					'inputlabel'	=> 'Post Layout Mode',
+					'inputlabel'	=> 'Select Post Layout Mode',
 					'title'			=> 'Blog Post Layout Mode',						
 					'shortexp'		=> 'Choose between magazine style and blog style layout.',
 					'exp'			=> 'Choose between two magazine or blog layout mode. <br/><br/> <strong>Magazine Layout Mode</strong><br/> Magazine layout mode makes use of post "clips". These are summarized excerpts shown at half the width of the main content column.<br/>  <strong>Note:</strong> There is an option for showing "full-width" posts on your main "posts" page.<br/><br/><strong>Blog Layout Mode</strong><br/> This is your classical blog layout. Posts span the entire width of the main content column.'
 				), 
+			'excerpt_mode_full' => array(
+				'default'		=> 'left',
+				'type'			=> 'graphic_selector',
+				'inputlabel'	=> 'Select Excerpt Mode',
+				'showname'		=> true,
+				'sprite'		=> PL_ADMIN_IMAGES.'/sprite-excerpt-modes.png',
+				'height'		=> '50px', 
+				'width'			=> '62px',
+				'layout'		=> 'interface',
+				'selectvalues'	=> array(
+					'left'			=> array( 'name' => 'Left Justified', 'offset' => '0px -50px' ), 
+					'top'			=> array( 'name' => 'On Top', 'offset' => '0px 0px' ), 
+					'left-excerpt'	=> array( 'name' => 'Left, In Excerpt', 'offset' => '0px -100px' ), 
+					'right-excerpt'	=> array( 'name' => 'Right, In Excerpt', 'offset' => '0px -150px' ), 
+					'left-title'	=> array( 'name' => 'Left, In Title', 'offset' => '0px -200px' ), 
+				),
+				'title'		=> 'Feature Post Excerpt Mode',						
+				'shortexp'	=> 'Select how thumbs should be handled in full-width posts',
+				'exp'		=> 'Use this option to configure how thumbs will be shown in full-width posts on your blog page.'
+			),
+			'excerpt_mode_clip' => array(
+				'default'		=> 'left',
+				'type'			=> 'graphic_selector',
+				'inputlabel'	=> 'Select Clip Excerpt Mode',
+				'showname'		=> true,
+				'sprite'		=> PL_ADMIN_IMAGES.'/sprite-excerpt-modes.png',
+				'height'		=> '50px', 
+				'width'			=> '62px',
+				'layout'		=> 'interface',
+				'selectvalues'	=> array(
+					'left'			=> array( 'name' => 'Left Justified', 'offset' => '0px -50px' ), 
+					'top'			=> array( 'name' => 'On Top', 'offset' => '0px 0px' ), 
+					'left-excerpt'	=> array( 'name' => 'Left, In Excerpt', 'offset' => '0px -100px' ), 
+					'right-excerpt'	=> array( 'name' => 'Right, In Excerpt', 'offset' => '0px -150px' ), 
+					'left-title'	=> array( 'name' => 'Left, In Title', 'offset' => '0px -200px' ), 
+				),
+				'title'		=> 'Clip Excerpt Mode',						
+				'shortexp'	=> 'Select how thumbs should be handled in clips',
+				'exp'		=> 'Use this option to configure how thumbs will be shown in clips. These are the smaller "magazine" style excerpts on your blog page.'
+			),
 			'full_column_posts'	=> array(
 					'version'		=> 'pro',
 					'default'		=> 2,

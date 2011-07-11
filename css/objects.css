@@ -71,3 +71,137 @@
 	
 /* @ Clearfixing */
 	.fix:after{content:".";display:block;height:0;clear:both;visibility:hidden;} .fix{display:inline-block;} * html .fix{height:1%;} .fix{display:block;}
+	
+/* @ Buttons */
+.blink-wrap{
+
+	padding:0;
+	float:left;
+	margin: 2px 10px 2px 0;
+	font-family: helvetica, arial, sans-serif;
+}
+body #page .blink-wrap	.blink {
+	
+	display: block;
+	text-decoration: none;
+	margin:0;
+	font-size: 11px;
+	line-height: 11px;
+	color:#444;
+	text-shadow: #fff 0 1px 0;
+	background: #ddd url(../images/blink-sprite-grey.png) 0 0 repeat-x;
+	border: 1px solid #999;
+	border-top: 1px solid #ddd;
+	border-left: 1px solid #ddd;
+
+	
+	
+	cursor: pointer;
+	-moz-box-sizing: content-box;
+	-webkit-box-sizing: content-box;
+	box-sizing: content-box;
+}
+	.blink-pad{display: block; padding: 5px 12px;height: 11px;
+		border: 1px solid transparent;
+		border-top: 1px solid #f7f7f7;
+		border-left: 1px solid #f7f7f7;}
+	
+	body #page .blink-wrap .blink:hover{
+		background: #82a2ca url(../images/blink-sprite-grey.png) 0 -35px repeat-x;
+		border: 1px solid #aaa;
+		border-top: 1px solid #fff;
+		border-left: 1px solid #fff;
+		
+	}
+	body #page .blink-wrap .blink:active{background: #82a2ca url(../images/superlink-sprite-grey.png) 0 -70px repeat-x;border: 1px solid #666;color: #000}
+	
+	.bl-align-right{float:right; margin: 2px 0 2px 5px;}
+	
+	/*
+		
+
+		
+			a.blink, a.soapbox_link, #feature_slider .fcontent a.post-edit-link, .button, input[type="submit"], input[type="button"],input[type="reset"],  .submit{
+				
+				text-decoration: none;
+				font-size: 12px;
+				line-height: 12px;
+				display: block;
+				float: left;
+				background: #eee;
+				border: 1px solid #d1d1d1;
+				border-top: 1px solid #e1e1e1;
+				border-left: 1px solid #e1e1e1;
+				color: #333;
+				text-shadow: #fff 0 1px 0;
+				margin-right: .8em;
+			}
+				a.blink:hover, a.soapbox_link:hover, .button:hover, input[type="submit"]:hover, .submit:hover{color: #777;}
+				
+				a.blink .blink-pad, a.soapbox_link .soapbox_link-pad, #feature_slider .fcontent a.post-edit-link{
+					display: block;
+					padding: 5px 7px;
+					border:1px solid transparent;
+					border-top: 1px solid #fff;
+					border-left: 1px solid #fff;
+				}
+				a.blink .blink-pad .blink-arrow, a.soapbox_link .soapbox_arrow{
+					padding-right: 9px;
+					background: url(./images/more-black.png) no-repeat right center; 
+				}
+				
+				 input[type="submit"], .submit, input[type="button"], .button, input[type="reset"], .reset{
+					cursor: pointer;
+					background: url(./images/button-grey-up.png) repeat-x left bottom;
+				}
+				
+				.button:active, input[type="submit"]:active, .submit:active{
+					color: #000;
+					border: 1px solid #ddd;
+					border-top: 1px solid #bbb;
+					border-left: 1px solid #bbb;
+					background: url(./images/button-grey-down.png) repeat-x left bottom;
+				}
+				
+		
+				a.blink.blue-blink, a.soapbox_link.soapbox_callout{
+					background: #225E9B;
+					border: 1px solid #000;
+					border-top: 1px solid #2D7ED1;
+					border-left: 1px solid #2D7ED1;
+					text-shadow: #000 0 -1px 0;
+					color: #fff;
+				}
+					a.blink.blue-blink:hover, a.soapbox_link.soapbox_callout:hover{color:#eee;}
+					a.blink.blue-blink .blink-pad, a.soapbox_link.soapbox_callout .soapbox_link-pad{
+						border-top: 1px solid #2C7AC9;
+						border-left: 1px solid #2C7AC9;
+					}
+					a.blink.blue-blink .blink-pad .blink-arrow, a.soapbox_link.soapbox_callout .soapbox_arrow{ 
+						background: url(./images/more.png) no-repeat right center;	
+					}
+				
+
+				a.blink.black-blink, #feature_slider .fcontent a, #feature_slider .fcontent a.post-edit-link{
+					background: #111;
+					border: 1px solid #000;
+					border-top: 1px solid #111;
+					border-left: 1px solid #111;
+					color:#fff;
+					text-shadow: none;
+				}
+					a.blink.black-blink:hover, #feature_slider .fcontent a:hover, #feature_slider .fcontent a.post-edit-link:hover{background:#333; border-bottom: 1px solid #000;}
+					a.blink.black-blink .blink-pad, #feature_slider .fcontent a.post-edit-link{
+						border-top: 1px solid #444;
+						border-left: 1px solid #444;
+					}
+					a.blink.black-blink .blink-pad .blink-arrow{ 
+						background: url(./images/more.png) no-repeat right center;	
+					}
+					a.blink.black-blink:active .blink-pad , #feature_slider .fcontent a.post-edit-link:active{
+						background: #000;
+						border: 1px solid #000;
+						border-right: 1px solid #444;
+						border-bottom: 1px solid #444;
+					}
+	*/

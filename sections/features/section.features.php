@@ -71,29 +71,29 @@ class PageLinesFeatures extends PageLinesSection {
 					'feature-style' => array(
 							'type' 	=> 'select',					
 							'title' => 'Feature Text Position',
-							'desc' 	=> 'Select the type of feature style you would like to be shown. E.g. show text on left, right, bottom or not at all (full width)...',
+							'shortexp' 	=> 'Select the type of feature style you would like to be shown. E.g. show text on left, right, bottom or not at all (full width)...',
 							'selectvalues' => array(
-								'text-left'		=> 'Text On Left',
-								'text-right' 	=> 'Text On Right',
-								'text-bottom' 	=> 'Text On Bottom',
-								'text-none' 	=> 'Full Width Image or Media - No Text'
+								'text-left'		=> array( 'name' => 'Text On Left'),
+								'text-right' 	=> array( 'name' => 'Text On Right'),
+								'text-bottom' 	=> array( 'name' => 'Text On Bottom'),
+								'text-none' 	=> array( 'name' => 'Full Width Image or Media - No Text')
 							),
 						),
 					'feature-background-image' => array(
-							'desc' 			=> 'Upload an image for the feature background.',
+							'shortexp'		=> 'Upload an image for the feature background.',
 							'title' 		=> 'Feature Background Image',
 							'type' 			=> 'image_upload'
 						),
 					
 					'feature-design' => array(
 							'type'			=> 'select',
-							'desc' 			=> 'Select the design style you would like this feature to have (e.g. default background color, text color, overlay? etc...).',
+							'shortexp' 			=> 'Select the design style you would like this feature to have (e.g. default background color, text color, overlay? etc...).',
 							'title' 	=> 'Feature Design Style',
 							'selectvalues' => array(
-								'fstyle-darkbg-overlay' => 'White Text - Dark Feature Background - Transparent Text Overlay (Default)',
-								'fstyle-lightbg'		=> 'Black Text - Light Feature Background with Border - No Overlay',
-								'fstyle-darkbg'			=> 'White Text - Dark Feature Background - No Overlay',
-								'fstyle-nobg'			=> 'Black Text - No Feature Background - No Overlay',
+								'fstyle-darkbg-overlay' => array( 'name' => 'White Text - Dark Feature Background - Transparent Text Overlay (Default)'),
+								'fstyle-lightbg'		=> array( 'name' => 'Black Text - Light Feature Background with Border - No Overlay'),
+								'fstyle-darkbg'			=> array( 'name' => 'White Text - Dark Feature Background - No Overlay'),
+								'fstyle-nobg'			=> array( 'name' => 'Black Text - No Feature Background - No Overlay'),
 							),
 						),
 						
@@ -102,30 +102,30 @@ class PageLinesFeatures extends PageLinesSection {
 							'type' 			=> 'image_upload',					
 							'title' 		=> 'Feature Media Image',
 							'label'			=> 'Upload An Image For The Feature Media Area',
-							'desc' 			=> 'Upload an image of the appropriate size for the feature media area.'
+							'shortexp' 			=> 'Upload an image of the appropriate size for the feature media area.'
 						),
 					'feature-media' => array(
 							'version' 		=> 'pro',
 							'type' 			=> 'textarea',					
 							'title' 		=> 'Feature Media HTML (Youtube, Flash etc...)',
 							'label'			=> 'Enter HTML For Feature Media Area',
-							'desc'	 		=> 'Feature Page Media HTML or Embed Code.'
+							'shortexp'	 		=> 'Feature Page Media HTML or Embed Code.'
 						),
 					'feature-thumb' => array(
-							'desc' 			=> 'Add thumbnails to your post for use in thumb navigation. Create an image 50px wide by 30px tall and upload here.',
+							'shortexp' 			=> 'Add thumbnails to your post for use in thumb navigation. Create an image 50px wide by 30px tall and upload here.',
 							'title' 		=> 'Feature Thumb (50px by 30px)',
 							'label'			=> 'Upload Feature Thumbnail (Thumbs Mode)',
 							'type' 			=> 'image_upload'
 						),
 					'feature-link-url' => array(
-							'desc' 			=> 'Adding a URL here will add a link to your feature slide',
+							'shortexp' 			=> 'Adding a URL here will add a link to your feature slide',
 							'title' 		=> 'Feature Link URL',
 							'label'			=> 'Enter Feature Link URL',
 							'type' 			=> 'text'
 						),
 					'feature-link-text' => array(
 							'default'		=> 'More',
-							'desc' 			=> 'Enter the text you would like in your feature link',
+							'shortexp' 			=> 'Enter the text you would like in your feature link',
 							'title' 		=> 'Link Text',
 							'label'			=> 'Enter Feature Link Text',
 							'type' 			=> 'text', 
@@ -133,7 +133,7 @@ class PageLinesFeatures extends PageLinesSection {
 						),
 					'feature-name' => array(
 							'default'		=> '',
-							'desc' 			=> 'Enter the title you would like to appear when the feature nav mode is set to feature names',
+							'shortexp' 			=> 'Enter the title you would like to appear when the feature nav mode is set to feature names',
 							'title' 		=> 'Navigation Label',
 							'label'			=> 'Enter Feature Navigation Text (Names Nav Mode)',
 							'type' 			=> 'text'
@@ -389,22 +389,23 @@ function draw_features($f, $class) {
 													<?php pagelines_register_hook( 'pagelines_feature_text_top', $this->id ); // Hook ?>
 													<div class="fexcerpt">
 													<?php 
-														if(pagelines_option('feature_source') == 'posts') echo apply_filters( 'pagelines_feature_output', get_the_excerpt() );
-													 	else the_content(); 
+														if(pagelines_option('feature_source') == 'posts') 
+															echo apply_filters( 'pagelines_feature_output', get_the_excerpt() );
+													 	else 
+															the_content(); 
 													?>
 													</div>
-													<?php if(get_post_meta($post->ID, 'feature-link-url', true)):?>
-														<a class="blink black-blink flink" href="<?php echo get_post_meta($post->ID, 'feature-link-url', true);?>">
-															<span class="blink-pad">
-																<span class="blink-arrow featurelink" ><?php echo $flink_text;?></span>
-															</span>
-														</a>
-													<?php endif;?>
-													<?php pagelines_register_hook( 'pagelines_feature_text_bottom', $this->id ); // Hook 
+													<?php 
+														$action = get_post_meta($post->ID, 'feature-link-url', true);
+														if($action)
+															echo PLObs::button($flink_text, 'link', 'black', array('action' => $action));
 													
-														echo ObjectEngine::button( array('text' => 'edit', 'type' => 'edit_post', 'id' => $post->ID, 'color' => 'black'));
-													?>
-													<?php edit_post_link(__('<span>Edit</span>', 'pagelines'), '', '');?>
+													
+													
+													pagelines_register_hook( 'pagelines_feature_text_bottom', $this->id ); // Hook 
+													echo PLObs::button(__('Edit', 'pagelines'), 'edit_post', 'black', array('id' => $post->ID));
+													
+														?>
 												</div>
 												<?php pagelines_register_hook( 'pagelines_fcontent_after', $this->id ); // Hook ?>
 										</div>

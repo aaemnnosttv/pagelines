@@ -1,31 +1,35 @@
-****************************
+********************************************************
 
-  PlatformPro Release Notes: 
+  PageLines Framework Release Notes:  
 
-****************************
+********************************************************
 
 	How version numbers work (Notation: A.B.C)
 	- "A" releases are "Major Releases" - Big day! Huge rewrites with tons of new features, optimizations
 	- "B" releases are "Major Minor Releases" - Cool new features + rewrites, sometimes prone to issues due to new code.
 	- "C" releases are "Minor Releases" - Contain bugfixes and improvements to code
 
-****************************
+********************************************************
 
 
 Version 2.0 
-BETA - 4
-- Section Control Rewrite
-	- Fixes issues with hiding same sections
-- Metapanel rewrite
-- Cloning & Meta Options
-BETA - 1, 2, 3
-- Sections Cloning
-- Admin Rewrite
-- Responsive Design
-- Advanced Template Selector
-- Improved Graphics 
-- Updated JS Libs
-- Rewrote Option Engine
+	BETA - 5
+	- Special Page Handling
+	- Graphical Selectors
+	- Themes Extension
+	BETA - 4
+	- Section Control Rewrite
+		- Fixes issues with hiding same sections
+	- Metapanel rewrite
+	- Cloning & Meta Options
+	BETA - 1, 2, 3
+	- Sections Cloning
+	- Admin Rewrite
+	- Responsive Design
+	- Advanced Template Selector
+	- Improved Graphics 
+	- Updated JS Libs
+	- Rewrote Option Engine
 
 Version 1.5.0 -
 - Bug Fix - Using categories for feature slider
@@ -39,7 +43,7 @@ Version 1.5.0 -
 - Admin - Custom Post Types meta support added
 - I18n - Rebuild translation files
 - Sections - Fix twitter url
-- Admin - Dont show meta if main blog page
+- Admin - Don't show meta if main blog page
 
 Version 1.4.0 - Refactoring Release
 - ShareBar Section - Fixed API Bug

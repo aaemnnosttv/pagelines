@@ -148,6 +148,11 @@ require_once( PL_ADMIN . '/class.options.engine.php' );
  */
 require_once( PL_ADMIN . '/library.data.php' );
 
+/**
+ * Load HTML Objects
+ */
+require_once( PL_INCLUDES . '/class.objects.php' );
+
 
 /**
  * Load Type Foundry Class
