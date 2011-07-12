@@ -204,17 +204,16 @@ class PageLinesBanners extends PageLinesSection {
 					<div class="banner-text-pad" style="<?php echo $banner_text_padding;?>">
 							<?php echo blink_edit($bpost->ID); ?>
 							<div class="banner-title"><h2><?php echo do_shortcode($bpost->post_title); ?></h2></div>
-							<div class="banner-content">
-								
-								<?php echo do_shortcode($bpost->post_content); ?>
-								
+							<div class="banner-content">		
+								<?php echo apply_filters( 'the_content', do_shortcode($bpost->post_content) ); ?>
+								<?php edit_post_link(__('[Edit Banner]', 'pagelines'), '', '', $bpost->ID);?>
 							</div>
 
 					</div>
 				</div>
 				<div class="banner-media" style="width:<?php echo $banner_media_width; ?>%;" >
 					<div class="banner-media-pad">
-						<?php echo self::_get_banner_media( $bpost );?>
+						<?php echo apply_filters( 'the_content', self::_get_banner_media( $bpost ) );?>
 					</div>
 				</div>
 				<div class="clear"></div>
