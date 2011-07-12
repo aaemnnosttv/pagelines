@@ -80,10 +80,8 @@ class PageLinesPosts {
 	function post_entry(){ 
 		
 		if( $this->pagelines_show_content( get_the_ID() ) ){
-		
-			$the_tags = sprintf('<div class="tags">%s&nbsp;</div>', get_the_tag_list(__('Tagged with: ', 'pagelines'),' &bull; ','<br />') );
-		
-			$post_entry = sprintf('<div class="entry_wrap fix"><div class="entry_content">%s</div>%s</div>', $this->post_content(), $the_tags);
+				
+			$post_entry = sprintf('<div class="entry_wrap fix"><div class="entry_content">%s</div></div>', $this->post_content());
 		
 			return apply_filters('pagelines_post_entry', $post_entry);
 		
@@ -101,9 +99,10 @@ class PageLinesPosts {
 		if( is_single() || is_page() ) 
 			wp_link_pages(array('before'=> __('<p class="content-pagination"><span class="cp-desc">pages:</span>', 'pagelines'), 'after' => '</p>', 'pagelink' => '<span class="cp-num">%</span>')); 
 
-		// Edit Link
-		$edit_type = (is_page()) ? __('Edit Page','pagelines') : __('Edit Post','pagelines');
-		edit_post_link( '['.$edit_type.']', '', '');
+		printf('<div class="p tags">%s&nbsp;</div>', get_the_tag_list(__('Tagged with: ', 'pagelines'),' &bull; ','') );
+
+		echo blink_edit('', 'grey', array('align'=>'left', 'clear' => true)); 
+	
 		pagelines_register_hook( 'pagelines_loop_after_post_content', 'theloop' ); // Hook 
 		$the_content = ob_get_clean();
 

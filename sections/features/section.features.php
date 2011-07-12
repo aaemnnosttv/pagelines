@@ -398,12 +398,12 @@ function draw_features($f, $class) {
 													<?php 
 														$action = get_post_meta($post->ID, 'feature-link-url', true);
 														if($action)
-															echo PLObs::button($flink_text, 'link', 'black', array('action' => $action));
+															echo blink($flink_text, 'link', 'black', array('action' => $action));
 													
 													
 													
 													pagelines_register_hook( 'pagelines_feature_text_bottom', $this->id ); // Hook 
-													echo PLObs::button(__('Edit', 'pagelines'), 'edit_post', 'black', array('id' => $post->ID));
+													echo blink_edit($post->ID, 'black');
 													
 														?>
 												</div>

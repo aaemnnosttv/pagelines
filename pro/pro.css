@@ -582,7 +582,6 @@
 	.cform legend{display: none;}
 	.contentcontainer  .cform {margin:5px 50px;padding:0px 0;}
 	.cform ol, .cform li{list-style-type: none; margin:0;padding:0;}
-	.cform label {}
 	.cform li{margin-bottom: .7em;}
 	.cform .single{width: 97%;}
 	.cform .area{width: 97%;}

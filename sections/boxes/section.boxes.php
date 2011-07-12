@@ -231,7 +231,7 @@ class PageLinesBoxes extends PageLinesSection {
 						</div>
 					<?php endif;?>
 						<div class="fboxinfo fix">
-							<?php echo PLObs::button(__('Edit', 'pagelines'), 'edit_post', 'grey', array('id' => $bpost->ID, 'align' => 'right')); ?>
+							<?php echo blink_edit($bpost->ID); ?>
 							<div class="fboxtitle">
 								<h3>
 <?php 							if($box_link) 

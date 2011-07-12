@@ -246,8 +246,10 @@ class PageLinesSoapbox extends PageLinesSection {
 						<?php endif;?>
 
 							<div class="fboxinfo fix">
+								
 									<div class="fboxtitle"><h3><?php the_title(); ?></h3></div>
 									<div class="fboxtext">
+										<?php echo blink_edit($post->ID); ?>
 										<?php the_content(); ?>
 									</div>
 								<div class="soapbox-links">
@@ -263,7 +265,7 @@ class PageLinesSoapbox extends PageLinesSection {
 									<?php endfor; ?>
 									<?php pagelines_register_hook( 'pagelines_soapbox_links', $this->id ); // Hook ?>
 									
-									<?php edit_post_link(__('<small>[Edit Box]</small>', 'pagelines'), '', '');?>
+									
 								</div>
 							</div>
 							<?php pagelines_register_hook( 'pagelines_soapbox_inside_bottom', $this->id ); // Hook ?>

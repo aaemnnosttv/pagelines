@@ -10,7 +10,7 @@
  *  @since 2.0.b6
  *
  */
-class PLObs {
+class PLObject {
 
 	
 	function __contruct(){}
@@ -47,14 +47,33 @@ class PLObs {
 			$action = '';
 		}
 		
-		$clear = ($a['clear']) ? '<div class="clear"></div>' : '';
+		$clear = ($a['clear']) ? '<div class="p fix">' : '';
+		$clear_end = ($a['clear']) ? '</div>' : '';
+		
 		
 		$button = sprintf( '<%1$s class="blink" %3$s><span class="blink-pad">%2$s</span></%1$s>', $element, $text, $action);
 
-		$output = sprintf('%s<div class="%s blink-wrap">%s</div>', $clear, $classes, $button);
+		$output = sprintf('%s<div class="%s blink-wrap">%s</div>%s', $clear, $classes, $button, $clear_end);
 
 		return apply_filters('pagelines_button', $output, $a);
 		
 	}
 
+}
+
+function blink($text = '&nbsp;', $type = 'button', $color = 'grey', $args){
+	return PLObject::button($text, $type, $color, $args);
+}
+
+function blink_edit( $post_id = '', $color = 'grey', $args = array()){
+	
+	if($post_id == ''){
+		global $post; 
+		$post_id = $post->ID;
+	}
+	
+	$args['id'] = $post_id;
+	$args['align'] = (isset($args['align'])) ? $args['align'] : 'right';
+	
+	return PLObject::button(__('Edit', 'pagelines'), 'edit_post', $color, $args);
 }

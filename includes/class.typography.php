@@ -7,7 +7,7 @@
  */
 class PageLinesFoundry {
 	
-	var $gfont_base_uri = 'http://fonts.googleapis.com/css?family=';
+	var $gfont_base_uri = 'http://fonts.googleapis.com/css?v2&family=';
 	var $foundry;
 	
 	/**
@@ -160,6 +160,13 @@ class PageLinesFoundry {
 				'google' => true,
 				'monospace' => false, 
 			),
+			'kreon' => array(
+				'name' 		=> 'Kreon',
+				'family' 	=> '"Kreon", georgia, serif',
+				'google' 	=> array('300', '400', '700'),
+				'web_safe' 	=> true,
+				'monospace' => false
+			),
 			'lato' => array(
 				'name' => 'Lato',
 				'family' => '"Lato", arial, serif',
@@ -174,6 +181,13 @@ class PageLinesFoundry {
 				'google' => true,
 				'monospace' => false, 
 				'free'		=> true
+			),
+			'lora' => array(
+				'name' 		=> 'Lora',
+				'family' 	=> '"Lora", georgia, serif',
+				'google' 	=> array('400', '700', '400italic'),
+				'web_safe' 	=> true,
+				'monospace' => false
 			),
 			'merriweather' => array(
 				'name' 		=> 'Merriweather',

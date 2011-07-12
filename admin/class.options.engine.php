@@ -613,7 +613,7 @@ class OptEngine {
 					<?php endforeach;?>
 					
 					<?php if(isset($o['exp']) && $o['exp'] != ''):?>
-					<div class="gselect_toggle" onclick="jQuery('.exp_gselect').slideToggle();">
+					<div class="gselect_toggle" onclick="jQuery(this).parent().parent().next().slideToggle();">
 						<div class="gselect_toggle_pad">More Info &darr;</div>
 					</div>
 					<?php endif;?>

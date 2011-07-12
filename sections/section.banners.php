@@ -202,10 +202,12 @@ class PageLinesBanners extends PageLinesSection {
 			<div class="banner-area <?php echo $banner_align;?>">
 				<div class="banner-text" style="width:<?php echo $banner_text_width; ?>%;">
 					<div class="banner-text-pad" style="<?php echo $banner_text_padding;?>">
+							<?php echo blink_edit($bpost->ID); ?>
 							<div class="banner-title"><h2><?php echo do_shortcode($bpost->post_title); ?></h2></div>
 							<div class="banner-content">
+								
 								<?php echo do_shortcode($bpost->post_content); ?>
-								<?php edit_post_link(__('[Edit Banner]', 'pagelines'), '', '', $bpost->ID);?>
+								
 							</div>
 
 					</div>
@@ -230,7 +232,7 @@ class PageLinesBanners extends PageLinesSection {
 			if(get_pagelines_meta('the_banner_image', $bpost->ID))
 				$banner_media = '<img src="'.get_pagelines_meta('the_banner_image', $bpost->ID).'" alt="'.get_the_title().'" />';
 			elseif(get_pagelines_meta('the_banner_media', $bpost->ID))
-				$banner_media = get_pagelines_meta('the_banner_media', $bpost->ID);
+				$banner_media = do_shortcode(get_pagelines_meta('the_banner_media', $bpost->ID));
 			else 
 				$banner_media = '';
 			

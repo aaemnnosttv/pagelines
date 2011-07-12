@@ -632,7 +632,7 @@ function extension_array(  ){
 	global $extension_control;
 
 	$d = array(
-		'PageLines_Sections' => array(
+		'Sections' => array(
 			'icon'		=> PL_ADMIN_ICONS.'/extend-sections.png',
 			'htabs' 	=> array(
 				'installed'	=> array(
@@ -657,8 +657,24 @@ function extension_array(  ){
 				),
 
 			),
-		
-		'PageLines_Plugins' => array(
+		'Themes' => array(
+			'icon'		=> PL_ADMIN_ICONS.'/extend-themes.png',
+			'htabs' 	=> array(
+				
+				'installed'	=> array(
+					'title'		=> 'Installed PageLines Themes',
+					'callback'	=> $extension_control->extension_themes()
+					),
+				'free'		=> array(
+					'title'		=> 'Free Themes',
+					'class'		=> 'right',
+					'callback'	=> $extension_control->extension_themes( 'free' )
+					)
+					
+				)
+
+			),
+		'Plugins' => array(
 			'icon'		=> PL_ADMIN_ICONS.'/extend-plugins.png',
 			'htabs' 	=> array(
 				
@@ -676,25 +692,7 @@ function extension_array(  ){
 
 			),
 
-		'PageLines_Themes' => array(
-			'icon'		=> PL_ADMIN_ICONS.'/extend-plugins.png',
-			'htabs' 	=> array(
-				
-				'installed'	=> array(
-					'title'		=> 'Installed PageLines Themes',
-					'callback'	=> $extension_control->extension_themes()
-					),
-				'free'		=> array(
-					'title'		=> 'Free Themes',
-					'class'		=> 'right',
-					'callback'	=> $extension_control->extension_themes( 'free' )
-					)
-					
-				)
-
-			)
-
-
+		
 
 	);
 
