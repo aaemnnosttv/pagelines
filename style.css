@@ -40,10 +40,12 @@ body{ height:100%; padding-top: 3px; }
 
 /******* Typography *******/
 
+body{font-size: 87.5%; line-height: 1.7em}
+
 /* @ Headers H1 - H6 */
 	h1, h2, h3, h4, h5, h6{font-weight:normal; line-height: 1.33em;}
 	h1{font-size:3.3em;} 
-	h2{font-size:2.4em;}
+	h2{font-size:2.5em;}
 	h3{font-size:1.8em;}
 	h4{font-size:1.5em;}
 	h5{font-size:1.1em;}
@@ -56,23 +58,31 @@ body{ height:100%; padding-top: 3px; }
 	/* @ Text Headers */
 	.subhead { margin-bottom: 1.6em; }
 
-/* @ Font Sizes */
-	body{font-size: 87.5%; line-height: 1.7em}
-	
-	/* Reset to Default size -- headers and such */
+
+	/* @ Paragraphs */
+		p, .p{margin:1.6em 0;}
+		.hentry p:first-child{margin-top: .3em;}
+		p {hyphenate: auto;hyphenate-before:2;hyphenate-after:3;hyphenate-lines: 3;orphans:4}
+		p span.pullquote{text-indent:0;}
+
+
+	/* @ Font Sizes & Line Heights */
 	.widget-title, #footer li h5 a { font-size: 1em; }
 	
 	a.site-title{ font-size: 2.6em; line-height: 1em; }
 	h6.site-description { font-size:.9em;}
 	
 	.tags, .subhead, .caption, .footnote{ font-size: .8em }
-	#postauthor .subtext, .author-details, .post-nav, .current_posts_info, #secondnav, .kicker .run-in{font-size:.9em;}
+	.main_nav, #postauthor .subtext, .author-details, .post-nav, .current_posts_info, #secondnav, .kicker .run-in{font-size:.9em;}
 		
 	/* Posts Meta & Excerpts */
 	.fpost .post-excerpt{font-size: 1.1em; line-height: 1.6em}
 	.metabar em{ font-size: .85em; line-height: 1.75em; }
 	.clip .entry-title { font-size: 1.5em; line-height: 1.2em; }
 
+	/* Sidebars */
+	.widget ul li{line-height: 1.4em}
+	
 		.post-footer { font-size: 1em; line-height: 25px; }
 		.post-footer .left span { font-size: 14px; line-height: 21px; }
 		.post-footer .right span { line-height: 21px; }
@@ -103,11 +113,6 @@ body{ height:100%; padding-top: 3px; }
 			.wp-caption-dd { font-size: 11px; line-height: 17px;  }	
 	
 
-/* @ Paragraphs */
-	p, .p{margin:1.6em 0;}
-	.hentry p:first-child{margin-top: .3em;}
-	p {hyphenate: auto;hyphenate-before:2;hyphenate-after:3;hyphenate-lines: 3;orphans:4}
-	p span.pullquote{text-indent:0;}
 
 /* @ Lists */ 
 	.hentry ul, .hentry ol { margin: 1.58em 0; margin-left: 16px;}
