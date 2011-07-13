@@ -99,8 +99,10 @@ class PageLinesPosts {
 		if( is_single() || is_page() ) 
 			wp_link_pages(array('before'=> __('<p class="content-pagination"><span class="cp-desc">pages:</span>', 'pagelines'), 'after' => '</p>', 'pagelink' => '<span class="cp-num">%</span>')); 
 
+		$hastags = get_the_tags();
+		if ( $hastags ) {
 		printf('<div class="p tags">%s&nbsp;</div>', get_the_tag_list(__('Tagged with: ', 'pagelines'),' &bull; ','') );
-
+		}
 		echo blink_edit('', 'grey', array('align'=>'left', 'clear' => true)); 
 	
 		pagelines_register_hook( 'pagelines_loop_after_post_content', 'theloop' ); // Hook 
@@ -117,17 +119,31 @@ class PageLinesPosts {
 			
 			global $post;
 			
-			$thumb = ( $this->pagelines_show_thumb( get_the_ID() ) ) ? $this->post_thumbnail_markup() : '';
+			$excerpt_mode = ($format == 'clip') ? pagelines_option('excerpt_mode_clip') : pagelines_option('excerpt_mode_full');
 			
-			$excerpt = ( $this->pagelines_show_excerpt( get_the_ID() ) ) ? $this->post_excerpt_markup( ) : '';
+		
+			
+			$thumb = ( $this->pagelines_show_thumb( get_the_ID() ) ) ? $this->post_thumbnail_markup( $excerpt_mode, $format ) : '';
+			
+			$excerpt = ( $this->pagelines_show_excerpt( get_the_ID() ) ) ? $this->post_excerpt_markup( $excerpt_mode, $thumb ) : '';
 			
 			$classes = (!$this->pagelines_show_thumb($post->ID)) ? 'post-nothumb' : '';
-		
-			$style = ($this->pagelines_show_thumb($post->ID)) ? 'margin-left:'.$this->thumb_space.'px' : '';
 			
+			
+			
+			
+				
 			$title = sprintf('<section class="bd post-title-section fix"><hgroup class="post-title fix">%s%s</hgroup></section>', $this->pagelines_get_post_title(), $this->pagelines_get_post_metabar( $format ));
 			
-			$post_header = sprintf('<section class="post-meta media fix">%s<section class="bd post-header fix %s" >%s %s</section></section>', $thumb, $classes, $title, $excerpt);
+			
+			if($excerpt_mode == 'left-excerpt' || $excerpt_mode == 'right-excerpt')
+				$post_header = sprintf('<section class="post-meta fix"><section class="bd post-header fix %s" >%s %s</section></section>', $classes, $title, $excerpt);
+			elseif($excerpt_mode == 'top')
+				$post_header = sprintf('<section class="post-meta fix">%s<section class="bd post-header fix %s" >%s %s</section></section>',$thumb, $classes, $title, $excerpt);
+			else
+				$post_header = sprintf('<section class="post-meta media fix">%s<section class="bd post-header fix %s" >%s %s</section></section>', $thumb, $classes, $title, $excerpt);
+			
+			
 			
 			return apply_filters( 'pagelines_post_header', $post_header );
 			
@@ -136,6 +152,7 @@ class PageLinesPosts {
 		
 			
 	}
+	
 	
 	
 	/**
@@ -161,10 +178,14 @@ class PageLinesPosts {
 	 *
 	 * @return string the excerpt markup
 	 */
-	function post_excerpt_markup( ) {
+	function post_excerpt_markup( $mode = '', $thumbnail = '' ) {
 		
-		$pagelines_excerpt = sprintf( '<aside class="post-excerpt">%s</aside>', get_the_excerpt() );
-		
+		if($mode == 'left-excerpt' || $mode == 'right-excerpt')
+			$pagelines_excerpt = sprintf( '<aside class="post-excerpt">%s %s</aside>', $thumbnail, get_the_excerpt() );
+		else
+			$pagelines_excerpt = sprintf( '<aside class="post-excerpt">%s</aside>', get_the_excerpt() );
+			
+			
 		if(pagelines_is_posts_page() && !$this->pagelines_show_content( get_the_ID() )) // 'Continue Reading' link
 			$pagelines_excerpt .= $this->get_continue_reading_link( get_the_ID() );
 		
@@ -180,12 +201,32 @@ class PageLinesPosts {
 	 *
 	 * @return string the thumbnail markup
 	 */
-	function post_thumbnail_markup( ) {
+	function post_thumbnail_markup( $mode = '', $format = '') {
 		
-		$thumb_link = sprintf('<a class="post-thumb img" href="%s" rel="bookmark" title="%s %s"><span class="c_img">%s</span></a>', get_permalink(), __('Link To', 'pagelines'), the_title_attribute( array('echo' => false) ), get_the_post_thumbnail(null, 'thumbnail') );
+		$thumb_width = get_option('thumbnail_size_w');
+		
+		$classes = 'post-thumb img';
+		
+		$percent_width  = ($mode == 'top') ? 100 : ($format == 'clip' ? 18 : 25);
+		
+		$style = sprintf('width: %s%%; max-width: %spx', $percent_width, $thumb_width);
+		
+		if($mode == 'left-excerpt')
+			$classes .= ' alignleft';
+		elseif($mode == 'right-excerpt')
+			$classes .= ' alignright';
+		elseif($mode == 'top'){
+			$classes .= ' left';
+		}
 		
 		
-		return apply_filters('pagelines_thumb_markup', $thumb_link);
+		$the_image = sprintf('<span class="c_img">%s</span>', get_the_post_thumbnail(null, 'thumbnail'));
+		
+		$thumb_link = sprintf('<a class="%s" href="%s" rel="bookmark" title="%s %s" style="%s">%s</a>', $classes, get_permalink(), __('Link To', 'pagelines'), the_title_attribute( array('echo' => false) ), $style, $the_image );
+		
+		$output = ($mode == 'top') ? sprintf('<div class="full_img fix">%s</div>', $thumb_link) : $thumb_link;
+		
+		return apply_filters('pagelines_thumb_markup', $output, $mode, $format);
 		
 	}
 	

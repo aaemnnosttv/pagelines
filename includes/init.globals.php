@@ -96,7 +96,7 @@ define('PAGELINES_PRO_ROOT', PARENT_URL . '/pro' );
 /**
  * Define language constants
  */
-$lang = ( is_dir( WP_PLUGIN_DIR . '/pagelines-child/themes/' . basename( STYLESHEETPATH ) . '/language' ) ) ? WP_PLUGIN_DIR . '/pagelines-child/themes/' . basename( STYLESHEETPATH ) . '/language' : TEMPLATEPATH . '/language';
+$lang = ( is_dir( WP_PLUGIN_DIR . '/pagelines-base/language' ) ) ? WP_PLUGIN_DIR . '/pagelines-base/language' : TEMPLATEPATH . '/language';
 define( 'PAGELINES_LANGUAGE_DIR', $lang );
 
 /**
