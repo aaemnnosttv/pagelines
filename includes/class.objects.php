@@ -72,8 +72,10 @@ function blink_edit( $post_id = '', $color = 'grey', $args = array()){
 		$post_id = $post->ID;
 	}
 	
-	$args['id'] = $post_id;
+	$args['pid'] = $post_id;
 	$args['align'] = (isset($args['align'])) ? $args['align'] : 'right';
 	
 	return PLObject::button(__('Edit', 'pagelines'), 'edit_post', $color, $args);
 }
+
+

@@ -23,11 +23,11 @@
 
 /* @ Mediablock - Standard Media Format  */
 	.media { overflow:hidden;overflow: visible; zoom: 1; }
-	.media .bd{display:table-cell; vertical-align: top; width: 10000px; *display:block; *width:auto; zoom:1;}
+	.media .bd {display:table-cell; vertical-align: top; width: 10000px; *display:block; *width:auto; zoom:1;}
 	.media .bd > :first-child{margin-top:0;}
 	.media .bd > :last-child{margin-bottom:0;}
 	.media .img{float:left;margin-right: 15px;}
-	.media .img img{display:block; max-width: 100%;}
+	.media .img img, .img img{display:block; max-width: 100%;}
 	.media .imgExt{float:right; margin-left: 10px;}
 
 /* @ PageLines Proto CSS Grid */
@@ -41,7 +41,22 @@
 	.pp5 { width: 16.8%; }
 	.pp6 { width: 13.3333333%; }
 	.pplast { margin-right: 0; }
+	
 
+	@media screen and (max-width:580px) { 
+		
+		.pp2, .pp3, .pp4, .pp5, .pp6 { 
+	       	width: 100%;
+			margin-right: 0;
+	    }
+	}
+	.pp2, .pp3, .pp4, .pp5, .pp6 {
+	 	transition:all .2s linear; 
+	    -o-transition:all .2s linear; 
+	    -moz-transition:all .2s linear; 
+	    -webkit-transition:all .2s linear;
+	}
+	
 /* @ Border Tricks */
 	body .ntb{border-top: none}
 	body .nbb{border-bottom: none}
@@ -109,7 +124,10 @@ body #page .blink-wrap	.blink{
 		border-left: 1px solid #fff;
 		
 	}
-	body #page .blink-wrap .blink:active{background: #82a2ca url(../images/superlink-sprite-grey.png) 0 -70px repeat-x;border: 1px solid #666;color: #fff; text-shadow: #000 0 -1px 0}
+	body #page .blink-wrap .blink:active{background: #82a2ca url(../images/blink-sprite-grey.png) 0 -70px repeat-x;border: 1px solid #666;color: #fff; text-shadow: #000 0 -1px 0}
 	body #page .blink-wrap .blink:active .blink-pad{border: 1px solid transparent;}
 	
 	.bl-align-right{float:right; margin: 2px 0 2px 5px;}
+
+
+

@@ -698,7 +698,7 @@ class PageLinesOptionsArray {
 					'top'			=> array( 'name' => 'On Top', 'offset' => '0px 0px' ), 
 					'left-excerpt'	=> array( 'name' => 'Left, In Excerpt', 'offset' => '0px -100px' ), 
 					'right-excerpt'	=> array( 'name' => 'Right, In Excerpt', 'offset' => '0px -150px' ), 
-					'left-title'	=> array( 'name' => 'Left, In Title', 'offset' => '0px -200px' ), 
+					
 				),
 				'title'		=> 'Feature Post Excerpt Mode',						
 				'shortexp'	=> 'Select how thumbs should be handled in full-width posts',
@@ -718,7 +718,7 @@ class PageLinesOptionsArray {
 					'top'			=> array( 'name' => 'On Top', 'offset' => '0px 0px' ), 
 					'left-excerpt'	=> array( 'name' => 'Left, In Excerpt', 'offset' => '0px -100px' ), 
 					'right-excerpt'	=> array( 'name' => 'Right, In Excerpt', 'offset' => '0px -150px' ), 
-					'left-title'	=> array( 'name' => 'Left, In Title', 'offset' => '0px -200px' ), 
+					
 				),
 				'title'		=> 'Clip Excerpt Mode',						
 				'shortexp'	=> 'Select how thumbs should be handled in clips',

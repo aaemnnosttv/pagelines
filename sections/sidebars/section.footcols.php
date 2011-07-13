@@ -31,7 +31,7 @@ class PageLinesFootCols extends PageLinesSection {
 		register_sidebar(array(
 		'name'=>$this->name,
 		'description' => __('Use this sidebar if you want to use widgets in your footer columns instead of the default.', 'pagelines'),
-		    'before_widget' => '<div id="%1$s" class="%2$s dcol_5 dcol"><div class="dcol-pad">',
+		    'before_widget' => '<div id="%1$s" class="%2$s pp5 footcol"><div class="dcol-pad">',
 		    'after_widget' => '</div></div>',
 		    'before_title' => '<h3 class="widget-title">',
 		    'after_title' => '</h3>'

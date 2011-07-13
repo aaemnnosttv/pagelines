@@ -331,14 +331,11 @@
 		#highlight .highlight-splash img {max-width: 100%;}
 		
 /* @ Feature Boxes */
-	#boxes .content-pad{
-		padding: .5em 0;
-	}
 		#boxes h3{
 			padding: 0 0 2px 0;
 			font-size: 1.3em;
 		}
-		#boxes .dcol-pad{ padding: 8px 0 0; }
+		#boxes .dcol-pad{ padding: 10px 0; }
 		.fboxes p { margin-bottom: 10px; }
 		.fboxes ul {
 		 	list-style-type: none;
@@ -362,19 +359,13 @@
 		 	line-height: 17px; /* Required for cross-browser consistency; cross-browser defaults vary. */
 		 }
 
-		.inline_thumbs .fboxgraphic {
-			float:left;
-			padding-right:15px;
-			padding-top:5px;
-		}
+		.inline_thumbs .fboxgraphic { padding-top:5px; }
 
 		.top_thumbs .fboxgraphic, .only_thumbs .fboxgraphic{
 			text-align: center;
 			margin-bottom:5px;
 		}
-		.only_thumbs .fboxinfo{
-			display: none;
-		}
+		.only_thumbs .fboxinfo{ display: none; }
 
 		.fboxinfo{ overflow:hidden; padding:5px 0px 0 0px; }
 	
