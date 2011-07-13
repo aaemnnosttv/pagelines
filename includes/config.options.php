@@ -673,7 +673,7 @@ class PageLinesOptionsArray {
 					'showname'		=> true,
 					'sprite'		=> PL_ADMIN_IMAGES.'/sprite-blog-modes.png',
 					'height'		=> '90px', 
-					'width'			=> '140px',
+					'width'			=> '115px',
 					'layout'		=> 'interface',
 					'selectvalues'	=> array(
 						'magazine'	=> array("name" => "Magazine Layout Mode", "version" => "pro", 'offset' => '0px -90px'),
