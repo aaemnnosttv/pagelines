@@ -35,10 +35,14 @@ class PLObject {
 
 		$classes = join(' ', array($color_class, $size_class, $position));
 
+		
+		$post_link = get_edit_post_link( $a['pid']);
+
 		if($type == 'edit_post'){
+			
 			$element = 'a';
 			$classes .= ' post-edit-link';
-			$action = sprintf('href="%s"', get_edit_post_link( $a['pid']) );
+			$action = sprintf('href="%s"', $post_link );
 		}elseif( $type = 'link'){
 			$element = 'a';
 			$action = sprintf('href="%s"', $a['action'] );
@@ -55,7 +59,11 @@ class PLObject {
 
 		$output = sprintf('%s<div class="%s blink-wrap">%s</div>%s', $clear, $classes, $button, $clear_end);
 
-		return apply_filters('pagelines_button', $output, $a);
+
+		if( $type == 'edit_post' && !isset($post_link) )
+			return '';
+		else
+			return apply_filters('pagelines_button', $output, $a);
 		
 	}
 
@@ -74,7 +82,7 @@ function blink_edit( $post_id = '', $color = 'grey', $args = array()){
 	
 	$args['pid'] = $post_id;
 	$args['align'] = (isset($args['align'])) ? $args['align'] : 'right';
-	
+
 	return PLObject::button(__('Edit', 'pagelines'), 'edit_post', $color, $args);
 }
 
