@@ -85,12 +85,5 @@ class PageLinesVanilla extends PageLinesSection {
 	}
 
 
-
-
-
-
-
-	
-	
 // End of Section Class //
 }
