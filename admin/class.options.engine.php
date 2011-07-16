@@ -68,6 +68,16 @@ class OptEngine {
 			$o['input_name'] = $oid;
 			$o['input_id'] = get_pagelines_option_id( $oid );
 			
+			if(!empty($o['selectvalues'])){
+				foreach($o['selectvalues'] as $sid => $s){
+
+					$o['selectvalues'][$sid]['val'] = m_pagelines( $sid, $pid );
+					$o['selectvalues'][$sid]['input_id'] = get_pagelines_option_id( $sid );
+					$o['selectvalues'][$sid]['input_name'] = $sid;
+
+				}
+			}
+			
 		} else {
 			$o['val'] = pagelines_option( $oid, $pid, $setting );
 			$o['input_name'] = get_pagelines_option_name( $oid, null, null, $setting );
@@ -355,7 +365,8 @@ class OptEngine {
 	 * @author Andrew Powers
 	 * 
 	 **/
-	function _get_text_multi($oid, $o, $val){ 
+	function _get_text_multi($oid, $o){ 
+		
 		foreach($o['selectvalues'] as $mid => $m){
 			
 			$attr = ( strpos( $mid, 'password' ) ) ? 'password' : 'text';
