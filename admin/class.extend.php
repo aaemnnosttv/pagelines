@@ -29,7 +29,7 @@
  			TODO make error checking better...
 			TODO Use plugin?
  		*/
- 		if ( !is_dir( WP_PLUGIN_DIR . '/pagelines-base/sections' ) || ( file_exists( WP_PLUGIN_DIR . '/pagelines-base/pagelines-base.php' ) && current( $this->plugin_check_status( WP_PLUGIN_DIR . '/pagelines-base/pagelines-base.php' ) ) == 'notactive' ) ){
+ 		if ( !is_dir( EXTEND_CHILD_DIR . '/sections' ) || ( file_exists( EXTEND_CHILD_DIR . '/pagelines-base.php' ) && current( $this->plugin_check_status( EXTEND_CHILD_DIR . '/pagelines-base.php' ) ) == 'notactive' ) ){
  		
 			$install_button = OptEngine::superlink('Install It Now!', 'blue', 'install_now sl-right', '', '');
 			return sprintf('<div class="install-control fix"><span class="banner-text">You need to install and activate PageLines Base Plugin</span> %s</div>', $install_button);
@@ -45,7 +45,7 @@
 
 		foreach( $sections as $key => $section ) {
 
-			$check_file = WP_PLUGIN_DIR . '/pagelines-base/sections/' . $section->name . '/' . str_replace( 'download.php?d=', '', str_replace( '.zip', '', basename( $section->url ) ) ) . '.php';
+			$check_file = EXTEND_CHILD_DIR . '/sections/' . $section->name . '/' . str_replace( 'download.php?d=', '', str_replace( '.zip', '', basename( $section->url ) ) ) . '.php';
 
 			if ( file_exists( $check_file ) )
 				continue;
@@ -472,7 +472,7 @@
 
 				$upgrader = new Plugin_Upgrader();
 				$options = array( 'package' => $url, 
-						'destination'		=> WP_PLUGIN_DIR .'/pagelines-base/sections/' . $type, 
+						'destination'		=> EXTEND_CHILD_DIR .'/sections/' . $type, 
 						'clear_destination' => false,
 						'clear_working'		=> false,
 						'is_multi'			=> false,
@@ -489,7 +489,7 @@
 
 				$upgrader = new Plugin_Upgrader();
 				$options = array( 'package' => $url, 
-						'destination'		=> WP_PLUGIN_DIR .'/pagelines-base/sections/' . $type, 
+						'destination'		=> EXTEND_CHILD_DIR .'/sections/' . $type, 
 						'clear_destination' => true,
 						'clear_working'		=> false,
 						'is_multi'			=> false,

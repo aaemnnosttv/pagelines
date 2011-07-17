@@ -82,3 +82,24 @@ add_action('pagelines_head', 'pagelines_head_common');
  * @since 1.3.3
  */
 add_action('wp_head', 'do_dynamic_css');
+
+/**
+ *
+ * Load 'child' style and functions.
+ * 
+ * @since 2.0
+ * 
+ */	
+add_action( 'wp_enqueue_scripts', 'load_child_style', 30 );
+add_action( 'init', 'load_child_functions' );
+
+function load_child_style() {
+
+	if ( file_exists( EXTEND_CHILD_DIR . '/base-style.css' ) )
+		wp_enqueue_style( 'child', EXTEND_CHILD_URL . '/base-style.css' );
+}
+
+function load_child_functions() {
+	if ( file_exists( EXTEND_CHILD_DIR . '/base-functions.php' ) )
+		include( EXTEND_CHILD_DIR . '/base-functions.php' );
+}
