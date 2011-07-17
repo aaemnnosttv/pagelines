@@ -295,7 +295,7 @@ class PageLinesSoapbox extends PageLinesSection {
 			pagelines_register_hook( 'pagelines_soapbox_links', $this->id ); // Hook 
 			?>
 		</div>
-	<? }
+	<?php }
 
 	function _get_box_image( $bpost, $box_icon, $box_link = false ){
 			global $pagelines_ID;
