@@ -610,27 +610,3 @@ function pagelines_array_sort( $a, $subkey ) {
 	}
 	return $c;
 }
-	
-	
-/**
- *
- * Load 'child' style and functions.
- * 
- * @since 2.0
- * 
- */	
-add_action( 'wp_enqueue_scripts', 'load_child_style', 30 );
-add_action( 'template_redirect', 'load_child_functions' );
-
-function load_child_style() {
-
-	$file = '/pagelines-base/base-style.css';
-	if ( file_exists( WP_PLUGIN_DIR . $file ) )
-		wp_enqueue_style( 'child', plugins_url( $file ) );
-}
-
-function load_child_functions() {
-	$file = '/pagelines-base/base-functions.php';
-	if ( file_exists( WP_PLUGIN_DIR . $file ) )
-		include( WP_PLUGIN_DIR . $file );
-}

@@ -2,14 +2,18 @@
 class PageLinesUpdateCheck {
 
     function __construct( $theme = null, $version = null, $plugin = null ){
+	
+		global $current_user;
     	$this->plugin = $plugin;
     	$this->url_theme = apply_filters( 'pagelines_theme_update_url', 'http://api.pagelines.com/v2/' );
-    	$bad_users = array( 'admin', 'root', 'test', 'testing', '');
     	$this->theme  = $theme;
  		$this->version = $version;
 		$this->username = get_pagelines_option( 'lp_username' );
 		$this->password = get_pagelines_option( 'lp_password' );
-		if ( in_array( strtolower( $this->username ), $bad_users ) ) {
+
+		get_currentuserinfo();
+		$bad_users = apply_filters( 'pagelines_updates_badusernames', array( $current_user->user_login, 'admin', 'root', 'test', 'testing', '' ) );
+		if ( in_array( strtolower( $this->username ),  $bad_users ) ) {
 			pagelines_update_option( 'lp_username', '' );
 			pagelines_update_option( 'lp_password', '' );
 			$this->username = '';
