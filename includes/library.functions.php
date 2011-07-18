@@ -600,11 +600,11 @@ function pagelines_register_plugins() {
  * @since 2.0
  * @return sorted array
  */
-function pagelines_array_sort( $a, $subkey ) {
+function pagelines_array_sort( $a, $subkey, $pre = null, $dec = null ) {
 	foreach( $a as $k => $v ) {
-		$b[$k] = strtolower( $v[$subkey] );
+		$b[$k] = ( $pre ) ? strtolower( $v[$pre][$subkey] ) : strtolower( $v[$subkey] );
 	}
-	asort( $b );
+	( !$dec ) ? asort( $b ) : arsort($b);
 	foreach( $b as $key => $val ) {
 		$c[] = $a[$key];
 	}
