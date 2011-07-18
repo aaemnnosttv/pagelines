@@ -92,6 +92,12 @@
  			if ( !$type )
  				continue;
 
+			foreach( $type as $key => $section) {
+	
+				$type[$key]['status'] = ( isset( $disabled[$section['type']][$section['class']] ) ) ? 'disabled' : 'enabled';
+		
+			}
+
 			/*
 	 		 * Sort Alphabetically
 	 		 */
@@ -105,7 +111,7 @@
 				$activate_js_call = sprintf($this->exprint, 'section_activate', $key, $section['type'], $section['class'], 'Activating');
 				$deactivate_js_call = sprintf($this->exprint, 'section_deactivate', $key, $section['type'], $section['class'], 'Deactivating');
 				
-				$button = ( !isset( $disabled[$section['type']][$section['class']] ) ) 
+				$button = ( $section['status'] == 'enabled' ) 
 							? OptEngine::superlink('Deactivate', 'grey', '', '', $deactivate_js_call) 
 							: OptEngine::superlink('Activate', 'blue', '', '', $activate_js_call);
 
@@ -151,30 +157,38 @@
 			return $plugins;
 			
 		$output = '';
-		
+
+		$plugins = json_decode(json_encode($plugins), true); // convert objets to arrays
+
+		foreach( $plugins as $key => $plugin ) {
+			$plugins[$key]['status'] = $this->plugin_check_status( WP_PLUGIN_DIR . $plugin['file'] );
+			$plugins[$key]['name'] = $plugins[$key]['status']['data']['Name'];
+		}
+
+		$plugins = pagelines_array_sort( pagelines_array_sort( $plugins, 'name', false, true ), 'status', 'status' );
+	
 		foreach( $plugins as $key => $plugin ) {
 		
-			$status = $this->plugin_check_status( WP_PLUGIN_DIR . $plugin->file );
 		
-			if ($tab != 'free' && !$status['status'] )
+			if ($tab != 'free' && !$plugin['status'] )
 				continue;
 
-			if ($tab == 'free' && ( $status['status'] == 'active' || $status['status'] == 'notactive' ) )
+			if ($tab == 'free' && ( $plugin['status']['status'] == 'active' || $plugin['status']['status'] == 'notactive' ) )
 				continue;
 
-			$install_js_call = sprintf( $this->exprint, 'plugin_install', $key, $plugin->name, $plugin->url, 'Installing');
-			$activate_js_call = sprintf( $this->exprint, 'plugin_activate', $key, $plugin->name, $plugin->file, 'Activating');
-			$deactivate_js_call = sprintf( $this->exprint, 'plugin_deactivate', $key, $plugin->name, $plugin->file, 'Deactivating');
-			$upgrade_js_call = sprintf( $this->exprint, 'plugin_upgrade', $key, $plugin->name, $plugin->url, 'Upgrading');
-			$delete_js_call = sprintf( $this->exprint, 'plugin_delete', $key, $plugin->name, $plugin->file, 'Deleting');
+			$install_js_call = sprintf( $this->exprint, 'plugin_install', $key, $plugin['name'], $plugin['url'], 'Installing');
+			$activate_js_call = sprintf( $this->exprint, 'plugin_activate', $key, $plugin['name'], $plugin['file'], 'Activating');
+			$deactivate_js_call = sprintf( $this->exprint, 'plugin_deactivate', $key, $plugin['name'], $plugin['file'], 'Deactivating');
+			$upgrade_js_call = sprintf( $this->exprint, 'plugin_upgrade', $key, $plugin['name'], $plugin['url'], 'Upgrading');
+			$delete_js_call = sprintf( $this->exprint, 'plugin_delete', $key, $plugin['name'], $plugin['file'], 'Deleting');
 
-			if ( !isset( $status['status'] ) )
-				$status = array( 'status' => '' );
+			if ( !isset( $plugin['status'] ) )
+				$plugin['status'] = array( 'status' => '' );
 
-			if ( $status['status'] && $plugin->version > $status['data']['Version'])
-				$status['status'] = 'upgrade';
+			if ( $plugin['status'] && $plugin['version'] > $plugin['status']['data']['Version'])
+				$plugin['status']['status'] = 'upgrade';
 
-			switch ( $status['status'] ) {
+			switch ( $plugin['status']['status'] ) {
 					
 				case 'active':
 					$button = OptEngine::superlink('Deactivate', 'grey', '', '', $deactivate_js_call);
@@ -197,15 +211,15 @@
 			}
 				
 			$args = array(
-					'name' 		=> $plugin->name, 
-					'version'	=> ( !empty( $status['status'] ) ) ? $status['data']['Version'] : $plugin->version, 
-					'desc'		=> $plugin->text,
-					'tags'		=> ( isset( $plugin->tags ) ) ? $plugin->tags : '',
-					'auth_url'	=> $plugin->author_url, 
-					'auth'		=> $plugin->author, 
+					'name' 		=> $plugin['name'], 
+					'version'	=> ( !empty( $plugin['status'] ) ) ? $plugin['status']['data']['Version'] : $plugin['version'], 
+					'desc'		=> $plugin['text'],
+					'tags'		=> ( isset( $plugin['tags'] ) ) ? $plugin['tags'] : '',
+					'auth_url'	=> $plugin['author_url'], 
+					'auth'		=> $plugin['author'], 
 					'buttons'	=> $button,
 					'key'		=> $key,
-					'count'		=> $plugin->count
+					'count'		=> $plugin['count']
 			);
 				
 			$output .= $this->pane_template($args);
