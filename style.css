@@ -205,7 +205,7 @@ body{font-size: 87.5%; line-height: 1.7em}
 		#page, .content, .canvas #page-canvas, .sf-menu li, .main_nav ul.sf-menu a:focus, .sf-menu a:hover, .sf-menu a:active, .commentlist ul.children .even, .alt #commentform textarea{background: #FFF;}
 
 		/* Box Color - Primary Elements */
-			#feature-footer, .main-nav li.current-page-ancestor a, .main-nav li.current_page_item a, .main-nav li.current-page-ancestor ul a, .main-nav li.current_page_item ul a, #wp-calendar caption, #buddypress-page #subnav, #buddypress-page .activity .activity-inner, #buddypress-page table.forum th, #grandchildnav.widget, input, textarea, .searchform .searchfield, .wp-caption, .widget-default, .commentlist .alt, #wp-calendar #today, #buddypress-page div.activity-comments form .ac-textarea, #buddypress-page form#whats-new-form #whats-new-textarea, .post-nav, .current_posts_info, .post-footer,  #twitterbar, #twitterbar .content, #carousel .content-pad, .success, .sf-menu li li, .sf-menu li li, .sf-menu li li li, .content-pagination a .cp-num, .hentry table .alternate td{ 
+			#feature-footer, .main-nav li.current-page-ancestor a, .main-nav li.current_page_item a, .main-nav li.current-page-ancestor ul a, .main-nav li.current_page_item ul a, #wp-calendar caption, #buddypress-page #subnav, #buddypress-page .activity .activity-inner, #buddypress-page table.forum th, #grandchildnav.widget, input, textarea, .searchform .searchfield, .wp-caption, .commentlist .alt, #wp-calendar #today, #buddypress-page div.activity-comments form .ac-textarea, #buddypress-page form#whats-new-form #whats-new-textarea, .post-nav, .current_posts_info, .post-footer,  #twitterbar, #twitterbar .content, #carousel .content-pad, .success, .sf-menu li li, .sf-menu li li, .sf-menu li li li, .content-pagination a .cp-num, .hentry table .alternate td{ 
 				background-color: #F7F7F7; 
 			}
 
@@ -223,17 +223,16 @@ body{font-size: 87.5%; line-height: 1.7em}
 	
 	/* Borders */
 		/* Primary Border Color */
-			hr, .fpost, .clip_box, .widget-title, #buddypress-page .item-list li, .metabar a, #morefoot .widget-title, #site #dsq-content h3{ 
+			hr, .fpost, .clip_box, .widget-title, #buddypress-page .item-list li, .metabar a, #morefoot .widget-title, #site #dsq-content h3, .main_nav_container, ul.sf-menu ul li{ 
 				border-bottom: 1px solid #E9E9E9; 
 			}
 		
-			.main_nav_container, ul.sf-menu ul li{ border-bottom: 1px solid #E9E9E9; }
 			.post.fpost .entry, #soapbox .fboxinfo, #feature-footer.nonav { border-top: 1px solid #E9E9E9; } 
 
 			#feature-footer{ border: 1px solid #E9E9E9; }
 		
 			/* Misc Borders */
-			
+				.widget-default{border: 4px dashed #E9E9E9;}
 				.post-nav, .current_posts_info, .post-footer  {
 					border-right: 3px solid #E9E9E9;
 					border-left: 3px solid #E9E9E9;
@@ -266,7 +265,7 @@ body{font-size: 87.5%; line-height: 1.7em}
 			
 		
 		/* Border Accents - Highlight Color - Level 1 */
-			input, textarea, .searchform .searchfield, .wp-caption, .widget-default, 
+			input, textarea, .searchform .searchfield, .wp-caption, 
 			#buddypress-page div.activity-comments form .ac-textarea, #buddypress-page form#whats-new-form #whats-new-textarea, #grandchildnav.widget {
 				border: 1px solid #E9E9E9;
 				border-left: 1px solid #DDDDDD;
@@ -610,8 +609,9 @@ body{font-size: 87.5%; line-height: 1.7em}
 		/* @ Special Widgets */
 		
 			.widget-default{
-				padding: 10px;
+				padding: 1.5em;
 				margin-bottom: .7em;
+				
 			}
 			
 		/* Grandchild Nav */

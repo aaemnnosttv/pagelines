@@ -14,20 +14,6 @@ class PageLinesCSS {
 	
 	function create( $format = 'inline') {
 		
-		if( $format == 'texturize' ){
-			
-			$this->nl = "\n";
-			$this->nl2 = "\n\n";
-			$this->comments = true;
-			
-		} else {
-			
-			$this->nl = "";
-			$this->nl2 = "";
-			$this->comments = false;
-			
-		}
-		
 		$this->typography();
 		$this->layout();
 		$this->options();
@@ -47,45 +33,158 @@ class PageLinesCSS {
 	}
 	
 	function options(){
-		$engine = new OptEngine;
-		$this->css .= $engine->render_css();
+		$this->css .= $this->render_css();
 	}
 	
-	function _css_colors( $optionid, $o, $selectors = null, $css_prop = null ){
-		if( pagelines_option($optionid)){
-			
-			if( isset($o['default']) && pagelines_option($optionid) == $o['default']){
-				// do nothing
-			}elseif(isset($css_prop)){
-			
-				if(is_array($css_prop)){
-				
-					foreach( $css_prop as $css_property => $css_selectors ){
-
-						if($css_property == 'text-shadow')
-							$this->css .= $css_selectors . '{ text-shadow:'.pagelines_option($optionid).' 0 1px 0;}'.$this->nl;		
-						elseif($css_property == 'text-shadow-top')
-							$this->css .= $css_selectors . '{ text-shadow:'.pagelines_option($optionid).' 0 -1px 0;}'.$this->nl;		
-						else
-							$this->css .= $css_selectors . '{'.$css_property.':'.pagelines_option($optionid).';}'.$this->nl;		
-						
-					}
-				
-				}else{
-					$this->css .= $selectors.'{'.$css_prop.':'.pagelines_option($optionid).';}'.$this->nl;
-				}
-			
-			} else {
-				$this->css .= $selectors.'{color:'.pagelines_option($optionid).';}'.$this->nl;
-			}
-		}
-	}
 	
 	function custom_css(){
-		if( $this->comments )  $this->css .= '/* Custom CSS */'.$this->nl2;
 		$this->css .= pagelines_option('customcss');
-		$this->css .= $this->nl2;
 	}
+	
+	/**
+	 *  CSS Rendering In <head>
+	 */
+	function render_css(){
+		$css = '';
+		
+		foreach ( get_option_array() as $menu){
+
+			foreach($menu as $oid => $o){ 
+				
+				$o['val'] = pagelines_option($oid);
+				
+				if(!empty($o['selectvalues']) && is_array($o['selectvalues'])){
+					foreach( $o['selectvalues'] as $sid => $s)
+						$o['selectvalues'][$sid]['val'] = pagelines_option( $sid );
+				}
+				
+				if($o['type'] == 'css_option' && $o['val']){
+					
+					if(pagelines_option($oid) == $o['default']){
+						// do nothing
+					} elseif(isset($o['css_prop']) && isset($o['selectors'])){
+						
+						$css_units = (isset($o['css_units'])) ? $o['css_units'] : '';
+						
+						$css .= $o['selectors'].'{'.$o['css_prop'].':'.$o['val'].$css_units.';}';
+						
+					}
+
+				}
+				
+				if( $o['type'] == 'background_image' && pagelines_option($oid.'_url')){
+					
+					$bg_repeat = (pagelines_option($oid.'_repeat')) ? pagelines_option($oid.'_repeat'): 'no-repeat';
+					$bg_pos_vert = (pagelines_option($oid.'_pos_vert') || pagelines_option($oid.'_pos_vert') == 0 ) ? (int) pagelines_option($oid.'_pos_vert') : '0';
+					$bg_pos_hor = (pagelines_option($oid.'_pos_hor') || pagelines_option($oid.'_pos_hor') == 0 ) ? (int) pagelines_option($oid.'_pos_hor') : '50';
+					$bg_selector = (pagelines_option($oid.'_selector')) ? pagelines_option($oid.'_selector') : $o['selectors'];
+					$bg_url = pagelines_option($oid.'_url');
+					
+					$css .= sprintf('%s{ background-image:url(%s);}', $bg_selector, $bg_url);
+					$css .= sprintf('%s{ background-repeat: %s;}', $bg_selector, $bg_repeat);
+					$css .= sprintf('%s{ background-position: %s%% %s%%;}', $bg_selector, $bg_pos_hor, $bg_pos_vert);
+					
+					
+				}
+	
+				
+				if($o['type'] == 'colorpicker')
+					$css .= $this->render_css_colors($oid, $o['selectors'], $o['css_prop']);
+
+				
+				elseif($o['type'] == 'color_multi'){
+					
+					foreach($o['selectvalues'] as $mid => $m){
+						
+						$selectors = (isset($m['selectors'])) ? $m['selectors'] : null ;
+						$property = (isset($m['css_prop'])) ? $m['css_prop'] : null ;
+						
+						$css .= $this->render_css_colors($mid, $m, $selectors, $property);
+					}
+					
+				}
+			} 
+		}
+		return $css;
+
+	}
+	
+	function render_css_colors( $oid, $o, $selectors = null, $css_prop = null ){
+		
+		$val = $o['val'];
+		
+		
+		
+		
+		if( $val ){
+			$css = '';
+			
+			
+			$css = '';
+			if( isset($o['default']) && $val == $o['default']){
+				// do nothing
+			}else{
+			
+				if(isset($o['math']) && is_array($o['math'])){
+
+					$math = new PageLinesColor( $val );
+
+					foreach( $o['math'] as $key => $k ){
+
+						$difference = isset($k['diff']) ? $k['diff'] : '10%';
+
+						$color = $math->get_color($k['mode'], $difference);
+
+						$css .= $this->the_properties($k['selectors'], $k['css_prop'], '#'.$color);
+
+					}
+				
+				}
+				
+				if(isset($css_prop))
+					$css .= $this->the_properties($selectors, $css_prop, $val);
+				else
+					$css .= $this->the_rule($selectors, 'color', $val);
+				
+			} 
+			
+			
+			return $css;
+		} else 
+			return '';
+	}
+	
+	function the_properties( $sel, $prop, $val ){
+		$props = '';
+		if( is_array($prop) )
+			foreach( $prop as $p => $s ){
+				
+				if(gettype($p) == 'string')
+					$props .= $this->the_rule($s, $p, $val);
+				else 
+					$props .= $this->the_rule($sel, $s, $val, true);
+			}
+		else
+			$props .= $this->the_rule($sel, $prop, $val);
+		
+		return $props;
+			
+	}
+	
+	function the_rule( $sel, $prop, $val, $same = false){
+		
+			if( $prop == 'text-shadow' )	
+				$rule = sprintf('%s{%s:%s;}', $sel, 'text-shadow', $val.' 0 1px 0');	
+			elseif( $prop == 'text-shadow-top' )
+				$rule = sprintf('%s{%s:%s;}', $sel, 'text-shadow', $val.' 0 -1px 0');
+			else
+				$rule = sprintf('%s{%s:%s;}', $sel, $prop, $val);
+		
+		
+		return $rule;
+		
+	}
+	
 
 }
 

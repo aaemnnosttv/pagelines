@@ -35,8 +35,9 @@ function pagelines_default_widget($id, $name, $default){
 
 	<li class="widget-default no_<?php echo $id;?>">
 			<h3 class="widget-title">Add Widgets (<?php echo $name;?>)</h3>
-			<p>This is your <?php echo $name;?>. Edit this content that appears here in the <a href="<?php echo admin_url('widgets.php');?>">widgets panel</a> by adding or removing widgets in the <?php echo $name;?> area.
+			<p class="fix">This is your <?php echo $name;?> but it needs some widgets!<br/> Easy! Just add some content to it in your <a href="<?php echo admin_url('widgets.php');?>">widgets panel</a>.	
 			</p>
+			<?php echo blink('Add Widgets &rarr;', 'link', 'black', array('action' => admin_url('widgets.php'), 'clear' => true)); ?>
 	</li>
 
 <?php endif;
@@ -254,19 +255,18 @@ function pagelines_title_tag(){
 	echo "</title>\n";
 }	
 	
+/**
+ * 
+ *  Do dynamic CSS, hooked in head; should go last.
+ *
+ */	
 function do_dynamic_css(){
-	// Get Dynamic Styles
-		// If multisite is used, then dynamic styles need to be inline.
-		// TODO is there a better solution?
-
-		global $blog_id;
-		get_dynamic_css();
-
+	get_dynamic_css();
 }	
 	
 /**
  * 
- *  Fix IE to the extend possible
+ *  Fix IE to the extent possible
  *
  *  @package PageLines
  *  @subpackage Functions Library

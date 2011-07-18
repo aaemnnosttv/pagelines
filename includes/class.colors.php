@@ -20,13 +20,36 @@ class PageLinesColor {
 	 */
 	function __construct( $hex ) {
 	
-		$this->base_hex = $hex;
+		$this->base_hex = str_replace('#', '', $hex);
 	
 		$this->base_rgb = $this->hex_to_rgb( $this->base_hex  );
 		
 		$this->base_hsl = $this->rgb_to_hsl( $this->base_rgb  );
 	
 	}
+	
+	function get_color( $mode, $difference = '10%'){
+	
+		$dp = (int) str_replace('%', '', $difference);
+		$diff = $dp/100;
+			
+		
+		if($mode == 'lighter')
+			return $this->adjust($diff); 
+		elseif($mode == 'darker')
+			return $this->adjust(-$diff);
+		elseif($mode == 'contrast'){
+			
+			if( $this->base_hsl['lightness'] < .2 || ($this->base_hsl['lightness'] < .7 && $this->base_hsl['hugh'] > .6) || ($this->base_hsl['saturation'] > .8 && $this->base_hsl['lightness'] < .4))
+				return $this->adjust($diff);
+			else
+				return $this->adjust(-$diff);
+		
+		}
+		
+	
+		
+	} 
 	
 	function contrast( $adjustment, $surrounding = ''){
 		

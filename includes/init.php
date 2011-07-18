@@ -68,6 +68,11 @@ require_once( PL_INCLUDES . '/library.shortcodes.php');
  */
 require_once( PL_INCLUDES . '/config.options.php' );
 
+/**
+ * Dynamic CSS Selectors
+ */
+require_once( PL_INCLUDES . '/config.selectors.php' );
+
 
 /* Options Singleton */
 $GLOBALS['global_pagelines_settings'] = get_option(PAGELINES_SETTINGS);	
