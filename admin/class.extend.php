@@ -159,23 +159,35 @@
 		$output = '';
 
 		$plugins = json_decode(json_encode($plugins), true); // convert objets to arrays
+		
+		$plugins = pagelines_array_sort( $plugins, 'name', false, true ); // sort by name
 
+		// get status of each plugin
 		foreach( $plugins as $key => $plugin ) {
+			
 			$plugins[$key]['status'] = $this->plugin_check_status( WP_PLUGIN_DIR . $plugin['file'] );
 			$plugins[$key]['name'] = ( $plugins[$key]['status']['data']['Name'] ) ? $plugins[$key]['status']['data']['Name'] : $plugins[$key]['name'];
 		}
 
-		$plugins = pagelines_array_sort( pagelines_array_sort( $plugins, 'name', false, true ), 'status', 'status' );
+		$plugins = pagelines_array_sort( $plugins, 'status', 'status' ); // sort by status
+
+		// reset array keys ( sort functions reset keys to int )
+		foreach( $plugins as $key => $plugin ) {
+			
+			unset( $plugins[$key] );
+			$key = rtrim( basename( $plugin['file'] ), '.php' );
+			$plugins[$key] = $plugin;
+		}
 	
 		foreach( $plugins as $key => $plugin ) {
-		
+	
 		
 			if ($tab != 'free' && !$plugin['status'] )
 				continue;
 
 			if ($tab == 'free' && ( $plugin['status']['status'] == 'active' || $plugin['status']['status'] == 'notactive' ) )
 				continue;
-
+			
 			$install_js_call = sprintf( $this->exprint, 'plugin_install', $key, $plugin['name'], $plugin['url'], 'Installing');
 			$activate_js_call = sprintf( $this->exprint, 'plugin_activate', $key, $plugin['name'], $plugin['file'], 'Activating');
 			$deactivate_js_call = sprintf( $this->exprint, 'plugin_deactivate', $key, $plugin['name'], $plugin['file'], 'Deactivating');
