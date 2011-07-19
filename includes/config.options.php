@@ -295,7 +295,7 @@ class PageLinesOptionsArray {
 								array( 'mode' => 'contrast', 'selectors' => cssgroup('border_tertiary'), 'css_prop' => array('background-color'), 'diff' => '40%'),
 								array( 'mode' => 'darker', 'selectors' => cssgroup('border_tertiary'), 'css_prop' => array('border-color'), 'diff' => '45%'),
 								array( 'mode' => 'darker', 'selectors' => cssgroup('border_tertiary'), 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '60%'),
-								array( 'mode' => 'contrast', 'selectors' => cssgroup('text_secondary'), 'css_prop' => 'color', 'diff' => '60%'),
+								array( 'mode' => 'contrast', 'selectors' => cssgroup('text_box'), 'css_prop' => 'color', 'diff' => '60%'),
 								array( 'mode' => 'contrast', 'selectors' => cssgroup('text_tertiary'), 'css_prop' => 'color', 'diff' => '80%'),
 							)
 						),
@@ -317,17 +317,20 @@ class PageLinesOptionsArray {
 				'selectvalues'	=> array(
 					'headercolor'	=> array(		
 						'default' 	=> '#000000',
-						'selectors'	=> 'h1, h2, h3, h4, h5, h6, h1 a, h2 a, h3 a, h4 a, h5 a, h6 a, a.site-title, .entry-title a, .entry-title a:hover, .widget-tit	le a:hover, h3.widget-title a:hover',
+						'selectors'	=> cssgroup('headercolor'),
 						'inputlabel' 	=> 'Page - Text Header Color <small>Titles, H1,H2, etc...</small>',
 					),
 					'text_primary' => array(		
 						'default' 	=> '#000000',
-						'selectors'	=>	'#page, .tcolor1, #subnav ul li a:active, .commentlist cite a, #breadcrumb a, .metabar a:hover, .post-nav a:hover, .post-footer a, #buddypress-page #object-nav ul li a, #buddypress-page table.forum .td-title a, #buddypress-page #subnav a:hover, #buddypress-page #subnav li.current a, #twitterbar a, #carousel .carousel_text, #site #dsq-content .dsq-request-user-info td a, #pagination .wp-pagenavi a:hover, #pagination .wp-pagenavi .current, #featurenav a.activeSlide, .content-pagination a:hover .cp-num',
+						'selectors'	=>	cssgroup('text_primary'),
 						'inputlabel' 	=> 'Page - Primary Text Color <small>The Main Text Color Used Throughout The Site</small>',
-						),
+						'math'		=> array(
+							array( 'mode' => 'contrast', 'selectors' => cssgroup('text_secondary'), 'css_prop' => 'color', 'diff' => '25%'),
+						)
+					),
 					'linkcolor' => array(
 						'default'		=> '#225E9B',
-						'selectors'		=>	'a, #subnav_row li.current_page_item a, #subnav_row li a:hover, #grandchildnav .current_page_item > a, .branding h1 a:hover, .post-comments a:hover, .bbcrumb a:hover, 	#feature_slider .fcontent.fstyle-lightbg a, #feature_slider .fcontent.fstyle-nobg a',
+						'selectors'		=>	cssgroup('linkcolor'),
 						'inputlabel' 	=> 'Text Link Color',	
 						'math'			=> array(
 							array( 'mode' => 'contrast', 'selectors' => cssgroup('linkcolor_hover'), 'css_prop' => 'color', 'diff' => '20%'),	
@@ -345,7 +348,7 @@ class PageLinesOptionsArray {
 				'selectvalues'	=> array(
 					'footer_text' => array(
 						'default'		=> '#999999',
-						'selectors'		=>	'#footer, #footer li.link-list a, #footer .latest_posts li .list-excerpt',
+						'selectors'		=>	cssgroup('footer_text'),
 						'inputlabel' 	=> 'Footer Text Color <small>Default Color Of Text In The Footer</small>',						
 					),
 					'footer_highlight' => array(

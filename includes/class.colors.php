@@ -33,14 +33,14 @@ class PageLinesColor {
 		$dp = (int) str_replace('%', '', $difference);
 		$diff = $dp/100;
 			
-		
+		//plprint($this->base_hsl, $this->base_hex);	
 		if($mode == 'lighter')
 			return $this->adjust($diff); 
 		elseif($mode == 'darker')
 			return $this->adjust(-$diff);
 		elseif($mode == 'contrast'){
 			
-			if( $this->base_hsl['lightness'] < .2 || ($this->base_hsl['lightness'] < .7 && $this->base_hsl['hugh'] > .6) || ($this->base_hsl['saturation'] > .8 && $this->base_hsl['lightness'] < .4))
+			if( $this->base_hsl['lightness'] < .25 || ($this->base_hsl['lightness'] < .7 && $this->base_hsl['hugh'] > .6) || ($this->base_hsl['saturation'] > .8 && $this->base_hsl['lightness'] < .4))
 				return $this->adjust($diff);
 			else
 				return $this->adjust(-$diff);

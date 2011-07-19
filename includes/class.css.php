@@ -111,47 +111,36 @@ class PageLinesCSS {
 	
 	function render_css_colors( $oid, $o, $selectors = null, $css_prop = null ){
 		
-		$val = $o['val'];
+		$val = ( $o['val'] ) ? $o['val'] : $o['default'];
+		
+		$css = '';
+		
+		if(isset($o['math']) && is_array($o['math'])){
+
+			$math = new PageLinesColor( $val );
+
+			foreach( $o['math'] as $key => $k ){
+
+				$difference = isset($k['diff']) ? $k['diff'] : '10%';
+
+				$color = $math->get_color($k['mode'], $difference);
+
+				$css .= $this->the_properties($k['selectors'], $k['css_prop'], '#'.$color);
+
+			}
+		
+		}
+		
+		if(isset($css_prop))
+			$css .= $this->the_properties($selectors, $css_prop, $val);
+		else
+			$css .= $this->the_rule($selectors, 'color', $val);
+		
+
 		
 		
-		
-		
-		if( $val ){
-			$css = '';
-			
-			
-			$css = '';
-			if( isset($o['default']) && $val == $o['default']){
-				// do nothing
-			}else{
-			
-				if(isset($o['math']) && is_array($o['math'])){
-
-					$math = new PageLinesColor( $val );
-
-					foreach( $o['math'] as $key => $k ){
-
-						$difference = isset($k['diff']) ? $k['diff'] : '10%';
-
-						$color = $math->get_color($k['mode'], $difference);
-
-						$css .= $this->the_properties($k['selectors'], $k['css_prop'], '#'.$color);
-
-					}
-				
-				}
-				
-				if(isset($css_prop))
-					$css .= $this->the_properties($selectors, $css_prop, $val);
-				else
-					$css .= $this->the_rule($selectors, 'color', $val);
-				
-			} 
-			
-			
-			return $css;
-		} else 
-			return '';
+		return $css;
+	
 	}
 	
 	function the_properties( $sel, $prop, $val ){
@@ -172,14 +161,14 @@ class PageLinesCSS {
 	}
 	
 	function the_rule( $sel, $prop, $val, $same = false){
-		
-			if( $prop == 'text-shadow' )	
-				$rule = sprintf('%s{%s:%s;}', $sel, 'text-shadow', $val.' 0 1px 0');	
-			elseif( $prop == 'text-shadow-top' )
-				$rule = sprintf('%s{%s:%s;}', $sel, 'text-shadow', $val.' 0 -1px 0');
-			else
-				$rule = sprintf('%s{%s:%s;}', $sel, $prop, $val);
-		
+	
+		if( $prop == 'text-shadow' )	
+			$rule = sprintf('%s{%s:%s;}', $sel, 'text-shadow', $val.' 0 1px 0');	
+		elseif( $prop == 'text-shadow-top' )
+			$rule = sprintf('%s{%s:%s;}', $sel, 'text-shadow', $val.' 0 -1px 0');
+		else
+			$rule = sprintf('%s{%s:%s;}', $sel, $prop, $val);
+	
 		
 		return $rule;
 		
