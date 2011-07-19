@@ -227,7 +227,7 @@ class PageLinesOptionsArray {
 			'icon'			=> PL_ADMIN_ICONS.'/color.png',
 			'site_design_mode'	=> array(
 				'version'	=> 'pro',
-				'default'	=> 'canvas',
+				'default'	=> 'full_width',
 				'type'		=> 'graphic_selector',
 				'showname'	=> true,
 				'sprite'		=> PL_ADMIN_IMAGES.'/sprite-design-modes.png',
@@ -259,36 +259,41 @@ class PageLinesOptionsArray {
 						'default' 		=> '#000000',
 						'css_prop'		=> 'background-color',
 						'selectors'		=> cssgroup('bodybg'),
-						'inputlabel' 	=> 'Body Background Color <small>Shown Behind Page Content Area (e.g. In Footer)</small>',
+						'inputlabel' 	=> 'Body Background <small>Shown Behind Page Content Area (e.g. In Footer)</small>',
+						'math'			=> array(
+							
+							array( 'mode' => 'contrast', 'selectors' => cssgroup('footer_text_shadow_color'), 'css_prop' => 'text-shadow', 'diff' => '40%'),
+						)
 					),
 					'pagebg'		=> array(				
 						'default' 	=> '#FFFFFF',
 						'selectors'	=>	cssgroup('pagebg'),
 						'css_prop'	=> 'background-color',
-						'inputlabel' 	=> 'Page Background Color <small>The Background Of Page Area</small>',
+						'inputlabel' 	=> 'Page Background <small>The Background Of Page Area</small>',
 						),
-					'page_content_bg'	=> array(				
+					'contentbg'	=> array(				
 						'version'	=> 'pro',
 						'default' 	=> '#FFFFFF',
-						'selectors'	=>	cssgroup('page_content_bg'),
+						'selectors'	=>	cssgroup('contentbg'),
+						'flag'		=> 'transparent',
 						'css_prop'	=> 'background-color',
-						'inputlabel' 	=> 'Page Canvas Background Color <small>The Background Color Site Content (Canvas Mode Only)</small>',
+						'inputlabel' 	=> 'Content Background <small>The Background Color Site Content</small>',
 						'math'		=> array(
-								array( 'mode' => 'contrast', 'selectors' => cssgroup('border_layout'), 'css_prop' => 'border-color', 'diff' => '18%'),
+								array( 'mode' => 'contrast', 'selectors' => cssgroup('border_layout'), 'css_prop' => 'border-color', 'diff' => '10%'),
 							)
 						),
 					'box_color_primary'	=> array(				
 							'default' 	=> '#F7F7F7',
 							'selectors'	=>	cssgroup('box_color_primary'),
 							'css_prop'	=> 'background',
-							'inputlabel' 	=> 'Box Color - Primary Elements <small>The Main Contrast Color Between Page Background And Site Elements</small>',
+							'inputlabel' 	=> 'Box Color <small>The Main Contrast Color Between Page Background And Site Elements</small>',
 							'math'		=> array(
 								array( 'mode' => 'contrast', 'selectors' => cssgroup('border_primary'), 'css_prop' => 'border-color', 'diff' => '10%'),
 								array( 'mode' => 'darker', 'selectors' => cssgroup('border_primary_shadow'), 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '15%'),
 								array( 'mode' => 'lighter', 'selectors' => cssgroup('border_primary_highlight'), 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '15%'),
 								array( 'mode' => 'contrast', 'selectors' => cssgroup('text_shadow_color'), 'css_prop' => array('text-shadow'), 'diff' => '40%'), 
 								array( 'mode' => 'contrast', 'selectors' => cssgroup('box_color_secondary'), 'css_prop' => array('background-color')), 
-								array( 'mode' => 'contrast', 'selectors' => cssgroup('box_color_tertiary'), 'css_prop' => array('background-color'), 'diff' => '30%'), 
+								array( 'mode' => 'contrast', 'selectors' => cssgroup('box_color_tertiary'), 'css_prop' => array('background-color'), 'diff' => '22%'), 
 								array( 'mode' => 'contrast', 'selectors' => cssgroup('border_secondary'), 'css_prop' => array('background-color'), 'diff' => '20%'),
 								array( 'mode' => 'darker', 'selectors' => cssgroup('border_secondary'), 'css_prop' => array('border-color'), 'diff' => '25%'),
 								array( 'mode' => 'darker', 'selectors' => cssgroup('border_secondary'), 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '35%'),
@@ -300,14 +305,6 @@ class PageLinesOptionsArray {
 							)
 						),
 				),
-			),
-			
-			'page_background_image' => array(
-				'title' 	=> 'Site Background Image (Optional)',						
-				'shortexp' 	=> 'Setup A Background Image For The Background Of Your Site',
-				'exp' 		=> 'Use this option to apply a background image to your site. This option will be applied to different areas depending on the design mode you have set.<br/><br/><strong>Positioning</strong> Use percentages to position the images, 0% corresponds to the "top" or "left" side, 50% to center, etc..',
-				'type' 		=> 'background_image',
-				'selectors'	=> '.canvas #page, .full_width #page, body.fixed_width'
 			),
 			'text_colors'		=> array(
 				'title' 	=> 'Page Text Colors',						
@@ -336,36 +333,25 @@ class PageLinesOptionsArray {
 							array( 'mode' => 'contrast', 'selectors' => cssgroup('linkcolor_hover'), 'css_prop' => 'color', 'diff' => '20%'),	
 							)				
 					),
-				),
-			),
-
-		
-			'footer_text_colors' => array(
-				'title' 		=> 'Footer/Body Text Colors',						
-				'shortexp' 		=> 'Control The Color Of Text In The Footer or Body Background Of Your Site',
-				'exp' 			=> 'These options control the colors of the text in the footer of your site.',
-				'type' 			=> 'color_multi',
-				'selectvalues'	=> array(
 					'footer_text' => array(
 						'default'		=> '#999999',
 						'selectors'		=>	cssgroup('footer_text'),
-						'inputlabel' 	=> 'Footer Text Color <small>Default Color Of Text In The Footer</small>',						
-					),
-					'footer_highlight' => array(
-						'default' 		=> '#FFFFFF',
-						'selectors'		=>	'#footer a, #footer .widget-title,  #footer li h5 a',
-						'inputlabel' 	=> 'Footer Highlight Text <small>Used With Links, Titles, etc..</small>',						
-					),
-					'footer_text_shadow_color' => array(
-						'default' 		=> '#000000',
-						'selectors'		=> 'multi_property',
-						'css_prop'		=> array(
-							'text-shadow-top'	=> '#footer, .fixed_width #footer',
-						),
-					'inputlabel' 	=> 'Footer Text Shadow Color <small>Used To Create An Indented Effect On Footer Text</small>',
+						'inputlabel' 	=> 'Footer Text Color <small>Default Color Of Text In The Footer</small>',	
+						'math'			=> array(
+							array( 'mode' => 'lighter', 'selectors' => cssgroup('footer_highlight'), 'css_prop' => 'color', 'diff' => '10%'),
+						)					
 					),
 				),
 			),
+			'page_background_image' => array(
+				'title' 	=> 'Site Background Image (Optional)',						
+				'shortexp' 	=> 'Setup A Background Image For The Background Of Your Site',
+				'exp' 		=> 'Use this option to apply a background image to your site. This option will be applied to different areas depending on the design mode you have set.<br/><br/><strong>Positioning</strong> Use percentages to position the images, 0% corresponds to the "top" or "left" side, 50% to center, etc..',
+				'type' 		=> 'background_image',
+				'selectors'	=> '.canvas #page, .full_width #page, body.fixed_width'
+			),
+			
+
 
 		);
 		

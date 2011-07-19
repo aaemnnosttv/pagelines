@@ -39,7 +39,7 @@ body{ height:100%; padding-top: 3px; }
 
 body{font-size: 87.5%; line-height: 1.7em}
 
-/* @ Headers H1 - H6 */
+	/* @ Headers H1 - H6 */
 	h1, h2, h3, h4, h5, h6{font-weight:normal; line-height: 1.33em;}
 	h1{font-size:3.3em;} 
 	h2{font-size:2.5em;}
@@ -109,10 +109,10 @@ body{font-size: 87.5%; line-height: 1.7em}
 			.wp-caption-dd {font-size: 11px;line-height: 17px;	}
 			.wp-caption-dd { font-size: 11px; line-height: 17px;  }	
 	
-/* @ Lists */ 
+	/* @ Lists */ 
 	.hentry ul, .hentry ol { margin: 1.58em 0; margin-left: 16px;}
  
-/* @ Special Text Elements */ 
+	/* @ Special Text Elements */ 
 	aside p, .sidenote p{line-height:1.7em;margin:0;}
 	aside ul, aside ol, .sidenote ul, .sidenote ol{margin-top:1.3em;line-height:1.7em;}
 
@@ -126,7 +126,7 @@ body{font-size: 87.5%; line-height: 1.7em}
 		.comment blockquote{border: none;padding-right: 10px;}
 		.comment blockquote blockquote{margin-bottom:0;}
 	
-/* @ Links & Link Effects */
+	/* @ Links & Link Effects */
 	a {text-decoration:none;}
 	.hentry a:hover{text-decoration: underline;}
 	#subnav ul li a:active{text-decoration:none;}
@@ -134,6 +134,7 @@ body{font-size: 87.5%; line-height: 1.7em}
 /* 
  * @ Default Type Faces
  */
+
 	/* Primary Font Style */
 		body, .font1, .font-primary, .commentlist, input{ 
 			font-family:Georgia, 'Times New Roman', Times, serif; 
@@ -150,20 +151,33 @@ body{font-size: 87.5%; line-height: 1.7em}
 		}
 		
 		input[type="text"], input[type="password"], textarea, #dsq-content textarea{ font-family: "Courier New", Courier, Verdana, sans-serif; }
-	
-/* =============== */
-/* = Formatting  = */
-/* =============== */		
 
 	
-/* @ #header */	
+/*
+* @ Borders
+*/	
+		hr, .fpost, .clip_box, .widget-title, #buddypress-page .item-list li, .metabar a, #morefoot .widget-title, #site #dsq-content h3, .main_nav_container, ul.sf-menu ul li{
+			border-bottom-style: solid;border-bottom-width: 1px;
+		}
+	
+		.post.fpost .entry, #soapbox .fboxinfo, #feature-footer.nonav {border-top-style: solid;border-top-width: 1px;}
+		
+		#feature-footer, #featurenav a, #feature-footer span.playpause, #featurenav a.activeSlide, textarea:focus, #commentform textarea:focus, #commentform input[type="text"]:focus, input, textarea, .searchform .searchfield, .wp-caption, #buddypress-page div.activity-comments form .ac-textarea, #buddypress-page form#whats-new-form #whats-new-textarea, #grandchildnav.widget, .clip .clip-thumb img, .author-thumb img, #carousel .content ul li a img, .widget_flickrRSS a img, .wp125_write_ads_widget.widget #wp125adwrap_2c .wp125ad a{
+			border-style: solid;border-width: 1px;
+		}
+	
+	
+/* 
+* @ Element & Section Formatting
+*/
+	
+	/* @ #header */	
 	#header .outline{
 		position: relative;
 		zoom: 1;
 		z-index:15; /* ie drop-down fix */
 	}
 
-	
 	/* Branding Section */
 	
 	#branding .content{ z-index:10; }
@@ -230,9 +244,7 @@ body{font-size: 87.5%; line-height: 1.7em}
 				border-bottom:none;
 					
 			}
-			
-
-			
+						
 			/*IE6 border color (transparent border fix)*/
 			*html .main_nav li a{ border-color: white; }
 	

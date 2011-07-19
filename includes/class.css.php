@@ -111,7 +111,7 @@ class PageLinesCSS {
 	
 	function render_css_colors( $oid, $o, $selectors = null, $css_prop = null ){
 		
-		$val = ( $o['val'] ) ? $o['val'] : $o['default'];
+		$val = ( $o['val'] ) ? $o['val'] : '';
 		
 		$css = '';
 		
@@ -135,9 +135,7 @@ class PageLinesCSS {
 			$css .= $this->the_properties($selectors, $css_prop, $val);
 		else
 			$css .= $this->the_rule($selectors, 'color', $val);
-		
-
-		
+	
 		
 		return $css;
 	

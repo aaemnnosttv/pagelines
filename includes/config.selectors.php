@@ -1,18 +1,29 @@
 <?php
-
-
-
+/**
+ * 
+ *
+ *  CSS Selector Groups 
+ *  for dynamic CSS control
+ *
+ *  @package PageLines Core
+ *  @subpackage Options
+ *  @since 2.0.b6
+ *
+ */
 function cssgroup( $group ){
 	
 	$s = array();
 	
-	// Structure
+	// Layout
+	$s['page_width'] = 'body.fixed_width #page, body.fixed_width #footer, body.canvas .page-canvas'; 
+	$s['content_width'] = '#site .content, .wcontent, #footer .content';
 	
+	// Main Colors
 	$s['bodybg'] = 'body, body.fixed_width, #footer .content';
 	
 	$s['pagebg'] = 'body #page, .sf-menu li, #primary-nav ul.sf-menu a:focus, .sf-menu a:hover, .sf-menu a:active, .commentlist ul.children .even, .alt #commentform textarea';
 	
-	$s['page_content_bg'] = '.canvas .page-canvas, .content';
+	$s['contentbg'] = '.canvas .page-canvas, .content';
 	
 	// Boxes & Elements 
 	
@@ -55,10 +66,16 @@ function cssgroup( $group ){
 	$s['linkcolor_hover'] = 'a:hover,.commentlist cite a:hover,  #grandchildnav .current_page_item a:hover, .headline h1 a:hover';
 	
 	$s['footer_text'] = '#footer, #footer li.link-list a, #footer .latest_posts li .list-excerpt';
+	$s['footer_highlight'] = '#footer a, #footer .widget-title,  #footer li h5 a';
+	
+	
 	
 	// Text Shadows & Effects
 	
 	$s['text_shadow_color']	= '#feature-footer, #grandchildnav li a, #grandchildnav .current_page_item  ul li a, #buddypress-page #object-nav ul li a';
+	$s['footer_text_shadow_color'] = '#footer, .fixed_width #footer';
+	
+	// Output & Extension 
 	
 	if(isset($s[ $group ]))
 		return apply_filters('pagelines_css_group', $s[ $group ], $group);

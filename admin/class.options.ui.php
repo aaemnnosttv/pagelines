@@ -69,7 +69,7 @@ class PageLinesOptionsUI {
 							<div class="ohead" class="fix">
 								<div class="ohead-pad fix">
 									<div class="sl-black superlink-wrap">
-										<a class="superlink" href="#">
+										<a class="superlink" href="<?php echo home_url(); ?>/" target="_blank" title="View Site &rarr;">
 											<span class="superlink-pagelines">&nbsp;</span>
 										</a>
 									</div>

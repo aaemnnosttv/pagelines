@@ -64,6 +64,8 @@
 	
 	/* Borders */
 		/* Primary Border Color */
+		
+			
 			hr, .fpost, .clip_box, .widget-title, #buddypress-page .item-list li, .metabar a, #morefoot .widget-title, #site #dsq-content h3, .main_nav_container, ul.sf-menu ul li{ 
 				border-bottom: 1px solid #E9E9E9; 
 			}

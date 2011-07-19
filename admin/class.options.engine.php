@@ -46,7 +46,8 @@ class OptEngine {
 			'height'				=> '0px',
 			'width'					=> '0px',
 			'sprite'				=> '',
-			'showname'				=> false
+			'showname'				=> false, 
+			'flag'					=> ''
 		);
 		
 	}
@@ -720,17 +721,33 @@ class OptEngine {
 
 
 	function _get_color_picker($oid, $o){ // Color Picker Template 
-		?>
+		
+		$val = ( $o['val'] ) ? $o['val'] : $o['default'];
+		
+		if(isset($o['math'])){
+			$math = new PageLinesColor( $val );
+		
+			$gen = '';
+			foreach( $o['math'] as $key => $k ){
 
-		<div class="the_picker">
-			<?php echo $this->input_label($oid, $o['inputlabel']); ?>
-			<div id="<?php echo $oid;?>_picker" class="colorSelector">
-				<div></div>
-			</div>
-			<?php echo $this->input_text($oid, get_pagelines_option_name($oid), get_pagelines_option($oid), 'colorpickerclass'); ?>
-			
-		</div>
-	<?php  }
+				$difference = isset($k['diff']) ? $k['diff'] : '10%';
+
+				$color = $math->get_color($k['mode'], $difference);
+
+				$gen .= sprintf('<div class="pickgen" style="background: #%s;">&nbsp;</div>', $color); 
+
+			}
+		}
+		$picker = sprintf('<div id="%s" class="colorSelector"><div></div></div> %s', $oid.'_picker', $this->input_text($oid, $o['input_name'], $val, 'colorpickerclass'));
+		
+		$pick_contain = sprintf('<div class="pick_contain">%s</div>', $picker);
+		
+		$generated = (isset($gen)) ? sprintf('<div class="picker_generated"><div class="pgen-pad fix">%s</div></div>', $gen) : '';
+	
+		printf('<div class="the_picker">%s %s %s</div>', $this->input_label($oid, $o['inputlabel']), $picker, $generated);
+		
+		
+  	}
 	
 	
 	function _get_background_image_control($oid, $o){

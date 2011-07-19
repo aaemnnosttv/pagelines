@@ -292,9 +292,9 @@ class PageLinesLayout {
 			$c = $this->content->width;
 			$p = $this->content->percent;
 			
-			
-			$page_width_sel = 'body.fixed_width #page, body.fixed_width #footer, body.canvas .page-canvas';
-			$content_width_sel = '#site .content, .wcontent, #footer .content';
+
+			$page_width_sel = cssgroup('page_width');
+			$content_width_sel = cssgroup('content_width');
 			
 			$design_mode = pagelines_option('site_design_mode');
 			$contained = (pagelines_option('site_design_mode') == 'fixed_width' || pagelines_option('site_design_mode') == 'canvas') ? true : false;
@@ -303,9 +303,9 @@ class PageLinesLayout {
 				if($contained){
 					$css .= sprintf($page_width_sel . '{ width: %s%%; padding: 0 10px;}', $p);
 					$css .= sprintf($content_width_sel . '{ width: %s%%; }', '100');
-				} else {
+				} else 
 					$css .= sprintf($content_width_sel . '{ width: %s%%; }', $p);
-				}
+				
 				
 			} elseif( pagelines_option('layout_handling') == 'pixels' ){
 				$css .= sprintf($page_width_sel . '{ max-width:%spx; }', $c + 20);
@@ -315,11 +315,11 @@ class PageLinesLayout {
 				$css .= sprintf($content_width_sel . '{ width:%spx;}', $c);
 			}
 			
-			$css .= sprintf('%1$s #pagelines_content #column-main, %1$s .wmain, %1$s #buddypress-page #container{ %2$s }', $mode, $l['main']);
-			$css .= sprintf('%1$s #pagelines_content #sidebar1, %1$s #buddypress-page #sidebar1{ %2$s }', $mode, $l['sb1']);
-			$css .= sprintf('%1$s #pagelines_content #sidebar2, %1$s #buddypress-page #sidebar2{ %2$s }', $mode, $l['sb2']);
-			$css .= sprintf('%1$s #pagelines_content #column-wrap, %1$s #buddypress-page #container{ %2$s }', $mode, $l['colwrap']);
-			$css .= sprintf('%1$s #pagelines_content #sidebar-wrap, %1$s #buddypress-page #sidebar-wrap{ %2$s }', $mode, $l['sbwrap']);
+			$css .= sprintf('%1$s #pagelines_content #column-main, %1$s .wmain{ %2$s }', $mode, $l['main']);
+			$css .= sprintf('%1$s #pagelines_content #sidebar1{ %2$s }', $mode, $l['sb1']);
+			$css .= sprintf('%1$s #pagelines_content #sidebar2{ %2$s }', $mode, $l['sb2']);
+			$css .= sprintf('%1$s #pagelines_content #column-wrap{ %2$s }', $mode, $l['colwrap']);
+			$css .= sprintf('%1$s #pagelines_content #sidebar-wrap{ %2$s }', $mode, $l['sbwrap']);
 
 			return $css;
 		}
