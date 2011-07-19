@@ -162,7 +162,7 @@
 
 		foreach( $plugins as $key => $plugin ) {
 			$plugins[$key]['status'] = $this->plugin_check_status( WP_PLUGIN_DIR . $plugin['file'] );
-			$plugins[$key]['name'] = $plugins[$key]['status']['data']['Name'];
+			$plugins[$key]['name'] = ( $plugins[$key]['status']['data']['Name'] ) ? $plugins[$key]['status']['data']['Name'] : $plugins[$key]['name'];
 		}
 
 		$plugins = pagelines_array_sort( pagelines_array_sort( $plugins, 'name', false, true ), 'status', 'status' );
@@ -185,8 +185,9 @@
 			if ( !isset( $plugin['status'] ) )
 				$plugin['status'] = array( 'status' => '' );
 
-			if ( $plugin['status'] && $plugin['version'] > $plugin['status']['data']['Version'])
-				$plugin['status']['status'] = 'upgrade';
+			if ( isset( $plugin['status']['version'] ) )
+				if ( $plugin['version'] > $plugin['status']['version'] )
+					$plugin['status']['status'] = 'upgrade';
 
 			switch ( $plugin['status']['status'] ) {
 					
@@ -200,7 +201,7 @@
 				break;
 					
 				case 'upgrade':
-					$button = OptEngine::superlink('Upgrade to ' . $plugin->version, 'black', '', '', $upgrade_js_call);
+					$button = OptEngine::superlink('Upgrade to ' . $plugin['version'], 'black', '', '', $upgrade_js_call);
 				break;
 
 				default:
@@ -212,7 +213,7 @@
 				
 			$args = array(
 					'name' 		=> $plugin['name'], 
-					'version'	=> ( !empty( $plugin['status'] ) ) ? $plugin['status']['data']['Version'] : $plugin['version'], 
+					'version'	=> ( isset( $plugin['status']['data'] ) ) ? $plugin['status']['data']['Version'] : $plugin['version'], 
 					'desc'		=> $plugin['text'],
 					'tags'		=> ( isset( $plugin['tags'] ) ) ? $plugin['tags'] : '',
 					'auth_url'	=> $plugin['author_url'], 
