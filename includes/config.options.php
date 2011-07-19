@@ -279,7 +279,7 @@ class PageLinesOptionsArray {
 						'css_prop'	=> 'background-color',
 						'inputlabel' 	=> 'Content Background <small>The Background Color Site Content</small>',
 						'math'		=> array(
-								array( 'mode' => 'contrast', 'selectors' => cssgroup('border_layout'), 'css_prop' => 'border-color', 'diff' => '10%'),
+								array( 'mode' => 'contrast', 'selectors' => cssgroup('border_layout'), 'css_prop' => 'border-color', 'diff' => '10%', 'depends' => array('contentbg', )),
 							)
 						),
 					'box_color_primary'	=> array(				
