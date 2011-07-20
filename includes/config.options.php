@@ -279,7 +279,7 @@ class PageLinesOptionsArray {
 						'css_prop'	=> 'background-color',
 						'inputlabel' 	=> 'Content Background <small>The Background Color Site Content</small>',
 						'math'		=> array(
-								array( 'mode' => 'contrast', 'selectors' => cssgroup('border_layout'), 'css_prop' => 'border-color', 'diff' => '10%', 'depends' => array('contentbg', )),
+								array( 'mode' => 'contrast', 'selectors' => cssgroup('border_layout'), 'css_prop' => 'border-color', 'diff' => '10%', 'depends' => array('contentbg', 'pagebg', 'bodybg')),
 							)
 						),
 					'box_color_primary'	=> array(				
@@ -301,7 +301,7 @@ class PageLinesOptionsArray {
 								array( 'mode' => 'darker', 'selectors' => cssgroup('border_tertiary'), 'css_prop' => array('border-color'), 'diff' => '45%'),
 								array( 'mode' => 'darker', 'selectors' => cssgroup('border_tertiary'), 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '60%'),
 								array( 'mode' => 'contrast', 'selectors' => cssgroup('text_box'), 'css_prop' => 'color', 'diff' => '60%'),
-								array( 'mode' => 'contrast', 'selectors' => cssgroup('text_tertiary'), 'css_prop' => 'color', 'diff' => '80%'),
+								
 							)
 						),
 				),
@@ -322,7 +322,8 @@ class PageLinesOptionsArray {
 						'selectors'	=>	cssgroup('text_primary'),
 						'inputlabel' 	=> 'Page - Primary Text Color <small>The Main Text Color Used Throughout The Site</small>',
 						'math'		=> array(
-							array( 'mode' => 'contrast', 'selectors' => cssgroup('text_secondary'), 'css_prop' => 'color', 'diff' => '25%'),
+							array( 'mode' => 'contrast', 'selectors' => cssgroup('text_secondary'), 'css_prop' => 'color', 'diff' => '10%'),
+							array( 'mode' => 'contrast', 'selectors' => cssgroup('text_tertiary'), 'css_prop' => 'color', 'diff' => '20%'),
 						)
 					),
 					'linkcolor' => array(

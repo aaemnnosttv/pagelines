@@ -117,7 +117,25 @@ class PageLinesCSS {
 		
 		if(isset($o['math']) && is_array($o['math'])){
 
-			$math = new PageLinesColor( $val );
+
+			foreach( $o['math'] as $key => $k ){
+			
+				if(!$val && isset($k['depends'])){
+					foreach($k['depends'] as $d){
+						
+						if( pagelines_option($d) ){
+							
+							$base = pagelines_option($d);
+
+							break;
+						}
+					}
+				} else 
+					$base = $val;
+			
+			}
+			
+			$math = new PageLinesColor( $base );
 
 			foreach( $o['math'] as $key => $k ){
 
