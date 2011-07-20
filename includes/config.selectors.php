@@ -14,25 +14,31 @@ function cssgroup( $group ){
 	
 	$s = array();
 	
-	// Layout
+	/**
+	 * Layout Width Control
+	 */
 	$s['page_width'] = 'body.fixed_width #page, body.fixed_width #footer, body.canvas .page-canvas'; 
 	$s['content_width'] = '#site .content, .wcontent, #footer .content';
 	
-	// Main Colors
+	/**
+	 * Main Page Element Colors
+	 */
 	$s['bodybg'] = 'body, body.fixed_width, #footer .content';
 	
 	$s['pagebg'] = 'body #page, .sf-menu li, #primary-nav ul.sf-menu a:focus, .sf-menu a:hover, .sf-menu a:active, .commentlist ul.children .even, .alt #commentform textarea';
 	
 	$s['contentbg'] = '.canvas .page-canvas, .content';
 	
-	// Boxes & Elements 
-	
+	/**
+	 * Box & Element Colors
+	 */
 	$s['box_color_primary'] = '#feature-footer, .main-nav li.current-page-ancestor a, .main-nav li.current_page_item a, .main-nav li.current-page-ancestor ul a, .main-nav li.current_page_item ul a, #wp-calendar caption, #buddypress-page #subnav, #buddypress-page .activity .activity-inner, #buddypress-page table.forum th, #grandchildnav.widget, input, textarea, .searchform .searchfield, .wp-caption, .commentlist .alt, #wp-calendar #today, #buddypress-page div.activity-comments form .ac-textarea, #buddypress-page form#whats-new-form #whats-new-textarea, .post-nav, .current_posts_info, .post-footer,  #twitterbar, #twitterbar .content, #carousel .content-pad, .success, .sf-menu li li, .sf-menu li li, .sf-menu li li li, .content-pagination a .cp-num, .hentry table .alternate td';
 	
 	$s['box_color_secondary'] = '.main_nav .main-nav li a:hover, #wp-calendar thead th, #buddypress-page #object-nav, .item-avatar a, .comment blockquote, #grandchildnav .current_page_item a, #grandchildnav li a:hover, #grandchildnav .current_page_item  ul li a:hover, #carousel .carousel_text, pagination .wp-pagenavi a, #pagination .wp-pagenavi .current, #pagination .wp-pagenavi .extend, .sf-menu li:hover, .sf-menu li.sfHover, #featurenav a, #feature-footer span.playpause, .content-pagination .cp-num, .content-pagination a:hover .cp-num, ins';
 	
-	// Borders 
-	
+	/**
+	 * Border Colors
+	 */
 	$s['border_layout'] = 'hr, .fpost, .clip_box, .widget-title, #buddypress-page .item-list li, .metabar a, #morefoot .widget-title, #site #dsq-content h3, .main_nav_container, ul.sf-menu ul li';
 	
 	$s['box_color_tertiary'] = '#buddypress-page #object-nav ul li a:hover,#buddypress-page #object-nav ul li.selected a, #buddypress-page #subnav a:hover, #buddypress-page #subnav li.current a, #featurenav a.activeSlide';
@@ -47,8 +53,9 @@ function cssgroup( $group ){
 	
 	$s['border_primary_highlight'] = '#feature-footer .feature-footer-pad';
 	
-	// Text
-	
+	/**
+	 * Text Colors
+	 */
 	$s['headercolor'] = 'h1, h2, h3, h4, h5, h6, h1 a, h2 a, h3 a, h4 a, h5 a, h6 a, a.site-title, .entry-title a, .entry-title a:hover, .widget-tit	le a:hover, h3.widget-title a:hover';
 	
 	$s['text_primary'] = '#page, .tcolor1, #subnav ul li a:active, .commentlist cite a, #breadcrumb a, .metabar a:hover, .post-nav a:hover, .post-footer a, #buddypress-page #object-nav ul li a, #buddypress-page table.forum .td-title a, #buddypress-page #subnav a:hover, #buddypress-page #subnav li.current a, #twitterbar a, #carousel .carousel_text, #site #dsq-content .dsq-request-user-info td a, #pagination .wp-pagenavi a:hover, #pagination .wp-pagenavi .current, #featurenav a.activeSlide, .content-pagination a:hover .cp-num';
@@ -68,15 +75,26 @@ function cssgroup( $group ){
 	$s['footer_text'] = '#footer, #footer li.link-list a, #footer .latest_posts li .list-excerpt';
 	$s['footer_highlight'] = '#footer a, #footer .widget-title,  #footer li h5 a';
 	
-	
-	
-	// Text Shadows & Effects
-	
+	/**
+	 * Text Shadows & Effects 
+	 */
 	$s['text_shadow_color']	= '#feature-footer, #grandchildnav li a, #grandchildnav .current_page_item  ul li a, #buddypress-page #object-nav ul li a';
 	$s['footer_text_shadow_color'] = '#footer, .fixed_width #footer';
 	
-	// Output & Extension 
 	
+	
+	/**
+	 * Typography 
+	 */
+	$s['type_headers'] = 'h1, h2, h3, h4, h5, h6, .site-title';
+	$s['type_primary'] = 'body, .font1, .font-primary, .commentlist';
+	$s['type_secondary'] = '.font2, .font-sub, ul.main-nav li a, #secondnav li a, .metabar, .subtext, .subhead, .widget-title, .post-comments, .reply a, .editpage, #pagination .wp-pagenavi, .post-edit-link, #wp-calendar caption, #wp-calendar thead th, .soapbox-links a, .fancybox, .standard-form .admin-links, #featurenav a, .pagelines-blink, .ftitle small';
+	$s['type_inputs'] = 'input[type="text"], input[type="password"], textarea, #dsq-content textarea';
+	
+	
+	/**
+	 * Output & Extension 
+	 */
 	if(isset($s[ $group ]))
 		return apply_filters('pagelines_css_group', $s[ $group ], $group);
 	else 
