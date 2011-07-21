@@ -722,10 +722,29 @@ class OptEngine {
 
 	function _get_color_picker($oid, $o){ // Color Picker Template 
 		
-		$val = ( $o['val'] ) ? $o['val'] : $o['default'];
+		$val = ( $o['val'] || $o['val'] == '') ? $o['val'] : false;
 		
-		if(isset($o['math'])){
-			$math = new PageLinesColor( $val );
+ 		if(isset($o['math'])){
+			
+			foreach( $o['math'] as $key => $k ){
+			
+				if(!$val && isset($k['depends'])){
+					foreach($k['depends'] as $d){
+						
+						if( pagelines_option($d) ){
+							
+							$base = pagelines_option($d);
+
+							break;
+						}
+					}
+				} else 
+					$base = $val;
+			
+			}
+				
+		
+			$math = new PageLinesColor( $base );
 		
 			$gen = '';
 			foreach( $o['math'] as $key => $k ){
@@ -738,7 +757,9 @@ class OptEngine {
 
 			}
 		}
+		
 		$picker = sprintf('<div id="%s" class="colorSelector"><div></div></div> %s', $oid.'_picker', $this->input_text($oid, $o['input_name'], $val, 'colorpickerclass'));
+		
 		
 		$pick_contain = sprintf('<div class="pick_contain">%s</div>', $picker);
 		
