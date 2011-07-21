@@ -10,7 +10,7 @@
 /* @ Responsive Design */
 	body img {max-width: 100%; height: auto;}
 
-	@media screen and (max-width:768px) { 
+	@media screen and (max-width:800px) { 
 		body #site .content, body .wcontent, body #footer .content {width: 97%;}
 	    body #page #pagelines_content #column-wrap,  body #page  #buddypress-page #container, body #page  #pagelines_content #sidebar-wrap, body #page  #buddypress-page #sidebar-wrap { 
 	       width: 100%;
@@ -54,9 +54,13 @@
 	/* @ Layout Floating */
 		#column-wrap, #container{float: left;}
 		#sidebar-wrap{float:right;}
-		.two-sidebar-left #column-wrap, .one-sidebar-left #column-wrap, .two-sidebar-left #buddypress-page #container, .one-sidebar-left #buddypress-page #container{ float: right; }
+		.two-sidebar-left #column-wrap, .one-sidebar-left #column-wrap, .two-sidebar-left #buddypress-page #container, .one-sidebar-left #buddypress-page #container{ 
+			float: right; 
+		}
 		.two-sidebar-left #sidebar-wrap, .one-sidebar-left #sidebar-wrap{ float: left; }
-		.two-sidebar-left #column-main, .one-sidebar-left #column-main, .two-sidebar-left #buddypress-page #container, .one-sidebar-left #buddypress-page #container{ float: right; }
+		.two-sidebar-left #column-main, .one-sidebar-left #column-main, .two-sidebar-left #buddypress-page #container, .one-sidebar-left #buddypress-page #container{ 
+			float: right; 
+		}
 		.two-sidebar-center #column-main { float: right;}
 		#column-main { float: left; display: inline; width: 630px; }
 		#sidebar1, #sidebar2{ float: left; overflow:hidden; }
