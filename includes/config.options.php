@@ -262,7 +262,6 @@ class PageLinesOptionsArray {
 						'inputlabel' 	=> 'Body Background <small>Shown Behind Page Content Area (e.g. In Footer)</small>',
 						'math'			=> array(
 							
-							array( 'mode' => 'contrast', 'selectors' => cssgroup('footer_text_shadow_color'), 'css_prop' => 'text-shadow', 'diff' => '40%'),
 						)
 					),
 					'pagebg'		=> array(				
@@ -292,15 +291,17 @@ class PageLinesOptionsArray {
 								array( 'mode' => 'contrast', 'selectors' => cssgroup('border_primary'), 'css_prop' => 'border-color', 'diff' => '10%'),
 								array( 'mode' => 'darker', 'selectors' => cssgroup('border_primary_shadow'), 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '15%'),
 								array( 'mode' => 'lighter', 'selectors' => cssgroup('border_primary_highlight'), 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '15%'),
-								array( 'mode' => 'contrast', 'selectors' => cssgroup('text_shadow_color'), 'css_prop' => array('text-shadow'), 'diff' => '40%'), 
+								
 								array( 'mode' => 'contrast', 'selectors' => cssgroup('box_color_secondary'), 'css_prop' => array('background-color')), 
-								array( 'mode' => 'contrast', 'selectors' => cssgroup('box_color_tertiary'), 'css_prop' => array('background-color'), 'diff' => '80%'), 
-								array( 'mode' => 'contrast', 'selectors' => cssgroup('border_secondary'), 'css_prop' => array('background-color'), 'diff' => '20%'),
-								array( 'mode' => 'darker', 'selectors' => cssgroup('border_secondary'), 'css_prop' => array('border-color'), 'diff' => '25%'),
-								array( 'mode' => 'darker', 'selectors' => cssgroup('border_secondary'), 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '35%'),
-								array( 'mode' => 'contrast', 'selectors' => cssgroup('border_tertiary'), 'css_prop' => array('background-color'), 'diff' => '40%'),
-								array( 'mode' => 'darker', 'selectors' => cssgroup('border_tertiary'), 'css_prop' => array('border-color'), 'diff' => '45%'),
-								array( 'mode' => 'darker', 'selectors' => cssgroup('border_tertiary'), 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '60%'),
+								array( 'mode' => 'darker', 'selectors' => cssgroup('border_secondary'), 'css_prop' => array('border-color'), 'diff' => '17%'),
+								array( 'mode' => 'darker', 'selectors' => cssgroup('border_secondary'), 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '25%'),
+								
+								array( 'mode' => 'contrast', 'selectors' => cssgroup('box_color_tertiary'), 'css_prop' => array('background-color'), 'diff' => '20%'), 
+								array( 'mode' => 'darker', 'selectors' => cssgroup('border_tertiary'), 'css_prop' => array('border-color'), 'diff' => '25%'),
+								array( 'mode' => 'darker', 'selectors' => cssgroup('border_tertiary'), 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '35%'),
+								
+							
+								
 								array( 'mode' => 'contrast', 'selectors' => cssgroup('text_box'), 'css_prop' => 'color', 'diff' => '60%'),
 								
 							)
