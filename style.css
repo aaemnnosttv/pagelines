@@ -157,13 +157,19 @@ body{font-size: 87.5%; line-height: 1.7em}
 * @ Borders
 */	
 		hr, .fpost, .clip_box, .widget-title, #buddypress-page .item-list li, .metabar a, #morefoot .widget-title, #site #dsq-content h3, .main_nav_container, ul.sf-menu ul li{
-			border-bottom-style: solid;border-bottom-width: 1px;
+			border-bottom: 1px solid transparent;
 		}
 	
-		.post.fpost .entry, #soapbox .fboxinfo, #feature-footer.nonav {border-top-style: solid;border-top-width: 1px;}
+		.post.fpost .entry, #soapbox .fboxinfo, #feature-footer.nonav {border-top: 1px solid transparent;}
 		
 		#feature-footer, #featurenav a, #feature-footer span.playpause, #featurenav a.activeSlide, textarea:focus, #commentform textarea:focus, #commentform input[type="text"]:focus, input, textarea, .searchform .searchfield, .wp-caption, #buddypress-page div.activity-comments form .ac-textarea, #buddypress-page form#whats-new-form #whats-new-textarea, #grandchildnav.widget, .clip .clip-thumb img, .author-thumb img, #carousel .content ul li a img, .widget_flickrRSS a img, .wp125_write_ads_widget.widget #wp125adwrap_2c .wp125ad a{
-			border-style: solid;border-width: 1px;
+			border: 1px solid transparent;
+		}
+	
+		.widget-default{border: 4px dashed transparent;}
+		.post-nav, .current_posts_info, .post-footer  {
+			border-right: 3px solid transparent;
+			border-left: 3px solid transparent;
 		}
 	
 	

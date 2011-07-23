@@ -252,7 +252,7 @@ class PageLinesOptionsArray {
 			'page_colors'		=> array(
 				'title' 	=> 'Basic Layout Colors',						
 				'shortexp' 	=> 'The Main Layout Colors For Your Site',
-				'exp' 		=> 'Use these options to configure the main layout colors for your site.<br/><br/>This theme as two background elements, the "page" or content area and the "body" which sits behind the page area, you can set their colors individually here.',
+				'exp' 		=> 'Use these options to quickly setup the main layout colors for your site.  These options should be used for quickly prototyping, or building a custom site quickly. <br/><br/>Note: For a transparent background, leave the option blank.',
 				'type' 		=> 'color_multi',
 				'selectvalues'	=> array(
 					'bodybg'	=> array(				
@@ -262,12 +262,12 @@ class PageLinesOptionsArray {
 						'inputlabel' 	=> 'Body Background <small>Shown Behind Page Content Area (e.g. In Footer)</small>',
 						'math'			=> array(
 							
-							array( 'mode' => 'contrast', 'selectors' => cssgroup('footer_text_shadow_color'), 'css_prop' => 'text-shadow', 'diff' => '40%'),
 						)
 					),
 					'pagebg'		=> array(				
 						'default' 	=> '#FFFFFF',
 						'selectors'	=>	cssgroup('pagebg'),
+						'flag'		=> 'blank_default',
 						'css_prop'	=> 'background-color',
 						'inputlabel' 	=> 'Page Background <small>The Background Of Page Area</small>',
 						),
@@ -275,7 +275,7 @@ class PageLinesOptionsArray {
 						'version'	=> 'pro',
 						'default' 	=> '#FFFFFF',
 						'selectors'	=>	cssgroup('contentbg'),
-						'flag'		=> 'transparent',
+						'flag'		=> 'blank_default',
 						'css_prop'	=> 'background-color',
 						'inputlabel' 	=> 'Content Background <small>The Background Color Site Content</small>',
 						'math'		=> array(
@@ -291,15 +291,17 @@ class PageLinesOptionsArray {
 								array( 'mode' => 'contrast', 'selectors' => cssgroup('border_primary'), 'css_prop' => 'border-color', 'diff' => '10%'),
 								array( 'mode' => 'darker', 'selectors' => cssgroup('border_primary_shadow'), 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '15%'),
 								array( 'mode' => 'lighter', 'selectors' => cssgroup('border_primary_highlight'), 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '15%'),
-								array( 'mode' => 'contrast', 'selectors' => cssgroup('text_shadow_color'), 'css_prop' => array('text-shadow'), 'diff' => '40%'), 
+								
 								array( 'mode' => 'contrast', 'selectors' => cssgroup('box_color_secondary'), 'css_prop' => array('background-color')), 
-								array( 'mode' => 'contrast', 'selectors' => cssgroup('box_color_tertiary'), 'css_prop' => array('background-color'), 'diff' => '22%'), 
-								array( 'mode' => 'contrast', 'selectors' => cssgroup('border_secondary'), 'css_prop' => array('background-color'), 'diff' => '20%'),
-								array( 'mode' => 'darker', 'selectors' => cssgroup('border_secondary'), 'css_prop' => array('border-color'), 'diff' => '25%'),
-								array( 'mode' => 'darker', 'selectors' => cssgroup('border_secondary'), 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '35%'),
-								array( 'mode' => 'contrast', 'selectors' => cssgroup('border_tertiary'), 'css_prop' => array('background-color'), 'diff' => '40%'),
-								array( 'mode' => 'darker', 'selectors' => cssgroup('border_tertiary'), 'css_prop' => array('border-color'), 'diff' => '45%'),
-								array( 'mode' => 'darker', 'selectors' => cssgroup('border_tertiary'), 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '60%'),
+								array( 'mode' => 'darker', 'selectors' => cssgroup('border_secondary'), 'css_prop' => array('border-color'), 'diff' => '17%'),
+								array( 'mode' => 'darker', 'selectors' => cssgroup('border_secondary'), 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '25%'),
+								
+								array( 'mode' => 'contrast', 'selectors' => cssgroup('box_color_tertiary'), 'css_prop' => array('background-color'), 'diff' => '20%'), 
+								array( 'mode' => 'darker', 'selectors' => cssgroup('border_tertiary'), 'css_prop' => array('border-color'), 'diff' => '25%'),
+								array( 'mode' => 'darker', 'selectors' => cssgroup('border_tertiary'), 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '35%'),
+								
+							
+								
 								array( 'mode' => 'contrast', 'selectors' => cssgroup('text_box'), 'css_prop' => 'color', 'diff' => '60%'),
 								
 							)
@@ -322,7 +324,7 @@ class PageLinesOptionsArray {
 						'selectors'	=>	cssgroup('text_primary'),
 						'inputlabel' 	=> 'Page - Primary Text Color <small>The Main Text Color Used Throughout The Site</small>',
 						'math'		=> array(
-							array( 'mode' => 'contrast', 'selectors' => cssgroup('text_secondary'), 'css_prop' => 'color', 'diff' => '10%'),
+							array( 'mode' => 'contrast', 'selectors' => cssgroup('text_secondary'), 'css_prop' => 'color', 'diff' => '40%'),
 							array( 'mode' => 'contrast', 'selectors' => cssgroup('text_tertiary'), 'css_prop' => 'color', 'diff' => '20%'),
 						)
 					),
@@ -349,7 +351,7 @@ class PageLinesOptionsArray {
 				'shortexp' 	=> 'Setup A Background Image For The Background Of Your Site',
 				'exp' 		=> 'Use this option to apply a background image to your site. This option will be applied to different areas depending on the design mode you have set.<br/><br/><strong>Positioning</strong> Use percentages to position the images, 0% corresponds to the "top" or "left" side, 50% to center, etc..',
 				'type' 		=> 'background_image',
-				'selectors'	=> '.canvas #page, .full_width #page, body.fixed_width'
+				'selectors'	=> cssgroup('page_background_image')
 			),
 			
 
@@ -374,7 +376,7 @@ class PageLinesOptionsArray {
 					'font' 		=> 'georgia',
 					),
 					'type' 		=> 'typography',
-					'selectors'	=> 'h1, h2, h3, h4, h5, h6, .site-title',
+					'selectors'	=> cssgroup('type_headers'),
 					'inputlabel' 	=> 'Select Font',
 					'title' 	=> 'Typography - Text Headers',
 					'shortexp' 	=> 'Select and Style Your Site\'s Header Tags (H1, H2, H3...)',
@@ -387,7 +389,7 @@ class PageLinesOptionsArray {
 					'font' 		=> 'georgia', 
 					),
 					'type'		=> 'typography',
-					'selectors'	=> 'body, .font1, .font-primary, .commentlist',
+					'selectors'	=> cssgroup('type_primary'),
 					'inputlabel' 	=> 'Select Font',
 					'title' 	=> 'Typography - Primary Font',
 					'shortexp' 	=> 'Select and Style The Standard Type Used In Your Site (body)',
@@ -399,7 +401,7 @@ class PageLinesOptionsArray {
 			'type_secondary' => array(
 					'default' 	=> array( 'font' => 'lucida_grande' ),
 					'type' 		=> 'typography',
-					'selectors'	=> '.font2, .font-sub, ul.main-nav li a, #secondnav li a, .metabar, .subtext, .subhead, .widget-title, .post-comments, .reply a, .editpage, #pagination .wp-pagenavi, .post-edit-link, #wp-calendar caption, #wp-calendar thead th, .soapbox-links a, .fancybox, .standard-form .admin-links, #featurenav a, .pagelines-blink, .ftitle small',
+					'selectors'	=> cssgroup('type_secondary'),
 					'inputlabel' 	=> 'Select Font',
 					'title' 	=> 'Typography - Secondary Font ',
 					'shortexp' 	=> 'Select and Style Your Site\'s Secondary or Sub Title Text (Metabar, Sub Titles, etc..)',
@@ -413,7 +415,7 @@ class PageLinesOptionsArray {
 					'font' 		=> 'courier_new',
 					),
 					'type' 		=> 'typography',
-					'selectors'	=> 'input[type="text"], input[type="password"], textarea, #dsq-content textarea',
+					'selectors'	=> cssgroup('type_inputs'),
 					'inputlabel' 	=> 'Select Font',
 					'title' 	=> 'Typography - Inputs and Textareas',
 					'shortexp' 	=> 'Select and Style Your Site\'s Text Inputs and Textareas.',

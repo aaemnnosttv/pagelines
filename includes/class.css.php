@@ -111,48 +111,20 @@ class PageLinesCSS {
 	
 	function render_css_colors( $oid, $o, $selectors = null, $css_prop = null ){
 		
-		$val = ( $o['val'] ) ? $o['val'] : '';
+		$v = $o['val'];
+		
+		if( !$v && $o['flag'] == 'blank_default' )
+			$v = false;
+		elseif( !$v )
+			$v = $o['default'];
 		
 		$css = '';
+		$css .= do_color_math($oid, $o, $v, 'css');
 		
-		if(isset($o['math']) && is_array($o['math'])){
-
-
-			foreach( $o['math'] as $key => $k ){
-			
-				if(!$val && isset($k['depends'])){
-					foreach($k['depends'] as $d){
-						
-						if( pagelines_option($d) ){
-							
-							$base = pagelines_option($d);
-
-							break;
-						}
-					}
-				} else 
-					$base = $val;
-			
-			}
-			
-			$math = new PageLinesColor( $base );
-
-			foreach( $o['math'] as $key => $k ){
-
-				$difference = isset($k['diff']) ? $k['diff'] : '10%';
-
-				$color = $math->get_color($k['mode'], $difference);
-
-				$css .= $this->the_properties($k['selectors'], $k['css_prop'], '#'.$color);
-
-			}
-		
-		}
-		
-		if(isset($css_prop))
-			$css .= $this->the_properties($selectors, $css_prop, $val);
-		else
-			$css .= $this->the_rule($selectors, 'color', $val);
+		if($v && isset($css_prop))
+			$css .= $this->the_properties($selectors, $css_prop, $v);
+		elseif($v)
+			$css .= $this->the_rule($selectors, 'color', $v);
 	
 		
 		return $css;

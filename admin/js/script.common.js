@@ -221,11 +221,11 @@ function setColorPicker(optionid, color){
 	jQuery('#'+optionid+'_picker').ColorPicker({
 		color: color,
 		onShow: function (colpkr) {
-			jQuery(colpkr).fadeIn(500);
+			jQuery(colpkr).fadeIn(400);
 			return false;
 		},
 		onHide: function (colpkr) {
-			jQuery(colpkr).fadeOut(500);
+			jQuery(colpkr).fadeOut(400);
 			return false;
 		},
 		onChange: function (hsb, hex, rgb) {

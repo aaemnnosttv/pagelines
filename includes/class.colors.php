@@ -35,29 +35,30 @@ class PageLinesColor {
 			
 		//plprint($this->base_hsl, $this->base_hex);	
 		if($mode == 'lighter')
-			return $this->adjust($diff); 
+			$color = $this->adjust($diff); 
 		elseif($mode == 'darker')
-			return $this->adjust(-$diff);
+			$color =  $this->adjust(-$diff);
 		elseif($mode == 'contrast'){
+			//plprint( $this->adjust(-$diff), $diff);
 			
 			if( $this->base_hsl['lightness'] < .25 || ($this->base_hsl['lightness'] < .7 && $this->base_hsl['hugh'] > .6) || ($this->base_hsl['saturation'] > .8 && $this->base_hsl['lightness'] < .4))
-				return $this->adjust($diff);
+				$color =  $this->adjust($diff);
 			else
-				return $this->adjust(-$diff);
+				$color =  $this->adjust(-$diff);
 		
 		}
-		
-	
-		
+			
+		if($this->base_hex == 'cad2e6') {
+			plprint($this->base_rgb, 'rgb');
+			plprint($this->base_hsl, 'hsl');
+			plprint($color, 'adjust');	
+		}
+			
+		return $color;	
 	} 
-	
-	function contrast( $adjustment, $surrounding = ''){
-		
-		return $this->base_hsl['lightness'];
-		
-	}
-	
+
 	function adjust( $adjustment, $mode = 'lightness' ){
+		
 		
 		
 		$h = $this->base_hsl['hugh'];
@@ -74,22 +75,16 @@ class PageLinesColor {
 			
 			
 		} else {
-			if($mode == 'lightness'){
-
+			
+			if($mode == 'lightness')
 				$l = $l + $adjustment; 
-
-			} elseif($mode == 'hugh') {
-
+			elseif($mode == 'hugh')
 				$h = $h + $adjustment; 
-				
-
-			} elseif($mode == 'saturation') {
-
+			elseif($mode == 'saturation')
 				$s = $s + $adjustment; 
 
-			}
 		}
-	
+		
 	
 		// Adjust for hue 180* scale
 		if ($h > 1) $h -= 1;
@@ -100,33 +95,14 @@ class PageLinesColor {
 		if ($s < 0) $s = 0;
 		if ($l < 0) $l = 0;
 		
-		$new_hsl = array( 'hugh' => $h, 'saturation' => $s, 'lightness' => $l );
+		$this->new_hsl = array( 'hugh' => $h, 'saturation' => $s, 'lightness' => $l );
 		
+		// plprint($this->base_hsl, $adjustment);
+		// 		plprint($this->new_hsl, $adjustment.'hello');
 		
-		return $this->hsl_to_hex( $new_hsl );
+		return $this->hsl_to_hex( $this->new_hsl );
 	}
-	
-	function adjust_hugh(){
-		
-		$h = $this->base_hsl['hugh'];
-		$s = $this->base_hsl['saturation'];
-		$l = $this->base_hsl['lightness'];
-		
-		$l = $l + $adjustment; 
-		
-		$new_hsl = array( 'hugh' => $h, 'saturation' => $s, 'lightness' => $l );
-		
-		
-		return $this->hsl_to_hex( $new_hsl );
-		
-		$h2 = $h + 0.5;
 
-		if ($h2 > 1)
-		{
-		$h2 -= 1;
-		};
-	}
-	
 	function hex_to_rgb( $hexcode ){
 		
 		$redhex  = substr( $hexcode, 0, 2 );
@@ -144,55 +120,46 @@ class PageLinesColor {
 	}
 	
 	function rgb_to_hsl( $rgb ){
+	
+	
+		$clrR = $this->base_rgb['red'];
+		$clrG = $this->base_rgb['green'];
+		$clrB = $this->base_rgb['blue'];
 		
-		$red = $this->base_rgb['red'];
-		$green = $this->base_rgb['green'];
-		$blue = $this->base_rgb['blue'];
+		$clrMin = min($clrR, $clrG, $clrB);
+		$clrMax = max($clrR, $clrG, $clrB);
+		$deltaMax = $clrMax - $clrMin;
 		
-		$var_red = $red / 255;
-		$var_green = $green / 255;
-		$var_blue = $blue / 255;
-		
-		$var_min = min( $var_red, $var_green, $var_blue );
-		$var_max = max( $var_red, $var_green, $var_blue );
-		
-		$del_max = $var_max - $var_min;
+		$L = ($clrMax + $clrMin) / 510;
 
-		$l = ($var_max + $var_min) / 2;
-
-		if ($del_max == 0){
-			$h = 0;
-			$s = 0;
-		} else {
+		if (0 == $deltaMax){
+			$H = 0;
+			$S = 0;
+		}else{
+			if (0.5 > $L){
+			    $S = $deltaMax / ($clrMax + $clrMin);	
+			}else{
+			    $S = $deltaMax / (510 - $clrMax - $clrMin);
+				// plprint($deltaMax, 'dm');
+				// 			plprint($clrMax, 'clrMax');
+				// 			plprint($clrMin, 'clrMin');
+				// 			plprint($S, 'saturation');
+			}
 			
-			if ($l < 0.5) {
-				$s = $del_max / ($var_max + $var_min);
-			} else {
-				$s = $del_max / (2 - $var_max - $var_min);
-			};
+			if ($clrMax == $clrR)
+			    $H = ($clrG - $clrB) / (6.0 * $deltaMax);
+			elseif ($clrMax == $clrG)
+			    $H = 1/3 + ($clrB - $clrR) / (6.0 * $deltaMax);
+			else
+			    $H = 2 / 3 + ($clrR - $clrG) / (6.0 * $deltaMax);
 
-			$del_r = ((($var_max - $var_red) / 6) + ($del_max / 2)) / $del_max;
-			$del_g = ((($var_max - $var_green) / 6) + ($del_max / 2)) / $del_max;
-			$del_b = ((($var_max - $var_blue) / 6) + ($del_max / 2)) / $del_max;
-
-			if ($var_red == $var_max) {
-			        $h = $del_b - $del_g;
-			} elseif ($var_green == $var_max) {
-			        $h = (1 / 3) + $del_r - $del_b;
-			} elseif ($var_blue == $var_max) {
-			        $h = (2 / 3) + $del_g - $del_r;
-			};
-
-			if ($h < 0) {
-			        $h += 1;
-			};
-
-			if ($h > 1) {
-			        $h -= 1;
-			};
-		};
+			if (0 > $H) $H += 1;
+			if (1 < $H) $H -= 1;
 		
-		return array( 'hugh' => $h, 'saturation' => $s, 'lightness' => $l );
+		}
+		
+		
+		return array( 'hugh' => $H, 'saturation' => $S, 'lightness' => $L );
 	}
 	
 	function hsl_to_hex( $hsl ){
@@ -280,4 +247,52 @@ class PageLinesColor {
 //-------- END OF CLASS --------//
 
 
+function do_color_math($oid, $o, $val, $format = 'css'){
+	
+	$output = '';
+	
+	if(isset($o['math'])){
+		
+		foreach( $o['math'] as $key => $k ){
+		
+			if(!$val){
+			 	if(isset($k['depends'])){
+					foreach($k['depends'] as $d){
+					
+						if( pagelines_option($d) ){
+						
+							$base = pagelines_option($d);
 
+							break;
+						}
+					}
+				} 
+				
+			} else 
+				$base = $val;
+		
+		}
+		
+		$base = (isset($base)) ? $base : $o['default'];
+			
+	
+		$math = new PageLinesColor( $base );
+	
+		
+		foreach( $o['math'] as $key => $k ){
+
+			$difference = isset($k['diff']) ? $k['diff'] : '10%';
+
+			$color = $math->get_color($k['mode'], $difference);
+
+			if($format == 'palette')
+				$output .= sprintf('<div class="pickgen" style="background: #%s;">&nbsp;</div>', $color); 
+			else {
+				$css = new PageLinesCSS;
+				$output .= $css->the_properties($k['selectors'], $k['css_prop'], '#'.$color);
+			}
+		}
+	}
+	
+	return $output;
+}
