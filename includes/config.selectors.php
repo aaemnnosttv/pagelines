@@ -34,7 +34,7 @@ function cssgroup( $group ){
 	/**
 	 * Box & Element Colors
 	 */
-	$s['box_color_primary'] = '#feature-footer,.main-nav li a:hover, .main-nav .current-page-ancestor a, .main-nav .current_page_item a, .main-nav li.current-page-ancestor ul a, .main-nav li.current_page_item ul a, .sf-menu li li, .sf-menu li li, .sf-menu li li li, #wp-calendar caption, #grandchildnav.widget, input, textarea, .searchform .searchfield, .wp-caption, .commentlist .alt, #wp-calendar #today, .post-nav, .current_posts_info, .post-footer,  #twitterbar, #twitterbar .content, #carousel .content-pad, .success,  .content-pagination a .cp-num, .hentry table .alternate td';
+	$s['box_color_primary'] = '#feature-footer,.main-nav li a:hover, .main-nav .current-page-ancestor a, .main-nav .current_page_item a, .main-nav li.current-page-ancestor ul a, .main-nav li.current_page_item ul a, .sf-menu li li, .sf-menu li li, .sf-menu li li li, #wp-calendar caption, #grandchildnav.widget, input, textarea, .searchform .searchfield, .wp-caption, .commentlist .alt, #wp-calendar #today, .post-nav, .current_posts_info, .post-footer,  #twitterbar, #twitterbar .content, #carousel .content-pad, .success,  .content-pagination a .cp-num, .hentry table .alternate td, .post-meta .c_img';
 	
 	$s['box_color_secondary'] = '#wp-calendar thead th, .item-avatar a, .comment blockquote, #grandchildnav .current_page_item a, #grandchildnav li a:hover, #grandchildnav .current_page_item  ul li a:hover, #carousel .carousel_text, pagination .wp-pagenavi a, #pagination .wp-pagenavi .current, #pagination .wp-pagenavi .extend, .sf-menu li:hover, .sf-menu li.sfHover, #featurenav a, #feature-footer span.playpause, .content-pagination .cp-num, .content-pagination a:hover .cp-num, ins';
 	
@@ -45,7 +45,7 @@ function cssgroup( $group ){
 	 */
 	$s['border_layout'] = 'hr, .fpost, .clip_box, .widget-title, .metabar a, #morefoot .widget-title, #site #dsq-content h3, .main_nav_container, .widget-default, .fpost .post-thumb img, .clip .clip-thumb img, .author-thumb img';
 	
-	$s['border_primary'] = 'ul.sf-menu ul li, .post-nav, .current_posts_info, .post-footer, blockquote, input, textarea, .searchform .searchfield, .wp-caption,   #grandchildnav.widget,  #carousel .content ul li a img, #carousel .content ul li a:hover img, #feature-footer, #soapbox .fboxinfo, #feature-footer.nonav';
+	$s['border_primary'] = 'ul.sf-menu ul li, .post-nav, .current_posts_info, .post-footer, blockquote, input, textarea, .searchform .searchfield, .wp-caption,   #grandchildnav.widget,  #carousel .content ul li a img, #carousel .content ul li a:hover img, #feature-footer, #soapbox .fboxinfo, #feature-footer.nonav, .post-meta .c_img';
 	
 	$s['border_secondary'] = '#featurenav a, #feature-footer span.playpause';
 	

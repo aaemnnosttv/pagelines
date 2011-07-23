@@ -283,7 +283,7 @@ class PageLinesOptionsArray {
 									'mode' => 'contrast', 
 									'selectors' => cssgroup('border_layout'), 
 									'css_prop' => 'border-color', 
-									'diff' => '10%', 
+									'diff' => '13%', 
 									'depends' => array('contentbg', 'pagebg', 'bodybg')
 								
 								),
@@ -291,13 +291,13 @@ class PageLinesOptionsArray {
 									'mode' => 'contrast', 
 									'selectors' => cssgroup('box_color_primary'), 
 									'css_prop' => 'background-color', 
-									'diff' => '5%', 
+									'diff' => '10%', 
 									'depends' => array('contentbg', 'pagebg', 'bodybg'),
 									'math'		=> array(
 										array( 'mode' => 'contrast', 'selectors' => cssgroup('text_box'), 'css_prop' => 'color', 'diff' => '60%'),
 										array( 'mode' => 'contrast', 'selectors' => cssgroup('border_primary'), 'css_prop' => 'border-color', 'diff' => '5%', 'math' => array(
-											array( 'mode' => 'darker', 'selectors' => cssgroup('border_primary_shadow'), 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '8%'),
-											array( 'mode' => 'lighter', 'selectors' => cssgroup('border_primary_highlight'), 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '8%'),
+											array( 'mode' => 'darker', 'selectors' => cssgroup('border_primary_shadow'), 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '12%'),
+											array( 'mode' => 'lighter', 'selectors' => cssgroup('border_primary_highlight'), 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '15%'),
 											array( 'mode' => 'contrast', 'selectors' => cssgroup('box_color_secondary'), 'css_prop' => array('background-color'), 'math' => array(
 												array( 'mode' => 'darker', 'selectors' => cssgroup('border_secondary'), 'css_prop' => array('border-color'), 'diff' => '17%'),
 												array( 'mode' => 'darker', 'selectors' => cssgroup('border_secondary'), 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '25%'),
@@ -313,26 +313,6 @@ class PageLinesOptionsArray {
 								),
 							)
 						),
-					// 'box_color_primary'	=> array(				
-					// 						'de	fault' 	=> '#F7F7F7',
-					// 						'selectors'	=>	cssgroup('box_color_primary'),
-					// 						'css_prop'	=> 'background',
-					// 						'inputlabel' 	=> 'Box Color <small>The Main Contrast Color Between Page Background And Site Elements</small>',
-					// 						'math'		=> array(
-					// 							array( 'mode' => 'contrast', 'selectors' => cssgroup('border_primary'), 'css_prop' => 'border-color', 'diff' => '10%'),
-					// 							array( 'mode' => 'darker', 'selectors' => cssgroup('border_primary_shadow'), 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '15%'),
-					// 							array( 'mode' => 'lighter', 'selectors' => cssgroup('border_primary_highlight'), 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '15%'),
-					// 							
-					// 							array( 'mode' => 'contrast', 'selectors' => cssgroup('box_color_secondary'), 'css_prop' => array('background-color')), 
-					// 							array( 'mode' => 'darker', 'selectors' => cssgroup('border_secondary'), 'css_prop' => array('border-color'), 'diff' => '17%'),
-					// 							array( 'mode' => 'darker', 'selectors' => cssgroup('border_secondary'), 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '25%'),
-					// 							array( 'mode' => 'contrast', 'selectors' => cssgroup('box_color_tertiary'), 'css_prop' => array('background-color'), 'diff' => '20%'), 
-					// 							array( 'mode' => 'darker', 'selectors' => cssgroup('border_tertiary'), 'css_prop' => array('border-color'), 'diff' => '25%'),
-					// 							array( 'mode' => 'darker', 'selectors' => cssgroup('border_tertiary'), 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '35%'),
-					// 							array( 'mode' => 'contrast', 'selectors' => cssgroup('text_box'), 'css_prop' => 'color', 'diff' => '60%'),
-					// 							
-					// 						)
-					// 					),
 				),
 			),
 			'text_colors'		=> array(
@@ -351,7 +331,7 @@ class PageLinesOptionsArray {
 						'selectors'	=>	cssgroup('text_primary'),
 						'inputlabel' 	=> 'Page - Primary Text Color <small>The Main Text Color Used Throughout The Site</small>',
 						'math'		=> array(
-							array( 'mode' => 'contrast', 'selectors' => cssgroup('text_secondary'), 'css_prop' => 'color', 'diff' => '20%'),
+							array( 'mode' => 'mix', 'mixwith' => pl_background_cascade(), 'selectors' => cssgroup('text_secondary'), 'css_prop' => 'color', 'diff' => '60%'),
 						)
 					),
 					'linkcolor' => array(
@@ -359,7 +339,7 @@ class PageLinesOptionsArray {
 						'selectors'		=>	cssgroup('linkcolor'),
 						'inputlabel' 	=> 'Text Link Color',	
 						'math'			=> array(
-							array( 'mode' => 'contrast', 'selectors' => cssgroup('linkcolor_hover'), 'css_prop' => 'color', 'diff' => '20%'),	
+							array( 'mode' => 'mix', 'mixwith' => pl_background_cascade(),  'selectors' => cssgroup('linkcolor_hover'), 'css_prop' => 'color', 'diff' => '80%'),	
 							)				
 					),
 					'footer_text' => array(

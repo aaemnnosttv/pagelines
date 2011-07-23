@@ -219,6 +219,7 @@
 		}
 			#feature-footer .feature-footer-pad{
 				padding:8px;
+				border: 1px solid transparent;
 			}
 			#feature-footer.nonav {border:none; }
 			#feature-footer.nonav .feature-footer-pad {display: none;}
