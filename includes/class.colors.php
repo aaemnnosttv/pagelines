@@ -242,6 +242,25 @@ class PageLinesColor {
 		return $hex;
 		
 	}
+	
+	function mix_colors($c1, $c2, $ratio = .5){
+
+		$ratio1 = $ratio*2;
+
+		$c1_p1 = hexdec( substr( $c1, 0, 2) );
+		$c1_p2 = hexdec( substr( $c1, 2, 2) );
+		$c1_p3 = hexdec( substr( $c1, 4, 2) );
+
+		$c2_p1 = hexdec( substr( $c2, 0, 2) );
+		$c2_p2 = hexdec( substr( $c2, 2, 2) );
+		$c2_p3 = hexdec( substr( $c2, 4, 2) );
+
+		$m_p1 = dechex( round( ($c1_p1 + $c2_p1) / 2 ) );
+		$m_p2 = dechex( round( ($c1_p2 + $c2_p2) / 2 ) );
+		$m_p3 = dechex( round( ($c1_p3 + $c2_p3) / 2 ) );
+
+	 	return $m_p1 . $m_p2 . $m_p3;
+	}
 
 }
 //-------- END OF CLASS --------//
@@ -249,6 +268,8 @@ class PageLinesColor {
 
 function do_color_math($oid, $o, $val, $format = 'css'){
 	
+	$default = (isset($o['default'])) ? $o['default'] : $val;
+
 	$output = '';
 	
 	if(isset($o['math'])){
@@ -273,11 +294,13 @@ function do_color_math($oid, $o, $val, $format = 'css'){
 		
 		}
 		
-		$base = (isset($base)) ? $base : $o['default'];
+		$base = (isset($base)) ? $base : $default;
 			
 	
 		$math = new PageLinesColor( $base );
 	
+		plprint($base, 'base');
+		plprint($math->mix_colors($base, 'ffffff'), 'mix');
 		
 		foreach( $o['math'] as $key => $k ){
 
@@ -291,8 +314,18 @@ function do_color_math($oid, $o, $val, $format = 'css'){
 				$css = new PageLinesCSS;
 				$output .= $css->the_properties($k['selectors'], $k['css_prop'], '#'.$color);
 			}
+			
+			// Recursion
+			if(isset($k['math']))
+				$output .= do_color_math($key, $k, $color, $format);
 		}
 	}
 	
 	return $output;
 }
+
+
+
+
+
+
