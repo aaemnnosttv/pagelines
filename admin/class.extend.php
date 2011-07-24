@@ -17,7 +17,8 @@
  	function __construct() {
 
 		$this->exprint = 'onClick="extendIt(\'%s\', \'%s\', \'%s\', \'%s\', \'%s\')"';
-
+		$this->username = get_pagelines_option( 'lp_username' );
+		$this->password = get_pagelines_option( 'lp_password' );
 		// Hooked Actions
 		add_action('admin_head', array(&$this, 'extension_js'));
 		add_action('wp_ajax_pagelines_ajax_extend_it_callback', array(&$this, 'extend_it_callback'));
@@ -258,7 +259,7 @@
 				if ( $data =  get_theme_data( WP_CONTENT_DIR . '/themes/' . strtolower( $theme->name ) . '/style.css' ) ) 
 					$status = 'installed';
 
-				if ($tab == 'free' && $status == 'installed' )
+				if ($tab == 'premium' && $status == 'installed' )
 					continue;
 					
 				if ( !$tab && !$status)
@@ -274,6 +275,9 @@
 				if ( isset($data) && $data['Version'] && $theme->version > $data['Version'])
 					$status = 'upgrade';
 
+				if ( !$status && !isset( $theme->purchased) )
+					$status = 'purchase';
+				
 				switch ( $status ) {
 					
 					case 'activated':
@@ -288,6 +292,12 @@
 						$button = OptEngine::superlink('Upgrade to ' . $theme->version, 'black', '', '', $upgrade_js_call);
 						break;
 
+					case 'purchase':
+						$button = OptEngine::superlink('Purchase Theme', 'black', '', '', '');
+						break;
+
+
+
 					default:
 						// were not installed, show the form! ( if we are on install tab )
 						$button = OptEngine::superlink('Install', 'black', '', '', $install_js_call);
@@ -297,7 +307,7 @@
 				
 				$args = array(
 						'name' 		=> $theme->name, 
-						'version'	=> ( !empty( $status ) ) ? $data['Version'] : $theme->version, 
+						'version'	=> ( !empty( $status ) && isset( $data['Version'] ) ) ? $data['Version'] : $theme->version, 
 						'desc'		=> $theme->text,
 						'tags'		=> ( isset( $theme->tags ) ) ? $theme->tags : '',
 						'auth_url'	=> $theme->author_url, 
@@ -634,16 +644,27 @@
 	*/
 	function get_latest_cached( $type ) {
 		
-		$api = ( ! false == get_transient( 'pagelines_sections_api_' . $type ) )
-				? get_transient( 'pagelines_sections_api_' . $type )
-				: wp_remote_get( 'http://api.pagelines.com/' . $type . '/' );
+		$url = 'http://api.pagelines.com/' . $type . '/';
+		$options = array(
+			'body' => array(
+				'username'	=>	$this->username,
+				'password'	=>	$this->password
+			)
+		);
+		
+$response = wp_remote_post( $url, $options );
+$api = wp_remote_retrieve_body( $response ); 
+		
+//		$api = ( ! false == get_transient( 'pagelines_sections_api_' . $type ) )
+//				? get_transient( 'pagelines_sections_api_' . $type )
+//				: wp_remote_get( 'http://api.pagelines.com/' . $type . '/' );
 
 		if( is_wp_error( $api ) )
 			return '<h2>Unable to fetch from API</h2>';
 
-		set_transient( 'pagelines_sections_api_' . $type, $api, 300 );
-
-		return json_decode( $api['body'] );
+//		set_transient( 'pagelines_sections_api_' . $type, $api, 300 );
+//plprint( $api );
+		return json_decode( $api );
 	}
 
  } // end PagelinesExtensions class
@@ -692,10 +713,10 @@ function extension_array(  ){
 					'title'		=> 'Installed PageLines Themes',
 					'callback'	=> $extension_control->extension_themes()
 					),
-				'free'		=> array(
-					'title'		=> 'Free Themes',
+				'premium'		=> array(
+					'title'		=> 'Premium Themes',
 					'class'		=> 'right',
-					'callback'	=> $extension_control->extension_themes( 'free' )
+					'callback'	=> $extension_control->extension_themes( 'premium' )
 					)
 					
 				)
