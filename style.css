@@ -312,7 +312,7 @@ body{font-size: 87.5%; line-height: 1.7em}
 		.fpost .post-thumb.img { margin-right: 20px;}
 		.full_img {margin-bottom: .8em;}
 		
-		.post-meta .c_img { display: block;  border: 1px solid #e9e9e9; border-right: 1px solid #e6e6e6; border-bottom: 1px solid #e6e6e6; float: left; padding: 3px;}
+		.post-meta .c_img { display: block;  border: 1px solid transparent; float: left; padding: 4px;}
 		.clip .post-meta .c_img { padding: 2px;}
 		.fpost .media .img img{max-width: 100%; height: auto; margin: 0 auto;}
 		

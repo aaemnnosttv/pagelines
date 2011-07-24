@@ -226,6 +226,24 @@ function pagelines_current_page_content_width() {
 
 }
 
+/**
+ * 
+ *  Sets background cascade for use in color mixing.
+ *
+ *  @since 2.0.b6
+ *
+ */
+function pl_background_cascade(){
+	
+	$cascade = array(
+		pagelines_option('contentbg'),
+		pagelines_option('pagebg'),
+		pagelines_option('bodybg'),
+	);
+	
+	return apply_filters('background_cascade', $cascade);
+}
+
 
 /**
  * 

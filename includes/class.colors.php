@@ -28,7 +28,9 @@ class PageLinesColor {
 	
 	}
 	
-	function get_color( $mode, $difference = '10%'){
+	function get_color( $mode, $difference = '10%', $alt = ''){
+	
+		$alt = str_replace('#', '', $alt);
 	
 		$dp = (int) str_replace('%', '', $difference);
 		$diff = $dp/100;
@@ -46,13 +48,11 @@ class PageLinesColor {
 			else
 				$color =  $this->adjust(-$diff);
 		
+		}elseif( $mode == 'mix' ){
+			
+			$color = $this->mix_colors($this->base_hex, $alt, $diff);
 		}
 			
-		if($this->base_hex == 'cad2e6') {
-			plprint($this->base_rgb, 'rgb');
-			plprint($this->base_hsl, 'hsl');
-			plprint($color, 'adjust');	
-		}
 			
 		return $color;	
 	} 
@@ -242,6 +242,25 @@ class PageLinesColor {
 		return $hex;
 		
 	}
+	
+	function mix_colors($c1, $c2, $ratio = .5){
+
+		$r1 = $ratio * 2;
+		$r2 = 2 - $r1;
+
+		$c1_rgb = $this->hex_to_rgb($c1);
+		$c2_rgb = $this->hex_to_rgb($c2);
+		
+		
+		$rmix = ( ( $c1_rgb['red'] * $r1 ) + ( $c2_rgb['red'] * $r2 ) ) / 2;
+		$gmix = ( ( $c1_rgb['green'] * $r1 ) + ( $c2_rgb['green'] * $r2 ) ) / 2;
+		$bmix = ( ( $c1_rgb['blue'] * $r1 ) + ( $c2_rgb['blue'] * $r2 ) ) / 2;
+		
+		$new_rgb = array('red' => $rmix, 'green' => $gmix, 'blue' => $bmix);
+	
+	 	return $this->rgb_to_hex( $new_rgb );
+	
+	}
 
 }
 //-------- END OF CLASS --------//
@@ -249,6 +268,8 @@ class PageLinesColor {
 
 function do_color_math($oid, $o, $val, $format = 'css'){
 	
+	$default = (isset($o['default'])) ? $o['default'] : $val;
+
 	$output = '';
 	
 	if(isset($o['math'])){
@@ -261,7 +282,7 @@ function do_color_math($oid, $o, $val, $format = 'css'){
 					
 						if( pagelines_option($d) ){
 						
-							$base = pagelines_option($d);
+							$base = str_replace('#', '', pagelines_option($d));
 
 							break;
 						}
@@ -269,21 +290,41 @@ function do_color_math($oid, $o, $val, $format = 'css'){
 				} 
 				
 			} else 
-				$base = $val;
+				$base = str_replace('#', '', $val);
 		
 		}
 		
-		$base = (isset($base)) ? $base : $o['default'];
+		$base = (isset($base)) ? $base : $default;
 			
 	
 		$math = new PageLinesColor( $base );
-	
 		
 		foreach( $o['math'] as $key => $k ){
 
 			$difference = isset($k['diff']) ? $k['diff'] : '10%';
 
-			$color = $math->get_color($k['mode'], $difference);
+			if($k['mode'] == 'mix'){
+				
+				if( is_array($k['mixwith']) ){
+					foreach($k['mixwith'] as $mkey => $m){
+						
+						if( isset($m) && !empty($m)){
+							$mix_color = $m;
+							break;
+						} else 
+							$mix_color = $base;
+							
+					}
+				} elseif(isset($k['mixwith']))
+					$mix_color = $k['mixwith'];
+					
+				$color = $math->get_color($k['mode'], $difference, $mix_color);
+					
+			} else {
+				$color = $math->get_color($k['mode'], $difference);
+			}
+
+		
 
 			if($format == 'palette')
 				$output .= sprintf('<div class="pickgen" style="background: #%s;">&nbsp;</div>', $color); 
@@ -291,8 +332,18 @@ function do_color_math($oid, $o, $val, $format = 'css'){
 				$css = new PageLinesCSS;
 				$output .= $css->the_properties($k['selectors'], $k['css_prop'], '#'.$color);
 			}
+			
+			// Recursion
+			if(isset($k['math']))
+				$output .= do_color_math($key, $k, $color, $format);
 		}
 	}
 	
 	return $output;
 }
+
+
+
+
+
+

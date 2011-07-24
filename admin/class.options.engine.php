@@ -730,9 +730,9 @@ class OptEngine {
 		
 		$pick_contain = sprintf('<div class="pick_contain">%s</div>', $picker);
 		
-		$generated = (isset($gen) && $gen != '') ? sprintf('<div class="picker_generated"><div class="pgen-pad fix">%s</div></div>', $gen) : '';
+		//$generated = (isset($gen) && $gen != '') ? sprintf('<div class="picker_generated"><div class="pgen-pad fix">%s</div></div>', $gen) : '';
 	
-		printf('<div class="the_picker">%s %s %s</div>', $this->input_label($oid, $o['inputlabel']), $picker, $generated);
+		printf('<div class="the_picker">%s %s</div>', $this->input_label($oid, $o['inputlabel']), $picker);
 		
 		
   	}
