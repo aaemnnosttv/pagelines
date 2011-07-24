@@ -43,21 +43,31 @@ class PageLinesColor {
 		elseif($mode == 'contrast'){
 			//plprint( $this->adjust(-$diff), $diff);
 			
-			if( $this->base_hsl['lightness'] < .25 || ($this->base_hsl['lightness'] < .7 && $this->base_hsl['hugh'] > .6) || ($this->base_hsl['saturation'] > .8 && $this->base_hsl['lightness'] < .4))
+			if( $this->base_hsl['lightness'] < .25 || ($this->base_hsl['lightness'] < .7 && $this->base_hsl['hugh'] > .6) || ($this->base_hsl['saturation'] > .8 && $this->base_hsl['lightness'] < .4)){
+				
+				// Special 
+				if($this->base_hsl['lightness'] < .2)
+					$diff = $diff + .1;
+				else 
+					$diff = $diff + .05;
+				
 				$color =  $this->adjust($diff);
-			else
+			}else
 				$color =  $this->adjust(-$diff);
 		
 		}elseif( $mode == 'mix' ){
 			
 			$color = $this->mix_colors($this->base_hex, $alt, $diff);
+			
+		}elseif( $mode == 'shadow' ){
+
 		}
 			
 			
 		return $color;	
 	} 
 
-	function adjust( $adjustment, $mode = 'lightness' ){
+	function adjust( $adjustment, $mode = 'lightness'){
 		
 		
 		
@@ -245,6 +255,8 @@ class PageLinesColor {
 	
 	function mix_colors($c1, $c2, $ratio = .5){
 
+	
+		
 		$r1 = $ratio * 2;
 		$r2 = 2 - $r1;
 
@@ -257,6 +269,8 @@ class PageLinesColor {
 		$bmix = ( ( $c1_rgb['blue'] * $r1 ) + ( $c2_rgb['blue'] * $r2 ) ) / 2;
 		
 		$new_rgb = array('red' => $rmix, 'green' => $gmix, 'blue' => $bmix);
+	
+		
 	
 	 	return $this->rgb_to_hex( $new_rgb );
 	
@@ -303,7 +317,7 @@ function do_color_math($oid, $o, $val, $format = 'css'){
 
 			$difference = isset($k['diff']) ? $k['diff'] : '10%';
 
-			if($k['mode'] == 'mix'){
+			if($k['mode'] == 'mix' || $k['mode'] == 'shadow'){
 				
 				if( is_array($k['mixwith']) ){
 					foreach($k['mixwith'] as $mkey => $m){
@@ -318,11 +332,23 @@ function do_color_math($oid, $o, $val, $format = 'css'){
 				} elseif(isset($k['mixwith']))
 					$mix_color = $k['mixwith'];
 					
+				if($k['mode'] == 'shadow'){
+					
+					 $difference = .8;
+					
+					if($math->base_hsl['lightness'] < .25)
+						$k['css_prop'] = array('text-shadow-top');
+					else
+						$k['css_prop'] = array('text-shadow');
+						
+				
+				}
+				
 				$color = $math->get_color($k['mode'], $difference, $mix_color);
 					
-			} else {
+			} else 
 				$color = $math->get_color($k['mode'], $difference);
-			}
+			
 
 		
 

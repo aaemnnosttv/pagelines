@@ -235,9 +235,8 @@ class PageLinesOptionsArray {
 				'width'			=> '130px',
 				'layout' 		=> 'interface',	
 				'selectvalues'	=> array(
-					'canvas'	=> array("name" => "Full-Width Page With Canvas", 'offset' => '0px -88px'),
 					'full_width'	=> array("name" => "Full-Width Sections", 'offset' => '0px 0px'),
-					'fixed_width'	=> array("name" => "Content Width Page", "version" => "pro", 'offset' => '0px -176px')
+					'fixed_width'	=> array("name" => "Content Width Page", "version" => "pro", 'offset' => '0px -88px')
 				), 
 				'inputlabel'	=> 'Site Design Mode',
 				'title'		=> 'Site Design Mode',						
@@ -291,19 +290,19 @@ class PageLinesOptionsArray {
 									'mode' => 'contrast', 
 									'selectors' => cssgroup('box_color_primary'), 
 									'css_prop' => 'background-color', 
-									'diff' => '10%', 
+									'diff' => '5%', 
 									'depends' => array('contentbg', 'pagebg', 'bodybg'),
 									'math'		=> array(
 										array( 'mode' => 'contrast', 'selectors' => cssgroup('text_box'), 'css_prop' => 'color', 'diff' => '60%'),
 										array( 'mode' => 'contrast', 'selectors' => cssgroup('border_primary'), 'css_prop' => 'border-color', 'diff' => '5%', 'math' => array(
-											array( 'mode' => 'darker', 'selectors' => cssgroup('border_primary_shadow'), 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '12%'),
-											array( 'mode' => 'lighter', 'selectors' => cssgroup('border_primary_highlight'), 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '15%'),
+											array( 'mode' => 'darker', 'selectors' => cssgroup('border_primary_shadow'), 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '10%'),
+											array( 'mode' => 'lighter', 'selectors' => cssgroup('border_primary_highlight'), 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '10%'),
 											array( 'mode' => 'contrast', 'selectors' => cssgroup('box_color_secondary'), 'css_prop' => array('background-color'), 'math' => array(
-												array( 'mode' => 'darker', 'selectors' => cssgroup('border_secondary'), 'css_prop' => array('border-color'), 'diff' => '17%'),
-												array( 'mode' => 'darker', 'selectors' => cssgroup('border_secondary'), 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '25%'),
-												array( 'mode' => 'contrast', 'selectors' => cssgroup('box_color_tertiary'), 'css_prop' => array('background-color'), 'diff' => '20%'), 
-												array( 'mode' => 'darker', 'selectors' => cssgroup('border_tertiary'), 'css_prop' => array('border-color'), 'diff' => '25%'),
-												array( 'mode' => 'darker', 'selectors' => cssgroup('border_tertiary'), 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '35%'),
+												array( 'mode' => 'darker', 'selectors' => cssgroup('border_secondary'), 'css_prop' => array('border-color'), 'diff' => '5%'),
+												array( 'mode' => 'darker', 'selectors' => cssgroup('border_secondary'), 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '15%'),
+												array( 'mode' => 'contrast', 'selectors' => cssgroup('box_color_tertiary'), 'css_prop' => array('background-color'), 'diff' => '10%'), 
+												array( 'mode' => 'darker', 'selectors' => cssgroup('border_tertiary'), 'css_prop' => array('border-color'), 'diff' => '10%'),
+												array( 'mode' => 'darker', 'selectors' => cssgroup('border_tertiary'), 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '15%'),
 											)),
 											
 										)),
@@ -348,6 +347,7 @@ class PageLinesOptionsArray {
 						'inputlabel' 	=> 'Footer Text Color <small>Default Color Of Text In The Footer</small>',	
 						'math'			=> array(
 							array( 'mode' => 'lighter', 'selectors' => cssgroup('footer_highlight'), 'css_prop' => 'color', 'diff' => '10%'),
+							array( 'mode' => 'shadow', 'mixwith' => pagelines_option('bodybg'), 'selectors' => cssgroup('footer_text')),
 						)					
 					),
 				),
@@ -602,6 +602,15 @@ class PageLinesOptionsArray {
 				'shortexp'	=> 'Select how thumbs should be handled in full-width posts',
 				'exp'		=> 'Use this option to configure how thumbs will be shown in full-width posts on your blog page.'
 			),
+			'metabar_standard' => array(
+				'default'		=> 'By [post_author_posts_link] On [post_date] &middot; [post_comments] &middot; In [post_categories] [post_edit]',
+				'type'			=> 'text',
+				'inputlabel'	=> 'Configure Full Width Post Metabar',
+				'title'			=> 'Full Width Post Meta',				
+				'layout'		=> 'full',		
+				'shortexp'		=> 'Additional information about a post such as Author, Date, etc...',
+				'exp'			=> 'Use shortcodes to control the dynamic information in your metabar.'
+			),
 			'excerpt_mode_clip' => array(
 				'default'		=> 'left',
 				'type'			=> 'graphic_selector',
@@ -621,6 +630,15 @@ class PageLinesOptionsArray {
 				'title'		=> 'Clip Excerpt Mode',						
 				'shortexp'	=> 'Select how thumbs should be handled in clips',
 				'exp'		=> 'Use this option to configure how thumbs will be shown in clips. These are the smaller "magazine" style excerpts on your blog page.'
+			),
+			'metabar_clip' => array(
+				'default'		=> 'On [post_date] By [post_author_posts_link] [post_edit]',
+				'type'			=> 'text',
+				'layout'		=> 'full',
+				'inputlabel'	=> 'Configure Clip Metabar',
+				'title'			=> 'Clip Metabar',						
+				'shortexp'		=> 'Additional information about a clip such as Author, Date, etc...',
+				'exp'			=> 'Use shortcodes to control the dynamic information in your metabar.'
 			),
 			'full_column_posts'	=> array(
 					'version'		=> 'pro',

@@ -10,8 +10,12 @@
 /* @ Responsive Design */
 	body img {max-width: 100%; height: auto;}
 
+	@media screen and (max-width:940px){
+		body #site .content, body .wcontent, body #footer .content, html body.fixed_width #page{width: 97%;}
+	}
+
 	@media screen and (max-width:800px) { 
-		body #site .content, body .wcontent, body #footer .content {width: 97%;}
+		body #site .content, body .wcontent, body #footer .content, html body.fixed_width #page{width: 97%;}
 	    body #page #pagelines_content #column-wrap,  body #page  #buddypress-page #container, body #page  #pagelines_content #sidebar-wrap, body #page  #buddypress-page #sidebar-wrap { 
 	       width: 100%;
 	    }
@@ -33,7 +37,7 @@
 		}
 	}
 	
-	#column-wrap,  #sidebar-wrap, .clip, #column-main, #sidebar1, .content{ 
+	#column-wrap,  #sidebar-wrap, .clip, #column-main, #sidebar1, .content, #page{ 
 	    transition:all .2s linear; 
 	    -o-transition:all .2s linear; 
 	    -moz-transition:all .2s linear; 

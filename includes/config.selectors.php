@@ -25,9 +25,9 @@ function cssgroup( $group ){
 	 */
 	$s['bodybg'] = 'body, body.fixed_width, #footer .content';
 	
-	$s['pagebg'] = 'body #page, .sf-menu li, #primary-nav ul.sf-menu a:focus, .sf-menu a:hover, .sf-menu a:active, .commentlist ul.children .even, .alt #commentform textarea';
+	$s['pagebg'] = 'body #page,  .commentlist ul.children .even, .alt #commentform textarea';
 	
-	$s['contentbg'] = '.canvas .page-canvas, .content';
+	$s['contentbg'] = '.canvas .page-canvas, .content, .sf-menu li, #primary-nav ul.sf-menu a:focus, .sf-menu a:hover, .sf-menu a:active';
 
 	$s['page_background_image'] = '.canvas #page, .full_width #page, body.fixed_width';
 	
