@@ -105,11 +105,19 @@ function load_child_functions() {
 }
 
 function base_check_templates() {
+
 	foreach ( glob( EXTEND_CHILD_DIR . "/*.php") as $file) {
+
 		if ( preg_match( '/page\.([a-z-0-9]+)\.php/', $file, $match ) ) {
-			if ( !file_exists( trailingslashit( EXTEND_CHILD_DIR ) . $file ) )
+
+			if ( !file_exists( trailingslashit( EXTEND_CHILD_DIR ) . $file ) ) 
 				copy( $file, trailingslashit( STYLESHEETPATH ) . basename( $file ) );
-		pagelines_add_page( $match[1], 'Custom Page' );
+
+			if ( file_exists( trailingslashit( STYLESHEETPATH ) . basename( $file ) ) ) {
+					$data = get_file_data( trailingslashit( STYLESHEETPATH ) . basename( $file ), array( 'name' => 'Template Name' ) );
+					pagelines_add_page( $match[1], $data['name'] );
+			}
+
 		}
 	}
 }
