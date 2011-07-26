@@ -55,7 +55,7 @@ add_action('pagelines_before_html', 'pagelines_id_setup');
  * 
  * @since 1.0.0
  */
-add_filter('pagelines_page_template_array', 'pagelines_add_page_callback');
+add_filter('the_sub_templates', 'pagelines_add_page_callback', 10, 2);
 
 /**
  * Adds link to admin bar

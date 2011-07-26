@@ -370,7 +370,7 @@ function setup_pagelines_template() {
  * 
  * @since 1.1.0
  */
-function pagelines_add_page_callback($page_array){
+function pagelines_add_page_callback( $page_array, $template_area ){
 	global $pagelines_user_pages;
 	
 	if( is_array($pagelines_user_pages) ){
