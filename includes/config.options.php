@@ -829,14 +829,6 @@ class PageLinesOptionsArray {
 					'shortexp'	=> 'Check to disable AJAX saving.',
 					'exp'		=> "Check this option if you are having problems with AJAX saving. For example, if design control or typography options aren't working"
 			),
-			'inline_dynamic_css' => array(
-					'default'	=> '',
-					'type'		=> 'check',
-					'inputlabel'	=> 'Make Dynamic CSS Inline?',
-					'title'		=> 'Inline Dynamic CSS',
-					'shortexp'	=> 'Makes Dynamic CSS Load Inline, Resolves Caching Issues',
-					'exp'		=> "If you are having problems with layout, design control and typography, you may have caching issues on your server. Make dynamic.css 'inline' for fast relief. Note: there is a small performance issue with this."
-			),
 
 			'enable_debug' => array(
 					'default' => '',

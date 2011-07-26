@@ -115,15 +115,11 @@ class PageLinesDebug {
 				'level'	=> false
 			);
 
-			$this->debug_info[] = array(
-				'title'	=> "CSS Inline",
-				'value' => ( get_pagelines_option( 'inline_dynamic_css' ) ) ? 'Yes':'',
-				'level'	=> false
-			);
+		
 
 			$this->debug_info[] = array(
 				'title'	=> "CSS Error",
-				'value' => ( !get_pagelines_option( 'inline_dynamic_css' ) && !is_multisite() && !is_writable( PAGELINES_DCSS ) ) ? 'File is not writable!':'',
+				'value' => ( !is_multisite() && !is_writable( PAGELINES_DCSS ) ) ? 'File is not writable!':'',
 				'level'	=> false
 			);
 
