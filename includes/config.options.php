@@ -251,7 +251,8 @@ class PageLinesOptionsArray {
 			'page_colors'		=> array(
 				'title' 	=> 'Basic Layout Colors',						
 				'shortexp' 	=> 'The Main Layout Colors For Your Site',
-				'exp' 		=> 'Use these options to quickly setup the main layout colors for your site.  These options should be used for quickly prototyping, or building a custom site quickly. <br/><br/>Note: For a transparent background, leave the option blank.',
+				'exp' 		=> 'Use these options to quickly setup the main layout colors for your site.  You can use these options to build custom sites very quickly, or to quickly prototype a design then refine through custom CSS.<br/><br/><strong>Notes:</strong> <ol><li>To make the background transparent, you can leave the options blank (delete text).</li>  <li>Further customize and refine colors through custom CSS or plugins
+</li></ol>',
 				'type' 		=> 'color_multi',
 				'layout'	=> 'full',
 				'selectvalues'	=> array(
@@ -281,7 +282,7 @@ class PageLinesOptionsArray {
 									'mode' => 'contrast', 
 									'cssgroup' => 'border_layout', 
 									'css_prop' => 'border-color', 
-									'diff' => '10%', 
+									'diff' => '8%', 
 									'depends' => pl_background_cascade()
 									
 								),

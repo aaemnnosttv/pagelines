@@ -60,9 +60,8 @@ class PageLinesColor {
 				
 				// Special 
 				if($this->base_hsl['lightness'] < .1)
-					$diff = $diff + .1;
-				else 
-					$diff = $diff + .05;
+					$diff = ($diff < .12 ) ? .12 : $diff;
+			
 				
 				$color =  $this->adjust($diff);
 			}else
