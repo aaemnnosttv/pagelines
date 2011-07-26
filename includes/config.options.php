@@ -354,8 +354,8 @@ class PageLinesOptionsArray {
 						'cssgroup'		=>	'footer_text',
 						'inputlabel' 	=> 'Footer Text Color <small>Default Color Of Text In The Footer</small>',	
 						'math'			=> array(
-							array( 'mode' => 'lighter', 'cssgroup' => 'footer_highlight', 'css_prop' => 'color', 'diff' => '10%'),
-							array( 'mode' => 'shadow', 'mixwith' => pl_background_cascade(), 'cssgroup' => 'footer_text', 'diff'=>'50%'),
+							array( 'mode' => 'lighter', 'cssgroup' => 'footer_highlight', 'css_prop' => 'color', 'diff' => '15%'),
+							array( 'mode' => 'shadow', 'mixwith' => array(pagelines_option('bodybg')), 'cssgroup' => array('footer_text', 'footer_highlight') ),
 						)					
 					),
 				),

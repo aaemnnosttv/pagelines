@@ -276,7 +276,7 @@ class PageLinesColor {
 	}
 	
 	function mix_colors($c1, $c2, $ratio = .5){
-		echo $c2;
+		
 		$r1 = $ratio * 2;
 		$r2 = 2 - $r1;
 

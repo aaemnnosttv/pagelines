@@ -130,7 +130,6 @@ function pagelines_ajax_callback() {
 			
 		
 		save_template_map($templatemap);
-		//print_r($section);
 		
 		echo true;
 		
