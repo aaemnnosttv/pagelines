@@ -178,9 +178,17 @@ require_once( PL_INCLUDES . '/class.css.php' );
  * PageLines Section Factory Object (Singleton)
  * Note: Must load before the config template file
  * @global object $pl_section_factory
- * @since 4.0.0
+ * @since 1.0.0
  */
 $GLOBALS['pl_section_factory'] = new PageLinesSectionFactory();
+
+/**
+ * Dynamic CSS Factory
+ * @global object $css_factory
+ * @since 2.0.b6
+ */
+$GLOBALS['css_factory'] = array();
+
 /**
  * Add Extension Handlers
  */

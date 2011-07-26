@@ -34,18 +34,20 @@ function cssgroup( $group ){
 	/**
 	 * Box & Element Colors
 	 */
-	$s['box_color_primary'] = '#feature-footer,.main-nav li a:hover, .main-nav .current-page-ancestor a, .main-nav .current_page_item a, .main-nav li.current-page-ancestor ul a, .main-nav li.current_page_item ul a, .sf-menu li li, .sf-menu li li, .sf-menu li li li, #wp-calendar caption, #grandchildnav.widget, input, textarea, .searchform .searchfield, .wp-caption, .commentlist .alt, #wp-calendar #today, .post-nav, .current_posts_info, .post-footer,  #twitterbar, #twitterbar .content, #carousel .content-pad, .success,  .content-pagination a .cp-num, .hentry table .alternate td, .post-meta .c_img';
+	$s['box_color_primary'] = '#feature-footer,  #wp-calendar caption, #grandchildnav.widget, input, textarea, .searchform .searchfield, .wp-caption, .commentlist .alt, #wp-calendar #today, .post-nav, .current_posts_info, .post-footer,  #twitterbar, #twitterbar .content, #carousel .content-pad, .success,  .content-pagination a .cp-num, .hentry table .alternate td';
 	
-	$s['box_color_secondary'] = '#wp-calendar thead th, .item-avatar a, .comment blockquote, #grandchildnav .current_page_item a, #grandchildnav li a:hover, #grandchildnav .current_page_item  ul li a:hover, #carousel .carousel_text, pagination .wp-pagenavi a, #pagination .wp-pagenavi .current, #pagination .wp-pagenavi .extend, .sf-menu li:hover, .sf-menu li.sfHover, #featurenav a, #feature-footer span.playpause, .content-pagination .cp-num, .content-pagination a:hover .cp-num, ins';
+	$s['box_color_secondary'] = '#wp-calendar thead th, .item-avatar a, .comment blockquote, #grandchildnav .current_page_item a, #grandchildnav li a:hover, #grandchildnav .current_page_item  ul li a:hover, #carousel .carousel_text, pagination .wp-pagenavi a, #pagination .wp-pagenavi .current, #pagination .wp-pagenavi .extend,  #featurenav a, #feature-footer span.playpause, .content-pagination .cp-num, .content-pagination a:hover .cp-num, ins';
 	
 	$s['box_color_tertiary'] = '#featurenav a.activeSlide';
+	
+	$s['box_color_lighter'] = '.post-meta .c_img';
 	
 	/**
 	 * Border Colors
 	 */
 	$s['border_layout'] = 'hr, .fpost, .clip_box, .widget-title, .metabar a, #morefoot .widget-title, #site #dsq-content h3, .main_nav_container, .widget-default, .fpost .post-thumb img, .clip .clip-thumb img, .author-thumb img';
 	
-	$s['border_primary'] = 'ul.sf-menu ul li, .post-nav, .current_posts_info, .post-footer, blockquote, input, textarea, .searchform .searchfield, .wp-caption,   #grandchildnav.widget,  #carousel .content ul li a img, #carousel .content ul li a:hover img, #feature-footer, #soapbox .fboxinfo, #feature-footer.nonav, .post-meta .c_img';
+	$s['border_primary'] = '#feature-footer, .post-nav, .current_posts_info, .post-footer, blockquote, input, textarea, .searchform .searchfield, .wp-caption,   #grandchildnav.widget,  #carousel .content ul li a img, #carousel .content ul li a:hover img, #soapbox .fboxinfo, #feature-footer.nonav, .post-meta .c_img';
 	
 	$s['border_secondary'] = '#featurenav a, #feature-footer span.playpause';
 	
@@ -53,12 +55,12 @@ function cssgroup( $group ){
 	
 	$s['border_primary_shadow'] = 'blockquote, input, textarea, .searchform .searchfield, .wp-caption,  #grandchildnav.widget, fpost .post-thumb img, .clip .clip-thumb img, .author-thumb img';
 	
-	$s['border_primary_highlight'] = '#feature-footer .feature-footer-pad';
+	$s['border_primary_highlight'] = '#feature-footer .feature-footer-pad, .bhighlight';
 	
 	/**
 	 * Text Colors
 	 */
-	$s['headercolor'] = 'h1, h2, h3, h4, h5, h6, h1 a, h2 a, h3 a, h4 a, h5 a, h6 a, a.site-title, .entry-title a, .entry-title a:hover, .widget-tit	le a:hover, h3.widget-title a:hover';
+	$s['headercolor'] = 'h1, h2, h3, h4, h5, h6, h1 a, h2 a, h3 a, h4 a, h5 a, h6 a, a.site-title, .entry-title a, .entry-title a:hover, .widget-title a:hover, h3.widget-title a:hover';
 	
 	$s['text_primary'] = '#page, .tcolor1, #subnav ul li a:active, .commentlist cite a, #breadcrumb a, .metabar a:hover, .post-nav a:hover, .post-footer a,  #carousel .carousel_text, #site #dsq-content .dsq-request-user-info td a, #pagination .wp-pagenavi a:hover, #pagination .wp-pagenavi .current, #featurenav a.activeSlide, .content-pagination a:hover .cp-num';
 	
@@ -94,9 +96,27 @@ function cssgroup( $group ){
 	/**
 	 * Output & Extension 
 	 */
-	if(isset($s[ $group ]))
-		return apply_filters('pagelines_css_group', $s[ $group ], $group);
-	else 
-		return apply_filters('pagelines_css_group_'.$group, '');
+	
+	if(is_array($group)){
+		$sel = '';
+		foreach($group as $g){
+			
+			if(isset($s[ $g ]))
+				$sel .= apply_filters('pagelines_css_group', $s[ $g ], $g);
+			else	
+				$sel .= apply_filters('pagelines_css_group_'.$g, '');	
+				
+		}	
+	
+		return $sel;
+		
+	} else {
+			
+		if(isset($s[ $group ]))
+			return apply_filters('pagelines_css_group', $s[ $group ], $group);
+		else 
+			return apply_filters('pagelines_css_group_'.$group, '');
+	
+	}
 }
 

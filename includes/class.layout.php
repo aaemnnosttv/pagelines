@@ -301,7 +301,7 @@ class PageLinesLayout {
 			
 			if( pagelines_option('layout_handling') == 'percent'){
 				if($contained){
-					$css .= sprintf($page_width_sel . '{ width: %s%%; padding: 0 10px;}', $p);
+					$css .= sprintf($page_width_sel . '{ width: %s%%;}', $p);
 					$css .= sprintf($content_width_sel . '{ width: %s%%; }', '100');
 				} else 
 					$css .= sprintf($content_width_sel . '{ width: %s%%; }', $p);

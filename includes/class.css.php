@@ -85,83 +85,93 @@ class PageLinesCSS {
 					$css .= sprintf('%s{ background-position: %s%% %s%%;}', $bg_selector, $bg_pos_hor, $bg_pos_vert);
 					
 					
-				}
-	
+				}	
 				
 				if($o['type'] == 'colorpicker')
-					$css .= $this->render_css_colors($oid, $o['selectors'], $o['css_prop']);
-
+					$this->render_css_colors($oid, $o['cssgroup'], $o['css_prop']);
 				
 				elseif($o['type'] == 'color_multi'){
 					
-					foreach($o['selectvalues'] as $mid => $m){
-						
-						$selectors = (isset($m['selectors'])) ? $m['selectors'] : null ;
-						$property = (isset($m['css_prop'])) ? $m['css_prop'] : null ;
-						
-						$css .= $this->render_css_colors($mid, $m, $selectors, $property);
-					}
+					foreach($o['selectvalues'] as $mid => $m)						
+						$this->render_css_colors($mid, $m, $m['cssgroup'], $m['css_prop']);
 					
 				}
+				
+				
+				
 			} 
 		}
+		$css .= $this->parse_css_factory();
 		return $css;
 
 	}
 	
-	function render_css_colors( $oid, $o, $selectors = null, $css_prop = null ){
+	function render_css_colors( $oid, $o, $cssgroup = null, $css_prop = null ){
 		
 		$v = $o['val'];
-		
-		if( !$v && $o['flag'] == 'blank_default' )
-			$v = false;
-		elseif( !$v )
-			$v = $o['default'];
-		
-		$css = '';
-		$css .= do_color_math($oid, $o, $v, 'css');
-		
-		if($v && isset($css_prop))
-			$css .= $this->the_properties($selectors, $css_prop, $v);
-		elseif($v)
-			$css .= $this->the_rule($selectors, 'color', $v);
-	
-		
-		return $css;
-	
-	}
-	
-	function the_properties( $sel, $prop, $val ){
-		$props = '';
-		if( is_array($prop) )
-			foreach( $prop as $p => $s ){
-				
-				if(gettype($p) == 'string')
-					$props .= $this->the_rule($s, $p, $val);
-				else 
-					$props .= $this->the_rule($sel, $s, $val, true);
-			}
-		else
-			$props .= $this->the_rule($sel, $prop, $val);
-		
-		return $props;
 			
+		if( !$v )
+			$v = ($o['flag'] == 'blank_default') ? false : $o['default'];
+	
+		do_color_math($oid, $o, $v, 'css');
+		
+		if( $v && isset($css_prop) )
+			$this->set_factory_key($cssgroup, $this->load_the_props( $css_prop, $v ));
+		elseif( $v )
+			$this->set_factory_key($cssgroup, $this->get_the_rule( 'color', $v ));
+		
+	
 	}
 	
-	function the_rule( $sel, $prop, $val, $same = false){
+	function load_the_props( $props, $val ){
+		
+		$output = '';
+		
+		if( is_array($props) ){
+			
+			foreach( $props as $p => $s )
+				$output .= ( gettype($p) == 'string' ) ? $this->get_the_rule( $p, $val ) : $this->get_the_rule( $s, $val );
 	
+		} else
+			$output .= $this->get_the_rule( $props, $val);
+		
+		return $output;
+		
+	}
+	
+	function get_the_rule( $prop, $val ){
+
 		if( $prop == 'text-shadow' )	
-			$rule = sprintf('%s{%s:%s;}', $sel, 'text-shadow', $val.' 0 1px 0');	
+			$rule = sprintf('%s:%s;', 'text-shadow', $val.' 0 1px 0');	
 		elseif( $prop == 'text-shadow-top' )
-			$rule = sprintf('%s{%s:%s;}', $sel, 'text-shadow', $val.' 0 -1px 0');
+			$rule = sprintf('%s:%s;', 'text-shadow', $val.' 0 -1px 0');
 		else
-			$rule = sprintf('%s{%s:%s;}', $sel, $prop, $val);
+			$rule = sprintf('%s:%s;', $prop, $val);
 	
-		
 		return $rule;
+	} 
+	
+	function set_factory_key($cssgroup, $props){
+		
+		global $css_factory;
+		
+		if(isset($css_factory[ $cssgroup ]))
+			$css_factory[ $cssgroup ] .= $props;
+		else 
+			$css_factory[ $cssgroup ] = $props;
 		
 	}
+
+	function parse_css_factory(){
+		
+		global $css_factory;
+		
+		$output = '';
+		foreach( $css_factory as $cssgroup => $props)
+			$output .= sprintf('%s{%s}%s', cssgroup($cssgroup), $props, "\n\n");
 	
+		return $output;
+	}
 
 }
 

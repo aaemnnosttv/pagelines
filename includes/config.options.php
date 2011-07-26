@@ -257,59 +257,62 @@ class PageLinesOptionsArray {
 					'bodybg'	=> array(				
 						'default' 		=> '#000000',
 						'css_prop'		=> 'background-color',
-						'selectors'		=> cssgroup('bodybg'),
+						'cssgroup'		=> 'bodybg',
 						'inputlabel' 	=> 'Body Background <small>Shown Behind Page Content Area (e.g. In Footer)</small>',
-						'math'			=> array(
-							
-						)
+						
 					),
 					'pagebg'		=> array(				
 						'default' 	=> '#FFFFFF',
-						'selectors'	=>	cssgroup('pagebg'),
+						'cssgroup'	=>	'pagebg',
 						'flag'		=> 'blank_default',
 						'css_prop'	=> 'background-color',
-						'inputlabel' 	=> 'Page Background <small>The Background Of Page Area</small>',
+						'inputlabel' 	=> 'Page Background <small>Full-width page area background (Full Width Mode)</small>',
 						),
 					'contentbg'	=> array(				
 						'version'	=> 'pro',
-						'default' 	=> '#FFFFFF',
-						'selectors'	=>	cssgroup('contentbg'),
+						'default' 	=> '',
+						'cssgroup'	=>	'contentbg',
 						'flag'		=> 'blank_default',
 						'css_prop'	=> 'background-color',
-						'inputlabel' 	=> 'Content Background <small>The Background Color Site Content</small>',
+						'inputlabel' 	=> 'Content Background (Optional) <small>Background color behind centered content area</small>',
 						'math'		=> array(
 								array( 
 									'mode' => 'contrast', 
-									'selectors' => cssgroup('border_layout'), 
+									'cssgroup' => 'border_layout', 
 									'css_prop' => 'border-color', 
-									'diff' => '13%', 
-									'depends' => array('contentbg', 'pagebg', 'bodybg')
-								
+									'diff' => '10%', 
+									'depends' => pl_background_cascade()
+									
 								),
 								array( 
 									'mode' => 'contrast', 
-									'selectors' => cssgroup('box_color_primary'), 
+									'cssgroup' => 'box_color_primary', 
 									'css_prop' => 'background-color', 
 									'diff' => '5%', 
-									'depends' => array('contentbg', 'pagebg', 'bodybg'),
+									'depends' => pl_background_cascade(),
 									'math'		=> array(
-										array( 'mode' => 'contrast', 'selectors' => cssgroup('text_box'), 'css_prop' => 'color', 'diff' => '60%'),
-										array( 'mode' => 'contrast', 'selectors' => cssgroup('border_primary'), 'css_prop' => 'border-color', 'diff' => '5%', 'math' => array(
-											array( 'mode' => 'darker', 'selectors' => cssgroup('border_primary_shadow'), 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '10%'),
-											array( 'mode' => 'lighter', 'selectors' => cssgroup('border_primary_highlight'), 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '10%'),
-											array( 'mode' => 'contrast', 'selectors' => cssgroup('box_color_secondary'), 'css_prop' => array('background-color'), 'math' => array(
-												array( 'mode' => 'darker', 'selectors' => cssgroup('border_secondary'), 'css_prop' => array('border-color'), 'diff' => '5%'),
-												array( 'mode' => 'darker', 'selectors' => cssgroup('border_secondary'), 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '15%'),
-												array( 'mode' => 'contrast', 'selectors' => cssgroup('box_color_tertiary'), 'css_prop' => array('background-color'), 'diff' => '10%'), 
-												array( 'mode' => 'darker', 'selectors' => cssgroup('border_tertiary'), 'css_prop' => array('border-color'), 'diff' => '10%'),
-												array( 'mode' => 'darker', 'selectors' => cssgroup('border_tertiary'), 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '15%'),
-											)),
+										array( 'mode' => 'contrast', 'cssgroup' => 'text_box', 'css_prop' => 'color', 'diff' => '65%'),
+										array( 'mode' => 'contrast', 'cssgroup' => 'border_primary', 'css_prop' => 'border-color', 'diff' => '8%', 'math' => array(
+											array( 'mode' => 'darker', 'cssgroup' => 'border_primary_shadow', 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '10%'),
+											array( 'mode' => 'lighter', 'cssgroup' => 'border_primary_highlight', 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '10%'),
+										)),
+										array( 'mode' => 'contrast', 'cssgroup' => 'box_color_secondary', 'css_prop' => array('background-color'), 'diff' => '3%', 'math' => array(
+											array( 'mode' => 'darker', 'cssgroup' => 'border_secondary', 'css_prop' => array('border-color'), 'diff' => '5%'),
+											array( 'mode' => 'darker', 'cssgroup' => 'border_secondary', 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '15%'),
 											
 										)),
+										array( 'mode' => 'contrast', 'cssgroup' => 'box_color_tertiary', 'css_prop' => array('background-color'), 'diff' => '6%','math' => array(
+											array( 'mode' => 'darker', 'cssgroup' => 'border_tertiary', 'css_prop' => array('border-color'), 'diff' => '10%'),
+											array( 'mode' => 'darker', 'cssgroup' => 'border_tertiary', 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '15%'),
+										)), 
+										
 										
 										
 									)
+									
 								),
+								
+								array( 'mode' => 'lighter', 'cssgroup' => 'box_color_lighter', 'css_prop' => 'background-color'),
 							)
 						),
 				),
@@ -322,32 +325,37 @@ class PageLinesOptionsArray {
 				'selectvalues'	=> array(
 					'headercolor'	=> array(		
 						'default' 	=> '#000000',
-						'selectors'	=> cssgroup('headercolor'),
+						'cssgroup'	=> 'headercolor',
 						'inputlabel' 	=> 'Page - Text Header Color <small>Titles, H1,H2, etc...</small>',
+						'math'		=> array(
+							array( 'mode' => 'shadow', 'mixwith' => pl_background_cascade(), 'cssgroup' => 'headercolor'),
+						)
 					),
 					'text_primary' => array(		
 						'default' 	=> '#000000',
-						'selectors'	=>	cssgroup('text_primary'),
+						'cssgroup'	=>	'text_primary',
 						'inputlabel' 	=> 'Page - Primary Text Color <small>The Main Text Color Used Throughout The Site</small>',
 						'math'		=> array(
-							array( 'mode' => 'mix', 'mixwith' => pl_background_cascade(), 'selectors' => cssgroup('text_secondary'), 'css_prop' => 'color', 'diff' => '60%'),
+							array( 'mode' => 'mix', 'mixwith' => pl_background_cascade(), 'cssgroup' => 'text_secondary', 'css_prop' => 'color', 'diff' => '60%'),
+							array( 'mode' => 'shadow', 'mixwith' => pl_background_cascade(), 'cssgroup' => array('text_primary', 'text_secondary', 'text_tertiary') ),
 						)
 					),
 					'linkcolor' => array(
 						'default'		=> '#225E9B',
-						'selectors'		=>	cssgroup('linkcolor'),
+						'cssgroup'		=>	'linkcolor',
 						'inputlabel' 	=> 'Text Link Color',	
 						'math'			=> array(
-							array( 'mode' => 'mix', 'mixwith' => pl_background_cascade(),  'selectors' => cssgroup('linkcolor_hover'), 'css_prop' => 'color', 'diff' => '80%'),	
+							array( 'mode' => 'mix', 'mixwith' => pl_background_cascade(),  'cssgroup' => 'linkcolor_hover', 'css_prop' => 'color', 'diff' => '80%'),	
+							array( 'mode' => 'shadow', 'mixwith' => pl_background_cascade(), 'cssgroup' => 'linkcolor'),
 							)				
 					),
 					'footer_text' => array(
 						'default'		=> '#999999',
-						'selectors'		=>	cssgroup('footer_text'),
+						'cssgroup'		=>	'footer_text',
 						'inputlabel' 	=> 'Footer Text Color <small>Default Color Of Text In The Footer</small>',	
 						'math'			=> array(
-							array( 'mode' => 'lighter', 'selectors' => cssgroup('footer_highlight'), 'css_prop' => 'color', 'diff' => '10%'),
-							array( 'mode' => 'shadow', 'mixwith' => pagelines_option('bodybg'), 'selectors' => cssgroup('footer_text')),
+							array( 'mode' => 'lighter', 'cssgroup' => 'footer_highlight', 'css_prop' => 'color', 'diff' => '10%'),
+							array( 'mode' => 'shadow', 'mixwith' => pl_background_cascade(), 'cssgroup' => 'footer_text', 'diff'=>'50%'),
 						)					
 					),
 				),
