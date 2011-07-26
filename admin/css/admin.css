@@ -2062,16 +2062,55 @@
 		
 /* @ Color Picker */
 	.the_picker{
+		
+		float: left;
 		margin-bottom: 18px;
-		background:#eee;
-		padding: 18px;
 	}
+		
+		.picker_row_3{ width: 32%; margin-right: 2% }
+		.picker_row_4{ width: 23%; margin-right: 2.6666666% }
+		.the_picker.p_end{margin-right: 0;}
+		
+		.picker_panel{
+			background:#eee;
+			border: 1px solid #ddd;
+			border-right: 1px solid #ccc;
+			border-bottom: 1px solid #ccc;
+		}
+		input.colorpickerclass, input[type="text"].colorpickerclass{
+			width: 80px;
+			border-top: 1px solid #ccc; 
+			text-shadow: #fff 0 1px 0;
+			letter-spacing: .1em;
+			padding: 4px;
+			color:#444;
+			border-left: 1px solid #ccc; 
+			background: #fafafa; 
+			font-size: 1.05em; 
+			font-family: courier, arial, sans-serif;
+		}
+		.the_picker_pad{
+			
+			border-top: 1px solid #fff;
+			border-left: 1px solid #fff;
+		}
 	.the_picker .lbl.context{
 		margin: 0;
-		line-height: 1.3em;
+		line-height: 1.5em;
 		display: block;
+		background:#e1e1e1;
+		border-bottom: 1px solid #ccc;
+		padding: 7px 10px 5px;
+		font-size: 1em;
+		text-align: center;
 	}
-		.colorpicker_label small{display: block; font-weight: normal; color:#888;}
+		.picker_row_3 .pick_contain{
+			padding-left: 53px;
+		}
+		.pick_contain{
+			border-top: 1px solid #fff;
+			padding: 15px 0 15px 23px;
+		}
 
 	.picker_generated{
 		background: #f7f7f7;

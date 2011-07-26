@@ -710,17 +710,26 @@ class OptEngine {
 
 	function _get_color_multi($oid, $o){ 	
 
+		$num_options = count($o['selectvalues']);
+		
+		if($num_options == 4 || ($num_options % 4 == 0) )
+			$per_row = 4;
+		else 
+			$per_row = 3;
+		
 		foreach($o['selectvalues'] as $mid => $m){
 
+			$last = (end($o['selectvalues']) == $m) ? true : false;
+				
 			if( !isset($m['version']) || (isset($m['version']) && $m['version'] != 'pro') || (isset($m['version']) && $m['version'] == 'pro' && VPRO ))
-				$this->_get_color_picker($mid, $m);
+				$this->_get_color_picker($mid, $m, $per_row, $last);
 
 		}
 
 	}
 
 
-	function _get_color_picker($oid, $o){ // Color Picker Template 
+	function _get_color_picker($oid, $o, $per_row = 3, $last = false){ // Color Picker Template 
 		
 		
  		$gen = do_color_math($oid, $o, $o['val'], 'palette');
@@ -730,9 +739,8 @@ class OptEngine {
 		
 		$pick_contain = sprintf('<div class="pick_contain">%s</div>', $picker);
 		
-		//$generated = (isset($gen) && $gen != '') ? sprintf('<div class="picker_generated"><div class="pgen-pad fix">%s</div></div>', $gen) : '';
 	
-		printf('<div class="the_picker">%s %s</div>', $this->input_label($oid, $o['inputlabel']), $picker);
+		printf('<div class="the_picker picker_row_%s %s"><div class="picker_panel"><div class="the_picker_pad">%s %s</div></div></div>', $per_row, ($last) ? 'p_end' : '', $this->input_label($oid, $o['inputlabel']), $pick_contain);
 		
 		
   	}

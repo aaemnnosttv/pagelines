@@ -253,12 +253,13 @@ class PageLinesOptionsArray {
 				'shortexp' 	=> 'The Main Layout Colors For Your Site',
 				'exp' 		=> 'Use these options to quickly setup the main layout colors for your site.  These options should be used for quickly prototyping, or building a custom site quickly. <br/><br/>Note: For a transparent background, leave the option blank.',
 				'type' 		=> 'color_multi',
+				'layout'	=> 'full',
 				'selectvalues'	=> array(
 					'bodybg'	=> array(				
 						'default' 		=> '#000000',
 						'css_prop'		=> 'background-color',
 						'cssgroup'		=> 'bodybg',
-						'inputlabel' 	=> 'Body Background <small>Shown Behind Page Content Area (e.g. In Footer)</small>',
+						'inputlabel' 	=> 'Body Background',
 						
 					),
 					'pagebg'		=> array(				
@@ -266,7 +267,7 @@ class PageLinesOptionsArray {
 						'cssgroup'	=>	'pagebg',
 						'flag'		=> 'blank_default',
 						'css_prop'	=> 'background-color',
-						'inputlabel' 	=> 'Page Background <small>Full-width page area background (Full Width Mode)</small>',
+						'inputlabel' 	=> 'Page Background',
 						),
 					'contentbg'	=> array(				
 						'version'	=> 'pro',
@@ -274,7 +275,7 @@ class PageLinesOptionsArray {
 						'cssgroup'	=>	'contentbg',
 						'flag'		=> 'blank_default',
 						'css_prop'	=> 'background-color',
-						'inputlabel' 	=> 'Content Background (Optional) <small>Background color behind centered content area</small>',
+						'inputlabel' 	=> 'Content Background',
 						'math'		=> array(
 								array( 
 									'mode' => 'contrast', 
@@ -322,11 +323,12 @@ class PageLinesOptionsArray {
 				'shortexp' 	=> 'Control The Color Of Text Used Throughout Your Site',
 				'exp' 		=> 'These options control the colors of the text throughout the page or content area of your site.<br/><br/>Certain text types are designed to contrast with different box elements and are meant to be used with hover effects.<br/><br/>Experiment to find exactly how colors are combined with text on your site.',
 				'type' 		=> 'color_multi',
+				'layout'	=> 'full',
 				'selectvalues'	=> array(
 					'headercolor'	=> array(		
 						'default' 	=> '#000000',
 						'cssgroup'	=> 'headercolor',
-						'inputlabel' 	=> 'Page - Text Header Color <small>Titles, H1,H2, etc...</small>',
+						'inputlabel' 	=> 'Text Headers',
 						'math'		=> array(
 							array( 'mode' => 'shadow', 'mixwith' => pl_background_cascade(), 'cssgroup' => 'headercolor'),
 						)
@@ -334,7 +336,7 @@ class PageLinesOptionsArray {
 					'text_primary' => array(		
 						'default' 	=> '#000000',
 						'cssgroup'	=>	'text_primary',
-						'inputlabel' 	=> 'Page - Primary Text Color <small>The Main Text Color Used Throughout The Site</small>',
+						'inputlabel' 	=> 'Primary Text',
 						'math'		=> array(
 							array( 'mode' => 'mix', 'mixwith' => pl_background_cascade(), 'cssgroup' => 'text_secondary', 'css_prop' => 'color', 'diff' => '60%'),
 							array( 'mode' => 'shadow', 'mixwith' => pl_background_cascade(), 'cssgroup' => array('text_primary', 'text_secondary', 'text_tertiary') ),
@@ -343,18 +345,18 @@ class PageLinesOptionsArray {
 					'linkcolor' => array(
 						'default'		=> '#225E9B',
 						'cssgroup'		=>	'linkcolor',
-						'inputlabel' 	=> 'Text Link Color',	
+						'inputlabel' 	=> 'Primary Links',	
 						'math'			=> array(
 							array( 'mode' => 'mix', 'mixwith' => pl_background_cascade(),  'cssgroup' => 'linkcolor_hover', 'css_prop' => 'color', 'diff' => '80%'),	
 							array( 'mode' => 'shadow', 'mixwith' => pl_background_cascade(), 'cssgroup' => 'linkcolor'),
 							)				
 					),
 					'footer_text' => array(
-						'default'		=> '#999999',
-						'cssgroup'		=>	'footer_text',
-						'inputlabel' 	=> 'Footer Text Color <small>Default Color Of Text In The Footer</small>',	
+						'default'		=> '#FFFFFF',
+						'cssgroup'		=>	'footer_highlight',
+						'inputlabel' 	=> 'Footer Text',	
 						'math'			=> array(
-							array( 'mode' => 'lighter', 'cssgroup' => 'footer_highlight', 'css_prop' => 'color', 'diff' => '15%'),
+							array( 'mode' => 'mix', 'mixwith' => array(pagelines_option('bodybg')),  'cssgroup' => 'footer_text', 'css_prop' => 'color', 'diff' => '66%'),
 							array( 'mode' => 'shadow', 'mixwith' => array(pagelines_option('bodybg')), 'cssgroup' => array('footer_text', 'footer_highlight') ),
 						)					
 					),

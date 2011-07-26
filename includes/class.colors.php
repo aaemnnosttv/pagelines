@@ -172,11 +172,10 @@ class PageLinesColor {
 			$H = 0;
 			$S = 0;
 		}else{
-			if (0.5 > $L){
+			if (0.5 > $L)
 			    $S = $deltaMax / ($clrMax + $clrMin);	
-			}else{
+			else
 			    $S = $deltaMax / (510 - $clrMax - $clrMin);
-			}
 			
 			if ($clrMax == $clrR)
 			    $H = ($clrG - $clrB) / (6.0 * $deltaMax);
@@ -218,11 +217,11 @@ class PageLinesColor {
 			$g = $l * 255;
 			$b = $l * 255;
 		} else {
-			if ($l < 0.5) {
+			if ($l < 0.5)
 				$var_2 = $l * (1 + $s);
-			} else {
+			else
 				$var_2 = ($l + $s) - ($s * $l);
-			};
+			
 
 			$var_1 = 2 * $l - $var_2;
 			$r = 255 * $this->_hue_to_rgb( $var_1, $var_2, $h + (1 / 3) );

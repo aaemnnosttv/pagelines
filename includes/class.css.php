@@ -92,9 +92,12 @@ class PageLinesCSS {
 				
 				elseif($o['type'] == 'color_multi'){
 					
-					foreach($o['selectvalues'] as $mid => $m)						
-						$this->render_css_colors($mid, $m, $m['cssgroup'], $m['css_prop']);
-					
+					foreach($o['selectvalues'] as $mid => $m){			
+						
+						$cgroup = (isset($m['cssgroup'])) ? $m['cssgroup'] : null;
+						$cprop = (isset($m['css_prop'])) ? $m['css_prop'] : null;
+						$this->render_css_colors($mid, $m, $cgroup, $cprop );
+					}
 				}
 				
 				
