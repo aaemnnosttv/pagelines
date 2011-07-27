@@ -157,3 +157,7 @@ function pagelines_check_version() {
 		$pl_update->pagelines_theme_check_version();
 	}
 }
+
+// Load inline help.
+
+add_filter('contextual_help', 'pagelines_inline_help', 10, 3);

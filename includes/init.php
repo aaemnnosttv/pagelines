@@ -248,6 +248,11 @@ if ( get_pagelines_option( 'enable_debug' ) ) {
 require_once (PL_ADMIN.'/class.updates.php');
 
 /**
+ * Load inline help
+ */
+require_once (PL_ADMIN . '/library.help.php' );
+
+/**
  * Load plugin installer class
  */
 require_once ( PL_ADMIN . '/class.extend.php' );
