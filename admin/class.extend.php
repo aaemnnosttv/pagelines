@@ -652,18 +652,17 @@
 			)
 		);
 		
-$response = wp_remote_post( $url, $options );
-$api = wp_remote_retrieve_body( $response ); 
-		
-//		$api = ( ! false == get_transient( 'pagelines_sections_api_' . $type ) )
-//				? get_transient( 'pagelines_sections_api_' . $type )
-//				: wp_remote_get( 'http://api.pagelines.com/' . $type . '/' );
+		$api = get_transient( 'pagelines_sections_api_' . $type );
+		if ( !$api ) {
+			$response = wp_remote_post( $url, $options );
+			$api = wp_remote_retrieve_body( $response );
+		}
 
 		if( is_wp_error( $api ) )
 			return '<h2>Unable to fetch from API</h2>';
 
-//		set_transient( 'pagelines_sections_api_' . $type, $api, 300 );
-//plprint( $api );
+		set_transient( 'pagelines_sections_api_' . $type, $api, 300 );
+
 		return json_decode( $api );
 	}
 
