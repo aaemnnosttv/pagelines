@@ -2260,4 +2260,9 @@
 		width: 960px;
 		margin: 0 auto;
 	}
+	.filewarning {
+	    color: #555555;
+	    font-weight: bold;
+	    padding: 10px 15px;	
+	}
 	
