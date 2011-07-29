@@ -52,7 +52,7 @@
 				continue;
 
 			$key = str_replace( '.', '', $key );
-			$install_js_call = sprintf( $this->exprint, 'section_install', $key, $section->name, $section->url, 'Installing');
+			$install_js_call = sprintf( $this->exprint, 'section_install', $key, $key, $section->url, 'Installing');
 
 			$button = OptEngine::superlink('Install Section', 'black', '', '', $install_js_call);
 				
@@ -64,6 +64,7 @@
 					'auth'		=> $section->author,
 					'image'		=> $section->image,
 					'buttons'	=> $button,
+					'type'		=> 'sections',
 					'key'		=> $key
 			);
 				
@@ -105,7 +106,7 @@
  			$type = pagelines_array_sort( $type, 'name' );
 
  			foreach( $type as $key => $section) { // main loop
-	
+
   				if ( $section['type'] == 'parent' && isset( $available['child'][$section['class']] ) )
  					continue;
 
@@ -131,7 +132,9 @@
 						'version'	=> !empty( $section['version'] ) ? $section['version'] : CORE_VERSION, 
 						'desc'		=> $section['description'],
 						'tags'		=> ( isset( $section['tags'] ) ) ? $section['tags'] : '',
-						'auth_url'	=> $section['authoruri'], 
+						'auth_url'	=> $section['authoruri'],
+						'type'		=> 'sections',
+						'image'		=> ( isset( $section['image'] ) ) ? $section['image'] : '',
 						'auth'		=> $section['author'],
 						'importance'=> $section['importance'],
 						'buttons'	=> $button, 
@@ -182,7 +185,6 @@
 	
 		foreach( $plugins as $key => $plugin ) {
 	
-		
 			if ($tab != 'free' && !$plugin['status'] )
 				continue;
 
@@ -230,9 +232,11 @@
 					'desc'		=> $plugin['text'],
 					'tags'		=> ( isset( $plugin['tags'] ) ) ? $plugin['tags'] : '',
 					'auth_url'	=> $plugin['author_url'], 
+					'image'		=> ( isset( $plugin['image'] ) ) ? $plugin['image'] : '',
 					'auth'		=> $plugin['author'], 
 					'buttons'	=> $button,
 					'key'		=> $key,
+					'type'		=> 'plugins',
 					'count'		=> $plugin['count']
 			);
 				
@@ -353,12 +357,36 @@
 		
 		$count = ( $s['count'] ) ? sprintf('<br />Downloads: %s', $s['count']) : '';
 		
-		$screenshot = ( $s['image'] ) ? sprintf('<a class="screenshot-%s" href="http://api.pagelines.com/%s/img/%s.png" rel="http://api.pagelines.com/%s/img/%s.png"><img src="http://api.pagelines.com/%s/img/thumb-%s.png"></a>' ,$s['image'], $s['type'], $s['image'], $s['type'], $s['image'], $s['type'], $s['image']) : '';
-		$js =  ( $screenshot ) ? "<script type='text/javascript' />jQuery('a.screenshot-" . $s['image'] . "').imgPreview({imgCSS:{ }});</script>" : '';
+		$screenshot = ( $s['image'] ) ? sprintf('<div class="extend-screenshot"><a class="screenshot-%s" href="http://api.pagelines.com/%s/img/%s.png" rel="http://api.pagelines.com/%s/img/%s.png"><img src="http://api.pagelines.com/%s/img/thumb-%s.png"></a></div>' , str_replace( '.', '-', $s['image']), $s['type'], $s['image'], $s['type'], $s['image'], $s['type'], $s['image']) : '';
+
+		$js =  ( $screenshot ) ? "<script type='text/javascript' />jQuery('a.screenshot-" . str_replace( '.', '-', $s['image']) . "').imgPreview({
+		    containerID: 'imgPreviewWithStyles',
+		    imgCSS: {
+		        // Limit preview size:
+		        height: 200
+		    },
+		    // When container is shown:
+		    onShow: function(link){
+		        // Animate link:
+		        jQuery(link).stop().animate({opacity:0.4});
+		        // Reset image:
+		        jQuery('img', this).stop().css({opacity:0});
+		    },
+		    // When image has loaded:
+		    onLoad: function(){
+		        // Animate image
+		        jQuery(this).animate({opacity:1}, 300);
+		    },
+		    // When container hides: 
+		    onHide: function(link){
+		        // Animate link:
+		        jQuery(link).stop().animate({opacity:1});
+		    }
+		});</script>" : '';
 		
-		$title = sprintf('<div class="pane-head"><div class="pane-head-pad"><h3 class="pane-title">%s</h3><div class="pane-sub">%s</div></div></div>', $s['name'], 'Version ' . $s['version'] );
+		$title = sprintf('<div class="pane-head"><div class="pane-head-pad"><h3 class="pane-title">%s</h3><div class="pane-sub">%s</div>%s</div></div>', $s['name'], 'Version ' . $s['version'], $screenshot );
 		
-		$auth = sprintf('<div class="pane-dets">by <a href="%s">%s</a> %s%s%s</div>', $s['auth_url'], $s['auth'], $screenshot, $tags, $count);
+		$auth = sprintf('<div class="pane-dets">by <a href="%s">%s</a> %s%s</div>', $s['auth_url'], $s['auth'], $tags, $count);
 		
 		$body = sprintf('<div class="pane-desc"><div class="pane-desc-pad">%s %s</div></div>', $s['desc'], $auth);
 		
