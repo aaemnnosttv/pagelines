@@ -73,14 +73,14 @@ class PageLinesSection {
 	 *
 	 *
 	 */
-	function section_template_load() {
+	function section_template_load( $clone_id ) {
 		// Variables for override
 		$override_template = 'template.' . $this->id .'.php';
 		$override = ( '' != locate_template(array( $override_template), false, false)) ? locate_template(array( $override_template )) : false;
 
 		if( $override != false) require( $override );
 		else{
-			$this->section_template();
+			$this->section_template( $clone_id );
 		}
 		
 	}

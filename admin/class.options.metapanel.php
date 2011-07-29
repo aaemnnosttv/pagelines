@@ -48,11 +48,11 @@ class PageLinesMetaPanel {
 	
 			$this->settings = wp_parse_args($settings, $defaults); // settings for post type
 	
-			$this->register_actions();
+		
+				$this->register_actions();
 	
 			$this->hide_tabs = $this->settings['hide_tabs'];
 			
-
 	}
 	
 	
@@ -413,22 +413,30 @@ class PageLinesMetaPanel {
 	function save_meta_options( $postID ){
 	
 		// Make sure we are saving on the correct post type...
-	
+		
+		
 		// Current post type is passed in $_POST
 		$current_post_type = ( isset( $_POST['post_type'] ) ) ? $_POST['post_type'] : false;
-		$post_type_save = ( is_array( $this->settings['posttype'] ) ) ? true : false;
+		$post_type_save = ( in_array( $current_post_type, $this->settings['posttype'] ) ) ? true : false;
 		
 		if((isset($_POST['update']) || isset($_POST['save']) || isset($_POST['publish'])) && $post_type_save){
-
+			
+			$page_template = (isset($_POST['page_template'])) ? $_POST['page_template'] : null;
+			$save_template = $this->get_save_template_type($_POST['post_type'], $page_template);
+			$template_type = new PageLinesTemplate($save_template);
+			$template_type->load_section_optionator();
+			
+			
 			// Loop through tabs
 			foreach($this->tabs as $tab => $t){
 				// Loop through tab options
 				foreach($t->options as $oid => $o){
-				
-					if($oid == 'section_control'){
-						$this->save_sc( $postID );
-					} else {
 						
+					if($oid == 'section_control')
+						$this->save_sc( $postID );
+					else {
+						
+					
 						// Note: If the value is null, then test to see if the option is already set to something
 						// create and overwrite the option to null in that case (i.e. it is being set to empty)
 						$option_value =  isset($_POST[$oid]) ? $_POST[$oid] : null;
@@ -442,6 +450,20 @@ class PageLinesMetaPanel {
 		}
 	}
 	
+	function get_save_template_type( $post_type = null, $template = 'default'){
+		
+		if( $post_type == 'post' ){
+			return 'single';
+		} elseif( $post_type == 'page' ){
+			$page_filename = str_replace('.php', '', $template);
+			$template_name = str_replace('page.', '', $page_filename);
+			return $template_name;
+		} elseif( isset($post_type) )
+			return $post_type;
+		else 
+			return 'default';
+		
+	}
 	
 	function save_sc( $postID ){
 		global $pagelines_template;

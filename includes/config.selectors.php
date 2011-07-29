@@ -75,7 +75,7 @@ function cssgroup( $group ){
 	
 	$s['linkcolor_hover'] = 'a:hover,.commentlist cite a:hover,  #grandchildnav .current_page_item a:hover, .headline h1 a:hover';
 	
-	$s['footer_text'] = '#footer, #footer li.link-list a, #footer .latest_posts li .list-excerptXS';
+	$s['footer_text'] = '#footer, #footer li.link-list a, #footer .latest_posts li .list-excerpt';
 	$s['footer_highlight'] = '#footer a, #footer .widget-title,  #footer li h5 a';
 	
 	/**

@@ -39,6 +39,7 @@ class PageLinesTemplate {
 		// All section control settings
 		$this->scontrol = pagelines_option('section-control');
 		
+		$this->map = $this->get_map();
 		
 		/**
 		 * Template Type
@@ -55,8 +56,6 @@ class PageLinesTemplate {
 		}
 		
 		$this->main_type = $this->template_type;
-
-		$this->map = $this->get_map();
 	
 		if(!is_admin())
 			$this->template_name = $this->page_type_name();
@@ -319,7 +318,7 @@ class PageLinesTemplate {
 			$markup_type = $this->map[$hook]['markup'];
 
 			/**
-			 * Parse through sections assigned to this hooks
+			 * Parse through sections assigned to this hook
 			 */
 			foreach( $this->$hook as $sid ){
 
@@ -335,7 +334,7 @@ class PageLinesTemplate {
 				if( $this->in_factory( $section ) ){
 					$this->factory[ $section ]->before_section( $markup_type, $clone_id);
 				
-					$this->factory[ $section ]->section_template_load(); // If in child theme get that, if not load the class template function
+					$this->factory[ $section ]->section_template_load( $clone_id ); // If in child theme get that, if not load the class template function
 					
 					$this->factory[ $section ]->after_section( $markup_type );
 				}
@@ -434,10 +433,17 @@ class PageLinesTemplate {
 
 		if(is_array($this->allsections)){ 
 			
-			foreach($this->allsections as $section){
+			foreach($this->allsections as $sid){
+				
+				/**
+				 * If this is a cloned element, remove the clone flag before instantiation here.
+				 */
+				$pieces = explode("ID", $sid);		
+				$section = $pieces[0];
+				$clone_id = (isset($pieces[1])) ? $pieces[1] : null;
 				
 				if( $this->in_factory( $section ) )
-					$this->factory[$section]->section_head();
+					$this->factory[$section]->section_head( $clone_id );
 					
 			}
 			

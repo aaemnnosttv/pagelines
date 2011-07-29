@@ -264,7 +264,7 @@ class PageLinesOptionsArray {
 						
 					),
 					'pagebg'		=> array(				
-						'default' 	=> '#FFFFFF',
+						'default' 	=> '#EEEEEE',
 						'cssgroup'	=>	'pagebg',
 						'flag'		=> 'blank_default',
 						'css_prop'	=> 'background-color',

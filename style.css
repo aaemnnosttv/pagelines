@@ -167,7 +167,7 @@ body{font-size: 87.5%; line-height: 1.7em}
 			border: 1px solid transparent;
 		}
 	
-		.widget-default{border: 4px dashed transparent;}
+		.widget-default{border: 4px dashed transparent;margin-bottom: 1em;}
 		.post-nav, .current_posts_info, .post-footer  {
 			border-right: 3px solid transparent;
 			border-left: 3px solid transparent;
@@ -477,7 +477,6 @@ body{font-size: 87.5%; line-height: 1.7em}
 			.widget-default{
 				padding: 1.5em;
 				margin-bottom: .7em;
-				
 			}
 			
 		/* Grandchild Nav */

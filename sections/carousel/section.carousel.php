@@ -80,31 +80,33 @@ class PageLinesCarousel extends PageLinesSection {
 			register_metatab($metatab_settings, $metatab_array);
 	}
 	
-   function section_template() { ?>		
+   function section_template( $clone_id ) { 
+	
+		global $post;
+		global $pagelines_ID;
+		
+		$oset = array('clone_id' => $clone_id, 'post_id' => $pagelines_ID);
+		
+		$carousel_class = (isset($clone_id) && $clone_id != 1) ? 'thecarousel'.$clone_id : 'thecarousel';
+		
+		// Set Up Variables
+		$carouselitems = (ploption('carousel_items', $oset)) ? ploption('carousel_items', $oset) : 30;
+		$carousel_post_id = (ploption('carousel_post_id', $oset)) ? ploption('carousel_post_id', $oset) : null;
+		$carousel_image_width = (ploption('carousel_image_width', $oset)) ? ploption('carousel_image_width', $oset) : 64;
+		$carousel_image_height = (ploption('carousel_image_height', $oset)) ? ploption('carousel_image_height', $oset) : 64;
+		$cmode = (ploption('carousel_mode', $oset)) ? ploption('carousel_mode', $oset): null;
+		$ngen_id = (ploption('carousel_ngen_gallery', $oset)) ? ploption('carousel_ngen_gallery', $oset) : 1;
+		
+		
+	?>		
 	<div class="thecarousel">
 		<ul id="mycarousel" class="mycarousel">
 			<?php 
-			global $post;
-			global $pagelines_ID;
 			
-			// Set Up Variables
-			$carouselitems = (pagelines_option('carousel_items', $pagelines_ID)) ? pagelines_option('carousel_items', $pagelines_ID) : 30;
-			
-			$carousel_post_id = (pagelines_option('carousel_post_id', $pagelines_ID)) ? pagelines_option('carousel_post_id', $pagelines_ID) : null;
-
-			$carousel_image_width = (pagelines_option('carousel_image_width', $pagelines_ID)) ? pagelines_option('carousel_image_width', $pagelines_ID) : 64;
-			$carousel_image_height = (pagelines_option('carousel_image_height', $pagelines_ID)) ? pagelines_option('carousel_image_height', $pagelines_ID) : 64;
-			
-			$cmode = (pagelines_option('carousel_mode', $post->ID)) ? pagelines_option('carousel_mode', $post->ID): null;
-			
-			
-			if(function_exists('nggDisplayRandomImages')  && $cmode == 'ngen_gallery'):
-				
-				$ngen_id = (pagelines_option('carousel_ngen_gallery', $pagelines_ID)) ? pagelines_option('carousel_ngen_gallery', $pagelines_ID) : 1;
-						
+			if(function_exists('nggDisplayRandomImages')  && $cmode == 'ngen_gallery')
 				echo do_shortcode('[nggallery id='.$ngen_id.' template=plcarousel]');
 				
-			elseif(function_exists('get_flickrRSS') && $cmode == 'flickr'):
+			elseif(function_exists('get_flickrRSS') && $cmode == 'flickr'){
 			
 				if(!function_exists('get_and_delete_option')):  // fixes instantiation within the function in the plugin :/
 					get_flickrRSS( array(
@@ -113,15 +115,13 @@ class PageLinesCarousel extends PageLinesSection {
 					));
 				endif;
 			
-			elseif($cmode == 'hook'):
-				
+			}elseif($cmode == 'hook')
 				pagelines_register_hook('pagelines_carousel_list');
 			
-			elseif( ($cmode == 'flickr' && !function_exists('get_flickrRSS')) || ($cmode == 'ngen_gallery' && !function_exists('nggDisplayRandomImages'))):
-				
+			elseif( ($cmode == 'flickr' && !function_exists('get_flickrRSS')) || ($cmode == 'ngen_gallery' && !function_exists('nggDisplayRandomImages')))
 				printf('<div class="carousel_text">%s</div>', __("The plugin for the selected carousel mode (NextGen-Gallery or FlickrRSS) needs to be installed and activated.", 'pagelines'));
 				
-			else:
+			else{
 			
 				$carousel_post_query = 'numberposts='.$carouselitems;
 				
@@ -144,7 +144,7 @@ class PageLinesCarousel extends PageLinesSection {
 					</li>
 
 				<?php endforeach;?>
-			<?php endif;?>
+			<?php } ?>
 		</ul>
 	</div>
 		
@@ -157,27 +157,24 @@ class PageLinesCarousel extends PageLinesSection {
 		
 	}   
 
-	function section_head() {   
+	function section_head( $clone_id = null ) {   
 		
-		$carousel_items = (pagelines_option('carousel_display_items')) ? pagelines_option('carousel_display_items'): 9;
-		$carousel_scroll_items = (pagelines_option('carousel_scroll_items')) ? pagelines_option('carousel_scroll_items'): 6;
+		global $pagelines_ID;
+		$oset = array( 'clone_id' => $clone_id, 'post_id' => $pagelines_ID );
 		
-		$animation_speed = (pagelines_option('carousel_animation_speed')) ? pagelines_option('carousel_animation_speed'): 800;
+		$carousel_class = ( isset( $clone_id ) && $clone_id != 1 ) ? 'thecarousel' . $clone_id : 'thecarousel';
+		
+		$num_items = ( ploption('carousel_display_items', $oset) ) ? ploption('carousel_display_items', $oset) : 9;
+		$scroll_items = ( ploption('carousel_scroll_items', $oset) ) ? ploption('carousel_scroll_items', $oset) : 6;
+		$anim_speed = ( ploption('carousel_animation_speed', $oset) ) ? ploption('carousel_animation_speed', $oset) : 800;
+		
+		$carousel_args = sprintf('wrap: "%s", visible: %s, easing: "%s", scroll: %s, animation: %s', 'circular', $num_items, 'swing', $scroll_items, $anim_speed);
 		?>
 <script type="text/javascript">
 /* <![CDATA[ */
-	var $j = jQuery.noConflict();
-	$j(document).ready(function () {
-	    $j(".thecarousel").show();
-		$j(".thecarousel").jcarousel({
-			wrap: 'circular', 
-			visible: <?php echo $carousel_items; ?>, 
-			easing: 'swing',
-			scroll: <?php echo $carousel_scroll_items; ?>,
-			animation: <?php echo $animation_speed; ?>
-		});
-		
-		$j(".jcarousel-prev, .jcarousel-next").disableTextSelect();
+	jQuery(document).ready(function () {
+		<?php printf('jQuery(".%s").show().jcarousel({%s});', $carousel_class, $carousel_args); ?>
+		jQuery(".jcarousel-prev, .jcarousel-next").disableTextSelect();
 	});
 /* ]]> */
 </script>

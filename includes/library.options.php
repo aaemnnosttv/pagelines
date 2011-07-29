@@ -1,6 +1,99 @@
 <?php
 
 /**
+ * Uses controls to find and retrieve the appropriate option value
+ * 
+ * @param 'key' the id of the option
+ * 
+ **/
+function ploption( $key, $args = array() ){
+
+	$d = array(
+		'subkey'	=> null, 
+		'post_id'	=> null, 
+		'setting'	=> null, 
+		'clone_id'	=> null,
+	);
+	
+	$o = wp_parse_args($args, $d);
+	
+	if(isset($o['post_id']) && plmeta( $key, $args ))
+		return plmeta( $key, $args );
+		
+	elseif( get_ploption($key, $args) )
+		return get_ploption( $key, $args );
+		
+	else
+		return false;
+}
+
+/**
+ * Locates a meta option if it exists
+ * 
+ * @param string $key the key of the option
+ */
+function plmeta( $key, $args ){
+	
+	$d = array(
+		'subkey'	=> null, 
+		'post_id'	=> null, 
+		'setting'	=> null, 
+		'clone_id'	=> null,
+	);
+	
+	$o = wp_parse_args($args, $d);
+		
+	if( isset($o['post_id']) && isset($o['clone_id']) && $o['clone_id'] != 1 )
+		return get_post_meta( $o['post_id'], $key.'_'.$o['clone_id'], true );
+
+	if( isset($o['post_id']) )
+		return get_post_meta($o['post_id'], $key, true);
+	
+	else
+		return false;
+	
+}
+
+function get_ploption( $key, $args = array() ){
+	
+	$d = array(
+		'subkey'	=> null, 
+		'post_id'	=> null, 
+		'setting'	=> null, 
+		'clone_id'	=> null,
+	);
+	
+	$o = wp_parse_args($args, $d);
+	
+	// get setting
+	$setting = ( isset($o['setting']) ) ? $o['setting'] : PAGELINES_SETTINGS;
+
+	if(!isset($setting) || $setting == PAGELINES_SETTINGS){
+		
+		global $global_pagelines_settings;
+		
+		if( isset($global_pagelines_settings[$key]) )
+			return $global_pagelines_settings[$key];
+	
+		else
+			return false;
+		
+	} elseif ( isset($setting) ){
+		
+		$setting_options = get_option($setting);
+		
+		if( isset($setting_options[$key]) )
+			return $setting_options[$key];
+	
+		else
+			return false;
+		
+	} else 
+		return false;
+	
+}
+
+/**
  * Sets up option name for saving of option settings
  *
  **/
@@ -63,9 +156,6 @@ function pagelines_settings_callback( $input ) {
  *
  **/
 function get_pagelines_option($key, $setting = null) {
-
-
-
 	// get setting
 	$setting = $setting ? $setting : PAGELINES_SETTINGS;
 
@@ -73,16 +163,16 @@ function get_pagelines_option($key, $setting = null) {
 		
 		global $global_pagelines_settings;
 		
-		if(isset($global_pagelines_settings[$key]))
+		if( isset($global_pagelines_settings[$key]) )
 			return $global_pagelines_settings[$key];
+	
 		else
 			return false;
 		
 	}
-
-	
-
 }
+
+
 
 function pagelines_option( $key, $post_id = null, $setting = null){
 	
@@ -160,9 +250,6 @@ function pagelines_update_option($optionid, $optionval){
 		update_option(PAGELINES_SETTINGS, $settings);
 }
 
-function plmeta( $key, $pid ){
-	
-}
 
 function get_pagelines_meta($option, $post){
 	$meta = get_post_meta($post, $option, true);
