@@ -1,8 +1,8 @@
 <?php
 /*
 	Section: Navigation
-	Author: Adam Munns
-	Author URI: http://adammunns.com/
+	Author: PageLines
+	Author URI: http://www.pagelines.com/
 	Description: Creates site navigation, with optional superfish dropdowns.
 	Version: 1.0.0
 	Class Name: PageLinesNav
@@ -187,6 +187,3 @@ class PageLinesNav extends PageLinesSection {
 	}
 
 }
-/*
-	End of section class
-*/

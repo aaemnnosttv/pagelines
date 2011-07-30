@@ -1,7 +1,7 @@
 <?php
 /*
 	Section: Primary Sidebar
-	Author: Andrew Powers
+	Author: PageLines
 	Author URI: http://www.pagelines.com
 	Description: The main widgetized sidebar
 	Class Name: PrimarySidebar

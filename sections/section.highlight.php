@@ -82,13 +82,16 @@ class PageLinesHighlight extends PageLinesSection {
 		register_metatab($metatab_settings, $metatab_array);
 	}
 
-	function section_template() { 
+	function section_template( $clone_id ) { 
 		global $pagelines_ID;   
  		
-		$h_head = get_pagelines_meta('_highlight_head', $pagelines_ID);
-		$h_subhead = get_pagelines_meta('_highlight_subhead', $pagelines_ID);
-		$h_splash = get_pagelines_meta('_highlight_splash', $pagelines_ID);
-		$h_splash_position = get_pagelines_meta('_highlight_splash_position', $pagelines_ID);
+		// Option Settings
+			$oset = array('post_id' => $pagelines_ID, 'clone_id' => $clone_id);
+
+		$h_head = ploption('_highlight_head', $oset);
+		$h_subhead = ploption('_highlight_subhead', $oset);
+		$h_splash = ploption('_highlight_splash', $oset);
+		$h_splash_position = ploption('_highlight_splash_position', $oset);
 		
 		?>
 	<?php if($h_head || $h_subhead || $h_splash):?>

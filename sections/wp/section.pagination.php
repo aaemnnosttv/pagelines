@@ -1,7 +1,7 @@
 <?php
 /*
 	Section: Post/Page Pagination
-	Author: Andrew Powers
+	Author: PageLines
 	Author URI: http://www.pagelines.com
 	Description: Paginates posts, shows a numerical post navigation
 	Class Name: PageLinesPagination

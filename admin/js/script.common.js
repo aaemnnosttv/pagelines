@@ -2,7 +2,7 @@
  * Platform Javascript Functions
  * Copyright (c) PageLines 2008 - 2011
  *
- * Written By Andrew Powers
+ * Written By PageLines
  */
 
 
