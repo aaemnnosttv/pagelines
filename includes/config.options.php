@@ -26,7 +26,7 @@ class PageLinesOptionsArray {
 		$this->options['website_setup'] = $this->website_setup();
 		$this->options['template_setup'] = $this->template_setup();
 		$this->options['layout_editor'] = $this->layout_editor();
-		$this->options['design_control'] = $this->design_control();
+		$this->options['color_control'] = $this->color_control();
 		$this->options['typography'] = $this->typography();
 		$this->options['header_and_footer'] = $this->header_footer();
 		$this->options['blog_and_posts'] = $this->blog_posts();
@@ -221,7 +221,7 @@ class PageLinesOptionsArray {
 	 *
 	 * @since 2.0.0
 	 */
-	function design_control(){
+	function color_control(){
 
 		$a = array(	
 			'icon'			=> PL_ADMIN_ICONS.'/color.png',

@@ -28,7 +28,7 @@
 	.media .bd > :last-child{margin-bottom:0;}
 	.media .img{float:left;margin-right: 15px;}
 	.media .img img, .img img{display: block;  max-width: 100%; height: auto;}
-	.media .imgExt{float:right; margin-left: 10px;}
+	.media .img.rtimg{float:right; margin-left: 15px;}
 
 /* @ PageLines Proto CSS Grid */
 	.pprow { width: 100%; margin: 0 auto; overflow: hidden; }

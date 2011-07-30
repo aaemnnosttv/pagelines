@@ -392,7 +392,7 @@
 	
 /* @ Banners */
 
-#banners .content-pad { padding: 15px 0; }
+#banners .content-pad { padding-top: 15px; padding-bottom: 15px; }
 	.banner_container .banner-area {padding: 30px 0;}
 	
 	.banner_container .banner-media {text-align: center;}
