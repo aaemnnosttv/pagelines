@@ -476,9 +476,9 @@ class PageLinesMetaPanel {
 		foreach( $save_template->map as $hook => $h ){
 
 			if(isset($h['sections'])){
-				foreach($h['sections'] as $key => $section_slug){
+				foreach($h['sections'] as $key => $section_slug)
 					$this->save_section_control($postID,  $section_slug, $hook );					
-				}
+				
 			} elseif (isset($h['templates'])){
 				foreach($h['templates'] as $template => $t){
 					foreach($t['sections'] as $key => $section_slug){
@@ -493,17 +493,14 @@ class PageLinesMetaPanel {
 	
 	}
 	
-	function save_section_control($postID,  $section_slug, $template_slug ){
+	function save_section_control($postID,  $sid, $template_slug ){
 		
-		$pieces = explode("ID", $section_slug);		
-		$section = (string) $pieces[0];
-		$clone_id = (isset($pieces[1])) ? $pieces[1] : 1;
 		
-		$check_name_hide = PageLinesTemplateBuilder::sc_option_name( array('hide', $template_slug, $section, $clone_id) );
+		$check_name_hide = meta_option_name( array('hide', $template_slug, $sid) );
 
 		$this->save_meta($postID, $check_name_hide);
 		
-		$check_name_show = PageLinesTemplateBuilder::sc_option_name( array('show', $template_slug, $section, $clone_id) );
+		$check_name_show = meta_option_name( array('show', $template_slug, $sid) );
 	
 		$this->save_meta($postID, $check_name_show);
 		

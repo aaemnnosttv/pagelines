@@ -33,21 +33,23 @@ class PageLinesTemplateBuilder {
 		
 	}
 
-	function sc_name( $ta, $section, $field, $sub = null){
+	function sc_name( $ta, $sid, $field, $sub = null){
 		
 		
 		if(isset($sub))
-			return sprintf('%s[%s][%s][%s][%s]', $this->sc_namespace, $ta, $section, $field, $sub);
+			return sprintf('%s[%s][%s][%s][%s]', $this->sc_namespace, $ta, $sid, $field, $sub);
 		else 
-			return sprintf('%s[%s][%s][%s]', $this->sc_namespace, $ta, $section, $field);
+			return sprintf('%s[%s][%s][%s]', $this->sc_namespace, $ta, $sid, $field);
 		
 	}
 	
-	function sc_value( $ta, $section, $field, $sub = null){
+	function sc_value( $ta, $sid, $field, $sub = null){
+ 
 		if(isset($sub))
-			return isset($this->sc_settings[$ta][$section][$field][$sub]) ? $this->sc_settings[$ta][$section][$field][$sub] : null;
+			return isset($this->sc_settings[$ta][$sid][$field][$sub]) ? $this->sc_settings[$ta][$sid][$field][$sub] : null;
 		else 
-			return isset($this->sc_settings[$ta][$section][$field]) ? $this->sc_settings[$ta][$section][$field] : null;
+			return isset($this->sc_settings[$ta][$sid][$field]) ? $this->sc_settings[$ta][$sid][$field] : null;
+			
 	}
 
 	
@@ -80,8 +82,7 @@ class PageLinesTemplateBuilder {
 
 	function do_confirms_and_hidden_fields(){ 
 		$dtoggle = (get_option('pl_section_desc_toggle')) ? get_option('pl_section_desc_toggle') : 'show'; 
-		
-		?>
+	?>
 		<input type="hidden" value="<?php echo $dtoggle;?>" id="describe_toggle" class="describe_toggle" name="describe_toggle"  />	
 		
 <?php }
@@ -284,8 +285,7 @@ class PageLinesTemplateBuilder {
 								</ul>
 								<?php $this->section_setup_controls(); ?>
 								
-							</div>
-								
+							</div>		
 						</div>
 						<div class="sbank available_sections">
 							<div class="sbank-pad">
@@ -319,6 +319,7 @@ class PageLinesTemplateBuilder {
 
 					$section_args = array(
 						'section'	=> $section,
+						'sid'		=> $sid,
 						'template'	=> $tid,
 						'id'		=> 'section_' . $sid, 
 						'icon'		=> $s->settings['icon'], 
@@ -375,6 +376,7 @@ class PageLinesTemplateBuilder {
 		
 		$defaults = array(
 			'section'		=> '',
+			'sid'			=> '',
 			'template'		=> '',
 			'id' 			=> '',
 			'icon'		 	=> '',
@@ -407,17 +409,17 @@ class PageLinesTemplateBuilder {
 
 		
 		// Options 
-		$check_name = $this->sc_name($a['tslug'], $a['section'], 'hide');
-		$check_value = $this->sc_value($a['tslug'], $a['section'], 'hide'); 
+		$check_name = $this->sc_name( $a['tslug'], $a['sid'], 'hide' );
+		$check_value = $this->sc_value( $a['tslug'], $a['sid'], 'hide' ); 
 
-		$posts_action = ($check_value) ? 'show' : 'hide';
+		$posts_action = ( $check_value ) ? 'show' : 'hide';
 
 		if($a['tarea'] == 'main' || $a['tarea'] == 'templates')
 			$posts_check_disabled = true;
 		else {
 			$posts_check_label = ucfirst($posts_action) .' On Posts Pages';
-			$posts_check_name = $this->sc_name($a['tslug'], $a['section'], 'posts-page', $posts_action);
-			$posts_check_value = $this->sc_value($a['tslug'], $a['section'], 'posts-page', $posts_action);
+			$posts_check_name = $this->sc_name($a['tslug'], $a['sid'], 'posts-page', $posts_action);
+			$posts_check_value = $this->sc_value($a['tslug'], $a['sid'], 'posts-page', $posts_action);
 			$posts_check_disabled = false;
 		}
 
@@ -587,10 +589,10 @@ class PageLinesTemplateBuilder {
 		}
 		
 		echo '<div class="sc_inputs">';
-		foreach($sections as $key => $section_slug){
+		foreach($sections as $key => $sid){
 			
 			
-			$pieces = explode("ID", $section_slug);		
+			$pieces = explode("ID", $sid);		
 			$section = (string) $pieces[0];
 			$clone_id = (isset($pieces[1])) ? $pieces[1] : 1;
 			
@@ -599,13 +601,14 @@ class PageLinesTemplateBuilder {
 				
 				$section_data = $this->factory[ $section ];		
 				
-				$hidden_by_default = isset($this->sc_settings[$template_slug][$section_slug]['hide']) ? $this->sc_settings[$template_slug][$section_slug]['hide'] : null;
+				$hidden_by_default = isset($this->sc_settings[$template_slug][$sid]['hide']) ? $this->sc_settings[$template_slug][$sid]['hide'] : null;
 
 				$check_type = ( $hidden_by_default ) ? 'show' : 'hide';
-				
+			
 				// Make the field 'key'
-				$option_name = $this->sc_option_name( array($check_type, $template_slug, $section, $clone_id) );
-
+				$option_name = meta_option_name( array($check_type, $template_slug, $sid) );
+				
+				
 				// The name of the section
 				$clone = ($clone_id != 1) ? ' #'.$clone_id : '';
 				$check_label = ucfirst($check_type)." " . $section_data->name.$clone;
@@ -623,22 +626,13 @@ class PageLinesTemplateBuilder {
 						</span>
 					</label>
 
-				</div>
-		
-		
-		<?php 
+				</div><?php 
 			}
 		}
 		echo '</div>';
 		
 	}
 
-	
-	function sc_option_name( $array ){
-		
-		return '_'.join('_', $array);
-		
-	}
 	
 	function help_control(){
 		if(!$this->help()) 

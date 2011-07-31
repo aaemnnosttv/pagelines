@@ -115,6 +115,14 @@ function get_pagelines_option_name( $oid, $sub_oid = null, $grand_oid = null, $s
 	return $name;
 }
 
+function meta_option_name( $array, $hidden = true ){
+	
+	$prefix = ($hidden) ? '_' : '';
+	
+	return $prefix.join('_', $array);
+	
+}
+
 function pagelines_option_id( $oid, $sub_oid = null, $grand_oid = null, $namespace = 'pagelines'){
 	echo get_pagelines_option_id($oid, $sub_oid, $grand_oid, $namespace);
 }

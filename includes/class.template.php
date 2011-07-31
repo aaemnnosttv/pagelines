@@ -168,7 +168,8 @@ class PageLinesTemplate {
 				$this->default_allsections = array_merge($this->default_allsections, $tsections);
 			
 			// Remove sections deactivated by Section Control
-			$tsections = $this->unset_hidden_sections($tsections, $hook);
+			if(!is_admin())
+				$tsections = $this->unset_hidden_sections($tsections, $hook);
 			
 			// Set Property after Template Hook Args
 			$this->$hook = $tsections;
@@ -228,16 +229,16 @@ class PageLinesTemplate {
 	
 			
 		if(is_array($ta_sections)){
-		
-			foreach($ta_sections as $key => $section){
+			foreach($ta_sections as $key => $sid){
 				
-				$sc = $this->sc_settings( $hook_id, $section );
+				$template_slug = $this->get_template_slug( $hook_id );	
 				
-				if($this->unset_section($section, $sc))
-					unset($ta_sections[$key]);
-				
-			}
+				$sc = $this->sc_settings( $template_slug, $sid );
 			
+				if($this->unset_section($sid, $template_slug, $sc))
+					unset($ta_sections[$key]);
+			
+			}
 		}
 		
 		return $ta_sections;
@@ -247,7 +248,15 @@ class PageLinesTemplate {
 	/**
 	 * Get Section Control Settings for Section
 	 */
-	function sc_settings( $hook_id, $section ){
+	function sc_settings( $template_slug, $sid ){
+	
+		$sc = (isset($this->scontrol[$template_slug][$sid])) ? $this->scontrol[$template_slug][$sid] : null;
+	
+		return $sc;	
+		
+	}
+	
+	function get_template_slug( $hook_id ){
 		
 		// Get template slug
 		if($hook_id == 'templates')
@@ -257,31 +266,30 @@ class PageLinesTemplate {
 		else
 			$template_slug = $hook_id;
 			
-		$sc = (isset($this->scontrol[$template_slug][$section])) ? $this->scontrol[$template_slug][$section] : null;
-	
-		return $sc;	
-		
+		return $template_slug;
 	}
 	
 	/**
 	 * Unset section based on Section Control
 	 */
-	function unset_section( $section, $sc ){
+	function unset_section( $sid, $template_slug, $sc ){
+		global $post;
 		
-		// General hide + show options
-		$general_hide = (isset($sc['hide'])) ? true : false;
-		$meta_reverse = (isset($post) && m_pagelines('_show_'.$section, $post->ID )) ? true : false;
-		$blog_page_reverse = (!is_home() || ( is_home() && isset($sc['posts-page']['show']))) ? true : false;
+		$post_id = ( isset($post) ) ? $post->ID : null;
 		
-		// Hiding on meta
-		$meta_hide = (isset($post) && m_pagelines('_hide_'.$section, $post->ID )) ? true : false;
-		$blog_page_hide = (is_home() && isset($sc['posts-page']['hide'])) ? true : false;
+		$oset = array('post_id' => $post_id);
 		
-		if( $general_hide && !$meta_reverse && !$blog_page_reverse)
-			return true;
-			
-		elseif($meta_hide || $blog_page_hide)
-			return true;
+		// Global Section Control Array
+			$general_hide = (isset($sc['hide'])) ? true : false;
+		
+		// Meta Controls
+			$meta_reverse = ( plmeta( meta_option_name( array('show', $template_slug, $sid) ) , $oset ) ) ? true : false;
+			$meta_hide = ( plmeta( meta_option_name( array('hide', $template_slug, $sid) ), $oset ) ) ? true : false;
+	
+		if($general_hide && !$meta_reverse) var_dump($sid);
+		
+		return ( ($general_hide && !$meta_reverse) || (!$general_hide && $meta_hide) ) ? true : false;
+		
 		
 	}
 	
