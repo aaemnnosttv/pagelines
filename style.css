@@ -37,13 +37,13 @@ body{ height:100%; padding-top: 3px; }
 
 /******* Typography *******/
 
-body{font-size: 87.5%; line-height: 1.7em}
-
+body{font-size: 87.5%; line-height: 1.714285em;}
+	/*.content { background: url(images/line-height.png) repeat 0 6px; }*/
 	/* @ Headers H1 - H6 */
-	h1, h2, h3, h4, h5, h6{font-weight:normal; line-height: 1.33em;}
-	h1{font-size:3.3em;} 
-	h2{font-size:2.5em;}
-	h3{font-size:1.8em;}
+	h1, h2, h3, h4, h5, h6{font-weight:normal; line-height: 1.3em;}
+	h1{font-size:3.4285em; line-height: 1em;} 
+	h2{font-size:2.5em; line-height: 1.371428em;}
+	h3{font-size:1.714285em; line-height: 1em; }
 	h4{font-size:1.5em;}
 	h5{font-size:1.1em;}
 	h6{font-size:1em;}
@@ -57,8 +57,8 @@ body{font-size: 87.5%; line-height: 1.7em}
 
 
 	/* @ Paragraphs */
-		p, .p{margin:1.6em 0;}
-		.hentry p:first-child{margin-top: .3em;}
+		p, .p, .hentry ul, .hentry ol{margin:1.714285em 0;}
+		.hentry:first-child, .post-excerpt :first-child{margin-top: 0;}
 		p {hyphenate: auto;hyphenate-before:2;hyphenate-after:3;hyphenate-lines: 3;orphans:4}
 		p span.pullquote{text-indent:0;}
 
@@ -110,12 +110,8 @@ body{font-size: 87.5%; line-height: 1.7em}
 			.wp-caption-dd { font-size: 11px; line-height: 17px;  }	
 	
 	/* @ Lists */ 
-	.hentry ul, .hentry ol { margin: 1.58em 0; margin-left: 16px;}
+	.hentry ul, .hentry ol { margin-left: 16px;}
  
-	/* @ Special Text Elements */ 
-	aside p, .sidenote p{line-height:1.7em;margin:0;}
-	aside ul, aside ol, .sidenote ul, .sidenote ol{margin-top:1.3em;line-height:1.7em;}
-
 	.footnote{margin-top:3.5em;}
 	.footnote li{margin:1.5em 0 1.5em;word-spacing:.1em;line-height:1.75em;}
 	.caption{font-style:italic;margin:.6em 0 -.2em;}
