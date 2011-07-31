@@ -35,7 +35,11 @@ function pagelines_add_admin_submenus() {
 // Build option interface
 function pagelines_build_option_interface(){ 
 	pagelines_register_hook('pagelines_before_optionUI');
-	$optionUI = new PageLinesOptionsUI;
+	
+	$args = array(
+		'sanitize' 		=> 'pagelines_settings_callback',
+	);
+	$optionUI = new PageLinesOptionsUI( $args );
 }
 
 /**
@@ -46,7 +50,7 @@ function pagelines_build_extension_interface(){
 	
 	$args = array(
 		'title'			=> 'PageLines Extension', 
-		'settings' 		=> 'pagelines-extension',
+		'settings' 		=> PAGELINES_EXTENSION,
 		'callback'		=> 'extension_array',
 		'show_save'		=> false, 
 		'show_reset'	=> false, 
@@ -62,7 +66,7 @@ function pagelines_build_special(){
 	
 	$args = array(
 		'title'			=> 'Special Page Meta', 
-		'settings' 		=> 'pagelines-special',
+		'settings' 		=> PAGELINES_SPECIAL,
 		'callback'		=> 'special_page_settings_array',
 	);
 	$optionUI = new PageLinesOptionsUI($args);
@@ -137,6 +141,7 @@ function pagelines_register_settings() {
 	
 	
 	register_setting( PAGELINES_SETTINGS, PAGELINES_SETTINGS, 'pagelines_settings_callback' );
+	register_setting( PAGELINES_SPECIAL, PAGELINES_SPECIAL );
 	
 	 /*
 	 	Set default settings

@@ -129,5 +129,22 @@ body #page .blink-wrap	.blink{
 	
 	.bl-align-right{float:right; margin: 2px 0 2px 5px;}
 
-
+/* Tag Button */ 
+.btag{
+	font-family: helvetica, arial, sans-serif;
+	text-shadow: #315f9b 0 -1px 0;
+	background: #6aaef5;
+	color: #ffffff;
+	border: 1px solid #3585f0;
+	font-size: 10px;
+	display: inline-block;
+	margin: 1px 5px;
+	padding: 5px 3px;
+	text-align: left;
+	line-height: 100%;
+	font-weight: bold;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+}
 

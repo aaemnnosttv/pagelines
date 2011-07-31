@@ -22,6 +22,7 @@ class PageLinesOptionsUI {
 				'title'			=> ( STYLESHEETPATH == TEMPLATEPATH ) ? 'Settings' : ucfirst( CHILDTHEMENAME ) . ' - Settings',
 				'callback'		=> null,
 				'settings'		=> PAGELINES_SETTINGS, 
+				'sanitize'		=> '',
 				'show_save'		=> true,
 				'show_reset'	=> true, 
 				'title_size'	=> 'normal'
@@ -42,6 +43,7 @@ class PageLinesOptionsUI {
 		$this->build_footer();	
 		
 	}
+
 		
 		/**
 		 * Option Interface Header

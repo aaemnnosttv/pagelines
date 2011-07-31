@@ -13,11 +13,13 @@
  */
 class OptEngine {
 
-	function __construct( $settings_field = '' ) {
+	function __construct( $settings_field = null ) {
 		
 		$this->settings_field = $settings_field;
 		
 		$this->defaults = array(
+			'post_id'				=> '', 
+			'setting'				=> '',
 			'default' 				=> '',
 			'default_free'		 	=> null,
 			'inputlabel' 			=> '',
@@ -47,6 +49,7 @@ class OptEngine {
 			'width'					=> '0px',
 			'sprite'				=> '',
 			'showname'				=> false, 
+			'special'				=> '',
 			'flag'					=> ''
 		);
 		
@@ -60,7 +63,7 @@ class OptEngine {
 
 		$o = wp_parse_args( $o, $this->defaults );
 
-		$o['setting'] = (isset($setting)) ? $setting : PAGELINES_SETTINGS;
+		$setting = (isset($this->settings_field)) ? $this->settings_field : PAGELINES_SETTINGS;
 		$o['pid'] = $pid;
 		
 		$oset = array('post_id' => $pid, 'setting' => $setting);
@@ -81,7 +84,26 @@ class OptEngine {
 				}
 			}
 			
-		} else {
+		} elseif($this->settings_field == PAGELINES_SPECIAL){
+			
+			$oset['subkey'] = $oid;
+			
+			$o['val'] = ploption($o['special'], $oset);
+			$o['input_name'] = plname($o['special'], $oset);
+			$o['input_id'] = plid( $o['special'], $oset);
+			
+			if(!empty($o['selectvalues'])){
+				foreach($o['selectvalues'] as $sid => $s){
+					$oset['subkey'] = $sid;
+					$o['selectvalues'][$sid]['val'] = ploption( $o['special'], $oset);
+					$o['selectvalues'][$sid]['input_id'] = plid( $o['special'], $oset);
+					$o['selectvalues'][$sid]['input_name'] = plname( $o['special'], $oset);
+
+				}
+			}
+			
+		}
+		 else {
 			$o['val'] = ploption( $oid, $oset );
 			$o['input_name'] = get_pagelines_option_name( $oid, null, null, $setting );
 			$o['input_id'] = get_pagelines_option_id( $oid, null, null, $setting );		
@@ -289,7 +311,7 @@ class OptEngine {
 		$menus = wp_get_nav_menus( array('orderby' => 'name') );
 		$opts = '';
 		foreach ( $menus as $menu )
-			$opts = $this->input_option($menu->term_id, selected($menu->term_id, $o['val']), esc_html( $menu->name ) );
+			$opts = $this->input_option($menu->term_id, selected($menu->term_id, $o['val'], false), esc_html( $menu->name ) );
 		
 		if($opts != '')
 			echo $this->input_select($o['input_id'], $o['input_name'], $opts);
@@ -909,7 +931,7 @@ class OptEngine {
 	}
 	
 	function input_option($value, $selected, $text, $id = '', $extra = ''){ 
-		return sprintf('<option id=\'%s\' value="%s" %s %s>%s</option>', $id, $value, $extra, $selected, $text);
+		return sprintf('<option id=\'%s\' value="%s" %s %s >%s</option>', $id, $value, $extra, $selected, $text);
 	}
 		
 	function input_button($id, $text, $class = '', $extra = ''){ 

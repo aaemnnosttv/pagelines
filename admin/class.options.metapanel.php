@@ -131,7 +131,7 @@ class PageLinesMetaPanel {
 
 			$slug = $this->get_edit_type();
 
-			$name .= sprintf(' <small style="font-style:italic">(%s)</small>', $slug);
+			$name .= sprintf(' <small class="btag">%s</small>', $slug);
 			
 			return $name;
 	}
@@ -286,7 +286,7 @@ class PageLinesMetaPanel {
 	function posts_metapanel( $type ){
 		
 		
-		$option_engine = new OptEngine( 'special' );
+		$option_engine = new OptEngine( PAGELINES_SPECIAL );
 		
 		$handle = 'postsTabs'.$type;
 		
@@ -338,9 +338,11 @@ class PageLinesMetaPanel {
 							 ?>
 						</div>
 						<?php 
-						foreach($t->options as $oid => $o)
+						foreach($t->options as $oid => $o){
+							$o['special'] = $type;
 							if($oid != 'section_control')
 								$option_engine->option_engine($oid, $o);
+						}
 						?>
 					</div>
 				</div>

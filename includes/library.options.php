@@ -82,7 +82,14 @@ function get_ploption( $key, $args = array() ){
 		
 		$setting_options = get_option($setting);
 		
-		if( isset($setting_options[$key]) )
+		if( isset($o['subkey']) ){
+			
+			if(isset($setting_options[$key]) && is_array($setting_options[$key]) && isset($setting_options[$key][$o['subkey']]))
+				return $setting_options[$key][$o['subkey']];
+			else
+				return false;
+			
+		}elseif( isset($setting_options[$key]) )
 			return $setting_options[$key];
 	
 		else
@@ -91,6 +98,44 @@ function get_ploption( $key, $args = array() ){
 	} else 
 		return false;
 	
+}
+
+function plname($key, $a = array()){
+	
+	$set = (!isset($a['setting']) || $a['setting'] == PAGELINES_SETTINGS) ? PAGELINES_SETTINGS : $a['setting'];
+	
+	$subkey = (isset($a['subkey'])) ? $a['subkey'] : false;
+	
+	$grandkey = (is_array($a['subkey']) && isset($a['subkey']['grandkey'])) ? $a['subkey']['grandkey'] : false;
+	
+	if( $grandkey )
+		$output = $set . '['.$key.']['.$subkey.']['.$grandkey.']';	
+	elseif( $subkey )
+		$output = $set . '['.$key.']['.$subkey.']';
+	else 
+		$output = $set .'['.$key.']';
+		
+	return $output;
+	
+}
+
+function plid($key, $a){
+	
+	$set = (!isset($a['setting']) || $a['setting'] == PAGELINES_SETTINGS) ? PAGELINES_SETTINGS : $a['setting'];
+
+	$subkey = (isset($a['subkey'])) ? $a['subkey'] : false;
+	
+	$grandkey = (is_array($a['subkey']) && isset($a['subkey']['grandkey'])) ? $a['subkey']['grandkey'] : false;
+
+
+	if( $grandkey )
+		$output = array($set, $key, $subkey, $grandkey);
+	elseif( $subkey )
+		$output = array($set, $key, $subkey);
+	else 
+		$output = array($set, $key);
+		
+	return join('_', $output);
 }
 
 /**
@@ -152,7 +197,8 @@ function pagelines_settings_callback( $input ) {
 
 	// We run through the $input array, if it is not in the whitelist we run it through the wp filters.
 	foreach ($input as $name => $value){
-		if ( !is_array( $value ) && !in_array( $name, apply_filters( 'pagelines_settings_whitelist', $whitelist ) ) ) $input[$name] = wp_filter_nohtml_kses( $value );
+		if ( !is_array( $value ) && !in_array( $name, apply_filters( 'pagelines_settings_whitelist', $whitelist ) ) ) 
+			$input[$name] = wp_filter_nohtml_kses( $value );
 	}
 	// Return our safe $input array.
 	return $input;
