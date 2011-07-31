@@ -286,7 +286,7 @@ class PageLinesMetaPanel {
 	function posts_metapanel( $type ){
 		
 		
-		$option_engine = new OptEngine( 'meta' );
+		$option_engine = new OptEngine( 'special' );
 		
 		$handle = 'postsTabs'.$type;
 		
@@ -297,21 +297,14 @@ class PageLinesMetaPanel {
 	 	$special_template = new PageLinesTemplate( $type );	
 		
 		$special_template->load_section_optionator();
-		
-	
-		
+
 		ob_start();
 		?>
 	<script type="text/javascript"> 
-		jQuery(document).ready(function() {	
-			var <?php echo $handle;?> = jQuery("#<?php echo $handle;?>").tabs({ 
-				fx: { opacity: "toggle", duration: "fast" }
-			}); 
-		});
+		jQuery(document).ready(function() { <?php printf('var %1$s = jQuery("#%1$s").tabs({fx: { opacity: "toggle", duration: "fast" }})', $handle); ?> });
 	</script>
 	
 		<div id="<?php echo $handle;?>" class="plist-nav fix">
-			
 			<ul class="fix plist">
 				<lh class="hlist-header">Select Settings Panel</lh>
 				<?php foreach($this->tabs as $tab => $t):?>
@@ -324,24 +317,18 @@ class PageLinesMetaPanel {
 											printf('<span class="tab_inactive">inactive</span>');
 											
 										echo $t->name;
-										
-										
-						
-									 ?>
+										 ?>
 								</span>
 							</span>
 						</a>
 					</li>
 				<?php endforeach;?>
 			</ul>
-		
 
 			<?php foreach($this->tabs as $tab => $t):?>
-		
 				<div id="<?php echo $tab;?>" class="posts_tab_content">
 					<div class="posts_tab_content_pad">
 						<div class="metatab_title" style="background: url(<?php echo $t->icon; ?>) no-repeat 10px 13px;" >
-							
 							<?php 
 					
 								echo $t->name;
@@ -350,7 +337,6 @@ class PageLinesMetaPanel {
 									echo OptEngine::superlink('Inactive On Template', 'black', 'right', admin_url('admin.php?page=pagelines&selectedtab=2'));
 							 ?>
 						</div>
-				
 						<?php 
 						foreach($t->options as $oid => $o)
 							if($oid != 'section_control')

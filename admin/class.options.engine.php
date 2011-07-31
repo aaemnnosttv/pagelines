@@ -63,16 +63,18 @@ class OptEngine {
 		$o['setting'] = (isset($setting)) ? $setting : PAGELINES_SETTINGS;
 		$o['pid'] = $pid;
 		
+		$oset = array('post_id' => $pid, 'setting' => $setting);
+		
 		if($this->settings_field == 'meta'){
 			
-			$o['val'] = m_pagelines($oid, $pid);
+			$o['val'] = plmeta($oid, $oset);
 			$o['input_name'] = $oid;
 			$o['input_id'] = get_pagelines_option_id( $oid );
 			
 			if(!empty($o['selectvalues'])){
 				foreach($o['selectvalues'] as $sid => $s){
 
-					$o['selectvalues'][$sid]['val'] = m_pagelines( $sid, $pid );
+					$o['selectvalues'][$sid]['val'] = plmeta($sid, $oset);
 					$o['selectvalues'][$sid]['input_id'] = get_pagelines_option_id( $sid );
 					$o['selectvalues'][$sid]['input_name'] = $sid;
 
@@ -80,17 +82,15 @@ class OptEngine {
 			}
 			
 		} else {
-			$o['val'] = pagelines_option( $oid, $pid, $setting );
+			$o['val'] = ploption( $oid, $oset );
 			$o['input_name'] = get_pagelines_option_name( $oid, null, null, $setting );
 			$o['input_id'] = get_pagelines_option_id( $oid, null, null, $setting );		
 
 			if(!empty($o['selectvalues'])){
 				foreach($o['selectvalues'] as $sid => $s){
-
-					$o['selectvalues'][$sid]['val'] = pagelines_option( $sid, $pid, $setting );
+					$o['selectvalues'][$sid]['val'] = ploption( $sid, $oset );
 					$o['selectvalues'][$sid]['input_id'] = get_pagelines_option_id( $sid );
 					$o['selectvalues'][$sid]['input_name'] = get_pagelines_option_name($sid, null, null, $setting);
-
 				}
 			}
 		}

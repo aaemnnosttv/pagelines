@@ -171,7 +171,7 @@ class PageLinesCSS {
 		
 		$output = '';
 		foreach( $css_factory as $cssgroup => $props)
-			$output .= sprintf('%s{%s}%s', cssgroup($cssgroup), $props, "\n\n");
+			$output .= sprintf('%s{%s}', cssgroup($cssgroup), $props);
 	
 		return $output;
 	}
