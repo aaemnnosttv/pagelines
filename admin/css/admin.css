@@ -1098,17 +1098,28 @@
 	}
 .sc_button{
 	display: block;
-
+font-weight: bold;
 	border: 1px solid #ccc;
 	border-right: 1px solid #bbb;
-	border-bottom: 1px solid #bbb;
+	border-bottom: 1px solid #b1b1b1;
 	margin-bottom: 3px;
 	background: #F3F3F4 url(../images/section-up.png) repeat-x left bottom;
+	color:#555;
 }
+
+	.type_show .sc_button{
+		border: 1px solid #ddd;
+		border-right: 1px solid #c1c1c1;
+		border-bottom: 1px solid #c1c1c1;
+		color:#000;
+		background: #F3F3F4 url(../images/section-hover.png) repeat-x left bottom;
+	}
+		.type_show .sc_button .sc_button_pad{
+			border-top: 1px solid #fff;
+			border-left: 1px solid #fff;
+		}
 	.sc_button_pad{
 		display: block;
-		
-	
 		border-top: 1px solid #eee;
 		border-left: 1px solid #eee;
 	}

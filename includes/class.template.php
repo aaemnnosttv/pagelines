@@ -285,8 +285,6 @@ class PageLinesTemplate {
 		// Meta Controls
 			$meta_reverse = ( plmeta( meta_option_name( array('show', $template_slug, $sid) ) , $oset ) ) ? true : false;
 			$meta_hide = ( plmeta( meta_option_name( array('hide', $template_slug, $sid) ), $oset ) ) ? true : false;
-	
-		if($general_hide && !$meta_reverse) var_dump($sid);
 		
 		return ( ($general_hide && !$meta_reverse) || (!$general_hide && $meta_hide) ) ? true : false;
 		
