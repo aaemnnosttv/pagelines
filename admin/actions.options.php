@@ -169,7 +169,7 @@ function pagelines_register_settings() {
 	/*
 		TODO Simon, what's going on here?
 	*/
-	if ( isset($_GET['activated']) || isset($_GET['updated']) || isset($_GET['reset']) || isset($_GET['settings-updated']) || $new_version_regen ) {
+	if ( isset($_GET['activated']) || isset($_GET['updated']) || isset($_GET['reset']) || isset($_GET['settings-updated']) ) {
 	
 		if ( get_pagelines_option('lp_username') && get_pagelines_option('lp_password') ) {
 			if ( $update = get_transient('pagelines-update-' . THEMENAME ) ) {
