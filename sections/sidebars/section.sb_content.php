@@ -1,7 +1,7 @@
 <?php
 /*
 	Section: Content Sidebar
-	Author: Andrew Powers
+	Author: PageLines
 	Author URI: http://www.pagelines.com
 	Description: Shows sidebar inside the main column content area
 	Class Name: ContentSidebar

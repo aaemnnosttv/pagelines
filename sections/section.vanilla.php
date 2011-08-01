@@ -1,7 +1,7 @@
 <?php
 /*
 	Section: Vanilla Forum
-	Author: Andrew Powers
+	Author: PageLines
 	Author URI: http://www.pagelines.com
 	Description: An Embedded Vanilla Forum
 	Class Name: PageLinesVanilla

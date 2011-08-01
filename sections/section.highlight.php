@@ -1,7 +1,7 @@
 <?php
 /*
 	Section: Highlight Section
-	Author: Andrew Powers
+	Author: PageLines
 	Author URI: http://www.pagelines.com
 	Description: Adds a highlight sections with a splash image and 2-big lines of text.
 	Class Name: PageLinesHighlight

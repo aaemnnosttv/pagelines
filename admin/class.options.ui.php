@@ -129,19 +129,17 @@ class PageLinesOptionsUI {
 
 				<?php if($this->set['show_reset']):?>
 				<div class="optionrestore">
-						<h4><?php _e('Restore Settings', 'pagelines'); ?></h4>
-						<p>
-							<div class="context">
-								<?php echo OptEngine::superlink('Restore To Default', 'grey', 'reset-options', 'submit', 'onClick="return ConfirmRestore();"', get_pagelines_option_name('reset'));?>
-								Use this button to restore these settings to default. (Note: Restore template and layout information in their individual tabs.)</div>
-							<?php pl_action_confirm('ConfirmRestore', 'Are you sure? This will restore your settings information to default.');?>
-						</p>
+					<h4><?php _e('Restore Settings', 'pagelines'); ?></h4>
+					<p>
+						<div class="context">
+							<?php echo OptEngine::superlink('Restore To Default', 'grey', 'reset-options', 'submit', 'onClick="return ConfirmRestore();"', plname('reset', array('setting' => $this->set['settings'])));?>
+							Use this button to restore these settings to default. (Note: Restore template and layout information in their individual tabs.)</div>
+						<?php pl_action_confirm('ConfirmRestore', 'Are you sure? This will restore these settings to default.');?>
+					</p>
 
 				</div>
 				<?php endif;?>
-
-				 
-			  	</form><!-- close entire form -->
+				</form><!-- close entire form -->
 
 				<?php  if($this->primary_settings) $this->get_import_export(); ?>
 				

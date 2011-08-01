@@ -1,7 +1,7 @@
 <?php
 /*
 	Section: Callout
-	Author: Andrew Powers
+	Author: PageLines
 	Author URI: http://www.pagelines.com
 	Description: Shows a callout banner with optional graphic call to action
 	Version: 1.0.0

@@ -47,53 +47,61 @@ add_action('wp_ajax_pagelines_ajax_post_action', 'pagelines_ajax_callback');
 function pagelines_ajax_callback() {
 	global $wpdb; // this is how you get access to the database
 
-	if($_POST['type']){
-		$save_type = $_POST['type'];
-	}else $save_type = null;
+
+	$save_type = ($_POST['type']) ? $_POST['type'] : null;
 
 	//Uploads
 	if( $save_type == 'upload' ) {
-	$clickedID = $_POST['data']; // Acts as the name
+		
+		$clickedID = $_POST['data']; // Acts as the name
 
-	$arr_file_type = wp_check_filetype( basename( $_FILES[$clickedID]['name']));
-	$uploaded_file_type = $arr_file_type['type'];
-	// Set an array containing a list of acceptable formats
-	$allowed_file_types = array( 'image/jpg','image/jpeg','image/gif','image/png', 'image/x-icon' );
-	if( in_array( $uploaded_file_type, $allowed_file_types ) ) {
+		$arr_file_type = wp_check_filetype( basename( $_FILES[$clickedID]['name']));
+		
+		$uploaded_file_type = $arr_file_type['type'];
+		
+		// Set an array containing a list of acceptable formats
+		$allowed_file_types = array( 'image/jpg','image/jpeg','image/gif','image/png', 'image/x-icon' );
+	
+		if( in_array( $uploaded_file_type, $allowed_file_types ) ) {
 
-		$filename = $_FILES[$clickedID];
-		$filename['name'] = preg_replace( '/[^a-zA-Z0-9._\-]/', '', $filename['name'] ); 
-		$override['test_form'] = false;
-		$override['action'] = 'wp_handle_upload';    
-		$uploaded_file = wp_handle_upload( $filename, $override );
-		$upload_tracking[] = $clickedID;
-		pagelines_update_option( $clickedID , $uploaded_file['url'] );
+			$filename = $_FILES[$clickedID];
+			$filename['name'] = preg_replace( '/[^a-zA-Z0-9._\-]/', '', $filename['name'] ); 
+			
+			$override['test_form'] = false;
+			$override['action'] = 'wp_handle_upload';    
+			
+			$uploaded_file = wp_handle_upload( $filename, $override );
+			
+			$upload_tracking[] = $clickedID;
+			
+			plupop( $clickedID , $uploaded_file['url'] );
 
-		$name = 'PageLines- ' . addslashes( $filename['name'] );
+			$name = 'PageLines- ' . addslashes( $filename['name'] );
 
-		$attachment = array(
-                               'post_mime_type' => $uploaded_file_type,
-                               'post_title' => $name,
-                               'post_content' => '',
-                               'post_status' => 'inherit'
-                       );
+			$attachment = array(
+							'post_mime_type' => $uploaded_file_type,
+							'post_title' => $name,
+							'post_content' => '',
+							'post_status' => 'inherit'
+						);
 
-		$attach_id = wp_insert_attachment( $attachment, $uploaded_file['file'] );
-		$attach_data = wp_generate_attachment_metadata( $attach_id, $uploaded_file['file'] );
-		wp_update_attachment_metadata( $attach_id,  $attach_data );
-		} else {
+			$attach_id = wp_insert_attachment( $attachment, $uploaded_file['file'] );
+			$attach_data = wp_generate_attachment_metadata( $attach_id, $uploaded_file['file'] );
+			wp_update_attachment_metadata( $attach_id,  $attach_data );
+			
+		} else
 			$uploaded_file['error'] = 'Unsupported file type!';
-	}
-	if( !empty( $uploaded_file['error'] ) ) {
-		echo 'Upload Error: ' . $uploaded_file['error'];
-	} else {
-		echo $uploaded_file['url']; // Is the Response
-		}
-	}
-	elseif( $save_type == 'image_reset' ){
+	
+		if( !empty( $uploaded_file['error'] ) )
+			echo 'Upload Error: ' . $uploaded_file['error'];
+		else
+			echo $uploaded_file['url']; // Is the Response
+		
+	} elseif( $save_type == 'image_reset' ){
 		$id = $_POST['data']; // Acts as the name
 		pagelines_update_option( $id, null );
 	}
+	
 	die();
 }
 	

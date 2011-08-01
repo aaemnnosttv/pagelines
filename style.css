@@ -69,8 +69,8 @@ body{font-size: 87.5%; line-height: 1.714285em;}
 	a.site-title{ font-size: 2.6em; line-height: 1em; }
 	h6.site-description { font-size:.9em;}
 	
-	.tags, .subhead, .caption, .footnote{ font-size: .8em }
-	.main_nav, #postauthor .subtext, .author-details, .post-nav, .current_posts_info, #secondnav, .kicker .run-in{font-size:.9em;}
+	.tags, .caption, .footnote{ font-size: .8em }
+	.subhead, .main_nav, #postauthor .subtext, .author-details, .post-nav, .current_posts_info, #secondnav, .kicker .run-in{font-size:.9em;}
 		
 	/* Posts Meta & Excerpts */
 	.fpost .post-excerpt{font-size: 1.1em; line-height: 1.6em}

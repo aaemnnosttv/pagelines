@@ -1,7 +1,7 @@
 <?php
 /*
 	Section: PageLines Boxes
-	Author: Andrew Powers
+	Author: PageLines
 	Author URI: http://www.pagelines.com
 	Description: Creates boxes and box layouts
 	Class Name: PageLinesBoxes

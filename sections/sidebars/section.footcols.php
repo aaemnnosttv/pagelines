@@ -1,7 +1,7 @@
 <?php
 /*
 	Section: Footer Columns Sidebar
-	Author: Andrew Powers
+	Author: PageLines
 	Author URI: http://www.pagelines.com
 	Description: A 5 column widgetized sidebar in the footer
 	Class Name: PageLinesFootCols

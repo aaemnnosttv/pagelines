@@ -30,6 +30,29 @@ function ploption( $key, $args = array() ){
 		return false;
 }
 
+function plupop($key, $val, $oset = array()){
+	
+	$d = array(
+		'parent'	=> null,
+		'subkey'	=> null, 
+		'setting'	=> PAGELINES_SETTINGS,
+	);
+	
+	$o = wp_parse_args($oset, $d);
+	
+	$the_set = get_option($d['setting']);
+
+	$new = array( $key => $val );
+
+	if( isset($d['parent']) && isset($the_set[$d['parent']]) && is_array($the_set[$d['parent']])){
+		$settings = wp_parse_args($new, $the_set[$d['parent']]);
+	} else		
+		$settings = wp_parse_args($new, $the_set);
+	
+	update_option( $d['setting'], $settings );
+	
+}
+
 /**
  * Locates a meta option if it exists
  * 
@@ -125,7 +148,7 @@ function plname($key, $a = array()){
 	
 	$subkey = (isset($a['subkey'])) ? $a['subkey'] : false;
 	
-	$grandkey = (is_array($a['subkey']) && isset($a['subkey']['grandkey'])) ? $a['subkey']['grandkey'] : false;
+	$grandkey = (isset($a['subkey']) && is_array($a['subkey']) && isset($a['subkey']['grandkey'])) ? $a['subkey']['grandkey'] : false;
 	
 	if( $grandkey )
 		$output = $set . '['.$key.']['.$subkey.']['.$grandkey.']';	
@@ -436,19 +459,20 @@ function pagelines_settings_defaults() {
 
 
 
-function pagelines_process_reset_options() {
+function pagelines_process_reset_options( $option_array = null ) {
 
+	$option_array = (isset($option_array)) ? $option_array : get_option_array();
 
-	foreach(get_option_array() as $menuitem => $options ){
-		foreach($options as $optionid => $o ){
-			if( $o['type']=='reset' && pagelines_option($optionid) ){
+	foreach($option_array as $menuitem => $options ){
+		foreach($options as $oid => $o ){
+			if( $o['type']=='reset' && pagelines_option($oid) ){
 
 					call_user_func($o['callback']);
 				
 					// Set the 'reset' option back to not set !important 
-					pagelines_update_option($optionid, null);
+					pagelines_update_option($oid, null);
 				
-					wp_redirect( admin_url( 'admin.php?page=pagelines&reset=true&opt_id='.$optionid ) );
+					wp_redirect( admin_url( 'admin.php?page=pagelines&reset=true&opt_id='.$oid ) );
 					exit;
 
 			}

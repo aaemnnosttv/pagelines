@@ -1,7 +1,7 @@
 <?php
 /*
 	Section: Secondary Nav
-	Author: Andrew Powers
+	Author: PageLines
 	Author URI: http://www.pagelines.com
 	Description: Creates secondary site navigation.
 	Class Name: PageLinesSecondNav

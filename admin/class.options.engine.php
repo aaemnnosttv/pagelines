@@ -277,7 +277,6 @@ class OptEngine {
 			case 'reset' :
 				$this->_get_reset_option($oid, $o, $val);
 				break;
-				
 			case 'email_capture' :
 				$this->_get_email_capture($oid, $o, $val);
 				break;

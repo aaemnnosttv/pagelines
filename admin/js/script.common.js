@@ -38,7 +38,8 @@ jQuery(document).ready(function(){
 			  data: { // Additional data to send
 					action: 'pagelines_ajax_post_action',
 					type: 'upload',
-					data: clickedID },
+					data: clickedID 
+				},
 			  autoSubmit: true, // Submit file after selection
 			  responseType: false,
 			  onChange: function(file, extension){},
