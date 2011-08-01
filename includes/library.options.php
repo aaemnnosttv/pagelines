@@ -40,17 +40,31 @@ function plupop($key, $val, $oset = array()){
 	
 	$o = wp_parse_args($oset, $d);
 	
-	$the_set = get_option($d['setting']);
+	$the_set = get_option($o['setting']);
 
 	$new = array( $key => $val );
 
-	if( isset($d['parent']) && isset($the_set[$d['parent']]) && is_array($the_set[$d['parent']])){
-		$settings = wp_parse_args($new, $the_set[$d['parent']]);
-	} else		
-		$settings = wp_parse_args($new, $the_set);
+	$parent = ( isset($o['parent']) ) ? $o['parent'] : null;
+
+
+
+	$child_option = ( isset($parent) && isset($the_set[$parent]) && is_array($the_set[$parent]) ) ? true : false;
 	
-	update_option( $d['setting'], $settings );
+	$parse_set = ( $child_option ) ? $the_set[ $parent ] : $the_set;
 	
+	$new_set = wp_parse_args($new, $parse_set);
+		
+		
+	if($child_option)
+		$the_set[ $parent ] = $new_set;
+	else
+		$the_set = $new_set;
+	
+	//$test = $the_set[ $parent ];
+	
+	update_option( $o['setting'], $the_set );
+	
+	//return $test;
 }
 
 /**

@@ -79,7 +79,15 @@ class PageLinesOptionsArray {
 				'shortexp'	 	=> 'Places your Twitter feed in your site (<em>"Twitter for WordPress" plugin required</em>)',
 				'exp' 			=> 'This places your Twitter feed on the site. Leave blank if you want to hide or not use.<br/><br/><strong>Note: "Twitter for WordPress" plugin is required for this to work.</strong>'
 			),
-	
+			'pl_login_image'	=> array(
+				'version' 		=> 'pro',
+				'default' 		=> PL_ADMIN_IMAGES . "/login-pl.png",
+				'type' 			=> 	'image_upload',
+				'imagepreview' 	=> 	'60',
+				'title' 		=> 'Login Page Image',						
+				'shortexp' 		=> 'The image to use on your site\'s login page',
+				'exp'			=> 'This image will be used on the login page to your admin. Use an image that is approximately <strong>80px</strong> in height.'
+			),
 			'pagelines_touchicon'	=> array(
 				'version' 		=> 'pro',
 				'default' 		=> '',

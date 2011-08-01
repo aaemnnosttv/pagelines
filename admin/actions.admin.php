@@ -50,12 +50,17 @@ function pagelines_ajax_callback() {
 
 	$save_type = ($_POST['type']) ? $_POST['type'] : null;
 
+	$setting = $_POST['setting'];
+	$button_id = $_POST['oid'];
+
+	$pieces = explode("OID", $_POST['oid']);		
+	$oid = $pieces[0];
+	$parent_oid = ( isset($pieces[1]) ) ? $pieces[1] : null;
+
 	//Uploads
 	if( $save_type == 'upload' ) {
-		
-		$clickedID = $_POST['data']; // Acts as the name
-
-		$arr_file_type = wp_check_filetype( basename( $_FILES[$clickedID]['name']));
+	
+		$arr_file_type = wp_check_filetype( basename( $_FILES[$button_id]['name']));
 		
 		$uploaded_file_type = $arr_file_type['type'];
 		
@@ -64,7 +69,7 @@ function pagelines_ajax_callback() {
 	
 		if( in_array( $uploaded_file_type, $allowed_file_types ) ) {
 
-			$filename = $_FILES[$clickedID];
+			$filename = $_FILES[ $button_id ];
 			$filename['name'] = preg_replace( '/[^a-zA-Z0-9._\-]/', '', $filename['name'] ); 
 			
 			$override['test_form'] = false;
@@ -72,9 +77,9 @@ function pagelines_ajax_callback() {
 			
 			$uploaded_file = wp_handle_upload( $filename, $override );
 			
-			$upload_tracking[] = $clickedID;
+			$upload_tracking[] = $button_id;
 			
-			plupop( $clickedID , $uploaded_file['url'] );
+			plupop( $oid, $uploaded_file['url'], array( 'setting' => $setting, 'parent' => $parent_oid ));
 
 			$name = 'PageLines- ' . addslashes( $filename['name'] );
 
@@ -94,12 +99,13 @@ function pagelines_ajax_callback() {
 	
 		if( !empty( $uploaded_file['error'] ) )
 			echo 'Upload Error: ' . $uploaded_file['error'];
-		else
+		else{
+			//print_r($r);
 			echo $uploaded_file['url']; // Is the Response
 		
+		}
 	} elseif( $save_type == 'image_reset' ){
-		$id = $_POST['data']; // Acts as the name
-		pagelines_update_option( $id, null );
+		plupop( $oid, null, array( 'setting' => $setting, 'parent' => $parent_oid ) );
 	}
 	
 	die();

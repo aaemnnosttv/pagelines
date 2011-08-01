@@ -86,7 +86,6 @@ function pagelines_theme_settings_init() {
 	global $_pagelines_ext_hook;
 	global $_pagelines_special_hook;
 	
-	plprint($_pagelines_ext_hook);
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'jquery-ajaxupload', PL_ADMIN_JS . '/jquery.ajaxupload.js');
 	wp_enqueue_script( 'jquery-cookie', PL_ADMIN_JS . '/jquery.ckie.js'); 

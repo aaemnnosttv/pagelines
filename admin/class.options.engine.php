@@ -49,7 +49,7 @@ class OptEngine {
 			'width'					=> '0px',
 			'sprite'				=> '',
 			'showname'				=> false, 
-			'special'				=> '',
+			'special'				=> null,
 			'flag'					=> ''
 		);
 		
@@ -64,6 +64,7 @@ class OptEngine {
 		$o = wp_parse_args( $o, $this->defaults );
 
 		$setting = (isset($this->settings_field)) ? $this->settings_field : PAGELINES_SETTINGS;
+		
 		$o['pid'] = $pid;
 		
 		$oset = array('post_id' => $pid, 'setting' => $setting);
@@ -505,11 +506,12 @@ class OptEngine {
 	function _get_image_upload_option( $oid, $o ){ 
 
 		$up_url = $this->input_text($o['input_id'], $o['input_name'], esc_url($o['val']), 'regular-text uploaded_url');
-
 		
-		$up_button = $this->input_button($oid, 'Upload Image', 'image_upload_button');
+		$button_id = (isset($o['special'])) ? $oid.'OID'.$o['special'] : $oid;
 		
-		$reset_button = sprintf('<span title="%1$s" id="reset_%1$s" class="image_reset_button button">Remove</span>', $oid); 
+		$up_button = $this->input_button( $button_id, 'Upload Image', 'image_upload_button', 'title="'.$this->settings_field.'"' );
+		
+		$reset_button = sprintf('<span title="%1$s" id="%2$s" class="image_reset_button button reset_%1$s">Remove</span>', $button_id, $this->settings_field); 
 		
 		$ajax_url = $this->input_hidden('', 'wp_ajax_action_url', admin_url("admin-ajax.php"), 'ajax_action_url');
 		$preview_size = $this->input_hidden('', 'img_size_'.$oid, $o['imagepreview'], 'image_preview_size'); 
@@ -519,7 +521,7 @@ class OptEngine {
 		printf('<p>%s %s %s %s %s %s</p>',$label, $up_url, $up_button, $reset_button, $ajax_url, $preview_size);		
 				
 		if($o['val'])
-			printf('<img class="pagelines_image_preview" id="image_%s" src="%s" style="max-width:%spx"/>', $oid, $o['val'], $o['imagepreview']);
+			printf('<img class="pagelines_image_preview" id="image_%s" src="%s" style="max-width:%spx"/>', $button_id, $o['val'], $o['imagepreview']);
 	}
 	
 

@@ -58,6 +58,11 @@ require_once( PL_INCLUDES . '/library.options.php' );
 require_once( PL_INCLUDES . '/library.templates.php');
 
 /**
+ * Load template related functions
+ */
+require_once( PL_INCLUDES . '/library.wordpress.php');
+
+/**
  * Load shortcode library
  */
 require_once( PL_INCLUDES . '/library.shortcodes.php');

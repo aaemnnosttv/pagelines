@@ -190,6 +190,22 @@ class PageLinesCSS {
 function get_dynamic_css(){
 	$pagelines_dynamic_css = new PageLinesCSS;
 	$pagelines_dynamic_css->create();
-	echo '<style type="text/css" id="dynamic-css">'."\n". $pagelines_dynamic_css->css . "\n".'</style>'. "\n";
+	inline_css_markup('dynamic-css', $pagelines_dynamic_css->css);
 }
-/********** END OF CSS CLASS  **********/
+
+function inline_css_markup($id, $css, $echo = true){
+	$mark = sprintf('<style type="text/css" id="%3$s">%2$s %1$s %2$s</style>%2$s', $css, "\n", $id);
+	
+	if($echo) 
+		echo $mark;
+	else
+		return $mark;
+	
+}
+
+
+
+
+
+
+

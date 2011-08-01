@@ -57,11 +57,6 @@ jQuery("#pagelines-settings-form").submit(function() {
 				
 				jQuery('.ajax-saved').show().delay(800).fadeOut('slow');
 				
-				jQuery.ajax({
-					type: 'GET',
-					url: ajaxAction, 
-					data: { action: 'pagelines_ajax_create_dynamic_css' },
-				});
 			}
 		});
 		return false;

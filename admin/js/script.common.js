@@ -30,6 +30,7 @@ jQuery(document).ready(function(){
 
 		var clickedObject = jQuery(this);
 		var clickedID = jQuery(this).attr('id');
+		var settingID = jQuery(this).attr('title');
 		var actionURL = jQuery(this).parent().find('.ajax_action_url').val();
 
 		new AjaxUpload(clickedID, {
@@ -38,7 +39,8 @@ jQuery(document).ready(function(){
 			  data: { // Additional data to send
 					action: 'pagelines_ajax_post_action',
 					type: 'upload',
-					data: clickedID 
+					oid: clickedID, 
+					setting: settingID
 				},
 			  autoSubmit: true, // Submit file after selection
 			  responseType: false,
@@ -53,11 +55,11 @@ jQuery(document).ready(function(){
 					}, 200);
 			  },
 			  onComplete: function(file, response) {
-
+				//alert(response); // Debugging
 				window.clearInterval(interval);
 				clickedObject.text('Upload Image');	
 				this.enable(); // enable upload button
-
+				
 				// If there was an error
 				if(response.search('Upload Error') > -1){
 					var buildReturn = '<span class="upload-error">' + response + '</span>';
@@ -71,12 +73,14 @@ jQuery(document).ready(function(){
 
 					var buildReturn = '<img style="max-width:'+previewSize+'px;" class="pagelines_image_preview" id="image_'+clickedID+'" src="'+response+'" alt="" />';
 
+					clickedObject.parent().find('.uploaded_url').val(response);
+
 					jQuery(".upload-error").remove();
 					jQuery("#image_" + clickedID).remove();	
-					clickedObject.parent().after(buildReturn);
-					jQuery('img#image_'+clickedID).fadeIn();
+					clickedObject.parent().after( buildReturn );
+					jQuery('img#image_' + clickedID).fadeIn();
 					clickedObject.next('span').fadeIn();
-					clickedObject.parent().find('.uploaded_url').val(response);
+					
 				}
 			  }
 			});
@@ -89,8 +93,9 @@ jQuery(document).ready(function(){
 		jQuery('.image_reset_button').click(function(){
 
 			var clickedObject = jQuery(this);
-			var clickedID = jQuery(this).attr('id');
 			var theID = jQuery(this).attr('title');	
+			var settingID = jQuery(this).attr('id');
+			
 			var actionURL = jQuery(this).parent().find('.ajax_action_url').val();
 
 			var ajax_url = actionURL;
@@ -98,12 +103,13 @@ jQuery(document).ready(function(){
 			var data = {
 				action: 'pagelines_ajax_post_action',
 				type: 'image_reset',
-				data: theID
+				oid: theID, 
+				setting: settingID
 			};
 
 			jQuery.post(ajax_url, data, function(response) {
 				var image_to_remove = jQuery('#image_' + theID);
-				var button_to_hide = jQuery('#reset_' + theID);
+				var button_to_hide = jQuery('.reset_' + theID);
 				image_to_remove.fadeOut(500,function(){ jQuery(this).remove(); });
 				button_to_hide.fadeOut();
 				clickedObject.parent().find('.uploaded_url').val('');				
