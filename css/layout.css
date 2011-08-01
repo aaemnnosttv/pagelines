@@ -10,9 +10,9 @@
 /* @ Responsive Design */
 	body img {max-width: 100%; height: auto;}
 
-	@media screen and (max-width:768px) { 
-		body #site .content, body .wcontent, body #footer .content {width: 97%;}
-	    body #page #pagelines_content #column-wrap,  body #page  #buddypress-page #container, body #page  #pagelines_content #sidebar-wrap, body #page  #buddypress-page #sidebar-wrap { 
+	@media screen and (max-width:940px){
+		body #site .content, body .wcontent, body #footer .content, html body.fixed_width #page{width: 97%;}
+	    body #page #pagelines_content #column-wrap,  body #page  #buddypress-page #container, body #page  #pagelines_content #sidebar-wrap, html body.fixed_width #site .content{
 	       width: 100%;
 	    }
 	}
@@ -33,7 +33,7 @@
 		}
 	}
 	
-	#column-wrap,  #sidebar-wrap, .clip, #column-main, #sidebar1, .content{ 
+	#column-wrap,  #sidebar-wrap, .clip, #column-main, #sidebar1, .content, #page{ 
 	    transition:all .2s linear; 
 	    -o-transition:all .2s linear; 
 	    -moz-transition:all .2s linear; 
@@ -48,16 +48,19 @@
 	
 	.fixed_width #page, .fixed_width #footer, .canvas .page-canvas{ width: 100%; margin: 0 auto; position: relative; }
 	.page-canvas{ margin: 0 auto; }
-	.content { width: 100%; margin: 0 auto; position: relative; }
-	.content-pad {padding-right: 10px; padding-left: 10px}
-	#page-main .content {border-right: 1px solid transparent; border-left: 1px solid transparent;}
+	.content { width: 100%; margin: 0 auto; position: relative; border-right: 1px solid transparent; border-left: 1px solid transparent;}
+	.content-pad {padding-right: 15px; padding-left: 15px}
 	
 	/* @ Layout Floating */
 		#column-wrap, #container{float: left;}
 		#sidebar-wrap{float:right;}
-		.two-sidebar-left #column-wrap, .one-sidebar-left #column-wrap, .two-sidebar-left #buddypress-page #container, .one-sidebar-left #buddypress-page #container{ float: right; }
+		.two-sidebar-left #column-wrap, .one-sidebar-left #column-wrap, .two-sidebar-left #buddypress-page #container, .one-sidebar-left #buddypress-page #container{ 
+			float: right; 
+		}
 		.two-sidebar-left #sidebar-wrap, .one-sidebar-left #sidebar-wrap{ float: left; }
-		.two-sidebar-left #column-main, .one-sidebar-left #column-main, .two-sidebar-left #buddypress-page #container, .one-sidebar-left #buddypress-page #container{ float: right; }
+		.two-sidebar-left #column-main, .one-sidebar-left #column-main, .two-sidebar-left #buddypress-page #container, .one-sidebar-left #buddypress-page #container{ 
+			float: right; 
+		}
 		.two-sidebar-center #column-main { float: right;}
 		#column-main { float: left; display: inline; width: 630px; }
 		#sidebar1, #sidebar2{ float: left; overflow:hidden; }

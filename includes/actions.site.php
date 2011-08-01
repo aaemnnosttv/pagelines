@@ -26,6 +26,9 @@ add_action('pagelines_before_html', 'build_pagelines_template');
  */
 add_action('admin_head', 'build_pagelines_template');
 
+add_action('pagelines_before_html', 'build_pagelines_layout');
+add_action('admin_head', 'build_pagelines_layout');
+
 /**
  * Optionator
  * Does "just in time" loading of section option in meta; 
@@ -55,7 +58,7 @@ add_action('pagelines_before_html', 'pagelines_id_setup');
  * 
  * @since 1.0.0
  */
-add_filter('pagelines_page_template_array', 'pagelines_add_page_callback');
+add_filter('the_sub_templates', 'pagelines_add_page_callback', 10, 2);
 
 /**
  * Adds link to admin bar
@@ -82,3 +85,42 @@ add_action('pagelines_head', 'pagelines_head_common');
  * @since 1.3.3
  */
 add_action('wp_head', 'do_dynamic_css');
+
+/**
+ *
+ * Load 'child' styles, functions and templates.
+ * 
+ * @since 2.0
+ * 
+ */	
+add_action( 'wp_enqueue_scripts', 'load_child_style', 30 );
+add_action( 'init', 'load_child_functions' );
+add_action( 'init', 'base_check_templates' );
+function load_child_style() {
+
+	if ( file_exists( EXTEND_CHILD_DIR . '/base-style.css' ) )
+		wp_enqueue_style( 'child', EXTEND_CHILD_URL . '/base-style.css' );
+}
+
+function load_child_functions() {
+	if ( file_exists( EXTEND_CHILD_DIR . '/base-functions.php' ) )
+		include( EXTEND_CHILD_DIR . '/base-functions.php' );
+}
+
+function base_check_templates() {
+
+	foreach ( glob( EXTEND_CHILD_DIR . "/*.php") as $file) {
+
+		if ( preg_match( '/page\.([a-z-0-9]+)\.php/', $file, $match ) ) {
+
+			if ( !file_exists( trailingslashit( EXTEND_CHILD_DIR ) . $file ) ) 
+				copy( $file, trailingslashit( STYLESHEETPATH ) . basename( $file ) );
+
+			if ( file_exists( trailingslashit( STYLESHEETPATH ) . basename( $file ) ) ) {
+					$data = get_file_data( trailingslashit( STYLESHEETPATH ) . basename( $file ), array( 'name' => 'Template Name' ) );
+					pagelines_add_page( $match[1], $data['name'] );
+			}
+
+		}
+	}
+}

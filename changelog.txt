@@ -13,6 +13,13 @@
 
 
 Version 2.0 
+	BETA - 7
+	- Clone Options
+	BETA - 6
+	- Design Control
+	- Color Math
+	- Text Shadows
+	- Extension Refinements
 	BETA - 5
 	- Special Page Handling
 	- Graphical Selectors

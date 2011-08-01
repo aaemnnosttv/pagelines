@@ -1,7 +1,7 @@
 <?php
 /*
 	Section: Universal Sidebar
-	Author: Andrew Powers
+	Author: PageLines
 	Author URI: http://www.pagelines.com
 	Description: A universal widgetized sidebar
 	Class Name: UniversalSidebar

@@ -37,6 +37,7 @@
 		
 		var selected_builder = jQuery('.selected_builder').attr('title');
 		var prefix = '.selected_builder #';
+		var interface_prefix = '.the_template_builder #';
 		
 		var exp = sectionId.split('ID');
 		var section = exp[0];
@@ -46,7 +47,7 @@
 		
 		while( !$new_clone_id ){
 			
-			if( !jQuery( prefix + section + 'ID' + $i ).exists() ){
+			if( !jQuery( interface_prefix + section + 'ID' + $i ).exists() ){
 				
 				$new_clone_id = true;
 				

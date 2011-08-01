@@ -26,9 +26,9 @@
 	print_pagelines_option('asynch_analytics');  // Recommended Spot For Asynchronous Google Analytics
 	pagelines_register_hook('pagelines_before_site'); // Hook 
 
-?><div id="site" class="<?php echo pagelines_layout_mode();?>"> <!-- #site // Wraps #header, #page-main, #footer - closed in footer -->
+?><div id="site" class="<?php echo pagelines_layout_mode();?>">
 <?php pagelines_register_hook('pagelines_before_page'); // Hook ?>
-	<div id="page"> <!-- .page // Wraps #header, #page-main - closed in footer -->
+	<div id="page" class="thepage">
 		<div class="page-canvas">
 			<?php pagelines_register_hook('pagelines_before_header');?>
 			<header id="header" class="container-group fix">
@@ -37,7 +37,7 @@
 				</div>
 			</header>
 			<?php pagelines_register_hook('pagelines_before_main'); // Hook ?>
-			<div id="page-main" class="container-group fix"> <!-- #page-main // closed in footer -->
+			<div id="page-main" class="container-group fix">
 				<div id="dynamic-content" class="outline fix">
 					<?php pagelines_integration_top();?>
 					

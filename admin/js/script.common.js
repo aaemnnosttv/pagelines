@@ -2,7 +2,7 @@
  * Platform Javascript Functions
  * Copyright (c) PageLines 2008 - 2011
  *
- * Written By Andrew Powers
+ * Written By PageLines
  */
 
 
@@ -38,7 +38,8 @@ jQuery(document).ready(function(){
 			  data: { // Additional data to send
 					action: 'pagelines_ajax_post_action',
 					type: 'upload',
-					data: clickedID },
+					data: clickedID 
+				},
 			  autoSubmit: true, // Submit file after selection
 			  responseType: false,
 			  onChange: function(file, extension){},
@@ -221,11 +222,11 @@ function setColorPicker(optionid, color){
 	jQuery('#'+optionid+'_picker').ColorPicker({
 		color: color,
 		onShow: function (colpkr) {
-			jQuery(colpkr).fadeIn(500);
+			jQuery(colpkr).fadeIn(400);
 			return false;
 		},
 		onHide: function (colpkr) {
-			jQuery(colpkr).fadeOut(500);
+			jQuery(colpkr).fadeOut(400);
 			return false;
 		},
 		onChange: function (hsb, hex, rgb) {

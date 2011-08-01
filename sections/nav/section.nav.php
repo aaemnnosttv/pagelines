@@ -1,8 +1,8 @@
 <?php
 /*
 	Section: Navigation
-	Author: Adam Munns
-	Author URI: http://adammunns.com/
+	Author: PageLines
+	Author URI: http://www.pagelines.com/
 	Description: Creates site navigation, with optional superfish dropdowns.
 	Version: 1.0.0
 	Class Name: PageLinesNav
@@ -46,6 +46,27 @@ class PageLinesNav extends PageLinesSection {
 		
 		register_nav_menus( array( 'primary' => __( 'Primary Website Navigation', 'pagelines' ) ) );
 		
+		add_filter('pagelines_css_group', array(&$this, 'section_selectors'), 10, 2);
+		
+	}
+	
+	function section_selectors($selectors, $group){
+
+		$s['nav_standard'] = '.main-nav li:hover, .main-nav .current-page-ancestor a,  .main-nav li.current-page-ancestor ul a, .main-nav li.current_page_item a, .main-nav li.current-menu-item a, .sf-menu li li, .sf-menu li li li';
+
+		$s['nav_standard_border'] = 'ul.sf-menu ul li';
+		
+		$s['nav_highlight'] = '.main-nav li a:hover, .main-nav .current-page-ancestor .current_page_item a, .main-nav li.current-page-ancestor ul a:hover';
+	
+		
+		if($group == 'box_color_primary')
+			$selectors .= ','.$s['nav_standard'];
+		elseif($group == 'box_color_secondary')	
+			$selectors .= ','.$s['nav_highlight'];
+		elseif( $group == 'border_primary' )
+			$selectors .= ','.$s['nav_standard_border'];
+		
+		return $selectors;
 	}
 	
    function section_template() {  
@@ -166,6 +187,3 @@ class PageLinesNav extends PageLinesSection {
 	}
 
 }
-/*
-	End of section class
-*/

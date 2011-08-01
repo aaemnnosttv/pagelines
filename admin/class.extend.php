@@ -17,7 +17,8 @@
  	function __construct() {
 
 		$this->exprint = 'onClick="extendIt(\'%s\', \'%s\', \'%s\', \'%s\', \'%s\')"';
-
+		$this->username = get_pagelines_option( 'lp_username' );
+		$this->password = get_pagelines_option( 'lp_password' );
 		// Hooked Actions
 		add_action('admin_head', array(&$this, 'extension_js'));
 		add_action('wp_ajax_pagelines_ajax_extend_it_callback', array(&$this, 'extend_it_callback'));
@@ -29,7 +30,7 @@
  			TODO make error checking better...
 			TODO Use plugin?
  		*/
- 		if ( !is_dir( WP_PLUGIN_DIR . '/pagelines-base/sections' ) || ( file_exists( WP_PLUGIN_DIR . '/pagelines-base/pagelines-base.php' ) && current( $this->plugin_check_status( WP_PLUGIN_DIR . '/pagelines-base/pagelines-base.php' ) ) == 'notactive' ) ){
+ 		if ( !is_dir( EXTEND_CHILD_DIR . '/sections' ) || ( file_exists( EXTEND_CHILD_DIR . '/pagelines-base.php' ) && current( $this->plugin_check_status( EXTEND_CHILD_DIR . '/pagelines-base.php' ) ) == 'notactive' ) ){
  		
 			$install_button = OptEngine::superlink('Install It Now!', 'blue', 'install_now sl-right', '', '');
 			return sprintf('<div class="install-control fix"><span class="banner-text">You need to install and activate PageLines Base Plugin</span> %s</div>', $install_button);
@@ -45,13 +46,13 @@
 
 		foreach( $sections as $key => $section ) {
 
-			$check_file = WP_PLUGIN_DIR . '/pagelines-base/sections/' . $section->name . '/' . str_replace( 'download.php?d=', '', str_replace( '.zip', '', basename( $section->url ) ) ) . '.php';
+			$check_file = EXTEND_CHILD_DIR . '/sections/' . $section->name . '/' . str_replace( 'download.php?d=', '', str_replace( '.zip', '', basename( $section->url ) ) ) . '.php';
 
 			if ( file_exists( $check_file ) )
 				continue;
 
 			$key = str_replace( '.', '', $key );
-			$install_js_call = sprintf( $this->exprint, 'section_install', $key, $section->name, $section->url, 'Installing');
+			$install_js_call = sprintf( $this->exprint, 'section_install', $key, $key, $section->url, 'Installing');
 
 			$button = OptEngine::superlink('Install Section', 'black', '', '', $install_js_call);
 				
@@ -63,6 +64,7 @@
 					'auth'		=> $section->author,
 					'image'		=> $section->image,
 					'buttons'	=> $button,
+					'type'		=> 'sections',
 					'key'		=> $key
 			);
 				
@@ -92,20 +94,26 @@
  			if ( !$type )
  				continue;
 
+			foreach( $type as $key => $section) {
+	
+				$type[$key]['status'] = ( isset( $disabled[$section['type']][$section['class']] ) ) ? 'disabled' : 'enabled';
+		
+			}
+
 			/*
 	 		 * Sort Alphabetically
 	 		 */
  			$type = pagelines_array_sort( $type, 'name' );
 
  			foreach( $type as $key => $section) { // main loop
-	
+
   				if ( $section['type'] == 'parent' && isset( $available['child'][$section['class']] ) )
  					continue;
 
 				$activate_js_call = sprintf($this->exprint, 'section_activate', $key, $section['type'], $section['class'], 'Activating');
 				$deactivate_js_call = sprintf($this->exprint, 'section_deactivate', $key, $section['type'], $section['class'], 'Deactivating');
 				
-				$button = ( !isset( $disabled[$section['type']][$section['class']] ) ) 
+				$button = ( $section['status'] == 'enabled' ) 
 							? OptEngine::superlink('Deactivate', 'grey', '', '', $deactivate_js_call) 
 							: OptEngine::superlink('Activate', 'blue', '', '', $activate_js_call);
 
@@ -124,7 +132,9 @@
 						'version'	=> !empty( $section['version'] ) ? $section['version'] : CORE_VERSION, 
 						'desc'		=> $section['description'],
 						'tags'		=> ( isset( $section['tags'] ) ) ? $section['tags'] : '',
-						'auth_url'	=> $section['authoruri'], 
+						'auth_url'	=> $section['authoruri'],
+						'type'		=> 'sections',
+						'image'		=> ( isset( $section['image'] ) ) ? $section['image'] : '',
 						'auth'		=> $section['author'],
 						'importance'=> $section['importance'],
 						'buttons'	=> $button, 
@@ -151,30 +161,50 @@
 			return $plugins;
 			
 		$output = '';
+
+		$plugins = json_decode(json_encode($plugins), true); // convert objets to arrays
 		
+		$plugins = pagelines_array_sort( $plugins, 'name', false, true ); // sort by name
+
+		// get status of each plugin
 		foreach( $plugins as $key => $plugin ) {
-		
-			$status = $this->plugin_check_status( WP_PLUGIN_DIR . $plugin->file );
-		
-			if ($tab != 'free' && !$status['status'] )
+			
+			$plugins[$key]['status'] = $this->plugin_check_status( WP_PLUGIN_DIR . $plugin['file'] );
+			$plugins[$key]['name'] = ( $plugins[$key]['status']['data']['Name'] ) ? $plugins[$key]['status']['data']['Name'] : $plugins[$key]['name'];
+		}
+
+		$plugins = pagelines_array_sort( $plugins, 'status', 'status' ); // sort by status
+
+		// reset array keys ( sort functions reset keys to int )
+		foreach( $plugins as $key => $plugin ) {
+			
+			unset( $plugins[$key] );
+			$key = rtrim( basename( $plugin['file'] ), '.php' );
+			$plugins[$key] = $plugin;
+		}
+	
+		foreach( $plugins as $key => $plugin ) {
+	
+			if ($tab != 'free' && !$plugin['status'] )
 				continue;
 
-			if ($tab == 'free' && ( $status['status'] == 'active' || $status['status'] == 'notactive' ) )
+			if ($tab == 'free' && ( $plugin['status']['status'] == 'active' || $plugin['status']['status'] == 'notactive' ) )
 				continue;
+			
+			$install_js_call = sprintf( $this->exprint, 'plugin_install', $key, $plugin['name'], $plugin['url'], 'Installing');
+			$activate_js_call = sprintf( $this->exprint, 'plugin_activate', $key, $plugin['name'], $plugin['file'], 'Activating');
+			$deactivate_js_call = sprintf( $this->exprint, 'plugin_deactivate', $key, $plugin['name'], $plugin['file'], 'Deactivating');
+			$upgrade_js_call = sprintf( $this->exprint, 'plugin_upgrade', $key, $plugin['name'], $plugin['url'], 'Upgrading');
+			$delete_js_call = sprintf( $this->exprint, 'plugin_delete', $key, $plugin['name'], $plugin['file'], 'Deleting');
 
-			$install_js_call = sprintf( $this->exprint, 'plugin_install', $key, $plugin->name, $plugin->url, 'Installing');
-			$activate_js_call = sprintf( $this->exprint, 'plugin_activate', $key, $plugin->name, $plugin->file, 'Activating');
-			$deactivate_js_call = sprintf( $this->exprint, 'plugin_deactivate', $key, $plugin->name, $plugin->file, 'Deactivating');
-			$upgrade_js_call = sprintf( $this->exprint, 'plugin_upgrade', $key, $plugin->name, $plugin->url, 'Upgrading');
-			$delete_js_call = sprintf( $this->exprint, 'plugin_delete', $key, $plugin->name, $plugin->file, 'Deleting');
+			if ( !isset( $plugin['status'] ) )
+				$plugin['status'] = array( 'status' => '' );
 
-			if ( !isset( $status['status'] ) )
-				$status = array( 'status' => '' );
+			if ( isset( $plugin['status']['version'] ) )
+				if ( $plugin['version'] > $plugin['status']['version'] )
+					$plugin['status']['status'] = 'upgrade';
 
-			if ( $status['status'] && $plugin->version > $status['data']['Version'])
-				$status['status'] = 'upgrade';
-
-			switch ( $status['status'] ) {
+			switch ( $plugin['status']['status'] ) {
 					
 				case 'active':
 					$button = OptEngine::superlink('Deactivate', 'grey', '', '', $deactivate_js_call);
@@ -186,7 +216,7 @@
 				break;
 					
 				case 'upgrade':
-					$button = OptEngine::superlink('Upgrade to ' . $plugin->version, 'black', '', '', $upgrade_js_call);
+					$button = OptEngine::superlink('Upgrade to ' . $plugin['version'], 'black', '', '', $upgrade_js_call);
 				break;
 
 				default:
@@ -197,15 +227,17 @@
 			}
 				
 			$args = array(
-					'name' 		=> $plugin->name, 
-					'version'	=> ( !empty( $status['status'] ) ) ? $status['data']['Version'] : $plugin->version, 
-					'desc'		=> $plugin->text,
-					'tags'		=> ( isset( $plugin->tags ) ) ? $plugin->tags : '',
-					'auth_url'	=> $plugin->author_url, 
-					'auth'		=> $plugin->author, 
+					'name' 		=> $plugin['name'], 
+					'version'	=> ( isset( $plugin['status']['data'] ) ) ? $plugin['status']['data']['Version'] : $plugin['version'], 
+					'desc'		=> $plugin['text'],
+					'tags'		=> ( isset( $plugin['tags'] ) ) ? $plugin['tags'] : '',
+					'auth_url'	=> $plugin['author_url'], 
+					'image'		=> ( isset( $plugin['image'] ) ) ? $plugin['image'] : '',
+					'auth'		=> $plugin['author'], 
 					'buttons'	=> $button,
 					'key'		=> $key,
-					'count'		=> $plugin->count
+					'type'		=> 'plugins',
+					'count'		=> $plugin['count']
 			);
 				
 			$output .= $this->pane_template($args);
@@ -231,7 +263,7 @@
 				if ( $data =  get_theme_data( WP_CONTENT_DIR . '/themes/' . strtolower( $theme->name ) . '/style.css' ) ) 
 					$status = 'installed';
 
-				if ($tab == 'free' && $status == 'installed' )
+				if ($tab == 'premium' && $status == 'installed' )
 					continue;
 					
 				if ( !$tab && !$status)
@@ -247,6 +279,9 @@
 				if ( isset($data) && $data['Version'] && $theme->version > $data['Version'])
 					$status = 'upgrade';
 
+				if ( !$status && !isset( $theme->purchased) )
+					$status = 'purchase';
+				
 				switch ( $status ) {
 					
 					case 'activated':
@@ -261,6 +296,12 @@
 						$button = OptEngine::superlink('Upgrade to ' . $theme->version, 'black', '', '', $upgrade_js_call);
 						break;
 
+					case 'purchase':
+						$button = OptEngine::superlink('Purchase Theme', 'black', '', '', '');
+						break;
+
+
+
 					default:
 						// were not installed, show the form! ( if we are on install tab )
 						$button = OptEngine::superlink('Install', 'black', '', '', $install_js_call);
@@ -270,7 +311,7 @@
 				
 				$args = array(
 						'name' 		=> $theme->name, 
-						'version'	=> ( !empty( $status ) ) ? $data['Version'] : $theme->version, 
+						'version'	=> ( !empty( $status ) && isset( $data['Version'] ) ) ? $data['Version'] : $theme->version, 
 						'desc'		=> $theme->text,
 						'tags'		=> ( isset( $theme->tags ) ) ? $theme->tags : '',
 						'auth_url'	=> $theme->author_url, 
@@ -316,12 +357,36 @@
 		
 		$count = ( $s['count'] ) ? sprintf('<br />Downloads: %s', $s['count']) : '';
 		
-		$screenshot = ( $s['image'] ) ? sprintf('<a class="screenshot-%s" href="http://api.pagelines.com/%s/img/%s.png" rel="http://api.pagelines.com/%s/img/%s.png"><img src="http://api.pagelines.com/%s/img/thumb-%s.png"></a>' ,$s['image'], $s['type'], $s['image'], $s['type'], $s['image'], $s['type'], $s['image']) : '';
-		$js =  ( $screenshot ) ? "<script type='text/javascript' />jQuery('a.screenshot-" . $s['image'] . "').imgPreview({imgCSS:{ }});</script>" : '';
+		$screenshot = ( $s['image'] ) ? sprintf('<div class="extend-screenshot"><a class="screenshot-%s" href="http://api.pagelines.com/%s/img/%s.png" rel="http://api.pagelines.com/%s/img/%s.png"><img src="http://api.pagelines.com/%s/img/thumb-%s.png"></a></div>' , str_replace( '.', '-', $s['image']), $s['type'], $s['image'], $s['type'], $s['image'], $s['type'], $s['image']) : '';
+
+		$js =  ( $screenshot ) ? "<script type='text/javascript' />jQuery('a.screenshot-" . str_replace( '.', '-', $s['image']) . "').imgPreview({
+		    containerID: 'imgPreviewWithStyles',
+		    imgCSS: {
+		        // Limit preview size:
+		        height: 200
+		    },
+		    // When container is shown:
+		    onShow: function(link){
+		        // Animate link:
+		        jQuery(link).stop().animate({opacity:0.4});
+		        // Reset image:
+		        jQuery('img', this).stop().css({opacity:0});
+		    },
+		    // When image has loaded:
+		    onLoad: function(){
+		        // Animate image
+		        jQuery(this).animate({opacity:1}, 300);
+		    },
+		    // When container hides: 
+		    onHide: function(link){
+		        // Animate link:
+		        jQuery(link).stop().animate({opacity:1});
+		    }
+		});</script>" : '';
 		
-		$title = sprintf('<div class="pane-head"><div class="pane-head-pad"><h3 class="pane-title">%s</h3><div class="pane-sub">%s</div></div></div>', $s['name'], 'Version ' . $s['version'] );
+		$title = sprintf('<div class="pane-head"><div class="pane-head-pad"><h3 class="pane-title">%s</h3><div class="pane-sub">%s</div>%s</div></div>', $s['name'], 'Version ' . $s['version'], $screenshot );
 		
-		$auth = sprintf('<div class="pane-dets">by <a href="%s">%s</a> %s%s%s</div>', $s['auth_url'], $s['auth'], $screenshot, $tags, $count);
+		$auth = sprintf('<div class="pane-dets">by <a href="%s">%s</a> %s%s</div>', $s['auth_url'], $s['auth'], $tags, $count);
 		
 		$body = sprintf('<div class="pane-desc"><div class="pane-desc-pad">%s %s</div></div>', $s['desc'], $auth);
 		
@@ -472,7 +537,7 @@
 
 				$upgrader = new Plugin_Upgrader();
 				$options = array( 'package' => $url, 
-						'destination'		=> WP_PLUGIN_DIR .'/pagelines-base/sections/' . $type, 
+						'destination'		=> EXTEND_CHILD_DIR .'/sections/' . $type, 
 						'clear_destination' => false,
 						'clear_working'		=> false,
 						'is_multi'			=> false,
@@ -489,7 +554,7 @@
 
 				$upgrader = new Plugin_Upgrader();
 				$options = array( 'package' => $url, 
-						'destination'		=> WP_PLUGIN_DIR .'/pagelines-base/sections/' . $type, 
+						'destination'		=> EXTEND_CHILD_DIR .'/sections/' . $type, 
 						'clear_destination' => true,
 						'clear_working'		=> false,
 						'is_multi'			=> false,
@@ -607,16 +672,26 @@
 	*/
 	function get_latest_cached( $type ) {
 		
-		$api = ( ! false == get_transient( 'pagelines_sections_api_' . $type ) )
-				? get_transient( 'pagelines_sections_api_' . $type )
-				: wp_remote_get( 'http://api.pagelines.com/' . $type . '/' );
+		$url = 'http://api.pagelines.com/' . $type . '/';
+		$options = array(
+			'body' => array(
+				'username'	=>	$this->username,
+				'password'	=>	$this->password
+			)
+		);
+		
+		$api = get_transient( 'pagelines_sections_api_' . $type );
+		if ( !$api ) {
+			$response = wp_remote_post( $url, $options );
+			$api = wp_remote_retrieve_body( $response );
+		}
 
 		if( is_wp_error( $api ) )
 			return '<h2>Unable to fetch from API</h2>';
 
 		set_transient( 'pagelines_sections_api_' . $type, $api, 300 );
 
-		return json_decode( $api['body'] );
+		return json_decode( $api );
 	}
 
  } // end PagelinesExtensions class
@@ -665,10 +740,10 @@ function extension_array(  ){
 					'title'		=> 'Installed PageLines Themes',
 					'callback'	=> $extension_control->extension_themes()
 					),
-				'free'		=> array(
-					'title'		=> 'Free Themes',
+				'premium'		=> array(
+					'title'		=> 'Premium Themes',
 					'class'		=> 'right',
-					'callback'	=> $extension_control->extension_themes( 'free' )
+					'callback'	=> $extension_control->extension_themes( 'premium' )
 					)
 					
 				)

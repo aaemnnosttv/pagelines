@@ -22,6 +22,7 @@ class PageLinesOptionsUI {
 				'title'			=> ( STYLESHEETPATH == TEMPLATEPATH ) ? 'Settings' : ucfirst( CHILDTHEMENAME ) . ' - Settings',
 				'callback'		=> null,
 				'settings'		=> PAGELINES_SETTINGS, 
+				'sanitize'		=> '',
 				'show_save'		=> true,
 				'show_reset'	=> true, 
 				'title_size'	=> 'normal'
@@ -42,6 +43,7 @@ class PageLinesOptionsUI {
 		$this->build_footer();	
 		
 	}
+
 		
 		/**
 		 * Option Interface Header
@@ -69,7 +71,7 @@ class PageLinesOptionsUI {
 							<div class="ohead" class="fix">
 								<div class="ohead-pad fix">
 									<div class="sl-black superlink-wrap">
-										<a class="superlink" href="#">
+										<a class="superlink" href="<?php echo home_url(); ?>/" target="_blank" title="View Site &rarr;">
 											<span class="superlink-pagelines">&nbsp;</span>
 										</a>
 									</div>
@@ -127,19 +129,17 @@ class PageLinesOptionsUI {
 
 				<?php if($this->set['show_reset']):?>
 				<div class="optionrestore">
-						<h4><?php _e('Restore Settings', 'pagelines'); ?></h4>
-						<p>
-							<div class="context">
-								<?php echo OptEngine::superlink('Restore To Default', 'grey', 'reset-options', 'submit', 'onClick="return ConfirmRestore();"', get_pagelines_option_name('reset'));?>
-								Use this button to restore these settings to default. (Note: Restore template and layout information in their individual tabs.)</div>
-							<?php pl_action_confirm('ConfirmRestore', 'Are you sure? This will restore your settings information to default.');?>
-						</p>
+					<h4><?php _e('Restore Settings', 'pagelines'); ?></h4>
+					<p>
+						<div class="context">
+							<?php echo OptEngine::superlink('Restore To Default', 'grey', 'reset-options', 'submit', 'onClick="return ConfirmRestore();"', plname('reset', array('setting' => $this->set['settings'])));?>
+							Use this button to restore these settings to default. (Note: Restore template and layout information in their individual tabs.)</div>
+						<?php pl_action_confirm('ConfirmRestore', 'Are you sure? This will restore these settings to default.');?>
+					</p>
 
 				</div>
 				<?php endif;?>
-
-				 
-			  	</form><!-- close entire form -->
+				</form><!-- close entire form -->
 
 				<?php  if($this->primary_settings) $this->get_import_export(); ?>
 				

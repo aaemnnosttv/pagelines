@@ -1,7 +1,7 @@
 <?php
 /*
 	Section: Morefoot Sidebars
-	Author: Andrew Powers
+	Author: PageLines
 	Author URI: http://www.pagelines.com
 	Description: Three widgetized sidebars above footer
 	Class Name: PageLinesMorefoot

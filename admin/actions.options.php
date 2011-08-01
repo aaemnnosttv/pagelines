@@ -21,6 +21,8 @@ function pagelines_add_admin_menu() {
 add_action('admin_menu', 'pagelines_add_admin_submenus');
 function pagelines_add_admin_submenus() {
 	global $_pagelines_options_page_hook;
+	global $_pagelines_ext_hook;
+	global $_pagelines_special_hook;
 	
 	// WP themes rep. wants it under the appearance tab.	
 	if( !VPRO )
@@ -28,14 +30,18 @@ function pagelines_add_admin_submenus() {
 	else {
 		$_pagelines_options_page_hook = add_submenu_page('pagelines', 'Settings', 'Settings', 'edit_theme_options', 'pagelines','pagelines_build_option_interface'); // Default
 		$_pagelines_ext_hook = add_submenu_page('pagelines', 'Extension', 'Extension', 'edit_theme_options', 'pagelines_extend','pagelines_build_extension_interface');
-		$_pagelines_posts_hook = add_submenu_page('pagelines', 'Special', 'Special', 'edit_theme_options', 'pagelines_special','pagelines_build_special');
+		$_pagelines_special_hook = add_submenu_page('pagelines', 'Special', 'Special', 'edit_theme_options', 'pagelines_special','pagelines_build_special');
 	}
 }
 
 // Build option interface
 function pagelines_build_option_interface(){ 
 	pagelines_register_hook('pagelines_before_optionUI');
-	$optionUI = new PageLinesOptionsUI;
+	
+	$args = array(
+		'sanitize' 		=> 'pagelines_settings_callback',
+	);
+	$optionUI = new PageLinesOptionsUI( $args );
 }
 
 /**
@@ -46,7 +52,7 @@ function pagelines_build_extension_interface(){
 	
 	$args = array(
 		'title'			=> 'PageLines Extension', 
-		'settings' 		=> 'pagelines-extension',
+		'settings' 		=> PAGELINES_EXTENSION,
 		'callback'		=> 'extension_array',
 		'show_save'		=> false, 
 		'show_reset'	=> false, 
@@ -62,7 +68,7 @@ function pagelines_build_special(){
 	
 	$args = array(
 		'title'			=> 'Special Page Meta', 
-		'settings' 		=> 'pagelines-special',
+		'settings' 		=> PAGELINES_SPECIAL,
 		'callback'		=> 'special_page_settings_array',
 	);
 	$optionUI = new PageLinesOptionsUI($args);
@@ -78,8 +84,9 @@ add_action('admin_menu', 'pagelines_theme_settings_init');
 function pagelines_theme_settings_init() {
 	global $_pagelines_options_page_hook;
 	global $_pagelines_ext_hook;
-	global $_pagelines_posts_hook;
+	global $_pagelines_special_hook;
 	
+	plprint($_pagelines_ext_hook);
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'jquery-ajaxupload', PL_ADMIN_JS . '/jquery.ajaxupload.js');
 	wp_enqueue_script( 'jquery-cookie', PL_ADMIN_JS . '/jquery.ckie.js'); 
@@ -91,6 +98,8 @@ function pagelines_theme_settings_init() {
 	// Call only on PL pages
 	add_action('load-'.$_pagelines_options_page_hook, 'pagelines_theme_settings_scripts');
 	add_action('load-'.$_pagelines_ext_hook, 'pagelines_theme_settings_scripts');
+	add_action('load-'.$_pagelines_special_hook, 'pagelines_theme_settings_scripts');
+	
 	wp_enqueue_script( 'script-pagelines-common', PL_ADMIN_JS . '/script.common.js');
 	
 	// PageLines CSS objects
@@ -99,7 +108,7 @@ function pagelines_theme_settings_init() {
 
 
 function pagelines_theme_settings_scripts() {	
-	
+
 	wp_enqueue_script( 'script-pagelines-settings', PL_ADMIN_JS . '/script.settings.js');
 	wp_enqueue_script( 'jquery-ui-effects',PL_ADMIN_JS . '/jquery.effects.js', array('jquery')); // just has highlight effect
 	wp_enqueue_script( 'jquery-ui-draggable' );	
@@ -137,6 +146,7 @@ function pagelines_register_settings() {
 	
 	
 	register_setting( PAGELINES_SETTINGS, PAGELINES_SETTINGS, 'pagelines_settings_callback' );
+	register_setting( PAGELINES_SPECIAL, PAGELINES_SPECIAL );
 	
 	 /*
 	 	Set default settings
@@ -157,12 +167,9 @@ function pagelines_register_settings() {
 		
 	pagelines_process_reset_options();
 	
-	
 	/*
-		Regenerate Dynamic CSS ?
+		TODO Simon, what's going on here?
 	*/
-	$new_version_regen = ( !get_option("pl_dynamic_version") || get_option("pl_dynamic_version") != CORE_VERSION ) ? true : false;
-
 	if ( isset($_GET['activated']) || isset($_GET['updated']) || isset($_GET['reset']) || isset($_GET['settings-updated']) || $new_version_regen ) {
 	
 		if ( get_pagelines_option('lp_username') && get_pagelines_option('lp_password') ) {
@@ -173,10 +180,9 @@ function pagelines_register_settings() {
 					delete_transient('pagelines-update-' . CHILDTHEMENAME );
 			}
 		}
-		if($new_version_regen) update_option("pl_dynamic_version", CORE_VERSION);
 	}
 	
-	if ( pagelines_option('reset') ) {
+	if ( ploption('reset') ) {
 		update_option(PAGELINES_SETTINGS, pagelines_settings_defaults());
 
 		wp_redirect( admin_url( 'admin.php?page=pagelines&reset=true' ) );

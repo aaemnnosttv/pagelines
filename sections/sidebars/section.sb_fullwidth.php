@@ -1,7 +1,7 @@
 <?php
 /*
 	Section: Full Width Sidebar
-	Author: Andrew Powers
+	Author: PageLines
 	Author URI: http://www.pagelines.com
 	Description: Shows full width widgetized sidebar
 	Class Name: FullWidthSidebar
@@ -41,7 +41,3 @@ class FullWidthSidebar extends PageLinesSection {
 	}
 
 }
-
-/*
-	End of section class
-*/

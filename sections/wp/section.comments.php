@@ -1,7 +1,7 @@
 <?php
 /*
 	Section: Comments
-	Author: Andrew Powers
+	Author: PageLines
 	Author URI: http://www.pagelines.com
 	Description: Adds comments to main on pages/single posts
 	Class Name: PageLinesComments

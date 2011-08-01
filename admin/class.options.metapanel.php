@@ -48,11 +48,11 @@ class PageLinesMetaPanel {
 	
 			$this->settings = wp_parse_args($settings, $defaults); // settings for post type
 	
-			$this->register_actions();
+		
+				$this->register_actions();
 	
 			$this->hide_tabs = $this->settings['hide_tabs'];
 			
-
 	}
 	
 	
@@ -131,7 +131,7 @@ class PageLinesMetaPanel {
 
 			$slug = $this->get_edit_type();
 
-			$name .= sprintf(' <small style="font-style:italic">(%s)</small>', $slug);
+			$name .= sprintf(' <small class="btag">%s</small>', $slug);
 			
 			return $name;
 	}
@@ -286,7 +286,7 @@ class PageLinesMetaPanel {
 	function posts_metapanel( $type ){
 		
 		
-		$option_engine = new OptEngine( 'meta' );
+		$option_engine = new OptEngine( PAGELINES_SPECIAL );
 		
 		$handle = 'postsTabs'.$type;
 		
@@ -297,21 +297,14 @@ class PageLinesMetaPanel {
 	 	$special_template = new PageLinesTemplate( $type );	
 		
 		$special_template->load_section_optionator();
-		
-	
-		
+
 		ob_start();
 		?>
 	<script type="text/javascript"> 
-		jQuery(document).ready(function() {	
-			var <?php echo $handle;?> = jQuery("#<?php echo $handle;?>").tabs({ 
-				fx: { opacity: "toggle", duration: "fast" }
-			}); 
-		});
+		jQuery(document).ready(function() { <?php printf('var %1$s = jQuery("#%1$s").tabs({fx: { opacity: "toggle", duration: "fast" }})', $handle); ?> });
 	</script>
 	
 		<div id="<?php echo $handle;?>" class="plist-nav fix">
-			
 			<ul class="fix plist">
 				<lh class="hlist-header">Select Settings Panel</lh>
 				<?php foreach($this->tabs as $tab => $t):?>
@@ -324,24 +317,18 @@ class PageLinesMetaPanel {
 											printf('<span class="tab_inactive">inactive</span>');
 											
 										echo $t->name;
-										
-										
-						
-									 ?>
+										 ?>
 								</span>
 							</span>
 						</a>
 					</li>
 				<?php endforeach;?>
 			</ul>
-		
 
 			<?php foreach($this->tabs as $tab => $t):?>
-		
 				<div id="<?php echo $tab;?>" class="posts_tab_content">
 					<div class="posts_tab_content_pad">
 						<div class="metatab_title" style="background: url(<?php echo $t->icon; ?>) no-repeat 10px 13px;" >
-							
 							<?php 
 					
 								echo $t->name;
@@ -350,11 +337,12 @@ class PageLinesMetaPanel {
 									echo OptEngine::superlink('Inactive On Template', 'black', 'right', admin_url('admin.php?page=pagelines&selectedtab=2'));
 							 ?>
 						</div>
-				
 						<?php 
-						foreach($t->options as $oid => $o)
+						foreach($t->options as $oid => $o){
+							$o['special'] = $type;
 							if($oid != 'section_control')
 								$option_engine->option_engine($oid, $o);
+						}
 						?>
 					</div>
 				</div>
@@ -413,22 +401,30 @@ class PageLinesMetaPanel {
 	function save_meta_options( $postID ){
 	
 		// Make sure we are saving on the correct post type...
-	
+		
+		
 		// Current post type is passed in $_POST
 		$current_post_type = ( isset( $_POST['post_type'] ) ) ? $_POST['post_type'] : false;
-		$post_type_save = ( is_array( $this->settings['posttype'] ) ) ? true : false;
+		$post_type_save = ( in_array( $current_post_type, $this->settings['posttype'] ) ) ? true : false;
 		
 		if((isset($_POST['update']) || isset($_POST['save']) || isset($_POST['publish'])) && $post_type_save){
-
+			
+			$page_template = (isset($_POST['page_template'])) ? $_POST['page_template'] : null;
+			$save_template = $this->get_save_template_type($_POST['post_type'], $page_template);
+			$template_type = new PageLinesTemplate($save_template);
+			$template_type->load_section_optionator();
+			
+			
 			// Loop through tabs
 			foreach($this->tabs as $tab => $t){
 				// Loop through tab options
 				foreach($t->options as $oid => $o){
-				
-					if($oid == 'section_control'){
-						$this->save_sc( $postID );
-					} else {
 						
+					if($oid == 'section_control')
+						$this->save_sc( $postID );
+					else {
+						
+					
 						// Note: If the value is null, then test to see if the option is already set to something
 						// create and overwrite the option to null in that case (i.e. it is being set to empty)
 						$option_value =  isset($_POST[$oid]) ? $_POST[$oid] : null;
@@ -442,6 +438,20 @@ class PageLinesMetaPanel {
 		}
 	}
 	
+	function get_save_template_type( $post_type = null, $template = 'default'){
+		
+		if( $post_type == 'post' ){
+			return 'single';
+		} elseif( $post_type == 'page' ){
+			$page_filename = str_replace('.php', '', $template);
+			$template_name = str_replace('page.', '', $page_filename);
+			return $template_name;
+		} elseif( isset($post_type) )
+			return $post_type;
+		else 
+			return 'default';
+		
+	}
 	
 	function save_sc( $postID ){
 		global $pagelines_template;
@@ -454,9 +464,9 @@ class PageLinesMetaPanel {
 		foreach( $save_template->map as $hook => $h ){
 
 			if(isset($h['sections'])){
-				foreach($h['sections'] as $key => $section_slug){
+				foreach($h['sections'] as $key => $section_slug)
 					$this->save_section_control($postID,  $section_slug, $hook );					
-				}
+				
 			} elseif (isset($h['templates'])){
 				foreach($h['templates'] as $template => $t){
 					foreach($t['sections'] as $key => $section_slug){
@@ -471,17 +481,14 @@ class PageLinesMetaPanel {
 	
 	}
 	
-	function save_section_control($postID,  $section_slug, $template_slug ){
+	function save_section_control($postID,  $sid, $template_slug ){
 		
-		$pieces = explode("ID", $section_slug);		
-		$section = (string) $pieces[0];
-		$clone_id = (isset($pieces[1])) ? $pieces[1] : 1;
 		
-		$check_name_hide = PageLinesTemplateBuilder::sc_option_name( array('hide', $template_slug, $section, $clone_id) );
+		$check_name_hide = meta_option_name( array('hide', $template_slug, $sid) );
 
 		$this->save_meta($postID, $check_name_hide);
 		
-		$check_name_show = PageLinesTemplateBuilder::sc_option_name( array('show', $template_slug, $section, $clone_id) );
+		$check_name_show = meta_option_name( array('show', $template_slug, $sid) );
 	
 		$this->save_meta($postID, $check_name_show);
 		

@@ -68,10 +68,15 @@ require_once( PL_INCLUDES . '/library.shortcodes.php');
  */
 require_once( PL_INCLUDES . '/config.options.php' );
 
+/**
+ * Dynamic CSS Selectors
+ */
+require_once( PL_INCLUDES . '/config.selectors.php' );
+
 
 /* Options Singleton */
 $GLOBALS['global_pagelines_settings'] = get_option(PAGELINES_SETTINGS);	
-
+$GLOBALS['pagelines_special_meta'] = get_option(PAGELINES_SPECIAL);	
 
 
 /**
@@ -90,7 +95,7 @@ require_once( PL_INCLUDES . '/class.posts.php' );
  * @global object $pagelines_layout
  */
 require_once( PL_INCLUDES . '/class.layout.php' ); 
-$GLOBALS['pagelines_layout'] = new PageLinesLayout();
+
 	
 /**
  * Load sections handling class
@@ -173,9 +178,17 @@ require_once( PL_INCLUDES . '/class.css.php' );
  * PageLines Section Factory Object (Singleton)
  * Note: Must load before the config template file
  * @global object $pl_section_factory
- * @since 4.0.0
+ * @since 1.0.0
  */
 $GLOBALS['pl_section_factory'] = new PageLinesSectionFactory();
+
+/**
+ * Dynamic CSS Factory
+ * @global object $css_factory
+ * @since 2.0.b6
+ */
+$GLOBALS['css_factory'] = array();
+
 /**
  * Add Extension Handlers
  */
@@ -207,10 +220,6 @@ add_theme_support( 'automatic-feed-links' );
  */
 add_editor_style( 'admin/css/editor-style.css' );
 
-// Sets Content Width for Large images when adding media
-// Re: if ( ! isset( $content_width ) ) $content_width = 640;
-pagelines_current_page_content_width(); 
-
 /**
  * Setup Framework Versions
  */
@@ -233,6 +242,11 @@ if ( get_pagelines_option( 'enable_debug' ) ) {
  * Load updater class
  */
 require_once (PL_ADMIN.'/class.updates.php');
+
+/**
+ * Load inline help
+ */
+require_once (PL_ADMIN . '/library.help.php' );
 
 /**
  * Load plugin installer class

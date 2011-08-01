@@ -1,8 +1,8 @@
 <?php
 /*
-	Section: News Banner
-	Author: Adam Munns
-	Author URI: http://addammunns.com
+	Section: Callout
+	Author: PageLines
+	Author URI: http://www.pagelines.com
 	Description: Shows a callout banner with optional graphic call to action
 	Version: 1.0.0
 	Class Name: PageLinesCallout
@@ -30,7 +30,13 @@ class PageLinesCallout extends PageLinesSection {
    }
 
 		
- 	function section_template() { ?>
+ 	function section_template() {
+	
+		global $pagelines_ID;
+		
+		
+		
+	 ?>
 	<div id="callout-area">
 		<div class="callout_text">
 			<div class="callout_text-pad">

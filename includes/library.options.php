@@ -1,6 +1,186 @@
 <?php
 
 /**
+ * Uses controls to find and retrieve the appropriate option value
+ * 
+ * @param 'key' the id of the option
+ * 
+ **/
+function ploption( $key, $args = array() ){
+
+	$d = array(
+		'subkey'	=> null, 
+		'post_id'	=> null, 
+		'setting'	=> null, 
+		'clone_id'	=> null,
+	);
+	
+	$o = wp_parse_args($args, $d);
+	
+	if(is_pagelines_special() && plspecial($key, $args))
+		return plspecial($key, $args);
+	
+	elseif(isset($o['post_id']) && plmeta( $key, $args ))
+		return plmeta( $key, $args );
+		
+	elseif( get_ploption($key, $args) )
+		return get_ploption( $key, $args );
+		
+	else
+		return false;
+}
+
+function plupop($key, $val, $oset = array()){
+	
+	$d = array(
+		'parent'	=> null,
+		'subkey'	=> null, 
+		'setting'	=> PAGELINES_SETTINGS,
+	);
+	
+	$o = wp_parse_args($oset, $d);
+	
+	$the_set = get_option($d['setting']);
+
+	$new = array( $key => $val );
+
+	if( isset($d['parent']) && isset($the_set[$d['parent']]) && is_array($the_set[$d['parent']])){
+		$settings = wp_parse_args($new, $the_set[$d['parent']]);
+	} else		
+		$settings = wp_parse_args($new, $the_set);
+	
+	update_option( $d['setting'], $settings );
+	
+}
+
+/**
+ * Locates a meta option if it exists
+ * 
+ * @param string $key the key of the option
+ */
+function plmeta( $key, $args ){
+	
+	$d = array(
+		'subkey'	=> null, 
+		'post_id'	=> null, 
+		'setting'	=> null, 
+		'clone_id'	=> null,
+	);
+	
+	$o = wp_parse_args($args, $d);
+		
+	if( isset($args['clone_id']) && $args['clone_id'] != 1 )
+		$key = $key.'_'.$args['clone_id'];	
+
+	if( isset($o['post_id']) )
+		return get_post_meta($o['post_id'], $key, true);
+	
+	else
+		return false;
+	
+}
+
+function plspecial($key, $args){
+
+	global $pagelines_special_meta;
+	
+	$type = PageLinesTemplate::page_type_breaker();
+	
+	if( isset($args['clone_id']) && $args['clone_id'] != 1 )
+		$key = $key.'_'.$args['clone_id'];
+	
+	if(isset($pagelines_special_meta[$type][$key]))
+		return $pagelines_special_meta[$type][$key];
+	else 
+		return false;
+}
+
+function get_ploption( $key, $args = array() ){
+	
+	$d = array(
+		'subkey'	=> null, 
+		'post_id'	=> null, 
+		'setting'	=> null, 
+		'clone_id'	=> null,
+		'special'	=> null
+	);
+	
+	$o = wp_parse_args($args, $d);
+	
+	// get setting
+	$setting = ( isset($o['setting']) ) ? $o['setting'] : PAGELINES_SETTINGS;
+
+	if(!isset($setting) || $setting == PAGELINES_SETTINGS){
+		
+		global $global_pagelines_settings;
+		
+		if( isset($global_pagelines_settings[$key]) )
+			return $global_pagelines_settings[$key];
+	
+		else
+			return false;
+		
+	} elseif ( isset($setting) ){
+		
+		$setting_options = get_option($setting);
+		
+		if( isset($o['subkey']) ){
+			
+			if(isset($setting_options[$key]) && is_array($setting_options[$key]) && isset($setting_options[$key][$o['subkey']]))
+				return $setting_options[$key][$o['subkey']];
+			else
+				return false;
+			
+		}elseif( isset($setting_options[$key]) )
+			return $setting_options[$key];
+	
+		else
+			return false;
+		
+	} else 
+		return false;
+	
+}
+
+function plname($key, $a = array()){
+	
+	$set = (!isset($a['setting']) || $a['setting'] == PAGELINES_SETTINGS) ? PAGELINES_SETTINGS : $a['setting'];
+	
+	$subkey = (isset($a['subkey'])) ? $a['subkey'] : false;
+	
+	$grandkey = (isset($a['subkey']) && is_array($a['subkey']) && isset($a['subkey']['grandkey'])) ? $a['subkey']['grandkey'] : false;
+	
+	if( $grandkey )
+		$output = $set . '['.$key.']['.$subkey.']['.$grandkey.']';	
+	elseif( $subkey )
+		$output = $set . '['.$key.']['.$subkey.']';
+	else 
+		$output = $set .'['.$key.']';
+		
+	return $output;
+	
+}
+
+function plid($key, $a){
+	
+	$set = (!isset($a['setting']) || $a['setting'] == PAGELINES_SETTINGS) ? PAGELINES_SETTINGS : $a['setting'];
+
+	$subkey = (isset($a['subkey'])) ? $a['subkey'] : false;
+	
+	$grandkey = (is_array($a['subkey']) && isset($a['subkey']['grandkey'])) ? $a['subkey']['grandkey'] : false;
+
+
+	if( $grandkey )
+		$output = array($set, $key, $subkey, $grandkey);
+	elseif( $subkey )
+		$output = array($set, $key, $subkey);
+	else 
+		$output = array($set, $key);
+		
+	return join('_', $output);
+}
+
+/**
  * Sets up option name for saving of option settings
  *
  **/
@@ -20,6 +200,14 @@ function get_pagelines_option_name( $oid, $sub_oid = null, $grand_oid = null, $s
 		$name = $set .'['.$oid.']';
 		
 	return $name;
+}
+
+function meta_option_name( $array, $hidden = true ){
+	
+	$prefix = ($hidden) ? '_' : '';
+	
+	return $prefix.join('_', $array);
+	
 }
 
 function pagelines_option_id( $oid, $sub_oid = null, $grand_oid = null, $namespace = 'pagelines'){
@@ -51,7 +239,8 @@ function pagelines_settings_callback( $input ) {
 
 	// We run through the $input array, if it is not in the whitelist we run it through the wp filters.
 	foreach ($input as $name => $value){
-		if ( !is_array( $value ) && !in_array( $name, apply_filters( 'pagelines_settings_whitelist', $whitelist ) ) ) $input[$name] = wp_filter_nohtml_kses( $value );
+		if ( !is_array( $value ) && !in_array( $name, apply_filters( 'pagelines_settings_whitelist', $whitelist ) ) ) 
+			$input[$name] = wp_filter_nohtml_kses( $value );
 	}
 	// Return our safe $input array.
 	return $input;
@@ -63,9 +252,6 @@ function pagelines_settings_callback( $input ) {
  *
  **/
 function get_pagelines_option($key, $setting = null) {
-
-
-
 	// get setting
 	$setting = $setting ? $setting : PAGELINES_SETTINGS;
 
@@ -73,16 +259,16 @@ function get_pagelines_option($key, $setting = null) {
 		
 		global $global_pagelines_settings;
 		
-		if(isset($global_pagelines_settings[$key]))
+		if( isset($global_pagelines_settings[$key]) )
 			return $global_pagelines_settings[$key];
+	
 		else
 			return false;
 		
 	}
-
-	
-
 }
+
+
 
 function pagelines_option( $key, $post_id = null, $setting = null){
 	
@@ -160,9 +346,6 @@ function pagelines_update_option($optionid, $optionval){
 		update_option(PAGELINES_SETTINGS, $settings);
 }
 
-function plmeta( $key, $pid ){
-	
-}
 
 function get_pagelines_meta($option, $post){
 	$meta = get_post_meta($post, $option, true);
@@ -276,19 +459,20 @@ function pagelines_settings_defaults() {
 
 
 
-function pagelines_process_reset_options() {
+function pagelines_process_reset_options( $option_array = null ) {
 
+	$option_array = (isset($option_array)) ? $option_array : get_option_array();
 
-	foreach(get_option_array() as $menuitem => $options ){
-		foreach($options as $optionid => $o ){
-			if( $o['type']=='reset' && pagelines_option($optionid) ){
+	foreach($option_array as $menuitem => $options ){
+		foreach($options as $oid => $o ){
+			if( $o['type']=='reset' && pagelines_option($oid) ){
 
 					call_user_func($o['callback']);
 				
 					// Set the 'reset' option back to not set !important 
-					pagelines_update_option($optionid, null);
+					pagelines_update_option($oid, null);
 				
-					wp_redirect( admin_url( 'admin.php?page=pagelines&reset=true&opt_id='.$optionid ) );
+					wp_redirect( admin_url( 'admin.php?page=pagelines&reset=true&opt_id='.$oid ) );
 					exit;
 
 			}

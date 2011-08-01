@@ -13,11 +13,13 @@
  */
 class OptEngine {
 
-	function __construct( $settings_field = '' ) {
+	function __construct( $settings_field = null ) {
 		
 		$this->settings_field = $settings_field;
 		
 		$this->defaults = array(
+			'post_id'				=> '', 
+			'setting'				=> '',
 			'default' 				=> '',
 			'default_free'		 	=> null,
 			'inputlabel' 			=> '',
@@ -46,7 +48,9 @@ class OptEngine {
 			'height'				=> '0px',
 			'width'					=> '0px',
 			'sprite'				=> '',
-			'showname'				=> false
+			'showname'				=> false, 
+			'special'				=> '',
+			'flag'					=> ''
 		);
 		
 	}
@@ -59,27 +63,56 @@ class OptEngine {
 
 		$o = wp_parse_args( $o, $this->defaults );
 
-		$o['setting'] = (isset($setting)) ? $setting : PAGELINES_SETTINGS;
+		$setting = (isset($this->settings_field)) ? $this->settings_field : PAGELINES_SETTINGS;
 		$o['pid'] = $pid;
+		
+		$oset = array('post_id' => $pid, 'setting' => $setting);
 		
 		if($this->settings_field == 'meta'){
 			
-			$o['val'] = m_pagelines($oid, $pid);
+			$o['val'] = plmeta($oid, $oset);
 			$o['input_name'] = $oid;
 			$o['input_id'] = get_pagelines_option_id( $oid );
 			
-		} else {
-			$o['val'] = pagelines_option( $oid, $pid, $setting );
+			if(!empty($o['selectvalues'])){
+				foreach($o['selectvalues'] as $sid => $s){
+
+					$o['selectvalues'][$sid]['val'] = plmeta($sid, $oset);
+					$o['selectvalues'][$sid]['input_id'] = get_pagelines_option_id( $sid );
+					$o['selectvalues'][$sid]['input_name'] = $sid;
+
+				}
+			}
+			
+		} elseif($this->settings_field == PAGELINES_SPECIAL){
+			
+			$oset['subkey'] = $oid;
+			
+			$o['val'] = ploption($o['special'], $oset);
+			$o['input_name'] = plname($o['special'], $oset);
+			$o['input_id'] = plid( $o['special'], $oset);
+			
+			if(!empty($o['selectvalues'])){
+				foreach($o['selectvalues'] as $sid => $s){
+					$oset['subkey'] = $sid;
+					$o['selectvalues'][$sid]['val'] = ploption( $o['special'], $oset);
+					$o['selectvalues'][$sid]['input_id'] = plid( $o['special'], $oset);
+					$o['selectvalues'][$sid]['input_name'] = plname( $o['special'], $oset);
+
+				}
+			}
+			
+		}
+		 else {
+			$o['val'] = ploption( $oid, $oset );
 			$o['input_name'] = get_pagelines_option_name( $oid, null, null, $setting );
 			$o['input_id'] = get_pagelines_option_id( $oid, null, null, $setting );		
 
 			if(!empty($o['selectvalues'])){
 				foreach($o['selectvalues'] as $sid => $s){
-
-					$o['selectvalues'][$sid]['val'] = pagelines_option( $sid, $pid, $setting );
+					$o['selectvalues'][$sid]['val'] = ploption( $sid, $oset );
 					$o['selectvalues'][$sid]['input_id'] = get_pagelines_option_id( $sid );
 					$o['selectvalues'][$sid]['input_name'] = get_pagelines_option_name($sid, null, null, $setting);
-
 				}
 			}
 		}
@@ -244,7 +277,6 @@ class OptEngine {
 			case 'reset' :
 				$this->_get_reset_option($oid, $o, $val);
 				break;
-				
 			case 'email_capture' :
 				$this->_get_email_capture($oid, $o, $val);
 				break;
@@ -278,7 +310,7 @@ class OptEngine {
 		$menus = wp_get_nav_menus( array('orderby' => 'name') );
 		$opts = '';
 		foreach ( $menus as $menu )
-			$opts = $this->input_option($menu->term_id, selected($menu->term_id, $o['val']), esc_html( $menu->name ) );
+			$opts = $this->input_option($menu->term_id, selected($menu->term_id, $o['val'], false), esc_html( $menu->name ) );
 		
 		if($opts != '')
 			echo $this->input_select($o['input_id'], $o['input_name'], $opts);
@@ -355,7 +387,8 @@ class OptEngine {
 	 * @author Andrew Powers
 	 * 
 	 **/
-	function _get_text_multi($oid, $o, $val){ 
+	function _get_text_multi($oid, $o){ 
+		
 		foreach($o['selectvalues'] as $mid => $m){
 			
 			$attr = ( strpos( $mid, 'password' ) ) ? 'password' : 'text';
@@ -698,28 +731,40 @@ class OptEngine {
 
 	function _get_color_multi($oid, $o){ 	
 
+		$num_options = count($o['selectvalues']);
+		
+		if($num_options == 4 || ($num_options % 4 == 0) )
+			$per_row = 4;
+		else 
+			$per_row = 3;
+		
 		foreach($o['selectvalues'] as $mid => $m){
 
+			$last = (end($o['selectvalues']) == $m) ? true : false;
+				
 			if( !isset($m['version']) || (isset($m['version']) && $m['version'] != 'pro') || (isset($m['version']) && $m['version'] == 'pro' && VPRO ))
-				$this->_get_color_picker($mid, $m);
+				$this->_get_color_picker($mid, $m, $per_row, $last);
 
 		}
 
 	}
 
 
-	function _get_color_picker($oid, $o){ // Color Picker Template 
-		?>
-
-		<div class="the_picker">
-			<?php echo $this->input_label($oid, $o['inputlabel']); ?>
-			<div id="<?php echo $oid;?>_picker" class="colorSelector">
-				<div></div>
-			</div>
-			<?php echo $this->input_text($oid, get_pagelines_option_name($oid), get_pagelines_option($oid), 'colorpickerclass'); ?>
-			
-		</div>
-	<?php  }
+	function _get_color_picker($oid, $o, $per_row = 3, $last = false){ // Color Picker Template 
+		
+		
+ 		$gen = do_color_math($oid, $o, $o['val'], 'palette');
+		
+		$picker = sprintf('<div id="%s" class="colorSelector"><div></div></div> %s', $oid.'_picker', $this->input_text($oid, $o['input_name'], $o['val'], 'colorpickerclass'));
+		
+		
+		$pick_contain = sprintf('<div class="pick_contain">%s</div>', $picker);
+		
+	
+		printf('<div class="the_picker picker_row_%s %s"><div class="picker_panel"><div class="the_picker_pad">%s %s</div></div></div>', $per_row, ($last) ? 'p_end' : '', $this->input_label($oid, $o['inputlabel']), $pick_contain);
+		
+		
+  	}
 	
 	
 	function _get_background_image_control($oid, $o){
@@ -829,98 +874,6 @@ class OptEngine {
 	}
 	
 	
-	/**
-	 *  CSS Rendering In <head>
-	 */
-	function render_css(){
-		$css = '';
-		
-		foreach (get_option_array() as $menu){
-
-			foreach($menu as $oid => $o){ 
-				
-				if($o['type'] == 'css_option' && pagelines_option($oid)){
-					
-					if(pagelines_option($oid) == $o['default']){
-						// do nothing
-					} elseif(isset($o['css_prop']) && isset($o['selectors'])){
-						
-						$css_units = (isset($o['css_units'])) ? $o['css_units'] : '';
-						
-						$css .= $o['selectors'].'{'.$o['css_prop'].':'.pagelines_option($oid).$css_units.';}';
-					}
-
-				}
-				
-				if( $o['type'] == 'background_image' && pagelines_option($oid.'_url')){
-					
-					$bg_repeat = (pagelines_option($oid.'_repeat')) ? pagelines_option($oid.'_repeat'): 'no-repeat';
-					$bg_pos_vert = (pagelines_option($oid.'_pos_vert') || pagelines_option($oid.'_pos_vert') == 0 ) ? (int) pagelines_option($oid.'_pos_vert') : '0';
-					$bg_pos_hor = (pagelines_option($oid.'_pos_hor') || pagelines_option($oid.'_pos_hor') == 0 ) ? (int) pagelines_option($oid.'_pos_hor') : '50';
-					$bg_selector = (pagelines_option($oid.'_selector')) ? pagelines_option($oid.'_selector') : $o['selectors'];
-					$bg_url = pagelines_option($oid.'_url');
-					
-					$css .= sprintf('%s{ background-image:url(%s);}', $bg_selector, $bg_url);
-					$css .= sprintf('%s{ background-repeat: %s;}', $bg_selector, $bg_repeat);
-					$css .= sprintf('%s{ background-position: %s%% %s%%;}', $bg_selector, $bg_pos_hor, $bg_pos_vert);
-					
-					
-				}
-	
-				
-				if($o['type'] == 'colorpicker')
-					$css .= $this->render_css_colors($oid, $o['selectors'], $o['css_prop']);
-
-				
-				elseif($o['type'] == 'color_multi'){
-					
-					foreach($o['selectvalues'] as $mid => $m){
-						
-						$selectors = (isset($m['selectors'])) ? $m['selectors'] : null ;
-						$property = (isset($m['css_prop'])) ? $m['css_prop'] : null ;
-						
-						$css .= $this->render_css_colors($mid, $m, $selectors, $property);
-					}
-					
-				}
-			} 
-		}
-		return $css;
-
-	}
-	
-	function render_css_colors( $oid, $o, $selectors = null, $css_prop = null ){
-		if( pagelines_option($oid)){
-			$css = '';
-			if( isset($o['default']) && pagelines_option($oid) == $o['default']){
-				// do nothing
-			}elseif(isset($css_prop)){
-			
-				if(is_array($css_prop)){
-				
-					foreach( $css_prop as $css_property => $css_selectors ){
-
-						if($css_property == 'text-shadow')
-							$css .= $css_selectors . '{ text-shadow:'.pagelines_option($oid).' 0 1px 0;}';		
-						elseif($css_property == 'text-shadow-top')
-							$css .= $css_selectors . '{ text-shadow:'.pagelines_option($oid).' 0 -1px 0;}';		
-						else
-							$css .= $css_selectors . '{'.$css_property.':'.pagelines_option($oid).';}';		
-						
-					}
-				
-				}else
-					$css .= $selectors.'{'.$css_prop.':'.pagelines_option($oid).';}';
-				
-			
-			} else
-				$css .= $selectors.'{color:'.pagelines_option($oid).';}';
-			
-			
-			return $css;
-		} else 
-			return '';
-	}
 
 	
 	
@@ -977,7 +930,7 @@ class OptEngine {
 	}
 	
 	function input_option($value, $selected, $text, $id = '', $extra = ''){ 
-		return sprintf('<option id=\'%s\' value="%s" %s %s>%s</option>', $id, $value, $extra, $selected, $text);
+		return sprintf('<option id=\'%s\' value="%s" %s %s >%s</option>', $id, $value, $extra, $selected, $text);
 	}
 		
 	function input_button($id, $text, $class = '', $extra = ''){ 

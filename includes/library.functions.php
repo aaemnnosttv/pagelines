@@ -4,6 +4,34 @@
 // = PageLines Function Library =
 // ==============================
 
+
+/**
+ *  Determines if this page is showing several posts.
+ *
+ * @since 4.0.0
+ */
+function pagelines_is_posts_page(){	
+	if(is_home() || is_search() || is_archive() || is_category() || is_tag()) return true; 
+	else return false;
+}
+
+function pagelines_non_meta_data_page(){
+	if(pagelines_is_posts_page() || is_404()) return true; 
+	else return false;
+}
+
+function is_pagelines_special(){
+	if(is_home() || is_search() || is_archive() || is_category() || is_tag() || is_404()) 
+		return true; 
+	else 
+		return false;
+}
+
+
+function pagelines_special_pages(){
+	return array('posts', 'search', 'archive', 'tag', 'category', '404');
+}
+
 /**
  * 
  *  Sets up classes for controlling design and layout and is used on the body tag
@@ -176,54 +204,23 @@ function pagelines_shorturl( $url, $timeout = 86400 ) {
 	return $out->shorturl;
 }
 
-/**
- * 
- *  Returns Current Layout Mode
- *
- *  @package PageLines
- *  @subpackage Functions Library
- *  @since 1.0.0
- *
- */
-function pagelines_layout_mode() {
-
-	global $pagelines_layout;
-	global $post;
-
-	if(!pagelines_is_posts_page() && isset($post) && get_post_meta($post->ID, '_pagelines_layout_mode', true)){
-		$pagelines_layout->build_layout(get_post_meta($post->ID, '_pagelines_layout_mode', true));
-		return get_post_meta($post->ID, '_pagelines_layout_mode', true);
-	} elseif(pagelines_is_posts_page() && pagelines_option('posts_page_layout')){
-		$pagelines_layout->build_layout(pagelines_option('posts_page_layout'));
-		return pagelines_option('posts_page_layout');
-	} else {
-		return $pagelines_layout->layout_mode;
-	}
-
-}
-
 
 /**
  * 
- *  Sets Content Width for Large images when adding media
+ *  Sets background cascade for use in color mixing.
  *
- *  @package PageLines
- *  @subpackage Functions Library
- *  @since 1.2.3
+ *  @since 2.0.b6
  *
  */
-function pagelines_current_page_content_width() {
-
-	global $pagelines_layout;
-	global $content_width;
-	global $post;
-
-	$mode = pagelines_layout_mode();
+function pl_background_cascade(){
 	
-	$c_width = $pagelines_layout->layout_map[$mode]['maincolumn_width'];
+	$cascade = array(
+		pagelines_option('contentbg'),
+		pagelines_option('pagebg'),
+		pagelines_option('bodybg'),
+	);
 	
-	if ( !isset( $content_width ) ) $content_width = $c_width - 45;
-
+	return apply_filters('background_cascade', $cascade);
 }
 
 
@@ -352,7 +349,7 @@ function setup_pagelines_template() {
  * 
  * @since 1.1.0
  */
-function pagelines_add_page_callback($page_array){
+function pagelines_add_page_callback( $page_array, $template_area ){
 	global $pagelines_user_pages;
 	
 	if( is_array($pagelines_user_pages) ){
@@ -600,37 +597,13 @@ function pagelines_register_plugins() {
  * @since 2.0
  * @return sorted array
  */
-function pagelines_array_sort( $a, $subkey ) {
+function pagelines_array_sort( $a, $subkey, $pre = null, $dec = null ) {
 	foreach( $a as $k => $v ) {
-		$b[$k] = strtolower( $v[$subkey] );
+		$b[$k] = ( $pre ) ? strtolower( $v[$pre][$subkey] ) : strtolower( $v[$subkey] );
 	}
-	asort( $b );
+	( !$dec ) ? asort( $b ) : arsort($b);
 	foreach( $b as $key => $val ) {
 		$c[] = $a[$key];
 	}
 	return $c;
-}
-	
-	
-/**
- *
- * Load 'child' style and functions.
- * 
- * @since 2.0
- * 
- */	
-add_action( 'wp_enqueue_scripts', 'load_child_style', 30 );
-add_action( 'template_redirect', 'load_child_functions' );
-
-function load_child_style() {
-
-	$file = '/pagelines-base/base-style.css';
-	if ( file_exists( WP_PLUGIN_DIR . $file ) )
-		wp_enqueue_style( 'child', plugins_url( $file ) );
-}
-
-function load_child_functions() {
-	$file = '/pagelines-base/base-functions.php';
-	if ( file_exists( WP_PLUGIN_DIR . $file ) )
-		include( WP_PLUGIN_DIR . $file );
 }

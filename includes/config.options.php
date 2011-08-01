@@ -26,7 +26,7 @@ class PageLinesOptionsArray {
 		$this->options['website_setup'] = $this->website_setup();
 		$this->options['template_setup'] = $this->template_setup();
 		$this->options['layout_editor'] = $this->layout_editor();
-		$this->options['design_control'] = $this->design_control();
+		$this->options['color_control'] = $this->color_control();
 		$this->options['typography'] = $this->typography();
 		$this->options['header_and_footer'] = $this->header_footer();
 		$this->options['blog_and_posts'] = $this->blog_posts();
@@ -116,7 +116,10 @@ class PageLinesOptionsArray {
 			),
 		
 		);
-		if ( get_option( 'pagelines_email_sent') ) unset($a['email_capture']);
+		
+		if ( get_option( 'pagelines_email_sent') ) 
+			unset($a['email_capture']);
+		
 		return apply_filters('pagelines_options_website_setup', $a);
 	}
 	
@@ -218,13 +221,13 @@ class PageLinesOptionsArray {
 	 *
 	 * @since 2.0.0
 	 */
-	function design_control(){
+	function color_control(){
 
 		$a = array(	
 			'icon'			=> PL_ADMIN_ICONS.'/color.png',
 			'site_design_mode'	=> array(
 				'version'	=> 'pro',
-				'default'	=> 'canvas',
+				'default'	=> 'full_width',
 				'type'		=> 'graphic_selector',
 				'showname'	=> true,
 				'sprite'		=> PL_ADMIN_IMAGES.'/sprite-design-modes.png',
@@ -232,9 +235,8 @@ class PageLinesOptionsArray {
 				'width'			=> '130px',
 				'layout' 		=> 'interface',	
 				'selectvalues'	=> array(
-					'canvas'	=> array("name" => "Full-Width Page With Canvas", 'offset' => '0px -88px'),
 					'full_width'	=> array("name" => "Full-Width Sections", 'offset' => '0px 0px'),
-					'fixed_width'	=> array("name" => "Content Width Page", "version" => "pro", 'offset' => '0px -176px')
+					'fixed_width'	=> array("name" => "Content Width Page", "version" => "pro", 'offset' => '0px -88px')
 				), 
 				'inputlabel'	=> 'Site Design Mode',
 				'title'		=> 'Site Design Mode',						
@@ -245,36 +247,121 @@ class PageLinesOptionsArray {
 				
 			),
 			
+			
 			'page_colors'		=> array(
 				'title' 	=> 'Basic Layout Colors',						
 				'shortexp' 	=> 'The Main Layout Colors For Your Site',
-				'exp' 		=> 'Use these options to configure the main layout colors for your site.<br/><br/>This theme as two background elements, the "page" or content area and the "body" which sits behind the page area, you can set their colors individually here.',
+				'exp' 		=> 'Use these options to quickly setup the main layout colors for your site.  You can use these options to build custom sites very quickly, or to quickly prototype a design then refine through custom CSS.<br/><br/><strong>Notes:</strong> <ol><li>To make the background transparent, you can leave the options blank (delete text).</li>  <li>Further customize and refine colors through custom CSS or plugins
+</li></ol>',
 				'type' 		=> 'color_multi',
+				'layout'	=> 'full',
 				'selectvalues'	=> array(
 					'bodybg'	=> array(				
-					'default' 	=> '#000000',
-					'css_prop'	=> 'background-color',
-					'selectors'	=> 'body, body.fixed_width',
-					'inputlabel' 	=> 'Body Background Color <small>Shown Behind Page Content Area (e.g. In Footer)</small>',
+						'default' 		=> '#000000',
+						'css_prop'		=> 'background-color',
+						'cssgroup'		=> 'bodybg',
+						'inputlabel' 	=> 'Body Background',
+						
 					),
-				'pagebg'		=> array(				
-					'default' 	=> '#FFFFFF',
-					'selectors'	=>	'body #page, .sf-menu li, #primary-nav ul.sf-menu a:focus, .sf-menu a:hover, .sf-menu a:active, .commentlist ul.children .even, .alt #commentform textarea',
-					'css_prop'	=> 'background-color',
-					'inputlabel' 	=> 'Page Background Color <small>The Background Of Page Area</small>',
+					'pagebg'		=> array(				
+						'default' 	=> '#EEEEEE',
+						'cssgroup'	=>	'pagebg',
+						'flag'		=> 'blank_default',
+						'css_prop'	=> 'background-color',
+						'inputlabel' 	=> 'Page Background',
+						),
+					'contentbg'	=> array(				
+						'version'	=> 'pro',
+						'default' 	=> '',
+						'cssgroup'	=>	'contentbg',
+						'flag'		=> 'blank_default',
+						'css_prop'	=> 'background-color',
+						'inputlabel' 	=> 'Content Background',
+						'math'		=> array(
+								array( 
+									'mode' => 'contrast', 
+									'cssgroup' => 'border_layout', 
+									'css_prop' => 'border-color', 
+									'diff' => '8%', 
+									'depends' => pl_background_cascade()
+									
+								),
+								array( 
+									'mode' => 'contrast', 
+									'cssgroup' => 'box_color_primary', 
+									'css_prop' => 'background-color', 
+									'diff' => '5%', 
+									'depends' => pl_background_cascade(),
+									'math'		=> array(
+										array( 'mode' => 'contrast', 'cssgroup' => 'text_box', 'css_prop' => 'color', 'diff' => '65%', 'math' => array(
+											array( 'mode' => 'shadow', 'mixwith' => pl_background_cascade(), 'cssgroup' => array('text_box') ),
+										)),
+										array( 'mode' => 'contrast', 'cssgroup' => 'border_primary', 'css_prop' => 'border-color', 'diff' => '8%', 'math' => array(
+											array( 'mode' => 'darker', 'cssgroup' => 'border_primary_shadow', 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '10%'),
+											array( 'mode' => 'lighter', 'cssgroup' => 'border_primary_highlight', 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '10%'),
+										)),
+										array( 'mode' => 'contrast', 'cssgroup' => 'box_color_secondary', 'css_prop' => array('background-color'), 'diff' => '3%', 'math' => array(
+											array( 'mode' => 'darker', 'cssgroup' => 'border_secondary', 'css_prop' => array('border-color'), 'diff' => '5%'),
+											array( 'mode' => 'darker', 'cssgroup' => 'border_secondary', 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '15%'),
+											
+										)),
+										array( 'mode' => 'contrast', 'cssgroup' => 'box_color_tertiary', 'css_prop' => array('background-color'), 'diff' => '6%','math' => array(
+											array( 'mode' => 'darker', 'cssgroup' => 'border_tertiary', 'css_prop' => array('border-color'), 'diff' => '10%'),
+											array( 'mode' => 'darker', 'cssgroup' => 'border_tertiary', 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '15%'),
+										)), 
+										
+										
+										
+									)
+									
+								),
+								
+								array( 'mode' => 'lighter', 'cssgroup' => 'box_color_lighter', 'css_prop' => 'background-color'),
+							)
+						),
+				),
+			),
+			'text_colors'		=> array(
+				'title' 	=> 'Page Text Colors',						
+				'shortexp' 	=> 'Control The Color Of Text Used Throughout Your Site',
+				'exp' 		=> 'These options control the colors of the text throughout the page or content area of your site.<br/><br/>Certain text types are designed to contrast with different box elements and are meant to be used with hover effects.<br/><br/>Experiment to find exactly how colors are combined with text on your site.',
+				'type' 		=> 'color_multi',
+				'layout'	=> 'full',
+				'selectvalues'	=> array(
+					'headercolor'	=> array(		
+						'default' 	=> '#000000',
+						'cssgroup'	=> 'headercolor',
+						'inputlabel' 	=> 'Text Headers',
+						'math'		=> array(
+							array( 'mode' => 'shadow', 'mixwith' => pl_background_cascade(), 'cssgroup' => 'headercolor'),
+						)
 					),
-				'page_content_bg'	=> array(				
-					'version'	=> 'pro',
-					'default' 	=> '#FFFFFF',
-					'selectors'	=>	'.canvas .page-canvas',
-					'css_prop'	=> 'background-color',
-					'inputlabel' 	=> 'Page Canvas Background Color <small>The Background Color Site Content (Canvas Mode Only)</small>',
+					'text_primary' => array(		
+						'default' 	=> '#000000',
+						'cssgroup'	=>	'text_primary',
+						'inputlabel' 	=> 'Primary Text',
+						'math'		=> array(
+							array( 'mode' => 'mix', 'mixwith' => pl_background_cascade(), 'cssgroup' => 'text_secondary', 'css_prop' => 'color', 'diff' => '60%'),
+							array( 'mode' => 'shadow', 'mixwith' => pl_background_cascade(), 'cssgroup' => array('text_primary', 'text_secondary', 'text_tertiary') ),
+						)
 					),
-				'border_layout'		=> array(				
-					'default' 	=> '#E9E9E9',
-					'selectors'	=>	'hr, .fpost, .clip_box, .widget-title, #buddypress-page .item-list li, .metabar a, #morefoot .widget-title, #site #dsq-content h3, .post.fpost .entry, #soapbox .fboxinfo,  #primary-nav #nav_row, .fpost.sticky',
-					'css_prop'	=> 'border-color',
-					'inputlabel'	=> 'Border Color - Layout Borders and Dividers <small>Borders In Layout, Against Page Background</small>',
+					'linkcolor' => array(
+						'default'		=> '#225E9B',
+						'cssgroup'		=>	'linkcolor',
+						'inputlabel' 	=> 'Primary Links',	
+						'math'			=> array(
+							array( 'mode' => 'mix', 'mixwith' => pl_background_cascade(),  'cssgroup' => 'linkcolor_hover', 'css_prop' => 'color', 'diff' => '80%'),	
+							array( 'mode' => 'shadow', 'mixwith' => pl_background_cascade(), 'cssgroup' => 'linkcolor'),
+							)				
+					),
+					'footer_text' => array(
+						'default'		=> '#FFFFFF',
+						'cssgroup'		=>	'footer_highlight',
+						'inputlabel' 	=> 'Footer Text',	
+						'math'			=> array(
+							array( 'mode' => 'mix', 'mixwith' => array(pagelines_option('bodybg')),  'cssgroup' => 'footer_text', 'css_prop' => 'color', 'diff' => '66%'),
+							array( 'mode' => 'shadow', 'mixwith' => array(pagelines_option('bodybg')), 'cssgroup' => array('footer_text', 'footer_highlight') ),
+						)					
 					),
 				),
 			),
@@ -283,186 +370,10 @@ class PageLinesOptionsArray {
 				'shortexp' 	=> 'Setup A Background Image For The Background Of Your Site',
 				'exp' 		=> 'Use this option to apply a background image to your site. This option will be applied to different areas depending on the design mode you have set.<br/><br/><strong>Positioning</strong> Use percentages to position the images, 0% corresponds to the "top" or "left" side, 50% to center, etc..',
 				'type' 		=> 'background_image',
-				'selectors'	=> '.canvas #page, .full_width #page, body.fixed_width'
+				'selectors'	=> cssgroup('page_background_image')
 			),
-			'text_colors'		=> array(
-				'title' 	=> 'Page Text Colors',						
-				'shortexp' 	=> 'Control The Color Of Text Used Throughout Your Site',
-				'exp' 		=> 'These options control the colors of the text throughout the page or content area of your site.<br/><br/>Certain text types are designed to contrast with different box elements and are meant to be used with hover effects.<br/><br/>Experiment to find exactly how colors are combined with text on your site.',
-				'type' 		=> 'color_multi',
-				'selectvalues'	=> array(
-					'headercolor'	=> array(		
-					'default' 	=> '#000000',
-					'selectors'	=> 'h1, h2, h3, h4, h5, h6, h1 a, h2 a, h3 a, h4 a, h5 a, h6 a, a.site-title, .entry-title a, .entry-title a:hover, .widget-title a:hover, h3.widget-title a:hover',
-					'inputlabel' 	=> 'Page - Text Header Color <small>Titles, H1,H2, etc...</small>',
-					),
-				'text_primary' => array(		
-					'default' 	=> '#000000',
-					'selectors'	=>	'#page, .tcolor1, #subnav ul li a:active, .commentlist cite a, #breadcrumb a, .metabar a:hover, .post-nav a:hover, .post-footer a, #buddypress-page #object-nav ul li a, #buddypress-page table.forum .td-title a, #buddypress-page #subnav a:hover, #buddypress-page #subnav li.current a, #twitterbar a, #carousel .carousel_text, #site #dsq-content .dsq-request-user-info td a, #pagination .wp-pagenavi a:hover, #pagination .wp-pagenavi .current, #featurenav a.activeSlide, .content-pagination a:hover .cp-num',
-					'inputlabel' 	=> 'Page - Primary Text Color <small>The Main Text Color Used Throughout The Site</small>',
-					),
-				'text_secondary' => array(
-					'default' 	=> '#AFAFAF',
-					'selectors'	=>	'.tcolor2, .lcolor2 a, .subhead, .widget-title,  .post-edit-link, .metabar .sword, #branding .site-description, #callout, #commentform .required, #postauthor .subtext, #buddypress-page .standard-form .admin-links, #wp-calendar caption, #carousel .thecarousel, #pagination .wp-pagenavi span.pages, .commentlist .comment-meta  a,  #highlight .highlight-subhead, .content-pagination span, .content-pagination a .cp-num, .searchform .searchfield',
-					'inputlabel' 	=> 'Page - Secondary Text Color <small>Used In Subtitles, Widget Titles, Nav, Etc...</small>',
-					),
-				'text_tertiary' => array(	
-					'default' 	=> '#777777',
-					'selectors'	=>	'.tcolor3, .lcolor3 a, .main_nav li a,  .widget-title a, h3.widget-title a, #subnav_row li a, .metabar em, .metabar a, .tags, #commentform label, .form-allowed-tags code, .rss-date, #breadcrumb, .reply a, .post-nav a, .post-nav a:visited, .post-footer, .auxilary a, #buddypress-page .standard-form .admin-links a, #twitterbar .content .tbubble, .widget ul.twitter .twitter-item, .cform .emailreqtxt,.cform .reqtxt, #pagination .wp-pagenavi a, #pagination .wp-pagenavi .current, #pagination .wp-pagenavi .extend, .main_nav ul.sf-menu a, .sf-menu a:visited, #featurenav a, #feature-footer span.playpause',
-					'inputlabel' 	=> 'Page - Tertiary Text Color <small>Used In Navigation, Hover effects</small>',
-					),
-				),
-			),
+			
 
-			'link_colors' => array(
-				'title' 	=> 'Link Colors',						
-				'shortexp' 	=> 'Control The Color Of Links',
-				'exp' 		=> 'These options control the colors of the links throughout the page or content area of your site.',
-				'type' 		=> 'color_multi',
-				'selectvalues'	=> array(
-					'linkcolor' => array(
-						'default'	=> '#225E9B',
-						'selectors'	=>	'a, #subnav_row li.current_page_item a, #subnav_row li a:hover, #grandchildnav .current_page_item > a, .branding h1 a:hover, .post-comments a:hover, .bbcrumb a:hover, 	#feature_slider .fcontent.fstyle-lightbg a, #feature_slider .fcontent.fstyle-nobg a',
-						'inputlabel' 	=> 'Text Link Color <small>Color Of Links Throughout Your Site</small>',						
-					),
-					'linkcolor_hover' => array(
-							'default' 	=> '#0F457C',
-							'selectors'	=> 'a:hover,.commentlist cite a:hover,  #grandchildnav .current_page_item a:hover, .headline h1 a:hover',
-							'inputlabel' 	=> 'Text Link Hover Color <small>Color Of Links When Hovered Over</small>',						
-					),
-				),
-			),
-			'element_colors_primary' => array(
-				'title' 	=> 'Primary Site Element Colors',						
-				'shortexp' 	=> 'Setup The Colors For Common Elements Used On Your site',
-				'exp' 		=> 'Site elements are the basic contrast elements of your site. For example: selected navigation items, feature footer, blockquotes, etc...<br/><br/>This option sets the most commonly used element color.. it is used with form inputs, blockquotes, etc...',
-				'type' 		=> 'color_multi',
-				'selectvalues'	=> array(
-					'box_color_primary'	=> array(				
-						'default' 	=> '#F7F7F7',
-						'selectors'	=>	'#feature-footer, .main-nav li.current-page-ancestor a, .main-nav li.current_page_item a, .main-nav li.current-page-ancestor ul a, .main-nav li.current_page_item ul a, #wp-calendar caption, #buddypress-page #subnav, #buddypress-page .activity .activity-inner, #buddypress-page table.forum th, #grandchildnav.widget, blockquote, input, textarea, .searchform .searchfield, .wp-caption, .widget-default, .commentlist .alt, #wp-calendar #today, #buddypress-page div.activity-comments form .ac-textarea, #buddypress-page form#whats-new-form #whats-new-textarea, .post-nav, .current_posts_info, .post-footer,  #twitterbar, #carousel .content-pad, .success, .sf-menu li li, .sf-menu li li, .sf-menu li li li, .content-pagination a .cp-num, .hentry table .alternate td',
-						'css_prop'	=> 'background',
-						'inputlabel' 	=> 'Box Color - Primary Elements <small>The Main Contrast Color Between Page Background And Site Elements</small>',
-						),
-					'border_primary' => array(				
-						'default' 	=> '#E9E9E9',
-						'selectors'	=>	'ul.sf-menu ul li, .post-nav, .current_posts_info, .post-footer, blockquote, input, textarea, .searchform .searchfield, .wp-caption, .widget-default, #buddypress-page div.activity-comments form .ac-textarea, #buddypress-page form#whats-new-form #whats-new-textarea, #grandchildnav.widget, .fpost .post-thumb img, .clip .clip-thumb img, .author-thumb img, #carousel .content ul li a img, #carousel .content ul li a:hover img, #feature-footer',
-						'css_prop'	=> 'border-color',
-						'inputlabel' 	=> 'Border Color - Primary Elements Border <small>Standard Border For Site Elements (Make Slightly Darker Than Box Color)</small>',
-					),
-					'border_primary_shadow' => array(				
-						'default' 	=> '#DDDDDD',
-						'selectors'	=>	'multi_property',
-						'css_prop'	=> array(
-							'border-left-color'	=> 'blockquote, input, textarea, .searchform .searchfield, .wp-caption, .widget-default, #buddypress-page div.activity-comments form .ac-textarea, #buddypress-page form#whats-new-form #whats-new-textarea, #grandchildnav.widget, fpost .post-thumb img, .clip .clip-thumb img, .author-thumb img', 
-							'border-top-color'	=> 'blockquote, input, textarea, .searchform .searchfield, .wp-caption, .widget-default, #buddypress-page div.activity-comments form .ac-textarea, #buddypress-page form#whats-new-form #whats-new-textarea, #grandchildnav.widget, fpost .post-thumb img, .clip .clip-thumb img, .author-thumb img',
-						),
-					'inputlabel' 	=> 'Border Color - Primary Elements Shadow <small>Shadow Effect On Some Elements (Make Slightly Darker Than Border)</small>',
-					),
-					'border_primary_highlight' => array(				
-						'default' 	=> '#FFFFFF',
-						'selectors'	=>	'multi_property',
-						'css_prop'	=> array(
-						'border-left-color'	=> '#feature-footer .feature-footer-pad', 
-						'border-top-color'	=> '#feature-footer .feature-footer-pad',
-					),
-					'inputlabel' 	=> 'Border Color - Primary Elements Highlight <small>Highlight Effect On Some Elements (Make Slightly Lighter Than Box Color)</small>',
-					),
-					'text_shadow_color' => array(				
-						'default' 	=> '#FFFFFF',
-						'selectors'	=> 'multi_property',
-						'css_prop'	=> array(
-							'text-shadow'	=> '#feature-footer, #grandchildnav li a, #grandchildnav .current_page_item  ul li a, #buddypress-page #object-nav ul li a',
-						),
-						'inputlabel' 	=> 'Text Shadow Color <small>Used To Create An Indented Effect On Selected Text</small>',
-					),
-				),
-
-			),
-			'element_colors_secondary' => array(	
-				'title' 	=> 'Secondary Site Element Colors',						
-				'shortexp' 	=> 'Setup Colors For Elements Designed To Contrast With The Primary Elements (Hover Effects, etc...)',
-				'exp' 		=> 'The secondary elements are designed to contrast with the primary elements. For example, a navigation hover effect, or calendar subheading.',
-				'type' 		=> 'color_multi',
-				'selectvalues'	=> array(
-					'box_color_secondary' => array(				
-						'default' 		=> '#F1F1F1',
-						'selectors'		=>	'#wp-calendar thead th, #buddypress-page #object-nav, .item-avatar a, .comment blockquote, #grandchildnav .current_page_item a, #grandchildnav li a:hover, #grandchildnav .current_page_item  ul li a:hover, #carousel .carousel_text, pagination .wp-pagenavi a, #pagination .wp-pagenavi .current, #pagination .wp-pagenavi .extend, .sf-menu li:hover, .sf-menu li.sfHover, #featurenav a, #feature-footer span.playpause, .content-pagination .cp-num, .content-pagination a:hover .cp-num, ins',
-						'css_prop'		=> 'background',
-						'inputlabel' 	=> 'Box Color - Secondary Site Elements <small>Recommended Slightly Darker/Lighter Than Primary Element Color</small>',
-					),
-				'border_secondary' => array(				
-						'default' 		=> '#DDDDDD',
-						'selectors'		=> '#featurenav a, #feature-footer span.playpause',
-						'css_prop'		=> 'border-color',
-						'inputlabel' 	=> 'Border Color - Secondary Elements <small>Around Secondary Box Elements (Make Slightly Darker)</small>',
-					),
-				'border_secondary_shadow' => array(				
-						'default' 		=> '#CCCCCC',
-						'selectors'		=>	'multi_property',
-						'css_prop'		=> array(
-							'border-left-color'		=> '#featurenav a, #feature-footer span.playpause', 
-							'border-top-color'		=> '#featurenav a, #feature-footer span.playpause',
-						),
-				'inputlabel' 	=> 'Border Color - Secondary Elements Shadow <small>Shadow Effect On Secondary Box Elements (Make Slightly Darker Than Border)</small>',
-					),
-				),
-			),
-			'element_colors_tertiary' => array(	
-				'title' 		=> 'Tertiary Site Element Colors',						
-				'shortexp' 		=> 'Setup Colors For Elements Designed To Contrast With The Secondary Elements',
-				'exp' 			=> 'The tertiary elements are usually designed to contrast with the secondary elements. For example, a hover or selected effect that occurs over a primary element. Example: Feature Footer, selected navigation (dots, names, etc..)',
-				'type' 			=> 'color_multi',
-				'selectvalues'	=> array(
-					'box_color_tertiary' => array(				
-						'default' 		=> '#E1E1E1',
-						'selectors'		=>	'#buddypress-page #object-nav ul li a:hover,#buddypress-page #object-nav ul li.selected a, #buddypress-page #subnav a:hover, #buddypress-page #subnav li.current a, #featurenav a.activeSlide',
-						'css_prop'		=> 'background',
-						'inputlabel' 	=> 'Box Color - Tertiary Site Elements <small>Slightly Darker/Lighter Than Secondary Element Color</small>',
-					),
-					'border_tertiary' => array(				
-						'default' 		=> '#CCCCCC',
-						'selectors'		=> '#featurenav a.activeSlide',
-						'css_prop'		=> 'border-color',
-						'inputlabel' 	=> 'Border Color - Tertiary Elements <small>Around Tertiary Box Elements (Make Slightly Darker)</small>',
-					),
-					'border_tertiary_shadow' => array(				
-						'default' 		=> '#999999',
-						'selectors'		=>	'multi_property',
-						'css_prop'		=> array(
-							'border-left-color'		=> '#featurenav a.activeSlide', 
-							'border-top-color'		=> '#featurenav a.activeSlide',
-						),
-					'inputlabel' 	=> 'Border Color - Tertiary Elements Shadow <small>Shadow Effect On Tertiary Box Elements (Make Slightly Darker Than Border)</small>',
-					),
-				),
-			 ),
-			'footer_text_colors' => array(
-				'title' 		=> 'Footer/Body Text Colors',						
-				'shortexp' 		=> 'Control The Color Of Text In The Footer or Body Background Of Your Site',
-				'exp' 			=> 'These options control the colors of the text in the footer of your site.',
-				'type' 			=> 'color_multi',
-				'selectvalues'	=> array(
-					'footer_text' => array(
-						'default'		=> '#999999',
-						'selectors'		=>	'#footer, #footer li.link-list a, #footer .latest_posts li .list-excerpt',
-						'inputlabel' 	=> 'Footer Text Color <small>Default Color Of Text In The Footer</small>',						
-					),
-					'footer_highlight' => array(
-						'default' 		=> '#FFFFFF',
-						'selectors'		=>	'#footer a, #footer .widget-title,  #footer li h5 a',
-						'inputlabel' 	=> 'Footer Highlight Text <small>Used With Links, Titles, etc..</small>',						
-					),
-					'footer_text_shadow_color' => array(
-						'default' 		=> '#000000',
-						'selectors'		=> 'multi_property',
-						'css_prop'		=> array(
-							'text-shadow-top'	=> '#footer, .fixed_width #footer',
-						),
-					'inputlabel' 	=> 'Footer Text Shadow Color <small>Used To Create An Indented Effect On Footer Text</small>',
-					),
-				),
-			),
 
 		);
 		
@@ -484,7 +395,7 @@ class PageLinesOptionsArray {
 					'font' 		=> 'georgia',
 					),
 					'type' 		=> 'typography',
-					'selectors'	=> 'h1, h2, h3, h4, h5, h6, .site-title',
+					'selectors'	=> cssgroup('type_headers'),
 					'inputlabel' 	=> 'Select Font',
 					'title' 	=> 'Typography - Text Headers',
 					'shortexp' 	=> 'Select and Style Your Site\'s Header Tags (H1, H2, H3...)',
@@ -497,7 +408,7 @@ class PageLinesOptionsArray {
 					'font' 		=> 'georgia', 
 					),
 					'type'		=> 'typography',
-					'selectors'	=> 'body, .font1, .font-primary, .commentlist',
+					'selectors'	=> cssgroup('type_primary'),
 					'inputlabel' 	=> 'Select Font',
 					'title' 	=> 'Typography - Primary Font',
 					'shortexp' 	=> 'Select and Style The Standard Type Used In Your Site (body)',
@@ -509,7 +420,7 @@ class PageLinesOptionsArray {
 			'type_secondary' => array(
 					'default' 	=> array( 'font' => 'lucida_grande' ),
 					'type' 		=> 'typography',
-					'selectors'	=> '.font2, .font-sub, ul.main-nav li a, #secondnav li a, .metabar, .subtext, .subhead, .widget-title, .post-comments, .reply a, .editpage, #pagination .wp-pagenavi, .post-edit-link, #wp-calendar caption, #wp-calendar thead th, .soapbox-links a, .fancybox, .standard-form .admin-links, #featurenav a, .pagelines-blink, .ftitle small',
+					'selectors'	=> cssgroup('type_secondary'),
 					'inputlabel' 	=> 'Select Font',
 					'title' 	=> 'Typography - Secondary Font ',
 					'shortexp' 	=> 'Select and Style Your Site\'s Secondary or Sub Title Text (Metabar, Sub Titles, etc..)',
@@ -523,7 +434,7 @@ class PageLinesOptionsArray {
 					'font' 		=> 'courier_new',
 					),
 					'type' 		=> 'typography',
-					'selectors'	=> 'input[type="text"], input[type="password"], textarea, #dsq-content textarea',
+					'selectors'	=> cssgroup('type_inputs'),
 					'inputlabel' 	=> 'Select Font',
 					'title' 	=> 'Typography - Inputs and Textareas',
 					'shortexp' 	=> 'Select and Style Your Site\'s Text Inputs and Textareas.',
@@ -704,6 +615,15 @@ class PageLinesOptionsArray {
 				'shortexp'	=> 'Select how thumbs should be handled in full-width posts',
 				'exp'		=> 'Use this option to configure how thumbs will be shown in full-width posts on your blog page.'
 			),
+			'metabar_standard' => array(
+				'default'		=> 'By [post_author_posts_link] On [post_date] &middot; [post_comments] &middot; In [post_categories] [post_edit]',
+				'type'			=> 'text',
+				'inputlabel'	=> 'Configure Full Width Post Metabar',
+				'title'			=> 'Full Width Post Meta',				
+				'layout'		=> 'full',		
+				'shortexp'		=> 'Additional information about a post such as Author, Date, etc...',
+				'exp'			=> 'Use shortcodes to control the dynamic information in your metabar.'
+			),
 			'excerpt_mode_clip' => array(
 				'default'		=> 'left',
 				'type'			=> 'graphic_selector',
@@ -723,6 +643,15 @@ class PageLinesOptionsArray {
 				'title'		=> 'Clip Excerpt Mode',						
 				'shortexp'	=> 'Select how thumbs should be handled in clips',
 				'exp'		=> 'Use this option to configure how thumbs will be shown in clips. These are the smaller "magazine" style excerpts on your blog page.'
+			),
+			'metabar_clip' => array(
+				'default'		=> 'On [post_date] By [post_author_posts_link] [post_edit]',
+				'type'			=> 'text',
+				'layout'		=> 'full',
+				'inputlabel'	=> 'Configure Clip Metabar',
+				'title'			=> 'Clip Metabar',						
+				'shortexp'		=> 'Additional information about a clip such as Author, Date, etc...',
+				'exp'			=> 'Use shortcodes to control the dynamic information in your metabar.'
 			),
 			'full_column_posts'	=> array(
 					'version'		=> 'pro',
@@ -901,14 +830,6 @@ class PageLinesOptionsArray {
 					'title'		=> 'Disable AJAX Saving',
 					'shortexp'	=> 'Check to disable AJAX saving.',
 					'exp'		=> "Check this option if you are having problems with AJAX saving. For example, if design control or typography options aren't working"
-			),
-			'inline_dynamic_css' => array(
-					'default'	=> '',
-					'type'		=> 'check',
-					'inputlabel'	=> 'Make Dynamic CSS Inline?',
-					'title'		=> 'Inline Dynamic CSS',
-					'shortexp'	=> 'Makes Dynamic CSS Load Inline, Resolves Caching Issues',
-					'exp'		=> "If you are having problems with layout, design control and typography, you may have caching issues on your server. Make dynamic.css 'inline' for fast relief. Note: there is a small performance issue with this."
 			),
 
 			'enable_debug' => array(

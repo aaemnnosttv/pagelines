@@ -121,17 +121,11 @@ class PageLinesPosts {
 			
 			$excerpt_mode = ($format == 'clip') ? pagelines_option('excerpt_mode_clip') : pagelines_option('excerpt_mode_full');
 			
-		
-			
 			$thumb = ( $this->pagelines_show_thumb( get_the_ID() ) ) ? $this->post_thumbnail_markup( $excerpt_mode, $format ) : '';
 			
 			$excerpt = ( $this->pagelines_show_excerpt( get_the_ID() ) ) ? $this->post_excerpt_markup( $excerpt_mode, $thumb ) : '';
 			
 			$classes = (!$this->pagelines_show_thumb($post->ID)) ? 'post-nothumb' : '';
-			
-			
-			
-			
 				
 			$title = sprintf('<section class="bd post-title-section fix"><hgroup class="post-title fix">%s%s</hgroup></section>', $this->pagelines_get_post_title(), $this->pagelines_get_post_metabar( $format ));
 			
@@ -201,7 +195,7 @@ class PageLinesPosts {
 	 *
 	 * @return string the thumbnail markup
 	 */
-	function post_thumbnail_markup( $mode = '', $format = '') {
+	function post_thumbnail_markup( $mode = '', $format = '', $frame = '') {
 		
 		$thumb_width = get_option('thumbnail_size_w');
 		
@@ -436,21 +430,3 @@ class PageLinesPosts {
 /* ------- END OF CLASS -------- */
 
 
-/**
- *  Determines if this page is showing several posts.
- *
- * @since 4.0.0
- */
-function pagelines_is_posts_page(){	
-	if(is_home() || is_search() || is_archive() || is_category() || is_tag()) return true; 
-	else return false;
-}
-
-function pagelines_non_meta_data_page(){
-	if(pagelines_is_posts_page() || is_404()) return true; 
-	else return false;
-}
-
-function pagelines_special_pages(){
-	return array('posts', 'search', 'archive', 'tag', 'category', '404');
-}

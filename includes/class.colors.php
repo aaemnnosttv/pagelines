@@ -20,7 +20,7 @@ class PageLinesColor {
 	 */
 	function __construct( $hex ) {
 	
-		$this->base_hex = $hex;
+		$this->base_hex = str_replace('#', '', $hex);
 	
 		$this->base_rgb = $this->hex_to_rgb( $this->base_hex  );
 		
@@ -28,20 +28,81 @@ class PageLinesColor {
 	
 	}
 	
-	function contrast( $adjustment, $surrounding = ''){
+	function get_hsl( $hex, $type ){
 		
-		return $this->base_hsl['lightness'];
+		$hex = str_replace('#', '', $hex);
+
+		$rgb = $this->hex_to_rgb( $hex  );
+
+		$hsl = $this->rgb_to_hsl( $rgb );
 		
+		return $hsl[$type];
 	}
 	
-	function adjust( $adjustment, $mode = 'lightness' ){
+	function get_color( $mode, $difference = '10%', $alt = null){
+	
+		$alt = str_replace('#', '', $alt);
+		
+		if(is_string($difference)){
+			$dp = (int) str_replace('%', '', $difference);
+			$diff = $dp/100;
+		} else 
+			$diff = $difference;
+		
+			
+		if($mode == 'lighter')
+			$color = $this->adjust($diff); 
+		elseif($mode == 'darker')
+			$color =  $this->adjust(-$diff);
+		elseif($mode == 'contrast'){
+			
+			if( $this->base_hsl['lightness'] < .25 || ($this->base_hsl['lightness'] < .7 && $this->base_hsl['hugh'] > .6) || ($this->base_hsl['saturation'] > .8 && $this->base_hsl['lightness'] < .4)){
+				
+				// Special 
+				if($this->base_hsl['lightness'] < .1)
+					$diff = ($diff < .12 ) ? .12 : $diff;
+			
+				
+				$color =  $this->adjust($diff);
+			}else
+				$color =  $this->adjust(-$diff);
+				
+		
+		}elseif( $mode == 'mix' ){
+			
+			$color = $this->mix_colors($this->base_hex, $alt, $diff);
+			
+		}elseif( $mode == 'shadow' ){
+			
+			$color =  $this->adjust($diff, 'lightness', $alt);
+		
+		}
+			
+			
+		return $color;	
+	} 
+
+	function adjust( $adjustment, $mode = 'lightness', $hex = null){
 		
 		
-		$h = $this->base_hsl['hugh'];
-		$s = $this->base_hsl['saturation'];
-		$l = $this->base_hsl['lightness'];
+		if(isset($hex)){
+			
+			$althex = str_replace('#', '', $hex);
+
+			$altrgb = $this->hex_to_rgb( $althex  );
+
+			$althsl = $this->rgb_to_hsl( $altrgb  );
+			
+			$h = $althsl['hugh'];
+			$s = $althsl['saturation'];
+			$l = $althsl['lightness'];
+		}else{
+			$h = $this->base_hsl['hugh'];
+			$s = $this->base_hsl['saturation'];
+			$l = $this->base_hsl['lightness'];
+		}
 		
-		if(is_array($adjustment)){
+		if( is_array($adjustment) ){
 			
 			$l = $l + $adjustment['lightness']; 
 			
@@ -51,22 +112,16 @@ class PageLinesColor {
 			
 			
 		} else {
-			if($mode == 'lightness'){
-
+			
+			if($mode == 'hugh')
+				$h = $h + $adjustment; 
+			elseif($mode == 'saturation')
+				$s = $s + $adjustment; 
+			else 
 				$l = $l + $adjustment; 
 
-			} elseif($mode == 'hugh') {
-
-				$h = $h + $adjustment; 
-				
-
-			} elseif($mode == 'saturation') {
-
-				$s = $s + $adjustment; 
-
-			}
 		}
-	
+		
 	
 		// Adjust for hue 180* scale
 		if ($h > 1) $h -= 1;
@@ -77,33 +132,12 @@ class PageLinesColor {
 		if ($s < 0) $s = 0;
 		if ($l < 0) $l = 0;
 		
-		$new_hsl = array( 'hugh' => $h, 'saturation' => $s, 'lightness' => $l );
 		
+		$new_hsl = array( 'hugh' => $h, 'saturation' => $s, 'lightness' => $l );
 		
 		return $this->hsl_to_hex( $new_hsl );
 	}
-	
-	function adjust_hugh(){
-		
-		$h = $this->base_hsl['hugh'];
-		$s = $this->base_hsl['saturation'];
-		$l = $this->base_hsl['lightness'];
-		
-		$l = $l + $adjustment; 
-		
-		$new_hsl = array( 'hugh' => $h, 'saturation' => $s, 'lightness' => $l );
-		
-		
-		return $this->hsl_to_hex( $new_hsl );
-		
-		$h2 = $h + 0.5;
 
-		if ($h2 > 1)
-		{
-		$h2 -= 1;
-		};
-	}
-	
 	function hex_to_rgb( $hexcode ){
 		
 		$redhex  = substr( $hexcode, 0, 2 );
@@ -121,55 +155,41 @@ class PageLinesColor {
 	}
 	
 	function rgb_to_hsl( $rgb ){
+	
+	
+		$clrR = $rgb['red'];
+		$clrG = $rgb['green'];
+		$clrB = $rgb['blue'];
 		
-		$red = $this->base_rgb['red'];
-		$green = $this->base_rgb['green'];
-		$blue = $this->base_rgb['blue'];
+		$clrMin = min($clrR, $clrG, $clrB);
+		$clrMax = max($clrR, $clrG, $clrB);
+		$deltaMax = $clrMax - $clrMin;
 		
-		$var_red = $red / 255;
-		$var_green = $green / 255;
-		$var_blue = $blue / 255;
-		
-		$var_min = min( $var_red, $var_green, $var_blue );
-		$var_max = max( $var_red, $var_green, $var_blue );
-		
-		$del_max = $var_max - $var_min;
+		$L = ($clrMax + $clrMin) / 510;
 
-		$l = ($var_max + $var_min) / 2;
-
-		if ($del_max == 0){
-			$h = 0;
-			$s = 0;
-		} else {
+		if (0 == $deltaMax){
+			$H = 0;
+			$S = 0;
+		}else{
+			if (0.5 > $L)
+			    $S = $deltaMax / ($clrMax + $clrMin);	
+			else
+			    $S = $deltaMax / (510 - $clrMax - $clrMin);
 			
-			if ($l < 0.5) {
-				$s = $del_max / ($var_max + $var_min);
-			} else {
-				$s = $del_max / (2 - $var_max - $var_min);
-			};
+			if ($clrMax == $clrR)
+			    $H = ($clrG - $clrB) / (6.0 * $deltaMax);
+			elseif ($clrMax == $clrG)
+			    $H = 1/3 + ($clrB - $clrR) / (6.0 * $deltaMax);
+			else
+			    $H = 2 / 3 + ($clrR - $clrG) / (6.0 * $deltaMax);
 
-			$del_r = ((($var_max - $var_red) / 6) + ($del_max / 2)) / $del_max;
-			$del_g = ((($var_max - $var_green) / 6) + ($del_max / 2)) / $del_max;
-			$del_b = ((($var_max - $var_blue) / 6) + ($del_max / 2)) / $del_max;
-
-			if ($var_red == $var_max) {
-			        $h = $del_b - $del_g;
-			} elseif ($var_green == $var_max) {
-			        $h = (1 / 3) + $del_r - $del_b;
-			} elseif ($var_blue == $var_max) {
-			        $h = (2 / 3) + $del_g - $del_r;
-			};
-
-			if ($h < 0) {
-			        $h += 1;
-			};
-
-			if ($h > 1) {
-			        $h -= 1;
-			};
-		};
+			if (0 > $H) $H += 1;
+			if (1 < $H) $H -= 1;
 		
-		return array( 'hugh' => $h, 'saturation' => $s, 'lightness' => $l );
+		}
+		
+		
+		return array( 'hugh' => $H, 'saturation' => $S, 'lightness' => $L );
 	}
 	
 	function hsl_to_hex( $hsl ){
@@ -196,11 +216,11 @@ class PageLinesColor {
 			$g = $l * 255;
 			$b = $l * 255;
 		} else {
-			if ($l < 0.5) {
+			if ($l < 0.5)
 				$var_2 = $l * (1 + $s);
-			} else {
+			else
 				$var_2 = ($l + $s) - ($s * $l);
-			};
+			
 
 			$var_1 = 2 * $l - $var_2;
 			$r = 255 * $this->_hue_to_rgb( $var_1, $var_2, $h + (1 / 3) );
@@ -252,9 +272,120 @@ class PageLinesColor {
 		return $hex;
 		
 	}
+	
+	function mix_colors($c1, $c2, $ratio = .5){
+		
+		$r1 = $ratio * 2;
+		$r2 = 2 - $r1;
+
+		$c1_rgb = $this->hex_to_rgb($c1);
+		$c2_rgb = $this->hex_to_rgb($c2);
+		
+		
+		$rmix = ( ( $c1_rgb['red'] * $r1 ) + ( $c2_rgb['red'] * $r2 ) ) / 2;
+		$gmix = ( ( $c1_rgb['green'] * $r1 ) + ( $c2_rgb['green'] * $r2 ) ) / 2;
+		$bmix = ( ( $c1_rgb['blue'] * $r1 ) + ( $c2_rgb['blue'] * $r2 ) ) / 2;
+		
+		$new_rgb = array('red' => $rmix, 'green' => $gmix, 'blue' => $bmix);
+
+	 	return $this->rgb_to_hex( $new_rgb );
+	
+	}
 
 }
 //-------- END OF CLASS --------//
+
+
+function do_color_math($oid, $o, $val, $format = 'css'){
+
+	$default = (isset($o['default'])) ? $o['default'] : $val;
+
+	$output = '';
+	
+	if(isset($o['math'])){
+		
+		foreach( $o['math'] as $key => $k ){
+		
+			if(!$val){
+			 	if(isset($k['depends'])){
+					foreach($k['depends'] as $d){
+
+						if( isset($d) && !empty($d)){
+							$base = $d;
+							break;
+						}
+					}
+				} 
+
+			} else 
+				$base = str_replace('#', '', $val);
+		
+		}
+		
+		$base = (isset($base)) ? $base : $default;			
+	
+		$math = new PageLinesColor( $base );
+		
+		foreach( $o['math'] as $key => $k ){
+
+			
+
+			$difference = isset($k['diff']) ? $k['diff'] : '10%';
+
+			if($k['mode'] == 'mix' || $k['mode'] == 'shadow'){
+				
+				if( isset($k['mixwith']) && is_array($k['mixwith']) ){
+					foreach($k['mixwith'] as $mkey => $m){
+						
+						if( isset($m) && !empty($m)){
+							$mix_color = $m;
+							break;
+						} else 
+							$mix_color = $base;
+							
+					}
+				} elseif(isset($k['mixwith']))
+					$mix_color = $k['mixwith'];
+					
+				if($k['mode'] == 'shadow'){
+					
+					$difference =  ($math->get_hsl($mix_color, 'lightness') - $math->base_hsl['lightness']);
+			
+					$difference = ($difference > 0 ) ? .1 : -.2;
+				
+					$k['css_prop'] = ( $difference < 0) ?  array('text-shadow-top') : array('text-shadow');
+					
+				}
+				
+				$color = $math->get_color($k['mode'], $difference, $mix_color);
+					
+			} else 
+				$color = $math->get_color($k['mode'], $difference);
+
+			$css = new PageLinesCSS;
+		
+			$cssgroup = $k['cssgroup'];
+			
+			if(is_array($cssgroup))
+				foreach($cssgroup as $cgroup)
+					$css->set_factory_key($cgroup, $css->load_the_props( $k['css_prop'], '#'.$color ));
+			else
+				$css->set_factory_key($cssgroup, $css->load_the_props( $k['css_prop'], '#'.$color ));
+			
+			// Recursion
+			if(isset($k['math']))
+				do_color_math($key, $k, $color, $format);
+			
+			
+		}
+	}
+	
+	return $output;
+}
+
+
+
+
 
 
 

@@ -1,7 +1,7 @@
 <?php
 /*
 	Section: PageLines Banners	
-	Author: Andrew Powers
+	Author: PageLines
 	Author URI: http://www.pagelines.com
 	Description: Creates banners, great for product tours.
 	Class Name: PageLinesBanners
@@ -133,10 +133,7 @@ class PageLinesBanners extends PageLinesSection {
 			);
 
 			$type_meta_panel->register_tab( $type_metatab_settings, $type_meta_array );
-
-			
 		
-				
 	}
 
 
@@ -166,7 +163,7 @@ class PageLinesBanners extends PageLinesSection {
 
 		$metatab_settings = array(
 				'id' 		=> 'banner_page_meta',
-				'name' 		=> "Banner Meta",
+				'name' 		=> "Banner Section",
 				'icon' 		=>  $this->icon,
 				'clone_id'	=> $settings['clone_id'], 
 				'active'	=> $settings['active']
@@ -175,17 +172,20 @@ class PageLinesBanners extends PageLinesSection {
 		register_metatab($metatab_settings, $metatab_array);
 	}
 
-   function section_template() {    
+   function section_template( $clone_id ) {    
 	
-		
 		global $post, $pagelines_ID; 
-		$current_post = $post;
-
-		$set = (pagelines_option('banner_set', $pagelines_ID)) ? pagelines_option('banner_set', $pagelines_ID) : null;
-		$limit = (pagelines_option('banner_items', $pagelines_ID)) ? pagelines_option('banner_items', $pagelines_ID) : null;
-		$b = $this->load_pagelines_banners($set, $limit);
 		
-		$this->draw_banners($b, 'banners ' . $set);
+		// Option Settings
+			$oset = array('post_id' => $pagelines_ID, 'clone_id' => $clone_id);
+		
+		// Options
+			$set = (ploption('banner_set', $oset)) ? ploption('banner_set', $oset) : null;
+			$limit = (ploption('banner_items', $oset)) ? ploption('banner_items', $oset) : null;
+		
+		// Actions
+			$b = $this->load_pagelines_banners($set, $limit);
+			$this->draw_banners($b, 'banners ' . $set);
 	}
 
 	function draw_banners($b, $class = ""){ ?>		
@@ -193,50 +193,50 @@ class PageLinesBanners extends PageLinesSection {
 	<?php 
 		
 		foreach($b as $bpost) : 
+			$oset = array('post_id' => $bpost->ID);
 			
-			$banner_text_width = (pagelines('banner_text_width', $bpost->ID)) ? pagelines('banner_text_width', $bpost->ID) : 50;
+			$banner_text_width = (ploption('banner_text_width', $oset)) ? ploption('banner_text_width', $oset) : 50;
 			$banner_media_width = 100 - $banner_text_width; // Math
-			$banner_align = (get_pagelines_meta('banner_align', $bpost->ID)) ? get_pagelines_meta('banner_align', $bpost->ID) : 'banner_left';
-			$banner_text_padding = (get_pagelines_meta('banner_text_padding', $bpost->ID)) ? "padding:".get_pagelines_meta('banner_text_padding', $bpost->ID).";" : "padding: 20px 60px"; 
-?>
-			<div class="banner-area <?php echo $banner_align;?>">
+			$banner_align = (ploption('banner_align', $oset)) ? ploption('banner_align', $oset) : 'banner_left';
+			$banner_text_padding = (ploption('banner_text_padding', $oset)) ? sprintf('padding:%s;', ploption('banner_text_padding', $oset)) : "padding: 20px 60px"; 
+			
+			
+?>		<div class="banner-area <?php echo $banner_align;?>">
 				<div class="banner-text" style="width:<?php echo $banner_text_width; ?>%;">
 					<div class="banner-text-pad" style="<?php echo $banner_text_padding;?>">
-							<?php echo blink_edit($bpost->ID); ?>
 							<div class="banner-title"><h2><?php echo do_shortcode($bpost->post_title); ?></h2></div>
-							<div class="banner-content">		
-								<?php echo apply_filters( 'the_content', do_shortcode($bpost->post_content) ); ?>
-								<?php edit_post_link(__('[Edit Banner]', 'pagelines'), '', '', $bpost->ID);?>
+							<div class="banner-content">	
+								<?php 
+									echo blink_edit($bpost->ID); 	
+									echo apply_filters( 'the_content', do_shortcode($bpost->post_content) ); 
+								?>
 							</div>
-
 					</div>
 				</div>
 				<div class="banner-media" style="width:<?php echo $banner_media_width; ?>%;" >
 					<div class="banner-media-pad">
-						<?php echo apply_filters( 'the_content', self::_get_banner_media( $bpost ) );?>
+						<?php echo apply_filters( 'the_content', self::_get_banner_media( $oset ) );?>
 					</div>
 				</div>
 				<div class="clear"></div>
 			</div>
-
 		<?php endforeach;?>
-		</div>
-		<div class="clear"></div>
+		</div><div class="clear"></div>
 <?php }
 
 	
-	function _get_banner_media( $bpost ){
+	function _get_banner_media( $oset ){
 		
 			
-			if(get_pagelines_meta('the_banner_image', $bpost->ID))
-				$banner_media = '<img src="'.get_pagelines_meta('the_banner_image', $bpost->ID).'" alt="'.get_the_title().'" />';
-			elseif(get_pagelines_meta('the_banner_media', $bpost->ID))
-				$banner_media = do_shortcode(get_pagelines_meta('the_banner_media', $bpost->ID));
+			if(plmeta('the_banner_image', $oset))
+				$banner_media = '<img src="'.plmeta('the_banner_image', $oset).'" alt="'.get_the_title().'" />';
+			elseif(plmeta('the_banner_media', $oset))
+				$banner_media = do_shortcode( plmeta('the_banner_media', $oset) );
 			else 
 				$banner_media = '';
 			
 			// Filter output
-			return apply_filters('pl_banner_image', $banner_media, $bpost->ID);
+			return apply_filters('pl_banner_image', $banner_media, $oset);
 	}
 	
 	

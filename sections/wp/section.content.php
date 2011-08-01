@@ -1,7 +1,7 @@
 <?php
 /*
 	Section: Content
-	Author: Andrew Powers
+	Author: PageLines
 	Author URI: http://www.pagelines.com
 	Description: Creates a flickr, nextgen, or featured image carousel.
 	Class Name: PageLinesContent

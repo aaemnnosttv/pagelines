@@ -3,7 +3,7 @@ Theme Name: PageLines Framework
 
 Description: PageLines Framework is an drag-and-drop theme-design framework for WordPress and HTML5. It will help you do amazing things with your site, faster & easier than ever before. Designed and developed by <a href="http://pagelines.com/">PageLines</a> in California. Twitter @pagelines
 
-Version: 2.0.b6
+Version: 2.0.b7
 
 Author: PageLines
 
@@ -27,26 +27,23 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	1st Rule - You come first. 
 	PageLines truly appreciates your business and support.
 	
-	Developed by Andrew Powers, Simon Prosser, Adam Munns
+	Developed by PageLines, Inc.
 	Copyright 2011 PageLines Inc. All rights reserved.
 
 ---------------------------------------------------------------  		
 */
 
-
-
 body{ height:100%; padding-top: 3px; } 			
-
 
 /******* Typography *******/
 
-body{font-size: 87.5%; line-height: 1.7em}
-
-/* @ Headers H1 - H6 */
-	h1, h2, h3, h4, h5, h6{font-weight:normal; line-height: 1.33em;}
-	h1{font-size:3.3em;} 
-	h2{font-size:2.5em;}
-	h3{font-size:1.8em;}
+body{font-size: 87.5%; line-height: 1.714285em;}
+	/*.content { background: url(images/line-height.png) repeat 0 6px; }*/
+	/* @ Headers H1 - H6 */
+	h1, h2, h3, h4, h5, h6{font-weight:normal; line-height: 1.3em;}
+	h1{font-size:3.4285em; line-height: 1em;} 
+	h2{font-size:2.5em; line-height: 1.371428em;}
+	h3{font-size:1.714285em; line-height: 1em; }
 	h4{font-size:1.5em;}
 	h5{font-size:1.1em;}
 	h6{font-size:1em;}
@@ -60,8 +57,8 @@ body{font-size: 87.5%; line-height: 1.7em}
 
 
 	/* @ Paragraphs */
-		p, .p{margin:1.6em 0;}
-		.hentry p:first-child{margin-top: .3em;}
+		p, .p, .hentry ul, .hentry ol{margin:1.714285em 0;}
+		.entry_content :first-child, .post-excerpt :first-child{margin-top: 0;}
 		p {hyphenate: auto;hyphenate-before:2;hyphenate-after:3;hyphenate-lines: 3;orphans:4}
 		p span.pullquote{text-indent:0;}
 
@@ -72,8 +69,8 @@ body{font-size: 87.5%; line-height: 1.7em}
 	a.site-title{ font-size: 2.6em; line-height: 1em; }
 	h6.site-description { font-size:.9em;}
 	
-	.tags, .subhead, .caption, .footnote{ font-size: .8em }
-	.main_nav, #postauthor .subtext, .author-details, .post-nav, .current_posts_info, #secondnav, .kicker .run-in{font-size:.9em;}
+	.tags, .caption, .footnote{ font-size: .8em }
+	.subhead, .main_nav, #postauthor .subtext, .author-details, .post-nav, .current_posts_info, #secondnav, .kicker .run-in{font-size:.9em;}
 		
 	/* Posts Meta & Excerpts */
 	.fpost .post-excerpt{font-size: 1.1em; line-height: 1.6em}
@@ -112,15 +109,9 @@ body{font-size: 87.5%; line-height: 1.7em}
 			.wp-caption-dd {font-size: 11px;line-height: 17px;	}
 			.wp-caption-dd { font-size: 11px; line-height: 17px;  }	
 	
-
-
-/* @ Lists */ 
-	.hentry ul, .hentry ol { margin: 1.58em 0; margin-left: 16px;}
+	/* @ Lists */ 
+	.hentry ul, .hentry ol { margin-left: 16px;}
  
-/* @ Special Text Elements */ 
-	aside p, .sidenote p{line-height:1.7em;margin:0;}
-	aside ul, aside ol, .sidenote ul, .sidenote ol{margin-top:1.3em;line-height:1.7em;}
-
 	.footnote{margin-top:3.5em;}
 	.footnote li{margin:1.5em 0 1.5em;word-spacing:.1em;line-height:1.75em;}
 	.caption{font-style:italic;margin:.6em 0 -.2em;}
@@ -131,7 +122,7 @@ body{font-size: 87.5%; line-height: 1.7em}
 		.comment blockquote{border: none;padding-right: 10px;}
 		.comment blockquote blockquote{margin-bottom:0;}
 	
-/* @ Links & Link Effects */
+	/* @ Links & Link Effects */
 	a {text-decoration:none;}
 	.hentry a:hover{text-decoration: underline;}
 	#subnav ul li a:active{text-decoration:none;}
@@ -139,6 +130,7 @@ body{font-size: 87.5%; line-height: 1.7em}
 /* 
  * @ Default Type Faces
  */
+
 	/* Primary Font Style */
 		body, .font1, .font-primary, .commentlist, input{ 
 			font-family:Georgia, 'Times New Roman', Times, serif; 
@@ -156,168 +148,39 @@ body{font-size: 87.5%; line-height: 1.7em}
 		
 		input[type="text"], input[type="password"], textarea, #dsq-content textarea{ font-family: "Courier New", Courier, Verdana, sans-serif; }
 
-		
-/* ======================== */
-/* =    @ Color Styles    = */
-/* ======================== */
-
-	/* Text Colors */
 	
-		/* Footer & BG color */
-			body { color:#fff; }
-			
-		/* Footer Colors */
-			#footer, #footer li.link-list a, #footer .latest_posts li .list-excerpt{ color: #999; }
-			#footer a, #footer .widget-title,  #footer li h5 a {color:#fff;}
-		
-		/* Main Body - Text Color 1 */
-			#page, .tcolor1, #subnav ul li a:active, .commentlist cite a, #breadcrumb a, .metabar a:hover, .post-nav a:hover, .post-footer a, #buddypress-page #object-nav ul li a, #buddypress-page table.forum .td-title a, #buddypress-page #subnav a:hover, #buddypress-page #subnav li.current a, #twitterbar a, #carousel .carousel_text, #site #dsq-content .dsq-request-user-info td a, #pagination .wp-pagenavi a:hover, #pagination .wp-pagenavi .current, #primary-nav .main-nav li a:hover, #featurenav a.activeSlide, .content-pagination a:hover .cp-num{ 
-				color:#000; 
-			}
-			
-		/* Links & Text Highlights */
-			a, .lcolor1 a, #subnav_row li.current_page_item a, #subnav_row li a:hover, #grandchildnav .current_page_item > a, 
-			.branding h1 a:hover, .bbcrumb a:hover, #feature_slider .fcontent.fstyle-lightbg a, 
-			#feature_slider .fcontent.fstyle-nobg a, #respond h3 small a{ 
-				color:#225E9B;
-			}
-		
-		/* Text Header Color */
-			.hcolor, h1, h2, h3, h4, h5, h6, h1 a, h2 a, h3 a, h4 a, h5 a, h6 a, #branding h1 a, a.site-title, .entry-title a, .entry-title a:hover, 
-			.widget-title a:hover, h3.widget-title a:hover, .content-pagination .cp-num{ 
-				color: #000;
-			}
-	
-		/* Text Color 2*/
-			.tcolor2, .lcolor2 a, .subhead, .widget-title,  .post-edit-link, .metabar .sword, #branding .site-description, #callout, #commentform .required, #postauthor .subtext, #buddypress-page .standard-form .admin-links, #wp-calendar caption, #carousel .thecarousel, #pagination .wp-pagenavi span.pages, .commentlist .comment-meta  a,  #highlight .highlight-subhead, .content-pagination span, .content-pagination a .cp-num, .searchform .searchfield{ 
-				color: #AFAFAF; 
-			}	
-
-		/* Text Color 3 */
-			.tcolor3, .lcolor3 a, .main_nav li a,  .widget-title a, h3.widget-title a, #subnav_row li a, .metabar em, .metabar a, .tags, #commentform label, .form-allowed-tags code, .rss-date, #breadcrumb, .reply a, .post-nav a, .post-nav a:visited, .post-footer, .auxilary a, #buddypress-page .standard-form .admin-links a, #twitterbar .content .tbubble, .widget ul.twitter .twitter-item, .cform .emailreqtxt,.cform .reqtxt, #pagination .wp-pagenavi a, #pagination .wp-pagenavi .current, #pagination .wp-pagenavi .extend, .main_nav ul.sf-menu a, .sf-menu a:visited, #featurenav a, #feature-footer span.playpause{
-				color: #777;
-			}
-	
-
-	/* Box Color/Border Styles */
-		body, #footer .content {background-color: #000;}
-		body.fixed_width{ background-color:#444; }
-		#page, .content, .canvas #page-canvas, .sf-menu li, .main_nav ul.sf-menu a:focus, .sf-menu a:hover, .sf-menu a:active, .commentlist ul.children .even, .alt #commentform textarea{background: #FFF;}
-
-		/* Box Color - Primary Elements */
-			#feature-footer, .main-nav li.current-page-ancestor a, .main-nav li.current_page_item a, .main-nav li.current-page-ancestor ul a, .main-nav li.current_page_item ul a, #wp-calendar caption, #buddypress-page #subnav, #buddypress-page .activity .activity-inner, #buddypress-page table.forum th, #grandchildnav.widget, input, textarea, .searchform .searchfield, .wp-caption, .widget-default, .commentlist .alt, #wp-calendar #today, #buddypress-page div.activity-comments form .ac-textarea, #buddypress-page form#whats-new-form #whats-new-textarea, .post-nav, .current_posts_info, .post-footer,  #twitterbar, #twitterbar .content, #carousel .content-pad, .success, .sf-menu li li, .sf-menu li li, .sf-menu li li li, .content-pagination a .cp-num, .hentry table .alternate td{ 
-				background-color: #F7F7F7; 
-			}
-
-		/* Box Color - Secondary Elements  */
-			.main_nav .main-nav li a:hover, #wp-calendar thead th, #buddypress-page #object-nav, .item-avatar a, .comment blockquote, #grandchildnav .current_page_item a, #grandchildnav li a:hover, #grandchildnav .current_page_item  ul li a:hover, #carousel .carousel_text, pagination .wp-pagenavi a, #pagination .wp-pagenavi .current, #pagination .wp-pagenavi .extend, .sf-menu li:hover, .sf-menu li.sfHover, #featurenav a, #feature-footer span.playpause, .content-pagination .cp-num, .content-pagination a:hover .cp-num, ins{ 
-				background-color: #F1F1F1; 
-			}
-
-		/* Box Color - Tertiary Elements */
-			#buddypress-page #object-nav ul li a:hover,#buddypress-page #object-nav ul li.selected a, #buddypress-page #subnav a:hover, 
-			#buddypress-page #subnav li.current a, #featurenav a.activeSlide{ 
-				background-color: #e1e1e1; 
-			}
-	
-	
-	/* Borders */
-		/* Primary Border Color */
-			hr, .fpost, .clip_box, .widget-title, #buddypress-page .item-list li, .metabar a, #morefoot .widget-title, #site #dsq-content h3{ 
-				border-bottom: 1px solid #E9E9E9; 
-			}
-		
-			.main_nav_container, ul.sf-menu ul li{ border-bottom: 1px solid #E9E9E9; }
-			.post.fpost .entry, #soapbox .fboxinfo, #feature-footer.nonav { border-top: 1px solid #E9E9E9; } 
-
-			#feature-footer{ border: 1px solid #E9E9E9; }
-		
-			/* Misc Borders */
-			
-				.post-nav, .current_posts_info, .post-footer  {
-					border-right: 3px solid #E9E9E9;
-					border-left: 3px solid #E9E9E9;
-				}
-
-				#grandchildnav .current_page_item a, #grandchildnav li a:hover, #grandchildnav .current_page_item  ul li a:hover{
-					border-left: 3px solid #E9E9E9;
-				}
-		
-		#feature-footer .feature-footer-pad{
-			border-top: 1px solid #fff;
-			border-left: 1px solid #fff;
+/*
+* @ Borders
+*/	
+		hr, .fpost, .clip_box, .widget-title, #buddypress-page .item-list li, .metabar a, #morefoot .widget-title, #site #dsq-content h3, .main_nav_container, ul.sf-menu ul li{
+			border-bottom: 1px solid transparent;
 		}
-		
-		
-		#featurenav a, #feature-footer span.playpause{
-			border: 1px solid #ddd;
-			border-left: 1px solid #ccc;
-			border-top: 1px solid #ccc;
-		}
-		#featurenav a.activeSlide{
-			border: 1px solid #CCC;
-			border-left: 1px solid #999;
-			border-top: 1px solid #999;
-		}
-		
-		 textarea:focus, #commentform textarea:focus, #commentform input[type="text"]:focus {
-			border: solid 1px #bbb;
-		}
-			
-		
-		/* Border Accents - Highlight Color - Level 1 */
-			input, textarea, .searchform .searchfield, .wp-caption, .widget-default, 
-			#buddypress-page div.activity-comments form .ac-textarea, #buddypress-page form#whats-new-form #whats-new-textarea, #grandchildnav.widget {
-				border: 1px solid #E9E9E9;
-				border-left: 1px solid #DDDDDD;
-				border-top: 1px solid #DDDDDD;
-			}
-		
-		/* Thumbs & Frames */
-			.clip .clip-thumb img, .author-thumb img {
-				border: 1px solid #E9E9E9;
-				border-left: 1px solid #DDDDDD;
-				border-top: 1px solid #DDDDDD;
-			}
-			#carousel .content ul li a img {
-				background: #fff;
-				border: 1px solid #ccc;
-				border-right: 1px solid #ddd;
-				border-bottom: 1px solid #ddd;		
-			}
-			#carousel .content ul li a:hover img {
-				background:#ddd;
-				border: 1px solid #bbb;
-				border-right: 1px solid #ccc;
-				border-bottom: 1px solid #ccc;
-			}
-			
-			.widget_flickrRSS a img, .wp125_write_ads_widget.widget #wp125adwrap_2c .wp125ad a{
-				border: 1px solid #eee;
-				border-bottom: 2px solid #ddd;
-				background: #fff;
-			}
-
-	/* Text Shadows */
-		#feature-footer, #grandchildnav li a, #grandchildnav .current_page_item  ul li a, #buddypress-page #object-nav ul li a{ text-shadow: #fff 0 1px 0; }
-
-		.fixed_width #footer{ text-shadow: #000 0 -1px 0; }
-		
-
-				
-/* =============== */
-/* = Formatting  = */
-/* =============== */		
-
+		 ul.sf-menu ul li:last-child{border-bottom: none}
 	
-/* @ #header */	
+		.post.fpost .entry, #soapbox .fboxinfo, #feature-footer.nonav {border-top: 1px solid transparent;}
+		
+		#feature-footer, #featurenav a, #feature-footer span.playpause, #featurenav a.activeSlide, textarea:focus, #commentform textarea:focus, #commentform input[type="text"]:focus, input, textarea, .searchform .searchfield, .wp-caption, #buddypress-page div.activity-comments form .ac-textarea, #buddypress-page form#whats-new-form #whats-new-textarea, #grandchildnav.widget, .clip .clip-thumb img, .author-thumb img, #carousel .content ul li a img, .widget_flickrRSS a img, .wp125_write_ads_widget.widget #wp125adwrap_2c .wp125ad a{
+			border: 1px solid transparent;
+		}
+	
+		.widget-default{border: 4px dashed transparent;margin-bottom: 1em;}
+		.post-nav, .current_posts_info, .post-footer  {
+			border-right: 3px solid transparent;
+			border-left: 3px solid transparent;
+		}
+	
+	
+/* 
+* @ Element & Section Formatting
+*/
+	
+	/* @ #header */	
 	#header .outline{
 		position: relative;
 		zoom: 1;
 		z-index:15; /* ie drop-down fix */
 	}
 
-	
 	/* Branding Section */
 	
 	#branding .content{ z-index:10; }
@@ -384,9 +247,7 @@ body{font-size: 87.5%; line-height: 1.7em}
 				border-bottom:none;
 					
 			}
-			
-
-			
+						
 			/*IE6 border color (transparent border fix)*/
 			*html .main_nav li a{ border-color: white; }
 	
@@ -448,7 +309,7 @@ body{font-size: 87.5%; line-height: 1.7em}
 		.fpost .post-thumb.img { margin-right: 20px;}
 		.full_img {margin-bottom: .8em;}
 		
-		.post-meta .c_img { display: block;  border: 1px solid #e9e9e9; border-right: 1px solid #e6e6e6; border-bottom: 1px solid #e6e6e6; float: left; padding: 3px;}
+		.post-meta .c_img { display: block;  border: 1px solid transparent; float: left; padding: 4px; max-width: 98%;}
 		.clip .post-meta .c_img { padding: 2px;}
 		.fpost .media .img img{max-width: 100%; height: auto; margin: 0 auto;}
 		
@@ -610,7 +471,7 @@ body{font-size: 87.5%; line-height: 1.7em}
 		/* @ Special Widgets */
 		
 			.widget-default{
-				padding: 10px;
+				padding: 1.5em;
 				margin-bottom: .7em;
 			}
 			

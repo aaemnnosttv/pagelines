@@ -46,8 +46,8 @@ define('CHILD_IMAGES', CHILD_URL . '/images');
  * Define Settings Constants for option DB storage
  */
 define('PAGELINES_SETTINGS', apply_filters('pagelines_settings_field', 'pagelines-settings'));
-define('PAGELINES_LAYOUT_SETTINGS', apply_filters('pagelines_layout_settings_field', 'pagelines-layout-settings'));	
-define('PAGELINES_SECTION_SETTINGS', apply_filters('pagelines_section_settings_field', 'pagelines-section-settings'));	
+define('PAGELINES_EXTENSION', apply_filters('pagelines_settings_extension', 'pagelines-extension'));
+define('PAGELINES_SPECIAL', apply_filters('pagelines_settings_special', 'pagelines-special'));
 
 /**
  * Define PL Admin Paths
@@ -113,3 +113,9 @@ define('PROVERSION','PlatformPro');
 define('PROVERSIONDEMO','http://www.pagelines.com/demos/platformpro');
 define('PROVERSIONOVERVIEW','http://www.pagelines.com/themes/platformpro');
 define('PROBUY', 'http://www.pagelines.com/launchpad/signup.php?price_group[]=110&price_group[]=210&product_id=46&hide_paysys=paypal_r');
+
+/**
+ * Setup Extension constants
+ */
+define( 'EXTEND_CHILD_DIR', WP_PLUGIN_DIR . '/pagelines-base' );
+define( 'EXTEND_CHILD_URL', plugins_url( 'pagelines-base' ) );

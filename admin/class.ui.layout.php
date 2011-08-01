@@ -173,12 +173,10 @@ class PageLinesLayoutControl {
 					<div class="layout-overview"><?php echo $o['inputlabel'];?></div>
 					<?php
 
-
 					global $pagelines_layout;
-					foreach(get_the_layouts() as $layout):
-				
-						$saved_layout = $pagelines_layout->layout_map['saved_layout'];
-					?>
+					$saved_layout = $pagelines_layout->layout_map['saved_layout'];
+					
+					foreach(get_the_layouts() as $layout): ?>
 					<div class="layout-select-item">
 						<span class="layout-image-border <?php if($saved_layout == $layout) echo 'selectedlayout';?>">
 							<span class="layout-image <?php echo $layout;?>">&nbsp;</span>

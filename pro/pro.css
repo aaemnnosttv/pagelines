@@ -1,6 +1,6 @@
-/* =========================================================================================== */
-/* = Pro Version CSS - Copyright PageLines 2008-2010 - Written By Andrew Powers & Adam Munns = */
-/* =========================================================================================== */
+/* =================================================== */
+/* = Pro Version CSS - Copyright PageLines 2008-2010 = */
+/* =================================================== */
 
 /* @ Fixed Width Design Mode*/
 .fixed_width #page{
@@ -14,7 +14,6 @@
 	.fixed_width #boxes .dcol-pad {padding: 10px;}
 
 /*	@ Feature Slider Section */
-	#feature {margin: 1em 0;}
 
 	#feature_slider{
 		position:relative;
@@ -220,6 +219,7 @@
 		}
 			#feature-footer .feature-footer-pad{
 				padding:8px;
+				border: 1px solid transparent;
 			}
 			#feature-footer.nonav {border:none; }
 			#feature-footer.nonav .feature-footer-pad {display: none;}
@@ -392,7 +392,7 @@
 	
 /* @ Banners */
 
-#banners .content-pad { padding: 15px 0; }
+#banners .content-pad { padding-top: 15px; padding-bottom: 15px; }
 	.banner_container .banner-area {padding: 30px 0;}
 	
 	.banner_container .banner-media {text-align: center;}

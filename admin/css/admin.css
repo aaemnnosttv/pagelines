@@ -2,8 +2,8 @@
    admin.css
    git-platform-framework
    
-   Created by Andrew Powers on 2011-07-03.
-   Copyright 2011 __MyCompanyName__. All rights reserved.
+   Created by PageLines on 2011-07-03.
+   Copyright 2011 PageLines Inc. All rights reserved.
 */
 
 /*
@@ -514,7 +514,7 @@
 	
 		.wideinputs .oinputs-pad {
 			margin:0 0 1em;
-			padding: 5px 25px;
+			padding: 15px 30px;
 		}
 
 	/* @Interface Layout Mode */
@@ -1098,17 +1098,28 @@
 	}
 .sc_button{
 	display: block;
-
+font-weight: bold;
 	border: 1px solid #ccc;
 	border-right: 1px solid #bbb;
-	border-bottom: 1px solid #bbb;
+	border-bottom: 1px solid #b1b1b1;
 	margin-bottom: 3px;
 	background: #F3F3F4 url(../images/section-up.png) repeat-x left bottom;
+	color:#555;
 }
+
+	.type_show .sc_button{
+		border: 1px solid #ddd;
+		border-right: 1px solid #c1c1c1;
+		border-bottom: 1px solid #c1c1c1;
+		color:#000;
+		background: #F3F3F4 url(../images/section-hover.png) repeat-x left bottom;
+	}
+		.type_show .sc_button .sc_button_pad{
+			border-top: 1px solid #fff;
+			border-left: 1px solid #fff;
+		}
 	.sc_button_pad{
 		display: block;
-		
-	
 		border-top: 1px solid #eee;
 		border-left: 1px solid #eee;
 	}
@@ -2062,15 +2073,66 @@
 		
 /* @ Color Picker */
 	.the_picker{
+		
+		float: left;
 		margin-bottom: 18px;
 	}
-	.colorpicker_label{
-		margin: 0 0 5px;
-		line-height: 1.3em;
+		
+		.picker_row_3{ width: 32%; margin-right: 2% }
+		.picker_row_4{ width: 23%; margin-right: 2.6666666% }
+		.the_picker.p_end{margin-right: 0;}
+		
+		.picker_panel{
+			background:#eee;
+			border: 1px solid #ddd;
+			border-right: 1px solid #ccc;
+			border-bottom: 1px solid #ccc;
+		}
+		input.colorpickerclass, input[type="text"].colorpickerclass{
+			width: 80px;
+			border-top: 1px solid #ccc; 
+			text-shadow: #fff 0 1px 0;
+			letter-spacing: .1em;
+			padding: 4px;
+			color:#444;
+			border-left: 1px solid #ccc; 
+			background: #fafafa; 
+			font-size: 1.05em; 
+			font-family: courier, arial, sans-serif;
+		}
+		
+	.the_picker .lbl.context{
+		margin: 0;
+		line-height: 1.5em;
 		display: block;
+		background: #DDD;
+		border-top: 1px solid #eee;
+		border-left: 1px solid #eee;
+		border-bottom: 1px solid #c5c5c5;
+		padding: 5px 10px 5px;
+		font-size: 1em;
+		text-align: center;
+		
 	}
-		.colorpicker_label small{display: block; font-weight: normal; color:#888;}
+		.picker_row_3 .pick_contain{
+			padding-left: 53px;
+		}
+		.pick_contain{
+			border-top: 1px solid #fff;
+			border-left: 1px solid #fff;
+			padding: 15px 0 15px 21px;
+		}
 
+	.picker_generated{
+		background: #f7f7f7;
+		margin-top: 1em;
+		border: 1px solid #e5e5e5;
+		border-right: 1px solid #ccc;
+		border-bottom: 1px solid #ccc;
+	}
+		.pgen-pad{padding: 8px;border-top: 1px solid #fff; border-left: 1px solid #fff;}
+		.gen-title{font-weight: bold; color:#aaa}
+		.pickgen{height: 20px; width: 20px; float: left;}
 /* Email Capture */
 .the_email_response{
 	margin: .5em 0;
@@ -2209,4 +2271,16 @@
 		width: 960px;
 		margin: 0 auto;
 	}
-	
+	.filewarning {
+	    color: #555555;
+	    font-weight: bold;
+	    padding: 10px 15px;	
+	}
+	#imgPreviewWithStyles {
+	    background: #222;
+	    -moz-border-radius: 10px;
+	    -webkit-border-radius: 10px;
+	    padding: 15px;
+	    z-index: 999;
+	    border: none;
+	}	

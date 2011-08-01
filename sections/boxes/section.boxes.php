@@ -1,7 +1,7 @@
 <?php
 /*
 	Section: PageLines Boxes
-	Author: Andrew Powers
+	Author: PageLines
 	Author URI: http://www.pagelines.com
 	Description: Creates boxes and box layouts
 	Class Name: PageLinesBoxes
@@ -18,6 +18,7 @@ class PageLinesBoxes extends PageLinesSection {
 		$default_settings = array(
 			'description' 	=> 'Inline boxes on your page that support images and media.  Great for feature lists, and media.',
 			'icon'			=> PL_ADMIN_ICONS . '/boxes.png', 
+			'workswith' 	=> array('templates', 'main', 'header', 'morefoot'),
 			'version'		=> 'pro',
 			'cloning'		=> true
 		);
@@ -174,41 +175,34 @@ class PageLinesBoxes extends PageLinesSection {
 			register_metatab($metatab_settings, $metatab_array);
 	}
 
-   function section_template() {    
-	
+   function section_template( $clone_id = null ) {    
+
 		global $post; 
 		global $pagelines_ID;
+		
+		// Option Settings
+			$oset = array('post_id' => $pagelines_ID, 'clone_id' => $clone_id);
+		
+		// Options
+			$box_columns = ( ploption( 'box_col_number', $oset) ) ? ploption( 'box_col_number', $oset) : 3; 
+			$box_set = ( ploption( 'box_set', $oset ) ) ? ploption( 'box_set', $oset ) : 'hello';
+			$box_limit = ploption( 'box_items', $oset );
+			$thumb_type = ( ploption( 'box_thumb_type', $oset) ) ? ploption( 'box_thumb_type', $oset) : 'inline_thumbs';	
+			$thumb_size = ( ploption('box_thumb_size', $oset) ) ? ploption('box_thumb_size', $oset) : 64;
 				
-		// inserts a clearing element at the end of each line of boxes
-		$perline = (pagelines_option('box_col_number', $pagelines_ID)) ? pagelines_option('box_col_number', $pagelines_ID) : 3;
-	
-		if( get_pagelines_meta('box_set', $pagelines_ID) ) 
-			$set = get_post_meta($pagelines_ID, 'box_set', true);
-		elseif (pagelines_non_meta_data_page() && pagelines_option('box_default_tax')) 
-			$set = pagelines_option('box_default_tax');
-		else $set = null;
-		
-		if(pagelines_option('box_items', $pagelines_ID)) $limit = pagelines_option('box_items', $pagelines_ID);
-		else $limit = null;
-	
-		$b = $this->load_pagelines_boxes($set, $limit); 
-		
-		$this->draw_boxes($b, $perline, $set);
-		
+		// Actions	
+			$b = $this->load_pagelines_boxes($box_set, $box_limit); 
+			$this->draw_boxes($b, $box_columns, $box_set, $thumb_type, $thumb_size);
 		
 	}
 
-	function draw_boxes($b, $perline = 3, $class = ""){ 
+	function draw_boxes($b, $perline = 3, $class = "", $thumb_type = 'inline_thumbs', $thumb_size = ''){ 
 		global $post;
 		global $pagelines_ID;
 	
-		$box_thumb_type = (pagelines_option('box_thumb_type', $pagelines_ID)) ? pagelines_option('box_thumb_type', $pagelines_ID) : 'inline_thumbs';
-
 		$post_count = count($b);
 		$current_box = 1;
 		$row_count = $perline;
-		
-		
 		
 ?>
 		<div class="pprow <?php echo $class;?> fboxes fix">
@@ -223,10 +217,10 @@ class PageLinesBoxes extends PageLinesSection {
 			
 ?>
 			<section id="<?php echo 'fbox_'.$bpost->ID;?>" class="<?php echo $grid_class;?> fbox">
-				<div class="media dcol-pad <?php echo $box_thumb_type;?>">	
+				<div class="media dcol-pad <?php echo $thumb_type;?>">	
 					
 					<?php if($box_icon)
-							echo self::_get_box_image( $bpost, $box_icon, $box_link ); ?>
+							echo self::_get_box_image( $bpost, $box_icon, $box_link, $thumb_size); ?>
 					
 						<div class="fboxinfo fix bd">
 							
@@ -276,11 +270,10 @@ class PageLinesBoxes extends PageLinesSection {
 	}
 	
 
-	function _get_box_image( $bpost, $box_icon, $box_link = false ){
+	function _get_box_image( $bpost, $box_icon, $box_link = false, $box_thumb_size){
 			global $pagelines_ID;
 			
-			// Get thumb size
-			$box_thumb_size = (pagelines_option('box_thumb_size', $pagelines_ID)) ? pagelines_option('box_thumb_size', $pagelines_ID) : 64;
+			
 			
 			// Make the image's tag with url
 			$image_tag = sprintf('<img src="%s" alt="%s" style="width: 100%%" />', $box_icon, esc_html($bpost->post_title) );
@@ -402,20 +395,20 @@ function pagelines_default_boxes($post_type){
 
 function get_default_fboxes(){
 	$default_boxes[] = array(
-	        				'title' => 'Drag&amp;Drop Design',
-			        		'text' 	=> 'In voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur occaecat cupidatat non proident, in culpas officia deserunt.',
+	        				'title' => 'Drag&amp;Drop Control',
+			        		'text' 	=> 'Control the structure of your site using drag and drop functionality. Pro web design has never been easier.',
 							'media' => PL_IMAGES.'/fbox3.png'
 	    				);
 
 	$default_boxes[] = array(
 	        				'title' => 'PageLines Framework',
-			        		'text' 	=> 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in.',
+			        		'text' 	=> 'The world\'s first ever drag-and-drop framework designed for professional websites. Build beautiful sites the faster.',
 							'media' => PL_IMAGES.'/fbox2.png'
 	    				);
 
 	$default_boxes[] = array(
-	        				'title'	=> 'Rock The Web!',
-	        				'text' 	=> 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim.', 
+	        				'title'	=> 'Add-On Marketplace',
+	        				'text' 	=> 'Load up your own sections, themes and plugins using PageLines\' one of a kind extension marketplace.', 
 							'media' => PL_IMAGES.'/fbox1.png'
 	    				);
 	

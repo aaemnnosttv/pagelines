@@ -1,7 +1,7 @@
 <?php
 /*
 	Section: PostAuthor
-	Author: Andrew Powers
+	Author: PageLines
 	Author URI: http://www.pagelines.com
 	Description: Adds post author to page/single post.
 	Class Name: PageLinesPostAuthor
