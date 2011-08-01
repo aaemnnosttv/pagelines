@@ -334,7 +334,7 @@ function do_color_math($oid, $o, $val, $format = 'css'){
 
 			if($k['mode'] == 'mix' || $k['mode'] == 'shadow'){
 				
-				if( is_array($k['mixwith']) ){
+				if( isset($k['mixwith']) && is_array($k['mixwith']) ){
 					foreach($k['mixwith'] as $mkey => $m){
 						
 						if( isset($m) && !empty($m)){
@@ -351,7 +351,7 @@ function do_color_math($oid, $o, $val, $format = 'css'){
 					
 					$difference =  ($math->get_hsl($mix_color, 'lightness') - $math->base_hsl['lightness']);
 			
-					$difference = ($difference > 0 ) ? .1 : -.1;
+					$difference = ($difference > 0 ) ? .1 : -.2;
 				
 					$k['css_prop'] = ( $difference < 0) ?  array('text-shadow-top') : array('text-shadow');
 					
