@@ -76,7 +76,7 @@ require_once( PL_INCLUDES . '/config.selectors.php' );
 
 /* Options Singleton */
 $GLOBALS['global_pagelines_settings'] = get_option(PAGELINES_SETTINGS);	
-
+$GLOBALS['pagelines_special_meta'] = get_option(PAGELINES_SPECIAL);	
 
 
 /**
@@ -95,7 +95,7 @@ require_once( PL_INCLUDES . '/class.posts.php' );
  * @global object $pagelines_layout
  */
 require_once( PL_INCLUDES . '/class.layout.php' ); 
-$GLOBALS['pagelines_layout'] = new PageLinesLayout();
+
 	
 /**
  * Load sections handling class
@@ -219,10 +219,6 @@ add_theme_support( 'automatic-feed-links' );
  * -- relative link
  */
 add_editor_style( 'admin/css/editor-style.css' );
-
-// Sets Content Width for Large images when adding media
-// Re: if ( ! isset( $content_width ) ) $content_width = 640;
-pagelines_current_page_content_width(); 
 
 /**
  * Setup Framework Versions

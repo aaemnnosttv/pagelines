@@ -4,6 +4,34 @@
 // = PageLines Function Library =
 // ==============================
 
+
+/**
+ *  Determines if this page is showing several posts.
+ *
+ * @since 4.0.0
+ */
+function pagelines_is_posts_page(){	
+	if(is_home() || is_search() || is_archive() || is_category() || is_tag()) return true; 
+	else return false;
+}
+
+function pagelines_non_meta_data_page(){
+	if(pagelines_is_posts_page() || is_404()) return true; 
+	else return false;
+}
+
+function is_pagelines_special(){
+	if(is_home() || is_search() || is_archive() || is_category() || is_tag() || is_404()) 
+		return true; 
+	else 
+		return false;
+}
+
+
+function pagelines_special_pages(){
+	return array('posts', 'search', 'archive', 'tag', 'category', '404');
+}
+
 /**
  * 
  *  Sets up classes for controlling design and layout and is used on the body tag
@@ -176,55 +204,6 @@ function pagelines_shorturl( $url, $timeout = 86400 ) {
 	return $out->shorturl;
 }
 
-/**
- * 
- *  Returns Current Layout Mode
- *
- *  @package PageLines
- *  @subpackage Functions Library
- *  @since 1.0.0
- *
- */
-function pagelines_layout_mode() {
-
-	global $pagelines_layout;
-	global $post;
-
-	if(!pagelines_is_posts_page() && isset($post) && get_post_meta($post->ID, '_pagelines_layout_mode', true)){
-		$pagelines_layout->build_layout(get_post_meta($post->ID, '_pagelines_layout_mode', true));
-		return get_post_meta($post->ID, '_pagelines_layout_mode', true);
-	} elseif(pagelines_is_posts_page() && pagelines_option('posts_page_layout')){
-		$pagelines_layout->build_layout(pagelines_option('posts_page_layout'));
-		return pagelines_option('posts_page_layout');
-	} else {
-		return $pagelines_layout->layout_mode;
-	}
-
-}
-
-
-/**
- * 
- *  Sets Content Width for Large images when adding media
- *
- *  @package PageLines
- *  @subpackage Functions Library
- *  @since 1.2.3
- *
- */
-function pagelines_current_page_content_width() {
-
-	global $pagelines_layout;
-	global $content_width;
-	global $post;
-
-	$mode = pagelines_layout_mode();
-	
-	$c_width = $pagelines_layout->layout_map[$mode]['maincolumn_width'];
-	
-	if ( !isset( $content_width ) ) $content_width = $c_width - 45;
-
-}
 
 /**
  * 

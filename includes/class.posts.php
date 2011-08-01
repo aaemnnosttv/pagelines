@@ -430,21 +430,3 @@ class PageLinesPosts {
 /* ------- END OF CLASS -------- */
 
 
-/**
- *  Determines if this page is showing several posts.
- *
- * @since 4.0.0
- */
-function pagelines_is_posts_page(){	
-	if(is_home() || is_search() || is_archive() || is_category() || is_tag()) return true; 
-	else return false;
-}
-
-function pagelines_non_meta_data_page(){
-	if(pagelines_is_posts_page() || is_404()) return true; 
-	else return false;
-}
-
-function pagelines_special_pages(){
-	return array('posts', 'search', 'archive', 'tag', 'category', '404');
-}

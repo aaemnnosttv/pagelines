@@ -34,6 +34,7 @@ class PageLinesLayout {
 		
 			$this->build_layout($layout_mode);
 			
+			
 		}
 		
 		function build_layout($layout_mode){
@@ -78,10 +79,7 @@ class PageLinesLayout {
 
 		function get_layout_map(){
 			
-			if( pagelines_option('layout') )
-				$this->layout_map = pagelines_option('layout');
-			else
-				$this->layout_map = $this->default_layout_setup();
+			$this->layout_map = ( ploption('layout') ) ? ploption('layout') : $this->default_layout_setup();
 		
 		}
 		
@@ -292,14 +290,17 @@ class PageLinesLayout {
 			$c = $this->content->width;
 			$p = $this->content->percent;
 			
-
-			$page_width_sel = cssgroup('page_width');
-			$content_width_sel = cssgroup('content_width');
+			// Selectors 
+				$page_width_sel = cssgroup('page_width');
+				$content_width_sel = cssgroup('content_width');
+		
+			// Options 
+				$layout_handling = ploption('layout_handling');
+				$design_mode = ploption('site_design_mode');
 			
-			$design_mode = pagelines_option('site_design_mode');
-			$contained = (pagelines_option('site_design_mode') == 'fixed_width' || pagelines_option('site_design_mode') == 'canvas') ? true : false;
+			$contained = ($design_mode == 'fixed_width' || $design_mode == 'canvas') ? true : false;
 			
-			if( pagelines_option('layout_handling') == 'percent'){
+			if( $layout_handling == 'percent'){
 				if($contained){
 					$css .= sprintf($page_width_sel . '{ width: %s%%;}', $p);
 					$css .= sprintf($content_width_sel . '{ width: %s%%; }', '100');
@@ -307,7 +308,7 @@ class PageLinesLayout {
 					$css .= sprintf($content_width_sel . '{ width: %s%%; }', $p);
 				
 				
-			} elseif( pagelines_option('layout_handling') == 'pixels' ){
+			} elseif( $layout_handling == 'pixels' ){
 				$css .= sprintf($page_width_sel . '{ max-width:%spx; }', $c + 20);
 				$css .= sprintf($content_width_sel . '{ width: 100%%; max-width:%spx;}', $c);
 			}else{
@@ -353,6 +354,66 @@ class PageLinesLayout {
 }
 
 //********* END OF LAYOUT CLASS *********//
+
+
+/**
+ * PageLines Layout Object 
+ * @global object $pagelines_template
+ * @since 1.0.0
+ */
+function build_pagelines_layout(){	
+	
+	global $pagelines_layout;
+	global $post;
+	
+	$post_id = (isset($post->ID)) ? $post->ID : null;
+	
+	$oset = array( 'post_id' => $post_id );
+
+	$page_layout = (ploption( '_pagelines_layout_mode', $oset)) ? ploption( '_pagelines_layout_mode', $oset) : null;
+	
+	$pagelines_layout = new PageLinesLayout( $page_layout );
+}
+
+
+/**
+ * 
+ *  Sets Content Width for Large images when adding media
+ *
+ *  @package PageLines
+ *  @subpackage Functions Library
+ *  @since 1.2.3
+ *
+ */
+function pagelines_current_page_content_width() {
+
+	global $pagelines_layout;
+	global $content_width;
+	global $post;
+
+	$mode = pagelines_layout_mode();
+	
+	$c_width = $pagelines_layout->layout_map[$mode]['maincolumn_width'];
+	
+	if ( !isset( $content_width ) ) $content_width = $c_width - 45;
+
+}
+
+/**
+ * 
+ *  Returns Current Layout Mode
+ *
+ *  @package PageLines
+ *  @subpackage Functions Library
+ *  @since 1.0.0
+ *
+ */
+function pagelines_layout_mode() {
+
+	global $pagelines_layout;
+	return $pagelines_layout->layout_mode;
+	 
+}
 
 
 function get_layout_mode(){
