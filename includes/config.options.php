@@ -780,7 +780,15 @@ class PageLinesOptionsArray {
 					'exp'		=> "Select which icons you would like to show in your post footer when sharing " . 
 							 "links are shown."
 		    ), 
-
+			'excerpt_len' => array(
+					'version'	=> 'pro',
+					'default' 	=> 55,
+					'type' 		=> 'text',
+					'inputlabel' 	=> 'Number of characters.',
+					'title' 	=> 'Excerpt Length',
+					'shortexp' 	=> '',
+					'exp' 		=> 'Excerpts are set to 55 characters by default.'
+			),
 			'excerpt_tags' => array(
 					'version'	=> 'pro',
 					'default' 	=> '<p><br><a>',

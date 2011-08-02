@@ -388,7 +388,7 @@ function improved_trim_excerpt($text) {
 		
 		$text = strip_tags($text, $allowed_tags); // PageLines - allow more tags
 		
-		$excerpt_length = apply_filters('excerpt_length', 55);
+		$excerpt_length = apply_filters('excerpt_length', pagelines_option( 'excerpt_len' ) );
 		$excerpt_more = apply_filters('excerpt_more', ' ' . '[...]');
 		$words = preg_split("/[\n\r\t ]+/", $text, $excerpt_length + 1, PREG_SPLIT_NO_EMPTY);
 		if ( count($words) > $excerpt_length ) {
