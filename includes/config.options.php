@@ -1214,20 +1214,10 @@ class PageLinesWelcome {
 				'url2'			=> 'http://wordpress.org/extend/plugins/bp-template-pack/',
 				'desc'			=> 'Social networking for your WordPress site.',
 			),
-			'bbpress'	=> array(
-				'name'			=> 'bbPress Forums',
-				'url'			=> 'http://bbpress.org/', 
-				'desc'			=> 'Matching forum theme for bbPress (Developer Edition Only)',
-			),
 			'postorder'	=> array(
 				'name'			=> 'Post Types Order',
 				'url'			=> 'http://wordpress.org/extend/plugins/post-types-order/', 
 				'desc'			=> 'Allows you to re-order custom post types like features and boxes.',
-			),
-			'twitterwp'	=> array(
-				'name'			=> 'Twitter for WordPress',
-				'url'			=> 'http://wordpress.org/extend/plugins/twitter-for-wordpress/', 
-				'desc'			=> 'Latest Twitter Post and Twitter Post Widgets.',
 			),
 			'disqus'	=> array(
 				'name'			=> 'Disqus Comments',
