@@ -370,8 +370,9 @@ remove_filter('get_the_excerpt', 'wp_trim_excerpt');
 add_filter('get_the_excerpt', 'improved_trim_excerpt');
 function improved_trim_excerpt($text) {
 	
-	// Set allowed excerpt tags
-	$allowed_tags = (pagelines_option('excerpt_tags')) ? pagelines_option('excerpt_tags') : '';
+	// Group options at top :)
+	$allowed_tags = (ploption('excerpt_tags')) ? ploption('excerpt_tags') : '';
+	$excerpt_len = (ploption('excerpt_len')) ? ploption('excerpt_len') : 55;
 	
 	$raw_excerpt = $text;
 	if ( '' == $text ) {
@@ -388,16 +389,19 @@ function improved_trim_excerpt($text) {
 		
 		$text = strip_tags($text, $allowed_tags); // PageLines - allow more tags
 		
-		$excerpt_length = apply_filters('excerpt_length', pagelines_option( 'excerpt_len' ) );
+
+		$excerpt_length = apply_filters('excerpt_length', $excerpt_len );
 		$excerpt_more = apply_filters('excerpt_more', ' ' . '[...]');
+		
 		$words = preg_split("/[\n\r\t ]+/", $text, $excerpt_length + 1, PREG_SPLIT_NO_EMPTY);
+		
 		if ( count($words) > $excerpt_length ) {
 			array_pop($words);
 			$text = implode(' ', $words);
 			$text = $text . $excerpt_more;
-		} else {
+		} else
 			$text = implode(' ', $words);
-		}
+			
 	}
 	return apply_filters('wp_trim_excerpt', $text, $raw_excerpt);
 }

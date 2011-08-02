@@ -437,7 +437,7 @@ class PageLinesTemplateBuilder {
 							$label = sprintf('<label for="%s" class="%s">%s</label>', $check_name, '', 'Hide This By Default');
 							
 							printf('<div class="section-options-row">%s %s</div>', $checkbox, $label);
-						
+							
 							
 						echo '</div>';
 						
