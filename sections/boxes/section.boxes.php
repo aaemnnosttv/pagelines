@@ -220,24 +220,25 @@ class PageLinesBoxes extends PageLinesSection {
 				<div class="media dcol-pad <?php echo $thumb_type;?>">	
 					
 					<?php if($box_icon)
-							echo self::_get_box_image( $bpost, $box_icon, $box_link, $thumb_size); ?>
-					
-						<div class="fboxinfo fix bd">
+							echo self::_get_box_image( $bpost, $box_icon, $box_link, $thumb_size, $thumb_type); 
 							
-							<div class="fboxtitle">
-								<h3>
-<?php 							if($box_link) 
-									printf('<a href="%s">%s</a>', $box_link, $bpost->post_title );
-								else 
-									echo do_shortcode($bpost->post_title); ?>
-								</h3>
+						if($thumb_type != 'only_thumbs'): ?>		
+							<div class="fboxinfo fix bd">
+								<div class="fboxtitle">
+									<h3>
+	<?php 							if($box_link) 
+										printf('<a href="%s">%s</a>', $box_link, $bpost->post_title );
+									else 
+										echo do_shortcode($bpost->post_title); ?>
+									</h3>
+								</div>
+								<div class="fboxtext">
+									<?php echo blink_edit( $bpost->ID ); ?>
+									<?php echo do_shortcode($bpost->post_content); ?>
+								</div>
 							</div>
-							<div class="fboxtext">
-								<?php echo blink_edit( $bpost->ID ); ?>
-								<?php echo do_shortcode($bpost->post_content); ?>
-							</div>
-						</div>
-						<?php pagelines_register_hook( 'pagelines_box_inside_bottom', $this->id ); // Hook ?>
+							<?php pagelines_register_hook( 'pagelines_box_inside_bottom', $this->id ); // Hook ?>
+						<?php endif;?>
 				</div>
 			</section>
 <?php 
@@ -270,13 +271,21 @@ class PageLinesBoxes extends PageLinesSection {
 	}
 	
 
-	function _get_box_image( $bpost, $box_icon, $box_link = false, $box_thumb_size){
+	function _get_box_image( $bpost, $box_icon, $box_link = false, $box_thumb_size = 65, $thumb_type){
 			global $pagelines_ID;
 			
-			
+			if($thumb_type == 'inline_thumbs'){
+				$image_style = 'width: 100%';
+				$wrapper_style = sprintf('width: 22%%; max-width:%dpx', $box_thumb_size);
+				$wrapper_class = 'fboxgraphic img';
+			} else {
+				$image_style = sprintf('width: 100%%; max-width:%dpx', $box_thumb_size);
+				$wrapper_style = '';
+				$wrapper_class = 'fboxgraphic';
+			}
 			
 			// Make the image's tag with url
-			$image_tag = sprintf('<img src="%s" alt="%s" style="width: 100%%" />', $box_icon, esc_html($bpost->post_title) );
+			$image_tag = sprintf('<img src="%s" alt="%s" style="%s" />', $box_icon, esc_html($bpost->post_title), $image_style);
 			
 			// If link for box is set, add it
 			if( $box_link ) 
@@ -284,7 +293,7 @@ class PageLinesBoxes extends PageLinesSection {
 			else 
 				$image_output = $image_tag;
 			
-			$wrapper = sprintf('<div class="fboxgraphic img" style="width: 22%%; max-width:%dpx">%s</div>',$box_thumb_size, $image_output);
+			$wrapper = sprintf('<div class="%s" style="%s">%s</div>', $wrapper_class, $wrapper_style, $image_output );
 			
 			// Filter output
 			return apply_filters('pl_box_image', $wrapper, $bpost->ID);
