@@ -200,62 +200,53 @@ class PageLinesFeatures extends PageLinesSection {
 			register_metatab($metatab_settings, $page_metatab_array);
 	}
 
-	function section_head() {   
+	function section_head( $clone_id ) {   
 		
 		global $pagelines_ID;
 
 		// Get the features from post type
-		$f = $this->pagelines_features_set(); 	
+		$f = $this->pagelines_features_set( $clone_id ); 	
 	
 		$feffect = (ploption('feffect')) ? ploption('feffect') : 'fade';
 		$timeout = (ploption('timeout')) ? ploption('timeout') : 0;
 		$speed   = (ploption('fspeed')) ? ploption('fspeed') : 1500;
 		$fsync   = (ploption('fremovesync')) ? 0 : 1;
 		$autostop = ( has_filter('pagelines_feature_autostop') ) ? ', autostop: 1, autostopCount: ' . apply_filters( 'pagelines_feature_autostop', 0) : '';
-	
+		$playpause = (ploption('feature_playpause')) ? true : false;
+		$fmode = ploption('feature_nav_type');
 		
 		$args = sprintf("slideResize: 0, fit: 1,  fx: '%s', sync: %d, timeout: %d, speed: %d, cleartype: true, cleartypeNoBg: true, pager: 'div#featurenav'%s", $feffect, $fsync, $timeout, $speed, $autostop);
 		
-?><script type="text/javascript">
-/* <![CDATA[ */
-	var $j = jQuery.noConflict();
-	$j(document).ready(function () {
+?><script type="text/javascript">/* <![CDATA[ */ jQuery(document).ready(function () {
 <?php 
 	//Feature Cycle Setup
-	printf( "\$j('#cycle').cycle({ %s });", $args);
+	printf( "\jQuery('#cycle').cycle({ %s });", $args);
 	
-	$this->_js_feature_loop($f);
+	$this->_js_feature_loop($fmode, $f);
 
-	if(ploption('feature_playpause')):?>	
-		// Play Pause
-		$j('.playpause').click(function() { 
-			if ($j('.playpause').hasClass('pause')) {
-				$j('#cycle').cycle('pause');
-			 	$j('.playpause').removeClass('pause').addClass('resume');
+	if($playpause):?>	
+		jQuery('.playpause').click(function() { 
+			if (jQuery('.playpause').hasClass('pause')) { 
+				jQuery('#cycle').cycle('pause'); jQuery('.playpause').removeClass('pause').addClass('resume');
 			} else {
-			   	$j('.playpause').removeClass('resume').addClass('pause');
-			    $j('#cycle').cycle('resume', true); 	
+			   	jQuery('.playpause').removeClass('resume').addClass('pause'); jQuery('#cycle').cycle('resume', true); 	
 			}
 		});
 	<?php endif;?>
-	
 });
 
-/* ]]> */
-</script>
+/* ]]> */ </script>
 <?php }
 
-function _js_feature_loop($fposts = array()){
+function _js_feature_loop($fmode, $fposts = array()){
 	
 	$count = 1;
 	$link_js = '';
-	$fmode = pagelines_option('feature_nav_type');
-	
 	
 		foreach($fposts as $fid => $f){
-	
-			$feature_name = (pagelines_option('feature-name', $f->ID)) ? pagelines_option('feature-name', $f->ID): __('feature ', 'pagelines') . $count;
-			$feature_thumb = pagelines_option('feature-thumb', $f->ID);
+			$oset = array('post_id' => $f->ID);
+			$feature_name = (ploption('feature-name', $oset)) ? ploption('feature-name', $oset) : __('feature ', 'pagelines') . $count;
+			$feature_thumb = ploption('feature-thumb', $oset);
 		
 			if($fmode == 'names' || $fmode == 'thumbs'){
 				if($fmode == 'names')
@@ -265,13 +256,10 @@ function _js_feature_loop($fposts = array()){
 					$replace_value = sprintf("<span class='nav_thumb' style='background:#fff url(%s);'><span class='nav_overlay'>&nbsp;</span></span>", $feature_thumb);
 		
 				$replace_js = sprintf('$j(this).html("%s");', $replace_value );
-			} else {
+			} else
 				$replace_js = '';
-			}
-			
 			
 			$link_title = sprintf('$j(this).attr("title", "%s");', $feature_name );
-			
 		
 			$link_js .= sprintf('if($j(this).html() == "%s") { %s %s }', $count, $link_title, $replace_js);
 		
@@ -282,39 +270,43 @@ function _js_feature_loop($fposts = array()){
 
 }
 
-function section_template() {    
+function section_template( $clone_id ) {    
 
-	$f = $this->pagelines_features_set(); 
-
+	$f = $this->pagelines_features_set( $clone_id ); 
 
 	// $this->set set in pagelines_feature_set, better way to do this?
 	$this->draw_features($f, $this->set);
 
 }
 
-function pagelines_features_set(){
+function pagelines_features_set( $clone_id ){
 	
 	global $post; 
 	global $pagelines_ID;
 	
-	if( get_pagelines_meta('feature_set', $pagelines_ID) )
-		$this->set = get_post_meta($pagelines_ID, 'feature_set', true);
-	elseif (pagelines_option('feature_default_tax'))
-		$this->set = pagelines_option('feature_default_tax');
+	$oset = array('post_id' => $pagelines_ID, 'clone_id' => $clone_id );
+	
+	
+	if( plmeta('feature_set', $oset) )
+		$this->set = plmeta('feature_set', $oset);
+	elseif (ploption('feature_default_tax', $oset))
+		$this->set = ploption('feature_default_tax', $oset);
 	else 
 		$this->set = null;
 	
-	$limit = (pagelines_option('feature_items', $pagelines_ID)) ? pagelines_option('feature_items', $pagelines_ID) : null;
+	$limit = ploption('feature_items', $oset);
 		
-	$source = (pagelines_option('feature_source') == 'posts') ? 'posts' : 'customtype';	
+	$source = (ploption('feature_source', $oset) == 'posts') ? 'posts' : 'customtype';	
+	
+	$category = ploption('feature_category', $oset);	
 		
-	$f = $this->load_pagelines_features($this->set, $limit, $source); 
+	$f = $this->load_pagelines_features($this->set, $limit, $source, $category); 
 	
 	return $f;	
 		
 }
 
-function load_pagelines_features( $set = null, $limit = null, $source = null){
+function load_pagelines_features( $set = null, $limit = null, $source = null, $category = false){
 	$query = array();
 	
 	$query['orderby'] 	= 'ID'; 
@@ -323,8 +315,8 @@ function load_pagelines_features( $set = null, $limit = null, $source = null){
 		
 		$query['post_type'] = 'post';
 		
-		if(pagelines_option('feature_category'))
-			$query['cat'] = pagelines_option('feature_category');
+		if( $category )
+			$query['cat'] = $category;
 
 	} else {
 		
@@ -348,37 +340,54 @@ function load_pagelines_features( $set = null, $limit = null, $source = null){
 
 function draw_features($f, $class) {     
 	
-	global $post; 
-	global $pagelines_layout; 
-	$current_page_post = $post;
+	// Setup 
+		global $post; 
+		global $pagelines_layout; 
+		$current_page_post = $post;
+	
+	// Options 
+		$feature_source = ploption('feature_source');
+		$timeout = ploption('timeout');
+		$playpause = ploption('feature_playpause');
+		$feature_nav_type = ploption('feature_nav_type');
 	   
+	// Refine
+		$no_nav = ( isset($f) && count($f) == 1 ) ? 'nonav' : '';
+		$footer_nav_class = $feature_nav_type . $no_nav;
+	
 ?>		
 	<div id="feature_slider" class="<?php echo $class;?> fix">
 		<div id="feature-area">
 			<div id="cycle">
 			<?php
 				
-				if(!empty($f)):
+				
+				
+				if(!empty($f)){
 					foreach($f as $post) : 
 						
 						// Setup For Std WP functions
 						setup_postdata($post); 
 						
-						// Get Feature Style
-						$feature_style = (get_post_meta($post->ID, 'feature-style', true)) ? get_post_meta($post->ID, 'feature-style', true) : 'text-left';
+						$oset = array('post_id' => $post->ID);
 						
-						$flink_text = ( get_post_meta($post->ID, 'feature-link-text', true) ) ? get_post_meta($post->ID, 'feature-link-text', true) : __('More', 'pagelines');
-					
-						//Get the Thumbnail URL
-						$feature_background_image = get_post_meta($post->ID, 'feature-background-image', true);
-						$feature_design = (get_post_meta($post->ID, 'feature-design', true)) ? get_post_meta($post->ID, 'feature-design', true) : '';
-				
+
+						$feature_style = ( plmeta( 'feature-style', $oset)) ? plmeta('feature-style', $oset) : 'text-left';
+						$flink_text = ( plmeta( 'feature-link-text', $oset) ) ? plmeta('feature-link-text', $oset) : __('More', 'pagelines');
+						$feature_background_image = plmeta( 'feature-background-image', $oset);
+						$feature_design = (plmeta( 'feature-design', $oset)) ? plmeta('feature-design', $oset) : '';
+						$action = plmeta( 'feature-link-url', $oset);
+						$fcontent_class = (plmeta( 'fcontent-bg', $oset)) ? plmeta('feature-bg', $oset) : '';
+						
+						$media_image = plmeta('feature-media-image', $oset);
+						
+						$feature_media = plmeta( 'feature-media', $oset);
 						?>
 						<div id="<?php echo 'feature_'.$post->ID;?>"  class="fcontainer <?php echo $feature_style.' '.$feature_design; ?> fix" >
 							<div class="feature-wrap wcontent" <?php if($feature_background_image):?>style="background: url('<?php echo $feature_background_image;?>') no-repeat top center" <?php endif;?>>
 								<div class="feature-pad fix">
 									<?php pagelines_register_hook( 'pagelines_feature_before', $this->id ); // Hook ?>
-									<div class="fcontent <?php if(get_post_meta($post->ID, 'fcontent-bg', true)) echo get_post_meta($post->ID, 'fcontent-bg', true);?>">
+									<div class="fcontent <?php echo $fcontent_class;?>">
 										<div class="dcol-pad fix">
 												<?php pagelines_register_hook( 'pagelines_fcontent_before', $this->id ); // Hook ?>
 												<div class="fheading">
@@ -388,18 +397,16 @@ function draw_features($f, $class) {
 													<?php pagelines_register_hook( 'pagelines_feature_text_top', $this->id ); // Hook ?>
 													<div class="fexcerpt">
 													<?php 
-														if(pagelines_option('feature_source') == 'posts') 
+														if($feature_source == 'posts') 
 															echo apply_filters( 'pagelines_feature_output', get_the_excerpt() );
 													 	else 
 															the_content(); 
 													?>
 													</div>
 													<?php 
-														$action = get_post_meta($post->ID, 'feature-link-url', true);
+													
 														if($action)
 															echo blink($flink_text, 'link', 'black', array('action' => $action));
-													
-													
 													
 													pagelines_register_hook( 'pagelines_feature_text_bottom', $this->id ); // Hook 
 													echo blink_edit($post->ID, 'black');
@@ -413,15 +420,17 @@ function draw_features($f, $class) {
 						
 									<div class="fmedia" style="">
 										<div class="dcol-pad">
-											<?php pagelines_register_hook( 'pagelines_feature_media_top', $this->id ); // Hook ?>
-											<?php if(get_post_meta($post->ID, 'feature-media-image', true)):?>
-												<div class="media-frame">
-													<img src="<?php echo get_post_meta( $post->ID, 'feature-media-image', true);?>" />
-												</div>
-											<?php elseif(get_post_meta( $post->ID, 'feature-media', true)): ?>
-												<?php echo do_shortcode(get_post_meta( $post->ID, 'feature-media', true)); ?>
-											<?php endif;?>
+											<?php 
 											
+											pagelines_register_hook( 'pagelines_feature_media_top', $this->id ); // Hook 
+											
+											if( $media_image )											
+												printf('<div class="media-frame"><img src="%s" /></div>', $media_image);
+											
+											elseif( $feature_media )
+												echo do_shortcode($feature_media); 
+												
+												?>
 										</div>
 									</div>
 									<?php pagelines_register_hook( 'pagelines_feature_after', $this->id ); // Hook ?>
@@ -429,22 +438,23 @@ function draw_features($f, $class) {
 								</div>
 							</div>
 						</div>
-					<?php endforeach; ?>
-				<?php else: ?>
-					<h4 style="padding: 50px; text-align: center"><?php _e('No feature posts matched this pages criteria', 'pagelines');?></h4>
-				<?php endif;?>
-				<?php $post = $current_page_post;?>
+					<?php endforeach; 
+					
+				} else
+							printf('<h4 style="padding: 50px; text-align: center">%s</h4>', __('No feature posts matched this pages criteria', 'pagelines'));
+							
+					$post = $current_page_post;
+				 ?>
 		
 			</div>
 		</div>
 		
-		<div id="feature-footer" class="<?php e_pagelines('feature_nav_type', '');?> <?php  if( isset($this->the_feature_posts) && count($this->the_feature_posts) == 1) echo 'nonav';?> fix">
+		<div id="feature-footer" class="<?php echo $footer_nav_class ;?> fix">
 			<div class="feature-footer-pad">
 				<?php pagelines_register_hook( 'pagelines_feature_nav_before', $this->id ); // Hook ?>
-				<?php if(pagelines('timeout') != 0 && pagelines('feature_playpause')):?><span class="playpause pause"><span>&nbsp;</span></span><?php endif;?>
-				<div id="featurenav" class="fix">
-					
-				</div>
+				<?php if( $timeout != 0 && $playpause):?><span class="playpause pause"><span>&nbsp;</span></span><?php endif;?>
+			
+				<div id="featurenav" class="fix"></div>
 				<div class="clear"></div>
 			</div>
 		</div>

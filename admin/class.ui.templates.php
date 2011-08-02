@@ -395,19 +395,21 @@ class PageLinesTemplateBuilder {
 		);
 
 		$a = wp_parse_args( $args, $defaults );
+					
+	printf('<li id="%s"><div class="section-bar %s">', $a['id'], ($a['req'] == true) ? 'required-section' : '');
+		printf('<div class="section-bar-pad fix" style="background: url(%s) no-repeat 10px 9px;">', $a['icon']);
 		
-?><li id="<?php echo $a['id'];?>">
-	<div class="section-bar <?php if($a['req'] == true) echo 'required-section';?>">
-		<div class="section-bar-pad fix" style="background: url(<?php echo $a['icon'];?>) no-repeat 10px 9px;">	
-			<div class="section-controls-toggle" onClick="toggleControls(this);" <?php if(!$a['controls']) echo 'style="display:none;"'?>>
-					<div class="section-controls-toggle-pad">Options</div>
-			</div>
-			<h4 class="section-bar-title"><?php echo $a['name'];?> <span class="the_clone_id"><?php if($a['clone'] != 1) echo '#'.$a['clone'];?></span></h4>
-			<span class="s-description" <?php $this->help_control();?>><?php echo $a['desc'];?></span>
-		</div>
-	</div>
-	<?php $this->inline_section_control($a); ?>
-</li><?php }
+			printf('<div class="section-controls-toggle" onClick="toggleControls(this);" %s><div class="section-controls-toggle-pad">Options</div></div>', (!$a['controls']) ? 'style="display:none;"' : ''); 
+			printf('<h4 class="section-bar-title">%s <span class="the_clone_id">%s</span></h4>', $a['name'], ($a['clone'] != 1) ? '#'.$a['clone'] : '' );
+			printf('<span class="s-description" %s >%s</span>', $this->help_control(), $a['desc']);
+			
+		echo '</div></div>';	
+		
+		$this->inline_section_control($a); 
+	
+	echo '</li>';
+ 	
+	}
 	
 	function inline_section_control($a){
 
@@ -416,39 +418,39 @@ class PageLinesTemplateBuilder {
 		$check_name = $this->sc_name( $a['tslug'], $a['sid'], 'hide' );
 		$check_value = $this->sc_value( $a['tslug'], $a['sid'], 'hide' ); 
 
-		 ?>
-		<div class="section-controls" <?php if(!$a['controls']) echo 'style="display:none;"'?>>
-			<div class="section-controls-pad">
-					<?php if($a['cloning']):?>
-						<div class="sc_buttons">
-							<div class="clone_button" onClick="cloneSection('<?php echo $a['id'];?>');"><div class="clone_button_pad">Clone</div></div>
-							<div class="clone_button clone_remove" style="<?php if($a['clone'] == 1) echo 'display: none;';?>" onClick="deleteSection(this, '<?php echo $a['id'];?>');"><div class="clone_button_pad">Remove</div></div>
-						</div>
-					<?php endif;
+
+		printf('<div class="section-controls" %s><div class="section-controls-pad">', (!$a['controls']) ? 'style="display:none;"' : '');
 					
-					if($this->show_sc( $a['template'] )){
-						$clone = ($a['clone'] != 1) ? sprintf('<span class="the_clone_id">%s</span>', '#' . $a['clone']) : '';
-						printf('<strong>%s %s %s</strong>', $a['name'], $clone, 'Settings');
-						
-						echo '<div class="section-options">';
+			if($a['cloning']){
+				$clone_btn = sprintf('<div class="clone_button" onClick="cloneSection(\'%s\');"><div class="clone_button_pad">Clone</div></div>', $a['id']);
+				$remove_clone = sprintf('<div class="clone_button clone_remove" style="%s" onClick="deleteSection(this, \'%s\');"><div class="clone_button_pad">Remove</div></div>', ($a['clone'] == 1) ? 'display: none;' : '', $a['id']);
+				
+				printf('<div class="sc_buttons">%s %s</div>', $clone_btn, $remove_clone);
+			}
+			
+			if($this->show_sc( $a['template'] )){
+				
+				$clone = ($a['clone'] != 1) ? sprintf('<span class="the_clone_id">%s</span>', '#' . $a['clone']) : '';
+				printf('<strong>%s %s %s</strong>', $a['name'], $clone, 'Settings');
+				
+				echo '<div class="section-options">';
+			
 					
-							
-							$checkbox = sprintf('<input class="section_control_check" type="checkbox" id="%1$s" name="%1$s" %2$s/>', $check_name, checked((bool) $check_value, true, false));
-							$label = sprintf('<label for="%s" class="%s">%s</label>', $check_name, '', 'Hide This By Default');
-							
-							printf('<div class="section-options-row">%s %s</div>', $checkbox, $label);
-							
-							
-						echo '</div>';
-						
-						} else
-					 		echo 'No settings in this template area.';
-						
-						
-						?><div class="clear"></div>
-			</div>
-		</div>
-<?php  }
+					$checkbox = sprintf('<input class="section_control_check" type="checkbox" id="%1$s" name="%1$s" %2$s/>', $check_name, checked((bool) $check_value, true, false));
+					$label = sprintf('<label for="%s" class="%s">%s</label>', $check_name, '', 'Hide This By Default');
+					
+					printf('<div class="section-options-row">%s %s</div>', $checkbox, $label);
+					
+					
+				echo '</div>';
+				
+			} else
+			 	echo 'No settings in this template area.';
+					
+					
+		echo '<div class="clear"></div></div></div>';
+				
+	}
 	
 	
 	/**
@@ -631,7 +633,7 @@ class PageLinesTemplateBuilder {
 	
 	function help_control(){
 		if(!$this->help()) 
-			echo 'style="display:none"';
+			return 'style="display:none"';
 	}
 	
 	function help(){

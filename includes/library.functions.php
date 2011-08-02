@@ -543,7 +543,7 @@ function plprint( $data, $title = false, $echo = false){
 		
 		ob_end_clean();
 
-		if($echo = true)
+		if( $echo )
 			echo $data;
 		else 
 			add_action( 'shutdown', create_function( '', $data ) );
