@@ -490,11 +490,7 @@
 			case 'plugin_install':
 
 				$upgrader = new Plugin_Upgrader();
-				
 				@$upgrader->install($url);
-				if ( is_wp_error($upgrader->skin->result ) )
-					$error = $upgrader->skin->result->get_error_message();
-
 				$this->page_reload( 'pagelines_extend' );
 			break;	
 
