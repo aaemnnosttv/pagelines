@@ -57,7 +57,6 @@ class PageLinesMorefoot extends PageLinesSection {
    function section_template() { 
 		
 			global $post;
-			global $bbpress_forum;
 			if( !VPRO) $hide_footer = true;
 			else $hide_footer = false;		
 		?>
