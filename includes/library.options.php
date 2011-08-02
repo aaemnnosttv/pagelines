@@ -25,7 +25,7 @@ function ploption( $key, $args = array() ){
 		
 	elseif( get_ploption($key, $args) )
 		return get_ploption( $key, $args );
-	elseif( get_ploption($key, $args) == null )
+	elseif( get_ploption($key, $args) === null )
 		if ( $newkey = plnewkey( $key ) )
 			return $newkey;			
 		
