@@ -24,12 +24,13 @@
 		add_action('wp_ajax_pagelines_ajax_extend_it_callback', array(&$this, 'extend_it_callback'));
  	}
 
- 	function extension_sections_install() {
+ 	function extension_sections_install( $type ) {
  		
  		/*
  			TODO make error checking better...
 			TODO Use plugin?
  		*/
+		
  		if ( !is_dir( EXTEND_CHILD_DIR . '/sections' ) || ( file_exists( EXTEND_CHILD_DIR . '/pagelines-base.php' ) && current( $this->plugin_check_status( EXTEND_CHILD_DIR . '/pagelines-base.php' ) ) == 'notactive' ) ){
  		
 			$install_button = OptEngine::superlink('Install It Now!', 'blue', 'install_now sl-right', '', '');
@@ -45,8 +46,14 @@
 		$output = '';
 
 		foreach( $sections as $key => $section ) {
+			
+			if ( !isset( $section->type) )
+				$section->type = 'free';
+			
+			if ($type !== $section->type)
+				continue;
 
-			$check_file = EXTEND_CHILD_DIR . '/sections/' . $section->name . '/' . str_replace( 'download.php?d=', '', str_replace( '.zip', '', basename( $section->url ) ) ) . '.php';
+			$check_file = EXTEND_CHILD_DIR . '/sections/' . $key . '/' . $key . '.php';
 
 			if ( file_exists( $check_file ) )
 				continue;
@@ -533,7 +540,7 @@
 
 				$upgrader = new Plugin_Upgrader();
 				$options = array( 'package' => $url, 
-						'destination'		=> EXTEND_CHILD_DIR .'/sections/' . $type, 
+						'destination'		=> EXTEND_CHILD_DIR .'/sections/' . str_replace( 'section', 'section.', $type ), 
 						'clear_destination' => false,
 						'clear_working'		=> false,
 						'is_multi'			=> false,
@@ -550,7 +557,7 @@
 
 				$upgrader = new Plugin_Upgrader();
 				$options = array( 'package' => $url, 
-						'destination'		=> EXTEND_CHILD_DIR .'/sections/' . $type, 
+						'destination'		=> EXTEND_CHILD_DIR .'/sections/' . str_replace( 'section', 'section.', $type ), 
 						'clear_destination' => true,
 						'clear_working'		=> false,
 						'is_multi'			=> false,
@@ -710,22 +717,22 @@ function extension_array(  ){
 					'title'		=> 'Installed PageLines Sections',
 					'callback'	=> $extension_control->extension_sections()
 					),
-				'featured'	=> array(
-					'title'		=> 'Featured on PageLines.com',
-					'class'		=> 'right',
-					'callback'	=> $extension_control->extension_sections()
-					),
 				'premium'	=> array(
 					'title'		=> 'Premium PageLines Sections',
 					'class'		=> 'right',
-					'callback'	=> $extension_control->extension_sections()
+					'callback'	=> $extension_control->extension_sections_install( 'premium' )
 					),
 				'free'	=> array(
 					'title'		=> 'Free PageLines Sections',
 					'class'		=> 'right',
-					'callback'	=> $extension_control->extension_sections_install()
+					'callback'	=> $extension_control->extension_sections_install( 'free' )
+					),
+				'featured'	=> array(
+					'title'		=> 'Featured on PageLines.com',
+					'class'		=> 'right',
+					'callback'	=> $extension_control->extension_sections_install( 'feature' )
 					)
-				),
+				)
 
 			),
 		'Themes' => array(
