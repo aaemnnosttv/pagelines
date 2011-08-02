@@ -176,7 +176,7 @@ class PageLinesOptionsUI {
 					<li><span class="graphic bottom">&nbsp;</span></li>
 					
 					<div class="framework_loading"> 
-						<a href="http://www.pagelines.com/forum/topic.php?id=6489#post-34852" target="_blank" title="Javascript Issue Detector">
+						<a href="http://www.pagelines.com/forum/discussion/6489" target="_blank" title="Javascript Issue Detector">
 							<span class="framework_loading_gif" >&nbsp;</span>
 						</a>
 					</div>
