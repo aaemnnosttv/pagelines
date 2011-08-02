@@ -830,14 +830,18 @@ class PageLinesOptionsArray {
 					'exp'		=> 'More info on this can be found here: <strong>http://code.google.com/p/ie7-js/</strong>.'
 			),
 
-			'forum_options' => array(
-					'default' 	=> '',
-					'type' 		=> 'check',
-					'inputlabel' 	=> 'Show bbPress Forum Addon Options',
-					'title' 	=> 'Activate Forum Options',
-					'shortexp'	=> 'If you have integrated a PageLines bbPress forum, activate its options here.',
-					'exp' 		=> 'This theme has some integrated options for its bbPress forum addon (if installed).'
-			),
+/*
+ * TODO Do we leave this and reuse for vanilla?
+*/
+
+//			'forum_options' => array(
+//					'default' 	=> '',
+//					'type' 		=> 'check',
+//					'inputlabel' 	=> 'Show bbPress Forum Addon Options',
+//					'title' 	=> 'Activate Forum Options',
+//					'shortexp'	=> 'If you have integrated a PageLines bbPress forum, activate its options here.',
+//					'exp' 		=> 'This theme has some integrated options for its bbPress forum addon (if installed).'
+//			),
 
 			'disable_ajax_save' => array(
 					'default'	=> '',

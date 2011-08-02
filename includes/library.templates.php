@@ -127,11 +127,11 @@ function pagelines_head_common(){
 
 	
 	// bbPress Header... doesn't support hooks, or they need to be reloaded.
-	if( pagelines_bbpress_forum() ){ 			
-		pagelines_load_css( bb_get_stylesheet_uri(), 'pagelines-bbpress', CORE_VERSION);
-		bb_feed_head();
-		bb_head(); 
-	}
+//	if( pagelines_bbpress_forum() ){ 			
+//		pagelines_load_css( bb_get_stylesheet_uri(), 'pagelines-bbpress', CORE_VERSION);
+//		bb_feed_head();
+//		bb_head(); 
+//	}
 
 	// Get Common CSS & Reset
 	pagelines_load_css_relative('css/common.css', 'pagelines-common');
