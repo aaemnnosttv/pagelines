@@ -166,21 +166,6 @@ function pagelines_register_settings() {
 		
 	pagelines_process_reset_options();
 	
-	/*
-		TODO Simon, what's going on here?
-	*/
-	if ( isset($_GET['activated']) || isset($_GET['updated']) || isset($_GET['reset']) || isset($_GET['settings-updated']) ) {
-	
-		if ( get_pagelines_option('lp_username') && get_pagelines_option('lp_password') ) {
-			if ( $update = get_transient('pagelines-update-' . THEMENAME ) ) {
-				$update = maybe_unserialize($update);
-				if ( $update['package'] == 'bad')
-					delete_transient('pagelines-update-' . THEMENAME );
-					delete_transient('pagelines-update-' . CHILDTHEMENAME );
-			}
-		}
-	}
-	
 	if ( ploption('reset') ) {
 		update_option(PAGELINES_SETTINGS, pagelines_settings_defaults());
 
