@@ -606,7 +606,7 @@ function get_cats() {
 			'name' => $cat->name
 		);
 	}
-	return $categories;
+	return ( isset( $categories) ) ? $categories : '';
 }
 
 // End of Section Class //
