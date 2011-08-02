@@ -301,7 +301,7 @@ class PageLinesMetaPanel {
 		ob_start();
 		?>
 	<script type="text/javascript"> 
-		jQuery(document).ready(function() { <?php printf('var %1$s = jQuery("#%1$s").tabs({fx: { opacity: "toggle", duration: "fast" }})', $handle); ?> });
+		jQuery(document).ready(function() { <?php printf('var %1$s = jQuery("#%1$s").tabs({fx: { opacity: "toggle", duration: 150 }})', $handle); ?> });
 	</script>
 	
 		<div id="<?php echo $handle;?>" class="plist-nav fix">
