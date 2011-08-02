@@ -25,10 +25,34 @@ function ploption( $key, $args = array() ){
 		
 	elseif( get_ploption($key, $args) )
 		return get_ploption( $key, $args );
+	elseif( get_ploption($key, $args) == null )
+		if ( $newkey = plnewkey( $key ) )
+			return $newkey;			
 		
 	else
 		return false;
 }
+/**
+ * Attempt to set default value if not found with ploption()
+ * 
+ * @param 'key' the id of the option
+ * 
+ **/
+function plnewkey( $key ) {
+	
+	if ( !is_admin() )
+		return false;
+	$settings = get_option_array();
+
+	foreach ($settings as $group)
+		foreach($group as $name => $setting)
+			if ($name == $key && isset( $setting['default'] ) ) {
+				plupop( $key, $setting['default'] );
+				return $setting['default'];
+			} 
+		return false;
+}
+
 
 function plupop($key, $val, $oset = array()){
 	

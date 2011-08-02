@@ -797,7 +797,7 @@ class PageLinesOptionsArray {
 					'title' 	=> 'Allow Tags in Excerpt',
 					'shortexp' 	=> 'Control which tags are stripped from excerpts.',
 					'exp' 		=> 'By default WordPress strips all HTML tags from excerpts. You can use this option to allow certain tags. Simply enter the allowed tags in this field. <br/>An example of allowed tags could be: <strong>&lt;p&gt;&lt;br&gt;&lt;a&gt;</strong>. <br/><br/> <strong>Note:</strong> Enter a period "<strong>.</strong>" to disallow all tags.'
-			),
+			)			
 		);
 		
 		return apply_filters('pagelines_options_blog_posts', $a);
