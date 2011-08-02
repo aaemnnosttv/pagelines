@@ -340,8 +340,8 @@ class PageLinesMetaPanel {
 						<?php 
 						foreach($t->options as $oid => $o){
 							$o['special'] = $type;
-							if($oid != 'section_control')
-								$option_engine->option_engine($oid, $o);
+							
+							$option_engine->option_engine($oid, $o);
 						}
 						?>
 					</div>
@@ -366,10 +366,7 @@ class PageLinesMetaPanel {
 	function tabs_setup( $selector = 'metatabs', $cookie_id = 'PageLinesMetaTabCookie', $var = 'TheTabs'){
 		if(!$this->hide_tabs):
 		
-			if(isset($_COOKIE[$cookie_id]) && $cookie_id != false)
-				$selected_tab = (int) $_COOKIE[$cookie_id];
-			else
-				$selected_tab = 0;
+			$selected_tab = (isset($_COOKIE[$cookie_id]) && $cookie_id != false) ? (int) $_COOKIE[$cookie_id] : 0;
 				
 		?>
 		<script type="text/javascript">

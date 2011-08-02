@@ -37,7 +37,10 @@ class PageLinesTemplate {
 		$this->factory = $pl_section_factory->sections;
 		
 		// All section control settings
-		$this->scontrol = pagelines_option('section-control');
+		
+		$sc_set = (is_pagelines_special()) ? PAGELINES_SPECIAL : PAGELINES_SETTINGS;
+		
+		$this->scontrol = ploption('section-control', array('setting' => $sc_set));
 		
 		$this->map = $this->get_map();
 		
@@ -54,14 +57,17 @@ class PageLinesTemplate {
 			else
 				$this->template_type = $this->page_type_breaker();
 		}
-		
-		$this->main_type = $this->template_type;
 	
 		if(!is_admin())
 			$this->template_name = $this->page_type_name();
 	
 		$this->load_sections_on_hook_names();
 	
+	}
+
+	function adjust_template_type($type){
+		$this->template_type = $type; 
+		$this->load_sections_on_hook_names();
 	}
 
 	/**
@@ -190,8 +196,8 @@ class PageLinesTemplate {
 		
 		if( $hook == 'main' ){
 	
-			if(isset($h['templates'][$this->main_type]['sections']))
-				$tsections = $h['templates'][$this->main_type]['sections'];
+			if(isset($h['templates'][$this->template_type]['sections']))
+				$tsections = $h['templates'][$this->template_type]['sections'];
 			elseif(isset($h['templates']['default']['sections']))
 				$tsections = $h['templates']['default']['sections'];
 			
@@ -262,7 +268,7 @@ class PageLinesTemplate {
 		if($hook_id == 'templates')
 			$template_slug = $hook_id.'-'.$this->template_type;
 		elseif ($hook_id == 'main')
-			$template_slug = $hook_id.'-'.$this->main_type;
+			$template_slug = $hook_id.'-'.$this->template_type;
 		else
 			$template_slug = $hook_id;
 			
@@ -283,8 +289,14 @@ class PageLinesTemplate {
 			$general_hide = (isset($sc['hide'])) ? true : false;
 		
 		// Meta Controls
+		if(is_pagelines_special()){
+			$special_type = $this->template_type;
+			$meta_reverse = ( $sc[$special_type]['show'] ) ? true : false;
+			$meta_hide = ( $sc[$special_type]['hide'] ) ? true : false;
+		} else {
 			$meta_reverse = ( plmeta( meta_option_name( array('show', $template_slug, $sid) ) , $oset ) ) ? true : false;
 			$meta_hide = ( plmeta( meta_option_name( array('hide', $template_slug, $sid) ), $oset ) ) ? true : false;
+		}
 		
 		return ( ($general_hide && !$meta_reverse) || (!$general_hide && $meta_hide) ) ? true : false;
 		

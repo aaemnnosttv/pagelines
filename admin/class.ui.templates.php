@@ -17,12 +17,16 @@ class PageLinesTemplateBuilder {
 	/**
 	 * Construct
 	 */
-	function __construct() {
+	function __construct( $oid, $o, $setting = PAGELINES_SETTINGS ) {
+		
 		global $pagelines_template;
 		global $pl_section_factory;
 		
-		$this->sc_settings = pagelines_option('section-control');
-		$this->sc_namespace = PAGELINES_SETTINGS."[section-control]";
+		$oset = array( 'setting' => $setting );
+		
+		$this->sc_settings = ploption('section-control', $oset);
+		$this->sc_global = ploption('section-control', array('setting' => PAGELINES_SETTINGS));
+		$this->sc_namespace = sprintf('%s[section-control]', $setting);
 		
 		$this->template_map = get_option('pagelines_template_map');
 		
@@ -412,17 +416,6 @@ class PageLinesTemplateBuilder {
 		$check_name = $this->sc_name( $a['tslug'], $a['sid'], 'hide' );
 		$check_value = $this->sc_value( $a['tslug'], $a['sid'], 'hide' ); 
 
-		$posts_action = ( $check_value ) ? 'show' : 'hide';
-
-		if($a['tarea'] == 'main' || $a['tarea'] == 'templates')
-			$posts_check_disabled = true;
-		else {
-			$posts_check_label = ucfirst($posts_action) .' On Posts Pages';
-			$posts_check_name = $this->sc_name($a['tslug'], $a['sid'], 'posts-page', $posts_action);
-			$posts_check_value = $this->sc_value($a['tslug'], $a['sid'], 'posts-page', $posts_action);
-			$posts_check_disabled = false;
-		}
-
 		 ?>
 		<div class="section-controls" <?php if(!$a['controls']) echo 'style="display:none;"'?>>
 			<div class="section-controls-pad">
@@ -445,13 +438,6 @@ class PageLinesTemplateBuilder {
 							
 							printf('<div class="section-options-row">%s %s</div>', $checkbox, $label);
 						
-							
-							if(!$posts_check_disabled){
-								$checkbox = sprintf('<input class="section_control_check" type="checkbox" id="%1$s" name="%1$s" %2$s/>', $posts_check_name, checked((bool) $posts_check_value, true, false));
-								$label = sprintf('<label for="%s" class="%s">%s</label>', $posts_check_name, 'check_type_' . $posts_action, $posts_check_label);
-								
-								printf('<div class="section-options-row">%s %s</div>', $checkbox, $label);
-							}
 							
 						echo '</div>';
 						
@@ -501,75 +487,82 @@ class PageLinesTemplateBuilder {
 	 *  @since 4.0
 	 *
 	 */
-	function section_control_interface(){ 
+	function section_control_interface($oid, $o){ 
 		
 		if(isset($_GET['page']) && $_GET['page'] == 'pagelines_meta')
 			return;
 		
+		if( isset($o['special']) ){
+			$this->template->adjust_template_type($o['special']);
+			$is_special = true;
+		} else 
+			$is_special = false;
+		
 		$template_slug = join( '-', array('templates', $this->template->template_type) );
 		$main_slug = join( '-', array('main', $this->template->template_type) );
-		
+
 		global $metapanel_options;
 		
+		$editing = ($is_special) ? ucfirst($o['special']) : $metapanel_options->edit_slug;
 		?>
 		
 		<div class="section_control_wrap">
 			<div class="sc_gap fix">
-				<div class="sc_gap_title"><?php echo $metapanel_options->edit_slug;?> - Basic Template</div>
+				<div class="sc_gap_title"><?php echo $editing;?> - Basic Template</div>
 				<div class="sc_gap_pad">
 					
 					<div class="sc_area sc_header ntb">
 						<div class="sc_area_pad fix">
 							<div class="scta_head">Header</div>
-							<?php $this->sc_inputs('header', $this->template->header); ?>
+							<?php $this->sc_inputs('header', $this->template->header, $o); ?>
 						</div>
 					</div>
 					<div class="sc_area sc_templates">
 						<div class="sc_area_pad fix">
 							<div class="scta_head">Template</div>
-							<?php $this->sc_inputs($template_slug, $this->template->templates); ?>
+							<?php $this->sc_inputs($template_slug, $this->template->templates, $o ); ?>
 						</div>
 					</div>
 					<div class="sc_area sc_morefoot">
 						<div class="sc_area_pad fix">
 							<div class="scta_head">Morefoot</div>
-							<?php $this->sc_inputs('morefoot', $this->template->morefoot); ?>
+							<?php $this->sc_inputs('morefoot', $this->template->morefoot, $o ); ?>
 						</div>
 					</div>
 					<div class="sc_area sc_footer nbb">
 						<div class="sc_area_pad fix">
 							<div class="scta_head">Footer</div>
-							<?php $this->sc_inputs('footer', $this->template->footer); ?>
+							<?php $this->sc_inputs('footer', $this->template->footer, $o ); ?>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="sc_gap fix">
-				<div class="sc_gap_title"><?php echo $metapanel_options->edit_slug;?> - Content Area</div>
+				<div class="sc_gap_title"><?php echo $editing;?> - Content Area</div>
 				<div class="sc_gap_pad">
 				
 					<div class="sc_area sc_header ntb">
 						<div class="sc_area_pad fix">
 							<div class="scta_head">Content</div>
-							<?php $this->sc_inputs($main_slug, $this->template->main); ?>
+							<?php $this->sc_inputs($main_slug, $this->template->main, $o ); ?>
 						</div>
 					</div>
 					<div class="sc_area sc_header">
 						<div class="sc_area_pad fix">
 							<div class="scta_head">Wrap</div>
-							<?php $this->sc_inputs('sidebar_wrap', $this->template->sidebar_wrap); ?>
+							<?php $this->sc_inputs('sidebar_wrap', $this->template->sidebar_wrap, $o ); ?>
 						</div>
 					</div>
 					<div class="sc_area sc_header">
 						<div class="sc_area_pad fix">
 							<div class="scta_head">Sidebar 1</div>
-							<?php $this->sc_inputs('sidebar1', $this->template->sidebar1); ?>
+							<?php $this->sc_inputs('sidebar1', $this->template->sidebar1, $o ); ?>
 						</div>
 					</div>
 					<div class="sc_area sc_header nbb">
 						<div class="sc_area_pad fix">
 							<div class="scta_head">Sidebar 2</div>
-							<?php $this->sc_inputs('sidebar2', $this->template->sidebar2); ?>
+							<?php $this->sc_inputs('sidebar2', $this->template->sidebar2, $o ); ?>
 						</div>
 					</div>
 				</div>
@@ -579,8 +572,10 @@ class PageLinesTemplateBuilder {
 	<?php }
 
 	
-	function sc_inputs( $template_slug, $sections ){
+	function sc_inputs( $template_slug, $sections, $o){
 		global $post; 
+		
+		$is_special = (isset($o['special'])) ? true : false;
 		
 		// No sections in area
 		if(empty($sections)){
@@ -601,25 +596,25 @@ class PageLinesTemplateBuilder {
 				
 				$section_data = $this->factory[ $section ];		
 				
-				$hidden_by_default = isset($this->sc_settings[$template_slug][$sid]['hide']) ? $this->sc_settings[$template_slug][$sid]['hide'] : null;
+				$hidden_by_default = isset($this->sc_global[$template_slug][$sid]['hide']) ? $this->sc_global[$template_slug][$sid]['hide'] : null;
 
 				$check_type = ( $hidden_by_default ) ? 'show' : 'hide';
-			
-				// Make the field 'key'
-				$option_name = meta_option_name( array($check_type, $template_slug, $sid) );
 				
+				// Make the field 'key'
+				$option_name = ($is_special) ? $this->sc_name( $template_slug, $sid, $o['special'], $check_type ) : meta_option_name( array($check_type, $template_slug, $sid) );
+				$check_value = ($is_special) ? $this->sc_value( $template_slug, $sid, $o['special'], $check_type ) : get_pagelines_meta($option_name, $post->ID);
 				
 				// The name of the section
 				$clone = ($clone_id != 1) ? ' #'.$clone_id : '';
 				$check_label = ucfirst($check_type)." " . $section_data->name.$clone;
 
-				$check_value = get_pagelines_meta($option_name, $post->ID);
-		
 				?>
 				<div class="sc_wrap <?php echo 'type_'.$check_type;?>" >
 					<label class="sc_button" for="<?php echo $option_name;?>">
 						<span class="sc_button_pad fix" >
-							<span class="sc_check_wrap"><input class="sc_check" type="checkbox" id="<?php echo $option_name; ?>" name="<?php echo $option_name; ?>" <?php checked((bool) $check_value); ?> /></span>
+							<span class="sc_check_wrap">
+								<input class="sc_check" type="checkbox" id="<?php echo $option_name; ?>" name="<?php echo $option_name; ?>" <?php checked((bool) $check_value); ?> />
+							</span>
 							<span class="sc_label" >
 								<span class="sc_label_pad" style="background: url(<?php echo $section_data->icon;?>) no-repeat 8px 5px"><?php echo $check_label;?></span>
 							</span>

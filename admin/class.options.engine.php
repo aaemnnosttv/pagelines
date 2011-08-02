@@ -267,10 +267,10 @@ class OptEngine {
 				$this->_get_layout_select($oid, $o); 
 				break;
 			case 'templates' :
-				$this->do_template_builder(); 
+				$this->do_template_builder($oid, $o); 
 				break;
 			case 'section_control' :
-				$this->do_section_control(); 
+				$this->do_section_control($oid, $o); 
 				break;
 			case 'text_content' :
 				$this->_get_text_content($oid, $o, $val);
@@ -858,9 +858,9 @@ class OptEngine {
 	/**
 	 *  Template Drag and Drop (Sortable Sections)
 	 */
-	function do_template_builder(){
+	function do_template_builder($oid, $o){
 
-		$builder = new PageLinesTemplateBuilder();
+		$builder = new PageLinesTemplateBuilder($oid, $o);
 		$builder->draw_template_builder();
 
 	}
@@ -868,10 +868,10 @@ class OptEngine {
 	/**
 	 *  Template Drag and Drop (Sortable Sections)
 	 */
-	function do_section_control(){
+	function do_section_control($oid, $o){
 
-		$builder = new PageLinesTemplateBuilder();
-		$builder->section_control_interface();
+		$builder = new PageLinesTemplateBuilder($oid, $o, $this->settings_field);
+		$builder->section_control_interface($oid, $o);
 
 	}
 	

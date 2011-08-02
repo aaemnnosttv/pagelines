@@ -59,7 +59,7 @@ function pagelines_body_classes(){
 	} else {
 		
 		global $pagelines_template;
-		$body_classes .= ' ttype-'.$pagelines_template->template_type.' tmain-'.$pagelines_template->main_type;
+		$body_classes .= ' pl-template-'.$pagelines_template->template_type;
 		
 	}	
 	
