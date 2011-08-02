@@ -524,24 +524,31 @@ function pagelines_get_style_ver( $tpath = false ){
  * 
  * @since 1.5.0
  */
-function plprint( $data, $title = false){
+function plprint( $data, $title = false, $echo = false){
 
-			ob_start();
-			
-				echo 'echo "<pre class=\'plprint\'>';
-			
-				if($title) 
-					echo sprintf('<h3>%s</h3>', $title);
-				
-				echo esc_html( print_r( $data, TRUE ) );
-				
-				echo '</pre>";';
-				
-				$data = ob_get_contents();
-				
-			ob_end_clean();
+	if(PL_DEV){
+		
+		ob_start();
+	
+			echo 'echo "<pre class=\'plprint\'>';
+	
+			if($title) 
+				echo sprintf('<h3>%s</h3>', $title);
+		
+			echo esc_html( print_r( $data, TRUE ) );
+		
+			echo '</pre>";';
+		
+			$data = ob_get_contents();
+		
+		ob_end_clean();
 
-	add_action( 'shutdown', create_function( '', $data ) );
+		if($echo = true)
+			echo $data;
+		else 
+			add_action( 'shutdown', create_function( '', $data ) );
+		
+	}
 
 }
 

@@ -316,7 +316,7 @@ class PageLinesMetaPanel {
 										if(!$t->active) 
 											printf('<span class="tab_inactive">inactive</span>');
 											
-										echo $t->name;
+										echo $t->name; 
 										 ?>
 								</span>
 							</span>
@@ -459,18 +459,24 @@ class PageLinesMetaPanel {
 
 	
 		foreach( $save_template->map as $hook => $h ){
-
+			// echo '<pre>';
+			// 			print_r($h);
+			// 			echo '</pre>';
 			if(isset($h['sections'])){
 				foreach($h['sections'] as $key => $section_slug)
 					$this->save_section_control($postID,  $section_slug, $hook );					
 				
 			} elseif (isset($h['templates'])){
 				foreach($h['templates'] as $template => $t){
-					foreach($t['sections'] as $key => $section_slug){
+					
+					if( isset($t['sections']) ){
+						foreach($t['sections'] as $key => $section_slug){
 
-						$template_slug = $hook.'-'.$template;
-						$this->save_section_control($postID,  $section_slug, $template_slug );				
+							$template_slug = $hook.'-'.$template;
+							$this->save_section_control($postID,  $section_slug, $template_slug );				
+						}
 					}
+					
 				}
 			}
 			

@@ -22,7 +22,6 @@ class PageLinesFeatures extends PageLinesSection {
 			'description'	=> 'This is your main feature slider.  Add feature text and media through the admin panel.',
 			'icon'			=> $this->section_root_url.'/features.png',
 			'version'		=> 'pro',	
-			'cloning'		=> true
 		);
 		
 		$settings = wp_parse_args( $registered_settings, $default_settings );
@@ -208,10 +207,10 @@ class PageLinesFeatures extends PageLinesSection {
 		// Get the features from post type
 		$f = $this->pagelines_features_set(); 	
 	
-		$feffect = (pagelines_option('feffect')) ? pagelines_option('feffect') : 'fade';
-		$timeout = (pagelines_option('timeout')) ? pagelines_option('timeout') : 0;
-		$speed   = (pagelines_option('fspeed')) ? pagelines_option('fspeed') : 1500;
-		$fsync   = (pagelines_option('fremovesync')) ? 0 : 1;
+		$feffect = (ploption('feffect')) ? ploption('feffect') : 'fade';
+		$timeout = (ploption('timeout')) ? ploption('timeout') : 0;
+		$speed   = (ploption('fspeed')) ? ploption('fspeed') : 1500;
+		$fsync   = (ploption('fremovesync')) ? 0 : 1;
 		$autostop = ( has_filter('pagelines_feature_autostop') ) ? ', autostop: 1, autostopCount: ' . apply_filters( 'pagelines_feature_autostop', 0) : '';
 	
 		
@@ -227,7 +226,7 @@ class PageLinesFeatures extends PageLinesSection {
 	
 	$this->_js_feature_loop($f);
 
-	if(pagelines('feature_playpause')):?>	
+	if(ploption('feature_playpause')):?>	
 		// Play Pause
 		$j('.playpause').click(function() { 
 			if ($j('.playpause').hasClass('pause')) {

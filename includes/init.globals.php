@@ -23,6 +23,9 @@ if(file_exists(TEMPLATEPATH.'/dev/init_dev.php')){
 	define('VDEV',true);
 }else{ define('VDEV',false); }
 
+if(!defined('PL_DEV'))
+	define('PL_DEV',false);
+	
 /**
  * Set Theme Name
  */
