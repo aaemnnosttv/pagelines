@@ -126,3 +126,10 @@ function base_check_templates() {
 		}
 	}
 }
+
+function pagelines_add_google_profile( $contactmethods ) {
+	// Add Google Profiles
+	$contactmethods['google_profile'] = 'Google Profile URL';
+	return $contactmethods;
+}
+add_filter( 'user_contactmethods', 'pagelines_add_google_profile', 10, 1);
