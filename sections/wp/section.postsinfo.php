@@ -18,7 +18,7 @@ class PageLinesPostsInfo extends PageLinesSection {
 		
 		$default_settings = array(
 			'description' 	=> 'Shows information about posts being viewed (e.g. "<em>Currently Viewing Archives from...</em>") Not shown on blog pages.',
-			'workswith' 	=> array('main-posts'),
+			'workswith' 	=> array('main'),
 			'icon'			=> PL_ADMIN_ICONS . '/postsinfo.png'
 		);
 		
@@ -30,7 +30,7 @@ class PageLinesPostsInfo extends PageLinesSection {
 
    function section_template() { 	
 	
-		if(is_category() || is_archive() || is_search()):
+		if( is_category() || is_archive() || is_search() || is_author() ):
 		
 		?>
 		

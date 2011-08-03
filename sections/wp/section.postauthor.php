@@ -45,6 +45,10 @@ class PageLinesPostAuthor extends PageLinesSection {
 				<a href="<?php the_author_meta('url'); ?>" target="_blank">
 				<?php _e('Visit Authors Website', 'pagelines');?> &rarr;
 				</a>
+		<?php	$google_profile = get_the_author_meta( 'google_profile' );
+				if ( $google_profile ) {
+					echo '<br /><a href="' . $google_profile . '" rel="me">Authors Google Profile &rarr;</a>';
+				} ?>
 			</div>
 		
 		</div>

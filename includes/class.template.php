@@ -84,6 +84,8 @@ class PageLinesTemplate {
 			return 'search';
 		elseif(is_category())
 			return 'category';
+		elseif(is_author())
+			return 'author';
 		elseif(is_archive())
 			return 'archive';
 		elseif(is_home())
