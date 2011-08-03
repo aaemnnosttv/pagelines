@@ -586,7 +586,7 @@ function special_page_settings_array(  ){
 			'icon'		=> PL_ADMIN_ICONS.'/author.png'
 		),
 		'404_page' => array(
-			'metapanel' => $metapanel_options->posts_metapanel('404'),
+			'metapanel' => $metapanel_options->posts_metapanel('404_page'),
 			'icon'		=> PL_ADMIN_ICONS.'/404.png'
 		),
 	);

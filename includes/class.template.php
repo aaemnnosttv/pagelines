@@ -77,7 +77,7 @@ class PageLinesTemplate {
 		global $post;
 		
 		if(is_404())
-			return '404';
+			return '404_page';
 		elseif(is_tag())
 			return 'tag';
 		elseif(is_search())
@@ -803,7 +803,7 @@ function the_sub_templates( $t = 'templates' ){
 	);
 	
 	if($t == 'templates'){
-		$map["404"] = array(
+		$map['404_page'] = array(
 			'name'			=> '404 Error',
 			'sections' 		=> array( 'PageLinesNoPosts' ),
 		);

@@ -174,7 +174,7 @@ class PageLinesOptionsArray {
 		$a = array(
 			'icon'			=> PL_ADMIN_ICONS.'/layout.png',
 			'layout_handling' => array(
-				'default'		=> 'percent',
+				'default'		=> 'pixels',
 				'type'			=> 'graphic_selector',
 				'inputlabel'	=> 'How should layout be handled?',
 				'showname'		=> true,

@@ -313,23 +313,23 @@ class PageLinesPosts {
 			// For Hook Parsing
 			if(is_admin() || !get_option(PAGELINES_SETTINGS)) return true;
 
-			if($location == 'clip' && pagelines_option('thumb_clip')) return true;
+			if($location == 'clip' && ploption('thumb_clip')) return true;
 
 			if( !isset($location) ){
 				// Thumb Page
-				if(is_single() && pagelines_option('thumb_single')) return true;
+				if(is_single() && ploption('thumb_single')) return true;
 
 				// Blog Page
-				elseif(is_home() && pagelines_option('thumb_blog')) return true;
+				elseif(is_home() && ploption('thumb_blog')) return true;
 
 				// Search Page
-				elseif(is_search() && pagelines_option('thumb_search')) return true;
+				elseif(is_search() && ploption('thumb_search')) return true;
 
 				// Category Page
-				elseif(is_category() && pagelines_option('thumb_category')) return true;
+				elseif(is_category() && ploption('thumb_category')) return true;
 
 				// Archive Page
-				elseif(is_archive() && pagelines_option('thumb_archive')) return true;
+				elseif(is_archive() && ploption('thumb_archive')) return true;
 
 				else return false;
 			} else return false;
@@ -343,20 +343,20 @@ class PageLinesPosts {
 				return false;
 
 			// Thumb Page
-			if(is_single() && pagelines_option('excerpt_single')) 
+			if(is_single() && ploption('excerpt_single')) 
 				return true;
 
 			// Blog Page
-			elseif(is_home() && pagelines_option('excerpt_blog')) return true;
+			elseif(is_home() && ploption('excerpt_blog')) return true;
 
 			// Search Page
-			elseif(is_search() && pagelines_option('excerpt_search')) return true;
+			elseif(is_search() && ploption('excerpt_search')) return true;
 
 			// Category Page
-			elseif(is_category() && pagelines_option('excerpt_category')) return true;
+			elseif(is_category() && ploption('excerpt_category')) return true;
 
 			// Archive Page
-			elseif(is_archive() && pagelines_option('excerpt_archive')) return true;
+			elseif(is_archive() && ploption('excerpt_archive')) return true;
 
 			else return false;
 	}
@@ -371,19 +371,19 @@ class PageLinesPosts {
 				return true;
 
 			// Blog Page
-			elseif(is_home() && pagelines_option('content_blog')) 
+			elseif(is_home() && ploption('content_blog')) 
 				return true;
 
 			// Search Page
-			elseif(is_search() && pagelines_option('content_search')) 
+			elseif(is_search() && ploption('content_search')) 
 				return true;
 
 			// Category Page
-			elseif(is_category() && pagelines_option('content_category')) 
+			elseif(is_category() && ploption('content_category')) 
 				return true;
 
 			// Archive Page
-			elseif(is_archive() && pagelines_option('content_archive')) 
+			elseif(is_archive() && ploption('content_archive')) 
 				return true;
 
 			else 
@@ -399,10 +399,10 @@ class PageLinesPosts {
 		if(!VPRO) 
 			return false;
 
-		if(is_home() && pagelines_option('blog_layout_mode') == 'magazine' && $count <= pagelines_option('full_column_posts') && $paged == 0)
+		if(is_home() && ploption('blog_layout_mode') == 'magazine' && $count <= ploption('full_column_posts') && $paged == 0)
 			return false;
 
-		elseif(pagelines_option('blog_layout_mode') != 'magazine') 
+		elseif(ploption('blog_layout_mode') != 'magazine') 
 			return false;
 
 		elseif(is_page() || is_single()) 
