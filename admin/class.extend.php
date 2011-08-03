@@ -24,7 +24,7 @@
 		add_action('wp_ajax_pagelines_ajax_extend_it_callback', array(&$this, 'extend_it_callback'));
  	}
 
- 	function extension_sections_install( $type ) {
+ 	function extension_sections_install( $tab = '' ) {
  		
  		/*
  			TODO make error checking better...
@@ -50,7 +50,7 @@
 			if ( !isset( $section->type) )
 				$section->type = 'free';
 			
-			if ($type !== $section->type)
+			if ($tab !== $section->type)
 				continue;
 
 			$check_file = EXTEND_CHILD_DIR . '/sections/' . $key . '/' . $key . '.php';
@@ -191,13 +191,18 @@
 		}
 	
 		foreach( $plugins as $key => $plugin ) {
-	
-			if ($tab != 'free' && !$plugin['status'] )
-				continue;
-
-			if ($tab == 'free' && ( $plugin['status']['status'] == 'active' || $plugin['status']['status'] == 'notactive' ) )
-				continue;
 			
+			if ( !isset( $plugin['type'] ) )
+				$plugin['type'] = 'free';
+			if ( $tab === 'installed' && !isset( $plugin['status']['status'] ) )
+				continue;
+			if ( ( $tab === 'premium' || $tab === 'free' ) && isset( $plugin['status']['status'] ) )
+				continue;
+			if ( $tab === 'premium' && $plugin['type'] === 'free' )
+				continue;
+			if ( $tab === 'free' && $plugin['type'] === 'premium' )
+				continue;	
+				
 			$install_js_call = sprintf( $this->exprint, 'plugin_install', $key, $plugin['name'], $plugin['url'], 'Installing');
 			$activate_js_call = sprintf( $this->exprint, 'plugin_activate', $key, $plugin['name'], $plugin['file'], 'Activating');
 			$deactivate_js_call = sprintf( $this->exprint, 'plugin_deactivate', $key, $plugin['name'], $plugin['file'], 'Deactivating');
@@ -758,14 +763,18 @@ function extension_array(  ){
 				
 				'installed'	=> array(
 					'title'		=> 'Installed PageLines Plugins',
-					'callback'	=> $extension_control->extension_plugins()
+					'callback'	=> $extension_control->extension_plugins( 'installed' )
 					),
 				'free'		=> array(
 					'title'		=> 'Free Plugins',
 					'class'		=> 'right',
 					'callback'	=> $extension_control->extension_plugins( 'free' )
+					),
+				'premium'		=> array(
+					'title'		=> 'Premium Plugins',
+					'class'		=> 'right',
+					'callback'	=> $extension_control->extension_plugins( 'premium' )
 					)
-					
 				)
 
 			),
