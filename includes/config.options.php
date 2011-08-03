@@ -784,10 +784,10 @@ class PageLinesOptionsArray {
 					'version'	=> 'pro',
 					'default' 	=> 55,
 					'type' 		=> 'text',
-					'inputlabel' 	=> 'Number of characters.',
+					'inputlabel' 	=> 'Number of words.',
 					'title' 	=> 'Excerpt Length',
 					'shortexp' 	=> '',
-					'exp' 		=> 'Excerpts are set to 55 characters by default.'
+					'exp' 		=> 'Excerpts are set to 55 words by default.'
 			),
 			'excerpt_tags' => array(
 					'version'	=> 'pro',
