@@ -51,7 +51,7 @@ class PageLinesCarousel extends PageLinesSection {
 							'hook'			=> array( 'name' => 'Hook: "pagelines_carousel_list"')
 						),					
 						'title' 	=> 'Carousel Image/Link Mode (Carousel Page Template)',
-						'shortexp' 	=> 'Select the mode that the carousel should use for its thumbnails.<br/><br/>',
+						'shortexp' 	=> 'Select the mode that the carousel should use for its thumbnails.',
 						'exp'		=> '<strong>Flickr</strong> - (default) Uses thumbs from FlickrRSS plugin.<br/><strong> Post Thumbnails</strong> - Uses links and thumbnails from posts <br/><strong>NextGen Gallery</strong> - Uses an image gallery from the NextGen Gallery Plugin'
 					),
 					'carousel_ngen_gallery' => array(
