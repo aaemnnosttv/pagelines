@@ -159,5 +159,6 @@ body #page .blink-wrap	.blink{
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
+	vertical-align:top;
 }
 

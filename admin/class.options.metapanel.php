@@ -128,11 +128,6 @@ class PageLinesMetaPanel {
 			global $post;
 			$this->base_name = 'PageLines Meta Settings';
 			$name = $this->base_name;
-
-			$slug = $this->get_edit_type();
-
-			$name .= sprintf(' <small class="btag">%s</small>', $slug);
-			
 			return $name;
 	}
 	
@@ -214,7 +209,17 @@ class PageLinesMetaPanel {
 		$option_engine = new OptEngine( 'meta' );
 		
 		$this->tabs_setup(); ?>
-		
+	<div class="pl_mp">
+		<div class="ohead  mp_bar mp_head">
+			<div class="mp_bar_pad fix ">
+				<div class="mp_title"><span class="mp_title_text">MetaPanel</span> <span class='btag'><?php echo ucfirst($this->get_edit_type());?></span></div>
+			
+			
+				<div class="superlink-wrap osave-wrap">
+					<input id="update" class="superlink osave" type="submit" value="<?php _e("Save Meta Settings",'pagelines'); ?>"  name="update" />
+				</div>
+			</div>
+		</div>
 			<div id="metatabs" class="pagelines_metapanel fix">
 				<div class="pagelines_metapanel_pad fix">
 					<?php if(!$this->hide_tabs):?>
@@ -268,8 +273,8 @@ class PageLinesMetaPanel {
 				</div>
 				
 			</div>
-			<div class="ohead mp_footer ">
-				<div class="mp_footer_pad fix ">
+			<div class="ohead mp_bar mp_footer ">
+				<div class="mp_bar_pad fix ">
 					<input type="hidden" name="_posttype" value="<?php echo $this->settings['posttype'];?>" />
 				
 				
@@ -278,8 +283,8 @@ class PageLinesMetaPanel {
 					</div>
 				</div>
 			</div>
-			
-		<?php 
+		</div>
+<?php 
 	
 	}
 	
