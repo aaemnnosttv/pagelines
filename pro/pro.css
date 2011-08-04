@@ -331,7 +331,12 @@
 		#highlight .highlight-splash img {max-width: 100%;}
 		
 /* @ Feature Boxes */
-		#boxes h3{
+
+	#boxes .content-pad{
+		padding-top: .4em;
+		padding-bottom: .4em;
+	}
+		.fboxtitle h3{
 			padding: 0 0 2px 0;
 			font-size: 1.3em;
 		}
