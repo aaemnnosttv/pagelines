@@ -59,7 +59,7 @@
 				continue;
 
 			$key = str_replace( '.', '', $key );
-			$install_js_call = sprintf( $this->exprint, 'section_install', $key, $key, $section->url, 'Installing');
+			$install_js_call = sprintf( $this->exprint, 'section_install', $key, 'sections', $key, 'Installing');
 
 			$button = OptEngine::superlink('Install Section', 'black', '', '', $install_js_call);
 				
@@ -126,8 +126,8 @@
 
 				$file = basename($section['base_dir']);
 				if ( is_object( $upgradable ) && isset( $upgradable->$file ) ) {
-				
-					$install_js_call = sprintf( $this->exprint, 'section_upgrade', $key, $file, $upgradable->$file->url, 'Upgrading to version ' . $upgradable->$file->version );
+		
+					$install_js_call = sprintf( $this->exprint, 'section_upgrade', $key, 'sections', $file, 'Upgrading to version ' . $upgradable->$file->version );
 
 					$button = ( isset( $upgradable->$file ) && $section['version'] < $upgradable->$file->version )
 								? OptEngine::superlink('Upgrade available!', 'black', '', '', $install_js_call)
@@ -170,12 +170,14 @@
 		$output = '';
 
 		$plugins = json_decode(json_encode($plugins), true); // convert objets to arrays
+
+		foreach( $plugins as $key => $plugin )
+			$plugins[$key]['file'] = '/' . trailingslashit( $key ) . $key . '.php'; 
 		
 		$plugins = pagelines_array_sort( $plugins, 'name', false, true ); // sort by name
 
 		// get status of each plugin
 		foreach( $plugins as $key => $plugin ) {
-			
 			$plugins[$key]['status'] = $this->plugin_check_status( WP_PLUGIN_DIR . $plugin['file'] );
 			$plugins[$key]['name'] = ( $plugins[$key]['status']['data']['Name'] ) ? $plugins[$key]['status']['data']['Name'] : $plugins[$key]['name'];
 		}
@@ -203,11 +205,11 @@
 			if ( $tab === 'free' && $plugin['type'] === 'premium' )
 				continue;	
 				
-			$install_js_call = sprintf( $this->exprint, 'plugin_install', $key, $plugin['name'], $plugin['url'], 'Installing');
-			$activate_js_call = sprintf( $this->exprint, 'plugin_activate', $key, $plugin['name'], $plugin['file'], 'Activating');
-			$deactivate_js_call = sprintf( $this->exprint, 'plugin_deactivate', $key, $plugin['name'], $plugin['file'], 'Deactivating');
-			$upgrade_js_call = sprintf( $this->exprint, 'plugin_upgrade', $key, $plugin['name'], $plugin['url'], 'Upgrading');
-			$delete_js_call = sprintf( $this->exprint, 'plugin_delete', $key, $plugin['name'], $plugin['file'], 'Deleting');
+			$install_js_call = sprintf( $this->exprint, 'plugin_install', $key, 'plugins', $key, 'Installing');
+			$activate_js_call = sprintf( $this->exprint, 'plugin_activate', $key, 'plugins', $plugin['file'], 'Activating');
+			$deactivate_js_call = sprintf( $this->exprint, 'plugin_deactivate', $key, 'plugins', $plugin['file'], 'Deactivating');
+			$upgrade_js_call = sprintf( $this->exprint, 'plugin_upgrade', $key, 'plugins', $key, 'Upgrading');
+			$delete_js_call = sprintf( $this->exprint, 'plugin_delete', $key, 'plugins', $plugin['file'], 'Deleting');
 
 			if ( !isset( $plugin['status'] ) )
 				$plugin['status'] = array( 'status' => '' );
@@ -282,11 +284,12 @@
 					continue;
 				if ( $status == 'installed' && strtolower( $theme->name ) == basename( STYLESHEETPATH ) )
 					$status = 'activated';
-				
-				$activate_js_call = sprintf( $this->exprint, 'theme_activate', $key, $theme->name, $theme->url, 'Activating');
-				$deactivate_js_call = sprintf( $this->exprint, 'theme_deactivate', $key, $theme->name, $theme->url, 'Deactivating');
-				$install_js_call = sprintf( $this->exprint, 'theme_install', $key, $theme->name, $theme->url, 'Installing');
-				$upgrade_js_call = sprintf( $this->exprint, 'theme_upgrade', $key, $theme->name, $theme->url, 'Upgrading');
+
+			
+				$activate_js_call = sprintf( $this->exprint, 'theme_activate', $key, 'themes', $key, 'Activating');
+				$deactivate_js_call = sprintf( $this->exprint, 'theme_deactivate', $key, 'themes', $key, 'Deactivating');
+				$install_js_call = sprintf( $this->exprint, 'theme_install', $key, 'themes', $key, 'Installing');
+				$upgrade_js_call = sprintf( $this->exprint, 'theme_upgrade', $key, 'themes', $key, 'Upgrading');
 
 				if ( isset($data) && $data['Version'] && $theme->version > $data['Version'])
 					$status = 'upgrade';
@@ -369,9 +372,9 @@
 		
 		$count = ( $s['count'] ) ? sprintf('<br />Downloads: %s', $s['count']) : '';
 		
-		$screenshot = ( $s['image'] ) ? sprintf('<div class="extend-screenshot"><a class="screenshot-%s" href="http://api.pagelines.com/%s/img/%s.png" rel="http://api.pagelines.com/%s/img/%s.png"><img src="http://api.pagelines.com/%s/img/thumb-%s.png"></a></div>' , str_replace( '.', '-', $s['image']), $s['type'], $s['image'], $s['type'], $s['image'], $s['type'], $s['image']) : '';
+		$screenshot = ( $s['image'] ) ? sprintf('<div class="extend-screenshot"><a class="screenshot-%s" href="http://api.pagelines.com/%s/img/%s.png" rel="http://api.pagelines.com/%s/img/%s.png"><img src="http://api.pagelines.com/%s/img/thumb-%s.png"></a></div>' , str_replace( '.', '-', $s['key']), $s['type'], $s['key'], $s['type'], $s['key'], $s['type'], $s['key']) : '';
 
-		$js =  ( $screenshot ) ? "<script type='text/javascript' />jQuery('a.screenshot-" . str_replace( '.', '-', $s['image']) . "').imgPreview({
+		$js =  ( $screenshot ) ? "<script type='text/javascript' />jQuery('a.screenshot-" . str_replace( '.', '-', $s['key']) . "').imgPreview({
 		    containerID: 'imgPreviewWithStyles',
 		    imgCSS: {
 		        // Limit preview size:
@@ -502,7 +505,7 @@
 			case 'plugin_install':
 
 				$upgrader = new Plugin_Upgrader();
-				@$upgrader->install($url);
+				@$upgrader->install( $this->make_url( $type, $url ) );
 				$this->page_reload( 'pagelines_extend' );
 			break;	
 
@@ -544,14 +547,14 @@
 			case 'section_install':
 
 				$upgrader = new Plugin_Upgrader();
-				$options = array( 'package' => $url, 
-						'destination'		=> EXTEND_CHILD_DIR .'/sections/' . str_replace( 'section', 'section.', $type ), 
+				$options = array( 'package' => $this->make_url( $type, str_replace( 'section', 'section.', $url ) ), 
+						'destination'		=> EXTEND_CHILD_DIR . '/sections/' . str_replace( 'section', 'section.', $url ), 
 						'clear_destination' => false,
 						'clear_working'		=> false,
 						'is_multi'			=> false,
 						'hook_extra'		=> array() 
 				);
-				
+
 				@$upgrader->run($options);
 				// Output
 				echo 'Installed';
@@ -561,8 +564,8 @@
 			case 'section_upgrade':
 
 				$upgrader = new Plugin_Upgrader();
-				$options = array( 'package' => $url, 
-						'destination'		=> EXTEND_CHILD_DIR .'/sections/' . str_replace( 'section', 'section.', $type ), 
+				$options = array( 'package' => $this->make_url( $type, $url ), 
+						'destination'		=> EXTEND_CHILD_DIR .'/sections/' . $url, 
 						'clear_destination' => true,
 						'clear_working'		=> false,
 						'is_multi'			=> false,
@@ -578,8 +581,8 @@
 			case 'plugin_upgrade':
 
 				$upgrader = new Plugin_Upgrader();
-				$options = array( 'package' => $url, 
-						'destination'		=> WP_PLUGIN_DIR .'/' . $type, 
+				$options = array( 'package' => $this->make_url( $type, $url ), 
+						'destination'		=> WP_PLUGIN_DIR .'/' . $url, 
 						'clear_destination' => true,
 						'clear_working'		=> false,
 						'is_multi'			=> false,
@@ -602,8 +605,8 @@
 			case 'theme_upgrade':
 
 				$upgrader = new Plugin_Upgrader();
-				$options = array( 'package' => $url, 
-						'destination'		=> WP_CONTENT_DIR .'/themes/' . $type, 
+				$options = array( 'package' => $this->make_url( $type, $url ), 
+						'destination'		=> WP_CONTENT_DIR .'/themes/' . $url, 
 						'clear_destination' => true,
 						'clear_working'		=> false,
 						'is_multi'			=> false,
@@ -619,14 +622,13 @@
 			case 'theme_install':
 
 				$upgrader = new Plugin_Upgrader();
-				$options = array( 'package' => $url, 
-						'destination'		=> WP_CONTENT_DIR .'/themes/' . strtolower( $type ), 
+				$options = array( 'package' => $this->make_url( $type, $url ), 
+						'destination'		=> WP_CONTENT_DIR .'/themes/' . $url, 
 						'clear_destination' => true,
 						'clear_working'		=> false,
 						'is_multi'			=> false,
 						'hook_extra'		=> array() 
 				);
-
 				@$upgrader->run($options);
 				// Output
 				echo 'Installed';
@@ -635,7 +637,7 @@
 			
 			case 'theme_activate':
 
-				switch_theme( basename( get_template_directory() ), strtolower( $type ) );
+				switch_theme( basename( get_template_directory() ), $url );
 				// Output
 				echo 'Activated';
 				$this->page_reload( 'pagelines' );	
@@ -653,7 +655,11 @@
 		die(); // needed at the end of ajax callbacks
 	}
 	
-
+	function make_url( $type, $url ) {
+		
+		return 'http://api.pagelines.com/' . $type . '/download.php?d=' . $url . '.zip';		
+	}
+	
 	/**
 	 * Reload the page
 	 * Helper function
