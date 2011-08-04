@@ -1143,12 +1143,11 @@ font-weight: bold;
 		
 	
 /* @ PageLines MetaPanel Type Options */
-
+.pl_mp{margin: 20px 10px; min-width: 650px;}
 .pagelines_metapanel {
 	background: #eee;
 	border: 1px solid #ccc;
-	border-top: 1px solid #ddd;
-	border-left: 1px solid #ddd;
+	border-top: 1px solid #bbb;
 	text-shadow: #fff 0 1px 0;
 }
 	.pagelines_metapanel_pad {
@@ -1161,7 +1160,7 @@ font-weight: bold;
 	.pagelines_metapanel #tabsnav {
 		float: left;
 		width: 28%;	
-		margin: 5px -28% 0 0;
+		margin: 15px -28% 0 0;
 		border-top: 1px solid #ddd;
 		border-bottom: 1px solid #fafafa;
 	}
@@ -1245,17 +1244,15 @@ font-weight: bold;
 			margin-left: -1px;
 		}
 			.metapanel_option_exp_pad{padding: 15px;border-left: 1px solid #fff;}
-	
-		.mp_footer{
 		
-			border: 1px solid #ccc;
-			border-top: 1px solid #fff;
-		}
-			.mp_footer_pad{
-				
-				padding: 5px 10px;
-				
-			}
+		.mp_title{ float: left;}
+		.mp_title .mp_title_text{ font-size: 23px; line-height: 1.32em; font-weight: bold; color: #BBB; text-shadow: #fff 0 1px 0;}
+		.mp_title .btag {margin-top: 6px;}
+		.mp_bar .superlink-wrap{float: right;}
+		.mp_bar{border: 1px solid #ccc;}
+		.mp_head{border-bottom: none}	
+		.mp_footer{ border-top: 1px solid #fff; }
+		.mp_bar_pad{ padding: 5px 10px; }
 	
 /* @ Layout Builder */
 	.layouteditor { display: none; }
@@ -1372,9 +1369,8 @@ font-weight: bold;
 
 	
 	/* Layout Selector */
-	.layoutinput, .confirm_save, .graphic_select_input{display:none;}
-	.confirm_save{ float: right; color:#AAA; }
-	
+	.layoutinput, .graphic_select_input{display:none;}
+
 	.layout-selections{
 		width: 700px;
 		background: #E5E5E5 url(../images/bg-indent.png) repeat-x 0 0;
@@ -1761,8 +1757,17 @@ font-weight: bold;
 			border-top: 1px solid #fff;
 			border-left: 1px solid #fff;
 		}
-		.ttitle{ font-size: 1.5em; font-weight: bold; color:#999; padding:18px 10px;background:#f7f7f7;border-bottom:1px solid #ddd}
+		.ttitle{ font-size: 1.5em; font-weight: bold; color:#999; background:#f7f7f7;border-bottom:1px solid #ddd}
+		.ttitle-text, .confirm_save_pad{padding: 18px 10px;}
+		.ttitle-text {float:left;}
 		.ttitle span{color:#ccc}
+		.confirm_save{ display:block; float: right; color:#AAA;width: 250px;text-align: center; }
+
+		.confirm_save.ajax-saving{
+			background: transparent url(../images/ajax-loader-f7f7f7.gif) no-repeat 50% 50%;
+		}
+		
+		
 		.template-edit-panel {border-top: 1px solid #fff}
 		
 	#template_data.selected_builder{ display: block; }

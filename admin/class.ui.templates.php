@@ -272,38 +272,34 @@ class PageLinesTemplateBuilder {
 		
 			$template_slug = ( isset($hook) ) ? join('-', array( $hook, $template )) : $template;
 			$template_area = ( isset($hook) ) ? $hook : $template;
-?>
-				
-				<div id="template_data" class="<?php echo $template_slug; ?> layout-type-<?php echo $template_area;?>" title="<?php echo $template_slug; ?>">
-					<div class="ttitle" id="highlightme">
-						<span>Editing &rarr;</span> <?php echo $tfield['name'];?> 
-						<div class="confirm_save"><div class="confirm_save_pad">Section Order Saved!</div></div>
-					</div>
-					<div id="section_map" class="template-edit-panel ">
-						<h4 class='over' >2. Arrange Sections In Area With Drag &amp; Drop</h4>
-						<div class="sbank template_layout">
-							<div class="sbank-pad">
-								<div class="bank_title">Displayed <?php echo $tfield['name'];?> Sections</div>
-								<ul id="sortable_template" class="connectedSortable ">
-								 	<?php  $this->active_bank( $template, $tfield, $template_area, $template_slug ); ?>
-								</ul>
-								<?php $this->section_setup_controls(); ?>
-								
-							</div>		
-						</div>
-						<div class="sbank available_sections">
-							<div class="sbank-pad">
-								<div class="bank_title">Available/Disabled Sections</div>
-								<ul id="sortable_sections" class="connectedSortable ">
-									<?php $this->passive_bank( $template, $tfield, $hook, $hook_info ); ?>
-								</ul>
-							</div>
-							<div class="clear"></div>
-						</div>
-					</div>
-					<div class="clear"></div>
+?><div id="template_data" class="<?php echo $template_slug; ?> layout-type-<?php echo $template_area;?>" title="<?php echo $template_slug; ?>">
+		<div class="ttitle fix" id="highlightme">
+			<div class="ttitle-text"><span>Editing &rarr;</span> <?php echo $tfield['name'];?> </div>
+			<div class="confirm_save"><div class="confirm_save_pad">&nbsp;</div></div>
+		</div>
+		<div id="section_map" class="template-edit-panel ">
+			<h4 class='over' >2. Arrange Sections In Area With Drag &amp; Drop</h4>
+			<div class="sbank template_layout">
+				<div class="sbank-pad">
+					<div class="bank_title">Displayed <?php echo $tfield['name'];?> Sections</div>
+					<ul id="sortable_template" class="connectedSortable ">
+					 	<?php  $this->active_bank( $template, $tfield, $template_area, $template_slug ); ?>
+					</ul>
+					<?php $this->section_setup_controls(); ?>
+				</div>		
+			</div>
+			<div class="sbank available_sections">
+				<div class="sbank-pad">
+					<div class="bank_title">Available/Disabled Sections</div>
+					<ul id="sortable_sections" class="connectedSortable ">
+						<?php $this->passive_bank( $template, $tfield, $hook, $hook_info ); ?>
+					</ul>
 				</div>
-
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
 <?php  }
 	
 	function active_bank( $tid, $t, $ta, $ts ){
