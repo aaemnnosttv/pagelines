@@ -137,7 +137,7 @@ jQuery(document).ready(function(){
 	/*
 		TODO make default the default page, or posts page?
 	*/
-	doTemplatesSelect();
+	doTemplatesSelect('templates-default', 'sel-templates-sub');
 	jQuery('.tg-templates').addClass('builder_selected_area');
 	
 	// when a user clicks, highlight the area; slide up the sub selector panels (if they're open)
@@ -167,27 +167,28 @@ jQuery(document).ready(function(){
 	});
 	
 	jQuery('.tg-templates').click(function() {
-		doTemplatesSelect();
+		var selectedButton = jQuery('.sub-template-selector .sss-selected').attr('id');
+		
+		var exp = selectedButton.split('-');
+		var stemplate = 'templates-'+exp[1];
+
+		doTemplatesSelect( stemplate, 'sel-templates-sub');
 	});
 	
 	jQuery('.tg-content-templates').click(function() {
-		var stemplate = 'main-default';
-		jQuery('.sss-selected').removeClass('sss-selected');
-		jQuery('.sub-template-selector #'+stemplate).addClass('sss-selected');
-		
-		
-		jQuery('.sel-content-sub.sub-template-selector').slideDown();
-		
-		viewAndSort(stemplate);
+		var selectedButton = jQuery('.sub-template-selector .sss-selected').attr('id');
+
+		var exp = selectedButton.split('-');
+		var stemplate = 'main-'+exp[1];
+		doTemplatesSelect( stemplate, 'sel-content-sub');
 		
 	});
 });
 
-function doTemplatesSelect(){
-	var stemplate = 'templates-default';
+function doTemplatesSelect( stemplate, panel ){
 	jQuery('.sss-selected').removeClass('sss-selected');
 	jQuery('.sub-template-selector #'+stemplate).addClass('sss-selected');
-	jQuery('.sel-templates-sub.sub-template-selector').slideDown();
+	jQuery('.'+panel+'.sub-template-selector').slideDown();
 
 	viewAndSort(stemplate);
 }

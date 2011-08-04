@@ -19,7 +19,6 @@ class PageLinesHighlight extends PageLinesSection {
 		$default_settings = array(
 			'description' 	=> 'Adds a highlight section with a splash image, and optional header/subheader text. Set up on individual pages/posts.',
 			'workswith' 	=> array('templates', 'main', 'header', 'morefoot'),
-			'failswith'		=> array('posts', '404'),
 			'icon'			=> PL_ADMIN_ICONS . '/highlight.png', 
 			'version'		=> 'pro', 
 			'cloning'		=> true
@@ -93,8 +92,8 @@ class PageLinesHighlight extends PageLinesSection {
 		$h_splash = ploption('_highlight_splash', $oset);
 		$h_splash_position = ploption('_highlight_splash_position', $oset);
 		
-		?>
-	<?php if($h_head || $h_subhead || $h_splash):?>
+	
+	if($h_head || $h_subhead || $h_splash){?>
 		<div class="highlight-area">
 			
 			<?php if($h_splash_position == 'top' && $h_splash):?> 
@@ -104,15 +103,11 @@ class PageLinesHighlight extends PageLinesSection {
 			<?php 	endif;	?>
 			
 			<?php if($h_head):?> 
-				<h1 class="highlight-head">
-					<?php echo $h_head; ?>
-				</h1>
+				<h1 class="highlight-head"><?php echo $h_head; ?></h1>
 			<?php endif;?>
 	
 			<?php if($h_subhead):?> 
-				<h3 class="highlight-subhead subhead">
-					<?php echo $h_subhead; ?>
-				</h3>
+				<h3 class="highlight-subhead subhead"><?php echo $h_subhead; ?></h3>
 			<?php endif;?>
 	
 			<?php if( $h_splash_position != 'top' && $h_splash):?> 
@@ -121,8 +116,9 @@ class PageLinesHighlight extends PageLinesSection {
 				</div>
 			<?php 	endif;	?>
 		</div>
-	<?php endif;?>
-<?php 
+	<?php 
+		} else
+			echo setup_section_notify($this, __('Set highlight meta fields to activate.') );
  
 	}
 

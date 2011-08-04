@@ -57,6 +57,19 @@
 	    -webkit-transition:all .2s linear;
 	}
 	
+/* @ Banner */
+	.banner_pad{
+		padding: 4em;
+		text-align: center;
+	}
+		.banner_title.wicon{
+			display: inline;
+			padding: 0 23px;
+			background-position: 0 4px;
+			background-repeat: no-repeat;
+		}
+	
+	
 /* @ Border Tricks */
 	body .ntb{border-top: none}
 	body .nbb{border-bottom: none}

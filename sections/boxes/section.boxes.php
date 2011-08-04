@@ -203,50 +203,56 @@ class PageLinesBoxes extends PageLinesSection {
 		$post_count = count($b);
 		$current_box = 1;
 		$row_count = $perline;
-		
+	
+		if(!empty($b)){
 ?>
-		<div class="pprow <?php echo $class;?> fboxes fix">
-<?php 	foreach($b as $bpost):
-			setup_postdata($bpost); 
- 			$box_link = get_post_meta($bpost->ID, 'the_box_icon_link', true);
-			$box_icon = get_post_meta($bpost->ID, 'the_box_icon', true);
+			<div class="pprow <?php echo $class;?> fboxes fix">
+	<?php 	foreach($b as $bpost):
+				setup_postdata($bpost); 
+	 			$box_link = get_post_meta($bpost->ID, 'the_box_icon_link', true);
+				$box_icon = get_post_meta($bpost->ID, 'the_box_icon', true);
 			
-			$box_row_start = ( $row_count % $perline == 0 ) ? true : false;
-			$box_row_end = ( ( $row_count + 1 ) % $perline == 0 || $current_box == $post_count ) ? true : false;
-			$grid_class = ($box_row_end) ? 'pplast pp'.$perline : 'pp'.$perline;
+				$box_row_start = ( $row_count % $perline == 0 ) ? true : false;
+				$box_row_end = ( ( $row_count + 1 ) % $perline == 0 || $current_box == $post_count ) ? true : false;
+				$grid_class = ($box_row_end) ? 'pplast pp'.$perline : 'pp'.$perline;
 			
-?>
-			<section id="<?php echo 'fbox_'.$bpost->ID;?>" class="<?php echo $grid_class;?> fbox">
-				<div class="media dcol-pad <?php echo $thumb_type;?>">	
+	?>
+				<section id="<?php echo 'fbox_'.$bpost->ID;?>" class="<?php echo $grid_class;?> fbox">
+					<div class="media dcol-pad <?php echo $thumb_type;?>">	
 					
-					<?php if($box_icon)
-							echo self::_get_box_image( $bpost, $box_icon, $box_link, $thumb_size, $thumb_type); 
+						<?php if($box_icon)
+								echo self::_get_box_image( $bpost, $box_icon, $box_link, $thumb_size, $thumb_type); 
 							
-						if($thumb_type != 'only_thumbs'): ?>		
-							<div class="fboxinfo fix bd">
-								<div class="fboxtitle">
-									<h3>
-	<?php 							if($box_link) 
-										printf('<a href="%s">%s</a>', $box_link, $bpost->post_title );
-									else 
-										echo do_shortcode($bpost->post_title); ?>
-									</h3>
+							if($thumb_type != 'only_thumbs'): ?>		
+								<div class="fboxinfo fix bd">
+									<div class="fboxtitle">
+										<h3>
+		<?php 							if($box_link) 
+											printf('<a href="%s">%s</a>', $box_link, $bpost->post_title );
+										else 
+											echo do_shortcode($bpost->post_title); ?>
+										</h3>
+									</div>
+									<div class="fboxtext">
+										<?php echo blink_edit( $bpost->ID ); ?>
+										<?php echo do_shortcode($bpost->post_content); ?>
+									</div>
 								</div>
-								<div class="fboxtext">
-									<?php echo blink_edit( $bpost->ID ); ?>
-									<?php echo do_shortcode($bpost->post_content); ?>
-								</div>
-							</div>
-							<?php pagelines_register_hook( 'pagelines_box_inside_bottom', $this->id ); // Hook ?>
-						<?php endif;?>
-				</div>
-			</section>
+								<?php pagelines_register_hook( 'pagelines_box_inside_bottom', $this->id ); // Hook ?>
+							<?php endif;?>
+					</div>
+				</section>
+	<?php 
+				$row_count++;
+				$current_box++; 
+			endforeach;	?>
+			</div>
 <?php 
-			$row_count++;
-			$current_box++; 
-		endforeach;	?>
-		</div>
-<?php }
+
+		} else
+			echo setup_section_notify($this, 'Select box set to activate');
+	
+	}
 
 
 	function load_pagelines_boxes($set = null, $limit = null){
