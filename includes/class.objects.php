@@ -20,6 +20,7 @@ class PLObject {
 		$defaults = array(
 			'size'		=> 'normal',
 			'align'		=> 'left', 
+			'display'	=> null,
 			'style'		=> '',
 			'action'	=> '',
 			'pid'		=> 0, 
@@ -34,7 +35,8 @@ class PLObject {
 		$position = 'bl-align-'.$a['align'];
 
 		$classes = join(' ', array($color_class, $size_class, $position));
-
+	
+		$display = (isset($a['display'])) ?  'display: '.$a['display'] : '';
 		
 		$post_link = get_edit_post_link( $a['pid']);
 
@@ -57,7 +59,7 @@ class PLObject {
 		
 		$button = sprintf( '<%1$s class="blink" %3$s><span class="blink-pad">%2$s</span></%1$s>', $element, $text, $action);
 
-		$output = sprintf('%s<div class="%s blink-wrap">%s</div>%s', $clear, $classes, $button, $clear_end);
+		$output = sprintf('%s<div class="%s blink-wrap" style="%s">%s</div>%s', $clear, $classes, $display, $button, $clear_end);
 
 
 		if( $type == 'edit_post' && !isset($post_link) )
@@ -85,5 +87,6 @@ function blink_edit( $post_id = '', $color = 'grey', $args = array()){
 
 	return PLObject::button(__('Edit', 'pagelines'), 'edit_post', $color, $args);
 }
+
 
 

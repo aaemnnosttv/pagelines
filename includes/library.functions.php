@@ -32,6 +32,15 @@ function pagelines_special_pages(){
 	return array('posts', 'search', 'archive', 'tag', 'category', '404');
 }
 
+function pl_meta_set_url(){
+	global $post; 
+	if(is_pagelines_special())
+		return admin_url('admin.php?page=pagelines_special');
+	else 
+		return get_edit_post_link( $post->ID );
+		
+}
+
 /**
  * 
  *  Sets up classes for controlling design and layout and is used on the body tag

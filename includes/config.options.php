@@ -349,7 +349,7 @@ class PageLinesOptionsArray {
 						'cssgroup'	=>	'text_primary',
 						'inputlabel' 	=> 'Primary Text',
 						'math'		=> array(
-							array( 'mode' => 'mix', 'mixwith' => pl_background_cascade(), 'cssgroup' => 'text_secondary', 'css_prop' => 'color', 'diff' => '60%'),
+							array( 'mode' => 'mix', 'mixwith' => pl_background_cascade(), 'cssgroup' => 'text_secondary', 'css_prop' => 'color', 'diff' => '65%'),
 							array( 'mode' => 'shadow', 'mixwith' => pl_background_cascade(), 'cssgroup' => array('text_primary', 'text_secondary', 'text_tertiary') ),
 						)
 					),

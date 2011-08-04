@@ -30,7 +30,7 @@ function pagelines_default_widget($id, $name, $default){
 	
 		get_template_part( $default ); 
 		
-	elseif(!pagelines('sidebar_no_default')):
+	elseif( current_user_can('edit_themes') ):
 	?>	
 
 	<li class="widget-default setup_area no_<?php echo $id;?>">

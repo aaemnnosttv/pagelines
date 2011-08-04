@@ -59,8 +59,8 @@ class PageLinesMorefoot extends PageLinesSection {
 			global $post;
 			if( !VPRO) $hide_footer = true;
 			else $hide_footer = false;		
-		?>
-		<?php if(!$hide_footer):?>
+		
+		if(!$hide_footer):?>
 
 			<div class="morefoot_back fix">
 				<div id="morefootbg" class=" fix">
@@ -69,7 +69,7 @@ class PageLinesMorefoot extends PageLinesSection {
 							<div class="dcol-pad">
 								<?php if (!dynamic_sidebar('MoreFoot Left') ) : ?>
 								<div class="widget">
-									<?php if(!pagelines('sidebar_no_default')):?>
+									<?php if(!ploption('sidebar_no_default')):?>
 										<h3 class="widget-title"><?php _e('Looking for something?','pagelines');?></h3>
 										<p><?php _e('Use the form below to search the site:','pagelines');?></p>
 										<?php get_search_form(); ?> 
@@ -85,7 +85,7 @@ class PageLinesMorefoot extends PageLinesSection {
 							<div class="dcol-pad">
 								<?php if ( !dynamic_sidebar('MoreFoot Middle') ) : ?>
 								<div class="widget">
-									<?php if(!pagelines('sidebar_no_default')):?>
+									<?php if(!ploption('sidebar_no_default')):?>
 
 										<h3 class="widget-title"><?php _e('Visit our friends!','pagelines');?></h3><p><?php _e('A few highly recommended friends...','pagelines');?></p><ul><?php wp_list_bookmarks('title_li=&categorize=0'); ?></ul>
 
@@ -98,7 +98,7 @@ class PageLinesMorefoot extends PageLinesSection {
 							<div class="dcol-pad">
 							<?php if (!dynamic_sidebar('MoreFoot Right') ) : ?>
 								<div class="widget">
-								<?php if(!pagelines('sidebar_no_default')):?>
+								<?php if(!ploption('sidebar_no_default')):?>
 
 									<h3 class="widget-title"><?php _e('Archives', 'pagelines');?></h3><p><?php _e('All entries, chronologically...','pagelines');?></p><ul><?php wp_get_archives('type=monthly&limit=12'); ?> </ul>
 

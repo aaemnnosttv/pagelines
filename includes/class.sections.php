@@ -261,7 +261,9 @@ function setup_section_notify( $section, $text ){
 	
 		$banner_title = sprintf('<h3 class="banner_title wicon" style="background-image: url(%s);">%s</h3>', $section->icon, $section->name);
 		
-		return sprintf('<div class="banner setup_area"><div class="banner_pad">%s <div class="banner_text subhead">%s</div></div></div>', $banner_title, $text);
+		$link = sprintf('<a href="%s">%s</a>', pl_meta_set_url(), __('Set Meta &rarr;'));
+		
+		return sprintf('<div class="banner setup_area"><div class="banner_pad">%s <div class="banner_text subhead">%s<br/> %s</div></div></div>', $banner_title, $text, $link);
 	}
 	
 }

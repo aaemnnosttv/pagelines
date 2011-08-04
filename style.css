@@ -41,9 +41,9 @@ body{font-size: 87.5%; line-height: 1.714285em;}
 	/*.content { background: url(images/line-height.png) repeat 0 6px; }*/
 	/* @ Headers H1 - H6 */
 	h1, h2, h3, h4, h5, h6{font-weight:normal; line-height: 1.3em;}
-	h1{font-size:3.4285em; line-height: 1em;} 
+	h1{font-size:3.4285em; } 
 	h2{font-size:2.5em; line-height: 1.371428em;}
-	h3{font-size:1.714285em; line-height: 1em; }
+	h3{font-size:1.714285em;  }
 	h4{font-size:1.5em;}
 	h5{font-size:1.1em;}
 	h6{font-size:1em;}

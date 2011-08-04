@@ -380,7 +380,7 @@ class PageLinesMetaPanel {
 
 				jQuery('#<?php echo $selector;?>').bind('tabsshow', function(event, ui) {
 					var selectedTab = jQuery('#<?php echo $selector;?>').tabs('option', 'selected');
-
+					
 					<?php 
 						if($cookie_id != false)
 							printf('jQuery.cookie(\'%s\', selectedTab);', $cookie_id);

@@ -69,9 +69,9 @@ class PageLinesColor {
 				
 		
 		}elseif( $mode == 'mix' ){
-			
+		
 			$color = $this->mix_colors($this->base_hex, $alt, $diff);
-			
+				
 		}elseif( $mode == 'shadow' ){
 			
 			$color =  $this->adjust($diff, 'lightness', $alt);
