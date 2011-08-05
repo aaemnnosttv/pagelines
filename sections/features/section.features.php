@@ -220,7 +220,7 @@ class PageLinesFeatures extends PageLinesSection {
 ?><script type="text/javascript">/* <![CDATA[ */ jQuery(document).ready(function () {
 <?php 
 	//Feature Cycle Setup
-	printf( "\jQuery('#cycle').cycle({ %s });", $args);
+	printf( "jQuery('#cycle').cycle({ %s });", $args);
 	
 	$this->_js_feature_loop($fmode, $f);
 
@@ -255,18 +255,18 @@ function _js_feature_loop($fmode, $fposts = array()){
 				elseif ($fmode == 'thumbs')
 					$replace_value = sprintf("<span class='nav_thumb' style='background:#fff url(%s);'><span class='nav_overlay'>&nbsp;</span></span>", $feature_thumb);
 		
-				$replace_js = sprintf('$j(this).html("%s");', $replace_value );
+				$replace_js = sprintf('jQuery(this).html("%s");', $replace_value );
 			} else
 				$replace_js = '';
 			
-			$link_title = sprintf('$j(this).attr("title", "%s");', $feature_name );
+			$link_title = sprintf('jQuery(this).attr("title", "%s");', $feature_name );
 		
-			$link_js .= sprintf('if($j(this).html() == "%s") { %s %s }', $count, $link_title, $replace_js);
+			$link_js .= sprintf('if(jQuery(this).html() == "%s") { %s %s }', $count, $link_title, $replace_js);
 		
 			$count++; 
 		}
 	
-		printf('$j("div#featurenav").children("a").each(function() { %s });', $link_js);
+		printf('jQuery("div#featurenav").children("a").each(function() { %s });', $link_js);
 
 }
 
