@@ -602,7 +602,7 @@ function pagelines_register_plugins() {
 		foreach( $plugins as $plugin ) {
 			$a = get_file_data( WP_PLUGIN_DIR . '/' . $plugin, $default_headers = array( 'pagelines' => 'PageLines' ) );
 			if ( !empty( $a['pagelines'] ) ) {
-				$pagelines_plugins[] = rtrim( basename($plugin), '.php');
+				$pagelines_plugins[] = str_replace( '.php', '', basename($plugin) );
 			}
 
 		}
