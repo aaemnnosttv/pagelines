@@ -188,12 +188,12 @@
 		foreach( $plugins as $key => $plugin ) {
 			
 			unset( $plugins[$key] );
-			$key = rtrim( basename( $plugin['file'] ), '.php' );
+			$key = str_replace( '.php', '', basename( $plugin['file'] ) );
 			$plugins[$key] = $plugin;
 		}
 	
 		foreach( $plugins as $key => $plugin ) {
-			
+	
 			if ( !isset( $plugin['type'] ) )
 				$plugin['type'] = 'free';
 			if ( $tab === 'installed' && !isset( $plugin['status']['status'] ) )
@@ -204,7 +204,7 @@
 				continue;
 			if ( $tab === 'free' && $plugin['type'] === 'premium' )
 				continue;	
-				
+			
 			$install_js_call = sprintf( $this->exprint, 'plugin_install', $key, 'plugins', $key, 'Installing');
 			$activate_js_call = sprintf( $this->exprint, 'plugin_activate', $key, 'plugins', $plugin['file'], 'Activating');
 			$deactivate_js_call = sprintf( $this->exprint, 'plugin_deactivate', $key, 'plugins', $plugin['file'], 'Deactivating');
