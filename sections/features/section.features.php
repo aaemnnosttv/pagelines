@@ -283,7 +283,7 @@ function _js_feature_loop($fmode, $fposts = array()){
 						'file' => $this->base_url . '/jquery.cycle.js',
 						'dependancy' => array('jquery'), 
 						'location' => 'footer', 
-						'version' => '2.99'
+						'version' => '2.9994'
 					)
 					
 			);
@@ -592,7 +592,7 @@ function draw_features($f, $class) {
 									'exp' 			=> "Posts pages and 404 pages in WordPress don't support meta data so you need to assign a set here. (If you want to use 'features' on these pages.)",
 								), 
 							'feature_stage_height' => array(
-									'default' 		=> '330',
+									'default' 		=> '400',
 									'version'		=> 'pro',
 									'type' 			=> 'css_option',
 									'selectors'		=> '#feature-area, .feature-wrap, #feature_slider .fmedia, #feature_slider .fcontent, #feature_slider .text-bottom .fmedia .dcol-pad, #feature_slider .text-bottom .feature-pad, #feature_slider .text-none .fmedia .dcol-pad', 
@@ -661,7 +661,7 @@ function draw_features($f, $class) {
 				'2' => array(
 			        	'title' 		=> 'YouTube Video',
 			        	'text' 			=> 'A video on changing things.',
-			        	'media'		 	=> '<object width="960" height="330"><param name="movie" value="http://www.youtube.com/v/T6MhAwQ64c0&amp;hl=en_US&amp;fs=1?hd=1&amp;showinfo=0"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/T6MhAwQ64c0&amp;hl=en_US&amp;fs=1?hd=1&amp;showinfo=0" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="960" height="330"></embed></object>',
+			        	'media'		 	=> '<iframe width="960" height="400" src="http://www.youtube.com/embed/lg8LfoyDFUM" frameborder="0" allowfullscreen></iframe>',
 			        	'style'			=> 'text-none',
 						'link' 			=> '#fake_link',
 						'background' 	=> '',
