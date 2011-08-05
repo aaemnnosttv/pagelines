@@ -21,7 +21,7 @@ function pagelines_non_meta_data_page(){
 }
 
 function is_pagelines_special(){
-	if(is_home() || is_search() || is_archive() || is_category() || is_tag() || is_404()) 
+	if(is_home() || is_author() || is_search() || is_archive() || is_category() || is_tag() || is_404()) 
 		return true; 
 	else 
 		return false;
@@ -52,7 +52,7 @@ function pl_meta_set_url(){
  */
 function pagelines_body_classes(){
 	
-	$design_mode = (pagelines_option('site_design_mode')) ? pagelines_option('site_design_mode') : 'full_width';
+	$design_mode = (ploption('site_design_mode')) ? ploption('site_design_mode') : 'full_width';
 
 	$body_classes = '';
 	$body_classes .= $design_mode;

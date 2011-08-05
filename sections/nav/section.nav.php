@@ -71,7 +71,7 @@ class PageLinesNav extends PageLinesSection {
 	
    function section_template() {  
 	
-	$container_class = ( pagelines_option('hidesearch') ) ? 'nosearch' : '';
+	$container_class = ( ploption('hidesearch') ) ? 'nosearch' : '';
 	?>
 	<div class="main_nav_container <?php echo $container_class;?>">
 		<nav id="nav_row" class="main_nav fix"><?php 			
@@ -98,10 +98,10 @@ class PageLinesNav extends PageLinesSection {
 	
 	function section_head(){
 		
-		$arrows = (pagelines_option('drop_down_arrows') == 'on') ? 1 : 0;
-		$shadows = (pagelines_option('drop_down_shadow') == 'on') ? 1 : 0;
+		$arrows = (ploption('drop_down_arrows') == 'on') ? 1 : 0;
+		$shadows = (ploption('drop_down_shadow') == 'on') ? 1 : 0;
 		
-		if(pagelines_option('enable_drop_down')): ?>
+		if(ploption('enable_drop_down')): ?>
 		
 <script type="text/javascript"> /* <![CDATA[ */ jQuery(document).ready(function() {  jQuery('ul.sf-menu').superfish({ delay: 100, speed: 'fast', autoArrows:  <?php echo $arrows;?>, dropShadows: <?php echo $shadows;?> });  }); /* ]]> */ </script>			
 

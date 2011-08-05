@@ -113,11 +113,14 @@ class PageLinesPostType {
 						
 	}
 	
-	function set_default_posts($callback){
+	function set_default_posts( $callback, $object = false){
 	
 		if(!get_posts('post_type='.$this->id)){
-			
-			call_user_func($callback, $this->id);
+
+			if($object)
+				call_user_func( array($object, $callback), $this->id);
+			else
+				call_user_func($callback, $this->id);
 		}
 						
 	}

@@ -29,6 +29,7 @@ class PageLinesFeatures extends PageLinesSection {
 	   parent::__construct($name, $id, $settings);    
    }
 
+
 	function section_persistent(){
 		
 		/* 
@@ -61,7 +62,7 @@ class PageLinesFeatures extends PageLinesSection {
 		
 				/* Set default posts if none are present */
 				
-				$this->post_type->set_default_posts('pagelines_default_features');
+				$this->post_type->set_default_posts( 'update_default_posts', $this);
 		
 		/*
 			Create meta fields for the post type
@@ -141,7 +142,7 @@ class PageLinesFeatures extends PageLinesSection {
 			);
 			
 			// Add options for correct post type.
-			$post_types = (pagelines('feature_source') == 'posts') ? array($this->id, 'post') : array($this->id);
+			$post_types = (ploption('feature_source') == 'posts') ? array($this->id, 'post') : array($this->id);
 			
 			$type_metapanel_settings = array(
 					'id' 		=> 'feature-metapanel',
@@ -160,9 +161,7 @@ class PageLinesFeatures extends PageLinesSection {
 			);
 			
 			$type_meta_panel->register_tab( $type_metatab_settings, $type_meta_array );
-			
-			
-			
+			 
 
 	}
 
@@ -198,6 +197,13 @@ class PageLinesFeatures extends PageLinesSection {
 				);
 
 			register_metatab($metatab_settings, $page_metatab_array);
+
+	}
+	
+	function section_styles(){
+		wp_register_style('pl-features', $this->base_url . '/feature.css', array(), CORE_VERSION, 'screen');
+	 	wp_enqueue_style( 'pl-features' );
+	
 	}
 
 	function section_head( $clone_id ) {   
@@ -270,6 +276,22 @@ function _js_feature_loop($fmode, $fposts = array()){
 
 }
 
+	function section_scripts() {  
+		
+		return array(
+				'cycle' => array(
+						'file' => $this->base_url . '/jquery.cycle.js',
+						'dependancy' => array('jquery'), 
+						'location' => 'footer', 
+						'version' => '2.99'
+					)
+					
+			);
+		
+	}
+
+
+
 function section_template( $clone_id ) {    
 
 	$f = $this->pagelines_features_set( $clone_id ); 
@@ -296,7 +318,7 @@ function pagelines_features_set( $clone_id ){
 	
 	$limit = ploption('feature_items', $oset);
 		
-	$source = (ploption('feature_source', $oset) == 'posts') ? 'posts' : 'customtype';	
+	$source = ( ploption('feature_source', $oset) == 'posts') ? 'posts' : 'customtype';	
 	
 	$category = ploption('feature_category', $oset);	
 		
@@ -356,6 +378,7 @@ function draw_features($f, $class) {
 		$footer_nav_class = $feature_nav_type . $no_nav;
 	
 ?>		
+
 	<div id="feature_slider" class="<?php echo $class;?> fix">
 		<div id="feature-area">
 			<div id="cycle">
@@ -465,18 +488,7 @@ function draw_features($f, $class) {
 
 
 
-	function section_scripts() {  
-		
-		return array(
-				'cycle' => array(
-						'file' => $this->base_url . '/jquery.cycle.js',
-						'dependancy' => array('jquery'), 
-						'location' => 'footer', 
-						'version' => '2.99'
-					)	
-			);
-		
-	}
+
 
 	function section_options($optionset = null, $location = null) {
 		
@@ -605,6 +617,95 @@ function draw_features($f, $class) {
 			);
 		}
 	} 
+	
+	function update_default_posts(){
+
+		$posts = array_reverse( $this->default_posts() );
+
+
+		foreach($posts as $p){
+			// Create post object
+			$default = array();
+			$default['post_title'] = $p['title'];
+			$default['post_content'] = $p['text'];
+			$default['post_type'] = 'feature';
+			$default['post_status'] = 'publish';
+
+			$newPostID = wp_insert_post( $default );
+
+			update_post_meta($newPostID, 'feature-thumb', $p['thumb']);
+			update_post_meta($newPostID, 'feature-link-url', $p['link']);
+			update_post_meta($newPostID, 'feature-style', $p['style']);
+			update_post_meta($newPostID, 'feature-media', $p['media']);
+			update_post_meta($newPostID, 'feature-background-image', $p['background']);
+			update_post_meta($newPostID, 'feature-design', $p['fcontent-design']);
+			wp_set_object_terms($newPostID, 'default-features', 'feature-sets');
+		}
+	}
+	
+
+	function default_posts( ){
+
+		$posts = array(
+				'1' => array(
+			        	'title' 			=> 'Welcome to the Drag &amp; Drop',
+			        	'text' 				=> 'Welcome to PageLines Framework, we hope you\'ll love your new framework and all it can do for you.',
+			        	'media' 			=> '',
+						'style'				=> 'text-none',
+			        	'link' 				=> '#fake_link',
+						'background' 		=> $this->base_url.'/feature1.jpg',
+						'name'				=>'PlatformPro',
+						'fcontent-design'	=> '',
+						'thumb'				=> $this->base_url.'/fthumb1.png'
+			    ),
+				'2' => array(
+			        	'title' 		=> 'YouTube Video',
+			        	'text' 			=> 'A video on changing things.',
+			        	'media'		 	=> '<object width="960" height="330"><param name="movie" value="http://www.youtube.com/v/T6MhAwQ64c0&amp;hl=en_US&amp;fs=1?hd=1&amp;showinfo=0"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/T6MhAwQ64c0&amp;hl=en_US&amp;fs=1?hd=1&amp;showinfo=0" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="960" height="330"></embed></object>',
+			        	'style'			=> 'text-none',
+						'link' 			=> '#fake_link',
+						'background' 	=> '',
+						'name'			=>	'Media',
+						'fcontent-design'	=> '',
+						'thumb'				=> $this->base_url.'/fthumb2.png'
+			    ),
+				'3' => array(
+					 	'title' 		=> '<small>WordPress Framework By</small> PageLines',
+			        	'text' 			=> 'Welcome to a professional WordPress framework by PageLines. Designed for you in San Diego, California.',
+			        	'media' 		=> '',
+			        	'style'			=> 'text-right',
+						'link' 			=> '#fake_link',
+						'background' 	=> $this->base_url.'/feature2.jpg',
+						'name'			=>	'Design',
+						'fcontent-design'	=> '',
+						'thumb'				=> $this->base_url.'/fthumb3.png'
+			    ),
+				'4' => array(
+					 	'title' 		=> '<small>Web Design</small> Redesigned.',
+			        	'text' 			=> 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+			        	'media' 		=> '',
+			        	'style'			=> 'text-left',
+						'link' 			=> '#fake_link',
+						'background' 	=> $this->base_url.'/feature3.jpg',
+						'name'			=> 'Pro',
+						'fcontent-design'	=> '',
+						'thumb'				=> $this->base_url.'/fthumb4.png'
+			    ), 
+				'5' => array(
+			        	'title' 		=> '<small>Make An</small> Impression',
+			        	'text' 			=> 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam quam quam, dignissim eu dignissim et,<br/> accumsan ullamcorper risus. Aliquam rutrum, lorem et ornare malesuada, mi magna placerat mi, bibendum volutpat lectus. Morbi nec purus dolor.',
+			        	'media'		 	=> '',
+			        	'style'			=> 'text-bottom',
+						'link' 			=> '#fake_link',
+						'background' 	=> $this->base_url.'/feature4.jpg',
+						'name'			=>'Media',
+						'fcontent-design'	=> '',
+						'thumb'				=> $this->base_url.'/fthumb5.png'
+			    ),
+		);
+
+		return apply_filters('pagelines_default_features', $posts);
+	}
 
 
 function get_cats() {
@@ -644,89 +745,5 @@ function feature_column_display($column){
 }
 
 		
-function pagelines_default_features(){
-	
-	$default_features = array_reverse(get_default_features());
 
-	
-	foreach($default_features as $feature){
-		// Create post object
-		$default_post = array();
-		$default_post['post_title'] = $feature['title'];
-		$default_post['post_content'] = $feature['text'];
-		$default_post['post_type'] = 'feature';
-		$default_post['post_status'] = 'publish';
-		
-		$newPostID = wp_insert_post( $default_post );
-	
-		update_post_meta($newPostID, 'feature-thumb', $feature['thumb']);
-		update_post_meta($newPostID, 'feature-link-url', $feature['link']);
-		update_post_meta($newPostID, 'feature-style', $feature['style']);
-		update_post_meta($newPostID, 'feature-media', $feature['media']);
-		update_post_meta($newPostID, 'feature-background-image', $feature['background']);
-		update_post_meta($newPostID, 'feature-design', $feature['fcontent-design']);
-		wp_set_object_terms($newPostID, 'default-features', 'feature-sets');
-	}
-}
 
-function get_default_features(){
-	$default_features = array(
-			'1' => array(
-		        	'title' 			=> 'Welcome to PlatformPro',
-		        	'text' 				=> 'Welcome to PlatformPro Framework, we hope you are enjoying this premium product from PageLines.',
-		        	'media' 			=> '',
-					'style'				=> 'text-none',
-		        	'link' 				=> '#fake_link',
-					'background' 		=> PL_IMAGES.'/feature1.jpg',
-					'name'				=>'PlatformPro',
-					'fcontent-design'	=> '',
-					'thumb'				=> PL_IMAGES.'/fthumb1.png'
-		    ),
-			'2' => array(
-		        	'title' 		=> 'YouTube Video',
-		        	'text' 			=> 'A video on changing things.',
-		        	'media'		 	=> '<object width="960" height="330"><param name="movie" value="http://www.youtube.com/v/T6MhAwQ64c0&amp;hl=en_US&amp;fs=1?hd=1&amp;showinfo=0"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/T6MhAwQ64c0&amp;hl=en_US&amp;fs=1?hd=1&amp;showinfo=0" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="960" height="330"></embed></object>',
-		        	'style'			=> 'text-none',
-					'link' 			=> '#fake_link',
-					'background' 	=> '',
-					'name'			=>	'Media',
-					'fcontent-design'	=> '',
-					'thumb'				=> PL_IMAGES.'/fthumb2.png'
-		    ),
-			'3' => array(
-				 	'title' 		=> '<small>WordPress Framework By</small> PageLines',
-		        	'text' 			=> 'Welcome to a professional WordPress framework by PageLines. Designed for you in San Diego, California.',
-		        	'media' 		=> '',
-		        	'style'			=> 'text-right',
-					'link' 			=> '#fake_link',
-					'background' 	=> PL_IMAGES.'/feature2.jpg',
-					'name'			=>	'Design',
-					'fcontent-design'	=> '',
-					'thumb'				=> PL_IMAGES.'/fthumb3.png'
-		    ),
-			'4' => array(
-				 	'title' 		=> '<small>Web Design</small> Redesigned.',
-		        	'text' 			=> 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-		        	'media' 		=> '',
-		        	'style'			=> 'text-left',
-					'link' 			=> '#fake_link',
-					'background' 	=> PL_IMAGES.'/feature3.jpg',
-					'name'			=> 'Pro',
-					'fcontent-design'	=> '',
-					'thumb'				=> PL_IMAGES.'/fthumb4.png'
-		    ), 
-			'5' => array(
-		        	'title' 		=> '<small>Make An</small> Impression',
-		        	'text' 			=> 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam quam quam, dignissim eu dignissim et,<br/> accumsan ullamcorper risus. Aliquam rutrum, lorem et ornare malesuada, mi magna placerat mi, bibendum volutpat lectus. Morbi nec purus dolor.',
-		        	'media'		 	=> '',
-		        	'style'			=> 'text-bottom',
-					'link' 			=> '#fake_link',
-					'background' 	=> PL_IMAGES.'/feature4.jpg',
-					'name'			=>'Media',
-					'fcontent-design'	=> '',
-					'thumb'				=> PL_IMAGES.'/fthumb5.png'
-		    ),
-	);
-	
-	return apply_filters('pagelines_default_features', $default_features);
-}
