@@ -654,14 +654,14 @@ function draw_features($f, $class) {
 						'style'				=> 'text-none',
 			        	'link' 				=> '#fake_link',
 						'background' 		=> $this->base_url.'/feature1.jpg',
-						'name'				=>'PlatformPro',
+						'name'				=> 'PlatformPro',
 						'fcontent-design'	=> '',
 						'thumb'				=> $this->base_url.'/fthumb1.png'
 			    ),
 				'2' => array(
 			        	'title' 		=> 'YouTube Video',
 			        	'text' 			=> 'A video on changing things.',
-			        	'media'		 	=> '<iframe width="960" height="380" src="http://www.youtube.com/embed/lg8LfoyDFUM?wmode=opaque&hl=en&fs=1&showinfo=0" frameborder="0" allowfullscreen></iframe>',
+			        	'media'		 	=> '<iframe width="960" height="380" src="http://www.youtube.com/embed/lg8LfoyDFUM?wmode=opaque&hl=en&fs=1&showinfo=0" frameborder="0" ></iframe>',
 			        	'style'			=> 'text-none',
 						'link' 			=> '#fake_link',
 						'background' 	=> '',

@@ -577,8 +577,6 @@ class OptEngine {
 		}
 	}
 
-	
-
 
 	/**
 	 * 
@@ -638,12 +636,13 @@ class OptEngine {
 								&nbsp;
 							</span>
 						</span>
-						<?php if($o['showname'] && isset($s['name'])): ?>
-						<span class="graphic_title clear">
-							<?php echo $s['name'];?>
-						</span>
-						<?php endif; ?>
-						<input type="radio" id="<?php echo $o['input_id'];?>" class="graphic_select_input" name="<?php echo $o['input_name']; ?>" value="<?php echo $sid;?>" <?php checked($sid, $o['val']); ?>>
+						<?php 
+						if($o['showname'] && isset($s['name']))
+							printf('<span class="graphic_title clear">%s</span>', $s['name']);
+							
+						printf('<input type="radio" id="%s" class="graphic_select_input" name="%s" value="%s" %s />', $o['input_id'], $o['input_name'], $sid, checked($sid, $o['val'], false));
+						
+						?>
 					</span>
 					<?php endforeach;?>
 					
@@ -662,10 +661,7 @@ class OptEngine {
 				</div>
 			</div>
 			<?php endif;?>
-		</div>
-		
-		<div class="clear"></div>
-	<?php }
+		</div><div class="clear"></div><?php }
 	
 
 	/**
@@ -775,11 +771,15 @@ class OptEngine {
 
 		// set value, id, name
 		foreach($bg as $k => $i){
-			$bg[$k]['val'] = pagelines_option($oid.$k, $o['pid'], $o['setting']);
-			$bg[$k]['input_id'] = get_pagelines_option_id( $oid, $k );
-			$bg[$k]['input_name'] = get_pagelines_option_name($oid.$k, null, null, $o['setting']);
+			$bgid = $oid.$k;
+			
+			$oset = array( 'post_id' => $o['pid'], 'setting' => $o['setting']);
+			
+			$bg[$k]['val'] = ploption( $bgid, $oset);
+			$bg[$k]['input_id'] = plid( $bgid, $oset);
+			$bg[$k]['input_name'] = plname( $bgid, $oset);
 		}
-		
+
 		$this->_get_image_upload_option($oid.'_url', $bg['_url']);
 		$this->_get_select_option($oid.'_repeat', $bg['_repeat']);
 		$this->_get_count_select_option( $oid.'_pos_vert', $bg['_pos_vert']);
@@ -787,38 +787,37 @@ class OptEngine {
 
 	}
 
+		function _background_image_array(){
+			return array(
+				'_url' => array(		
+						'inputlabel' 	=> 'Background Image',
+						'imagepreview'	=> 150
+				),
+				'_repeat' => array(			
+						'inputlabel'	=> 'Set Background Image Repeat',
+						'type'			=> 'select',
+						'selectvalues'	=> array(
+							'no-repeat'	=> array('name' => 'Do Not Repeat'), 
+							'repeat'	=> array('name' => 'Tile'), 
+							'repeat-x'	=> array('name' => 'Repeat Horizontally'), 
+							'repeat-y'	=> array('name' => 'Repeat Vertically')
+						)
+				),
+				'_pos_vert' => array(				
+						'inputlabel'	=> 'Vertical Position In Percent',
+						'type'			=> 'count_select',
+						'count_start'	=> 0, 
+						'count_number'	=> 100,
+				),
+				'_pos_hor' => array(				
+						'inputlabel'	=> 'Horizontal Position In Percent',
+						'type'			=> 'count_select',
+						'count_start'	=> 0, 
+						'count_number'	=> 100,
+				),
 
-	function _background_image_array(){
-		return array(
-			'_url' => array(		
-					'inputlabel' 	=> 'Background Image',
-					'imagepreview'	=> 150
-			),
-			'_repeat' => array(			
-					'inputlabel'	=> 'Set Background Image Repeat',
-					'type'			=> 'select',
-					'selectvalues'	=> array(
-						'no-repeat'	=> array('name' => 'Do Not Repeat'), 
-						'repeat'	=> array('name' => 'Tile'), 
-						'repeat-x'	=> array('name' => 'Repeat Horizontally'), 
-						'repeat-y'	=> array('name' => 'Repeat Vertically')
-					)
-			),
-			'_pos_vert' => array(				
-					'inputlabel'	=> 'Vertical Position In Percent',
-					'type'			=> 'count_select',
-					'count_start'	=> 0, 
-					'count_number'	=> 100,
-			),
-			'_pos_hor' => array(				
-					'inputlabel'	=> 'Horizontal Position In Percent',
-					'type'			=> 'count_select',
-					'count_start'	=> 0, 
-					'count_number'	=> 100,
-			),
-
-		);
-	}
+			);
+		}
 
 	/**
 	 *  Creates an email capture field that sends emails to PageLines.com

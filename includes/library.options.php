@@ -110,7 +110,7 @@ function plmeta( $key, $args ){
 	if( isset($args['clone_id']) && $args['clone_id'] != 1 )
 		$key = $key.'_'.$args['clone_id'];	
 
-	if( isset($o['post_id']) )
+	if( isset($o['post_id']) && !empty($o['post_id']) )
 		return get_post_meta($o['post_id'], $key, true);
 	
 	else
@@ -146,7 +146,7 @@ function get_ploption( $key, $args = array() ){
 	$o = wp_parse_args($args, $d);
 	
 	// get setting
-	$setting = ( isset($o['setting']) ) ? $o['setting'] : PAGELINES_SETTINGS;
+	$setting = ( isset($o['setting']) && !empty($o['setting'])) ? $o['setting'] : PAGELINES_SETTINGS;
 
 	if(!isset($setting) || $setting == PAGELINES_SETTINGS){
 		
@@ -182,7 +182,7 @@ function get_ploption( $key, $args = array() ){
 
 function plname($key, $a = array()){
 	
-	$set = (!isset($a['setting']) || $a['setting'] == PAGELINES_SETTINGS) ? PAGELINES_SETTINGS : $a['setting'];
+	$set = (!isset($a['setting']) || empty($a['setting']) || $a['setting'] == PAGELINES_SETTINGS) ? PAGELINES_SETTINGS : $a['setting'];
 	
 	$subkey = (isset($a['subkey'])) ? $a['subkey'] : false;
 	
@@ -201,11 +201,11 @@ function plname($key, $a = array()){
 
 function plid($key, $a){
 	
-	$set = (!isset($a['setting']) || $a['setting'] == PAGELINES_SETTINGS) ? PAGELINES_SETTINGS : $a['setting'];
+	$set = (!isset($a['setting']) || empty($a['setting']) || $a['setting'] == PAGELINES_SETTINGS) ? PAGELINES_SETTINGS : $a['setting'];
 
 	$subkey = (isset($a['subkey'])) ? $a['subkey'] : false;
 	
-	$grandkey = (is_array($a['subkey']) && isset($a['subkey']['grandkey'])) ? $a['subkey']['grandkey'] : false;
+	$grandkey = (isset($a['subkey']) && is_array($a['subkey']) && isset($a['subkey']['grandkey'])) ? $a['subkey']['grandkey'] : false;
 
 
 	if( $grandkey )
