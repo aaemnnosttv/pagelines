@@ -398,7 +398,7 @@ add_filter('widget_text', 'do_shortcode');
     // Example:
     // [googlemap address="san diego, ca"]
     // or with options
-    // [googlemap width="200" height="200" address="4000 Ocean Blvd., San Diego, CA 92109"]
+    // [googlemap width="200" height="200" address="San Francisco, CA 92109"]
 
     function googleMaps($atts, $content = null) {
        extract(shortcode_atts(array(

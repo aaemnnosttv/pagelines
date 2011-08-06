@@ -28,11 +28,12 @@
 	#feature-area .fcontainer.fstyle-lightbg .feature-pad {	 border: 1px solid #eee; }
 		
 		#feature-area, .feature-wrap, #feature_slider .fmedia, #feature_slider .fcontent, #feature_slider .text-bottom .fmedia .dcol-pad, #feature_slider .text-bottom .feature-pad, #feature_slider .text-none .fmedia .dcol-pad{
-			height: 400px;
+			height: 380px;
 			overflow:hidden;
 		}
 		
 		#feature_slider .fmedia, #feature_slider .fcontent{
+			
 			float: left;
 		}
 			#feature_slider .fcontent { width: 33%; }
