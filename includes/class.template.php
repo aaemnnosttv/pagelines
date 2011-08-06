@@ -233,10 +233,6 @@ class PageLinesTemplate {
 			
 		global $post;
 		
-		// Non-meta page
-		if ( !is_object( $post ) ) 
-			return $ta_sections;
-	
 			
 		if(is_array($ta_sections)){
 			foreach($ta_sections as $key => $sid){
@@ -290,14 +286,15 @@ class PageLinesTemplate {
 		
 		// Global Section Control Array
 			$general_hide = (isset($dsc['hide'])) ? true : false;
-		
+	
 		// Meta Controls
 		if(is_pagelines_special()){
 			$special_type = $this->template_type;
-			$the_sc = $sc[$special_type];
-			$meta_reverse = ( isset($the_sc['show']) && $the_sc['show'] ) ? true : false;
-			$meta_hide = ( isset($the_sc['hide']) && $the_sc['hide'] ) ? true : false;
+			
+			$meta_reverse = ( isset($sc[$special_type]['show']) && $sc[$special_type]['show'] ) ? true : false;
+			$meta_hide = ( isset($sc[$special_type]['hide']) && $sc[$special_type]['hide'] ) ? true : false;
 		} else {
+			
 			$meta_reverse = ( plmeta( meta_option_name( array('show', $template_slug, $sid) ) , $oset ) ) ? true : false;
 			$meta_hide = ( plmeta( meta_option_name( array('hide', $template_slug, $sid) ), $oset ) ) ? true : false;
 		}

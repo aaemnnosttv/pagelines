@@ -21,7 +21,7 @@ function pagelines_non_meta_data_page(){
 }
 
 function is_pagelines_special(){
-	if(is_home() || is_author() || is_search() || is_archive() || is_category() || is_tag() || is_404()) 
+	if(is_404() || is_home() || is_author() || is_search() || is_archive() || is_category() || is_tag() ) 
 		return true; 
 	else 
 		return false;
