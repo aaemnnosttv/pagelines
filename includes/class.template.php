@@ -42,6 +42,8 @@ class PageLinesTemplate {
 		
 		$this->scontrol = ploption('section-control', array('setting' => $sc_set));
 		
+		$this->sc_default = ploption('section-control');
+		
 		$this->map = $this->get_map();
 		
 		/**
@@ -241,9 +243,10 @@ class PageLinesTemplate {
 				
 				$template_slug = $this->get_template_slug( $hook_id );	
 				
-				$sc = $this->sc_settings( $template_slug, $sid );
-			
-				if($this->unset_section($sid, $template_slug, $sc))
+				$sc = $this->sc_settings( $this->scontrol, $template_slug, $sid );
+				$dsc = $this->sc_settings( $this->sc_default, $template_slug, $sid );
+				
+				if($this->unset_section($sid, $template_slug, $sc, $dsc))
 					unset($ta_sections[$key]);
 			
 			}
@@ -256,12 +259,10 @@ class PageLinesTemplate {
 	/**
 	 * Get Section Control Settings for Section
 	 */
-	function sc_settings( $template_slug, $sid ){
+	function sc_settings( $set, $tid, $sid ){
 	
-		$sc = (isset($this->scontrol[$template_slug][$sid])) ? $this->scontrol[$template_slug][$sid] : null;
-	
-		return $sc;	
-		
+		return (isset($set[$tid][$sid])) ? $set[$tid][$sid] : null;
+
 	}
 	
 	function get_template_slug( $hook_id ){
@@ -280,21 +281,22 @@ class PageLinesTemplate {
 	/**
 	 * Unset section based on Section Control
 	 */
-	function unset_section( $sid, $template_slug, $sc ){
+	function unset_section( $sid, $template_slug, $sc, $dsc){
 		global $post;
-		
+	
 		$post_id = ( isset($post) ) ? $post->ID : null;
 		
 		$oset = array('post_id' => $post_id);
 		
 		// Global Section Control Array
-			$general_hide = (isset($sc['hide'])) ? true : false;
+			$general_hide = (isset($dsc['hide'])) ? true : false;
 		
 		// Meta Controls
 		if(is_pagelines_special()){
 			$special_type = $this->template_type;
-			$meta_reverse = ( $sc[$special_type]['show'] ) ? true : false;
-			$meta_hide = ( $sc[$special_type]['hide'] ) ? true : false;
+			$the_sc = $sc[$special_type];
+			$meta_reverse = ( isset($the_sc['show']) && $the_sc['show'] ) ? true : false;
+			$meta_hide = ( isset($the_sc['hide']) && $the_sc['hide'] ) ? true : false;
 		} else {
 			$meta_reverse = ( plmeta( meta_option_name( array('show', $template_slug, $sid) ) , $oset ) ) ? true : false;
 			$meta_hide = ( plmeta( meta_option_name( array('hide', $template_slug, $sid) ), $oset ) ) ? true : false;
@@ -341,9 +343,7 @@ class PageLinesTemplate {
 			 * Parse through sections assigned to this hook
 			 */
 			foreach( $this->$hook as $sid ){
-
-				$sc = $this->sc_settings( $hook, $sid );
-				
+	
 				/**
 				 * If this is a cloned element, remove the clone flag before instantiation here.
 				 */
