@@ -29,7 +29,7 @@ function pagelines_add_admin_submenus() {
 		$_pagelines_options_page_hook = add_theme_page( 'pagelines', 'PageLines Settings', 'edit_theme_options', 'pagelines', 'pagelines_build_option_interface' );
 	else {
 		$_pagelines_options_page_hook = add_submenu_page('pagelines', 'Settings', 'Settings', 'edit_theme_options', 'pagelines','pagelines_build_option_interface'); // Default
-		if(PL_DEV) $_pagelines_ext_hook = add_submenu_page('pagelines', 'Extension', 'Extension', 'edit_theme_options', 'pagelines_extend','pagelines_build_extension_interface');
+		$_pagelines_ext_hook = add_submenu_page('pagelines', 'Extension', 'Extension', 'edit_theme_options', 'pagelines_extend','pagelines_build_extension_interface');
 		$_pagelines_special_hook = add_submenu_page('pagelines', 'Special', 'Special', 'edit_theme_options', 'pagelines_special','pagelines_build_special');
 	}
 }
