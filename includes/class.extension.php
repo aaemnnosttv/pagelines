@@ -65,11 +65,20 @@ class PageLinesExtension{
 		// filter main array containing child and parent and any custom sections
 		$sections = apply_filters( 'pagelines_section_admin', $sections );
 		$disabled = get_option( 'pagelines_sections_disabled', array( 'child' => array(), 'parent' => array()) );
-		foreach ( $sections as $type ) {
 
+		// check for deps within the main parent sections, load last if found.
+		foreach ($sections['parent'] as $key => $section ) {
+			
+			if ( !empty($section['depends']) && !class_exists( $section['depends'])) {
+				unset($sections['parent'][$key]);
+				$sections['parent'][$key] = $section;
+			}
+		}
+
+		foreach ( $sections as $type ) {
 			if(is_array($type)){
+				
 				foreach( $type as $section ) {
-					
 					/**
 					* Checks to see if we are a child section, if so disable the parent
 					* Also if a parent section and disabled, skip.
@@ -82,7 +91,7 @@ class PageLinesExtension{
 						continue;
 					
 					// consolidate array vars
-					$dep = ($section['depends'] != '') ? $section['depends'] : null;
+					$dep = ($section['type'] == 'child' && $section['depends'] != '') ? $section['depends'] : null;
 					$parent_dep = (isset($sections['parent'][$section['depends']])) ? $sections['parent'][$section['depends']] : null;
 
 					$dep_data = array(

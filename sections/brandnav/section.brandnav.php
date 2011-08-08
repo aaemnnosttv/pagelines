@@ -4,12 +4,12 @@
 	Author: PageLines
 	Author URI: http://www.pagelines.com
 	Description: Branding and Nav Inline
-	Class Name: BrandNav
+	Class Name: PageLinesBrandNav
 	Depends: PageLinesNav
 	Tags: internal
 */
 
-class BrandNav extends PageLinesNav {
+class PageLinesBrandNav extends PageLinesNav {
    function __construct( $registered_settings = array() ) {
 	
 		/* The name and ID of the section */
