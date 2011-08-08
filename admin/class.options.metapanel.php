@@ -426,13 +426,27 @@ class PageLinesMetaPanel {
 						$this->save_sc( $postID );
 					else {
 						
-					
 						// Note: If the value is null, then test to see if the option is already set to something
 						// create and overwrite the option to null in that case (i.e. it is being set to empty)
-						$option_value =  isset($_POST[$oid]) ? $_POST[$oid] : null;
+						if(isset($o['selectvalues'])){
+							
+							foreach($o['selectvalues'] as $sid =>$s ){
+								$option_value =  isset($_POST[$sid]) ? $_POST[$sid] : null;
+								
+								if(!empty($option_value) || get_post_meta($postID, $sid))
+									update_post_meta($postID, $sid, $option_value );
+							}
+							
+						} else {
+						
+							
+							$option_value =  isset($_POST[$oid]) ? $_POST[$oid] : null;
 
-						if(!empty($option_value) || get_post_meta($postID, $oid))
-							update_post_meta($postID, $oid, $option_value );
+							if(!empty($option_value) || get_post_meta($postID, $oid))
+								update_post_meta($postID, $oid, $option_value );
+							
+						}
+						
 						
 					}
 				}

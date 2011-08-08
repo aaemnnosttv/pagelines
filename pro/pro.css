@@ -126,7 +126,7 @@
 /* @ Twitter Bar */
 	#twitterbar .content .tbubble{
 		font-style:italic;
-		background: url(../images/twitter-balloon.png) no-repeat 0 12px;
+		background: url(../sections/twitterbar/twitter-balloon.png) no-repeat 0 12px;
 		padding: 12px 25px;
 	}
 	#twitterbar .twitteraccount{font-style:normal;}
