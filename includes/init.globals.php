@@ -25,7 +25,7 @@ if(file_exists(TEMPLATEPATH.'/dev/init_dev.php')){
 
 if(!defined('PL_DEV'))
 	define('PL_DEV',false);
-if (! PL_DEV ) add_filter( 'extension_array', '__return_false' );	
+if (! PL_DEV ) add_filter( 'extension_array', create_function( '', 'return array();' ) );	
 /**
  * Set Theme Name
  */
