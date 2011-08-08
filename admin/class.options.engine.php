@@ -169,7 +169,7 @@ class OptEngine {
 		<div class="optiontitle fix">
 			<div class="optiontitle-pad fix">
 				<?php if( isset($o['vidlink']) ):?>
-					<a class="vidlink thickbox" title="<?php if($o['vidtitle']) echo $o['vidtitle']; ?>" href="<?php echo $o['vidlink']; ?>?hd=1&KeepThis=true&TB_iframe=true&height=450&width=700">
+					<a class="vidlink thickbox" title="<?php if($o['vidtitle']) echo $o['vidtitle']; ?>" href="<?php echo $o['vidlink']; ?>?hd=1&KeepThis=true&height=450&width=700&TB_iframe=true">
 						<img src="<?php echo PL_ADMIN_IMAGES . '/link-video.jpg';?>" class="docslink-video" alt="Video Tutorial" />
 					</a>
 				<?php endif;?>

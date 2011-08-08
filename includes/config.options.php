@@ -52,7 +52,7 @@ class PageLinesOptionsArray {
 				'exp' 			=> 'Adding your email here will allow us to send you email notifications about updates and new software from PageLines'
 			),
 			'pagelines_custom_logo' => array(
-				'default' 		=> PL_IMAGES.'/logo-default.png',
+				'default' 		=> PL_IMAGES.'/logo.png',
 				'default_free'	=> PL_IMAGES.'/logo-platform.png',
 				'type' 			=> 'image_upload',
 				'imagepreview' 	=> '270',
@@ -250,12 +250,7 @@ class PageLinesOptionsArray {
 				'title'		=> 'Site Design Mode',						
 				'shortexp'	=> 'Choose between full width HTML or fixed width HTML',
 				'exp'		=> 'There are three css design modes available. Each allows a different style of design.<ul><li><strong>Full-Width Mode With Canvas</strong> This design mode has a full-width page area, and a canvas area behind your content that can be controlled seperately.</li><li><strong>Full-Width Mode</strong> Full width design mode allows you to have aspects of your site that are the full-width of your screen; while others are the width of the content area.</li><li><strong>Fixed-Width Mode</strong> Fixed width design mode creates a fixed with "page" that can be used as the area for your design.  You can set a background to the page; and the content will have a seperate "fixed-width" background area (i.e. the width of the content).</li></ul>',
-				'vidlink'	=> 'http://www.youtube.com/embed/hnaXANV0nlk?hd=1', 
-				'vidtitle'	=> 'Design Control Overview',
-				
-			),
-			
-			
+			),	
 			'page_colors'		=> array(
 				'title' 	=> 'Basic Layout Colors',						
 				'shortexp' 	=> 'The Main Layout Colors For Your Site',
@@ -506,7 +501,7 @@ class PageLinesOptionsArray {
 					'type'		=> 'text_multi',
 					'inputsize'	=> 'tiny',
 					'selectvalues'	=> array(
-						'icon_pos_bottom'	=> array('inputlabel'=>'Distance From Bottom (in pixels)', 'default'=> 21),
+						'icon_pos_bottom'	=> array('inputlabel'=>'Distance From Bottom (in pixels)', 'default'=> 12),
 						'icon_pos_right'	=> array('inputlabel'=>'Distance From Right (in pixels)', 'default'=> 1),
 					),
 					'title'		=> 'Social Icon Position',
@@ -526,6 +521,7 @@ class PageLinesOptionsArray {
 					'type'		=> 'text_multi',
 					'inputsize'	=> 'regular',
 					'selectvalues'	=> array(
+						'gpluslink'			=> array('inputlabel'=>'Your Google+ Profile URL', 'default'=> ''),
 						'facebooklink'		=> array('inputlabel'=>'Your Facebook Profile URL', 'default'=> ''),
 						'twitterlink'		=> array('inputlabel'=>'Your Twitter Profile URL', 'default'=> ''),
 						'linkedinlink'		=> array('inputlabel'=>'Your LinkedIn Profile URL', 'default'=> ''),
@@ -545,7 +541,7 @@ class PageLinesOptionsArray {
 				),
 			'footer_logo' => array(
 					'version'	=> 'pro',
-					'default'	=> PL_IMAGES.'/logo-platformpro-small.png',
+					'default'	=> PL_IMAGES.'/logo-small.png',
 					'type'		=> 'image_upload',
 					'imagepreview'	=> '100',
 					'inputlabel'	=> 'Add Footer logo',
@@ -765,11 +761,11 @@ class PageLinesOptionsArray {
 					'default'	=> '',
 					'type'		=> 'check_multi',
 					'selectvalues'	=> array(
+					
 						'share_facebook'	=> array('inputlabel'=>'Facebook Sharing Icon', 'default'=> true),
 						'share_twitter'		=> array('inputlabel'=>'Twitter Sharing Icon', 'default'=> true),
 						'share_twitter_cache'=>array('inputlabel'=>'Enable twitter short urls', 'default'=> false),
 						'share_delicious'	=> array('inputlabel'=>'Del.icio.us Sharing Icon', 'default'=> true),
-						'share_mixx'		=> array('inputlabel'=>'Mixx Sharing Icon', 'default'=> false),
 						'share_reddit'		=> array('inputlabel'=>'Reddit Sharing Icon', 'default'=> true),
 						'share_digg'		=> array('inputlabel'=>'Digg Sharing Icon', 'default'=> false),
 						'share_stumbleupon'	=> array('inputlabel'=>'StumbleUpon Sharing Icon', 'default'=> false)

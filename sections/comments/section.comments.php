@@ -12,7 +12,7 @@ class PageLinesComments extends PageLinesSection {
 
    function __construct( $registered_settings = array() ) {
 	
-		$name = __('Comment Form', 'pagelines');
+		$name = __('Comments', 'pagelines');
 		$id = 'pl_comments';
 	
 		

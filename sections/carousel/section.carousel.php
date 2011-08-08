@@ -99,7 +99,7 @@ class PageLinesCarousel extends PageLinesSection {
 		
 		
 	?>		
-	<div class="thecarousel">
+	<div class="<?php echo $carousel_class;?> crsl">
 		<ul id="mycarousel" class="mycarousel">
 			<?php 
 			

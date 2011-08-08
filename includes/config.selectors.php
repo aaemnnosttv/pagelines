@@ -34,7 +34,7 @@ function cssgroup( $group ){
 	/**
 	 * Box & Element Colors
 	 */
-	$s['box_color_primary'] = '#wp-calendar caption, #grandchildnav.widget, input, textarea, .searchform .searchfield, .wp-caption, .commentlist .alt, #wp-calendar #today, .post-nav, .current_posts_info, .post-footer,  #twitterbar, #twitterbar .content, #carousel .content-pad, .success,  .content-pagination a .cp-num, .hentry table .alternate td';
+	$s['box_color_primary'] = '#wp-calendar caption, #grandchildnav.widget, input, textarea, .searchform .searchfield, .wp-caption, .commentlist .alt, #wp-calendar #today, .post-nav, .current_posts_info, .post-footer,  #twitterbar, .crsl, .success,  .content-pagination a .cp-num, .hentry table .alternate td';
 	
 	$s['box_color_secondary'] = '#wp-calendar thead th, .item-avatar a, .comment blockquote, #grandchildnav .current_page_item a, #grandchildnav li a:hover, #grandchildnav .current_page_item  ul li a:hover, #carousel .carousel_text, pagination .wp-pagenavi a, #pagination .wp-pagenavi .current, #pagination .wp-pagenavi .extend, .content-pagination .cp-num, .content-pagination a:hover .cp-num, ins';
 	

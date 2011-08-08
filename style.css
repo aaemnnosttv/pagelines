@@ -189,23 +189,21 @@ body{font-size: 87.5%; line-height: 1.714285em;}
 				display: block;
 				margin: .3em 0 .15em;
 			}
-			#branding .mainlogo-link, #branding .mainlogo-img{max-width: 100%;}
+			#branding .mainlogo-link, #branding .mainlogo-img{max-width: 100%;display: block;}
 			
 		/* @ Header Icons */
-			.icons {text-align: right;position: absolute;bottom: 15px; right:0px;line-height: 20px;height: 24px;}
-			.icons a {display: block;width: 22px; height: 22px; margin-left: 7px; float: right;text-align: right;}
+			.icons {text-align: right;position: absolute;bottom: 50%; right:0px;line-height: 20px;height: 24px;}
+			.icons a {
+				display: block;
+				width: 24px; 
+				height: 24px; 
+				margin-left: 8px; 
+				float: right; 
+				text-align: right; 
+				opacity: 0.5; 
+			}
 
-			.icons .twitterlink {background: url(./images/sprite-socialicons.png) no-repeat -22px 0;}
-			.icons .youtubelink {background: url(./images/sprite-socialicons.png) no-repeat -44px 0;}
-			.icons .linkedinlink {background: url(./images/sprite-socialicons.png) no-repeat -66px 0;}
-			.icons .facebooklink {background: url(./images/sprite-socialicons.png) no-repeat -88px 0;}
-			.icons .rsslink {background: url(./images/sprite-socialicons.png) no-repeat 0 0;}
-			.icons .twitterlink:hover {background-position: -22px -22px;}
-			.icons .youtubelink:hover {background-position: -44px -22px;}
-			.icons .linkedinlink:hover {background-position: -66px -22px;}
-			.icons .facebooklink:hover {background-position: -88px -22px;}
-			.icons .rsslink:hover {background-position: 0px -22px;}
-		
+
 	/* @ Main Nav */
 		.main_nav_container{
 			width: 100%;
@@ -386,14 +384,14 @@ body{font-size: 87.5%; line-height: 1.714285em;}
 			float: left;
 			display: block;
 			padding-left: 24px;
-			background: url(./images/post-previous.gif) no-repeat left center;
+			background: url(sections/postnav/post-previous.png) no-repeat left center;
 		}
 		.post-nav .next a {
 			float: right;
 			display:block;
 			padding-right: 24px;
 			text-align: right;
-			background: url(./images/post-next.gif) no-repeat right center;
+			background: url(sections/postnav/post-next.png) no-repeat right center;
 		}
 	
 				/* @ Post Author Section */
@@ -428,7 +426,7 @@ body{font-size: 87.5%; line-height: 1.714285em;}
 						display: inline-block;
 					}
 					.post-footer .right { padding: 0px 0 0; }
-					.post-footer img { margin: 0 0 0 2px; }
+					.post-footer img { margin: 0 0 0 5px; }
 					.tags {font-style: italic;}
 
 /* @ Sidebar */
@@ -445,10 +443,6 @@ body{font-size: 87.5%; line-height: 1.714285em;}
 				text-align:left;
 				padding:6px 8px 3px 0px;
 				margin-bottom: .6em;
-			}
-			.widget-title a, h3.widget-title a{
-				background: url(./images/morearrow.png) no-repeat 100% 50%;
-				padding-right: 10px;
 			}
 	
 			.widget ul { margin:0 0 10px .4em; }
@@ -586,12 +580,12 @@ body{font-size: 87.5%; line-height: 1.714285em;}
 	#respond form{ margin-left: 25px;}
 	h3#comments-title { 
 		padding-left: 22px;
-		background:url("./images/icon-comment.png") no-repeat scroll 0 3px transparent; 
+		background:url("sections/comments/icon-comment.png") no-repeat scroll 0 3px transparent; 
 	}
 	
 	#respond h3 {
 		padding-left: 25px;
-		background:url("./images/icon-pencil.png") no-repeat scroll 0 3px transparent;
+		background:url("sections/comments/icon-pencil.png") no-repeat scroll 0 3px transparent;
 	}
 		#respond h3 small{ font-style:italic; }
 	

@@ -25,6 +25,7 @@ class PageLinesFootCols extends PageLinesSection {
 		
 		$settings = wp_parse_args( $registered_settings, $default_settings );
 		parent::__construct($name, $id, $settings);    
+		
    }
 
 	function section_persistent(){
