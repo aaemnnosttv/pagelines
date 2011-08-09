@@ -431,7 +431,7 @@ class PageLinesMetaPanel {
 						
 						// Note: If the value is null, then test to see if the option is already set to something
 						// create and overwrite the option to null in that case (i.e. it is being set to empty)
-						if(isset($o['selectvalues'])){
+						if(isset($o['selectvalues']) && ($o['type'] == 'text_multi' || $o['type'] == 'check_multi') ){
 							
 							foreach($o['selectvalues'] as $sid =>$s ){
 								$option_value =  isset($_POST[$sid]) ? $_POST[$sid] : null;

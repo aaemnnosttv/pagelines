@@ -45,40 +45,31 @@ class PageLinesCSS {
 	 *  CSS Rendering In <head>
 	 */
 	function render_css(){
+		global $pagelines_ID;
+		
 		$css = '';
 		
 		foreach ( get_option_array() as $menu){
 
 			foreach($menu as $oid => $o){ 
 				
-				$o['val'] = pagelines_option($oid);
+				$oset = array( 'post_id' => $pagelines_ID );
+				$o['val'] = ploption($oid);
 				
 				if(!empty($o['selectvalues']) && is_array($o['selectvalues'])){
 					foreach( $o['selectvalues'] as $sid => $s)
-						$o['selectvalues'][$sid]['val'] = pagelines_option( $sid );
+						$o['selectvalues'][$sid]['val'] = ploption( $sid );
 				}
 				
-				if($o['type'] == 'css_option' && $o['val']){
-					
-					if(pagelines_option($oid) == $o['default']){
-						// do nothing
-					} elseif(isset($o['css_prop']) && isset($o['selectors'])){
-						
-						$css_units = (isset($o['css_units'])) ? $o['css_units'] : '';
-						
-						$css .= $o['selectors'].'{'.$o['css_prop'].':'.$o['val'].$css_units.';}';
-						
-					}
-
-				}
+				
 				
 				if( $o['type'] == 'background_image' && pagelines_option($oid.'_url')){
 					
-					$bg_repeat = (pagelines_option($oid.'_repeat')) ? pagelines_option($oid.'_repeat'): 'no-repeat';
-					$bg_pos_vert = (pagelines_option($oid.'_pos_vert') || pagelines_option($oid.'_pos_vert') == 0 ) ? (int) pagelines_option($oid.'_pos_vert') : '0';
-					$bg_pos_hor = (pagelines_option($oid.'_pos_hor') || pagelines_option($oid.'_pos_hor') == 0 ) ? (int) pagelines_option($oid.'_pos_hor') : '50';
-					$bg_selector = (pagelines_option($oid.'_selector')) ? pagelines_option($oid.'_selector') : $o['selectors'];
-					$bg_url = pagelines_option($oid.'_url');
+					$bg_repeat = (ploption($oid.'_repeat')) ? ploption($oid.'_repeat'): 'no-repeat';
+					$bg_pos_vert = (ploption($oid.'_pos_vert') || ploption($oid.'_pos_vert') == 0 ) ? (int) ploption($oid.'_pos_vert') : '0';
+					$bg_pos_hor = (ploption($oid.'_pos_hor') || ploption($oid.'_pos_hor') == 0 ) ? (int) ploption($oid.'_pos_hor') : '50';
+					$bg_selector = (ploption($oid.'_selector')) ? ploption($oid.'_selector') : $o['selectors'];
+					$bg_url = ploption($oid.'_url');
 					
 					$css .= sprintf('%s{ background-image:url(%s);}', $bg_selector, $bg_url);
 					$css .= sprintf('%s{ background-repeat: %s;}', $bg_selector, $bg_repeat);

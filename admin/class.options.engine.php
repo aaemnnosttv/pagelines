@@ -253,9 +253,6 @@ class OptEngine {
 			case 'text_small' :
 				$this->_get_text_small($oid, $o, $val);
 				break;
-			case 'css_option' :
-				$this->_get_text_small($oid, $o, $val);
-				break;
 			case 'text_multi' :
 				$this->_get_text_multi($oid, $o, $val);
 				break;

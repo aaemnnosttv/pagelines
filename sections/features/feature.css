@@ -36,7 +36,7 @@
 			
 			float: left;
 		}
-			#feature_slider .fcontent { width: 33%; }
+			#feature_slider .fcontent { width: 33%; min-width: 220px;}
 			#feature_slider .fmedia { width: 67%; }
 
 			.fexcerpt p {margin: 1em 0}
@@ -120,7 +120,6 @@
 			background: url(black60.png);
 			color: #fff;
 			text-shadow: #000 0 -1px 0 ;
-			font-size: 1.2em;
 			line-height: 1.55em;
 			display: inline;
 			position: relative;
@@ -136,6 +135,7 @@
 			#feature_slider .fcontainer .fcontent h4,
 			#feature_slider .fcontainer .fcontent h5{
 				color: #fff;
+				text-shadow: #000 0 -1px 0 ;
 			}
 			
 			.fcontent a{
@@ -172,19 +172,14 @@
 
 		/* Feature Text Styling */
 		
-			.fcontent h1, .fcontent h2, .fcontent h3, .fcontent h4, .fcontent h5, .fcontent h6{
-				line-height: 1em;
-				margin: 0;
-				padding:0;
-			} 
+
 			.fcontent .fheading {
 				padding: .8em 0;
 				margin-bottom: .2em;
 			
 			}
 			.fcontent .ftitle{
-				font-size: 2.5em;
-				font-weight: lighter;
+	
 				vertical-align: middle;
 			}
 			.fcontent .ftitle small {

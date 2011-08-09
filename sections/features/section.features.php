@@ -22,6 +22,7 @@ class PageLinesFeatures extends PageLinesSection {
 			'description'	=> 'This is your main feature slider.  Add feature text and media through the admin panel.',
 			'icon'			=> $this->section_root_url.'/features.png',
 			'version'		=> 'pro',	
+			'cloning'		=> true
 		);
 		
 		$settings = wp_parse_args( $registered_settings, $default_settings );
@@ -266,10 +267,7 @@ class PageLinesFeatures extends PageLinesSection {
 					'feature_stage_height' => array(
 							'default' 		=> '380',
 							'version'		=> 'pro',
-							'type' 			=> 'css_option',
-							'selectors'		=> '#feature-area, .feature-wrap, #feature_slider .fmedia, #feature_slider .fcontent, #feature_slider .text-bottom .fmedia .dcol-pad, #feature_slider .text-bottom .feature-pad, #feature_slider .text-none .fmedia .dcol-pad', 
-							'css_prop'		=> 'height', 
-							'css_units'		=> 'px',
+							'type' 			=> 'text_small',
 							'inputlabel' 	=> 'Enter the height (In Pixels) of the Feature Stage Area',
 							'title' 		=> 'Feature Area Height',
 							'shortexp' 		=> "Use this feature to change the height of your feature area",
@@ -308,32 +306,44 @@ class PageLinesFeatures extends PageLinesSection {
 		
 		global $pagelines_ID;
 
-		// Get the features from post type
+		$oset = array('post_id' => $pagelines_ID, 'clone_id' => $clone_id);
+
 		$f = $this->pagelines_features_set( $clone_id ); 	
 	
-		$feffect = (ploption('feffect')) ? ploption('feffect') : 'fade';
-		$timeout = (ploption('timeout')) ? ploption('timeout') : 0;
-		$speed   = (ploption('fspeed')) ? ploption('fspeed') : 1500;
-		$fsync   = (ploption('fremovesync')) ? 0 : 1;
+		$feffect = (ploption('feffect', $oset)) ? ploption('feffect', $oset) : 'fade';
+		$timeout = (ploption('timeout', $oset)) ? ploption('timeout', $oset) : 0;
+		$speed   = (ploption('fspeed', $oset)) ? ploption('fspeed', $oset) : 1500;
+		$fsync   = (ploption('fremovesync', $oset)) ? 0 : 1;
 		$autostop = ( has_filter('pagelines_feature_autostop') ) ? ', autostop: 1, autostopCount: ' . apply_filters( 'pagelines_feature_autostop', 0) : '';
-		$playpause = (ploption('feature_playpause')) ? true : false;
-		$fmode = ploption('feature_nav_type');
+		$playpause = (ploption('feature_playpause', $oset)) ? true : false;
+		$fmode = ploption('feature_nav_type', $oset);
 		
-		$args = sprintf("slideResize: 0, fit: 1,  fx: '%s', sync: %d, timeout: %d, speed: %d, cleartype: true, cleartypeNoBg: true, pager: 'div#featurenav'%s", $feffect, $fsync, $timeout, $speed, $autostop);
+		$selector = sprintf('#cycle.%s', 'fclone'.$clone_id);
+		$fnav_selector = sprintf('#featurenav.%s', 'fclone'.$clone_id);
+		$playpause_selector = sprintf('.playpause.%s', 'fclone'.$clone_id);
+		
+		$args = sprintf("slideResize: 0, fit: 1,  fx: '%s', sync: %d, timeout: %d, speed: %d, cleartype: true, cleartypeNoBg: true, pager: '%s' %s", $feffect, $fsync, $timeout, $speed, $fnav_selector, $autostop);
+		
+		$this->_feature_css($clone_id, $oset);
 		
 ?><script type="text/javascript">/* <![CDATA[ */ jQuery(document).ready(function () {
 <?php 
 	//Feature Cycle Setup
-	printf( "jQuery('#cycle').cycle({ %s });", $args);
+	printf( "jQuery('%s').cycle({ %s });", $selector, $args);
 	
 	$this->_js_feature_loop($fmode, $f);
 
-	if($playpause):?>	
-		jQuery('.playpause').click(function() { 
-			if (jQuery('.playpause').hasClass('pause')) { 
-				jQuery('#cycle').cycle('pause'); jQuery('.playpause').removeClass('pause').addClass('resume');
-			} else {
-			   	jQuery('.playpause').removeClass('resume').addClass('pause'); jQuery('#cycle').cycle('resume', true); 	
+	if($playpause):
+	?>	
+	
+		var cSel = '<?php echo $selector;?>';
+		var ppSel = '<?php echo $playpause_selector;?>';
+		
+		jQuery(ppSel).click(function() { 
+			if (jQuery(ppSel).hasClass('pause')) {  
+				jQuery(cSel).cycle('pause'); jQuery(ppSel).removeClass('pause').addClass('resume');
+			} else { 
+				jQuery(ppSel).removeClass('resume').addClass('pause'); jQuery(cSel).cycle('resume', true);
 			}
 		});
 	<?php endif;?>
@@ -341,6 +351,24 @@ class PageLinesFeatures extends PageLinesSection {
 
 /* ]]> */ </script>
 <?php }
+
+function _feature_css( $clone_id, $oset){
+	$height = (ploption('feature_stage_height', $oset)) ? ploption('feature_stage_height', $oset).'px' : '380px';
+	
+	$feature_height_selectors = array('#feature-area', '.feature-wrap', '#feature_slider .fmedia, #feature_slider .fcontent', '#feature_slider .text-bottom .fmedia .dcol-pad', '#feature_slider .text-bottom .feature-pad', '#feature_slider .text-none .fmedia .dcol-pad');
+	
+	$selectors = array();
+	foreach($feature_height_selectors as $sel){
+		if( isset($clone_id) && $clone_id != 1)
+			$selectors[] = sprintf('.clone_%s %s', $clone_id, $sel);
+		else 
+			$selectors[] = $sel;
+	}
+	
+	$css = sprintf( '%s{height:%s;}', join(',', $selectors), $height);
+	
+	inline_css_markup('feature-css', $css);
+}
 
 function _js_feature_loop($fmode, $fposts = array()){
 	
@@ -395,7 +423,7 @@ function section_template( $clone_id ) {
 	$f = $this->pagelines_features_set( $clone_id ); 
 
 	// $this->set set in pagelines_feature_set, better way to do this?
-	$this->draw_features($f, $this->set);
+	$this->draw_features($f, $this->set, $clone_id);
 
 }
 
@@ -458,28 +486,31 @@ function load_pagelines_features( $set = null, $limit = null, $source = null, $c
 		return array();
 }
 
-function draw_features($f, $class) {     
+function draw_features($f, $class, $clone_id = null) {     
 	
 	// Setup 
 		global $post; 
+		global $pagelines_ID;
 		global $pagelines_layout; 
 		$current_page_post = $post;
 	
+		$oset = array('post_id' => $pagelines_ID, 'clone_id' => $clone_id);
+		
 	// Options 
-		$feature_source = ploption('feature_source');
-		$timeout = ploption('timeout');
-		$playpause = ploption('feature_playpause');
-		$feature_nav_type = ploption('feature_nav_type');
+		$feature_source = ploption('feature_source', $oset);
+		$timeout = ploption('timeout', $oset);
+		$playpause = ploption('feature_playpause', $oset);
+		$feature_nav_type = ploption('feature_nav_type', $oset);
 	   
 	// Refine
 		$no_nav = ( isset($f) && count($f) == 1 ) ? 'nonav' : '';
 		$footer_nav_class = $feature_nav_type . $no_nav;
-	
+		$cycle_selector = "fclone".$clone_id;
 ?>		
 
 	<div id="feature_slider" class="<?php echo $class;?> fix">
 		<div id="feature-area">
-			<div id="cycle">
+			<div id="cycle" class="<?php echo $cycle_selector;?>">
 			<?php
 				
 				
@@ -505,7 +536,7 @@ function draw_features($f, $class) {
 						$feature_media = plmeta( 'feature-media', $oset);
 						?>
 						<div id="<?php echo 'feature_'.$post->ID;?>"  class="fcontainer <?php echo $feature_style.' '.$feature_design; ?> fix" >
-							<div class="feature-wrap wcontent" <?php if($feature_background_image):?>style="background: url('<?php echo $feature_background_image;?>') no-repeat top center" <?php endif;?>>
+							<div class="feature-wrap" <?php if($feature_background_image):?>style="background: url('<?php echo $feature_background_image;?>') no-repeat top center" <?php endif;?>>
 								<div class="feature-pad fix">
 									<?php pagelines_register_hook( 'pagelines_feature_before', $this->id ); // Hook ?>
 									<div class="fcontent <?php echo $fcontent_class;?>">
@@ -562,7 +593,7 @@ function draw_features($f, $class) {
 					<?php endforeach; 
 					
 				} else
-							printf('<h4 style="padding: 50px; text-align: center">%s</h4>', __('No feature posts matched this pages criteria', 'pagelines'));
+						printf('<h4 style="padding: 50px; text-align: center">%s</h4>', __('No feature posts matched this pages criteria', 'pagelines'));
 							
 					$post = $current_page_post;
 				 ?>
@@ -573,9 +604,9 @@ function draw_features($f, $class) {
 		<div id="feature-footer" class="<?php echo $footer_nav_class ;?> fix">
 			<div class="feature-footer-pad">
 				<?php pagelines_register_hook( 'pagelines_feature_nav_before', $this->id ); // Hook ?>
-				<?php if( $timeout != 0 && $playpause):?><span class="playpause pause"><span>&nbsp;</span></span><?php endif;?>
+				<?php if( $timeout != 0 && $playpause):?><span class="playpause pause <?php echo $cycle_selector;?>"><span>&nbsp;</span></span><?php endif;?>
 			
-				<div id="featurenav" class="fix"></div>
+				<div id="featurenav" class="<?php echo $cycle_selector;?> fix"></div>
 				<div class="clear"></div>
 			</div>
 		</div>
@@ -614,8 +645,8 @@ function draw_features($f, $class) {
 
 		$posts = array(
 				'1' => array(
-			        	'title' 			=> 'Welcome to the Drag &amp; Drop',
-			        	'text' 				=> 'Welcome to PageLines Framework, we hope you\'ll love your new framework and all it can do for you.',
+			        	'title' 			=> 'PageLines',
+			        	'text' 				=> 'Welcome to PageLines Framework!',
 			        	'media' 			=> '',
 						'style'				=> 'text-none',
 			        	'link' 				=> '#fake_link',
@@ -625,18 +656,7 @@ function draw_features($f, $class) {
 						'thumb'				=> $this->base_url.'/fthumb1.png'
 			    ),
 				'2' => array(
-			        	'title' 		=> 'YouTube Video',
-			        	'text' 			=> 'A video on changing things.',
-			        	'media'		 	=> '<iframe width="960" height="380" src="http://www.youtube.com/embed/lg8LfoyDFUM?wmode=opaque&hl=en&fs=1&showinfo=0" frameborder="0" ></iframe>',
-			        	'style'			=> 'text-none',
-						'link' 			=> '#fake_link',
-						'background' 	=> '',
-						'name'			=>	'Media',
-						'fcontent-design'	=> '',
-						'thumb'				=> $this->base_url.'/fthumb2.png'
-			    ),
-				'3' => array(
-					 	'title' 		=> '<small>WordPress Framework By</small> PageLines',
+					 	'title' 		=> 'Drag &amp; Drop Design',
 			        	'text' 			=> 'Welcome to a professional WordPress framework by PageLines. Designed for you in San Francisco, California.',
 			        	'media' 		=> '',
 			        	'style'			=> 'text-right',
@@ -645,29 +665,7 @@ function draw_features($f, $class) {
 						'name'			=>	'Design',
 						'fcontent-design'	=> '',
 						'thumb'				=> $this->base_url.'/fthumb3.png'
-			    ),
-				'4' => array(
-					 	'title' 		=> '<small>Web Design</small> Redesigned.',
-			        	'text' 			=> 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-			        	'media' 		=> '',
-			        	'style'			=> 'text-left',
-						'link' 			=> '#fake_link',
-						'background' 	=> $this->base_url.'/feature3.jpg',
-						'name'			=> 'Pro',
-						'fcontent-design'	=> '',
-						'thumb'				=> $this->base_url.'/fthumb4.png'
-			    ), 
-				'5' => array(
-			        	'title' 		=> '<small>Make An</small> Impression',
-			        	'text' 			=> 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam quam quam, dignissim eu dignissim et,<br/> accumsan ullamcorper risus. Aliquam rutrum, lorem et ornare malesuada, mi magna placerat mi, bibendum volutpat lectus. Morbi nec purus dolor.',
-			        	'media'		 	=> '',
-			        	'style'			=> 'text-bottom',
-						'link' 			=> '#fake_link',
-						'background' 	=> $this->base_url.'/feature4.jpg',
-						'name'			=>'Media',
-						'fcontent-design'	=> '',
-						'thumb'				=> $this->base_url.'/fthumb5.png'
-			    ),
+			    )
 		);
 
 		return apply_filters('pagelines_default_features', $posts);

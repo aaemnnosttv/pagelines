@@ -112,14 +112,14 @@ function pagelines_head_common(){
 	
 	// Some Credit
 	if(!VDEV)
-		echo "<!-- Platform WordPress Framework By PageLines - www.PageLines.com -->\n";
+		echo "<!-- PageLines Professional Drag-and-Drop Framework - www.PageLines.com -->\n";
 		
 	// Meta Images
-	if(pagelines_option('pagelines_favicon'))
-		printf('<link rel="shortcut icon" href="%s" type="image/x-icon" />%s', pagelines_option('pagelines_favicon'), "\n");
+	if(ploption('pagelines_favicon'))
+		printf('<link rel="shortcut icon" href="%s" type="image/x-icon" />%s', ploption('pagelines_favicon'), "\n");
 	
-	if(pagelines_option('pagelines_touchicon'))
-		printf('<link rel="apple-touch-icon" href="%s" />%s', pagelines_option('pagelines_touchicon'), "\n");
+	if(ploption('pagelines_touchicon'))
+		printf('<link rel="apple-touch-icon" href="%s" />%s', ploption('pagelines_touchicon'), "\n");
 
 	// Meta Data Profiles
 	if(!apply_filters( 'pagelines_xfn', '' ))
