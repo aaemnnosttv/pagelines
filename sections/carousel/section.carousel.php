@@ -62,11 +62,48 @@ class PageLinesCarousel extends PageLinesSection {
 						'exp'		=> '<strong>Note:</strong>The NextGen Gallery and carousel template must be selected.'
 					),
 					'carousel_post_id' => array(
-						'version' => 'pro',
-						'type' => 'text',					
-						'title' => 'Enter Category Slug (Carousel Posts Mode)',
-						'shortexp' => 'Enter the name or slug of the category that the carousel should use for its images (posts mode only).'
-					)
+						'default'		=> '', 
+						'type' 			=> 'text',		
+						'title'			=> 'Carousel - Post Category Name', 
+						'shortexp'		=> 'The category slug to pull posts from',
+						'inputlabel' 	=> 'Category Slug (Optional)',
+						'exp' 			=> 'Posts Mode - Select the default category for carousel post images.  If not set, the carousel will get the most recent posts.'
+					),
+					'carousel_display_items' => array(
+						'default'		=> 7, 
+						'type' 			=> 'text_small',		
+						'title'			=> 'Displayed Carousel Items', 
+						'shortexp'		=> 'The number of displayed images in your carousel',
+						'inputlabel' 	=> 'Displayed Carousel Items',
+						'exp' 			=> 'This option sets the number of images that will be displayed in the carousel at any given time.'
+					),
+					'carousel_scroll_items' => array(
+						'default'		=> 4, 
+						'type' 			=> 'text_small',		
+						'title'			=> 'Scrolled Carousel Items', 
+						'shortexp'		=> 'The number of images scrolled in one click',
+						'inputlabel' 	=> 'Items to scroll',
+						'exp' 			=> 'This option sets the number of images that will scroll when a user clicks the arrows, etc..'
+					),
+					'carousel_animation_speed' => array(
+						'default'		=> 800, 
+						'type' 			=> 'text_small',		
+						'title'			=> 'Carousel Animation Speed', 
+						'shortexp'		=> 'Set the time it takes to scroll',
+						'inputlabel' 	=> 'Carousel Animation Speed',
+						'exp' 			=> 'The speed of the scroll animation as string in  milliseconds (e.g. 800 for .8 seconds). If set to 0, animation is turned off.'
+					),
+					'carousel_image_dimensions' => array(
+							'type' => 'text_multi',
+							'selectvalues'=> array(
+								'carousel_image_width'		=> array('inputlabel'=>'Max Image Width (in pixels)', 'default'	=> 64),
+								'carousel_image_height'		=> array('inputlabel'=>'Max Image Height (in pixels)', 'default' => 64),
+							),
+							'title' => 'Carousel Image Dimensions (Posts Mode Only)',
+							'shortexp' => 'Control the dimensions of the carousel images',
+							'exp' => 'Use this option to control the max height and width of the images in the carousel. You may have to use this option in conjunction with the scroll items option.<br/><br/> For the FlickrRSS and NextGen Gallery modes, image sizes are set by Flickr thumb sizes and the NextGen Gallery plugin respectively.'
+					),
+					
 				);
 			
 			$metatab_settings = array(
@@ -192,91 +229,6 @@ class PageLinesCarousel extends PageLinesSection {
 			);
 		
 	}
-
-	function section_options($optionset = null, $location = null) {
-	
-		if($optionset == 'new' && $location == 'bottom'){
-			return array(
-				'carousel_settings' => array(
-					'carousel_mode' => array(
-							'type'			=> 'select',
-							'default'		=> 'posts',
-							'title'			=> 'Carousel Image Mode', 
-							'shortexp'		=> 'Where the carousel is going to get its images.', 
-							'selectvalues'=> array(
-								'posts' 		=> array("name" => 'Post Featured Images (default)'),
-								'flickr'		=> array("name" => 'FlickrRSS Plugin'),
-								'ngen_gallery' 	=> array("name" => 'NextGen Gallery Plugin'), 
-								'hook'			=> array("name" => 'Hook: "pagelines_carousel_list"')
-							),					
-							'inputlabel' 	=> 'Carousel Image/Link Mode',
-							'exp' 			=> 'Select the mode that the carousel should use for its thumbnails.<br/><br/>' .
-									 		'<strong> Post Featured Images</strong> - Uses featured images from posts <br/><strong>FlickrRSS</strong> - Uses thumbs from FlickrRSS plugin.<br/>' .
-									 		'<strong>NextGen Gallery</strong> - Uses an image gallery from the NextGen Gallery Plugin'
-						),
-					'carousel_items' => array(
-						'default'		=> 30, 
-						'type' 			=> 'text_small',		
-						'title'			=> 'Rotating Carousel Items', 
-						'shortexp'		=> 'The number of rotating images in your carousel',
-						'inputlabel' 	=> 'Max Rotating Carousel Items',
-						'exp' 			=> 'This option sets the number of items that will be rotated through in your carousel.'
-					),
-					'carousel_display_items' => array(
-						'default'		=> 7, 
-						'type' 			=> 'text_small',		
-						'title'			=> 'Displayed Carousel Items', 
-						'shortexp'		=> 'The number of displayed images in your carousel',
-						'inputlabel' 	=> 'Displayed Carousel Items',
-						'exp' 			=> 'This option sets the number of images that will be displayed in the carousel at any given time.'
-					),
-					'carousel_scroll_items' => array(
-						'default'		=> 4, 
-						'type' 			=> 'text_small',		
-						'title'			=> 'Scrolled Carousel Items', 
-						'shortexp'		=> 'The number of images scrolled in one click',
-						'inputlabel' 	=> 'Items to scroll',
-						'exp' 			=> 'This option sets the number of images that will scroll when a user clicks the arrows, etc..'
-					),
-					'carousel_animation_speed' => array(
-						'default'		=> 800, 
-						'type' 			=> 'text_small',		
-						'title'			=> 'Carousel Animation Speed', 
-						'shortexp'		=> 'Set the time it takes to scroll',
-						'inputlabel' 	=> 'Carousel Animation Speed',
-						'exp' 			=> 'The speed of the scroll animation as string in  milliseconds (e.g. 800 for .8 seconds). If set to 0, animation is turned off.'
-					),
-					'carousel_image_dimensions' => array(
-							'type' => 'text_multi',
-							'selectvalues'=> array(
-								'carousel_image_width'		=> array('inputlabel'=>'Max Image Width (in pixels)', 'default'	=> 64),
-								'carousel_image_height'		=> array('inputlabel'=>'Max Image Height (in pixels)', 'default' => 64),
-							),
-							'title' => 'Carousel Image Dimensions (Posts Mode Only)',
-							'shortexp' => 'Control the dimensions of the carousel images',
-							'exp' => 'Use this option to control the max height and width of the images in the carousel. You may have to use this option in conjunction with the scroll items option.<br/><br/> For the FlickrRSS and NextGen Gallery modes, image sizes are set by Flickr thumb sizes and the NextGen Gallery plugin respectively.'
-					),
-					'carousel_post_id' => array(
-						'default'		=> '', 
-						'type' 			=> 'text',		
-						'title'			=> 'Carousel - Post Category Name', 
-						'shortexp'		=> 'The category slug to pull posts from',
-						'inputlabel' 	=> 'Category Slug (Optional)',
-						'exp' 			=> 'Posts Mode - Select the default category for carousel post images.  If not set, the carousel will get the most recent posts.'
-					),
-					'carousel_ngen_gallery' => array(
-							'type' 			=> 'text_small',
-							'default'		=> '', 
-							'title'			=> 'NextGen Gallery ID (NextGen Gallery Mode Only)', 
-							'shortexp'		=> 'The ID of the NextGen Gallery selection you would like to use.', 
-							'inputlabel' 	=> 'NextGen Gallery ID For Carousel (<em>NextGen Gallery Mode Only</em>)',
-							'exp' 			=> 'Enter the ID of the NextGen Image gallery for the carousel. <strong>The NextGen Gallery and carousel template must be selected.</strong>'
-						),
-					)
-				);
-
-	} 
-}
 
 // End of Section Class //
 }

@@ -30,7 +30,6 @@ class PageLinesOptionsArray {
 		$this->options['typography'] = $this->typography();
 		$this->options['header_and_footer'] = $this->header_footer();
 		$this->options['blog_and_posts'] = $this->blog_posts();
-		$this->last_options['section_options'] = $this->section_options();
 		
 		if( pagelines_option('forum_options') )
 			$this->last_options['forum_settings'] = $this->forum_options();
@@ -1035,21 +1034,7 @@ class PageLinesOptionsArray {
 		return apply_filters('pagelines_options_welcome', $a);
 		
 	}
-	
-	/**
-	 * Plugged In Section Options
-	 *
-	 * @since 2.0.0
-	 */
-	function section_options(){
 
-		$a = array(	
-			'icon'			=> PL_ADMIN_ICONS.'/leaf.png',
-		);
-		
-		return apply_filters('pagelines_options_section_options', $a);
-		
-	}
 	
 	/**
 	 * Custom Options (Deprecated)

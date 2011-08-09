@@ -142,21 +142,26 @@ class PageLinesBanners extends PageLinesSection {
 		
 		$metatab_array = array(
 				
-				'banner_set' => array(
-					'version' => 'pro',
-					'type' => 'select_taxonomy',
-
-					'taxonomy_id'	=> "banner-sets",				
-					'title' => 'Select Banner Set To Show',
-					'shortexp' => 'If you are using the Banner section, select the banner set you would like to show on this page.'
-				),
 				'banner_items' => array(
+					'default'	=> '5',
 					'version' 	=> 'pro',
-					'type' 		=> 'text',
-					'size'		=> 'small',				
+					'type' 		=> 'text_small',		
 					'title' 	=> 'Max Number of Banners',
-					'shortexp'	=> 'Enter the max number of banners to show on this page. ',
-					'exp' 		=> 'If left blank, the number of posts selected under settings > "reading" will be used.'
+					'desc' 		=> 'Select the default max number of banners.',
+					'inputlabel'=> 'Number of Banners',
+					'exp'		=> 'This number will be used as the max number of banners to use in this section.'
+				),
+				'banner_set' => array(
+						'default' 		=> null,
+						'version'		=> 'pro',
+						'type' 			=> 'select_taxonomy',
+						'taxonomy_id'	=> 'banner-sets',
+						'desc'		 	=> 'Select Default Banner Set',
+						'inputlabel' 	=> 'Select Default Banner Set',
+						'title' 		=> 'Default Banner Set',
+						'shortexp' 		=> "Select the category (taxonomy) of Banner posts to show",
+						'exp' 			=> "Select the taxonomy/category of banners to show on this page.",
+
 				),
 
 			);
@@ -261,38 +266,6 @@ class PageLinesBanners extends PageLinesSection {
 	
 	}
 
-	function section_options($optionset = null, $location = null) {
-
-		if($optionset == 'section_options' && $location == 'bottom'){
-			return array(
-					'banner_items' => array(
-						'default'	=> '5',
-						'version' 	=> 'pro',
-						'type' 		=> 'text_small',		
-						'title' 	=> 'Default Max Number of Banners',
-						'desc' 		=> 'Select the default max number of banners. Can be overridden on ind. pages and posts.',
-						'inputlabel'=> 'Enter The Max Number Of Banners',
-						'exp'		=> 'This number will be used as the max number of banners to use on individual pages. It can be overridden using meta options.'
-					),
-					'banner_set' => array(
-							'default' 		=> null,
-							'version'		=> 'pro',
-							'type' 			=> 'select_taxonomy',
-							'taxonomy_id'	=> 'banner-sets',
-							'desc'		 	=> 'Select Default Banner Set',
-							'inputlabel' 	=> 'Select Default Banner Set',
-							'title' 		=> 'Default Banner Set',
-							'shortexp' 		=> "Posts pages and similar pages (404) will use this banner-set ID",
-							'exp' 			=> "Posts pages and 404 pages in WordPress don't support meta data so you need to assign a set here. (If you want to use 'banners' on these pages.)",
-
-					),	
-					
-				);
-
-		}
-
-	}
-	
 	
 // End of Section Class //
 }

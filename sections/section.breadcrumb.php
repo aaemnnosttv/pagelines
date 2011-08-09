@@ -57,9 +57,9 @@ class PageLinesBreadcrumb extends PageLinesSection {
 	}
 	
 	
-	function section_options($optionset = null, $location = null) {
+	function add_options() {
 	
-		if($optionset == 'section_options' && $location == 'bottom'){
+
 			return array(
 					'breadcrumb_no_link' => array(
 							'version' => 'pro',
@@ -72,8 +72,6 @@ class PageLinesBreadcrumb extends PageLinesSection {
 						),
 				);
 
-		}
-	
 	}
 	
 

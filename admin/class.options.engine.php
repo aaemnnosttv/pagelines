@@ -69,11 +69,24 @@ class OptEngine {
 		
 		$oset = array('post_id' => $pid, 'setting' => $setting);
 		
+		if($o['type'] == 'select_same'){
+			
+			$new = array_flip($o['selectvalues']);
+			
+			foreach($new as $key => $val)
+				$new[$key] = array('name' => $key);
+			
+			$o['selectvalues'] = $new;
+			
+		}
+				
+		
 		if($this->settings_field == 'meta'){
 			
 			$o['val'] = plmeta($oid, $oset);
 			$o['input_name'] = $oid;
 			$o['input_id'] = get_pagelines_option_id( $oid );
+			
 			
 			if(!empty($o['selectvalues'])){
 				foreach($o['selectvalues'] as $sid => $s){
@@ -140,21 +153,23 @@ class OptEngine {
 	}
 	
 	function _get_explanation($oid, $o){
-		if($o['exp'] && $o['type'] != 'text_content' && $o['layout'] != 'interface'):?>
-		<div class="oexp">
-			<div class="oexp-effect">
-				<div class="oexp-pad">
-					<h5>More Info</h5>
-					<p><?php echo $o['exp'];?></p>
-					<?php 
-						if( $o['pro_note'] && !VPRO )
-							printf('<p class="pro_note"><strong>Pro Version Note:</strong><br/>%s</p>',  $o['pro_note']);
-					 
-					?>
-				</div>
-			</div>
-		</div>
-<?php endif;
+		
+		$fullwidth = ($o['layout'] == 'full') ? true : false;
+		
+		$show = ($o['exp'] && $o['type'] != 'text_content' && $o['layout'] != 'interface') ? true : false;
+		
+		if($show){
+					
+			$toggle = ($fullwidth) ? '<div class="more_exp" onClick="jQuery(this).next().next().fadeToggle();">More Info &rarr;</div><div class="clear"></div>' : '';		
+					
+			$text = sprintf('%s<p>%s</p>', (!$fullwidth) ? '<h5>More Info</h5>' :'', $o['exp']);
+				
+			$pro_note = ($o['pro_note'] && !VPRO) ? sprintf('<p class="pro_note"><strong>Pro Version Note:</strong><br/>%s</p>',  $o['pro_note']) : '';
+			 
+			printf('<div class="oexp">%s<div class="oexp-effect"><div class="oexp-pad">%s %s</div></div></div>', $toggle, $text, $pro_note);
+			
+		}
+	
 	}
 	
 	function _layout_class( $o ){
@@ -179,6 +194,8 @@ class OptEngine {
 						<img src="<?php echo PL_ADMIN_IMAGES . '/link-docs.jpg';?>" class="docslink-video" alt="Video Tutorial" />
 					</a>
 				<?php endif;?>
+				
+				
 
 				<strong><?php echo $o['title'];?></strong><br/>
 				<small><?php echo $o['shortexp'];?></small><br/>
@@ -597,10 +614,7 @@ class OptEngine {
 		
 		foreach($o['selectvalues'] as $sval => $s){
 			
-			if($o['type'] == 'select_same')
-				$opts .= $this->input_option($s, selected($s, $o['val'], false), $s);
-			else
-				$opts .= $this->input_option($sval, selected($sval, $o['val'], false), $s['name']);
+			$opts .= $this->input_option($sval, selected($sval, $o['val'], false), $s['name']);
 	
 		}
 		

@@ -25,12 +25,14 @@ if(file_exists(TEMPLATEPATH.'/dev/init_dev.php')){
 
 if(!defined('PL_DEV'))
 	define('PL_DEV',false);
+	
 if (! PL_DEV ) add_filter( 'extension_array', create_function( '', 'return array();' ) );	
+
 /**
  * Set Theme Name
  */
-if(VPRO) $theme = 'PlatformPro';
-else $theme = 'Platform';
+if(VPRO) $theme = 'PageLines';
+else $theme = 'PageLinesLE';
 
 define('CORE_LIB', PL_INCLUDES); // Deprecated, but used in bbPress forum < 1.2.3
 

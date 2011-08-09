@@ -197,20 +197,18 @@ class PageLinesSoapbox extends PageLinesSection {
 			register_metatab($metatab_settings, $metatab_array);
 	}
 
-	function section_template() {    
+	function section_template( $clone_id = '') {    
 
 			global $post; 
 			global $pagelines_ID;
 
-			$perline = (pagelines_option('soap_cols', $pagelines_ID)) ? pagelines_option('soap_cols', $pagelines_ID) : 2;
+			$oset = array( 'post_id' => $pagelines_ID, 'clone_id' => $clone_id);
 
-			if( get_pagelines_meta('_soapbox_set', $pagelines_ID) ) 
-				$set = get_post_meta($pagelines_ID, '_soapbox_set', true);
-			elseif (pagelines_non_meta_data_page() && pagelines_option('soapbox_default_tax')) 
-				$set = pagelines_option('soapbox_default_tax');
-			else $set = null;
+			$perline = (ploption('soap_cols', $oset)) ? ploption('soap_cols', $oset) : 2;
 
-			$limit = (pagelines_option('_soapbox_items', $post->ID)) ? pagelines_option('_soapbox_items', $post->ID) : null;
+			$set = (plmeta('_soapbox_set', $oset)) ? plmeta('_soapbox_set', $oset) : null;
+
+			$limit = (ploption('_soapbox_items', $oset)) ? ploption('_soapbox_items', $oset) : null;
 			
 			$b = $this->load_pagelines_boxes($set, $limit); 
 
@@ -231,8 +229,9 @@ class PageLinesSoapbox extends PageLinesSection {
 			<div class="pprow <?php echo $class;?> soapboxes fix">
 	<?php 	foreach($b as $bpost):
 				setup_postdata($bpost); 
-	 			$box_link = get_post_meta($bpost->ID, 'the_box_icon_link', true);
-				$box_icon = get_post_meta($bpost->ID, 'the_box_icon', true);
+				$oset = array('post_id' => $bpost->ID);
+				$box_link = plmeta('the_box_icon_link', $oset);
+				$box_icon = plmeta('the_box_icon', $oset);
 
 				$box_row_start = ( $row_count % $perline == 0 ) ? true : false;
 				$box_row_end = ( ( $row_count + 1 ) % $perline == 0 || $current_box == $post_count ) ? true : false;

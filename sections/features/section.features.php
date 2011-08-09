@@ -185,7 +185,105 @@ class PageLinesFeatures extends PageLinesSection {
 						'shortexp'		=> 'The "set" or category of feature posts',
 						'inputlabel'	=> 'Select Feature Set',
 						'exp' 			=> 'If you are using the feature section, select the feature set you would like to show on this page.'
-					)
+					), 
+					'feature_nav_type' => array(
+						'default' => "thumbs",
+						'version'	=> 'pro',
+						'type' => 'radio',
+						'selectvalues' => array(
+							'nonav' 		=> array( 'name' => 'No Navigation' ),
+							'dots' 			=> array( 'name' => 'Squares or Dots' ),
+							'names' 		=> array( 'name' => 'Feature Names' ),
+							'thumbs' 		=> array( 'name' => 'Feature Thumbs (50px by 30px)' ),								
+							'numbers'		=> array( 'name' => 'Numbers' ),
+						),
+						'inputlabel' => 'Feature navigation type?',
+						'title' => 'Feature Navigation Mode',
+						'shortexp' => "Select the mode for your feature navigation",
+						'exp' => "Select from the three modes. Using feature names will use the names of the features, using the numbers will use incremental numbers, thumbnails will use feature thumbnails if provided.", 
+						'docslink'		=> 'http://www.pagelines.com/docs/feature-slider', 
+						'vidtitle'		=> 'View Feature Documentation'
+					),
+					'timeout' => array(
+							'default' => 0,
+							'version'	=> 'pro',
+							'type' => 'text_small',
+							'inputlabel' => 'Timeout (ms)',
+							'title' => 'Feature Viewing Time (Timeout)',
+							'shortexp' => 'The amount of time a feature is set before it transitions in milliseconds',
+							'exp' => 'Set this to 0 to only transition on manual navigation. Use milliseconds, for example 10000 equals 10 seconds of timeout.'
+						),
+					'fspeed' => array(
+							'default' => 1500,
+							'version'	=> 'pro',
+							'type' => 'text_small',
+							'inputlabel' => 'Transition Speed (ms)',
+							'title' => 'Feature Transition Time (Timeout)',
+							'shortexp' => 'The time it takes for your features to transition in milliseconds',
+							'exp' => 'Use milliseconds, for example 1500 equals 1.5 seconds of transition time.'
+						),
+					'feffect' => array(
+							'default' => 'fade',
+							'version'	=> 'pro',
+							'type' => 'select_same',
+							'selectvalues' => array('blindX', 'blindY', 'blindZ', 'cover', 'curtainX', 'curtainY', 'fade', 'fadeZoom', 'growX', 'growY', 'none', 'scrollUp', 'scrollDown', 'scrollLeft', 'scrollRight', 'scrollHorz', 'scrollVert','shuffle','slideX','slideY','toss','turnUp','turnDown','turnLeft','turnRight','uncover','wipe','zoom'),
+							'inputlabel' => 'Select Transition Effect',
+							'title' => 'Transition Effect',
+							'shortexp' => "How the features transition",
+							'exp' => "This controls the mode with which the features transition to one another."
+						),
+					'feature_playpause' => array(
+							'default' => false,
+							'version'	=> 'pro',
+							'type' => 'check',
+							'inputlabel' => 'Show play pause button?',
+							'title' => 'Show Play/Pause Button (when timeout is greater than 0 (auto-transition))',
+							'shortexp' => "Show a play/pause button for auto-scrolling features",
+							'exp' => "Selecting this option will add a play/pause button for auto-scrolling features, that users can use to pause and watch a video, read a feature, etc.."
+						),  
+					'feature_source' => array(
+							'default' => 'featureposts',
+							'version'	=> 'pro',
+							'type' => 'select',
+							'selectvalues' => array(
+								'featureposts' 	=> array("name" => 'Feature Posts (custom post type)'),
+								'posts' 		=> array("name" => 'Use Post Category'),
+							),
+							'inputlabel' => 'Select source',
+							'title' => 'Feature Post Source',
+							'shortexp' => "Use feature posts or a post category",
+							'exp' => "By default the feature section will use feature posts, you can also set the source for features to a blog post category. Set the category ID in its option below. <br/> <strong>NOTE: If set to posts, excerpts will be used as content (control length through them). Also a new option panel will be added on post creation and editing pages.</strong>"
+						),
+					'feature_category' => array(
+							'default' => 1,
+							'version'	=> 'pro',
+							'type' => 'select',
+							'selectvalues' => $this->get_cats(),
+							'title' => 'Post Category (Blog Post Mode Only)',
+							'shortexp' => "",
+							'exp' => "Select a category to use if sourcing features from blog posts"
+						),
+					'feature_stage_height' => array(
+							'default' 		=> '380',
+							'version'		=> 'pro',
+							'type' 			=> 'css_option',
+							'selectors'		=> '#feature-area, .feature-wrap, #feature_slider .fmedia, #feature_slider .fcontent, #feature_slider .text-bottom .fmedia .dcol-pad, #feature_slider .text-bottom .feature-pad, #feature_slider .text-none .fmedia .dcol-pad', 
+							'css_prop'		=> 'height', 
+							'css_units'		=> 'px',
+							'inputlabel' 	=> 'Enter the height (In Pixels) of the Feature Stage Area',
+							'title' 		=> 'Feature Area Height',
+							'shortexp' 		=> "Use this feature to change the height of your feature area",
+							'exp' 			=> "To change the height of your feature area, just enter a number in pixels here.",
+						),
+					'fremovesync' => array(
+							'default' => false,
+							'type' => 'check',
+							'version'	=> 'pro',
+							'inputlabel' => 'Remove Transition Syncing',
+							'title' => 'Remove Feature Transition Syncing',
+							'shortexp' => "Make features wait to move on until after the previous one has cleared the screen",
+							'exp' => "This controls whether features can move on to the screen while another is transitioning off. If removed features will have to leave the screen before the next can transition on to it."
+						)
 				);
 
 			$metatab_settings = array(
@@ -485,138 +583,6 @@ function draw_features($f, $class) {
 	</div>
 	<div class="clear"></div>
 <?php }
-
-
-
-
-
-	function section_options($optionset = null, $location = null) {
-		
-		if($optionset == 'new' && $location == 'bottom'){
-			return array(
-				'feature_settings' => array(
-							'feature_nav_type' => array(
-								'default' => "thumbs",
-								'version'	=> 'pro',
-								'type' => 'radio',
-								'selectvalues' => array(
-									'nonav' 		=> array( 'name' => 'No Navigation' ),
-									'dots' 			=> array( 'name' => 'Squares or Dots' ),
-									'names' 		=> array( 'name' => 'Feature Names' ),
-									'thumbs' 		=> array( 'name' => 'Feature Thumbs (50px by 30px)' ),								
-									'numbers'		=> array( 'name' => 'Numbers' ),
-								),
-								'inputlabel' => 'Feature navigation type?',
-								'title' => 'Feature Navigation Mode',
-								'shortexp' => "Select the mode for your feature navigation",
-								'exp' => "Select from the three modes. Using feature names will use the names of the features, using the numbers will use incremental numbers, thumbnails will use feature thumbnails if provided.", 
-								'docslink'		=> 'http://www.pagelines.com/docs/feature-slider', 
-								'vidtitle'		=> 'View Feature Documentation'
-							),
-							'timeout' => array(
-									'default' => 0,
-									'version'	=> 'pro',
-									'type' => 'text_small',
-									'inputlabel' => 'Timeout (ms)',
-									'title' => 'Feature Viewing Time (Timeout)',
-									'shortexp' => 'The amount of time a feature is set before it transitions in milliseconds',
-									'exp' => 'Set this to 0 to only transition on manual navigation. Use milliseconds, for example 10000 equals 10 seconds of timeout.'
-								),
-							'fspeed' => array(
-									'default' => 1500,
-									'version'	=> 'pro',
-									'type' => 'text_small',
-									'inputlabel' => 'Transition Speed (ms)',
-									'title' => 'Feature Transition Time (Timeout)',
-									'shortexp' => 'The time it takes for your features to transition in milliseconds',
-									'exp' => 'Use milliseconds, for example 1500 equals 1.5 seconds of transition time.'
-								),
-							'feffect' => array(
-									'default' => 'fade',
-									'version'	=> 'pro',
-									'type' => 'select_same',
-									'selectvalues' => array('blindX','blindY','blindZ', 'cover','curtainX','curtainY','fade','fadeZoom','growX','growY','none','scrollUp','scrollDown','scrollLeft','scrollRight','scrollHorz','scrollVert','shuffle','slideX','slideY','toss','turnUp','turnDown','turnLeft','turnRight','uncover','wipe','zoom'),
-									'inputlabel' => 'Select Transition Effect',
-									'title' => 'Transition Effect',
-									'shortexp' => "How the features transition",
-									'exp' => "This controls the mode with which the features transition to one another."
-								),
-							'feature_playpause' => array(
-									'default' => false,
-									'version'	=> 'pro',
-									'type' => 'check',
-									'inputlabel' => 'Show play pause button?',
-									'title' => 'Show Play/Pause Button (when timeout is greater than 0 (auto-transition))',
-									'shortexp' => "Show a play/pause button for auto-scrolling features",
-									'exp' => "Selecting this option will add a play/pause button for auto-scrolling features, that users can use to pause and watch a video, read a feature, etc.."
-								),
-							'feature_items' => array(
-									'default' => 10,
-									'version'	=> 'pro',
-									'type' => 'text_small',
-									'inputlabel' => 'Number of Features To Show',
-									'title' => 'Number of Features',
-									'shortexp' => "Limit the number of features that are shown",
-									'exp' => "Use this option to limit the number of features shown."
-								),
-							'feature_source' => array(
-									'default' => 'featureposts',
-									'version'	=> 'pro',
-									'type' => 'select',
-									'selectvalues' => array(
-										'featureposts' 	=> array("name" => 'Feature Posts (custom post type)'),
-										'posts' 		=> array("name" => 'Use Post Category'),
-									),
-									'inputlabel' => 'Select source',
-									'title' => 'Feature Post Source',
-									'shortexp' => "Use feature posts or a post category",
-									'exp' => "By default the feature section will use feature posts, you can also set the source for features to a blog post category. Set the category ID in its option below. <br/> <strong>NOTE: If set to posts, excerpts will be used as content (control length through them). Also a new option panel will be added on post creation and editing pages.</strong>"
-								),
-							'feature_category' => array(
-									'default' => 1,
-									'version'	=> 'pro',
-									'type' => 'select',
-									'selectvalues' => $this->get_cats(),
-									'title' => 'Post Category (Blog Post Mode Only)',
-									'shortexp' => "",
-									'exp' => "Select a category to use if sourcing features from blog posts"
-								),
-							'feature_default_tax' => array(
-									'default' 		=> 'default-features',
-									'version'		=> 'pro',
-									'taxonomy_id'	=> 'feature-sets',
-									'type' 			=> 'select_taxonomy',
-									'inputlabel' 	=> 'Select Posts/404 Feature-Set',
-									'title' 		=> 'Select Feature-Set for Posts & 404 Pages',
-									'shortexp' 		=> "Posts pages and similar pages (404) Will Use This set ID To Source Features",
-									'exp' 			=> "Posts pages and 404 pages in WordPress don't support meta data so you need to assign a set here. (If you want to use 'features' on these pages.)",
-								), 
-							'feature_stage_height' => array(
-									'default' 		=> '380',
-									'version'		=> 'pro',
-									'type' 			=> 'css_option',
-									'selectors'		=> '#feature-area, .feature-wrap, #feature_slider .fmedia, #feature_slider .fcontent, #feature_slider .text-bottom .fmedia .dcol-pad, #feature_slider .text-bottom .feature-pad, #feature_slider .text-none .fmedia .dcol-pad', 
-									'css_prop'		=> 'height', 
-									'css_units'		=> 'px',
-									'inputlabel' 	=> 'Enter the height (In Pixels) of the Feature Stage Area',
-									'title' 		=> 'Feature Area Height',
-									'shortexp' 		=> "Use this feature to change the height of your feature area",
-									'exp' 			=> "To change the height of your feature area, just enter a number in pixels here.",
-								),
-							'fremovesync' => array(
-									'default' => false,
-									'type' => 'check',
-									'version'	=> 'pro',
-									'inputlabel' => 'Remove Transition Syncing',
-									'title' => 'Remove Feature Transition Syncing',
-									'shortexp' => "Make features wait to move on until after the previous one has cleared the screen",
-									'exp' => "This controls whether features can move on to the screen while another is transitioning off. If removed features will have to leave the screen before the next can transition on to it."
-								)
-
-				)
-			);
-		}
-	} 
 	
 	function update_default_posts(){
 
@@ -654,7 +620,7 @@ function draw_features($f, $class) {
 						'style'				=> 'text-none',
 			        	'link' 				=> '#fake_link',
 						'background' 		=> $this->base_url.'/feature1.jpg',
-						'name'				=> 'PlatformPro',
+						'name'				=> 'Intro',
 						'fcontent-design'	=> '',
 						'thumb'				=> $this->base_url.'/fthumb1.png'
 			    ),
@@ -671,7 +637,7 @@ function draw_features($f, $class) {
 			    ),
 				'3' => array(
 					 	'title' 		=> '<small>WordPress Framework By</small> PageLines',
-			        	'text' 			=> 'Welcome to a professional WordPress framework by PageLines. Designed for you in San Diego, California.',
+			        	'text' 			=> 'Welcome to a professional WordPress framework by PageLines. Designed for you in San Francisco, California.',
 			        	'media' 		=> '',
 			        	'style'			=> 'text-right',
 						'link' 			=> '#fake_link',

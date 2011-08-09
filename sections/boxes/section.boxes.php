@@ -63,7 +63,8 @@ class PageLinesBoxes extends PageLinesSection {
 			$this->post_type = new PageLinesPostType($this->id, $args, $taxonomies, $columns, $column_value_function);
 		
 				/* Set default posts if none are present */
-				$this->post_type->set_default_posts('pagelines_default_boxes');
+				
+				$this->post_type->set_default_posts( 'pagelines_default_boxes', $this);
 
 
 		/*
@@ -304,59 +305,55 @@ class PageLinesBoxes extends PageLinesSection {
 			// Filter output
 			return apply_filters('pl_box_image', $wrapper, $bpost->ID);
 	}
+
 	
+		function pagelines_default_boxes($post_type){
 
-	function section_options($optionset = null, $location = null) {
-		
-		if($optionset == 'new' && $location == 'bottom'){
-			return array(
-				'box_settings' => array(
-						'box_col_number' => array(
-								'default' 		=> 3,
-								'version'		=> 'pro',
-								'type' 			=> 'count_select',
-								'count_number'	=> '5', 
-								'count_start'	=> '2',
-								'inputlabel' 	=> 'Default Number of Feature Box Columns',
-								'title' 		=> 'Box Columns',
-								'shortexp' 		=> "Select the number of columns to show boxes in.",
-								'exp' 			=> "The number you select here will be the number of boxes listed in a row on a page.",
-								'docslink'		=> 'http://www.pagelines.com/docs/boxes-soapboxes', 
-								'vidtitle'		=> 'View Box Documentation'
-							),
-						'box_items' => array(
-								'default' 		=> 5,
-								'version'		=> 'pro',
-								'type' 			=> 'text_small',
-								'inputlabel' 	=> 'Maximum Boxes To Show',
-								'title' 		=> 'Default Number of Boxes',
-								'shortexp' 		=> "Select the max number of boxes to show.",
-								'exp' 			=> "This will be the maximum number of boxes shown on an individual page.",
-							), 
-						'box_thumb_size' => array(
-								'default' 		=> 64,
-								'version'		=> 'pro',
-								'type' 			=> 'text_small',
-								'inputlabel' 	=> 'Box Icon Size (in Pixels)',
-								'title' 		=> 'Default Box Icon Size',
-								'shortexp' 		=> "Add the icon size in pixels",
-								'exp' 			=> "Select the default icon size in pixels, set the images when creating new boxes.",
-							), 
-						'box_default_tax' => array(
-								'default' 		=> 'default-boxes',
-								'version'		=> 'pro',
-								'taxonomy_id'	=> 'box-sets',
-								'type' 			=> 'select_taxonomy',
-								'inputlabel' 	=> 'Select Posts/404 Box Set',
-								'title' 		=> 'Posts Page and 404 Box-Set',
-								'shortexp' 		=> "Posts pages and similar pages (404) will use this box-set ID",
-								'exp' 			=> "Posts pages and 404 pages in WordPress don't support meta data so you need to assign a set here. (If you want to use 'boxes' on these pages.)",
-							)
-					)
-				);
+			$d = array_reverse( $this->get_default_fboxes() );
+
+			foreach($d as $dp){
+				// Create post object
+				$default_post = array();
+				$default_post['post_title'] = $dp['title'];
+				$default_post['post_content'] = $dp['text'];
+				$default_post['post_type'] = $post_type;
+				$default_post['post_status'] = 'publish';
+
+				$newPostID = wp_insert_post( $default_post );
+
+				if(isset($dp['media']))
+					update_post_meta($newPostID, 'the_box_icon', $dp['media']);
+
+				wp_set_object_terms($newPostID, 'default-boxes', 'box-sets');
+
+				// Add other default sets, if applicable.
+				if(isset($dp['set']))
+					wp_set_object_terms($newPostID, $dp['set'], 'box-sets', true);
+
+			}
 		}
-	}
 
+		function get_default_fboxes(){
+			$default_boxes[] = array(
+			        				'title' => 'Drag&amp;Drop Control',
+					        		'text' 	=> 'Control the structure of your site using drag and drop functionality. Pro web design has never been easier.',
+									'media' => $this->base_url.'/fbox3.png'
+			    				);
+
+			$default_boxes[] = array(
+			        				'title' => 'PageLines Framework',
+					        		'text' 	=> 'The world\'s first ever drag-and-drop framework designed for professional websites. Build beautiful sites the faster.',
+									'media' => $this->base_url.'/fbox2.png'
+			    				);
+
+			$default_boxes[] = array(
+			        				'title'	=> 'Add-On Marketplace',
+			        				'text' 	=> 'Load up your own sections, themes and plugins using PageLines\' one of a kind extension marketplace.', 
+									'media' => $this->base_url.'/fbox1.png'
+			    				);
+
+			return apply_filters('pagelines_default_boxes', $default_boxes);
+		}
 	
 // End of Section Class //
 }
@@ -381,51 +378,3 @@ function box_column_display($column){
 	}
 }
 
-		
-function pagelines_default_boxes($post_type){
-	
-	$d = array_reverse(get_default_fboxes());
-	
-	foreach($d as $dp){
-		// Create post object
-		$default_post = array();
-		$default_post['post_title'] = $dp['title'];
-		$default_post['post_content'] = $dp['text'];
-		$default_post['post_type'] = $post_type;
-		$default_post['post_status'] = 'publish';
-		
-		$newPostID = wp_insert_post( $default_post );
-		
-		if(isset($dp['media']))
-			update_post_meta($newPostID, 'the_box_icon', $dp['media']);
-		
-		wp_set_object_terms($newPostID, 'default-boxes', 'box-sets');
-		
-		// Add other default sets, if applicable.
-		if(isset($dp['set']))
-			wp_set_object_terms($newPostID, $dp['set'], 'box-sets', true);
-
-	}
-}
-
-function get_default_fboxes(){
-	$default_boxes[] = array(
-	        				'title' => 'Drag&amp;Drop Control',
-			        		'text' 	=> 'Control the structure of your site using drag and drop functionality. Pro web design has never been easier.',
-							'media' => PL_IMAGES.'/fbox3.png'
-	    				);
-
-	$default_boxes[] = array(
-	        				'title' => 'PageLines Framework',
-			        		'text' 	=> 'The world\'s first ever drag-and-drop framework designed for professional websites. Build beautiful sites the faster.',
-							'media' => PL_IMAGES.'/fbox2.png'
-	    				);
-
-	$default_boxes[] = array(
-	        				'title'	=> 'Add-On Marketplace',
-	        				'text' 	=> 'Load up your own sections, themes and plugins using PageLines\' one of a kind extension marketplace.', 
-							'media' => PL_IMAGES.'/fbox1.png'
-	    				);
-	
-	return apply_filters('pagelines_default_boxes', $default_boxes);
-}

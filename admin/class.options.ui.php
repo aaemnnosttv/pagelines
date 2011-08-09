@@ -19,7 +19,7 @@ class PageLinesOptionsUI {
 	function __construct( $args = array() ) {
 		
 		$defaults = array(
-				'title'			=> ( STYLESHEETPATH == TEMPLATEPATH ) ? 'Settings' : ucfirst( CHILDTHEMENAME ) . ' - Settings',
+				'title'			=> __('Settings'),
 				'callback'		=> null,
 				'settings'		=> PAGELINES_SETTINGS, 
 				'sanitize'		=> '',
@@ -52,10 +52,8 @@ class PageLinesOptionsUI {
 		function build_header(){?>
 			<div class='wrap'>
 				<table id="optionstable"><tbody><tr><td valign="top" width="100%">
-			
-				  <form id="pagelines-settings-form" method="post" action="options.php" class="main_settings_form">
-		
-							<?php 
+					<form id="pagelines-settings-form" method="post" action="options.php" class="main_settings_form">
+					<?php 
 								wp_nonce_field('update-options'); // security for option saving
 								settings_fields($this->set['settings']); // namespace for options important!  
 					 	

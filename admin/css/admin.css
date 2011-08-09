@@ -485,12 +485,24 @@
 			margin: 0;
 			padding: 0;
 			width: 100%;
-			
+			margin-bottom: .5em;
 		}
-			.wideinputs .oexp-effect, .interface .oexp-effect{border:none;}
-			.wideinputs .oexp-pad, .interface .oexp-pad{margin: 0 15px 15px;padding: 15px;background: #efefef;border:none;}
+			.wideinputs .oexp-effect, .interface .oexp-effect{display: none; background:#eaeaea; border:none; margin: 0 15px 15px 15px;}
+			.wideinputs .oexp-pad, .interface .oexp-pad{border:none;padding: 15px;}
 			.wideinputs .oexp p, .interface .oexp p{margin-left: 10px;}
-		
+		.more_exp{
+			padding: 2px 5px;
+			background: #eee;
+			font-size: .9em;
+			font-weight: bold;
+			float:left;
+			margin-left: 15px;
+			font-size: .75em;
+			color: #aaa;
+			text-transform: uppercase;
+			cursor: pointer;
+		}
+			.more_exp:hover{background: #e1e1e1;}
 		
 		.wideinputs .oexp .theexample {
 			width: 200px ;
@@ -501,7 +513,9 @@
 			padding: 10px ;
 			border: 1px solid #ddd;
 			background: #e5e5e5;
+			
 		}
+			
 		
 		
 	/* Different Layout Modes */

@@ -169,7 +169,7 @@ class PageLinesUpdateCheck {
 		}
 
 		// If we're already using the latest version, return FALSE
-		if ( version_compare($this->version, $pagelines_update['new_version'], '>=') )
+		if ( !isset($pagelines_update['new_version']) || version_compare($this->version, $pagelines_update['new_version'], '>=') )
 			return FALSE;
 
 		return $pagelines_update;
