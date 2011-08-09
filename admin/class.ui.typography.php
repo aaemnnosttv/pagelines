@@ -122,11 +122,13 @@ class PageLinesTypeUI {
 				<option value="">&mdash;SELECT&mdash;</option>
 				<?php 
 					$count_start = -.3;
-					for($i = $count_start; $i <= 1; $i += 0.05):
+					for($i = $count_start; $i <= 1; $i += 0.05){
+						
 						$em = number_format(round($i, 2), 2).'em';
+						
+						printf('<option value="%1$s" %2$s>%1$s</option>', $em, selected($em, $option_value, false));
+					}
 				?>
-						<option value="<?php echo $em;?>" <?php selected($em, $option_value); ?>><?php echo $em;?></option>
-				<?php endfor;?>
 			</select>
 		</div>
 	<?php }

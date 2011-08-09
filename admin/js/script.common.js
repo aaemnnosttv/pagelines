@@ -258,6 +258,10 @@ function PageLinesSimpleToggle(showElement, hideElement){
 	
 }
 
+function animate_pl_button(){
+	jQuery('.superlink-pagelines .slpl').fadeIn().delay(4000).fadeOut();
+}
+
 
 function PageLinesSlideToggle(toggle_element, toggle_input, text_element, show_text, hide_text, option){
 	var opt_value; 

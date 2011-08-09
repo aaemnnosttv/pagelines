@@ -237,20 +237,17 @@ function pagelines_admin_confirms(){
 function pagelines_draw_confirms(){ 
 	
 	$confirms = pagelines_admin_confirms();
+	$save_text = sprintf('%s Settings Saved. &nbsp;<a class="btag" href="%s/" target="_blank" target-position="front">View Your Site &rarr;</a>', THEMENAME, home_url());
+	printf('<div id="message" class="confirmation slideup_message fade c_ajax"><div class="confirmation-pad c_response">%s</div></div>', $save_text);
 
-	if(!empty($confirms)): 
-		foreach ($confirms as $c): 
+	if(!empty($confirms)){
+		foreach ($confirms as $c){
 		
 			$class = (isset($c['class'])) ? $c['class'] : null;
-		?>
-	<div id="message" class="confirmation slideup_message fade <?php echo $class;?>">	
-		<div class="confirmation-pad">
-			<?php echo $c['text'];?>
-		</div>
-	</div>
-	
-<?php 	endforeach;	
-	endif;
+			
+			printf('<div id="message" class="confirmation slideup_message fade %s"><div class="confirmation-pad">%s</div></div>', $class, $c['text']);
+		}
+	}
 
 } 
 

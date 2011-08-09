@@ -36,7 +36,7 @@ class PageLinesMetaPanel {
 		
 			$this->page_for_posts = ( isset($post) && get_option( 'page_for_posts' ) === $post->ID ) ? true : false;			
 		
-
+	
 			$defaults = array(
 					'id' 		=> 'pagelines-metapanel',
 					'name' 		=> $this->get_the_title(),
@@ -89,7 +89,10 @@ class PageLinesMetaPanel {
 	
 	function get_edit_type(){
 		global $post;
-		 
+		
+		if(!isset($this->ptype))
+			$this->ptype = PageLinesTemplate::current_admin_post_type();
+			
 		if($this->ptype == 'post' || $this->ptype == 'page'){
 			
 			$current_template = (isset($post)) ? get_post_meta($post->ID, '_wp_page_template', true) : false;
@@ -579,7 +582,6 @@ function special_page_settings_array(  ){
 	global $metapanel_options;
 	
 	$d = array(
-	
 		'blog_page' => array(
 			'metapanel' => $metapanel_options->posts_metapanel( 'posts' ),
 			'icon'		=> PL_ADMIN_ICONS.'/blog.png'

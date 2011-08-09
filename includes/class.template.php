@@ -148,6 +148,7 @@ class PageLinesTemplate {
 	function current_admin_post_type(){
 		global $pagenow;
 		global $post;
+	
 		$current_post_type = ( !isset($post) && isset($_GET['post_type']) ) 
 							? $_GET['post_type'] 
 							: ( isset($post) && isset($post->post_type) ? $post->post_type : 

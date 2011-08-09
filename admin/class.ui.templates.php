@@ -78,8 +78,6 @@ class PageLinesTemplateBuilder {
 				$this->draw_template_select(); 
 			
 				$this->do_template_builder();
-	
-				//$this->do_template_select(); 
 				
 			echo '</div>';
 	}
@@ -90,29 +88,6 @@ class PageLinesTemplateBuilder {
 		<input type="hidden" value="<?php echo $dtoggle;?>" id="describe_toggle" class="describe_toggle" name="describe_toggle"  />	
 		
 <?php }
-
-	function do_template_select(){ 
-		global $pagelines_template;
-		?>
-	<label for="tselect" class="tselect_label">Select Template Area</label>
-	<select name="tselect" id="tselect" class="template_select" >
-	<?php 	foreach($pagelines_template->map as $hook => $hook_info):
-	 			if(isset($hook_info['templates'])): ?>
-					<optgroup label="<?php echo $hook_info['name'];?>" class="selectgroup_header">
-	<?php 			
-					foreach($hook_info['templates'] as $template => $tfield){
-							if(!isset($tfield['version']) || ($tfield['version'] == 'pro' && VPRO))
-								printf('<option value="%s">%s</option>', $hook . '-' . $template, $tfield['name']);
-					}?>
-						</optgroup>
-					<?php else: 
-				
-						if(!isset($hook_info['version']) || ($hook_info['version'] == 'pro' && VPRO))
-							printf('<option value="%s" %s>%s</option>', $hook, ($hook == 'default') ? 'selected="selected"' : '', $hook_info['name']);
-		 		endif; 
-			endforeach;?>
-	</select>
-	<?php }
 
 	/**
 	 * 
@@ -126,20 +101,6 @@ class PageLinesTemplateBuilder {
 		global $unavailable_section_areas;
 		
 		?>	
-		
-			<script type="text/javascript">
-				jQuery(document).ready(function() {		 
-					// 
-					// jQuery('.tg-format').click( function() {
-					// 
-					// 	var area = jQuery(this).attr('id');
-					// 
-					// 	$.cookie('PageLinesTemplateTab', area);
-					// 
-					// });
-
-				});
-			</script>
 	<div class="template-selector fix">	
 		<div class="template-selector-pad fix">
 			<h4 class="over">1. Select Template Area</h4>
@@ -211,9 +172,7 @@ class PageLinesTemplateBuilder {
 		
 		$this->_sub_selector('main', 'sel-content-sub', 'Which Content Area Type?');
 		
-	?>
-
-<?php }
+	}
 
 	function _sub_selector($type = 'templates', $class, $title = '', $subtitle = ''){
 		global $pagelines_template;
@@ -240,7 +199,6 @@ class PageLinesTemplateBuilder {
 		?>
 		<div class="the_template_builder">
 			<div class="the_template_builder_pad">
-				
 <?php 
 			foreach($pagelines_template->map as $hook => $h){
 				
@@ -391,8 +349,10 @@ class PageLinesTemplateBuilder {
 		);
 
 		$a = wp_parse_args( $args, $defaults );
-					
-	printf('<li id="%s"><div class="section-bar %s">', $a['id'], ($a['req'] == true) ? 'required-section' : '');
+				
+		$check_value = (bool) $this->sc_value( $a['tslug'], $a['sid'], 'hide' );			 
+				
+	printf('<li id="%s"><div class="section-bar %s %s">', $a['id'], ($a['req']) ? 'required-section' : '', ($check_value) ? 'hidden-section' : '');
 		printf('<div class="section-bar-pad fix" style="background: url(%s) no-repeat 10px 9px;">', $a['icon']);
 		
 			printf('<div class="section-controls-toggle" onClick="toggleControls(this);" %s><div class="section-controls-toggle-pad">Options</div></div>', (!$a['controls']) ? 'style="display:none;"' : ''); 
@@ -412,7 +372,7 @@ class PageLinesTemplateBuilder {
 		
 		// Options 
 		$check_name = $this->sc_name( $a['tslug'], $a['sid'], 'hide' );
-		$check_value = $this->sc_value( $a['tslug'], $a['sid'], 'hide' ); 
+		$check_value = (bool) $this->sc_value( $a['tslug'], $a['sid'], 'hide' ); 
 
 
 		printf('<div class="section-controls" %s><div class="section-controls-pad">', (!$a['controls']) ? 'style="display:none;"' : '');
@@ -432,7 +392,7 @@ class PageLinesTemplateBuilder {
 				echo '<div class="section-options">';
 			
 					
-					$checkbox = sprintf('<input class="section_control_check" type="checkbox" id="%1$s" name="%1$s" %2$s/>', $check_name, checked((bool) $check_value, true, false));
+					$checkbox = sprintf('<input class="section_control_check" type="checkbox" id="%1$s" name="%1$s" %2$s/>', $check_name, checked( $check_value, true, false));
 					$label = sprintf('<label for="%s" class="%s">%s</label>', $check_name, '', 'Hide This By Default');
 					
 					printf('<div class="section-options-row">%s %s</div>', $checkbox, $label);
@@ -459,20 +419,13 @@ class PageLinesTemplateBuilder {
 	}
 
 	
-	function section_setup_controls(){?>
-		<div class="section_setup_controls fix">
-			<span class="setup_control" onClick="PageLinesSlideToggle('.s-description', '.describe_toggle', '.setup_control_text','Hide Section Descriptions', 'Show Section Descriptions', 'pl_section_desc_toggle');">
-				<span class="setup_control_text">
-					<?php 
-					if($this->help()) 
-						echo 'Hide Help and Descriptions';
-					else
-						echo 'Show Help and Descriptions';
-					?>
-				</span>
-			</span>
-		</div>
-	<?php }
+	function section_setup_controls(){
+		
+		$onclick = "PageLinesSlideToggle('.s-description', '.describe_toggle', '.setup_control_text','Hide Section Descriptions', 'Show Section Descriptions', 'pl_section_desc_toggle');";
+		
+		printf('<div class="section_setup_controls fix"><span class="setup_control" onClick="%s"><span class="setup_control_text">%s Descriptions</span></span></div>', $onclick, ($this->help()) ? 'Hide' : 'Show' );
+					
+	}
 	
 	/**
 	 * 
@@ -610,15 +563,14 @@ class PageLinesTemplateBuilder {
 				<div class="sc_wrap <?php echo 'type_'.$check_type;?>" >
 					<label class="sc_button" for="<?php echo $option_name;?>">
 						<span class="sc_button_pad fix" >
-							<span class="sc_check_wrap">
-								<input class="sc_check" type="checkbox" id="<?php echo $option_name; ?>" name="<?php echo $option_name; ?>" <?php checked((bool) $check_value); ?> />
-							</span>
-							<span class="sc_label" >
-								<span class="sc_label_pad" style="background: url(<?php echo $section_data->icon;?>) no-repeat 8px 5px"><?php echo $check_label;?></span>
-							</span>
+							<?php  
+							
+								printf('<span class="sc_check_wrap"><input class="sc_check" type="checkbox" id="%1$s" name="%1$s" %2$s /></span>', $option_name, checked((bool) $check_value, true, false) );
+								printf('<span class="sc_label"><span class="sc_label_pad" style="background: url(%s) no-repeat 8px 5px;">%s</span></span>', $section_data->icon, $check_label); 
+								
+							?>
 						</span>
 					</label>
-
 				</div><?php 
 			}
 		}

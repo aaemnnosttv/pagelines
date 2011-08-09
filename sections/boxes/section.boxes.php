@@ -76,16 +76,17 @@ class PageLinesBoxes extends PageLinesSection {
 				*/
 					$type_meta_array = array(
 						'the_box_icon' 		=> array(
-								'version' => 'pro',
-								'type' => 'image_upload',					
-								'title' => 'Box Image',
-								'desc' => 'Upload an image for the box.<br/> Depending on your settings this image will be used as an icon, or splash image; so desired size may vary.'
+								'version' 	=> 'pro',
+								'type' 		=> 'image_upload',					
+								'title' 	=> 'Box Image',
+								'shortexp' 	=> 'Upload an image for the box.',
+								'exp'		=> 'Depending on your settings this image will be used as an icon, or splash image; so desired size may vary.'
 							), 
 						'the_box_icon_link'		=> array(
 								'version' => 'pro',
 								'type' => 'text',					
 								'title' => 'Box Link (Optional)',
-								'desc' => 'Make the box image and title clickable by adding a link here (optional)...'
+								'shortexp' => 'Make the box image and title clickable by adding a link here (optional)...'
 							)
 					);
 

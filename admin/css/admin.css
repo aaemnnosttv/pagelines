@@ -116,6 +116,8 @@
 
 	.message_area { height: 35px; }
 	
+	.confirmation.c_ajax{display: none;}
+	
 	.confirmation {
 		background: #ddd;
 		border: 1px solid #aaa;
@@ -504,6 +506,13 @@
 		}
 			.more_exp:hover{background: #e1e1e1;}
 		
+			.wideinputs .oexp ul, .interface .oexp ul{
+				padding-left: 30px;
+				font-size: .9em;
+				list-style-type:disc;
+			}
+				
+		
 		.wideinputs .oexp .theexample {
 			width: 200px ;
 			margin-top: -23px;
@@ -572,7 +581,7 @@
 			font-weight: bold;
 			font-style: normal;
 			color: #bbb;
-			margin-left: 10px;
+			margin-left: 5px;
 		}
 		.ohead-title-right{float:right}
 
@@ -660,8 +669,8 @@
 		.superlink-right-wrap{float:right; margin-left: 10px;}
 		
 		/* PageLines Superlink Link */
-		.superlink-pagelines{background: url(../images/superlink-pagelines.png) no-repeat 11px 1px; display: block; height: 16px; width: 16px; }
-		
+		.superlink-pagelines{background: url(../images/superlink-pagelines.png) no-repeat 8px 1px; display: block; height: 16px; padding-right: 15px;padding-left: 15px; }
+		.superlink-pagelines .slpl{padding-left: 14px;display: none;white-space: nowrap;}
 			
 	/* Superlinks group */
 	.superlinks{
@@ -1261,7 +1270,7 @@ font-weight: bold;
 		
 		.mp_title{ float: left;}
 		.mp_title .mp_title_text{ font-size: 23px; line-height: 1.32em; font-weight: bold; color: #BBB; text-shadow: #fff 0 1px 0;}
-		.mp_title .btag {margin-top: 6px;margin-left: 10px;}
+		.mp_title .btag, .ohead-title .btag {margin-top: 6px;margin-left: 10px;}
 		.mp_bar .superlink-wrap{float: right;}
 		.mp_bar{border: 1px solid #ccc;}
 		.mp_head{border-bottom: none}	
@@ -1820,6 +1829,16 @@ font-weight: bold;
 			background: #F3F3F4 url(../images/section-up.png) repeat-x left bottom;
 		}
 		
+			.sbank li .section-bar.hidden-section{
+				background: #F3F3F4 url(../images/section-hover.png) repeat-x left bottom;
+				color:#AAA;
+			}
+			
+			.hidden-section .section-controls-toggle{
+				
+				border: 1px solid #ccc;
+				color: #AAA;
+			}
 			.sbank li .section-bar.required-section{
 				background: #E6E7E8 url(../images/section-required.png) repeat-x left bottom;
 			}
@@ -1893,7 +1912,7 @@ font-weight: bold;
 			.section-controls-toggle{
 				
 				border: 1px solid #bbb;
-				color: #888;
+				color: #999;
 				float: right;
 				font-size: .9em;
 				-moz-border-radius: 4px;
@@ -1909,7 +1928,7 @@ font-weight: bold;
 					border-radius: 4px;
 					border-top: 1px solid #f7f7f7;
 					border-left: 1px solid #f7f7f7;
-					padding: 3px 6px 2px 5px; 
+					padding: 1px 6px 1px 5px; 
 				}
 				
 				
@@ -2303,3 +2322,5 @@ font-weight: bold;
 	    z-index: 999;
 	    border: none;
 	}	
+	
+	.button{white-space: nowrap;}

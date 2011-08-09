@@ -68,13 +68,14 @@ class PageLinesOptionsUI {
 						<div id="optionsheader" class="fix">
 							<div class="ohead" class="fix">
 								<div class="ohead-pad fix">
-									<div class="sl-black superlink-wrap">
+									<div id="the_pl_button" class="sl-black superlink-wrap">
 										<a class="superlink" href="<?php echo home_url(); ?>/" target="_blank" title="View Site &rarr;">
-											<span class="superlink-pagelines">&nbsp;</span>
+											<span class="superlink-pagelines">&nbsp;<span class="slpl">View Site</span></span>
 										</a>
 									</div>
 									<div class="ohead-title">
 										<?php echo apply_filters( 'pagelines_settings_main_title', $this->set['title'] ); ?> 
+										<a class='btag grey viewsitetag' href="<?php echo home_url();?>" target="_blank" style="display: none;">View Your Site &rarr;</a>
 									</div>
 									<div class="ohead-title-right">
 										<?php if($this->set['show_save']):?>

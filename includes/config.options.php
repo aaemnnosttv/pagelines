@@ -625,7 +625,7 @@ class PageLinesOptionsArray {
 				'title'			=> 'Full Width Post Meta',				
 				'layout'		=> 'full',		
 				'shortexp'		=> 'Additional information about a post such as Author, Date, etc...',
-				'exp'			=> 'Use shortcodes to control the dynamic information in your metabar.'
+				'exp'			=> 'Use shortcodes to control the dynamic information in your metabar. Example shortcodes you can use are: <ul><li><strong>[post_categories]</strong> - List of categories</li><li><strong>[post_edit]</strong> - Link for admins to edit the post</li><li><strong>[post_tags]</strong> - List of post tags</li><li><strong>[post_comments]</strong> - Link to post comments</li><li><strong>[post_author_posts_link]</strong> - Author and link to archive</li><li><strong>[post_author_link]</strong> - Link to author URL</li><li><strong>[post_author]</strong> - Post author with no link</li><li><strong>[post_time]</strong> - Time of post</li><li><strong>[post_date]</strong> - Date of post</li></ul>'
 			),
 			'excerpt_mode_clip' => array(
 				'default'		=> 'left',
@@ -654,7 +654,7 @@ class PageLinesOptionsArray {
 				'inputlabel'	=> 'Configure Clip Metabar',
 				'title'			=> 'Clip Metabar',						
 				'shortexp'		=> 'Additional information about a clip such as Author, Date, etc...',
-				'exp'			=> 'Use shortcodes to control the dynamic information in your metabar.'
+				'exp'			=> 'Use shortcodes to control the dynamic information in your metabar. Example shortcodes you can use are: <ul><li><strong>[post_categories]</strong> - List of categories</li><li><strong>[post_edit]</strong> - Link for admins to edit the post</li><li><strong>[post_tags]</strong> - List of post tags</li><li><strong>[post_comments]</strong> - Link to post comments</li><li><strong>[post_author_posts_link]</strong> - Author and link to archive</li><li><strong>[post_author_link]</strong> - Link to author URL</li><li><strong>[post_author]</strong> - Post author with no link</li><li><strong>[post_time]</strong> - Time of post</li><li><strong>[post_date]</strong> - Date of post</li></ul>'
 			),
 			'full_column_posts'	=> array(
 					'version'		=> 'pro',

@@ -55,7 +55,10 @@ jQuery("#pagelines-settings-form").submit(function() {
 				jQuery('.ajax-saved').removeClass('uploading').addClass('success');
 				saveText.text('Settings Saved!'); // change button text, when user selects file	
 				
+				// animate_pl_button();
+				
 				jQuery('.ajax-saved').show().delay(800).fadeOut('slow');
+				
 				
 			}
 		});
@@ -63,6 +66,8 @@ jQuery("#pagelines-settings-form").submit(function() {
 	}
   
 });
+
+
 
 <?php endif;?>
 

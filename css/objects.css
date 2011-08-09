@@ -152,7 +152,7 @@ body #page .blink-wrap	.blink{
 	font-size: 10px;
 	display: inline-block;
 	margin: 1px 5px;
-	padding: 3px;
+	padding: 3px 5px;
 	text-align: left;
 	line-height: 100%;
 	font-weight: bold;
@@ -160,5 +160,20 @@ body #page .blink-wrap	.blink{
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
 	vertical-align:top;
+	text-decoration: none;
 }
+	a.btag:hover{background: #3585f0;color: #fff;}
 
+
+.btag.grey{
+	
+	text-shadow: #fff 0 1px 0;
+	background: #ddd;
+	color: #999;
+	
+	border: 1px solid #ccc;
+	border-bottom: 1px solid #bbb;
+	border-right: 1px solid #bbb;
+}
+	a.btag.grey:hover{background: #ccc;color: #000;}
+	
