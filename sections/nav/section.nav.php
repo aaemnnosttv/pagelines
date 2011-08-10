@@ -71,22 +71,21 @@ class PageLinesNav extends PageLinesSection {
 	
    function section_template() {  
 	
-	$container_class = ( ploption('hidesearch') ) ? 'nosearch' : '';
-	?>
-	<div class="main_nav_container <?php echo $container_class;?>">
-		<nav id="nav_row" class="main_nav fix"><?php 			
+		$container_class = ( ploption('hidesearch') ) ? 'nosearch' : '';
+
+		printf('<div class="navigation_wrap fix"><div class="main_nav_container %s"><nav id="nav_row" class="main_nav fix">', $container_class );
 		
-		if(function_exists('wp_nav_menu'))
-			wp_nav_menu( array('menu_class'  => 'main-nav'.pagelines_nav_classes(), 'container' => null, 'container_class' => '', 'depth' => 3, 'theme_location'=>'primary', 'fallback_cb'=>'pagelines_nav_fallback') );
-		else
-			pagelines_nav_fallback();
+				if(function_exists('wp_nav_menu'))
+					wp_nav_menu( array('menu_class'  => 'main-nav'.pagelines_nav_classes(), 'container' => null, 'container_class' => '', 'depth' => 3, 'theme_location'=>'primary', 'fallback_cb'=>'pagelines_nav_fallback') );
+				else
+					pagelines_nav_fallback();
 			
-	 ?>
-		</nav>
-	</div>
-	<?php if(!pagelines_option('hidesearch'))
-		get_search_form();
-	 
+			echo '</nav></div>';
+		
+		 	if(!pagelines_option('hidesearch'))
+				get_search_form();
+	 	
+		echo '</div>';
 	}
 
 	function section_styles(){

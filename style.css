@@ -149,7 +149,7 @@ body{font-size: 87.5%; line-height: 1.714285em;}
 /*
 * @ Borders
 */	
-		hr, .fpost, .clip_box, .widget-title, #buddypress-page .item-list li, .metabar a, #morefoot .widget-title, #site #dsq-content h3, .main_nav_container, ul.sf-menu ul li{
+		hr, .fpost, .clip_box, .widget-title, #buddypress-page .item-list li, .metabar a, #morefoot .widget-title, #site #dsq-content h3, .navigation_wrap, ul.sf-menu ul li{
 			border-bottom: 1px solid transparent;
 		}
 		 ul.sf-menu ul li:last-child{border-bottom: none}
@@ -264,6 +264,7 @@ body{font-size: 87.5%; line-height: 1.714285em;}
 		position: relative;
 		width: 190px;
 		margin: 3px 5px 3px 0;
+		display: inline-block;
 	}
 	.searchform .searchfield{
 		width: 150px;
@@ -271,7 +272,11 @@ body{font-size: 87.5%; line-height: 1.714285em;}
 		padding: 7px 30px 5px 7px;
 	}
 	
-	#primary-nav .searchform { float: right; }
+	#primary-nav .searchform { 
+		position: absolute;
+		right: 20px;
+		bottom: 4px;
+	}
 	
 	.searchform input {
 		background:transparent;

@@ -459,7 +459,7 @@ class PageLinesTemplateBuilder {
 		
 		<div class="section_control_wrap">
 			<div class="sc_gap fix">
-				<div class="sc_gap_title"><?php echo $editing;?> - Basic Template</div>
+				<div class="sc_gap_title"><?php echo ucwords( str_replace('_', ' ', $editing) );?> - Basic Template</div>
 				<div class="sc_gap_pad">
 					
 					<div class="sc_area sc_header ntb">
@@ -489,7 +489,7 @@ class PageLinesTemplateBuilder {
 				</div>
 			</div>
 			<div class="sc_gap fix">
-				<div class="sc_gap_title"><?php echo $editing;?> - Content Area</div>
+				<div class="sc_gap_title"><?php echo ucwords( str_replace('_', ' ', $editing) );?> - Content Area</div>
 				<div class="sc_gap_pad">
 				
 					<div class="sc_area sc_header ntb">

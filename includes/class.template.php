@@ -798,17 +798,14 @@ function the_sub_templates( $t = 'templates' ){
 				'sections' 		=> ($t == 'main') ? array( 'PageLinesPostLoop' ) : array('PageLinesContent'),
 				'version'		=> 'pro'
 			),
+		'404_page' => 	array(
+				'name'			=> '404 Error',
+				'sections' 		=> ($t == 'main') ? array( ) : array('PageLinesNoPosts'),
+				'version'		=> 'pro'
+			),
 		
 		
 	);
-	
-	if($t == 'templates'){
-		$map['404_page'] = array(
-			'name'			=> '404 Error',
-			'sections' 		=> array( 'PageLinesNoPosts' ),
-		);
-	}
-	
 	
 	$pt = custom_post_type_handler( $t );
 

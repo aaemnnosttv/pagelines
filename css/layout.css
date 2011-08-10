@@ -16,10 +16,19 @@
 	       width: 100%;
 	    }
 	}
-	@media screen and (max-width:550px) { 
+	@media screen and (max-width:600px) { 
 	    body #page #pagelines_content #column-wrap #sidebar1, body #page #pagelines_content #column-main { 
 	       width: 100%;
 	    }
+		body .navigation_wrap{text-align: center;}
+		body #primary-nav .main_nav, #primary-nav .main_nav_container {margin-right: 0;}
+		
+		body #primary-nav .searchform {
+			display: inline-block;
+			position: relative;
+			float: none;
+			margin-top: 10px;
+		}
 	}
 	
 	@media screen and (max-width:400px) { 

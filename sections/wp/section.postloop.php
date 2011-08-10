@@ -20,7 +20,6 @@ class PageLinesPostLoop extends PageLinesSection {
 			'type' 			=> 'main',
 			'description' 	=> 'The Main Posts Loop. Includes content and post information',
 			'workswith' 	=> array('main'),
-			'required'		=> true, 
 			'icon'			=> PL_ADMIN_ICONS . '/document.png'
 		);
 		
