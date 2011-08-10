@@ -21,6 +21,7 @@ class PageLinesFeatures extends PageLinesSection {
 		$default_settings = array(
 			'description'	=> 'This is your main feature slider.  Add feature text and media through the admin panel.',
 			'icon'			=> $this->section_root_url.'/features.png',
+			'workswith' 	=> array('templates', 'main', 'header', 'morefoot'),
 			'version'		=> 'pro',	
 			'cloning'		=> true
 		);
@@ -659,7 +660,7 @@ function draw_features($f, $class, $clone_id = null) {
 					 	'title' 		=> 'Drag &amp; Drop Design',
 			        	'text' 			=> 'Welcome to a professional WordPress framework by PageLines. Designed for you in San Francisco, California.',
 			        	'media' 		=> '',
-			        	'style'			=> 'text-right',
+			        	'style'			=> 'text-none',
 						'link' 			=> '#fake_link',
 						'background' 	=> $this->base_url.'/feature2.jpg',
 						'name'			=>	'Design',

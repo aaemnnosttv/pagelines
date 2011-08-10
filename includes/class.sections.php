@@ -254,14 +254,17 @@ function get_unavailable_section_areas(){
 	
 }
 
-function setup_section_notify( $section, $text ){
+function setup_section_notify( $section, $text, $url = null, $ltext = null){
 	
 	
 	if(current_user_can('edit_themes')){
 	
 		$banner_title = sprintf('<h3 class="banner_title wicon" style="background-image: url(%s);">%s</h3>', $section->icon, $section->name);
 		
-		$link = sprintf('<a href="%s">%s</a>', pl_meta_set_url(), __('Set Meta &rarr;'));
+		$url = (isset($url)) ? $url : pl_meta_set_url();
+		$link_text = (isset($ltext)) ? $ltext : __('Set Meta');
+		
+		$link = sprintf('<a href="%s">%s</a>', $url, $link_text . ' &rarr;');
 		
 		return sprintf('<div class="banner setup_area"><div class="banner_pad">%s <div class="banner_text subhead">%s<br/> %s</div></div></div>', $banner_title, $text, $link);
 	}

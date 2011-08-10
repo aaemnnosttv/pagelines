@@ -135,6 +135,9 @@ class PageLinesCarousel extends PageLinesSection {
 		$ngen_id = (ploption('carousel_ngen_gallery', $oset)) ? ploption('carousel_ngen_gallery', $oset) : 1;
 		
 		
+	if( ($cmode == 'flickr' && !function_exists('get_flickrRSS')) || ($cmode == 'ngen_gallery' && !function_exists('nggDisplayRandomImages')) )
+		echo setup_section_notify($this, __("The <strong>plugin</strong> for the selected carousel mode needs to be activated (FlickrRSS or NextGen Gallery).", 'pagelines'), admin_url().'plugins.php', 'Setup Plugin');
+	else {
 	?>		
 	<div class="<?php echo $carousel_class;?> crsl">
 		<ul id="mycarousel" class="mycarousel">
@@ -154,9 +157,6 @@ class PageLinesCarousel extends PageLinesSection {
 			
 			}elseif($cmode == 'hook')
 				pagelines_register_hook('pagelines_carousel_list');
-			
-			elseif( ($cmode == 'flickr' && !function_exists('get_flickrRSS')) || ($cmode == 'ngen_gallery' && !function_exists('nggDisplayRandomImages')))
-				printf('<div class="carousel_text">%s</div>', __("The plugin for the selected carousel mode (NextGen-Gallery or FlickrRSS) needs to be installed and activated.", 'pagelines'));
 				
 			else{
 			
@@ -185,7 +185,10 @@ class PageLinesCarousel extends PageLinesSection {
 		</ul>
 	</div>
 		
-<?php  }
+<?php  
+
+		}
+	}
 
 	function section_styles() {
 	
