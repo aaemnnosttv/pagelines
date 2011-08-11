@@ -71,26 +71,6 @@ class PageLinesSecondNav extends PageLinesSection {
 	}
 
 
-	function section_options($optionset = null, $location = null) {
-	
-		if($optionset == 'header_and_footer' && $location == 'top'){
-			return array(
-				'secondnav_posts' => array(
-					'default'	=> '',
-					'version' 	=> 'pro',
-					'type' 		=> 'select_menu',		
-					'title' 	=> 'Posts Page Secondary Navigation',
-					'shortexp'	=> 'Select the secondary navigation for posts pages..',
-					'inputlabel'=> 'Select Secondary Navigation Menu',
-					'exp'		=> 'You can select a WP menu to use as sub navigation on your main blog page.'
-				),
-					
-			);
-			
-		}
-	
-	}
-
 }
 /*
 	End of section class

@@ -279,8 +279,6 @@ class PageLinesMetaPanel {
 			<div class="ohead mp_bar mp_footer ">
 				<div class="mp_bar_pad fix ">
 					<input type="hidden" name="_posttype" value="<?php echo $this->settings['posttype'];?>" />
-				
-				
 					<div class="superlink-wrap osave-wrap">
 						<input id="update" class="superlink osave" type="submit" value="<?php _e("Save Meta Settings",'pagelines'); ?>"  name="update" />
 					</div>
@@ -304,14 +302,12 @@ class PageLinesMetaPanel {
 		do_global_meta_options();
 	 	$special_template = new PageLinesTemplate( $type );	
 		
-		$special_template->load_section_optionator();
+		$special_template->load_section_optionator( true );
 
 		ob_start();
 		?>
 	<script type="text/javascript"> 
 		jQuery(document).ready(function() { 
-			//var cookie = jQuery( "#<?php echo $handle;?>" ).tabs( "option", "cookie" );
-			//alert(cookie);
 			<?php printf('var %1$s = jQuery("#%1$s").tabs({cookie: {}, fx: { opacity: "toggle", duration: 150 }});', $handle); ?> 
 		});
 	</script>
@@ -586,6 +582,10 @@ function special_page_settings_array(  ){
 	global $metapanel_options;
 	
 	$d = array(
+		'option_defaults' => array(
+			'metapanel' => $metapanel_options->posts_metapanel( 'defaults' ),
+			'icon'		=> PL_ADMIN_ICONS.'/home.png'
+		),
 		'blog_page' => array(
 			'metapanel' => $metapanel_options->posts_metapanel( 'posts' ),
 			'icon'		=> PL_ADMIN_ICONS.'/blog.png'

@@ -213,16 +213,12 @@ class PageLinesTemplate {
 			elseif(isset($h['templates']['default']['sections']))
 				$tsections = $h['templates']['default']['sections'];
 			
-		} elseif(isset($h['sections'])) { 
-			
-			// Get Sections assigned in map
-			$tsections = $h['sections'];
+		} elseif(isset($h['sections']))
+			$tsections = $h['sections']; // Get Sections assigned in map
 
-		} else {
-			
+		else
 			$tsections = array();
 			
-		}
 		
 		return $tsections;
 	}
@@ -476,28 +472,40 @@ class PageLinesTemplate {
 	 * @subpackage Sections
 	 * @since 2.0.b3
 	 */
-	function load_section_optionator(){
+	function load_section_optionator( $defaults = false ){
 	
-		foreach( $this->default_allsections as $section_slug ){
+		if($defaults){
 			
-			$pieces = explode("ID", $section_slug);		
-			$section = (string) $pieces[0];
-			$clone_id = (isset($pieces[1])) ? $pieces[1] : 1;
+			// Get inactive
+			foreach( $this->factory as $key => $section ){
 			
-			if(isset($this->factory[$section]))
-				$this->factory[$section]->section_optionator( array( 'clone_id' => $clone_id ) );
+				$section->section_optionator( array() );
+					
+			}
+			
+		} else {
+			foreach( $this->default_allsections as $section_slug ){
+			
+				$pieces = explode("ID", $section_slug);		
+				$section = (string) $pieces[0];
+				$clone_id = (isset($pieces[1])) ? $pieces[1] : 1;
+			
+				if(isset($this->factory[$section]))
+					$this->factory[$section]->section_optionator( array( 'clone_id' => $clone_id ) );
 		
 			
-		}
+			}
 	
-		// Get inactive
-		foreach( $this->factory as $key => $section ){
+			// Get inactive
+			foreach( $this->factory as $key => $section ){
 			
-			$inactive = ( !in_array( $key, $this->default_allsections) ) ? true : false;
+				$inactive = ( !in_array( $key, $this->default_allsections) ) ? true : false;
 			
-			if($inactive)
-				$section->section_optionator( array('clone_id' => $clone_id, 'active' => false) );
+				if($inactive)
+					$section->section_optionator( array('clone_id' => $clone_id, 'active' => false) );
+			}
 		}
+			
 
 	}
 	

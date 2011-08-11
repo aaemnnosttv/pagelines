@@ -197,12 +197,12 @@ $GLOBALS['css_factory'] = array();
 /**
  * Add Extension Handlers
  */
-require_once( PL_INCLUDES . '/class.extension.php' );
+require_once( PL_INCLUDES . '/class.register.php' );
 
 /**
  * Register and load all sections
  */
-$load_sections = new PageLinesExtension();
+$load_sections = new PageLinesRegister();
 $load_sections->pagelines_register_sections();
 
 pagelines_register_hook('pagelines_setup'); // Hook
