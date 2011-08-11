@@ -283,3 +283,11 @@ require_once (PL_INCLUDES.'/actions.site.php');
  * Run the pagelines_init Hook
  */
 pagelines_register_hook('pagelines_hook_init'); // Hook
+
+// beta test updates url REMOVE FOR RELEASE
+add_filter('pagelines_theme_update_url', 'beta_url');
+
+function beta_url() {
+
+	return 'http://api.pagelines.com/beta_test/';
+}
