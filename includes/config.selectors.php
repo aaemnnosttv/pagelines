@@ -68,7 +68,8 @@ function cssgroup( $group ){
 
 	$s['text_tertiary'] = '';
 	
-	$s['text_box'] = '.post-nav a, .post-nav a:visited, #twitterbar .content .tbubble, #wp-calendar caption, .searchform .searchfield, .main_nav .current-menu-item a, .main_nav li a:hover, .main_nav li a:hover, #wp-calendar thead th';
+	$s['text_box'] = '.post-nav a, .post-nav a:visited, #twitterbar .content .tbubble, #wp-calendar caption, .searchform .searchfield, .main_nav .current-menu-item a, .main_nav li a:hover, .main_nav li a:hover, #wp-calendar thead th, textarea';
+	
 	$s['text_box_secondary'] = '#twitterbar a';
 	
 	$s['linkcolor'] = 'a, #subnav_row li.current_page_item a, #subnav_row li a:hover, #grandchildnav .current_page_item > a, .branding h1 a:hover, .post-comments a:hover, .bbcrumb a:hover';
