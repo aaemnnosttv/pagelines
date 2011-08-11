@@ -13,6 +13,11 @@
 
 
 Version 2.0 
+	BETA - 8
+	- Special Handling
+	- Meta Handling
+	- Feature Refinements
+	- Section Refinements
 	BETA - 7
 	- Clone Options
 	BETA - 6
