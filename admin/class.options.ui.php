@@ -240,9 +240,7 @@ class PageLinesOptionsUI {
 				<?php pl_action_confirm('ConfirmImportSettings', 'Are you sure? This will overwrite your current settings and configurations with the information in this file!');?>
 			</div>
 		</div>
-		
-		
-	<?php }	
+<?php }	
 	
 	/**
 	 *  Tab Stuff

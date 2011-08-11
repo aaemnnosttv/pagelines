@@ -1120,7 +1120,7 @@ class PageLinesWelcome {
 		$bill = '<div class="admin_billboard fix"><div class="admin_billboard_pad fix">';
 		$bill .= '<div class="admin_theme_screenshot"><img class="" src="'.PARENT_URL.'/screenshot.png" alt="Screenshot" /></div>';
 		$bill .= '<div class="admin_billboard_content"><div class="admin_header"><h3 class="admin_header_main">Congratulations!</h3></div>';
-		$bill .= '<div class="admin_billboard_text">You\'re ready to build an professional website.<br/> Here are a few tips to get you started...<br/><small>(Note: This intro can be removed below.)</small></div>';
+		$bill .= '<div class="admin_billboard_text">You\'re ready to build a professional website.<br/> Here are a few tips to get you started...<br/><small>(Note: This intro can be removed below.)</small></div>';
 		$bill .= '<div class="clear"></div></div></div></div>';
 		
 		return apply_filters('pagelines_welcome_billboard', $bill);
