@@ -110,6 +110,8 @@ function plmeta( $key, $args ){
 		
 	if( isset($args['clone_id']) && $args['clone_id'] != 1 )
 		$id_key = $key.'_'.$args['clone_id'];	
+	else 
+		$id_key = $key;
 
 	if( isset($o['post_id']) && !empty($o['post_id']) )
 		return get_post_meta($o['post_id'], $id_key, true);
@@ -127,6 +129,8 @@ function plspecial($key, $args){
 	
 	if( isset($args['clone_id']) && $args['clone_id'] != 1 )
 		$id_key = $key.'_'.$args['clone_id'];
+	else
+		$id_key = $key;
 	
 	if(isset($pagelines_special_meta[$type][$id_key]))
 		return $pagelines_special_meta[$type][$id_key];
@@ -134,7 +138,7 @@ function plspecial($key, $args){
 		return pldefault($key);
 }
 
-function pldefault($key, $args){
+function pldefault($key){
 	
 	global $pagelines_special_meta;
 	
