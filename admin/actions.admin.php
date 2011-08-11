@@ -7,8 +7,7 @@
  * @since 1.0.0
  */
 if(is_admin() && isset($_GET['activated'] ) && $pagenow == "themes.php" )
-	header( 'Location: '.admin_url().'admin.php?page=pagelines&activated=true&pageaction=activated' ); // Do Redirect There
-
+	wp_redirect( admin_url( 'admin.php?page=pagelines&activated=true&pageaction=activated' ) );
 
 /**
  * Add Javascript for Layout Controls from the Layout UI class

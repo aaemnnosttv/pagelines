@@ -9,7 +9,7 @@
  */
 
 
-class PageLinesExtension{
+class PageLinesRegister {
 	
 	/**
 	 *  Scans THEMEDIR/sections recursively for section files and auto loads them.

@@ -25,6 +25,7 @@ function ploption( $key, $args = array() ){
 		
 	elseif( get_ploption($key, $args) )
 		return get_ploption( $key, $args );
+		
 	elseif( get_ploption($key, $args) === null )
 		if ( $newkey = plnewkey( $key ) )
 			return $newkey;			
@@ -108,13 +109,15 @@ function plmeta( $key, $args ){
 	$o = wp_parse_args($args, $d);
 		
 	if( isset($args['clone_id']) && $args['clone_id'] != 1 )
-		$key = $key.'_'.$args['clone_id'];	
+		$id_key = $key.'_'.$args['clone_id'];	
+	else 
+		$id_key = $key;
 
 	if( isset($o['post_id']) && !empty($o['post_id']) )
-		return get_post_meta($o['post_id'], $key, true);
+		return get_post_meta($o['post_id'], $id_key, true);
 	
 	else
-		return false;
+		return pldefault($key);
 	
 }
 
@@ -125,12 +128,25 @@ function plspecial($key, $args){
 	$type = PageLinesTemplate::page_type_breaker();
 	
 	if( isset($args['clone_id']) && $args['clone_id'] != 1 )
-		$key = $key.'_'.$args['clone_id'];
+		$id_key = $key.'_'.$args['clone_id'];
+	else
+		$id_key = $key;
 	
-	if(isset($pagelines_special_meta[$type][$key]))
-		return $pagelines_special_meta[$type][$key];
+	if(isset($pagelines_special_meta[$type][$id_key]))
+		return $pagelines_special_meta[$type][$id_key];
 	else 
+		return pldefault($key);
+}
+
+function pldefault($key){
+	
+	global $pagelines_special_meta;
+	
+	if(isset($pagelines_special_meta['defaults'][$key]))
+		return $pagelines_special_meta['defaults'][$key];
+	else
 		return false;
+	
 }
 
 function get_ploption( $key, $args = array() ){
