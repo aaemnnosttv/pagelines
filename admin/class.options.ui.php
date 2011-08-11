@@ -247,36 +247,14 @@ class PageLinesOptionsUI {
 	/**
 	 *  Tab Stuff
 	 */
-	function get_tab_setup(){
-		
-		echo OptEngine::input_hidden('selectedtab', $this->set['settings'], load_pagelines_option('selectedtab', 0)); // tracks last tab active 
-	
-		if(isset($_GET['selectedtab']))
-			$selected_tab = $_GET['selectedtab'];
-		elseif(isset($_COOKIE[$this->tab_cookie]))
-			$selected_tab = (int) $_COOKIE[$this->tab_cookie];
-		elseif(pagelines_option('selectedtab'))
-			$selected_tab = pagelines_option('selectedtab');
-		else
-			$selected_tab = 0;
-
-		$this->get_tab_setup_script( $selected_tab );
-	}
-	
-	function get_tab_setup_script( $selected_tab ){ ?>
+	function get_tab_setup(){ ?>
 		<script type="text/javascript">
 				jQuery(document).ready(function() {						
-					var myTabs = jQuery("#tabs").tabs({ fx: { opacity: "toggle", duration: "fast" }, selected: <?php echo $selected_tab; ?>});
-					
-					jQuery('#tabs').bind('tabsshow', function(event, ui) {
-						var selectedTab = jQuery('#tabs').tabs('option', 'selected');
-						jQuery("#selectedtab").val(selectedTab);
-						jQuery.cookie('<?php echo $this->tab_cookie;?>', selectedTab);
-						
-					});
+					var myTabs = jQuery("#tabs").tabs({ cookie: { name: "<?php echo $this->set['settings'];?>-tabs" }, fx: { opacity: "toggle", duration: 200 }});
 				});
 		</script>
 	<?php }
+	
 	
 	function get_pro_call(){
 		global $pl_section_factory; 

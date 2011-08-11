@@ -309,7 +309,11 @@ class PageLinesMetaPanel {
 		ob_start();
 		?>
 	<script type="text/javascript"> 
-		jQuery(document).ready(function() { <?php printf('var %1$s = jQuery("#%1$s").tabs({fx: { opacity: "toggle", duration: 150 }})', $handle); ?> });
+		jQuery(document).ready(function() { 
+			//var cookie = jQuery( "#<?php echo $handle;?>" ).tabs( "option", "cookie" );
+			//alert(cookie);
+			<?php printf('var %1$s = jQuery("#%1$s").tabs({cookie: {}, fx: { opacity: "toggle", duration: 150 }});', $handle); ?> 
+		});
 	</script>
 	
 		<div id="<?php echo $handle;?>" class="plist-nav fix">

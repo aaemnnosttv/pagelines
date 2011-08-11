@@ -136,38 +136,62 @@
  */
 jQuery(document).ready(function(){
 
+		
+	// Set up Default State	
+		var subTemplateCookie = jQuery.cookie('subTemplateCookie');
+		var buildAreaCookie = jQuery.cookie('buildAreaCookie');
+	
+		var defaultTemplate = (buildAreaCookie == null) ? 'templates-default' : subTemplateCookie;
+		var buildArea = (buildAreaCookie == null) ? 'ta-header' : buildAreaCookie;
 
-	// Set the default template area... always the header
-	/*
-		TODO make default the default page, or posts page?
-	*/
-	doTemplatesSelect('templates-default', 'sel-templates-sub');
-	jQuery('.tg-templates').addClass('builder_selected_area');
+		jQuery('.sub-template-selector #'+defaultTemplate).addClass('sss-selected');
+		
+		if( buildArea == 'ta-templates' )
+			doTemplatesSelect( defaultTemplate, 'sel-templates-sub');
+		else if( buildArea == 'ta-content' )
+			doTemplatesSelect( defaultTemplate, 'sel-content-sub');
+		else
+			doAreaSelect( buildArea );
+		
+		jQuery('#'+buildArea).addClass('builder_selected_area');
+	
+	
 	
 	// when a user clicks, highlight the area; slide up the sub selector panels (if they're open)
 	jQuery('.tg-format').click(function() {
 		// For select interface selection
 		jQuery('.builder_selected_area').removeClass('builder_selected_area');
+		
 		jQuery(this).addClass('builder_selected_area');
-		if(!jQuery(this).hasClass('tg-templates')) jQuery('.sel-templates-sub.sub-template-selector').slideUp();
-		if(!jQuery(this).hasClass('tg-content-templates')) jQuery('.sel-content-sub.sub-template-selector').slideUp();
+		
+		if(!jQuery(this).hasClass('tg-templates')) 
+			jQuery('.sel-templates-sub.sub-template-selector').slideUp();
+			
+		if(!jQuery(this).hasClass('tg-content-templates')) 
+			jQuery('.sel-content-sub.sub-template-selector').slideUp();
+			
+		var stemplate_id = jQuery(this).attr('id');
+		
+		jQuery.cookie('buildAreaCookie', stemplate_id);
+		
 	});
 	
 	jQuery('.sss-button').click(function() {
 		// For select interface selection
 		jQuery('.sss-selected').removeClass('sss-selected');
 		jQuery(this).addClass('sss-selected');
+		
 		var stemplate = jQuery(this).attr('id');
+		
+		jQuery.cookie('subTemplateCookie', stemplate);
+		
 		viewAndSort(stemplate);
 	});
 	
 	// Load the ID of the element if it has a load build class on it
 	jQuery('.load-build').click(function() {
-	
 		var stemplate_id = jQuery(this).attr('id');
-		var stemplate = stemplate_id.replace('ta-', '');
-		viewAndSort(stemplate);
-	
+		doAreaSelect(stemplate_id);
 	});
 	
 	jQuery('.tg-templates').click(function() {
@@ -181,13 +205,18 @@ jQuery(document).ready(function(){
 	
 	jQuery('.tg-content-templates').click(function() {
 		var selectedButton = jQuery('.sub-template-selector .sss-selected').attr('id');
-
+		
 		var exp = selectedButton.split('-');
 		var stemplate = 'main-'+exp[1];
 		doTemplatesSelect( stemplate, 'sel-content-sub');
 		
 	});
 });
+
+function doAreaSelect( stemplate_id ){
+	var stemplate = stemplate_id.replace('ta-', '');
+	viewAndSort(stemplate);
+}
 
 function doTemplatesSelect( stemplate, panel ){
 	jQuery('.sss-selected').removeClass('sss-selected');
