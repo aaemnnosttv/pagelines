@@ -173,8 +173,6 @@
 		}
 
 		/* Feature Text Styling */
-		
-
 			.fcontent .fheading {
 				padding: .8em 0;
 				margin-bottom: .2em;
@@ -225,9 +223,6 @@
 				padding: 4px 7px 3px 8px;
 				margin-right: 8px;
 				font-size: .9em;
-				border: 1px solid #cecece;
-				border-left: 1px solid #c1c1c1;
-				border-top: 1px solid #c1c1c1;
 			}
 			#featurenav a.activeSlide{
 				background: #ccc;
@@ -276,20 +271,25 @@
 			/* @ Feature Play/Pause */
 
 				#feature-footer span.playpause {
+					-webkit-user-select: none;
+					-khtml-user-select: none;
+					-moz-user-select: none;
+					-o-user-select: none;
+					user-select: none;
 					cursor: pointer;
 					display: block;
 					float:right;
 					padding: 1px 1px 1px 2px;
 					margin-right: 0;
+					width: 21px;
+					height: 21px;
 				}
 				#feature-footer span.playpause.pause span{
 					display: block;
-					width: 21px;
-					height: 21px;
 					background: transparent url(feature-pause.png) no-repeat 4px 5px;
 				}
 				#feature-footer span.playpause.resume span{
-					padding: 3px 8px 4px;
+					display: block;
 					background: transparent url(feature-play.png) no-repeat 4px 5px;
 				}
 				
