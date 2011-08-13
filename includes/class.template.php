@@ -476,12 +476,9 @@ class PageLinesTemplate {
 	
 		if($defaults){
 			
-			// Get inactive
-			foreach( $this->factory as $key => $section ){
-			
+			foreach( $this->factory as $key => $section )
 				$section->section_optionator( array() );
-					
-			}
+
 			
 		} else {
 			foreach( $this->default_allsections as $section_slug ){

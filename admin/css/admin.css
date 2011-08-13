@@ -474,7 +474,7 @@
 			.oexp-effect{ border-left: 1px solid #DDD; }
 
 		.oexp h5{ font-size:1em; margin: 0 0 .5em; }
-		.oexp p{ margin: 5px 0; ;}
+		.oexp p{ margin: 5px 0; line-height: 1.6em;}
 	
 		.oexp .pro_note{
 			padding: 10px;

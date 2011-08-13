@@ -102,7 +102,25 @@ class OptEngine {
 			
 			$oset['subkey'] = $oid;
 			
-			$o['val'] = ploption($o['special'], $oset);
+			
+			if($o['special'] == 'defaults'){
+				
+				if(ploption( $o['special'], $oset ))
+					$o['val'] = ploption( $o['special'], $oset );
+					
+				elseif($o['default'] != ''){
+					
+					$o['val'] = $o['default'];
+					plupop($o['special'], $o['val'], $oset);
+				} else 
+					$o['val'] = false;
+					
+				
+			} else
+				$o['val'] = ploption( $o['special'], $oset );
+			
+			
+			
 			$o['input_name'] = plname($o['special'], $oset);
 			$o['input_id'] = plid( $o['special'], $oset);
 			
@@ -501,8 +519,6 @@ class OptEngine {
 		$extra = sprintf('onClick="return %s();"', $confirmID);
 		
 		$input = $this->superlink($o['inputlabel'], 'grey', 'reset-options', 'submit', $extra, $o['input_name']);
-		
-		//$input = sprintf('<input class="button-secondary reset-options" type="submit" name="%s" onClick="return %s();" value="%s" />', $o['input_name'], $confirmID, $o['inputlabel']);
 		
 		printf('<div class="insidebox context fix">%s %s</div>', $input, $o['exp']);
 

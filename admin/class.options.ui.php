@@ -140,15 +140,17 @@ class PageLinesOptionsUI {
 				</div>
 				<?php endif;?>
 				</form><!-- close entire form -->
-
+				
 				<?php if($this->set['basic_reset']):?>
 					<form method="post">
-						<input type="hidden" name="the_pl_setting" value="<?php echo $this->set['settings'];?>" />		
 						<div class="optionrestore">
 							<h4><?php _e('Reset These Settings', 'pagelines'); ?></h4>
 							<p>
 								<div class="context">
-									<?php echo OptEngine::superlink('Restore To Default', 'grey', 'reset-options', 'submit', 'onClick="return ConfirmRestore();"',  'pl_reset_settings' );?>
+									<?php 
+									echo OptEngine::input_hidden('the_pl_setting', 'the_pl_setting', $this->set['settings']);
+									echo OptEngine::superlink('Restore To Default', 'grey', 'reset-options', 'submit', 'onClick="return ConfirmRestore();"',  'pl_reset_settings' );
+									?>
 									Use this button to restore these settings to default. (Note: Restore template and layout information in their individual tabs.)</div>
 								<?php pl_action_confirm('ConfirmRestore', 'Are you sure? This will restore these settings to default.');?>
 							</p>
@@ -156,6 +158,7 @@ class PageLinesOptionsUI {
 						</div>
 					</form>
 				<?php endif;?>
+
 
 				<?php  if($this->primary_settings) $this->get_import_export(); ?>
 				
