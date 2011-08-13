@@ -128,15 +128,14 @@ function plspecial($key, $args){
 		$id_key = $key.'_'.$args['clone_id'];
 	else
 		$id_key = $key;
-	
-	if(isset($pagelines_special_meta[$type][$id_key]))
+
+	if(isset($pagelines_special_meta[$type]) && is_array($pagelines_special_meta[$type]) && isset($pagelines_special_meta[$type][$id_key]))
 		return $pagelines_special_meta[$type][$id_key];
 	else 
 		return false;
 }
 
 function pldefault($key){
-	plprint($pagelines_special_meta['defaults'][$key]);  
 	global $pagelines_special_meta;
 	
 	if(isset($pagelines_special_meta['defaults'][$key]))
@@ -514,10 +513,8 @@ function pagelines_process_reset_options( $option_array = null ) {
 
 	if(isset($_POST['pl_reset_settings']) && current_user_can('edit_themes')){
 		
-		
-		
 		if(isset($_POST['the_pl_setting']))
-			update_option($_POST['the_pl_setting'], '');
+			update_option($_POST['the_pl_setting'], array());
 		
 	}
 

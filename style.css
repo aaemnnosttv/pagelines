@@ -3,7 +3,7 @@ Theme Name: PageLines Framework
 
 Description: PageLines Framework is an drag-and-drop theme-design framework for WordPress and HTML5. It will help you do amazing things with your site, faster & easier than ever before. Designed and developed by <a href="http://pagelines.com/">PageLines</a> in California. Twitter @pagelines
 
-Version: 2.0.b8
+Version: 2.0.b9
 
 Author: PageLines
 
@@ -38,7 +38,7 @@ body{ height:100%; padding-top: 3px; }
 /******* Typography *******/
 
 body{font-size: 87.5%; line-height: 1.714285em;}
-	.content { background: url(images/line-height.png) repeat 0 6px; }
+	/*.content { background: url(images/line-height.png) repeat 0 6px; }*/
 	/* @ Headers H1 - H6 */
 	h1, h2, h3, h4, h5, h6{font-weight:normal; line-height: 1.2em;}
 	h1{font-size:3.4285em; } 

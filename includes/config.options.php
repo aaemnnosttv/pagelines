@@ -1188,13 +1188,6 @@ class PageLinesWelcome {
 	
 	function get_welcome_plugins(){
 		$plugins = array(
-			'buddypress'	=> array(
-				'name'			=> 'BuddyPress',
-				'url'			=> 'http://buddypress.org/', 
-				'name2'			=> 'BuddyPress Template Pack',
-				'url2'			=> 'http://wordpress.org/extend/plugins/bp-template-pack/',
-				'desc'			=> 'Social networking for your WordPress site.',
-			),
 			'postorder'	=> array(
 				'name'			=> 'Post Types Order',
 				'url'			=> 'http://wordpress.org/extend/plugins/post-types-order/', 
