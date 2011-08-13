@@ -135,3 +135,18 @@ input[type="submit"], .submit, input[type="button"], .button, input[type="reset"
 	.nocomments{display:none;}
 
 
+	/* @ Floating and Alignment */
+		.hidden {display: none;}
+		.aligncenter,.alignnone {display: block;margin-left: auto;margin-right: auto;}
+		.center, .textcenter {text-align: center;}
+		.alignleft {float: left;margin:0 1.2em .4em 0;}
+		.left {	float: left; }
+		.textleft {text-align: left;}
+		.alignright {float: right;margin:0 0 .4em 1.4em;}
+		.right { float: right; }
+		.textright {text-align:right;}
+		.clear {clear:both;}
+		.block{display:block;}
+		img.center, img[align="center"] {display: block;margin-left: auto;margin-right: auto;}
+		img.left, img[align="left"] { float:left;margin: 2px 10px 5px 0px;}
+		img.right, img[align="right"] {	float:right;margin: 2px 0px 5px 10px;}
