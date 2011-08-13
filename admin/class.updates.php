@@ -18,7 +18,7 @@ class PageLinesUpdateCheck {
 			pagelines_update_option( 'lp_password', '' );
 			$this->username = '';
 			$this->password = '';
-			$this->pagelines_theme_clear_update_transient();
+		//	$this->pagelines_theme_clear_update_transient();
 		}
     }
 
@@ -94,6 +94,7 @@ class PageLinesUpdateCheck {
 
 		delete_transient('pagelines-update-' . $this->theme );
 		remove_action('admin_notices', array(&$this,'pagelines_theme_update_nag') );
+		delete_transient( 'pagelines_sections_cache' );
 
 	}
 

@@ -51,7 +51,7 @@ class PageLinesRegister {
 		* If cache exists load into $sections array
 		* If not populate array and prime cache
 		*/
-		if ( !$sections = get_option( 'pagelines_sections_cache' ) ) {
+		if ( !$sections = get_transient( 'pagelines_sections_cache' ) ) {
 			foreach ( $section_dirs as $type => $dir ) {
 				$sections[$type] = $this->pagelines_getsections( $dir, $type );
 			}
@@ -67,7 +67,7 @@ class PageLinesRegister {
 			* TODO switch this to activation/deactivation interface
 			* TODO better idea, clear cached vars on settings save.
 			*/
-			update_option( 'pagelines_sections_cache', $sections );	
+			set_transient( 'pagelines_sections_cache', $sections, 86400 );	
 		}
 		// filter main array containing child and parent and any custom sections
 		$sections = apply_filters( 'pagelines_section_admin', $sections );
