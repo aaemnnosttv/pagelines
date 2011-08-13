@@ -71,6 +71,8 @@ function pagelines_build_special(){
 		'title'			=> 'Section Options', 
 		'settings' 		=> PAGELINES_SPECIAL,
 		'callback'		=> 'special_page_settings_array',
+		'show_reset'	=> false, 
+		'basic_reset'	=> true
 	);
 	$optionUI = new PageLinesOptionsUI($args);
 }

@@ -34,9 +34,9 @@ function cssgroup( $group ){
 	/**
 	 * Box & Element Colors
 	 */
-	$s['box_color_primary'] = '#wp-calendar caption, #grandchildnav.widget, input, textarea, .searchform .searchfield, .wp-caption, .commentlist .alt, #wp-calendar #today, .post-nav, .current_posts_info, .post-footer,  #twitterbar, .crsl, .success,  .content-pagination a .cp-num, .hentry table .alternate td';
+	$s['box_color_primary'] = '#wp-calendar caption, #grandchildnav.widget, input, textarea, .searchform .searchfield, .wp-caption, .commentlist .alt, #wp-calendar #today, .post-nav, .current_posts_info, .post-footer,  #twitterbar, .crsl, .success,  .content-pagination a .cp-num, .hentry table .alternate td,  #featurenav a, .playpause';
 	
-	$s['box_color_secondary'] = '#wp-calendar thead th, .item-avatar a, .comment blockquote, #grandchildnav .current_page_item a, #grandchildnav li a:hover, #grandchildnav .current_page_item  ul li a:hover, #carousel .carousel_text, pagination .wp-pagenavi a, #pagination .wp-pagenavi .current, #pagination .wp-pagenavi .extend, .content-pagination .cp-num, .content-pagination a:hover .cp-num, ins';
+	$s['box_color_secondary'] = '#wp-calendar thead th, .item-avatar a, .comment blockquote, #grandchildnav .current_page_item a, #grandchildnav li a:hover, #grandchildnav .current_page_item  ul li a:hover, #carousel .carousel_text, pagination .wp-pagenavi a, #pagination .wp-pagenavi .current, #pagination .wp-pagenavi .extend, .content-pagination .cp-num, .content-pagination a:hover .cp-num, ins, #featurenav a.activeSlide';
 	
 	$s['box_color_tertiary'] = '';
 	
@@ -68,9 +68,9 @@ function cssgroup( $group ){
 
 	$s['text_tertiary'] = '';
 	
-	$s['text_box'] = '.post-nav a, .post-nav a:visited, #twitterbar .content .tbubble, #wp-calendar caption, .searchform .searchfield, .main_nav .current-menu-item a, .main_nav li a:hover, .main_nav li a:hover, #wp-calendar thead th, textarea';
+	$s['text_box'] = '.post-nav a, .post-nav a:visited, #twitterbar .content .tbubble, #wp-calendar caption, .searchform .searchfield, .main_nav .current-menu-item a, .main_nav li a:hover, .main_nav li a:hover, #wp-calendar thead th, textarea, #featurenav a';
 	
-	$s['text_box_secondary'] = '#twitterbar a';
+	$s['text_box_secondary'] = '#twitterbar a, #featurenav a.activeSlide';
 	
 	$s['linkcolor'] = 'a, #subnav_row li.current_page_item a, #subnav_row li a:hover, #grandchildnav .current_page_item > a, .branding h1 a:hover, .post-comments a:hover, .bbcrumb a:hover';
 	

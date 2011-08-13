@@ -515,6 +515,14 @@ function pagelines_settings_defaults() {
 
 function pagelines_process_reset_options( $option_array = null ) {
 
+	if(isset($_POST['pl_reset_settings']) && current_user_can('edit_themes')){
+		
+		if(isset($_POST['the_pl_setting']))
+			update_option($_POST['the_pl_setting'], '');
+		
+	}
+
+	
 	$option_array = (isset($option_array)) ? $option_array : get_option_array();
 
 	foreach($option_array as $menuitem => $options ){

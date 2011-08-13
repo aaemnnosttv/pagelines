@@ -784,8 +784,15 @@ function extension_array(  ){
 				)
 
 			),
-
-		
+		'Import-Export' => array(
+			'icon'		=> PL_ADMIN_ICONS.'/extend-inout.png',
+			'import_set'	=> array(
+				'default'	=> '',
+				'type'		=> 'image_upload',
+				'title'		=> 'Import Settings',						
+				'shortexp'	=> '',
+			),
+		)
 
 	);
 

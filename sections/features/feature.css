@@ -224,12 +224,7 @@
 				margin-right: 8px;
 				font-size: .9em;
 			}
-			#featurenav a.activeSlide{
-				background: #ccc;
-				border: 1px solid #bbb;
-				border-left: 1px solid #999;
-				border-top: 1px solid #999;
-			}
+		
 			
 			/* @ Feature Dot Navigation */	 
 			
@@ -256,7 +251,7 @@
 					margin-right:10px;		
 				}
 	
-				#feature-footer.thumbs span.playpause {margin-top: 2px; }
+				#feature-footer.thumbs span.playpause { }
 				#featurenav a span.nav_thumb span.nav_overlay{
 					background: url(feature-thumb-overlay.png) no-repeat 0 0;
 				}
