@@ -173,6 +173,7 @@ class PageLinesFeatures extends PageLinesSection {
 			$page_metatab_array = array(
 					'feature_items' 	=> array(
 						'version' 		=> 'pro',
+						'default'		=> 5,
 						'type' 			=> 'text_small',
 						'inputlabel'	=> 'Number of features to show',
 						'title' 		=> 'Number of Feature Slides',
@@ -181,6 +182,7 @@ class PageLinesFeatures extends PageLinesSection {
 					),
 					'feature_set' => array(
 						'version' 		=> 'pro',
+						'default'		=> 'default-features',
 						'type' 			=> 'select_taxonomy',
 						'taxonomy_id'	=> "feature-sets",				
 						'title' 		=> 'Select Feature Set To Show',
@@ -207,7 +209,7 @@ class PageLinesFeatures extends PageLinesSection {
 						'vidtitle'		=> 'View Feature Documentation'
 					),
 					'timeout' => array(
-							'default' => 0,
+							'default' => '0',
 							'version'	=> 'pro',
 							'type' => 'text_small',
 							'inputlabel' => 'Timeout (ms)',

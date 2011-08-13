@@ -304,6 +304,9 @@ class PageLinesMetaPanel {
 		
 		$special_template->load_section_optionator( true );
 
+		if($type == 'defaults')
+			unset($this->tabs['general_page_meta1']);
+
 		ob_start();
 		?>
 	<script type="text/javascript"> 
@@ -333,7 +336,7 @@ class PageLinesMetaPanel {
 				<?php endforeach;?>
 			</ul>
 
-			<?php foreach($this->tabs as $tab => $t):?>
+			<?php foreach($this->tabs as $tab => $t): ?>
 				<div id="<?php echo $tab;?>" class="posts_tab_content">
 					<div class="posts_tab_content_pad">
 						<div class="metatab_title" style="background: url(<?php echo $t->icon; ?>) no-repeat 10px 13px;" >

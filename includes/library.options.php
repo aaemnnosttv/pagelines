@@ -85,11 +85,8 @@ function plupop($key, $val, $oset = array()){
 	else
 		$the_set = $new_set;
 	
-	//$test = $the_set[ $parent ];
-	
 	update_option( $o['setting'], $the_set );
-	
-	//return $test;
+
 }
 
 /**
@@ -519,7 +516,7 @@ function pagelines_process_reset_options( $option_array = null ) {
 
 	foreach($option_array as $menuitem => $options ){
 		foreach($options as $oid => $o ){
-			if( $o['type']=='reset' && pagelines_option($oid) ){
+			if( $o['type']=='reset' && ploption($oid) ){
 
 					call_user_func($o['callback']);
 				
