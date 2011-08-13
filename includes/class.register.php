@@ -61,7 +61,6 @@ class PageLinesRegister {
 				if ( !empty($section['depends']) ) {
 					unset($sections['parent'][$key]);
 					$sections['parent'][$key] = $section;
-					plprint($section);
 				}
 			}
 			/**
