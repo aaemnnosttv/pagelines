@@ -192,7 +192,7 @@ class PageLinesBoxes extends PageLinesSection {
 		
 		// Options
 			$box_columns = ( ploption( 'box_col_number', $oset) ) ? ploption( 'box_col_number', $oset) : 3; 
-			$box_set = ( ploption( 'box_set', $oset ) ) ? ploption( 'box_set', $oset ) : 'hello';
+			$box_set = ( ploption( 'box_set', $oset ) ) ? ploption( 'box_set', $oset ) : null;
 			$box_limit = ploption( 'box_items', $oset );
 			$thumb_type = ( ploption( 'box_thumb_type', $oset) ) ? ploption( 'box_thumb_type', $oset) : 'inline_thumbs';	
 			$thumb_size = ( ploption('box_thumb_size', $oset) ) ? ploption('box_thumb_size', $oset) : 64;

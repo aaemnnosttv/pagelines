@@ -141,7 +141,7 @@ jQuery(document).ready(function(){
 		var subTemplateCookie = jQuery.cookie('subTemplateCookie');
 		var buildAreaCookie = jQuery.cookie('buildAreaCookie');
 	
-		var defaultTemplate = (buildAreaCookie == null) ? 'templates-default' : subTemplateCookie;
+		var defaultTemplate = (subTemplateCookie == null) ? 'templates-default' : subTemplateCookie;
 		var buildArea = (buildAreaCookie == null) ? 'ta-header' : buildAreaCookie;
 
 		jQuery('.sub-template-selector #'+defaultTemplate).addClass('sss-selected');

@@ -5,6 +5,7 @@
 	Author URI: http://www.pagelines.com
 	Description: Creates boxes and box layouts
 	Class Name: PageLinesSoapbox
+	Depends: PageLinesBoxes
 	Tags: internal
 */
 
@@ -212,12 +213,12 @@ class PageLinesSoapbox extends PageLinesSection {
 			
 			$b = $this->load_pagelines_boxes($set, $limit); 
 
-			$this->draw_boxes($b, $perline, $set);
+			$this->draw_boxes($b, $perline, $set, $clone_id );
 
 
 	}
 	
-		function draw_boxes($b, $perline = 3, $class = ""){ 
+		function draw_boxes($b, $perline = 3, $class = "", $clone_id = ''){ 
 			global $post;
 			global $pagelines_ID;
 
@@ -242,7 +243,7 @@ class PageLinesSoapbox extends PageLinesSection {
 					<div class="dcol-pad">	
 
 						<?php if($box_icon)
-								echo self::_get_box_image( $bpost, $box_icon, $box_link ); ?>
+								echo self::_get_box_image( $bpost, $box_icon, $box_link, $clone_id); ?>
 
 							<div class="fboxinfo fix bd">
 
@@ -258,7 +259,7 @@ class PageLinesSoapbox extends PageLinesSection {
 									<?php 
 									echo blink_edit( $bpost->ID ); 
 									echo do_shortcode($bpost->post_content); 
-									$this->_get_soapbox_links( $bpost );
+									$this->_get_soapbox_links( $bpost, $clone_id);
 									?>
 								</div>
 							</div>
@@ -274,19 +275,20 @@ class PageLinesSoapbox extends PageLinesSection {
 	
 
 
-	function _get_soapbox_links( $bpost ){ 
+	function _get_soapbox_links( $bpost, $clone_id ){ 
 		?>
 		<div class="soapbox-links">
 			<?php for( $i = 1; $i <= 3; $i++){
 					
 					$thelink = '_soapbox_link_'.$i;
 				
-					if(get_post_meta($bpost->ID, $thelink, true)){
+					$oset = array('post_id' => $bpost->ID, 'clone_id' => $clone_id);
+					if(plmeta($thelink, $oset)){
 						
-						$link_text = ( get_post_meta($bpost->ID, $thelink.'_text', true) ) ? get_post_meta($bpost->ID,$thelink.'_text', true) : 'Go'; 
-						$link_class = get_post_meta($bpost->ID, $thelink.'_class', true);
+						$link_text = ( plmeta( $thelink.'_text', $oset) ) ? plmeta( $thelink.'_text', $oset) : 'Go'; 
+						$link_class = plmeta( $thelink.'_class', $oset);
 						
-						$link = get_post_meta($bpost->ID, $thelink, true);
+						$link = plmeta($thelink, $oset);
 						
 						echo blink($link_text, 'link', 'grey', array('action'=>$link));
 					}
@@ -296,11 +298,13 @@ class PageLinesSoapbox extends PageLinesSection {
 		</div>
 	<?php }
 
-	function _get_box_image( $bpost, $box_icon, $box_link = false ){
+	function _get_box_image( $bpost, $box_icon, $box_link = false, $clone_id = ''){
 			global $pagelines_ID;
 			global $post;
 			
-			$soapbox_height_media = ( get_pagelines_meta('_soapbox_height_media', $post->ID) ) ? get_pagelines_meta('_soapbox_height_media', $post->ID) : 200; 
+			$oset = array( 'post_id' => $pagelines_ID, 'clone_id' => $clone_id );
+			
+			$soapbox_height_media = ( plmeta('_soapbox_height_media', $oset) ) ? plmeta('_soapbox_height_media', $oset) : 200; 
 			
 			// Make the image's tag with url
 			$image_tag = sprintf('<img src="%s" alt="%s" style="display: inline;" />', $box_icon, esc_html($bpost->post_title) );
@@ -341,28 +345,7 @@ class PageLinesSoapbox extends PageLinesSection {
 	
 	}
 	
-	
-	
 
-	
-	function section_options($optionset = null, $location = null) {
-		
-		if($optionset == 'box_settings' && $location == 'bottom'){
-			return array(
-					'soapbox_default_tax' => array(
-							'default' 		=> 'default-boxes',
-							'version'		=> 'pro',
-							'taxonomy_id'	=> 'box-sets',
-							'type' 			=> 'select_taxonomy',
-							'inputlabel' 	=> 'Select Soapbox Posts/404 Box-Set',
-							'title' 		=> 'Posts Page and 404 Soapbox Box-Set',
-							'shortexp' 		=> "Posts pages and similar pages (404) will use this Box-Set ID to source Soapboxes",
-							'exp' 			=> "Posts pages and 404 pages in WordPress don't support meta data so you need to assign a set here. (If you want to use 'soapboxes' on these pages.)",
-				)
-			);
-			
-		}
-	}
 
 // End of Section Class //
 }
