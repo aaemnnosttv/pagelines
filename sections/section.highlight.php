@@ -39,6 +39,7 @@ class PageLinesHighlight extends PageLinesSection {
 				'_highlight_head' => array(
 					'version' 		=> 'pro',
 					'type' 			=> 'text',
+					'default'		=> 'Test 1233123',
 					'size'			=> 'big',		
 					'title' 		=> 'Highlight Header Text (Optional)',
 					'shortexp' 		=> 'Add the main header text for the highlight section.'
@@ -95,26 +96,20 @@ class PageLinesHighlight extends PageLinesSection {
 	
 	if($h_head || $h_subhead || $h_splash){?>
 		<div class="highlight-area">
+			<?php 
 			
-			<?php if($h_splash_position == 'top' && $h_splash):?> 
-				<div class="highlight-splash hl-image-top">
-					<img src="<?php echo $h_splash; ?>" alt="" />
-				</div>
-			<?php 	endif;	?>
-			
-			<?php if($h_head):?> 
-				<h1 class="highlight-head"><?php echo $h_head; ?></h1>
-			<?php endif;?>
-	
-			<?php if($h_subhead):?> 
-				<h3 class="highlight-subhead subhead"><?php echo $h_subhead; ?></h3>
-			<?php endif;?>
-	
-			<?php if( $h_splash_position != 'top' && $h_splash):?> 
-				<div class="highlight-splash hl-image-bottom">
-					<img src="<?php echo $h_splash; ?>" alt="" />
-				</div>
-			<?php 	endif;	?>
+				if( $h_splash_position == 'top' && $h_splash)
+					printf('<div class="highlight-splash hl-image-top"><img src="%s" alt="" /></div>', $h_splash);
+					
+				if($h_head)
+					printf('<h1 class="highlight-head">%s</h1>', $h_head);
+				
+				if($h_subhead)
+					printf('<h3 class="highlight-subhead subhead">%s</h3>', $h_subhead);
+					
+				if( $h_splash_position != 'top' && $h_splash)
+					printf('<div class="highlight-splash hl-image-bottom"><img src="%s" alt="" /></div>', $h_splash);
+			?> 
 		</div>
 	<?php 
 		} else

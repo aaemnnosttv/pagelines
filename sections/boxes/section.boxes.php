@@ -121,6 +121,7 @@ class PageLinesBoxes extends PageLinesSection {
 			$metatab_array = array(
 					'box_set' => array(
 						'version' 		=> 'pro',
+						'default'		=> 'default-boxes',
 						'type' 			=> 'select_taxonomy',
 						'taxonomy_id'	=> "box-sets",				
 						'title'		 	=> 'Select Box Set To Show',
@@ -128,8 +129,9 @@ class PageLinesBoxes extends PageLinesSection {
 					), 
 					'box_col_number' => array(
 						'type' 			=> 'count_select',
+						'default'		=> '3',
 						'count_number'	=> '5', 
-						'count_start'	=> '2',
+						'count_start'	=> '1',
 						'inputlabel' 	=> 'Number of Feature Box Columns',
 						'title' 		=> 'Box Columns',
 						'inputlabel' 		=> "Select the number of columns to show boxes in.",
@@ -137,19 +139,21 @@ class PageLinesBoxes extends PageLinesSection {
 						'exp'				=> "Note: This won't work on the blog page (use the global option)."
 					), 
 					'box_thumb_type' => array(
-						'version' => 'pro',
-						'type' => 'select',
+						'version' 	=> 'pro',
+						'type' 		=> 'select',
+						'default'	=> 'inline_thumbs',
 						'selectvalues'	=> array(
 								'inline_thumbs'	=> array("name" => "Image At Left"),
 								'top_thumbs'	=> array("name" => "Image On Top"), 
 								'only_thumbs'	=> array("name" => "Only The Image, No Text")
 							), 
-						'title' => 'Box Thumb Position',				
+						'title' => 'Box Thumb Style',				
 						'shortexp' => 'Choose between thumbs on left and thumbs on top of boxes.',
 						
 					),
 					'box_thumb_size' => array(
 						'version'		=> 'pro',
+						'default'		=> '64',
 						'type' 			=> 'text',
 						'size'			=> 'small',
 						'title' 		=> 'Box Icon Size (in Pixels)',
@@ -158,6 +162,7 @@ class PageLinesBoxes extends PageLinesSection {
 					),
 					'box_items' => array(
 						'version'		=> 'pro',
+						'default'		=> '6',
 						'type' 			=> 'text',
 						'size'			=> 'small',
 						'inputlabel' 	=> 'Maximum Boxes To Show On Page',

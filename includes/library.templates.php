@@ -125,6 +125,9 @@ function pagelines_head_common(){
 	if(!apply_filters( 'pagelines_xfn', '' ))
 		echo '<link rel="profile" href="http://gmpg.org/xfn/11" />'."\n";
 
+	// Removes viewport scaling on Phones, Tablets, etc.
+	if(!apply_filters( 'viewport_width', '' ))
+		echo '<meta name="viewport" content="width=device-width; initial-scale=1.0">';
 	
 	// bbPress Header... doesn't support hooks, or they need to be reloaded.
 //	if( pagelines_bbpress_forum() ){ 			
@@ -279,7 +282,7 @@ function pagelines_fix_ie( ){
 		echo '<!--[if lt IE 8]> <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE8.js"></script> <![endif]-->'."\n";
 
 	
-	echo '<!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->'."\n";
+	printf('<!--[if lt IE 9]>%3$s<script src="%1$s"></script>%3$s<script src="%2$s" ></script>%3$s<![endif]-->%3$s', 'http://html5shim.googlecode.com/svn/trunk/html5.js', 'http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js',"\n");
 	
 	/*
 		IE File Setting up with conditionals

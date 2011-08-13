@@ -103,24 +103,22 @@ class OptEngine {
 			$oset['subkey'] = $oid;
 			
 			
-			if($o['special'] == 'defaults'){
-				
-				if(ploption( $o['special'], $oset ))
-					$o['val'] = ploption( $o['special'], $oset );
-					
-				elseif($o['default'] != ''){
-					
-					$o['val'] = $o['default'];
-					plupop($o['special'], $o['val'], $oset);
-				} else 
-					$o['val'] = false;
-					
-				
-			} else
-				$o['val'] = ploption( $o['special'], $oset );
+			// if($o['special'] == 'defaults'){
+			// 				
+			// 				if(ploption( $o['special'], $oset ))
+			// 					$o['val'] = ploption( $o['special'], $oset );
+			// 					
+			// 				elseif($o['default'] != ''){
+			// 					
+			// 					$o['val'] = $o['default'];
+			// 					plupop($o['special'], $o['val'], $oset);
+			// 				} else 
+			// 					$o['val'] = false;
+			// 					
+			// 				
+			// 			} else
 			
-			
-			
+			$o['val'] = ploption( $o['special'], $oset );			
 			$o['input_name'] = plname($o['special'], $oset);
 			$o['input_id'] = plid( $o['special'], $oset);
 			
@@ -934,7 +932,7 @@ class OptEngine {
 	}
 	
 	function input_text($id, $name, $value, $class = 'regular-text', $attr = 'text', $extra = ''){
-		return sprintf('<input type="%s" id="%s" name="%s" value="%s" class="%s" %s />', $attr, $id, $name, $value, $class, $extra);
+		return sprintf('<input type="%s" id="%s" name="%s" value="%s" class="%s" %s  />', $attr, $id, $name, $value, $class, $extra);
 	}
 	
 	function input_checkbox($id, $name, $value, $class = 'admin_checkbox'){

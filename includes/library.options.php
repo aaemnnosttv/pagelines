@@ -114,7 +114,7 @@ function plmeta( $key, $args ){
 		return get_post_meta($o['post_id'], $id_key, true);
 	
 	else
-		return pldefault($key);
+		return false;
 	
 }
 
@@ -132,11 +132,11 @@ function plspecial($key, $args){
 	if(isset($pagelines_special_meta[$type][$id_key]))
 		return $pagelines_special_meta[$type][$id_key];
 	else 
-		return pldefault($key);
+		return false;
 }
 
 function pldefault($key){
-	
+	plprint($pagelines_special_meta['defaults'][$key]);  
 	global $pagelines_special_meta;
 	
 	if(isset($pagelines_special_meta['defaults'][$key]))
@@ -513,6 +513,8 @@ function pagelines_settings_defaults() {
 function pagelines_process_reset_options( $option_array = null ) {
 
 	if(isset($_POST['pl_reset_settings']) && current_user_can('edit_themes')){
+		
+		
 		
 		if(isset($_POST['the_pl_setting']))
 			update_option($_POST['the_pl_setting'], '');

@@ -156,8 +156,7 @@ function pagelines_register_settings() {
 		add_option( PAGELINES_SETTINGS, pagelines_settings_defaults() ); // only fires first time
 	
 
-	if ( !isset($_REQUEST['page']) || $_REQUEST['page'] != 'pagelines' )
-		return;	
+
 	
 	/* Typography Options */
 	$GLOBALS['pl_foundry'] = new PageLinesFoundry;
@@ -166,8 +165,11 @@ function pagelines_register_settings() {
 		Import/Exporting
 	*/
 	pagelines_import_export();
-		
+
 	pagelines_process_reset_options();
+	
+	if ( !isset($_REQUEST['page']) || $_REQUEST['page'] != 'pagelines' )
+		return;
 	
 	if ( ploption('reset') ) {
 		update_option(PAGELINES_SETTINGS, pagelines_settings_defaults());

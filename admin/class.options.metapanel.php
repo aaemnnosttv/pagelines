@@ -585,10 +585,7 @@ function special_page_settings_array(  ){
 	global $metapanel_options;
 	
 	$d = array(
-		'option_defaults' => array(
-			'metapanel' => $metapanel_options->posts_metapanel( 'defaults' ),
-			'icon'		=> PL_ADMIN_ICONS.'/home.png'
-		),
+		
 		'blog_page' => array(
 			'metapanel' => $metapanel_options->posts_metapanel( 'posts' ),
 			'icon'		=> PL_ADMIN_ICONS.'/blog.png'

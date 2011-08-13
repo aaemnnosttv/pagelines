@@ -8,9 +8,9 @@
 
 
 /* @ Responsive Design */
-	body img {max-width: 100%; height: auto;}
+	body img {max-width: 100%; height: auto; width: auto\9; /* ie8 */}
 
-	@media screen and (max-width:940px){
+	@media screen and (max-width:800px){
 		body #site .content, body .wcontent, body #footer .content, html body.fixed_width #page{width: 97%;}
 	    body #page #pagelines_content #column-wrap,  body #page  #buddypress-page #container, body #page  #pagelines_content #sidebar-wrap, html body.fixed_width #site .content{
 	       width: 100%;
@@ -31,7 +31,8 @@
 		}
 	}
 	
-	@media screen and (max-width:400px) { 
+	@media screen and (max-width:450px) { 
+		html { -webkit-text-size-adjust: none; }
 	    body #page #pagelines_content .clip {
 	        width: 100%;
 	    }
