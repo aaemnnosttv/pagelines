@@ -87,8 +87,21 @@ define('PL_CSS', PARENT_URL . '/css');
 define('PL_JS', PARENT_URL . '/js');
 define('PL_IMAGES', PARENT_URL . '/images');
 
-// Deprecated, remove by 2.0
-define( 'CORE_IMAGES', PL_IMAGES );
+/**
+ * Define Extension Constants
+ */
+define( 'PL_EXTEND_DIR', WP_PLUGIN_DIR . '/pagelines-extend');
+define( 'PL_EXTEND_URL', plugins_url( 'pagelines-extend' ) );
+define( 'PL_EXTEND_INIT', PL_EXTEND_DIR . '/pagelines-extend.php');
+define( 'PL_EXTEND_STYLE', PL_EXTEND_URL . '/style.css' );
+define( 'PL_EXTEND_STYLE_PATH', PL_EXTEND_DIR . '/style.css' );
+define( 'PL_EXTEND_FUNCTIONS', PL_EXTEND_DIR . '/functions.php' );
+define( 'PL_EXTEND_SECTIONS_URL', PL_EXTEND_URL . '/sections' );
+define( 'PL_EXTEND_SECTIONS_DIR', PL_EXTEND_DIR . '/sections' );
+
+
+define( 'EXTEND_CHILD_DIR', WP_PLUGIN_DIR . '/pagelines-extend' );
+define( 'EXTEND_CHILD_URL', plugins_url( 'pagelines-extend' ) );
 
 /**
  * Define version constants
@@ -101,7 +114,7 @@ define('PAGELINES_PRO_ROOT', PARENT_URL . '/pro' );
 /**
  * Define language constants
  */
-$lang = ( is_dir( WP_PLUGIN_DIR . '/pagelines-base/language' ) ) ? WP_PLUGIN_DIR . '/pagelines-base/language' : TEMPLATEPATH . '/language';
+$lang = ( is_dir( PL_EXTEND_DIR . '/language' ) ) ? PL_EXTEND_DIR . '/language' : TEMPLATEPATH . '/language';
 define( 'PAGELINES_LANGUAGE_DIR', $lang );
 
 /**
@@ -119,8 +132,3 @@ define('PROVERSIONDEMO','http://www.pagelines.com/demos/platformpro');
 define('PROVERSIONOVERVIEW','http://www.pagelines.com/themes/platformpro');
 define('PROBUY', 'http://www.pagelines.com/launchpad/signup.php?price_group[]=110&price_group[]=210&product_id=46&hide_paysys=paypal_r');
 
-/**
- * Setup Extension constants
- */
-define( 'EXTEND_CHILD_DIR', WP_PLUGIN_DIR . '/pagelines-base' );
-define( 'EXTEND_CHILD_URL', plugins_url( 'pagelines-base' ) );

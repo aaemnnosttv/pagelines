@@ -31,10 +31,10 @@
 			TODO Use plugin?
  		*/
 		
- 		if ( !is_dir( EXTEND_CHILD_DIR . '/sections' ) || ( file_exists( EXTEND_CHILD_DIR . '/pagelines-base.php' ) && current( $this->plugin_check_status( EXTEND_CHILD_DIR . '/pagelines-base.php' ) ) == 'notactive' ) ){
+ 		if ( !is_dir( PL_EXTEND_SECTIONS_DIR ) || ( file_exists( PL_EXTEND_INIT ) && current( $this->plugin_check_status( PL_EXTEND_INIT ) ) == 'notactive' ) ){
  		
 			$install_button = OptEngine::superlink('Install It Now!', 'blue', 'install_now sl-right', '', '');
-			return sprintf('<div class="install-control fix"><span class="banner-text">You need to install and activate PageLines Base Plugin</span> %s</div>', $install_button);
+			return sprintf('<div class="install-control fix"><span class="banner-text">You need to install and activate PageLines Extend Plugin</span> %s</div>', $install_button);
 			
 		}
 
@@ -53,7 +53,7 @@
 			if ($tab !== $section->type)
 				continue;
 
-			$check_file = EXTEND_CHILD_DIR . '/sections/' . $key . '/' . $key . '.php';
+			$check_file = sprintf('%1$s/sections/%2$s/%2$s.php', PL_EXTEND_DIR, $key); 
 
 			if ( file_exists( $check_file ) )
 				continue;

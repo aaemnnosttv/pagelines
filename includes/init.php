@@ -67,6 +67,10 @@ require_once( PL_INCLUDES . '/library.wordpress.php');
  */
 require_once( PL_INCLUDES . '/library.shortcodes.php');
 
+/**
+ * Load Extension library
+ */
+require_once( PL_INCLUDES . '/library.extend.php');
 
 /**
  * Theme configuration files

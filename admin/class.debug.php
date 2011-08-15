@@ -115,14 +115,6 @@ class PageLinesDebug {
 				'level'	=> false
 			);
 
-		
-
-			$this->debug_info[] = array(
-				'title'	=> "CSS Error",
-				'value' => ( !is_multisite() && !is_writable( PAGELINES_DCSS ) ) ? 'File is not writable!':'',
-				'level'	=> false
-			);
-
 
 			$this->debug_info[] = array(
 				'title'	=> "PHP Safe Mode",

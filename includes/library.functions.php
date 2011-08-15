@@ -482,20 +482,33 @@ function pagelines_load_css_relative( $relative_style_url, $id){
 	$rurl = '/' . $relative_style_url;
 	
 	if( file_exists(STYLESHEETPATH . $rurl ) ){
-		$date_modified = filemtime( STYLESHEETPATH . $rurl );
-		$cache_ver = str_replace('.', '', CHILD_VERSION) . '-' . date('mdyGis', $date_modified);
+		
+		$cache_ver = pl_cache_version( STYLESHEETPATH . $rurl );
 		
 		pagelines_load_css( CHILD_URL . $rurl , $id, $cache_ver);
 		 
 	} elseif(file_exists(TEMPLATEPATH . $rurl) ){
-		$date_modified = filemtime( TEMPLATEPATH . $rurl );
-		$cache_ver = str_replace('.', '', CORE_VERSION) .'-'.date('mdyGis', $date_modified);
+		
+		$cache_ver = pl_cache_version( TEMPLATEPATH . $rurl ); 
 		
 		pagelines_load_css( PARENT_URL . $rurl , $id, $cache_ver);
 		
 	} 
 	
 
+}
+
+/**
+ * 
+ * Get cache version number
+ *
+ *
+ */
+function pl_cache_version( $path, $version = CORE_VERSION ){
+	$date_modified = filemtime( $path );
+	$cache_ver = str_replace('.', '', $version) . '-' . date('mdGis', $date_modified);
+	
+	return $cache_ver;
 }
 
 /**

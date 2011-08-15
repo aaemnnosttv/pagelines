@@ -41,7 +41,7 @@ class PageLinesRegister {
 		*/
 		$section_dirs =  array(
 
-			'child'		=> WP_PLUGIN_DIR . '/pagelines-base/sections',
+			'child'		=> PL_EXTEND_SECTIONS_DIR,
 			'parent'	=> PL_SECTIONS			
 			);
 		
@@ -156,8 +156,8 @@ class PageLinesRegister {
 					'authoruri'		=> ( isset( $headers['authoruri'] ) ) ? $headers['authoruri'] : '',
 					'description'	=> $headers['description'],
 					'name'			=> $headers['section'],
-					'base_url'		=> ( $type == 'child' ) ? WP_PLUGIN_URL . '/pagelines-base/sections/' . $folder : SECTION_ROOT . $folder,
-					'base_dir'		=> ( $type == 'child' ) ? WP_PLUGIN_DIR . '/pagelines-base/sections/' . $folder : PL_SECTIONS . $folder,
+					'base_url'		=> ( $type == 'child' ) ? trailingslashit(PL_EXTEND_SECTIONS_URL) . $folder : SECTION_ROOT . $folder,
+					'base_dir'		=> ( $type == 'child' ) ? trailingslashit(PL_EXTEND_SECTIONS_DIR) . $folder : PL_SECTIONS . $folder,
 					'base_file'		=> $fullFileName
 				);	
 			}
