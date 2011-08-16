@@ -52,9 +52,11 @@ class PageLinesRegister {
 		* If not populate array and prime cache
 		*/
 		if ( !$sections = get_transient( 'pagelines_sections_cache' ) ) {
+			
 			foreach ( $section_dirs as $type => $dir ) {
 				$sections[$type] = $this->pagelines_getsections( $dir, $type );
 			}
+			
 			// check for deps within the main parent sections, load last if found.
 			foreach ($sections['parent'] as $key => $section ) {
 

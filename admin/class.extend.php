@@ -43,7 +43,7 @@
 		if ( ! is_object($sections) ) 
 			return $sections;
 
-		$output = '';
+		$output = sprintf('<ul class="the_sections plpanes">');
 
 		foreach( $sections as $key => $section ) {
 			
@@ -78,6 +78,8 @@
 			$output .= $this->pane_template($args);
 				
 		}
+		$output .= '</ul>';
+		
 		return $output;
  	}
 
@@ -90,12 +92,16 @@
  		 * Clear section cache and re-generate
  		 */
  		global $load_sections;
- 		delete_option( 'pagelines_sections_cache' );
+
+		// Get sections
+		delete_transient( 'pagelines_sections_cache' );
  		$load_sections->pagelines_register_sections();
- 		$available = get_option( 'pagelines_sections_cache' );
+ 		$available = get_transient( 'pagelines_sections_cache' );
+
+
  		$disabled = get_option( 'pagelines_sections_disabled', array() );
 		$upgradable = $this->get_latest_cached( 'sections' );
-		$output = '';
+		$output = sprintf('<ul class="the_sections plpanes">');
  		foreach( $available as $type ) {
 	
  			if ( !$type )
@@ -154,6 +160,8 @@
 
  		} // end type loop
 
+		$output .= '</ul>';
+		
 		return $output;
  	}
 
@@ -368,9 +376,9 @@
 		
 		$buttons = sprintf('<div class="pane-buttons">%s</div>', $s['buttons']);
 		
-		$tags =  ( $s['tags'] ) ? sprintf('<br />Tags: %s', $s['tags']) : '';
+		$tags =  ( $s['tags'] ) ? sprintf('Tags: %s', $s['tags']) : '';
 		
-		$count = ( $s['count'] ) ? sprintf('<br />Downloads: %s', $s['count']) : '';
+		$count = ( $s['count'] ) ? sprintf('Downloads: %s', $s['count']) : '';
 		
 		$screenshot = ( $s['image'] ) ? sprintf('<div class="extend-screenshot"><a class="screenshot-%s" href="http://api.pagelines.com/%s/img/%s.png" rel="http://api.pagelines.com/%s/img/%s.png"><img src="http://api.pagelines.com/%s/img/thumb-%s.png"></a></div>' , str_replace( '.', '-', $s['key']), $s['type'], $s['key'], $s['type'], $s['key'], $s['type'], $s['key']) : '';
 
@@ -399,15 +407,15 @@
 		    }
 		});</script>" : '';
 		
-		$title = sprintf('<div class="pane-head"><div class="pane-head-pad"><h3 class="pane-title">%s</h3><div class="pane-sub">%s</div>%s</div></div>', $s['name'], 'Version ' . $s['version'], $screenshot );
+		$title = sprintf('<div class="pane-head"><div class="pane-head-pad"><h3 class="pane-title">%s</h3><div class="pane-sub">%s</div>%s</div></div>', $s['name'], '' , $screenshot );
 		
-		$auth = sprintf('<div class="pane-dets">by <a href="%s">%s</a> %s%s</div>', $s['auth_url'], $s['auth'], $tags, $count);
+		$auth = sprintf('<div class="pane-dets"><strong>%s</strong> | by <a href="%s">%s</a></div>', 'v' . $s['version'], $s['auth_url'], $s['auth']);
 		
 		$body = sprintf('<div class="pane-desc"><div class="pane-desc-pad">%s %s</div></div>', $s['desc'], $auth);
 		
-		$r = sprintf('<div id="response%s" class="install_response"><div class="rp"></div></div>%s', $s['key'], $js);
+		$r = sprintf('<li id="response%s" class="install_response"><div class="rp"></div></li>%s', $s['key'], $js);
 		
-		return sprintf('<div class="plpane pane-plugin"><div class="plpane-hl fix"><div class="plpane-pad fix">%s %s %s</div></div></div>%s', $title, $body, $buttons, $r);
+		return sprintf('<li class="plpane pane-plugin"><div class="plpane-hl fix"><div class="plpane-pad fix">%s %s %s</div></div></li>%s', $title, $body, $buttons, $r);
 			
 	}
 
