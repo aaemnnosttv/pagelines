@@ -31,9 +31,12 @@ class PageLinesRegister {
 	 *  @since 2.0
 	 *
 	 */
-	function pagelines_register_sections(){
+	function pagelines_register_sections( $reset = null, $echo = null ){
 
 		global $pl_section_factory;
+		
+		if ( $reset === true )
+			delete_transient( 'pagelines_sections_cache' );
 
 		/**
 		* Load our main section folders
@@ -51,7 +54,7 @@ class PageLinesRegister {
 		* If cache exists load into $sections array
 		* If not populate array and prime cache
 		*/
-		if ( !$sections = get_transient( 'pagelines_sections_cache' ) ) {
+		if ( ! $sections = get_transient( 'pagelines_sections_cache' ) ) {
 			
 			foreach ( $section_dirs as $type => $dir ) {
 				$sections[$type] = $this->pagelines_getsections( $dir, $type );
@@ -71,6 +74,10 @@ class PageLinesRegister {
 			*/
 			set_transient( 'pagelines_sections_cache', $sections, 86400 );	
 		}
+		
+		if ( true === $echo )
+			return $sections;
+		
 		// filter main array containing child and parent and any custom sections
 		$sections = apply_filters( 'pagelines_section_admin', $sections );
 		$disabled = get_option( 'pagelines_sections_disabled', array( 'child' => array(), 'parent' => array()) );

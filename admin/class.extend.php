@@ -94,10 +94,7 @@
  		global $load_sections;
 
 		// Get sections
-		delete_transient( 'pagelines_sections_cache' );
- 		$load_sections->pagelines_register_sections();
- 		$available = get_transient( 'pagelines_sections_cache' );
-
+ 		$available = $load_sections->pagelines_register_sections( true, true );
 
  		$disabled = get_option( 'pagelines_sections_disabled', array() );
 		$upgradable = $this->get_latest_cached( 'sections' );
