@@ -337,11 +337,11 @@
 		font-size: 1.1em;
 		padding: 0;
 		text-align: center;
-		background: #ddd;
+		background: #e8e8e8;
 		
 	}
 	.subtabs-menu .subtabs .ui-tabs-selected a{
-		background: #ccc;
+		background: #ddd;
 	}
 	
 		.subtabs a .st-pad{

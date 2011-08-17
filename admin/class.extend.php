@@ -691,7 +691,7 @@ function extension_array(  ){
 
 	$d = array(
 		'Sections' => array(
-			'icon'		=> PL_ADMIN_ICONS.'/extend-sections.png',
+			'icon'		=> PL_ADMIN_ICONS.'/dragdrop.png',
 			'htabs' 	=> array(
 				'all_sections'	=> array(
 					'title'		=> 'Installed PageLines Sections',
@@ -768,7 +768,7 @@ function extension_array(  ){
 			),
 		),
 		'Updates' => array(
-			'icon'		=> PL_ADMIN_ICONS.'/extend-inout.png',
+			'icon'		=> PL_ADMIN_ICONS.'/rocket-fly.png',
 			'import_set'	=> array(
 				'default'	=> '',
 				'type'		=> 'image_upload',
