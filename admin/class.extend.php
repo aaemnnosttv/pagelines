@@ -207,87 +207,85 @@
 		$plugins = pagelines_array_sort( $plugins, 'name', false, true ); // sort by name
 
 		// get status of each plugin
-		foreach( $plugins as $key => $plugin ) {
-			$plugins[$key]['status'] = $this->plugin_check_status( WP_PLUGIN_DIR . $plugin['file'] );
+		foreach( $plugins as $key => $p ) {
+			$plugins[$key]['status'] = $this->plugin_check_status( WP_PLUGIN_DIR . $p['file'] );
 			$plugins[$key]['name'] = ( $plugins[$key]['status']['data']['Name'] ) ? $plugins[$key]['status']['data']['Name'] : $plugins[$key]['name'];
+			
+			
 		}
 
 		$plugins = pagelines_array_sort( $plugins, 'status', 'status' ); // sort by status
 
 		// reset array keys ( sort functions reset keys to int )
-		foreach( $plugins as $key => $plugin ) {
+		foreach( $plugins as $key => $p ) {
 			
 			unset( $plugins[$key] );
-			$key = str_replace( '.php', '', basename( $plugin['file'] ) );
-			$plugins[$key] = $plugin;
-		}
-	
-		foreach( $plugins as $key => $plugin ) {
-	
-			if ( !isset( $plugin['type'] ) )
-				$plugin['type'] = 'free';
-			if ( $tab === 'installed' && !isset( $plugin['status']['status'] ) )
-				continue;
-			if ( ( $tab === 'premium' || $tab === 'free' ) && isset( $plugin['status']['status'] ) )
-				continue;
-			if ( $tab === 'premium' && $plugin['type'] === 'free' )
-				continue;
-			if ( $tab === 'free' && $plugin['type'] === 'premium' )
-				continue;	
+			$key = str_replace( '.php', '', basename( $p['file'] ) );
+			$plugins[$key] = $p;
 			
-			$install_js_call = sprintf( $this->exprint, 'plugin_install', $key, 'plugins', $key, 'Installing');
-			$activate_js_call = sprintf( $this->exprint, 'plugin_activate', $key, 'plugins', $plugin['file'], 'Activating');
-			$deactivate_js_call = sprintf( $this->exprint, 'plugin_deactivate', $key, 'plugins', $plugin['file'], 'Deactivating');
-			$upgrade_js_call = sprintf( $this->exprint, 'plugin_upgrade', $key, 'plugins', $key, 'Upgrading');
-			$delete_js_call = sprintf( $this->exprint, 'plugin_delete', $key, 'plugins', $plugin['file'], 'Deleting');
+		}
+		
+		$list = array();
 
-			if ( !isset( $plugin['status'] ) )
-				$plugin['status'] = array( 'status' => '' );
+		foreach( $plugins as $key => $p ) {
+	
+			if ( !isset( $p['type'] ) )
+				$p['type'] = 'free';
+			if ( $tab === 'installed' && !isset( $p['status']['status'] ) )
+				continue;
+			if ( ( $tab === 'premium' || $tab === 'free' ) && isset( $p['status']['status'] ) )
+				continue;
+			if ( $tab === 'premium' && $p['type'] === 'free' )
+				continue;
+			if ( $tab === 'free' && $p['type'] === 'premium' )
+				continue;	
 
-			if ( isset( $plugin['status']['version'] ) )
-				if ( $plugin['version'] > $plugin['status']['version'] )
-					$plugin['status']['status'] = 'upgrade';
-
-			switch ( $plugin['status']['status'] ) {
-					
-				case 'active':
-					$button = OptEngine::superlink('Deactivate', 'grey', '', '', $deactivate_js_call);
-				break;
-					
-				case 'notactive':
-					$button = OptEngine::superlink('Activate', 'blue', '', '', $activate_js_call);
-					$button .= OptEngine::superlink('Delete', 'grey', '', '', $delete_js_call);
-				break;
-					
-				case 'upgrade':
-					$button = OptEngine::superlink('Upgrade to ' . $plugin['version'], 'black', '', '', $upgrade_js_call);
-				break;
-
-				default:
-					// were not installed, show the form! ( if we are on install tab )
-					$button = OptEngine::superlink('Install', 'black', '', '', $install_js_call);
-				break;
-						
-			}
+			if ( !isset( $p['status'] ) )
+				$p['status'] = array( 'status' => '' );
 				
-			$args = array(
-					'name' 		=> $plugin['name'], 
-					'version'	=> ( isset( $plugin['status']['data'] ) ) ? $plugin['status']['data']['Version'] : $plugin['version'], 
-					'desc'		=> $plugin['text'],
-					'tags'		=> ( isset( $plugin['tags'] ) ) ? $plugin['tags'] : '',
-					'auth_url'	=> $plugin['author_url'], 
-					'image'		=> ( isset( $plugin['image'] ) ) ? $plugin['image'] : '',
-					'auth'		=> $plugin['author'], 
-					'buttons'	=> $button,
+			$install = ($p['status']['status'] == '' ) ? true : false;
+
+			$upgrade_available = ( isset( $p['status']['version'] ) && $p['version'] > $p['status']['version'] ) ? true : false;
+			
+			$active = ($p['status']['status'] == 'active') ? true : false;
+			
+				
+			$actions = array(
+				'install'	=> array(
+					'mode'		=> 'install',
+					'condition'	=> $install,
+					'case'		=> 'plugin_install',
+					'type'		=> 'plugins',
+					'file'		=> $p['file'],
+					'text'		=> 'Install',
+					'dtext'		=> 'Installing',
+				),
+			);
+			
+			
+			
+			$list[$key] = array(
+					'name' 		=> $p['name'], 
+					'version'	=> ( isset( $p['status']['data'] ) ) ? $p['status']['data']['Version'] : $p['version'], 
+					'desc'		=> $p['text'],
+					'tags'		=> ( isset( $p['tags'] ) ) ? $p['tags'] : '',
+					'auth_url'	=> $p['author_url'], 
+					'image'		=> ( isset( $p['image'] ) ) ? $p['image'] : '',
+					'auth'		=> $p['author'], 
 					'key'		=> $key,
 					'type'		=> 'plugins',
-					'count'		=> $plugin['count']
-			);
-				
-			$output .= $this->pane_template($args);
+					'count'		=> $p['count'],
+					'actions'	=> $actions
+			);	
 				
 		}
-		return $output;
+	
+		if(empty($list) && $tab == 'installed')
+			return $this->ui->extension_banner('No Plugins Are Installed.');
+		elseif(empty($list) && $tab == 'premium')
+			return $this->ui->extension_banner('No Premium Plugins Are Available.');
+		else 
+			return $this->ui->extension_list( $list );
 	}
 
 
@@ -715,11 +713,19 @@ function extension_array(  ){
 						'class'		=> 'right',
 						'callback'	=> $extension_control->extension_sections_install( 'free' )
 						),
+					'search'		=> array(
+						'title'		=> 'Search Plugins',
+						'callback'	=> ''
+					),
+					'upload'		=> array(
+						'title'		=> 'Upload Plugin',
+						'callback'	=> ''
+					),
 					
-					)
 				)
+			)
 
-			),
+		),
 		'Themes' => array(
 			'icon'		=> PL_ADMIN_ICONS.'/extend-themes.png',
 			'htabs' 	=> array(
@@ -745,19 +751,29 @@ function extension_array(  ){
 					'title'		=> 'Installed PageLines Plugins',
 					'callback'	=> $extension_control->extension_plugins( 'installed' )
 					),
-				'free'		=> array(
-					'title'		=> 'Free Plugins',
-					'class'		=> 'right',
-					'callback'	=> $extension_control->extension_plugins( 'free' )
+				'add_new_plugins'	=> array(
+					'type'		=> 'subtabs',
+					'title'		=> 'Add Plugins',
+					'premium'		=> array(
+						'title'		=> 'Premium Plugins',
+						'callback'	=> $extension_control->extension_plugins( 'premium' )
 					),
-				'premium'		=> array(
-					'title'		=> 'Premium Plugins',
-					'class'		=> 'right',
-					'callback'	=> $extension_control->extension_plugins( 'premium' )
-					)
+					'free'		=> array(
+						'title'		=> 'Free Plugins',
+						'callback'	=> $extension_control->extension_plugins( 'free' )
+					),
+					'search'		=> array(
+						'title'		=> 'Search Plugins',
+						'callback'	=> ''
+					),
+					'upload'		=> array(
+						'title'		=> 'Upload Plugin',
+						'callback'	=> ''
+					),
 				)
+			)
 
-			),
+		),
 		'Import-Export' => array(
 			'icon'		=> PL_ADMIN_ICONS.'/extend-inout.png',
 			'import_set'	=> array(

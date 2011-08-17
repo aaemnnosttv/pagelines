@@ -50,17 +50,18 @@ class PageLinesExtendUI {
 	 */
 	function extension_list( $list = array() ){
 		
-		$panes = '';
-		foreach( $list as $eid => $e ){
+			$panes = '';
+			foreach( $list as $eid => $e ){
 			
-			$panes .= $this->pane_template( $e );
+				$panes .= $this->pane_template( $e );
 			
-		}
+			}
 		
-		$output = sprintf('<ul class="the_sections plpanes">%s</ul>', $panes);
+			$output = sprintf('<ul class="the_sections plpanes">%s</ul>', $panes);
 		
 		
-		return $output;
+			return $output;
+		
 		
 	}
 	
@@ -154,6 +155,17 @@ class PageLinesExtendUI {
 		// The banner
 		return sprintf('<div class="install-control fix"><span class="banner-text">You need to install and activate PageLines Extend Plugin</span> <br/><br/>%s</div>', $install_button);
 	}
+	
+	/**
+	 * Draw a list of extended items
+	 */
+	function extension_banner( $text ){
+		
+		// The banner
+		return sprintf('<div class="install-control fix"><span class="banner-text">%s</span></div>', $text);
+	}
+	
+	
 	
 		/**
 		 * 

@@ -701,7 +701,7 @@ class OptEngine {
 		$handle = 'htabs'.$menu; ?>
 	<script type="text/javascript"> 
 		jQuery(document).ready(function() {	
-			var <?php echo $handle;?> = jQuery("#<?php echo $handle;?>").tabs({ cookie: { name: "<?php echo $menu;?>-tabs" }, fx: { opacity: "toggle", duration: 150 } }); 
+			var <?php echo $handle;?> = jQuery("#<?php echo $handle;?>").tabs({ cookie: { name: "<?php echo $menu;?>-tabs" } }); 
 		});
 	</script>
 	<div id="<?php echo $handle;?>" class="htabs-menu" >	
@@ -759,9 +759,9 @@ class OptEngine {
 		return $thewrapper;
 	}
 	
-	function get_tabs_script($handle, $cookie_key){
+	function get_tabs_script($handle, $key){
 	
-		$thescript = sprintf('var %1$s = jQuery("#%1$s").tabs( { } );', $handle, $cookie_key);
+		$thescript = sprintf('var %1$s = jQuery("#%1$s").tabs( { cookie: { name: "sub-tabs-%2$s" } } );', $handle, $key);
 		
 		$wrapper = sprintf('<script type="text/javascript">jQuery(document).ready(function() { %s });</script>', $thescript);
 		

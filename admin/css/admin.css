@@ -2287,13 +2287,13 @@ font-weight: bold;
 	
 	.install-control{
 		border: 4px dashed #DDD;
-		padding: 60px 50px;
+		padding: 120px 50px;
 		font-weight: bold;
 		color: #555;
 		text-align: center;
 	}
 		.install-control .banner-text{
-			font-size: 1.4em;
+			font-size: 1.45em;
 			line-height: 1.7em;
 		}
 
