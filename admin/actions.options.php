@@ -52,7 +52,7 @@ function pagelines_build_option_interface(){
 function pagelines_build_extension_interface(){ 
 	
 	$args = array(
-		'title'			=> 'PageLines Extension', 
+		'title'			=> 'PageLines Extend', 
 		'settings' 		=> PAGELINES_EXTENSION,
 		'callback'		=> 'extension_array',
 		'show_save'		=> false, 

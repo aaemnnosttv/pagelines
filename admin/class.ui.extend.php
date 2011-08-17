@@ -149,10 +149,10 @@ class PageLinesExtendUI {
 	function get_extend_plugin(  ){
 		
 		// The button
-		$install_button = OptEngine::superlink('Install It Now!', 'blue', 'install_now sl-right', '', '');
+		$install_button = OptEngine::superlink('Install It Now!', 'blue', 'install_now iblock', '', '');
 		
 		// The banner
-		return sprintf('<div class="install-control fix"><span class="banner-text">You need to install and activate PageLines Extend Plugin</span> %s</div>', $install_button);
+		return sprintf('<div class="install-control fix"><span class="banner-text">You need to install and activate PageLines Extend Plugin</span> <br/><br/>%s</div>', $install_button);
 	}
 	
 		/**

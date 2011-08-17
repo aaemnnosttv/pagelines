@@ -697,20 +697,25 @@ function extension_array(  ){
 					'title'		=> 'Installed PageLines Sections',
 					'callback'	=> $extension_control->extension_sections()
 					),
-				'premium'	=> array(
-					'title'		=> 'Premium PageLines Sections',
-					'class'		=> 'right',
-					'callback'	=> $extension_control->extension_sections_install( 'premium' )
-					),
-				'free'	=> array(
-					'title'		=> 'Free PageLines Sections',
-					'class'		=> 'right',
-					'callback'	=> $extension_control->extension_sections_install( 'free' )
-					),
-				'featured'	=> array(
-					'title'		=> 'Featured on PageLines.com',
-					'class'		=> 'right',
-					'callback'	=> $extension_control->extension_sections_install( 'feature' )
+				'add_new_sections'	=> array(
+					'type'		=> 'subtabs',
+					'title'		=> 'Extend Sections',
+					'featured'	=> array(
+						'title'		=> 'Featured on PageLines.com',
+						'class'		=> 'right',
+						'callback'	=> $extension_control->extension_sections_install( 'feature' )
+						),
+					'premium'	=> array(
+						'title'		=> 'Premium PageLines Sections',
+						'class'		=> 'right',
+						'callback'	=> $extension_control->extension_sections_install( 'premium' )
+						),
+					'free'	=> array(
+						'title'		=> 'Free PageLines Sections',
+						'class'		=> 'right',
+						'callback'	=> $extension_control->extension_sections_install( 'free' )
+						),
+					
 					)
 				)
 

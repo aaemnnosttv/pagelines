@@ -299,20 +299,20 @@
 		padding: 5px 12px;
 		font-size: 1.1em;
 		text-decoration:none;
-		background:#dfdfdf;
+		background:#e8e8e8;
 		font-weight: bold;
 
-		color: #222;
+		color: #777;
 		border: 1px solid #ccc;
 		border-right: 1px solid #bbb;
 		border-bottom: none;
 	
 	}
 	.horizontal-tabs .ui-tabs-selected a, .horizontal-tabs .ui-tabs-selected a:hover{
-
+		color: #222;
 		background: #F7F7F7;
 		border-bottom: 1px solid #f7f7f7;
-		border-right: 2px solid #ccc;
+		border-right: 1px solid #ccc;
 		margin-bottom: -1px !important;
 	}
 
@@ -324,7 +324,30 @@
 				border-right: 1px solid #aaa;
 				border-bottom: none;
 			}
+	
+	.subtabs.horizontal-tabs{border-bottom: none;}
+	.subtabs-menu .htab-sub{
+		background:#f1f1f1;
+		border: none;
+	}
+
+	.subtabs {}
+	.subtabs-menu .subtabs a{
+		border: none;
+		font-size: 1.1em;
+		padding: 0;
+		text-align: center;
+		background: #ddd;
 		
+	}
+	.subtabs-menu .subtabs .ui-tabs-selected a{
+		background: #ccc;
+	}
+	
+		.subtabs a .st-pad{
+			display: block;
+			padding: 12px 15px;
+		}
 
 	.htab-content-pad {padding: 15px 20px;}
 	.htab-content .htab-title{margin: .5em 0 1em; color:#ccc}
@@ -584,6 +607,10 @@
 
 		
 /* @ The Amazing Superlink! */
+		.superlink-wrap.iblock-wrap{
+			display: inline-block;
+			float: none;
+		}
 		.superlink-wrap{
 			border: 1px solid #aaa; 
 			border-right: 1px solid #fff;
@@ -2260,13 +2287,14 @@ font-weight: bold;
 	
 	.install-control{
 		border: 4px dashed #DDD;
-		padding: 80px 50px;
+		padding: 60px 50px;
 		font-weight: bold;
 		color: #555;
+		text-align: center;
 	}
 		.install-control .banner-text{
 			font-size: 1.4em;
-			line-height: 1.6em;
+			line-height: 1.7em;
 		}
 
 /* @ Restore/Import/Export */

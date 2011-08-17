@@ -701,22 +701,72 @@ class OptEngine {
 		$handle = 'htabs'.$menu; ?>
 	<script type="text/javascript"> 
 		jQuery(document).ready(function() {	
-			var <?php echo $handle;?> = jQuery("#<?php echo $handle;?>").tabs({ cookie: { name: "<?php echo $menu;?>-tabs" }, fx: { opacity: "toggle", duration: "250" } }); 
+			var <?php echo $handle;?> = jQuery("#<?php echo $handle;?>").tabs({ cookie: { name: "<?php echo $menu;?>-tabs" }, fx: { opacity: "toggle", duration: 150 } }); 
 		});
 	</script>
 	<div id="<?php echo $handle;?>" class="htabs-menu" >	
 		<ul class="tabbed-list horizontal-tabs fix">
 			<?php foreach($oids['htabs'] as $key => $t){
 					$class = (isset($t['class'])) ? $t['class'] : 'left';
-					printf('<li class="ht-%s"><a href="#%s" >%s</a></li>', $class, $key,  ucwords( str_replace( '_', ' ', $key)) );
+					printf('<li class="ht-%s"><a href="#%s" >%s</a></li>', $class, $key,  polish_key($key) );
 				}
 			?>
 		</ul>
-		<?php foreach($oids['htabs'] as $key => $t)
-				printf('<div id="%s" class="htab-content"><div class="htab-content-pad"><h3 class="htab-title">%s</h3>%s</div></div>', $key, $t['title'], $t['callback']);
+		<?php 
+		
+	
+		
+		foreach($oids['htabs'] as $key => $t){
+			
+			$callback = ( isset($t['type']) && $t['type'] == 'subtabs' ) ? self::get_horizontal_subtabs( $key, $t ) : $t['callback'];
+				
+			printf('<div id="%s" class="htab-content"><div class="htab-content-pad"><h3 class="htab-title">%s</h3>%s</div></div>', $key, $t['title'], $callback);
+			
+		}
+		
+		
+		
 			?>
 	</div>
 	<?php }
+	
+	function get_horizontal_subtabs( $key, $t ){
+		
+		$handle = 'subtabs_'.$key;
+		
+		$thescript = self::get_tabs_script($handle, $key);
+		
+		$list_items = '';
+		if(isset($t['type'])) unset($t['type']);
+		if(isset($t['title'])) unset($t['title']);
+		
+		$wlist = (1 / count($t)) * 100;
+		foreach( $t as $skey => $st){
+			
+			$list_items .= sprintf('<li class="st-%s" style="width: %s%%"><a href="#%s" ><span class="st-pad">%s</span></a></li>', 'subtab', $wlist, $skey,  polish_key($skey) );
+			
+		}
+		
+		$thelist = sprintf('<ul class="tabbed-list horizontal-tabs subtabs fix">%s</ul>', $list_items);
+		
+		$stabs = '';
+		foreach($t as $skey => $st){
+			$stabs .= sprintf('<div id="%s" class="htab-sub"><div class="htab-content-pad"><h3 class="htab-title">%s</h3>%s</div></div>', $skey, $st['title'], $st['callback']);
+		}
+		
+		$thewrapper = sprintf('<div id="%s" class="subtabs-menu" >%s %s</div>%s', $handle, $thelist, $stabs, $thescript);
+		
+		return $thewrapper;
+	}
+	
+	function get_tabs_script($handle, $cookie_key){
+	
+		$thescript = sprintf('var %1$s = jQuery("#%1$s").tabs( { } );', $handle, $cookie_key);
+		
+		$wrapper = sprintf('<script type="text/javascript">jQuery(document).ready(function() { %s });</script>', $thescript);
+		
+		return $wrapper;
+	}
 
 	/**
 	 * 

@@ -640,3 +640,7 @@ function pagelines_array_sort( $a, $subkey, $pre = null, $dec = null ) {
 	}
 	return $c;
 }
+
+function polish_key($key){
+	return ucwords( str_replace( '_', ' ', $key));
+}
