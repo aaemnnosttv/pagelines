@@ -325,7 +325,7 @@
 				border-bottom: none;
 			}
 	
-	.subtabs.horizontal-tabs{border-bottom: none;}
+	.subtabs.horizontal-tabs{border-bottom: none;margin-bottom: 0 !important;}
 	.subtabs-menu .htab-sub{
 		background:#f1f1f1;
 		border: none;
