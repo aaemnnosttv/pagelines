@@ -280,7 +280,6 @@
 	.tabinfo {
 		float: left;
 		width: 100%;
-		border-top:1px solid #fff;
 	}
 		.htabs-interface{
 			background:#fff;
@@ -298,7 +297,7 @@
 	.horizontal-tabs{border-bottom: 1px solid #bbb;}
 	.horizontal-tabs li a{
 		padding: 5px 12px;
-		font-size: 1.2em;
+		font-size: 1.1em;
 		text-decoration:none;
 		background:#dfdfdf;
 		font-weight: bold;
@@ -311,11 +310,9 @@
 	}
 	.horizontal-tabs .ui-tabs-selected a, .horizontal-tabs .ui-tabs-selected a:hover{
 
-		background: #82a2ca url(../images/superlink-sprite-blue.png) 0 0 repeat-x;
-		color:#fff;
-		text-shadow: #2d4a79 0 -1px 0;
-		border: 1px solid #2d4a79;
-		border-right: 1px solid #2d4a79;
+		background: #F7F7F7;
+		border-bottom: 1px solid #f7f7f7;
+		border-right: 2px solid #ccc;
 		margin-bottom: -1px !important;
 	}
 
@@ -329,10 +326,10 @@
 			}
 		
 
-	.htab-content-pad {padding: 15px 20px; border-top: 1px solid #fff}
+	.htab-content-pad {padding: 15px 20px;}
 	.htab-content .htab-title{margin: .5em 0 1em; color:#ccc}
 	
-	#htabs .horizontal-tabs li.ht-left{margin-left: 15px}
+	.htabs-menu .horizontal-tabs li.ht-left{margin-left: 15px}
 	.horizontal-tabs li.ht-right{float: right;margin-right: 15px}
 	
 /* @ Horizontal List - Used in Posts Control */
@@ -2187,14 +2184,14 @@ font-weight: bold;
 
 .install_response{
 	background: #eee;
-	border: 1px solid #bbb;
-	border-right: 1px solid #ddd;
 	border-bottom: 1px solid #ddd;
-	font-size: .9em;
+	text-align: center;
+	color:#888;
+	font-size: 1.1em;
 	font-weight: bold;
-	padding: 10px 20px;
+	padding: 15px 20px;
+	margin:0;
 	display: none;
-	margin-bottom: 1em;
 }
 	.install_response p:last-child {color: #225E9B;font-size:1.3em}
 	.install_response h2,.install_response .icon32{display: none}
@@ -2212,8 +2209,7 @@ font-weight: bold;
 		border-bottom: 1px solid #ddd;
 		border-top:1px solid #fff;
 	}
-	 .plpane-hl{
-	}
+
 	.plpane .superlink-wrap{float:right; margin-right: 0}
 	 h3{ margin: 0; font-size: 1.1em; }
 	
@@ -2223,7 +2219,7 @@ font-weight: bold;
 	}
 		.pane-head-pad{padding: 0 8px 0 5px; }
 	.pane-desc{
-		width: 50%;
+		width: 75%;
 		float: left;
 		font-size: .9em;
 	}
@@ -2236,12 +2232,32 @@ font-weight: bold;
 	
 	.pane-sub {color: #999;font-size: .9em; font-weight: bold;}
 
-	.plpane .button {
-		display: block;
-		float: left;
-		margin: 0;
+	.extend_button{
+		cursor: pointer;
+		font-family: helvetica, arial, sans-serif;
+		text-shadow: #fff 0 1px 0;
+		background: #e1e1e1;
+		color: #777;
+		font-size: 10px;
+		display: inline-block;
+		margin: 7px 5px 1px 0;
+		padding: 3px 5px;
+		text-align: left;
+		line-height: 100%;
+		font-weight: bold;
+		-moz-border-radius: 3px;
+		-webkit-border-radius: 3px;
+		border-radius: 3px;
+		vertical-align:top;
+		text-decoration: none;
 	}
-
+		.extend_button.activate{
+			text-shadow: #002563 0 -1px 0;
+			background: #5888C4;
+			color: #ffffff;
+		}
+	
+	
 	.install-control{
 		border: 4px dashed #DDD;
 		padding: 80px 50px;

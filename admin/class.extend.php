@@ -19,8 +19,9 @@
 		$this->exprint = 'onClick="extendIt(\'%s\', \'%s\', \'%s\', \'%s\', \'%s\')"';
 		$this->username = get_pagelines_option( 'lp_username' );
 		$this->password = get_pagelines_option( 'lp_password' );
-		// Hooked Actions
-		add_action('admin_head', array(&$this, 'extension_js'));
+		
+		$this->ui = new PageLinesExtendUI;
+		
 		add_action('wp_ajax_pagelines_ajax_extend_it_callback', array(&$this, 'extend_it_callback'));
  	}
 
@@ -31,26 +32,23 @@
 			TODO Use plugin?
  		*/
 		
- 		if ( !is_dir( PL_EXTEND_SECTIONS_DIR ) || ( file_exists( PL_EXTEND_INIT ) && current( $this->plugin_check_status( PL_EXTEND_INIT ) ) == 'notactive' ) ){
- 		
-			$install_button = OptEngine::superlink('Install It Now!', 'blue', 'install_now sl-right', '', '');
-			return sprintf('<div class="install-control fix"><span class="banner-text">You need to install and activate PageLines Extend Plugin</span> %s</div>', $install_button);
-			
-		}
+ 		if ( !$this->has_extend_plugin() )
+			return $this->ui->get_extend_plugin();
 
 		$sections = $this->get_latest_cached( 'sections' );
 
 		if ( ! is_object($sections) ) 
 			return $sections;
 
-		$output = sprintf('<ul class="the_sections plpanes">');
 
-		foreach( $sections as $key => $section ) {
+		$list = array();
+		
+		foreach( $sections as $key => $s ) {
 			
-			if ( !isset( $section->type) )
-				$section->type = 'free';
+			if ( !isset( $s->type) )
+				$s->type = 'free';
 			
-			if ($tab !== $section->type)
+			if ($tab !== $s->type)
 				continue;
 
 			$check_file = sprintf('%1$s/sections/%2$s/%2$s.php', PL_EXTEND_DIR, $key); 
@@ -59,32 +57,36 @@
 				continue;
 
 			$key = str_replace( '.', '', $key );
-			$install_js_call = sprintf( $this->exprint, 'section_install', $key, 'sections', $key, 'Installing');
-
-			$button = OptEngine::superlink('Install Section', 'black', '', '', $install_js_call);
-				
-			$args = array(
-					'name' 		=> $section->name, 
-					'version'	=> $section->version, 
-					'desc'		=> $section->text, 
-					'auth_url'	=> $section->author_url, 
-					'auth'		=> $section->author,
-					'image'		=> $section->image,
+			
+			$list[$key] = array(
+					'name' 		=> $s->name, 
+					'version'	=> $s->version, 
+					'desc'		=> $s->text, 
+					'auth_url'	=> $s->author_url, 
+					'auth'		=> $s->author,
+					'image'		=> $s->image,
 					'buttons'	=> $button,
 					'type'		=> 'sections',
-					'key'		=> $key
+					'key'		=> $key, 
+					'ext_txt'	=> 'Installing', 
 			);
-				
-			$output .= $this->pane_template($args);
-				
+			
 		}
-		$output .= '</ul>';
 		
-		return $output;
+		return $this->ui->extension_list( $list );
  	}
 
+	function has_extend_plugin(){
+		
+		if ( !is_dir( PL_EXTEND_SECTIONS_DIR ) || ( file_exists( PL_EXTEND_INIT ) && current( $this->plugin_check_status( PL_EXTEND_INIT ) ) == 'notactive' ) )
+			return false;
+		else 
+			return true;
+		
+	}
+	
 	/*
-	 * Document!
+	 * Get sections that are installed.
 	 */
  	function extension_sections() {
 
@@ -97,70 +99,93 @@
  		$available = $load_sections->pagelines_register_sections( true, true );
 
  		$disabled = get_option( 'pagelines_sections_disabled', array() );
+
 		$upgradable = $this->get_latest_cached( 'sections' );
-		$output = sprintf('<ul class="the_sections plpanes">');
+		
+		
  		foreach( $available as $type ) {
 	
  			if ( !$type )
  				continue;
 
-			foreach( $type as $key => $section) {
+			foreach( $type as $key => $s)
+				$type[$key]['status'] = ( isset( $disabled[ $s['type'] ][ $s['class'] ] ) ) ? 'disabled' : 'enabled';
 	
-				$type[$key]['status'] = ( isset( $disabled[$section['type']][$section['class']] ) ) ? 'disabled' : 'enabled';
-		
-			}
-
 			/*
 	 		 * Sort Alphabetically
 	 		 */
  			$type = pagelines_array_sort( $type, 'name' );
 
- 			foreach( $type as $key => $section) { // main loop
+ 			foreach( $type as $key => $s ) { // main loop
 
-  				if ( $section['type'] == 'parent' && isset( $available['child'][$section['class']] ) )
+  				if ( $s['type'] == 'parent' && isset( $available['child'][ $s['class'] ] ) )
  					continue;
 
-				$activate_js_call = sprintf($this->exprint, 'section_activate', $key, $section['type'], $section['class'], 'Activating');
-				$deactivate_js_call = sprintf($this->exprint, 'section_deactivate', $key, $section['type'], $section['class'], 'Deactivating');
-				
-				$button = ( $section['status'] == 'enabled' ) 
-							? OptEngine::superlink('Deactivate', 'grey', '', '', $deactivate_js_call) 
-							: OptEngine::superlink('Activate', 'blue', '', '', $activate_js_call);
+				$enabled = ( $s['status'] == 'enabled' ) ? true : false;
 
-				$file = basename($section['base_dir']);
-				if ( is_object( $upgradable ) && isset( $upgradable->$file ) ) {
-		
-					$install_js_call = sprintf( $this->exprint, 'section_upgrade', $key, 'sections', $file, 'Upgrading to version ' . $upgradable->$file->version );
+				$file = basename( $s['base_dir'] );
 
-					$button = ( isset( $upgradable->$file ) && $section['version'] < $upgradable->$file->version )
-								? OptEngine::superlink('Upgrade available!', 'black', '', '', $install_js_call)
-								: $button;
-				}
+				$upgrade_available = $this->upgrade_available( $upgradable, $file);
 				
-				$args = array(
-						'name' 		=> $section['name'], 
-						'version'	=> !empty( $section['version'] ) ? $section['version'] : CORE_VERSION, 
-						'desc'		=> $section['description'],
-						'tags'		=> ( isset( $section['tags'] ) ) ? $section['tags'] : '',
-						'auth_url'	=> $section['authoruri'],
+				$actions = array(
+					'activate'	=> array(
+						'mode'		=> 'activate',
+						'condition'	=> (!$enabled) ? true : false,
+						'case'		=> 'section_activate',
+						'type'		=> $s['type'],
+						'file'		=> $s['class'],
+						'text'		=> 'Activate',
+						'dtext'		=> 'Activating',
+					) ,
+					'deactivate'=> array(
+						'mode'		=> 'deactivate',
+						'condition'	=> $enabled,
+						'case'		=> 'section_deactivate',
+						'type'		=> $s['type'],
+						'file'		=> $s['class'],
+						'text'		=> 'Deactivate',
+						'dtext'		=> 'Deactivating',
+					),
+					'upgrade'	=> array(
+						'mode'		=> 'upgrade',
+						'condition'	=> $upgrade_available,
+						'case'		=> 'section_upgrade',
 						'type'		=> 'sections',
-						'image'		=> ( isset( $section['image'] ) ) ? $section['image'] : '',
-						'auth'		=> $section['author'],
-						'importance'=> $section['importance'],
-						'buttons'	=> $button, 
-						'key'		=> $key
+						'file'		=> $file,
+						'text'		=> 'Upgrade',
+						'dtext'		=> 'Upgrading to version '.$upgrade_available,
+					)
 				);
 				
-				$output .= $this->pane_template($args);
+				$list[$key] = array(
+						'name' 		=> $s['name'], 
+						'version'	=> !empty( $s['version'] ) ? $s['version'] : CORE_VERSION, 
+						'desc'		=> $s['description'],
+						'auth_url'	=> $s['authoruri'],
+						'type'		=> 'sections',
+						'object'	=> $s['class'],
+						'tags'		=> ( isset( $s['tags'] ) ) ? $s['tags'] : '',
+						'image'		=> ( isset( $s['image'] ) ) ? $s['image'] : '',
+						'auth'		=> $s['author'],
+						'importance'=> $s['importance'],
+						'key'		=> $key,
+						'status'	=> $s['status'], 
+						'actions'	=> $actions
+				);
 
- 			}	// end main loop
+ 			}
+ 		} 
 
- 		} // end type loop
-
-		$output .= '</ul>';
-		
-		return $output;
+		return $this->ui->extension_list( $list );
  	}
+
+	function upgrade_available( $upgradable, $file ){
+		
+		if ( is_object( $upgradable ) && isset( $upgradable->$file ) && $s['version'] < $upgradable->$file->version ) 
+			return $upgradable->$file->version;
+		else 
+			return false;
+	}
 
 	/*
 	 * Document!
@@ -418,70 +443,7 @@
 
 
 
-	/**
-	 * 
-	 * Add Javascript to header (hook in contructor)
-	 * 
-	 */
-	function extension_js(){ ?>
-		
-		<script type="text/javascript">/*<![CDATA[*/
 
-		function extendIt( mode, key, type, url, duringText ){
-			
-				/* 
-					'Mode' 	= the type of extension
-					'Key' 	= the key of the element in the array, for the response
-					'Type' 	= ?
-					'Url' 	= the url for the extension/install/update
-				*/
-			
-				var data = {
-					action: 'pagelines_ajax_extend_it_callback',
-					extend_mode: mode,
-					extend_type: type,
-					extend_url: url
-				};
-
-				var responseElement = jQuery('#response'+key);
-
-				var duringTextLength = duringText.length + 3;
-				var dotInterval = 400;
-				
-				jQuery.ajax({
-					type: 'POST',
-					url: ajaxurl,
-					data: data,
-					beforeSend: function(){
-
-						responseElement.html( duringText ).slideDown();
-						
-						// add some dots while saving.
-						interval = window.setInterval(function(){
-							
-							var text = responseElement.text();
-							
-							if ( text.length < duringTextLength ){	
-								responseElement.text( text + '.' ); 
-							} else { 
-								responseElement.text( duringText ); 
-							} 
-							
-						}, dotInterval);
-
-					},
-				  	success: function( response ){
-					
-						window.clearInterval( interval ); // clear dots...
-						
-						responseElement.html(response).delay(6500).slideUp();
-					}
-				});
-
-		}
-		/*]]>*/</script>
-		
-<?php }
 
 	/**
 	 * 
@@ -501,7 +463,7 @@
 		// 2. Variable Setup
 			$mode =  $_POST['extend_mode'];
 			$type =  $_POST['extend_type'];
-			$url =  $_POST['extend_url'];
+			$file =  $_POST['extend_file'];
 		
 		// 3. Do our thing...
 
@@ -510,20 +472,20 @@
 			case 'plugin_install':
 
 				$upgrader = new Plugin_Upgrader();
-				@$upgrader->install( $this->make_url( $type, $url ) );
+				@$upgrader->install( $this->make_url( $type, $file ) );
 				$this->page_reload( 'pagelines_extend' );
 			break;	
 
 			case 'plugin_activate':
 
-			 	activate_plugin( $url );
+			 	activate_plugin( $file );
 			 	echo 'Activation complete! ';
 			 	$this->page_reload( 'pagelines_extend' );
 			break;
 					
 			case 'plugin_deactivate':
 
-				deactivate_plugins( array( $url ) );
+				deactivate_plugins( array( $file ) );
 				// Output
 		 		echo 'Deactivation complete! ';
 		 		$this->page_reload( 'pagelines_extend' );			
@@ -532,28 +494,28 @@
 			case 'section_activate':
 
 				$available = get_option( 'pagelines_sections_disabled' );
-				unset( $available[$type][$url] );
+				unset( $available[$type][$file] );
 				update_option( 'pagelines_sections_disabled', $available );
 				// Output
-				echo 'Activated';
+				echo 'Section Activated!';
 				$this->page_reload( 'pagelines_extend' );	
 			break;
 			
 			case 'section_deactivate':
 
 				$disabled = get_option( 'pagelines_sections_disabled', array( 'child' => array(), 'parent' => array()) );
-				$disabled[$type][$url] = true; 
+				$disabled[$type][$file] = true; 
 				update_option( 'pagelines_sections_disabled', $disabled );
 				// Output
-				echo 'Deactivated';
+				echo 'Section Deactivated.';
 				$this->page_reload( 'pagelines_extend' );		
 			break;
 			
 			case 'section_install':
 
 				$upgrader = new Plugin_Upgrader();
-				$options = array( 'package' => $this->make_url( $type, str_replace( 'section', 'section.', $url ) ), 
-						'destination'		=> EXTEND_CHILD_DIR . '/sections/' . str_replace( 'section', 'section.', $url ), 
+				$options = array( 'package' => $this->make_url( $type, str_replace( 'section', 'section.', $file ) ), 
+						'destination'		=> EXTEND_CHILD_DIR . '/sections/' . str_replace( 'section', 'section.', $file ), 
 						'clear_destination' => false,
 						'clear_working'		=> false,
 						'is_multi'			=> false,
@@ -562,15 +524,15 @@
 
 				@$upgrader->run($options);
 				// Output
-				echo 'Installed';
+				echo 'New Section Installed!';
 				$this->page_reload( 'pagelines_extend' );		
 			break;
 			
 			case 'section_upgrade':
 
 				$upgrader = new Plugin_Upgrader();
-				$options = array( 'package' => $this->make_url( $type, $url ), 
-						'destination'		=> EXTEND_CHILD_DIR .'/sections/' . $url, 
+				$options = array( 'package' => $this->make_url( $type, $file ), 
+						'destination'		=> EXTEND_CHILD_DIR .'/sections/' . $file, 
 						'clear_destination' => true,
 						'clear_working'		=> false,
 						'is_multi'			=> false,
@@ -579,15 +541,15 @@
 				
 				@$upgrader->run($options);
 				// Output
-				echo 'Upgraded';
+				echo 'Success! Section Upgraded.';
 				$this->page_reload( 'pagelines_extend' );	
 			break;
 			
 			case 'plugin_upgrade':
 
 				$upgrader = new Plugin_Upgrader();
-				$options = array( 'package' => $this->make_url( $type, $url ), 
-						'destination'		=> WP_PLUGIN_DIR .'/' . $url, 
+				$options = array( 'package' => $this->make_url( $type, $file ), 
+						'destination'		=> WP_PLUGIN_DIR .'/' . $file, 
 						'clear_destination' => true,
 						'clear_working'		=> false,
 						'is_multi'			=> false,
@@ -602,7 +564,7 @@
 			
 			case 'plugin_delete':
 
-				delete_plugins( array( ltrim( $url, '/' ) ) );
+				delete_plugins( array( ltrim( $file, '/' ) ) );
 				echo 'Deleted';
 				$this->page_reload( 'pagelines_extend' );
 			break;
@@ -610,8 +572,8 @@
 			case 'theme_upgrade':
 
 				$upgrader = new Plugin_Upgrader();
-				$options = array( 'package' => $this->make_url( $type, $url ), 
-						'destination'		=> WP_CONTENT_DIR .'/themes/' . $url, 
+				$options = array( 'package' => $this->make_url( $type, $file ), 
+						'destination'		=> WP_CONTENT_DIR .'/themes/' . $file, 
 						'clear_destination' => true,
 						'clear_working'		=> false,
 						'is_multi'			=> false,
@@ -627,8 +589,8 @@
 			case 'theme_install':
 
 				$upgrader = new Plugin_Upgrader();
-				$options = array( 'package' => $this->make_url( $type, $url ), 
-						'destination'		=> WP_CONTENT_DIR .'/themes/' . $url, 
+				$options = array( 'package' => $this->make_url( $type, $file ), 
+						'destination'		=> WP_CONTENT_DIR .'/themes/' . $file, 
 						'clear_destination' => true,
 						'clear_working'		=> false,
 						'is_multi'			=> false,
@@ -642,7 +604,7 @@
 			
 			case 'theme_activate':
 
-				switch_theme( basename( get_template_directory() ), $url );
+				switch_theme( basename( get_template_directory() ), $file );
 				// Output
 				echo 'Activated';
 				$this->page_reload( 'pagelines' );	
@@ -660,9 +622,10 @@
 		die(); // needed at the end of ajax callbacks
 	}
 	
-	function make_url( $type, $url ) {
+	function make_url( $type, $file ) {
 		
-		return 'http://api.pagelines.com/' . $type . '/download.php?d=' . $url . '.zip';		
+		return sprintf('%s/%s/download.php?d=%s.zip', PL_API, $type, $file);
+		
 	}
 	
 	/**
@@ -670,7 +633,8 @@
 	 * Helper function
 	 */
  	function page_reload( $location ) {
- 		echo '<script type="text/javascript">window.location = \'' . admin_url( 'admin.php?page=' . $location ) . '\';</script>';
+	
+		printf('<script type="text/javascript">setTimeout(function(){ window.location = \'%s\';}, 1000);</script>', admin_url( 'admin.php?page=' . $location ));
  	}
 
 	function plugin_check_status( $file ) {
@@ -729,7 +693,7 @@ function extension_array(  ){
 		'Sections' => array(
 			'icon'		=> PL_ADMIN_ICONS.'/extend-sections.png',
 			'htabs' 	=> array(
-				'installed'	=> array(
+				'all_sections'	=> array(
 					'title'		=> 'Installed PageLines Sections',
 					'callback'	=> $extension_control->extension_sections()
 					),
@@ -790,6 +754,15 @@ function extension_array(  ){
 
 			),
 		'Import-Export' => array(
+			'icon'		=> PL_ADMIN_ICONS.'/extend-inout.png',
+			'import_set'	=> array(
+				'default'	=> '',
+				'type'		=> 'image_upload',
+				'title'		=> 'Import Settings',						
+				'shortexp'	=> '',
+			),
+		),
+		'Updates' => array(
 			'icon'		=> PL_ADMIN_ICONS.'/extend-inout.png',
 			'import_set'	=> array(
 				'default'	=> '',

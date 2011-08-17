@@ -261,6 +261,7 @@ require_once (PL_ADMIN . '/library.help.php' );
  * Load plugin installer class
  */
 require_once ( PL_ADMIN . '/class.extend.php' );
+require_once ( PL_ADMIN . '/class.ui.extend.php' );
 $extension_control = new PagelinesExtensions;
 
 /**

@@ -698,28 +698,23 @@ class OptEngine {
 	 * 
 	 **/
 	function get_horizontal_nav( $menu, $oids){ 
-		
-		$handle = 'htabs'.$menu;
-		?>
+		$handle = 'htabs'.$menu; ?>
 	<script type="text/javascript"> 
 		jQuery(document).ready(function() {	
-			var <?php echo $handle;?> = jQuery("#<?php echo $handle;?>").tabs({ 
-				fx: { opacity: "toggle", duration: "fast" }
-			}); 
+			var <?php echo $handle;?> = jQuery("#<?php echo $handle;?>").tabs({ cookie: { name: "<?php echo $menu;?>-tabs" }, fx: { opacity: "toggle", duration: "250" } }); 
 		});
 	</script>
-	<div id="<?php echo $handle;?>">	
+	<div id="<?php echo $handle;?>" class="htabs-menu" >	
 		<ul class="tabbed-list horizontal-tabs fix">
 			<?php foreach($oids['htabs'] as $key => $t){
 					$class = (isset($t['class'])) ? $t['class'] : 'left';
-					printf('<li class="ht-%s"><a href="#%s" >%s</a></li>', $class, $key,  ucfirst($key));
+					printf('<li class="ht-%s"><a href="#%s" >%s</a></li>', $class, $key,  ucwords( str_replace( '_', ' ', $key)) );
 				}
 			?>
 		</ul>
 		<?php foreach($oids['htabs'] as $key => $t)
 				printf('<div id="%s" class="htab-content"><div class="htab-content-pad"><h3 class="htab-title">%s</h3>%s</div></div>', $key, $t['title'], $t['callback']);
 			?>
-
 	</div>
 	<?php }
 

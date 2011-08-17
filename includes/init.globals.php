@@ -104,6 +104,11 @@ define( 'EXTEND_CHILD_DIR', WP_PLUGIN_DIR . '/pagelines-extend' );
 define( 'EXTEND_CHILD_URL', plugins_url( 'pagelines-extend' ) );
 
 /**
+ * Define API Constants
+ */
+define( 'PL_API', 'http://api.pagelines.com');
+
+/**
  * Define version constants
  */
 define('PAGELINES_PRO', TEMPLATEPATH . '/pro' );

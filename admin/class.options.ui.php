@@ -268,7 +268,7 @@ class PageLinesOptionsUI {
 	function get_tab_setup(){ ?>
 		<script type="text/javascript">
 				jQuery(document).ready(function() {						
-					var myTabs = jQuery("#tabs").tabs({ cookie: { name: "<?php echo $this->set['settings'];?>-tabs" }, fx: { opacity: "toggle", duration: 200 }});
+					var myTabs = jQuery("#tabs").tabs({ cookie: { name: "<?php echo $this->set['settings'];?>-tabs" }, fx: { opacity: "toggle", duration: 100 }});
 				});
 		</script>
 	<?php }
