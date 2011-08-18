@@ -101,9 +101,10 @@ class PageLinesExtendUI {
 
 			$count = ( $s['count'] ) ? sprintf('Downloads: %s', $s['count']) : '';
 
-			$screenshot = ( $s['image'] ) ? sprintf('<div class="extend-screenshot"><a class="screenshot-%s" href="http://api.pagelines.com/%s/img/%s.png" rel="http://api.pagelines.com/%s/img/%s.png"><img src="http://api.pagelines.com/%s/img/thumb-%s.png"></a></div>' , str_replace( '.', '-', $s['key']), $s['type'], $s['key'], $s['type'], $s['key'], $s['type'], $s['key']) : '';
+			// Left for reference
+			//$screenshot = ( $s['image'] ) ? sprintf('<div class="extend-screenshot"><a class="screenshot-%s" href="http://api.pagelines.com/%s/img/%s.png" rel="http://api.pagelines.com/%s/img/%s.png"><img src="http://api.pagelines.com/%s/img/thumb-%s.png"></a></div>' , str_replace( '.', '-', $s['key']), $s['type'], $s['key'], $s['type'], $s['key'], $s['type'], $s['key']) : '';
 
-			$title = sprintf('<div class="pane-head"><div class="pane-head-pad"><h3 class="pane-title">%s</h3><div class="pane-sub">%s</div>%s</div></div>', $s['name'], $this->get_extend_buttons( $e ) , $screenshot );
+			$title = sprintf('<div class="pane-head"><div class="pane-head-pad"><h3 class="pane-title">%s</h3><div class="pane-sub">%s</div></div></div>', $s['name'], $this->get_extend_buttons( $e ));
 
 			$auth = sprintf('<div class="pane-dets"><strong>%s</strong> | by <a href="%s">%s</a></div>', 'v' . $s['version'], $s['auth_url'], $s['auth']);
 
@@ -369,30 +370,42 @@ function extension_array(  ){
 			'icon'		=> PL_ADMIN_ICONS.'/extend-inout.png',
 			'import_set'	=> array(
 				'default'	=> '',
-				'type'		=> 'image_upload',
-				'title'		=> 'Import Settings',						
-				'shortexp'	=> '',
+				'type'		=> 'import_export',
+				'title'		=> 'Import/Export PageLines Settings',						
+				'shortexp'	=> 'Use this form to upload PageLines settings from another install.',
 			),
 		),
-		'Updates' => array(
-			'icon'		=> PL_ADMIN_ICONS.'/rocket-fly.png',
-			'import_set'	=> array(
-				'default'	=> '',
-				'type'		=> 'image_upload',
-				'title'		=> 'Import Settings',						
-				'shortexp'	=> '',
-			),
-		),
-		'your_account' => array(
-			'icon'		=> PL_ADMIN_ICONS.'/author.png',
-			'import_set'	=> array(
-				'default'	=> '',
-				'type'		=> 'image_upload',
-				'title'		=> 'Import Settings',						
-				'shortexp'	=> '',
-			),
-		)
 
+	);
+	
+	global $pl_update;
+	$updates_exp = ( is_array( $a = get_transient('pagelines-update-' . $pl_update->theme ) ) && isset($a['package']) && $a['package'] !== 'bad' ) 
+						? 'Updates are properly configured.' 
+						: 'Please use your login credentials for <a href="http://www.pagelines.com/launchpad/member.php">LaunchPad</a>.<br /><strong>Not</strong> your WordPress login.';
+	
+	
+	$d['Updates'] = array(
+		'icon'		=> PL_ADMIN_ICONS.'/rocket-fly.png',
+		'credentials' => array(
+			'version'	=> 'pro',
+			'type'		=> 'text_multi',
+			'inputsize'	=> 'tiny',
+			'selectvalues'	=> array(
+				'lp_username'	=> array('inputlabel'=>'Launchpad Username', 'default'=> $pl_update->username ),
+				'lp_password'	=> array('inputlabel'=>'Launchpad Password', 'default'=> $pl_update->password ),
+			),
+			'title'		=> 'Configure automatic updates',
+			'shortexp'	=> 'Get the latest theme updates direct from PageLines.',
+			'exp'		=> $updates_exp
+		),
+		'disable_updates' => array(
+				'default'	=> true,
+				'type'		=> 'check',
+				'inputlabel'	=> 'Disable update system?',
+				'title'		=> 'Disable Updates',
+				'shortexp'	=> 'Do not show update notifications.',
+				'exp'		=> 'Completely disables the update system (includes notifications).'
+		)
 	);
 
 	return apply_filters('extension_array', $d); 

@@ -2325,7 +2325,6 @@ font-weight: bold;
 /* @ Restore/Import/Export */
 
 	.download-button{ float: left; display: block; }
-	.restore_column_holder { width:920px; }
 	.restore_column_split{float: left;width: 50%;}
 
 

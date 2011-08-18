@@ -317,6 +317,9 @@ class OptEngine {
 			case 'graphic_selector' :
 				$this->graphic_selector($oid, $o);
 				break;
+			case 'import_export' :
+				$this->import_export($oid, $o);
+				break;
 			default :
 				do_action( 'pagelines_options_' . $o['type'] , $oid, $o);
 				break;
@@ -324,6 +327,31 @@ class OptEngine {
 		} 
 
 	}
+
+
+	function import_export(){ ?>
+	
+			<div class="restore_column_split">
+				<h4><?php _e('Export Settings', 'pagelines'); ?></h4>
+				<p class="fix">
+					<a class="button-secondary download-button" href="<?php echo admin_url('admin.php?page=pagelines&amp;download=settings'); ?>">Download Theme Settings</a>
+				</p>
+			</div>
+
+			<div class="restore_column_split">
+				<h4><?php _e('Import Settings', 'pagelines'); ?></h4>
+				<form method="post" enctype="multipart/form-data">
+					<input type="hidden" name="settings_upload" value="settings" />
+					<p class="form_input">
+						<input type="file" class="text_input" name="file" id="settings-file" />
+						<input class="button-secondary" type="submit" value="Upload New Settings" onClick="return ConfirmImportSettings();" />
+					</p>
+				</form>
+
+				<?php pl_action_confirm('ConfirmImportSettings', 'Are you sure? This will overwrite your current settings and configurations with the information in this file!');?>
+			</div>
+
+<?php	}
 
 	/**
 	 * 
