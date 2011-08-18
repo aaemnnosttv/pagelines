@@ -297,145 +297,108 @@
 			return $themes;
 			
 		$output = '';
-		$status = '';
+		$status = false;
+		$list = array();
 
 		foreach( $themes as $key => $theme ) {
 			
-			if ( file_exists( WP_CONTENT_DIR . '/themes/' . strtolower( $theme->name ) . '/style.css' ) )
-				if ( $data =  get_theme_data( WP_CONTENT_DIR . '/themes/' . strtolower( $theme->name ) . '/style.css' ) ) 
+			$check_file = sprintf( '%s/themes/%s/style.css', WP_CONTENT_DIR, strtolower( $theme->name ) );
+		
+				if ( file_exists( $check_file ) && get_theme_data( $check_file ) ) 
 					$status = 'installed';
 
 				if ($tab == 'premium' && $status == 'installed' )
 					continue;
 					
+				if ($tab == 'installed' && $status != 'installed' )
+					continue;
+					
 				if ( !$tab && !$status)
 					continue;
-				if ( $status == 'installed' && strtolower( $theme->name ) == basename( STYLESHEETPATH ) )
-					$status = 'activated';
-
-			
-				$activate_js_call = sprintf( $this->exprint, 'theme_activate', $key, 'themes', $key, 'Activating');
-				$deactivate_js_call = sprintf( $this->exprint, 'theme_deactivate', $key, 'themes', $key, 'Deactivating');
-				$install_js_call = sprintf( $this->exprint, 'theme_install', $key, 'themes', $key, 'Installing');
-				$upgrade_js_call = sprintf( $this->exprint, 'theme_upgrade', $key, 'themes', $key, 'Upgrading');
-
-				if ( isset($data) && $data['Version'] && $theme->version > $data['Version'])
-					$status = 'upgrade';
-
-				if ( !$status && !isset( $theme->purchased) )
-					$status = 'purchase';
+					
+				$is_active = (strtolower( $theme->name ) == basename( STYLESHEETPATH ))	? true : false;
+					
+				$activate = ($status == 'installed' && !$is_active) ? true : false;
+				$deactivate = ($status == 'installed' && $is_active) ? true : false;
+				$upgrade_available = (isset($data) && $data['Version'] && $theme->version > $data['Version']) ? true : false;
+				$install = ( !$status ) ? true : false;
+				$purchase = ( !$install && !isset( $theme->purchased) ) ? true : false;
 				
-				switch ( $status ) {
-					
-					case 'activated':
-						$button = OptEngine::superlink('Deactivate', 'black', '', '', $deactivate_js_call);
-						break;					
-					
-					case 'installed':
-						$button = OptEngine::superlink('Activate', 'black', '', '', $activate_js_call);
-						break;
-					
-					case 'upgrade':
-						$button = OptEngine::superlink('Upgrade to ' . $theme->version, 'black', '', '', $upgrade_js_call);
-						break;
+				$actions = array(
+					'install'	=> array(
+						'mode'		=> 'install',
+						'condition'	=> $install,
+						'case'		=> 'theme_install',
+						'type'		=> 'themes',
+						'file'		=> $key,
+						'text'		=> 'Install',
+						'dtext'		=> 'Installing',
+					),
+					'activate'	=> array(
+						'mode'		=> 'activate',
+						'condition'	=> $activate,
+						'case'		=> 'theme_activate',
+						'type'		=> 'themes',
+						'file'		=> $key,
+						'text'		=> 'Activate',
+						'dtext'		=> 'Activating',
+					),
+					'deactivate'	=> array(
+						'mode'		=> 'deactivate',
+						'condition'	=> $deactivate,
+						'case'		=> 'theme_deactivate',
+						'type'		=> 'themes',
+						'file'		=> $key,
+						'text'		=> 'Deactivate',
+						'dtext'		=> 'Deactivating',
+					),
+					'upgrade'	=> array(
+						'mode'		=> 'upgrade',
+						'condition'	=> $upgrade_available,
+						'case'		=> 'theme_upgrade',
+						'type'		=> 'themes',
+						'file'		=> $key,
+						'text'		=> 'Upgrade to '.$theme->version,
+						'dtext'		=> 'Upgrading',
+					),
+					'purchase'	=> array(
+						'mode'		=> 'install',
+						'condition'	=> $purchase,
+						'case'		=> 'theme_install',
+						'type'		=> 'themes',
+						'file'		=> $key,
+						'text'		=> 'Purchase',
+						'dtext'		=> 'Installing',
+					),
+				);
 
-					case 'purchase':
-						$button = OptEngine::superlink('Purchase Theme', 'black', '', '', '');
-						break;
 
 
-
-					default:
-						// were not installed, show the form! ( if we are on install tab )
-						$button = OptEngine::superlink('Install', 'black', '', '', $install_js_call);
-						break;
-						
-				}
-				
-				$args = array(
+				$list[$key] = array(
+						'theme'		=> $theme,
 						'name' 		=> $theme->name, 
 						'version'	=> ( !empty( $status ) && isset( $data['Version'] ) ) ? $data['Version'] : $theme->version, 
 						'desc'		=> $theme->text,
 						'tags'		=> ( isset( $theme->tags ) ) ? $theme->tags : '',
 						'auth_url'	=> $theme->author_url, 
-						'auth'		=> $theme->author,
 						'image'		=> ( isset( $theme->image ) ) ? $theme->image : '',
-						'type'		=> 'themes',
-						'buttons'	=> $button,
+						'auth'		=> $theme->author, 
 						'key'		=> $key,
-						'count'		=> $theme->count
+						'type'		=> 'themes',
+						'count'		=> $theme->count,
+						'actions'	=> $actions
 				);
 				
-				$output .= $this->pane_template($args);
-				
-			}
-		return $output;
-	}
-
-	/*
-	 * Draws the basic extension pane for sections, plugins based on settings
-	 */
-	function pane_template( $args = array() ){
+				$list[$key.'2'] = $list[$key];
+				$list[$key.'3'] = $list[$key];
+		}
 		
-		$d = array(
-				'name' 		=> 'No Name', 
-				'version'	=> 'No Version', 
-				'desc'		=> '',
-				'tags'		=> '', 
-				'auth_url'	=> '', 
-				'auth'		=> '',
-				'image'		=> '',
-				'buttons'	=> '',
-				'importance'=> '',
-				'key'		=> '',
-				'type'		=> '',
-				'count'		=> ''
-		);
 		
-		$s = wp_parse_args( $args, $d);
 		
-		$buttons = sprintf('<div class="pane-buttons">%s</div>', $s['buttons']);
-		
-		$tags =  ( $s['tags'] ) ? sprintf('Tags: %s', $s['tags']) : '';
-		
-		$count = ( $s['count'] ) ? sprintf('Downloads: %s', $s['count']) : '';
-		
-		$screenshot = ( $s['image'] ) ? sprintf('<div class="extend-screenshot"><a class="screenshot-%s" href="http://api.pagelines.com/%s/img/%s.png" rel="http://api.pagelines.com/%s/img/%s.png"><img src="http://api.pagelines.com/%s/img/thumb-%s.png"></a></div>' , str_replace( '.', '-', $s['key']), $s['type'], $s['key'], $s['type'], $s['key'], $s['type'], $s['key']) : '';
-
-		$js =  ( $screenshot ) ? "<script type='text/javascript' />jQuery('a.screenshot-" . str_replace( '.', '-', $s['key']) . "').imgPreview({
-		    containerID: 'imgPreviewWithStyles',
-		    imgCSS: {
-		        // Limit preview size:
-		        height: 200
-		    },
-		    // When container is shown:
-		    onShow: function(link){
-		        // Animate link:
-		        jQuery(link).stop().animate({opacity:0.4});
-		        // Reset image:
-		        jQuery('img', this).stop().css({opacity:0});
-		    },
-		    // When image has loaded:
-		    onLoad: function(){
-		        // Animate image
-		        jQuery(this).animate({opacity:1}, 300);
-		    },
-		    // When container hides: 
-		    onHide: function(link){
-		        // Animate link:
-		        jQuery(link).stop().animate({opacity:1});
-		    }
-		});</script>" : '';
-		
-		$title = sprintf('<div class="pane-head"><div class="pane-head-pad"><h3 class="pane-title">%s</h3><div class="pane-sub">%s</div>%s</div></div>', $s['name'], '' , $screenshot );
-		
-		$auth = sprintf('<div class="pane-dets"><strong>%s</strong> | by <a href="%s">%s</a></div>', 'v' . $s['version'], $s['auth_url'], $s['auth']);
-		
-		$body = sprintf('<div class="pane-desc"><div class="pane-desc-pad">%s %s</div></div>', $s['desc'], $auth);
-		
-		$r = sprintf('<li id="response%s" class="install_response"><div class="rp"></div></li>%s', $s['key'], $js);
-		
-		return sprintf('<li class="plpane pane-plugin"><div class="plpane-hl fix"><div class="plpane-pad fix">%s %s %s</div></div></li>%s', $title, $body, $buttons, $r);
+		if(empty($list) && $tab == 'installed')
+			return $this->ui->extension_banner('No PageLines themes are currently installed.');
+		else
+			return $this->ui->extension_list( $list, 'graphic' );
 			
 	}
 
@@ -678,122 +641,3 @@
  } // end PagelinesExtensions class
 
 
-/**
- *
- *  Returns Extension Array Config
- *
- */
-function extension_array(  ){
-
-	global $extension_control;
-
-	$d = array(
-		'Sections' => array(
-			'icon'		=> PL_ADMIN_ICONS.'/dragdrop.png',
-			'htabs' 	=> array(
-				'all_sections'	=> array(
-					'title'		=> 'Installed PageLines Sections',
-					'callback'	=> $extension_control->extension_sections()
-					),
-				'add_new_sections'	=> array(
-					'type'		=> 'subtabs',
-					'title'		=> 'Extend Sections',
-					'featured'	=> array(
-						'title'		=> 'Featured on PageLines.com',
-						'class'		=> 'right',
-						'callback'	=> $extension_control->extension_sections_install( 'feature' )
-						),
-					'premium'	=> array(
-						'title'		=> 'Premium PageLines Sections',
-						'class'		=> 'right',
-						'callback'	=> $extension_control->extension_sections_install( 'premium' )
-						),
-					'free'	=> array(
-						'title'		=> 'Free PageLines Sections',
-						'class'		=> 'right',
-						'callback'	=> $extension_control->extension_sections_install( 'free' )
-						),
-					'search'		=> array(
-						'title'		=> 'Search Plugins',
-						'callback'	=> ''
-					),
-					'upload'		=> array(
-						'title'		=> 'Upload Plugin',
-						'callback'	=> ''
-					),
-					
-				)
-			)
-
-		),
-		'Themes' => array(
-			'icon'		=> PL_ADMIN_ICONS.'/extend-themes.png',
-			'htabs' 	=> array(
-				
-				'installed'	=> array(
-					'title'		=> 'Installed PageLines Themes',
-					'callback'	=> $extension_control->extension_themes()
-					),
-				'premium'		=> array(
-					'title'		=> 'Premium Themes',
-					'class'		=> 'right',
-					'callback'	=> $extension_control->extension_themes( 'premium' )
-					)
-					
-				)
-
-			),
-		'Plugins' => array(
-			'icon'		=> PL_ADMIN_ICONS.'/extend-plugins.png',
-			'htabs' 	=> array(
-				
-				'installed'	=> array(
-					'title'		=> 'Installed PageLines Plugins',
-					'callback'	=> $extension_control->extension_plugins( 'installed' )
-					),
-				'add_new_plugins'	=> array(
-					'type'		=> 'subtabs',
-					'title'		=> 'Add Plugins',
-					'premium'		=> array(
-						'title'		=> 'Premium Plugins',
-						'callback'	=> $extension_control->extension_plugins( 'premium' )
-					),
-					'free'		=> array(
-						'title'		=> 'Free Plugins',
-						'callback'	=> $extension_control->extension_plugins( 'free' )
-					),
-					'search'		=> array(
-						'title'		=> 'Search Plugins',
-						'callback'	=> ''
-					),
-					'upload'		=> array(
-						'title'		=> 'Upload Plugin',
-						'callback'	=> ''
-					),
-				)
-			)
-
-		),
-		'Import-Export' => array(
-			'icon'		=> PL_ADMIN_ICONS.'/extend-inout.png',
-			'import_set'	=> array(
-				'default'	=> '',
-				'type'		=> 'image_upload',
-				'title'		=> 'Import Settings',						
-				'shortexp'	=> '',
-			),
-		),
-		'Updates' => array(
-			'icon'		=> PL_ADMIN_ICONS.'/rocket-fly.png',
-			'import_set'	=> array(
-				'default'	=> '',
-				'type'		=> 'image_upload',
-				'title'		=> 'Import Settings',						
-				'shortexp'	=> '',
-			),
-		)
-
-	);
-
-	return apply_filters('extension_array', $d); 
-}

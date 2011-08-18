@@ -201,7 +201,7 @@ class PageLinesOptionsUI {
 					</div>
 				</ul>
 				
-				<div id="thetabs" class="fix">
+				<div id="thetabs" class="plpanel fix">
 <?php 				if(!VPRO) $this->get_pro_call();
 					 
 					foreach($this->option_array as $menu => $oids){
