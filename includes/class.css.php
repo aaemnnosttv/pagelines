@@ -169,7 +169,6 @@ class PageLinesCSS {
 
 }
 
-
 /**
  * 
  *  Load Dynamic CSS inline

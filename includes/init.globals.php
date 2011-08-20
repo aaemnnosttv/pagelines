@@ -8,31 +8,36 @@ define('CORE_VERSION', $theme_data['Version']);
 
 $child_theme_data = get_theme_data(STYLESHEETPATH . '/style.css');
 define('CHILD_VERSION', $child_theme_data['Version']);
-	
+
 /**
  * If Pro Version
  */
-if(file_exists(TEMPLATEPATH.'/pro/init_pro.php')){
+if(file_exists(TEMPLATEPATH.'/pro/init_pro.php'))
 	define('VPRO',true);
-}else{ define('VPRO',false);}
+else
+	define('VPRO',false);
 	
 /**
  * If Dev Version
  */
-if(file_exists(TEMPLATEPATH.'/dev/init_dev.php')){
+if(file_exists(TEMPLATEPATH.'/dev/init_dev.php'))
 	define('VDEV',true);
-}else{ define('VDEV',false); }
+else
+	define('VDEV',false);
 
 if(!defined('PL_DEV'))
 	define('PL_DEV',false);
 	
-if (! PL_DEV ) add_filter( 'extension_array', create_function( '', 'return array();' ) );	
+if (! PL_DEV ) 
+	add_filter( 'extension_array', create_function( '', 'return array();' ) );	
 
 /**
  * Set Theme Name
  */
-if(VPRO) $theme = 'PageLines';
-else $theme = 'PageLinesLE';
+if(VPRO) 
+	$theme = 'PageLines';
+else 
+	$theme = 'PageLinesLE';
 
 define('CORE_LIB', PL_INCLUDES); // Deprecated, but used in bbPress forum < 1.2.3
 
