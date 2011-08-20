@@ -33,7 +33,7 @@
  		*/
 		
  		if ( !$this->has_extend_plugin() )
-			return $this->ui->get_extend_plugin();
+			return $this->ui->get_extend_plugin( $this->has_extend_plugin('status'), $tab );
 
 		$sections = $this->get_latest_cached( 'sections' );
 
@@ -76,13 +76,23 @@
 		return $this->ui->extension_list( $list );
  	}
 
-	function has_extend_plugin(){
+	function has_extend_plugin( $status = false ){
 		
-		if ( !is_dir( PL_EXTEND_SECTIONS_DIR ) || ( file_exists( PL_EXTEND_INIT ) && current( $this->plugin_check_status( PL_EXTEND_INIT ) ) == 'notactive' ) )
-			return false;
-		else 
-			return true;
-		
+		if(!$status){
+			
+			if( file_exists( PL_EXTEND_INIT ) && current( $this->plugin_check_status( PL_EXTEND_INIT ) ) == 'notactive' )
+				return 'notactive';
+			elseif(!is_dir( PL_EXTEND_SECTIONS_DIR ) || !file_exists( PL_EXTEND_INIT ))
+				return 'notinstalled';
+			else
+				return 'active';
+			
+		} else {
+			if ( !is_dir( PL_EXTEND_SECTIONS_DIR ) || ( file_exists( PL_EXTEND_INIT ) && current( $this->plugin_check_status( PL_EXTEND_INIT ) ) == 'notactive' ) )
+				return false;
+			else 
+				return true;
+		}
 	}
 	
 	/*

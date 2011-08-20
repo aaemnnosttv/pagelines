@@ -147,13 +147,28 @@ class PageLinesExtendUI {
 	/**
 	 * Draw a list of extended items
 	 */
-	function get_extend_plugin(  ){
+	function get_extend_plugin( $status = '', $tab = '' ){
+		
+		
+		
+		if($status == 'notactive'){
+			$btext = 'Activate Extend';
+			$text = sprintf('Extend plugin installed, now activate it!');
+			
+		} elseif($status == 'notinstalled'){
+			$btext = 'Install It Now!';
+			$text = sprintf('You need to install and activate PageLines Extend Plugin');
+			
+		}
+			
+		
+		$install_js_call = sprintf( $this->exprint, 'plugin_install', 'ExtendPlugin', 'plugins', 'pagelines-extend', 'Installing');
 		
 		// The button
-		$install_button = OptEngine::superlink('Install It Now!', 'blue', 'install_now iblock', '', '');
+		$install_button = OptEngine::superlink($btext, 'blue', 'install_now iblock', '', $install_js_call);
 		
 		// The banner
-		return sprintf('<div class="install-control fix"><span class="banner-text">You need to install and activate PageLines Extend Plugin</span> <br/><br/>%s</div>', $install_button);
+		return sprintf('<div id="responseExtendPlugin" class="install-control fix"><span class="banner-text"></span> %s<br/><br/>%s</div>', $text, $install_button);
 	}
 	
 	/**
@@ -194,7 +209,7 @@ class PageLinesExtendUI {
 					};
 
 					var responseElement = jQuery('#response'+key);
-
+				
 					var duringTextLength = duringText.length + 3;
 					var dotInterval = 400;
 
@@ -221,7 +236,7 @@ class PageLinesExtendUI {
 
 						},
 					  	success: function( response ){
-
+							
 							window.clearInterval( interval ); // clear dots...
 
 							responseElement.effect("highlight", {color: "#CCCCCC"}, 2000).html(response).delay(6500).slideUp();
