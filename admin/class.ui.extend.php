@@ -404,7 +404,7 @@ function extension_array(  ){
 						: 'Please use your login credentials for <a href="http://www.pagelines.com/launchpad/member.php">LaunchPad</a>.<br /><strong>Not</strong> your WordPress login.';
 	
 	
-	$d['Updates'] = array(
+	$d['Launchpad'] = array(
 		'icon'		=> PL_ADMIN_ICONS.'/rocket-fly.png',
 		'credentials' => array(
 			'version'	=> 'pro',
