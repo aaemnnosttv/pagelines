@@ -95,12 +95,6 @@ class PageLinesExtendUI {
 
 			$s = wp_parse_args( $e, $this->defaultpane);
 
-			$buttons = sprintf('<div class="pane-buttons">%s</div>', $s['buttons']);
-
-			$tags =  ( $s['tags'] ) ? sprintf('Tags: %s', $s['tags']) : '';
-
-			$count = ( $s['count'] ) ? sprintf('Downloads: %s', $s['count']) : '';
-
 			// Left for reference
 			//$screenshot = ( $s['image'] ) ? sprintf('<div class="extend-screenshot"><a class="screenshot-%s" href="http://api.pagelines.com/%s/img/%s.png" rel="http://api.pagelines.com/%s/img/%s.png"><img src="http://api.pagelines.com/%s/img/thumb-%s.png"></a></div>' , str_replace( '.', '-', $s['key']), $s['type'], $s['key'], $s['type'], $s['key'], $s['type'], $s['key']) : '';
 
@@ -112,7 +106,7 @@ class PageLinesExtendUI {
 
 			$response = sprintf('<li id="response%s" class="install_response"><div class="rp"></div></li>', $s['key']);
 
-			return sprintf('<li class="plpane pane-plugin"><div class="plpane-hl fix"><div class="plpane-pad fix">%s %s %s</div></div></li>%s', $title, $body, $buttons, $response);
+			return sprintf('<li class="plpane pane-plugin"><div class="plpane-hl fix"><div class="plpane-pad fix">%s %s </div></div></li>%s', $title, $body, $response);
 		
 	}
 	

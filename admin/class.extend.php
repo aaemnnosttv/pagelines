@@ -45,18 +45,20 @@
 		
 		foreach( $sections as $key => $s ) {
 			
+			$check_file = sprintf('%1$s/sections/%2$s/%2$s.php', PL_EXTEND_DIR, $key); 
+			
 			if ( !isset( $s->type) )
 				$s->type = 'free';
 			
 			if ($tab !== $s->type)
 				continue;
 
-			$check_file = sprintf('%1$s/sections/%2$s/%2$s.php', PL_EXTEND_DIR, $key); 
-
 			if ( file_exists( $check_file ) )
 				continue;
 
 			$key = str_replace( '.', '', $key );
+			
+			$actions = array();
 			
 			$list[$key] = array(
 					'name' 		=> $s->name, 
@@ -65,10 +67,10 @@
 					'auth_url'	=> $s->author_url, 
 					'auth'		=> $s->author,
 					'image'		=> $s->image,
-					'buttons'	=> $button,
 					'type'		=> 'sections',
 					'key'		=> $key, 
 					'ext_txt'	=> 'Installing', 
+					'actions'	=> $actions
 			);
 			
 		}
