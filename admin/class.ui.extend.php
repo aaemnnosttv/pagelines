@@ -270,6 +270,14 @@ function extension_array(  ){
 					'title'		=> 'Installed PageLines Sections',
 					'callback'	=> $extension_control->extension_sections()
 					),
+				'added_sections'	=> array(
+					'title'		=> 'Sections Added',
+					'callback'	=> $extension_control->extension_sections()
+					),
+				'core_sections'	=> array(
+					'title'		=> 'Sections From PageLines Core',
+					'callback'	=> $extension_control->extension_sections()
+					),
 				'add_new_sections'	=> array(
 					'type'		=> 'subtabs',
 					'title'		=> 'Extend Sections',
