@@ -17,7 +17,7 @@
 /*
  * Common Admin Elements
  */
-	
+	.plpanel p {line-height: 1.65em;}
 	.oinputs p{ font-size: 1em; }
 	.oinputs {line-height: 1.5em}
 
@@ -2297,10 +2297,34 @@ font-weight: bold;
 			line-height: 1.7em;
 		}
 
+	.graphic_panes{
+		border-top: 1px solid #e1e1e1;
+		border-bottom:1px solid #fff;
+	}
+	.graphic_pane{
+		padding: 25px 0;
+		border-top: 1px solid #fff;
+		border-bottom: 1px solid #e1e1e1;
+	}
+		.graphic_pane .img {margin-right: 30px;}
+	.theme-screen {
+		float:left;
+		
+	}
+	.theme-screen img {
+		display: block;
+		border: 1px solid #CCC;
+		border: 1px solid rgba(255, 255, 255, 1);
+		background: #f5f5f5;
+		padding: 12px;
+		-moz-box-shadow: 0 1px 4px #888;
+		-webkit-box-shadow: 0 1px 4px #888;
+		box-shadow: 0 1px 4px #888;
+	}
+	
 /* @ Restore/Import/Export */
 
 	.download-button{ float: left; display: block; }
-	.restore_column_holder { width:920px; }
 	.restore_column_split{float: left;width: 50%;}
 
 

@@ -26,7 +26,8 @@ class PageLinesOptionsUI {
 				'show_save'		=> true,
 				'show_reset'	=> true, 
 				'basic_reset'	=> false,
-				'title_size'	=> 'normal'
+				'title_size'	=> 'normal',
+				'fullform'		=> true
 			);
 		
 		$this->set = wp_parse_args( $args, $defaults );
@@ -53,17 +54,16 @@ class PageLinesOptionsUI {
 		function build_header(){?>
 			<div class='wrap'>
 				<table id="optionstable"><tbody><tr><td valign="top" width="100%">
-					<form id="pagelines-settings-form" method="post" action="options.php" class="main_settings_form">
-					<?php 
-								wp_nonce_field('update-options'); // security for option saving
-								settings_fields($this->set['settings']); // namespace for options important!  
-					 	
-								echo OptEngine::input_hidden('input-full-submit', 'input-full-submit', 0); // submit the form fully, page refresh needed
-					 	
-								$this->get_tab_setup();
-				
-								$this->_get_confirmations_and_system_checking(); 
-							?>
+					<?php
+								
+						 	if( $this->set['fullform'] )
+								$this->fullform_head();
+					
+							$this->get_tab_setup();
+			
+							$this->_get_confirmations_and_system_checking(); 
+						
+						?>
 					
 						<div class="clear"></div>
 						<div id="optionsheader" class="fix">
@@ -86,12 +86,34 @@ class PageLinesOptionsUI {
 										<?php endif;?>
 									</div>
 								</div>
-						
-					
 							</div>
 						</div>
-				
-		<?php }
+<?php }
+		
+		function fullform_head(){ ?>
+			<form id="pagelines-settings-form" method="post" action="options.php" class="main_settings_form">
+			<?php 
+						wp_nonce_field('update-options'); // security for option saving
+						settings_fields($this->set['settings']); // namespace for options important!  
+						echo OptEngine::input_hidden('input-full-submit', 'input-full-submit', 0); // submit the form fully, page refresh needed
+
+		}
+		
+		function fullform_foot(){ ?>
+			<?php if($this->set['show_reset']):?>
+			<div class="optionrestore">
+				<h4><?php _e('Restore Settings', 'pagelines'); ?></h4>
+				<p>
+					<div class="context">
+						<?php echo OptEngine::superlink('Restore To Default', 'grey', 'reset-options', 'submit', 'onClick="return ConfirmRestore();"', plname('reset', array('setting' => $this->set['settings'])));?>
+						Use this button to restore these settings to default. (Note: Restore template and layout information in their individual tabs.)</div>
+					<?php pl_action_confirm('ConfirmRestore', 'Are you sure? This will restore these settings to default.');?>
+				</p>
+
+			</div>
+			<?php endif;?>
+			</form><!-- close entire form -->
+		<?php  }
 		
 		function _get_confirmations_and_system_checking(){
 			
@@ -127,49 +149,43 @@ class PageLinesOptionsUI {
 					</div>
 				</div>
 
-				<?php if($this->set['show_reset']):?>
-				<div class="optionrestore">
-					<h4><?php _e('Restore Settings', 'pagelines'); ?></h4>
-					<p>
-						<div class="context">
-							<?php echo OptEngine::superlink('Restore To Default', 'grey', 'reset-options', 'submit', 'onClick="return ConfirmRestore();"', plname('reset', array('setting' => $this->set['settings'])));?>
-							Use this button to restore these settings to default. (Note: Restore template and layout information in their individual tabs.)</div>
-						<?php pl_action_confirm('ConfirmRestore', 'Are you sure? This will restore these settings to default.');?>
-					</p>
-
-				</div>
-				<?php endif;?>
-				</form><!-- close entire form -->
+				<?php
 				
-				<?php if($this->set['basic_reset']):?>
-					<form method="post">
-						<div class="optionrestore">
-							<h4><?php _e('Reset These Settings', 'pagelines'); ?></h4>
-							<p>
-								<div class="context">
-									<?php 
-									echo OptEngine::input_hidden('the_pl_setting', 'the_pl_setting', $this->set['settings']);
-									echo OptEngine::superlink('Restore To Default', 'grey', 'reset-options', 'submit', 'onClick="return ConfirmRestore();"',  'pl_reset_settings' );
-									?>
-									Use this button to restore these settings to default. (Note: Restore template and layout information in their individual tabs.)</div>
-								<?php pl_action_confirm('ConfirmRestore', 'Are you sure? This will restore these settings to default.');?>
-							</p>
-
-						</div>
-					</form>
-				<?php endif;?>
-
-
-				<?php  if($this->primary_settings) $this->get_import_export(); ?>
+					if( $this->set['fullform'] )
+						$this->fullform_foot();
+				
+					if($this->set['basic_reset'])
+						$this->basic_reset();
+						
+					if($this->primary_settings) 
+						$this->get_import_export(); 
+						
+						?>
 				
 			</td></tr></tbody></table>
 
 			<div class="clear"></div>
-			<script type="text/javascript">/*<![CDATA[*/
-			jQuery(document).ready(function(){ jQuery('.framework_loading').hide(); });
-			/*]]>*/</script>
 			</div>
 		<?php }
+		
+		function basic_reset(){ ?>
+			<form method="post">
+				<div class="optionrestore">
+					<h4><?php _e('Reset These Settings', 'pagelines'); ?></h4>
+					<p>
+						<div class="context">
+							<?php 
+							echo OptEngine::input_hidden('the_pl_setting', 'the_pl_setting', $this->set['settings']);
+							echo OptEngine::superlink('Restore To Default', 'grey', 'reset-options', 'submit', 'onClick="return ConfirmRestore();"',  'pl_reset_settings' );
+							pl_action_confirm('ConfirmRestore', 'Are you sure? This will restore these settings to default.');
+							?>
+							Use this button to restore these settings to default. (Note: Restore template and layout information in their individual tabs.)
+						</div>
+					</p>
+				</div>
+			</form>
+<?php }
+		
 		
 		/**
 		 * Option Interface Body, including vertical tabbed nav
@@ -199,9 +215,10 @@ class PageLinesOptionsUI {
 							<span class="framework_loading_gif" >&nbsp;</span>
 						</a>
 					</div>
+					<script type="text/javascript">/*<![CDATA[*/ jQuery(document).ready(function(){ jQuery('.framework_loading').hide(); }); /*]]>*/</script>
 				</ul>
 				
-				<div id="thetabs" class="fix">
+				<div id="thetabs" class="plpanel fix">
 <?php 				if(!VPRO) $this->get_pro_call();
 					 
 					foreach($this->option_array as $menu => $oids){

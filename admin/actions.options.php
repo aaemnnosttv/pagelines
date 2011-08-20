@@ -57,6 +57,7 @@ function pagelines_build_extension_interface(){
 		'callback'		=> 'extension_array',
 		'show_save'		=> false, 
 		'show_reset'	=> false, 
+		'fullform'		=> false
 	);
 	$optionUI = new PageLinesOptionsUI($args);
 }

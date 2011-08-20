@@ -152,8 +152,8 @@ function pagelines_head_common(){
 	// Get Main Styles
 	
 	// Allow for PHP include of Framework CSS
-	if(apply_filters( 'pagelines_platform_css', '' ))
-		pagelines_load_css(  PARENT_URL.'/style.css', 'pagelines-platform', pagelines_get_style_ver( true ));
+	if(is_child_theme() && !apply_filters( 'disable_pl_framework_css', '' ))
+		pagelines_load_css(  PARENT_URL.'/style.css', 'pagelines-framework', pagelines_get_style_ver( true ));
 
 	// WordPress CSS Api
 	pagelines_load_css(  get_bloginfo('stylesheet_url'), 'pagelines-stylesheet', pagelines_get_style_ver());
@@ -264,7 +264,10 @@ function pagelines_title_tag(){
  *
  */	
 function do_dynamic_css(){
-	get_dynamic_css();
+	
+	if(!apply_filters('disable_dynamic_css', ''))
+		get_dynamic_css();
+		
 }	
 	
 /**
