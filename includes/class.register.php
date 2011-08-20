@@ -81,7 +81,7 @@ class PageLinesRegister {
 		// filter main array containing child and parent and any custom sections
 		$sections = apply_filters( 'pagelines_section_admin', $sections );
 		$disabled = get_option( 'pagelines_sections_disabled', array( 'child' => array(), 'parent' => array()) );
-
+	
 		foreach ( $sections as $type ) {
 			if(is_array($type)){
 				
@@ -138,13 +138,16 @@ class PageLinesRegister {
 
 		if ( $type == 'child' && ! is_dir($dir) ) 
 			return;
+		
+			
 
 		$sections = array();
 		$it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator( $dir, RecursiveIteratorIterator::LEAVES_ONLY));
-
+		
 		foreach( $it as $fullFileName => $fileSPLObject ) {
+			
 			if (pathinfo($fileSPLObject->getFilename(), PATHINFO_EXTENSION ) == 'php') {
-				
+			
 				$folder = ( preg_match( '/sections\/(.*)\//', $fullFileName, $match) ) ? '/' . $match[1] : '';
 				
 				$headers = get_file_data( $fullFileName, $default_headers = array( 'tags' => 'Tags', 'internal' => 'Internal', 'version' => 'Version', 'author' => 'Author', 'authoruri' => 'Author URI', 'section' => 'Section', 'description' => 'Description', 'classname' => 'Class Name', 'depends' => 'Depends' ) );

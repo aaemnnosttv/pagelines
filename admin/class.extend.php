@@ -112,17 +112,17 @@
 
 			foreach( $type as $key => $s)
 				$type[$key]['status'] = ( isset( $disabled[ $s['type'] ][ $s['class'] ] ) ) ? 'disabled' : 'enabled';
-	
+
 			/*
 	 		 * Sort Alphabetically
 	 		 */
  			$type = pagelines_array_sort( $type, 'name' );
 
  			foreach( $type as $key => $s ) { // main loop
-
+					
   				if ( $s['type'] == 'parent' && isset( $available['child'][ $s['class'] ] ) )
  					continue;
-
+				
 				$enabled = ( $s['status'] == 'enabled' ) ? true : false;
 
 				$file = basename( $s['base_dir'] );
@@ -159,7 +159,7 @@
 					)
 				);
 				
-				$list[$key] = array(
+				$list[] = array(
 						'name' 		=> $s['name'], 
 						'version'	=> !empty( $s['version'] ) ? $s['version'] : CORE_VERSION, 
 						'desc'		=> $s['description'],
@@ -177,7 +177,7 @@
 
  			}
  		} 
-
+	
 		return $this->ui->extension_list( $list );
  	}
 
