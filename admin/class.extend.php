@@ -75,12 +75,15 @@
 			
 		}
 		
-		return $this->ui->extension_list( $list );
+		if(empty($list))
+			return $this->ui->extension_banner( 'Browsing '. $tab .' sections is currently unavailable. <br/>Check back soon!' );
+		else
+			return $this->ui->extension_list( $list );
  	}
 
 	function has_extend_plugin( $status = false ){
 		
-		if(!$status){
+		if($status){
 			
 			if( file_exists( PL_EXTEND_INIT ) && current( $this->plugin_check_status( PL_EXTEND_INIT ) ) == 'notactive' )
 				return 'notactive';
@@ -114,7 +117,7 @@
 
 		$upgradable = $this->get_latest_cached( 'sections' );
 		
-		
+		$list = array();
  		foreach( $available as $type ) {
 	
  			if ( !$type )
@@ -188,7 +191,10 @@
  			}
  		} 
 	
-		return $this->ui->extension_list( $list );
+		if(empty($list))
+			return $this->ui->extension_banner( 'Browsing '. $tab .' sections is currently unavailable. <br/>Check back soon!' );
+		else
+			return $this->ui->extension_list( $list );
  	}
 
 	function upgrade_available( $upgradable, $file ){
@@ -261,16 +267,35 @@
 			
 			$active = ($p['status']['status'] == 'active') ? true : false;
 			
-				
+			$deactivated = (!$install && !$active) ? true : false;
+			
 			$actions = array(
 				'install'	=> array(
 					'mode'		=> 'install',
 					'condition'	=> $install,
 					'case'		=> 'plugin_install',
 					'type'		=> 'plugins',
-					'file'		=> $p['file'],
+					'file'		=> $key,
 					'text'		=> 'Install',
 					'dtext'		=> 'Installing',
+				),
+				'activate'	=> array(
+					'mode'		=> 'activate',
+					'condition'	=> $deactivated,
+					'case'		=> 'plugin_activate',
+					'type'		=> 'plugins',
+					'file'		=> $p['file'],
+					'text'		=> 'Activate',
+					'dtext'		=> 'Activating',
+				),
+				'deactivate'	=> array(
+					'mode'		=> 'activate',
+					'condition'	=> $active,
+					'case'		=> 'plugin_deactivate',
+					'type'		=> 'plugins',
+					'file'		=> $p['file'],
+					'text'		=> 'Deactivate',
+					'dtext'		=> 'Deactivating',
 				),
 			);
 			
@@ -294,8 +319,8 @@
 	
 		if(empty($list) && $tab == 'installed')
 			return $this->ui->extension_banner('No Plugins Are Installed.');
-		elseif(empty($list) && $tab == 'premium')
-			return $this->ui->extension_banner('No Premium Plugins Are Available.');
+		elseif(empty($list))
+			return $this->ui->extension_banner( 'Browsing '. $tab .' plugins is currently unavailable. <br/>Check back soon!' );
 		else 
 			return $this->ui->extension_list( $list );
 	}
@@ -409,6 +434,8 @@
 		
 		if(empty($list) && $tab == 'installed')
 			return $this->ui->extension_banner('No PageLines themes are currently installed.');
+		elseif(empty($list))
+			return $this->ui->extension_banner( 'Browsing '. $tab .' themes is currently unavailable. <br/>Check back soon!' );
 		else
 			return $this->ui->extension_list( $list, 'graphic' );
 			

@@ -767,6 +767,7 @@ class OptEngine {
 		$list_items = '';
 		if(isset($t['type'])) unset($t['type']);
 		if(isset($t['title'])) unset($t['title']);
+		if(isset($t['class'])) unset($t['class']);
 		
 		$wlist = (1 / count($t)) * 100;
 		foreach( $t as $skey => $st){

@@ -284,7 +284,7 @@
 		.htabs-interface{
 			background:#fff;
 		}
-			.htabs-interface .htab-content{background:#f7f7f7}
+			.htabs-interface .htab-content{background:#f7f7f7; min-height: 350px}
 	
 	.optionrow {
 		padding: 0 0 25px 0;
@@ -308,12 +308,14 @@
 		border-bottom: none;
 	
 	}
-	.horizontal-tabs .ui-tabs-selected a, .horizontal-tabs .ui-tabs-selected a:hover{
+	.horizontal-tabs .ui-tabs-selected a, .horizontal-tabs .ui-tabs-selected a:hover, .htabs-menu .horizontal-tabs .ht-special.ui-tabs-selected a{
 		color: #222;
 		background: #F7F7F7;
+		border: 1px solid #ccc;
 		border-bottom: 1px solid #f7f7f7;
 		border-right: 1px solid #ccc;
 		margin-bottom: -1px !important;
+		text-shadow: #fff 0 1px 0;
 	}
 
 			.horizontal-tabs a:hover{color:#000}
@@ -329,9 +331,9 @@
 	.subtabs-menu .htab-sub{
 		background:#f1f1f1;
 		border: none;
+		min-height: 320px;
 	}
 
-	.subtabs {}
 	.subtabs-menu .subtabs a{
 		border: none;
 		font-size: 1.1em;
@@ -343,6 +345,7 @@
 	.subtabs-menu .subtabs .ui-tabs-selected a{
 		background: #ddd;
 	}
+		.subtabs-menu .subtabs a:hover{border:none; background:#e3e3e3 }
 	
 		.subtabs a .st-pad{
 			display: block;
@@ -354,6 +357,15 @@
 	
 	.htabs-menu .horizontal-tabs li.ht-left{margin-left: 15px}
 	.horizontal-tabs li.ht-right{float: right;margin-right: 15px}
+	.htabs-menu .horizontal-tabs .ht-special a{
+		background: #82a2ca url(../images/superlink-sprite-blue.png) 0 0 repeat-x;
+		color: #fff;
+		text-shadow: #000 0 -1px 0;
+		border: 1px solid #2d4a79;
+		border-right: 1px solid #2d4a79;
+		border-bottom: none;
+	
+	}
 	
 /* @ Horizontal List - Used in Posts Control */
 	.plist-nav{
