@@ -57,8 +57,18 @@
 				continue;
 
 			$key = str_replace( '.', '', $key );
-			
-			$actions = array();
+		
+			$actions = array(
+				'install'	=> array(
+					'mode'		=> 'install',
+					'condition'	=> true,
+					'case'		=> 'section_install',
+					'type'		=> $s->type,
+					'file'		=> $key,
+					'text'		=> 'Install',
+					'dtext'		=> 'Installing'
+					)
+			);
 			
 			$list[$key] = array(
 					'name' 		=> $s->name, 
@@ -150,7 +160,7 @@
 
 				$file = basename( $s['base_dir'] );
 
-				$upgrade_available = $this->upgrade_available( $upgradable, $file);
+				$upgrade_available = $this->upgrade_available( $upgradable, $file, $s);
 				
 				$actions = array(
 					'activate'	=> array(
@@ -207,7 +217,7 @@
 			return $this->ui->extension_list( $list );
  	}
 
-	function upgrade_available( $upgradable, $file ){
+	function upgrade_available( $upgradable, $file, $s){
 		
 		if ( is_object( $upgradable ) && isset( $upgradable->$file ) && $s['version'] < $upgradable->$file->version ) 
 			return $upgradable->$file->version;
@@ -524,7 +534,7 @@
 			case 'section_install':
 
 				$upgrader = new Plugin_Upgrader();
-				$options = array( 'package' => $this->make_url( $type, str_replace( 'section', 'section.', $file ) ), 
+				$options = array( 'package' => $this->make_url( 'sections', str_replace( 'section', 'section.', $file ) ), 
 						'destination'		=> EXTEND_CHILD_DIR . '/sections/' . str_replace( 'section', 'section.', $file ), 
 						'clear_destination' => false,
 						'clear_working'		=> false,
@@ -535,7 +545,7 @@
 				@$upgrader->run($options);
 				// Output
 				echo 'New Section Installed!';
-				$this->page_reload( 'pagelines_extend' );		
+				$this->page_reload( 'pagelines_extend' );
 			break;
 			
 			case 'section_upgrade':
