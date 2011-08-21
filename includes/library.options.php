@@ -552,44 +552,42 @@ function pagelines_import_export(){
 			$pagelines_settings = get_option(PAGELINES_SETTINGS);
 			$pagelines_template = get_option('pagelines_template_map');
 
-			echo (serialize(array('pagelines_settings' => $pagelines_settings, 'pagelines_template' => $pagelines_template)));
-			exit();
-			
+			$options = array(
+				'pagelines_settings' => $pagelines_settings,
+				'pagelines_template' => $pagelines_template
+			);
+			echo json_encode( $options );
+			exit();		
 	}
 	
 	if ( isset($_POST['settings_upload']) && $_POST['settings_upload'] == 'settings') {
 		
 		if (strpos($_FILES['file']['name'], 'Settings') === false && strpos($_FILES['file']['name'], 'settings') === false){
-			wp_redirect( admin_url('admin.php?page=pagelines&pageaction=import&error=wrongfile') ); 
+			wp_redirect( admin_url('admin.php?page=pagelines_extend&pageaction=import&error=wrongfile') ); 
 		} elseif ($_FILES['file']['error'] > 0){
 			$error_type = $_FILES['file']['error'];
-			wp_redirect( admin_url('admin.php?page=pagelines&pageaction=import&error=file&'.$error_type) );
+			wp_redirect( admin_url('admin.php?page=pagelines_extend&pageaction=import&error=file&'.$error_type) );
 		} else {
 			
 			ob_start();
 			include($_FILES['file']['tmp_name']);
 			$raw_options = ob_get_contents();
 			ob_end_clean();
-			$all_options = unserialize($raw_options);
-		
-			if(isset($all_options['pagelines_settings']) && isset($all_options['pagelines_template'])){
-				$pagelines_settings = $all_options['pagelines_settings'];
-				$pagelines_template = $all_options['pagelines_template'];
-
-			
-				if (is_array($pagelines_settings)) update_option(PAGELINES_SETTINGS, $pagelines_settings); 
-				if (is_array($pagelines_template)) update_option('pagelines_template_map', $pagelines_template); 
-			
+	
+			$all_options = json_decode(json_encode(json_decode($raw_options)), true);
+			if ( is_array( $all_options) && isset( $all_options['pagelines_settings'] ) && isset( $all_options['pagelines_template'] ) ) {
+				
+				update_option( PAGELINES_SETTINGS, $all_options['pagelines_settings'] );
+				update_option( 'pagelines_template_map', $all_options['pagelines_template'] );
+				
+				if (function_exists('wp_cache_clean_cache')) { 
+					global $file_prefix;
+					wp_cache_clean_cache($file_prefix); 
+				}
+				wp_redirect( admin_url( 'admin.php?page=pagelines_extend&pageaction=import&imported=true' ) ); 
+			} else {
+				wp_redirect( admin_url('admin.php?page=pagelines_extend&pageaction=import&error=wrongfile') );
 			}
-			if (function_exists('wp_cache_clean_cache')) { 
-				global $file_prefix;
-				wp_cache_clean_cache($file_prefix); 
-			}
-
-			wp_redirect(admin_url( 'admin.php?page=pagelines&pageaction=import&imported=true' )); 
-		}
-		
+		}		
 	}
-
 }
-
