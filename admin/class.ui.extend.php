@@ -289,11 +289,11 @@ function extension_array(  ){
 					),
 				'added_sections'	=> array(
 					'title'		=> 'Sections Added',
-					'callback'	=> $extension_control->extension_sections()
+					'callback'	=> $extension_control->extension_sections( 'user' )
 					),
 				'core_sections'	=> array(
 					'title'		=> 'Sections From PageLines Core',
-					'callback'	=> $extension_control->extension_sections()
+					'callback'	=> $extension_control->extension_sections( 'internal' )
 					),
 				'add_new_sections'	=> array(
 					'type'		=> 'subtabs',

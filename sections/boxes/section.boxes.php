@@ -5,7 +5,7 @@
 	Author URI: http://www.pagelines.com
 	Description: Creates boxes and box layouts
 	Class Name: PageLinesBoxes
-	Tags: responsive, core, custom-post-type, image-upload, metapanel,
+	Tags: internal
 */
 
 class PageLinesBoxes extends PageLinesSection {

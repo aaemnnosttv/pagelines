@@ -103,7 +103,7 @@
 	/*
 	 * Get sections that are installed.
 	 */
- 	function extension_sections() {
+ 	function extension_sections( $tag = '', $tab = '' ) {
 
  		/*
  		 * Clear section cache and re-generate
@@ -132,9 +132,19 @@
  			$type = pagelines_array_sort( $type, 'name' );
 
  			foreach( $type as $key => $s ) { // main loop
-					
+	
+
+				if ( $tag === 'internal' )
+					if ( false === ( strpos( $s['tags'], 'internal') ) )
+						continue;
+						
+				if ( $tag === 'user' )
+					if ( $s['tags'] === 'internal' ) 
+						continue;
+
+				
   				if ( $s['type'] == 'parent' && isset( $available['child'][ $s['class'] ] ) )
- 					continue;
+					continue;
 				
 				$enabled = ( $s['status'] == 'enabled' ) ? true : false;
 
@@ -663,16 +673,14 @@
 			)
 		);
 		
-		$api = get_transient( 'pagelines_sections_api_' . $type );
-		if ( !$api ) {
+		if ( false === ( $api = get_transient( 'pagelines_sections_api_' . $type ) ) ) {
 			$response = wp_remote_post( $url, $options );
 			$api = wp_remote_retrieve_body( $response );
+			set_transient( 'pagelines_sections_api_' . $type, $api, 300 );			
 		}
-
+		
 		if( is_wp_error( $api ) )
 			return '<h2>Unable to fetch from API</h2>';
-
-		set_transient( 'pagelines_sections_api_' . $type, $api, 300 );
 
 		return json_decode( $api );
 	}

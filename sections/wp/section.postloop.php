@@ -5,7 +5,7 @@
 	Author URI: http://www.pagelines.com
 	Description: Paginates posts, shows a numerical post navigation
 	Class Name: PageLinesPostLoop
-	Tags: internal, core
+	Tags: internal
 */
 
 class PageLinesPostLoop extends PageLinesSection {
