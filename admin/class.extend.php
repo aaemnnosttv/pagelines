@@ -373,7 +373,7 @@
 				if ( !$tab && !$status)
 					continue;
 					
-				$is_active = (strtolower( $theme->name ) == basename( STYLESHEETPATH ))	? true : false;
+				$is_active = (strtolower( $theme->name ) == basename( get_stylesheet_directory() ))	? true : false;
 					
 				$activate = ($status == 'installed' && !$is_active) ? true : false;
 				$deactivate = ($status == 'installed' && $is_active) ? true : false;

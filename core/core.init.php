@@ -14,4 +14,4 @@
 // }
 
 // Used in Base < version 1.3.3
-include( TEMPLATEPATH . '/functions.php');
+include( get_template_directory() . '/functions.php');

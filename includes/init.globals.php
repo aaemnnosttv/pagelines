@@ -3,16 +3,16 @@
 /**
  * Define framework version
  */
-$theme_data = get_theme_data(TEMPLATEPATH . '/style.css');
+$theme_data = get_theme_data(get_template_directory() . '/style.css');
 define('CORE_VERSION', $theme_data['Version']);
 
-$child_theme_data = get_theme_data(STYLESHEETPATH . '/style.css');
+$child_theme_data = get_theme_data(get_stylesheet_directory() . '/style.css');
 define('CHILD_VERSION', $child_theme_data['Version']);
 
 /**
  * If Pro Version
  */
-if(file_exists(TEMPLATEPATH.'/pro/init_pro.php'))
+if(file_exists(get_template_directory().'/pro/init_pro.php'))
 	define('VPRO',true);
 else
 	define('VPRO',false);
@@ -20,7 +20,7 @@ else
 /**
  * If Dev Version
  */
-if(file_exists(TEMPLATEPATH.'/dev/init_dev.php'))
+if(file_exists(get_template_directory().'/dev/init_dev.php'))
 	define('VDEV',true);
 else
 	define('VDEV',false);
@@ -45,8 +45,8 @@ define('THEMENAME', $theme);
 define('CHILDTHEMENAME', get_option('stylesheet'));
 define('CHANGELOG_URL', 'http://www.pagelines.com/demos/platformpro/wp-content/themes/platformpro/changelog.txt');
 
-define('PARENT_DIR', TEMPLATEPATH);
-define('CHILD_DIR', STYLESHEETPATH);
+define('PARENT_DIR', get_template_directory());
+define('CHILD_DIR', get_stylesheet_directory());
 
 define('PARENT_URL', get_template_directory_uri());
 define('CHILD_URL', get_stylesheet_directory_uri());
@@ -62,7 +62,7 @@ define('PAGELINES_SPECIAL', apply_filters('pagelines_settings_special', 'pagelin
 /**
  * Define PL Admin Paths
  */
-define( 'PL_ADMIN', TEMPLATEPATH . '/admin' );
+define( 'PL_ADMIN', get_template_directory() . '/admin' );
 define( 'PL_ADMIN_URI', PARENT_URL . '/admin' );
 define( 'PL_ADMIN_CSS', PL_ADMIN_URI . '/css' );
 define( 'PL_ADMIN_JS', PL_ADMIN_URI . '/js' );
@@ -72,12 +72,12 @@ define( 'PL_ADMIN_ICONS', PL_ADMIN_IMAGES . '/icons' );
 /**
  * Define theme path constants
  */
-define('PL_SECTIONS', TEMPLATEPATH . '/sections');
+define('PL_SECTIONS', get_template_directory() . '/sections');
 
 /**
  * Upload Folder information
  */
-define('PAGELINES_DCSS', TEMPLATEPATH . '/css/dynamic.css');
+define('PAGELINES_DCSS', get_template_directory() . '/css/dynamic.css');
 define('PAGELINES_DCSS_URI', PARENT_URL . '/css/dynamic.css');
 
 /**
@@ -116,15 +116,15 @@ define( 'PL_API', 'http://api.pagelines.com');
 /**
  * Define version constants
  */
-define('PAGELINES_PRO', TEMPLATEPATH . '/pro' );
-define('PAGELINES_DEV', TEMPLATEPATH . '/dev' );
+define('PAGELINES_PRO', get_template_directory() . '/pro' );
+define('PAGELINES_DEV', get_template_directory() . '/dev' );
 
 define('PAGELINES_PRO_ROOT', PARENT_URL . '/pro' );
 
 /**
  * Define language constants
  */
-$lang = ( is_dir( PL_EXTEND_DIR . '/language' ) ) ? PL_EXTEND_DIR . '/language' : TEMPLATEPATH . '/language';
+$lang = ( is_dir( PL_EXTEND_DIR . '/language' ) ) ? PL_EXTEND_DIR . '/language' : get_template_directory() . '/language';
 define( 'PAGELINES_LANGUAGE_DIR', $lang );
 
 /**

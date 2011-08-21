@@ -76,7 +76,7 @@ class PageLinesDebug {
 
 			$this->debug_info[] = array(
 				'title'	=> "Theme Path",
-				'value' => '<code>' . TEMPLATEPATH . '</code>',
+				'value' => '<code>' . get_template_directory() . '</code>',
 				'level'	=> false
 			);
 
@@ -104,9 +104,9 @@ class PageLinesDebug {
 
 			$this->debug_info[] = array(
 				'title'	=> "Child theme",
-				'value' => ( TEMPLATEPATH != STYLESHEETPATH ) ? 'Yes' : '',
+				'value' => ( get_template_directory() != get_stylesheet_directory() ) ? 'Yes' : '',
 				'level'	=> false,
-				'extra' => STYLESHEETPATH . '<br />' . get_stylesheet_directory_uri()
+				'extra' => get_stylesheet_directory() . '<br />' . get_stylesheet_directory_uri()
 			);
 
 			$this->debug_info[] = array(
