@@ -156,10 +156,7 @@ class PageLinesOptionsUI {
 				
 					if($this->set['basic_reset'])
 						$this->basic_reset();
-						
-					if($this->primary_settings) 
-						$this->get_import_export(); 
-						
+												
 						?>
 				
 			</td></tr></tbody></table>
