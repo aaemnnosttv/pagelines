@@ -937,10 +937,19 @@ class OptEngine {
 <?php }
 
 
-	function updates_setup($oid, $o){ ?>
+	function updates_setup($oid, $o){
+
+		$updates_exp = ( is_array( $a = get_transient('pagelines-update-' . THEMENAME ) ) && isset($a['package']) && $a['package'] !== 'bad' ) 
+							? 'Updates are properly configured.' 
+							: 'There was a problem checking for updates.<br />Please use your login credentials for <a href="http://www.pagelines.com/launchpad/member.php">LaunchPad</a>.<br /><strong>Not</strong> your WordPress login.';
+
+		if ( ploption( 'disable_updates' ) )
+			$updates_exp = 'Updates are disabled.';
+
+		?>
 		<div class="pl_form">
 			<div class="pl_form_feedback">
-				Feedback can go here.
+				<?php echo $updates_exp; ?>
 			</div>
 			<form method="post" class="pl_account_info fix">
 				<div class="pl_account_info_pad">
@@ -952,12 +961,12 @@ class OptEngine {
 						<input type="hidden" name="form_submitted" value="plinfo" />
 				<?php 
 			
-				echo $this->input_label( 'pluser', 'PageLines Username'); 
-				echo $this->input_text( 'pluser', 'pluser', get_option('pluser'), 'bigtext pluser');
-				echo $this->input_label( 'plpass', 'PageLines Password'); 
-				echo $this->input_text( 'plpass', 'plpass', get_option('plpass'), 'bigtext pluser', 'password');
+				echo $this->input_label( 'lp_username', 'PageLines Username'); 
+				echo $this->input_text( 'lp_username', 'lp_username', ploption( 'lp_username' ), 'bigtext pluser');
+				echo $this->input_label( 'lp_password', 'PageLines Password'); 
+				echo $this->input_text( 'lp_password', 'lp_password', ploption( 'lp_password' ), 'bigtext pluser', 'password');
 		
-				$checked = checked((bool) get_option('disable_auto_update'), true, false);
+				$checked = checked((bool) ploption('disable_updates'), true, false);
 
 				$input = $this->input_checkbox('disable_auto_update', 'disable_auto_update', $checked);
 

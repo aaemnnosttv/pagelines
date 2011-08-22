@@ -169,6 +169,8 @@ function pagelines_register_settings() {
 
 	pagelines_process_reset_options();
 	
+	pagelines_update_lpinfo();
+	
 	if ( !isset($_REQUEST['page']) || $_REQUEST['page'] != 'pagelines' )
 		return;
 	
@@ -233,7 +235,9 @@ function pagelines_admin_confirms(){
 			$confirms['reset']['text'] = "Settings Restored To Default.";
 		
 	}
-	
+	if ( isset( $_GET['plinfo'] ) )
+		$confirms[]['text'] = "Launchpad settings saved.";
+		
 	return apply_filters('pagelines_admin_confirms', $confirms);
 	
  }

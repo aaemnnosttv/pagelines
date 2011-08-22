@@ -540,6 +540,18 @@ function pagelines_process_reset_options( $option_array = null ) {
 
 }
 
+function pagelines_update_lpinfo() {
+	
+	if (isset($_POST['form_submitted']) && $_POST['form_submitted'] === 'plinfo' ) {
+
+		pagelines_update_option( 'lp_password', sanitize_text_field( $_POST['lp_password'] ) );
+		pagelines_update_option( 'lp_username', sanitize_text_field( $_POST['lp_username'] ) );
+		pagelines_update_option( 'disable_updates', ( isset( $_POST['disable_auto_update'] ) ) ? true : false );
+		delete_transient('pagelines-update-' . THEMENAME );
+		wp_redirect( admin_url('admin.php?page=pagelines_extend&plinfo=true') );
+		exit;
+	}
+}
 function pagelines_import_export(){
 	
 	if ( isset($_GET['download']) && $_GET['download'] == 'settings') {
