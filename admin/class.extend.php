@@ -380,7 +380,7 @@
 				$upgrade_available = (isset($data) && $data['Version'] && $theme->version > $data['Version']) ? true : false;
 				$install = ( !$status ) ? true : false;
 				$purchase = ( !$install && !isset( $theme->purchased) ) ? true : false;
-				
+			
 				$actions = array(
 					'install'	=> array(
 						'mode'		=> 'install',
@@ -445,9 +445,9 @@
 						'count'		=> $theme->count,
 						'actions'	=> $actions
 				);
-				
-				$list[$key.'2'] = $list[$key];
-				$list[$key.'3'] = $list[$key];
+			
+		//		$list[$key.'2'] = $list[$key];
+		//		$list[$key.'3'] = $list[$key];
 		}
 		
 		
@@ -678,8 +678,8 @@
 		$url = 'http://api.pagelines.com/' . $type . '/';
 		$options = array(
 			'body' => array(
-				'username'	=>	$this->username,
-				'password'	=>	$this->password
+				'username'	=>	( $this->username != '' ) ? $this->username : false,
+				'password'	=>	( $this->password != '' ) ? $this->password : false
 			)
 		);
 		

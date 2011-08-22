@@ -74,19 +74,21 @@ class PageLinesExtendUI {
 	}
 	
 	function graphic_pane( $e ){
-		
+	
 		$e = wp_parse_args( $e, $this->defaultpane);
 		
-		$image = sprintf('<img class="" src="%s/screenshot.png" alt="Screenshot" />', PARENT_URL);
+		$image = ( $e['actions']['install']['condition'] ) ? sprintf( 'http://api.pagelines.com/themes/img/%s.png', $e['key'] ) : WP_CONTENT_URL . '/themes/' . $e['key'] . '/screenshot.png';
+		
+		$image = sprintf( '<img class="" src="%s" alt="Screenshot" />', $image );
 		
 		$title = sprintf('<h2>%s</h2>', $e['name']);
 		
 		$text = sprintf('<p>%s</p>', $e['desc']);
 		
-		$link =  OptEngine::superlink('Purchase $75', 'blue', '', '', '');
+		$link =  $this->get_extend_buttons( $e );
 		
 		$out = sprintf('<div class="graphic_pane media fix"><div class="theme-screen img">%s</div><div class="theme-desc bd">%s%s%s</div></div>', $image, $title, $text, $link);
-		
+	
 		return $out;
 		
 	}
