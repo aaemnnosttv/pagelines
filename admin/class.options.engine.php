@@ -938,36 +938,40 @@ class OptEngine {
 
 
 	function updates_setup($oid, $o){ ?>
-		
-		<form method="post" class="pl_account_info fix">
-			<div class="pl_account_info_pad">
-				<div class="plform_title">
-					<h2>PageLines Account Info</h2>
-				</div>
-				<div class="pl_account_form">
+		<div class="pl_form">
+			<div class="pl_form_feedback">
+				Feedback can go here.
+			</div>
+			<form method="post" class="pl_account_info fix">
+				<div class="pl_account_info_pad">
 					
-					<input type="hidden" name="form_submitted" value="plinfo" />
-			<?php 
+					<div class="pl_account_form">
+						<div class="plform_title">
+							<h2>PageLines Account Info</h2>
+						</div>
+						<input type="hidden" name="form_submitted" value="plinfo" />
+				<?php 
 			
-			echo $this->input_label( 'pluser', 'PageLines Username'); 
-			echo $this->input_text( 'pluser', 'pluser', get_option('pluser'), 'bigtext pluser');
-			echo $this->input_label( 'plpass', 'PageLines Password'); 
-			echo $this->input_text( 'plpass', 'plpass', get_option('plpass'), 'bigtext pluser', 'password');
+				echo $this->input_label( 'pluser', 'PageLines Username'); 
+				echo $this->input_text( 'pluser', 'pluser', get_option('pluser'), 'bigtext pluser');
+				echo $this->input_label( 'plpass', 'PageLines Password'); 
+				echo $this->input_text( 'plpass', 'plpass', get_option('plpass'), 'bigtext pluser', 'password');
 		
-			$checked = checked((bool) get_option('disable_auto_update'), true, false);
+				$checked = checked((bool) get_option('disable_auto_update'), true, false);
 
-			$input = $this->input_checkbox('disable_auto_update', 'disable_auto_update', $checked);
+				$input = $this->input_checkbox('disable_auto_update', 'disable_auto_update', $checked);
 
-			echo $this->input_label_inline('disable_auto_update', $input, 'Disable Auto Updates');
+				echo $this->input_label_inline('disable_auto_update', $input, 'Disable Auto Updates');
 	
 
-			echo $this->superlink('Save Account Info', 'blue', 'updates-setup', 'submit'); 
+				echo $this->superlink('Save Account Info', 'blue', 'updates-setup', 'submit'); 
 			
-			?>
-					</div>
-				<div class="clear"></div>
-			</div>
-		</form>
+				?>
+						</div>
+					<div class="clear"></div>
+				</div>
+			</form>
+		</div>
 		
 		
 <?php }

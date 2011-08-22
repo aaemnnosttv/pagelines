@@ -793,8 +793,10 @@
 }
 	
 /* @ PageLines Account Integration */
+.pl_form{
+	margin: 15px;
+}
 .pl_account_info{
-	width: 400px;
 	margin: 15px auto;
 	background:#eee;
 	border: 1px solid #d1d1d1;
@@ -808,13 +810,23 @@
 		padding: 10px 35px 25px 35px;
 	}
 		.pl_account_form{
+			width: 350px;
+			margin: 0 auto;
 		}
 		.pl_account_form .bigtext{
 			font-size: 1.7em;
 			padding: 5px;
 			width: 97%;
 		}
-	
+		.pl_form_feedback{
+			background:#eee;
+			margin: 1em 0;
+			padding: 15px;
+			text-align: center;
+			font-weight: bold;
+			
+		}
+		.plform_title{margin-left: -15px;}
 	
 /* Image Upload Text Field */
 	.uploaded_url{margin-bottom: 1em}
