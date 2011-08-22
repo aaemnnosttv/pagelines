@@ -171,7 +171,7 @@
 		margin-bottom: 8px;
 	}
 	
-	#tabs, #optionsheader, #optionsfooter, .picker_panel, .tgraph-controls{
+	#tabs, #optionsheader, #optionsfooter, .picker_panel, .tgraph-controls, .section-bar{
 		
 		-moz-box-shadow: 0 3px 4px #CCC;
 		-webkit-box-shadow: 0 3px 4px #CCC;
@@ -1684,6 +1684,7 @@ font-weight: bold;
 			border: 1px solid #ccc;
 			border-right: 1px solid #fff;
 			border-bottom: none;
+
 		}
 			.template-selector-pad{
 				border-right: 1px solid #ddd;
@@ -1691,6 +1692,16 @@ font-weight: bold;
 			}
 			
 			
+			.template-selector{
+				-moz-box-shadow: inset 2px 2px 2px #e5e5e5;
+				-webkit-box-shadow:inset 2px 2px 2px #e5e5e5;
+				box-shadow: inset 2px 2px 2px #e5e5e5;
+			}
+			.sub-template-selector, .sbank-pad{
+				-moz-box-shadow: inset 2px 2px 2px #d5d5d5;
+				-webkit-box-shadow:inset 2px 2px 2px #d5d5d5;
+				box-shadow: inset 2px 2px 2px #d5d5d5;
+			}
 		
 		.tgraph-controls{
 			-moz-border-radius: 8px;
