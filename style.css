@@ -308,6 +308,7 @@ body{font-size: 87.5%; line-height: 1.714285em;}
 	/* @ Posts */
 		.fpost { margin-bottom: 1.6em; }
 		
+		.fpost .post-excerpt .post-thumb.img {margin-right: 13px}
 		.fpost .post-thumb.img { margin-right: 20px;}
 		.full_img {margin-bottom: .8em;}
 		
@@ -367,6 +368,7 @@ body{font-size: 87.5%; line-height: 1.714285em;}
 			margin:0 0 0.4em;
 		}
 		
+		.clip .post-excerpt .post-thumb.img {margin-right: 10px}
 		.clip .entry-title, .clip .metabar {
 			padding: 0;
 		}

@@ -154,16 +154,16 @@ class OptEngine {
 			printf('<div class="optionrow fix %s">', $this->_layout_class( $o ));
 		
 			$this->get_option_title( $oid, $o ); 
-		
-			printf('<div class="oinputs"><div class="oinputs-pad">');
+	
+			printf('<div class="optin fix"><div class="oinputs"><div class="oinputs-pad">');
 	
 			$this->option_breaker($oid, $o);
 	
 			printf('</div></div>');
 		
 			echo $this->_get_explanation($oid, $o);
-		
-			echo '<div class="clear"></div></div>';
+			
+			echo '<div class="clear"></div></div></div>';
 		
 		}
 	}

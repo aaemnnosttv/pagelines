@@ -434,7 +434,21 @@ function pagelines_main_logo(){
  */
 function pagelines_settings_menu_link(  ){ 
 	global $wp_admin_bar;
+	
 	global $pagelines_template;
+	
+	$edit = (isset($wp_admin_bar->menu->edit)) ? $wp_admin_bar->menu->edit : null;
+	
+	if( is_home() && isset($edit) ){
+		$edit['title'] = 'Blog Meta';
+		$edit['href'] = admin_url( 'admin.php?page=pagelines_special#blog_page' );
+	}
+	
+	if(isset($edit))
+		$wp_admin_bar->menu->edit = $edit;
+	
+		
+	
 	if ( !current_user_can('edit_theme_options') )
 		return;
 

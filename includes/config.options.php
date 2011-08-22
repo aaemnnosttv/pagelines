@@ -690,18 +690,6 @@ class PageLinesOptionsArray {
 					'shortexp'	=> 'Where should the theme use post thumbnails?',
 					'exp'		=> 'Use this option to control where post "featured images" or thumbnails are used. Note: The post clips option only applies when magazine layout is selected.'
 			),
-			'byline_handling' => array(
-					'type'		=> 'check_multi',
-					'selectvalues'	=> array(
-						'byline_author'		=> array('inputlabel'=>'Author', 'default'=> true),
-						'byline_date'		=> array('inputlabel'=>'Date', 'default'=> true),
-						'byline_comments'	=> array('inputlabel'=>'Comments', 'default'=> true),
-						'byline_categories' 	=> array('inputlabel'=>'Categories', 'default'=> false),
-					),
-					'title'		=> 'Post Byline Information (Blog Mode and Full-Width Posts Only)',
-					'shortexp'	=> 'What should be shown in post bylines?',
-					'exp'		=> 'The byline shows meta information about who wrote the post, what category it is in, etc... Use this option to control what is shown.'
-			),
 			'excerpt_handling' => array(
 					'type'		=> 'check_multi',
 					'selectvalues'	=> array(
@@ -808,14 +796,6 @@ class PageLinesOptionsArray {
 
 		$a = array(
 			'icon'			=> PL_ADMIN_ICONS.'/settings.png',
-			'partner_link' 	=> array(
-					'default'	=> '',
-					'type'		=> 'text',
-					'inputlabel'	=> 'Enter Partner Link',
-					'title'		=> 'PageLines Partner Link',
-					'shortexp'	=> 'Change your PageLines footer link to a partner link',
-					'exp'		=> 'If you are a <a href="http://www.pagelines.com/partners">PageLines Partner</a> enter your link here and the footer link will become a partner or affiliate link.'
-			),
 			'google_ie' => array(
 					'default'	=> false,
 					'type'		=> 'check',
@@ -824,7 +804,14 @@ class PageLinesOptionsArray {
 					'shortexp'	=> 'Include a Google JS script that fixes problems with IE.',
 					'exp'		=> 'More info on this can be found here: <strong>http://code.google.com/p/ie7-js/</strong>.'
 			),
-
+			'partner_link' 	=> array(
+					'default'	=> '',
+					'type'		=> 'text',
+					'inputlabel'	=> 'Enter Partner Link',
+					'title'		=> 'PageLines Partner Link',
+					'shortexp'	=> 'Change your PageLines footer link to a partner link',
+					'exp'		=> 'If you are a <a href="http://www.pagelines.com/partners">PageLines Partner</a> enter your link here and the footer link will become a partner or affiliate link.'
+			),
 /*
  * TODO Do we leave this and reuse for vanilla?
 */
