@@ -35,10 +35,10 @@ function base_check_templates() {
 		if ( preg_match( '/page\.([a-z-0-9]+)\.php/', $file, $match ) ) {
 
 			if ( !file_exists( trailingslashit( PL_EXTEND_DIR ) . $file ) ) 
-				copy( $file, trailingslashit( STYLESHEETPATH ) . basename( $file ) );
+				copy( $file, trailingslashit( get_stylesheet_directory() ) . basename( $file ) );
 
-			if ( file_exists( trailingslashit( STYLESHEETPATH ) . basename( $file ) ) ) {
-					$data = get_file_data( trailingslashit( STYLESHEETPATH ) . basename( $file ), array( 'name' => 'Template Name' ) );
+			if ( file_exists( trailingslashit( get_stylesheet_directory() ) . basename( $file ) ) ) {
+					$data = get_file_data( trailingslashit( get_stylesheet_directory() ) . basename( $file ), array( 'name' => 'Template Name' ) );
 					pagelines_add_page( $match[1], $data['name'] );
 			}
 
