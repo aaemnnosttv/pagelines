@@ -402,8 +402,8 @@ function extension_array(  ){
 			'credentials' => array(
 				'version'	=> 'pro',
 				'type'		=> 'updates_setup',
-				'title'		=> 'Configure automatic updates',
-				'shortexp'	=> 'Get the latest theme updates direct from PageLines.',
+				'title'		=> 'Configure PageLines Account &amp; Auto Updates',
+				'shortexp'	=> 'Get your latest updates automatically, direct from PageLines.',
 				'layout'	=> 'full',
 			),
 		)
