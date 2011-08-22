@@ -308,8 +308,8 @@ class PageLinesTemplateBuilder {
 		foreach( $this->avail as $sid => $s){
 
 			/* Flip values and keys */
-			$works_with = array_flip( $s->settings['workswith'] );
-			$fails_with = array_flip( $s->settings['failswith'] );
+			$works_with = (is_array($s->settings['workswith'])) ? array_flip( $s->settings['workswith'] ) : array();
+			$fails_with = (is_array($s->settings['failswith'])) ? array_flip( $s->settings['failswith'] ) : array();
 
 			$markup_type = (!empty($h)) ? $h['markup'] : $t['markup'];
 

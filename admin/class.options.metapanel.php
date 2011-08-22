@@ -302,10 +302,8 @@ class PageLinesMetaPanel {
 		do_global_meta_options();
 	 	$special_template = new PageLinesTemplate( $type );	
 		
-		$special_template->load_section_optionator( true );
+		$special_template->load_section_optionator( );
 
-		if($type == 'defaults')
-			unset($this->tabs['general_page_meta1']);
 
 		ob_start();
 		?>
@@ -318,7 +316,7 @@ class PageLinesMetaPanel {
 		<div id="<?php echo $handle;?>" class="plist-nav fix">
 			<ul class="fix plist">
 				<lh class="hlist-header">Select Settings Panel</lh>
-				<?php foreach($this->tabs as $tab => $t):?>
+				<?php foreach($this->tabs as $tab => $t): ?>
 					<li>
 						<a class="<?php echo $tab;?>  metapanel-tab <?php if(!$t->active) echo 'inactive-tab';?>" href="#<?php echo $tab;?>">
 							<span class="metatab_pad fix">
@@ -430,6 +428,8 @@ class PageLinesMetaPanel {
 						
 					if($oid == 'section_control')
 						$this->save_sc( $postID );
+					elseif($oid == 'page_background_image')
+						$this->save_bg( $oid, $postID );
 					else {
 						
 						// Note: If the value is null, then test to see if the option is already set to something
@@ -475,6 +475,19 @@ class PageLinesMetaPanel {
 		
 	}
 	
+	function save_bg ( $oid, $postID ) {
+		$bg = OptEngine::_background_image_array();
+		
+		foreach($bg as $k => $i){
+			$bgid = $oid.$k;
+		
+			$option_value =  isset($_POST[$bgid]) ? $_POST[$bgid] : null;
+
+			if(!empty($option_value) || get_post_meta($postID, $bgid))
+				update_post_meta($postID, $bgid, $option_value );
+		}
+	}
+	
 	function save_sc( $postID ){
 		global $pagelines_template;
 
@@ -484,9 +497,7 @@ class PageLinesMetaPanel {
 
 	
 		foreach( $save_template->map as $hook => $h ){
-			// echo '<pre>';
-			// 			print_r($h);
-			// 			echo '</pre>';
+	
 			if(isset($h['sections'])){
 				foreach($h['sections'] as $key => $section_slug)
 					$this->save_section_control($postID,  $section_slug, $hook );					

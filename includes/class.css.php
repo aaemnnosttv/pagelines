@@ -54,22 +54,20 @@ class PageLinesCSS {
 			foreach($menu as $oid => $o){ 
 				
 				$oset = array( 'post_id' => $pagelines_ID );
-				$o['val'] = ploption($oid);
+				$o['val'] = ploption($oid, $oset);
 				
 				if(!empty($o['selectvalues']) && is_array($o['selectvalues'])){
 					foreach( $o['selectvalues'] as $sid => $s)
-						$o['selectvalues'][$sid]['val'] = ploption( $sid );
+						$o['selectvalues'][$sid]['val'] = ploption( $sid, $oset);
 				}
 				
-				
-				
-				if( $o['type'] == 'background_image' && pagelines_option($oid.'_url')){
+				if( $o['type'] == 'background_image' && ploption($oid.'_url', $oset)){
 					
-					$bg_repeat = (ploption($oid.'_repeat')) ? ploption($oid.'_repeat'): 'no-repeat';
-					$bg_pos_vert = (ploption($oid.'_pos_vert') || ploption($oid.'_pos_vert') == 0 ) ? (int) ploption($oid.'_pos_vert') : '0';
-					$bg_pos_hor = (ploption($oid.'_pos_hor') || ploption($oid.'_pos_hor') == 0 ) ? (int) ploption($oid.'_pos_hor') : '50';
-					$bg_selector = (ploption($oid.'_selector')) ? ploption($oid.'_selector') : $o['selectors'];
-					$bg_url = ploption($oid.'_url');
+					$bg_repeat = (ploption($oid.'_repeat', $oset)) ? ploption($oid.'_repeat', $oset): 'no-repeat';
+					$bg_pos_vert = (ploption($oid.'_pos_vert', $oset) || ploption($oid.'_pos_vert', $oset) == 0 ) ? (int) ploption($oid.'_pos_vert', $oset) : '0';
+					$bg_pos_hor = (ploption($oid.'_pos_hor', $oset) || ploption($oid.'_pos_hor', $oset) == 0 ) ? (int) ploption($oid.'_pos_hor', $oset) : '50';
+					$bg_selector = (ploption($oid.'_selector', $oset)) ? ploption($oid.'_selector', $oset) : $o['selectors'];
+					$bg_url = ploption($oid.'_url', $oset);
 					
 					$css .= sprintf('%s{ background-image:url(%s);}', $bg_selector, $bg_url);
 					$css .= sprintf('%s{ background-repeat: %s;}', $bg_selector, $bg_repeat);

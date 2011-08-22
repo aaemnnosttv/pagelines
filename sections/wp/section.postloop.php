@@ -56,6 +56,13 @@ class PageLinesPostLoop extends PageLinesSection {
 				'shortexp' 		=> 'Control which sections appear on this specific page',
 				'exp' 			=> '',
 			),
+			'page_background_image' => array(
+				'title' 	=> 'Site Background Image (Optional)',						
+				'shortexp' 	=> 'Setup A Background Image For The Background Of Your Site',
+				'exp' 		=> 'Use this option to apply a background image to your site. This option will be applied to different areas depending on the design mode you have set.<br/><br/><strong>Positioning</strong> Use percentages to position the images, 0% corresponds to the "top" or "left" side, 50% to center, etc..',
+				'type' 		=> 'background_image',
+				'selectors'	=> cssgroup('page_background_image')
+			),
 			
 		);
 		

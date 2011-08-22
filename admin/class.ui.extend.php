@@ -209,7 +209,7 @@ class PageLinesExtendUI {
 	 */
 	function extension_js(){ ?>
 
-		<script type="text/javascript">/*<![CDATA[*/
+<script type="text/javascript">/*<![CDATA[*/
 
 		function extendIt( mode, key, type, file, duringText ){
 
@@ -238,6 +238,7 @@ class PageLinesExtendUI {
 					data: data,
 					beforeSend: function(){
 
+
 						responseElement.html( duringText ).slideDown();
 
 						// add some dots while saving.
@@ -255,9 +256,7 @@ class PageLinesExtendUI {
 
 					},
 				  	success: function( response ){
-					
 						window.clearInterval( interval ); // clear dots...
-
 						responseElement.effect("highlight", {color: "#CCCCCC"}, 2000).html(response).delay(6500).slideUp();
 					}
 				});
@@ -391,6 +390,7 @@ function extension_array(  ){
 			'import_set'	=> array(
 				'default'	=> '',
 				'type'		=> 'import_export',
+				'layout'	=> 'full',
 				'title'		=> 'Import/Export PageLines Settings',						
 				'shortexp'	=> 'Use this form to upload PageLines settings from another install.',
 			),

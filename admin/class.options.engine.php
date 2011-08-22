@@ -333,19 +333,16 @@ class OptEngine {
 	
 			<div class="restore_column_split">
 				<h4><?php _e('Export Settings', 'pagelines'); ?></h4>
-				<p class="fix">
-					<a class="button-secondary download-button" href="<?php echo admin_url('admin.php?page=pagelines&amp;download=settings'); ?>">Download Theme Settings</a>
-				</p>
+				<?php echo $this->superlink('Download Framework Settings', 'grey', 'download-settings', admin_url('admin.php?page=pagelines&amp;download=settings')); ?>
+			
 			</div>
 
 			<div class="restore_column_split">
 				<h4><?php _e('Import Settings', 'pagelines'); ?></h4>
-				<form method="post" enctype="multipart/form-data">
+				<form method="post" enctype="multipart/form-data" class="upload_form fix">
 					<input type="hidden" name="settings_upload" value="settings" />
-					<p class="form_input">
-						<input type="file" class="text_input" name="file" id="settings-file" />
-						<input class="button-secondary" type="submit" value="Upload New Settings" onClick="return ConfirmImportSettings();" />
-					</p>
+					<input type="file" class="text_input" name="file" id="settings-file" />
+					<?php echo $this->superlink('Upload New Settings', 'grey', 'upload-settings', 'submit', 'onClick="return ConfirmImportSettings();"'); ?>
 				</form>
 
 				<?php pl_action_confirm('ConfirmImportSettings', 'Are you sure? This will overwrite your current settings and configurations with the information in this file!');?>
@@ -867,17 +864,40 @@ class OptEngine {
 	function _get_background_image_control($oid, $o){
 
 		$bg = $this->_background_image_array();
+		
+		$oset = array( 'post_id' => $o['pid'], 'setting' => $this->settings_field);
 
 		// set value, id, name
 		foreach($bg as $k => $i){
 			$bgid = $oid.$k;
+
 			
-			$oset = array( 'post_id' => $o['pid'], 'setting' => $o['setting']);
+
+			if($this->settings_field == 'meta'){
+				$bg[$k]['val'] = plmeta($bgid, $oset);
+				$bg[$k]['input_name'] = $bgid;
+				$bg[$k]['input_id'] = get_pagelines_option_id( $bgid );
+					
+			} elseif($this->settings_field == PAGELINES_SPECIAL){
+
+				$oset['subkey'] = $bgid;
+
+				$bg[$k]['val'] = ploption( $o['special'], $oset );			
+				$bg[$k]['input_name'] = plname($o['special'], $oset);
+				$bg[$k]['input_id'] = plid( $o['special'], $oset);
+
+			} else {
 			
-			$bg[$k]['val'] = ploption( $bgid, $oset);
-			$bg[$k]['input_id'] = plid( $bgid, $oset);
-			$bg[$k]['input_name'] = plname( $bgid, $oset);
+				$bg[$k]['val'] = ploption( $bgid, $oset);
+				$bg[$k]['input_id'] = plid( $bgid, $oset);
+				$bg[$k]['input_name'] = plname( $bgid, $oset);
+			}
+			
+			$bg[$k] = wp_parse_args($bg[$k], $o);
+			
 		}
+			
+		
 
 		$this->_get_image_upload_option($oid.'_url', $bg['_url']);
 		$this->_get_select_option($oid.'_repeat', $bg['_repeat']);

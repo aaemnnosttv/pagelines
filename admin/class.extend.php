@@ -212,7 +212,7 @@
  		} 
 	
 		if(empty($list))
-			return $this->ui->extension_banner( 'Browsing '. $tab .' sections is currently unavailable. <br/>Check back soon!' );
+			return $this->ui->extension_banner( 'No '. $tab .' sections are currently available. <br/>Check back soon!' );
 		else
 			return $this->ui->extension_list( $list );
  	}
