@@ -176,7 +176,8 @@ function pagelines_head_common(){
 	pagelines_font_replacement();
 	
 	// Headerscripts option > custom code
-	print_pagelines_option('headerscripts'); // Header Scripts Input Option
+	if ( ploption( 'headerscripts' ) )
+		add_action( 'wp_head', create_function( '',  'print_pagelines_option("headerscripts");' ), 25 );
 }
 
 function pagelines_mediawiki(){
