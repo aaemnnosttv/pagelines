@@ -207,6 +207,9 @@ class PageLinesBoxes extends PageLinesSection {
 		global $post;
 		global $pagelines_ID;
 	
+		if ( post_password_required() )
+			return;
+
 		$post_count = count($b);
 		$current_box = 1;
 		$row_count = $perline;

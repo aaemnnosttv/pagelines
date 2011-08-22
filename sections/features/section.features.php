@@ -496,7 +496,10 @@ function draw_features($f, $class, $clone_id = null) {
 		global $pagelines_ID;
 		global $pagelines_layout; 
 		$current_page_post = $post;
-	
+		
+		if ( post_password_required() )
+			return;
+
 		$oset = array('post_id' => $pagelines_ID, 'clone_id' => $clone_id);
 		
 	// Options 
