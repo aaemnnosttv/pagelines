@@ -1141,7 +1141,7 @@ class PageLinesWelcome {
 			),
 			'widgets'	=> array(
 				'name'			=> 'Draggable Layout &amp; Widgets',
-				'desc'			=> 'Use the Layout Editor to control your content layout.  There are also several "widgetized" areas are controlled through your widgets panel.',
+				'desc'			=> 'Use the Layout Editor to control your content layout.  There are also several "widgetized" areas that are controlled through your widgets panel.',
 				'class'			=> 'feature_dynamic', 
 				'icon'			=> '',
 			),
