@@ -397,38 +397,45 @@ function extension_array(  ){
 				'shortexp'	=> 'Use this form to upload PageLines settings from another install.',
 			),
 		),
+		'Account'	=> array(
+			'icon'		=> PL_ADMIN_ICONS.'/rocket-fly.png',
+			'credentials' => array(
+				'version'	=> 'pro',
+				'type'		=> 'updates_setup',
+				'title'		=> 'Configure automatic updates',
+				'shortexp'	=> 'Get the latest theme updates direct from PageLines.',
+				'layout'	=> 'full',
+			),
+		)
 
 	);
+	// 
+	// global $pl_update;
+	// $updates_exp = ( is_array( $a = get_transient('pagelines-update-' . $pl_update->theme ) ) && isset($a['package']) && $a['package'] !== 'bad' ) 
+	// 					? 'Updates are properly configured.' 
+	// 					: 'Please use your login credentials for <a href="http://www.pagelines.com/launchpad/member.php">LaunchPad</a>.<br /><strong>Not</strong> your WordPress login.';
+	// 
+	// 
+	// $d['Launchpad'] = array(
+	// 	'icon'		=> PL_ADMIN_ICONS.'/rocket-fly.png',
+	// 	'credentials' => array(
+	// 		'version'	=> 'pro',
+	// 		'type'		=> 'updates',
+	// 		'title'		=> 'Configure automatic updates',
+	// 		'shortexp'	=> 'Get the latest theme updates direct from PageLines.',
+	// 		'layout'	=> 'wide',
+	// 	),
+	// );
+	// 
 	
-	global $pl_update;
-	$updates_exp = ( is_array( $a = get_transient('pagelines-update-' . $pl_update->theme ) ) && isset($a['package']) && $a['package'] !== 'bad' ) 
-						? 'Updates are properly configured.' 
-						: 'Please use your login credentials for <a href="http://www.pagelines.com/launchpad/member.php">LaunchPad</a>.<br /><strong>Not</strong> your WordPress login.';
-	
-	
-	$d['Launchpad'] = array(
-		'icon'		=> PL_ADMIN_ICONS.'/rocket-fly.png',
-		'credentials' => array(
-			'version'	=> 'pro',
-			'type'		=> 'text_multi',
-			'inputsize'	=> 'tiny',
-			'selectvalues'	=> array(
-				'lp_username'	=> array('inputlabel'=>'Launchpad Username', 'default'=> $pl_update->username ),
-				'lp_password'	=> array('inputlabel'=>'Launchpad Password', 'default'=> $pl_update->password ),
-			),
-			'title'		=> 'Configure automatic updates',
-			'shortexp'	=> 'Get the latest theme updates direct from PageLines.',
-			'exp'		=> $updates_exp
-		),
-		'disable_updates' => array(
-				'default'	=> true,
-				'type'		=> 'check',
-				'inputlabel'	=> 'Disable update system?',
-				'title'		=> 'Disable Updates',
-				'shortexp'	=> 'Do not show update notifications.',
-				'exp'		=> 'Completely disables the update system (includes notifications).'
-		)
-	);
+	// 'disable_updates' => array(
+	// 			'default'	=> true,
+	// 			'type'		=> 'check',
+	// 			'inputlabel'	=> 'Disable update system?',
+	// 			'title'		=> 'Disable Updates',
+	// 			'shortexp'	=> 'Do not show update notifications.',
+	// 			'exp'		=> 'Completely disables the update system (includes notifications).'
+	// 	)
 
 	return apply_filters('extension_array', $d); 
 }

@@ -709,7 +709,12 @@
 			border-bottom: 1px solid #2d4a79;
 			
 		}
-			.sl-blue .superlink:hover, .ohead .osave:hover{background: #82a2ca url(../images/superlink-sprite-blue.png) 0 -35px repeat-x; color: #fff}
+			.sl-blue .superlink:hover, .ohead .osave:hover{
+				background: #82a2ca url(../images/superlink-sprite-blue.png) 0 -35px repeat-x; color: #fff;
+				border: 1px solid #2d4a79;
+				border-right: 1px solid #2d4a79;
+				border-bottom: 1px solid #2d4a79;
+			}
 			.sl-blue .superlink:active, .ohead .osave:active{background: #82a2ca url(../images/superlink-sprite-blue.png) 0 -70px repeat-x; color: #eee}
 			
 		.sl-red.superlink-wrap{border-top: 1px solid #999;border-left: 1px solid #999;}
@@ -786,6 +791,29 @@
 .upload_form .superlink-wrap{
 	margin: .7em 0 1.4em 0;
 }
+	
+/* @ PageLines Account Integration */
+.pl_account_info{
+	width: 400px;
+	margin: 15px auto;
+	background:#eee;
+	border: 1px solid #d1d1d1;
+	-moz-box-shadow: 1px 1px 3px #ddd;
+   -webkit-box-shadow: 1px 1px 3px #ddd;
+   box-shadow: 1px 1px 3px #ddd;
+}	
+	.pl_account_info_pad{
+		border-top: 1px solid #fff;
+		border-left: 1px solid #fff;
+		padding: 10px 35px 25px 35px;
+	}
+		.pl_account_form{
+		}
+		.pl_account_form .bigtext{
+			font-size: 1.7em;
+			width: 97%;
+		}
+	
 	
 /* Image Upload Text Field */
 	.uploaded_url{margin-bottom: 1em}
