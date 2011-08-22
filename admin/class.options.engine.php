@@ -952,7 +952,7 @@ class OptEngine {
 			echo $this->input_label( 'pluser', 'PageLines Username'); 
 			echo $this->input_text( 'pluser', 'pluser', get_option('pluser'), 'bigtext pluser');
 			echo $this->input_label( 'plpass', 'PageLines Password'); 
-			echo $this->input_text( 'plpass', 'plpass', get_option('plpass'), 'bigtext pluser');
+			echo $this->input_text( 'plpass', 'plpass', get_option('plpass'), 'bigtext pluser', 'password');
 		
 			$checked = checked((bool) get_option('disable_auto_update'), true, false);
 
