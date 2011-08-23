@@ -2406,7 +2406,8 @@ font-weight: bold;
 		float:left;
 		
 	}
-	.theme-screen img {
+	.graphic_pane .theme-screen img {
+		
 		display: block;
 		border: 1px solid #CCC;
 		border: 1px solid rgba(255, 255, 255, 1);
@@ -2415,7 +2416,10 @@ font-weight: bold;
 		-moz-box-shadow: 0 1px 4px #888;
 		-webkit-box-shadow: 0 1px 4px #888;
 		box-shadow: 0 1px 4px #888;
+		max-width: 300px;
 	}
+	
+	
 	
 /* @ Restore/Import/Export */
 
