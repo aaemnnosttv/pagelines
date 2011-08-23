@@ -95,7 +95,7 @@ function pagelines_theme_settings_init() {
 	wp_enqueue_script( 'jquery-cookie', PL_ADMIN_JS . '/jquery.ckie.js'); 
 	wp_enqueue_script( 'jquery-ui-core' );
 	wp_enqueue_script( 'jquery-ui-tabs' );
-	
+	wp_enqueue_script( 'jquery-ui-dialog' );
 	wp_enqueue_script( 'jquery-imgpreview',PL_ADMIN_JS . '/jquery.imgpreview.js', array('jquery'));
 	
 	// Call only on PL pages

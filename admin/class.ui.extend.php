@@ -288,15 +288,15 @@ function extension_array(  ){
 					'title'		=> 'Installed PageLines Sections',
 					'callback'	=> $extension_control->extension_sections()
 					),
-				'added_sections'	=> array(
+				'added'	=> array(
 					'title'		=> 'Sections Added',
 					'callback'	=> $extension_control->extension_sections( 'user' )
 					),
-				'core_sections'	=> array(
+				'core'	=> array(
 					'title'		=> 'Sections From PageLines Core',
 					'callback'	=> $extension_control->extension_sections( 'internal' )
 					),
-				'add_new_sections'	=> array(
+				'add_new'	=> array(
 					'type'		=> 'subtabs',
 					'title'		=> 'Extend Sections',
 					'class'		=> 'left ht-special',
@@ -397,7 +397,7 @@ function extension_array(  ){
 				'shortexp'	=> 'Use this form to upload PageLines settings from another install.',
 			),
 		),
-		'Account'	=> array(
+		'Updates'	=> array(
 			'icon'		=> PL_ADMIN_ICONS.'/rocket-fly.png',
 			'credentials' => array(
 				'version'	=> 'pro',
