@@ -12,10 +12,10 @@ add_action( 'wp_head', 'load_child_style', 20 );
 function load_child_style() {
 
 	if ( file_exists( PL_EXTEND_STYLE_PATH ) ){
+
+		$cache_ver = '?ver=' . pl_cache_version( PL_EXTEND_STYLE_PATH ); 
 		
-		$cache_ver = pl_cache_version( PL_EXTEND_STYLE_PATH ); 
-		
-		pagelines_load_css('pl-extend-style', PL_EXTEND_STYLE, $cache_ver );
+		pagelines_draw_css( PL_EXTEND_STYLE . $cache_ver, 'pl-extend-style' );
 		
 	}	
 		
