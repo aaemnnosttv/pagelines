@@ -76,7 +76,7 @@ class PageLinesOptionsArray {
 				'inputlabel' 	=> 'Your Twitter Username',
 				'title' 		=> 'Twitter Integration',
 				'shortexp'	 	=> 'Places your Twitter feed in your site (<em>"Twitter for WordPress" plugin required</em>)',
-				'exp' 			=> 'This places your Twitter feed on the site. Leave blank if you want to hide or not use.<br/><br/><strong>Note: "Twitter for WordPress" plugin is required for this to work.</strong>'
+				'exp' 			=> 'This places your Twitter feed on the site. Leave blank if you want to hide or not use.'
 			),
 			'pl_login_image'	=> array(
 				'version' 		=> 'pro',

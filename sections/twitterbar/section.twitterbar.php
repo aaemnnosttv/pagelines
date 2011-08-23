@@ -77,7 +77,7 @@ class PageLinesTwitterBar extends PageLinesSection {
 			pagelines_register_hook( 'pagelines_before_twitterbar_text', $this->id ); // Hook
 
 			if ( 'error' != $tweets ) :	
-				echo $tweets[0]['text'] . '&mdash;&nbsp;<a class="twitteraccount" href="http://twitter.com/#!/' . pagelines('twittername') . '">' . pagelines('twittername') . '</a></span>';
+				echo make_clickable( $tweets[0]['text'] ) . '&mdash;&nbsp;<a class="twitteraccount" href="http://twitter.com/#!/' . pagelines('twittername') . '">' . pagelines('twittername') . '</a></span>';
 				else :
 					if ( 401 == get_transient( 'section-twitter-response-code' ) )
 						echo wp_kses( sprintf( __( 'Error: Please make sure the Twitter account is <a href="%s">public</a>.' ), 'http://support.twitter.com/forums/10711/entries/14016' ), array( 'a' => array( 'href' => true ) ) );
