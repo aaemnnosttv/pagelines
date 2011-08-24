@@ -19,7 +19,7 @@ class PageLinesSplash extends PageLinesSection {
 		$default_settings = array(
 			'description' 	=> 'Product or service splash. Great for communicating key benefits quickly on your homepage.',
 			'workswith' 	=> array('content'),
-			'icon'			=> $registered_settings['base_url'].'/splash.png',
+			'icon'			=> $registered_settings['base_url'].'/water.png',
 		);
 		
 		$settings = wp_parse_args( $registered_settings, $default_settings );
@@ -27,20 +27,30 @@ class PageLinesSplash extends PageLinesSection {
    }
 
 	
+	function section_persistent(){
+			register_nav_menus( array( 'splash_nav' => __( 'Splash Page Navigation', 'pagelines' ) ) );
+	}
+	
 	function section_styles() {
 	
 		wp_register_style( 'splash', $this->base_url . '/splash.css', array(), CORE_VERSION, 'screen');
 	 	wp_enqueue_style( 'splash' );
+	
 		
 	}
 	
 	function section_template() {  ?>
 	
-	<div class="splash_head">
+	<div class="splash_head fix">
 		<div class="splash_branding">
 			<?php pagelines_main_logo();?>
 		</div>
 		<div class="splash_nav">
+			
+			<?php
+			
+				wp_nav_menu( array('menu_class'  => 'tabbed-list font-sub', 'theme_location'=>'splash_nav','depth' => 1,  'fallback_cb'=>'blank_nav_fallback') );
+			?>
 		</div>
 	</div>
 	<div class="splash_area fix">	
@@ -55,6 +65,16 @@ class PageLinesSplash extends PageLinesSection {
 	</div>
 		
 <?php 	}
+
+
+
+	function after_section_template(){ ?>
+		
+		<div class="splash_shelf">
+		
+		</div>
+		
+	<?php  }
 
 }
 

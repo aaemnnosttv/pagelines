@@ -60,18 +60,26 @@ class PageLinesSection {
 		);
 	}
 
-	/** Echo the section content.
-	 *
+	/** 
+	 * Echo the section content.
 	 * Subclasses should over-ride this function to generate their section code.
-	 *
 	 */
 	function section_template() {
 		die('function PageLinesSection::section_template() must be over-ridden in a sub-class.');
 	}
 	
-	/** Checks for overrides and loads section template function
-	 *
-	 *
+	/** 
+	 * For template code that should show before the standard section markup
+	 */
+	function before_section_template( $clone_id = null ){}
+	
+	/** 
+	 * For template code that should show after the standard section markup
+	 */
+	function after_section_template( $clone_id = null ){}
+	
+	/** 
+	 * Checks for overrides and loads section template function
 	 */
 	function section_template_load( $clone_id ) {
 		// Variables for override

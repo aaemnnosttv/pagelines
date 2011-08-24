@@ -67,11 +67,8 @@ class SimpleNav extends PageLinesSection {
 
 }
 
-function simple_nav_fallback() {
-
-	printf('<ul id="simple_nav_fallback" class="inline-list simplenav font-sub">%s</ul>', wp_list_pages( 'title_li=&sort_column=menu_order&depth=1&echo=0') );
-
+if(!function_exists('simple_nav_fallback')){
+	function simple_nav_fallback() {
+		printf('<ul id="simple_nav_fallback" class="inline-list simplenav font-sub">%s</ul>', wp_list_pages( 'title_li=&sort_column=menu_order&depth=1&echo=0') );
+	}
 }
-/*
-	End of section class
-*/

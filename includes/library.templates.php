@@ -369,6 +369,19 @@ function pagelines_nav_fallback() {
 	</ul><?php
 }
 
+
+/**
+ * 
+ *  Blank Nav Fallback
+ *
+ */
+function blank_nav_fallback() {
+	
+	if(current_user_can('edit_themes'))
+		printf('<ul class="inline-list">Please select a nav menu for this area in the <a href="%s">WordPress menu admin</a>.</ul>', admin_url('nav-menus.php'));
+
+}
+
 /**
  * 
  *  Returns child pages for subnav, setup in hierarchy
@@ -405,9 +418,9 @@ function pagelines_page_subnav(){
  *
  */
 function pagelines_main_logo(){ 
-	if(pagelines_option('pagelines_custom_logo')){
+	if(ploption('pagelines_custom_logo') || apply_filters('pagelines_site_logo', '')){
 		
-		$site_logo = sprintf( '<a class="mainlogo-link" href="%s" title="%s"><img class="mainlogo-img" src="%s" alt="%s" /></a>', home_url(), get_bloginfo('name'), esc_url(pagelines_option('pagelines_custom_logo')), get_bloginfo('name'));
+		$site_logo = sprintf( '<a class="mainlogo-link" href="%s" title="%s"><img class="mainlogo-img" src="%s" alt="%s" /></a>', home_url(), get_bloginfo('name'), esc_url(ploption('pagelines_custom_logo')), get_bloginfo('name'));
 		
 		echo apply_filters('pagelines_site_logo', $site_logo);
 		

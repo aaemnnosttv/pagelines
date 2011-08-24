@@ -346,11 +346,16 @@ class PageLinesTemplate {
 				$clone_id = (isset($pieces[1])) ? $pieces[1] : null;
 				
 				if( $this->in_factory( $section ) ){
+					
+					$this->factory[ $section ]->before_section_template( $clone_id );
+					
 					$this->factory[ $section ]->before_section( $markup_type, $clone_id);
 				
 					$this->factory[ $section ]->section_template_load( $clone_id ); // If in child theme get that, if not load the class template function
 					
 					$this->factory[ $section ]->after_section( $markup_type );
+					
+					$this->factory[ $section ]->after_section_template( $clone_id );
 				}
 			
 				$post = $pagelines_post; // Set the $post variable back to the default for the page (prevents sections from messing with others)
