@@ -307,6 +307,15 @@
 					'text'		=> 'Activate',
 					'dtext'		=> 'Activating',
 				),
+				'upgrade'	=> array(
+					'mode'		=> 'upgrade',
+					'condition'	=> $upgrade_available,
+					'case'		=> 'plugin_upgrade',
+					'type'		=> 'plugins',
+					'file'		=> $key,
+					'text'		=> 'Upgrade to ' . $p['version'],
+					'dtext'		=> 'Upgrading',
+				),
 				'deactivate'	=> array(
 					'mode'		=> 'activate',
 					'condition'	=> $active,
@@ -317,9 +326,7 @@
 					'dtext'		=> 'Deactivating',
 				),
 			);
-			
-			
-			
+					
 			$list[$key] = array(
 					'name' 		=> $p['name'], 
 					'version'	=> ( isset( $p['status']['data'] ) ) ? $p['status']['data']['Version'] : $p['version'], 
