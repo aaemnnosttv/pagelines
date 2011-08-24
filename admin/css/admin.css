@@ -2419,7 +2419,15 @@ font-weight: bold;
 		max-width: 300px;
 	}
 	
-	
+	/* @ Upload Form */
+	.pagelines_upload_form {
+		background:#eaeaea;
+		padding: 30px;
+	}
+		.pagelines_upload_form h4{
+			margin: 0;
+			font-size: 1.15em;
+		}
 	
 /* @ Restore/Import/Export */
 

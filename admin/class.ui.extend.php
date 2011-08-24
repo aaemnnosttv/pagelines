@@ -204,6 +204,27 @@ class PageLinesExtendUI {
 		return sprintf('<div class="install-control fix"><span class="banner-text">%s</span></div>', $text);
 	}
 	
+	function upload_form( $type ){
+		
+			$slug = 'upload-'.$type;
+			
+		ob_start();
+		 ?>
+		<div class="pagelines_upload_form">
+			<h4><?php _e('Install a section in .zip format') ?></h4>
+			<p class="install-help"><?php _e('If you have a section in a .zip format, you may install it by uploading it here.') ?></p>
+			<form method="post" enctype="multipart/form-data" action="<?php echo self_admin_url('update.php?action='.$slug) ?>">
+				<?php wp_nonce_field( $slug ) ?>
+				<label class="screen-reader-text" for="sectionzip"><?php _e('Section zip file'); ?></label>
+				<input type="file" id="sectionzip" name="sectionzip" />
+				<input type="submit" class="button" value="<?php esc_attr_e('Install Now') ?>" />
+			</form>
+		</div>
+	<?php 
+	
+		return ob_get_clean();
+	}
+	
 	/**
 	 * 
 	 * Add Javascript to header (hook in contructor)
@@ -316,12 +337,12 @@ function extension_array(  ){
 						'callback'	=> $extension_control->extension_sections_install( 'free' )
 						),
 					'search'		=> array(
-						'title'		=> 'Search Plugins',
+						'title'		=> 'Search Sections',
 						'callback'	=> ''
 					),
 					'upload'		=> array(
-						'title'		=> 'Upload Plugin',
-						'callback'	=> ''
+						'title'		=> 'Upload Sections',
+						'callback'	=> $extension_control->ui->upload_form( 'section' )
 					),
 					
 				)
