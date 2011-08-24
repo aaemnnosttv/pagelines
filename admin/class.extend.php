@@ -44,9 +44,9 @@
 		$list = array();
 		
 		foreach( $sections as $key => $s ) {
-			
-			$check_file = sprintf('%1$s/sections/%2$s/%2$s.php', PL_EXTEND_DIR, $key); 
-			
+	
+			$check_file = sprintf('%1$s/%2$s/%2$s.php', PL_EXTEND_DIR, $key); 
+
 			if ( !isset( $s->type) )
 				$s->type = 'free';
 			
@@ -97,13 +97,13 @@
 			
 			if( file_exists( PL_EXTEND_INIT ) && current( $this->plugin_check_status( PL_EXTEND_INIT ) ) == 'notactive' )
 				return 'notactive';
-			elseif(!is_dir( PL_EXTEND_SECTIONS_DIR ) || !file_exists( PL_EXTEND_INIT ))
+			elseif(!is_dir( PL_EXTEND_DIR ) || !file_exists( PL_EXTEND_INIT ))
 				return 'notinstalled';
 			else
 				return 'active';
 			
 		} else {
-			if ( !is_dir( PL_EXTEND_SECTIONS_DIR ) || ( file_exists( PL_EXTEND_INIT ) && current( $this->plugin_check_status( PL_EXTEND_INIT ) ) == 'notactive' ) )
+			if ( !is_dir( PL_EXTEND_DIR ) || ( file_exists( PL_EXTEND_INIT ) && current( $this->plugin_check_status( PL_EXTEND_INIT ) ) == 'notactive' ) )
 				return false;
 			else 
 				return true;
@@ -276,8 +276,7 @@
 			if ( $tab === 'premium' && $p['type'] === 'free' )
 				continue;
 			if ( $tab === 'free' && $p['type'] === 'premium' )
-				continue;	
-
+				continue;
 			if ( !isset( $p['status'] ) )
 				$p['status'] = array( 'status' => '' );
 				
@@ -308,6 +307,15 @@
 					'text'		=> 'Activate',
 					'dtext'		=> 'Activating',
 				),
+				'upgrade'	=> array(
+					'mode'		=> 'upgrade',
+					'condition'	=> $upgrade_available,
+					'case'		=> 'plugin_upgrade',
+					'type'		=> 'plugins',
+					'file'		=> $key,
+					'text'		=> 'Upgrade to ' . $p['version'],
+					'dtext'		=> 'Upgrading',
+				),
 				'deactivate'	=> array(
 					'mode'		=> 'activate',
 					'condition'	=> $active,
@@ -318,9 +326,7 @@
 					'dtext'		=> 'Deactivating',
 				),
 			);
-			
-			
-			
+					
 			$list[$key] = array(
 					'name' 		=> $p['name'], 
 					'version'	=> ( isset( $p['status']['data'] ) ) ? $p['status']['data']['Version'] : $p['version'], 
@@ -535,7 +541,7 @@
 
 				$upgrader = new Plugin_Upgrader();
 				$options = array( 'package' => $this->make_url( 'sections', str_replace( 'section', 'section.', $file ) ), 
-						'destination'		=> EXTEND_CHILD_DIR . '/sections/' . str_replace( 'section', 'section.', $file ), 
+						'destination'		=> trailingslashit( PL_EXTEND_DIR ) . str_replace( 'section', 'section.', $file ), 
 						'clear_destination' => false,
 						'clear_working'		=> false,
 						'is_multi'			=> false,
@@ -552,7 +558,7 @@
 
 				$upgrader = new Plugin_Upgrader();
 				$options = array( 'package' => $this->make_url( $type, $file ), 
-						'destination'		=> EXTEND_CHILD_DIR .'/sections/' . $file, 
+						'destination'		=> trailingslashit( PL_EXTEND_DIR ) . $file, 
 						'clear_destination' => true,
 						'clear_working'		=> false,
 						'is_multi'			=> false,
@@ -569,7 +575,7 @@
 
 				$upgrader = new Plugin_Upgrader();
 				$options = array( 'package' => $this->make_url( $type, $file ), 
-						'destination'		=> WP_PLUGIN_DIR .'/' . $file, 
+						'destination'		=> trailingslashit( WP_PLUGIN_DIR ) . $file, 
 						'clear_destination' => true,
 						'clear_working'		=> false,
 						'is_multi'			=> false,

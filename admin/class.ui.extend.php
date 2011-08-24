@@ -172,18 +172,18 @@ class PageLinesExtendUI {
 		
 		$key = 'ext'.$tab;
 		
-		$name = 'pagelines-extend';
+		$name = 'pagelines-sections';
 		
 		if($status == 'notactive'){
 			$file = '/' . trailingslashit( $name ) . $name . '.php'; 
-			$btext = 'Activate Extend';
-			$text = sprintf('Extend plugin installed, now activate it!');
+			$btext = 'Activate Sections';
+			$text = sprintf('Sections plugin installed, now activate it!');
 			$install_js_call = sprintf( $this->exprint, 'plugin_activate', $key, 'plugins', $file, 'Activating');
 			
 		} elseif($status == 'notinstalled'){
 			$btext = 'Install It Now!';
-			$text = sprintf('You need to install and activate PageLines Extend Plugin');
-			$install_js_call = sprintf( $this->exprint, 'plugin_install', $key, 'plugins', 'pagelines-extend', 'Installing');
+			$text = sprintf('You need to install and activate PageLines Sections Plugin');
+			$install_js_call = sprintf( $this->exprint, 'plugin_install', $key, 'plugins', 'pagelines-sections', 'Installing');
 		}
 			
 		$eresponse = 'response'.$key;
