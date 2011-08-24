@@ -58,7 +58,7 @@
 	
 	.fixed_width #page, .fixed_width #footer, .canvas .page-canvas{ width: 100%; margin: 0 auto; position: relative; }
 	.page-canvas{ margin: 0 auto; }
-	.content { width: 100%; margin: 0 auto; position: relative; border: 1px solid transparent;}
+	.content { width: 100%; margin: 0 auto; position: relative; /*border: 1px solid transparent;*/}
 	.content-pad {padding-right: 15px; padding-left: 15px}
 	
 	/* @ Layout Floating */

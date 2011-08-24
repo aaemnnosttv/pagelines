@@ -87,7 +87,7 @@ class PageLinesUpdateCheck {
 		echo '<div id="update-nag">';
 		printf( '%s %s is available.', $this->theme, esc_html( $pagelines_update['new_version'] ) );
 		
-		printf( ' %s', ( $pagelines_update['package'] != 'bad' ) ? sprintf( 'You should <a href="%s">update now</a>.', admin_url('update-core.php') ) : sprintf( '<a href="%s">Click here</a> to setup your PageLines account.', admin_url('admin.php?page=pagelines_extend#Account') ) );
+		printf( ' %s', ( $pagelines_update['package'] != 'bad' ) ? sprintf( 'You should <a href="%s">update now</a>.', admin_url('update-core.php') ) : sprintf( '<a href="%s">Click here</a> to setup your PageLines account.', admin_url('admin.php?page=pagelines_extend#Your_Account') ) );
 
 		echo ( $pagelines_update['extra'] ) ? sprintf('<br />%s', $pagelines_update['extra'] ) : '';
 		echo '</div>';

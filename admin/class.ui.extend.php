@@ -397,7 +397,7 @@ function extension_array(  ){
 				'shortexp'	=> 'Use this form to upload PageLines settings from another install.',
 			),
 		),
-		'Updates'	=> array(
+		'Your_Account'	=> array(
 			'icon'		=> PL_ADMIN_ICONS.'/rocket-fly.png',
 			'credentials' => array(
 				'version'	=> 'pro',

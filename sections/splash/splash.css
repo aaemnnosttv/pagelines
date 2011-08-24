@@ -1,0 +1,64 @@
+/* Splash CSS - PageLines 2011 */
+
+#pagelines_splash.container{
+	background:#e5e5e5;
+}
+
+.splash_head{
+	padding: 30px 0;
+}
+
+.splash_area {
+	position: relative;
+}
+.splash_area .splash_left{
+	float: left;
+	width: 45%;
+	text-align: center;
+}
+	.splash_left .splash_pad{
+		padding: 120px 10px 60px 10px;
+	}
+	
+	.splash_left h1{font-size: 3.5em; letter-spacing: -.05em;}
+	.splash_left p{font-size: 1.1em;}
+	
+	.splash_button{
+		display: inline-block;
+		background: url(sprite-splash-btn.png) repeat-x 0 0;
+	
+		font-size: 1.3em;
+		color: #fff;
+		border: 1px solid #235ABB;
+		text-shadow: 0 -1px 0 #000;
+		-moz-box-shadow: 0 1px 4px #888;
+		-webkit-box-shadow: 0 1px 4px #888;
+		box-shadow: 0 1px 4px #888;
+	}
+		.splash_button_pad{
+			display: block;
+			border-top: 1px solid #9EEEFB;
+			border-left: 1px solid #9EEEFB;
+			padding: 9px 27px;
+		}
+		
+		.splash_button, .splash_button_pad{
+			moz-border-radius: 4px;
+			-khtml-border-radius: 4px;
+			-webkit-border-radius: 4px;
+			border-radius: 4px;
+		}
+		
+		.splash_button .spl {font-family: Baskerville, "palatino linotype", palatino, georgia, serif; font-style: italic; }
+		
+.splash_area .splash_right{
+	float: left;
+	width: 55%;
+	height: 100%;
+}
+
+.splash_feature{
+	position: absolute;
+	left: 50%;
+	bottom: 0;
+}
