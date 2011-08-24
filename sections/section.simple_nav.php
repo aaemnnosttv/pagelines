@@ -60,7 +60,7 @@ class SimpleNav extends PageLinesSection {
    function section_template() { 
 
 	if(function_exists('wp_nav_menu'))
-		wp_nav_menu( array('menu_class'  => 'inline-list simplenav', 'theme_location'=>'simple_nav','depth' => 1,  'fallback_cb'=>'simple_nav_fallback') );
+		wp_nav_menu( array('menu_class'  => 'inline-list simplenav font-sub', 'theme_location'=>'simple_nav','depth' => 1,  'fallback_cb'=>'simple_nav_fallback') );
 	else
 		nav_fallback();
 	}
@@ -69,7 +69,7 @@ class SimpleNav extends PageLinesSection {
 
 function simple_nav_fallback() {
 
-	printf('<ul id="simple_nav_fallback" class="inline-list simplenav">%s</ul>', wp_list_pages( 'title_li=&sort_column=menu_order&depth=1&echo=0') );
+	printf('<ul id="simple_nav_fallback" class="inline-list simplenav font-sub">%s</ul>', wp_list_pages( 'title_li=&sort_column=menu_order&depth=1&echo=0') );
 
 }
 /*

@@ -35,6 +35,7 @@ class PageLinesSplash extends PageLinesSection {
 	}
 	
 	function section_template() {  ?>
+	
 	<div class="splash_head">
 		<div class="splash_branding">
 			<?php pagelines_main_logo();?>
@@ -46,12 +47,11 @@ class PageLinesSplash extends PageLinesSection {
 		<div class="splash_left">
 			<div class="splash_pad">
 				<h1>A Better Way To&nbsp;Build Websites</h1>
-				<p>This is gonna be some lorem ipsum text that will be used to explain the core benefit.</p>
+				<p>Use PageLines Drag &amp; Drop Framework and WordPress to build professional websites faster, easier and better than ever before.</p>
 				<a class="splash_button" href="#"><span class="splash_button_pad">See Plans <span class="spl">&amp;</span> Pricing</span></a>
 			</div>
 		</div>
-		<img class="splash_feature" src="<?php echo $this->base_url;?>/test.png" />
-			
+		<img class="splash_feature" src="<?php echo $this->base_url;?>/test.png" />	
 	</div>
 		
 <?php 	}
