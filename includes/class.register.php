@@ -155,7 +155,7 @@ class PageLinesRegister {
 				if ( !$headers['classname'] )
 					break;
 
-				$folder = str_replace( '.php', '', str_replace( 'section.', '', $fileSPLObject->getFilename() ) );
+				$folder = str_replace( '.php', '', str_replace( 'section.', '/', $fileSPLObject->getFilename() ) );
 
 				if ( $type == 'child' || $type == 'custom' ) {
 					$base_url = ( $type == 'child' ) ? trailingslashit(PL_EXTEND_URL) . $folder : get_stylesheet_directory_uri()  . '/sections' . $folder;
