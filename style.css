@@ -509,6 +509,22 @@ body{font-size: 87.5%; line-height: 1.714285em;}
 		#footer .widget_twitter .twitter-item{ padding-bottom:10px; }
 		.twitter-item:nth-child(2n){ font-weight:bolder; }
 
+/* @ Simple Nav */ 
+.simplenav { text-align: center; padding: 15px 0;}
+.simplenav li{
+	
+}
+
+.simplenav li a{
+	display: inline-block;
+	margin: 0 10px;
+	padding: 2px 10px;
+}
+	.simplenav li a:hover{
+		
+	}
+
+
 /* @ Dynamic Grid */
 	.dcol {	float: left; display:inline;}
 	.dcol.lastcol .dcol-pad {padding-right: 0;}
@@ -525,7 +541,7 @@ body{font-size: 87.5%; line-height: 1.714285em;}
 		text-align: left;
 		position: relative;
 	}
-	#footer ul{ padding: 0 5px; }
+	#footer .footcol ul{ padding: 0 5px; }
 	#footer li {list-style-type:none;}
 	#footer li a:hover {text-decoration: underline;}
 		
@@ -574,14 +590,6 @@ body{font-size: 87.5%; line-height: 1.714285em;}
 	#breadcrumb .content-pad { padding:0 12px; }
 	#breadcrumb .content{ padding:5px 0px;  }
 	.breadcrumb a:hover {text-decoration:underline;}
-
-/*	@ Simple Footer Nav  */
-	#simple_footer_nav #logo { float:left; padding-right:20px; }
-	
-	#simple_footer_nav ul { float:left; margin:10px 10px 0 10px; }	
-	#simple_footer_nav ul li{ float:left; }	
-	#footer #simple_footer_nav ul li a{ padding:0 10px; }	
-	#simple_footer_nav .terms { float:right; margin-top:10px; }
 
 /* @ Comments Area */
 	#respond { padding: 20px 0px; }

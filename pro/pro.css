@@ -140,6 +140,10 @@
 
 /* @ MoreFoot Sidebars */
 
+	#morefoot .content-pad{
+		padding-top: 20px;
+		padding-bottom: 10px;
+	}
 
 		#morefoot .widget-title{
 			padding-left: 0;
