@@ -48,6 +48,9 @@ class PageLinesRegister {
 			'parent'	=> PL_SECTIONS			
 			);
 		
+		if ( is_child_theme() )
+			$section_dirs['custom'] = get_stylesheet_directory()  . '/sections';
+		
 		$section_dirs = apply_filters( 'pagelines_sections_dirs', $section_dirs );
 		
 		/**
@@ -136,7 +139,7 @@ class PageLinesRegister {
 	 **/
 	function pagelines_getsections( $dir, $type ) {
 
-		if ( $type == 'child' && ! is_dir($dir) ) 
+		if ( ( $type == 'child' || $type == 'custom' ) && ! is_dir($dir) ) 
 			return;			
 
 		$sections = array();
@@ -156,6 +159,10 @@ class PageLinesRegister {
 
 				$filename = str_replace( '.php', '', str_replace( 'section.', '', $fileSPLObject->getFilename() ) );
 
+				if ( $type == 'child' || $type == 'custom' ) {
+					$base_url = ( $type == 'child' ) ? trailingslashit(PL_EXTEND_URL) . $folder : get_stylesheet_directory_uri()  . '/sections' . $folder;
+					$base_dir = ( $type == 'child' ) ? trailingslashit(PL_EXTEND_DIR) . $folder : get_stylesheet_directory()  . '/sections' . $folder;
+				}
 				$sections[$headers['classname']] = array(
 					'class'			=> $headers['classname'],
 					'depends'		=> $headers['depends'],
@@ -167,8 +174,8 @@ class PageLinesRegister {
 					'authoruri'		=> ( isset( $headers['authoruri'] ) ) ? $headers['authoruri'] : '',
 					'description'	=> $headers['description'],
 					'name'			=> $headers['section'],
-					'base_url'		=> ( $type == 'child' ) ? trailingslashit(PL_EXTEND_URL) . $folder : SECTION_ROOT . $folder,
-					'base_dir'		=> ( $type == 'child' ) ? trailingslashit(PL_EXTEND_DIR) . $folder : PL_SECTIONS . $folder,
+					'base_url'		=> ( isset( $base_url ) ) ? $base_url : SECTION_ROOT . $folder,
+					'base_dir'		=> ( isset( $base_dir ) ) ? $base_dir : PL_SECTIONS . $folder,
 					'base_file'		=> $fullFileName
 				);	
 			}
