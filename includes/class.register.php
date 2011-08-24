@@ -44,7 +44,7 @@ class PageLinesRegister {
 		*/
 		$section_dirs =  array(
 
-			'child'		=> PL_EXTEND_SECTIONS_DIR,
+			'child'		=> PL_EXTEND_DIR,
 			'parent'	=> PL_SECTIONS			
 			);
 		
@@ -81,7 +81,7 @@ class PageLinesRegister {
 		// filter main array containing child and parent and any custom sections
 		$sections = apply_filters( 'pagelines_section_admin', $sections );
 		$disabled = get_option( 'pagelines_sections_disabled', array( 'child' => array(), 'parent' => array()) );
-	
+
 		foreach ( $sections as $type ) {
 			if(is_array($type)){
 				
@@ -137,18 +137,16 @@ class PageLinesRegister {
 	function pagelines_getsections( $dir, $type ) {
 
 		if ( $type == 'child' && ! is_dir($dir) ) 
-			return;
-		
-			
+			return;			
 
 		$sections = array();
 		$it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator( $dir, RecursiveIteratorIterator::LEAVES_ONLY));
 		
 		foreach( $it as $fullFileName => $fileSPLObject ) {
-			
+	
 			if (pathinfo($fileSPLObject->getFilename(), PATHINFO_EXTENSION ) == 'php') {
 			
-				$folder = ( preg_match( '/sections\/(.*)\//', $fullFileName, $match) ) ? '/' . $match[1] : '';
+				$folder = ( preg_match( '/(section\.[^\.]*)/', $fullFileName, $match) ) ? '/' . $match[1] : '';
 				
 				$headers = get_file_data( $fullFileName, $default_headers = array( 'tags' => 'Tags', 'internal' => 'Internal', 'version' => 'Version', 'author' => 'Author', 'authoruri' => 'Author URI', 'section' => 'Section', 'description' => 'Description', 'classname' => 'Class Name', 'depends' => 'Depends' ) );
 
@@ -157,6 +155,7 @@ class PageLinesRegister {
 					break;
 
 				$filename = str_replace( '.php', '', str_replace( 'section.', '', $fileSPLObject->getFilename() ) );
+
 				$sections[$headers['classname']] = array(
 					'class'			=> $headers['classname'],
 					'depends'		=> $headers['depends'],
@@ -168,13 +167,14 @@ class PageLinesRegister {
 					'authoruri'		=> ( isset( $headers['authoruri'] ) ) ? $headers['authoruri'] : '',
 					'description'	=> $headers['description'],
 					'name'			=> $headers['section'],
-					'base_url'		=> ( $type == 'child' ) ? trailingslashit(PL_EXTEND_SECTIONS_URL) . $folder : SECTION_ROOT . $folder,
-					'base_dir'		=> ( $type == 'child' ) ? trailingslashit(PL_EXTEND_SECTIONS_DIR) . $folder : PL_SECTIONS . $folder,
+					'base_url'		=> ( $type == 'child' ) ? trailingslashit(PL_EXTEND_URL) . $folder : SECTION_ROOT . $folder,
+					'base_dir'		=> ( $type == 'child' ) ? trailingslashit(PL_EXTEND_DIR) . $folder : PL_SECTIONS . $folder,
 					'base_file'		=> $fullFileName
 				);	
 			}
 		}
 		return $sections;
+
 	}
 		
 } // end class

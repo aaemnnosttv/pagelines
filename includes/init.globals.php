@@ -95,18 +95,24 @@ define('PL_IMAGES', PARENT_URL . '/images');
 /**
  * Define Extension Constants
  */
-define( 'PL_EXTEND_DIR', WP_PLUGIN_DIR . '/pagelines-extend');
-define( 'PL_EXTEND_URL', plugins_url( 'pagelines-extend' ) );
-define( 'PL_EXTEND_INIT', PL_EXTEND_DIR . '/pagelines-extend.php');
-define( 'PL_EXTEND_STYLE', PL_EXTEND_URL . '/style.css' );
-define( 'PL_EXTEND_STYLE_PATH', PL_EXTEND_DIR . '/style.css' );
-define( 'PL_EXTEND_FUNCTIONS', PL_EXTEND_DIR . '/functions.php' );
-define( 'PL_EXTEND_SECTIONS_URL', PL_EXTEND_URL . '/sections' );
-define( 'PL_EXTEND_SECTIONS_DIR', PL_EXTEND_DIR . '/sections' );
+
+define( 'EXTEND_CHILD_DIR', WP_PLUGIN_DIR . '/pagelines-customize' );
+define( 'EXTEND_CHILD_URL', plugins_url( 'pagelines-customize' ) );
+
+define( 'PL_EXTEND_DIR', WP_PLUGIN_DIR . '/pagelines-sections/sections');
+define( 'PL_EXTEND_URL', plugins_url( 'pagelines-sections/sections' ) );
+define( 'PL_EXTEND_INIT', WP_PLUGIN_DIR . '/pagelines-sections/pagelines-sections.php');
+define( 'PL_EXTEND_STYLE', EXTEND_CHILD_URL . '/style.css' );
+define( 'PL_EXTEND_STYLE_PATH', EXTEND_CHILD_DIR . '/style.css' );
+define( 'PL_EXTEND_FUNCTIONS', EXTEND_CHILD_DIR . '/functions.php' );
 
 
-define( 'EXTEND_CHILD_DIR', WP_PLUGIN_DIR . '/pagelines-extend' );
-define( 'EXTEND_CHILD_URL', plugins_url( 'pagelines-extend' ) );
+
+//define( 'PL_EXTEND_SECTIONS_URL', PL_EXTEND_URL . '/sections' );
+//define( 'PL_EXTEND_SECTIONS_DIR', PL_EXTEND_DIR . '/sections' );
+
+
+
 
 /**
  * Define API Constants
