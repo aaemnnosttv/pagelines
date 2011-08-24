@@ -148,16 +148,14 @@ class PageLinesRegister {
 		foreach( $it as $fullFileName => $fileSPLObject ) {
 	
 			if (pathinfo($fileSPLObject->getFilename(), PATHINFO_EXTENSION ) == 'php') {
-			
-				$folder = ( preg_match( '/(section\.[^\.]*)/', $fullFileName, $match) ) ? '/' . $match[1] : '';
-				
+
 				$headers = get_file_data( $fullFileName, $default_headers = array( 'tags' => 'Tags', 'internal' => 'Internal', 'version' => 'Version', 'author' => 'Author', 'authoruri' => 'Author URI', 'section' => 'Section', 'description' => 'Description', 'classname' => 'Class Name', 'depends' => 'Depends' ) );
 
 				// If no pagelines class headers ignore this file.
 				if ( !$headers['classname'] )
 					break;
 
-				$filename = str_replace( '.php', '', str_replace( 'section.', '', $fileSPLObject->getFilename() ) );
+				$folder = str_replace( '.php', '', str_replace( 'section.', '', $fileSPLObject->getFilename() ) );
 
 				if ( $type == 'child' || $type == 'custom' ) {
 					$base_url = ( $type == 'child' ) ? trailingslashit(PL_EXTEND_URL) . $folder : get_stylesheet_directory_uri()  . '/sections' . $folder;
