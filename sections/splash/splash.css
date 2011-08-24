@@ -1,8 +1,17 @@
 /* Splash CSS - PageLines 2011 */
 
 #pagelines_splash.container{
-	background:#e5e5e5;
+	
+	background: #e5e5e5;
+	background-image:  -webkit-radial-gradient(center top, #fdfdfd 10%, #e5e5e5 60%); /* Chrome10+,Safari5.1+ */
+	margin-bottom: 80px;
+	border-bottom: 1px solid #fff;
 }
+
+	#pagelines_splash .texture{
+		background: url(bottom-container.png) no-repeat bottom center;
+	}
+
 
 .splash_head{
 	padding: 30px 0;
@@ -17,11 +26,11 @@
 	text-align: center;
 }
 	.splash_left .splash_pad{
-		padding: 120px 10px 60px 10px;
+		padding: 100px 10px 60px 10px;
 	}
 	
 	.splash_left h1{font-size: 3.5em; letter-spacing: -.05em;}
-	.splash_left p{font-size: 1.1em;}
+	.splash_left p{font-size: 1.15em;}
 	
 	.splash_button{
 		display: inline-block;
@@ -60,5 +69,5 @@
 .splash_feature{
 	position: absolute;
 	left: 50%;
-	bottom: 0;
+	bottom: -30px;
 }

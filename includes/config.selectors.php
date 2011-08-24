@@ -23,7 +23,7 @@ function cssgroup( $group ){
 	/**
 	 * Main Page Element Colors
 	 */
-	$s['bodybg'] = 'body, body.fixed_width, #footer .content';
+	$s['bodybg'] = 'body, body.fixed_width';
 	
 	$s['pagebg'] = 'body #page,  .commentlist ul.children .even, .alt #commentform textarea';
 	
