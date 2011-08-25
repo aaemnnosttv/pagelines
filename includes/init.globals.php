@@ -99,8 +99,8 @@ define('PL_IMAGES', PARENT_URL . '/images');
 define( 'EXTEND_CHILD_DIR', WP_PLUGIN_DIR . '/pagelines-customize' );
 define( 'EXTEND_CHILD_URL', plugins_url( 'pagelines-customize' ) );
 
-define( 'PL_EXTEND_DIR', WP_PLUGIN_DIR . '/pagelines-sections/sections');
-define( 'PL_EXTEND_URL', plugins_url( 'pagelines-sections/sections' ) );
+define( 'PL_EXTEND_DIR', WP_PLUGIN_DIR . '/pagelines-sections');
+define( 'PL_EXTEND_URL', plugins_url( 'pagelines-sections' ) );
 define( 'PL_EXTEND_INIT', WP_PLUGIN_DIR . '/pagelines-sections/pagelines-sections.php');
 define( 'PL_EXTEND_STYLE', EXTEND_CHILD_URL . '/style.css' );
 define( 'PL_EXTEND_STYLE_PATH', EXTEND_CHILD_DIR . '/style.css' );

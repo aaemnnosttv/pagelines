@@ -94,14 +94,14 @@ class PageLinesRegister {
 					* Also if a parent section and disabled, skip.
 					*/
 
-					if ( $section['type'] == 'child' && isset( $sections['parent'][$section['class']]) )
+					if ( ( $section['type'] == 'child' || $section['type'] == 'custom' ) && isset( $sections['parent'][$section['class']]) )
 						$disabled['parent'][$section['class']] = true;
 
 					if (isset( $disabled[$section['type']][$section['class']] ) )
 						continue;
 					
 					// consolidate array vars
-					$dep = ($section['type'] == 'child' && $section['depends'] != '') ? $section['depends'] : null;
+					$dep = ( ( $section['type'] == 'child' || $section['type'] == 'custom' ) && $section['depends'] != '') ? $section['depends'] : null;
 					$parent_dep = (isset($sections['parent'][$section['depends']])) ? $sections['parent'][$section['depends']] : null;
 
 					$dep_data = array(
@@ -109,15 +109,16 @@ class PageLinesRegister {
 						'base_url'  => (isset($parent_dep['base_url'])) ? $parent_dep['base_url'] : null,
 						'base_file' => (isset($parent_dep['base_file'])) ? $parent_dep['base_file'] : null
 					);
+
 					$section_data = array(
 						'base_dir'  => $section['base_dir'],
 						'base_url'  => $section['base_url'],
 						'base_file' => $section['base_file']	
 					);
 					if ( isset( $dep ) ) { // do we have a dependency?
-						if ( isset( $dep_class ) && !class_exists( $dep_class ) && file_exists( $dep_file ) ) {
-							include( $section['dep_file'] );
-							$pl_section_factory->register( $dep_class, $dep_data );
+						if ( !class_exists( $dep ) && file_exists( $dep_data['base_file'] ) ) {
+							include( $dep_data['base_file'] );
+							$pl_section_factory->register( $dep, $dep_data );
 						}
 					} else {
 							if ( !class_exists( $section['class'] ) && file_exists( $section['base_file'] ) ) {
@@ -146,7 +147,8 @@ class PageLinesRegister {
 		$it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator( $dir, RecursiveIteratorIterator::LEAVES_ONLY));
 		
 		foreach( $it as $fullFileName => $fileSPLObject ) {
-	
+			if ( basename( $fullFileName) == 'pagelines-sections.php' )
+				continue;	
 			if (pathinfo($fileSPLObject->getFilename(), PATHINFO_EXTENSION ) == 'php') {
 
 				$headers = get_file_data( $fullFileName, $default_headers = array( 'tags' => 'Tags', 'internal' => 'Internal', 'version' => 'Version', 'author' => 'Author', 'authoruri' => 'Author URI', 'section' => 'Section', 'description' => 'Description', 'classname' => 'Class Name', 'depends' => 'Depends' ) );
@@ -158,8 +160,8 @@ class PageLinesRegister {
 				$folder = str_replace( '.php', '', str_replace( 'section.', '/', $fileSPLObject->getFilename() ) );
 
 				if ( $type == 'child' || $type == 'custom' ) {
-					$base_url = ( $type == 'child' ) ? trailingslashit(PL_EXTEND_URL) . $folder : get_stylesheet_directory_uri()  . '/sections' . $folder;
-					$base_dir = ( $type == 'child' ) ? trailingslashit(PL_EXTEND_DIR) . $folder : get_stylesheet_directory()  . '/sections' . $folder;
+					$base_url = ( $type == 'child' ) ? PL_EXTEND_URL . $folder : get_stylesheet_directory_uri()  . '/sections' . $folder;
+					$base_dir = ( $type == 'child' ) ? PL_EXTEND_DIR . $folder : get_stylesheet_directory()  . '/sections' . $folder;
 				}
 				$sections[$headers['classname']] = array(
 					'class'			=> $headers['classname'],
