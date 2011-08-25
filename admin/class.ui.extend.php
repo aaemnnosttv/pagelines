@@ -52,6 +52,8 @@ class PageLinesExtendUI {
 		
 		$ext = '';
 		
+		
+		
 		if($mode == 'graphic'){
 			
 			foreach( $list as $eid => $e )
@@ -262,8 +264,9 @@ class PageLinesExtendUI {
 					data: data,
 					beforeSend: function(){
 
-
-						responseElement.html( duringText ).slideDown();
+						jQuery('#dialog').html( duringText ).dialog({ minWidth: 500, modal: true, dialogClass: 'ajax_dialog' });
+						
+						//responseElement.html( duringText ).slideDown();
 
 						// add some dots while saving.
 						interval = window.setInterval(function(){
@@ -281,7 +284,8 @@ class PageLinesExtendUI {
 					},
 				  	success: function( response ){
 						window.clearInterval( interval ); // clear dots...
-						responseElement.effect("highlight", {color: "#CCCCCC"}, 2000).html(response).delay(6500).slideUp();
+						jQuery('#dialog').dialog().html(response);
+							//responseElement.effect("highlight", {color: "#CCCCCC"}, 2000).html(response).delay(6500).slideUp();
 					}
 				});
 

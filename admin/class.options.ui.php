@@ -66,6 +66,7 @@ class PageLinesOptionsUI {
 						?>
 					
 						<div class="clear"></div>
+						<div id="dialog" class="thedialog" title="Extend"><p>This is an animated dialog.</p></div>
 						<div id="optionsheader" class="fix">
 							<div class="ohead" class="fix">
 								<div class="ohead-pad fix">

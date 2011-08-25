@@ -9,11 +9,29 @@
 /*
  * WordPress Overrides
  */
-	#adminmenu .wp-menu-image img {
-		padding: 4px 0 0 1px;
-	}
+#adminmenu .wp-menu-image img { padding: 4px 0 0 1px; }
+	
+#dialog{display: none;}
+.ui-dialog { position: absolute; padding: .2em; width: 400px; overflow: hidden; }
+.ui-dialog .ui-dialog-titlebar { padding: .4em 1em; position: relative;  }
+.ui-dialog .ui-dialog-title { float: left; margin: .1em 16px .1em 0; } 
+.ui-dialog .ui-dialog-titlebar-close { position: absolute; right: .3em; top: 50%; width: 19px; margin: -10px 0 0 0; padding: 1px; height: 18px; }
+.ui-dialog .ui-dialog-titlebar-close span { display: block; margin: 1px; }
+.ui-dialog .ui-dialog-titlebar-close:hover, .ui-dialog .ui-dialog-titlebar-close:focus { padding: 0; }
+.ui-dialog .ui-dialog-content { position: relative; border: 0; padding: .5em 1em; background: none; overflow: auto; zoom: 1; }
+.ui-dialog .ui-dialog-buttonpane { text-align: left; border-width: 1px 0 0 0; background-image: none; margin: .5em 0 0 0; padding: .3em 1em .5em .4em; }
+.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset { float: right; }
+.ui-dialog .ui-dialog-buttonpane button { margin: .5em .4em .5em 0; cursor: pointer; }
+.ui-dialog .ui-resizable-se { width: 14px; height: 14px; right: 3px; bottom: 3px; }
 
-
+.ui-draggable .ui-dialog-titlebar { cursor: move; }
+.ui-dialog.ui-widget {  font-size: 1.1em; }
+.ui-dialog.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button { font-family: Trebuchet MS, Tahoma, Verdana, Arial, sans-serif; font-size: 1em; }
+.ui-dialog.ui-widget-content { border: 1px solid #dddddd; color: #333333; background:#fff; }
+.ui-dialog.ui-widget-content a { color: #333333; }
+.ui-dialog-titlebar { background:#eee; border: 1px solid #DDD; color: #000; font-weight: bold; }
+.ui-dialog-titlebar a { color: #ffffff; }
+.ui-helper-clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden;} .ui-helper-clearfix{display:inline-block;} * html .ui-helper-clearfix{height:1%;} .ui-helper-clearfix{display:block;}
 /*
  * Common Admin Elements
  */
