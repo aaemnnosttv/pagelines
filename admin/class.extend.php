@@ -555,8 +555,8 @@
 			case 'section_upgrade':
 
 				$upgrader = new Plugin_Upgrader();
-				$options = array( 'package' => $this->make_url( $type, $file ), 
-						'destination'		=> trailingslashit( PL_EXTEND_DIR ) . str_replace( 'section', '', $file ), 
+				$options = array( 'package' => $this->make_url( $type, 'section.' . $file ), 
+						'destination'		=> trailingslashit( PL_EXTEND_DIR ) . $file, 
 						'clear_destination' => true,
 						'clear_working'		=> false,
 						'is_multi'			=> false,
