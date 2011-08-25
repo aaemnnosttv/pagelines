@@ -44,8 +44,8 @@
 		$list = array();
 		
 		foreach( $sections as $key => $s ) {
-	
-			$check_file = sprintf('%1$s/%2$s/%2$s.php', PL_EXTEND_DIR, $key); 
+
+			$check_file = sprintf('%1$s/%2$s/%3$s.php', PL_EXTEND_DIR, str_replace( 'section.', '', $key ), $key); 
 
 			if ( !isset( $s->type) )
 				$s->type = 'free';
@@ -541,7 +541,7 @@
 
 				$upgrader = new Plugin_Upgrader();
 				$options = array( 'package' => $this->make_url( 'sections', str_replace( 'section', 'section.', $file ) ), 
-						'destination'		=> trailingslashit( PL_EXTEND_DIR ) . str_replace( 'section', 'section.', $file ), 
+						'destination'		=> trailingslashit( PL_EXTEND_DIR ) . str_replace( 'section', '', $file ), 
 						'clear_destination' => false,
 						'clear_working'		=> false,
 						'is_multi'			=> false,
