@@ -367,7 +367,7 @@
 			
 			$check_file = sprintf( '%s/themes/%s/style.css', WP_CONTENT_DIR, strtolower( $theme->name ) );
 		
-				if ( file_exists( $check_file ) && get_theme_data( $check_file ) ) 
+				if ( file_exists( $check_file ) && $data = get_theme_data( $check_file ) ) 
 					$status = 'installed';
 
 				if ($tab == 'premium' && $status == 'installed' )
@@ -386,7 +386,7 @@
 				$upgrade_available = (isset($data) && $data['Version'] && $theme->version > $data['Version']) ? true : false;
 				$install = ( !$status ) ? true : false;
 				$purchase = ( !$install && !isset( $theme->purchased) ) ? true : false;
-			
+
 				$actions = array(
 					'install'	=> array(
 						'mode'		=> 'install',
@@ -434,8 +434,6 @@
 						'dtext'		=> 'Installing',
 					),
 				);
-
-
 
 				$list[$key] = array(
 						'theme'		=> $theme,
