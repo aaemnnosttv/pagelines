@@ -160,8 +160,8 @@
 
 				$file = basename( $s['base_dir'] );
 
-				$upgrade_available = $this->upgrade_available( $upgradable, $file, $s);
-				
+				$upgrade_available = $this->upgrade_available( $upgradable, 'section.' . $file, $s);
+			
 				$actions = array(
 					'activate'	=> array(
 						'mode'		=> 'activate',
@@ -218,7 +218,7 @@
  	}
 
 	function upgrade_available( $upgradable, $file, $s){
-		
+	
 		if ( is_object( $upgradable ) && isset( $upgradable->$file ) && $s['version'] < $upgradable->$file->version ) 
 			return $upgradable->$file->version;
 		else 
@@ -558,13 +558,13 @@
 
 				$upgrader = new Plugin_Upgrader();
 				$options = array( 'package' => $this->make_url( $type, $file ), 
-						'destination'		=> trailingslashit( PL_EXTEND_DIR ) . $file, 
+						'destination'		=> trailingslashit( PL_EXTEND_DIR ) . str_replace( 'section', '', $file ), 
 						'clear_destination' => true,
 						'clear_working'		=> false,
 						'is_multi'			=> false,
 						'hook_extra'		=> array() 
 				);
-				
+
 				@$upgrader->run($options);
 				// Output
 				echo 'Success! Section Upgraded.';

@@ -171,6 +171,8 @@ function pagelines_register_settings() {
 	
 	pagelines_update_lpinfo();
 	
+	pagelines_upload_extend();
+	
 	if ( !isset($_REQUEST['page']) || $_REQUEST['page'] != 'pagelines' )
 		return;
 	
@@ -183,6 +185,48 @@ function pagelines_register_settings() {
 
 }
 
+
+
+function pagelines_upload_extend() {
+	
+	if ( !empty($_POST['upload_check'] ) && check_admin_referer( 'pagelines_extend_upload', 'upload_check') ) {
+
+		if ( $_FILES[ $_POST['type']]['size'] == 0 )
+			return;
+			
+		// right we made it this far! Its either a section, plugin or a theme!
+		$type = $_POST['type'];
+		$filename = $_FILES[ $type ][ 'name' ];
+		$payload = $_FILES[ $type ][ 'tmp_name' ];
+		
+	
+		// were gonna use the wordpress upgrader class again.
+		include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+
+		switch( $type ) {
+		
+			case 'section':
+				$upgrader = new Plugin_Upgrader();
+				$options = array( 'package' => $payload, 
+						'destination'		=> trailingslashit( PL_EXTEND_DIR ) . str_replace( '.zip', '', $filename ), 
+						'clear_destination' => true,
+						'clear_working'		=> false,
+						'is_multi'			=> false,
+						'hook_extra'		=> array() 
+				);
+
+			@$upgrader->run($options);
+
+			break;
+		
+		
+		}	
+
+	}
+	
+
+	
+}
 
 // Add Debug tab to main menu.
 

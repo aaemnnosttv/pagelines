@@ -206,8 +206,7 @@ class PageLinesExtendUI {
 	
 	function upload_form( $type ){
 		
-			$slug = 'upload-'.$type;
-			$file = $type.'zip';
+			$file = $type;
 			
 		ob_start();
 		 ?>
@@ -215,9 +214,10 @@ class PageLinesExtendUI {
 			<h4><?php _e('Install a section in .zip format') ?></h4>
 			<p class="install-help"><?php _e('If you have a section in a .zip format, you may install it by uploading it here.') ?></p>
 			<form method="post" enctype="multipart/form-data">
-				<?php wp_nonce_field( $slug ) ?>
+				<?php wp_nonce_field( 'pagelines_extend_upload', 'upload_check' ) ?>
 				<label class="screen-reader-text" for="<?php echo $file;?>"><?php _e('Section zip file'); ?></label>
 				<input type="file" id="<?php echo $file;?>" name="<?php echo $file;?>" />
+				<input type="hidden" name="type" value="<?php echo $file;?>" />
 				<input type="submit" class="button" value="<?php esc_attr_e('Install Now') ?>" />
 			</form>
 		</div>
