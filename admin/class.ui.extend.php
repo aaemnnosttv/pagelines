@@ -20,7 +20,7 @@ class PageLinesExtendUI {
 	 */
 	function __construct() {
 		
-		$this->exprint = 'onClick="extendIt(\'%s\', \'%s\', \'%s\', \'%s\', \'%s\')"';
+		$this->exprint = 'onClick="extendIt(\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\')"';
 		
 		$this->defaultpane = array(
 				'name' 		=> 'Unnamed', 
@@ -146,11 +146,12 @@ class PageLinesExtendUI {
 			'dtext'	=> '',
 			'key'	=> $key, 
 			'type'	=> '',
+			'path'	=> ''
 		);
 		
 		$a = wp_parse_args($a, $d);
 		
-		$js_call = sprintf( $this->exprint, $a['case'], $a['key'], $a['type'], $a['file'], $a['dtext']);
+		$js_call = sprintf( $this->exprint, $a['case'], $a['key'], $a['type'], $a['file'], $a['path'], $a['dtext']);
 		
 		$button = sprintf('<span class="extend_button %s" %s>%s</span>', $a['mode'], $js_call, $a['text']);
 		
@@ -185,7 +186,7 @@ class PageLinesExtendUI {
 		} elseif($status == 'notinstalled'){
 			$btext = 'Install It Now!';
 			$text = sprintf('You need to install and activate PageLines Sections Plugin');
-			$install_js_call = sprintf( $this->exprint, 'plugin_install', $key, 'plugins', 'pagelines-sections', 'Installing');
+			$install_js_call = sprintf( $this->exprint, 'plugin_install', $key, 'plugins', 'pagelines-sections', '/pagelines-sections/pagelines-sections.php', 'Installing');
 		}
 			
 		$eresponse = 'response'.$key;
@@ -237,7 +238,7 @@ class PageLinesExtendUI {
 
 <script type="text/javascript">/*<![CDATA[*/
 
-		function extendIt( mode, key, type, file, duringText ){
+		function extendIt( mode, key, type, file, path, duringText ){
 
 				/* 
 					'Mode' 	= the type of extension
@@ -251,7 +252,8 @@ class PageLinesExtendUI {
 					action: 'pagelines_ajax_extend_it_callback',
 					extend_mode: mode,
 					extend_type: type,
-					extend_file: file
+					extend_file: file,
+					extend_path: path
 				};
 
 				var responseElement = jQuery('#response' + key);
