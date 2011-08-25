@@ -184,7 +184,7 @@ class PageLinesExtendUI {
 		} elseif($status == 'notinstalled'){
 			$btext = 'Install It Now!';
 			$text = sprintf('You need to install and activate PageLines Sections Plugin');
-			$install_js_call = sprintf( $this->exprint, 'plugin_install', $key, 'plugins', 'pagelines-sections', 'Installing');
+			$install_js_call = sprintf( $this->exprint, 'plugin_install', $key, 'plugins', 'pagelines-sections', '/pagelines-sections/pagelines-sections.php', 'Installing');
 		}
 			
 		$eresponse = 'response'.$key;
