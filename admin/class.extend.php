@@ -65,6 +65,7 @@
 					'case'		=> 'section_install',
 					'type'		=> $s->type,
 					'file'		=> $key,
+					'path'		=> $s->class,
 					'text'		=> 'Install',
 					'dtext'		=> 'Installing'
 					)
@@ -296,6 +297,7 @@
 					'type'		=> 'plugins',
 					'file'		=> $key,
 					'text'		=> 'Install',
+					'path'		=> $p['file'],
 					'dtext'		=> 'Installing',
 				),
 				'activate'	=> array(
@@ -488,6 +490,7 @@
 			$mode =  $_POST['extend_mode'];
 			$type =  $_POST['extend_type'];
 			$file =  $_POST['extend_file'];
+			$path =  $_POST['extend_path'];
 		
 		// 3. Do our thing...
 
@@ -497,6 +500,7 @@
 
 				$upgrader = new Plugin_Upgrader();
 				@$upgrader->install( $this->make_url( $type, $file ) );
+				activate_plugin( $path );
 				$this->page_reload( 'pagelines_extend' );
 			break;	
 
@@ -548,6 +552,9 @@
 
 				@$upgrader->run($options);
 				// Output
+				$available = get_option( 'pagelines_sections_disabled' );
+				unset( $available['child'][$path] );
+				update_option( 'pagelines_sections_disabled', $available );
 				echo 'New Section Installed!';
 				$this->page_reload( 'pagelines_extend' );
 			break;
