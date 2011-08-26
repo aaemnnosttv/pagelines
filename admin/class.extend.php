@@ -478,10 +478,9 @@
 	 */
 	function extend_it_callback(  ) {
 		
-		
-	/*
-		TODO reload callbacks just go to the panel, need tab as well
-	*/	
+		/*
+			TODO reload callbacks just go to the panel, need tab as well
+		*/	
 		
 		// 1. Libraries
 			include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
@@ -491,7 +490,8 @@
 			$type =  $_POST['extend_type'];
 			$file =  $_POST['extend_file'];
 			$path =  $_POST['extend_path'];
-		
+
+			$this->do_sanity( $mode );		
 		// 3. Do our thing...
 
 		switch ( $mode ) {
@@ -663,10 +663,35 @@
 	 * Reload the page
 	 * Helper function
 	 */
- 	function page_reload( $location ) {
+ 	function page_reload( $location, $error = '' ) {
 	
 		printf('<script type="text/javascript">setTimeout(function(){ window.location = \'%s\';}, 700);</script>', admin_url( 'admin.php?page=' . $location ));
  	}
+
+	function do_sanity( $mode ) {
+
+		switch( $mode ) {
+			
+			case 'plugin_install':
+				if ( ! is_writable( WP_PLUGIN_DIR ) )
+					$error = 'Plugins DIR is not writable by WordPress we cannot install any plugins!';
+			break;
+			
+			case 'section_install':
+				if ( ! is_writable( PL_EXTEND_DIR ) )
+					$error = 'The sections DIR is not writable by WordPress we cannot install sections!';
+			break;
+			
+			case 'theme_install':
+				if ( ! is_writable( WP_CONTENT_DIR .'/themes/' ) )
+					$error = 'The themes DIR is not writable by WordPress we cannot install themes!';
+			break;
+		}
+		if (isset($error)) {
+			$this->page_reload( 'pagelines_extend' . '&extend_error=' . $error );
+			exit;
+		}
+	}
 
 	function plugin_check_status( $file ) {
 		

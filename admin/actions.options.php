@@ -319,7 +319,10 @@ function pagelines_admin_errors(){
 		$errors['php']['title'] = 'You are using PHP version '. phpversion();
 		$errors['php']['text'] = "Version 5 or higher is required for this theme to work correctly. Please check with your host about upgrading to a newer version.";
 	}
-	
+	if ( isset( $_GET['extend_error'] ) ) {
+		$errors['extend']['title'] = 'Extension problem found';
+		$errors['extend']['text'] = $_GET['extend_error'];
+	}
 	return apply_filters('pagelines_admin_notifications', $errors);
 	
 }
