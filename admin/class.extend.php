@@ -45,7 +45,7 @@
 		
 		foreach( $sections as $key => $s ) {
 
-			$check_file = sprintf('%1$s/%2$s/%3$s.php', PL_EXTEND_DIR, str_replace( 'section.', '', $key ), $key); 
+			$check_file = sprintf('%1$s/%2$s/%3$s.php', PL_EXTEND_DIR, $key, 'section.' . $key); 
 
 			if ( !isset( $s->type) )
 				$s->type = 'free';
@@ -77,7 +77,7 @@
 					'desc'		=> $s->text, 
 					'auth_url'	=> $s->author_url, 
 					'auth'		=> $s->author,
-					'image'		=> $s->image,
+					'image'		=> ( isset( $s->image ) ) ? $s->image : '',
 					'type'		=> 'sections',
 					'key'		=> $key, 
 					'ext_txt'	=> 'Installing', 
@@ -542,8 +542,8 @@
 			case 'section_install':
 
 				$upgrader = new Plugin_Upgrader();
-				$options = array( 'package' => $this->make_url( 'sections', str_replace( 'section', 'section.', $file ) ), 
-						'destination'		=> trailingslashit( PL_EXTEND_DIR ) . str_replace( 'section', '', $file ), 
+				$options = array( 'package' => $this->make_url( 'sections', $file ), 
+						'destination'		=> trailingslashit( PL_EXTEND_DIR ) . $file, 
 						'clear_destination' => false,
 						'clear_working'		=> false,
 						'is_multi'			=> false,
@@ -562,7 +562,7 @@
 			case 'section_upgrade':
 
 				$upgrader = new Plugin_Upgrader();
-				$options = array( 'package' => $this->make_url( $type, 'section.' . $file ), 
+				$options = array( 'package' => $this->make_url( $type, $file ), 
 						'destination'		=> trailingslashit( PL_EXTEND_DIR ) . $file, 
 						'clear_destination' => true,
 						'clear_working'		=> false,
