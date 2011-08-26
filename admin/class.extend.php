@@ -665,7 +665,7 @@
 	 */
  	function page_reload( $location ) {
 	
-		printf('<script type="text/javascript">setTimeout(function(){ window.location = \'%s\';}, 500000);</script>', admin_url( 'admin.php?page=' . $location ));
+		printf('<script type="text/javascript">setTimeout(function(){ window.location = \'%s\';}, 700);</script>', admin_url( 'admin.php?page=' . $location ));
  	}
 
 	function plugin_check_status( $file ) {

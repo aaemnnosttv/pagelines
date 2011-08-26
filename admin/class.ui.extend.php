@@ -181,7 +181,7 @@ class PageLinesExtendUI {
 			$file = '/' . trailingslashit( $name ) . $name . '.php'; 
 			$btext = 'Activate Sections';
 			$text = sprintf('Sections plugin installed, now activate it!');
-			$install_js_call = sprintf( $this->exprint, 'plugin_activate', $key, 'plugins', $file, 'Activating');
+			$install_js_call = sprintf( $this->exprint, 'plugin_activate', $key, 'plugins', $file, '', 'Activating');
 			
 		} elseif($status == 'notinstalled'){
 			$btext = 'Install It Now!';
@@ -256,7 +256,7 @@ class PageLinesExtendUI {
 					extend_path: path
 				};
 
-				var responseElement = jQuery('#response' + key);
+				var responseElement = jQuery('#dialog');
 				var duringTextLength = duringText.length + 3;
 				var dotInterval = 400;
 				
@@ -266,7 +266,15 @@ class PageLinesExtendUI {
 					data: data,
 					beforeSend: function(){
 
-						jQuery('#dialog').html( duringText ).dialog({ minWidth: 500, modal: true, dialogClass: 'ajax_dialog' });
+						responseElement.html( duringText ).dialog({ 
+							minWidth: 500, 
+							minHeight: 100,
+							modal: true, 
+							dialogClass: 'ajax_dialog', 
+							open: function(event, ui) { 
+								jQuery(".ui-dialog-titlebar-close").hide(); 
+							} 
+						});
 						
 						//responseElement.html( duringText ).slideDown();
 
@@ -286,7 +294,7 @@ class PageLinesExtendUI {
 					},
 				  	success: function( response ){
 						window.clearInterval( interval ); // clear dots...
-						jQuery('#dialog').dialog().html(response);
+						responseElement.dialog().html(response);
 							//responseElement.effect("highlight", {color: "#CCCCCC"}, 2000).html(response).delay(6500).slideUp();
 					}
 				});
