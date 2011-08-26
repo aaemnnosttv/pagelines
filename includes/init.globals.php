@@ -105,7 +105,7 @@ define( 'PL_EXTEND_INIT', WP_PLUGIN_DIR . '/pagelines-sections/pagelines-section
 define( 'PL_EXTEND_STYLE', EXTEND_CHILD_URL . '/style.css' );
 define( 'PL_EXTEND_STYLE_PATH', EXTEND_CHILD_DIR . '/style.css' );
 define( 'PL_EXTEND_FUNCTIONS', EXTEND_CHILD_DIR . '/functions.php' );
-
+define( 'PL_EXTEND_THEMES_DIR', WP_CONTENT_DIR .'/themes/' );
 
 
 //define( 'PL_EXTEND_SECTIONS_URL', PL_EXTEND_URL . '/sections' );
@@ -130,7 +130,7 @@ define('PAGELINES_PRO_ROOT', PARENT_URL . '/pro' );
 /**
  * Define language constants
  */
-$lang = ( is_dir( PL_EXTEND_DIR . '/language' ) ) ? PL_EXTEND_DIR . '/language' : get_template_directory() . '/language';
+$lang = ( is_dir( EXTEND_CHILD_DIR . '/language' ) ) ? EXTEND_CHILD_DIR . '/language' : get_template_directory() . '/language';
 define( 'PAGELINES_LANGUAGE_DIR', $lang );
 
 /**

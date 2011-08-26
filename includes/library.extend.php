@@ -39,11 +39,11 @@ function base_check_templates() {
 	if ( !defined( 'PL_CUSTOMIZE' ) )
 		return;
 
-	foreach ( glob( PL_EXTEND_DIR . "/*.php") as $file) {
+	foreach ( glob( EXTEND_CHILD_DIR . "/*.php") as $file) {
 
 		if ( preg_match( '/page\.([a-z-0-9]+)\.php/', $file, $match ) ) {
 
-			if ( !file_exists( trailingslashit( PL_EXTEND_DIR ) . $file ) ) 
+			if ( !file_exists( trailingslashit( EXTEND_CHILD_DIR ) . $file ) ) 
 				copy( $file, trailingslashit( get_stylesheet_directory() ) . basename( $file ) );
 
 			if ( file_exists( trailingslashit( get_stylesheet_directory() ) . basename( $file ) ) ) {
