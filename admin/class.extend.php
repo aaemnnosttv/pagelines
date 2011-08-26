@@ -366,7 +366,7 @@
 		$list = array();
 
 		foreach( $themes as $key => $theme ) {
-			
+		
 			$check_file = sprintf( '%s/themes/%s/style.css', WP_CONTENT_DIR, strtolower( $theme->name ) );
 		
 				if ( file_exists( $check_file ) && $data = get_theme_data( $check_file ) ) 
@@ -386,9 +386,9 @@
 				$activate = ($status == 'installed' && !$is_active) ? true : false;
 				$deactivate = ($status == 'installed' && $is_active) ? true : false;
 				$upgrade_available = (isset($data) && $data['Version'] && $theme->version > $data['Version']) ? true : false;
-				$install = ( !$status ) ? true : false;
-				$purchase = ( !$install && !isset( $theme->purchased) ) ? true : false;
-
+			
+				$purchase = ( !isset( $theme->purchased ) && !$status ) ? true : false;
+				$install = ( !$status && !$purchase) ? true : false;	
 				$actions = array(
 					'install'	=> array(
 						'mode'		=> 'install',
@@ -604,7 +604,7 @@
 
 				$upgrader = new Plugin_Upgrader();
 				$options = array( 'package' => $this->make_url( $type, $file ), 
-						'destination'		=> WP_CONTENT_DIR .'/themes/' . $file, 
+						'destination'		=> PL_EXTEND_THEMES_DIR . $file, 
 						'clear_destination' => true,
 						'clear_working'		=> false,
 						'is_multi'			=> false,
@@ -621,7 +621,7 @@
 
 				$upgrader = new Plugin_Upgrader();
 				$options = array( 'package' => $this->make_url( $type, $file ), 
-						'destination'		=> WP_CONTENT_DIR .'/themes/' . $file, 
+						'destination'		=> PL_EXTEND_THEMES_DIR . $file, 
 						'clear_destination' => true,
 						'clear_working'		=> false,
 						'is_multi'			=> false,
@@ -683,7 +683,7 @@
 			break;
 			
 			case 'theme_install':
-				if ( ! is_writable( WP_CONTENT_DIR .'/themes/' ) )
+				if ( ! is_writable( PL_EXTEND_THEMES_DIR ) )
 					$error = 'The themes DIR is not writable by WordPress we cannot install themes!';
 			break;
 		}
