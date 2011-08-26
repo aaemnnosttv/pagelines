@@ -7,7 +7,7 @@
  *
  * Install PageLines plugins and looks after them.
  * 
- * @author Simon Prosser (the one and only)
+ * @author PageLines
  *
  * @since 2.0.b3
  */
@@ -87,7 +87,7 @@
 		}
 		
 		if(empty($list))
-			return $this->ui->extension_banner( 'Browsing '. $tab .' sections is currently unavailable. <br/>Check back soon!' );
+			return $this->ui->extension_banner( 'Browsing '. $tab .' sections is currently disabled. <br/>Check back soon!' );
 		else
 			return $this->ui->extension_list( $list );
  	}
@@ -348,7 +348,7 @@
 		if(empty($list) && $tab == 'installed')
 			return $this->ui->extension_banner('No Plugins Are Installed.');
 		elseif(empty($list))
-			return $this->ui->extension_banner( 'Browsing '. $tab .' plugins is currently unavailable. <br/>Check back soon!' );
+			return $this->ui->extension_banner( 'Browsing '. $tab .' plugins is currently disabled. <br/>Check back soon!' );
 		else 
 			return $this->ui->extension_list( $list );
 	}
@@ -459,7 +459,7 @@
 		if(empty($list) && $tab == 'installed')
 			return $this->ui->extension_banner('No PageLines themes are currently installed.');
 		elseif(empty($list))
-			return $this->ui->extension_banner( 'Browsing '. $tab .' themes is currently unavailable. <br/>Check back soon!' );
+			return $this->ui->extension_banner( 'Browsing '. $tab .' themes is currently disabled. <br/>Check back soon!' );
 		else
 			return $this->ui->extension_list( $list, 'graphic' );
 			

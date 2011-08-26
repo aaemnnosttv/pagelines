@@ -337,7 +337,7 @@ function extension_array(  ){
 					'title'		=> 'Sections From PageLines Core',
 					'callback'	=> $extension_control->extension_sections( 'internal' )
 					),
-				'add_new'	=> array(
+				'add_sections'	=> array(
 					'type'		=> 'subtabs',
 					'title'		=> 'Extend Sections',
 					'class'		=> 'left ht-special',
@@ -377,11 +377,12 @@ function extension_array(  ){
 					'title'		=> 'Installed PageLines Themes',
 					'callback'	=> $extension_control->extension_themes( 'installed' )
 					),
-				'add_new_themes'	=> array(
+				'add_themes'	=> array(
 					'type'		=> 'subtabs',
 					'title'		=> 'Extend Themes',
+					'class'		=> 'left ht-special',
 					'featured'	=> array(
-						'title'		=> 'Featured Themes',
+						'title'		=> 'Featured PageLines Themes',
 						'class'		=> 'right',
 						'callback'	=> $extension_control->extension_themes( 'premium' )
 						),
@@ -391,7 +392,7 @@ function extension_array(  ){
 						'callback'	=> $extension_control->extension_themes( 'premium' )
 						),
 					'upload'		=> array(
-						'title'		=> 'Upload Themes',
+						'title'		=> 'Upload A PageLines Theme',
 						'callback'	=> $extension_control->ui->upload_form( 'theme' )
 						),
 					)
@@ -405,9 +406,10 @@ function extension_array(  ){
 					'title'		=> 'Installed PageLines Plugins',
 					'callback'	=> $extension_control->extension_plugins( 'installed' )
 					),
-				'add_new_plugins'	=> array(
+				'add_plugins'	=> array(
 					'type'		=> 'subtabs',
-					'title'		=> 'Add Plugins',
+					'title'		=> 'Add PageLines Plugins',
+					'class'		=> 'left ht-special',
 					'top_premium'		=> array(
 						'title'		=> 'Premium Plugins',
 						'callback'	=> $extension_control->extension_plugins( 'premium' )
@@ -450,34 +452,8 @@ function extension_array(  ){
 		)
 
 	);
-	// 
-	// global $pl_update;
-	// $updates_exp = ( is_array( $a = get_transient('pagelines-update-' . $pl_update->theme ) ) && isset($a['package']) && $a['package'] !== 'bad' ) 
-	// 					? 'Updates are properly configured.' 
-	// 					: 'Please use your login credentials for <a href="http://www.pagelines.com/launchpad/member.php">LaunchPad</a>.<br /><strong>Not</strong> your WordPress login.';
-	// 
-	// 
-	// $d['Launchpad'] = array(
-	// 	'icon'		=> PL_ADMIN_ICONS.'/rocket-fly.png',
-	// 	'credentials' => array(
-	// 		'version'	=> 'pro',
-	// 		'type'		=> 'updates',
-	// 		'title'		=> 'Configure automatic updates',
-	// 		'shortexp'	=> 'Get the latest theme updates direct from PageLines.',
-	// 		'layout'	=> 'wide',
-	// 	),
-	// );
-	// 
-	
-	// 'disable_updates' => array(
-	// 			'default'	=> true,
-	// 			'type'		=> 'check',
-	// 			'inputlabel'	=> 'Disable update system?',
-	// 			'title'		=> 'Disable Updates',
-	// 			'shortexp'	=> 'Do not show update notifications.',
-	// 			'exp'		=> 'Completely disables the update system (includes notifications).'
-	// 	)
 
 	return apply_filters('extension_array', $d); 
 }
+
 

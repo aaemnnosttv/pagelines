@@ -96,7 +96,7 @@ function pagelines_theme_settings_init() {
 	wp_enqueue_script( 'jquery-ui-core' );
 	wp_enqueue_script( 'jquery-ui-tabs' );
 	wp_enqueue_script( 'jquery-ui-dialog' );
-	wp_enqueue_script( 'jquery-imgpreview',PL_ADMIN_JS . '/jquery.imgpreview.js', array('jquery'));
+	wp_enqueue_script( 'jquery-imgpreview', PL_ADMIN_JS . '/jquery.imgpreview.js', array('jquery'));
 	
 	// Call only on PL pages
 	add_action('load-'.$_pagelines_options_page_hook, 'pagelines_theme_settings_scripts');
@@ -113,7 +113,7 @@ function pagelines_theme_settings_init() {
 function pagelines_theme_settings_scripts() {	
 
 	wp_enqueue_script( 'script-pagelines-settings', PL_ADMIN_JS . '/script.settings.js');
-	wp_enqueue_script( 'jquery-ui-effects',PL_ADMIN_JS . '/jquery.effects.js', array('jquery')); // just has highlight effect
+	wp_enqueue_script( 'jquery-ui-effects', PL_ADMIN_JS . '/jquery.effects.js', array('jquery')); // just has highlight effect
 	wp_enqueue_script( 'jquery-ui-draggable' );	
 	wp_enqueue_script( 'jquery-ui-sortable' );
 	
@@ -200,13 +200,39 @@ function pagelines_upload_extend() {
 		$payload = $_FILES[ $type ][ 'tmp_name' ];
 		
 	
-		// were gonna use the wordpress upgrader class again.
+		
+		/** WordPress Administration Bootstrap */
+		require_once(ABSPATH . 'wp-admin/admin.php');
+		
+		/** We're gonna use the wordpress upgrader class again.*/
 		include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+
+		class PageLines_Upgrader_Skin extends WP_Upgrader_Skin {
+
+			function __construct( $args = array() ) {
+				parent::__construct($args);
+			}
+
+			function header() { }
+			
+			function footer(){ }
+			
+			function feedback($string) {}
+			
+			function error($error) {}
+			
+			function after() {}
+
+			function before() {}
+		}
 
 		switch( $type ) {
 		
 			case 'section':
-				$upgrader = new Plugin_Upgrader();
+				
+				ob_start();
+				$skin = new PageLines_Upgrader_Skin();
+				$upgrader = new Plugin_Upgrader($skin);
 				$options = array( 'package' => $payload, 
 						'destination'		=> trailingslashit( PL_EXTEND_DIR ) . str_replace( '.zip', '', $filename ), 
 						'clear_destination' => true,
@@ -215,10 +241,11 @@ function pagelines_upload_extend() {
 						'hook_extra'		=> array() 
 				);
 
-			@$upgrader->run($options);
+				@$upgrader->run($options);
+				
+				
 
 			break;
-		
 		
 		}	
 

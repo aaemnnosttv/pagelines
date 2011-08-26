@@ -9,6 +9,7 @@
 <script type="text/javascript" src="<?php echo PL_ADMIN_JS;?>/colorpicker/js/colorpicker.js"></script>
 <script type="text/javascript">/*<![CDATA[*/
 jQuery(document).ready(function(){ 
+		
 <?php 
 
 /**
