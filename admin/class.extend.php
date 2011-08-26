@@ -319,7 +319,7 @@
 					'dtext'		=> 'Upgrading',
 				),
 				'deactivate'	=> array(
-					'mode'		=> 'activate',
+					'mode'		=> 'deactivate',
 					'condition'	=> $active,
 					'case'		=> 'plugin_deactivate',
 					'type'		=> 'plugins',
@@ -452,8 +452,6 @@
 						'actions'	=> $actions
 				);
 			
-		//		$list[$key.'2'] = $list[$key];
-		//		$list[$key.'3'] = $list[$key];
 		}
 		
 		

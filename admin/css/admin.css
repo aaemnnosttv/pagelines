@@ -2431,7 +2431,8 @@ font-weight: bold;
 	
 	.install-control{
 		border: 4px dashed #DDD;
-		padding: 120px 50px;
+		background:url(../images/extendleaf.png) no-repeat 50% 50px;
+		padding: 130px 50px 100px;
 		font-weight: bold;
 		color: #555;
 		text-align: center;

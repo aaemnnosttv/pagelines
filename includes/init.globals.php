@@ -108,11 +108,6 @@ define( 'PL_EXTEND_FUNCTIONS', EXTEND_CHILD_DIR . '/functions.php' );
 define( 'PL_EXTEND_THEMES_DIR', WP_CONTENT_DIR .'/themes/' );
 
 
-//define( 'PL_EXTEND_SECTIONS_URL', PL_EXTEND_URL . '/sections' );
-//define( 'PL_EXTEND_SECTIONS_DIR', PL_EXTEND_DIR . '/sections' );
-
-
-
 
 /**
  * Define API Constants

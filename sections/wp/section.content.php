@@ -3,7 +3,7 @@
 	Section: Content
 	Author: PageLines
 	Author URI: http://www.pagelines.com
-	Description: Creates a flickr, nextgen, or featured image carousel.
+	Description: Main site content area. Holds sidebars, page content, etc.. 
 	Class Name: PageLinesContent
 	Tags: internal
 */
@@ -54,9 +54,7 @@ class PageLinesContent extends PageLinesSection {
 					</div>
 					<?php pagelines_register_hook( 'pagelines_content_after_sidebar1', 'maincontent' ); // Hook ?>
 				<?php endif;?>
-
 			</div>	
-
 			<?php get_sidebar(); ?>
 		</div>
 <?php }

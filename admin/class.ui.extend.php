@@ -79,7 +79,7 @@ class PageLinesExtendUI {
 	
 		$e = wp_parse_args( $e, $this->defaultpane);
 		
-		$image = ( $e['actions']['install']['condition'] || $e['actions']['purchase']['condition']) ? sprintf( 'http://api.pagelines.com/themes/img/%s.png', $e['key'] ) : PL_EXTEND_THEMES_DIR . $e['key'] . '/screenshot.png';
+		$image = ( $e['actions']['install']['condition'] || $e['actions']['purchase']['condition']) ? sprintf( 'http://api.pagelines.com/themes/img/%s.png', $e['key'] ) : get_theme_root_uri() .'/'. $e['key'] . '/screenshot.png';
 		
 		$image = sprintf( '<img class="" src="%s" alt="Screenshot" />', $image );
 		
@@ -229,6 +229,11 @@ class PageLinesExtendUI {
 		return ob_get_clean();
 	}
 	
+	function search_extend( $type ){
+		
+		return $this->extension_banner( 'Search functionality is currently disabled. Check back soon!' );
+	}
+	
 	/**
 	 * 
 	 * Add Javascript to header (hook in contructor)
@@ -353,7 +358,7 @@ function extension_array(  ){
 						),
 					'search'		=> array(
 						'title'		=> 'Search Sections',
-						'callback'	=> ''
+						'callback'	=> $extension_control->ui->search_extend( 'section' )
 					),
 					'upload'		=> array(
 						'title'		=> 'Upload Sections',
@@ -387,7 +392,7 @@ function extension_array(  ){
 						),
 					'upload'		=> array(
 						'title'		=> 'Upload Themes',
-						'callback'	=> $extension_control->extension_themes( 'premium' )
+						'callback'	=> $extension_control->ui->upload_form( 'theme' )
 						),
 					)
 				)
@@ -413,11 +418,11 @@ function extension_array(  ){
 					),
 					'search'		=> array(
 						'title'		=> 'Search Plugins',
-						'callback'	=> ''
+						'callback'	=> $extension_control->ui->search_extend( 'plugin' )
 					),
 					'upload'		=> array(
 						'title'		=> 'Upload Plugin',
-						'callback'	=> ''
+						'callback'	=> $extension_control->ui->upload_form( 'plugin' )
 					),
 				)
 			)
