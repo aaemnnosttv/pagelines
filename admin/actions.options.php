@@ -199,10 +199,6 @@ function pagelines_upload_extend() {
 		$filename = $_FILES[ $type ][ 'name' ];
 		$payload = $_FILES[ $type ][ 'tmp_name' ];
 		
-	
-		
-		/** WordPress Administration Bootstrap */
-		require_once(ABSPATH . 'wp-admin/admin.php');
 		
 		/** We're gonna use the wordpress upgrader class again.*/
 		include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';

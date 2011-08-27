@@ -814,9 +814,13 @@ background-repeat: no-repeat;
 	
 /* @ Below Footer Controls */
 .optionrestore {
-	padding: 5px;
+	padding: 20px;
 	color: #999;
+	font-size: .9em;
 }	
+	.ortext{
+		padding-top: 5px;
+	}
 
 /* @ ChangeLog and Updating */ 
 

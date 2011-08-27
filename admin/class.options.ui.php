@@ -102,9 +102,9 @@ class PageLinesOptionsUI {
 		
 		function fullform_foot(){ ?>
 			<?php if($this->set['show_reset']):?>
-			<div class="optionrestore">
+			<div class="optionrestore fix">
 						<?php echo OptEngine::superlink('Restore To Default', 'grey', 'reset-options', 'submit', 'onClick="return ConfirmRestore();"', plname('reset', array('setting' => $this->set['settings'])));?>
-						Use this button to restore these settings to default. (Note: Restore template and layout information in their individual tabs.)</div>
+						<div class="ortext">Use this button to restore these settings to default. &mdash; <strong>Note</strong>: Restore template and layout information in their individual tabs.</p></div>
 					<?php pl_action_confirm('ConfirmRestore', 'Are you sure? This will restore these settings to default.');?>
 				
 
@@ -165,14 +165,14 @@ class PageLinesOptionsUI {
 		
 		function basic_reset(){ ?>
 			<form method="post">
-				<div class="optionrestore">
+				<div class="optionrestore fix">
 				
 						<?php 
 						echo OptEngine::input_hidden('the_pl_setting', 'the_pl_setting', $this->set['settings']);
 						echo OptEngine::superlink('Restore To Default', 'grey', 'reset-options', 'submit', 'onClick="return ConfirmRestore();"',  'pl_reset_settings' );
 						pl_action_confirm('ConfirmRestore', 'Are you sure? This will restore these settings to default.');
 						?>
-						Use this button to restore these settings to default. (Note: Restore template and layout information in their individual tabs.)
+						<div class="ortext">Use this button to restore these settings to default.</div>
 				
 				
 				</div>

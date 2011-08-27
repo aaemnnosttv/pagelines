@@ -785,27 +785,27 @@ function the_sub_templates( $t = 'templates' ){
 			),
 		'tag' => array(
 				'name'			=> 'Tag',
-				'sections' 		=> ($t == 'main') ? array( 'PageLinesPostLoop' ) : array('PageLinesContent'),
+				'sections' 		=> ($t == 'main') ? array( 'PageLinesPostsInfo', 'PageLinesPostLoop' ) : array('PageLinesContent'),
 				'version'		=> 'pro'
 			),
 		'archive' => 	array(
 				'name'			=> 'Archive',
-				'sections' 		=> ($t == 'main') ? array( 'PageLinesPostLoop' ) : array('PageLinesContent'),
+				'sections' 		=> ($t == 'main') ? array( 'PageLinesPostsInfo', 'PageLinesPostLoop' ) : array('PageLinesContent'),
 				'version'		=> 'pro'
 			),
 		'category' => 	array(
 				'name'			=> 'Category',
-				'sections' 		=> ($t == 'main') ? array( 'PageLinesPostLoop' ) : array('PageLinesContent'),
+				'sections' 		=> ($t == 'main') ? array( 'PageLinesPostsInfo', 'PageLinesPostLoop' ) : array('PageLinesContent'),
 				'version'		=> 'pro'
 			),
 		'search' => 	array(
 				'name'			=> 'Search',
-				'sections' 		=> ($t == 'main') ? array( 'PageLinesPostLoop' ) : array('PageLinesContent'),
+				'sections' 		=> ($t == 'main') ? array( 'PageLinesPostsInfo', 'PageLinesPostLoop' ) : array('PageLinesContent'),
 				'version'		=> 'pro'
 			),
 		'author' => 	array(
 				'name'			=> 'Author',
-				'sections' 		=> ($t == 'main') ? array( 'PageLinesPostLoop' ) : array('PageLinesContent'),
+				'sections' 		=> ($t == 'main') ? array( 'PageLinesPostsInfo', 'PageLinesPostLoop' ) : array('PageLinesContent'),
 				'version'		=> 'pro'
 			),
 		'404_page' => 	array(
