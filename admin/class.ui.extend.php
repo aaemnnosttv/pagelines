@@ -239,8 +239,11 @@ class PageLinesExtendUI {
 	 * Add Javascript to header (hook in contructor)
 	 * 
 	 */
-	function extension_js(){ ?>
-
+	function extension_js(){ 
+		
+		if ( !isset( $_GET['page'] ) || $_GET['page'] != 'pagelines_extend' )
+			return;
+		?>
 <script type="text/javascript">/*<![CDATA[*/
 
 		function extendIt( mode, key, type, file, path, duringText ){
