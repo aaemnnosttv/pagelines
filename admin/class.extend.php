@@ -481,8 +481,9 @@
 		*/	
 		
 		// 1. Libraries
-			include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
-		
+			include_once( ABSPATH . 'wp-admin/includes/class-wp-upgrader.php' );
+			include( PL_ADMIN . '/class.wp_upgrader.php' );
+	
 		// 2. Variable Setup
 			$mode =  $_POST['extend_mode'];
 			$type =  $_POST['extend_type'];
@@ -496,7 +497,8 @@
 			
 			case 'plugin_install':
 
-				$upgrader = new Plugin_Upgrader();
+				$skin = new PageLines_Upgrader_Skin();
+				$upgrader = new Plugin_Upgrader($skin);
 				@$upgrader->install( $this->make_url( $type, $file ) );
 				activate_plugin( $path );
 				$this->page_reload( 'pagelines_extend' );
@@ -539,7 +541,8 @@
 			
 			case 'section_install':
 
-				$upgrader = new Plugin_Upgrader();
+				$skin = new PageLines_Upgrader_Skin();
+				$upgrader = new Plugin_Upgrader($skin);
 				$options = array( 'package' => $this->make_url( 'sections', $file ), 
 						'destination'		=> trailingslashit( PL_EXTEND_DIR ) . $file, 
 						'clear_destination' => false,
@@ -559,7 +562,8 @@
 			
 			case 'section_upgrade':
 
-				$upgrader = new Plugin_Upgrader();
+				$skin = new PageLines_Upgrader_Skin();
+				$upgrader = new Plugin_Upgrader($skin);
 				$options = array( 'package' => $this->make_url( $type, $file ), 
 						'destination'		=> trailingslashit( PL_EXTEND_DIR ) . $file, 
 						'clear_destination' => true,
@@ -576,7 +580,8 @@
 			
 			case 'plugin_upgrade':
 
-				$upgrader = new Plugin_Upgrader();
+				$skin = new PageLines_Upgrader_Skin();
+				$upgrader = new Plugin_Upgrader($skin);
 				$options = array( 'package' => $this->make_url( $type, $file ), 
 						'destination'		=> trailingslashit( WP_PLUGIN_DIR ) . $file, 
 						'clear_destination' => true,
@@ -600,7 +605,8 @@
 			
 			case 'theme_upgrade':
 
-				$upgrader = new Plugin_Upgrader();
+				$skin = new PageLines_Upgrader_Skin();
+				$upgrader = new Plugin_Upgrader($skin);
 				$options = array( 'package' => $this->make_url( $type, $file ), 
 						'destination'		=> PL_EXTEND_THEMES_DIR . $file, 
 						'clear_destination' => true,
@@ -617,7 +623,8 @@
 			
 			case 'theme_install':
 
-				$upgrader = new Plugin_Upgrader();
+				$skin = new PageLines_Upgrader_Skin();
+				$upgrader = new Plugin_Upgrader($skin);
 				$options = array( 'package' => $this->make_url( $type, $file ), 
 						'destination'		=> PL_EXTEND_THEMES_DIR . $file, 
 						'clear_destination' => true,
@@ -730,5 +737,3 @@
 	}
 
  } // end PagelinesExtensions class
-
-
