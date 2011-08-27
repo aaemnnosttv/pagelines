@@ -169,10 +169,6 @@ function pagelines_register_settings() {
 
 	pagelines_process_reset_options();
 	
-	pagelines_update_lpinfo();
-	
-	pagelines_upload_extend();
-	
 	if ( !isset($_REQUEST['page']) || $_REQUEST['page'] != 'pagelines' )
 		return;
 	
@@ -183,72 +179,6 @@ function pagelines_register_settings() {
 		exit;
 	}
 
-}
-
-
-
-function pagelines_upload_extend() {
-	
-	if ( !empty($_POST['upload_check'] ) && check_admin_referer( 'pagelines_extend_upload', 'upload_check') ) {
-
-		if ( $_FILES[ $_POST['type']]['size'] == 0 )
-			return;
-			
-		// right we made it this far! Its either a section, plugin or a theme!
-		$type = $_POST['type'];
-		$filename = $_FILES[ $type ][ 'name' ];
-		$payload = $_FILES[ $type ][ 'tmp_name' ];
-		
-		
-		/** We're gonna use the wordpress upgrader class again.*/
-		include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
-
-		class PageLines_Upgrader_Skin extends WP_Upgrader_Skin {
-
-			function __construct( $args = array() ) {
-				parent::__construct($args);
-			}
-
-			function header() { }
-			
-			function footer(){ }
-			
-			function feedback($string) {}
-			
-			function error($error) {}
-			
-			function after() {}
-
-			function before() {}
-		}
-
-		switch( $type ) {
-		
-			case 'section':
-				
-				ob_start();
-				$skin = new PageLines_Upgrader_Skin();
-				$upgrader = new Plugin_Upgrader($skin);
-				$options = array( 'package' => $payload, 
-						'destination'		=> trailingslashit( PL_EXTEND_DIR ) . str_replace( '.zip', '', $filename ), 
-						'clear_destination' => true,
-						'clear_working'		=> false,
-						'is_multi'			=> false,
-						'hook_extra'		=> array() 
-				);
-
-				@$upgrader->run($options);
-				
-				
-
-			break;
-		
-		}	
-
-	}
-	
-
-	
 }
 
 // Add Debug tab to main menu.
@@ -304,7 +234,8 @@ function pagelines_admin_confirms(){
 	}
 	if ( isset( $_GET['plinfo'] ) )
 		$confirms[]['text'] = "Launchpad settings saved.";
-		
+	if ( isset( $_GET['extend_upload'] ) )
+		$confirms[]['text'] = 'Successfully uploaded your ' . $_GET['extend_upload'];
 	return apply_filters('pagelines_admin_confirms', $confirms);
 	
  }

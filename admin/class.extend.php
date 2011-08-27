@@ -22,8 +22,61 @@
 		
 		$this->ui = new PageLinesExtendUI;
 		
-		add_action('wp_ajax_pagelines_ajax_extend_it_callback', array(&$this, 'extend_it_callback'));
+		add_action('wp_ajax_pagelines_ajax_extend_it_callback', array(&$this, 'extend_it_callback'));	
+		add_action( 'admin_init', array(&$this, 'extension_uploader' ) );
+		add_action( 'admin_init', array(&$this, 'update_lpinfo' ) );
  	}
+
+	function update_lpinfo() {
+
+		if (isset($_POST['form_submitted']) && $_POST['form_submitted'] === 'plinfo' ) {
+
+			pagelines_update_option( 'lp_password', sanitize_text_field( $_POST['lp_password'] ) );
+			pagelines_update_option( 'lp_username', sanitize_text_field( $_POST['lp_username'] ) );
+			pagelines_update_option( 'disable_updates', ( isset( $_POST['disable_auto_update'] ) ) ? true : false );
+
+			// Flush all our transienst ( Makes this save button a sort of reset button. )
+			delete_transient( 'pagelines-update-' . THEMENAME  );
+			delete_transient( 'pagelines_sections_api_themes' );
+			delete_transient( 'pagelines_sections_api_sections' );
+			delete_transient( 'pagelines_sections_api_plugins' );
+			delete_transient( 'pagelines_sections_cache' );
+			wp_redirect( admin_url('admin.php?page=pagelines_extend&plinfo=true') );
+			exit;
+		}
+	}
+
+	function extension_uploader() {
+		
+		if ( !empty($_POST['upload_check'] ) && check_admin_referer( 'pagelines_extend_upload', 'upload_check') ) {
+
+			if ( $_FILES[ $_POST['type']]['size'] == 0 )
+				return;
+
+			// right we made it this far! Its either a section, plugin or a theme!
+			$type = $_POST['type'];
+			$filename = $_FILES[ $type ][ 'name' ];
+			$payload = $_FILES[ $type ][ 'tmp_name' ];
+			
+			switch ( $type ) {
+				
+				case 'section':
+					$uploader = true;
+					$_POST['extend_mode']	=	'section_install';
+					$_POST['extend_file']	=	$payload;
+					$_POST['extend_path']	= 	str_replace( '.zip', '', $filename );
+					$_POST['extend_type']	=	'section';
+				break;
+				
+				
+			}
+			
+			if ( $uploader )
+				$this->extend_it_callback( $uploader );
+			exit;
+		
+		}	
+	}
 
  	function extension_sections_install( $tab = '' ) {
  		
@@ -474,8 +527,8 @@
 	 * Extension AJAX callbacks
 	 * 
 	 */
-	function extend_it_callback(  ) {
-		
+	function extend_it_callback( $uploader = false ) {
+
 		/*
 			TODO reload callbacks just go to the panel, need tab as well
 		*/	
@@ -543,21 +596,21 @@
 
 				$skin = new PageLines_Upgrader_Skin();
 				$upgrader = new Plugin_Upgrader($skin);
-				$options = array( 'package' => $this->make_url( 'sections', $file ), 
-						'destination'		=> trailingslashit( PL_EXTEND_DIR ) . $file, 
+				$options = array( 'package' => ( ! $uploader) ? $this->make_url( 'sections', $file ) : $file, 
+						'destination'		=> ( ! $uploader) ? trailingslashit( PL_EXTEND_DIR ) . $file : trailingslashit( PL_EXTEND_DIR ) . $path, 
 						'clear_destination' => false,
 						'clear_working'		=> false,
 						'is_multi'			=> false,
 						'hook_extra'		=> array() 
 				);
-
 				@$upgrader->run($options);
 				// Output
 				$available = get_option( 'pagelines_sections_disabled' );
 				unset( $available['child'][$path] );
 				update_option( 'pagelines_sections_disabled', $available );
-				echo 'New Section Installed!';
-				$this->page_reload( 'pagelines_extend' );
+
+				$text = ( $uploader ) ? '&extend_upload=section' : '';
+				$this->page_reload( 'pagelines_extend' . $text );
 			break;
 			
 			case 'section_upgrade':
