@@ -31,7 +31,7 @@ class SimpleNav extends PageLinesSection {
    }
 
 	function section_persistent(){
-		register_nav_menus( array( 'simple_nav' => __( 'Page navigation in simple one-line format.', 'pagelines' ) ) );
+		register_nav_menus( array( 'simple_nav' => __( 'Simple Nav Section', 'pagelines' ) ) );
 	
 		add_filter('pagelines_css_group', array(&$this, 'section_selectors'), 10, 2);
 

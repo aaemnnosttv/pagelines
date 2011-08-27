@@ -259,14 +259,14 @@ class PageLinesOptionsArray {
 				'layout'	=> 'full',
 				'selectvalues'	=> array(
 					'bodybg'	=> array(				
-						'default' 		=> '#000000',
+						'default' 		=> '#EEEEEE',
 						'css_prop'		=> 'background-color',
 						'cssgroup'		=> 'bodybg',
 						'inputlabel' 	=> 'Body Background',
 						
 					),
 					'pagebg'		=> array(				
-						'default' 	=> '#EEEEEE',
+						'default' 	=> '',
 						'cssgroup'	=>	'pagebg',
 						'flag'		=> 'blank_default',
 						'css_prop'	=> 'background-color',
@@ -357,7 +357,7 @@ class PageLinesOptionsArray {
 							)				
 					),
 					'footer_text' => array(
-						'default'		=> '#FFFFFF',
+						'default'		=> '#AAAAAA',
 						'cssgroup'		=>	'footer_highlight',
 						'inputlabel' 	=> 'Footer Text',	
 						'math'			=> array(

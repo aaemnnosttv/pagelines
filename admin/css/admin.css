@@ -223,9 +223,9 @@ background-repeat: no-repeat;
 	
 	#tabs, #optionsheader, #optionsfooter, .picker_panel, .tgraph-controls, .section-bar{
 		
-		-moz-box-shadow: 0 3px 4px #CCC;
-		-webkit-box-shadow: 0 3px 4px #CCC;
-		box-shadow: 0 3px 4px #CCC;
+		-moz-box-shadow: 0 1px 4px #DDD;
+		-webkit-box-shadow: 0 1px 4px #DDD;
+		box-shadow: 0 1px 4px #DDD;
 	}
 
 

@@ -692,7 +692,7 @@ function the_template_map() {
 		'hook' 			=> 'pagelines_footer', 
 		'name'			=> 'Site Footer', 
 		'markup'		=> 'content', 
-		'sections' 		=> array('PageLinesFootCols')
+		'sections' 		=> array('SimpleNav')
 	);
 	
 	$template_map['templates'] = array(
