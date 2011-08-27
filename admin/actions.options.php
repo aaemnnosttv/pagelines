@@ -90,6 +90,17 @@ function pagelines_theme_settings_init() {
 	global $_pagelines_ext_hook;
 	global $_pagelines_special_hook;
 	
+	// Call only on PL pages
+	add_action('load-'.$_pagelines_options_page_hook, 'pagelines_theme_settings_scripts');
+	add_action('load-'.$_pagelines_ext_hook, 'pagelines_theme_settings_scripts');
+	add_action('load-'.$_pagelines_special_hook, 'pagelines_theme_settings_scripts');
+	add_action('load-post.php',  'pagelines_theme_settings_scripts');
+	add_action('load-post-new.php',  'pagelines_theme_settings_scripts');
+}
+
+
+function pagelines_theme_settings_scripts() {
+	
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'jquery-ajaxupload', PL_ADMIN_JS . '/jquery.ajaxupload.js');
 	wp_enqueue_script( 'jquery-cookie', PL_ADMIN_JS . '/jquery.ckie.js'); 
@@ -97,30 +108,17 @@ function pagelines_theme_settings_init() {
 	wp_enqueue_script( 'jquery-ui-tabs' );
 	wp_enqueue_script( 'jquery-ui-dialog' );
 	wp_enqueue_script( 'jquery-imgpreview', PL_ADMIN_JS . '/jquery.imgpreview.js', array('jquery'));
-	
-	// Call only on PL pages
-	add_action('load-'.$_pagelines_options_page_hook, 'pagelines_theme_settings_scripts');
-	add_action('load-'.$_pagelines_ext_hook, 'pagelines_theme_settings_scripts');
-	add_action('load-'.$_pagelines_special_hook, 'pagelines_theme_settings_scripts');
-	
-	wp_enqueue_script( 'script-pagelines-common', PL_ADMIN_JS . '/script.common.js');
-	
-	// PageLines CSS objects
-	pagelines_load_css_relative('css/objects.css', 'pagelines-objects');
-}
-
-
-function pagelines_theme_settings_scripts() {	
-
 	wp_enqueue_script( 'script-pagelines-settings', PL_ADMIN_JS . '/script.settings.js');
 	wp_enqueue_script( 'jquery-ui-effects', PL_ADMIN_JS . '/jquery.effects.js', array('jquery')); // just has highlight effect
 	wp_enqueue_script( 'jquery-ui-draggable' );	
 	wp_enqueue_script( 'jquery-ui-sortable' );
-	
+	wp_enqueue_script( 'script-pagelines-common', PL_ADMIN_JS . '/script.common.js');	
 	wp_enqueue_script( 'thickbox' );	
 	wp_enqueue_style( 'thickbox' ); 
 	
 	wp_enqueue_script( 'jquery-layout', PL_ADMIN_JS . '/jquery.layout.js');
+	// PageLines CSS objects
+	pagelines_load_css_relative('css/objects.css', 'pagelines-objects');
 }
 
 add_action( 'admin_head', 'load_head' );
