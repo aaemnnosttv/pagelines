@@ -472,13 +472,13 @@
 						'dtext'		=> 'Upgrading',
 					),
 					'purchase'	=> array(
-						'mode'		=> 'install',
+						'mode'		=> 'purchase',
 						'condition'	=> $purchase,
-						'case'		=> 'theme_install',
+						'case'		=> 'theme_purchase',
 						'type'		=> 'themes',
-						'file'		=> $key,
+						'file'		=> $theme->productid,
 						'text'		=> 'Purchase',
-						'dtext'		=> 'Installing',
+						'dtext'		=> 'Redirecting',
 					),
 					'delete'	=> array(
 						'mode'		=> 'delete',
@@ -674,7 +674,7 @@
 			
 			case 'section_delete':
 			
-			delete_directory(trailingslashit( PL_EXTEND_DIR ) . $file);
+			extend_delete_directory(trailingslashit( PL_EXTEND_DIR ) . $file);
 			echo 'Section Deleted.';
 			$this->page_reload( 'pagelines_extend' );	
 			break;
@@ -763,6 +763,13 @@
 				$this->page_reload( 'pagelines_extend' );
 			break;
 			
+			case 'theme_purchase':
+			
+			echo 'Transfering to PageLines';
+			$this->page_reload( null, $file );
+			
+			break;
+			
 		}
 		die(); // needed at the end of ajax callbacks
 	}
@@ -777,9 +784,9 @@
 	 * Reload the page
 	 * Helper function
 	 */
- 	function page_reload( $location, $error = '' ) {
+ 	function page_reload( $location, $product = null ) {
 	
-		printf('<script type="text/javascript">setTimeout(function(){ window.location = \'%s\';}, 700);</script>', admin_url( 'admin.php?page=' . $location ));
+		printf('<script type="text/javascript">setTimeout(function(){ window.location = \'%s\';}, 700);</script>', ( $product ) ? 'http://www.pagelines.com/launchpad/member.php?tab=add_renew&price_group=-' . $product : admin_url( 'admin.php?page=' . $location ) );
  	}
 
 	function do_sanity( $mode ) {
