@@ -87,7 +87,7 @@ class PageLinesExtendUI {
 		
 		$text = sprintf('<p>%s</p>', $e['desc']);
 		
-		$link =  $this->get_extend_buttons( $e );
+		$link =  $this->get_extend_buttons( $e, 'superlink');
 		
 		$out = sprintf('<div class="graphic_pane media fix"><div class="theme-screen img">%s</div><div class="theme-desc bd">%s%s%s</div></div>', $image, $title, $text, $link);
 	
@@ -114,7 +114,7 @@ class PageLinesExtendUI {
 		
 	}
 	
-	function get_extend_buttons( $e ){
+	function get_extend_buttons( $e, $style = 'small'){
 		
 		/* 
 			'Mode' 	= the extension handling mode
@@ -128,7 +128,7 @@ class PageLinesExtendUI {
 		foreach( $e['actions'] as $type => $a ){
 			
 			if($a['condition'])
-				$buttons .= $this->extend_button( $e['key'], $a );
+				$buttons .= $this->extend_button( $e['key'], $a, $style);
 			
 		}
 		
@@ -136,7 +136,7 @@ class PageLinesExtendUI {
 		
 	}
 	
-	function extend_button( $key, $a ){
+	function extend_button( $key, $a, $style = 'small'){
 		
 		$d = array(
 			'mode'	=> '',
@@ -153,7 +153,10 @@ class PageLinesExtendUI {
 		
 		$js_call = sprintf( $this->exprint, $a['case'], $a['key'], $a['type'], $a['file'], $a['path'], $a['dtext']);
 		
-		$button = sprintf('<span class="extend_button %s" %s>%s</span>', $a['mode'], $js_call, $a['text']);
+		if($style == 'superlink')
+			$button = OptEngine::superlink( $a['text'], $a['mode'], '', '', $js_call);
+		else
+			$button = sprintf('<span class="extend_button %s" %s>%s</span>', $a['mode'], $js_call, $a['text']);
 		
 		return $button;
 	}

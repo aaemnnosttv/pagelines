@@ -1049,7 +1049,7 @@ class OptEngine {
 	 *  INPUT HELPERS
 	 */
 
-	function superlink($text, $color = 'grey', $class = '', $type = '', $extra='', $name = ''){
+	function superlink($text, $mode = 'grey', $class = '', $type = '', $extra='', $name = ''){
 		
 		if(false !== strpos($type, 'http'))
 			$att = 'a';
@@ -1060,6 +1060,11 @@ class OptEngine {
 			$button = sprintf('<input class="superlink supersave %s" type="submit" name="%s" value="%s" %s />', $class, $name, $text, $extra);
 		else
 			$button = sprintf('<%s id="%s" class="%s superlink" href="%s" %s ><span class="superlink-pad">%s</span></%s>', $att, $class, $class, $type, $extra, $text, $att);
+		
+		if($mode == 'purchase' || $mode == 'activate' || $mode == 'install')
+			$color = 'blue';
+		else 
+			$color = $mode;
 		
 		$wrap = sprintf('<div class="superlink-%s-wrap superlink-wrap sl-%s">%s</div>', $class, $color, $button);
 		
