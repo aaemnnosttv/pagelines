@@ -309,6 +309,7 @@ background-repeat: no-repeat;
 				text-align: center;
 			}
 			
+			#tabsnav .error{margin-bottom: 0}
 		/* @ Tab Navigation Icons */
 		
 			/* Default Case */
@@ -388,7 +389,11 @@ background-repeat: no-repeat;
 				border-bottom: none;
 			}
 	
-	.subtabs.horizontal-tabs{border-bottom: none;margin-bottom: 0 !important;}
+	.subtabs.horizontal-tabs{
+		border-bottom: none;
+		margin-bottom: 0 !important;
+	
+	}
 	.subtabs-menu .htab-sub{
 		background:#f1f1f1;
 		border: none;
@@ -400,15 +405,29 @@ background-repeat: no-repeat;
 		font-size: 1.1em;
 		padding: 0;
 		text-align: center;
-		background: #e8e8e8;
-		
+		background: #e8e8e8 url(../images/sprite-subtabs.png) repeat-x 0 0;
+		border-top: 1px solid #ccc;
+		border-bottom: 1px solid #bbb;
 	}
-	.subtabs-menu .subtabs .ui-tabs-selected a{
-		background: #ddd;
+	.subtabs-menu .subtabs .ui-tabs-selected a, .subtabs-menu .subtabs .ui-tabs-selected  a:hover{
+		background: #ddd url(../images/sprite-subtabs.png) repeat-x 0 -50px;
 	}
-		.subtabs-menu .subtabs a:hover{border:none; background:#e3e3e3 }
+		.subtabs-menu .subtabs .ui-tabs-selected a .st-pad{
+			border-right: 1px solid #ccc;
+			border-top: 1px solid #eee;
+			border-left: 1px solid #eee;
+		}
+		.subtabs-menu .subtabs a:hover{
+			border: none; 
+			border-top: 1px solid #ccc;
+			border-bottom: 1px solid #bbb;
+			background:#e3e3e3 url(../images/sprite-subtabs.png) repeat-x 0 -100px; 
+		}
 	
 		.subtabs a .st-pad{
+			border-right: 1px solid #ccc;
+			border-top: 1px solid #fafafa;
+			border-left: 1px solid #fafafa;
 			display: block;
 			padding: 12px 15px;
 		}

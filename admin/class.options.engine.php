@@ -203,18 +203,14 @@ class OptEngine {
 					<a class="vidlink thickbox" title="<?php if($o['vidtitle']) echo $o['vidtitle']; ?>" href="<?php echo $o['vidlink']; ?>?hd=1&KeepThis=true&height=450&width=700&TB_iframe=true">
 						<img src="<?php echo PL_ADMIN_IMAGES . '/link-video.jpg';?>" class="docslink-video" alt="Video Tutorial" />
 					</a>
-				<?php endif;?>
-
-				<?php if( isset($o['docslink']) ):?>
-					<a class="vidlink" title="<?php if($o['vidtitle']) echo $o['vidtitle']; ?>" href="<?php echo $o['docslink']; ?>" target="_blank">
-						<img src="<?php echo PL_ADMIN_IMAGES . '/link-docs.jpg';?>" class="docslink-video" alt="Video Tutorial" />
-					</a>
-				<?php endif;?>
+				<?php endif;
 				
+				if( isset($o['docslink']) )
+					printf('<a class="vidlink" title="%s" href="%s" target="_blank"><img src="%s" class="docslink-video" alt="Video Tutorial" /></a>', ($o['vidtitle'] ? $o['vidtitle'] : ''), $o['docslink'], PL_ADMIN_IMAGES . '/link-docs.jpg' ); 
 				
-
-				<strong><?php echo $o['title'];?></strong><br/>
-				<small><?php echo $o['shortexp'];?></small><br/>
+				printf('<strong>%s</strong><br/><small>%s</small><br/>', $o['title'], $o['shortexp']);
+				
+				?>
 			</div>
 		</div>
 		<?php endif;
