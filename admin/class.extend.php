@@ -46,37 +46,7 @@
 		}
 	}
 
-	function extension_uploader() {
-		
-		if ( !empty($_POST['upload_check'] ) && check_admin_referer( 'pagelines_extend_upload', 'upload_check') ) {
 
-			if ( $_FILES[ $_POST['type']]['size'] == 0 )
-				return;
-
-			// right we made it this far! Its either a section, plugin or a theme!
-			$type = $_POST['type'];
-			$filename = $_FILES[ $type ][ 'name' ];
-			$payload = $_FILES[ $type ][ 'tmp_name' ];
-			
-			switch ( $type ) {
-				
-				case 'section':
-					$uploader = true;
-					$_POST['extend_mode']	=	'section_install';
-					$_POST['extend_file']	=	$payload;
-					$_POST['extend_path']	= 	str_replace( '.zip', '', $filename );
-					$_POST['extend_type']	=	'section';
-				break;
-				
-				
-			}
-			
-			if ( $uploader )
-				$this->extend_it_callback( $uploader );
-			exit;
-		
-		}	
-	}
 
  	function extension_sections_install( $tab = '' ) {
  		
@@ -521,7 +491,43 @@
 
 
 
+	function extension_uploader() {
+		
+		if ( !empty($_POST['upload_check'] ) && check_admin_referer( 'pagelines_extend_upload', 'upload_check') ) {
 
+			if ( $_FILES[ $_POST['type']]['size'] == 0 )
+				return;
+
+			// right we made it this far! Its either a section, plugin or a theme!
+			$type = $_POST['type'];
+			$filename = $_FILES[ $type ][ 'name' ];
+			$payload = $_FILES[ $type ][ 'tmp_name' ];
+			
+			switch ( $type ) {
+				
+				case 'section':
+					$uploader = true;
+					$_POST['extend_mode']	=	'section_install';
+					$_POST['extend_file']	=	$payload;
+					$_POST['extend_path']	= 	str_replace( '.zip', '', $filename );
+					$_POST['extend_type']	=	'section';
+				break;
+				
+				case 'plugin':
+					$uploader = true;
+					$_POST['extend_mode']	=	'plugin_install';
+					$_POST['extend_file']	=	$payload;
+					$_POST['extend_path']	= 	sprintf( '%1$s/%1$s.php', str_replace( '.zip', '', $filename ) );
+					$_POST['extend_type']	=	'plugin';
+				
+			}
+			
+			if ( $uploader )
+				$this->extend_it_callback( $uploader );
+			exit;
+		
+		}	
+	}
 	/**
 	 * 
 	 * Extension AJAX callbacks
@@ -552,9 +558,13 @@
 
 				$skin = new PageLines_Upgrader_Skin();
 				$upgrader = new Plugin_Upgrader($skin);
-				@$upgrader->install( $this->make_url( $type, $file ) );
+				$destination = ( ! $uploader ) ? $this->make_url( $type, $file ) : $file;
+				
+				@$upgrader->install( $destination );
 				activate_plugin( $path );
-				$this->page_reload( 'pagelines_extend' );
+				echo ( !$uploader ) ? 'Plugin installed.' : '';
+				$text = ( $uploader ) ? '&extend_upload=plugin' : '';
+				$this->page_reload( 'pagelines_extend' . $text );
 			break;	
 
 			case 'plugin_activate':
@@ -608,7 +618,7 @@
 				$available = get_option( 'pagelines_sections_disabled' );
 				unset( $available['child'][$path] );
 				update_option( 'pagelines_sections_disabled', $available );
-
+				echo ( !$uploader ) ? 'Section installed.' : '';
 				$text = ( $uploader ) ? '&extend_upload=section' : '';
 				$this->page_reload( 'pagelines_extend' . $text );
 			break;
