@@ -185,7 +185,7 @@
 				$file = basename( $s['base_dir'] );
 
 				$upgrade_available = $this->upgrade_available( $upgradable, 'section.' . $file, $s);
-			
+				$delete = ( !$enabled ) ? true : false;
 				$actions = array(
 					'activate'	=> array(
 						'mode'		=> 'activate',
@@ -213,7 +213,17 @@
 						'file'		=> $file,
 						'text'		=> 'Upgrade',
 						'dtext'		=> 'Upgrading to version '.$upgrade_available,
+					),
+					'delete'	=> array(
+						'mode'		=> 'delete',
+						'condition'	=> $delete,
+						'case'		=> 'section_delete',
+						'type'		=> 'sections',
+						'file'		=> $file,
+						'text'		=> 'Delete',
+						'dtext'		=> 'Deleting',
 					)
+					
 				);
 				
 				$list[] = array(
@@ -552,7 +562,7 @@
 		
 		// 1. Libraries
 			include_once( ABSPATH . 'wp-admin/includes/class-wp-upgrader.php' );
-			include( PL_ADMIN . '/class.wp_upgrader.php' );
+			include( PL_ADMIN . '/library.extension.php' );
 	
 		// 2. Variable Setup
 			$mode =  $_POST['extend_mode'];
@@ -650,6 +660,13 @@
 				// Output
 				echo 'Success! Section Upgraded.';
 				$this->page_reload( 'pagelines_extend' );	
+			break;
+			
+			case 'section_delete':
+			
+			delete_directory(trailingslashit( PL_EXTEND_DIR ) . $file);
+			echo 'Section Deleted.';
+			$this->page_reload( 'pagelines_extend' );	
 			break;
 			
 			case 'plugin_upgrade':
