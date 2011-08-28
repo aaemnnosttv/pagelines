@@ -409,11 +409,13 @@ background-repeat: no-repeat;
 		border-top: 1px solid #ccc;
 		border-bottom: 1px solid #bbb;
 	}
+		.subtabs-menu .subtabs :first-child a, .subtabs-menu .subtabs :first-child a:hover{border-left: 1px solid #ccc;}
 	.subtabs-menu .subtabs .ui-tabs-selected a, .subtabs-menu .subtabs .ui-tabs-selected  a:hover{
 		background: #ddd url(../images/sprite-subtabs.png) repeat-x 0 -50px;
+		border-bottom: 1px solid #aaa;
 	}
 		.subtabs-menu .subtabs .ui-tabs-selected a .st-pad{
-			border-right: 1px solid #ccc;
+			border-right: 1px solid #aaa;
 			border-top: 1px solid #eee;
 			border-left: 1px solid #eee;
 		}
