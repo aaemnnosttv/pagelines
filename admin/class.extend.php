@@ -674,7 +674,7 @@
 			
 			case 'section_delete':
 			
-			delete_directory(trailingslashit( PL_EXTEND_DIR ) . $file);
+			extend_delete_directory(trailingslashit( PL_EXTEND_DIR ) . $file);
 			echo 'Section Deleted.';
 			$this->page_reload( 'pagelines_extend' );	
 			break;
