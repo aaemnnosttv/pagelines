@@ -26,7 +26,7 @@ class PageLines_Upgrader_Skin extends WP_Upgrader_Skin {
 	function before() {}
 }
 
-function delete_directory($dirname){
+function extend_delete_directory($dirname){
     // check whether $dirname is a directory
     if  (is_dir($dirname))
         // change its mode to 755 (rwx,rw,rw)

@@ -432,7 +432,8 @@
 				$upgrade_available = (isset($data) && $data['Version'] && $theme->version > $data['Version']) ? true : false;
 			
 				$purchase = ( !isset( $theme->purchased ) && !$status ) ? true : false;
-				$install = ( !$status && !$purchase) ? true : false;	
+				$install = ( !$status && !$purchase) ? true : false;
+				$delete = ( $activate ) ? true : false;
 				$actions = array(
 					'install'	=> array(
 						'mode'		=> 'install',
@@ -479,6 +480,15 @@
 						'text'		=> 'Purchase',
 						'dtext'		=> 'Installing',
 					),
+					'delete'	=> array(
+						'mode'		=> 'delete',
+						'condition'	=> $delete,
+						'case'		=> 'theme_delete',
+						'type'		=> 'themes',
+						'file'		=> $key,
+						'text'		=> 'Delete',
+						'dtext'		=> 'Deleting',
+					)
 				);
 
 				$list[$key] = array(
@@ -728,6 +738,14 @@
 				echo 'Installed';
 				$this->page_reload( 'pagelines_extend' );		
 			break;			
+			
+			case 'theme_delete':
+				
+				extend_delete_directory( PL_EXTEND_THEMES_DIR . $file );
+				echo 'Deleted';
+				$this->page_reload( 'pagelines_extend' );
+			
+			break;
 			
 			case 'theme_activate':
 
