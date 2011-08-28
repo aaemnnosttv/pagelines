@@ -312,6 +312,8 @@
 			
 			$deactivated = (!$install && !$active) ? true : false;
 			
+			$delete = ( $deactivated ) ? true : false;
+			
 			$actions = array(
 				'install'	=> array(
 					'mode'		=> 'install',
@@ -350,6 +352,15 @@
 					'text'		=> 'Deactivate',
 					'dtext'		=> 'Deactivating',
 				),
+				'delete'	=> array(
+					'mode'		=> 'delete',
+					'condition'	=> $delete,
+					'case'		=> 'plugin_delete',
+					'type'		=> 'plugins',
+					'file'		=> $p['file'],
+					'text'		=> 'Delete',
+					'dtext'		=> 'Deleting',
+				)
 			);
 					
 			$list[$key] = array(
