@@ -83,7 +83,7 @@ class PageLinesRegister {
 		
 		// filter main array containing child and parent and any custom sections
 		$sections = apply_filters( 'pagelines_section_admin', $sections );
-		$disabled = get_option( 'pagelines_sections_disabled', array( 'child' => array(), 'parent' => array()) );
+		$disabled = get_option( 'pagelines_sections_disabled', array( 'child' => array(), 'parent' => array(), 'custom' => array() ) );
 
 		foreach ( $sections as $type ) {
 			if(is_array($type)){
@@ -144,18 +144,17 @@ class PageLinesRegister {
 			return;			
 
 		$sections = array();
-		$it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator( $dir, RecursiveIteratorIterator::LEAVES_ONLY));
+		$it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator( $dir, RecursiveIteratorIterator::SELF_FIRST));
 		
 		foreach( $it as $fullFileName => $fileSPLObject ) {
 			if ( basename( $fullFileName) == 'pagelines-sections.php' )
 				continue;	
 			if (pathinfo($fileSPLObject->getFilename(), PATHINFO_EXTENSION ) == 'php') {
-
 				$headers = get_file_data( $fullFileName, $default_headers = array( 'tags' => 'Tags', 'internal' => 'Internal', 'version' => 'Version', 'author' => 'Author', 'authoruri' => 'Author URI', 'section' => 'Section', 'description' => 'Description', 'classname' => 'Class Name', 'depends' => 'Depends' ) );
 
 				// If no pagelines class headers ignore this file.
 				if ( !$headers['classname'] )
-					break;
+					continue;
 
 				$folder = str_replace( '.php', '', str_replace( 'section.', '/', $fileSPLObject->getFilename() ) );
 
