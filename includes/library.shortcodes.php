@@ -433,7 +433,7 @@ add_filter('widget_text', 'do_shortcode');
 	 	$page = get_page_by_title($pagename);
 
 	 	//use page ID to get the permalink for the page
-	 	$link = get_permalink($page->ID);
+	 	$link = get_permalink($page);
 
 	 	//create the link and output
 	 	$pagelink = "<a href=\"".$link."\">".$linktext."</a>";

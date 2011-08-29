@@ -37,8 +37,8 @@ class PageLinesShareBar extends PageLinesSection {
 				<div class="left"><?php echo ploption('post_footer_social_text');?></div>
 					<div class="right">
 						<?php 
-							$upermalink = urlencode( get_permalink() );
-							$utitle = urlencode( strip_tags( get_the_title( $post->ID) ) );
+							$upermalink = urlencode( get_permalink( $post->ID ) );
+							$utitle = urlencode( strip_tags( get_the_title() ) );
 							
 							$string = '<a class="sharelink" href="%s" title="%s" rel="nofollow" target="_blank"><img src="%s" alt="%s" /></a>';
 							
@@ -55,7 +55,7 @@ class PageLinesShareBar extends PageLinesSection {
 						}
 						
 						if(ploption('share_twitter')){
-							$url = sprintf('http://twitter.com/?status=%s', pagelines_shorturl(get_permalink($post->ID)));
+							$url = sprintf('http://twitter.com/?status=%s', pagelines_shorturl($upermalink));
 							printf($string, $url, __('Share on Twitter', 'pagelines'), $this->base_url.'/twitter.png', 'Twitter');
 						}
 						

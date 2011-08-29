@@ -213,10 +213,11 @@ class PageLinesPosts {
 			$classes .= ' left';
 		}
 		
+		global $post;
 		
 		$the_image = sprintf('<span class="c_img">%s</span>', get_the_post_thumbnail(null, 'thumbnail'));
 		
-		$thumb_link = sprintf('<a class="%s" href="%s" rel="bookmark" title="%s %s" style="%s">%s</a>', $classes, get_permalink(), __('Link To', 'pagelines'), the_title_attribute( array('echo' => false) ), $style, $the_image );
+		$thumb_link = sprintf('<a class="%s" href="%s" rel="bookmark" title="%s %s" style="%s">%s</a>', $classes, get_permalink( $post ), __('Link To', 'pagelines'), the_title_attribute( array('echo' => false) ), $style, $the_image );
 		
 		$output = ($mode == 'top') ? sprintf('<div class="full_img fix">%s</div>', $thumb_link) : $thumb_link;
 		
@@ -265,6 +266,8 @@ class PageLinesPosts {
 	 *
 	 */
 	function pagelines_get_post_title( $format = '' ){ 
+		
+		global $post;
 
 		if(is_page() && pagelines_option('pagetitles')){
 			$title = sprintf( '<h1 class="entry-title pagetitle">%s</h1>', apply_filters( 'pagelines_post_title_text', get_the_title() ) );	
@@ -273,9 +276,9 @@ class PageLinesPosts {
 			if ( is_singular() ) 
 				$title = sprintf( '<h1 class="entry-title">%s</h1>', apply_filters( 'pagelines_post_title_text', get_the_title() ) );
 			elseif( $format == 'clip')
-				$title = sprintf( '<h4 class="entry-title"><a href="%s" title="%s" rel="bookmark">%s</a></h4>', get_permalink(), the_title_attribute('echo=0'), apply_filters( 'pagelines_post_title_text', get_the_title() ) );
+				$title = sprintf( '<h4 class="entry-title"><a href="%s" title="%s" rel="bookmark">%s</a></h4>', get_permalink( $post ), the_title_attribute('echo=0'), apply_filters( 'pagelines_post_title_text', get_the_title() ) );
 			else
-				$title = sprintf( '<h2 class="entry-title"><a href="%s" title="%s" rel="bookmark">%s</a></h2>', get_permalink(), the_title_attribute('echo=0'), apply_filters( 'pagelines_post_title_text', get_the_title() ) );
+				$title = sprintf( '<h2 class="entry-title"><a href="%s" title="%s" rel="bookmark">%s</a></h2>', get_permalink( $post ), the_title_attribute('echo=0'), apply_filters( 'pagelines_post_title_text', get_the_title() ) );
 
 		} else {$title = '';}
 
