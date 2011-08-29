@@ -170,8 +170,6 @@
 
  			foreach( $type as $key => $s ) { // main loop
 	
-
-
 				if ( $tab === 'user' && ( $s['type'] === 'custom' || $s['type'] === 'parent' ) )
 					continue;
 
@@ -189,7 +187,7 @@
 				$file = basename( $s['base_dir'] );
 
 				$upgrade_available = $this->upgrade_available( $upgradable, 'section.' . $file, $s);
-				$delete = ( !$enabled ) ? true : false;
+				$delete = ( !$enabled && ( $tab !== 'child' && $tab !== 'internal' ) ) ? true : false;
 				$actions = array(
 					'activate'	=> array(
 						'mode'		=> 'activate',
