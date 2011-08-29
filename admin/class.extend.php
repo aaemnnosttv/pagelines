@@ -137,14 +137,14 @@
 	/*
 	 * Get sections that are installed.
 	 */
- 	function extension_sections( $tag = '', $tab = '' ) {
+ 	function extension_sections( $tab = '' ) {
 
  		/*
  		 * Clear section cache and re-generate
  		 */
  		global $load_sections;
 
-		if($tag == 'child' && !is_child_theme())
+		if($tab == 'child' && !is_child_theme())
 			return $this->ui->extension_banner( 'A PageLines child theme is not currently activated' );
 
 		// Get sections
@@ -171,15 +171,17 @@
  			foreach( $type as $key => $s ) { // main loop
 	
 
-				if ( $tag === 'internal' )
-					if ( false === ( strpos( $s['tags'], 'internal') ) )
-						continue;
-						
-				if ( $tag === 'user' )
-					if ( $s['tags'] === 'internal' ) 
-						continue;
-				
-  				if ( $s['type'] == 'parent' && isset( $available['child'][ $s['class'] ] ) )
+
+				if ( $tab === 'user' && ( $s['type'] === 'custom' || $s['type'] === 'parent' ) )
+					continue;
+
+				if ( $tab === 'internal' && ( $s['type'] === 'custom' || $s['type'] === 'child' ) )
+					continue;						
+
+				if ( $tab === 'child' && ( $s['type'] === 'child' || $s['type'] === 'parent' ) )
+					continue;
+									
+  				if ( $s['type'] == 'parent' && ( isset( $available['child'][ $s['class'] ] ) || isset( $available['custom'][ $s['class'] ] ) ) )
 					continue;
 				
 				$enabled = ( $s['status'] == 'enabled' ) ? true : false;
@@ -400,7 +402,40 @@
 			return $this->ui->extension_list( $list );
 	}
 
+	function extension_scan_themes( $themes ) {
+		
+		$themes = json_decode(json_encode($themes), true);
+		
+		$get_themes = get_themes();
 
+		foreach( $get_themes as $theme => $theme_data ) {
+		
+			if ( $theme_data['Template'] != 'pagelines' )
+				continue;
+			if ( 'pagelines' == $theme_data['Stylesheet'] )
+				continue;
+			if ( in_array( $theme, $themes ) )
+				continue;
+//			if ( CHILDTHEMENAME === $theme_data['Stylesheet'])
+//				continue;
+			
+			// If we got this far, theme is a pagelines child theme not handled by the API
+			// So we need to inject it into our themes array.
+			
+			$new_theme = array();
+			$new_theme['name'] =		$theme_data['Name'];
+			$new_theme['author'] =		$theme_data['Author Name'];
+			$new_theme['author_url'] =	$theme_data['Author URI'];
+			$new_theme['version'] =		$theme_data['Version'];
+			$new_theme['text'] =		$theme_data['Description'];
+			$new_theme['tags'] =		$theme_data['Tags'];
+			$new_theme['productid'] = 	null;
+			$new_theme['count'] = 		null;
+			$themes[$theme_data['Stylesheet']] = $new_theme;		
+		}
+		return $themes;
+	}
+	
 	function extension_themes( $tab = '' ) {
 
 		$themes = $this->get_latest_cached( 'themes' );
@@ -411,10 +446,13 @@
 		$output = '';
 		$status = false;
 		$list = array();
+		
+		$themes = $this->extension_scan_themes( $themes );
+
 
 		foreach( $themes as $key => $theme ) {
-		
-			$check_file = sprintf( '%s/themes/%s/style.css', WP_CONTENT_DIR, strtolower( $theme->name ) );
+	
+			$check_file = sprintf( '%s/themes/%s/style.css', WP_CONTENT_DIR, $key );
 		
 				if ( file_exists( $check_file ) && $data = get_theme_data( $check_file ) ) 
 					$status = 'installed';
@@ -430,15 +468,15 @@
 					
 					
 					
-				$is_active = (strtolower( $theme->name ) == basename( get_stylesheet_directory() ))	? true : false;
+				$is_active = ( $key  == basename( get_stylesheet_directory() ))	? true : false;
 					
 					
 					
 				$activate = ($status == 'installed' && !$is_active) ? true : false;
 				$deactivate = ($status == 'installed' && $is_active) ? true : false;
-				$upgrade_available = (isset($data) && $data['Version'] && $theme->version > $data['Version']) ? true : false;
+				$upgrade_available = (isset($data) && $data['Version'] && $theme['version'] > $data['Version']) ? true : false;
 			
-				$purchase = ( !isset( $theme->purchased ) && !$status ) ? true : false;
+				$purchase = ( !isset( $theme['purchased'] ) && !$status ) ? true : false;
 				$install = ( !$status && !$purchase) ? true : false;
 				$delete = ( $activate ) ? true : false;
 
@@ -477,7 +515,7 @@
 						'case'		=> 'theme_upgrade',
 						'type'		=> 'themes',
 						'file'		=> $key,
-						'text'		=> 'Upgrade to '.$theme->version,
+						'text'		=> 'Upgrade to '.$theme['version'],
 						'dtext'		=> 'Upgrading',
 					),
 					'purchase'	=> array(
@@ -485,7 +523,7 @@
 						'condition'	=> $purchase,
 						'case'		=> 'theme_purchase',
 						'type'		=> 'themes',
-						'file'		=> $theme->productid,
+						'file'		=> $theme['productid'],
 						'text'		=> 'Purchase',
 						'dtext'		=> 'Redirecting',
 					),
@@ -502,17 +540,17 @@
 
 				$list[$key] = array(
 						'theme'		=> $theme,
-						'name' 		=> $theme->name, 
+						'name' 		=> $theme['name'], 
 						'active'	=> $is_active,
-						'version'	=> ( !empty( $status ) && isset( $data['Version'] ) ) ? $data['Version'] : $theme->version, 
-						'desc'		=> $theme->text,
-						'tags'		=> ( isset( $theme->tags ) ) ? $theme->tags : '',
-						'auth_url'	=> $theme->author_url, 
-						'image'		=> ( isset( $theme->image ) ) ? $theme->image : '',
-						'auth'		=> $theme->author, 
+						'version'	=> ( !empty( $status ) && isset( $data['Version'] ) ) ? $data['Version'] : $theme['version'], 
+						'desc'		=> $theme['text'],
+						'tags'		=> ( isset( $theme['tags'] ) ) ? $theme['tags'] : '',
+						'auth_url'	=> $theme['author_url'], 
+						'image'		=> ( isset( $theme['image'] ) ) ? $theme['image'] : '',
+						'auth'		=> $theme['author'], 
 						'key'		=> $key,
 						'type'		=> 'themes',
-						'count'		=> $theme->count,
+						'count'		=> $theme['count'],
 						'actions'	=> $actions
 				);
 			

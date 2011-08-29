@@ -44,7 +44,7 @@ function extend_delete_directory($dirname){
 
             // if entry is directory then go recursive !
             if  (is_dir($dirname."/".$file)){
-                      delete_directory($dirname.'/'.$file);
+                      extend_delete_directory($dirname.'/'.$file);
 
             // if file then delete this entry
             } else {

@@ -94,7 +94,7 @@ class PageLinesRegister {
 					* Also if a parent section and disabled, skip.
 					*/
 
-					if ( ( $section['type'] == 'child' || $section['type'] == 'custom' ) && isset( $sections['parent'][$section['class']]) )
+					if ( ( $section['type'] == 'child' || $section['type'] == 'custom' ) && isset( $sections['parent'][$section['class']]) )					
 						$disabled['parent'][$section['class']] = true;
 
 					if (isset( $disabled[$section['type']][$section['class']] ) )
