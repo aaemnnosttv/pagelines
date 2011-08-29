@@ -7,12 +7,15 @@
 	How version numbers work (Notation: A.B.C)
 	- "A" releases are "Major Releases" - Big day! Huge rewrites with tons of new features, optimizations
 	- "B" releases are "Major Minor Releases" - Cool new features + rewrites, sometimes prone to issues due to new code.
-	- "C" releases are "Minor Releases" - Contain bugfixes and improvements to code
+	- "C" releases are "Minor Releases" - Contain bug fixes and improvements to code
 
 ********************************************************
 
 
-Version 2.0 
+Version 2.0.0
+	BETA - 9, 10
+	- PageLines Extend
+	- Usability improvements
 	BETA - 8
 	- Special Handling
 	- Meta Handling

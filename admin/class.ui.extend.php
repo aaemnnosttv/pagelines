@@ -331,17 +331,17 @@ function extension_array(  ){
 		'Sections' => array(
 			'icon'		=> PL_ADMIN_ICONS.'/dragdrop.png',
 			'htabs' 	=> array(
-				'all_sections'	=> array(
-					'title'		=> 'Installed PageLines Sections',
-					'callback'	=> $extension_control->extension_sections()
-					),
 				'added'	=> array(
-					'title'		=> 'Sections Added',
+					'title'		=> 'Sections Added Via Extend',
 					'callback'	=> $extension_control->extension_sections( 'user' )
 					),
 				'core'	=> array(
-					'title'		=> 'Sections From PageLines Core',
+					'title'		=> 'Sections From PageLines Framework',
 					'callback'	=> $extension_control->extension_sections( 'internal' )
+					),
+				'child'	=> array(
+					'title'		=> 'Sections From Your Child Theme',
+					'callback'	=> $extension_control->extension_sections( 'child' )
 					),
 				'add_sections'	=> array(
 					'type'		=> 'subtabs',

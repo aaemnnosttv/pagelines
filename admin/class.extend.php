@@ -175,7 +175,6 @@
 				if ( $tag === 'user' )
 					if ( $s['tags'] === 'internal' ) 
 						continue;
-
 				
   				if ( $s['type'] == 'parent' && isset( $available['child'][ $s['class'] ] ) )
 					continue;

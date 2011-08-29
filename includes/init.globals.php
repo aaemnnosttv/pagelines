@@ -43,6 +43,9 @@ define('CORE_LIB', PL_INCLUDES); // Deprecated, but used in bbPress forum < 1.2.
 
 define('THEMENAME', $theme);
 define('CHILDTHEMENAME', get_option('stylesheet'));
+
+define('NICETHEMENAME', $theme_data['Name']);
+define('NICECHILDTHEMENAME', $child_theme_data['Name']);
 define('CHANGELOG_URL', 'http://www.pagelines.com/demos/platformpro/wp-content/themes/platformpro/changelog.txt');
 
 define('PARENT_DIR', get_template_directory());
