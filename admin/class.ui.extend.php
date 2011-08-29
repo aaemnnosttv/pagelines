@@ -25,6 +25,7 @@ class PageLinesExtendUI {
 		$this->defaultpane = array(
 				'name' 		=> 'Unnamed', 
 				'version'	=> 'No version', 
+				'active'	=> false,
 				'desc'		=> 'No description.', 
 				'auth_url'	=> 'http://www.pagelines.com',
 				'auth'		=> '',
@@ -51,22 +52,25 @@ class PageLinesExtendUI {
 	function extension_list( $list = array(), $mode = 'list'){
 		
 		$ext = '';
-		
-		
+		$active = '';
 		
 		if($mode == 'graphic'){
 			
-			foreach( $list as $eid => $e )
-				$ext .= $this->graphic_pane( $e );
+			foreach( $list as $eid => $e ){
+				if($e['active'])
+					$active .= $this->graphic_pane( $e, 'active');
+				else
+					$ext .= $this->graphic_pane( $e );
+			}
 
-			$output = sprintf('<ul class="graphic_panes fix">%s</ul>', $ext);
+			$output = sprintf('<ul class="graphic_panes fix">%s%s</ul>', $active, $ext);
 			
 		} else {
 			
 			foreach( $list as $eid => $e )
 				$ext .= $this->pane_template( $e );
 			
-			$output = sprintf('<ul class="the_sections plpanes">%s</ul>', $ext);
+			$output = sprintf('<ul class="the_sections plpanes">%s%s</ul>', $active, $ext);
 			
 		}
 		
@@ -75,7 +79,7 @@ class PageLinesExtendUI {
 		
 	}
 	
-	function graphic_pane( $e ){
+	function graphic_pane( $e, $style = ''){
 	
 		$e = wp_parse_args( $e, $this->defaultpane);
 		
@@ -89,7 +93,7 @@ class PageLinesExtendUI {
 		
 		$link =  $this->get_extend_buttons( $e, 'superlink');
 		
-		$out = sprintf('<div class="graphic_pane media fix"><div class="theme-screen img">%s</div><div class="theme-desc bd">%s%s%s</div></div>', $image, $title, $text, $link);
+		$out = sprintf('<div class="%s graphic_pane media fix"><div class="theme-screen img">%s</div><div class="theme-desc bd">%s%s%s</div></div>', $style, $image, $title, $text, $link);
 	
 		return $out;
 		
@@ -111,6 +115,25 @@ class PageLinesExtendUI {
 			$response = sprintf('<li id="response%s" class="install_response"><div class="rp"></div></li>', $s['key']);
 
 			return sprintf('<li class="plpane pane-plugin"><div class="plpane-hl fix"><div class="plpane-pad fix">%s %s </div></div></li>%s', $title, $body, $response);
+		
+	}
+	
+	function active_extension(){
+		$e = wp_parse_args( $e, $this->defaultpane);
+
+		$image = ( $e['actions']['install']['condition'] || $e['actions']['purchase']['condition']) ? sprintf( 'http://api.pagelines.com/themes/img/%s.png', $e['key'] ) : get_theme_root_uri() .'/'. $e['key'] . '/screenshot.png';
+
+		$image = sprintf( '<img class="" src="%s" alt="Screenshot" />', $image );
+
+		$title = sprintf('<h2>%s</h2>', $e['name']);
+
+		$text = sprintf('<p>%s</p>', $e['desc']);
+
+		$link =  $this->get_extend_buttons( $e, 'superlink');
+
+		$out = sprintf('<div class="graphic_pane media fix"><div class="theme-screen img">%s</div><div class="theme-desc bd">%s%s%s</div></div>', $image, $title, $text, $link);
+
+		return $out;
 		
 	}
 	

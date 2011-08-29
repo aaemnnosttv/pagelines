@@ -144,6 +144,9 @@
  		 */
  		global $load_sections;
 
+		if($tag == 'child' && !is_child_theme())
+			return $this->ui->extension_banner( 'A PageLines child theme is not currently activated' );
+
 		// Get sections
  		$available = $load_sections->pagelines_register_sections( true, true );
 
@@ -244,6 +247,7 @@
  			}
  		} 
 	
+		
 		if(empty($list))
 			return $this->ui->extension_banner( 'No '. $tab .' sections are currently available. <br/>Check back soon!' );
 		else
@@ -424,7 +428,11 @@
 				if ( !$tab && !$status)
 					continue;
 					
+					
+					
 				$is_active = (strtolower( $theme->name ) == basename( get_stylesheet_directory() ))	? true : false;
+					
+					
 					
 				$activate = ($status == 'installed' && !$is_active) ? true : false;
 				$deactivate = ($status == 'installed' && $is_active) ? true : false;
@@ -433,6 +441,8 @@
 				$purchase = ( !isset( $theme->purchased ) && !$status ) ? true : false;
 				$install = ( !$status && !$purchase) ? true : false;
 				$delete = ( $activate ) ? true : false;
+
+				
 				$actions = array(
 					'install'	=> array(
 						'mode'		=> 'install',
@@ -493,6 +503,7 @@
 				$list[$key] = array(
 						'theme'		=> $theme,
 						'name' 		=> $theme->name, 
+						'active'	=> $is_active,
 						'version'	=> ( !empty( $status ) && isset( $data['Version'] ) ) ? $data['Version'] : $theme->version, 
 						'desc'		=> $theme->text,
 						'tags'		=> ( isset( $theme->tags ) ) ? $theme->tags : '',
