@@ -93,7 +93,10 @@ class PageLinesExtendUI {
 		
 		$link =  $this->get_extend_buttons( $e, 'superlink');
 		
-		$out = sprintf('<div class="%s graphic_pane media fix"><div class="theme-screen img">%s</div><div class="theme-desc bd">%s%s%s</div></div>', $style, $image, $title, $text, $link);
+		$dtitle = ($style == 'active') ? sprintf('<h4>Active Theme</h4>') : '';
+			
+		
+		$out = sprintf('<div class="%s graphic_pane media fix">%s<div class="theme-screen img">%s</div><div class="theme-desc bd">%s%s%s</div></div>', $style, $dtitle, $image, $title, $text, $link);
 	
 		return $out;
 		

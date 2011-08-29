@@ -2,31 +2,23 @@
 #brandnav {
 	padding: 13px 0px 11px;
 }
-#brandnav .main_nav {float:left;width: 76%;}
 
 #brandnav .mainlogo-link, #brandnav .title-container{
     float: left;
     line-height: 0.7em;
-	width: 22%;
 	padding: 0 1%;
 }
 #brandnav .mainlogo-link img{
 	max-width: 100%;
 }
 
-#brandnav .main_nav ul.main-nav{
-    float: left;
+#brandnav .brandnav-nav{
+    float: right;
 	margin-left : 20px;
 }
 	
 	#brandnav li a, #brandnav .nav-special {
 	    display: block;
 	    text-decoration: none;
-	}
-	
-	#brandnav a.nav-special {
-	    display: block;
-	    float: right;
-		margin-right: 0;
 	}
 	

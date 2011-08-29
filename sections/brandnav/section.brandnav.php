@@ -34,17 +34,15 @@ class PageLinesBrandNav extends PageLinesNav {
 	/* Use this function to create the template for the section */	
  	function section_template() { 
 	
-			pagelines_main_logo(); 
+			pagelines_main_logo( $this->id ); 
+			
 			pagelines_register_hook( 'brandnav_after_brand', 'brandnav' ); // Hook
 		?>
 		
-			<div class="inline-nav main_nav fix">		
+			<div class="brandnav-nav main_nav fix">		
 <?php 	
-				if(function_exists('wp_nav_menu')){
+				wp_nav_menu( array('menu_class'  => 'main-nav tabbed-list'.pagelines_nav_classes(), 'container' => null, 'container_class' => '', 'depth' => 3, 'theme_location'=>'primary', 'fallback_cb'=>'pagelines_nav_fallback') );
 
-					wp_nav_menu( array('menu_class'  => 'main-nav'.pagelines_nav_classes(), 'container' => null, 'container_class' => '', 'depth' => 3, 'theme_location'=>'primary', 'fallback_cb'=>'pagelines_nav_fallback') );
-
-				}else{ pagelines_nav_fallback(); }
 				
 				pagelines_register_hook( 'brandnav_after_nav', 'brandnav' ); // Hook
 ?>

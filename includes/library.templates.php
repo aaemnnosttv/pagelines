@@ -417,18 +417,25 @@ function pagelines_page_subnav(){
  *  @since 1.1.0
  *
  */
-function pagelines_main_logo(){ 
-	if(ploption('pagelines_custom_logo') || apply_filters('pagelines_site_logo', '')){
+function pagelines_main_logo( $location = null ){ 
+	
+	global $pagelines_ID; 
+	
+	$oset = array( 'post_id' => $pagelines_ID );
+	
+	if(ploption('pagelines_custom_logo', $oset) || apply_filters('pagelines_site_logo', '') || apply_filters('pagelines_logo_url', '')){
 		
-		$site_logo = sprintf( '<a class="mainlogo-link" href="%s" title="%s"><img class="mainlogo-img" src="%s" alt="%s" /></a>', home_url(), get_bloginfo('name'), esc_url(ploption('pagelines_custom_logo')), get_bloginfo('name'));
+		$logo_url = apply_filters('pagelines_logo_url', esc_url(ploption('pagelines_custom_logo', $oset) ), $location);
 		
-		echo apply_filters('pagelines_site_logo', $site_logo);
+		$site_logo = sprintf( '<a class="mainlogo-link" href="%s" title="%s"><img class="mainlogo-img" src="%s" alt="%s" /></a>', home_url(), get_bloginfo('name'), $logo_url, get_bloginfo('name'));
+		
+		echo apply_filters('pagelines_site_logo', $site_logo, $location);
 		
 	} else {
 		
 		$site_title = sprintf( '<div class="title-container"><a class="home site-title" href="%s" title="%s">%s</a><h6 class="site-description subhead">%s</h6></div>', esc_url(home_url()), __('Home','pagelines'), get_bloginfo('name'), get_bloginfo('description'));
 		
-		echo apply_filters('pagelines_site_title', $site_title);
+		echo apply_filters('pagelines_site_title', $site_title, $location);
 		
 	}
 		

@@ -33,7 +33,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 ---------------------------------------------------------------  		
 */
 
-body{ height:100%; padding-top: 3px; } 			
+body{ height:100%; } 			
 
 /******* Typography *******/
 
@@ -236,7 +236,7 @@ body{font-size: 87.5%; line-height: 1.714285em;}
 			}
 			.main_nav li a{		
 				
-				padding: 6px 12px;
+				padding: 4px 10px;
 				text-decoration: none;
 				display: block;
 				border: 1px solid transparent;
