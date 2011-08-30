@@ -269,8 +269,8 @@ class PageLinesExtendUI {
 	 * 
 	 */
 	function extension_js(){ 
-		
-		if ( !isset( $_GET['page'] ) || $_GET['page'] != 'pagelines_extend' )
+	
+		if ( !isset( $_GET['page'] ) || strpos( $_GET['page'], 'pagelines_extend' ) === false )
 			return;
 		?>
 <script type="text/javascript">/*<![CDATA[*/
