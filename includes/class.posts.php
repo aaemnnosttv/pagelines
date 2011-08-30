@@ -201,7 +201,7 @@ class PageLinesPosts {
 		
 		$classes = 'post-thumb img';
 		
-		$percent_width  = ($mode == 'top') ? 100 : ($format == 'clip' ? 18 : 25);
+		$percent_width  = ($mode == 'top') ? 100 : 25;
 		
 		$style = sprintf('width: %s%%; max-width: %spx', $percent_width, $thumb_width);
 		

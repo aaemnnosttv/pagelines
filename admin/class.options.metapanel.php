@@ -505,7 +505,7 @@ class PageLinesMetaPanel {
 			} elseif (isset($h['templates'])){
 				foreach($h['templates'] as $template => $t){
 					
-					if( isset($t['sections']) ){
+					if( isset($t['sections']) && !empty($t['sections'])){
 						foreach($t['sections'] as $key => $section_slug){
 
 							$template_slug = $hook.'-'.$template;
