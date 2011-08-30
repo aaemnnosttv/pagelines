@@ -456,20 +456,36 @@
 		
 		$themes = $this->extension_scan_themes( $themes );
 
-
 		foreach( $themes as $key => $theme ) {
+			
+				// reset the vars first numbnuts!
+			
+				$status = null;
+				$exists = null;
+				$is_active = null;
+				$activate = null;
+				$deactivate = null;
+				$upgrade_available = null;
+				$purchase = null;
+				$delete = null;
+				$login = null;
 
-			$check_file = sprintf( '%s/themes/%s/style.css', WP_CONTENT_DIR, $key );
+				if ( $tab == 'featured' ) // featured not implemented yet
+					continue;
+
+				$check_file = sprintf( '%s/themes/%s/style.css', WP_CONTENT_DIR, $key );
 				
+				if ( file_exists( $check_file ) )
+					$exists = true;
 				
-				if ( $tab == 'installed' && !file_exists( $check_file ) )
+				if ( ( $tab == 'premium' || $tab == 'featured' ) && isset($exists) )
+					continue;
+					
+				if ( $tab == 'installed' && !isset( $exists) )
 					continue;
 				
-				if ( file_exists( $check_file ) && $data = get_theme_data( $check_file ) ) 
+				if ( isset( $exists ) && $data = get_theme_data( $check_file ) ) 
 					$status = 'installed';
-
-				if ($tab == 'premium' && $status == 'installed' )
-					continue;
 					
 				$is_active = ( $key  == basename( get_stylesheet_directory() ))	? true : false;
 					
