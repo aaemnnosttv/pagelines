@@ -11,15 +11,12 @@
 */
 
 pagelines_integration_bottom(); ?>
-</div> <!-- END #dynamic-content -->
-
-<div id="morefoot_area"><?php pagelines_template_area('pagelines_morefoot', 'morefoot'); // Hook ?></div>
-<div class="clear"></div>
-				
-</div> <!-- END #page-main from header -->
-</div> <!-- END .page-canvas from header -->
-</div> <!-- END #page from header -->
-
+			</div>
+			<div id="morefoot_area"><?php pagelines_template_area('pagelines_morefoot', 'morefoot'); // Hook ?></div>
+			<div class="clear"></div>
+		</div>
+	</div>
+</div>
 <footer id="footer">
 	<div class="outline fix"><?php 
 		pagelines_template_area('pagelines_footer', 'footer'); // Hook 
