@@ -83,7 +83,7 @@ class PageLinesExtendUI {
 	
 		$e = wp_parse_args( $e, $this->defaultpane);
 		
-		$image = ( $e['actions']['install']['condition'] || $e['actions']['purchase']['condition']) ? sprintf( 'http://api.pagelines.com/themes/img/%s.png', $e['key'] ) : get_theme_root_uri() .'/'. $e['key'] . '/screenshot.png';
+		$image = ( $e['actions']['install']['condition'] || $e['actions']['login']['condition']|| $e['actions']['purchase']['condition']) ? sprintf( 'http://api.pagelines.com/themes/img/%s.png', $e['key'] ) : get_theme_root_uri() .'/'. $e['key'] . '/screenshot.png';
 		
 		$image = sprintf( '<img class="" src="%s" alt="Screenshot" />', $image );
 		
@@ -416,9 +416,9 @@ function extension_array(  ){
 					'featured'	=> array(
 						'title'		=> 'Featured PageLines Themes',
 						'class'		=> 'right',
-						'callback'	=> $extension_control->extension_themes( 'premium' )
+						'callback'	=> $extension_control->extension_themes( 'featured' )
 						),
-					'popular'	=> array(
+					'premium'	=> array(
 						'title'		=> 'Premium PageLines Themes',
 						'class'		=> 'right',
 						'callback'	=> $extension_control->extension_themes( 'premium' )

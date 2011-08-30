@@ -181,6 +181,7 @@ function ie_version() {
  */
 function pagelines_shorturl( $url, $timeout = 86400 ) {
 
+	global $post;
 	if ( !pagelines_option( 'share_twitter_cache' ) )
 		return $url;
 
@@ -189,19 +190,19 @@ function pagelines_shorturl( $url, $timeout = 86400 ) {
 	// If cache exists send it back
 	$cache = get_transient( 'pagelines_shorturl_cache' );
 	if ( is_array( $cache) && array_key_exists( md5($url), $cache ) ) {
-		return $cache[md5($url)];
+		return pagelines_format_tweet ( get_the_title(), $cache[md5($url)] );
 	}
 
 	// Fetch the short url from the api
 	$response = wp_remote_get(  apply_filters( 'pagelines_shorturl_provider' , $provider ) . $url );
 
-	if( is_wp_error( $response ) ) return $url; // return original url if there is an error
+	if( is_wp_error( $response ) ) return pagelines_format_tweet( get_the_title(), $url ); // return original url if there is an error
 
 	// Check the body from the api is actually a url and not a 400 error
 	// If its OK we will cache it and return it, othwise return original url
 	
 	$out = ( $response['response']['code'] == 200 ) ? $response['body'] : false; 
-	if ( !is_object( $out = json_decode( $out ) ) ) return $url;
+	if ( !is_object( $out = json_decode( $out ) ) ) return pagelines_format_tweet( get_the_title(), $url );
 
 	if ( $cache == false ) {
 		unset( $cache );
@@ -210,9 +211,19 @@ function pagelines_shorturl( $url, $timeout = 86400 ) {
 	delete_transient( 'pagelines_shorturl_cache' );
 	$cache = array_merge( $cache, array( md5($url) => $out->shorturl ) );
 	set_transient( 'pagelines_shorturl_cache', $cache, apply_filters( 'pagelines_shorturl_cachetimeout', $timeout ) );
-	return $out->shorturl;
+	return pagelines_format_tweet( get_the_title(), $out->shorturl );
 }
 
+function pagelines_format_tweet( $title, $shorturl ) {
+	
+	$total_char = strlen( $title ) + strlen( $shorturl ) + 3;
+	$title_limit = 140 - ( strlen( $shorturl ) + 3 );
+
+	if ( $total_char > 140 )
+		$title = substr($title, 0, strrpos(substr($title, 0, $title_limit), ' '));
+
+	return sprintf( '%1$s - %2$s', $title, $shorturl );
+}
 
 /**
  * 
