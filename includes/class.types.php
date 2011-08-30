@@ -39,7 +39,8 @@ class PageLinesPostType {
 				'supports' 			=> array('title', 'editor', 'thumbnail'), 
 				'menu_icon' 		=> PL_ADMIN_IMAGES . "/favicon-pagelines.ico", 
 				'taxonomies'		=> array(),
-				'menu_position'		=> 20
+				'menu_position'		=> 20, 
+				'featured_image'	=> false
 			);
 		
 		$this->settings = wp_parse_args($settings, $defaults); // settings for post type
@@ -47,9 +48,24 @@ class PageLinesPostType {
 		$this->register_post_type();
 		$this->register_taxonomies();
 		$this->register_columns();
+		
+		$this->featured_image();
 	
 	}
 	
+	function featured_image(){	
+		
+		if( $this->settings['featured_image'] )
+			add_filter('pl_support_featured_image', array(&$this, 'add_featured_image'));
+
+	}
+	
+	function add_featured_image( $support_array ){
+		
+		$support_array[] = $this->id;
+		return $support_array;
+		
+	}
 	
 	function register_post_type(){
 		register_post_type( $this->id , array(  

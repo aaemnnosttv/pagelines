@@ -212,13 +212,16 @@ $load_sections->pagelines_register_sections();
 pagelines_register_hook('pagelines_setup'); // Hook
 
 load_section_persistent(); // Load persistent section functions (e.g. custom post types)
-if(is_admin()) load_section_admin(); // Load admin only functions from sections
+
+if(is_admin()) 
+	load_section_admin(); // Load admin only functions from sections
+
 do_global_meta_options(); // Load the global meta settings tab
 	
 /**
  * Support optional WordPress functionality
  */
-add_theme_support( 'post-thumbnails', apply_filters( 'pagelines_post-thumbnails', array('post') ) );
+add_theme_support( 'post-thumbnails', apply_filters( 'pl_support_featured_image', array('post') ) );
 add_theme_support( 'menus' );
 add_theme_support( 'automatic-feed-links' );
 
@@ -232,9 +235,15 @@ add_editor_style( 'admin/css/editor-style.css' );
 /**
  * Setup Framework Versions
  */
-if(VPRO) require_once(PAGELINES_PRO . '/init_pro.php');
-if(VDEV) require_once(PAGELINES_DEV . '/init_dev.php');	
+if(VPRO) 
+	require_once(PAGELINES_PRO . '/init_pro.php');
 	
+if(VDEV) 
+	require_once(PAGELINES_DEV . '/init_dev.php');	
+	
+/**
+ * Build Version
+ */	
 require_once( PL_INCLUDES . '/version.php' );
 
 /**
@@ -246,7 +255,9 @@ if ( get_pagelines_option( 'enable_debug' ) ) {
 
 	require_once ( PL_ADMIN . '/class.debug.php');
 	add_filter( 'pagelines_options_array', 'pagelines_enable_debug' );
+	
 }
+
 /**
  * Load updater class
  */
