@@ -458,22 +458,18 @@
 
 
 		foreach( $themes as $key => $theme ) {
-	
+
 			$check_file = sprintf( '%s/themes/%s/style.css', WP_CONTENT_DIR, $key );
-		
+				
+				
+				if ( $tab == 'installed' && !file_exists( $check_file ) )
+					continue;
+				
 				if ( file_exists( $check_file ) && $data = get_theme_data( $check_file ) ) 
 					$status = 'installed';
 
 				if ($tab == 'premium' && $status == 'installed' )
 					continue;
-					
-				if ($tab == 'installed' && $status != 'installed' )
-					continue;
-					
-				if ( !$tab && !$status)
-					continue;
-					
-					
 					
 				$is_active = ( $key  == basename( get_stylesheet_directory() ))	? true : false;
 					
