@@ -73,6 +73,11 @@ require_once( PL_INCLUDES . '/library.shortcodes.php');
 require_once( PL_INCLUDES . '/library.extend.php');
 
 /**
+ * Load Layouts library
+ */
+require_once( PL_INCLUDES . '/library.layouts.php');
+
+/**
  * Theme configuration files
  */
 require_once( PL_INCLUDES . '/config.options.php' );

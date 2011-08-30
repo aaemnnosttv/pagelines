@@ -812,7 +812,8 @@
 				@$upgrader->run($options);
 				// Output
 				echo 'Installed';
-				$this->page_reload( 'pagelines_extend&#installed' );		
+				$r = rand(1, 100);
+				$this->page_reload( 'pagelines_extend&r='.$r.'#installed' );		
 			break;			
 			
 			case 'theme_delete':
@@ -867,7 +868,7 @@
  	function page_reload( $location, $product = null ) {
 	
 		$location = ( $product ) ? sprintf( 'http://www.pagelines.com/launchpad/api_iframe.php?price_group=-%1$s&redir=%2$s', $product, admin_url( 'admin.php?page=' . $location ) ): admin_url( 'admin.php?page=' . $location );
-		printf('<script type="text/javascript">setTimeout(function(){ window.location = \'%s\';}, 700);</script>', $location );
+		printf('<script type="text/javascript">setTimeout(function(){ window.location.href = \'%s\';}, 700);</script>', $location );
  	}
 
 	function do_sanity( $mode ) {

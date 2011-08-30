@@ -332,7 +332,7 @@ class PageLinesExtendUI {
 				  	success: function( response ){
 						window.clearInterval( interval ); // clear dots...
 						responseElement.dialog().html(response);
-							//responseElement.effect("highlight", {color: "#CCCCCC"}, 2000).html(response).delay(6500).slideUp();
+					
 					}
 				});
 
