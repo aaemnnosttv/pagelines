@@ -75,7 +75,18 @@ class PageLinesPostType {
 				'supports' 			=> $this->settings['supports'], 
 				'menu_icon' 		=> $this->settings['menu_icon'], 
 				'taxonomies'		=> $this->settings['taxonomies'],
-				'menu_position'		=> $this->settings['menu_position']
+				'menu_position'		=> $this->settings['menu_position'],
+				'capabilities' => array(
+			        'publish_posts' => 'manage_options',
+			        'edit_posts' => 'manage_options',
+			        'edit_others_posts' => 'manage_options',
+			        'delete_posts' => 'manage_options',
+			        'delete_others_posts' => 'manage_options',
+			        'read_private_posts' => 'manage_options',
+			        'edit_post' => 'manage_options',
+			        'delete_post' => 'manage_options',
+			        'read_post' => 'manage_options',
+			    ),
 				
 			));
 	}
