@@ -812,8 +812,7 @@
 				@$upgrader->run($options);
 				// Output
 				echo 'Installed';
-				$r = rand(1, 100);
-				$this->page_reload( 'pagelines_extend&r='.$r.'#installed' );		
+				$this->page_reload( 'pagelines_extend#installed' );		
 			break;			
 			
 			case 'theme_delete':
@@ -849,7 +848,7 @@
 			
 			case 'theme_login':
 				echo 'Moving to account page..';
-				$this->page_reload( 'pagelines_extend&#Your_Account' );
+				$this->page_reload( 'pagelines_extend#Your_Account' );
 			break;
 		}
 		die(); // needed at the end of ajax callbacks
@@ -867,7 +866,9 @@
 	 */
  	function page_reload( $location, $product = null ) {
 	
-		$location = ( $product ) ? sprintf( 'http://www.pagelines.com/launchpad/api_iframe.php?price_group=-%1$s&redir=%2$s', $product, admin_url( 'admin.php?page=' . $location ) ): admin_url( 'admin.php?page=' . $location );
+		$r = rand( 1,100 );
+		$admin = admin_url( sprintf( 'admin.php?r=%1$s&page=%2$s', $r, $location ) );
+		$location = ( $product ) ? sprintf( 'http://www.pagelines.com/launchpad/api_iframe.php?price_group=-%1$s&redir=%2$s', $product, $admin ): $admin;
 		printf('<script type="text/javascript">setTimeout(function(){ window.location.href = \'%s\';}, 700);</script>', $location );
  	}
 
