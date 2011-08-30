@@ -416,9 +416,9 @@ function extension_array(  ){
 					'featured'	=> array(
 						'title'		=> 'Featured PageLines Themes',
 						'class'		=> 'right',
-						'callback'	=> $extension_control->extension_themes( 'premium' )
+						'callback'	=> $extension_control->extension_themes( 'featured' )
 						),
-					'popular'	=> array(
+					'premium'	=> array(
 						'title'		=> 'Premium PageLines Themes',
 						'class'		=> 'right',
 						'callback'	=> $extension_control->extension_themes( 'premium' )
