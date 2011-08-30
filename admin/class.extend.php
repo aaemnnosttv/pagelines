@@ -25,6 +25,7 @@
 		add_action('wp_ajax_pagelines_ajax_extend_it_callback', array(&$this, 'extend_it_callback'));	
 		add_action( 'admin_init', array(&$this, 'extension_uploader' ) );
 		add_action( 'admin_init', array(&$this, 'update_lpinfo' ) );
+		add_action( 'admin_init', array(&$this, 'launchpad_returns' ) );
  	}
 
 	function update_lpinfo() {
@@ -34,19 +35,27 @@
 			pagelines_update_option( 'lp_password', sanitize_text_field( $_POST['lp_password'] ) );
 			pagelines_update_option( 'lp_username', sanitize_text_field( $_POST['lp_username'] ) );
 			pagelines_update_option( 'disable_updates', ( isset( $_POST['disable_auto_update'] ) ) ? true : false );
-
-			// Flush all our transienst ( Makes this save button a sort of reset button. )
-			delete_transient( 'pagelines-update-' . THEMENAME  );
-			delete_transient( 'pagelines_sections_api_themes' );
-			delete_transient( 'pagelines_sections_api_sections' );
-			delete_transient( 'pagelines_sections_api_plugins' );
-			delete_transient( 'pagelines_sections_cache' );
 			wp_redirect( admin_url('admin.php?page=pagelines_extend&plinfo=true') );
+			$this->flush_caches();
 			exit;
 		}
 	}
 
-
+	function launchpad_returns() {
+		
+		if (isset( $_GET['api_returned'] ) )
+			$this->flush_caches();
+	}
+	function flush_caches() {
+		
+		// Flush all our transienst ( Makes this save button a sort of reset button. )
+		delete_transient( 'pagelines-update-' . THEMENAME  );
+		delete_transient( 'pagelines_sections_api_themes' );
+		delete_transient( 'pagelines_sections_api_sections' );
+		delete_transient( 'pagelines_sections_api_plugins' );
+		delete_transient( 'pagelines_sections_cache' );
+		
+	}
 
  	function extension_sections_install( $tab = '' ) {
  		
@@ -468,16 +477,17 @@
 					
 				$is_active = ( $key  == basename( get_stylesheet_directory() ))	? true : false;
 					
-					
+				$updates_configured = ( is_array( $a = get_transient('pagelines-update-' . THEMENAME ) ) && isset($a['package']) && $a['package'] !== 'bad' ) ? true : false;	
 					
 				$activate = ($status == 'installed' && !$is_active) ? true : false;
 				$deactivate = ($status == 'installed' && $is_active) ? true : false;
 				$upgrade_available = (isset($data) && $data['Version'] && $theme['version'] > $data['Version']) ? true : false;
 			
-				$purchase = ( !isset( $theme['purchased'] ) && !$status ) ? true : false;
-				$install = ( !$status && !$purchase) ? true : false;
+				$purchase = ( !isset( $theme['purchased'] ) && !$status && $updates_configured ) ? true : false;
+				$install = ( !$status && !$purchase && $updates_configured ) ? true : false;
 				$delete = ( $activate ) ? true : false;
-
+				
+				$login = ( !$updates_configured && !$status );
 				
 				$actions = array(
 					'install'	=> array(
@@ -533,9 +543,17 @@
 						'file'		=> $key,
 						'text'		=> 'Delete',
 						'dtext'		=> 'Deleting',
+					),
+					'login'	=> array(
+						'mode'		=> 'login',
+						'condition'	=> $login,
+						'case'		=> 'theme_login',
+						'type'		=> 'themes',
+						'file'		=> $key,
+						'text'		=> 'Login',
+						'dtext'		=> 'Redirecting',
 					)
 				);
-
 				$list[$key] = array(
 						'theme'		=> $theme,
 						'name' 		=> $theme['name'], 
@@ -782,7 +800,7 @@
 				@$upgrader->run($options);
 				// Output
 				echo 'Installed';
-				$this->page_reload( 'pagelines_extend' );		
+				$this->page_reload( 'pagelines_extend&#installed' );		
 			break;			
 			
 			case 'theme_delete':
@@ -811,11 +829,15 @@
 			
 			case 'theme_purchase':
 			
-			echo 'Transfering to PageLines';
-			$this->page_reload( null, $file );
+				echo 'Transfering to PageLines';
+				$this->page_reload( 'pagelines_extend', $file );
 			
 			break;
 			
+			case 'theme_login':
+				echo 'Moving to account page..';
+				$this->page_reload( 'pagelines_extend&#Your_Account' );
+			break;
 		}
 		die(); // needed at the end of ajax callbacks
 	}
@@ -832,7 +854,8 @@
 	 */
  	function page_reload( $location, $product = null ) {
 	
-		printf('<script type="text/javascript">setTimeout(function(){ window.location = \'%s\';}, 700);</script>', ( $product ) ? 'http://www.pagelines.com/launchpad/member.php?tab=add_renew&price_group=-' . $product : admin_url( 'admin.php?page=' . $location ) );
+		$location = ( $product ) ? sprintf( 'http://www.pagelines.com/launchpad/api_iframe.php?price_group=-%1$s&redir=%2$s', $product, admin_url( 'admin.php?page=' . $location ) ): admin_url( 'admin.php?page=' . $location );
+		printf('<script type="text/javascript">setTimeout(function(){ window.location = \'%s\';}, 700);</script>', $location );
  	}
 
 	function do_sanity( $mode ) {
