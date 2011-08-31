@@ -172,7 +172,8 @@ class PageLinesExtendUI {
 			'dtext'	=> '',
 			'key'	=> $key, 
 			'type'	=> '',
-			'path'	=> ''
+			'path'	=> '', 
+			'confirm'	=> false
 		);
 		
 		$a = wp_parse_args($a, $d);

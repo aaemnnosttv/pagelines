@@ -233,6 +233,7 @@
 						'file'		=> $file,
 						'text'		=> 'Delete',
 						'dtext'		=> 'Deleting',
+						'confirm'	=> true
 					)
 					
 				);
@@ -382,6 +383,7 @@
 					'file'		=> $p['file'],
 					'text'		=> 'Delete',
 					'dtext'		=> 'Deleting',
+					'confirm'	=> true
 				)
 			);
 					
@@ -555,6 +557,7 @@
 						'file'		=> $key,
 						'text'		=> 'Delete',
 						'dtext'		=> 'Deleting',
+						'confirm'	=> true
 					),
 					'login'	=> array(
 						'mode'		=> 'login',
