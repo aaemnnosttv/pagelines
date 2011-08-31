@@ -477,7 +477,7 @@ function pagelines_settings_menu_link(  ){
 
 	if(isset($pagelines_template->template_name)){
 		$page_type = __("Template: ", 'pagelines') . ucfirst($pagelines_template->template_name);
-		$wp_admin_bar->add_menu( array( 'id' => 'template_type', 'title' => $page_type, 'href' => admin_url( 'admin.php?page=pagelines&selectedtab=2' ) ) );
+		$wp_admin_bar->add_menu( array( 'id' => 'template_type', 'title' => $page_type, 'href' => admin_url( 'admin.php?page=pagelines#template_setup' ) ) );
 	}
 }
 
