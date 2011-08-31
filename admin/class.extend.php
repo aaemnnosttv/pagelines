@@ -868,7 +868,7 @@
 	
 		$r = rand( 1,100 );
 		$admin = admin_url( sprintf( 'admin.php?r=%1$s&page=%2$s', $r, $location ) );
-		$location = ( $product ) ? sprintf( 'https://www.pagelines.com/launchpad/api_iframe.php?price_group=-%1$s&redir=%2$s', $product, $admin ): $admin;
+		$location = ( $product ) ? sprintf( 'http://www.pagelines.com/launchpad/api_iframe.php?price_group=-%1$s&redir=%2$s', $product, $admin ): $admin;
 		printf('<script type="text/javascript">setTimeout(function(){ window.location.href = \'%s\';}, 700);</script>', $location );
  	}
 

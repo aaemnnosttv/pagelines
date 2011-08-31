@@ -27,9 +27,6 @@ else
 
 if(!defined('PL_DEV'))
 	define('PL_DEV',false);
-	
-if (! PL_DEV ) 
-	add_filter( 'extension_array', create_function( '', 'return array();' ) );	
 
 /**
  * Set Theme Name
