@@ -393,10 +393,9 @@ class PageLinesOptionsArray {
 		$a = array(
 			'icon'			=> PL_ADMIN_ICONS.'/typography.png',
 			'type_headers' => array(
-					'default' 	=> array(
-					'font' 		=> 'georgia',
-					),
+					'default' 	=> array( 'font' => 'georgia' ),
 					'type' 		=> 'typography',
+					'layout'	=> 'full',
 					'selectors'	=> cssgroup('type_headers'),
 					'inputlabel' 	=> 'Select Font',
 					'title' 	=> 'Typography - Text Headers',
@@ -406,10 +405,9 @@ class PageLinesOptionsArray {
 			),
 
 			'type_primary' => array(
-					'default' 	=> array(
-					'font' 		=> 'georgia', 
-					),
+					'default' 	=> array( 'font' => 'georgia' ),
 					'type'		=> 'typography',
+					'layout'	=> 'full',
 					'selectors'	=> cssgroup('type_primary'),
 					'inputlabel' 	=> 'Select Font',
 					'title' 	=> 'Typography - Primary Font',
@@ -422,6 +420,7 @@ class PageLinesOptionsArray {
 			'type_secondary' => array(
 					'default' 	=> array( 'font' => 'lucida_grande' ),
 					'type' 		=> 'typography',
+					'layout'	=> 'full',
 					'selectors'	=> cssgroup('type_secondary'),
 					'inputlabel' 	=> 'Select Font',
 					'title' 	=> 'Typography - Secondary Font ',
@@ -432,10 +431,9 @@ class PageLinesOptionsArray {
 
 			'type_inputs' => array(
 					'version' 	=> 'pro',
-					'default' 	=> array(
-					'font' 		=> 'courier_new',
-					),
+					'default' 	=> array( 'font' => 'courier_new' ),
 					'type' 		=> 'typography',
+					'layout'	=> 'full',
 					'selectors'	=> cssgroup('type_inputs'),
 					'inputlabel' 	=> 'Select Font',
 					'title' 	=> 'Typography - Inputs and Textareas',
