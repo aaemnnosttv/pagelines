@@ -21,11 +21,14 @@
 		text-align: center;
 
 	}
-		#highlight .content-pad .highlight-area{padding: 40px 15px;}
+		#highlight .content-pad .highlight-area{padding: 50px 15px 60px;}
 		#highlight .copy-pad .highlight-area{padding: 20px 15px;}
 
 		#highlight .highlight-head{
-			font-size: 2.5em;
+			/*  */
+			
+		
+			letter-spacing: -.03em;
 		}
 		#highlight .content .highlight-subhead, #highlight .copy-pad .highlight-subhead{
 			font-size: .85em;
