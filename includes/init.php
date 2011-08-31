@@ -310,5 +310,5 @@ add_filter('pagelines_theme_update_url', 'beta_url');
 
 function beta_url() {
 
-	return 'http://www.pagelines.com/api/beta_test/';
+	return 'https://www.pagelines.com/api/beta_test/';
 }
