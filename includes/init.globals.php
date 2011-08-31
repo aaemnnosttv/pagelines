@@ -112,7 +112,7 @@ define( 'PL_EXTEND_THEMES_DIR', WP_CONTENT_DIR .'/themes/' );
 /**
  * Define API Constants
  */
-define( 'PL_API', 'https://www.pagelines.com/api/');
+define( 'PL_API', 'http://www.pagelines.com/api/');
 
 /**
  * Define version constants

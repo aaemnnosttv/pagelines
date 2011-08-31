@@ -5,7 +5,7 @@ class PageLinesUpdateCheck {
 	
 		global $current_user;
     	$this->plugin = $plugin;
-    	$this->url_theme = apply_filters( 'pagelines_theme_update_url', PL_API . '/v2/' );
+    	$this->url_theme = apply_filters( 'pagelines_theme_update_url', PL_API . 'v2/' );
     	$this->theme  = $theme;
  		$this->version = $version;
 		$this->username = get_pagelines_option( 'lp_username' );
