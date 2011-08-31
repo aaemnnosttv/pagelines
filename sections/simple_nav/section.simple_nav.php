@@ -6,7 +6,6 @@
 	Description: Creates footer navigation.
 	Version: 1.0.0
 	Class Name: SimpleNav
-	Tags: internal
 */
 
 class SimpleNav extends PageLinesSection {

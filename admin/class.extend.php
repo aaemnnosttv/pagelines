@@ -182,7 +182,7 @@
 				if ( $tab === 'user' && ( $s['type'] === 'custom' || $s['type'] === 'parent' ) )
 					continue;
 
-				if ( $tab === 'internal' && ( $s['type'] === 'custom' || $s['type'] === 'child' ) )
+				if ( $tab === 'internal' && ( $s['type'] === 'custom' || $s['type'] === 'child' || $s['tags'] == 'internal' ) )
 					continue;						
 
 				if ( $tab === 'child' && ( $s['type'] === 'child' || $s['type'] === 'parent' ) )

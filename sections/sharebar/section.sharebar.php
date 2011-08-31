@@ -5,7 +5,6 @@
 	Author URI: http://www.pagelines.com
 	Description: Adds ways to share content on pages/single posts
 	Class Name: PageLinesShareBar
-	Tags: internal
 */
 
 class PageLinesShareBar extends PageLinesSection {
