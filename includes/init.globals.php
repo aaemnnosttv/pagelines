@@ -114,6 +114,8 @@ define( 'PL_EXTEND_THEMES_DIR', WP_CONTENT_DIR .'/themes/' );
  */
 define( 'PL_API', 'https://www.pagelines.com/api/');
 
+define( 'PL_API_FETCH', 'http://www.pagelines.com/api/' );
+
 define( 'PL_LAUNCHPAD_FRAME', 'http://www.pagelines.com/launchpad/api_iframe.php' );
 
 /**

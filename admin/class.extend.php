@@ -859,7 +859,7 @@
 	
 	function make_url( $type, $file ) {
 		
-		return sprintf('%s/%s/download.php?d=%s.zip', PL_API, $type, $file);
+		return sprintf('%s/%s/download.php?d=%s.zip', PL_API_FETCH, $type, $file);
 		
 	}
 	
