@@ -31,6 +31,10 @@ class PageLinesBrandNav extends PageLinesNav {
 	   	parent::__construct( $settings );    
    }
 	
+	function section_persistent(){
+			register_nav_menus( array( 'brandnav' => __( 'BrandNav Section Navigation', 'pagelines' ) ) );
+	}
+	
 	/* Use this function to create the template for the section */	
  	function section_template() { 
 	
@@ -41,7 +45,7 @@ class PageLinesBrandNav extends PageLinesNav {
 		
 			<div class="brandnav-nav main_nav fix">		
 <?php 	
-				wp_nav_menu( array('menu_class'  => 'main-nav tabbed-list'.pagelines_nav_classes(), 'container' => null, 'container_class' => '', 'depth' => 3, 'theme_location'=>'primary', 'fallback_cb'=>'pagelines_nav_fallback') );
+				wp_nav_menu( array('menu_class'  => 'main-nav tabbed-list'.pagelines_nav_classes(), 'container' => null, 'container_class' => '', 'depth' => 3, 'theme_location'=>'brandnav', 'fallback_cb'=>'pagelines_nav_fallback') );
 
 				
 				pagelines_register_hook( 'brandnav_after_nav', 'brandnav' ); // Hook
@@ -61,6 +65,5 @@ class PageLinesBrandNav extends PageLinesNav {
 	// Some of the optional functions not used here.
 	// Load to prevent parent class reloading
 	function section_options($optionset = null, $location = null) {} 
-	function section_persistent(){} 
 
 } /* End of section class - No closing tag needed */
