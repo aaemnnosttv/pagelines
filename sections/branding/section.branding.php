@@ -5,7 +5,6 @@
 	Author URI: http://www.pagelines.com
 	Description: Shows the main site logo or the site title and description.
 	Class Name: PageLinesBranding
-	Tags: internal
 */
 
 class PageLinesBranding extends PageLinesSection {

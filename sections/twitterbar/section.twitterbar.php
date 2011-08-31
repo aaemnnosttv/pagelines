@@ -5,7 +5,6 @@
 	Author URI: http://www.pagelines.com
 	Description: Loads twitter feed into the site footer
 	Class Name: PageLinesTwitterBar
-	Tags: internal
 */
 class PageLinesTwitterBar extends PageLinesSection {
 

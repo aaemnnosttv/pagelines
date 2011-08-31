@@ -5,7 +5,6 @@
 	Author URI: http://www.pagelines.com
 	Description: Adds a highlight sections with a splash image and 2-big lines of text.
 	Class Name: PageLinesHighlight
-	Tags: internal
 */
 
 class PageLinesHighlight extends PageLinesSection {

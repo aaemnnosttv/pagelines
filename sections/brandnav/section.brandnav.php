@@ -6,7 +6,6 @@
 	Description: Branding and Nav Inline
 	Class Name: PageLinesBrandNav
 	Depends: PageLinesNav
-	Tags: internal
 */
 
 class PageLinesBrandNav extends PageLinesNav {
