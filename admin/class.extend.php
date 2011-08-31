@@ -844,7 +844,7 @@
 			
 			case 'theme_purchase':
 			
-				echo 'Transfering to PageLines';
+				echo 'Transferring to PageLines.com';
 				$this->page_reload( 'pagelines_extend', $file );
 			
 			break;
