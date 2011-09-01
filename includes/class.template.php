@@ -59,7 +59,8 @@ class PageLinesTemplate {
 			else
 				$this->template_type = $this->page_type_breaker();
 		}
-	
+
+
 		if(!is_admin())
 			$this->template_name = $this->page_type_name();
 	
@@ -851,14 +852,16 @@ function custom_post_type_handler( $area = 'main' ){
 
 		$sections = ( $area == 'templates' ) ? 'PageLinesContent' : 'PageLinesPostLoop';
 	
+		$sections_array = apply_filters( 'pl_default_sections', array( $sections ), $area, $public_post_type );
+	
 		$post_type_array[ $public_post_type.'_posts' ] = array(
 			'name'		=> $post_type_data->labels->name, 
-			'sections'	=> array( $sections )
+			'sections'	=> $sections_array
 		);
 		
 		$post_type_array[ $public_post_type ] = array(
 			'name'		=> $post_type_data->labels->singular_name, 
-			'sections'	=> array( $sections )
+			'sections'	=> $sections_array
 		);
 		
 		
