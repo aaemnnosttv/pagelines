@@ -932,12 +932,15 @@ class OptEngine {
 		</div>
 <?php }
 
-
 	function updates_setup($oid, $o){
-
-		$updates_exp = ( is_array( $a = get_transient('pagelines-update-' . THEMENAME ) ) && isset($a['package']) && $a['package'] !== 'bad' ) 
-							? 'Updates are properly configured.' 
-							: 'There was a problem checking for updates.<br />Please use your login credentials for <a href="http://www.pagelines.com/launchpad/member.php">LaunchPad</a>.<br /><strong>Not</strong> your WordPress login.';
+		
+		if ( is_array( $a = get_transient('pagelines-update-' . THEMENAME ) ) && isset($a['package']) && $a['package'] !== 'bad' )
+			$updates_exp = 'Successfully logged in to PageLines.';
+		else	
+			if ( isset( $a ) && isset( $a['api_error'] ) ) 
+				$updates_exp = sprintf( 'ERROR: %1$s<br />There was a problem logging in to PageLines.', $a['api_error'] );
+			else
+				$updates_exp = 'Unknown error??';
 
 		if ( ploption( 'disable_updates' ) )
 			$updates_exp = 'Updates are disabled.';
