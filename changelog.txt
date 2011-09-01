@@ -13,6 +13,11 @@
 
 
 Version 2.0.0
+	BETA - 11, 12
+	- Auto registering page templates
+	- Developer Features
+	- Security Enhancements
+	- SSL PageLines API
 	BETA - 9, 10
 	- PageLines Extend
 	- Usability improvements

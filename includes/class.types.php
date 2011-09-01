@@ -40,10 +40,14 @@ class PageLinesPostType {
 				'menu_icon' 		=> PL_ADMIN_IMAGES . "/favicon-pagelines.ico", 
 				'taxonomies'		=> array(),
 				'menu_position'		=> 20, 
-				'featured_image'	=> false
+				'featured_image'	=> false, 
+				'has_archive'		=> false, 
+				'map_meta_cap'		=> false,
 			);
 		
 		$this->settings = wp_parse_args($settings, $defaults); // settings for post type
+	
+	
 		
 		$this->register_post_type();
 		$this->register_taxonomies();
@@ -52,6 +56,7 @@ class PageLinesPostType {
 		$this->featured_image();
 	
 	}
+
 	
 	function featured_image(){	
 		
@@ -92,6 +97,8 @@ class PageLinesPostType {
 				'menu_icon' 		=> $this->settings['menu_icon'], 
 				'taxonomies'		=> $this->settings['taxonomies'],
 				'menu_position'		=> $this->settings['menu_position'],
+				'has_archive'		=> $this->settings['has_archive'],
+				'map_meta_cap'		=> $this->settings['map_meta_cap'],
 				'capabilities' => array(
 			        'publish_posts' => 'publish_posts',
 			        'edit_posts' => 'publish_posts',

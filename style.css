@@ -343,12 +343,10 @@ body{font-size: 87.5%; line-height: 1.714285em;}
 		.clip_box .hentry {padding:0;}
 		
 	.clip {
-		width: 100px;
 		float: left;
 		clear: none;
 	}
 		.clip-right {
-			width: 100px;
 			float: right;
 		}
 		

@@ -1954,7 +1954,7 @@ font-weight: bold;
 				.sss-button-pad{
 					border-top: 1px solid #ddd;
 					border-left: 1px solid #ddd;
-					padding: 5px 7px;
+					padding: 2px 7px;
 				}
 				.sub-template-selector .sss-button:hover{background: #c5c5c5;}
 				.sub-template-selector .sss-button.sss-selected{
