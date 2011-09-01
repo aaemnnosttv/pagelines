@@ -142,6 +142,19 @@ class PageLinesSection {
 	
 	function section_scripts(){}
 
+	function get_view(){
+		
+		if(is_single())
+			return 'single';
+		elseif(is_archive())
+			return 'archive';
+		elseif(is_page_template())
+			return 'page';
+		else
+			return 'default';
+		
+		
+	}
 
 }
 /********** END OF SECTION CLASS  **********/
