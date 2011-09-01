@@ -541,23 +541,36 @@ function pagelines_process_reset_options( $option_array = null ) {
 }
 
 function pagelines_import_export(){
-	
-	if ( isset($_GET['download']) && $_GET['download'] == 'settings') {
-		
-			header("Cache-Control: public, must-revalidate");
-			header("Pragma: hack");
-			header("Content-Type: text/plain");
-			header('Content-Disposition: attachment; filename="PageLines-'.THEMENAME.'-Settings-' . date("Ymd") . '.dat"');
+
+		if ( isset( $_POST['form_submitted']) && $_POST['form_submitted'] == 'export_settings_form' ) {
 
 			$pagelines_settings = get_option(PAGELINES_SETTINGS);
 			$pagelines_template = get_option('pagelines_template_map');
+			$pagelines_special = get_option( PAGELINES_SPECIAL );
 
-			$options = array(
-				'pagelines_settings' => $pagelines_settings,
-				'pagelines_template' => $pagelines_template
-			);
-			echo json_encode( $options );
-			exit();		
+			if ( isset( $_POST['pagelines_template'] ) )
+				$options['pagelines_template'] = $pagelines_template;
+				
+			if ( isset( $_POST['pagelines_settings'] ) )
+				$options['pagelines_settings'] = $pagelines_settings;
+				
+			if ( isset( $_POST['pagelines_special'] ) )
+				$options['pagelines_special'] = $pagelines_special;
+				
+			if ( !isset( $_POST['pagelines_layout'] ) && isset( $_POST['pagelines_settings'] ) )
+				unset( $options['pagelines_settings']['layout'] );
+
+			if ( isset($options) && is_array( $options) ) {
+				
+				header("Cache-Control: public, must-revalidate");
+				header("Pragma: hack");
+				header("Content-Type: text/plain");
+				header('Content-Disposition: attachment; filename="PageLines-'.THEMENAME.'-Settings-' . date("Ymd") . '.dat"');				
+				
+				echo json_encode( $options );
+				exit();
+			} 
+
 	}
 	
 	if ( isset($_POST['settings_upload']) && $_POST['settings_upload'] == 'settings') {
@@ -575,15 +588,26 @@ function pagelines_import_export(){
 			ob_end_clean();
 	
 			$all_options = json_decode(json_encode(json_decode($raw_options)), true);
-			if ( is_array( $all_options) && isset( $all_options['pagelines_settings'] ) && isset( $all_options['pagelines_template'] ) ) {
-				
-				update_option( PAGELINES_SETTINGS, $all_options['pagelines_settings'] );
-				update_option( 'pagelines_template_map', $all_options['pagelines_template'] );
-				
+			
+			if ( is_array( $all_options) && isset( $all_options['pagelines_settings'] ) ) {
+				update_option( PAGELINES_SETTINGS, array_merge( get_option( PAGELINES_SETTINGS ), $all_options['pagelines_settings'] ) );
+				$done = 1;
+			}
+			
+			if ( is_array( $all_options) && isset( $all_options['pagelines_special'] ) ) {
+				update_option( PAGELINES_SPECIAL, array_merge( get_option( PAGELINES_SPECIAL ), $all_options['pagelines_special'] ) );
+				$done = 1;
+			}
+			
+			if ( is_array( $all_options) && isset( $all_options['pagelines_template'] ) ) {
+				update_option( 'pagelines_template_map', array_merge( get_option( 'pagelines_template_map' ), $all_options['pagelines_template'] ) );
+				$done = 1;
+			}					
 				if (function_exists('wp_cache_clean_cache')) { 
 					global $file_prefix;
 					wp_cache_clean_cache($file_prefix); 
 				}
+				if ( isset($done) ) {
 				wp_redirect( admin_url( 'admin.php?page=pagelines_extend&pageaction=import&imported=true' ) ); 
 			} else {
 				wp_redirect( admin_url('admin.php?page=pagelines_extend&pageaction=import&error=wrongfile') );
@@ -591,3 +615,5 @@ function pagelines_import_export(){
 		}		
 	}
 }
+
+
