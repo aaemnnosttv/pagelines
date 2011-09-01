@@ -112,7 +112,11 @@ class PageLinesTemplate {
 	
 	
 	function page_type_name(){
-		return $this->map['templates']['templates'][$this->template_type]['name'];
+		
+		if(isset($this->map['templates']['templates'][$this->template_type]['name']))
+			return $this->map['templates']['templates'][$this->template_type]['name'];
+		else
+			return ucwords(str_replace('_', ' ', $this->template_type));
 	}
 	
 	/**
@@ -202,28 +206,38 @@ class PageLinesTemplate {
 	 */
 	function sections_at_hook( $hook, $h ){
 		
-		if( $hook == 'main' ){
-	
-			if(isset($h['templates'][$this->template_type]['sections']))
-				$tsections = $h['templates'][$this->template_type]['sections'];
-			elseif(isset($h['templates']['default']['sections']))
-				$tsections = $h['templates']['default']['sections'];
+		/* Load in sections at hook in map, for this template type, allow for overriding */
+		if( $hook == 'main' || $hook == 'templates' ){
 			
-		} elseif( $hook == 'templates' ) {
+			$sections = $this->section_cascade( $hook, $h );
 			
-			if(isset($h['templates'][$this->template_type]['sections']))
-				$tsections = $h['templates'][$this->template_type]['sections'];
-			elseif(isset($h['templates']['default']['sections']))
-				$tsections = $h['templates']['default']['sections'];
+			return apply_filters( 'pl_template_sections', $sections, $this->template_type, $hook );
 			
-		} elseif(isset($h['sections']))
-			$tsections = $h['sections']; // Get Sections assigned in map
+		}
+			
+		elseif(isset($h['sections']))
+			return $h['sections']; // Get Sections assigned in map
 
 		else
-			$tsections = array();
-			
+			return array();
 		
-		return $tsections;
+	}
+
+	/**
+	 * Run down the map, if not at hook in map, then load default
+	 * 	if default doesn't load, load a blank array
+	 */
+	function section_cascade( $hook, $h ){
+		
+		if( isset($h['templates'][$this->template_type]['sections']) )
+			return $h['templates'][$this->template_type]['sections'];
+			
+		elseif( isset($h['templates']['default']['sections']) )
+			return $h['templates']['default']['sections'];
+			
+		else
+			return array();
+			
 	}
 	
 	/**
@@ -753,14 +767,6 @@ function the_sub_templates( $t = 'templates' ){
 				'name'			=> 'Default Page',
 				'sections' 		=> ($t == 'main') ? array('PageLinesPostLoop', 'PageLinesComments') : array('PageLinesContent')
 		),
-		'posts' => array(
-				'name'			=> 'Blog',
-				'sections' 		=> ($t == 'main') ? array('PageLinesPostsInfo','PageLinesPostLoop', 'PageLinesPagination') : array('PageLinesContent')
-			),
-		'single' => array(
-				'name'			=> 'Blog Post',
-				'sections' 		=> ($t == 'main') ? array('PageLinesPostNav', 'PageLinesPostLoop', 'PageLinesShareBar', 'PageLinesComments', 'PageLinesPagination') : array('PageLinesContent')
-			),
 		'alpha' => array(
 				'name'			=> 'Feature Page',
 				'sections' 		=> ($t == 'main') ? array( 'PageLinesPostLoop' ) : array('PageLinesFeatures', 'PageLinesBoxes', 'PageLinesContent'),
@@ -785,6 +791,14 @@ function the_sub_templates( $t = 'templates' ){
 				'name'			=> 'Banner Page',
 				'sections' 		=> ($t == 'main') ? array( 'PageLinesPostLoop' ) : array( 'PageLinesHighlight', 'PageLinesBanners', 'PageLinesContent' ),
 				'version'		=> 'pro'
+			),
+		'posts' => array(
+				'name'			=> 'Blog',
+				'sections' 		=> ($t == 'main') ? array('PageLinesPostsInfo','PageLinesPostLoop', 'PageLinesPagination') : array('PageLinesContent')
+			),
+		'single' => array(
+				'name'			=> 'Blog Post',
+				'sections' 		=> ($t == 'main') ? array('PageLinesPostNav', 'PageLinesPostLoop', 'PageLinesShareBar', 'PageLinesComments', 'PageLinesPagination') : array('PageLinesContent')
 			),
 		'tag' => array(
 				'name'			=> 'Tag',
@@ -848,22 +862,27 @@ function custom_post_type_handler( $area = 'main' ){
 	
 	foreach( $pts as $public_post_type ){
 		
-		$post_type_data = get_post_type_object( $public_post_type );
+		$dragdrop = apply_filters('pl_cpt_dragdrop', true, $public_post_type, $area);
+		
+		if($dragdrop){
+		
+			$post_type_data = get_post_type_object( $public_post_type );
 
-		$sections = ( $area == 'templates' ) ? 'PageLinesContent' : 'PageLinesPostLoop';
+			$sections = ( $area == 'templates' ) ? 'PageLinesContent' : 'PageLinesPostLoop';
 	
-		$sections_array = apply_filters( 'pl_default_sections', array( $sections ), $area, $public_post_type );
+			$sections_array = apply_filters( 'pl_default_sections', array( $sections ), $area, $public_post_type );
 	
-		$post_type_array[ $public_post_type.'_posts' ] = array(
-			'name'		=> $post_type_data->labels->name, 
-			'sections'	=> $sections_array
-		);
+			$post_type_array[ $public_post_type.'_posts' ] = array(
+				'name'		=> $post_type_data->labels->name, 
+				'sections'	=> $sections_array
+			);
 		
-		$post_type_array[ $public_post_type ] = array(
-			'name'		=> $post_type_data->labels->singular_name, 
-			'sections'	=> $sections_array
-		);
-		
+			$post_type_array[ $public_post_type ] = array(
+				'name'		=> $post_type_data->labels->singular_name, 
+				'sections'	=> $sections_array
+			);
+			
+		}
 		
 		
 	}

@@ -43,21 +43,51 @@ class PageLinesPostType {
 				'featured_image'	=> false, 
 				'has_archive'		=> false, 
 				'map_meta_cap'		=> false,
+				'dragdrop'			=> true, 
+				'load_sections'		=> false
 			);
 		
 		$this->settings = wp_parse_args($settings, $defaults); // settings for post type
-	
-	
-		
+
 		$this->register_post_type();
 		$this->register_taxonomies();
 		$this->register_columns();
 		
 		$this->featured_image();
+		$this->section_loading();
 	
 	}
+	
+	function section_loading(){
+		
+		if( !$this->settings['dragdrop'] )
+			add_filter('pl_cpt_dragdrop', array(&$this, 'remove_dragdrop'), 10, 2);
+			
+		if( !$this->settings['dragdrop'] && $this->settings['load_sections'] );
+			add_filter('pl_template_sections', array(&$this, 'load_sections_for_type'), 10, 3);
+		
+	}
+		
+		function load_sections_for_type( $sections, $template_type, $hook ){
+			
+			if( $template_type == $this->id || $template_type == $this->id.'_posts')
+				return $this->settings['load_sections'];
+			else
+				return $sections;
+			
+		}
+		
+		function remove_dragdrop( $bool, $post_type ){
+			if( $post_type == $this->id )
+				return false;
+			else
+				return $bool;
+		}
 
 	
+	/**
+	 * Is the WP featured image supported
+	 */
 	function featured_image(){	
 		
 		if( $this->settings['featured_image'] )
@@ -65,12 +95,12 @@ class PageLinesPostType {
 
 	}
 	
-	function add_featured_image( $support_array ){
+		function add_featured_image( $support_array ){
 		
-		$support_array[] = $this->id;
-		return $support_array;
+			$support_array[] = $this->id;
+			return $support_array;
 		
-	}
+		}
 	
 	function register_post_type(){
 		register_post_type( $this->id , array(  
