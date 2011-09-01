@@ -183,7 +183,7 @@ function pagelines_shorturl( $url, $timeout = 86400 ) {
 
 	global $post;
 	if ( !pagelines_option( 'share_twitter_cache' ) )
-		return $url;
+		return pagelines_format_tweet( get_the_title(), $url );
 
 	$provider = 'http://pln.so/api.php?action=shorturl&format=json&url=';
 
