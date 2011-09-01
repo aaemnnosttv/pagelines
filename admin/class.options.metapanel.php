@@ -13,9 +13,6 @@
 class PageLinesMetaPanel {
 
 	var $tabs = array();	// Controller for drawing meta options
-
-	
-	var $blacklist = array( 'banners', 'feature', 'boxes', 'attachment', 'revision', 'nav_menu_item' );
 	
 	/**
 	 * PHP5 constructor
@@ -25,7 +22,8 @@ class PageLinesMetaPanel {
 		global $post; 
 		global $pagenow;
 		
-	
+			
+			
 			/**
 			 * Single post pages have post as GET, not $post as object
 			 */
@@ -36,7 +34,8 @@ class PageLinesMetaPanel {
 		
 			$this->page_for_posts = ( isset($post) && get_option( 'page_for_posts' ) === $post->ID ) ? true : false;			
 		
-	
+			$this->blacklist = apply_filters( 'pagelines_meta_blacklist', array( 'banners', 'feature', 'boxes', 'attachment', 'revision', 'nav_menu_item' ));
+			
 			$defaults = array(
 					'id' 		=> 'pagelines-metapanel',
 					'name' 		=> $this->get_the_title(),
@@ -48,8 +47,9 @@ class PageLinesMetaPanel {
 	
 			$this->settings = wp_parse_args($settings, $defaults); // settings for post type
 	
+
 		
-				$this->register_actions();
+			$this->register_actions();
 	
 			$this->hide_tabs = $this->settings['hide_tabs'];
 			
@@ -78,11 +78,19 @@ class PageLinesMetaPanel {
 
 	
 	function get_the_post_types(){
-		$the_post_types = ( isset( $_GET['post'] ) && ! in_array( get_post_type( $_GET['post'] ), apply_filters( 'pagelines_meta_blacklist', $this->blacklist ) ) ) 
-						? array( 'post', 'page', get_post_type( $_GET['post'] ) ) 
-						: array( 'post', 'page' );
 		
-		return $the_post_types;
+		// if not in this array, then show the 
+		
+		$post_id = ( isset( $_GET['post'] ) ) ? $_GET['post'] : ( isset($_POST['post_ID']) ? $_POST['post_ID'] : null );
+
+		
+		if( isset( $post_id ) && !in_array( get_post_type( $post_id ), $this->blacklist ) )
+			$pt = array( 'post', 'page', get_post_type( $post_id ) );
+		else 
+			$pt = array( 'post', 'page' );
+	
+		
+		return $pt;
 	}
 	
 	
@@ -412,7 +420,7 @@ class PageLinesMetaPanel {
 		// Current post type is passed in $_POST
 		$current_post_type = ( isset( $_POST['post_type'] ) ) ? $_POST['post_type'] : false;
 		$post_type_save = ( in_array( $current_post_type, $this->settings['posttype'] ) ) ? true : false;
-		
+
 		if((isset($_POST['update']) || isset($_POST['save']) || isset($_POST['publish'])) && $post_type_save){
 			
 			$page_template = (isset($_POST['page_template'])) ? $_POST['page_template'] : null;

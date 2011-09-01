@@ -80,6 +80,10 @@ class PageLinesTemplate {
 		
 		if(is_404())
 			return '404_page';
+		elseif( is_archive() && get_post_type() && get_post_type() != 'post' && get_post_type() != 'page' )
+			return get_post_type().'_posts';
+		elseif( get_post_type() && get_post_type() != 'post' && get_post_type() != 'page' )
+			return get_post_type();
 		elseif(is_tag())
 			return 'tag';
 		elseif(is_search())
@@ -99,9 +103,7 @@ class PageLinesTemplate {
 			$page_filename = str_replace('.php', '', get_post_meta($post->ID,'_wp_page_template',true));
 			$template_name = str_replace('page.', '', $page_filename);
 			return $template_name;
-		}elseif( get_post_type() && get_post_type() != 'post' && get_post_type() != 'page' )
-			return get_post_type();
-		elseif( is_single() )
+		}elseif( is_single() )
 			return 'single';
 		else
 			return 'default';
@@ -832,7 +834,7 @@ function custom_post_type_handler( $area = 'main' ){
 	global $post;
 	
 	// Get all 'public' post types
-	$pts = get_post_types(array( 'publicly_queryable' => true ));
+	$pts = get_post_types( array( 'publicly_queryable' => true ) );
 
 	
 	if(isset($pts['page']))
@@ -842,15 +844,24 @@ function custom_post_type_handler( $area = 'main' ){
 		unset($pts['post']);
 
 	$post_type_array = array();
-
-	foreach($pts as $public_post_type){
-		
-		$sections = ($area == 'template') ? 'PageLinesContent' : 'PageLinesPostLoop';
 	
-		$post_type_array[$public_post_type] = array(
-			'name'		=> ucfirst($public_post_type), 
-			'sections'	=> array($sections)
+	foreach( $pts as $public_post_type ){
+		
+		$post_type_data = get_post_type_object( $public_post_type );
+
+		$sections = ( $area == 'templates' ) ? 'PageLinesContent' : 'PageLinesPostLoop';
+	
+		$post_type_array[ $public_post_type.'_posts' ] = array(
+			'name'		=> $post_type_data->labels->name, 
+			'sections'	=> array( $sections )
 		);
+		
+		$post_type_array[ $public_post_type ] = array(
+			'name'		=> $post_type_data->labels->singular_name, 
+			'sections'	=> array( $sections )
+		);
+		
+		
 		
 	}
 	

@@ -12,7 +12,7 @@ class PageLinesPostLoop extends PageLinesSection {
 
    function __construct( $registered_settings = array() ) {
 	
-		$name = __('Content (Loop)', 'pagelines');
+		$name = __('Post Loop', 'pagelines');
 		$id = 'theloop';
 	
 		

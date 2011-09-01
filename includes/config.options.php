@@ -1121,7 +1121,7 @@ class PageLinesWelcome {
 			),
 			'support'	=> array(
 				'name'			=> 'World Class Support',
-				'desc'			=> 'For help getting started, we offer our customers tons of support including comprehensive <a href="http://www.pagelines.com/docs/" target="_blank">docs</a>, and an active and moderated <a href="http://www.pagelines.com/forum/" target="_blank">forum</a>.',
+				'desc'			=> 'For help getting started, we offer our customers tons of support including comprehensive <a href="http://www.pagelines.com/docs/" target="_blank">docs</a>, and an active, moderated <a href="http://www.pagelines.com/forum/" target="_blank">forum</a>.',
 				'class'			=> 'feature_support', 
 				'icon'			=> '',
 			),
