@@ -59,6 +59,8 @@ class PageLinesMetaPanel {
 	
 	function register_actions(){
 		
+		if ( !current_user_can('publish_posts') )
+			return;		
 		// Adds the box
 		add_action("admin_menu",  array(&$this, 'add_metapanel_box'));
 		
