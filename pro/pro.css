@@ -215,19 +215,20 @@
 		}	
 
 /* @ Pagination & WP-PageNavi Plugin */
-	#pagination .wp-pagenavi {
+	#page .wp-pagenavi {
 		margin:1.6em .4em 1.6em 0;
 		font-size: .9em;
 	}
-	#pagination  .wp-pagenavi span.pages { border:none; background: transparent; }
+	#page .wp-pagenavi span.pages { border:none; background: transparent; }
 
-	#pagination .wp-pagenavi a, #pagination .wp-pagenavi .current, #pagination .wp-pagenavi .extend{
+	#page .wp-pagenavi a, #page .wp-pagenavi .current, #page .wp-pagenavi .extend{
 		padding: 3px 7px 4px 8px;
 		border: none;
+		font-weight: normal;
 	}
 
 	/* Rounded corners in anything but IE */
-		.wp-pagenavi a, .wp-pagenavi span{
+		#page .wp-pagenavi a, #page .wp-pagenavi span{
 			-moz-border-radius: 5px;
 			-khtml-border-radius: 5px;
 			-webkit-border-radius: 5px;

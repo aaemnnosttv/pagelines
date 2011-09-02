@@ -139,7 +139,7 @@ body{font-size: 87.5%; line-height: 1.714285em;}
 		}
 
 	/* Secondary Font Style */
-		.font2, .font-sub, ul.main-nav li a, #secondnav li a, .metabar, .subtext, .subhead, .widget-title, .post-comments, .reply a, .editpage, #pagination .wp-pagenavi, .post-edit-link, #wp-calendar caption, #wp-calendar thead th, .soapbox-links a, .fancybox, .standard-form .admin-links, #featurenav a, .blink, .ftitle small, .button, input[type="submit"], input[type="button"], input[type="reset"], .submit{
+		.font2, .font-sub, ul.main-nav li a, #secondnav li a, .metabar, .subtext, .subhead, .widget-title, .post-comments, .reply a, .editpage, .wp-pagenavi, .post-edit-link, #wp-calendar caption, #wp-calendar thead th, .soapbox-links a, .fancybox, .standard-form .admin-links, #featurenav a, .blink, .ftitle small, .button, input[type="submit"], input[type="button"], input[type="reset"], .submit{
 			font-family: "Lucida Grande", "Lucida Sans", "Lucida Sans Unicode", sans-serif;
 		}
 		
