@@ -301,7 +301,8 @@ function pagelines_default_banners($post_type){
 		$default_post['post_content'] = $dp['text'];
 		$default_post['post_type'] = $post_type;
 		$default_post['post_status'] = 'publish';
-		
+		if ( defined( 'ICL_LANGUAGE_CODE' ) )
+			$default_post['icl_post_language'] = ICL_LANGUAGE_CODE;		
 		$newPostID = wp_insert_post( $default_post );
 
 		wp_set_object_terms($newPostID, 'default-banners', 'banner-sets');

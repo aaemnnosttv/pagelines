@@ -70,21 +70,44 @@ class PageLinesTwitterBar extends PageLinesSection {
 
 				set_transient( 'section-twitter', $tweets, $expire );
 		}
-	
-			echo '<div class="tbubble">';
-			echo '<span class="twitter">"';
-			pagelines_register_hook( 'pagelines_before_twitterbar_text', $this->id ); // Hook
+				echo '<div class="tbubble">';
+				echo '<span class="twitter">"';
+				pagelines_register_hook( 'pagelines_before_twitterbar_text', $this->id ); // Hook
 
-			if ( 'error' != $tweets ) :	
-				echo make_clickable( $tweets[0]['text'] ) . '&mdash;&nbsp;<a class="twitteraccount" href="http://twitter.com/#!/' . pagelines('twittername') . '">' . pagelines('twittername') . '</a></span>';
-				else :
-					if ( 401 == get_transient( 'section-twitter-response-code' ) )
-						echo wp_kses( sprintf( __( 'Error: Please make sure the Twitter account is <a href="%s">public</a>.' ), 'http://support.twitter.com/forums/10711/entries/14016' ), array( 'a' => array( 'href' => true ) ) );
-					else
-						echo esc_html__( 'Error: Twitter did not respond. Please wait a few minutes and refresh this page.' );
-				endif;
-			echo '</div>';
-	}
+				if ( 'error' != $tweets ) {
+					echo $tweets[0]['text'];
+				} else {
+
+					$error = get_transient( 'section-twitter-response-code' );		
+					switch( $error ) {
+
+						case 401:
+							echo wp_kses( sprintf( __( 'Error: Please make sure the Twitter account is <a href="%s">public</a>.', 'pagelines' ), 'http://support.twitter.com/forums/10711/entries/14016' ), array( 'a' => array( 'href' => true ) ) );
+						break;
+
+						case 403:
+							_e( 'Error 403: Your IP is being rate limited by Twitter.', 'pagelines' );
+						break;
+
+						case 404:
+							_e( 'Error 404: Your username was not found on Twitter.', 'pagelines' );
+						break;
+
+						case 420:
+							_e( 'Error 420: Your IP is being rate limited by Twitter.', 'pagelines' );
+						break;
+
+						case 502:
+							_e( 'Error 502: Twitter is being upgraded.', 'pagelines' );
+						break;
+
+						default:
+							_e( 'Unknown Twitter error.', 'pagelines' );
+						break;
+					}				
+				} 
+				echo '&mdash;&nbsp;<a class="twitteraccount" href="http://twitter.com/#!/' . pagelines('twittername') . '">' . pagelines('twittername') . '</a></span></div>';
+		}
 }
 /*
 	End of section class

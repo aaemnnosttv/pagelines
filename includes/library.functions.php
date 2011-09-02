@@ -222,7 +222,7 @@ function pagelines_format_tweet( $title, $shorturl ) {
 	if ( $total_char > 140 )
 		$title = substr($title, 0, strrpos(substr($title, 0, $title_limit), ' '));
 
-	return sprintf( '%1$s - %2$s', $title, $shorturl );
+	return sprintf( '%1$s - %2$s', strip_tags( $title ), $shorturl );
 }
 
 /**

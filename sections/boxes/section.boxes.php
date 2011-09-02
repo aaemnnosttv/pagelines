@@ -244,7 +244,7 @@ class PageLinesBoxes extends PageLinesSection {
 									</div>
 									<div class="fboxtext">
 										<?php echo blink_edit( $bpost->ID ); ?>
-										<?php echo do_shortcode($bpost->post_content); ?>
+										<?php echo the_content($bpost->post_content); ?>
 									</div>
 								</div>
 								<?php pagelines_register_hook( 'pagelines_box_inside_bottom', $this->id ); // Hook ?>
@@ -326,7 +326,8 @@ class PageLinesBoxes extends PageLinesSection {
 				$default_post['post_content'] = $dp['text'];
 				$default_post['post_type'] = $post_type;
 				$default_post['post_status'] = 'publish';
-
+				if ( defined( 'ICL_LANGUAGE_CODE' ) )
+					$default_post['icl_post_language'] = ICL_LANGUAGE_CODE;
 				$newPostID = wp_insert_post( $default_post );
 
 				if(isset($dp['media']))
