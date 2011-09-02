@@ -906,6 +906,13 @@ background-repeat: no-repeat;
 		}
 		.plform_title{margin-left: -15px;}
 	
+	.pl_account_info .superlink-wrap{
+		margin: 1em 0;
+	}
+	.pl_account_info .file_uploader{
+		margin: 1.5em 0;
+		border: 1px solid #ccc;
+	}
 /* Image Upload Text Field */
 	.uploaded_url{margin-bottom: 1em}
 	

@@ -990,9 +990,22 @@ class OptEngine {
 		?>
 		<div class="pl_form">
 
+			<form method="post" class="pl_account_info fix"> 
+				<div class="pl_account_info_pad">
+					<div class="pl_account_form fix">
+				
+						<div class="plform_title">
+							<h2>PageLines Export Settings</h2>
+						</div>
+						<input type="hidden" name="form_submitted" value="export_settings_form" />
+						<?php echo $this->superlink('Export Settings File &darr;', 'blue', 'export_settings_form', 'submit'); ?>
+						<div class="clear"></div>
+					</div>
+				</div>
+			</form>
 			<form method="post" enctype="multipart/form-data" class="pl_account_info fix">
 				<div class="pl_account_info_pad">
-					
+	
 					<div class="pl_account_form">
 						<div class="plform_title">
 							<h2>PageLines Import Settings</h2>
@@ -1000,32 +1013,29 @@ class OptEngine {
 						<input type="hidden" name="form_submitted" value="import_settings_form" />
 				<?php 
 
-				$input = $this->input_checkbox('pagelines_template', 'pagelines_template', 'checked');
-				echo $this->input_label_inline('pagelines_template', $input, 'Include Template info');
+						$input = $this->input_checkbox('pagelines_template', 'pagelines_template', 'checked');
+						echo $this->input_label_inline('pagelines_template', $input, 'Import Template Setup');
 
-				$input = $this->input_checkbox('pagelines_settings', 'pagelines_settings', 'checked');
-				echo $this->input_label_inline('pagelines_settings', $input, 'Include main settings');
+						$input = $this->input_checkbox('pagelines_settings', 'pagelines_settings', 'checked');
+						echo $this->input_label_inline('pagelines_settings', $input, 'Import Primary Settings');
 
 
-				$input = $this->input_checkbox('pagelines_special', 'pagelines_special', 'checked');
-				echo $this->input_label_inline('pagelines_special', $input, 'Include special settings');
+						$input = $this->input_checkbox('pagelines_special', 'pagelines_special', 'checked');
+						echo $this->input_label_inline('pagelines_special', $input, 'Import Special Meta Settings');
 				
-				$input = $this->input_checkbox('pagelines_layout', 'pagelines_layout', 'checked');
-				echo $this->input_label_inline('pagelines_layout', $input, 'Include layout settings');
+						$input = $this->input_checkbox('pagelines_layout', 'pagelines_layout', 'checked');
+						echo $this->input_label_inline('pagelines_layout', $input, 'Import Layout Configuration');
 
-				echo '<input type="file" class="text_input" name="file" id="settings-file" />';
+						echo '<input type="file" class="file_uploader text_input" name="file" id="settings-file" /><div class="clear"></div>';
 
-				echo $this->superlink('Import Settings', 'blue', 'import_settings_form', 'submit' , 'onClick="return ConfirmImportSettings();"'); 
-			pl_action_confirm('ConfirmImportSettings', 'Are you sure? This will overwrite your current settings and configurations with the information in this file!');
+						echo $this->superlink('Import Settings To Install &uarr;', 'blue', 'import_settings_form', 'submit' , 'onClick="return ConfirmImportSettings();"'); 
+						pl_action_confirm('ConfirmImportSettings', 'Are you sure? This will overwrite your current settings and configurations with the information in this file!');
 				?>
 			</form>
 						</div>
 					<div class="clear"></div>
-					<form method="post">
-						<input type="hidden" name="form_submitted" value="export_settings_form" />
-						<?php echo $this->superlink('Export Settings', 'blue', 'export_settings_form', 'submit'); ?>
-						</form>
-						</div>	
+				
+			</div>	
 		</div>
 	<?php
 	}
