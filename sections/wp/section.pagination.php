@@ -30,17 +30,9 @@ class PageLinesPagination extends PageLinesSection {
 	   parent::__construct($name, $id, $settings);    
    }
 
-   function section_template() { ?>
-		<?php if(function_exists('wp_pagenavi') && show_posts_nav() && VPRO):?>
-			<?php wp_pagenavi(); ?>  
-		<?php elseif (show_posts_nav()) : ?>
-			<div class="page-nav-default fix">
-				<span class="previous-entries"><?php next_posts_link(__('&larr; Previous Entries','pagelines')) ?></span>
-				<span class="next-entries"><?php previous_posts_link(__('Next Entries &rarr;','pagelines')) ?></span>
-			</div><!-- page nav -->
-		<?php endif;?>
-		
-	<?php }
+   function section_template() { 
+		pagelines_pagination();
+	}
 
 }
 

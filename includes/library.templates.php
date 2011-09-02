@@ -351,6 +351,25 @@ function pagelines_font_replacement( $default_font = ''){
  	}
 }
 
+/**
+ * 
+ *  Pagination Function
+ *
+ *  @package PageLines
+ *  @subpackage Functions Library
+ *  @since 2.0.b12 moved
+ *
+ */
+function pagelines_pagination() {
+	if(function_exists('wp_pagenavi') && show_posts_nav() && VPRO):
+		wp_pagenavi(); 
+	elseif (show_posts_nav()) : ?>
+		<div class="page-nav-default fix">
+			<span class="previous-entries"><?php next_posts_link(__('&larr; Previous Entries','pagelines')) ?></span>
+			<span class="next-entries"><?php previous_posts_link(__('Next Entries &rarr;','pagelines')) ?></span>
+		</div>
+<?php endif;
+}
 
 /**
  * 
