@@ -990,14 +990,14 @@ class OptEngine {
 		?>
 		<div class="pl_form">
 
-			<form method="post" class="pl_account_info fix">
+			<form method="post" enctype="multipart/form-data" class="pl_account_info fix">
 				<div class="pl_account_info_pad">
 					
 					<div class="pl_account_form">
 						<div class="plform_title">
-							<h2>PageLines Export Settings</h2>
+							<h2>PageLines Import Settings</h2>
 						</div>
-						<input type="hidden" name="form_submitted" value="export_settings_form" />
+						<input type="hidden" name="form_submitted" value="import_settings_form" />
 				<?php 
 
 				$input = $this->input_checkbox('pagelines_template', 'pagelines_template', 'checked');
@@ -1013,26 +1013,20 @@ class OptEngine {
 				$input = $this->input_checkbox('pagelines_layout', 'pagelines_layout', 'checked');
 				echo $this->input_label_inline('pagelines_layout', $input, 'Include layout settings');
 
-				echo $this->superlink('Export Settings', 'blue', 'export_settings_form', 'submit'); 
-			
+				echo '<input type="file" class="text_input" name="file" id="settings-file" />';
+
+				echo $this->superlink('Import Settings', 'blue', 'import_settings_form', 'submit' , 'onClick="return ConfirmImportSettings();"'); 
+			pl_action_confirm('ConfirmImportSettings', 'Are you sure? This will overwrite your current settings and configurations with the information in this file!');
 				?>
+			</form>
 						</div>
 					<div class="clear"></div>
-				</div>
-			</form>
+					<form method="post">
+						<input type="hidden" name="form_submitted" value="export_settings_form" />
+						<?php echo $this->superlink('Export Settings', 'blue', 'export_settings_form', 'submit'); ?>
+						</form>
+						</div>	
 		</div>
-		
-		<div class="restore_column_split">
-			<h4><?php _e('Import Settings', 'pagelines'); ?></h4>
-			<form method="post" enctype="multipart/form-data" class="upload_form fix">
-				<input type="hidden" name="settings_upload" value="settings" />
-				<input type="file" class="text_input" name="file" id="settings-file" />
-				<?php echo $this->superlink('Upload New Settings', 'grey', 'upload-settings', 'submit', 'onClick="return ConfirmImportSettings();"'); ?>
-			</form>
-
-			<?php pl_action_confirm('ConfirmImportSettings', 'Are you sure? This will overwrite your current settings and configurations with the information in this file!');?>
-		</div>
-		
 	<?php
 	}
 
