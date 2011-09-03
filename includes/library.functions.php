@@ -655,3 +655,95 @@ function pagelines_array_sort( $a, $subkey, $pre = null, $dec = null ) {
 function polish_key($key){
 	return ucwords( str_replace( '_', ' ', $key));
 }
+
+/**
+ *
+ * Return latest tweet as (array) or single tweet text.
+ * Tweets are stored in the db
+ * 
+ * @since 2.0b13
+ * @return array
+ */
+function pagelines_get_tweets( $username, $latest = null) {
+	
+
+		// Fetch the tweets from the db
+		// Set the array into a transient for easy reuse
+		// If we get an error store it.
+		
+		if ( false === ( $tweets = get_transient( 'section-twitter-' . $username ) ) ) {
+			$params = array(
+				'screen_name'=>$username, // Twitter account name
+				'trim_user'=>true, // only basic user data (slims the result)
+				'include_entities'=>false, // as of Sept 2010 entities were not included in all applicable Tweets. regex still better
+				'include_rts' => true
+			);
+
+			/**
+			 * The exclude_replies parameter filters out replies on the server. If combined with count it only filters that number of tweets (not all tweets up to the requested count)
+			 * If we are not filtering out replies then we should specify our requested tweet count
+			 */
+
+			$twitter_json_url = esc_url_raw( 'http://api.twitter.com/1/statuses/user_timeline.json?' . http_build_query( $params ), array( 'http', 'https' ) );
+			unset( $params );
+			$response = wp_remote_get( $twitter_json_url, array( 'User-Agent' => 'WordPress.com Twitter Widget' ) );
+			$response_code = wp_remote_retrieve_response_code( $response );
+			if ( 200 == $response_code ) {
+				$tweets = wp_remote_retrieve_body( $response );
+				$tweets = json_decode( $tweets, true );
+				$expire = 900;
+				if ( !is_array( $tweets ) || isset( $tweets['error'] ) ) {
+					$tweets = 'error';
+					$expire = 300;
+				}
+			} else {
+				$tweets = 'error';
+				$expire = 300;
+				set_transient( 'section-twitter-response-code-' . $username, $response_code, $expire );
+			}
+
+			set_transient( 'section-twitter-' . $username, $tweets, $expire );
+		}
+
+		// We should have a list of tweets for $username or an error code to return.
+
+		if ( 'error' != $tweets ) { // Tweets are good, return the array or a single if asked for ($latest)
+				
+			return ( $latest ) ? $tweets[0]['text'] : $tweets; 
+				
+		} else {
+			
+			// We couldnt get the tweets so lets cycle through the possible errors.
+			
+			$error = get_transient( 'section-twitter-response-code-' . $username );		
+			switch( $error ) {
+
+				case 401:
+					$text = wp_kses( sprintf( __( 'Error: Please make sure the Twitter account is <a href="%s">public</a>.', 'pagelines' ), 'http://support.twitter.com/forums/10711/entries/14016' ), array( 'a' => array( 'href' => true ) ) );
+				break;
+				
+				case 403:
+					$text = __( 'Error 403: Your IP is being rate limited by Twitter.', 'pagelines' );
+				break;
+
+				case 404:
+					$text = __( 'Error 404: Your username was not found on Twitter.', 'pagelines' );
+				break;
+
+				case 420:
+					$text = __( 'Error 420: Your IP is being rate limited by Twitter.', 'pagelines' );
+				break;
+
+				case 502:
+					$text = __( 'Error 502: Twitter is being upgraded.', 'pagelines' );
+				break;
+
+				default:
+					$text = __( 'Unknown Twitter error.', 'pagelines' );
+				break;
+			}
+			return $text;			
+		}	
+}
+
+
