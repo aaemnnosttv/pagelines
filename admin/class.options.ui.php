@@ -27,7 +27,8 @@ class PageLinesOptionsUI {
 				'show_reset'	=> true, 
 				'basic_reset'	=> false,
 				'title_size'	=> 'normal',
-				'fullform'		=> true
+				'fullform'		=> true, 
+				'tabs'			=> true
 			);
 		
 		$this->set = wp_parse_args( $args, $defaults );
@@ -187,8 +188,13 @@ class PageLinesOptionsUI {
 		function build_body(){
 			$option_engine = new OptEngine( $this->set['settings'] );
 			global $pl_section_factory; 
+			
+			$tabs = ($this->set['tabs']) ? true : false;
+
 ?>
-			<div id="tabs">	
+			<div id="tabs" class="<?php if(!$tabs) echo 'no_tabs';?>">	
+				
+				<?php if( $tabs ): ?>
 				<ul id="tabsnav">
 					<li><span class="graphic top">&nbsp;</span></li>
 					<?php 
@@ -210,7 +216,7 @@ class PageLinesOptionsUI {
 					</div>
 					<script type="text/javascript">/*<![CDATA[*/ jQuery(document).ready(function(){ jQuery('.framework_loading').hide(); }); /*]]>*/</script>
 				</ul>
-				
+				<?php endif; ?>
 				<div id="thetabs" class="plpanel fix">
 <?php 				if(!VPRO) $this->get_pro_call();
 					 

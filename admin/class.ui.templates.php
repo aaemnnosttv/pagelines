@@ -238,20 +238,26 @@ class PageLinesTemplateBuilder {
 		<div id="section_map" class="template-edit-panel ">
 			<h4 class='over' >2. Arrange Sections In Area With Drag &amp; Drop</h4>
 			<div class="sbank template_layout">
-				<div class="sbank-pad">
-					<div class="bank_title">Displayed <?php echo $tfield['name'];?> Sections</div>
-					<ul id="sortable_template" class="connectedSortable ">
-					 	<?php  $this->active_bank( $template, $tfield, $template_area, $template_slug ); ?>
-					</ul>
-					<?php $this->section_setup_controls(); ?>
+				
+				<div class="sbank-area">
+					
+					<div class="sbank-pad">
+						<div class="bank_title">
+							<span class="btitle">Active Sections</span>
+						</div>
+						<ul id="sortable_template" class="connectedSortable ">
+						 	<?php  $this->active_bank( $template, $tfield, $template_area, $template_slug ); ?>
+						</ul>
+					</div>
 				</div>		
+				<?php $this->section_setup_controls(); ?>
 			</div>
 			<div class="sbank available_sections">
-				<div class="sbank-pad">
-					<div class="bank_title">Available/Disabled Sections</div>
-					<ul id="sortable_sections" class="connectedSortable ">
+				<div class="sbank-area">
+					<div class="sbank-pad fix">
+						<div class="bank_title">Available / Disabled Sections</div>
 						<?php $this->passive_bank( $template, $tfield, $hook, $hook_info ); ?>
-					</ul>
+					</div>
 				</div>
 				<div class="clear"></div>
 			</div>
@@ -305,29 +311,63 @@ class PageLinesTemplateBuilder {
 	
 	function passive_bank( $template, $t, $hook, $h ){
 		 
+		// Remove the sections that aren't compatible
+		$draw = array();
 		foreach( $this->avail as $sid => $s){
 
 			/* Flip values and keys */
 			$works_with = (is_array($s->settings['workswith'])) ? array_flip( $s->settings['workswith'] ) : array();
 			$fails_with = (is_array($s->settings['failswith'])) ? array_flip( $s->settings['failswith'] ) : array();
-
 			$markup_type = (!empty($h)) ? $h['markup'] : $t['markup'];
 
-			if(isset( $works_with[ $template ] ) || isset( $works_with[ $hook ]) || isset( $works_with[ $hook.'-'.$template ] ) || isset($works_with[$markup_type])){
-				$section_args = array(
-					'id'		=> 'section_' . $sid,
-					'template'	=> $template,
-					'section'	=> $sid, 
-					'icon'		=> $s->settings['icon'], 
-					'name'		=> $s->name, 
-					'desc'		=> $s->settings['description'], 
-					'cloning'	=> $s->settings['cloning']
-				);
-		
-				if( !isset($fails_with[ $template ]) && !isset($fails_with[ $hook ]) )
-					$this->draw_section( $section_args );
-			}
+			if(!isset( $works_with[ $template ] ) 
+				&& !isset( $works_with[ $hook ]) 
+				&& !isset( $works_with[ $hook.'-'.$template ] ) 
+				&& !isset($works_with[$markup_type])
+				|| ( 
+					isset($fails_with[ $template ])
+					|| isset($fails_with[ $hook ])
+				)
+			)
+				continue;
+				
+				
+			$draw[ $sid ] = $s;
+			
 		}
+		
+		// Draw in Column format
+		
+		$numcol = 2;
+		$count = 1;
+		$total = count( $draw );
+		$coltotal = ( $total % 2 ) ? $total+1 : $total;
+		foreach($draw as $sid => $s){
+			
+			$start_list = ( $count == 1 || ($coltotal / ($count - 1) ) == $numcol ) ? true : false;
+			$end_list = ( $count == $total || ($coltotal / ($count) ) == $numcol ) ? true : false;
+			
+			if($start_list)
+				printf('<ul id="sortable_sections" class="connectedSortable sortcolumn2">');
+			
+			$section_args = array(
+				'id'		=> 'section_' . $sid,
+				'template'	=> $template,
+				'section'	=> $sid, 
+				'icon'		=> $s->settings['icon'], 
+				'name'		=> $s->name, 
+				'desc'		=> $s->settings['description'], 
+				'cloning'	=> $s->settings['cloning']
+			);
+			$this->draw_section( $section_args );
+			
+			if($end_list)
+				printf('</ul>');
+				
+			$count++;
+		}
+		
+		
 	}
 	
 	function draw_section( $args ){ 
@@ -423,7 +463,7 @@ class PageLinesTemplateBuilder {
 		
 		$onclick = "PageLinesSlideToggle('.s-description', '.describe_toggle', '.setup_control_text','Hide Section Descriptions', 'Show Section Descriptions', 'pl_section_desc_toggle');";
 		
-		printf('<div class="section_setup_controls fix"><span class="setup_control" onClick="%s"><span class="setup_control_text">%s Descriptions</span></span></div>', $onclick, ($this->help()) ? 'Hide' : 'Show' );
+		printf('<div class="section_setup_controls fix"><span class="setup_control" onClick="%s"><span class="setup_control_text">%s Section Descriptions</span></span></div>', $onclick, ($this->help()) ? 'Hide' : 'Show' );
 					
 	}
 	
@@ -592,3 +632,41 @@ class PageLinesTemplateBuilder {
 	}
 
 }
+
+
+
+/**
+ * Get Template Setup - Drag & Drop Interface
+ *
+ * @since 2.0.0
+ */
+function templates_array(){
+
+	$return = array();
+
+	$return['template_setup'] = array(
+		'icon'			=> PL_ADMIN_ICONS.'/dragdrop.png',
+		'templates'		=> array(
+			'default'	=> '',
+			'type'		=> 'templates',
+			'layout'	=> 'interface',
+			'title'		=> THEMENAME.' Template Setup',						
+			'shortexp'	=> 'Drag and drop control over your website\'s templates.<br/> Note: Select "Hidden by Default" to hide the section by default; and activate with individual page/post options.',
+			'docslink'	=> 'http://www.pagelines.com/docs/template-setup', 
+			'vidtitle'	=> 'Template Setup Overview'
+		),
+		'resettemplates' => array(
+			'default'	=> '',
+			'inputlabel'	=> __("Reset Template Section Order", 'pagelines'),
+			'type'		=> 'reset',
+			'callback'	=> 'reset_templates_to_default',
+			'title'		=> 'Reset Section Order To Default',	
+			'layout'	=> 'full',					
+			'shortexp'	=> 'Changes your template sections back to their default order and layout (options settings are not affected)',
+		)		
+	);
+	
+	return apply_filters('pagelines_templates_opt_array', $return);
+	
+}
+

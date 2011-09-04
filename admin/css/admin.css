@@ -221,11 +221,11 @@ background-repeat: no-repeat;
 		margin-bottom: 8px;
 	}
 	
-	#tabs, #optionsheader, #optionsfooter, .picker_panel, .tgraph-controls, .section-bar{
+	#tabs, #optionsheader, #optionsfooter, .picker_panel, .tgraph-controls, .template_layout .sbank-area, .the_template_builder{
 		
 		-moz-box-shadow: 0 1px 4px #DDD;
 		-webkit-box-shadow: 0 1px 4px #DDD;
-		box-shadow: 0 1px 4px #DDD;
+		box-shadow: 0 1px 4px #CCC;
 	}
 
 
@@ -336,9 +336,18 @@ background-repeat: no-repeat;
 		min-width: 753px;
 		background: #f7f7f7;
 		border-left: 1px solid #ccc;
-		
 	}
+	
+	.no_tabs #thetabs{margin-left: 0; border-left: none;}
 
+		.no_tabs #thetabs .optin{
+			
+			-webkit-box-shadow: inset 2px 2px 3px #fff;
+			-moz-box-shadow: inset 2px 2px 3px  #fff;
+			box-shadow: inset 2px 2px 3px  #fff;
+			
+		}
+		
 	.tabinfo {
 		float: left;
 		width: 100%;
@@ -1830,10 +1839,10 @@ font-weight: bold;
 				-webkit-box-shadow:inset 2px 2px 2px #e5e5e5;
 				box-shadow: inset 2px 2px 2px #e5e5e5;
 			}
-			.sub-template-selector, .sbank-pad{
-				-moz-box-shadow: inset 2px 2px 2px #d5d5d5;
-				-webkit-box-shadow:inset 2px 2px 2px #d5d5d5;
-				box-shadow: inset 2px 2px 2px #d5d5d5;
+			.sub-template-selector, .available_sections .sbank-area{
+				-moz-box-shadow: inset 0 1px 3px #ccc;
+				-webkit-box-shadow:inset 0 1px 3px #ccc;
+				box-shadow: inset 0 1px 3px #ccc;
 			}
 		
 		.tgraph-controls{
@@ -1845,6 +1854,7 @@ font-weight: bold;
 			border-right: 1px solid #aaa;
 			border-bottom: 1px solid #aaa;
 			background: #fff url(../images/section-hover.png) repeat-x left bottom;
+			
 		}
 			.tgraph-controls-pad{
 				-moz-border-radius: 8px;
@@ -1855,9 +1865,14 @@ font-weight: bold;
 				padding: 15px;
 			}
 		.tgraph {float: left; width: 50%;font-size: .85em}
+		
 		.tgraph-pad{padding: 0px 65px;}
+		
 		.tgraph-templates .tgraph-pad{ padding: 0 90px; }
 		.tgraph-content .tgraph-pad{ padding-top: 24px; }
+		
+		.no_tabs .tgraph-pad{padding: 0px 95px;}
+		.no_tabs .tgraph-templates .tgraph-pad{ padding: 0 130px; }
 		
 		.tgraph .tg-format{
 			
@@ -1945,7 +1960,8 @@ font-weight: bold;
 		}
 			.sub-template-selector .sss-button{
 				cursor: pointer;
-				display: inline-block;
+				display: block;
+				float: left;
 				text-align: center;
 				background: #ccc;
 				border: 1px solid #bbb;
@@ -1954,14 +1970,16 @@ font-weight: bold;
 				font-weight: bold;
 				color: #000;
 				font-size: .85em;
-				width: 105px;
-				margin: 4px;
+				width: 13.205%;
+				margin: 4px .5%;
+				overflow: hidden;
 				text-decoration: none;
 			}
 				.sss-button-pad{
 					border-top: 1px solid #ddd;
 					border-left: 1px solid #ddd;
-					padding: 2px 7px;
+					padding: .4em 7px;
+					height: 1.7em;
 				}
 				.sub-template-selector .sss-button:hover{background: #c5c5c5;}
 				.sub-template-selector .sss-button.sss-selected{
@@ -1984,6 +2002,8 @@ font-weight: bold;
 	.the_template_builder {
 		min-height: 300px;
 		border: 1px solid #ddd;
+		border-right:1px solid #ccc;
+		border-bottom:1px solid #ccc;
 		background: #eee;
 		width: 100%;
 	}
@@ -2006,22 +2026,49 @@ font-weight: bold;
 		
 	#template_data.selected_builder{ display: block; }
 	
-	.sbank{	 float:left; width: 50%; }
-		.sbank-pad{
+	.sbank{	 float:left; }
+	.sbank.template_layout{
+		width: 38%;
+	}
+		.sbank.template_layout .sbank-area{
+			background: #f3f3f3;
+			border: 1px solid #ddd;
+			border-right: 1px solid #ccc;
+			border-bottom: 1px solid #ccc;
+		}
+			.sbank.template_layout .sbank-pad{
+
+				border-top: 1px solid #fff;
+				border-left: 1px solid #fff;
+			}
+	.sbank.available_sections{
+		width: 62%;
+	}
+		.sbank.template_layout .sbank-area{margin-right: 5px;}
+		.sbank-area{
 			background: #e1e1e1;
 			border: 1px solid #fff;
 			border-left: 1px solid #c1c1c1;
 			border-top: 1px solid #c1c1c1;
-			margin: 20px;
+			margin: 25px;
+			
+		}
+		.sbank-pad{
 			padding: 15px;
+		}
+		
+		.sbank .sortcolumn2{
+			width: 50%;
+			float: left;
 		}
 		.sbank .sortable_sections, .sbank .sortable_template {
 			min-height: 50px;
 			padding: 10px 0;
 		}
+		
 		.sbank ul.nosections {
 			background: url(../images/sections-none.png) no-repeat center center;
-			border: 5px dashed #ccc;
+			border: 5px dashed #DDD;
 			height: 150px;
 		}
 		.sbank li{
@@ -2115,7 +2162,7 @@ font-weight: bold;
 		}
 	
 			.sbank h4 { margin: 2px 0 0px 0; }
-			.sbank .s-description {padding-bottom: 4px; color: #444;}
+			.sbank .s-description {display: block; padding: 2px 0; color: #444; font-size: .9em}
 			
 			li.required-section  .section-moreinfo-toggle{ color: #555; }
 			li.required-section .section-moreinfo-toggle:hover{ color: #222; }
@@ -2151,9 +2198,9 @@ font-weight: bold;
 			
 			.section-controls{
 				display: none; 
-				background: #dadada;
-				border-right: 1px solid #eee;
-				border-bottom: 1px solid #eee;
+				background: #e6e6e6;
+				border-right: 1px solid #fff;
+				border-bottom: 1px solid #fff;
 			
 				margin: 8px 0;
 				-moz-border-radius: 4px;
@@ -2162,7 +2209,7 @@ font-weight: bold;
 				border-radius: 4px;
 			}
 			.section-controls-pad{
-				border: 1px solid #c1c1c1;
+				border: 1px solid #ccc;
 				-moz-border-radius: 4px;
 				-khtml-border-radius: 4px;
 				-webkit-border-radius: 4px;
@@ -2196,12 +2243,13 @@ font-weight: bold;
 		}
 	
 		.bank_title{
-			font-size: .9em;
-			color: #666;
+			padding: 0 0 8px 0;
+			color: #aaa;
 			font-weight: bold;
 			text-align: center;
-			margin-bottom: 10px;
+			font-size: 1.1em;
 		}
+			
 		
 		#template_data .editingtemplate{
 			border-bottom: 1px solid #ccc;
@@ -2238,21 +2286,20 @@ font-weight: bold;
 			.section_layout_description .config_title span{ 	
 				color: #aaa;
 			}
-			.section_setup_controls{ padding: 5px; }
+			.section_setup_controls{ padding: 0 20px; }
 				.section_setup_controls .setup_control{ 
 					cursor:pointer;
-					color: #444;
+					color: #888;
 					display: block;
-					float: left;
-					background: #ddd;
+					background: #e5e5e5;
 					text-decoration:none;
-					border: 1px solid #bbb;
-					border-top: 1px solid #ccc;	
-					border-left: 1px solid #ccc;
+					border: 1px solid #ccc;
+					border-top: 1px solid #ddd;	
+					border-left: 1px solid #ddd;
 				}
 				.section_setup_controls .setup_control span{ 
 					display: block;
-					padding: 2px 4px;
+					padding: 4px 7px;
 					font-size: .9em;
 					border-top: 1px solid #f7f7f7;	
 					border-left: 1px solid #f7f7f7;

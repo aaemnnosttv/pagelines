@@ -58,6 +58,7 @@ define('CHILD_IMAGES', CHILD_URL . '/images');
 define('PAGELINES_SETTINGS', apply_filters('pagelines_settings_field', 'pagelines-settings'));
 define('PAGELINES_EXTENSION', apply_filters('pagelines_settings_extension', 'pagelines-extension'));
 define('PAGELINES_SPECIAL', apply_filters('pagelines_settings_special', 'pagelines-special'));
+define('PAGELINES_TEMPLATES', apply_filters('pagelines_settings_map', 'pagelines_template_map'));
 
 /**
  * Define PL Admin Paths
