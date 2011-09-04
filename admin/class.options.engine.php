@@ -1063,7 +1063,7 @@ class OptEngine {
 	 */
 	function do_template_builder($oid, $o){
 
-		$builder = new PageLinesTemplateBuilder($oid, $o);
+		$builder = new PageLinesTemplateBuilder($oid, $o, $this->settings_field);
 		$builder->draw_template_builder();
 
 	}

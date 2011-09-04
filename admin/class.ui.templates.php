@@ -25,7 +25,7 @@ class PageLinesTemplateBuilder {
 		$oset = array( 'setting' => $setting );
 		
 		$this->sc_settings = ploption('section-control', $oset);
-		$this->sc_global = ploption('section-control', array('setting' => PAGELINES_SETTINGS));
+		$this->sc_global = ploption('section-control', array('setting' => PAGELINES_TEMPLATES));
 		$this->sc_namespace = sprintf('%s[section-control]', $setting);
 		
 		$this->template_map = get_option('pagelines_template_map');
