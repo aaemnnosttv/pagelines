@@ -53,12 +53,13 @@ function pagelines_build_option_interface(){
 function pagelines_build_templates_interface(){ 
 	
 	$args = array(
-		'title'			=> 'Templates', 
+		'title'			=> 'Template Setup', 
 		'settings' 		=> PAGELINES_TEMPLATES,
 		'callback'		=> 'templates_array',
+		'basic_reset'	=> true,
+		'reset_cb'		=> 'reset_templates_to_default', 
 		'show_save'		=> false, 
 		'show_reset'	=> false, 
-		'fullform'		=> false, 
 		'tabs'			=> false
 	);
 	

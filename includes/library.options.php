@@ -513,9 +513,12 @@ function pagelines_process_reset_options( $option_array = null ) {
 
 	if(isset($_POST['pl_reset_settings']) && current_user_can('edit_themes')){
 		
-		if(isset($_POST['the_pl_setting']))
+		if(isset($_POST['the_pl_setting']) && !isset($_POST['reset_callback']))
 			update_option($_POST['the_pl_setting'], array());
 		
+		if(isset($_POST['reset_callback']))
+			call_user_func( $_POST['reset_callback'] );
+			
 	}
 
 	
@@ -545,7 +548,7 @@ function pagelines_import_export(){
 		if ( isset( $_POST['form_submitted']) && $_POST['form_submitted'] == 'export_settings_form' ) {
 
 			$pagelines_settings = get_option(PAGELINES_SETTINGS);
-			$pagelines_template = get_option('pagelines_template_map');
+			$pagelines_template = get_option( PAGELINES_TEMPLATE_MAP );
 			$pagelines_special = get_option( PAGELINES_SPECIAL );
 
 			$options['pagelines_template'] = $pagelines_template;

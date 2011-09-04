@@ -28,7 +28,7 @@ class PageLinesTemplateBuilder {
 		$this->sc_global = ploption('section-control', array('setting' => PAGELINES_TEMPLATES));
 		$this->sc_namespace = sprintf('%s[section-control]', $setting);
 		
-		$this->template_map = get_option('pagelines_template_map');
+		$this->template_map = get_option( PAGELINES_TEMPLATE_MAP );
 		
 		
 		$this->factory = $pl_section_factory->sections;
@@ -654,16 +654,7 @@ function templates_array(){
 			'shortexp'	=> 'Drag and drop control over your website\'s templates.<br/> Note: Select "Hidden by Default" to hide the section by default; and activate with individual page/post options.',
 			'docslink'	=> 'http://www.pagelines.com/docs/template-setup', 
 			'vidtitle'	=> 'Template Setup Overview'
-		),
-		'resettemplates' => array(
-			'default'	=> '',
-			'inputlabel'	=> __("Reset Template Section Order", 'pagelines'),
-			'type'		=> 'reset',
-			'callback'	=> 'reset_templates_to_default',
-			'title'		=> 'Reset Section Order To Default',	
-			'layout'	=> 'full',					
-			'shortexp'	=> 'Changes your template sections back to their default order and layout (options settings are not affected)',
-		)		
+		)	
 	);
 	
 	return apply_filters('pagelines_templates_opt_array', $return);

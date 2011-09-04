@@ -26,6 +26,7 @@ class PageLinesOptionsUI {
 				'show_save'		=> true,
 				'show_reset'	=> true, 
 				'basic_reset'	=> false,
+				'reset_cb'		=> false,
 				'title_size'	=> 'normal',
 				'fullform'		=> true, 
 				'tabs'			=> true
@@ -104,9 +105,9 @@ class PageLinesOptionsUI {
 		function fullform_foot(){ ?>
 			<?php if($this->set['show_reset']):?>
 			<div class="optionrestore fix">
-						<?php echo OptEngine::superlink('Restore To Default', 'grey', 'reset-options', 'submit', 'onClick="return ConfirmRestore();"', plname('reset', array('setting' => $this->set['settings'])));?>
-						<div class="ortext">Use this button to restore these settings to default. &mdash; <strong>Note</strong>: Restore template and layout information in their individual tabs.</p></div>
-					<?php pl_action_confirm('ConfirmRestore', 'Are you sure? This will restore these settings to default.');?>
+				<?php echo OptEngine::superlink('Restore To Default', 'grey', 'reset-options', 'submit', 'onClick="return ConfirmRestore();"', plname('reset', array('setting' => $this->set['settings'])));?>
+				<div class="ortext">Use this button to restore these settings to default. &mdash; <strong>Note</strong>: Restore template and layout information in their individual tabs.</p></div>
+				<?php pl_action_confirm('ConfirmRestore', 'Are you sure? This will restore these settings to default.');?>
 				
 
 			</div>
@@ -170,7 +171,12 @@ class PageLinesOptionsUI {
 				
 						<?php 
 						echo OptEngine::input_hidden('the_pl_setting', 'the_pl_setting', $this->set['settings']);
-						echo OptEngine::superlink('Restore To Default', 'grey', 'reset-options', 'submit', 'onClick="return ConfirmRestore();"',  'pl_reset_settings' );
+						
+						if($this->set['reset_cb'])
+							echo OptEngine::input_hidden('reset_callback', 'reset_callback', $this->set['reset_cb']);
+							
+						echo OptEngine::superlink('Restore '.$this->set['title'].' To Default', 'grey', 'reset-options', 'submit', 'onClick="return ConfirmRestore();"',  'pl_reset_settings' );
+						
 						pl_action_confirm('ConfirmRestore', 'Are you sure? This will restore these settings to default.');
 						?>
 						<div class="ortext">Use this button to restore these settings to default.</div>

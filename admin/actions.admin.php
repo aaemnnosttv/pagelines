@@ -122,7 +122,7 @@ function pagelines_ajax_callback() {
 		
 		/* Full Template Map */
 		
-		$templatemap = get_option('pagelines_template_map');
+		$templatemap = get_option( PAGELINES_TEMPLATE_MAP );
 		
 		/* Order of the sections */
 		$section_order =  $_GET['orderdata'];

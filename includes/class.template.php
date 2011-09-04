@@ -396,14 +396,14 @@ class PageLinesTemplate {
 	function get_map(){
 		
 		// Get Section / Layout Map
-		if(get_option('pagelines_template_map') && is_array(get_option('pagelines_template_map'))){
-			$map = get_option('pagelines_template_map');
+		if(get_option( PAGELINES_TEMPLATE_MAP ) && is_array(get_option( PAGELINES_TEMPLATE_MAP ))){
+			$map = get_option( PAGELINES_TEMPLATE_MAP );
 			return $this->update_template_config($map);
 			
 		}else{
 		
 			$config = $this->update_template_config( the_template_map() );
-			update_option('pagelines_template_map', $config );
+			update_option( PAGELINES_TEMPLATE_MAP, $config );
 			return $config;
 		}
 	}
@@ -459,10 +459,14 @@ class PageLinesTemplate {
 		
 	}
 	
-
-	
+	/**
+	 * Callback for resetting the options to default
+	 */
 	function reset_templates_to_default(){
-		update_option('pagelines_template_map', the_template_map());
+		
+		update_option(PAGELINES_TEMPLATES, array());
+		update_option(PAGELINES_TEMPLATE_MAP, the_template_map());
+		
 	}
 
 	function print_template_section_headers(){
@@ -636,7 +640,7 @@ function build_pagelines_template(){
  * @since 1.0.0
  */
 function save_template_map($templatemap){	
-	update_option('pagelines_template_map', $templatemap);
+	update_option( PAGELINES_TEMPLATE_MAP, $templatemap);
 }
 
 
@@ -756,7 +760,7 @@ function the_template_map() {
 		'sections' 		=> array()
 	);
 	
-	return apply_filters('pagelines_template_map', $template_map); 
+	return apply_filters( PAGELINES_TEMPLATE_MAP, $template_map); 
 }
 
 
