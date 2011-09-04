@@ -632,7 +632,8 @@ function draw_features($f, $class, $clone_id = null) {
 			$default['post_content'] = $p['text'];
 			$default['post_type'] = 'feature';
 			$default['post_status'] = 'publish';
-
+			if ( defined( 'ICL_LANGUAGE_CODE' ) )
+				$default_post['icl_post_language'] = ICL_LANGUAGE_CODE;
 			$newPostID = wp_insert_post( $default );
 
 			update_post_meta($newPostID, 'feature-thumb', $p['thumb']);
