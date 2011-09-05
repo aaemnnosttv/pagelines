@@ -1963,14 +1963,14 @@ font-weight: bold;
 				display: block;
 				float: left;
 				text-align: center;
-				background: #ccc;
+				background: #ccc url(../images/sss-button.png) repeat-x 0 0;
 				border: 1px solid #bbb;
 				border-right: 1px solid #aaa;
 				border-bottom: 1px solid #aaa;
 				font-weight: bold;
 				color: #000;
 				font-size: .85em;
-				width: 13.205%;
+				width: 13%;
 				margin: 4px .5%;
 				overflow: hidden;
 				text-decoration: none;
@@ -1979,7 +1979,7 @@ font-weight: bold;
 					border-top: 1px solid #ddd;
 					border-left: 1px solid #ddd;
 					padding: .4em 7px;
-					height: 1.7em;
+					height: 1.8em;
 				}
 				.sub-template-selector .sss-button:hover{background: #c5c5c5;}
 				.sub-template-selector .sss-button.sss-selected{
@@ -2614,6 +2614,14 @@ font-weight: bold;
 		height: 32px;
 		margin: 0px auto;
 	}
+
+/* Consolidate Rounding */
+.sss-button, .sss-button-pad{
+	-moz-border-radius: 6px;
+	-khtml-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border-radius: 6px;
+}
 
 /* universal stuff */
 	#tabs textarea, #metatabs textarea{
