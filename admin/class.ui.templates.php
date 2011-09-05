@@ -240,23 +240,27 @@ class PageLinesTemplateBuilder {
 			<div class="sbank template_layout">
 				
 				<div class="sbank-area">
-					
 					<div class="sbank-pad">
 						<div class="bank_title">
 							<span class="btitle">Active Sections</span>
 						</div>
-						<ul id="sortable_template" class="connectedSortable ">
-						 	<?php  $this->active_bank( $template, $tfield, $template_area, $template_slug ); ?>
-						</ul>
+						<div class="sbank-wrap">
+							<div class="sbank-wrap-pad">
+							<ul id="sortable_template" class="connectedSortable ">
+							 	<?php  $this->active_bank( $template, $tfield, $template_area, $template_slug ); ?>
+							</ul>
+							</div>
+						</div>
 					</div>
 				</div>		
+				
 				<?php $this->section_setup_controls(); ?>
 			</div>
 			<div class="sbank available_sections">
 				<div class="sbank-area">
 					<div class="sbank-pad fix">
 						<div class="bank_title">Available / Disabled Sections</div>
-						<?php $this->passive_bank( $template, $tfield, $hook, $hook_info ); ?>
+						<?php $this->passive_bank( $template, $tfield, $hook, $hook_info, $template_slug ); ?>
 					</div>
 				</div>
 				<div class="clear"></div>
@@ -309,7 +313,7 @@ class PageLinesTemplateBuilder {
 		}
 	} 
 	
-	function passive_bank( $template, $t, $hook, $h ){
+	function passive_bank( $template, $t, $hook, $h, $template_slug ){
 		 
 		// Remove the sections that aren't compatible
 		$draw = array();
@@ -343,7 +347,7 @@ class PageLinesTemplateBuilder {
 		$total = count( $draw );
 		$coltotal = ( $total % 2 ) ? $total+1 : $total;
 		foreach($draw as $sid => $s){
-			
+		
 			$start_list = ( $count == 1 || ($coltotal / ($count - 1) ) == $numcol ) ? true : false;
 			$end_list = ( $count == $total || ($coltotal / ($count) ) == $numcol ) ? true : false;
 			
@@ -353,10 +357,13 @@ class PageLinesTemplateBuilder {
 			$section_args = array(
 				'id'		=> 'section_' . $sid,
 				'template'	=> $template,
+				'sid'		=> $sid,
 				'section'	=> $sid, 
 				'icon'		=> $s->settings['icon'], 
 				'name'		=> $s->name, 
 				'desc'		=> $s->settings['description'], 
+				'tslug'		=> $template_slug,
+				'tarea'		=> $hook,
 				'cloning'	=> $s->settings['cloning']
 			);
 			$this->draw_section( $section_args );
@@ -366,7 +373,6 @@ class PageLinesTemplateBuilder {
 				
 			$count++;
 		}
-		
 		
 	}
 	
@@ -432,7 +438,7 @@ class PageLinesTemplateBuilder {
 				echo '<div class="section-options">';
 			
 					
-					$checkbox = sprintf('<input class="section_control_check" type="checkbox" id="%1$s" name="%1$s" %2$s/>', $check_name, checked( $check_value, true, false));
+					$checkbox = sprintf('<input class="section_control_check sc_save_check" type="checkbox" id="%1$s" name="%1$s" %2$s/>', $check_name, checked( $check_value, true, false));
 					$label = sprintf('<label for="%s" class="%s">%s</label>', $check_name, '', 'Hide This By Default');
 					
 					printf('<div class="section-options-row">%s %s</div>', $checkbox, $label);

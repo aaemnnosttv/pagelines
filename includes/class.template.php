@@ -38,11 +38,11 @@ class PageLinesTemplate {
 		
 		// All section control settings
 		
-		$sc_set = (is_pagelines_special()) ? PAGELINES_SPECIAL : PAGELINES_SETTINGS;
+		$sc_set = (is_pagelines_special()) ? PAGELINES_SPECIAL : PAGELINES_TEMPLATES;
 		
 		$this->scontrol = ploption('section-control', array('setting' => $sc_set));
 		
-		$this->sc_default = ploption('section-control');
+		$this->sc_default = ploption('section-control', array('setting' => PAGELINES_TEMPLATES));
 		
 		$this->map = $this->get_map();
 		

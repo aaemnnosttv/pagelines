@@ -109,14 +109,10 @@
 			url: ajaxurl,
 			data: data,
 			beforeSend: function(){ 
-				jQuery('.selected_builder .confirm_save').addClass('ajax-saving');
-				jQuery('.selected_builder .confirm_save_pad').html('&nbsp;');
+				TemplateSetupStartSave();
 			},
 			success: function(response) {
-				jQuery('.selected_builder .ttitle').effect("highlight", {color: "#ddd"}, 2000); 
-				jQuery('.selected_builder .confirm_save').removeClass('ajax-saving');
-				jQuery('.selected_builder .confirm_save_pad').text('Section Order Saved!').show().delay(1500).fadeOut(700); 
-				//alert(response);
+				TemplateSetupDoneSaving( 'Section Order Saved!' );
 			}
 		});
 	}

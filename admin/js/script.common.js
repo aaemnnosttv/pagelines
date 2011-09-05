@@ -13,10 +13,41 @@
  */
 jQuery(document).ready(function(){
 	
+	
+	jQuery('.sc_save_check').click( function(){		
+		var sectionBar = jQuery(this).parents('li').find('div.section-bar').each( function() {
+			if( jQuery(this).hasClass('hidden-section') ) {
+				jQuery(this).removeClass('hidden-section');
+			} else {
+				jQuery(this).addClass('hidden-section');
+			}
+		});
+		
+		formData = jQuery("#pagelines-settings-form");
+		serializedData = jQuery(formData).serialize();
+		
+		jQuery.ajax({
+			type: 'POST',
+			url: 'options.php',
+			data: serializedData,
+			beforeSend: function(){ 
+				TemplateSetupStartSave();
+			},
+			success: function(response) {
+				TemplateSetupDoneSaving( 'Section Options Saved!' );
+			}
+		});
+		
+		return true;
+	});	
+	
 	/**
 	 * Hide Error messages after 5 seconds
 	 */
 	jQuery('#message.slideup_message').delay(5000).slideUp('fast');
+	
+	
+	
 	
 	jQuery('.graphic_selector .graphic_select_border').click(function(){
 		GraphicSelect(this);
@@ -123,54 +154,18 @@ jQuery(document).ready(function(){
 });
 // End AJAX Uploading
 
-
 /**
- * AJAX Saving Options
+ * Template Setup Function - Start Save
  */
-function PageLinesSaveSettingsAJAX( form, ajaxAction ){
-	formData = jQuery( form );
-	serializedData = jQuery(formData).serialize();
-	
-	if(jQuery("#input-full-submit").val() == 1){
-		return true;
-	} else {
-		jQuery('.ajax-saved').center( form );
-		url = 'options.php';
-		var saveText = jQuery('.ajax-saved .ajax-saved-pad .ajax-saved-icon');
-		jQuery.ajax({
-			type: 'POST',
-			url: url,
-			data: serializedData,
-			beforeSend: function(){
-				
-				jQuery('.ajax-saved').removeClass('success').show().addClass('uploading');
+function TemplateSetupStartSave(){
+	jQuery('.selected_builder .confirm_save').addClass('ajax-saving');
+	jQuery('.selected_builder .confirm_save_pad').html('&nbsp;');
+}
 
-				saveText.text('Saving'); // text while saving
-				
-				// add some dots while saving.
-				interval = window.setInterval(function(){
-					var text = saveText.text();
-					if (text.length < 10){	saveText.text(text + '.'); }
-					else { saveText.text('Saving'); } 
-				}, 400);
-				
-			},
-		  	success: function(data){
-				window.clearInterval(interval); // clear dots...
-				jQuery('.ajax-saved').removeClass('uploading').addClass('success');
-				saveText.text('Settings Saved!'); // change button text, when user selects file	
-				
-				jQuery('.ajax-saved').show().delay(800).fadeOut('slow');
-				
-				jQuery.ajax({
-					type: 'GET',
-					url: ajaxAction, 
-					data: { action: 'pagelines_ajax_create_dynamic_css' },
-				});
-			}
-		});
-		return false;
-	}
+function TemplateSetupDoneSaving( text ){
+	jQuery('.selected_builder .ttitle').effect("highlight", {color: "#ddd"}, 2000); 
+	jQuery('.selected_builder .confirm_save').removeClass('ajax-saving');
+	jQuery('.selected_builder .confirm_save_pad').text( text ).show().delay(1500).fadeOut(700);
 }
 
 

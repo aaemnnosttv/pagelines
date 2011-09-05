@@ -173,6 +173,7 @@ function pagelines_register_settings() {
 	
 	register_setting( PAGELINES_SETTINGS, PAGELINES_SETTINGS, 'pagelines_settings_callback' );
 	register_setting( PAGELINES_SPECIAL, PAGELINES_SPECIAL );
+	register_setting( PAGELINES_TEMPLATES, PAGELINES_TEMPLATES );
 	
 	 /*
 	 	Set default settings

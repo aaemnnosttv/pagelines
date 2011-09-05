@@ -10,6 +10,7 @@
 <script type="text/javascript">/*<![CDATA[*/
 jQuery(document).ready(function(){ 
 		
+
 <?php 
 
 /**
@@ -31,11 +32,10 @@ jQuery("#pagelines-settings-form").submit(function() {
 		return true;
 	} else {
 		jQuery('.ajax-saved').center('#pagelines-settings-form');
-		url = 'options.php';
 		var saveText = jQuery('.ajax-saved .ajax-saved-pad .ajax-saved-icon');
 		jQuery.ajax({
 			type: 'POST',
-			url: url,
+			url: 'options.php',
 			data: serializedData,
 			beforeSend: function(){
 				
