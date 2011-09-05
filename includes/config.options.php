@@ -24,7 +24,6 @@ class PageLinesOptionsArray {
 			$this->options['_welcome'] = $this->welcome();
 		
 		$this->options['website_setup'] = $this->website_setup();
-		$this->options['template_setup'] = $this->template_setup();
 		$this->options['layout_editor'] = $this->layout_editor();
 		$this->options['color_control'] = $this->color_control();
 		$this->options['typography'] = $this->typography();
@@ -128,39 +127,6 @@ class PageLinesOptionsArray {
 			unset($a['email_capture']);
 		
 		return apply_filters('pagelines_options_website_setup', $a);
-	}
-	
-	/**
-	 * Get Template Setup - Drag & Drop Interface
-	 *
-	 * @since 2.0.0
-	 */
-	function template_setup(){
-
-		 $a = array(
-			'icon'			=> PL_ADMIN_ICONS.'/dragdrop.png',
-			'templates'		=> array(
-				'default'	=> '',
-				'type'		=> 'templates',
-				'layout'	=> 'interface',
-				'title'		=> THEMENAME.' Template Setup',						
-				'shortexp'	=> 'Drag and drop control over your website\'s templates.<br/> Note: Select "Hidden by Default" to hide the section by default; and activate with individual page/post options.',
-				'docslink'	=> 'http://www.pagelines.com/docs/template-setup', 
-				'vidtitle'	=> 'Template Setup Overview'
-			),
-			'resettemplates' => array(
-				'default'	=> '',
-				'inputlabel'	=> __("Reset Template Section Order", 'pagelines'),
-				'type'		=> 'reset',
-				'callback'	=> 'reset_templates_to_default',
-				'title'		=> 'Reset Section Order To Default',	
-				'layout'	=> 'full',					
-				'shortexp'	=> 'Changes your template sections back to their default order and layout (options settings are not affected)',
-			)		
-		);
-		
-		return apply_filters('pagelines_options_template_setup', $a);
-		
 	}
 	
 	/**

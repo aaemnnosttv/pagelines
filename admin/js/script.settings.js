@@ -140,6 +140,7 @@ jQuery(document).ready(function(){
 		var defaultTemplate = (subTemplateCookie == null) ? 'templates-default' : subTemplateCookie;
 		var buildArea = (buildAreaCookie == null) ? 'ta-header' : buildAreaCookie;
 
+		//alert(subTemplateCookie);
 		jQuery('.sub-template-selector #'+defaultTemplate).addClass('sss-selected');
 		
 		if( buildArea == 'ta-templates' )
@@ -195,7 +196,7 @@ jQuery(document).ready(function(){
 		
 		var exp = selectedButton.split('-');
 		var stemplate = 'templates-'+exp[1];
-
+		jQuery.cookie('subTemplateCookie', stemplate);
 		doTemplatesSelect( stemplate, 'sel-templates-sub');
 	});
 	
@@ -204,6 +205,7 @@ jQuery(document).ready(function(){
 		
 		var exp = selectedButton.split('-');
 		var stemplate = 'main-'+exp[1];
+		jQuery.cookie('subTemplateCookie', stemplate);
 		doTemplatesSelect( stemplate, 'sel-content-sub');
 		
 	});
