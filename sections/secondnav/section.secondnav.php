@@ -17,7 +17,7 @@ class PageLinesSecondNav extends PageLinesSection {
 		
 		$default_settings = array(
 			'type' 			=> 'header',
-			'workswith' 	=> array('header','content'),
+			'workswith' 	=> array('header', 'content'),
 			'description' 	=> 'Allows you to select a WP menu to use as your secondary nav on individual pages and posts.',
 			'icon'			=> PL_ADMIN_ICONS . '/maps.png', 
 			'version'		=> 'pro'
@@ -47,17 +47,18 @@ class PageLinesSecondNav extends PageLinesSection {
    	function section_template() { 
 		global $post; 
 		global $pagelines_ID;
-		
+
 		$pageID = (!pagelines_non_meta_data_page()) ? $post->ID : null;
 		
 		if(!is_404()){
-			
-			if(is_home() && pagelines_option('secondnav_posts')){
-				$second_menu = pagelines_option('secondnav_posts');
-			} elseif (pagelines_option('_second_nav_menu', $pageID)){
-				$second_menu = pagelines_option('_second_nav_menu', $pageID);
+
+			if(!is_singular() && ploption('_second_nav_menu')){
+							
+				$second_menu = ploption('_second_nav_menu');
+
+			} elseif (ploption('_second_nav_menu', $pageID)){
+				$second_menu = ploption('_second_nav_menu', $pageID);
 			}
-			
 			if(isset($second_menu)){
 				wp_nav_menu( array('menu_class'  => 'secondnav_menu lcolor3', 'menu' => $second_menu, 'container' => null, 'container_class' => '', 'depth' => 1, 'fallback_cb'=>'pagelines_page_subnav') );		
 			} elseif(pagelines_option('nav_use_hierarchy', $pagelines_ID)) {
