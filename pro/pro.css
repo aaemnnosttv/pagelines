@@ -51,7 +51,7 @@
 			font-size: 1.3em;
 		}
 		#boxes .dcol-pad{ padding: 10px 0; }
-		.fboxes p { margin-bottom: 10px; }
+		.fboxes p { margin: 0; margin-bottom: 10px; }
 		.fboxes ul {
 		 	list-style-type: none;
 		 	margin-top: 5px;
