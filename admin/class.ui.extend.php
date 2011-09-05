@@ -93,7 +93,7 @@ class PageLinesExtendUI {
 		
 		$link =  $this->get_extend_buttons( $e, 'superlink');
 		
-		$dtitle = ($style == 'active') ? sprintf('<h4>Active Theme</h4>') : '';
+		$dtitle = ($style == 'active') ? __('<h4>Active Theme</h4>', 'pagelines') : '';
 			
 		
 		$out = sprintf('<div class="%s graphic_pane media fix">%s<div class="theme-screen img">%s</div><div class="theme-desc bd">%s%s%s</div></div>', $style, $dtitle, $image, $title, $text, $link);
@@ -192,9 +192,9 @@ class PageLinesExtendUI {
 	function install_button( $e ){
 		
 		
-		$install_js_call = sprintf( $this->exprint, 'section_install', $key, 'sections', $key, 'Installing');
+		$install_js_call = sprintf( $this->exprint, 'section_install', $key, 'sections', $key, __( 'Installing', 'pagelines' ) );
 
-		$button = OptEngine::superlink('Install Section', 'black', '', '', $install_js_call);
+		$button = OptEngine::superlink( __( 'Install Section', 'pagelines' ), 'black', '', '', $install_js_call);
 		
 	}
 	
@@ -210,13 +210,13 @@ class PageLinesExtendUI {
 		if($status == 'notactive'){
 			$file = '/' . trailingslashit( $name ) . $name . '.php'; 
 			$btext = 'Activate Sections';
-			$text = sprintf('Sections plugin installed, now activate it!');
-			$install_js_call = sprintf( $this->exprint, 'plugin_activate', $key, 'plugins', $file, '', 'Activating');
+			$text = sprintf( __( 'Sections plugin installed, now activate it!', 'pagelines' ) );
+			$install_js_call = sprintf( $this->exprint, 'plugin_activate', $key, 'plugins', $file, '', __( 'Activating', 'pagelines' ) );
 			
 		} elseif($status == 'notinstalled'){
-			$btext = 'Install It Now!';
-			$text = sprintf('You need to install and activate PageLines Sections Plugin');
-			$install_js_call = sprintf( $this->exprint, 'plugin_install', $key, 'plugins', 'pagelines-sections', '/pagelines-sections/pagelines-sections.php', 'Installing');
+			$btext = __( 'Install It Now!', 'pagelines' );
+			$text = __( 'You need to install and activate PageLines Sections Plugin', 'pagelines' );
+			$install_js_call = sprintf( $this->exprint, 'plugin_install', $key, 'plugins', 'pagelines-sections', '/pagelines-sections/pagelines-sections.php', __( 'Installing', 'pagelines' ) );
 		}
 			
 		$eresponse = 'response'.$key;
@@ -244,14 +244,14 @@ class PageLinesExtendUI {
 		ob_start();
 		 ?>
 		<div class="pagelines_upload_form">
-			<h4><?php _e('Install a section in .zip format') ?></h4>
-			<p class="install-help"><?php _e('If you have a section in a .zip format, you may install it by uploading it here.') ?></p>
+			<h4><?php _e( 'Install a section in .zip format', 'pagelines' ) ?></h4>
+			<p class="install-help"><?php _e( 'If you have a section in a .zip format, you may install it by uploading it here.', 'pagelines' ) ?></p>
 			<form method="post" enctype="multipart/form-data">
 				<?php wp_nonce_field( 'pagelines_extend_upload', 'upload_check' ) ?>
-				<label class="screen-reader-text" for="<?php echo $file;?>"><?php _e('Section zip file'); ?></label>
+				<label class="screen-reader-text" for="<?php echo $file;?>"><?php _e( 'Section zip file', 'pagelines' ); ?></label>
 				<input type="file" id="<?php echo $file;?>" name="<?php echo $file;?>" />
 				<input type="hidden" name="type" value="<?php echo $file;?>" />
-				<input type="submit" class="button" value="<?php esc_attr_e('Install Now') ?>" />
+				<input type="submit" class="button" value="<?php esc_attr_e('Install Now', 'pagelines' ) ?>" />
 			</form>
 		</div>
 	<?php 
@@ -261,7 +261,7 @@ class PageLinesExtendUI {
 	
 	function search_extend( $type ){
 		
-		return $this->extension_banner( 'Search functionality is currently disabled. Check back soon!' );
+		return $this->extension_banner( __( 'Search functionality is currently disabled. Check back soon!', 'pagelines' ) );
 	}
 	
 	/**
@@ -359,42 +359,42 @@ function extension_array(  ){
 			'icon'		=> PL_ADMIN_ICONS.'/dragdrop.png',
 			'htabs' 	=> array(
 				'added'	=> array(
-					'title'		=> 'Sections Added Via Extend',
+					'title'		=> __( 'Sections Added Via Extend', 'pagelines' ),
 					'callback'	=> $extension_control->extension_sections( 'user' )
 					),
 				'core'	=> array(
-					'title'		=> 'Sections From PageLines Framework',
+					'title'		=> __( 'Sections From PageLines Framework', 'pagelines' ),
 					'callback'	=> $extension_control->extension_sections( 'internal' )
 					),
 				'child'	=> array(
-					'title'		=> 'Sections From Your Child Theme',
+					'title'		=> __( 'Sections From Your Child Theme', 'pagelines' ),
 					'callback'	=> $extension_control->extension_sections( 'child' )
 					),
 				'add_sections'	=> array(
 					'type'		=> 'subtabs',
-					'title'		=> 'Extend Sections',
+					'title'		=> __( 'Extend Sections', 'pagelines' ),
 					'class'		=> 'left ht-special',
 					'featured'	=> array(
-						'title'		=> 'Featured on PageLines.com',
+						'title'		=> __( 'Featured on PageLines.com', 'pagelines' ),
 						'class'		=> 'right',
 						'callback'	=> $extension_control->extension_sections_install( 'featured' )
 						),
 					'top_premium'	=> array(
-						'title'		=> 'Premium PageLines Sections',
+						'title'		=> __( 'Premium PageLines Sections', 'pagelines' ),
 						'class'		=> 'right',
 						'callback'	=> $extension_control->extension_sections_install( 'premium' )
 						),
 					'top_free'	=> array(
-						'title'		=> 'Free PageLines Sections',
+						'title'		=> __( 'Free PageLines Sections', 'pagelines' ),
 						'class'		=> 'right',
 						'callback'	=> $extension_control->extension_sections_install( 'free' )
 						),
 					'search'		=> array(
-						'title'		=> 'Search Sections',
+						'title'		=> __( 'Search Sections', 'pagelines' ),
 						'callback'	=> $extension_control->ui->search_extend( 'section' )
 					),
 					'upload'		=> array(
-						'title'		=> 'Upload Sections',
+						'title'		=> __( 'Upload Sections', 'pagelines' ),
 						'callback'	=> $extension_control->ui->upload_form( 'section' )
 					),
 					
@@ -407,25 +407,25 @@ function extension_array(  ){
 			'htabs' 	=> array(
 				
 				'installed'	=> array(
-					'title'		=> 'Installed PageLines Themes',
+					'title'		=> __( 'Installed PageLines Themes', 'pagelines' ),
 					'callback'	=> $extension_control->extension_themes( 'installed' )
 					),
 				'add_themes'	=> array(
 					'type'		=> 'subtabs',
-					'title'		=> 'Extend Themes',
+					'title'		=> __( 'Extend Themes', 'pagelines' ),
 					'class'		=> 'left ht-special',
 					'featured'	=> array(
-						'title'		=> 'Featured PageLines Themes',
+						'title'		=> __( 'Featured PageLines Themes', 'pagelines' ),
 						'class'		=> 'right',
 						'callback'	=> $extension_control->extension_themes( 'featured' )
 						),
 					'premium'	=> array(
-						'title'		=> 'Premium PageLines Themes',
+						'title'		=> __( 'Premium PageLines Themes', 'pagelines' ),
 						'class'		=> 'right',
 						'callback'	=> $extension_control->extension_themes( 'premium' )
 						),
 					'upload'		=> array(
-						'title'		=> 'Upload A PageLines Theme',
+						'title'		=> __( 'Upload A PageLines Theme', 'pagelines' ),
 						'callback'	=> $extension_control->ui->upload_form( 'theme' )
 						),
 					)
@@ -436,27 +436,27 @@ function extension_array(  ){
 			'htabs' 	=> array(
 				
 				'installed'	=> array(
-					'title'		=> 'Installed PageLines Plugins',
+					'title'		=> __( 'Installed PageLines Plugins', 'pagelines' ),
 					'callback'	=> $extension_control->extension_plugins( 'installed' )
 					),
 				'add_plugins'	=> array(
 					'type'		=> 'subtabs',
-					'title'		=> 'Add PageLines Plugins',
+					'title'		=> __( 'Add PageLines Plugins', 'pagelines' ),
 					'class'		=> 'left ht-special',
 					'top_premium'		=> array(
-						'title'		=> 'Premium Plugins',
+						'title'		=> __( 'Premium Plugins', 'pagelines' ),
 						'callback'	=> $extension_control->extension_plugins( 'premium' )
 					),
 					'top_free'		=> array(
-						'title'		=> 'Free Plugins',
+						'title'		=> __( 'Free Plugins', 'pagelines' ),
 						'callback'	=> $extension_control->extension_plugins( 'free' )
 					),
 					'search'		=> array(
-						'title'		=> 'Search Plugins',
+						'title'		=> __( 'Search Plugins', 'pagelines' ),
 						'callback'	=> $extension_control->ui->search_extend( 'plugin' )
 					),
 					'upload'		=> array(
-						'title'		=> 'Upload Plugin',
+						'title'		=> __( 'Upload Plugin', 'pagelines' ),
 						'callback'	=> $extension_control->ui->upload_form( 'plugin' )
 					),
 				)
@@ -469,8 +469,8 @@ function extension_array(  ){
 				'default'	=> '',
 				'type'		=> 'import_export',
 				'layout'	=> 'full',
-				'title'		=> 'Import/Export PageLines Settings',						
-				'shortexp'	=> 'Use this form to upload PageLines settings from another install.',
+				'title'		=> __( 'Import/Export PageLines Settings', 'pagelines' ),						
+				'shortexp'	=> __( 'Use this form to upload PageLines settings from another install.', 'pagelines' ),
 			),
 		),
 		'Your_Account'	=> array(
@@ -478,8 +478,8 @@ function extension_array(  ){
 			'credentials' => array(
 				'version'	=> 'pro',
 				'type'		=> 'updates_setup',
-				'title'		=> 'Configure PageLines Account &amp; Auto Updates',
-				'shortexp'	=> 'Get your latest updates automatically, direct from PageLines.',
+				'title'		=> __( 'Configure PageLines Account &amp; Auto Updates', 'pagelines' ),
+				'shortexp'	=> __( 'Get your latest updates automatically, direct from PageLines.', 'pagelines' ),
 				'layout'	=> 'full',
 			),
 		)
