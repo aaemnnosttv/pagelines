@@ -283,7 +283,7 @@ function setup_section_notify( $section, $text, $url = null, $ltext = null){
 		$banner_title = sprintf('<h3 class="banner_title wicon" style="background-image: url(%s);">%s</h3>', $section->icon, $section->name);
 		
 		$url = (isset($url)) ? $url : pl_meta_set_url();
-		$link_text = (isset($ltext)) ? $ltext : __('Set Meta');
+		$link_text = (isset($ltext)) ? $ltext : __('Set Meta', 'pagelines');
 		
 		$link = sprintf('<a href="%s">%s</a>', $url, $link_text . ' &rarr;');
 		

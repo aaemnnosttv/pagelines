@@ -98,8 +98,8 @@
 					'type'		=> $s->type,
 					'file'		=> $key,
 					'path'		=> $s->class,
-					'text'		=> 'Install',
-					'dtext'		=> 'Installing'
+					'text'		=> __( 'Install', 'pagelines' ),
+					'dtext'		=> __( 'Installing', 'pagelines' )
 					)
 			);
 			
@@ -112,14 +112,14 @@
 					'image'		=> ( isset( $s->image ) ) ? $s->image : '',
 					'type'		=> 'sections',
 					'key'		=> $key, 
-					'ext_txt'	=> 'Installing', 
+					'ext_txt'	=> __( 'Installing', 'pagelines' ), 
 					'actions'	=> $actions
 			);
 			
 		}
 		
 		if(empty($list))
-			return $this->ui->extension_banner( 'Browsing '. $tab .' sections is currently disabled. <br/>Check back soon!' );
+			return $this->ui->extension_banner( sprintf ( __( 'Browsing %1$s sections is currently disabled. <br/>Check back soon!', 'pagelines' ), $tab ) );
 		else
 			return $this->ui->extension_list( $list );
  	}
@@ -154,7 +154,7 @@
  		global $load_sections;
 
 		if($tab == 'child' && !is_child_theme())
-			return $this->ui->extension_banner( 'A PageLines child theme is not currently activated' );
+			return $this->ui->extension_banner( __( 'A PageLines child theme is not currently activated', 'pagelines' ) );
 
 		// Get sections
  		$available = $load_sections->pagelines_register_sections( true, true );
@@ -204,8 +204,8 @@
 						'case'		=> 'section_activate',
 						'type'		=> $s['type'],
 						'file'		=> $s['class'],
-						'text'		=> 'Activate',
-						'dtext'		=> 'Activating',
+						'text'		=> __( 'Activate', 'pagelines' ),
+						'dtext'		=> __( 'Activating', 'pagelines' ),
 					) ,
 					'deactivate'=> array(
 						'mode'		=> 'deactivate',
@@ -213,8 +213,8 @@
 						'case'		=> 'section_deactivate',
 						'type'		=> $s['type'],
 						'file'		=> $s['class'],
-						'text'		=> 'Deactivate',
-						'dtext'		=> 'Deactivating',
+						'text'		=> __( 'Deactivate', 'pagelines' ),
+						'dtext'		=> __( 'Deactivating', 'pagelines' ),
 					),
 					'upgrade'	=> array(
 						'mode'		=> 'upgrade',
@@ -222,8 +222,8 @@
 						'case'		=> 'section_upgrade',
 						'type'		=> 'sections',
 						'file'		=> $file,
-						'text'		=> 'Upgrade',
-						'dtext'		=> 'Upgrading to version '.$upgrade_available,
+						'text'		=> __( 'Upgrade', 'pagelines' ),
+						'dtext'		=> sprintf( __( 'Upgrading to version %1$s', 'pagelines' ), $upgrade_available ),
 					),
 					'delete'	=> array(
 						'mode'		=> 'delete',
@@ -231,8 +231,8 @@
 						'case'		=> 'section_delete',
 						'type'		=> 'sections',
 						'file'		=> $file,
-						'text'		=> 'Delete',
-						'dtext'		=> 'Deleting',
+						'text'		=> __( 'Delete', 'pagelines' ),
+						'dtext'		=> __( 'Deleting', 'pagelines' ),
 						'confirm'	=> true
 					)
 					
@@ -259,7 +259,7 @@
 	
 		
 		if(empty($list))
-			return $this->ui->extension_banner( 'No '. $tab .' sections are currently available. <br/>Check back soon!' );
+			return $this->ui->extension_banner( sprintf ( __( 'No %1$s sections are currently available. <br/>Check back soon!', 'pagelines' ), $tab ) );
 		else
 			return $this->ui->extension_list( $list );
  	}
@@ -344,9 +344,9 @@
 					'case'		=> 'plugin_install',
 					'type'		=> 'plugins',
 					'file'		=> $key,
-					'text'		=> 'Install',
+					'text'		=> __( 'Install', 'pagelines' ),
 					'path'		=> $p['file'],
-					'dtext'		=> 'Installing',
+					'dtext'		=> __( 'Installing', 'pagelines' ),
 				),
 				'activate'	=> array(
 					'mode'		=> 'activate',
@@ -354,8 +354,8 @@
 					'case'		=> 'plugin_activate',
 					'type'		=> 'plugins',
 					'file'		=> $p['file'],
-					'text'		=> 'Activate',
-					'dtext'		=> 'Activating',
+					'text'		=> __( 'Activate', 'pagelines' ),
+					'dtext'		=> __( 'Activating', 'pagelines' ),
 				),
 				'upgrade'	=> array(
 					'mode'		=> 'upgrade',
@@ -363,8 +363,8 @@
 					'case'		=> 'plugin_upgrade',
 					'type'		=> 'plugins',
 					'file'		=> $key,
-					'text'		=> 'Upgrade to ' . $p['version'],
-					'dtext'		=> 'Upgrading',
+					'text'		=> sprintf( __( 'Upgrade to %1$s', 'pagelines' ), $p['version'] ),
+					'dtext'		=> __( 'Upgrading', 'pagelines' ),
 				),
 				'deactivate'	=> array(
 					'mode'		=> 'deactivate',
@@ -372,8 +372,8 @@
 					'case'		=> 'plugin_deactivate',
 					'type'		=> 'plugins',
 					'file'		=> $p['file'],
-					'text'		=> 'Deactivate',
-					'dtext'		=> 'Deactivating',
+					'text'		=> __( 'Deactivate', 'pagelines' ),
+					'dtext'		=> __( 'Deactivating', 'pagelines' ),
 				),
 				'delete'	=> array(
 					'mode'		=> 'delete',
@@ -381,8 +381,8 @@
 					'case'		=> 'plugin_delete',
 					'type'		=> 'plugins',
 					'file'		=> $p['file'],
-					'text'		=> 'Delete',
-					'dtext'		=> 'Deleting',
+					'text'		=> __( 'Delete', 'pagelines' ),
+					'dtext'		=> __( 'Deleting', 'pagelines' ),
 					'confirm'	=> true
 				)
 			);
@@ -404,9 +404,9 @@
 		}
 	
 		if(empty($list) && $tab == 'installed')
-			return $this->ui->extension_banner('No Plugins Are Installed.');
+			return $this->ui->extension_banner( __( 'No Plugins Are Installed.', 'pagelines' ) );
 		elseif(empty($list))
-			return $this->ui->extension_banner( 'Browsing '. $tab .' plugins is currently disabled. <br/>Check back soon!' );
+			return $this->ui->extension_banner( sprintf( __( 'Browsing %1$s plugins is currently disabled. <br/>Check back soon!', 'pagelines' ), $tab ) );
 		else 
 			return $this->ui->extension_list( $list );
 	}
@@ -510,8 +510,8 @@
 						'case'		=> 'theme_install',
 						'type'		=> 'themes',
 						'file'		=> $key,
-						'text'		=> 'Install',
-						'dtext'		=> 'Installing',
+						'text'		=> __( 'Install', 'pagelines' ),
+						'dtext'		=> __( 'Installing', 'pagelines' ),
 					),
 					'activate'	=> array(
 						'mode'		=> 'activate',
@@ -519,8 +519,8 @@
 						'case'		=> 'theme_activate',
 						'type'		=> 'themes',
 						'file'		=> $key,
-						'text'		=> 'Activate',
-						'dtext'		=> 'Activating',
+						'text'		=> __( 'Activate', 'pagelines' ),
+						'dtext'		=> __( 'Activating', 'pagelines' ),
 					),
 					'deactivate'	=> array(
 						'mode'		=> 'deactivate',
@@ -528,8 +528,8 @@
 						'case'		=> 'theme_deactivate',
 						'type'		=> 'themes',
 						'file'		=> $key,
-						'text'		=> 'Deactivate',
-						'dtext'		=> 'Deactivating',
+						'text'		=> __( 'Deactivate', 'pagelines' ),
+						'dtext'		=> __( 'Deactivating', 'pagelines' ),
 					),
 					'upgrade'	=> array(
 						'mode'		=> 'upgrade',
@@ -537,8 +537,8 @@
 						'case'		=> 'theme_upgrade',
 						'type'		=> 'themes',
 						'file'		=> $key,
-						'text'		=> 'Upgrade to '.$theme['version'],
-						'dtext'		=> 'Upgrading',
+						'text'		=> sprintf( __( 'Upgrade to %1$s', 'pagelines' ), $theme['version'] ),
+						'dtext'		=> __( 'Upgrading', 'pagelines' ),
 					),
 					'purchase'	=> array(
 						'mode'		=> 'purchase',
@@ -546,8 +546,8 @@
 						'case'		=> 'theme_purchase',
 						'type'		=> 'themes',
 						'file'		=> $theme['productid'],
-						'text'		=> 'Purchase',
-						'dtext'		=> 'Redirecting',
+						'text'		=> __( 'Purchase', 'pagelines' ),
+						'dtext'		=> __( 'Redirecting', 'pagelines' ),
 					),
 					'delete'	=> array(
 						'mode'		=> 'delete',
@@ -555,8 +555,8 @@
 						'case'		=> 'theme_delete',
 						'type'		=> 'themes',
 						'file'		=> $key,
-						'text'		=> 'Delete',
-						'dtext'		=> 'Deleting',
+						'text'		=> __( 'Delete', 'pagelines' ),
+						'dtext'		=> __( 'Deleting', 'pagelines' ),
 						'confirm'	=> true
 					),
 					'login'	=> array(
@@ -565,8 +565,8 @@
 						'case'		=> 'theme_login',
 						'type'		=> 'themes',
 						'file'		=> $key,
-						'text'		=> 'Login',
-						'dtext'		=> 'Redirecting',
+						'text'		=> __( 'Login', 'pagelines' ),
+						'dtext'		=> __( 'Redirecting', 'pagelines' ),
 					)
 				);
 				$list[$key] = array(
@@ -590,9 +590,9 @@
 		
 		
 		if(empty($list) && $tab == 'installed')
-			return $this->ui->extension_banner('No PageLines themes are currently installed.');
+			return $this->ui->extension_banner( __( 'No PageLines themes are currently installed.', 'pagelines' ) );
 		elseif(empty($list))
-			return $this->ui->extension_banner( 'Browsing '. $tab .' themes is currently disabled. <br/>Check back soon!' );
+			return $this->ui->extension_banner( sprintf( __( 'Browsing %1$s themes is currently disabled. <br/>Check back soon!', 'pagelines' ), $tab ) );
 		else
 			return $this->ui->extension_list( $list, 'graphic' );
 			
@@ -672,7 +672,7 @@
 				
 				@$upgrader->install( $destination );
 				activate_plugin( $path );
-				echo ( !$uploader ) ? 'Plugin installed.' : '';
+				echo ( !$uploader ) ? __( 'Plugin installed.', 'pagelines' ) : '';
 				$text = ( $uploader ) ? '&extend_upload=plugin' : '';
 				$this->page_reload( 'pagelines_extend' . $text );
 			break;	
@@ -680,7 +680,7 @@
 			case 'plugin_activate':
 
 			 	activate_plugin( $file );
-			 	echo 'Activation complete! ';
+			 	_e( 'Activation complete!', 'pagelines' );
 			 	$this->page_reload( 'pagelines_extend' );
 			break;
 					
@@ -688,7 +688,7 @@
 
 				deactivate_plugins( array( $file ) );
 				// Output
-		 		echo 'Deactivation complete! ';
+		 		_e( 'Deactivation complete!', 'pagelines' );
 		 		$this->page_reload( 'pagelines_extend' );			
 			break;
 			
@@ -698,7 +698,7 @@
 				unset( $available[$type][$file] );
 				update_option( 'pagelines_sections_disabled', $available );
 				// Output
-				echo 'Section Activated!';
+				_e( 'Section Activated!', 'pagelines' );
 				$this->page_reload( 'pagelines_extend' );	
 			break;
 			
@@ -708,7 +708,7 @@
 				$disabled[$type][$file] = true; 
 				update_option( 'pagelines_sections_disabled', $disabled );
 				// Output
-				echo 'Section Deactivated.';
+				_e( 'Section Deactivated.', 'pagelines' );
 				$this->page_reload( 'pagelines_extend' );		
 			break;
 			
@@ -728,7 +728,7 @@
 				$available = get_option( 'pagelines_sections_disabled' );
 				unset( $available['child'][$path] );
 				update_option( 'pagelines_sections_disabled', $available );
-				echo ( !$uploader ) ? 'Section installed.' : '';
+				echo ( !$uploader ) ? __( 'Section installed.', 'pagelines' ) : '';
 				$text = ( $uploader ) ? '&extend_upload=section' : '';
 				$this->page_reload( 'pagelines_extend' . $text );
 			break;
@@ -747,7 +747,7 @@
 
 				@$upgrader->run($options);
 				// Output
-				echo 'Success! Section Upgraded.';
+				_e( 'Success! Section Upgraded.', 'pagelines' );
 				$this->page_reload( 'pagelines_extend' );	
 			break;
 			
@@ -772,14 +772,14 @@
 
 				@$upgrader->run($options);
 				// Output
-				echo 'Upgraded';
+				_e( 'Upgraded', 'pagelines' );
 				$this->page_reload( 'pagelines_extend' );		
 			break;
 			
 			case 'plugin_delete':
 
 				delete_plugins( array( ltrim( $file, '/' ) ) );
-				echo 'Deleted';
+				_e( 'Deleted', 'pagelines' );
 				$this->page_reload( 'pagelines_extend' );
 			break;
 			
@@ -797,7 +797,7 @@
 
 				@$upgrader->run($options);
 				// Output
-				echo 'Upgraded';
+				_e( 'Upgraded', 'pagelines' );
 				$this->page_reload( 'pagelines_extend' );		
 			break;			
 			
@@ -814,14 +814,14 @@
 				);
 				@$upgrader->run($options);
 				// Output
-				echo 'Installed';
+				_e( 'Installed', 'pagelines' );
 				$this->page_reload( 'pagelines_extend#installed' );		
 			break;			
 			
 			case 'theme_delete':
 				
 				extend_delete_directory( PL_EXTEND_THEMES_DIR . $file );
-				echo 'Deleted';
+				_e( 'Deleted', 'pagelines' );
 				$this->page_reload( 'pagelines_extend' );
 			
 			break;
@@ -830,7 +830,7 @@
 
 				switch_theme( basename( get_template_directory() ), $file );
 				// Output
-				echo 'Activated';
+				_e( 'Activated', 'pagelines' );
 				$this->page_reload( 'pagelines' );	
 			break;
 
@@ -838,19 +838,19 @@
 			
 				switch_theme( basename( get_template_directory() ), basename( get_template_directory() ) );
 				// Output
-				echo 'Deactivated';
+				_e( 'Deactivated', 'pagelines' );
 				$this->page_reload( 'pagelines_extend' );
 			break;
 			
 			case 'theme_purchase':
 			
-				echo 'Transferring to PageLines.com';
+				_e( 'Transferring to PageLines.com', 'pagelines' );
 				$this->page_reload( 'pagelines_extend', $file );
 			
 			break;
 			
 			case 'theme_login':
-				echo 'Moving to account page..';
+				_e( 'Moving to account page..', 'pagelines' );
 				$this->page_reload( 'pagelines_extend#Your_Account' );
 			break;
 		}
@@ -881,17 +881,17 @@
 			
 			case 'plugin_install':
 				if ( ! is_writable( WP_PLUGIN_DIR ) )
-					$error = 'Plugins DIR is not writable by WordPress we cannot install any plugins!';
+					$error = __( 'Plugins DIR is not writable by WordPress we cannot install any plugins!', 'pagelines' );
 			break;
 			
 			case 'section_install':
 				if ( ! is_writable( PL_EXTEND_DIR ) )
-					$error = 'The sections DIR is not writable by WordPress we cannot install sections!';
+					$error = __( 'The sections DIR is not writable by WordPress we cannot install sections!', 'pagelines' );
 			break;
 			
 			case 'theme_install':
 				if ( ! is_writable( PL_EXTEND_THEMES_DIR ) )
-					$error = 'The themes DIR is not writable by WordPress we cannot install themes!';
+					$error = __( 'The themes DIR is not writable by WordPress we cannot install themes!', 'pagelines' );
 			break;
 		}
 		if (isset($error)) {
@@ -933,7 +933,7 @@
 			set_transient( 'pagelines_sections_api_' . $type, $api, 300 );			
 		}
 		if( is_wp_error( $api ) )
-			return '<h2>Unable to fetch from API</h2>';
+			return __( '<h2>Unable to fetch from API</h2>', 'pagelines' );
 
 		return json_decode( $api );
 	}

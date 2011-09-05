@@ -112,7 +112,7 @@ class PageLinesHighlight extends PageLinesSection {
 		</div>
 	<?php 
 		} else
-			echo setup_section_notify($this, __('Set highlight meta fields to activate.') );
+			echo setup_section_notify($this, __('Set highlight meta fields to activate.', 'pagelines') );
  
 	}
 
