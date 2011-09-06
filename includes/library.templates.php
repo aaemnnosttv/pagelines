@@ -127,7 +127,7 @@ function pagelines_head_common(){
 
 	// Removes viewport scaling on Phones, Tablets, etc.
 	if(!apply_filters( 'viewport_width', '' ))
-		echo '<meta name="viewport" content="width=device-width; initial-scale=1.0">';
+		echo '<meta name="viewport" content="width=device-width; initial-scale=1.0" />';
 	
 	// bbPress Header... doesn't support hooks, or they need to be reloaded.
 //	if( pagelines_bbpress_forum() ){ 			
