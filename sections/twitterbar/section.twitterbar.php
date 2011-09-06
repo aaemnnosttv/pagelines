@@ -42,9 +42,9 @@ class PageLinesTwitterBar extends PageLinesSection {
 		echo '<span class="twitter">"';	
 			pagelines_register_hook( 'pagelines_before_twitterbar_text', $this->id ); // Hook			
 			
-		echo pagelines_get_tweets( pagelines('twittername'), true );	
+		echo make_clickable( pagelines_get_tweets( pagelines('twittername'), true ) );	
 		// close the tweet and div.
-		echo '&mdash;&nbsp;<a class="twitteraccount" href="http://twitter.com/#!/' . pagelines('twittername') . '">' . pagelines('twittername') . '</a></span></div>';
+		echo '&nbsp;&mdash;&nbsp;<a class="twitteraccount" href="http://twitter.com/#!/' . pagelines('twittername') . '">' . pagelines('twittername') . '</a></span></div>';
 		}
 }
 /*
