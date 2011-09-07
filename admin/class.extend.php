@@ -545,7 +545,7 @@
 						'condition'	=> $purchase,
 						'case'		=> 'theme_purchase',
 						'type'		=> 'themes',
-						'file'		=> $theme['productid'],
+						'file'		=> ( isset( $theme['productid'] ) ) ? $theme['productid'] : '',
 						'text'		=> __( 'Purchase', 'pagelines' ),
 						'dtext'		=> __( 'Redirecting', 'pagelines' ),
 					),
