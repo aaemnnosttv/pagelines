@@ -64,3 +64,17 @@ function base_check_templates() {
 	}
 }
 
+function pagelines_try_api( $url, $options ) {
+		
+	$prot = array( 'https://', 'http://' );
+		
+	foreach( $prot as $type ) {
+			
+		$r = wp_remote_post( $type . $url, $options );
+			if ( !is_wp_error($r) && is_array( $r ) ) {
+				if ( $type === 'https://' && !defined( 'PL_SSL' ) )
+					define( 'PL_SSL', true );
+				return $r;				
+			}
+	}
+}

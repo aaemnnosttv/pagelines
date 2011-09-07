@@ -921,6 +921,7 @@
 		$url = trailingslashit( PL_API . $type );
 		$options = array(
 			'sslverify'	=>	false,
+			'timeout'	=>	5,
 			'body' => array(
 				'username'	=>	( $this->username != '' ) ? $this->username : false,
 				'password'	=>	( $this->password != '' ) ? $this->password : false
@@ -928,7 +929,7 @@
 		);
 		
 		if ( false === ( $api = get_transient( 'pagelines_sections_api_' . $type ) ) ) {
-			$response = wp_remote_post( $url, $options );
+			$response = pagelines_try_api( $url, $options );
 			$api = wp_remote_retrieve_body( $response );
 			set_transient( 'pagelines_sections_api_' . $type, $api, 300 );			
 		}
@@ -937,5 +938,7 @@
 
 		return json_decode( $api );
 	}
+	
+
 
  } // end PagelinesExtensions class

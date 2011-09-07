@@ -105,6 +105,7 @@ class PageLinesUpdateCheck {
 			$url = $this->url_theme;
 			$options = array(
 					'sslverify'	=>	false,
+					'timeout'	=>	5,
 					'body' => array(
 						'version' => $this->version,
 						'wp_version' => $wp_version,
@@ -117,7 +118,7 @@ class PageLinesUpdateCheck {
 					)
 			);
 
-			$response = wp_remote_post($url, $options);
+			$response = pagelines_try_api($url, $options);
 			$pagelines_update = wp_remote_retrieve_body($response);
 
 			// If an error occurred, return FALSE, store for 1 hour
