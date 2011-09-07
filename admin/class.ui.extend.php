@@ -83,7 +83,7 @@ class PageLinesExtendUI {
 	
 		$e = wp_parse_args( $e, $this->defaultpane);
 		
-		$image = ( $e['actions']['install']['condition'] || $e['actions']['login']['condition']|| $e['actions']['purchase']['condition']) ? sprintf( 'http://api.pagelines.com/themes/img/%s.png', $e['key'] ) : get_theme_root_uri() .'/'. $e['key'] . '/screenshot.png';
+		$image = ( $e['actions']['install']['condition'] || $e['actions']['login']['condition']|| $e['actions']['purchase']['condition']) ? sprintf( 'http://www.pagelines.com/api/themes/img/%s.png', $e['key'] ) : get_theme_root_uri() .'/'. $e['key'] . '/screenshot.png';
 		
 		$image = sprintf( '<img class="" src="%s" alt="Screenshot" />', $image );
 		
