@@ -418,16 +418,21 @@
 		$get_themes = get_themes();
 
 		foreach( $get_themes as $theme => $theme_data ) {
+			
+
 		
 			if ( $theme_data['Template'] != 'pagelines' )
 				continue;
 			if ( 'pagelines' == $theme_data['Stylesheet'] )
 				continue;
+			
+			// check for an update...	
+			if ( isset( $themes[ $theme_data['Stylesheet'] ]['version'] ) && $themes[ $theme_data['Stylesheet'] ]['version'] > $theme_data['Version']) 			
+				$up = $themes[ $theme_data['Stylesheet'] ]['version'];
+				
 			if ( in_array( $theme, $themes ) )
 				continue;
-//			if ( CHILDTHEMENAME === $theme_data['Stylesheet'])
-//				continue;
-			
+
 			// If we got this far, theme is a pagelines child theme not handled by the API
 			// So we need to inject it into our themes array.
 			
@@ -435,7 +440,7 @@
 			$new_theme['name'] =		$theme_data['Name'];
 			$new_theme['author'] =		$theme_data['Author Name'];
 			$new_theme['author_url'] =	$theme_data['Author URI'];
-			$new_theme['version'] =		$theme_data['Version'];
+			$new_theme['version'] =		( isset( $up ) ) ? $up : $theme_data['Version'];
 			$new_theme['text'] =		$theme_data['Description'];
 			$new_theme['tags'] =		$theme_data['Tags'];
 			$new_theme['productid'] = 	null;
