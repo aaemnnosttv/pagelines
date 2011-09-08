@@ -72,8 +72,6 @@ function pagelines_try_api( $url, $options ) {
 			
 		$r = wp_remote_post( $type . $url, $options );
 			if ( !is_wp_error($r) && is_array( $r ) ) {
-				if ( $type === 'https://' && !defined( 'PL_SSL' ) )
-					define( 'PL_SSL', true );
 				return $r;				
 			}
 	}

@@ -935,7 +935,7 @@ class OptEngine {
 	function updates_setup($oid, $o){
 		
 		if ( is_array( $a = get_transient('pagelines-update-' . THEMENAME ) ) && isset($a['package']) && $a['package'] !== 'bad' )
-			$updates_exp = sprintf( 'Successfully logged in to PageLines%1$s.', ( defined('PL_SSL') ) ? ' Using SSL' : ' Could not use SSL' );
+			$updates_exp = sprintf( 'Successfully logged in to PageLines%1$s.', ( $a['ssl'] ) ? ' using SSL' : '' );
 		else	
 			if ( isset( $a ) && isset( $a['api_error'] ) ) 
 				$updates_exp = sprintf( 'ERROR: %1$s<br />There was a problem logging in to PageLines.', $a['api_error'] );
