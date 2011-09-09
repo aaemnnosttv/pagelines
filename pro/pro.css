@@ -24,12 +24,6 @@
 		#highlight .content-pad .highlight-area{padding: 50px 15px 60px;}
 		#highlight .copy-pad .highlight-area{padding: 20px 15px;}
 
-		#highlight .highlight-head{
-			/*  */
-			
-		
-			letter-spacing: -.03em;
-		}
 		#highlight .content .highlight-subhead, #highlight .copy-pad .highlight-subhead{
 			font-size: .85em;
 		}
