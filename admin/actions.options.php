@@ -258,8 +258,41 @@ function pagelines_admin_confirms(){
 	}
 	if ( isset( $_GET['plinfo'] ) )
 		$confirms[]['text'] = "Launchpad settings saved.";
+		
 	if ( isset( $_GET['extend_upload'] ) )
 		$confirms[]['text'] = 'Successfully uploaded your ' . $_GET['extend_upload'];
+		
+	if ( isset( $_GET['extend_text'] ) )
+		switch( $_GET['extend_text'] ) {
+			
+			case 'section_delete':
+				$confirms[]['text'] = 'Section was deleted.';
+			break;
+			
+			case 'section_install':
+				$confirms[]['text'] = 'Section was installed.';
+			break;
+			
+			case 'plugin_install':
+				$confirms[]['text'] = 'Plugin was installed.';
+			break;
+			
+			case 'plugin_delete':
+				$confirms[]['text'] = 'Plugin was deleted.';
+			break;
+			
+			case 'theme_install':
+				$confirms[]['text'] = 'Theme installed.';
+			break;
+			
+			case 'theme_delete';
+				$confirms[]['text'] = 'Theme deleted.';
+			break;
+			
+		}
+		
+		
+		
 	return apply_filters('pagelines_admin_confirms', $confirms);
 	
  }

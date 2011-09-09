@@ -26,6 +26,7 @@
 		add_action( 'admin_init', array(&$this, 'extension_uploader' ) );
 		add_action( 'admin_init', array(&$this, 'update_lpinfo' ) );
 		add_action( 'admin_init', array(&$this, 'launchpad_returns' ) );
+		add_action( 'admin_init', array(&$this, 'check_creds' ) );
  	}
 
 	function update_lpinfo() {
@@ -643,17 +644,31 @@
 		
 		}	
 	}
+	
+	function check_creds( $extend = null, $context = WP_PLUGIN_DIR) {
+
+		if ( isset( $_GET['creds'] ) && $_POST && WP_Filesystem($_POST) )
+			$this->extend_it_callback( false, true );
+			
+		if ( !$extend )
+			return;			
+
+		if (false === ($creds = @request_filesystem_credentials(admin_url( 'admin.php?page=pagelines_extend&creds=yes'), $type = "", $error = false, $context, $extra_fields = array( 'extend_mode', 'extend_type', 'extend_file', 'extend_path')) ) ) {
+			exit; 
+		}	
+	}
+	
 	/**
 	 * 
 	 * Extension AJAX callbacks
 	 * 
 	 */
-	function extend_it_callback( $uploader = false ) {
+	function extend_it_callback( $uploader = false, $checked = null) {
 
 		/*
 			TODO reload callbacks just go to the panel, need tab as well
 		*/	
-		
+
 		// 1. Libraries
 			include_once( ABSPATH . 'wp-admin/includes/class-wp-upgrader.php' );
 			include( PL_ADMIN . '/library.extension.php' );
@@ -663,23 +678,24 @@
 			$type =  $_POST['extend_type'];
 			$file =  $_POST['extend_file'];
 			$path =  $_POST['extend_path'];
-
-			$this->do_sanity( $mode );		
+			
 		// 3. Do our thing...
 
 		switch ( $mode ) {
 			
 			case 'plugin_install':
 
+				if ( !$checked )
+					$this->check_creds( 'extend', WP_PLUGIN_DIR );		
+				global $wp_filesystem;
 				$skin = new PageLines_Upgrader_Skin();
 				$upgrader = new Plugin_Upgrader($skin);
 				$destination = ( ! $uploader ) ? $this->make_url( $type, $file ) : $file;
 				
 				@$upgrader->install( $destination );
 				activate_plugin( $path );
-				echo ( !$uploader ) ? __( 'Plugin installed.', 'pagelines' ) : '';
-				$text = ( $uploader ) ? '&extend_upload=plugin' : '';
-				$this->page_reload( 'pagelines_extend' . $text );
+				$text = '&extend_text=plugin_install';
+				$this->page_reload( 'pagelines_extend' . $text, null, 0);
 			break;	
 
 			case 'plugin_activate':
@@ -719,26 +735,32 @@
 			
 			case 'section_install':
 
+				if ( !$checked ) {
+					$this->check_creds( 'extend', PL_EXTEND_DIR );		
+				}
+				
 				$skin = new PageLines_Upgrader_Skin();
 				$upgrader = new Plugin_Upgrader($skin);
-				$options = array( 'package' => ( ! $uploader) ? $this->make_url( 'sections', $file ) : $file, 
-						'destination'		=> ( ! $uploader) ? trailingslashit( PL_EXTEND_DIR ) . $file : trailingslashit( PL_EXTEND_DIR ) . $path, 
-						'clear_destination' => false,
-						'clear_working'		=> false,
-						'is_multi'			=> false,
-						'hook_extra'		=> array() 
-				);
-				@$upgrader->run($options);
+				
+				$r = $upgrader->install( $this->make_url( 'sections', $file ) );
 				// Output
+				
+				global $wp_filesystem;
+				$wp_filesystem->move( trailingslashit( WP_PLUGIN_DIR ) . $file, trailingslashit( PL_EXTEND_DIR ) . $file );
+
 				$available = get_option( 'pagelines_sections_disabled' );
 				unset( $available['child'][$path] );
 				update_option( 'pagelines_sections_disabled', $available );
-				echo ( !$uploader ) ? __( 'Section installed.', 'pagelines' ) : '';
-				$text = ( $uploader ) ? '&extend_upload=section' : '';
-				$this->page_reload( 'pagelines_extend' . $text );
+				echo ( !$uploader && !$checked ) ? __( 'Section installed.', 'pagelines' ) : '';
+				$text = '&extend_text=section_install';
+				$this->page_reload( 'pagelines_extend' . $text, null, 0);
 			break;
 			
 			case 'section_upgrade':
+			
+				if ( !$checked )
+					$this->check_creds( 'extend' );		
+				global $wp_filesystem;
 
 				$skin = new PageLines_Upgrader_Skin();
 				$upgrader = new Plugin_Upgrader($skin);
@@ -757,14 +779,26 @@
 			break;
 			
 			case 'section_delete':
-			
-			extend_delete_directory(trailingslashit( PL_EXTEND_DIR ) . $file);
-			echo 'Section Deleted.';
-			$this->page_reload( 'pagelines_extend' );	
+			if ( !$checked ) {
+				$this->check_creds( 'extend', PL_EXTEND_DIR );		
+			}
+			global $wp_filesystem;
+			if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) )
+				$wp_filesystem->delete( trailingslashit( PL_EXTEND_DIR ) . $file, true, false  );
+			else
+				extend_delete_directory( trailingslashit( PL_EXTEND_DIR ) . $file );
+				
+			$text = '&extend_text=section_delete';
+			$this->page_reload( 'pagelines_extend' . $text, null, 0);
+	
 			break;
 			
 			case 'plugin_upgrade':
 
+				if ( !$checked )
+					$this->check_creds( 'extend' );		
+				global $wp_filesystem;
+				
 				$skin = new PageLines_Upgrader_Skin();
 				$upgrader = new Plugin_Upgrader($skin);
 				$options = array( 'package' => $this->make_url( $type, $file ), 
@@ -783,13 +817,20 @@
 			
 			case 'plugin_delete':
 
+				if ( !$checked )
+					$this->check_creds( 'extend', WP_PLUGIN_DIR );		
+				global $wp_filesystem;
 				delete_plugins( array( ltrim( $file, '/' ) ) );
-				_e( 'Deleted', 'pagelines' );
-				$this->page_reload( 'pagelines_extend' );
+				$text = '&extend_text=plugin_delete';
+				$this->page_reload( 'pagelines_extend' . $text, null, 0);
 			break;
 			
 			case 'theme_upgrade':
 
+				if ( !$checked )
+					$this->check_creds( 'extend' );		
+				global $wp_filesystem;
+				
 				$skin = new PageLines_Upgrader_Skin();
 				$upgrader = new Plugin_Upgrader($skin);
 				$options = array( 'package' => $this->make_url( $type, $file ), 
@@ -808,26 +849,35 @@
 			
 			case 'theme_install':
 
+
+				if ( !$checked ) {
+					$this->check_creds( 'extend', PL_EXTEND_THEMES_DIR );
+				}	
+				
+				
 				$skin = new PageLines_Upgrader_Skin();
-				$upgrader = new Plugin_Upgrader($skin);
-				$options = array( 'package' => $this->make_url( $type, $file ), 
-						'destination'		=> PL_EXTEND_THEMES_DIR . $file, 
-						'clear_destination' => true,
-						'clear_working'		=> false,
-						'is_multi'			=> false,
-						'hook_extra'		=> array() 
-				);
-				@$upgrader->run($options);
+				$upgrader = new Theme_Upgrader($skin);
+
+				$upgrader->install( $this->make_url( $type, $file ) );
+
 				// Output
-				_e( 'Installed', 'pagelines' );
-				$this->page_reload( 'pagelines_extend#installed' );		
+				$text = '&extend_text=theme_install';
+				$this->page_reload( 'pagelines_extend' . $text, null, 0);	
 			break;			
 			
 			case 'theme_delete':
-				
-				extend_delete_directory( PL_EXTEND_THEMES_DIR . $file );
-				_e( 'Deleted', 'pagelines' );
-				$this->page_reload( 'pagelines_extend' );
+	
+				if ( !$checked ) {
+					$this->check_creds( 'extend', PL_EXTEND_THEMES_DIR );		
+				}
+				global $wp_filesystem;
+				if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) )
+					$wp_filesystem->delete( trailingslashit( PL_EXTEND_THEMES_DIR ) . $file, true, false  );
+				else
+					extend_delete_directory( trailingslashit( PL_EXTEND_THEMES_DIR ) . $file );
+	
+				$text = '&extend_text=theme_delete';
+				$this->page_reload( 'pagelines_extend' . $text, null, 0);
 			
 			break;
 			
@@ -864,7 +914,7 @@
 	
 	function make_url( $type, $file ) {
 		
-		return sprintf('%s/%s/download.php?d=%s.zip', PL_API_FETCH, $type, $file);
+		return sprintf('%s%s/download.php?d=%s.zip', PL_API_FETCH, $type, $file);
 		
 	}
 	
@@ -872,38 +922,13 @@
 	 * Reload the page
 	 * Helper function
 	 */
- 	function page_reload( $location, $product = null ) {
+ 	function page_reload( $location, $product = null, $time = 700 ) {
 	
 		$r = rand( 1,100 );
 		$admin = admin_url( sprintf( 'admin.php?r=%1$s&page=%2$s', $r, $location ) );
 		$location = ( $product ) ? sprintf( '%1$s?price_group=-%2$s&redir=%3$s', PL_LAUNCHPAD_FRAME, $product, $admin ): $admin;
-		printf('<script type="text/javascript">setTimeout(function(){ window.location.href = \'%s\';}, 700);</script>', $location );
+		printf('<script type="text/javascript">setTimeout(function(){ window.location.href = \'%s\';}, %s);</script>', $location, $time );
  	}
-
-	function do_sanity( $mode ) {
-
-		switch( $mode ) {
-			
-			case 'plugin_install':
-				if ( ! is_writable( WP_PLUGIN_DIR ) )
-					$error = __( 'Plugins DIR is not writable by WordPress we cannot install any plugins!', 'pagelines' );
-			break;
-			
-			case 'section_install':
-				if ( ! is_writable( PL_EXTEND_DIR ) )
-					$error = __( 'The sections DIR is not writable by WordPress we cannot install sections!', 'pagelines' );
-			break;
-			
-			case 'theme_install':
-				if ( ! is_writable( PL_EXTEND_THEMES_DIR ) )
-					$error = __( 'The themes DIR is not writable by WordPress we cannot install themes!', 'pagelines' );
-			break;
-		}
-		if (isset($error)) {
-			$this->page_reload( 'pagelines_extend' . '&extend_error=' . $error );
-			exit;
-		}
-	}
 
 	function plugin_check_status( $file ) {
 		
