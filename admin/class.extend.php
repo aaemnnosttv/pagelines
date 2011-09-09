@@ -364,6 +364,7 @@
 					'case'		=> 'plugin_upgrade',
 					'type'		=> 'plugins',
 					'file'		=> $key,
+					'path'		=> $p['file'],
 					'text'		=> sprintf( __( 'Upgrade to %1$s', 'pagelines' ), $p['version'] ),
 					'dtext'		=> __( 'Upgrading', 'pagelines' ),
 				),
@@ -696,8 +697,44 @@
 				activate_plugin( $path );
 				$text = '&extend_text=plugin_install';
 				$this->page_reload( 'pagelines_extend' . $text, null, 0);
-			break;	
+			break;
+			
+			case 'plugin_upgrade':
 
+				if ( !$checked )
+					$this->check_creds( 'extend' );		
+				global $wp_filesystem;
+				
+				$skin = new PageLines_Upgrader_Skin();
+				$upgrader = new Plugin_Upgrader($skin);
+				$options = array( 'package' => $this->make_url( $type, $file ), 
+						'destination'		=> trailingslashit( WP_PLUGIN_DIR ) . $file, 
+						'clear_destination' => true,
+						'clear_working'		=> false,
+						'is_multi'			=> false,
+						'hook_extra'		=> array() 
+				);
+				deactivate_plugins( array( $path ) );
+				
+				if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) )
+					$wp_filesystem->delete( trailingslashit( WP_PLUGIN_DIR ) . $file, true, false  );
+				else
+					extend_delete_directory( trailingslashit( WP_PLUGIN_DIR ) . $file );
+				$upgrader->install( $this->make_url( $type, $file ) );
+				// Output
+				$text = '&extend_text=plugin_upgrade';
+				$this->page_reload( 'pagelines_extend' . $text, null, 0);		
+			break;
+			
+			case 'plugin_delete':
+
+				if ( !$checked )
+					$this->check_creds( 'extend', WP_PLUGIN_DIR );		
+				global $wp_filesystem;
+				delete_plugins( array( ltrim( $file, '/' ) ) );
+				$text = '&extend_text=plugin_delete';
+				$this->page_reload( 'pagelines_extend' . $text, null, 0);
+			break;
 			case 'plugin_activate':
 
 			 	activate_plugin( $file );
@@ -807,37 +844,7 @@
 	
 			break;
 			
-			case 'plugin_upgrade':
 
-				if ( !$checked )
-					$this->check_creds( 'extend' );		
-				global $wp_filesystem;
-				
-				$skin = new PageLines_Upgrader_Skin();
-				$upgrader = new Plugin_Upgrader($skin);
-				$options = array( 'package' => $this->make_url( $type, $file ), 
-						'destination'		=> trailingslashit( WP_PLUGIN_DIR ) . $file, 
-						'clear_destination' => true,
-						'clear_working'		=> false,
-						'is_multi'			=> false,
-						'hook_extra'		=> array() 
-				);
-
-				@$upgrader->run($options);
-				// Output
-				_e( 'Upgraded', 'pagelines' );
-				$this->page_reload( 'pagelines_extend' );		
-			break;
-			
-			case 'plugin_delete':
-
-				if ( !$checked )
-					$this->check_creds( 'extend', WP_PLUGIN_DIR );		
-				global $wp_filesystem;
-				delete_plugins( array( ltrim( $file, '/' ) ) );
-				$text = '&extend_text=plugin_delete';
-				$this->page_reload( 'pagelines_extend' . $text, null, 0);
-			break;
 			
 			case 'theme_upgrade':
 

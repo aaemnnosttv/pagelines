@@ -281,6 +281,10 @@ function pagelines_admin_confirms(){
 				$confirms[]['text'] = 'Plugin was deleted.';
 			break;
 			
+			case 'plugin_upgrade':
+				$confirms[]['text'] = 'Plugin was upgraded.';
+			break;
+			
 			case 'theme_install':
 				$confirms[]['text'] = 'Theme installed.';
 			break;
