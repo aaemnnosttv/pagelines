@@ -738,15 +738,29 @@
 				if ( !$checked ) {
 					$this->check_creds( 'extend', PL_EXTEND_DIR );		
 				}
+				global $wp_filesystem;
 				
 				$skin = new PageLines_Upgrader_Skin();
 				$upgrader = new Plugin_Upgrader($skin);
-				
-				$r = $upgrader->install( $this->make_url( 'sections', $file ) );
-				// Output
-				
 				global $wp_filesystem;
-				$wp_filesystem->move( trailingslashit( WP_PLUGIN_DIR ) . $file, trailingslashit( PL_EXTEND_DIR ) . $file );
+				if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) ) {
+					$r = $upgrader->install( $this->make_url( 'sections', $file ) );			
+					$wp_filesystem->move( trailingslashit( WP_PLUGIN_DIR ) . $file, trailingslashit( PL_EXTEND_DIR ) . $file );				
+				} else {
+					
+					$options = array( 'package' => ( ! $uploader) ? $this->make_url( 'sections', $file ) : $file, 
+							'destination'		=> ( ! $uploader) ? trailingslashit( PL_EXTEND_DIR ) . $file : trailingslashit( PL_EXTEND_DIR ) . $path, 
+							'clear_destination' => false,
+							'clear_working'		=> false,
+							'is_multi'			=> false,
+							'hook_extra'		=> array() 
+					);
+					@$upgrader->run($options);
+					
+				}
+					
+				
+
 
 				$available = get_option( 'pagelines_sections_disabled' );
 				unset( $available['child'][$path] );
