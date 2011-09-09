@@ -273,6 +273,10 @@ function pagelines_admin_confirms(){
 				$confirms[]['text'] = 'Section was installed.';
 			break;
 			
+			case 'section_upgrade':
+				$confirms[]['text'] = 'Section was upgraded.';
+			break;
+			
 			case 'plugin_install':
 				$confirms[]['text'] = 'Plugin was installed.';
 			break;

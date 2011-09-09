@@ -195,8 +195,7 @@
 				$enabled = ( $s['status'] == 'enabled' ) ? true : false;
 
 				$file = basename( $s['base_dir'] );
-
-				$upgrade_available = $this->upgrade_available( $upgradable, 'section.' . $file, $s);
+				$upgrade_available = $this->upgrade_available( $upgradable, $file, $s);
 				$delete = ( !$enabled && ( $tab !== 'child' && $tab !== 'internal' ) ) ? true : false;
 				$actions = array(
 					'activate'	=> array(
@@ -223,7 +222,7 @@
 						'case'		=> 'section_upgrade',
 						'type'		=> 'sections',
 						'file'		=> $file,
-						'text'		=> __( 'Upgrade', 'pagelines' ),
+						'text'		=> sprintf(__( 'Upgrade to %s', 'pagelines' ), $upgrade_available ),
 						'dtext'		=> sprintf( __( 'Upgrading to version %1$s', 'pagelines' ), $upgrade_available ),
 					),
 					'delete'	=> array(
@@ -237,8 +236,7 @@
 						'confirm'	=> true
 					)
 					
-				);
-				
+				);				
 				$list[] = array(
 						'name' 		=> $s['name'], 
 						'version'	=> !empty( $s['version'] ) ? $s['version'] : CORE_VERSION, 
@@ -772,9 +770,8 @@
 			
 			case 'section_install':
 
-				if ( !$checked ) {
+				if ( !$checked )
 					$this->check_creds( 'extend', PL_EXTEND_DIR );		
-				}
 				global $wp_filesystem;
 				
 				$skin = new PageLines_Upgrader_Skin();
@@ -792,8 +789,7 @@
 							'is_multi'			=> false,
 							'hook_extra'		=> array() 
 					);
-					@$upgrader->run($options);
-					
+					@$upgrader->run($options);		
 				}
 				$available = get_option( 'pagelines_sections_disabled' );
 				unset( $available['child'][$path] );
@@ -805,23 +801,35 @@
 			case 'section_upgrade':
 			
 				if ( !$checked )
-					$this->check_creds( 'extend' );		
+					$this->check_creds( 'extend', PL_EXTEND_DIR );		
 				global $wp_filesystem;
 
 				$skin = new PageLines_Upgrader_Skin();
 				$upgrader = new Plugin_Upgrader($skin);
-				$options = array( 'package' => $this->make_url( $type, $file ), 
-						'destination'		=> trailingslashit( PL_EXTEND_DIR ) . $file, 
-						'clear_destination' => true,
-						'clear_working'		=> false,
-						'is_multi'			=> false,
-						'hook_extra'		=> array() 
-				);
+				
+				if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) )
+					$wp_filesystem->delete( trailingslashit( PL_EXTEND_DIR ) . $file, true, false  );
+				else
+					extend_delete_directory( trailingslashit( PL_EXTEND_DIR ) . $file );				
 
-				@$upgrader->run($options);
+				if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) ) {
+					$r = $upgrader->install( $this->make_url( 'sections', $file ) );			
+					$wp_filesystem->move( trailingslashit( WP_PLUGIN_DIR ) . $file, trailingslashit( PL_EXTEND_DIR ) . $file );				
+				} else {
+					
+					$options = array( 'package' => ( ! $uploader) ? $this->make_url( 'sections', $file ) : $file, 
+							'destination'		=> ( ! $uploader) ? trailingslashit( PL_EXTEND_DIR ) . $file : trailingslashit( PL_EXTEND_DIR ) . $path, 
+							'clear_destination' => false,
+							'clear_working'		=> false,
+							'is_multi'			=> false,
+							'hook_extra'		=> array() 
+					);
+					@$upgrader->run($options);		
+				}
+
 				// Output
-				_e( 'Success! Section Upgraded.', 'pagelines' );
-				$this->page_reload( 'pagelines_extend' );	
+				$text = '&extend_text=section_upgraded';
+				$this->page_reload( 'pagelines_extend' . $text, null, 0);	
 			break;
 			
 			case 'section_delete':
@@ -838,9 +846,7 @@
 			$this->page_reload( 'pagelines_extend' . $text, null, 0);
 	
 			break;
-			
-
-			
+					
 			case 'theme_upgrade':
 
 				if ( !$checked )
