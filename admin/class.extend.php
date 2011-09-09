@@ -795,14 +795,9 @@
 					@$upgrader->run($options);
 					
 				}
-					
-				
-
-
 				$available = get_option( 'pagelines_sections_disabled' );
 				unset( $available['child'][$path] );
 				update_option( 'pagelines_sections_disabled', $available );
-				echo ( !$uploader && !$checked ) ? __( 'Section installed.', 'pagelines' ) : '';
 				$text = '&extend_text=section_install';
 				$this->page_reload( 'pagelines_extend' . $text, null, 0);
 			break;
@@ -849,23 +844,29 @@
 			case 'theme_upgrade':
 
 				if ( !$checked )
-					$this->check_creds( 'extend' );		
+					$this->check_creds( 'extend', PL_EXTEND_THEMES_DIR );		
 				global $wp_filesystem;
-				
-				$skin = new PageLines_Upgrader_Skin();
-				$upgrader = new Plugin_Upgrader($skin);
-				$options = array( 'package' => $this->make_url( $type, $file ), 
-						'destination'		=> PL_EXTEND_THEMES_DIR . $file, 
-						'clear_destination' => true,
-						'clear_working'		=> false,
-						'is_multi'			=> false,
-						'hook_extra'		=> array() 
-				);
 
-				@$upgrader->run($options);
+				$active = ( basename( get_stylesheet_directory()  ) === $file ) ? true : false;
+	
+				if ( $active )
+					switch_theme( basename( get_template_directory() ), basename( get_template_directory() ) );
+			
+				$skin = new PageLines_Upgrader_Skin();
+				$upgrader = new Theme_Upgrader($skin);
+
+				if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) )
+					$wp_filesystem->delete( trailingslashit( PL_EXTEND_THEMES_DIR ) . $file, true, false  );
+				else
+					extend_delete_directory( trailingslashit( PL_EXTEND_THEMES_DIR ) . $file );
+
+				$upgrader->install( $this->make_url( $type, $file ) );
+				
+				if ( $active )
+					switch_theme( basename( get_template_directory() ), $file );
 				// Output
-				_e( 'Upgraded', 'pagelines' );
-				$this->page_reload( 'pagelines_extend' );		
+				$text = '&extend_text=theme_upgrade';
+				$this->page_reload( 'pagelines_extend' . $text, null, 0);	
 			break;			
 			
 			case 'theme_install':

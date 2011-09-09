@@ -289,6 +289,9 @@ function pagelines_admin_confirms(){
 				$confirms[]['text'] = 'Theme installed.';
 			break;
 			
+			case 'theme_upgrade':
+				$confirms[]['text'] = 'Theme upgraded.';
+			break;
 			case 'theme_delete';
 				$confirms[]['text'] = 'Theme deleted.';
 			break;
