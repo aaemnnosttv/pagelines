@@ -88,5 +88,18 @@ function blink_edit( $post_id = '', $color = 'grey', $args = array()){
 	return PLObject::button(__('Edit', 'pagelines'), 'edit_post', $color, $args);
 }
 
+function pledit( $post_id = '' ){
+	if($post_id == ''){
+		global $post; 
+		$post_id = $post->ID;
+	}
+	
+	$args['pid'] = $post_id;
+	
+	$button = sprintf('<a class="pledit" href="%s"><span class="pledit-pad">[Edit]</span></a>', get_edit_post_link( $args['pid']));
+	
+	return $button;
+}
+
 
 

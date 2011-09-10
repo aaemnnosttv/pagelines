@@ -328,7 +328,7 @@ function custom_trim_excerpt($text, $length) {
 		array_pop($words);
 		$text = implode(' ', $words);
 	}
-	return $text.'&nbsp;[&hellip;]';
+	return $text.'&nbsp;<span class="hellip">[&hellip;]</span>';
 }
 	
 
