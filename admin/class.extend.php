@@ -682,7 +682,7 @@
 
 		switch ( $mode ) {
 			
-			case 'plugin_install':
+			case 'plugin_install': // TODO check status first!
 
 				if ( !$checked )
 					$this->check_creds( 'extend', WP_PLUGIN_DIR );		
@@ -692,10 +692,12 @@
 				$destination = ( ! $uploader ) ? $this->make_url( $type, $file ) : $file;
 				
 				@$upgrader->install( $destination );
-				activate_plugin( $path );
-				_e( 'Success', 'pagelines' );
-				$text = '&extend_text=plugin_install';
-				$time = ( isset( $wp_filesystem ) ) ? 0 : 700; 
+				if ( isset( $wp_filesystem )  && is_object( $wp_filesystem ) && $wp_filesystem->method == 'direct' )
+					_e( 'Success', 'pagelines' );
+
+				activate_plugin( $path );			
+				$text = '&extend_text=plugin_install#installed';
+				$time = ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) && ! $wp_filesystem->method == 'direct' ) ? 0 : 700; 
 				$this->page_reload( 'pagelines_extend' . $text, null, $time);
 			break;
 			
@@ -717,7 +719,7 @@
 				$upgrader->install( $this->make_url( $type, $file ) );
 				// Output
 				$text = '&extend_text=plugin_upgrade';
-				$time = ( isset( $wp_filesystem ) ) ? 0 : 700; 
+				$time = ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) ) ? 0 : 700; 
 				$this->page_reload( 'pagelines_extend' . $text, null, $time);		
 			break;
 			
@@ -729,7 +731,8 @@
 				delete_plugins( array( ltrim( $file, '/' ) ) );
 				$text = '&extend_text=plugin_delete';
 				_e( 'Success', 'pagelines' );
-				$this->page_reload( 'pagelines_extend' . $text);
+				$time = ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) ) ? 0 : 700; 
+				$this->page_reload( 'pagelines_extend' . $text, null, $time);
 			break;
 			case 'plugin_activate':
 
