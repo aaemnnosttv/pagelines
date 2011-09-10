@@ -39,7 +39,7 @@ class PageLinesTwitterBar extends PageLinesSection {
 		// Fetch latest tweet from db
 	
 		echo '<div class="tbubble">';
-		echo '<span class="twitter">"';	
+		echo '<span class="twitter">';	
 			pagelines_register_hook( 'pagelines_before_twitterbar_text', $this->id ); // Hook			
 			
 		echo make_clickable( pagelines_get_tweets( pagelines('twittername'), true ) );	
