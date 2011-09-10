@@ -693,8 +693,10 @@
 				
 				@$upgrader->install( $destination );
 				activate_plugin( $path );
+				_e( 'Success', 'pagelines' );
 				$text = '&extend_text=plugin_install';
-				$this->page_reload( 'pagelines_extend' . $text, null, 0);
+				$time = ( isset( $wp_filesystem ) ) ? 0 : 700; 
+				$this->page_reload( 'pagelines_extend' . $text, null, $time);
 			break;
 			
 			case 'plugin_upgrade':
@@ -705,13 +707,7 @@
 				
 				$skin = new PageLines_Upgrader_Skin();
 				$upgrader = new Plugin_Upgrader($skin);
-				$options = array( 'package' => $this->make_url( $type, $file ), 
-						'destination'		=> trailingslashit( WP_PLUGIN_DIR ) . $file, 
-						'clear_destination' => true,
-						'clear_working'		=> false,
-						'is_multi'			=> false,
-						'hook_extra'		=> array() 
-				);
+
 				deactivate_plugins( array( $path ) );
 				
 				if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) )
@@ -721,7 +717,8 @@
 				$upgrader->install( $this->make_url( $type, $file ) );
 				// Output
 				$text = '&extend_text=plugin_upgrade';
-				$this->page_reload( 'pagelines_extend' . $text, null, 0);		
+				$time = ( isset( $wp_filesystem ) ) ? 0 : 700; 
+				$this->page_reload( 'pagelines_extend' . $text, null, $time);		
 			break;
 			
 			case 'plugin_delete':
@@ -731,7 +728,8 @@
 				global $wp_filesystem;
 				delete_plugins( array( ltrim( $file, '/' ) ) );
 				$text = '&extend_text=plugin_delete';
-				$this->page_reload( 'pagelines_extend' . $text, null, 0);
+				_e( 'Success', 'pagelines' );
+				$this->page_reload( 'pagelines_extend' . $text);
 			break;
 			case 'plugin_activate':
 
@@ -779,7 +777,7 @@
 				global $wp_filesystem;
 				if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) ) {
 					$r = $upgrader->install( $this->make_url( 'sections', $file ) );			
-					$wp_filesystem->move( trailingslashit( WP_PLUGIN_DIR ) . $file, trailingslashit( PL_EXTEND_DIR ) . $file );				
+					$wp_filesystem->move( trailingslashit( WP_PLUGIN_DIR ) . $file, trailingslashit( PL_EXTEND_DIR ) . $file );		
 				} else {
 					
 					$options = array( 'package' => ( ! $uploader) ? $this->make_url( 'sections', $file ) : $file, 
@@ -789,13 +787,16 @@
 							'is_multi'			=> false,
 							'hook_extra'		=> array() 
 					);
-					@$upgrader->run($options);		
+					@$upgrader->run($options);
+					_e( 'Section Installed', 'pagelines' );
+
 				}
 				$available = get_option( 'pagelines_sections_disabled' );
 				unset( $available['child'][$path] );
 				update_option( 'pagelines_sections_disabled', $available );
 				$text = '&extend_text=section_install';
-				$this->page_reload( 'pagelines_extend' . $text, null, 0);
+				$time = ( isset( $wp_filesystem ) ) ? 0 : 700; 
+				$this->page_reload( 'pagelines_extend' . $text, null, $time);
 			break;
 			
 			case 'section_upgrade':
@@ -837,13 +838,18 @@
 				$this->check_creds( 'extend', PL_EXTEND_DIR );		
 			}
 			global $wp_filesystem;
-			if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) )
+
+			if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) ):
 				$wp_filesystem->delete( trailingslashit( PL_EXTEND_DIR ) . $file, true, false  );
-			else
+				$time = 0;
+			else:
 				extend_delete_directory( trailingslashit( PL_EXTEND_DIR ) . $file );
+				$time = 700;
+				_e( 'Success', 'pagelines' );
+			endif;
 				
 			$text = '&extend_text=section_delete';
-			$this->page_reload( 'pagelines_extend' . $text, null, 0);
+			$this->page_reload( 'pagelines_extend' . $text, null, $time);
 	
 			break;
 					
@@ -861,18 +867,20 @@
 				$skin = new PageLines_Upgrader_Skin();
 				$upgrader = new Theme_Upgrader($skin);
 
-				if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) )
+				if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) ):
 					$wp_filesystem->delete( trailingslashit( PL_EXTEND_THEMES_DIR ) . $file, true, false  );
-				else
+					$time = 0;
+				else:
 					extend_delete_directory( trailingslashit( PL_EXTEND_THEMES_DIR ) . $file );
-
+					$time = 700;
+				endif;
 				$upgrader->install( $this->make_url( $type, $file ) );
 				
 				if ( $active )
 					switch_theme( basename( get_template_directory() ), $file );
 				// Output
 				$text = '&extend_text=theme_upgrade';
-				$this->page_reload( 'pagelines_extend' . $text, null, 0);	
+				$this->page_reload( 'pagelines_extend' . $text, null, $time);	
 			break;			
 			
 			case 'theme_install':
