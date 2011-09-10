@@ -210,7 +210,7 @@ class PageLinesOptionsUI {
 						
 						$bg = (isset($oids['icon'])) ? sprintf('style="background: transparent url(%s) no-repeat 0 0;"', $oids['icon']) : '';
 						
-						printf('<li><a class="%1$s tabnav-element" href="#%1$s"><span %3$s >%2$s</span></a></li>', $menu, ucwords( str_replace('_',' ',$menu)), $bg);
+						printf('<li><a class="%1$s tabnav-element" href="#%1$s"><span %3$s >%2$s</span></a></li>', $menu, ui_key($menu), $bg);
 					}
 					?>
 					<li><span class="graphic bottom">&nbsp;</span></li>
@@ -236,7 +236,7 @@ class PageLinesOptionsUI {
 					
 							// Draw Menu Title w/ Icon
 							if( stripos($menu, '_') !== 0 )
-								printf('<div class="tabtitle" %s><div class="tabtitle-pad">%s</div></div>', $bg, ucwords(str_replace('_',' ',$menu)));
+								printf('<div class="tabtitle" %s><div class="tabtitle-pad">%s</div></div>', $bg, ui_key($menu) );
 							
 							
 							// Render Options

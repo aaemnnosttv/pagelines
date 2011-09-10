@@ -80,34 +80,36 @@ class PageLinesTemplate {
 		global $post;
 		
 		if(is_404())
-			return '404_page';
-		elseif( is_archive() && get_post_type() && get_post_type() != 'post' && get_post_type() != 'page' )
-			return get_post_type().'_posts';
-		elseif( get_post_type() && get_post_type() != 'post' && get_post_type() != 'page' )
-			return get_post_type();
+			$type = '404_page';
+		elseif( pl_is_cpt('archive') )
+			$type = get_post_type_plural();
+		elseif( pl_is_cpt() )
+			$type = get_post_type();
 		elseif(is_tag())
-			return 'tag';
+			$type = 'tag';
 		elseif(is_search())
-			return 'search';
+			$type = 'search';
 		elseif(is_category())
-			return 'category';
+			$type = 'category';
 		elseif(is_author())
-			return 'author';
+			$type = 'author';
 		elseif(is_archive())
-			return 'archive';
+			$type = 'archive';
 		elseif(is_home())
-			return 'posts';
+			$type = 'posts';
 		elseif(is_page_template()){
 			/*
 				Strip the page. and .php from page.[template-name].php
 			*/
 			$page_filename = str_replace('.php', '', get_post_meta($post->ID,'_wp_page_template',true));
 			$template_name = str_replace('page.', '', $page_filename);
-			return $template_name;
+			$type = $template_name;
 		}elseif( is_single() )
-			return 'single';
+			$type = 'single';
 		else
-			return 'default';
+			$type = 'default';
+			
+		return apply_filters('pagelines_page_type', $type, $post);
 	}
 	
 	
@@ -116,7 +118,7 @@ class PageLinesTemplate {
 		if(isset($this->map['templates']['templates'][$this->template_type]['name']))
 			return $this->map['templates']['templates'][$this->template_type]['name'];
 		else
-			return ucwords(str_replace('_', ' ', $this->template_type));
+			return ui_key( $this->template_type );
 	}
 	
 	/**
@@ -861,6 +863,10 @@ function custom_post_type_handler( $area = 'main' ){
 	
 	if(isset($pts['post']))
 		unset($pts['post']);
+	
+	if(isset($pts['attachment']))
+		unset($pts['attachment']);
+	
 
 	$post_type_array = array();
 	
@@ -868,7 +874,7 @@ function custom_post_type_handler( $area = 'main' ){
 		
 		$dragdrop = apply_filters('pl_cpt_dragdrop', true, $public_post_type, $area);
 		
-		if($dragdrop){
+		if( $dragdrop ){
 		
 			$post_type_data = get_post_type_object( $public_post_type );
 
@@ -876,13 +882,16 @@ function custom_post_type_handler( $area = 'main' ){
 	
 			$sections_array = apply_filters( 'pl_default_sections', array( $sections ), $area, $public_post_type );
 	
-			$post_type_array[ $public_post_type.'_posts' ] = array(
-				'name'		=> $post_type_data->labels->name, 
+			$cpt_plural = strtolower(get_post_type_plural( $public_post_type ));
+	
+			$post_type_array[ $cpt_plural ] = array(
+				'name'		=> ui_key($cpt_plural), 
 				'sections'	=> $sections_array
 			);
 		
-			$post_type_array[ $public_post_type ] = array(
-				'name'		=> $post_type_data->labels->singular_name, 
+			$cpt_single = strtolower($public_post_type);
+			$post_type_array[ $cpt_single ] = array(
+				'name'		=> ui_key($cpt_single), 
 				'sections'	=> $sections_array
 			);
 			

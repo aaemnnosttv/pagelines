@@ -712,7 +712,7 @@ class OptEngine {
 		<ul class="tabbed-list horizontal-tabs fix">
 			<?php foreach($oids['htabs'] as $key => $t){
 					$class = (isset($t['class'])) ? $t['class'] : 'left';
-					printf('<li class="ht-%s"><a href="#%s" >%s</a></li>', $class, $key,  polish_key($key) );
+					printf('<li class="ht-%s"><a href="#%s" >%s</a></li>', $class, $key,  ui_key($key) );
 				}
 			?>
 		</ul>
@@ -748,7 +748,7 @@ class OptEngine {
 		$wlist = (1 / count($t)) * 100;
 		foreach( $t as $skey => $st){
 			
-			$list_items .= sprintf('<li class="st-%s" style="width: %s%%"><a href="#%s" ><span class="st-pad">%s</span></a></li>', 'subtab', $wlist, $skey,  polish_key($skey) );
+			$list_items .= sprintf('<li class="st-%s" style="width: %s%%"><a href="#%s" ><span class="st-pad">%s</span></a></li>', 'subtab', $wlist, $skey,  ui_key($skey) );
 			
 		}
 		

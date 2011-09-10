@@ -1,8 +1,6 @@
 <?php
 
-/*
-	Global Used in bbPress Integration 
-*/ 
+
 global $pagelines_template;
 
 // ===================================================================================================
@@ -24,9 +22,9 @@ add_action('pagelines_before_html', 'build_pagelines_template');
  * Build the template in the admin... doesn't need to load in the page
  * @since 1.0.0
  */
-add_action('admin_head', 'build_pagelines_template');
+add_action('admin_head', 'build_pagelines_template', 5);
 
-add_action('pagelines_before_html', 'build_pagelines_layout');
+add_action('pagelines_before_html', 'build_pagelines_layout', 5);
 add_action('admin_head', 'build_pagelines_layout');
 
 /**
@@ -50,7 +48,7 @@ add_action('wp_footer', array(&$pagelines_template, 'print_template_section_scri
  * 
  * @since 1.0.0
  */
-add_action('pagelines_before_html', 'pagelines_id_setup');
+add_action('pagelines_before_html', 'pagelines_id_setup', 5);
 
 
 /**

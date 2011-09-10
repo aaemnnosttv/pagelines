@@ -230,9 +230,13 @@ class PageLinesTemplateBuilder {
 		
 			$template_slug = ( isset($hook) ) ? join('-', array( $hook, $template )) : $template;
 			$template_area = ( isset($hook) ) ? $hook : $template;
+			
+			$addl = ($template_area == 'templates') ? 'Page Template Area' : ( $template_area == 'main' ? 'Content Area' : '');
+			$addl = ($addl != '') ? sprintf('<span class="btag grey">%s</span>', $addl) : '';
+			
 ?><div id="template_data" class="<?php echo $template_slug; ?> layout-type-<?php echo $template_area;?>" title="<?php echo $template_slug; ?>">
 		<div class="ttitle fix" id="highlightme">
-			<div class="ttitle-text"><span>Editing &rarr;</span> <?php echo $tfield['name'];?> </div>
+			<div class="ttitle-text"><span>Editing &rarr;</span> <?php echo $tfield['name'].' '. $addl;?> </div>
 			<div class="confirm_save"><div class="confirm_save_pad">&nbsp;</div></div>
 		</div>
 		<div id="section_map" class="template-edit-panel ">
@@ -505,7 +509,7 @@ class PageLinesTemplateBuilder {
 		
 		<div class="section_control_wrap">
 			<div class="sc_gap fix">
-				<div class="sc_gap_title"><?php echo ucwords( str_replace('_', ' ', $editing) );?> - Basic Template</div>
+				<div class="sc_gap_title"><?php echo ui_key( $editing );?> - Basic Template</div>
 				<div class="sc_gap_pad">
 					
 					<div class="sc_area sc_header ntb">
@@ -535,7 +539,7 @@ class PageLinesTemplateBuilder {
 				</div>
 			</div>
 			<div class="sc_gap fix">
-				<div class="sc_gap_title"><?php echo ucwords( str_replace('_', ' ', $editing) );?> - Content Area</div>
+				<div class="sc_gap_title"><?php echo ui_key( $editing );?> - Content Area</div>
 				<div class="sc_gap_pad">
 				
 					<div class="sc_area sc_header ntb">

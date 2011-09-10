@@ -43,6 +43,10 @@ class PageLinesSection {
 		
 		$this->settings = wp_parse_args( $settings, $defaults );
 		
+		$this->hook_get_view();
+		
+		$this->hook_get_post_type();
+		
 		// Reference information
 		$this->id = empty($id) ? strtolower(get_class($this)) : strtolower($id);
 		$this->name = $name;
@@ -142,17 +146,34 @@ class PageLinesSection {
 	
 	function section_scripts(){}
 
+
+	function hook_get_view(){
+
+		add_action('wp_head', array(&$this, 'get_view'), 10);
+	}
 	function get_view(){
 		
 		if(is_single())
-			return 'single';
+			$view = 'single';
 		elseif(is_archive())
-			return 'archive';
-		elseif(is_page_template())
-			return 'page';
+			$view = 'archive';
+		elseif( is_page_template() )
+			$view = 'page';
 		else
-			return 'default';
+			$view = 'default';
 		
+		$this->view = $view;
+	}
+	
+	function hook_get_post_type(){
+		
+		add_action('wp_head', array(&$this, 'get_post_type'), 10);
+	}
+	
+	function get_post_type(){
+		global $pagelines_template;
+	
+		$this->post_type = $pagelines_template->template_type;
 		
 	}
 

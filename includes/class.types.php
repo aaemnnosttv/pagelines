@@ -170,7 +170,7 @@ class PageLinesPostType {
 		
 		function load_sections_for_type( $sections, $template_type, $hook ){
 			
-			if( $template_type == $this->id || $template_type == $this->id.'_posts')
+			if( $template_type == $this->id || $template_type == get_post_type_plural( $this->id ) )
 				return $this->settings['load_sections'];
 			else
 				return $sections;
@@ -205,3 +205,28 @@ class PageLinesPostType {
 }
 /////// END OF PostType CLASS ////////
 
+/**
+ * Checks to see if page is a CPT, or a CPT archive (type)
+ *
+ */
+function pl_is_cpt( $type = 'single' ){
+	
+	if( !get_post_type() )
+		return false;
+	
+	$std_pt = (get_post_type() == 'post' || get_post_type() == 'page' || get_post_type() == 'attachment') ? true : false;
+	
+	$is_type = ( ($type == 'archive' && is_archive()) || $type == 'single') ? true : false;
+	
+	return ( $is_type && !$std_pt  ? true : false);
+
+}
+
+function get_post_type_plural( $id = null ){
+	
+	if(isset($id))
+		return $id.'_archive';
+	else
+		return get_post_type().'_archive';
+	
+}

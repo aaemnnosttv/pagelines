@@ -652,8 +652,16 @@ function pagelines_array_sort( $a, $subkey, $pre = null, $dec = null ) {
 	return $c;
 }
 
-function polish_key($key){
-	return ucwords( str_replace( '_', ' ', $key));
+/**
+ *
+ * Polishes a Key for UI presentation
+ * 
+ * @since 2.0
+ * @return String
+ */
+function ui_key($key){
+	
+	return ucwords( str_replace( '_', ' ', str_replace( 'pl_', ' ', $key) ) );
 }
 
 /**
