@@ -896,7 +896,7 @@
 				$upgrader = new Theme_Upgrader($skin);
 
 				$upgrader->install( $this->make_url( $type, $file ) );
-				if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) ):
+				if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) && ! $wp_filesystem->method == 'direct' ):
 					$time = 0;
 				else:
 					$time = 700;
@@ -917,7 +917,7 @@
 					$wp_filesystem->delete( trailingslashit( PL_EXTEND_THEMES_DIR ) . $file, true, false  );
 				else
 					extend_delete_directory( trailingslashit( PL_EXTEND_THEMES_DIR ) . $file );
-				if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) ):
+				if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) && ! $wp_filesystem->method == 'direct' ):
 					$time = 0;
 				else:
 					$time = 700;
