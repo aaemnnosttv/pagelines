@@ -342,7 +342,19 @@ function pagelines_admin_errors(){
 	}
 	if ( isset( $_GET['extend_error'] ) ) {
 		$errors['extend']['title'] = __( 'Extension problem found', 'pagelines' );
-		$errors['extend']['text'] = $_GET['extend_error'];
+		
+		switch( $_GET['extend_error'] ) {
+			
+			case 'blank':
+				$errors['extend']['text'] = __( 'No file selected!', 'pagelines' );
+			break;
+			
+			case 'filename':
+				$errors['extend']['text'] = __( 'The file did not appear to be a PageLines section.', 'pagelines' );
+			break;
+			
+		}
+
 	}
 	return apply_filters('pagelines_admin_notifications', $errors);
 	

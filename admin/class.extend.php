@@ -603,21 +603,26 @@
 			
 	}
 
-
-
-
 	function extension_uploader() {
 		
 		if ( !empty($_POST['upload_check'] ) && check_admin_referer( 'pagelines_extend_upload', 'upload_check') ) {
 
-			if ( $_FILES[ $_POST['type']]['size'] == 0 )
-				return;
+			if ( $_FILES[ $_POST['type']]['size'] == 0 ) {
+				$this->page_reload( 'pagelines_extend&extend_error=blank', null, 0);
+				exit();
+			}
 
-			// right we made it this far! Its either a section, plugin or a theme!
+			// right we made it this far! It needs to be a section!
 			$type = $_POST['type'];
 			$filename = $_FILES[ $type ][ 'name' ];
 			$payload = $_FILES[ $type ][ 'tmp_name' ];
 			
+						
+			if ( false === strpos( $filename, 'section' ) ) {
+				$this->page_reload( 'pagelines_extend&extend_error=filename', null, 0);
+				exit();
+			}
+				
 			switch ( $type ) {
 				
 				case 'section':
@@ -634,11 +639,12 @@
 					$_POST['extend_file']	=	$payload;
 					$_POST['extend_path']	= 	sprintf( '%1$s/%1$s.php', str_replace( '.zip', '', $filename ) );
 					$_POST['extend_type']	=	'plugin';
+				break;
 				
 			}
 			
 			if ( $uploader )
-				$this->extend_it_callback( $uploader );
+				$this->extend_it_callback( $uploader, null );
 			exit;
 		
 		}	
@@ -777,11 +783,10 @@
 				
 				$skin = new PageLines_Upgrader_Skin();
 				$upgrader = new Plugin_Upgrader($skin);
-				
+				$time = 0;
 				if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) ) {
 					$upgrader->install( $this->make_url( 'sections', $file ) );			
-					$wp_filesystem->move( trailingslashit( WP_PLUGIN_DIR ) . $file, trailingslashit( PL_EXTEND_DIR ) . $file );
-					$time = 0;	
+					$wp_filesystem->move( trailingslashit( WP_PLUGIN_DIR ) . $file, trailingslashit( PL_EXTEND_DIR ) . $file );					
 				} else {
 							$options = array( 'package' => ( ! $uploader) ? $this->make_url( 'sections', $file ) : $file, 
 							'destination'		=> ( ! $uploader) ? trailingslashit( PL_EXTEND_DIR ) . $file : trailingslashit( PL_EXTEND_DIR ) . $path, 
@@ -791,8 +796,10 @@
 							'hook_extra'		=> array() 
 					);
 					$upgrader->run($options);
-					_e( 'Section Installed', 'pagelines' );
-					$time = 700;
+					if ( ! $uploader ) {
+						_e( 'Section Installed', 'pagelines' );
+						$time = 700;
+					}
 				}
 				$available = get_option( 'pagelines_sections_disabled' );
 				unset( $available['child'][$path] );
