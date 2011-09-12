@@ -876,32 +876,35 @@
 				else:
 					extend_delete_directory( trailingslashit( PL_EXTEND_THEMES_DIR ) . $file );
 					$time = 700;
+					_e( 'Success', 'pagelines' );
 				endif;
 				$upgrader->install( $this->make_url( $type, $file ) );
 				
 				if ( $active )
 					switch_theme( basename( get_template_directory() ), $file );
 				// Output
-				$text = '&extend_text=theme_upgrade';
+				$text = '&extend_text=theme_upgrade#installed';
 				$this->page_reload( 'pagelines_extend' . $text, null, $time);	
 			break;			
 			
 			case 'theme_install':
 
-
 				if ( !$checked ) {
 					$this->check_creds( 'extend', PL_EXTEND_THEMES_DIR );
-				}	
-				
-				
+				}			
 				$skin = new PageLines_Upgrader_Skin();
 				$upgrader = new Theme_Upgrader($skin);
 
 				$upgrader->install( $this->make_url( $type, $file ) );
-
+				if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) ):
+					$time = 0;
+				else:
+					$time = 700;
+					_e( 'Success', 'pagelines' );
+				endif;
 				// Output
-				$text = '&extend_text=theme_install';
-				$this->page_reload( 'pagelines_extend' . $text, null, 0);	
+				$text = '&extend_text=theme_install#installed';
+				$this->page_reload( 'pagelines_extend' . $text, null, $time);	
 			break;			
 			
 			case 'theme_delete':
@@ -914,9 +917,14 @@
 					$wp_filesystem->delete( trailingslashit( PL_EXTEND_THEMES_DIR ) . $file, true, false  );
 				else
 					extend_delete_directory( trailingslashit( PL_EXTEND_THEMES_DIR ) . $file );
-	
-				$text = '&extend_text=theme_delete';
-				$this->page_reload( 'pagelines_extend' . $text, null, 0);
+				if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) ):
+					$time = 0;
+				else:
+					$time = 700;
+					_e( 'Success', 'pagelines' );
+				endif;
+				$text = '&extend_text=theme_delete#installed';
+				$this->page_reload( 'pagelines_extend' . $text, null, $time);
 			
 			break;
 			
