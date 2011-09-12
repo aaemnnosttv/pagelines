@@ -1010,6 +1010,11 @@ background-repeat: no-repeat;
 				font-weight: bold;
 				line-height: 1.5em;
 			}
+				.admin_billboard_text small{
+					font-weight: normal;
+					color:#AAA;
+					font-size: 11px;
+				}
 			.plugins_billboard .admin_billboard_content{
 				padding-left: 70px;
 			}

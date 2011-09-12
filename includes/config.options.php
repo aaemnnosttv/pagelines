@@ -46,8 +46,8 @@ class PageLinesOptionsArray {
 				'type' 			=> 'email_capture',
 				'inputlabel' 	=> 'Email Address',
 				'title'			=> 'Email Updates',						
-				'shortexp' 		=> 'Optionally sign up for email updates and notifications.',
-				'exp' 			=> 'Adding your email here will allow us to send you email notifications about updates and new software from PageLines'
+				'shortexp' 		=> 'Optionally sign up for email updates and notifications',
+				'exp' 			=> 'Adding your email here will allow us to send you email notifications about updates and new software from PageLines.'
 			),
 			'pagelines_custom_logo' => array(
 				'default' 		=> PL_IMAGES.'/logo.png',
@@ -56,7 +56,7 @@ class PageLinesOptionsArray {
 				'imagepreview' 	=> '270',
 				'inputlabel' 	=> 'Upload custom logo',
 				'title'			=> 'Custom Header Image',						
-				'shortexp' 		=> 'Input Full URL to your custom header or logo image.',
+				'shortexp' 		=> 'Input Full URL to your custom header or logo image',
 				'exp' 			=> 'Optional way to replace "heading" and "description" text for your website ' . 
 						    		'with an image.'
 			),
@@ -67,14 +67,14 @@ class PageLinesOptionsArray {
 				'title' 	=> 	'Favicon Image',						
 				'shortexp' 	=> 	'Input Full URL to favicon image ("favicon.ico" image file)',
 				'exp' 		=> 	'Enter the full URL location of your custom "favicon" which is visible in ' .
-							'browser favorites and tabs.<br/> (<strong>Must be .png or .ico file - 16px by 16px</strong> ).'
+							'browser favorites and tabs.<br/> <strong>Must be .png or .ico file - 16px by 16px</strong>.'
 			),		
 			'twittername' => array(
 				'default' 		=> '',
 				'type' 			=> 'text',
 				'inputlabel' 	=> 'Your Twitter Username',
 				'title' 		=> 'Twitter Integration',
-				'shortexp'	 	=> 'Places your Twitter feed in your site (<em>"Twitter for WordPress" plugin required</em>)',
+				'shortexp'	 	=> 'Places your Twitter feed in your site',
 				'exp' 			=> 'This places your Twitter feed on the site. Leave blank if you want to hide or not use.'
 			),
 			'pl_login_image'	=> array(
@@ -117,7 +117,7 @@ class PageLinesOptionsArray {
 					),
 					'inputlabel' 	=> 'Sidebar Wrap Widgets Position',
 					'title' 	=> 'Sidebar Wrap Widgets',
-					'shortexp' 	=> 'Choose whether to show the sidebar wrap widgets on the top or bottom of the sidebar.',
+					'shortexp' 	=> 'Choose whether to show the sidebar wrap widgets on the top or bottom of the sidebar',
 					'exp' 		=> 'You can select whether to show the widgets that you place in the sidebar wrap template in either the top or the bottom of the sidebar.'
 			),
 		
@@ -162,7 +162,7 @@ class PageLinesOptionsArray {
 				'title' 	=> 'Default Layout Mode',
 				'inputlabel'	=> 'Select Default Layout',	
 				'layout' 	=> 'interface',						
-				'shortexp' 	=> 'Select your default layout mode, this can be changed on individual pages.<br />Once selected, you can adjust the layout in the Layout Builder.',
+				'shortexp' 	=> 'Select your default layout mode, this can be changed on individual pages.<br />Once selected, you can adjust the layout in the Layout Dimension Editor',
 				'exp' 		=> 'The default layout for pages and posts on your site. Dimensions can be changed using the Layout Dimension Editor.',
 				'docslink'	=> 'http://www.pagelines.com/docs/editing-layout'
 			),
@@ -171,7 +171,7 @@ class PageLinesOptionsArray {
 				'type'		=> 'layout',
 				'layout'	=> 'interface',
 				'title'		=> 'Layout Dimension Editor',						
-				'shortexp'	=> 'Configure the default layout for your site which is initially selected in the Default Layout Mode option in Global Options. <br/>This option allows you to adjust columns and margins for the default layout.',
+				'shortexp'	=> 'Configure the default layout for your site which is initially selected in the Default Layout Mode option in Global Options. <br/>This option allows you to adjust columns and margins for the default layout',
 			), 
 			
 			'resetlayout' => array(
@@ -213,8 +213,8 @@ class PageLinesOptionsArray {
 				), 
 				'inputlabel'	=> 'Site Design Mode',
 				'title'		=> 'Site Design Mode',						
-				'shortexp'	=> 'Choose between full width HTML or fixed width HTML',
-				'exp'		=> 'There are three css design modes available. Each allows a different style of design.<ul><li><strong>Full-Width Mode With Canvas</strong> This design mode has a full-width page area, and a canvas area behind your content that can be controlled seperately.</li><li><strong>Full-Width Mode</strong> Full width design mode allows you to have aspects of your site that are the full-width of your screen; while others are the width of the content area.</li><li><strong>Fixed-Width Mode</strong> Fixed width design mode creates a fixed with "page" that can be used as the area for your design.  You can set a background to the page; and the content will have a seperate "fixed-width" background area (i.e. the width of the content).</li></ul>',
+				'shortexp'	=> 'The basic HTML layout structure for color and background effects',
+				'exp'		=> 'This option controls how the basic HTML layout is built. Different layout structures change the way background colors and images behave.<ul><li><strong>Full-Width Mode</strong> Full width design mode allows you to have aspects of your site that are the full-width of your screen; while others are the width of the content area.</li><li><strong>Fixed-Width Mode</strong> Fixed width design mode creates a fixed with "page" that can be used as the area for your design.  You can set a background to the page; and the content will have a seperate "fixed-width" background area (i.e. the width of the content).</li></ul>',
 			),	
 			'page_colors'		=> array(
 				'title' 	=> 'Basic Layout Colors',						
@@ -403,7 +403,7 @@ class PageLinesOptionsArray {
 					'selectors'	=> cssgroup('type_inputs'),
 					'inputlabel' 	=> 'Select Font',
 					'title' 	=> 'Typography - Inputs and Textareas',
-					'shortexp' 	=> 'Select and Style Your Site\'s Text Inputs and Textareas.',
+					'shortexp' 	=> 'Select and Style Your Site\'s Text Inputs and Textareas',
 					'exp' 		=> 'This options sets the typography for general text inputs and textarea inputs. This includes default WordPress comment fields, etc.. <br/><br/> This option makes use of the <a href="http://code.google.com/webfonts">Google fonts API</a> to vastly increase the number of websafe fonts you can use.<br/><strong>*</strong> Denotes web safe fonts<br/><strong>G</strong> Denotes Google fonts<br/><br/><strong>Note:</strong> the "preview" pane represents the font in your current browser and OS. If developing locally, Google fonts require an internet connection.',
 			),
 
@@ -412,7 +412,7 @@ class PageLinesOptionsArray {
 					'type'		=> 'textarea',
 					'inputlabel'	=> 'Typekit Header Script',
 					'title'		=> 'Typekit Font Replacement',
-					'shortexp'	=> 'Typekit is a service that allows you to use tons of new fonts on your site.',
+					'shortexp'	=> 'Typekit is a service that allows you to use tons of new fonts on your site',
 					'exp'		=> 'Typekit is a new service and technique that allows you to use fonts outside of the 10 or so "web-safe" fonts. <br/><br/>' .
 							 'Visit <a href="www.typekit.com" target="_blank">Typekit.com</a> to get the script for this option. Instructions for setting up Typekit are <a href="http://typekit.assistly.com/portal/article/6780-Adding-fonts-to-your-site" target="_blank">here</a>.'
 			),
@@ -432,7 +432,7 @@ class PageLinesOptionsArray {
 					'type'		=> 'text',
 					'inputlabel'	=> 'Cufon replacement font file URL',
 					'title'		=> 'Cufon: Replacement Font File URL',
-					'shortexp'	=> 'The font file used to replace text.',
+					'shortexp'	=> 'The font file used to replace text',
 					'exp'		=> 'Use the <a href="http://cufon.shoqolate.com/generate/">Cufon site</a> to generate a font file for use with this theme.  Place it in your theme folder and add the full URL to it here. The default font is Museo Sans.'
 			),
 			'replace_font' => array(
@@ -441,7 +441,7 @@ class PageLinesOptionsArray {
 					'type'		=> 'text',
 					'inputlabel'	=> 'CSS elements for font replacement',
 					'title'		=> 'Cufon: CSS elements for font replacement',
-					'shortexp'	=> 'Add selectors of elements you would like replaced.',
+					'shortexp'	=> 'Add selectors of elements you would like replaced',
 					'exp'		=> 'Use standard CSS selectors to replace them with your Cufon font. Font replacement must be enabled.'
 			),
 		);
@@ -499,7 +499,7 @@ class PageLinesOptionsArray {
 					'type'		=> 'check',
 					'inputlabel'	=> 'Use Child Pages For Secondary Nav?',
 					'title'		=> 'Use Child Pages for Secondary Nav',
-					'shortexp'	=> 'Use this options if you want child pages in secondary nav, instead of WP menus.',
+					'shortexp'	=> 'Use this options if you want child pages in secondary nav, instead of WP menus',
 					'exp'		=> ''
 				),
 			'footer_logo' => array(
@@ -559,7 +559,7 @@ class PageLinesOptionsArray {
 						), 
 					'inputlabel'	=> 'Select Post Layout Mode',
 					'title'			=> 'Blog Post Layout Mode',						
-					'shortexp'		=> 'Choose between magazine style and blog style layout.',
+					'shortexp'		=> 'Choose between magazine style and blog style layout',
 					'exp'			=> 'Choose between two magazine or blog layout mode. <br/><br/> <strong>Magazine Layout Mode</strong><br/> Magazine layout mode makes use of post "clips". These are summarized excerpts shown at half the width of the main content column.<br/>  <strong>Note:</strong> There is an option for showing "full-width" posts on your main "posts" page.<br/><br/><strong>Blog Layout Mode</strong><br/> This is your classical blog layout. Posts span the entire width of the main content column.'
 				), 
 			'excerpt_mode_full' => array(
@@ -627,7 +627,7 @@ class PageLinesOptionsArray {
 					'count_number'	=> get_option('posts_per_page'),
 					'inputlabel'	=> 'Number of Full Width Posts?',
 					'title'			=> 'Full Width Posts (Magazine Layout Mode Only)',						
-					'shortexp'		=> 'When using magazine layout mode, select the number of "featured" or full-width posts.',
+					'shortexp'		=> 'When using magazine layout mode, select the number of "featured" or full-width posts',
 					'exp'			=> 'Select the number of posts you would like shown at the full width of the main content column in magazine layout mode (the rest will be half-width post "clips").'
 				),
 
@@ -682,7 +682,7 @@ class PageLinesOptionsArray {
 					'type'		=> 'text',
 					'inputlabel'	=> 'Continue Reading Link Text',
 					'title'		=> '"Continue Reading" Link Text (When Using Excerpts)',						
-					'shortexp'	=> 'The link at the end of your excerpt.',
+					'shortexp'	=> 'The link at the end of your excerpt',
 					'exp' 		=> "This text will be used as the link to your full article when viewing articles on your posts page (when excerpts are turned on)."
 			),
 			'content_handling' => array(
@@ -704,7 +704,7 @@ class PageLinesOptionsArray {
 					'inputlabel'	=> 'Post Footer Social Links Text',
 					'title'		=> 'Post Footer Social Links Text',						
 					'shortexp'	=> 'The text next to your social icons',
-					'exp'		=> "Set the text next to your social links shown on single post pages or on all " . 
+					'exp'		=> "Set the text next to your social links shown on single post pages or on all" . 
 							 "posts pages if the post footer link is set to 'always sharing links'."
 			),
 
@@ -724,7 +724,7 @@ class PageLinesOptionsArray {
 					'inputlabel'	=> 'Select Which Share Links To Show',
 					'title'		=> 'Post Footer Sharing Icons',						
 					'shortexp'	=> 'Select Which To Show',
-					'exp'		=> "Select which icons you would like to show in your post footer when sharing " . 
+					'exp'		=> "Select which icons you would like to show in your post footer when sharing" . 
 							 "links are shown."
 		    ), 
 			'excerpt_len' => array(
@@ -733,7 +733,7 @@ class PageLinesOptionsArray {
 					'type' 		=> 'text',
 					'inputlabel' 	=> 'Number of words.',
 					'title' 	=> 'Excerpt Length',
-					'shortexp' 	=> '',
+					'shortexp' 	=> 'Set the length of excerpts to something other than default',
 					'exp' 		=> 'Excerpts are set to 55 words by default.'
 			),
 			'excerpt_tags' => array(
@@ -742,7 +742,7 @@ class PageLinesOptionsArray {
 					'type' 		=> 'text',
 					'inputlabel' 	=> 'Allowed Tags',
 					'title' 	=> 'Allow Tags in Excerpt',
-					'shortexp' 	=> 'Control which tags are stripped from excerpts.',
+					'shortexp' 	=> 'Control which tags are stripped from excerpts',
 					'exp' 		=> 'By default WordPress strips all HTML tags from excerpts. You can use this option to allow certain tags. Simply enter the allowed tags in this field. <br/>An example of allowed tags could be: <strong>&lt;p&gt;&lt;br&gt;&lt;a&gt;</strong>. <br/><br/> <strong>Note:</strong> Enter a period "<strong>.</strong>" to disallow all tags.'
 			)			
 		);
@@ -765,7 +765,7 @@ class PageLinesOptionsArray {
 					'type'		=> 'check',
 					'inputlabel'	=> 'Include Google IE Compatibility Script?',
 					'title'		=> 'Google IE Compatibility Fix',
-					'shortexp'	=> 'Include a Google JS script that fixes problems with IE.',
+					'shortexp'	=> 'Include a Google JS script that fixes problems with IE',
 					'exp'		=> 'More info on this can be found here: <strong>http://code.google.com/p/ie7-js/</strong>.'
 			),
 			'partner_link' 	=> array(
@@ -794,7 +794,7 @@ class PageLinesOptionsArray {
 					'type'		=> 'check',
 					'inputlabel'	=> 'Disable AJAX Saving?',
 					'title'		=> 'Disable AJAX Saving',
-					'shortexp'	=> 'Check to disable AJAX saving.',
+					'shortexp'	=> 'Check to disable AJAX saving',
 					'exp'		=> "Check this option if you are having problems with AJAX saving. For example, if design control or typography options aren't working"
 			),
 
@@ -804,7 +804,7 @@ class PageLinesOptionsArray {
 					'type' => 'check',
 					'inputlabel' => 'Enable debug settings tab?',
 					'title' => 'PageLines debug',
-					'shortexp' => 'Show detailed settings information.',
+					'shortexp' => 'Show detailed settings information',
 					'exp' => "This information can be useful in the forums if you have a problem."
 			),
 
@@ -814,7 +814,7 @@ class PageLinesOptionsArray {
 					'type' => 'check',
 					'inputlabel' => 'Hide the introduction?',
 					'title' => 'Show Theme Introduction',
-					'shortexp' => 'Uncheck this option to show theme introduction.',
+					'shortexp' => 'Uncheck this option to show theme introduction',
 					'exp' => ""
 			)	
 
@@ -840,7 +840,7 @@ class PageLinesOptionsArray {
 					'layout' 	=> 'full',
 					'inputlabel' 	=> 'CSS Rules',
 					'title' 	=> 'Custom CSS',
-					'shortexp' 	=> 'Insert custom CSS styling here. It will be stored in the DB and not overwritten. <br/>Note: The easiest way to customize your site is using "Base" the child theme for PlatformPro.',
+					'shortexp' 	=> 'Insert custom CSS styling here. It will be stored in the DB and not overwritten. <br/>Note: The professional way to customize your site is using a child theme, or customization plugin',
 					'exp' 		=> '<div class="theexample">Example:<br/> <strong>body{<br/> &nbsp;&nbsp;color:  #3399CC;<br/>&nbsp;&nbsp;line-height: 20px;<br/>&nbsp;&nbsp;font-size: 11px<br/>}</strong></div>Enter CSS Rules to change the style of your site.<br/><br/> A lot can be accomplished by simply changing the default styles of the "body" tag such as "line-height", "font-size", or "color" (as in text color).', 
 					'docslink'	=> 'http://www.pagelines.com/docs/changing-colors-fonts', 
 					'vidtitle'	=> 'View Customization Documentation'
@@ -872,7 +872,7 @@ class PageLinesOptionsArray {
 					'layout'	=> 'full',
 					'inputlabel'	=> 'Asynchronous Analytics',
 					'title'		=> 'Asynchronous Analytics',
-					'shortexp'	=> 'Placeholder for Google asynchronous analytics. Goes underneath "body" tag.',
+					'shortexp'	=> 'Placeholder for Google asynchronous analytics. Goes underneath "body" tag',
 					'exp'		=> ''
 			),
 		);
@@ -895,7 +895,7 @@ class PageLinesOptionsArray {
 				'type'		=> 'check',
 				'inputlabel'	=> 'Show tags in sidebar?',
 				'title'		=> 'Tag Cloud In Sidebar',
-				'shortexp'	=> 'Including post tags on the forum sidebar.',
+				'shortexp'	=> 'Including post tags on the forum sidebar',
 				'exp'		=> 'Tags are added by users and moderators on your forum and can help people locate posts.'
 			),
 			'forum_image_1'		=> array(
@@ -912,7 +912,7 @@ class PageLinesOptionsArray {
 				'type'		=> 'text',
 				'inputlabel'	=> 'Image Link URL',
 				'title'		=> 'Forum Image #1 Link',
-				'shortexp'	=> 'Full URL for your forum image.',
+				'shortexp'	=> 'Full URL for your forum image',
 				'exp'		=> "Add the full url for your forum image."
 			),
 			'forum_image_2' => array(
@@ -929,7 +929,7 @@ class PageLinesOptionsArray {
 				'type'		=> 'text',
 				'inputlabel'	=> 'Image Link URL',
 				'title'		=> 'Forum Image #2 Link',
-				'shortexp'	=> 'Full URL for your forum image.',
+				'shortexp'	=> 'Full URL for your forum image',
 				'exp'		=> "Add the full url for your forum image."
 			),
 			'forum_sidebar_link'	=> array(
@@ -977,7 +977,7 @@ class PageLinesOptionsArray {
 				'inputlabel'	=> '',
 				'inputlabel'	=> 'Hide the introduction',
 				'title'		=> 'Remove This Theme Introduction',
-				'shortexp'	=> 'Remove this introduction from the admin.',
+				'shortexp'	=> 'Remove this introduction from the admin',
 				'exp'		=> "This introduction can be added back under the 'custom code' tab (once hidden)..."
 			),
 		);
@@ -1122,7 +1122,7 @@ class PageLinesWelcome {
 	
 	function get_plugins_billboard(){
 		
-		$billboard = '<div class="admin_billboard plugins_billboard"><div class="admin_billboard_content"><div class="feature_icon"></div><h3 class="admin_header_main">Plugins</h3> <p>Although '.THEMENAME.' is universally plugin compatible, we have added "advanced" graphical/functional support for several WordPress plugins.</p><p> It\'s your responsibility to install each plugin, which can be done through "<strong>plugins</strong>" &gt; "<strong>Add New</strong>" or through the <strong>developer\'s site</strong> where you can download them manually (e.g. CForms).</p>';
+		$billboard = '<div class="admin_billboard plugins_billboard"><div class="admin_billboard_content"><div class="feature_icon"></div><h3 class="admin_header_main">Plugins</h3> <p>Although '.THEMENAME.' is universally plugin compatible, we have added "advanced" graphical/functional support for several WordPress plugins.</p><p> It\'s your responsibility to install each plugin, which can be done through "<strong>Plugins</strong>" &gt; "<strong>Add New</strong>" or through the <strong>developer\'s site</strong> where you can download them manually (e.g. CForms).</p>';
 			
 		$billboard .= '<ul class="welcome_plugin_list">';
 		foreach($this->get_welcome_plugins() as $k => $i){
@@ -1147,37 +1147,37 @@ class PageLinesWelcome {
 			'disqus'	=> array(
 				'name'			=> 'Disqus Comments',
 				'url'			=> 'http://wordpress.org/extend/plugins/disqus-comment-system/', 
-				'desc'			=> 'Improve your commenting system',
+				'desc'			=> 'Improve your commenting system.',
 			),
 			'cforms'	=> array(
 				'name'			=> 'CForms',
 				'url'			=> 'http://www.deliciousdays.com/cforms-plugin/', 
-				'desc'			=> 'Advanced contact forms that can be used for creating mailing lists, etc..',
+				'desc'			=> 'Advanced contact forms that can be used for creating mailing lists, etc.',
 			),
 			'wp125'	=> array(
 				'name'			=> 'WP125',
 				'url'			=> 'http://wordpress.org/extend/plugins/wp125/', 
-				'desc'			=> 'Used to show 125px by 125px ads or images in your sidebar. (Widget)',
+				'desc'			=> 'Used to show 125px by 125px ads or images in your sidebar(Widget).',
 			),
 			'flickrrss'	=> array(
 				'name'			=> 'FlickrRSS Images',
 				'url'			=> 'http://eightface.com/wordpress/flickrrss/', 
-				'desc'			=> 'Shows pictures from your Flickr Account.  (Widget &amp; Carousel Section)',
+				'desc'			=> 'Shows pictures from your Flickr Account (Widget &amp; Carousel Section).',
 			),
 			'nextgen'	=> array(
 				'name'			=> 'NextGen-Gallery',
 				'url'			=> 'http://wordpress.org/extend/plugins/nextgen-gallery/', 
-				'desc'			=> 'Allows you to create image galleries with special effects.  (Carousel Section)',
+				'desc'			=> 'Allows you to create image galleries with special effects (Carousel Section).',
 			),
 			'pagenavi'	=> array(
 				'name'			=> 'Wp-PageNavi',
 				'url'			=> 'http://wordpress.org/extend/plugins/wp-pagenavi/', 
-				'desc'			=> 'Creates advanced "paginated" post navigation..',
+				'desc'			=> 'Creates advanced "paginated" post navigation.',
 			),
 			'breadcrumb'	=> array(
 				'name'			=> 'Breadcrumb NavXT',
 				'url'			=> 'http://wordpress.org/extend/plugins/breadcrumb-navxt/', 
-				'desc'			=> 'Displays a configurable breadcrumb nav on your site',
+				'desc'			=> 'Displays a configurable breadcrumb nav on your site.',
 			)
 		);
 		

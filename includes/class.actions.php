@@ -93,7 +93,7 @@ class PageLinesActions(){
 					<div class="actions_head">
 						<div class="actions_head_pad">
 							<div class="actions_title">PageLines Actions</div>
-							<div class="actions_title_sub">Insert <abbr title="Hypertext Markup Language">HTML</abbr>, <abbr title="Cascading Style Sheets">CSS</abbr>, JavaScript or <abbr title="PHP: Hypertext Preprocessor">PHP</abbr> through Hooks in PageLines Platform.</div>
+							<div class="actions_title_sub">Insert <abbr title="Hypertext Markup Language">HTML</abbr>, <abbr title="Cascading Style Sheets">CSS</abbr>, JavaScript or <abbr title="PHP: Hypertext Preprocessor">PHP</abbr> through Hooks in PageLines.</div>
 						</div>
 					</div>
 					<div class="actions_sub_head">

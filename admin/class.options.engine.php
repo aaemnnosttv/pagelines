@@ -149,7 +149,7 @@ class OptEngine {
 		
 		
 		
-		if( $this->_do_the_option() ){
+		if( $this->_do_the_option($oid, $o) ){
 		
 			printf('<div class="optionrow fix %s">', $this->_layout_class( $o ));
 		
@@ -216,7 +216,7 @@ class OptEngine {
 		<?php endif;
 	}
 	
-	function _do_the_option(){
+	function _do_the_option($oid, $o){
 		
 		$draw = (!isset( $o['version'] ) || ( isset($o['version']) && $o['version'] == 'free' && !VPRO) || (isset($o['version']) && $o['version'] == 'pro' && VPRO )) ? true : false;
 		return $draw;
@@ -882,6 +882,7 @@ class OptEngine {
 		$this->_get_select_option($oid.'_repeat', $bg['_repeat']);
 		$this->_get_count_select_option( $oid.'_pos_vert', $bg['_pos_vert']);
 		$this->_get_count_select_option( $oid.'_pos_hor', $bg['_pos_hor']);
+		$this->_get_select_option($oid.'_attach', $bg['_attach']);
 
 	}
 
@@ -912,6 +913,14 @@ class OptEngine {
 						'type'			=> 'count_select',
 						'count_start'	=> 0, 
 						'count_number'	=> 100,
+				),
+				'_attach' => array(				
+						'inputlabel'	=> 'Set Background Attachement',
+						'type'			=> 'select',
+						'selectvalues'	=> array(
+							'scroll'	=> array('name' => 'Scroll'), 
+							'fixed'		=> array('name' => 'Fixed'),
+						)
 				),
 
 			);
