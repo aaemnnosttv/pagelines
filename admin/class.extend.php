@@ -691,13 +691,13 @@
 				$upgrader = new Plugin_Upgrader($skin);
 				$destination = ( ! $uploader ) ? $this->make_url( $type, $file ) : $file;
 				
-				@$upgrader->install( $destination );
+				$upgrader->install( $destination );
 				if ( isset( $wp_filesystem )  && is_object( $wp_filesystem ) && $wp_filesystem->method == 'direct' )
 					_e( 'Success', 'pagelines' );
 
 				activate_plugin( $path );			
 				$text = '&extend_text=plugin_install#installed';
-				$time = ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) && ! $wp_filesystem->method == 'direct' ) ? 0 : 700; 
+				$time = ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) && $wp_filesystem->method != 'direct' ) ? 0 : 700; 
 				$this->page_reload( 'pagelines_extend' . $text, null, $time);
 			break;
 			
@@ -779,7 +779,7 @@
 				$upgrader = new Plugin_Upgrader($skin);
 				
 				if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) ) {
-					@$upgrader->install( $this->make_url( 'sections', $file ) );			
+					$upgrader->install( $this->make_url( 'sections', $file ) );			
 					$wp_filesystem->move( trailingslashit( WP_PLUGIN_DIR ) . $file, trailingslashit( PL_EXTEND_DIR ) . $file );
 					$time = 0;	
 				} else {
@@ -790,7 +790,7 @@
 							'is_multi'			=> false,
 							'hook_extra'		=> array() 
 					);
-					@$upgrader->run($options);
+					$upgrader->run($options);
 					_e( 'Section Installed', 'pagelines' );
 					$time = 700;
 				}
@@ -816,7 +816,7 @@
 					extend_delete_directory( trailingslashit( PL_EXTEND_DIR ) . $file );				
 
 				if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) ) {
-					$r = $upgrader->install( $this->make_url( 'sections', $file ) );			
+					$upgrader->install( $this->make_url( 'sections', $file ) );			
 					$wp_filesystem->move( trailingslashit( WP_PLUGIN_DIR ) . $file, trailingslashit( PL_EXTEND_DIR ) . $file );
 					$time = 0;				
 				} else {
@@ -837,22 +837,22 @@
 			break;
 			
 			case 'section_delete':
-			if ( !$checked ) {
-				$this->check_creds( 'extend', PL_EXTEND_DIR );		
-			}
-			global $wp_filesystem;
+				if ( !$checked ) {
+					$this->check_creds( 'extend', PL_EXTEND_DIR );		
+				}
+				global $wp_filesystem;
 
-			if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) ):
-				$wp_filesystem->delete( trailingslashit( PL_EXTEND_DIR ) . $file, true, false  );
-				$time = 0;
-			else:
-				extend_delete_directory( trailingslashit( PL_EXTEND_DIR ) . $file );
-				$time = 700;
-				_e( 'Success', 'pagelines' );
-			endif;
+				if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) ):
+					$wp_filesystem->delete( trailingslashit( PL_EXTEND_DIR ) . $file, true, false  );
+					$time = 0;
+				else:
+					extend_delete_directory( trailingslashit( PL_EXTEND_DIR ) . $file );
+					$time = 700;
+					_e( 'Success', 'pagelines' );
+					endif;
 				
-			$text = '&extend_text=section_delete';
-			$this->page_reload( 'pagelines_extend' . $text, null, $time);
+				$text = '&extend_text=section_delete';
+				$this->page_reload( 'pagelines_extend' . $text, null, $time);
 	
 			break;
 					
@@ -894,9 +894,10 @@
 				}			
 				$skin = new PageLines_Upgrader_Skin();
 				$upgrader = new Theme_Upgrader($skin);
-
+				global $wp_filesystem;
 				$upgrader->install( $this->make_url( $type, $file ) );
-				if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) && ! $wp_filesystem->method == 'direct' ):
+				
+				if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) && $wp_filesystem->method != 'direct' ):
 					$time = 0;
 				else:
 					$time = 700;
@@ -917,7 +918,7 @@
 					$wp_filesystem->delete( trailingslashit( PL_EXTEND_THEMES_DIR ) . $file, true, false  );
 				else
 					extend_delete_directory( trailingslashit( PL_EXTEND_THEMES_DIR ) . $file );
-				if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) && ! $wp_filesystem->method == 'direct' ):
+				if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) && $wp_filesystem->method != 'direct' ):
 					$time = 0;
 				else:
 					$time = 700;
