@@ -934,7 +934,7 @@
 				switch_theme( basename( get_template_directory() ), $file );
 				// Output
 				_e( 'Activated', 'pagelines' );
-				$this->page_reload( 'pagelines' );	
+				$this->page_reload( 'pagelines&pageaction=activated' );	
 			break;
 
 			case 'theme_deactivate':
