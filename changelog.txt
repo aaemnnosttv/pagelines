@@ -13,6 +13,9 @@
 
 
 Version 2.0.0
+	BETA - 14
+	- Extend system uses wp_filesystem if needed.
+	- Lots of translation fixes.
 	BETA - 13
 	- *New Fixed Background Option
 	- CPT Handling
