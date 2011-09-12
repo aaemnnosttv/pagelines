@@ -14,7 +14,7 @@
 
 Version 2.0.0
 	BETA - 13
-	- New Fixed Background Option
+	- *New Fixed Background Option
 	- CPT Handling
 	- Advanced Layout Functions
 	BETA - 11, 12

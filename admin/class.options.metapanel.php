@@ -353,7 +353,7 @@ class PageLinesMetaPanel {
 								echo $t->name;
 					
 								if(!$t->active) 
-									echo OptEngine::superlink('Inactive On Template', 'black', 'right', admin_url('admin.php?page=pagelines&selectedtab=2'));
+									echo OptEngine::superlink('Inactive On Template', 'black', 'right', admin_url('admin.php?page=pagelines_templates'));
 							 ?>
 						</div>
 						<?php 

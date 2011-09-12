@@ -165,9 +165,10 @@ body #page .blink-wrap	.blink{
 	a.btag.grey:hover{background: #ccc;color: #000;}
 	
 /* @ Grid */ 
-.grid-element{
+.grid-element, .media_overview{
 	margin-bottom: 1em;
 }	
+
 	
 /* Misc */
 
