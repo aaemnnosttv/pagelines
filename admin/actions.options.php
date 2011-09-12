@@ -224,22 +224,21 @@ function pagelines_admin_confirms(){
 	$confirms = array();
 	
 	if( isset($_GET['settings-updated']) )
-		$confirms[]['text'] = THEMENAME.' Settings Saved. &nbsp;<a class="sh_preview" href="'.home_url().'/" target="_blank" target-position="front">View Your Site &rarr;</a>';
-	
+		$confirms[]['text'] = sprintf( __( '%1$s Settings Saved. &nbsp;<a class="sh_preview" href="%2$s/" target="_blank" target-position="front">View Your Site &rarr;</a>', 'pagelines' ), NICECHILDTHEMENAME, home_url() );
 	if( isset($_GET['pageaction']) ){
 	
 		if( $_GET['pageaction']=='activated' && !isset($_GET['settings-updated']) ){
-			$confirms['activated']['text'] = "Congratulations! ".THEMENAME ." Has Been Successfully Activated.";
+			$confirms['activated']['text'] = sprintf( __( 'Congratulations! %s Has Been Successfully Activated.', 'pagelines' ), NICECHILDTHEMENAME );
 			$confirms['activated']['class'] = "activated";
 		}
 	
 		elseif( $_GET['pageaction']=='import' && isset($_GET['imported'] )){
-			$confirms['settings-import']['text'] = "Congratulations! New settings have been successfully imported.";
+			$confirms['settings-import']['text'] = __( 'Congratulations! New settings have been successfully imported.', 'pagelines' );
 			$confirms['settings-import']['class'] = "settings-import";
 		}
 	
 		elseif( $_GET['pageaction']=='import' && isset($_GET['error']) && !isset($_GET['settings-updated']) ){
-			$confirms['settings-import-error']['text'] = "There was an error with import. Please make sure you are using the correct file.";
+			$confirms['settings-import-error']['text'] = __( 'There was an error with import. Please make sure you are using the correct file.', 'pagelines' );
 		}
 	
 	}
@@ -247,57 +246,57 @@ function pagelines_admin_confirms(){
 	if( isset($_GET['reset']) ){
 		
 		if( isset($_GET['opt_id']) && $_GET['opt_id'] == 'resettemplates' )
-			$confirms['reset']['text'] = "Template Configuration Restored To Default.";
+			$confirms['reset']['text'] = __( 'Template Configuration Restored To Default.', 'pagelines' );
 			
 		elseif( isset($_GET['opt_id']) && $_GET['opt_id'] == 'resetlayout' )
-			$confirms['reset']['text'] = "Layout Dimensions Restored To Default.";
+			$confirms['reset']['text'] = __( 'Layout Dimensions Restored To Default.', 'pagelines' );
 
 		else
-			$confirms['reset']['text'] = "Settings Restored To Default.";
+			$confirms['reset']['text'] = __( 'Settings Restored To Default.', 'pagelines' );
 		
 	}
 	if ( isset( $_GET['plinfo'] ) )
-		$confirms[]['text'] = "Launchpad settings saved.";
+		$confirms[]['text'] = __( 'Launchpad settings saved.', 'pagelines' );
 		
 	if ( isset( $_GET['extend_upload'] ) )
-		$confirms[]['text'] = 'Successfully uploaded your ' . $_GET['extend_upload'];
+		$confirms[]['text'] = sprintf( __( 'Successfully uploaded your %s', 'pagelines' ), $_GET['extend_upload'] );
 		
 	if ( isset( $_GET['extend_text'] ) )
 		switch( $_GET['extend_text'] ) {
 			
 			case 'section_delete':
-				$confirms[]['text'] = 'Section was deleted.';
+				$confirms[]['text'] = __( 'Section was deleted.', 'pagelines' );
 			break;
 			
 			case 'section_install':
-				$confirms[]['text'] = 'Section was installed.';
+				$confirms[]['text'] = __( 'Section was installed.', 'pagelines' );
 			break;
 			
 			case 'section_upgrade':
-				$confirms[]['text'] = 'Section was upgraded.';
+				$confirms[]['text'] = __( 'Section was upgraded.', 'pagelines' );
 			break;
 			
 			case 'plugin_install':
-				$confirms[]['text'] = 'Plugin was installed.';
+				$confirms[]['text'] = __( 'Plugin was installed.', 'pagelines' );
 			break;
 			
 			case 'plugin_delete':
-				$confirms[]['text'] = 'Plugin was deleted.';
+				$confirms[]['text'] = __( 'Plugin was deleted.', 'pagelines' );
 			break;
 			
 			case 'plugin_upgrade':
-				$confirms[]['text'] = 'Plugin was upgraded.';
+				$confirms[]['text'] = __( 'Plugin was upgraded.', 'pagelines' );
 			break;
 			
 			case 'theme_install':
-				$confirms[]['text'] = 'Theme installed.';
+				$confirms[]['text'] = __( 'Theme installed.', 'pagelines' );
 			break;
 			
 			case 'theme_upgrade':
-				$confirms[]['text'] = 'Theme upgraded.';
+				$confirms[]['text'] = __( 'Theme upgraded.', 'pagelines' );
 			break;
 			case 'theme_delete';
-				$confirms[]['text'] = 'Theme deleted.';
+				$confirms[]['text'] = __( 'Theme deleted.', 'pagelines' );
 			break;
 			
 		}
@@ -312,7 +311,7 @@ function pagelines_admin_confirms(){
 function pagelines_draw_confirms(){ 
 	
 	$confirms = pagelines_admin_confirms();
-	$save_text = sprintf('%s Settings Saved. &nbsp;<a class="btag" href="%s/" target="_blank" target-position="front">View Your Site &rarr;</a>', THEMENAME, home_url());
+	$save_text = sprintf('%s Settings Saved. &nbsp;<a class="btag" href="%s/" target="_blank" target-position="front">View Your Site &rarr;</a>', NICECHILDTHEMENAME, home_url());
 	printf('<div id="message" class="confirmation slideup_message fade c_ajax"><div class="confirmation-pad c_response">%s</div></div>', $save_text);
 
 	if(!empty($confirms)){
@@ -332,17 +331,17 @@ function pagelines_admin_errors(){
 	
 	if(ie_version() && ie_version() < 8){
 		
-		$errors['ie']['title'] = 'You are using Internet Explorer version: ' .ie_version();
-		$errors['ie']['text'] = "Advanced options don't support Internet Explorer version 7 or lower. Please switch to a standards based browser that will allow you to easily configure your site (e.g. Firefox, Chrome, Safari, even IE8 or better would work).";
+		$errors['ie']['title'] = sprintf( __( 'You are using Internet Explorer version: %s', 'pagelines' ), ie_version() );
+		$errors['ie']['text'] = __( "Advanced options don't support Internet Explorer version 7 or lower. Please switch to a standards based browser that will allow you to easily configure your site (e.g. Firefox, Chrome, Safari, even IE8 or better would work).", 'pagelines' );
 		
 	}
 	
 	if(floatval(phpversion()) < 5.0){
-		$errors['php']['title'] = 'You are using PHP version '. phpversion();
-		$errors['php']['text'] = "Version 5 or higher is required for this theme to work correctly. Please check with your host about upgrading to a newer version.";
+		$errors['php']['title'] = sprintf( __( 'You are using PHP version %s', 'pagelines' ), phpversion() );
+		$errors['php']['text'] = __( 'Version 5 or higher is required for this theme to work correctly. Please check with your host about upgrading to a newer version.', 'pagelines' );
 	}
 	if ( isset( $_GET['extend_error'] ) ) {
-		$errors['extend']['title'] = 'Extension problem found';
+		$errors['extend']['title'] = __( 'Extension problem found', 'pagelines' );
 		$errors['extend']['text'] = $_GET['extend_error'];
 	}
 	return apply_filters('pagelines_admin_notifications', $errors);
