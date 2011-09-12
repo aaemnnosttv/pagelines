@@ -237,9 +237,12 @@ class PageLinesExtendUI {
 		return sprintf('<div class="install-control fix"><span class="banner-text">%s</span></div>', $text);
 	}
 	
-	function upload_form( $type ){
+	function upload_form( $type, $disabled = false ){
 		
 			$file = $type;
+			
+			if ( $disabled )
+				return $this->extension_banner( __( 'Sorry uploads do not work with this server config, please use FTP!', 'pagelines' ) );
 			
 		ob_start();
 		 ?>
@@ -395,7 +398,7 @@ function extension_array(  ){
 					),
 					'upload'		=> array(
 						'title'		=> __( 'Upload Sections', 'pagelines' ),
-						'callback'	=> $extension_control->ui->upload_form( 'section' )
+						'callback'	=> $extension_control->ui->upload_form( 'section', ( !is_writable( WP_PLUGIN_DIR ) ) ? true : false )
 					),
 					
 				)
