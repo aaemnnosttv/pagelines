@@ -817,22 +817,23 @@
 
 				if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) ) {
 					$r = $upgrader->install( $this->make_url( 'sections', $file ) );			
-					$wp_filesystem->move( trailingslashit( WP_PLUGIN_DIR ) . $file, trailingslashit( PL_EXTEND_DIR ) . $file );				
+					$wp_filesystem->move( trailingslashit( WP_PLUGIN_DIR ) . $file, trailingslashit( PL_EXTEND_DIR ) . $file );
+					$time = 0;				
 				} else {
-					
-					$options = array( 'package' => ( ! $uploader) ? $this->make_url( 'sections', $file ) : $file, 
+							$options = array( 'package' => ( ! $uploader) ? $this->make_url( 'sections', $file ) : $file, 
 							'destination'		=> ( ! $uploader) ? trailingslashit( PL_EXTEND_DIR ) . $file : trailingslashit( PL_EXTEND_DIR ) . $path, 
 							'clear_destination' => false,
 							'clear_working'		=> false,
 							'is_multi'			=> false,
 							'hook_extra'		=> array() 
 					);
-					@$upgrader->run($options);		
+					@$upgrader->run($options);
+					$time = 700;
+					_e( 'Success', 'pagelines');		
 				}
-
 				// Output
-				$text = '&extend_text=section_upgraded';
-				$this->page_reload( 'pagelines_extend' . $text, null, 0);	
+				$text = '&extend_text=section_upgrade';
+				$this->page_reload( 'pagelines_extend' . $text, null, $time);	
 			break;
 			
 			case 'section_delete':
