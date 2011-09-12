@@ -88,15 +88,25 @@ function blink_edit( $post_id = '', $color = 'grey', $args = array()){
 	return PLObject::button(__('Edit', 'pagelines'), 'edit_post', $color, $args);
 }
 
-function pledit( $post_id = '' ){
-	if($post_id == ''){
+function pledit( $pid = '' ){
+	
+	if($pid == ''){
 		global $post; 
-		$post_id = $post->ID;
+		$pid = $post->ID;
 	}
 	
-	$args['pid'] = $post_id;
+	if ( !$p = &get_post( $pid ) )
+		return '';
 	
-	$button = sprintf('<a class="pledit" href="%s"><span class="pledit-pad">[Edit]</span></a>', get_edit_post_link( $args['pid']));
+	$post_type_object = get_post_type_object( $p->post_type );
+	
+	if ( !$post_type_object )
+		return '';
+
+	if ( !current_user_can( $post_type_object->cap->edit_post, $p->ID ) )
+		return '';
+	
+	$button = sprintf(' <a class="pledit" href="%s"><span class="pledit-pad">(<em>edit</em>)</span></a> ', get_edit_post_link( $p->ID ));
 	
 	return $button;
 }

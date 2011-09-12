@@ -164,5 +164,10 @@ body #page .blink-wrap	.blink{
 }
 	a.btag.grey:hover{background: #ccc;color: #000;}
 	
+/* @ Grid */ 
+.grid-element{
+	margin-bottom: 1em;
+}	
+	
 /* Misc */
-.pledit{float:right; font-size: 10px; margin: 0 3px;}
+

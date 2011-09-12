@@ -173,7 +173,7 @@ class PageLinesSection {
 	function get_post_type(){
 		global $pagelines_template;
 	
-		$this->post_type = $pagelines_template->template_type;
+		$this->template_type = $pagelines_template->template_type;
 		
 	}
 

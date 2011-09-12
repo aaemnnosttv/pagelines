@@ -62,11 +62,11 @@ function cssgroup( $group ){
 	 */
 	$s['headercolor'] = 'h1, h2, h3, h4, h5, h6, h1 a, h2 a, h3 a, h4 a, h5 a, h6 a, a.site-title, .entry-title a, .entry-title a:hover, .widget-title a:hover, h3.widget-title a:hover';
 	
-	$s['text_primary'] = '#page, .tcolor1, #subnav ul li a:active, .commentlist cite a, #breadcrumb a, .metabar a:hover, .post-nav a:hover, .post-footer a,  #carousel .carousel_text, #site #dsq-content .dsq-request-user-info td a, #page .wp-pagenavi a:hover, #page .wp-pagenavi .current,  .content-pagination a:hover .cp-num';
+	$s['text_primary'] = '.text1, #page, .tcolor1, #subnav ul li a:active, .commentlist cite a, #breadcrumb a, .metabar a:hover, .post-nav a:hover, .post-footer a,  #carousel .carousel_text, #site #dsq-content .dsq-request-user-info td a, #page .wp-pagenavi a:hover, #page .wp-pagenavi .current,  .content-pagination a:hover .cp-num';
 	
-	$s['text_secondary'] = '.tcolor2, .lcolor2 a, .subhead, .widget-title, #branding .site-description, #callout, #commentform .required, #postauthor .subtext, #carousel .thecarousel, #page .wp-pagenavi span.pages, .commentlist .comment-meta  a,  #highlight .highlight-subhead, .content-pagination span, .content-pagination a .cp-num, .comment.alt .comment-author, .tcolor3, .lcolor3 a, .main_nav a, .widget-title a, h3.widget-title a, #subnav_row li a, .metabar em, .metabar a, .tags, #commentform label, .form-allowed-tags code, .rss-date, #breadcrumb, .comment.alt, .reply a,  .post-footer, .auxilary a, .widget ul.twitter .twitter-item, .cform .emailreqtxt,.cform .reqtxt, #page .wp-pagenavi a, #page .wp-pagenavi .current, #page .wp-pagenavi .extend';
+	$s['text_secondary'] = '.text2, .tcolor2, .lcolor2 a, .subhead, .widget-title, #branding .site-description, #callout, #commentform .required, #postauthor .subtext, #carousel .thecarousel, #page .wp-pagenavi span.pages, .commentlist .comment-meta  a,  #highlight .highlight-subhead, .content-pagination span, .content-pagination a .cp-num, .comment.alt .comment-author, .tcolor3, .lcolor3 a, .main_nav a, .widget-title a, h3.widget-title a, #subnav_row li a, .metabar em, .metabar a, .tags, #commentform label, .form-allowed-tags code, .rss-date, #breadcrumb, .comment.alt, .reply a,  .post-footer, .auxilary a, .widget ul.twitter .twitter-item, .cform .emailreqtxt,.cform .reqtxt, #page .wp-pagenavi a, #page .wp-pagenavi .current, #page .wp-pagenavi .extend';
 
-	$s['text_tertiary'] = '';
+	$s['text_tertiary'] = '.text3';
 	
 	$s['text_box'] = '.post-nav a, .post-nav a:visited, #twitterbar .content .tbubble, #wp-calendar caption, .searchform .searchfield, .main_nav .current-menu-item a, .main_nav li a:hover, .main_nav li a:hover, #wp-calendar thead th, textarea, #featurenav a';
 	
@@ -89,8 +89,8 @@ function cssgroup( $group ){
 	 * Typography 
 	 */
 	$s['type_headers'] = 'h1, h2, h3, h4, h5, h6, .site-title';
-	$s['type_primary'] = 'body, .font1, .font-primary, .commentlist';
-	$s['type_secondary'] = '.font2, .font-sub, ul.main-nav, #secondnav, .metabar, .subtext, .subhead, .widget-title, .post-comments, .reply a, .editpage, #page .wp-pagenavi, .post-edit-link, #wp-calendar caption, #wp-calendar thead th, .soapbox-links a, .fancybox, .standard-form .admin-links, .pagelines-blink, .ftitle small';
+	$s['type_primary'] = '.text1, body, .font1, .font-primary, .commentlist';
+	$s['type_secondary'] = '.text2, .font2, .font-sub, ul.main-nav, #secondnav, .metabar, .subtext, .subhead, .widget-title, .post-comments, .reply a, .editpage, #page .wp-pagenavi, .post-edit-link, #wp-calendar caption, #wp-calendar thead th, .soapbox-links a, .fancybox, .standard-form .admin-links, .pagelines-blink, .ftitle small';
 	$s['type_inputs'] = 'input[type="text"], input[type="password"], textarea, #dsq-content textarea';
 	
 	
