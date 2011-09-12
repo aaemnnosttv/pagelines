@@ -246,7 +246,7 @@ class PageLinesExtendUI {
 		<div class="pagelines_upload_form">
 			<h4><?php _e( 'Install a section in .zip format', 'pagelines' ) ?></h4>
 			<p class="install-help"><?php _e( 'If you have a section in a .zip format, you may install it by uploading it here.', 'pagelines' ) ?></p>
-			<form method="post" enctype="multipart/form-data">
+			<?php printf( '<form method="post" enctype="multipart/form-data" action="%s">', admin_url( 'admin.php?page=pagelines_extend' ) ) ?>
 				<?php wp_nonce_field( 'pagelines_extend_upload', 'upload_check' ) ?>
 				<label class="screen-reader-text" for="<?php echo $file;?>"><?php _e( 'Section zip file', 'pagelines' ); ?></label>
 				<input type="file" id="<?php echo $file;?>" name="<?php echo $file;?>" />
@@ -424,10 +424,10 @@ function extension_array(  ){
 						'class'		=> 'right',
 						'callback'	=> $extension_control->extension_themes( 'premium' )
 						),
-					'upload'		=> array(
-						'title'		=> __( 'Upload A PageLines Theme', 'pagelines' ),
-						'callback'	=> $extension_control->ui->upload_form( 'theme' )
-						),
+//					'upload'		=> array(
+//						'title'		=> __( 'Upload A PageLines Theme', 'pagelines' ),
+//						'callback'	=> $extension_control->ui->upload_form( 'theme' )
+//						),
 					)
 				)
 		),
@@ -455,10 +455,10 @@ function extension_array(  ){
 						'title'		=> __( 'Search Plugins', 'pagelines' ),
 						'callback'	=> $extension_control->ui->search_extend( 'plugin' )
 					),
-					'upload'		=> array(
-						'title'		=> __( 'Upload Plugin', 'pagelines' ),
-						'callback'	=> $extension_control->ui->upload_form( 'plugin' )
-					),
+//					'upload'		=> array(
+//						'title'		=> __( 'Upload Plugin', 'pagelines' ),
+//						'callback'	=> $extension_control->ui->upload_form( 'plugin' )
+//					),
 				)
 			)
 
