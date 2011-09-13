@@ -382,10 +382,3 @@ function do_color_math($oid, $o, $val, $format = 'css'){
 	
 	return $output;
 }
-
-
-
-
-
-
-

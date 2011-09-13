@@ -10,7 +10,7 @@ if(VPRO && class_exists('WP_Widget')){
 		class PageLines_GrandChild extends WP_Widget {
 	
 		   function PageLines_GrandChild() {
-			   $widget_ops = array('description' => 'Creates a third tier navigation (Grandchild). Shows on pages when there are three levels; based on page heirarchy.' );
+			   $widget_ops = array('description' => __( 'Creates a third tier navigation (Grandchild). Shows on pages when there are three levels; based on page heirarchy.', 'pagelines' ) );
 			   parent::WP_Widget(false, $name = __('PageLines Pro - Grandchild Nav', 'pagelines'), $widget_ops);    
 		   }
 	
