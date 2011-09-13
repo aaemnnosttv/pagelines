@@ -56,6 +56,10 @@
 		delete_transient( 'pagelines_sections_api_plugins' );
 		delete_transient( 'pagelines_sections_cache' );
 		
+		// We need to reprime the cache now, and reset the object caches on the API server.
+		$this->get_latest_cached( 'plugins', true );
+		$this->get_latest_cached( 'sections', true );
+		$this->get_latest_cached( 'themes', true );	
 	}
 
  	function extension_sections_install( $tab = '' ) {
@@ -1001,7 +1005,7 @@
 	* Simple cache for plugins and sections
 	* @return object
 	*/
-	function get_latest_cached( $type ) {
+	function get_latest_cached( $type, $flush = null ) {
 		
 		$url = trailingslashit( PL_API . $type );
 		$options = array(
@@ -1009,7 +1013,8 @@
 			'timeout'	=>	5,
 			'body' => array(
 				'username'	=>	( $this->username != '' ) ? $this->username : false,
-				'password'	=>	( $this->password != '' ) ? $this->password : false
+				'password'	=>	( $this->password != '' ) ? $this->password : false,
+				'flush'		=>	$flush
 			)
 		);
 		
