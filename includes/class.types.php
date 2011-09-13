@@ -113,13 +113,16 @@ class PageLinesPostType {
 		
 			foreach($this->taxonomies as $tax_id => $tax_settings){
 			
-				register_taxonomy($tax_id, array($this->id), array(
-						"hierarchical" => true, 
-						"label" => $tax_settings['label'], 
-						"singular_label" => $tax_settings['singular_label'], 
-						"rewrite" => true
-					)
+				$defaults = array(
+					"hierarchical" 		=> true, 
+					"label" 			=> '', 
+					"singular_label" 	=> '', 
+					"rewrite" 			=> true
 				);
+					
+				$a = wp_parse_args($tax_settings, $defaults);
+			
+				register_taxonomy( $tax_id, array($this->id), $a );
 			}
 			
 		}
