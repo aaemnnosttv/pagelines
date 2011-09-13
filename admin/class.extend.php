@@ -1021,7 +1021,7 @@
 		if ( false === ( $api = get_transient( 'pagelines_sections_api_' . $type ) ) ) {
 			$response = pagelines_try_api( $url, $options );
 			$api = wp_remote_retrieve_body( $response );
-			set_transient( 'pagelines_sections_api_' . $type, $api, 300 );			
+			set_transient( 'pagelines_sections_api_' . $type, $api, 86400 );			
 		}
 		if( is_wp_error( $api ) )
 			return __( '<h2>Unable to fetch from API</h2>', 'pagelines' );
