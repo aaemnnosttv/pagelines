@@ -130,7 +130,7 @@ body #page .blink-wrap	.blink{
 	.bl-align-right{float:right; margin: 2px 0 2px 5px;}
 
 /* Tag Button */ 
-.btag{
+.btag, .boxtags a{
 	font-family: helvetica, arial, sans-serif;
 	text-shadow: #315f9b 0 -1px 0;
 	background: #6aaef5;
@@ -149,10 +149,10 @@ body #page .blink-wrap	.blink{
 	vertical-align:top;
 	text-decoration: none;
 }
-	a.btag:hover{background: #3585f0;color: #fff;}
+	a.btag:hover, .boxtags a:hover{background: #3585f0;color: #fff;}
 
 
-.btag.grey{
+.btag.grey, .boxtags a{
 	
 	text-shadow: #fff 0 1px 0;
 	background: #ddd;
@@ -162,7 +162,7 @@ body #page .blink-wrap	.blink{
 	border-bottom: 1px solid #bbb;
 	border-right: 1px solid #bbb;
 }
-	a.btag.grey:hover{background: #ccc;color: #000;}
+	a.btag.grey:hover, .boxtags a:hover{background: #ccc;color: #000;}
 	
 /* @ Grid */ 
 .grid-element, .media_overview{

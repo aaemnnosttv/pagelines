@@ -162,11 +162,6 @@ body{font-size: 87.5%; line-height: 1.714285em;}
 	
 		.setup_area{border: 4px dashed transparent;margin: 2em 0;}
 		
-		.post-nav, .current_posts_info, .post-footer  {
-			border-right: 3px solid transparent;
-			border-left: 3px solid transparent;
-		}
-	
 	
 /* 
 * @ Element & Section Formatting
