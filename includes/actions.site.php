@@ -87,7 +87,7 @@ add_action('wp_head', 'do_dynamic_css', 8);
 
 function pagelines_add_google_profile( $contactmethods ) {
 	// Add Google Profiles
-	$contactmethods['google_profile'] = 'Google Profile URL';
+	$contactmethods['google_profile'] = __( 'Google Profile URL', 'pageines' );
 	return $contactmethods;
 }
 add_filter( 'user_contactmethods', 'pagelines_add_google_profile', 10, 1);

@@ -94,10 +94,10 @@ function pagelines_ajax_callback() {
 			wp_update_attachment_metadata( $attach_id,  $attach_data );
 			
 		} else
-			$uploaded_file['error'] = 'Unsupported file type!';
+			$uploaded_file['error'] = __( 'Unsupported file type!', 'pagelines' );
 	
 		if( !empty( $uploaded_file['error'] ) )
-			echo 'Upload Error: ' . $uploaded_file['error'];
+			echo sprintf( __('Upload Error: %s', 'pagelines' ) , $uploaded_file['error'] );
 		else{
 			//print_r($r);
 			echo $uploaded_file['url']; // Is the Response

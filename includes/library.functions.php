@@ -147,7 +147,7 @@ function pagelines_template_area( $hook_name, $hook_area_id = null){
  */
 function checkauthority(){
 	if (!current_user_can('edit_themes'))
-	wp_die('Sorry, but you don&#8217;t have the administrative privileges needed to do this.');
+	wp_die( __( 'Sorry, but you don&#8217;t have the administrative privileges needed to do this.', 'pagelines' ) );
 }
 
 /**
@@ -346,7 +346,7 @@ function pagelines_add_page($file, $name){
  * @since 1.0.0
  */
 function pagelines_setup_menu() {
-	echo 'Add links using WordPress menus in your site admin.';
+	echo __( 'Add links using WordPress menus in your site admin.', 'pagelines' );
 }
 
 /**

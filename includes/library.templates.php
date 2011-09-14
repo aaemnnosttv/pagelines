@@ -397,8 +397,7 @@ function pagelines_nav_fallback() {
 function blank_nav_fallback() {
 	
 	if(current_user_can('edit_themes'))
-		printf('<ul class="inline-list">Please select a nav menu for this area in the <a href="%s">WordPress menu admin</a>.</ul>', admin_url('nav-menus.php'));
-
+		printf( __( '<ul class="inline-list">Please select a nav menu for this area in the <a href="%s">WordPress menu admin</a>.</ul>', 'pagelines' ), admin_url('nav-menus.php') );
 }
 
 /**
@@ -480,7 +479,7 @@ function pagelines_settings_menu_link(  ){
 	$edit = (isset($wp_admin_bar->menu->edit)) ? $wp_admin_bar->menu->edit : null;
 	
 	if( is_home() && isset($edit) ){
-		$edit['title'] = 'Blog Meta';
+		$edit['title'] = __( 'Blog Meta', 'pagelines' );
 		$edit['href'] = admin_url( 'admin.php?page=pagelines_special#blog_page' );
 	}
 	

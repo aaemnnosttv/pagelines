@@ -156,7 +156,7 @@ class PageLinesLayout {
 				$this->hidden->text = '';
 				$this->hidden->id = 'hidden';
 
-				$this->main_content->text = 'Main Column';
+				$this->main_content->text = __( 'Main Column', 'pagelines' );
 				$this->main_content->id = 'layout-main-content';
 
 				$this->sidebar1->text = 'SB1';

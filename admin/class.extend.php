@@ -56,6 +56,10 @@
 		delete_transient( 'pagelines_sections_api_plugins' );
 		delete_transient( 'pagelines_sections_cache' );
 		
+		// We need to reprime the cache now, and reset the object caches on the API server.
+		$this->get_latest_cached( 'plugins', true );
+		$this->get_latest_cached( 'sections', true );
+		$this->get_latest_cached( 'themes', true );	
 	}
 
  	function extension_sections_install( $tab = '' ) {
@@ -941,6 +945,7 @@
 				switch_theme( basename( get_template_directory() ), $file );
 				// Output
 				_e( 'Activated', 'pagelines' );
+				delete_transient( 'pagelines_sections_cache' );
 				$this->page_reload( 'pagelines&pageaction=activated' );	
 			break;
 
@@ -949,6 +954,7 @@
 				switch_theme( basename( get_template_directory() ), basename( get_template_directory() ) );
 				// Output
 				_e( 'Deactivated', 'pagelines' );
+				delete_transient( 'pagelines_sections_cache' );
 				$this->page_reload( 'pagelines_extend' );
 			break;
 			
@@ -1001,7 +1007,7 @@
 	* Simple cache for plugins and sections
 	* @return object
 	*/
-	function get_latest_cached( $type ) {
+	function get_latest_cached( $type, $flush = null ) {
 		
 		$url = trailingslashit( PL_API . $type );
 		$options = array(
@@ -1009,14 +1015,15 @@
 			'timeout'	=>	5,
 			'body' => array(
 				'username'	=>	( $this->username != '' ) ? $this->username : false,
-				'password'	=>	( $this->password != '' ) ? $this->password : false
+				'password'	=>	( $this->password != '' ) ? $this->password : false,
+				'flush'		=>	$flush
 			)
 		);
 		
 		if ( false === ( $api = get_transient( 'pagelines_sections_api_' . $type ) ) ) {
 			$response = pagelines_try_api( $url, $options );
 			$api = wp_remote_retrieve_body( $response );
-			set_transient( 'pagelines_sections_api_' . $type, $api, 300 );			
+			set_transient( 'pagelines_sections_api_' . $type, $api, 86400 );			
 		}
 		if( is_wp_error( $api ) )
 			return __( '<h2>Unable to fetch from API</h2>', 'pagelines' );

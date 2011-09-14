@@ -168,9 +168,9 @@ class PageLinesTemplateBuilder {
 	<div class="clear"></div>
 	<?php
 	
-		$this->_sub_selector('templates', 'sel-templates-sub', 'For Which Type of Page?');
+		$this->_sub_selector('templates', 'sel-templates-sub', __('For Which Type of Page?', 'pagelines'));
 		
-		$this->_sub_selector('main', 'sel-content-sub', 'Which Content Area Type?');
+		$this->_sub_selector('main', 'sel-content-sub', __('Which Content Area Type?', 'pagelines'));
 		
 	}
 
@@ -451,7 +451,7 @@ class PageLinesTemplateBuilder {
 				echo '</div>';
 				
 			} else
-			 	echo 'No settings in this template area.';
+			 	echo __('No settings in this template area.', 'pagelines');
 					
 					
 		echo '<div class="clear"></div></div></div>';
@@ -660,10 +660,10 @@ function templates_array(){
 			'default'	=> '',
 			'type'		=> 'templates',
 			'layout'	=> 'interface',
-			'title'		=> THEMENAME.' Template Setup',						
-			'shortexp'	=> 'Drag and drop control over your website\'s templates.<br/> Note: Select "Hidden by Default" to hide the section by default; and activate with individual page/post options.',
+			'title'		=> sprintf( __( '%s Template Setup', 'pagelines'), THEMENAME ),					
+			'shortexp'	=> __( 'Drag and drop control over your website\'s templates.<br/> Note: Select "Hidden by Default" to hide the section by default; and activate with individual page/post options.', 'pagelines'),
 			'docslink'	=> 'http://www.pagelines.com/docs/template-setup', 
-			'vidtitle'	=> 'Template Setup Overview'
+			'vidtitle'	=> __( 'Template Setup Overview', 'pagelines')
 		)	
 	);
 	
