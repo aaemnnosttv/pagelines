@@ -945,6 +945,7 @@
 				switch_theme( basename( get_template_directory() ), $file );
 				// Output
 				_e( 'Activated', 'pagelines' );
+				delete_transient( 'pagelines_sections_cache' );
 				$this->page_reload( 'pagelines&pageaction=activated' );	
 			break;
 
@@ -953,6 +954,7 @@
 				switch_theme( basename( get_template_directory() ), basename( get_template_directory() ) );
 				// Output
 				_e( 'Deactivated', 'pagelines' );
+				delete_transient( 'pagelines_sections_cache' );
 				$this->page_reload( 'pagelines_extend' );
 			break;
 			
