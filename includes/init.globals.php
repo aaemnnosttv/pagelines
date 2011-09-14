@@ -109,6 +109,10 @@ define( 'PL_EXTEND_STYLE_PATH', EXTEND_CHILD_DIR . '/style.css' );
 define( 'PL_EXTEND_FUNCTIONS', EXTEND_CHILD_DIR . '/functions.php' );
 define( 'PL_EXTEND_THEMES_DIR', WP_CONTENT_DIR .'/themes/' );
 
+if ( is_multisite() && ! is_super_admin() )
+	define( 'EXTEND_NETWORK', true);
+else
+	define( 'EXTEND_NETWORK', false);
 
 
 /**
