@@ -12,7 +12,7 @@ class PageLinesUpdateCheck {
 		$this->password = get_pagelines_option( 'lp_password' );
 
 		get_currentuserinfo();
-		$bad_users = apply_filters( 'pagelines_updates_badusernames', array( $current_user->user_login, 'admin', 'root', 'test', 'testing', '' ) );
+		$bad_users = apply_filters( 'pagelines_updates_badusernames', array( 'admin', 'root', 'test', 'testing', '' ) );
 		if ( in_array( strtolower( $this->username ),  $bad_users ) ) {
 			pagelines_update_option( 'lp_username', '' );
 			pagelines_update_option( 'lp_password', '' );
