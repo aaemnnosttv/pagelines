@@ -134,7 +134,7 @@ class PageLinesMetaPanel {
 		
 		$this->edit_slug = $slug;
 		
-		return $slug;
+		return ( isset( $slug ) ) ? $slug : '';
 	}
 	
 	function get_the_title(){
