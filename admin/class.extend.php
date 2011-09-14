@@ -94,18 +94,30 @@
 				continue;
 
 			$key = str_replace( '.', '', $key );
-		
+
+			$install = ( EXTEND_NETWORK ) ? false : true;
+	
 			$actions = array(
 				'install'	=> array(
 					'mode'		=> 'install',
-					'condition'	=> true,
+					'condition'	=> $install,
 					'case'		=> 'section_install',
 					'type'		=> $s->type,
 					'file'		=> $key,
 					'path'		=> $s->class,
 					'text'		=> __( 'Install', 'pagelines' ),
 					'dtext'		=> __( 'Installing', 'pagelines' )
-					)
+					),
+					'redirect'	=> array(
+						'mode'		=> 'redirect',
+						'condition'	=> ( EXTEND_NETWORK ) ? true : false,
+						'case'		=> 'network_redirect',
+						'type'		=> __( 'sections', 'pagelines' ),
+						'file'		=> $key,
+						'path'		=> $s->class,
+						'text'		=> __( 'Install', 'pagelines' ),
+						'dtext'		=> ''
+					)			
 			);
 			
 			$list[$key] = array(
@@ -200,7 +212,7 @@
 
 				$file = basename( $s['base_dir'] );
 				$upgrade_available = $this->upgrade_available( $upgradable, $file, $s);
-				$delete = ( !$enabled && ( $tab !== 'child' && $tab !== 'internal' ) ) ? true : false;
+				$delete = ( !EXTEND_NETWORK && !$enabled && ( $tab !== 'child' && $tab !== 'internal' ) ) ? true : false;
 				$actions = array(
 					'activate'	=> array(
 						'mode'		=> 'activate',
@@ -262,7 +274,7 @@
 	
 		
 		if(empty($list))
-			return $this->ui->extension_banner( sprintf ( __( 'No %1$s sections are currently available. <br/>Check back soon!', 'pagelines' ), $tab ) );
+			return $this->ui->extension_banner( sprintf ( __( 'No %1$s sections are currently installed. <br/>Check back soon!', 'pagelines' ), $tab ) );
 		else
 			return $this->ui->extension_list( $list );
  	}
@@ -691,6 +703,12 @@
 		// 3. Do our thing...
 
 		switch ( $mode ) {
+			
+			case 'network_redirect':
+			
+				echo sprintf( __( 'Sorry only network admins can install %s.', 'pagelines' ), $type );
+			
+			break;
 			
 			case 'plugin_install': // TODO check status first!
 

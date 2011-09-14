@@ -243,7 +243,10 @@ class PageLinesExtendUI {
 			
 			if ( $disabled )
 				return $this->extension_banner( __( 'Sorry uploads do not work with this server config, please use FTP!', 'pagelines' ) );
-			
+
+			if ( EXTEND_NETWORK )
+				return $this->extension_banner( __( 'Only network admins can upload sections!', 'pagelines' ) );
+
 		ob_start();
 		 ?>
 		<div class="pagelines_upload_form">

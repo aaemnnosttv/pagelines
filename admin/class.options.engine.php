@@ -954,11 +954,17 @@ class OptEngine {
 		if ( ploption( 'disable_updates' ) )
 			$updates_exp = __( 'Updates are disabled.', 'pagelines' );
 
+		if ( EXTEND_NETWORK )
+			$updates_exp = __( 'Updates are disabled for non Network Admins</div>', 'pagelines' );
 		?>
 		<div class="pl_form">
 			<div class="pl_form_feedback">
 				<?php echo $updates_exp; ?>
 			</div>
+			
+				<?php if ( EXTEND_NETWORK )
+						return;
+					?>			
 			<form method="post" class="pl_account_info fix">
 				<div class="pl_account_info_pad">
 					
