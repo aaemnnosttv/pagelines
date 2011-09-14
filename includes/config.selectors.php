@@ -47,7 +47,7 @@ function cssgroup( $group ){
 	 */
 	$s['border_layout'] = 'hr, .fpost, .clip_box, .widget-title, .metabar a, #morefoot .widget-title, #site #dsq-content h3, .navigation_wrap, .setup_area, .fpost .post-thumb img, .clip .clip-thumb img, .author-thumb img';
 	
-	$s['border_primary'] = '.post-nav, .current_posts_info, .post-footer, blockquote, input, textarea, .searchform .searchfield, .wp-caption,   #grandchildnav.widget,  #carousel .content ul li a img, #carousel .content ul li a:hover img, #soapbox .fboxinfo, .post-meta .c_img';
+	$s['border_primary'] = 'blockquote, input, textarea, .searchform .searchfield, .wp-caption,   #grandchildnav.widget,  #carousel .content ul li a img, #carousel .content ul li a:hover img, #soapbox .fboxinfo, .post-meta .c_img';
 	
 	$s['border_secondary'] = '';
 	

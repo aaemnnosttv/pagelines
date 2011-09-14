@@ -38,7 +38,3 @@ class PageLinesPostNav extends PageLinesSection {
 <?php }
 
 }
-
-/*
-	End of section class
-*/

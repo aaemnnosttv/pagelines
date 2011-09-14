@@ -54,8 +54,7 @@ function pagelines_body_classes(){
 	
 	$design_mode = (ploption('site_design_mode')) ? ploption('site_design_mode') : 'full_width';
 
-	$body_classes = ' custom ';
-	$body_classes .= $design_mode;
+	$body_classes = $design_mode;
 	
 	if(pagelines_is_buddypress_active() && !pagelines_bbpress_forum()){
 		$body_classes .= ' buddypress';
