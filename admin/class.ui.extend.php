@@ -20,7 +20,7 @@ class PageLinesExtendUI {
 	 */
 	function __construct() {
 		
-		$this->exprint = 'onClick="extendIt(\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\')"';
+		$this->exprint = 'onClick="extendIt(\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\')"';
 		
 		$this->defaultpane = array(
 				'name' 		=> 'Unnamed', 
@@ -172,13 +172,14 @@ class PageLinesExtendUI {
 			'dtext'	=> '',
 			'key'	=> $key, 
 			'type'	=> '',
-			'path'	=> '', 
+			'path'	=> '',
+			'product' => 0,
 			'confirm'	=> false
 		);
 		
 		$a = wp_parse_args($a, $d);
 		
-		$js_call = sprintf( $this->exprint, $a['case'], $a['key'], $a['type'], $a['file'], $a['path'], $a['dtext']);
+		$js_call = sprintf( $this->exprint, $a['case'], $a['key'], $a['type'], $a['file'], $a['path'], $a['product'], $a['dtext']);
 		
 		if($style == 'superlink')
 			$button = OptEngine::superlink( $a['text'], $a['mode'], '', '', $js_call);
@@ -282,7 +283,7 @@ class PageLinesExtendUI {
 		?>
 <script type="text/javascript">/*<![CDATA[*/
 
-		function extendIt( mode, key, type, file, path, duringText ){
+		function extendIt( mode, key, type, file, path, product, duringText ){
 
 				/* 
 					'Mode' 	= the type of extension
@@ -297,7 +298,8 @@ class PageLinesExtendUI {
 					extend_mode: mode,
 					extend_type: type,
 					extend_file: file,
-					extend_path: path
+					extend_path: path,
+					extend_product: product
 				};
 
 				var responseElement = jQuery('#dialog');

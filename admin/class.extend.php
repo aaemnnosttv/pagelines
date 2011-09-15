@@ -16,7 +16,7 @@
 
  	function __construct() {
 
-		$this->exprint = 'onClick="extendIt(\'%s\', \'%s\', \'%s\', \'%s\', \'%s\')"';
+		$this->exprint = 'onClick="extendIt(\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\')"';
 		$this->username = get_pagelines_option( 'lp_username' );
 		$this->password = get_pagelines_option( 'lp_password' );
 		
@@ -519,6 +519,7 @@
 				$upgrade_available = (isset($data) && $data['Version'] && $theme['version'] > $data['Version']) ? true : false;
 			
 				$purchase = ( !isset( $theme['purchased'] ) && !$status && $updates_configured ) ? true : false;
+				$product = ( isset( $theme['productid'] ) ) ? $theme['productid'] : 0;
 				$install = ( !$status && !$purchase && $updates_configured ) ? true : false;
 				$delete = ( $activate ) ? true : false;
 				
@@ -531,6 +532,7 @@
 						'case'		=> 'theme_install',
 						'type'		=> 'themes',
 						'file'		=> $key,
+						'product'	=> $product,
 						'text'		=> __( 'Install', 'pagelines' ),
 						'dtext'		=> __( 'Installing', 'pagelines' ),
 					),
@@ -590,6 +592,7 @@
 						'dtext'		=> __( 'Redirecting', 'pagelines' ),
 					)
 				);
+				plprint( $actions );
 				$list[$key] = array(
 						'theme'		=> $theme,
 						'name' 		=> $theme['name'], 
@@ -699,6 +702,7 @@
 			$type =  $_POST['extend_type'];
 			$file =  $_POST['extend_file'];
 			$path =  $_POST['extend_path'];
+			$product = $_POST['extend_product'];
 			
 		// 3. Do our thing...
 
@@ -924,7 +928,7 @@
 				$skin = new PageLines_Upgrader_Skin();
 				$upgrader = new Theme_Upgrader($skin);
 				global $wp_filesystem;
-				$upgrader->install( $this->make_url( $type, $file ) );
+				$upgrader->install( $this->make_url( $type, $file, $product ) );
 				
 				if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) && $wp_filesystem->method != 'direct' ):
 					$time = 0;
@@ -991,9 +995,9 @@
 		die(); // needed at the end of ajax callbacks
 	}
 	
-	function make_url( $type, $file ) {
+	function make_url( $type, $file, $product = null ) {
 		
-		return sprintf('%s%s/download.php?d=%s.zip', PL_API_FETCH, $type, $file);
+		return sprintf('%s%s/download.php?d=%s.zip%s', PL_API_FETCH, $type, $file, (isset( $product ) ) ? '&product=' . $product : '' );
 		
 	}
 	
