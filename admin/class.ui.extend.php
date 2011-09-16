@@ -212,12 +212,12 @@ class PageLinesExtendUI {
 			$file = '/' . trailingslashit( $name ) . $name . '.php'; 
 			$btext = 'Activate Sections';
 			$text = sprintf( __( 'Sections plugin installed, now activate it!', 'pagelines' ) );
-			$install_js_call = sprintf( $this->exprint, 'plugin_activate', $key, 'plugins', $file, '', __( 'Activating', 'pagelines' ) );
+			$install_js_call = sprintf( $this->exprint, 'plugin_activate', $key, 'plugins', $file, '', '', __( 'Activating', 'pagelines' ) );
 			
 		} elseif($status == 'notinstalled'){
 			$btext = __( 'Install It Now!', 'pagelines' );
 			$text = __( 'You need to install and activate PageLines Sections Plugin', 'pagelines' );
-			$install_js_call = sprintf( $this->exprint, 'plugin_install', $key, 'plugins', 'pagelines-sections', '/pagelines-sections/pagelines-sections.php', __( 'Installing', 'pagelines' ) );
+			$install_js_call = sprintf( $this->exprint, 'plugin_install', $key, 'plugins', 'pagelines-sections', '/pagelines-sections/pagelines-sections.php','', __( 'Installing', 'pagelines' ) );
 		}
 			
 		$eresponse = 'response'.$key;
