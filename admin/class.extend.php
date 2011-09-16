@@ -478,7 +478,6 @@
 		$list = array();
 		
 		$themes = $this->extension_scan_themes( $themes );
-
 		foreach( $themes as $key => $theme ) {
 			
 				// reset the vars first numbnuts!
@@ -592,7 +591,7 @@
 						'dtext'		=> __( 'Redirecting', 'pagelines' ),
 					)
 				);
-				plprint( $actions );
+
 				$list[$key] = array(
 						'theme'		=> $theme,
 						'name' 		=> $theme['name'], 
