@@ -13,6 +13,13 @@
 
 
 Version 2.0.0
+	BETA - 15
+	- Whole admin is now fully translatable.
+	- Multisite 'fixes' for extend:
+		* Update notifications disabled for non super-admin.
+		* Install/Delete disabled for non super-admin.
+	- cache clean on theme switch.
+
 	BETA - 14
 	- Extend system uses wp_filesystem if needed.
 	- Lots of translation fixes.
