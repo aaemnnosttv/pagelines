@@ -531,7 +531,7 @@
 				$purchase = ( !isset( $theme['purchased'] ) && !$status && $updates_configured ) ? true : false;
 				$product = ( isset( $theme['productid'] ) ) ? $theme['productid'] : 0;
 				$install = ( !$status && !$purchase && $updates_configured ) ? true : false;
-				$delete = ( $activate ) ? true : false;
+				$delete = ( $activate && !EXTEND_NETWORK ) ? true : false;
 				
 				$login = ( !$updates_configured && !$status );
 				
