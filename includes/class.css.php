@@ -192,10 +192,3 @@ function inline_css_markup($id, $css, $echo = true){
 		return $mark;
 	
 }
-
-
-
-
-
-
-

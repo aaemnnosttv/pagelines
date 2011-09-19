@@ -134,12 +134,12 @@ class PageLinesMetaPanel {
 		
 		$this->edit_slug = $slug;
 		
-		return $slug;
+		return ( isset( $slug ) ) ? $slug : '';
 	}
 	
 	function get_the_title(){
 			global $post;
-			$this->base_name = 'PageLines Meta Settings';
+			$this->base_name = __( 'PageLines Meta Settings', 'pagelines' );
 			$name = $this->base_name;
 			return $name;
 	}
@@ -268,7 +268,7 @@ class PageLinesMetaPanel {
 													echo $t->name;
 												
 													if(!$t->active) 
-														echo OptEngine::superlink('Inactive On Template', 'black', 'right', admin_url('admin.php?page=pagelines&selectedtab=2'));
+														echo OptEngine::superlink(__( 'Inactive On Template', 'pagelines' ), 'black', 'right', admin_url('admin.php?page=pagelines&selectedtab=2'));
 												 ?>
 											</div>
 											<?php 
@@ -353,7 +353,7 @@ class PageLinesMetaPanel {
 								echo $t->name;
 					
 								if(!$t->active) 
-									echo OptEngine::superlink('Inactive On Template', 'black', 'right', admin_url('admin.php?page=pagelines_templates'));
+									echo OptEngine::superlink(__( 'Inactive On Template', 'pagelines' ), 'black', 'right', admin_url('admin.php?page=pagelines_templates'));
 							 ?>
 						</div>
 						<?php 
@@ -589,7 +589,7 @@ function do_global_meta_options(){
 	
 	$metatab_settings = array(
 			'id' 	=> 'general_page_meta',
-			'name' 	=> "Page Setup",
+			'name' 	=> __( "Page Setup", 'pagelines' ),
 			'icon' 	=>  PL_ADMIN_ICONS . '/ileaf.png'
 		);
 

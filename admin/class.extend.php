@@ -16,7 +16,7 @@
 
  	function __construct() {
 
-		$this->exprint = 'onClick="extendIt(\'%s\', \'%s\', \'%s\', \'%s\', \'%s\')"';
+		$this->exprint = 'onClick="extendIt(\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\')"';
 		$this->username = get_pagelines_option( 'lp_username' );
 		$this->password = get_pagelines_option( 'lp_password' );
 		
@@ -94,18 +94,30 @@
 				continue;
 
 			$key = str_replace( '.', '', $key );
-		
+
+			$install = ( EXTEND_NETWORK ) ? false : true;
+	
 			$actions = array(
 				'install'	=> array(
 					'mode'		=> 'install',
-					'condition'	=> true,
+					'condition'	=> $install,
 					'case'		=> 'section_install',
 					'type'		=> $s->type,
 					'file'		=> $key,
 					'path'		=> $s->class,
 					'text'		=> __( 'Install', 'pagelines' ),
 					'dtext'		=> __( 'Installing', 'pagelines' )
-					)
+					),
+					'redirect'	=> array(
+						'mode'		=> 'redirect',
+						'condition'	=> ( EXTEND_NETWORK ) ? true : false,
+						'case'		=> 'network_redirect',
+						'type'		=> __( 'sections', 'pagelines' ),
+						'file'		=> $key,
+						'path'		=> $s->class,
+						'text'		=> __( 'Install', 'pagelines' ),
+						'dtext'		=> ''
+					)			
 			);
 			
 			$list[$key] = array(
@@ -200,7 +212,7 @@
 
 				$file = basename( $s['base_dir'] );
 				$upgrade_available = $this->upgrade_available( $upgradable, $file, $s);
-				$delete = ( !$enabled && ( $tab !== 'child' && $tab !== 'internal' ) ) ? true : false;
+				$delete = ( !EXTEND_NETWORK && !$enabled && ( $tab !== 'child' && $tab !== 'internal' ) ) ? true : false;
 				$actions = array(
 					'activate'	=> array(
 						'mode'		=> 'activate',
@@ -262,7 +274,7 @@
 	
 		
 		if(empty($list))
-			return $this->ui->extension_banner( sprintf ( __( 'No %1$s sections are currently available. <br/>Check back soon!', 'pagelines' ), $tab ) );
+			return $this->ui->extension_banner( sprintf ( __( 'No %1$s sections are currently installed. <br/>Check back soon!', 'pagelines' ), $tab ) );
 		else
 			return $this->ui->extension_list( $list );
  	}
@@ -466,7 +478,6 @@
 		$list = array();
 		
 		$themes = $this->extension_scan_themes( $themes );
-
 		foreach( $themes as $key => $theme ) {
 			
 				// reset the vars first numbnuts!
@@ -507,6 +518,7 @@
 				$upgrade_available = (isset($data) && $data['Version'] && $theme['version'] > $data['Version']) ? true : false;
 			
 				$purchase = ( !isset( $theme['purchased'] ) && !$status && $updates_configured ) ? true : false;
+				$product = ( isset( $theme['productid'] ) ) ? $theme['productid'] : 0;
 				$install = ( !$status && !$purchase && $updates_configured ) ? true : false;
 				$delete = ( $activate ) ? true : false;
 				
@@ -519,6 +531,7 @@
 						'case'		=> 'theme_install',
 						'type'		=> 'themes',
 						'file'		=> $key,
+						'product'	=> $product,
 						'text'		=> __( 'Install', 'pagelines' ),
 						'dtext'		=> __( 'Installing', 'pagelines' ),
 					),
@@ -578,6 +591,7 @@
 						'dtext'		=> __( 'Redirecting', 'pagelines' ),
 					)
 				);
+
 				$list[$key] = array(
 						'theme'		=> $theme,
 						'name' 		=> $theme['name'], 
@@ -687,10 +701,17 @@
 			$type =  $_POST['extend_type'];
 			$file =  $_POST['extend_file'];
 			$path =  $_POST['extend_path'];
+			$product = $_POST['extend_product'];
 			
 		// 3. Do our thing...
 
 		switch ( $mode ) {
+			
+			case 'network_redirect':
+			
+				echo sprintf( __( 'Sorry only network admins can install %s.', 'pagelines' ), $type );
+			
+			break;
 			
 			case 'plugin_install': // TODO check status first!
 
@@ -906,7 +927,7 @@
 				$skin = new PageLines_Upgrader_Skin();
 				$upgrader = new Theme_Upgrader($skin);
 				global $wp_filesystem;
-				$upgrader->install( $this->make_url( $type, $file ) );
+				$upgrader->install( $this->make_url( $type, $file, $product ) );
 				
 				if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) && $wp_filesystem->method != 'direct' ):
 					$time = 0;
@@ -945,6 +966,7 @@
 				switch_theme( basename( get_template_directory() ), $file );
 				// Output
 				_e( 'Activated', 'pagelines' );
+				delete_transient( 'pagelines_sections_cache' );
 				$this->page_reload( 'pagelines&pageaction=activated' );	
 			break;
 
@@ -953,6 +975,7 @@
 				switch_theme( basename( get_template_directory() ), basename( get_template_directory() ) );
 				// Output
 				_e( 'Deactivated', 'pagelines' );
+				delete_transient( 'pagelines_sections_cache' );
 				$this->page_reload( 'pagelines_extend' );
 			break;
 			
@@ -971,9 +994,9 @@
 		die(); // needed at the end of ajax callbacks
 	}
 	
-	function make_url( $type, $file ) {
+	function make_url( $type, $file, $product = null ) {
 		
-		return sprintf('%s%s/download.php?d=%s.zip', PL_API_FETCH, $type, $file);
+		return sprintf('%s%s/download.php?d=%s.zip%s', PL_API_FETCH, $type, $file, (isset( $product ) ) ? '&product=' . $product : '' );
 		
 	}
 	
@@ -1021,7 +1044,7 @@
 		if ( false === ( $api = get_transient( 'pagelines_sections_api_' . $type ) ) ) {
 			$response = pagelines_try_api( $url, $options );
 			$api = wp_remote_retrieve_body( $response );
-			set_transient( 'pagelines_sections_api_' . $type, $api, 300 );			
+			set_transient( 'pagelines_sections_api_' . $type, $api, 86400 );			
 		}
 		if( is_wp_error( $api ) )
 			return __( '<h2>Unable to fetch from API</h2>', 'pagelines' );

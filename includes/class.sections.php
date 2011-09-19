@@ -317,5 +317,3 @@ function setup_section_notify( $section, $text, $url = null, $ltext = null){
 
 
 
-
-

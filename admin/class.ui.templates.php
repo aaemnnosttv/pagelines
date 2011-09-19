@@ -168,9 +168,9 @@ class PageLinesTemplateBuilder {
 	<div class="clear"></div>
 	<?php
 	
-		$this->_sub_selector('templates', 'sel-templates-sub', 'For Which Type of Page?');
+		$this->_sub_selector('templates', 'sel-templates-sub', __('For Which Type of Page?', 'pagelines'));
 		
-		$this->_sub_selector('main', 'sel-content-sub', 'Which Content Area Type?');
+		$this->_sub_selector('main', 'sel-content-sub', __('Which Content Area Type?', 'pagelines'));
 		
 	}
 
@@ -454,7 +454,7 @@ class PageLinesTemplateBuilder {
 				echo '</div>';
 				
 			} else
-			 	echo 'No settings in this template area.';
+			 	echo __('No settings in this template area.', 'pagelines');
 					
 					
 		echo '<div class="clear"></div></div></div>';
@@ -663,8 +663,10 @@ function templates_array(){
 			'default'	=> '',
 			'type'		=> 'templates',
 			'layout'	=> 'interface',
-			'title'		=> 'Drag &amp; Drop Template Setup',						
-			'shortexp'	=> 'Use draggable sections to control the design of your site\'s templates.',
+			'title'		=> __( 'Drag &amp; Drop Template Setup', 'pagelines'),					
+			'shortexp'	=> __( 'Use draggable sections to control the design of your site\'s templates.', 'pagelines'),
+			'docslink'	=> 'http://www.pagelines.com/docs/template-setup', 
+			'vidtitle'	=> __( 'Template Setup Overview', 'pagelines')
 		)	
 	);
 	

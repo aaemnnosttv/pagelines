@@ -350,7 +350,7 @@ class OptEngine {
 		if($opts != '')
 			echo $this->input_select($o['input_id'], $o['input_name'], $opts);
 		else
-			printf('<div class="option_default_statement">WP menus need to be created to use this option!<br/> Edit <a href="%s">WordPress Menus</a></div>', admin_url( 'nav-menus.php'));
+			printf( __( '<div class="option_default_statement">WP menus need to be created to use this option!<br/> Edit <a href="%s">WordPress Menus</a></div>', 'pagelines' ), admin_url( 'nav-menus.php'));
 	}
 
 	/**
@@ -515,7 +515,7 @@ class OptEngine {
 
 		$confirmID = 'Confirm'.$oid;
 
-		pl_action_confirm($confirmID, 'Are you sure?'); // print JS confirmation script
+		pl_action_confirm($confirmID, __( 'Are you sure?', 'pagelines' ) ); // print JS confirmation script
 		
 		
 		$extra = sprintf('onClick="return %s();"', $confirmID);
@@ -541,7 +541,7 @@ class OptEngine {
 		
 		$button_id = (isset($o['special'])) ? $oid.'OID'.$o['special'] : $oid;
 		
-		$up_button = $this->input_button( $button_id, 'Upload Image', 'image_upload_button', 'title="'.$this->settings_field.'"' );
+		$up_button = $this->input_button( $button_id, __( 'Upload Image', 'pagelines' ), 'image_upload_button', 'title="'.$this->settings_field.'"' );
 		
 		$reset_button = sprintf('<span title="%1$s" id="%2$s" class="image_reset_button button reset_%1$s">Remove</span>', $button_id, $this->settings_field); 
 		
@@ -889,37 +889,37 @@ class OptEngine {
 		function _background_image_array(){
 			return array(
 				'_url' => array(		
-						'inputlabel' 	=> 'Background Image',
+						'inputlabel' 	=> __( 'Background Image', 'pagelines' ),
 						'imagepreview'	=> 150
 				),
 				'_repeat' => array(			
-						'inputlabel'	=> 'Set Background Image Repeat',
+						'inputlabel'	=> __( 'Set Background Image Repeat', 'pagelines' ),
 						'type'			=> 'select',
 						'selectvalues'	=> array(
-							'no-repeat'	=> array('name' => 'Do Not Repeat'), 
-							'repeat'	=> array('name' => 'Tile'), 
-							'repeat-x'	=> array('name' => 'Repeat Horizontally'), 
-							'repeat-y'	=> array('name' => 'Repeat Vertically')
+							'no-repeat'	=> array('name' => __( 'Do Not Repeat', 'pagelines' )), 
+							'repeat'	=> array('name' => __( 'Tile', 'pagelines' )), 
+							'repeat-x'	=> array('name' => __( 'Repeat Horizontally', 'pagelines' )), 
+							'repeat-y'	=> array('name' => __( 'Repeat Vertically', 'pagelines' ))
 						)
 				),
 				'_pos_vert' => array(				
-						'inputlabel'	=> 'Vertical Position In Percent',
-						'type'			=> 'count_select',
+						'inputlabel'	=> __( 'Vertical Position In Percent', 'pagelines' ),
+						'type'			=> __( 'count_select', 'pagelines' ),
 						'count_start'	=> 0, 
 						'count_number'	=> 100,
 				),
 				'_pos_hor' => array(				
-						'inputlabel'	=> 'Horizontal Position In Percent',
-						'type'			=> 'count_select',
+						'inputlabel'	=> __( 'Horizontal Position In Percent', 'pagelines' ),
+						'type'			=> __( 'count_select', 'pagelines' ),
 						'count_start'	=> 0, 
 						'count_number'	=> 100,
 				),
 				'_attach' => array(				
-						'inputlabel'	=> 'Set Background Attachement',
+						'inputlabel'	=> __( 'Set Background Attachement', 'pagelines' ),
 						'type'			=> 'select',
 						'selectvalues'	=> array(
-							'scroll'	=> array('name' => 'Scroll'), 
-							'fixed'		=> array('name' => 'Fixed'),
+							'scroll'	=> array('name' => __( 'Scroll', 'pagelines' )), 
+							'fixed'		=> array('name' => __( 'Fixed', 'pagelines' )),
 						)
 				),
 
@@ -944,21 +944,27 @@ class OptEngine {
 	function updates_setup($oid, $o){
 		
 		if ( is_array( $a = get_transient('pagelines-update-' . THEMENAME ) ) && isset($a['package']) && $a['package'] !== 'bad' )
-			$updates_exp = sprintf( 'Successfully logged in to PageLines%1$s.', ( $a['ssl'] ) ? ' using SSL' : '' );
+			$updates_exp = sprintf( __( 'Successfully logged in to PageLines%1$s.', 'pagelines' ), ( $a['ssl'] ) ? ' using SSL' : '' );
 		else	
 			if ( isset( $a ) && isset( $a['api_error'] ) ) 
-				$updates_exp = sprintf( 'ERROR: %1$s<br />There was a problem logging in to PageLines.', $a['api_error'] );
+				$updates_exp = sprintf( __( 'ERROR: %1$s<br />There was a problem logging in to PageLines.', 'pagelines' ), $a['api_error'] );
 			else
-				$updates_exp = 'Unknown error??';
+				$updates_exp = __( 'Unknown error??', 'pagelines' );
 
 		if ( ploption( 'disable_updates' ) )
-			$updates_exp = 'Updates are disabled.';
+			$updates_exp = __( 'Updates are disabled.', 'pagelines' );
 
+		if ( EXTEND_NETWORK )
+			$updates_exp = __( 'Updates are disabled for non Network Admins</div>', 'pagelines' );
 		?>
 		<div class="pl_form">
 			<div class="pl_form_feedback">
 				<?php echo $updates_exp; ?>
 			</div>
+			
+				<?php if ( EXTEND_NETWORK )
+						return;
+					?>			
 			<form method="post" class="pl_account_info fix">
 				<div class="pl_account_info_pad">
 					
@@ -969,19 +975,19 @@ class OptEngine {
 						<input type="hidden" name="form_submitted" value="plinfo" />
 				<?php 
 			
-				echo $this->input_label( 'lp_username', 'PageLines Username'); 
+				echo $this->input_label( 'lp_username', __( 'PageLines Username', 'pagelines' )); 
 				echo $this->input_text( 'lp_username', 'lp_username', ploption( 'lp_username' ), 'bigtext pluser');
-				echo $this->input_label( 'lp_password', 'PageLines Password'); 
+				echo $this->input_label( 'lp_password', __( 'PageLines Password', 'pagelines' )); 
 				echo $this->input_text( 'lp_password', 'lp_password', ploption( 'lp_password' ), 'bigtext pluser', 'password');
 		
 				$checked = checked((bool) ploption('disable_updates'), true, false);
 
 				$input = $this->input_checkbox('disable_auto_update', 'disable_auto_update', $checked);
 
-				echo $this->input_label_inline('disable_auto_update', $input, 'Disable Auto Updates');
+				echo $this->input_label_inline('disable_auto_update', $input, __( 'Disable Auto Updates', 'pagelines' ));
 	
 
-				echo $this->superlink('Save Account Info', 'blue', 'updates-setup', 'submit'); 
+				echo $this->superlink(__( 'Save Account Info', 'pagelines' ), 'blue', 'updates-setup', 'submit'); 
 			
 				?>
 						</div>
@@ -1007,7 +1013,7 @@ class OptEngine {
 							<h2>PageLines Export Settings</h2>
 						</div>
 						<input type="hidden" name="form_submitted" value="export_settings_form" />
-						<?php echo $this->superlink('Export Settings File &darr;', 'blue', 'export_settings_form', 'submit'); ?>
+						<?php echo $this->superlink(__( 'Export Settings File &darr;', 'pagelines' ), 'blue', 'export_settings_form', 'submit'); ?>
 						<div class="clear"></div>
 					</div>
 				</div>
@@ -1023,22 +1029,22 @@ class OptEngine {
 				<?php 
 
 						$input = $this->input_checkbox('pagelines_template', 'pagelines_template', 'checked');
-						echo $this->input_label_inline('pagelines_template', $input, 'Import Template Setup');
+						echo $this->input_label_inline('pagelines_template', $input, __( 'Import Template Setup', 'pagelines' ));
 
 						$input = $this->input_checkbox('pagelines_settings', 'pagelines_settings', 'checked');
-						echo $this->input_label_inline('pagelines_settings', $input, 'Import Primary Settings');
+						echo $this->input_label_inline('pagelines_settings', $input, __( 'Import Primary Settings', 'pagelines' ));
 
 
 						$input = $this->input_checkbox('pagelines_special', 'pagelines_special', 'checked');
-						echo $this->input_label_inline('pagelines_special', $input, 'Import Special Meta Settings');
+						echo $this->input_label_inline('pagelines_special', $input, __( 'Import Special Meta Settings', 'pagelines' ));
 				
 						$input = $this->input_checkbox('pagelines_layout', 'pagelines_layout', 'checked');
-						echo $this->input_label_inline('pagelines_layout', $input, 'Import Layout Configuration');
+						echo $this->input_label_inline('pagelines_layout', $input, __( 'Import Layout Configuration', 'pagelines' ));
 
 						echo '<input type="file" class="file_uploader text_input" name="file" id="settings-file" /><div class="clear"></div>';
 
-						echo $this->superlink('Import Settings To Install &uarr;', 'blue', 'import_settings_form', 'submit' , 'onClick="return ConfirmImportSettings();"'); 
-						pl_action_confirm('ConfirmImportSettings', 'Are you sure? This will overwrite your current settings and configurations with the information in this file!');
+						echo $this->superlink( __( 'Import Settings To Install &uarr;', 'pagelines' ), 'blue', 'import_settings_form', 'submit' , 'onClick="return ConfirmImportSettings();"'); 
+						pl_action_confirm('ConfirmImportSettings', __( 'Are you sure? This will overwrite your current settings and configurations with the information in this file!', 'pagelines' ));
 				?>
 			</form>
 						</div>

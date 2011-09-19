@@ -20,7 +20,7 @@ class PageLinesExtendUI {
 	 */
 	function __construct() {
 		
-		$this->exprint = 'onClick="extendIt(\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\')"';
+		$this->exprint = 'onClick="extendIt(\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\')"';
 		
 		$this->defaultpane = array(
 				'name' 		=> 'Unnamed', 
@@ -172,13 +172,14 @@ class PageLinesExtendUI {
 			'dtext'	=> '',
 			'key'	=> $key, 
 			'type'	=> '',
-			'path'	=> '', 
+			'path'	=> '',
+			'product' => 0,
 			'confirm'	=> false
 		);
 		
 		$a = wp_parse_args($a, $d);
 		
-		$js_call = sprintf( $this->exprint, $a['case'], $a['key'], $a['type'], $a['file'], $a['path'], $a['dtext']);
+		$js_call = sprintf( $this->exprint, $a['case'], $a['key'], $a['type'], $a['file'], $a['path'], $a['product'], $a['dtext']);
 		
 		if($style == 'superlink')
 			$button = OptEngine::superlink( $a['text'], $a['mode'], '', '', $js_call);
@@ -211,12 +212,12 @@ class PageLinesExtendUI {
 			$file = '/' . trailingslashit( $name ) . $name . '.php'; 
 			$btext = 'Activate Sections';
 			$text = sprintf( __( 'Sections plugin installed, now activate it!', 'pagelines' ) );
-			$install_js_call = sprintf( $this->exprint, 'plugin_activate', $key, 'plugins', $file, '', __( 'Activating', 'pagelines' ) );
+			$install_js_call = sprintf( $this->exprint, 'plugin_activate', $key, 'plugins', $file, '', '', __( 'Activating', 'pagelines' ) );
 			
 		} elseif($status == 'notinstalled'){
 			$btext = __( 'Install It Now!', 'pagelines' );
 			$text = __( 'You need to install and activate PageLines Sections Plugin', 'pagelines' );
-			$install_js_call = sprintf( $this->exprint, 'plugin_install', $key, 'plugins', 'pagelines-sections', '/pagelines-sections/pagelines-sections.php', __( 'Installing', 'pagelines' ) );
+			$install_js_call = sprintf( $this->exprint, 'plugin_install', $key, 'plugins', 'pagelines-sections', '/pagelines-sections/pagelines-sections.php','', __( 'Installing', 'pagelines' ) );
 		}
 			
 		$eresponse = 'response'.$key;
@@ -243,7 +244,10 @@ class PageLinesExtendUI {
 			
 			if ( $disabled )
 				return $this->extension_banner( __( 'Sorry uploads do not work with this server config, please use FTP!', 'pagelines' ) );
-			
+
+			if ( EXTEND_NETWORK )
+				return $this->extension_banner( __( 'Only network admins can upload sections!', 'pagelines' ) );
+
 		ob_start();
 		 ?>
 		<div class="pagelines_upload_form">
@@ -279,7 +283,7 @@ class PageLinesExtendUI {
 		?>
 <script type="text/javascript">/*<![CDATA[*/
 
-		function extendIt( mode, key, type, file, path, duringText ){
+		function extendIt( mode, key, type, file, path, product, duringText ){
 
 				/* 
 					'Mode' 	= the type of extension
@@ -294,7 +298,8 @@ class PageLinesExtendUI {
 					extend_mode: mode,
 					extend_type: type,
 					extend_file: file,
-					extend_path: path
+					extend_path: path,
+					extend_product: product
 				};
 
 				var responseElement = jQuery('#dialog');
