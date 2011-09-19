@@ -350,12 +350,14 @@
 			
 			$deactivated = (!$install && !$active) ? true : false;
 			
-			$delete = ( $deactivated ) ? true : false;
+			$delete = ( $deactivated && ! EXTEND_NETWORK ) ? true : false;
 			
+			$redirect = ( EXTEND_NETWORK && $install ) ? true : false;
+				
 			$actions = array(
 				'install'	=> array(
 					'mode'		=> 'install',
-					'condition'	=> $install,
+					'condition'	=> ( ! EXTEND_NETWORK ) ? $install : false,
 					'case'		=> 'plugin_install',
 					'type'		=> 'plugins',
 					'file'		=> $key,
@@ -400,6 +402,15 @@
 					'text'		=> __( 'Delete', 'pagelines' ),
 					'dtext'		=> __( 'Deleting', 'pagelines' ),
 					'confirm'	=> true
+				),
+				'redirect'	=> array(
+					'mode'		=> 'redirect',
+					'condition'	=> $redirect,
+					'case'		=> 'network_redirect',
+					'type'		=> __( 'plugins', 'pagelines' ),
+					'file'		=> $p['file'],
+					'text'		=> __( 'Install', 'pagelines' ),
+					'dtext'		=> ''
 				)
 			);
 					
@@ -524,6 +535,8 @@
 				
 				$login = ( !$updates_configured && !$status );
 				
+				$redirect = ( $login && EXTEND_NETWORK ) ? true : false;
+				
 				$actions = array(
 					'install'	=> array(
 						'mode'		=> 'install',
@@ -583,12 +596,21 @@
 					),
 					'login'	=> array(
 						'mode'		=> 'login',
-						'condition'	=> $login,
+						'condition'	=> ( !EXTEND_NETWORK ) ? $login : false,
 						'case'		=> 'theme_login',
 						'type'		=> 'themes',
 						'file'		=> $key,
 						'text'		=> __( 'Login', 'pagelines' ),
 						'dtext'		=> __( 'Redirecting', 'pagelines' ),
+					),
+					'redirect'	=> array(
+						'mode'		=> 'redirect',
+						'condition'	=> $redirect,
+						'case'		=> 'network_redirect',
+						'type'		=> __( 'themes', 'pagelines' ),
+						'file'		=> $key,
+						'text'		=> __( 'Login', 'pagelines' ),
+						'dtext'		=> ''
 					)
 				);
 
