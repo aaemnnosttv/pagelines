@@ -1874,7 +1874,7 @@ font-weight: bold;
 		.tgraph-pad{padding: 0px 65px;}
 		
 		.tgraph-templates .tgraph-pad{ padding: 0 90px; }
-		.tgraph-content .tgraph-pad{ padding-top: 24px; }
+		.no_tabs .tgraph-content .tgraph-pad{ padding-top: 24px; }
 		
 		.no_tabs .tgraph-pad{padding: 0px 95px;}
 		.no_tabs .tgraph-templates .tgraph-pad{ padding: 0 130px; }
@@ -1920,7 +1920,7 @@ font-weight: bold;
 		
 			.tgraph-templates .tgraph .tg-format, .tgraph-content .tgc{width: 100%;}
 			
-		.tgraph .tg-templates .tg-pad { height: 40px;  line-height: 40px; }
+		.tgraph .tg-templates .tg-pad { height: 50px;  line-height: 50px; }
 	
 		.tgraph .tg-pad{
 			border-top: 1px solid #fff;
@@ -2307,16 +2307,15 @@ font-weight: bold;
 			.section_layout_description .config_title span{ 	
 				color: #aaa;
 			}
-			.section_setup_controls{ padding: 0 20px; }
+			.section_setup_controls{ margin: .2em 0 1.5em; padding: 0 24px; }
 				.section_setup_controls .setup_control{ 
 					cursor:pointer;
-					color: #888;
+					color: #AAA;
+					font-weight: bold;
 					display: block;
-					background: #e5e5e5;
+					text-align: center;
 					text-decoration:none;
-					border: 1px solid #ccc;
-					border-top: 1px solid #ddd;	
-					border-left: 1px solid #ddd;
+					border: 1px solid #ddd;
 				}
 				.section_setup_controls .setup_control span{ 
 					display: block;
@@ -2326,14 +2325,14 @@ font-weight: bold;
 					border-left: 1px solid #f7f7f7;
 				}
 					.section_setup_controls .setup_control:hover{
-						background: #eee;
+						background: #f7f7f7;
 					} 
 					.section_setup_controls .setup_control:active{
-						background: #ccc;
+						background: #ddd;
 					}
 						.section_setup_controls .setup_control:active span{ 
-							border-top: 1px solid #aaa;	
-							border-left: 1px solid #aaa; 
+							border-top: 1px solid transparent;	
+							border-left: 1px solid transparent; 
 						}
 		.layout-type-frame{
 			font-weight: bold;

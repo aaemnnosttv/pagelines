@@ -231,7 +231,7 @@ class PageLinesTemplateBuilder {
 			$template_slug = ( isset($hook) ) ? join('-', array( $hook, $template )) : $template;
 			$template_area = ( isset($hook) ) ? $hook : $template;
 			
-			$addl = ($template_area == 'templates') ? 'Page Template Area' : ( $template_area == 'main' ? 'Content Area' : '');
+			$addl = ($template_area == 'templates') ? 'Page Template Area' : ( $template_area == 'main' ? 'Content Area' : 'Global Scope');
 			$addl = ($addl != '') ? sprintf('<span class="btag grey">%s</span>', $addl) : '';
 			
 ?><div id="template_data" class="<?php echo $template_slug; ?> layout-type-<?php echo $template_area;?>" title="<?php echo $template_slug; ?>">
@@ -258,7 +258,7 @@ class PageLinesTemplateBuilder {
 					</div>
 				</div>		
 				
-				<?php $this->section_setup_controls(); ?>
+				
 			</div>
 			<div class="sbank available_sections">
 				<div class="sbank-area">
@@ -269,8 +269,11 @@ class PageLinesTemplateBuilder {
 				</div>
 				<div class="clear"></div>
 			</div>
+			
 		</div>
+		
 		<div class="clear"></div>
+		<?php $this->section_setup_controls(); ?>
 	</div>
 <?php  }
 	
@@ -473,7 +476,7 @@ class PageLinesTemplateBuilder {
 		
 		$onclick = "PageLinesSlideToggle('.s-description', '.describe_toggle', '.setup_control_text','Hide Section Descriptions', 'Show Section Descriptions', 'pl_section_desc_toggle');";
 		
-		printf('<div class="section_setup_controls fix"><span class="setup_control" onClick="%s"><span class="setup_control_text">%s Section Descriptions</span></span></div>', $onclick, ($this->help()) ? 'Hide' : 'Show' );
+		printf('<div class="section_setup_controls fix"><span class="setup_control" onClick="%s"><span class="setup_control_text">%s Section Descriptions</span></span></div>', $onclick, ( $this->help() ) ? 'Hide' : 'Show' );
 					
 	}
 	
@@ -660,10 +663,8 @@ function templates_array(){
 			'default'	=> '',
 			'type'		=> 'templates',
 			'layout'	=> 'interface',
-			'title'		=> THEMENAME.' Template Setup',						
-			'shortexp'	=> 'Drag and drop control over your website\'s templates.<br/> Note: Select "Hidden by Default" to hide the section by default; and activate with individual page/post options.',
-			'docslink'	=> 'http://www.pagelines.com/docs/template-setup', 
-			'vidtitle'	=> 'Template Setup Overview'
+			'title'		=> 'Drag &amp; Drop Template Setup',						
+			'shortexp'	=> 'Use draggable sections to control the design of your site\'s templates.',
 		)	
 	);
 	
