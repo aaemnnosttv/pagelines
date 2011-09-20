@@ -1383,7 +1383,14 @@ font-weight: bold;
 		
 	
 /* @ PageLines MetaPanel Type Options */
-.pl_mp{margin: 20px 10px; min-width: 650px;}
+.pl_mp{
+	margin: 20px 10px; 
+	min-width: 650px;
+	-moz-box-shadow: 0 1px 4px #bbb;
+   -webkit-box-shadow:0 1px 4px #bbb;
+  	box-shadow: 0 1px 4px #bbb;
+}
+
 .pagelines_metapanel {
 	background: #eee;
 	border: 1px solid #ccc;
