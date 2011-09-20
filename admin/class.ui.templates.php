@@ -665,8 +665,6 @@ function templates_array(){
 			'layout'	=> 'interface',
 			'title'		=> __( 'Drag &amp; Drop Template Setup', 'pagelines'),					
 			'shortexp'	=> __( 'Use draggable sections to control the design of your site\'s templates.', 'pagelines'),
-			'docslink'	=> 'http://www.pagelines.com/docs/template-setup', 
-			'vidtitle'	=> __( 'Template Setup Overview', 'pagelines')
 		)	
 	);
 	
