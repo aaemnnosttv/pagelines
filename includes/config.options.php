@@ -112,8 +112,8 @@ class PageLinesOptionsArray {
 					'version'	=> 'pro',
 					'type' 		=> 'select',
 					'selectvalues'	=> array(
-						'top'		=> array("name" => __( 'On Top of Sidebar'), 'pagelines' ),
-						'bottom'	=> array("name" => __( 'On Bottom of Sidebar'), 'pagelines' )
+						'top'		=> array("name" => __( 'On Top of Sidebar', 'pagelines') ),
+						'bottom'	=> array("name" => __( 'On Bottom of Sidebar', 'pagelines') )
 					),
 					'inputlabel' 	=> __( 'Sidebar Wrap Widgets Position', 'pagelines' ),
 					'title' 	=> __( 'Sidebar Wrap Widgets', 'pagelines' ),
