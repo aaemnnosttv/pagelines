@@ -36,8 +36,9 @@
 			pagelines_update_option( 'lp_password', sanitize_text_field( $_POST['lp_password'] ) );
 			pagelines_update_option( 'lp_username', sanitize_text_field( $_POST['lp_username'] ) );
 			pagelines_update_option( 'disable_updates', ( isset( $_POST['disable_auto_update'] ) ) ? true : false );
+			$this->flush_caches();			
 			wp_redirect( admin_url('admin.php?page=pagelines_extend&plinfo=true') );
-			$this->flush_caches();
+
 			exit;
 		}
 	}
@@ -55,11 +56,6 @@
 		delete_transient( 'pagelines_sections_api_sections' );
 		delete_transient( 'pagelines_sections_api_plugins' );
 		delete_transient( 'pagelines_sections_cache' );
-		
-		// We need to reprime the cache now, and reset the object caches on the API server.
-		$this->get_latest_cached( 'plugins', true );
-		$this->get_latest_cached( 'sections', true );
-		$this->get_latest_cached( 'themes', true );	
 	}
 
  	function extension_sections_install( $tab = '' ) {
@@ -82,20 +78,37 @@
 		
 		foreach( $sections as $key => $s ) {
 
+			$updates_configured = null;
+			$purchased = null;
+			$install = null;
+			$login = null;
+			$purchase = null;
+
 			$check_file = sprintf('%1$s/%2$s/%3$s.php', PL_EXTEND_DIR, $key, 'section.' . $key); 
 
 			if ( !isset( $s->type) )
 				$s->type = 'free';
 			
-			if ($tab !== $s->type)
+			if ( $s->price != 'free' && $tab === 'free' )
+				continue;
+
+			if ( $tab == 'premium' && $s->price ==- 'free' )
 				continue;
 
 			if ( file_exists( $check_file ) )
 				continue;
 
 			$key = str_replace( '.', '', $key );
+			
+			$updates_configured = ( is_array( $a = get_transient('pagelines-update-' . THEMENAME ) ) && isset($a['package']) && $a['package'] !== 'bad' ) ? true : false;
 
-			$install = ( EXTEND_NETWORK ) ? false : true;
+			$purchased = ( isset( $s->purchased ) ) ? true : false;
+
+			$install = ( !EXTEND_NETWORK && $purchased ) ? true : false;
+			
+			$login = ( !$updates_configured && !$purchased ) ? true : false;
+			
+			$purchase = ( !EXTEND_NETWORK && !$purchased && !$login ) ? true : false;
 	
 			$actions = array(
 				'install'	=> array(
@@ -117,9 +130,26 @@
 						'path'		=> $s->class,
 						'text'		=> __( 'Install', 'pagelines' ),
 						'dtext'		=> ''
-					)			
-			);
-			
+					),
+					'login'	=> array(
+						'mode'		=> 'login',
+						'condition'	=> ( !EXTEND_NETWORK ) ? $login : false,
+						'case'		=> 'theme_login',
+						'type'		=> 'sections',
+						'file'		=> $key,
+						'text'		=> __( 'Login', 'pagelines' ),
+						'dtext'		=> __( 'Redirecting', 'pagelines' ),
+					),
+					'purchase'	=> array(
+						'mode'		=> 'purchase',
+						'condition'	=> $purchase,
+						'case'		=> 'theme_purchase',
+						'type'		=> 'themes',
+						'file'		=> ( isset( $s->productid ) ) ? $s->productid : '',
+						'text'		=> __( 'Purchase', 'pagelines' ),
+						'dtext'		=> __( 'Redirecting', 'pagelines' ),
+					)		
+			);	
 			$list[$key] = array(
 					'name' 		=> $s->name, 
 					'version'	=> $s->version, 
@@ -1057,8 +1087,11 @@
 			'sslverify'	=>	false,
 			'timeout'	=>	5,
 			'body' => array(
-				'username'	=>	( $this->username != '' ) ? $this->username : false,
-				'password'	=>	( $this->password != '' ) ? $this->password : false,
+//				'username'	=>	( $this->username != '' ) ? $this->username : false,
+//				'password'	=>	( $this->password != '' ) ? $this->password : false,
+				'username'	=>	get_pagelines_option( 'lp_username' ),
+				'password'	=>	get_pagelines_option( 'lp_password' ),
+
 				'flush'		=>	$flush
 			)
 		);
