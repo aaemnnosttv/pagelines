@@ -1,6 +1,6 @@
 <?php
 /*
-	Section: PageLines Banners	
+	Section: Banners	
 	Author: PageLines
 	Author URI: http://www.pagelines.com
 	Description: Creates banners, great for product tours.

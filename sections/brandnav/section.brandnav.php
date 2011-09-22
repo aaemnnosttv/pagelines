@@ -1,6 +1,6 @@
 <?php
 /*
-	Section: BrandNav Section
+	Section: BrandNav
 	Author: PageLines
 	Author URI: http://www.pagelines.com
 	Description: Branding and Nav Inline
