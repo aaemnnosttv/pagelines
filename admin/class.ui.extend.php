@@ -382,17 +382,17 @@ function extension_array(  ){
 					'type'		=> 'subtabs',
 					'title'		=> __( 'Extend Sections', 'pagelines' ),
 					'class'		=> 'left ht-special',
-					'featured'	=> array(
-						'title'		=> __( 'Featured on PageLines.com', 'pagelines' ),
-						'class'		=> 'right',
-						'callback'	=> $extension_control->extension_sections_install( 'featured' )
-						),
-					'top_premium'	=> array(
+//					'featured'	=> array(
+//						'title'		=> __( 'Featured on PageLines.com', 'pagelines' ),
+//						'class'		=> 'right',
+//						'callback'	=> $extension_control->extension_sections_install( 'featured' )
+//						),
+					'premium'	=> array(
 						'title'		=> __( 'Premium PageLines Sections', 'pagelines' ),
 						'class'		=> 'right',
 						'callback'	=> $extension_control->extension_sections_install( 'premium' )
 						),
-					'top_free'	=> array(
+					'free'	=> array(
 						'title'		=> __( 'Free PageLines Sections', 'pagelines' ),
 						'class'		=> 'right',
 						'callback'	=> $extension_control->extension_sections_install( 'free' )
