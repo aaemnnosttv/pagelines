@@ -122,7 +122,7 @@ define( 'PL_API', 'www.pagelines.com/api/');
 
 define( 'PL_API_FETCH', 'http://www.pagelines.com/api/' );
 
-define( 'PL_LAUNCHPAD_FRAME', 'http://www.pagelines.com/launchpad/api_iframe.php' );
+define( 'PL_LAUNCHPAD_FRAME', 'http://www.pagelines.com/launchpad/member.php' );
 
 /**
  * Define version constants

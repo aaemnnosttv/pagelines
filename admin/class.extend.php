@@ -1104,7 +1104,7 @@
 	
 		$r = rand( 1,100 );
 		$admin = admin_url( sprintf( 'admin.php?r=%1$s&page=%2$s', $r, $location ) );
-		$location = ( $product ) ? sprintf( '%1$s?price_group=-%2$s&redir=%3$s', PL_LAUNCHPAD_FRAME, $product, $admin ): $admin;
+		$location = ( $product ) ? sprintf( '%1$s?tab=add_renew&price_group=-%2$s&redir=%3$s', PL_LAUNCHPAD_FRAME, $product, admin_url( 'admin.php' ) ): $admin;
 		printf('<script type="text/javascript">setTimeout(function(){ window.location.href = \'%s\';}, %s);</script>', $location, $time );
  	}
 
