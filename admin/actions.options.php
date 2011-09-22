@@ -92,7 +92,7 @@ function pagelines_build_extension_interface(){
 function pagelines_build_special(){ 
 	
 	$args = array(
-		'title'			=> 'Special Page Meta', 
+		'title'			=> 'Special Pages', 
 		'settings' 		=> PAGELINES_SPECIAL,
 		'callback'		=> 'special_page_settings_array',
 		'show_reset'	=> false, 
