@@ -356,33 +356,60 @@
 		}
 		
 		$list = array();
-
+		$updates_configured = ( is_array( $a = get_transient('pagelines-update-' . THEMENAME ) ) && isset($a['package']) && $a['package'] !== 'bad' ) ? true : false;
 		foreach( $plugins as $key => $p ) {
 	
-			if ( !isset( $p['type'] ) )
-				$p['type'] = 'free';
+//			if ( !isset( $p['type'] ) )
+//				$p['type'] = 'free';
 			if ( $tab === 'installed' && !isset( $p['status']['status'] ) )
 				continue;
 			if ( ( $tab === 'premium' || $tab === 'free' ) && isset( $p['status']['status'] ) )
 				continue;
-			if ( $tab === 'premium' && $p['type'] === 'free' )
+			if ( $tab === 'premium' && $p['price'] === 'free' )
 				continue;
-			if ( $tab === 'free' && $p['type'] === 'premium' )
-				continue;
+//			if ( $tab === 'free' && $p['type'] === 'premium' )
+//				continue;
 			if ( !isset( $p['status'] ) )
 				$p['status'] = array( 'status' => '' );
+			if ( $tab === 'free' && $p['price'] != 'free' )
+				continue;	
 				
-			$install = ($p['status']['status'] == '' ) ? true : false;
+			$install = null;
+			$upgrade_available = null;
+			$active = null;
+			$deactivated = null;
+			$delete = null;
+			$redirect = null;
+			$login = null;
+			$purchase = null;
+			$purchased = null;
+			$redirect = null;
+			
+
+			
+			$purchased = ( isset( $p['purchased'] ) ) ? true : false;
+				
+			$login = ( !$updates_configured && !$purchased) ? true : false;
+			
+			$purchase = ( !EXTEND_NETWORK && !$purchased && !$login ) ? true : false;
+
+			$install = ($p['status']['status'] == '' && !$login && !$purchase) ? true : false;
 
 			$upgrade_available = ( isset( $p['status']['version'] ) && $p['version'] > $p['status']['version'] ) ? true : false;
 			
 			$active = ($p['status']['status'] == 'active') ? true : false;
 			
-			$deactivated = (!$install && !$active) ? true : false;
+			$deactivated = (!$login && !$purchase && !$install && !$active) ? true : false;
 			
 			$delete = ( $deactivated && ! EXTEND_NETWORK ) ? true : false;
 			
 			$redirect = ( EXTEND_NETWORK && $install ) ? true : false;
+			
+
+			
+			$login = ( !$purchased && !$updates_configured ) ? true : false;
+			
+
 				
 			$actions = array(
 				'install'	=> array(
@@ -441,9 +468,26 @@
 					'file'		=> $p['file'],
 					'text'		=> __( 'Install', 'pagelines' ),
 					'dtext'		=> ''
+				),
+				'login'	=> array(
+					'mode'		=> 'login',
+					'condition'	=> ( !EXTEND_NETWORK ) ? $login : false,
+					'case'		=> 'theme_login',
+					'type'		=> 'sections',
+					'file'		=> $key,
+					'text'		=> __( 'Login', 'pagelines' ),
+					'dtext'		=> __( 'Redirecting', 'pagelines' ),
+				),
+				'purchase'	=> array(
+					'mode'		=> 'purchase',
+					'condition'	=> $purchase,
+					'case'		=> 'theme_purchase',
+					'type'		=> 'plugins',
+					'file'		=> ( isset( $p['productid'] ) ) ? $p['productid'] : '',
+					'text'		=> __( 'Purchase', 'pagelines' ),
+					'dtext'		=> __( 'Redirecting', 'pagelines' ),
 				)
-			);
-					
+			);			
 			$list[$key] = array(
 					'name' 		=> $p['name'], 
 					'version'	=> ( isset( $p['status']['data'] ) ) ? $p['status']['data']['Version'] : $p['version'], 
