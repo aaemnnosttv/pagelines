@@ -11,21 +11,16 @@
 class PageLinesComments extends PageLinesSection {
 
    function __construct( $registered_settings = array() ) {
-	
-		$name = __('Comments', 'pagelines');
-		$id = 'pl_comments';
-	
 		
 		$settings = array(
-			'type' 			=> 'main',
-			'description' 	=> 'This is the section that contains the comment form used on posts (and pages when specified).',
+
 			'workswith' 	=> array('main'),
 			'failswith'		=> pagelines_special_pages(),
-			'icon'			=> PL_ADMIN_ICONS . '/comment.png'
+
 		);
 		
 
-	   parent::__construct($name, $id, $settings);    
+	   parent::__construct($settings);    
    }
 
 	function section_styles() {  

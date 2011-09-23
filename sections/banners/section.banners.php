@@ -11,12 +11,9 @@ class PageLinesBanners extends PageLinesSection {
 
    function __construct( $registered_settings = array() ) {
 	
-		$name = __('PageLines Banners', 'pagelines');
-		$id = 'banners';
+
 		
 		$default_settings = array(
-			'description' 	=> 'Creates "banners" (image on one side text on the other). Great for product tours, portfolios, etc...',
-			'icon'			=> PL_ADMIN_ICONS . '/banners.png', 
 			'version'		=> 'pro',
 			'cloning'		=> true
 			
@@ -24,7 +21,7 @@ class PageLinesBanners extends PageLinesSection {
 		
 		$settings = wp_parse_args( $registered_settings, $default_settings );
 		
-		parent::__construct($name, $id, $settings);    
+		parent::__construct($settings);    
    }
 
 

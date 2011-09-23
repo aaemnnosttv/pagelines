@@ -31,7 +31,7 @@ class PageLinesSection {
 				'description' 		=> null, 
 				'required'			=> null,
 				'version'			=> 'all', 
-				'icon'				=> PL_ADMIN_ICONS . '/leaf.png',
+//				'icon'				=> PL_ADMIN_ICONS . '/leaf.png',
 				'base_dir'			=> PL_SECTIONS,
 				'base_file'			=> PL_SECTIONS.'/section.'.$id.'.php',
 				'base_url'			=> SECTION_ROOT,
@@ -40,23 +40,47 @@ class PageLinesSection {
 				'failswith'			=> array(), 
 				'cloning'			=> false
 			);
-		
+
 		$this->settings = wp_parse_args( $settings, $defaults );
 		
 		$this->hook_get_view();
 		
 		$this->hook_get_post_type();
 		
+		global $load_sections;
+		$available = $load_sections->pagelines_register_sections( false, true );
+		
+//		plprint($available);
+		
+		if ( isset( $available['child'][get_class($this)] ) )
+			$type = 'child';
+		
+		if ( isset( $available['custom'][get_class($this)] ) )
+			$type = 'custom';
+
+		if ( isset( $available['parent'][get_class($this)] ) )
+			$type = 'parent';
+	
 		// Reference information
-		$this->id = empty($id) ? strtolower(get_class($this)) : strtolower($id);
-		$this->name = $name;
+		$this->id = basename( $this->settings['base_dir'] );
+		$this->name = $available[$type][get_class($this)]['name'];
+		$this->description = $available[$type][get_class($this)]['description'];
+		$this->settings['name'] = $this->name;
+		$this->settings['description'] = $this->description;
+
 		
 		// File location information
-		$this->base_dir = $this->settings['base_dir'];
-		$this->base_file = $this->settings['base_file'];
-		$this->base_url = $this->settings['base_url'];
+		$this->base_dir = $available[$type][get_class($this)]['base_dir'];
+		$this->base_file = $available[$type][get_class($this)]['base_file'];
+		$this->base_url = $available[$type][get_class($this)]['base_url'];
+		$this->settings['base_dir'] = $available[$type][get_class($this)]['base_dir'];
+		$this->settings['base_file'] = $available[$type][get_class($this)]['base_file'];
+		$this->settings['base_url'] = $available[$type][get_class($this)]['base_url'];		
 		
-		$this->icon = $this->settings['icon'];
+		
+
+		$this->icon = ( file_exists( sprintf( '%s/icon.png', $this->base_dir ) ) ) ? sprintf( '%s/icon.png', $this->base_url ) : PL_ADMIN_ICONS . '/leaf.png';
+		$this->settings['icon'] = ( file_exists( sprintf( '%s/icon.png', $this->base_dir ) ) ) ? sprintf( '%s/icon.png', $this->base_url ) : PL_ADMIN_ICONS . '/leaf.png';			
 		
 		$this->optionator_default = array(
 			'clone_id'	=> 1,
