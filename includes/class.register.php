@@ -144,10 +144,14 @@ class PageLinesRegister {
 			return;			
 
 		$sections = array();
-		$it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator( $dir, RecursiveIteratorIterator::SELF_FIRST));
+		
+		// setup out directory iterator.
+		// symlinks were only supported after 5.3.1
+		// so we need to check first ;)
+		$it = ( strnatcmp( phpversion(), '5.3.1' ) >= 0 ) ? new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $dir, FilesystemIterator::FOLLOW_SYMLINKS) , RecursiveIteratorIterator::SELF_FIRST ) : new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $dir, RecursiveIteratorIterator::SELF_FIRST ) );
 		
 		foreach( $it as $fullFileName => $fileSPLObject ) {
-			if ( basename( $fullFileName) == 'pagelines-sections.php' )
+			if ( basename( $fullFileName) == PL_EXTEND_SECTIONS_PLUGIN )
 				continue;	
 			if (pathinfo($fileSPLObject->getFilename(), PATHINFO_EXTENSION ) == 'php') {
 				$headers = get_file_data( $fullFileName, $default_headers = array( 'tags' => 'Tags', 'internal' => 'Internal', 'version' => 'Version', 'author' => 'Author', 'authoruri' => 'Author URI', 'section' => 'Section', 'description' => 'Description', 'classname' => 'Class Name', 'depends' => 'Depends' ) );
