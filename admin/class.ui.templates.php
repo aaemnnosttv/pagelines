@@ -234,7 +234,8 @@ class PageLinesTemplateBuilder {
 			$addl = ($template_area == 'templates') ? 'Page Template Area' : ( $template_area == 'main' ? 'Content Area' : 'Global Scope');
 			$addl = ($addl != '') ? sprintf('<span class="btag grey">%s</span>', $addl) : '';
 			
-?><div id="template_data" class="<?php echo $template_slug; ?> layout-type-<?php echo $template_area;?>" title="<?php echo $template_slug; ?>">
+?><div id="template_data" class="<?php echo $template_slug; ?> layout-type-<?php echo $template_area;?>" title="">
+		<span class="template-slug" id="<?php echo $template_slug; ?>"></span>
 		<div class="ttitle fix" id="highlightme">
 			<div class="ttitle-text"><span>Editing &rarr;</span> <?php echo $tfield['name'].' '. $addl;?> </div>
 			<div class="confirm_save"><div class="confirm_save_pad">&nbsp;</div></div>

@@ -2111,10 +2111,18 @@ font-weight: bold;
 			-khtml-border-radius: 4px;
 			-webkit-border-radius: 4px;
 			border-radius: 4px;
-			
+			-moz-box-shadow: 0 0 2px #d1d1d1;
+			-webkit-box-shadow: 0 0 2px #d1d1d1;
+			box-shadow: 0 0 2px #d1d1d1;
 			background: #F3F3F4 url(../images/section-up.png) repeat-x left bottom;
 		}
 		
+			.sbank li.ui-sortable-helper .section-bar{
+					background: #F3F3F4 url(../images/section-hover.png) repeat-x left bottom;
+				-moz-box-shadow: 0 0 6px #BBB;
+				-webkit-box-shadow: 0 0 6px #BBB;
+				box-shadow: 0 0 6px #BBB;
+			}
 			.sbank li .section-bar.hidden-section{
 				background: #F3F3F4 url(../images/section-hover.png) repeat-x left bottom;
 				color:#AAA;

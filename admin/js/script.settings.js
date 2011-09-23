@@ -35,7 +35,7 @@
 	
 	function cloneSection( sectionId ){
 		
-		var selected_builder = jQuery('.selected_builder').attr('title');
+		var selected_builder = jQuery( '.selected_builder .template-slug' ).attr('id');
 		var prefix = '.selected_builder #';
 		var interface_prefix = '.the_template_builder #';
 		
@@ -76,14 +76,13 @@
 	
 	function deleteSection( clicked ){
 		
+		var selected_builder = jQuery( '.selected_builder .template-slug' ).attr('id');
 		var element = jQuery(clicked).parent().parent().parent().parent();
-		
 		
 		element.slideUp('fast').attr('id', '');
 		
-	//	element.remove();
 		
-		var selected_builder = jQuery( '.selected_builder' ).attr('title');
+
 		saveSectionOrder( selected_builder );	
 		
 	}
