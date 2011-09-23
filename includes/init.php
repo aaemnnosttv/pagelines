@@ -306,7 +306,7 @@ require_once (PL_INCLUDES.'/actions.site.php');
 pagelines_register_hook('pagelines_hook_init'); // Hook
 
 // beta test updates url REMOVE FOR RELEASE
-add_filter('pagelines_theme_update_url', 'beta_url');
+//add_filter('pagelines_theme_update_url', 'beta_url');
 
 function beta_url() {
 

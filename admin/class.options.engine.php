@@ -950,6 +950,9 @@ class OptEngine {
 				$updates_exp = sprintf( __( 'ERROR: %1$s<br />There was a problem logging in to PageLines.', 'pagelines' ), $a['api_error'] );
 			else
 				$updates_exp = __( 'Unknown error??', 'pagelines' );
+		
+		if ( isset( $a ) && isset( $a['licence'] ) )
+			$updates_exp .= sprintf( __( '<br />We found a %s licence.', 'pagelines' ), $a['licence'] );
 
 		if ( ploption( 'disable_updates' ) )
 			$updates_exp = __( 'Updates are disabled.', 'pagelines' );
