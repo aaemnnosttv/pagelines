@@ -1,6 +1,6 @@
 <?php
 /*
-	Section: Highlight Section
+	Section: Highlight
 	Author: PageLines
 	Author URI: http://www.pagelines.com
 	Description: Adds a highlight sections with a splash image and 2-big lines of text.

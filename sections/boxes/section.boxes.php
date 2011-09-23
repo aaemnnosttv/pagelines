@@ -1,6 +1,6 @@
 <?php
 /*
-	Section: PageLines Boxes
+	Section: Boxes
 	Author: PageLines
 	Author URI: http://www.pagelines.com
 	Description: Creates boxes and box layouts

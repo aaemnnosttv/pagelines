@@ -1,6 +1,6 @@
 <?php
 /*
-	Section: PageLines Features
+	Section: Features
 	Author: PageLines
 	Author URI: http://www.pagelines.com
 	Description: Creates a feature slider and custom post type
