@@ -11,18 +11,13 @@
 class PageLinesBrandNav extends PageLinesNav {
    function __construct( $registered_settings = array() ) {
 	
-		/* The name and ID of the section */
-		$name = __('BrandNav Section', 'pagelines');
-		$id = 'brandnav';
 		
 		$section_root_url = $registered_settings['base_url'];
 		
 		$default_settings = array(
-			'name'			=> $name, 
-			'id'			=> $id,
-			'description'	=> 'Combines branding elements and navigation on one line.',
+
 			'workswith' 	=> array('header'),
-			'icon'			=> $section_root_url.'/brandnav.png',
+
 		);
 		
 		$settings = wp_parse_args( $registered_settings, $default_settings );

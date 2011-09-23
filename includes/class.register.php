@@ -107,13 +107,15 @@ class PageLinesRegister {
 					$dep_data = array(
 						'base_dir'  => (isset($parent_dep['base_dir'])) ? $parent_dep['base_dir'] : null,
 						'base_url'  => (isset($parent_dep['base_url'])) ? $parent_dep['base_url'] : null,
-						'base_file' => (isset($parent_dep['base_file'])) ? $parent_dep['base_file'] : null
+						'base_file' => (isset($parent_dep['base_file'])) ? $parent_dep['base_file'] : null,
+						'name'		=> (isset($parent_dep['name'])) ? $parent_dep['name'] : null
 					);
 
 					$section_data = array(
 						'base_dir'  => $section['base_dir'],
 						'base_url'  => $section['base_url'],
-						'base_file' => $section['base_file']	
+						'base_file' => $section['base_file'],
+						'name'		=> $section['name']	
 					);
 					if ( isset( $dep ) ) { // do we have a dependency?
 						if ( !class_exists( $dep ) && file_exists( $dep_data['base_file'] ) ) {
@@ -159,8 +161,9 @@ class PageLinesRegister {
 				// If no pagelines class headers ignore this file.
 				if ( !$headers['classname'] )
 					continue;
-
-				$folder = str_replace( '.php', '', str_replace( 'section.', '/', $fileSPLObject->getFilename() ) );
+				
+				preg_match( '/[\/|\-]sections\/([^\/]+)/', $fullFileName, $out );
+				$folder = sprintf( '/%s', $out[1] );
 
 				if ( $type == 'child' || $type == 'custom' ) {
 					$base_url = ( $type == 'child' ) ? PL_EXTEND_URL . $folder : get_stylesheet_directory_uri()  . '/sections' . $folder;
