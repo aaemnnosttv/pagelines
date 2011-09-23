@@ -34,11 +34,11 @@ function cssgroup( $group ){
 	/**
 	 * Box & Element Colors
 	 */
-	$s['box_color_primary'] = '#wp-calendar caption, #grandchildnav.widget, input, textarea, .searchform .searchfield, .wp-caption, .commentlist .alt, #wp-calendar #today, .post-nav, .current_posts_info, .post-footer,  #twitterbar, .crsl, .success,  .content-pagination a .cp-num, .hentry table .alternate td,  #featurenav a, .playpause, #page .wp-pagenavi a';
+	$s['box_color_primary'] = '.bc1, #wp-calendar caption, #grandchildnav.widget, input, textarea, .searchform .searchfield, .wp-caption, .commentlist .alt, #wp-calendar #today, .post-nav, .current_posts_info, .post-footer,  #twitterbar, .crsl, .success,  .content-pagination a .cp-num, .hentry table .alternate td,  #featurenav a, .playpause, #page .wp-pagenavi a';
 	
-	$s['box_color_secondary'] = '#wp-calendar thead th, .item-avatar a, .comment blockquote, #grandchildnav .current_page_item a, #grandchildnav li a:hover, #grandchildnav .current_page_item  ul li a:hover, #carousel .carousel_text, #page .wp-pagenavi a:hover, #page .wp-pagenavi .extend, .content-pagination .cp-num, .content-pagination a:hover .cp-num, ins, #featurenav a.activeSlide';
+	$s['box_color_secondary'] = '.bc2, #wp-calendar thead th, .item-avatar a, .comment blockquote, #grandchildnav .current_page_item a, #grandchildnav li a:hover, #grandchildnav .current_page_item  ul li a:hover, #carousel .carousel_text, #page .wp-pagenavi a:hover, #page .wp-pagenavi .extend, .content-pagination .cp-num, .content-pagination a:hover .cp-num, ins, #featurenav a.activeSlide';
 	
-	$s['box_color_tertiary'] = '#page .wp-pagenavi .current';
+	$s['box_color_tertiary'] = '.bc3, #page .wp-pagenavi .current';
 	
 	$s['box_color_lighter'] = '.post-meta .c_img';
 	
@@ -53,9 +53,9 @@ function cssgroup( $group ){
 	
 	$s['border_tertiary'] = '';
 	
-	$s['border_primary_shadow'] = 'blockquote, input, textarea, .searchform .searchfield, .wp-caption,  #grandchildnav.widget, fpost .post-thumb img, .clip .clip-thumb img, .author-thumb img';
+	$s['border_primary_shadow'] = '.bc1s, blockquote, input, textarea, .searchform .searchfield, .wp-caption,  #grandchildnav.widget, fpost .post-thumb img, .clip .clip-thumb img, .author-thumb img';
 	
-	$s['border_primary_highlight'] = '.bhighlight';
+	$s['border_primary_highlight'] = '.bc1h, .bhighlight';
 	
 	/**
 	 * Text Colors

@@ -128,11 +128,6 @@ require_once( PL_INCLUDES . '/class.template.php' );
 require_once( PL_ADMIN . '/class.options.metapanel.php' );
 
 /**
- * Singleton for Metapanel Options
- */
-$GLOBALS['metapanel_options'] =  new PageLinesMetaPanel();
-
-/**
  * Load Drag and Drop UI
  */
 require_once( PL_ADMIN . '/class.ui.templates.php' );
@@ -187,6 +182,13 @@ require_once( PL_INCLUDES . '/class.colors.php' );
  * Load dynamic CSS handling
  */
 require_once( PL_INCLUDES . '/class.css.php' );
+
+/**
+ * Singleton for Metapanel Options
+ */
+$GLOBALS['metapanel_options'] =  new PageLinesMetaPanel();
+
+
 
 /**
  * PageLines Section Factory Object (Singleton)

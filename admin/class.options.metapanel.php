@@ -34,19 +34,20 @@ class PageLinesMetaPanel {
 		
 			$this->page_for_posts = ( isset($post) && get_option( 'page_for_posts' ) === $post->ID ) ? true : false;			
 		
+			
+		
 			$this->blacklist = apply_filters( 'pagelines_meta_blacklist', array( 'banners', 'feature', 'boxes', 'attachment', 'revision', 'nav_menu_item' ));
 			
 			$defaults = array(
 					'id' 		=> 'pagelines-metapanel',
 					'name' 		=> $this->get_the_title(),
-					'posttype' 	=> $this->get_the_post_types(),
+					'posttype' 	=> false,
 					'location' 	=> 'normal', 
 					'priority' 	=> 'low', 
 					'hide_tabs'	=> false
 				);
 	
 			$this->settings = wp_parse_args($settings, $defaults); // settings for post type
-	
 
 		
 			$this->register_actions();
@@ -54,26 +55,29 @@ class PageLinesMetaPanel {
 			$this->hide_tabs = $this->settings['hide_tabs'];
 			
 	}
-	
-	
-	
+
 	function register_actions(){
 		
 		if ( !current_user_can('publish_posts') )
-			return;		
+			return;	
+			
+				
 		// Adds the box
-		add_action("admin_menu",  array(&$this, 'add_metapanel_box'));
+		add_action( "admin_menu",  array(&$this, 'add_metapanel_box') );
 		
 		// Saves the options.
-		add_action('save_post', array(&$this, 'save_meta_options'));
+		add_action( 'save_post', array(&$this, 'save_meta_options') );
 		
 	}
 	
 	function add_metapanel_box(){
 		
-		foreach($this->settings['posttype'] as $post_type){
+		$this->settings['posttype'] = ( $this->settings['posttype'] ) ? $this->settings['posttype'] : get_post_types( array( 'public' => true ) );
+		
+		foreach( $this->settings['posttype'] as $post_type)
 			add_meta_box($this->settings['id'], $this->settings['name'], "pagelines_metapanel_callback", $post_type, $this->settings['location'], $this->settings['priority'], array( $this ));
-		}	
+		
+		
 	}
 	
 	
@@ -84,8 +88,8 @@ class PageLinesMetaPanel {
 		// if not in this array, then show the 
 		
 		$post_id = ( isset( $_GET['post'] ) ) ? $_GET['post'] : ( isset($_POST['post_ID']) ? $_POST['post_ID'] : null );
-
 		
+
 		if( isset( $post_id ) && !in_array( get_post_type( $post_id ), $this->blacklist ) )
 			$pt = array( 'post', 'page', get_post_type( $post_id ) );
 		else 
@@ -225,7 +229,7 @@ class PageLinesMetaPanel {
 	<div class="pl_mp">
 		<div class="ohead  mp_bar mp_head">
 			<div class="mp_bar_pad fix ">
-				<div class="mp_title"><span class="mp_title_text">MetaPanel</span> <span class='btag'><?php echo ucfirst($this->get_edit_type());?></span></div>
+				<div class="mp_title"><span class="mp_title_text">MetaPanel</span> <span class='btag'><?php echo ui_key($this->get_edit_type());?></span></div>
 			
 			
 				<div class="superlink-wrap osave-wrap">
@@ -421,6 +425,7 @@ class PageLinesMetaPanel {
 		
 		// Current post type is passed in $_POST
 		$current_post_type = ( isset( $_POST['post_type'] ) ) ? $_POST['post_type'] : false;
+	
 		$post_type_save = ( in_array( $current_post_type, $this->settings['posttype'] ) ) ? true : false;
 
 		if((isset($_POST['update']) || isset($_POST['save']) || isset($_POST['publish'])) && $post_type_save){
