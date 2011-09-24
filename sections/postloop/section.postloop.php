@@ -11,20 +11,13 @@
 class PageLinesPostLoop extends PageLinesSection {
 
    function __construct( $registered_settings = array() ) {
-	
-		$name = __('Post Loop', 'pagelines');
-		$id = 'theloop';
-	
 		
-		$settings = array(
+		$default_settings = array(
 			'type' 			=> 'main',
-			'description' 	=> 'The Main Posts Loop. Includes content and post information',
 			'workswith' 	=> array('main'),
-			'icon'			=> PL_ADMIN_ICONS . '/document.png'
 		);
-		
-
-	   parent::__construct($name, $id, $settings);    
+		$settings = wp_parse_args( $registered_settings, $default_settings );
+	   parent::__construct($settings);    
    }
 
 

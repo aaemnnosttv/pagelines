@@ -11,20 +11,12 @@
 class ContentSidebar extends PageLinesSection {
 
    function __construct( $registered_settings = array() ) {
-	
-		$name = __('Content Sidebar', 'pagelines');
-		$id = 'content_sidebar';
-		$this->handle = "Content Sidebar";
-	
 		
-		$settings = array(
-			'description' 	=> __('Displays a widgetized sidebar inside the main content area. Set it up in the widgets panel', 'pagelines'),
+		$default_settings = array(
 			'workswith' 	=> array('main-default', 'main-posts', 'main-single', 'main-404'),
-			'icon'			=> PL_ADMIN_ICONS . '/sidebar.png'
 		);
-		
-
-	   parent::__construct($name, $id, $settings);    
+		$settings = wp_parse_args( $registered_settings, $default_settings );
+	   parent::__construct($settings);    
    }
 
    function section_persistent() { 

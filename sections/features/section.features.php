@@ -10,16 +10,11 @@
 class PageLinesFeatures extends PageLinesSection {
 
    function __construct( $registered_settings = array() ) {
-	
-		$name = __('PageLines Features', 'pagelines');
-		$id = 'feature';
 		
 		$this->tax_id = 'feature-sets';
 		$this->section_root_url = $registered_settings['base_url'];
 		
 		$default_settings = array(
-			'description'	=> 'This is your main feature slider.  Add feature text and media through the admin panel.',
-			'icon'			=> $this->section_root_url.'/features.png',
 			'workswith' 	=> array('templates', 'main', 'header', 'morefoot'),
 			'version'		=> 'pro',	
 			'cloning'		=> true
@@ -27,7 +22,7 @@ class PageLinesFeatures extends PageLinesSection {
 		
 		$settings = wp_parse_args( $registered_settings, $default_settings );
 		
-	   parent::__construct($name, $id, $settings);    
+	   parent::__construct($settings);    
    }
 
 

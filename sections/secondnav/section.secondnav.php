@@ -10,22 +10,16 @@
 class PageLinesSecondNav extends PageLinesSection {
 
    function __construct( $registered_settings = array() ) {
-	
-		$name = __('Secondary Nav', 'pagelines');
-		$id = 'secondnav';
-	
 		
 		$default_settings = array(
 			'type' 			=> 'header',
 			'workswith' 	=> array('header', 'content'),
-			'description' 	=> 'Allows you to select a WP menu to use as your secondary nav on individual pages and posts.',
-			'icon'			=> PL_ADMIN_ICONS . '/maps.png', 
 			'version'		=> 'pro'
 		);
 		
 		$settings = wp_parse_args( $registered_settings, $default_settings );
 
-	   parent::__construct($name, $id, $settings);    
+	   parent::__construct($settings);    
    }
 
 	// PHP that always loads no matter if section is added or not -- e.g. creates menus, locations, admin stuff...

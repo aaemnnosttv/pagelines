@@ -10,23 +10,15 @@ class PageLinesTwitterBar extends PageLinesSection {
 
    function __construct( $registered_settings = array() ) {
 	
-		$name = __('Twitter Bar', 'pagelines');
-		$id = 'twitterbar';
-	
-		
 		$default_settings = array(
 			'type' 			=> 'standard',
-			'description' 	=> 'Displays your latest twitter post.',
 			'workswith' 	=> array('morefoot'),
-			'folder' 		=> '', 
-			'init_file' 	=> 'twitterbar.php',
-			'icon'			=> PL_ADMIN_ICONS . '/twitter.png',
 			'version'		=> 'pro'
 		);
 		
 		$settings = wp_parse_args( $registered_settings, $default_settings );
 		
-		parent::__construct($name, $id, $settings);    
+		parent::__construct($settings);    
    }
 
 	function section_template() { 

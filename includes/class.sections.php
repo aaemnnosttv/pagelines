@@ -50,8 +50,6 @@ class PageLinesSection {
 		global $load_sections;
 		$available = $load_sections->pagelines_register_sections( false, true );
 		
-//		plprint($available);
-		
 		if ( isset( $available['child'][get_class($this)] ) )
 			$type = 'child';
 		

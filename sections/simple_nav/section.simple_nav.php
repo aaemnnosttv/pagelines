@@ -12,21 +12,13 @@ class SimpleNav extends PageLinesSection {
 
    function __construct( $registered_settings = array() ) {
 	
-		$name = __('Simple Nav', 'pagelines');
-		$id = 'simple_nav';
-
-		
 		$default_settings = array(
-			'description' 	=> __('Page navigation in simple one-line format.', 'pagelines'),
 			'workswith' => array('footer'),
-			'description' => 'Page navigation in simple one-line format.',
-	
-			'icon'			=> PL_ADMIN_ICONS . '/map.png'
 		);
 		
 		$settings = wp_parse_args( $registered_settings, $default_settings );
 
-	   parent::__construct($name, $id, $settings);    
+	   parent::__construct($settings);    
    }
 
 	function section_persistent(){

@@ -12,19 +12,12 @@ class PageLinesMorefoot extends PageLinesSection {
 
    function __construct( $registered_settings = array() ) {
 	
-		$name = __('MoreFoot Sidebars', 'pagelines');
-		$id = 'morefoot';
-	
-		
-		$settings = array(
-			'description' 	=> 'Displays three widgetized sidebars that you can set up in the widgets panel.',
+		$default_settings = array(
 			'workswith' 	=> array('content'),
-			'icon'			=> PL_ADMIN_ICONS . '/column.png',
 			'version'		=> 'pro'
 		);
-		
-
-	   parent::__construct($name, $id, $settings);    
+		$settings = wp_parse_args( $registered_settings, $default_settings );
+	   parent::__construct($settings);    
    }
 
 	function section_persistent(){

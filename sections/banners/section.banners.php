@@ -11,8 +11,6 @@ class PageLinesBanners extends PageLinesSection {
 
    function __construct( $registered_settings = array() ) {
 	
-
-		
 		$default_settings = array(
 			'version'		=> 'pro',
 			'cloning'		=> true

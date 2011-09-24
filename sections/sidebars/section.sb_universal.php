@@ -11,20 +11,13 @@
 class UniversalSidebar extends PageLinesSection {
 
    function __construct( $registered_settings = array() ) {
-	
-		$name = __('Universal Sidebar', 'pagelines');
-		$id = 'sidebar_universal';
-	
-		
-		$settings = array(
-			'description' 	=> 'The universal widgetized sidebar, works in most areas.',
+
+		$default_settings = array(
 			'workswith' 	=> array('sidebar1', 'sidebar2', 'sidebar_wrap', 'templates', 'main', 'header', 'morefoot'),
-			'icon'			=> PL_ADMIN_ICONS . '/sidebar.png', 
 			'version'		=> 'pro'
 		);
-		
-
-	   parent::__construct($name, $id, $settings);    
+		$settings = wp_parse_args( $registered_settings, $default_settings );
+	   parent::__construct($settings);    
    }
 
    function section_persistent() { 
