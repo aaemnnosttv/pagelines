@@ -3,7 +3,7 @@
 	Section: Post/Page Pagination
 	Author: PageLines
 	Author URI: http://www.pagelines.com
-	Description: Paginates posts, shows a numerical post navigation
+	Description: Pagination - A numerical post/page navigation. (Supports WP-PageNavi)
 	Class Name: PageLinesPagination
 	Tags: internal
 */

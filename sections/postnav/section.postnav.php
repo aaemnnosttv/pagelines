@@ -3,7 +3,7 @@
 	Section: PostNav
 	Author: PageLines
 	Author URI: http://www.pagelines.com
-	Description: Paginates posts, shows a numerical post navigation
+	Description: Post Navigation - Shows titles for next and previous post.
 	Class Name: PageLinesPostNav
 	Tags: internal
 */

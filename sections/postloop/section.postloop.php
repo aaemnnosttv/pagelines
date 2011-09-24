@@ -3,7 +3,7 @@
 	Section: PostLoop
 	Author: PageLines
 	Author URI: http://www.pagelines.com
-	Description: Paginates posts, shows a numerical post navigation
+	Description: The Main Posts Loop. Includes content and post information.
 	Class Name: PageLinesPostLoop
 	Tags: internal
 */
