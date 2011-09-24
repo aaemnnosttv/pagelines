@@ -41,11 +41,11 @@ class PageLinesMetaPanel {
 					'posttype' 	=> $this->get_the_post_types(),
 					'location' 	=> 'normal', 
 					'priority' 	=> 'low', 
-					'hide_tabs'	=> false
+					'hide_tabs'	=> false, 
+					'global'	=> false
 				);
 	
-			$this->settings = wp_parse_args($settings, $defaults); // settings for post type
-
+			$this->settings = wp_parse_args($settings, $defaults); // settings for post type		
 		
 			$this->register_actions();
 	
@@ -70,8 +70,19 @@ class PageLinesMetaPanel {
 	function add_metapanel_box(){
 	
 		
-		foreach( $this->settings['posttype'] as $post_type)
+		
+		foreach( $this->settings['posttype'] as $post_type){
+			
+			if( $this->settings['global'] ){
+				$obj = get_post_type_object($post_type);
+				
+				if( !$obj->public )
+					continue;
+			}
+			
 			add_meta_box($this->settings['id'], $this->settings['name'], "pagelines_metapanel_callback", $post_type, $this->settings['location'], $this->settings['priority'], array( $this ));
+		}
+			
 		
 		
 	}
@@ -82,7 +93,7 @@ class PageLinesMetaPanel {
 		// if not in this array, then show the 
 		
 		$post_id = ( isset( $_GET['post'] ) ) ? $_GET['post'] : ( isset($_POST['post_ID']) ? $_POST['post_ID'] : null );
-		
+
 
 		if( isset( $post_id ) && !in_array( get_post_type( $post_id ), $this->blacklist ) )
 			$pt = array( 'post', 'page', get_post_type( $post_id ) );
@@ -176,7 +187,9 @@ class PageLinesMetaPanel {
 				$newkey = join( '_', array($key, $o['clone_id']) );
 				
 				$opt['title'] = $opt['title']. ' ('.$o['clone_id'].')';
+				
 				$option_array[$newkey] = $opt;
+				
 				unset( $option_array[$key] );
 				
 			}
@@ -196,10 +209,10 @@ class PageLinesMetaPanel {
 			$this->tabs = array_merge($top, $this->tabs);
 			
 		} else {
-			$this->tabs[$tab_id]->options = $option_array;
-			$this->tabs[$tab_id]->icon = $o['icon'];
-			$this->tabs[$tab_id]->active = $o['active'];
-			$this->tabs[$tab_id]->name = $name;
+			$this->tabs[ $tab_id ]->options = $option_array;
+			$this->tabs[ $tab_id ]->icon = $o['icon'];
+			$this->tabs[ $tab_id ]->active = $o['active'];
+			$this->tabs[ $tab_id ]->name = $name;
 		}
 		
 	}

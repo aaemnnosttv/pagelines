@@ -186,7 +186,7 @@ require_once( PL_INCLUDES . '/class.css.php' );
 /**
  * Singleton for Metapanel Options
  */
-$GLOBALS['metapanel_options'] =  new PageLinesMetaPanel();
+$GLOBALS['metapanel_options'] =  new PageLinesMetaPanel( array('global' => true) );
 $GLOBALS['global_meta_options'] = get_global_meta_options();
 
 /**
