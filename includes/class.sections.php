@@ -24,8 +24,7 @@ class PageLinesSection {
 	 *
 	 */
 	function __construct( $settings = array() ) {
-		
-		plprint($settings);
+	
 		
 		$defaults = array(
 				'markup'			=> null,
