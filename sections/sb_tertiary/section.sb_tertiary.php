@@ -3,7 +3,7 @@
 	Section: Tertiary Sidebar
 	Author: PageLines
 	Author URI: http://www.pagelines.com
-	Description: The main widgetized sidebar
+	Description: A 3rd widgetized sidebar for the theme that can be used in standard sidebar templates.
 	Class Name: TertiarySidebar
 	Tags: internal
 */

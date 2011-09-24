@@ -1,22 +1,23 @@
 <?php
 /*
-	Section: Primary Sidebar
+	Section: Secondary Sidebar
 	Author: PageLines
 	Author URI: http://www.pagelines.com
-	Description: The main widgetized sidebar
-	Class Name: PrimarySidebar
+	Description: The secondary widgetized sidebar for the theme.
+	Class Name: SecondarySidebar
 	Tags: internal
 */
 
-class PrimarySidebar extends PageLinesSection {
+class SecondarySidebar extends PageLinesSection {
 
    function __construct( $registered_settings = array() ) {
-
+			
 		$default_settings = array(
 			'workswith' 	=> array('sidebar1', 'sidebar2', 'sidebar_wrap'),
 		);
+		
 		$settings = wp_parse_args( $registered_settings, $default_settings );
-	   parent::__construct($settings);    
+		parent::__construct($settings);    
    }
 
    function section_persistent() { 
@@ -25,7 +26,7 @@ class PrimarySidebar extends PageLinesSection {
 	}
 
    function section_template() { 
-	 	 pagelines_draw_sidebar($this->id, $this->name, 'includes/widgets.default');
+	 	 pagelines_draw_sidebar($this->id, $this->name);
 	}
 
 }

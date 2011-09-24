@@ -3,7 +3,7 @@
 	Section: Full Width Sidebar
 	Author: PageLines
 	Author URI: http://www.pagelines.com
-	Description: Shows full width widgetized sidebar
+	Description: Shows full width widgetized sidebar.
 	Class Name: FullWidthSidebar
 	Tags: internal
 */

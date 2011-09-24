@@ -3,7 +3,7 @@
 	Section: Content Sidebar
 	Author: PageLines
 	Author URI: http://www.pagelines.com
-	Description: Shows sidebar inside the main column content area
+	Description: Displays a widgetized sidebar inside the main content area. Set it up in the widgets panel.
 	Class Name: ContentSidebar
 	Tags: internal
 */
