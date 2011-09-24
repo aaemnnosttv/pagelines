@@ -13,7 +13,7 @@ class PageLinesMorefoot extends PageLinesSection {
    function __construct( $registered_settings = array() ) {
 	
 		$default_settings = array(
-			'workswith' 	=> array('content'),
+			'workswith' 	=> array('morefoot','footer'),
 			'version'		=> 'pro'
 		);
 		$settings = wp_parse_args( $registered_settings, $default_settings );

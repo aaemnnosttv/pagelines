@@ -19,12 +19,12 @@ class PageLinesFootCols extends PageLinesSection {
 		$default_settings = array(
 			'type' 			=> 'standard',
 			'description' 	=> 'Displays a 5 column sidebar in the footer that can be setup to use widgets or theme options. Add widgets in the widgets panel to activate widget mode.',
-			'workswith' 	=> array('footer'),
+			'workswith' 	=> array('morefoot','footer'),
 			'icon'			=> PL_ADMIN_ICONS . '/column.png'
 		);
 		
 		$settings = wp_parse_args( $registered_settings, $default_settings );
-		parent::__construct($name, $id, $settings);    
+		parent::__construct( $settings );    
 		
    }
 
