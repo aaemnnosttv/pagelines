@@ -49,8 +49,8 @@ class PageLinesRegister {
 			);
 		
 		if ( is_child_theme() )
-			$section_dirs['custom'] = get_stylesheet_directory()  . '/sections';
-		
+			$section_dirs = array_merge( array( 'custom' => get_stylesheet_directory()  . '/sections' ), $section_dirs );
+
 		$section_dirs = apply_filters( 'pagelines_sections_dirs', $section_dirs );
 		
 		/**
@@ -150,7 +150,7 @@ class PageLinesRegister {
 		// setup out directory iterator.
 		// symlinks were only supported after 5.3.1
 		// so we need to check first ;)
-		$it = ( strnatcmp( phpversion(), '5.3.1' ) >= 0 ) ? new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $dir, FilesystemIterator::FOLLOW_SYMLINKS) , RecursiveIteratorIterator::SELF_FIRST ) : new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $dir, RecursiveIteratorIterator::SELF_FIRST ) );
+		$it = ( strnatcmp( phpversion(), '5.3.1' ) >= 0 ) ? new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $dir, FilesystemIterator::FOLLOW_SYMLINKS) , RecursiveIteratorIterator::SELF_FIRST ) : new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $dir, RecursiveIteratorIterator::CHILD_FIRST ) );
 		
 		foreach( $it as $fullFileName => $fileSPLObject ) {
 			if ( basename( $fullFileName) == PL_EXTEND_SECTIONS_PLUGIN )
