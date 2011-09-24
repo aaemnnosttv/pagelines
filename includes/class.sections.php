@@ -89,16 +89,15 @@ class PageLinesSection {
 	}
 	
 	function section_install_type(){
-		if ( isset( $this->available['child'][$this->class_name] ) )
-			$type = 'child';
 		
 		if ( isset( $this->available['custom'][$this->class_name] ) )
-			$type = 'custom';
+			return 'custom';		
+		
+		if ( isset( $this->available['child'][$this->class_name] ) )
+			return 'child';
 
 		if ( isset( $this->available['parent'][$this->class_name] ) )
-			$type = 'parent';
-	
-		return $type;
+			return 'parent';
 	}
 
 	/** 
