@@ -11,20 +11,13 @@
 class PageLinesPostAuthor extends PageLinesSection {
 
    function __construct( $registered_settings = array() ) {
-	
-		$name = __('Post Author Info', 'pagelines');
-		$id = 'postauthor';
-	
 		
-		$settings = array(
-			'description' 	=> 'Adds information about the author of a blog post or page. Add user information under "users" in the admin.',
+		$default_settings = array(
 			'workswith' 	=> array('main'),
 			'failswith'		=> pagelines_special_pages(),
-			'icon'			=> PL_ADMIN_ICONS . '/author.png'
 		);
-		
-
-	   parent::__construct($name, $id, $settings);    
+		$settings = wp_parse_args( $registered_settings, $default_settings );
+	   parent::__construct($settings);    
    }
 
    function section_template() { 

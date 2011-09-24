@@ -11,21 +11,13 @@
 class PageLinesPostsInfo extends PageLinesSection {
 
    function __construct( $registered_settings = array() ) {
-	
-		$name = __('Posts Info', 'pagelines');
-		$id = 'postsinfo';
-	
-		
+
 		$default_settings = array(
-			'description' 	=> 'Shows information about posts being viewed (e.g. "<em>Currently Viewing Archives from...</em>") Not shown on blog pages.',
 			'workswith' 	=> array('main'),
-			'icon'			=> PL_ADMIN_ICONS . '/postsinfo.png'
 		);
-		
-		
 		$settings = wp_parse_args( $registered_settings, $default_settings );
 		
-		parent::__construct($name, $id, $settings);   
+		parent::__construct($settings);   
    }
 
    function section_template() { 	

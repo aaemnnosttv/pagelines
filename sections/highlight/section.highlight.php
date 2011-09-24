@@ -10,22 +10,16 @@
 class PageLinesHighlight extends PageLinesSection {
 
    function __construct( $registered_settings = array() ) {
-	
-		$name = __('Highlight', 'pagelines');
-		$id = 'highlight';
-	
 		
 		$default_settings = array(
-			'description' 	=> 'Adds a highlight section with a splash image, and optional header/subheader text. Set up on individual pages/posts.',
 			'workswith' 	=> array('templates', 'main', 'header', 'morefoot'),
-			'icon'			=> PL_ADMIN_ICONS . '/highlight.png', 
 			'version'		=> 'pro', 
 			'cloning'		=> true
 		);
 		
 		$settings = wp_parse_args( $registered_settings, $default_settings );
 
-	   parent::__construct($name, $id, $settings);    
+	   parent::__construct($settings);    
    }
 
 	

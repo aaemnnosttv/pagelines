@@ -12,15 +12,14 @@ class PageLinesComments extends PageLinesSection {
 
    function __construct( $registered_settings = array() ) {
 		
-		$settings = array(
+		$default_settings = array(
 
 			'workswith' 	=> array('main'),
 			'failswith'		=> pagelines_special_pages(),
 
 		);
-		
-
-	   parent::__construct($settings);    
+		$settings = wp_parse_args( $registered_settings, $default_settings );
+		parent::__construct($settings);    
    }
 
 	function section_styles() {  

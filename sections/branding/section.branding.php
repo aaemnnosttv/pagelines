@@ -10,21 +10,15 @@
 class PageLinesBranding extends PageLinesSection {
 
    function __construct( $registered_settings = array() ) {
-	
-		$name = __('Site Branding', 'pagelines');
-		$id = 'branding';
-	
 		
 		$default_settings = array(
 			'type'        => 'header',
 			'workswith'   => array('header'),
-			'description' => 'Shows the main site logo or the site title and description.',
-			'icon'        => PL_ADMIN_ICONS . '/megaphone.png'
 		);
 
 		
 		$settings = wp_parse_args( $registered_settings, $default_settings );
-		parent::__construct($name, $id, $settings);    
+		parent::__construct($settings);    
    }
 
    function section_template() { 

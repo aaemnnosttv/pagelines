@@ -11,21 +11,15 @@
 class PageLinesCallout extends PageLinesSection {
 
    function __construct( $registered_settings = array() ) {
-	
-		$name = __('Callout Section', 'pagelines');
-		$id = 'callout';
-	
 		
 		$default_settings = array(
-			'description' 	=> 'Callout Section - A banner displaying a call to action or simple text.',
 			'workswith' 	=> array('templates', 'main', 'header', 'morefoot'),
-			'icon'			=> PL_ADMIN_ICONS . '/speaker.png',
 			'cloning'		=> true
 		);
 		
 		$settings = wp_parse_args( $registered_settings, $default_settings );
 		
-	   parent::__construct($name, $id, $settings);    
+	   parent::__construct($settings);    
    }
 
 	function section_optionator( $settings ){

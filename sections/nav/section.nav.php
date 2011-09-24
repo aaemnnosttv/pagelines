@@ -16,17 +16,10 @@ class PageLinesNav extends PageLinesSection {
 
    function __construct( $registered_settings = array() ) {
 	
-		$name = __('Navigation', 'pagelines');
-		$id = 'primary-nav';
-	
-		
 		$default_settings = array(
-			'name'			=> false,
-			'id'			=> false,
 			'type' 			=> 'header',
 			'workswith' 	=> array('header'),
 			'description' 	=> 'Primary Site Navigation.',
-			'icon'			=> PL_ADMIN_ICONS . '/map.png', 
 			'cloning'		=> false
 		);
 		
@@ -35,10 +28,7 @@ class PageLinesNav extends PageLinesSection {
 		self::$nav_dir = PL_SECTIONS.'/nav';
 		self::$nav_url = SECTION_ROOT.'/nav';
 
-		$name = ($settings['name']) ? $settings['name'] : $name;
-		$id = ($settings['id']) ? $settings['id'] : $id;
-
-		parent::__construct($name, $id, $settings);    
+		parent::__construct($settings);    
    }
 
 	// PHP that always loads no matter if section is added or not -- e.g. creates menus, locations, admin stuff...

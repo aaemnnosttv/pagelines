@@ -10,13 +10,9 @@
 class PageLinesBoxes extends PageLinesSection {
 
    function __construct( $registered_settings = array() ) {
-	
-		$name = __('PageLines Boxes', 'pagelines');
-		$id = 'boxes';
 		
 		$default_settings = array(
-			'description' 	=> 'Inline boxes on your page that support images and media.  Great for feature lists, and media.',
-			'icon'			=> PL_ADMIN_ICONS . '/boxes.png', 
+
 			'workswith' 	=> array('templates', 'main', 'header', 'morefoot'),
 			'version'		=> 'pro',
 			'cloning'		=> true
@@ -24,7 +20,7 @@ class PageLinesBoxes extends PageLinesSection {
 		
 		$settings = wp_parse_args( $registered_settings, $default_settings );
 		
-		parent::__construct($name, $id, $settings);    
+		parent::__construct($settings);    
    }
 
 

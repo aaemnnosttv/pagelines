@@ -12,22 +12,13 @@ class FullWidthSidebar extends PageLinesSection {
 
    function __construct( $registered_settings = array() ) {
 	
-		$name = __('Full Width Sidebar', 'pagelines');
-		$id = 'fullwidth_sidebar';
-		$this->handle = "Full Width Sidebar";
-	
-		
-		
 		$default_settings = array(
-			'description' 	=> __('A widgetized full width sidebar. This sidebar will span the entire width of your website.', 'pagelines'),
 			'workswith' 	=> array('templates', 'footer', 'morefoot'),
-			'icon'			=> PL_ADMIN_ICONS . '/sidebar.png',
 			'version'		=> 'pro'
 		);
-		
 
 		$settings = wp_parse_args( $registered_settings, $default_settings );
-		parent::__construct($name, $id, $settings);    
+		parent::__construct($settings);    
    }
 
    function section_persistent() { 

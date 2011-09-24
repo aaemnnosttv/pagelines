@@ -10,21 +10,14 @@
 class PageLinesShareBar extends PageLinesSection {
 
    function __construct( $registered_settings = array() ) {
-	
-		$name = __('Share Bar', 'pagelines');
-		$id = 'sharebar';
-	
 		
 		$default_settings = array(
-			'description' 	=> 'Creates a way for users to share your content using their favorite social media or news services.',
 			'workswith' 	=> array('main'),
 			'failswith'		=> pagelines_special_pages(),
-			'icon'			=> PL_ADMIN_ICONS . '/feed.png'
 		);
 		
 		$settings = wp_parse_args( $registered_settings, $default_settings );
-		parent::__construct($name, $id, $settings);    
-		
+		parent::__construct($settings);    	
    }
 
 		

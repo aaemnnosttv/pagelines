@@ -10,7 +10,6 @@
 
 class PageLinesBrandNav extends PageLinesNav {
    function __construct( $registered_settings = array() ) {
-	
 		
 		$section_root_url = $registered_settings['base_url'];
 		

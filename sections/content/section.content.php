@@ -11,22 +11,15 @@
 class PageLinesContent extends PageLinesSection {
 
    function __construct( $registered_settings = array() ) {
-	
-		$name = __('Content Area', 'pagelines');
-		$id = 'maincontent';
-	
 		
-		$settings = array(
-			'description' 	=> 'This is the section that contains the main content for your site, including sidebars and page/post content.',
+		$default_settings = array(
 			'workswith' 	=> array('templates'),
-			'failswith'		=> array('404'),
-	
-			'icon'			=> PL_ADMIN_ICONS . '/document.png', 
+			'failswith'		=> array('404'), 
 			'cloning'		=> false
 		);
 		
-
-	   parent::__construct($name, $id, $settings);    
+		$settings = wp_parse_args( $registered_settings, $default_settings );
+		parent::__construct($settings);    
    }
 
    function section_template() {  

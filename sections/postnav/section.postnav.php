@@ -11,21 +11,14 @@
 class PageLinesPostNav extends PageLinesSection {
 
    function __construct( $registered_settings = array() ) {
-	
-		$name = __('Post Navigation', 'pagelines');
-		$id = 'postnav';
-	
 		
-		$settings = array(
+		$default_settings = array(
 			'type' 			=> 'main',
-			'description' 	=> 'Post Navigation - Shows titles for next and previous post.',
 			'workswith' 	=> array('main'),
 			'failswith'		=> pagelines_special_pages(),
-			'icon'			=> PL_ADMIN_ICONS . '/map.png'
 		);
-		
-
-	   parent::__construct($name, $id, $settings);    
+		$settings = wp_parse_args( $registered_settings, $default_settings );
+	   parent::__construct($settings);    
    }
 
    function section_template() { ?>

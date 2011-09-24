@@ -11,19 +11,13 @@
 class PageLinesNoPosts extends PageLinesSection {
 
    function __construct( $registered_settings = array() ) {
-	
-		$name = __('No Posts', 'pagelines');
-		$id = 'noposts';
-	
-		
-		$settings = array(
+
+		$default_settings = array(
 			'type' 			=> 'main',
-			'description' 	=> 'Shows 404 error to users.',
 			'workswith' 	=> array('404'),
 		);
-		
-
-	   parent::__construct($name, $id, $settings);    
+		$settings = wp_parse_args( $registered_settings, $default_settings );
+	   parent::__construct($settings);    
    }
 
    function section_template() { ?>

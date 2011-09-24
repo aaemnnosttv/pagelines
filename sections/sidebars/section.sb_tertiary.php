@@ -11,19 +11,12 @@
 class TertiarySidebar extends PageLinesSection {
 
    function __construct( $registered_settings = array() ) {
-	
-		$name = __('Tertiary Sidebar', 'pagelines');
-		$id = 'sidebar_tertiary';
-	
 		
-		$settings = array(
-			'description' 	=> 'A 3rd widgetized sidebar for the theme that can be used in standard sidebar templates.',
+		$default_settings = array(
 			'workswith' 	=> array('sidebar1', 'sidebar2', 'sidebar_wrap'),
-			'icon'			=> PL_ADMIN_ICONS . '/sidebar.png'
 		);
-		
-
-	   parent::__construct($name, $id, $settings);    
+		$settings = wp_parse_args( $registered_settings, $default_settings );
+	   parent::__construct($settings);    
    }
 
    function section_persistent() { 
