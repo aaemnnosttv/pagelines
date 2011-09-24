@@ -397,10 +397,10 @@ function extension_array(  ){
 						'class'		=> 'right',
 						'callback'	=> $extension_control->extension_sections_install( 'free' )
 						),
-					'search'		=> array(
-						'title'		=> __( 'Search Sections', 'pagelines' ),
-						'callback'	=> $extension_control->ui->search_extend( 'section' )
-					),
+					// 'search'		=> array(
+					// 	'title'		=> __( 'Search Sections', 'pagelines' ),
+					// 	'callback'	=> $extension_control->ui->search_extend( 'section' )
+					// ),
 					'upload'		=> array(
 						'title'		=> __( 'Upload Sections', 'pagelines' ),
 						'callback'	=> $extension_control->ui->upload_form( 'section', ( !is_writable( WP_PLUGIN_DIR ) ) ? true : false )
@@ -459,10 +459,10 @@ function extension_array(  ){
 						'title'		=> __( 'Free Plugins', 'pagelines' ),
 						'callback'	=> $extension_control->extension_plugins( 'free' )
 					),
-					'search'		=> array(
-						'title'		=> __( 'Search Plugins', 'pagelines' ),
-						'callback'	=> $extension_control->ui->search_extend( 'plugin' )
-					),
+					// 'search'		=> array(
+					// 	'title'		=> __( 'Search Plugins', 'pagelines' ),
+					// 	'callback'	=> $extension_control->ui->search_extend( 'plugin' )
+					// ),
 //					'upload'		=> array(
 //						'title'		=> __( 'Upload Plugin', 'pagelines' ),
 //						'callback'	=> $extension_control->ui->upload_form( 'plugin' )
