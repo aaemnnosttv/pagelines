@@ -326,7 +326,13 @@ class PageLinesTemplateBuilder {
 		// Remove the sections that aren't compatible
 		$draw = array();
 		foreach( $this->avail as $sid => $s){
-
+			
+			
+			if($sid == 'UniversalSidebar'){
+			//	plprint($s->settings);
+			}
+				
+			
 			/* Flip values and keys */
 			$works_with = (is_array($s->settings['workswith'])) ? array_flip( $s->settings['workswith'] ) : array();
 			$fails_with = (is_array($s->settings['failswith'])) ? array_flip( $s->settings['failswith'] ) : array();

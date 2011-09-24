@@ -23,7 +23,9 @@ class PageLinesSection {
 	 * PHP5 constructor
 	 *
 	 */
-	function __construct( $name = null, $id = null, $settings = array(), $base = null ) {
+	function __construct( $settings = array() ) {
+		
+		plprint($settings);
 		
 		$defaults = array(
 				'markup'			=> null,
@@ -31,9 +33,6 @@ class PageLinesSection {
 				'description' 		=> null, 
 				'required'			=> null,
 				'version'			=> 'all', 
-//				'icon'				=> PL_ADMIN_ICONS . '/leaf.png',
-				'base_dir'			=> PL_SECTIONS,
-				'base_file'			=> PL_SECTIONS.'/section.'.$id.'.php',
 				'base_url'			=> SECTION_ROOT,
 				'dependence'		=> '', 
 				'posttype'			=> '',
@@ -59,13 +58,6 @@ class PageLinesSection {
 		if ( isset( $available['parent'][get_class($this)] ) )
 			$type = 'parent';
 	
-		// Reference information
-		$this->id = basename( $this->settings['base_dir'] );
-		$this->name = $available[$type][get_class($this)]['name'];
-		$this->description = $available[$type][get_class($this)]['description'];
-		$this->settings['name'] = $this->name;
-		$this->settings['description'] = $this->description;
-
 		
 		// File location information
 		$this->base_dir = $available[$type][get_class($this)]['base_dir'];
@@ -75,6 +67,12 @@ class PageLinesSection {
 		$this->settings['base_file'] = $available[$type][get_class($this)]['base_file'];
 		$this->settings['base_url'] = $available[$type][get_class($this)]['base_url'];		
 		
+		// Reference information
+		$this->id = basename( $this->base_dir );
+		$this->name = $available[$type][get_class($this)]['name'];
+		$this->description = $available[$type][get_class($this)]['description'];
+		$this->settings['name'] = $this->name;
+		$this->settings['description'] = $this->description;
 		
 
 		$this->icon = ( file_exists( sprintf( '%s/icon.png', $this->base_dir ) ) ) ? sprintf( '%s/icon.png', $this->base_url ) : PL_ADMIN_ICONS . '/leaf.png';
