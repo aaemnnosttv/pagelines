@@ -28,20 +28,17 @@ class PageLinesMetaPanel {
 			 * Single post pages have post as GET, not $post as object
 			 */
 			$post = (!isset($post) && isset($_GET['post'])) ? get_post($_GET['post'], 'object') : null;
-	
 			
 			$this->ptype = PageLinesTemplate::current_admin_post_type();
 		
 			$this->page_for_posts = ( isset($post) && get_option( 'page_for_posts' ) === $post->ID ) ? true : false;			
-		
-			
 		
 			$this->blacklist = apply_filters( 'pagelines_meta_blacklist', array( 'banners', 'feature', 'boxes', 'attachment', 'revision', 'nav_menu_item' ));
 			
 			$defaults = array(
 					'id' 		=> 'pagelines-metapanel',
 					'name' 		=> $this->get_the_title(),
-					'posttype' 	=> false,
+					'posttype' 	=> $this->get_the_post_types(),
 					'location' 	=> 'normal', 
 					'priority' 	=> 'low', 
 					'hide_tabs'	=> false
@@ -71,8 +68,7 @@ class PageLinesMetaPanel {
 	}
 	
 	function add_metapanel_box(){
-		
-		$this->settings['posttype'] = ( $this->settings['posttype'] ) ? $this->settings['posttype'] : get_post_types( array( 'public' => true ) );
+	
 		
 		foreach( $this->settings['posttype'] as $post_type)
 			add_meta_box($this->settings['id'], $this->settings['name'], "pagelines_metapanel_callback", $post_type, $this->settings['location'], $this->settings['priority'], array( $this ));
@@ -80,8 +76,6 @@ class PageLinesMetaPanel {
 		
 	}
 	
-	
-
 	
 	function get_the_post_types(){
 		
@@ -644,6 +638,52 @@ function special_page_settings_array(  ){
 
 	return apply_filters('postsmeta_settings_array', $d); 
 }
+
+function get_global_meta_options(){
+	$opts = array(
+		
+		'_pagelines_layout_mode' => array(
+			'type' 			=> 'graphic_selector',
+			'sprite'		=> PL_ADMIN_IMAGES.'/sprite-layouts.png', 
+			'height'		=> '50px', 
+			'width'			=> '50px', 
+			'selectvalues'	=> array(
+				'fullwidth'				=> array( 'name' => 'Fullwidth layout', 'version' => 'pro', 'offset' => '0px 0px'),
+				'one-sidebar-right' 	=> array( 'name' => 'One sidebar on right', 'offset' => '0px -50px'),
+				'one-sidebar-left'		=> array( 'name' => 'One sidebar on left', 'offset' => '0px -100px'),
+				'two-sidebar-right' 	=> array( 'name' => 'Two sidebars on right', 'version' => 'pro', 'offset' => '0px -150px' ),
+				'two-sidebar-left' 		=> array( 'name' => 'Two sidebars on left', 'version' => 'pro', 'offset' => '0px -200px' ),
+				'two-sidebar-center' 	=> array( 'name' => 'Two sidebars, one on each side', 'version' => 'pro', 'offset' => '0px -250px' ),
+			),
+			'title' 		=> 'Individual Page Content Layout',
+			'inputlabel'	=> 'Select Page Layout',	
+			'layout' 		=> 'interface',						
+			'shortexp' 		=> 'Select the layout that will be used on this page',
+			'exp' 			=> '',
+		),
+		
+		'section_control' => array(
+			'type' 			=> 'section_control',
+			'title' 		=> 'Individual Page Section Control',
+			'layout' 		=> 'interface',						
+			'shortexp' 		=> 'Control which sections appear on this specific page',
+			'exp' 			=> '',
+		),
+		
+		'page_background_image' => array(
+			'title' 	=> 'Page Background Image',						
+			'shortexp' 	=> 'Setup A Background Image For This Page',
+			'exp' 		=> 'Use this option to apply a background image to this page. This option will only be applied to the current page.<br/><br/><strong>Positioning</strong> Use percentages to position the images, 0% corresponds to the "top" or "left" side, 50% to center, etc..',
+			'type' 		=> 'background_image',
+			'selectors'	=> cssgroup('page_background_image')
+		),
+		
+	);
+	
+	return apply_filters('global_meta_options', $opts);
+}
+
+
 
 
 

@@ -144,8 +144,6 @@ define( 'PAGELINES_LANGUAGE_DIR', $lang );
  */
 $GLOBALS['pagelines_user_pages'] = array();
 
-$GLOBALS['global_meta_options'] = array();
-
 /**
  * Pro/Free Version Variables
  */
