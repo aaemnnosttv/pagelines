@@ -6,21 +6,11 @@
 	Description: Shows a callout banner with optional graphic call to action
 	Version: 1.0.0
 	Class Name: PageLinesCallout
+	Cloning: true
+	Workswith: templates, main, header, morefoot
 */
 
 class PageLinesCallout extends PageLinesSection {
-
-   function __construct( $registered_settings = array() ) {
-		
-		$default_settings = array(
-			'workswith' 	=> array('templates', 'main', 'header', 'morefoot'),
-			'cloning'		=> true
-		);
-		
-		$settings = wp_parse_args( $registered_settings, $default_settings );
-		
-	   parent::__construct($settings);    
-   }
 
 	function section_optionator( $settings ){
 		$settings = wp_parse_args($settings, $this->optionator_default);

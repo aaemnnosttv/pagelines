@@ -166,7 +166,7 @@
 		}
 		
 		if(empty($list))
-			return $this->ui->extension_banner( sprintf ( __( 'Browsing %1$s sections is currently disabled. <br/>Check back soon!', 'pagelines' ), $tab ) );
+			return $this->ui->extension_banner( sprintf ( __( 'Available %1$s sections will appear here.', 'pagelines' ), $tab ) );
 		else
 			return $this->ui->extension_list( $list );
  	}
@@ -304,7 +304,7 @@
 	
 		
 		if(empty($list))
-			return $this->ui->extension_banner( sprintf ( __( 'No %1$s sections are currently installed. <br/>Check back soon!', 'pagelines' ), $tab ) );
+			return $this->ui->extension_banner( sprintf ( __( 'Installed %1$s sections will appear here.', 'pagelines' ), $tab ) );
 		else
 			return $this->ui->extension_list( $list );
  	}
@@ -505,9 +505,9 @@
 		}
 	
 		if(empty($list) && $tab == 'installed')
-			return $this->ui->extension_banner( __( 'No Plugins Are Installed.', 'pagelines' ) );
+			return $this->ui->extension_banner( __( 'Installed plugins will appear here.', 'pagelines' ) );
 		elseif(empty($list))
-			return $this->ui->extension_banner( sprintf( __( 'Browsing %1$s plugins is currently disabled. <br/>Check back soon!', 'pagelines' ), $tab ) );
+			return $this->ui->extension_banner( sprintf( __( 'Available %1$s plugins will appear here.', 'pagelines' ), $tab ) );
 		else 
 			return $this->ui->extension_list( $list );
 	}
@@ -709,9 +709,9 @@
 		
 		
 		if(empty($list) && $tab == 'installed')
-			return $this->ui->extension_banner( __( 'No PageLines themes are currently installed.', 'pagelines' ) );
+			return $this->ui->extension_banner( __( 'Installed PageLines themes will appear here.', 'pagelines' ) );
 		elseif(empty($list))
-			return $this->ui->extension_banner( sprintf( __( 'Browsing %1$s themes is currently disabled. <br/>Check back soon!', 'pagelines' ), $tab ) );
+			return $this->ui->extension_banner( sprintf( __( 'Available %1$s themes will appear here.', 'pagelines' ), $tab ) );
 		else
 			return $this->ui->extension_list( $list, 'graphic' );
 			
@@ -1131,10 +1131,10 @@
 			'sslverify'	=>	false,
 			'timeout'	=>	5,
 			'body' => array(
-//				'username'	=>	( $this->username != '' ) ? $this->username : false,
-//				'password'	=>	( $this->password != '' ) ? $this->password : false,
-				'username'	=>	get_pagelines_option( 'lp_username' ),
-				'password'	=>	get_pagelines_option( 'lp_password' ),
+				'username'	=>	( $this->username != '' ) ? $this->username : false,
+				'password'	=>	( $this->password != '' ) ? $this->password : false,
+//				'username'	=>	get_pagelines_option( 'lp_username' ),
+//				'password'	=>	get_pagelines_option( 'lp_password' ),
 
 				'flush'		=>	$flush
 			)

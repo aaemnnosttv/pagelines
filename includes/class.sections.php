@@ -36,7 +36,8 @@ class PageLinesSection {
 				'dependence'		=> '', 
 				'posttype'			=> '',
 				'failswith'			=> array(), 
-				'cloning'			=> false
+				'cloning'			=> false,
+				'tax_id'			=> ''
 			);
 
 		$this->settings = wp_parse_args( $settings, $defaults );
@@ -46,41 +47,64 @@ class PageLinesSection {
 		$this->hook_get_post_type();
 		
 		global $load_sections;
-		$available = $load_sections->pagelines_register_sections( false, true );
 		
-		if ( isset( $available['child'][get_class($this)] ) )
-			$type = 'child';
+		$this->available = $load_sections->pagelines_register_sections( false, true );
 		
-		if ( isset( $available['custom'][get_class($this)] ) )
-			$type = 'custom';
-
-		if ( isset( $available['parent'][get_class($this)] ) )
-			$type = 'parent';
+		$this->class_name = get_class($this);
 	
+		$this->set_section_info();
 		
+	}
+	
+	function set_section_info(){
+		
+		
+		$type = $this->section_install_type();
+
+		$this->sinfo = $this->available[$type][$this->class_name];
+
 		// File location information
-		$this->base_dir = $available[$type][get_class($this)]['base_dir'];
-		$this->base_file = $available[$type][get_class($this)]['base_file'];
-		$this->base_url = $available[$type][get_class($this)]['base_url'];
-		$this->settings['base_dir'] = $available[$type][get_class($this)]['base_dir'];
-		$this->settings['base_file'] = $available[$type][get_class($this)]['base_file'];
-		$this->settings['base_url'] = $available[$type][get_class($this)]['base_url'];		
-		
+		$this->base_dir = $this->sinfo['base_dir'];
+		$this->base_file = $this->sinfo['base_file'];
+		$this->base_url = $this->sinfo['base_url'];
+		$this->settings['base_dir'] = $this->sinfo['base_dir'];
+		$this->settings['base_file'] = $this->sinfo['base_file'];
+		$this->settings['base_url'] = $this->sinfo['base_url'];		
+
 		// Reference information
 		$this->id = basename( $this->base_dir );
-		$this->name = $available[$type][get_class($this)]['name'];
-		$this->description = $available[$type][get_class($this)]['description'];
+		$this->name = $this->sinfo['name'];
+		$this->description = $this->sinfo['description'];
 		$this->settings['name'] = $this->name;
 		$this->settings['description'] = $this->description;
 		
+		$this->settings['cloning'] = ( $this->sinfo['cloning'] ) ? $this->sinfo['cloning'] : $this->settings['cloning'];
+		$this->settings['workswith'] = ( $this->sinfo['workswith'] ) ? $this->sinfo['workswith'] : $this->settings['workswith'];
+		$this->settings['version'] = ( $this->sinfo['edition'] ) ? $this->sinfo['edition'] : $this->settings['version'];
+		$this->settings['failswith'] = ( $this->sinfo['failswith'] ) ? $this->sinfo['failswith'] : $this->settings['failswith'];
+		$this->settings['tax_id'] = ( $this->sinfo['tax'] ) ? $this->sinfo['tax'] : $this->settings['tax_id'];
+
 
 		$this->icon = ( file_exists( sprintf( '%s/icon.png', $this->base_dir ) ) ) ? sprintf( '%s/icon.png', $this->base_url ) : PL_ADMIN_ICONS . '/leaf.png';
 		$this->settings['icon'] = ( file_exists( sprintf( '%s/icon.png', $this->base_dir ) ) ) ? sprintf( '%s/icon.png', $this->base_url ) : PL_ADMIN_ICONS . '/leaf.png';			
-		
+
 		$this->optionator_default = array(
 			'clone_id'	=> 1,
 			'active'	=> true
 		);
+		
+	}
+	
+	function section_install_type(){
+		
+		if ( isset( $this->available['custom'][$this->class_name] ) )
+			return 'custom';		
+		
+		if ( isset( $this->available['child'][$this->class_name] ) )
+			return 'child';
+
+		if ( isset( $this->available['parent'][$this->class_name] ) )
+			return 'parent';
 	}
 
 	/** 

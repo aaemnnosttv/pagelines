@@ -5,22 +5,11 @@
 	Author URI: http://www.pagelines.com
 	Description: Creates secondary site navigation.
 	Class Name: PageLinesSecondNav
+	Workswith: header, content
+	Edition: pro
 */
 
 class PageLinesSecondNav extends PageLinesSection {
-
-   function __construct( $registered_settings = array() ) {
-		
-		$default_settings = array(
-			'type' 			=> 'header',
-			'workswith' 	=> array('header', 'content'),
-			'version'		=> 'pro'
-		);
-		
-		$settings = wp_parse_args( $registered_settings, $default_settings );
-
-	   parent::__construct($settings);    
-   }
 
 	// PHP that always loads no matter if section is added or not -- e.g. creates menus, locations, admin stuff...
 	function section_persistent(){

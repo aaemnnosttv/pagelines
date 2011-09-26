@@ -3,23 +3,14 @@
 	Section: PostNav
 	Author: PageLines
 	Author URI: http://www.pagelines.com
-	Description: Paginates posts, shows a numerical post navigation
+	Description: Post Navigation - Shows titles for next and previous post.
 	Class Name: PageLinesPostNav
 	Tags: internal
+	Workswith: main
+	Failswith: pagelines_special_pages()
 */
 
 class PageLinesPostNav extends PageLinesSection {
-
-   function __construct( $registered_settings = array() ) {
-		
-		$default_settings = array(
-			'type' 			=> 'main',
-			'workswith' 	=> array('main'),
-			'failswith'		=> pagelines_special_pages(),
-		);
-		$settings = wp_parse_args( $registered_settings, $default_settings );
-	   parent::__construct($settings);    
-   }
 
    function section_template() { ?>
    	<?php pagelines_register_hook( 'pagelines_section_before_postnav' ); // Hook ?>

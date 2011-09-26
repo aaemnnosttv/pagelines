@@ -6,19 +6,10 @@
 	Description: Shown when no posts or 404 is returned
 	Class Name: PageLinesNoPosts
 	Tags: internal
+	Workswith: 404
 */
 
 class PageLinesNoPosts extends PageLinesSection {
-
-   function __construct( $registered_settings = array() ) {
-
-		$default_settings = array(
-			'type' 			=> 'main',
-			'workswith' 	=> array('404'),
-		);
-		$settings = wp_parse_args( $registered_settings, $default_settings );
-	   parent::__construct($settings);    
-   }
 
    function section_template() { ?>
 	<div id="notfound">

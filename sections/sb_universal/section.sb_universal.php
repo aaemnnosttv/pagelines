@@ -6,19 +6,11 @@
 	Description: A universal widgetized sidebar
 	Class Name: UniversalSidebar
 	Tags: internal
+	Workswith: sidebar1, sidebar2, sidebar_wrap, templates, main, header, morefoot
+	Edition: pro
 */
 
 class UniversalSidebar extends PageLinesSection {
-
-   function __construct( $registered_settings = array() ) {
-
-		$default_settings = array(
-			'workswith' 	=> array('sidebar1', 'sidebar2', 'sidebar_wrap', 'templates', 'main', 'header', 'morefoot'),
-			'version'		=> 'pro'
-		);
-		$settings = wp_parse_args( $registered_settings, $default_settings );
-	   parent::__construct($settings);    
-   }
 
    function section_persistent() { 
 		$setup = pagelines_standard_sidebar($this->name, $this->settings['description']);

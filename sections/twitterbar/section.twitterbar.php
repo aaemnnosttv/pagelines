@@ -5,21 +5,10 @@
 	Author URI: http://www.pagelines.com
 	Description: Loads twitter feed into the site footer
 	Class Name: PageLinesTwitterBar
+	Workswith: morefoot
+	Edition: Pro
 */
 class PageLinesTwitterBar extends PageLinesSection {
-
-   function __construct( $registered_settings = array() ) {
-	
-		$default_settings = array(
-			'type' 			=> 'standard',
-			'workswith' 	=> array('morefoot'),
-			'version'		=> 'pro'
-		);
-		
-		$settings = wp_parse_args( $registered_settings, $default_settings );
-		
-		parent::__construct($settings);    
-   }
 
 	function section_template() { 
 

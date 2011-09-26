@@ -49,8 +49,8 @@ class PageLinesRegister {
 			);
 		
 		if ( is_child_theme() )
-			$section_dirs['custom'] = get_stylesheet_directory()  . '/sections';
-		
+			$section_dirs = array_merge( array( 'custom' => get_stylesheet_directory()  . '/sections' ), $section_dirs );
+
 		$section_dirs = apply_filters( 'pagelines_sections_dirs', $section_dirs );
 		
 		/**
@@ -150,13 +150,13 @@ class PageLinesRegister {
 		// setup out directory iterator.
 		// symlinks were only supported after 5.3.1
 		// so we need to check first ;)
-		$it = ( strnatcmp( phpversion(), '5.3.1' ) >= 0 ) ? new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $dir, FilesystemIterator::FOLLOW_SYMLINKS) , RecursiveIteratorIterator::SELF_FIRST ) : new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $dir, RecursiveIteratorIterator::SELF_FIRST ) );
+		$it = ( strnatcmp( phpversion(), '5.3.1' ) >= 0 ) ? new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $dir, FilesystemIterator::FOLLOW_SYMLINKS) , RecursiveIteratorIterator::SELF_FIRST ) : new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $dir, RecursiveIteratorIterator::CHILD_FIRST ) );
 		
 		foreach( $it as $fullFileName => $fileSPLObject ) {
 			if ( basename( $fullFileName) == PL_EXTEND_SECTIONS_PLUGIN )
 				continue;	
 			if (pathinfo($fileSPLObject->getFilename(), PATHINFO_EXTENSION ) == 'php') {
-				$headers = get_file_data( $fullFileName, $default_headers = array( 'tags' => 'Tags', 'internal' => 'Internal', 'version' => 'Version', 'author' => 'Author', 'authoruri' => 'Author URI', 'section' => 'Section', 'description' => 'Description', 'classname' => 'Class Name', 'depends' => 'Depends' ) );
+				$headers = get_file_data( $fullFileName, $default_headers = array( 'tags' => 'Tags', 'internal' => 'Internal', 'version' => 'Version', 'author' => 'Author', 'authoruri' => 'Author URI', 'section' => 'Section', 'description' => 'Description', 'classname' => 'Class Name', 'depends' => 'Depends', 'workswith' => 'workswith', 'edition' => 'edition', 'cloning' => 'cloning', 'failswith' => 'failswith', 'tax' => 'tax' ) );
 
 				// If no pagelines class headers ignore this file.
 				if ( !$headers['classname'] )
@@ -182,7 +182,12 @@ class PageLinesRegister {
 					'name'			=> $headers['section'],
 					'base_url'		=> ( isset( $base_url ) ) ? $base_url : SECTION_ROOT . $folder,
 					'base_dir'		=> ( isset( $base_dir ) ) ? $base_dir : PL_SECTIONS . $folder,
-					'base_file'		=> $fullFileName
+					'base_file'		=> $fullFileName,
+					'workswith'		=> ( $headers['workswith'] ) ? array_map( 'trim', explode( ',', $headers['workswith'] ) ) : '',
+					'edition'		=> $headers['edition'],
+					'cloning'		=> $headers['cloning'],
+					'failswith'		=> $headers['failswith'],
+					'tax'		=> $headers['tax']
 				);	
 			}
 		}

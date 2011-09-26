@@ -5,23 +5,11 @@
 	Author URI: http://www.pagelines.com
 	Description: Creates banners, great for product tours.
 	Class Name: PageLinesBanners
+	Edition: pro
+	Cloning: true 
 */
 
 class PageLinesBanners extends PageLinesSection {
-
-   function __construct( $registered_settings = array() ) {
-	
-		$default_settings = array(
-			'version'		=> 'pro',
-			'cloning'		=> true
-			
-		);
-		
-		$settings = wp_parse_args( $registered_settings, $default_settings );
-		
-		parent::__construct($settings);    
-   }
-
 
 	/*
 		Loads php that will run on every page load (admin and site)

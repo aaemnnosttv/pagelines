@@ -6,27 +6,10 @@
 	Description: A 5 column widgetized sidebar in the footer
 	Class Name: PageLinesFootCols
 	Tags: internal
+	Workswith: morefoot, footer
 */
 
 class PageLinesFootCols extends PageLinesSection {
-
-   function __construct( $registered_settings = array() ) {
-	
-		$name = __('Footer Sidebars', 'pagelines');
-		$id = 'footcols';
-	
-		
-		$default_settings = array(
-			'type' 			=> 'standard',
-			'description' 	=> 'Displays a 5 column sidebar in the footer that can be setup to use widgets or theme options. Add widgets in the widgets panel to activate widget mode.',
-			'workswith' 	=> array('morefoot','footer'),
-			'icon'			=> PL_ADMIN_ICONS . '/column.png'
-		);
-		
-		$settings = wp_parse_args( $registered_settings, $default_settings );
-		parent::__construct( $settings );    
-		
-   }
 
 	function section_persistent(){
 		register_sidebar(array(
