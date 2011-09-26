@@ -6,7 +6,7 @@
 	Description: Adds comments to main on pages/single posts
 	Class Name: PageLinesComments
 	Tags: internal
-	Workswith, main
+	Workswith: main
 	failswith: pagelines_special_pages()
 */
 
