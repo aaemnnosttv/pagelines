@@ -7,7 +7,7 @@
 	Class Name: PageLinesComments
 	Tags: internal
 	Workswith: main
-	failswith: pagelines_special_pages()
+	Failswith: pagelines_special_pages()
 */
 
 class PageLinesComments extends PageLinesSection {
