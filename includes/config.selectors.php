@@ -169,7 +169,7 @@ function cssgroup( $group ){
 }
 
 
-function pl_selectors( $group, $selectors ){
+function pl_add_selectors( $group, $selectors ){
 
 	global $add_selectors;
 	

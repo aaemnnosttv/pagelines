@@ -42,11 +42,11 @@ class PageLinesNav extends PageLinesSection {
 	
 	function section_selectors(){
 
-		pl_selectors( 'box_color_primary', '.main-nav li:hover, .main-nav .current-page-ancestor a,  .main-nav li.current-page-ancestor ul a, .main-nav li.current_page_item a, .main-nav li.current-menu-item a, .sf-menu li li, .sf-menu li li li' );
+		pl_add_selectors( 'box_color_primary', '.main-nav li:hover, .main-nav .current-page-ancestor a,  .main-nav li.current-page-ancestor ul a, .main-nav li.current_page_item a, .main-nav li.current-menu-item a, .sf-menu li li, .sf-menu li li li' );
 
-		pl_selectors( 'border_primary', 'ul.sf-menu ul li' );
+		pl_add_selectors( 'border_primary', 'ul.sf-menu ul li' );
 		
-		pl_selectors( 'box_color_secondary', '.main-nav li a:hover, .main-nav .current-page-ancestor .current_page_item a, .main-nav li.current-page-ancestor ul a:hover' );
+		pl_add_selectors( 'box_color_secondary', '.main-nav li a:hover, .main-nav .current-page-ancestor .current_page_item a, .main-nav li.current-page-ancestor ul a:hover' );
 			
 	}
 	
