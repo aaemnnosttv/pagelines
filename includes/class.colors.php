@@ -41,7 +41,7 @@ class PageLinesColor {
 		return $hsl[$type];
 	}
 	
-	function get_color( $mode, $difference = '10%', $alt = null){
+	function get_color( $mode, $difference = '10%', $alt = null, $id = null){
 	
 		$alt = str_replace('#', '', $alt);
 		
@@ -57,9 +57,9 @@ class PageLinesColor {
 		elseif($mode == 'darker')
 			$color =  $this->adjust(-$diff);
 		elseif($mode == 'contrast'){
-			//plprint($this->base_hsl['lightness'], $this->id);
+			// plprint($this->base_hsl['lightness'], $this->id.'-->'.$id);
 			
-			if( $this->base_hsl['lightness'] < .37 || ($this->base_hsl['lightness'] < .7 && $this->base_hsl['hugh'] > .6) || ($this->base_hsl['saturation'] > .8 && $this->base_hsl['lightness'] < .4)){
+			if( $this->base_hsl['lightness'] < .4 || ($this->base_hsl['lightness'] < .7 && $this->base_hsl['hugh'] > .6) || ($this->base_hsl['saturation'] > .8 && $this->base_hsl['lightness'] < .4)){
 				
 				// Special 
 				if($this->base_hsl['lightness'] < .1)
@@ -336,7 +336,7 @@ function do_color_math($oid, $o, $val, $format = 'css'){
 		
 		foreach( $o['math'] as $key => $k ){
 
-			
+			$id = (isset($k['id'])) ? $k['id'] : '';
 
 			$difference = isset($k['diff']) ? $k['diff'] : '10%';
 
@@ -365,10 +365,10 @@ function do_color_math($oid, $o, $val, $format = 'css'){
 					
 				}
 				
-				$color = $math->get_color($k['mode'], $difference, $mix_color);
+				$color = $math->get_color($k['mode'], $difference, $mix_color, $id);
 					
 			} else 
-				$color = $math->get_color($k['mode'], $difference);
+				$color = $math->get_color($k['mode'], $difference, null, $id);
 
 			$css = new PageLinesCSS;
 		

@@ -16,7 +16,3 @@ class PageLinesPagination extends PageLinesSection {
 		pagelines_pagination();
 	}
 }
-
-/*
-	End of section class
-*/
