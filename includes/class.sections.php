@@ -36,7 +36,8 @@ class PageLinesSection {
 				'dependence'		=> '', 
 				'posttype'			=> '',
 				'failswith'			=> array(), 
-				'cloning'			=> false
+				'cloning'			=> false,
+				'tax_id'			=> ''
 			);
 
 		$this->settings = wp_parse_args( $settings, $defaults );
@@ -81,6 +82,7 @@ class PageLinesSection {
 		$this->settings['workswith'] = ( $this->sinfo['workswith'] ) ? $this->sinfo['workswith'] : $this->settings['workswith'];
 		$this->settings['version'] = ( $this->sinfo['edition'] ) ? $this->sinfo['edition'] : $this->settings['version'];
 		$this->settings['failswith'] = ( $this->sinfo['failswith'] ) ? $this->sinfo['failswith'] : $this->settings['failswith'];
+		$this->settings['tax_id'] = ( $this->sinfo['tax'] ) ? $this->sinfo['tax'] : $this->settings['tax_id'];
 
 
 		$this->icon = ( file_exists( sprintf( '%s/icon.png', $this->base_dir ) ) ) ? sprintf( '%s/icon.png', $this->base_url ) : PL_ADMIN_ICONS . '/leaf.png';
