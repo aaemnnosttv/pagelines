@@ -156,7 +156,7 @@ class PageLinesRegister {
 			if ( basename( $fullFileName) == PL_EXTEND_SECTIONS_PLUGIN )
 				continue;	
 			if (pathinfo($fileSPLObject->getFilename(), PATHINFO_EXTENSION ) == 'php') {
-				$headers = get_file_data( $fullFileName, $default_headers = array( 'tags' => 'Tags', 'internal' => 'Internal', 'version' => 'Version', 'author' => 'Author', 'authoruri' => 'Author URI', 'section' => 'Section', 'description' => 'Description', 'classname' => 'Class Name', 'depends' => 'Depends', 'workswith' => 'workswith', 'edition' => 'edition', 'cloning' => 'cloning', 'failswith' => 'failswith' ) );
+				$headers = get_file_data( $fullFileName, $default_headers = array( 'tags' => 'Tags', 'internal' => 'Internal', 'version' => 'Version', 'author' => 'Author', 'authoruri' => 'Author URI', 'section' => 'Section', 'description' => 'Description', 'classname' => 'Class Name', 'depends' => 'Depends', 'workswith' => 'workswith', 'edition' => 'edition', 'cloning' => 'cloning', 'failswith' => 'failswith', 'tax' => 'tax' ) );
 
 				// If no pagelines class headers ignore this file.
 				if ( !$headers['classname'] )
@@ -187,6 +187,7 @@ class PageLinesRegister {
 					'edition'		=> $headers['edition'],
 					'cloning'		=> $headers['cloning'],
 					'failswith'		=> $headers['failswith'],
+					'tax'		=> $headers['tax']
 				);	
 			}
 		}
