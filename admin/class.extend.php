@@ -84,7 +84,7 @@
 			$login = null;
 			$purchase = null;
 
-			$check_file = sprintf('%1$s/%2$s/%3$s.php', PL_EXTEND_DIR, $key, 'section.' . $key); 
+			$check_file = sprintf('%1$s/%2$s/section.php', PL_EXTEND_DIR, $key ); 
 
 			if ( !isset( $s->type) )
 				$s->type = 'free';
