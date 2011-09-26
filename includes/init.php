@@ -197,6 +197,7 @@ $GLOBALS['global_meta_options'] = get_global_meta_options();
  */
 $GLOBALS['pl_section_factory'] = new PageLinesSectionFactory();
 
+
 /**
  * Dynamic CSS Factory
  * @global object $css_factory

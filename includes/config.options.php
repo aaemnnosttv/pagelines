@@ -247,21 +247,22 @@ class PageLinesOptionsArray {
 						'inputlabel' 	=> __( 'Content Background', 'pagelines' ),
 						'math'		=> array(
 								array( 
-									'mode' => 'contrast', 
-									'cssgroup' => 'border_layout', 
-									'css_prop' => 'border-color', 
-									'diff' => '8%', 
-									'depends' => pl_background_cascade()
+									'mode' 		=> 'contrast', 
+									'cssgroup' 	=> 'border_layout', 
+									'css_prop' 	=> 'border-color', 
+									'diff' 		=> '8%', 
+									'depends' 	=> pl_background_cascade()
 									
 								),
 								array( 
-									'mode' => 'contrast', 
-									'cssgroup' => 'box_color_primary', 
-									'css_prop' => 'background-color', 
-									'diff' => '5%', 
-									'depends' => pl_background_cascade(),
+									'id'		=> 'Box Background Color',
+									'mode' 		=> 'contrast', 
+									'cssgroup' 	=> 'box_color_primary', 
+									'css_prop' 	=> 'background-color', 
+									'diff' 		=> '5%', 
+									'depends' 	=> pl_background_cascade(),
 									'math'		=> array(
-										array( 'mode' => 'contrast', 'cssgroup' => 'text_box', 'css_prop' => 'color', 'diff' => '65%', 'math' => array(
+										array( 'id' => 'box text', 'mode' => 'contrast', 'cssgroup' => 'text_box', 'css_prop' => 'color', 'diff' => '65%', 'math' => array(
 											array( 'mode' => 'shadow', 'mixwith' => pl_background_cascade(), 'cssgroup' => array('text_box') ),
 										)),
 										array( 'mode' => 'contrast', 'cssgroup' => 'border_primary', 'css_prop' => 'border-color', 'diff' => '8%', 'math' => array(
@@ -269,6 +270,7 @@ class PageLinesOptionsArray {
 											array( 'mode' => 'lighter', 'cssgroup' => 'border_primary_highlight', 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '10%'),
 										)),
 										array( 'mode' => 'contrast', 'cssgroup' => 'box_color_secondary', 'css_prop' => array('background-color'), 'diff' => '3%', 'math' => array(
+											array( 'mode' => 'contrast', 'cssgroup' => 'text_box_secondary', 'css_prop' => array('color'), 'diff' => '65%'),
 											array( 'mode' => 'darker', 'cssgroup' => 'border_secondary', 'css_prop' => array('border-color'), 'diff' => '5%'),
 											array( 'mode' => 'darker', 'cssgroup' => 'border_secondary', 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '15%'),
 											
@@ -277,8 +279,6 @@ class PageLinesOptionsArray {
 											array( 'mode' => 'darker', 'cssgroup' => 'border_tertiary', 'css_prop' => array('border-color'), 'diff' => '10%'),
 											array( 'mode' => 'darker', 'cssgroup' => 'border_tertiary', 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '15%'),
 										)), 
-										
-										
 										
 									)
 									

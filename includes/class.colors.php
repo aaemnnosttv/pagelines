@@ -18,7 +18,9 @@ class PageLinesColor {
 	 * PHP5 constructor
 	 *
 	 */
-	function __construct( $hex ) {
+	function __construct( $hex, $id = '' ) {
+	
+		$this->id = $id;
 	
 		$this->base_hex = str_replace('#', '', $hex);
 	
@@ -55,8 +57,9 @@ class PageLinesColor {
 		elseif($mode == 'darker')
 			$color =  $this->adjust(-$diff);
 		elseif($mode == 'contrast'){
+			//plprint($this->base_hsl['lightness'], $this->id);
 			
-			if( $this->base_hsl['lightness'] < .25 || ($this->base_hsl['lightness'] < .7 && $this->base_hsl['hugh'] > .6) || ($this->base_hsl['saturation'] > .8 && $this->base_hsl['lightness'] < .4)){
+			if( $this->base_hsl['lightness'] < .37 || ($this->base_hsl['lightness'] < .7 && $this->base_hsl['hugh'] > .6) || ($this->base_hsl['saturation'] > .8 && $this->base_hsl['lightness'] < .4)){
 				
 				// Special 
 				if($this->base_hsl['lightness'] < .1)
@@ -302,8 +305,13 @@ function do_color_math($oid, $o, $val, $format = 'css'){
 
 	$output = '';
 	
+	$id = (isset($o['id'])) ? $o['id'] : '';
+	
 	if(isset($o['math'])){
 		
+		
+		// Set the base.
+		// If no option value, use the depends cascade
 		foreach( $o['math'] as $key => $k ){
 		
 			if(!$val){
@@ -324,7 +332,7 @@ function do_color_math($oid, $o, $val, $format = 'css'){
 		
 		$base = (isset($base)) ? $base : $default;			
 	
-		$math = new PageLinesColor( $base );
+		$math = new PageLinesColor( $base, $id);
 		
 		foreach( $o['math'] as $key => $k ){
 
@@ -373,7 +381,7 @@ function do_color_math($oid, $o, $val, $format = 'css'){
 				$css->set_factory_key($cssgroup, $css->load_the_props( $k['css_prop'], '#'.$color ));
 			
 			// Recursion
-			if(isset($k['math']))
+			if( isset($k['math']) )
 				do_color_math($key, $k, $color, $format);
 			
 			
