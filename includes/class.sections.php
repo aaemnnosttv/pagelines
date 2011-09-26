@@ -76,6 +76,11 @@ class PageLinesSection {
 		$this->description = $this->sinfo['description'];
 		$this->settings['name'] = $this->name;
 		$this->settings['description'] = $this->description;
+		
+		$this->settings['cloning'] = ( $this->sinfo['cloning'] ) ? $this->sinfo['cloning'] : $this->settings['cloning'];
+		$this->settings['workswith'] = ( $this->sinfo['workswith'] ) ? $this->sinfo['workswith'] : $this->settings['workswith'];
+		$this->settings['version'] = ( $this->sinfo['edition'] ) ? $this->sinfo['edition'] : $this->settings['version'];
+		$this->settings['failswith'] = ( $this->sinfo['failswith'] ) ? $this->sinfo['failswith'] : $this->settings['failswith'];
 
 
 		$this->icon = ( file_exists( sprintf( '%s/icon.png', $this->base_dir ) ) ) ? sprintf( '%s/icon.png', $this->base_url ) : PL_ADMIN_ICONS . '/leaf.png';
