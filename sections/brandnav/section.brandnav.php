@@ -6,23 +6,10 @@
 	Description: Branding and Nav Inline
 	Class Name: PageLinesBrandNav
 	Depends: PageLinesNav
+	Workswith: header
 */
 
 class PageLinesBrandNav extends PageLinesNav {
-   function __construct( $registered_settings = array() ) {
-		
-		$section_root_url = $registered_settings['base_url'];
-		
-		$default_settings = array(
-
-			'workswith' 	=> array('header'),
-
-		);
-		
-		$settings = wp_parse_args( $registered_settings, $default_settings );
-		
-	   	parent::__construct( $settings );    
-   }
 	
 	function section_persistent(){
 			register_nav_menus( array( 'brandnav' => __( 'BrandNav Section Navigation', 'pagelines' ) ) );

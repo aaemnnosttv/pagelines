@@ -6,19 +6,10 @@
 	Description: Shows information about posts being viewed (e.g. "Currently Viewing Archives from...")
 	Class Name: PageLinesPostsInfo
 	Tags: internal
+	Workswith: main
 */
 
 class PageLinesPostsInfo extends PageLinesSection {
-
-   function __construct( $registered_settings = array() ) {
-
-		$default_settings = array(
-			'workswith' 	=> array('main'),
-		);
-		$settings = wp_parse_args( $registered_settings, $default_settings );
-		
-		parent::__construct($settings);   
-   }
 
    function section_template() { 	
 	

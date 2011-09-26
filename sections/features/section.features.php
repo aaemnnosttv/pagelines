@@ -5,26 +5,13 @@
 	Author URI: http://www.pagelines.com
 	Description: Creates a feature slider and custom post type
 	Class Name: PageLinesFeatures
+	Workswith: templates, main, header, morefoot
+	Cloning: true
+	Edition: pro
+	Tax: feature-sets
 */
 
 class PageLinesFeatures extends PageLinesSection {
-
-   function __construct( $registered_settings = array() ) {
-		
-		$this->tax_id = 'feature-sets';
-		$this->section_root_url = $registered_settings['base_url'];
-		
-		$default_settings = array(
-			'workswith' 	=> array('templates', 'main', 'header', 'morefoot'),
-			'version'		=> 'pro',	
-			'cloning'		=> true
-		);
-		
-		$settings = wp_parse_args( $registered_settings, $default_settings );
-		
-	   parent::__construct($settings);    
-   }
-
 
 	function section_persistent(){
 		

@@ -5,22 +5,12 @@
 	Author URI: http://www.pagelines.com
 	Description: Creates a flickr, nextgen, or featured image carousel.
 	Class Name: PageLinesCarousel
+	Cloning: true
+	Workswith: content, header, footer
+	Edition: pro
 */
 
 class PageLinesCarousel extends PageLinesSection {
-
-   function __construct( $registered_settings = array() ) {
-
-		$default_settings = array(
-			'workswith'		=> array('content', 'header', 'footer'),
-			'version'		=> 'pro',
-			'cloning'		=> true
-		);
-		
-		$settings = wp_parse_args( $registered_settings, $default_settings );
-		
-		parent::__construct($settings);    
-   }
 	
 	function section_optionator( $settings ){
 		$settings = wp_parse_args($settings, $this->optionator_default);
