@@ -1131,10 +1131,10 @@
 			'sslverify'	=>	false,
 			'timeout'	=>	5,
 			'body' => array(
-//				'username'	=>	( $this->username != '' ) ? $this->username : false,
-//				'password'	=>	( $this->password != '' ) ? $this->password : false,
-				'username'	=>	get_pagelines_option( 'lp_username' ),
-				'password'	=>	get_pagelines_option( 'lp_password' ),
+				'username'	=>	( $this->username != '' ) ? $this->username : false,
+				'password'	=>	( $this->password != '' ) ? $this->password : false,
+//				'username'	=>	get_pagelines_option( 'lp_username' ),
+//				'password'	=>	get_pagelines_option( 'lp_password' ),
 
 				'flush'		=>	$flush
 			)
