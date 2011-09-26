@@ -39,7 +39,7 @@ function pagelines_add_admin_submenus() {
 // Build option interface
 function pagelines_build_option_interface(){ 
 	pagelines_register_hook('pagelines_before_optionUI');
-	
+	delete_transient( 'pagelines_sections_cache' );
 	$args = array(
 		'sanitize' 		=> 'pagelines_settings_callback',
 	);
