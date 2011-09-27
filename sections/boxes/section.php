@@ -5,24 +5,12 @@
 	Author URI: http://www.pagelines.com
 	Description: Creates boxes and box layouts
 	Class Name: PageLinesBoxes
+	Workswith: templates, main, header, morefoot
+	Cloning: true
+	Edition: pro
 */
 
 class PageLinesBoxes extends PageLinesSection {
-
-   function __construct( $registered_settings = array() ) {
-		
-		$default_settings = array(
-
-			'workswith' 	=> array('templates', 'main', 'header', 'morefoot'),
-			'version'		=> 'pro',
-			'cloning'		=> true
-		);
-		
-		$settings = wp_parse_args( $registered_settings, $default_settings );
-		
-		parent::__construct($settings);    
-   }
-
 
 	/*
 		Loads php that will run on every page load (admin and site)

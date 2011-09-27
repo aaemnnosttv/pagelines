@@ -42,7 +42,9 @@ function grid( $query, $args = array() ){
 	
 	// Grid loop
 	foreach($posts as $pid => $p){
-			setup_postdata($p); 
+			
+		setup_postdata($p); 
+		
 		// Grid Stuff
 		$start = (grid_row_start( $count, $total, $a['per_row'])) ? '<div class="pprow grid-row fix">' : '';
 		$end = (grid_row_end( $count, $total, $a['per_row'])) ? '</div>' : '';
@@ -51,11 +53,10 @@ function grid( $query, $args = array() ){
 
 		// Content 
 		$content = '';
-		if($a['callback']){
-			
+		
+		if($a['callback'])
 			$content = call_user_func( $a['callback'], $p, $a );
-			
-		} else {
+		else {
 			
 			// The Image
 			$thumb = ( has_post_thumbnail( $p->ID ) ) ? get_the_post_thumbnail( $p->ID ) : $default_img;
@@ -69,7 +70,7 @@ function grid( $query, $args = array() ){
 		}
 		
 		// Column Box Wrapper
-		$out .= sprintf('%s<div class="grid-element pp%s %s %s">%s</div>%s', $start, $a['per_row'], $a['format'], $last_class, $content, $end);
+		$out .= sprintf('%s<div class="grid-element pp%s %s %s"><div class="grid-element-pad">%s</div></div>%s', $start, $a['per_row'], $a['format'], $last_class, $content, $end);
 	
 		$count++;
 	}

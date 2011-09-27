@@ -5,21 +5,11 @@
 	Author URI: http://www.pagelines.com
 	Description: Adds ways to share content on pages/single posts
 	Class Name: PageLinesShareBar
+	Workswith: main
+	Failswith: pagelines_special_pages()
 */
 
 class PageLinesShareBar extends PageLinesSection {
-
-   function __construct( $registered_settings = array() ) {
-		
-		$default_settings = array(
-			'workswith' 	=> array('main'),
-			'failswith'		=> pagelines_special_pages(),
-		);
-		
-		$settings = wp_parse_args( $registered_settings, $default_settings );
-		parent::__construct($settings);    	
-   }
-
 		
    function section_template() { 
 	$sharepre  = '';

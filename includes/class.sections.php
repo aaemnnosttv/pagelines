@@ -36,7 +36,8 @@ class PageLinesSection {
 				'dependence'		=> '', 
 				'posttype'			=> '',
 				'failswith'			=> array(), 
-				'cloning'			=> false
+				'cloning'			=> false,
+				'tax_id'			=> ''
 			);
 
 		$this->settings = wp_parse_args( $settings, $defaults );
@@ -57,7 +58,6 @@ class PageLinesSection {
 	
 	function set_section_info(){
 		
-		
 		$type = $this->section_install_type();
 
 		$this->sinfo = $this->available[$type][$this->class_name];
@@ -76,6 +76,12 @@ class PageLinesSection {
 		$this->description = $this->sinfo['description'];
 		$this->settings['name'] = $this->name;
 		$this->settings['description'] = $this->description;
+		
+		$this->settings['cloning'] = ( !empty( $this->sinfo['cloning'] ) ) ? $this->sinfo['cloning'] : $this->settings['cloning'];
+		$this->settings['workswith'] = ( !empty( $this->sinfo['workswith'] ) ) ? $this->sinfo['workswith'] : $this->settings['workswith'];
+		$this->settings['version'] = ( !empty( $this->sinfo['edition'] ) ) ? $this->sinfo['edition'] : $this->settings['version'];
+		$this->settings['failswith'] = ( !empty( $this->sinfo['failswith'] ) ) ? $this->sinfo['failswith'] : $this->settings['failswith'];
+		$this->settings['tax_id'] = ( !empty( $this->sinfo['tax'] ) ) ? $this->sinfo['tax'] : $this->settings['tax_id'];
 
 
 		$this->icon = ( file_exists( sprintf( '%s/icon.png', $this->base_dir ) ) ) ? sprintf( '%s/icon.png', $this->base_url ) : PL_ADMIN_ICONS . '/leaf.png';

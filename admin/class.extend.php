@@ -84,7 +84,7 @@
 			$login = null;
 			$purchase = null;
 
-			$check_file = sprintf('%1$s/%2$s/%3$s.php', PL_EXTEND_DIR, $key, 'section.' . $key); 
+			$check_file = sprintf('%1$s/%2$s/section.php', PL_EXTEND_DIR, $key ); 
 
 			if ( !isset( $s->type) )
 				$s->type = 'free';
@@ -1131,10 +1131,10 @@
 			'sslverify'	=>	false,
 			'timeout'	=>	5,
 			'body' => array(
-//				'username'	=>	( $this->username != '' ) ? $this->username : false,
-//				'password'	=>	( $this->password != '' ) ? $this->password : false,
-				'username'	=>	get_pagelines_option( 'lp_username' ),
-				'password'	=>	get_pagelines_option( 'lp_password' ),
+				'username'	=>	( $this->username != '' ) ? $this->username : false,
+				'password'	=>	( $this->password != '' ) ? $this->password : false,
+//				'username'	=>	get_pagelines_option( 'lp_username' ),
+//				'password'	=>	get_pagelines_option( 'lp_password' ),
 
 				'flush'		=>	$flush
 			)

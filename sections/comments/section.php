@@ -6,21 +6,11 @@
 	Description: Adds comments to main on pages/single posts
 	Class Name: PageLinesComments
 	Tags: internal
+	Workswith: main
+	Failswith: pagelines_special_pages()
 */
 
 class PageLinesComments extends PageLinesSection {
-
-   function __construct( $registered_settings = array() ) {
-		
-		$default_settings = array(
-
-			'workswith' 	=> array('main'),
-			'failswith'		=> pagelines_special_pages(),
-
-		);
-		$settings = wp_parse_args( $registered_settings, $default_settings );
-		parent::__construct($settings);    
-   }
 
 	function section_styles() {  
 		wp_enqueue_script( 'comment-reply' );

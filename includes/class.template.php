@@ -342,9 +342,14 @@ class PageLinesTemplate {
 	function print_section_html( $hook ){
 	
 		global $post;
+		global $wp_query;
 		global $pagelines_post;		
 		
-
+		// Save Handling Globals
+		// Prevents sections from screwing them up.
+		$save_query = $wp_query;
+		$save_post = $post;
+		
 		/**
 		 * Sections assigned to array already in get_loaded_sections
 		 */
@@ -377,7 +382,8 @@ class PageLinesTemplate {
 					$this->factory[ $section ]->after_section_template( $clone_id );
 				}
 			
-				$post = $pagelines_post; // Set the $post variable back to the default for the page (prevents sections from messing with others)
+				$wp_query = $save_query;
+				$post = $save_post;
 	
 			}
 		}

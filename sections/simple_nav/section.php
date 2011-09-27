@@ -6,20 +6,10 @@
 	Description: Creates footer navigation.
 	Version: 1.0.0
 	Class Name: SimpleNav
+	Workswith: footer
 */
 
 class SimpleNav extends PageLinesSection {
-
-   function __construct( $registered_settings = array() ) {
-	
-		$default_settings = array(
-			'workswith' => array('footer'),
-		);
-		
-		$settings = wp_parse_args( $registered_settings, $default_settings );
-
-	   parent::__construct($settings);    
-   }
 
 	function section_persistent(){
 		register_nav_menus( array( 'simple_nav' => __( 'Simple Nav Section', 'pagelines' ) ) );

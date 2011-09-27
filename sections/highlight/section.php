@@ -5,23 +5,12 @@
 	Author URI: http://www.pagelines.com
 	Description: Adds a highlight sections with a splash image and 2-big lines of text.
 	Class Name: PageLinesHighlight
+	Workswith: templates, main, header, morefoot
+	Edition: pro
+	Cloning: true
 */
 
 class PageLinesHighlight extends PageLinesSection {
-
-   function __construct( $registered_settings = array() ) {
-		
-		$default_settings = array(
-			'workswith' 	=> array('templates', 'main', 'header', 'morefoot'),
-			'version'		=> 'pro', 
-			'cloning'		=> true
-		);
-		
-		$settings = wp_parse_args( $registered_settings, $default_settings );
-
-	   parent::__construct($settings);    
-   }
-
 	
 	function section_optionator( $settings ){
 		

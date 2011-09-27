@@ -6,19 +6,11 @@
 	Description: Three widgetized sidebars above footer
 	Class Name: PageLinesMorefoot
 	Tags: internal
+	Workswith: morefoot, footer
+	Edition: pro
 */
 
 class PageLinesMorefoot extends PageLinesSection {
-
-   function __construct( $registered_settings = array() ) {
-	
-		$default_settings = array(
-			'workswith' 	=> array('morefoot','footer'),
-			'version'		=> 'pro'
-		);
-		$settings = wp_parse_args( $registered_settings, $default_settings );
-	   parent::__construct($settings);    
-   }
 
 	function section_persistent(){
 		register_sidebar(array(

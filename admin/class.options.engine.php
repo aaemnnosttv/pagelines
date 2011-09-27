@@ -339,18 +339,20 @@ class OptEngine {
 	 **/
 	function _get_menu_select($oid, $o){
 		
-		
 		echo $this->input_label($o['input_id'], $o['inputlabel']);
 		
 		$menus = wp_get_nav_menus( array('orderby' => 'name') );
 		$opts = '';
-		foreach ( $menus as $menu )
-			$opts = $this->input_option($menu->term_id, selected($menu->term_id, $o['val'], false), esc_html( $menu->name ) );
+		foreach ( $menus as $menu ){
+			$opts .= $this->input_option($menu->term_id, selected($menu->term_id, $o['val'], false), esc_html( $menu->name ) );
+		}
+
 		
 		if($opts != '')
 			echo $this->input_select($o['input_id'], $o['input_name'], $opts);
 		else
 			printf( __( '<div class="option_default_statement">WP menus need to be created to use this option!<br/> Edit <a href="%s">WordPress Menus</a></div>', 'pagelines' ), admin_url( 'nav-menus.php'));
+			
 	}
 
 	/**

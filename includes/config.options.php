@@ -244,41 +244,57 @@ class PageLinesOptionsArray {
 						'cssgroup'	=>	'contentbg',
 						'flag'		=> 'blank_default',
 						'css_prop'	=> 'background-color',
+						'id'		=> 'the_bg',
 						'inputlabel' 	=> __( 'Content Background', 'pagelines' ),
 						'math'		=> array(
 								array( 
-									'mode' => 'contrast', 
-									'cssgroup' => 'border_layout', 
-									'css_prop' => 'border-color', 
-									'diff' => '8%', 
-									'depends' => pl_background_cascade()
-									
+									'id'		=> 'bg', // use this for getting stored background color
+									'mode' 		=> 'contrast', 
+									'cssgroup' 	=> 'border_layout', 
+									'css_prop' 	=> 'border-color', 
+									'diff' 		=> '8%', 
+									'depends' 	=> pl_background_cascade()
 								),
+								array(
+									'mode' 		=> 'darker', 
+									'cssgroup' 	=> 'border_layout_darker', 
+									'css_prop' 	=> 'border-color', 
+									'depends' 	=> pl_background_cascade()
+								), 
+								array(
+									'mode' 		=> 'lighter', 
+									'cssgroup' 	=> 'border_layout_lighter', 
+									'css_prop' 	=> 'border-color', 
+									'depends' 	=> pl_background_cascade()
+								),
+								
 								array( 
-									'mode' => 'contrast', 
-									'cssgroup' => 'box_color_primary', 
-									'css_prop' => 'background-color', 
-									'diff' => '5%', 
-									'depends' => pl_background_cascade(),
+									'id'		=> 'box_bg',
+									'mode' 		=> 'contrast', 
+									'cssgroup' 	=> 'box_color_primary', 
+									'css_prop' 	=> 'background-color', 
+									'diff' 		=> '5%', 
+									'depends' 	=> pl_background_cascade(),
 									'math'		=> array(
-										array( 'mode' => 'contrast', 'cssgroup' => 'text_box', 'css_prop' => 'color', 'diff' => '65%', 'math' => array(
+										array( 'id' => 'text_box', 'mode' => 'contrast', 'cssgroup' => 'text_box', 'css_prop' => 'color', 'diff' => '65%', 'math' => array(
 											array( 'mode' => 'shadow', 'mixwith' => pl_background_cascade(), 'cssgroup' => array('text_box') ),
 										)),
-										array( 'mode' => 'contrast', 'cssgroup' => 'border_primary', 'css_prop' => 'border-color', 'diff' => '8%', 'math' => array(
+										array( 'id' => 'primary_border', 'mode' => 'contrast', 'cssgroup' => 'border_primary', 'css_prop' => 'border-color', 'diff' => '8%', 'math' => array(
 											array( 'mode' => 'darker', 'cssgroup' => 'border_primary_shadow', 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '10%'),
-											array( 'mode' => 'lighter', 'cssgroup' => 'border_primary_highlight', 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '10%'),
+											array( 'mode' => 'lighter', 'cssgroup' => 'border_primary_highlight', 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '15%'),
 										)),
-										array( 'mode' => 'contrast', 'cssgroup' => 'box_color_secondary', 'css_prop' => array('background-color'), 'diff' => '3%', 'math' => array(
+										array( 'mode' => 'darker', 'cssgroup' => 'border_primary_darker', 'css_prop' => 'border-color', 'diff' => '10%' ),
+										array( 'mode' => 'lighter', 'cssgroup' => 'border_primary_lighter', 'css_prop' => 'border-color', 'diff' => '10%' ),
+										array( 'id' => 'box_bg_secondary', 'mode' => 'contrast', 'cssgroup' => 'box_color_secondary', 'css_prop' => array('background-color'), 'diff' => '3%', 'math' => array(
+											array( 'id' => 'text_box_second', 'mode' => 'contrast', 'cssgroup' => 'text_box_secondary', 'css_prop' => array('color'), 'diff' => '65%'),
 											array( 'mode' => 'darker', 'cssgroup' => 'border_secondary', 'css_prop' => array('border-color'), 'diff' => '5%'),
 											array( 'mode' => 'darker', 'cssgroup' => 'border_secondary', 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '15%'),
 											
 										)),
-										array( 'mode' => 'contrast', 'cssgroup' => 'box_color_tertiary', 'css_prop' => array('background-color'), 'diff' => '6%','math' => array(
+										array( 'id' => 'box_bg_tertiary', 'mode' => 'contrast', 'cssgroup' => 'box_color_tertiary', 'css_prop' => array('background-color'), 'diff' => '6%','math' => array(
 											array( 'mode' => 'darker', 'cssgroup' => 'border_tertiary', 'css_prop' => array('border-color'), 'diff' => '10%'),
 											array( 'mode' => 'darker', 'cssgroup' => 'border_tertiary', 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '15%'),
 										)), 
-										
-										
 										
 									)
 									
