@@ -248,13 +248,26 @@ class PageLinesOptionsArray {
 						'inputlabel' 	=> __( 'Content Background', 'pagelines' ),
 						'math'		=> array(
 								array( 
+									'id'		=> 'bg', // use this for getting stored background color
 									'mode' 		=> 'contrast', 
 									'cssgroup' 	=> 'border_layout', 
 									'css_prop' 	=> 'border-color', 
 									'diff' 		=> '8%', 
 									'depends' 	=> pl_background_cascade()
-									
 								),
+								array(
+									'mode' 		=> 'darker', 
+									'cssgroup' 	=> 'border_layout_darker', 
+									'css_prop' 	=> 'border-color', 
+									'depends' 	=> pl_background_cascade()
+								), 
+								array(
+									'mode' 		=> 'lighter', 
+									'cssgroup' 	=> 'border_layout_lighter', 
+									'css_prop' 	=> 'border-color', 
+									'depends' 	=> pl_background_cascade()
+								),
+								
 								array( 
 									'id'		=> 'box_bg',
 									'mode' 		=> 'contrast', 
@@ -268,8 +281,10 @@ class PageLinesOptionsArray {
 										)),
 										array( 'id' => 'primary_border', 'mode' => 'contrast', 'cssgroup' => 'border_primary', 'css_prop' => 'border-color', 'diff' => '8%', 'math' => array(
 											array( 'mode' => 'darker', 'cssgroup' => 'border_primary_shadow', 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '10%'),
-											array( 'mode' => 'lighter', 'cssgroup' => 'border_primary_highlight', 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '10%'),
+											array( 'mode' => 'lighter', 'cssgroup' => 'border_primary_highlight', 'css_prop' => array('border-left-color', 'border-top-color'), 'diff' => '15%'),
 										)),
+										array( 'mode' => 'darker', 'cssgroup' => 'border_primary_darker', 'css_prop' => 'border-color', 'diff' => '10%' ),
+										array( 'mode' => 'lighter', 'cssgroup' => 'border_primary_lighter', 'css_prop' => 'border-color', 'diff' => '10%' ),
 										array( 'id' => 'box_bg_secondary', 'mode' => 'contrast', 'cssgroup' => 'box_color_secondary', 'css_prop' => array('background-color'), 'diff' => '3%', 'math' => array(
 											array( 'id' => 'text_box_second', 'mode' => 'contrast', 'cssgroup' => 'text_box_secondary', 'css_prop' => array('color'), 'diff' => '65%'),
 											array( 'mode' => 'darker', 'cssgroup' => 'border_secondary', 'css_prop' => array('border-color'), 'diff' => '5%'),

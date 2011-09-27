@@ -33,13 +33,15 @@
 /* @ PageLines Proto CSS Grid */
 	.pprow { width: 100%; margin: 0 auto; overflow: hidden; }
 	.pp2, .pp3, .pp4, .pp5, .pp6 {margin: 0; padding:0; margin-right: 4%; float: left; border: none;}
+	.pp3{margin-right: 3%;}
+	.pp4, .pp5, .pp6{margin-right: 2%;}
 	.pprow.debug .pp2, .pprow.debug .pp3, .pprow.debug .pp4, .pprow.debug .pp5, .pprow.debug .pp6{outline: 1px solid blue;}
 	.pp1 { width: 100%; float: left;}
 	.pp2 { width: 48%; }
-	.pp3 { width: 30.6666667%; }
-	.pp4 { width: 22%; }
-	.pp5 { width: 16.8%; }
-	.pp6 { width: 13.3333333%; }
+	.pp3 { width: 31.333333333%; }
+	.pp4 { width: 23.5%; }
+	.pp5 { width: 18.4%; }
+	.pp6 { width: 15%; }
 	.pplast { margin-right: 0; }
 	
 

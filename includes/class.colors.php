@@ -84,6 +84,14 @@ class PageLinesColor {
 			
 		return $color;	
 	} 
+	
+	function draw_color($mode, $difference = '10%', $alt = null, $id = null ){
+		
+		$color = $this->get_color($mode, $difference, $alt, $id );
+		
+		return '#'.$color;
+		
+	}
 
 	function adjust( $adjustment, $mode = 'lightness', $hex = null){
 		
@@ -305,9 +313,13 @@ function do_color_math($oid, $o, $val, $format = 'css'){
 
 	$output = '';
 	
-	$id = (isset($o['id'])) ? $o['id'] : '';
+	$id = (isset($o['id'])) ? $o['id'] : null;
 	
-	if(isset($o['math'])){
+	$math_array = ( isset($o['math']) ) ? $o['math'] : array();
+	
+	$math_array = apply_filters('pl_math_array', $math_array, $oid, $o);
+	
+	if( !empty($math_array) ){
 		
 		
 		// Set the base.
@@ -330,10 +342,16 @@ function do_color_math($oid, $o, $val, $format = 'css'){
 		
 		}
 		
+		// Set the base color 
 		$base = (isset($base)) ? $base : $default;			
 	
+		if(isset($id))
+			store_set_color($id, $base);
+			
+		// Set up the base color for editing
 		$math = new PageLinesColor( $base, $id);
 		
+		// Process math array
 		foreach( $o['math'] as $key => $k ){
 
 			$id = (isset($k['id'])) ? $k['id'] : '';
@@ -343,6 +361,7 @@ function do_color_math($oid, $o, $val, $format = 'css'){
 			if($k['mode'] == 'mix' || $k['mode'] == 'shadow'){
 				
 				if( isset($k['mixwith']) && is_array($k['mixwith']) ){
+					
 					foreach($k['mixwith'] as $mkey => $m){
 						
 						if( isset($m) && !empty($m)){
@@ -352,7 +371,8 @@ function do_color_math($oid, $o, $val, $format = 'css'){
 							$mix_color = $base;
 							
 					}
-				} elseif(isset($k['mixwith']))
+					
+				} elseif( isset($k['mixwith']) )
 					$mix_color = $k['mixwith'];
 					
 				if($k['mode'] == 'shadow'){
@@ -390,3 +410,30 @@ function do_color_math($oid, $o, $val, $format = 'css'){
 	
 	return $output;
 }
+
+function store_set_color($id, $color){
+	
+	global $set_colors;
+	
+	$set_colors[ $id ] = $color;
+	
+}
+
+function get_set_color( $id ){
+	
+	global $set_colors;
+	
+	if(isset($set_colors[ $id ]))
+		return $set_colors[ $id ];
+	else
+		return '';
+	
+}
+
+function load_math( $id ){
+	
+	return new PageLinesColor( get_set_color( $id ) );
+	
+}
+
+
