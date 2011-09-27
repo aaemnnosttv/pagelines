@@ -257,9 +257,9 @@ function setColorPicker(optionid, color){
 	.bind('keyup', function(){
 		var str = this.value;
 		if(str.indexOf( '#' ) == -1){
-			jQuery( '#'+optionid ).attr('value', '#'+this.value);
+			jQuery( '#'+optionid ).attr('value', '#' + str);
 		}
-		jQuery(this).ColorPickerSetColor(this.value);
+		jQuery(this).ColorPickerSetColor( str );
 	});
 	
 }
