@@ -69,7 +69,7 @@ function grid( $query, $args = array() ){
 		}
 		
 		// Column Box Wrapper
-		$out .= sprintf('%s<div class="grid-element pp%s %s %s">%s</div>%s', $start, $a['per_row'], $a['format'], $last_class, $content, $end);
+		$out .= sprintf('%s<div class="grid-element pp%s %s %s"><div class="grid-element-pad">%s</div></div>%s', $start, $a['per_row'], $a['format'], $last_class, $content, $end);
 	
 		$count++;
 	}
