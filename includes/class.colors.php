@@ -415,6 +415,8 @@ function store_set_color($id, $color){
 	
 	global $set_colors;
 	
+	$color = str_replace('#', '', $color);
+	
 	$set_colors[ $id ] = $color;
 	
 }
