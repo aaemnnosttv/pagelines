@@ -76,7 +76,7 @@ class PageLinesMetaPanel {
 			if( $this->settings['global'] ){
 				$obj = get_post_type_object($post_type);
 				
-				if( !$obj->public )
+				if( !is_object($obj) || !$obj->public )
 					continue;
 			}
 			
@@ -91,7 +91,6 @@ class PageLinesMetaPanel {
 	function get_the_post_types(){
 		
 		// if not in this array, then show the 
-		
 		$post_id = ( isset( $_GET['post'] ) ) ? $_GET['post'] : ( isset($_POST['post_ID']) ? $_POST['post_ID'] : null );
 
 

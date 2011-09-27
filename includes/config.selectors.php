@@ -97,7 +97,7 @@ class PageLinesCSSGroups{
 		 */
 		$s['headercolor'] = '.thead, h1, h2, h3, h4, h5, h6, h1 a, h2 a, h3 a, h4 a, h5 a, h6 a, a.site-title, .entry-title a, .entry-title a:hover, .widget-title a:hover, h3.widget-title a:hover';
 
-		$s['text_primary'] = '.tc1, .t1, .t1 a, #page, .tcolor1, #subnav ul li a:active, .commentlist cite a, #breadcrumb a, .metabar a:hover, .post-nav a:hover, .post-footer a,  #carousel .carousel_text, #site #dsq-content .dsq-request-user-info td a, #page .wp-pagenavi a:hover, #page .wp-pagenavi .current,  .content-pagination a:hover .cp-num';
+		$s['text_primary'] = '.tc1, .t1, .t1 a, body #page .t1:hover, #page, .tcolor1, #subnav ul li a:active, .commentlist cite a, #breadcrumb a, .metabar a:hover, .post-nav a:hover, .post-footer a,  #carousel .carousel_text, #site #dsq-content .dsq-request-user-info td a, #page .wp-pagenavi a:hover, #page .wp-pagenavi .current,  .content-pagination a:hover .cp-num';
 
 		$s['text_secondary'] = '.tc2, .t2, .tcolor2, .lcolor2 a, .subhead, .widget-title, #branding .site-description, #callout, #commentform .required, #postauthor .subtext, #carousel .thecarousel, #page .wp-pagenavi span.pages, .commentlist .comment-meta  a,  #highlight .highlight-subhead, .content-pagination span, .content-pagination a .cp-num, .comment.alt .comment-author, .tcolor3, .lcolor3 a, .main_nav a, .widget-title a, h3.widget-title a, #subnav_row li a, .metabar em, .metabar a, .tags, #commentform label, .form-allowed-tags code, .rss-date, #breadcrumb, .comment.alt, .reply a,  .post-footer, .auxilary a, .widget ul.twitter .twitter-item, .cform .emailreqtxt,.cform .reqtxt, #page .wp-pagenavi a, #page .wp-pagenavi .current, #page .wp-pagenavi .extend';
 
@@ -109,7 +109,7 @@ class PageLinesCSSGroups{
 
 		$s['linkcolor'] = 'a, #subnav_row li.current_page_item a, #subnav_row li a:hover, #grandchildnav .current_page_item > a, .branding h1 a:hover, .post-comments a:hover, .bbcrumb a:hover';
 
-		$s['linkcolor_hover'] = 'a:hover,.commentlist cite a:hover,  #grandchildnav .current_page_item a:hover, .headline h1 a:hover';
+		$s['linkcolor_hover'] = 'a:hover, .commentlist cite a:hover,  #grandchildnav .current_page_item a:hover, .headline h1 a:hover';
 
 		$s['footer_text'] = '#footer, #footer li.link-list a, #footer .latest_posts li .list-excerpt';
 		$s['footer_highlight'] = '#footer a, #footer .widget-title,  #footer li h5 a';

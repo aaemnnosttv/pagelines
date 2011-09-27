@@ -279,6 +279,15 @@ function pagelines_is_buddypress_active(){
 		return false;
 }
 
+/**
+ *  Strips While Space
+ *
+ * @since 2.0.b13
+ */
+function plstrip( $t ){	
+	return preg_replace( '/\s+/', ' ', $t );
+}
+
 
 /**
  * Checks to see if there is more than one page for nav.

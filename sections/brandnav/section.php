@@ -35,7 +35,7 @@ class PageLinesBrandNav extends PageLinesNav {
 <?php }
 
 	function section_styles(){
-		pagelines_load_css( $this->base_url . '/brandnav.css', 'brandnav');
+		
 		if(pagelines('enable_drop_down')){
 			wp_register_style('superfish', self::$nav_url . '/superfish.css', array(), CORE_VERSION, 'screen');
 		 	wp_enqueue_style( 'superfish' );

@@ -492,7 +492,7 @@ class PageLinesTemplate {
 				
 				if( $this->in_factory( $section ) ){
 					$this->factory[$section]->section_head( $clone_id );
-					$this->factory[$section]->dynamic_style( $clone_id );
+					echo plstrip( $this->factory[$section]->dynamic_style( $clone_id ) );
 				}
 			}
 			
@@ -551,9 +551,22 @@ class PageLinesTemplate {
 		if(is_array($this->allsections)){
 			foreach($this->allsections as $section){
 				
-				if($this->in_factory( $section )) 
-					$this->factory[$section]->section_styles();
+				if($this->in_factory( $section )) {
 					
+					$s = $this->factory[$section];
+					
+					$s->section_styles();
+				
+					// Auto load style.css for simplicity if its there.
+					if( file_exists( $s->base_dir . '/style.css' ) ){
+						
+						wp_register_style( $s->id, $s->base_url . '/style.css', array(), $s->settings['version'], 'screen');
+				 		wp_enqueue_style( $s->id );
+				
+					}
+					
+					
+				}	
 			}	
 		}
 	

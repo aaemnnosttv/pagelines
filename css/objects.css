@@ -45,13 +45,19 @@
 	.pplast { margin-right: 0; }
 	
 
-	@media screen and (max-width:580px) { 
-		
-		.pp2, .pp3, .pp4, .pp5, .pp6 { 
+	@media screen and (max-width:650px) { 	
+		.pp2, .pp3{ 
 	       	width: 100%;
 			margin-right: 0;
 	    }
 	}
+	@media screen and (max-width:700px) { 	
+		.pp4, .pp5, .pp6 { 
+	       	width: 100%;
+			margin-right: 0;
+	    }
+	}
+	
 	.pp2, .pp3, .pp4, .pp5, .pp6 {
 	 	transition:all .2s linear; 
 	    -o-transition:all .2s linear; 
