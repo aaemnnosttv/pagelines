@@ -41,7 +41,7 @@ class PageLinesColor {
 		return $hsl[$type];
 	}
 	
-	function get_color( $mode, $difference = '10%', $alt = null, $id = null){
+	function get_color( $mode = null, $difference = '10%', $alt = null, $id = null){
 	
 		$alt = str_replace('#', '', $alt);
 		
@@ -79,20 +79,15 @@ class PageLinesColor {
 			
 			$color =  $this->adjust($diff, 'lightness', $alt);
 		
+		} else {
+			$color = $this->base_hex;
 		}
 			
 			
 		return $color;	
 	} 
 	
-	function draw_color($mode, $difference = '10%', $alt = null, $id = null ){
-		
-		$color = $this->get_color($mode, $difference, $alt, $id );
-		
-		return '#'.$color;
-		
-	}
-
+	
 	function adjust( $adjustment, $mode = 'lightness', $hex = null){
 		
 		
@@ -302,6 +297,21 @@ class PageLinesColor {
 	 	return $this->rgb_to_hex( $new_rgb );
 	
 	}
+	
+	function c($mode = 'null', $difference = '10%', $alt = null, $id = null ){
+		
+		$color = $this->get_color($mode, $difference, $alt, $id );
+		
+		return '#'.$color;
+		
+	}
+	
+	function ce($mode = 'null', $difference = '10%', $alt = null, $id = null ){
+		
+		echo $this->c($mode, $difference, $alt, $id );
+		
+	}
+	
 
 }
 //-------- END OF CLASS --------//
@@ -432,9 +442,9 @@ function get_set_color( $id ){
 	
 }
 
-function load_math( $id ){
+function cmath( $color ){
 	
-	return new PageLinesColor( get_set_color( $id ) );
+	return new PageLinesColor( $color );
 	
 }
 

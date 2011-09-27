@@ -321,8 +321,9 @@ class PageLinesOptionsArray {
 						)
 					),
 					'text_primary' => array(		
-						'default' 	=> '#000000',
-						'cssgroup'	=>	'text_primary',
+						'id'			=> 'text_primary',
+						'default' 		=> '#000000',
+						'cssgroup'		=>	'text_primary',
 						'inputlabel' 	=> __( 'Primary Text', 'pagelines' ),
 						'math'		=> array(
 							array( 'mode' => 'mix', 'mixwith' => pl_background_cascade(), 'cssgroup' => 'text_secondary', 'css_prop' => 'color', 'diff' => '65%'),

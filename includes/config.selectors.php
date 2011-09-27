@@ -124,8 +124,8 @@ class PageLinesCSSGroups{
 		 * Typography 
 		 */
 		$s['type_headers'] = '.thead, h1, h2, h3, h4, h5, h6, .site-title';
-		$s['type_primary'] = '.t1, .font1, body, .font1, .font-primary, .commentlist';
-		$s['type_secondary'] = '.t2, .font2, .font-sub, ul.main-nav, #secondnav, .metabar, .subtext, .subhead, .widget-title, .post-comments, .reply a, .editpage, #page .wp-pagenavi, .post-edit-link, #wp-calendar caption, #wp-calendar thead th, .soapbox-links a, .fancybox, .standard-form .admin-links, .pagelines-blink, .ftitle small';
+		$s['type_primary'] = '.f1, .font1, body, .font1, .font-primary, .commentlist';
+		$s['type_secondary'] = '.f2, .font2, .font-sub, ul.main-nav, #secondnav, .metabar, .subtext, .subhead, .widget-title, .post-comments, .reply a, .editpage, #page .wp-pagenavi, .post-edit-link, #wp-calendar caption, #wp-calendar thead th, .soapbox-links a, .fancybox, .standard-form .admin-links, .pagelines-blink, .ftitle small';
 		$s['type_inputs'] = 'input[type="text"], input[type="password"], textarea, #dsq-content textarea';
 		
 		return $s;

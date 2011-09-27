@@ -256,7 +256,7 @@ function setColorPicker(optionid, color){
 	})
 	.bind('keyup', function(){
 		var str = this.value;
-		if(str.indexOf( '#' ) == -1){
+		if(str && str.indexOf( '#' ) == -1){
 			jQuery( '#'+optionid ).attr('value', '#' + str);
 		}
 		jQuery(this).ColorPickerSetColor( str );
