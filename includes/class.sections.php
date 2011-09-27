@@ -175,6 +175,8 @@ class PageLinesSection {
 	function section_head(){}
 	
 	function section_styles(){}
+		
+	function dynamic_style(){}
 	
 	function section_options(){}
 		
