@@ -134,28 +134,39 @@ function pagelines_theme_settings_scripts() {
 	wp_enqueue_script( 'jquery-ui-dialog' );
 	wp_enqueue_script( 'jquery-imgpreview', PL_ADMIN_JS . '/jquery.imgpreview.js', array('jquery'));
 	wp_enqueue_script( 'script-pagelines-settings', PL_ADMIN_JS . '/script.settings.js');
+
 	wp_enqueue_script( 'jquery-ui-effects', PL_ADMIN_JS . '/jquery.effects.js', array('jquery')); // just has highlight effect
 	wp_enqueue_script( 'jquery-ui-draggable' );	
 	wp_enqueue_script( 'jquery-ui-sortable' );
 	wp_enqueue_script( 'script-pagelines-common', PL_ADMIN_JS . '/script.common.js');	
+	
+	// Color Picker
+	wp_enqueue_script( 'colorpicker-js', PL_ADMIN_JS . '/colorpicker/js/colorpicker.js');
+	wp_enqueue_style( 'colorpicker', PL_ADMIN_JS . '/colorpicker/css/colorpicker.css' ); 
+	
 	wp_enqueue_script( 'thickbox' );	
 	wp_enqueue_style( 'thickbox' ); 
 	
 	wp_enqueue_script( 'jquery-layout', PL_ADMIN_JS . '/jquery.layout.js');
+	
 	// PageLines CSS objects
 	pagelines_load_css_relative('css/objects.css', 'pagelines-objects');
+	
 }
 
 add_action( 'admin_head', 'load_head' );
 function load_head(){
 
-	// Always Load
-	echo '<link rel="stylesheet" href="'.PL_CSS.'/objects.css?ver='.CORE_VERSION.'" type="text/css" media="screen" />';
-	echo '<link rel="stylesheet" href="'.PL_ADMIN_CSS.'/admin.css?ver='.CORE_VERSION.'" type="text/css" media="screen" />';
+	// CSS Objects
+	printf('<link rel="stylesheet" href="%s/objects.css?ver=%s" type="text/css" media="screen" />', PL_CSS, CORE_VERSION);
+	
+	// Admin CSS
+	printf('<link rel="stylesheet" href="%s/admin.css?ver=%s" type="text/css" media="screen" />', PL_ADMIN_CSS, CORE_VERSION);
 	
 	
-	if(pagelines_option('pagelines_favicon'))  
-		echo '<link rel="shortcut icon" href="'.pagelines_option('pagelines_favicon').'" type="image/x-icon" />';
+	
+	if( ploption('pagelines_favicon') )  
+		printf('<link rel="shortcut icon" href="%s" type="image/x-icon" />', ploption('pagelines_favicon') );
 
 	// Load on PageLines pages
 	if(isset($_GET['page']) && ($_GET['page'] == 'pagelines'))

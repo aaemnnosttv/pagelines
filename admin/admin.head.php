@@ -5,12 +5,9 @@
 	
 	pagelines_register_hook( 'pagelines_admin_head' ); // Hook
 ?>
-<link rel="stylesheet" media="screen" type="text/css" href="<?php echo PL_ADMIN_JS;?>/colorpicker/css/colorpicker.css" />
-<script type="text/javascript" src="<?php echo PL_ADMIN_JS;?>/colorpicker/js/colorpicker.js"></script>
-<script type="text/javascript">/*<![CDATA[*/
+<script type="text/javascript">
+/*<![CDATA[*/
 jQuery(document).ready(function(){ 
-		
-
 <?php 
 
 /**
@@ -67,31 +64,7 @@ jQuery("#pagelines-settings-form").submit(function() {
 	}
   
 });
-
-
-
 <?php endif;?>
 
-
-
-<?php
-/*
-	Color Picker
-*/
-	foreach (get_option_array() as $menuitem):
-		foreach($menuitem as $oid => $o):
-			if($o['type'] == 'colorpicker'):
-			?>setColorPicker('<?php echo $oid;?>', '<?php echo pagelines_option($oid);?>');<?php 
-			echo "\n";
-			elseif($o['type'] == 'color_multi'):				
-				foreach($o['selectvalues'] as $sid => $s):
-				?>setColorPicker('<?php echo $sid;?>', '<?php echo pagelines_option($sid);?>');<?php 
-				echo "\n";
-				endforeach;?>
-<?php 		endif;
-		endforeach;
-	endforeach;
-
-?> 
 }); 
 /*]]>*/</script>

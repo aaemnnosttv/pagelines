@@ -838,7 +838,7 @@ class OptEngine {
 	
 		printf('<div class="the_picker picker_row_%s %s"><div class="picker_panel"><div class="the_picker_pad">%s %s</div></div></div>', $per_row, ($last) ? 'p_end' : '', $this->input_label($oid, $o['inputlabel']), $pick_contain);
 		
-		
+		printf('<script type="text/javascript">setColorPicker("%s", "%s");</script>', $oid, $o['val']);
   	}
 	
 	

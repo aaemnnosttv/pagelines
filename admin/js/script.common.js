@@ -219,22 +219,45 @@ function GraphicSelect ( ClickedLayout ){
  * ###########################
  */
 function setColorPicker(optionid, color){
+	
 	jQuery('#'+optionid+'_picker').children('div').css('backgroundColor', color);    
+	
 	jQuery('#'+optionid+'_picker').ColorPicker({
 		color: color,
 		onShow: function (colpkr) {
-			jQuery(colpkr).fadeIn(400);
+			jQuery(colpkr).fadeIn(300);
 			return false;
 		},
 		onHide: function (colpkr) {
-			jQuery(colpkr).fadeOut(400);
+			jQuery(colpkr).fadeOut(300);
 			return false;
 		},
 		onChange: function (hsb, hex, rgb) {
-			jQuery('#'+optionid+'_picker').children('div').css('backgroundColor', '#' + hex);
-			jQuery('#'+optionid+'_picker').next('input').attr('value','#' + hex);
-		}
+			jQuery('#'+optionid+'_picker').children('div').css('backgroundColor', '#'+hex);
+			jQuery('#'+optionid+'_picker').next('input').attr('value', '#'+hex);
+		},
+		
 	});
+	
+	jQuery('#'+optionid).ColorPicker({
+		onSubmit: function(hsb, hex, rgb, el) {
+			jQuery(el).val(hex);
+			jQuery(el).ColorPickerHide();
+			jQuery(this).attr('value', hex);
+		},
+		onBeforeShow: function () {
+			jQuery(this).ColorPickerSetColor(this.value);
+		},
+		onChange: function (hsb, hex, rgb) {
+			jQuery( '#'+optionid ).attr('value', '#'+hex);
+			jQuery(this).parent().find('#'+optionid+'_picker').children('div').css('backgroundColor', '#'+hex);
+			
+		},
+	})
+	.bind('keyup', function(){
+		jQuery(this).ColorPickerSetColor(this.value);
+	});
+	
 }
 
 function PageLinesSimpleToggle(showElement, hideElement){

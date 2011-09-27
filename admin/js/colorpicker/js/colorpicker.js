@@ -182,6 +182,7 @@
 				return false;
 			},
 			upSelector = function (ev) {
+				moveSelector(ev);
 				fillRGBFields(ev.data.cal.data('colorpicker').color, ev.data.cal.get(0));
 				fillHexFields(ev.data.cal.data('colorpicker').color, ev.data.cal.get(0));
 				$(document).unbind('mouseup', upSelector);

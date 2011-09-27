@@ -68,7 +68,7 @@
 	top: 13px;
 	background: #f00;
 }
-.colorpicker input {
+html body .colorpicker input {
 	background-color: transparent;
 	border: 1px solid transparent;
 	position: absolute;
