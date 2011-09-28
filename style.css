@@ -267,7 +267,7 @@ body{font-size: 87.5%; line-height: 1.714285em;}
 		padding: 7px 30px 5px 7px;
 	}
 	
-	#primary-nav .searchform { 
+	.navigation_wrap .searchform { 
 		position: absolute;
 		right: 20px;
 		bottom: 4px;
