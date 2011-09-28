@@ -17,8 +17,8 @@
  	function __construct() {
 
 		$this->exprint = 'onClick="extendIt(\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\')"';
-		$this->username = get_pagelines_option( 'lp_username' );
-		$this->password = get_pagelines_option( 'lp_password' );
+		$this->username = get_pagelines_credentials( 'user' );
+		$this->password = get_pagelines_credentials( 'pass' );
 		
 		$this->ui = new PageLinesExtendUI;
 		
@@ -33,12 +33,12 @@
 
 		if (isset($_POST['form_submitted']) && $_POST['form_submitted'] === 'plinfo' ) {
 
-			pagelines_update_option( 'lp_password', sanitize_text_field( $_POST['lp_password'] ) );
-			pagelines_update_option( 'lp_username', sanitize_text_field( $_POST['lp_username'] ) );
-			pagelines_update_option( 'disable_updates', ( isset( $_POST['disable_auto_update'] ) ) ? true : false );
+			if ( isset( $_POST['creds_reset'] ) )
+				update_option( 'pagelines_extend_creds', array( 'user' => '', 'pass' => '' ) );
+			else
+				set_pagelines_credentials( sanitize_text_field( $_POST['lp_username'] ),  sanitize_text_field( $_POST['lp_password'] ) );
 			$this->flush_caches();			
 			wp_redirect( admin_url('admin.php?page=pagelines_extend&plinfo=true') );
-
 			exit;
 		}
 	}
@@ -51,7 +51,7 @@
 	function flush_caches() {
 		
 		// Flush all our transienst ( Makes this save button a sort of reset button. )
-		delete_transient( 'pagelines-update-' . THEMENAME  );
+		delete_transient( EXTEND_UPDATE );
 		delete_transient( 'pagelines_sections_api_themes' );
 		delete_transient( 'pagelines_sections_api_sections' );
 		delete_transient( 'pagelines_sections_api_plugins' );
@@ -100,7 +100,7 @@
 
 			$key = str_replace( '.', '', $key );
 			
-			$updates_configured = ( is_array( $a = get_transient('pagelines-update-' . THEMENAME ) ) && isset($a['package']) && $a['package'] !== 'bad' ) ? true : false;
+			$updates_configured = ( is_array( $a = get_transient( EXTEND_UPDATE ) ) && isset($a['package']) && $a['package'] !== 'bad' ) ? true : false;
 
 			$purchased = ( isset( $s->purchased ) ) ? true : false;
 
@@ -356,7 +356,7 @@
 		}
 		
 		$list = array();
-		$updates_configured = ( is_array( $a = get_transient('pagelines-update-' . THEMENAME ) ) && isset($a['package']) && $a['package'] !== 'bad' ) ? true : false;
+		$updates_configured = ( is_array( $a = get_transient( EXTEND_UPDATE ) ) && isset($a['package']) && $a['package'] !== 'bad' ) ? true : false;
 		foreach( $plugins as $key => $p ) {
 	
 //			if ( !isset( $p['type'] ) )
@@ -596,7 +596,7 @@
 					
 				$is_active = ( $key  == basename( get_stylesheet_directory() ))	? true : false;
 					
-				$updates_configured = ( is_array( $a = get_transient('pagelines-update-' . THEMENAME ) ) && isset($a['package']) && $a['package'] !== 'bad' ) ? true : false;	
+				$updates_configured = ( is_array( $a = get_transient( EXTEND_UPDATE ) ) && isset($a['package']) && $a['package'] !== 'bad' ) ? true : false;	
 					
 				$activate = ($status == 'installed' && !$is_active) ? true : false;
 				$deactivate = ($status == 'installed' && $is_active) ? true : false;

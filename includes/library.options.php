@@ -615,4 +615,68 @@ function pagelines_import_export(){
 	}
 }
 
+/*
+ * Set user/pass using md5()
+ *
+ */
+function set_pagelines_credentials( $user, $pass ) {
+	
+	if ( !empty( $user ) && !empty( $pass ) )
+		update_option( 'pagelines_extend_creds', array( 'user' => $user, 'pass' => md5( $pass ) ) );
+}
 
+/*
+ * Get username or password
+ *
+ */
+function get_pagelines_credentials( $t ) {
+	
+	$creds = get_option( 'pagelines_extend_creds', array( 'user' => '', 'pass' => '' ) );
+	
+	switch( $t ) {
+		
+		case 'user':
+			return $creds['user'];
+		break;
+
+		case 'pass':
+			return $creds['pass'];
+		break;
+	}
+}
+
+/*
+ * Check updates status including errors and licence information.
+ *
+ */
+function pagelines_check_credentials( $type = 'setup' ) {
+	
+	switch( $type ) {
+		
+		case 'setup':
+			if ( is_array( $a = get_transient( EXTEND_UPDATE ) ) && isset($a['package']) && $a['package'] !== 'bad' )
+				return true;
+			else
+				return false;		
+		break;
+		
+		case 'licence':
+			if ( is_array( $a = get_transient( EXTEND_UPDATE ) ) && isset($a['licence']) )
+				return $a['licence'];
+		break;
+		
+		case 'error':
+			if ( is_array( $a = get_transient( EXTEND_UPDATE ) ) && isset($a['api_error']) )
+				return $a['api_error'];
+		break;
+		
+		case 'ssl':
+			if ( is_array( $a = get_transient( EXTEND_UPDATE ) ) && isset($a['ssl']) )
+				return true;
+		break;
+		
+		case 'echo':
+			return get_transient( EXTEND_UPDATE );
+		break;
+	}
+}

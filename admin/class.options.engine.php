@@ -928,27 +928,28 @@ class OptEngine {
 
 	function updates_setup($oid, $o){
 		
-		if ( is_array( $a = get_transient('pagelines-update-' . THEMENAME ) ) && isset($a['package']) && $a['package'] !== 'bad' )
-			$updates_exp = sprintf( __( 'Successfully logged in to PageLines%1$s.', 'pagelines' ), ( $a['ssl'] ) ? ' using SSL' : '' );
-		else	
-			if ( isset( $a ) && isset( $a['api_error'] ) ) 
-				$updates_exp = sprintf( __( 'ERROR: %1$s<br />There was a problem logging in to PageLines.', 'pagelines' ), $a['api_error'] );
-			else
-				$updates_exp = __( 'Unknown error??', 'pagelines' );
+		if ( get_pagelines_credentials( 'user' ) === '' )
+			$updates_exp = __( 'Please set your PageLines login credentials.', 'pagelines' );
+		else
+			if ( pagelines_check_credentials() )
+				$updates_exp = sprintf( __( 'Successfully logged in to PageLines%1$s.', 'pagelines' ), ( pagelines_check_credentials( 'ssl' ) ) ? ' using SSL' : '' );
+			else	
+				if ( pagelines_check_credentials( 'error' ) ) 
+					$updates_exp = sprintf( __( 'ERROR: %1$s<br />There was a problem logging in to PageLines.', 'pagelines' ), pagelines_check_credentials( 'error' ) );
+				else
+					$updates_exp = __( 'Unknown api error??', 'pagelines' );
 		
-		if ( isset( $a ) && isset( $a['licence'] ) )
-			$updates_exp .= sprintf( __( '<br />We found a %s licence.', 'pagelines' ), $a['licence'] );
 
-		if ( ploption( 'disable_updates' ) )
-			$updates_exp = __( 'Updates are disabled.', 'pagelines' );
+
+
+		if ( pagelines_check_credentials( 'licence' ) === 'dev' )
+			$updates_exp .= __( '<br />Developer edition enabled.', 'pagelines' );
 
 		if ( EXTEND_NETWORK )
 			$updates_exp = __( 'Updates are disabled for non Network Admins</div>', 'pagelines' );
 		?>
 		<div class="pl_form">
-			<div class="pl_form_feedback">
-				<?php echo $updates_exp; ?>
-			</div>
+
 			
 				<?php if ( EXTEND_NETWORK )
 						return;
@@ -961,25 +962,30 @@ class OptEngine {
 							<h2>PageLines Account Info</h2>
 						</div>
 						<input type="hidden" name="form_submitted" value="plinfo" />
+						<div class="pl_form_feedback">
+							<?php echo $updates_exp; ?>
+						</div>
 				<?php 
-			
-				echo $this->input_label( 'lp_username', __( 'PageLines Username', 'pagelines' )); 
-				echo $this->input_text( 'lp_username', 'lp_username', get_pagelines_option( 'lp_username' ), 'bigtext pluser');
-				echo $this->input_label( 'lp_password', __( 'PageLines Password', 'pagelines' )); 
-				echo $this->input_text( 'lp_password', 'lp_password', get_pagelines_option( 'lp_password' ), 'bigtext pluser', 'password');
-		
-				$checked = checked((bool) ploption('disable_updates'), true, false);
 
-				$input = $this->input_checkbox('disable_auto_update', 'disable_auto_update', $checked);
-				echo $this->input_label_inline('disable_auto_update', $input, __( 'Disable Auto Updates', 'pagelines' ));
-	
-				echo $this->superlink(__( 'Save Account Info', 'pagelines' ), 'blue', 'updates-setup', 'submit'); 
-			
+				if ( pagelines_check_credentials() ):
+
+				echo '<input type="hidden" name="creds_reset" value="yes" />';
+				echo $this->superlink(__( 'Reset Account Credentials', 'pagelines' ), 'blue', 'updates-setup', 'submit');
+				else:
+				
+				echo $this->input_label( 'lp_username', __( 'PageLines Username', 'pagelines' )); 
+				echo $this->input_text( 'lp_username', 'lp_username', get_pagelines_credentials( 'user' ), 'bigtext pluser');
+				echo $this->input_label( 'lp_password', __( 'PageLines Password', 'pagelines' )); 
+				echo $this->input_text( 'lp_password', 'lp_password', '', 'bigtext pluser', 'password');
+				
+				echo $this->superlink(__( 'Submit Credentials', 'pagelines' ), 'blue', 'updates-setup', 'submit');
+				endif;
 				?>
+				</form>
 						</div>
 					<div class="clear"></div>
 				</div>
-			</form>
+			
 		</div>
 		
 		

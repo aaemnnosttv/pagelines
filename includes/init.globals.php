@@ -13,11 +13,10 @@ define('CHILD_VERSION', $child_theme_data['Version']);
 /*
 	TODO simon fix this w/ API!!!!
 */
-define('VPRO',true);
-define('VDEV',false);
+define( 'VPRO', true );
 
-if(!defined('PL_DEV'))
-	define('PL_DEV',false);
+if( !defined('PL_DEV' ) )
+	define( 'PL_DEV',false );
 
 /**
  * Set Theme Name
@@ -82,6 +81,7 @@ define('PL_IMAGES', PARENT_URL . '/images');
 
 define( 'EXTEND_CHILD_DIR', WP_PLUGIN_DIR . '/pagelines-customize' );
 define( 'EXTEND_CHILD_URL', plugins_url( 'pagelines-customize' ) );
+define( 'EXTEND_UPDATE', 'pagelines_theme_update' );
 
 define( 'PL_EXTEND_DIR', WP_PLUGIN_DIR . '/pagelines-sections');
 define( 'PL_EXTEND_URL', plugins_url( 'pagelines-sections' ) );

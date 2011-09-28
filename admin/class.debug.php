@@ -180,10 +180,10 @@ class PageLinesDebug {
 			} else {
 				$this->debug_info[] = array(
 					'title'	=> "Updates Credentials",
-					'value' => ( !pagelines_option( 'lp_username' ) || !pagelines_option( 'lp_password' ) ) ? 'Username/Password is required for automatic upgrades to function.' : '',
+					'value' => ( ! get_pagelines_credentials( 'user' ) ) ? 'Username/Password is required for automatic upgrades to function.' : '',
 					'level'	=> false
 				);
-			if ( is_array( $a = get_transient('pagelines-update-PlatformPro') ) ) {
+			if ( is_array( $a = get_transient( EXTEND_UPDATE ) ) ) {
 				$this->debug_info[] = array(
 					'title'	=> "Automatic Updates",
 					'value' => ( $a['package'] !== 'bad' ) ? 'Working.' : 'Not working',

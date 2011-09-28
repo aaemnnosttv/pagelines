@@ -1,15 +1,14 @@
 <?php 
 class PageLinesUpdateCheck {
 
-    function __construct( $theme = null, $version = null, $plugin = null ){
+    function __construct( $version = null ){
 	
 		global $current_user;
-    	$this->plugin = $plugin;
     	$this->url_theme = apply_filters( 'pagelines_theme_update_url', PL_API . 'v3' );
-    	$this->theme  = $theme;
+    	$this->theme  = 'PageLines_Framework';
  		$this->version = $version;
-		$this->username = get_pagelines_option( 'lp_username' );
-		$this->password = get_pagelines_option( 'lp_password' );
+		$this->username = get_pagelines_credentials( 'user' );
+		$this->password = get_pagelines_credentials( 'pass' );
 
 		get_currentuserinfo();
 		$bad_users = apply_filters( 'pagelines_updates_badusernames', array( 'admin', 'root', 'test', 'testing', '' ) );
@@ -53,7 +52,7 @@ class PageLinesUpdateCheck {
 	 */
 	function pagelines_theme_clear_update_transient() {
 
-		delete_transient('pagelines-update-' . $this->theme );
+		delete_transient( EXTEND_UPDATE );
 		remove_action('admin_notices', array(&$this,'pagelines_theme_update_nag') );
 		delete_transient( 'pagelines_sections_cache' );
 
@@ -85,7 +84,7 @@ class PageLinesUpdateCheck {
 
 			}
 		echo '<div id="update-nag">';
-		printf( '%s %s is available.', $this->theme, esc_html( $pagelines_update['new_version'] ) );
+		printf( '%s %s is available.', str_replace( '_', ' ', $this->theme ), esc_html( $pagelines_update['new_version'] ) );
 		
 		printf( ' %s', ( $pagelines_update['package'] != 'bad' ) ? sprintf( 'You should <a href="%s">update now</a>.', admin_url('update-core.php') ) : sprintf( '<a href="%s">Click here</a> to setup your PageLines account.', admin_url('admin.php?page=pagelines_extend#Your_Account') ) );
 
@@ -99,7 +98,7 @@ class PageLinesUpdateCheck {
 	function pagelines_theme_update_check() {
 		global $wp_version;
 
-		$pagelines_update = get_transient('pagelines-update-' . $this->theme );
+		$pagelines_update = get_transient( EXTEND_UPDATE );
 
 		if ( !$pagelines_update ) {
 			$url = $this->url_theme;
@@ -123,7 +122,7 @@ class PageLinesUpdateCheck {
 
 			// If an error occurred, return FALSE, store for 1 hour
 			if ( $pagelines_update == 'error' || is_wp_error($pagelines_update) || !is_serialized( $pagelines_update ) || $pagelines_update['package'] == 'bad' ) {
-				set_transient('pagelines-update-' . $this->theme, array('new_version' => $this->version), 60*60); // store for 1 hour
+				set_transient( EXTEND_UPDATE, array('new_version' => $this->version), 60*60); // store for 1 hour
 				return FALSE;
 			}
 
@@ -131,7 +130,7 @@ class PageLinesUpdateCheck {
 			$pagelines_update = maybe_unserialize($pagelines_update);
 
 			// And store in transient
-			set_transient('pagelines-update-' . $this->theme, $pagelines_update, 60*60*24); // store for 24 hours
+			set_transient( EXTEND_UPDATE, $pagelines_update, 60*60*24); // store for 24 hours
 		}
 
 		// If we're already using the latest version, return FALSE

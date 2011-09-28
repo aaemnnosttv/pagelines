@@ -209,7 +209,8 @@ function pagelines_register_settings() {
 	
 	if ( ploption('reset') ) {
 		update_option(PAGELINES_SETTINGS, pagelines_settings_defaults());
-
+		global $extension_control;
+		$extension_control->flush_caches();
 		wp_redirect( admin_url( 'admin.php?page=pagelines&reset=true' ) );
 		exit;
 	}
