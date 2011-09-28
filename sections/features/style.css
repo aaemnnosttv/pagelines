@@ -1,6 +1,4 @@
-/*
-	Created by PageLines
-*/
+/* Created by PageLines */
 
 
 #feature .content-pad{
@@ -20,7 +18,7 @@
 	#cycle {width: 100% !important;}
 	#feature-area .fcontainer{	
 		width: 100%;
-		background: #000 url(feature-area-bg.png) repeat-x left bottom;
+		background: #000 url( images/feature-area-bg.png) repeat-x left bottom;
 	}
 
 	#feature-area .fcontainer.fstyle-nobg {	 background: none; }
@@ -33,7 +31,6 @@
 		}
 		
 		#feature_slider .fmedia, #feature_slider .fcontent{
-			
 			float: left;
 		}
 			#feature_slider .fcontent { width: 33%; min-width: 220px;}
@@ -75,7 +72,7 @@
 							padding: 0 10px;
 							float: left;
 							width: 33%;
-							background: url(hl-vert.png) repeat-y right top;
+							background: url(images/hl-vert.png) repeat-y right top;
 						}
 						#feature_slider .text-bottom .fcontent .ftext {
 						
@@ -253,13 +250,13 @@
 	
 				#feature-footer.thumbs span.playpause { }
 				#featurenav a span.nav_thumb span.nav_overlay{
-					background: url(feature-thumb-overlay.png) no-repeat 0 0;
+					background: url(images/feature-thumb-overlay.png) no-repeat 0 0;
 				}
 				#featurenav a.activeSlide span.nav_thumb span.nav_overlay{
-					background: url(feature-thumb-overlay.png) no-repeat 0 -30px;
+					background: url(images/feature-thumb-overlay.png) no-repeat 0 -30px;
 				}
 				#featurenav a:active span.nav_thumb span.nav_overlay{
-					background: url(feature-thumb-overlay.png) no-repeat 0 -30px;
+					background: url(images/feature-thumb-overlay.png) no-repeat 0 -30px;
 				}
 				#featurenav a span.nav_thumb span.nav_overlay{margin:0;}
 				
@@ -281,11 +278,11 @@
 				}
 				#feature-footer span.playpause.pause span{
 					display: block;
-					background: transparent url(feature-pause.png) no-repeat 4px 5px;
+					background: transparent url(images/feature-pause.png) no-repeat 4px 5px;
 				}
 				#feature-footer span.playpause.resume span{
 					display: block;
-					background: transparent url(feature-play.png) no-repeat 4px 5px;
+					background: transparent url(images/feature-play.png) no-repeat 4px 5px;
 				}
 				
 			/* @ Feature Next / Previous Navigation */

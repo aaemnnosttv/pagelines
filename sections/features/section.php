@@ -13,16 +13,16 @@
 
 class PageLinesFeatures extends PageLinesSection {
 
+	var $taxId = 'feature-sets';
+	var $ptId = 'pl_features';
+
 	function section_persistent(){
 		
-		/* 
-			Create Custom Post Type 
-		*/
 			$args = array(
 					'label' 			=> __('Features', 'pagelines'),  
 					'singular_label' 	=> __('Feature', 'pagelines'),
 					'description' 		=> 'For setting slides on the feature page template',
-					'taxonomies'		=> array('feature-sets'), 
+					'taxonomies'		=> array( $this->taxID ), 
 					'menu_icon'			=> $this->icon
 				);	
 			$taxonomies = array(
@@ -41,15 +41,12 @@ class PageLinesFeatures extends PageLinesSection {
 		
 			$column_value_function = 'feature_column_display';
 		
-			$this->post_type = new PageLinesPostType($this->id, $args, $taxonomies, $columns, $column_value_function);
+			$this->post_type = new PageLinesPostType( $this->id, $args, $taxonomies, $columns, $column_value_function );
 		
-				/* Set default posts if none are present */
+			/* Set default posts if none are present */
 				
-				$this->post_type->set_default_posts( 'update_default_posts', $this);
+			$this->post_type->set_default_posts( 'update_default_posts', $this);
 		
-		/*
-			Create meta fields for the post type
-		*/
 			$type_meta_array = array(
 					'feature-style' => array(
 							'type' 	=> 'select',					
@@ -279,12 +276,7 @@ class PageLinesFeatures extends PageLinesSection {
 			register_metatab($metatab_settings, $page_metatab_array);
 
 	}
-	
-	function section_styles(){
-		wp_register_style('pl-features', $this->base_url . '/feature.css', array(), CORE_VERSION, 'screen');
-	 	wp_enqueue_style( 'pl-features' );
-	
-	}
+
 
 	function section_head( $clone_id ) {   
 		
@@ -455,7 +447,7 @@ function load_pagelines_features( $set = null, $limit = null, $source = null, $c
 		$query['post_type'] = 'feature'; 
 		
 		if(isset($set)) 
-			$query['feature-sets'] = $set;
+			$query[ $this->taxID ] = $set;
 		
 	}
 	
@@ -614,8 +606,10 @@ function draw_features($f, $class, $clone_id = null) {
 			$default['post_content'] = $p['text'];
 			$default['post_type'] = 'feature';
 			$default['post_status'] = 'publish';
+			
 			if ( defined( 'ICL_LANGUAGE_CODE' ) )
 				$default_post['icl_post_language'] = ICL_LANGUAGE_CODE;
+				
 			$newPostID = wp_insert_post( $default );
 
 			update_post_meta($newPostID, 'feature-thumb', $p['thumb']);
@@ -638,10 +632,10 @@ function draw_features($f, $class, $clone_id = null) {
 			        	'media' 			=> '',
 						'style'				=> 'text-none',
 			        	'link' 				=> '#fake_link',
-						'background' 		=> $this->base_url.'/feature1.jpg',
+						'background' 		=> $this->base_url.'/images/feature1.jpg',
 						'name'				=> 'Intro',
 						'fcontent-design'	=> '',
-						'thumb'				=> $this->base_url.'/fthumb1.png'
+						'thumb'				=> $this->base_url.'/images/fthumb1.png'
 			    ),
 				'2' => array(
 					 	'title' 		=> 'Drag &amp; Drop Design',
@@ -649,27 +643,27 @@ function draw_features($f, $class, $clone_id = null) {
 			        	'media' 		=> '',
 			        	'style'			=> 'text-none',
 						'link' 			=> '#fake_link',
-						'background' 	=> $this->base_url.'/feature2.jpg',
+						'background' 	=> $this->base_url.'/images/feature2.jpg',
 						'name'			=>	'Design',
 						'fcontent-design'	=> '',
-						'thumb'				=> $this->base_url.'/fthumb3.png'
+						'thumb'				=> $this->base_url.'/images/fthumb3.png'
 			    )
 		);
 
 		return apply_filters('pagelines_default_features', $posts);
 	}
-
-
-function get_cats() {
 	
-	$cats = get_categories();
-	foreach( $cats as $cat ) {
-		$categories[ $cat->cat_ID ] = array(
-			'name' => $cat->name
-		);
+
+	function get_cats() {
+	
+		$cats = get_categories();
+		foreach( $cats as $cat ) {
+			$categories[ $cat->cat_ID ] = array(
+				'name' => $cat->name
+			);
+		}
+		return ( isset( $categories) ) ? $categories : array();
 	}
-	return ( isset( $categories) ) ? $categories : array();
-}
 
 // End of Section Class //
 }
