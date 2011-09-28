@@ -1,0 +1,22 @@
+.post-nav, .current_posts_info {
+	clear: both;
+	padding:5px 10px;
+	margin: 0em 0 1.8em;
+	position: relative;
+}
+	.post-nav a, .post-nav a:visited { text-decoration: none; }
+	.post-nav a:hover { text-decoration: none; }
+	
+	.post-nav .previous a {
+		float: left;
+		display: block;
+		padding-left: 24px;
+		background: url(images/post-previous.png) no-repeat left center;
+	}
+	.post-nav .next a {
+		float: right;
+		display:block;
+		padding-right: 24px;
+		text-align: right;
+		background: url(images/post-next.png) no-repeat right center;
+	}

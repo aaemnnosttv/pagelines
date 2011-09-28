@@ -9,16 +9,16 @@ Author: PageLines
 
 Author URI: http://www.pagelines.com/
 
-Theme URI: http://www.pagelines.com/framework
+Theme URI: http://www.pagelines.com/tour
 
 Tags: buddypress, rtl-language-support, editor-style, theme-options, one-column, two-columns, three-columns, left-sidebar, right-sidebar, flexible-width, custom-menu, fixed-width, threaded-comments, custom-background,  custom-header, custom-colors, custom-menu, photoblogging, translation-ready, white, silver, light, blue, green, yellow
 License: GPL
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 *Important* Don't add customizations to this file!
-- Customization CSS in PageLines Themes
-	- Customize PageLines themes by adding CSS in the theme settings or in the Base child theme or plugin
-	- Don't add it here; as it will either get overwritten by updates, or prevent you from updating at all
+- Customization CSS in PageLines
+	- Customize PageLines by adding CSS in the settings, child themes, or plugins
+	- Don't add it here; as it will either get overwritten by updates, and will prevent you from updating at all!
 	
 -------------------------------------------------------------- 
 
@@ -33,13 +33,19 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 ---------------------------------------------------------------  		
 */
 
-body{ height:100%; } 			
+/* @ Fixed Width Design Mode*/
+.fixed_width #page{
+	margin: 12px auto 0;
+}
+	body.fixed_width{ border-top:none; }
+	.fixed_width #footer{ background: transparent; margin: 0 auto; }
+	.fixed_width #morefoot .dcol-pad { padding: 15px; }
+	.fixed_width #branding .content-pad{ padding: 20px 15px 15px; }
+	.fixed_width #header .searchform { margin-right: 10px }
+	.fixed_width #boxes .dcol-pad {padding: 10px;}
 
-/******* Typography *******/
+body{font-size: 87.5%; line-height: 1.714285em;height:100%;}
 
-body{font-size: 87.5%; line-height: 1.714285em;}
-	/*.content { background: url(images/line-height.png) repeat 0 6px; }*/
-	/* @ Headers H1 - H6 */
 	h1, h2, h3, h4, h5, h6{font-weight:normal; line-height: 1.2em;}
 	h1{font-size:3em; } 
 	h2{font-size:2.2em;}
@@ -95,9 +101,7 @@ body{font-size: 87.5%; line-height: 1.714285em;}
 			h2.notfound-splash { font-size: 8em; }
 			#wp-calendar caption, #wp-calendar thead th{ font-size: .9em; }
 
-			#callout .callout_head{ font-size:2em; }
-			#callout .callout_copy{ font-size:.9em; }
-			#callout .callout_image a{line-height: 1em;}
+			
 			.fancybox span{font-size: .9em; }
 			.content-pagination .cp-num, .content-pagination a:hover .cp-num{ line-height: 0.9em; }
 			.hentry table th, #comments table th {font-size: 1.1em;}
@@ -371,64 +375,29 @@ body{font-size: 87.5%; line-height: 1.714285em;}
 			margin-top:.5em;
 		}	
 
-/* @ Post Navigation */
-	.post-nav, .current_posts_info {
-		clear: both;
-		padding:5px 10px;
-		margin: 0em 0 1.8em;
-		position: relative;
-	}
-		.post-nav a, .post-nav a:visited { text-decoration: none; }
-		.post-nav a:hover { text-decoration: none; }
-		
-		.post-nav .previous a {
-			float: left;
-			display: block;
-			padding-left: 24px;
-			background: url(sections/postnav/post-previous.png) no-repeat left center;
-		}
-		.post-nav .next a {
-			float: right;
-			display:block;
-			padding-right: 24px;
-			text-align: right;
-			background: url(sections/postnav/post-next.png) no-repeat right center;
-		}
-	
-				/* @ Post Author Section */
-				#postauthor {margin-bottom: 2em;}
-				#postauthor .copy-pad {
-					padding:  10px 15px;
-				}
-			
-					
-					#postauthor .author-info{ margin-left: 120px; }
-					.author-thumb {text-align: left; margin-left: -120px;}
-					.author-thumb img {float:left; margin-right: 25px;padding: 5px;}
-					
-					
-				/* @ Post Footer Area */
+/* @ Post Navigation */				
+	/* @ Post Footer Area */
 
-					.post-footer {
-						padding: 8px 18px 8px;
-						overflow: hidden;
-						margin-bottom:30px;
-					}
-					.post-footer a{ font-weight: bold;}
-					
-					.post-footer .right img { vertical-align: top; }
-									
-					.post-footer .left span {
-						font-weight: bold;
-						text-align: center;
-						padding: 4px 0 8px 0;
-						width: 33px;
-						margin-right: 6px;
-						display: inline-block;
-					}
-					.post-footer .right { padding: 0px 0 0; }
-					.post-footer img { margin: 0 0 0 5px; }
-					.tags {font-style: italic;}
+		.post-footer {
+			padding: 8px 18px 8px;
+			overflow: hidden;
+			margin-bottom:30px;
+		}
+		.post-footer a{ font-weight: bold;}
+		
+		.post-footer .right img { vertical-align: top; }
+						
+		.post-footer .left span {
+			font-weight: bold;
+			text-align: center;
+			padding: 4px 0 8px 0;
+			width: 33px;
+			margin-right: 6px;
+			display: inline-block;
+		}
+		.post-footer .right { padding: 0px 0 0; }
+		.post-footer img { margin: 0 0 0 5px; }
+		.tags {font-style: italic;}
 
 /* @ Sidebar */
 	
@@ -630,22 +599,6 @@ body{font-size: 87.5%; line-height: 1.714285em;}
 	}
 		#wp-calendar thead th { padding: 2px; }
 
-/* @ Callout Section - Free Version */
-
-	#callout{ overflow:hidden;}
-
-	#callout .content-pad{	padding:30px 17px 30px;}
-	#callout .callout_text{	
-		width:70%;
-		float:left;
-	}
-		#callout .callout_text-pad{ padding: 0 10px; }
-		#callout .callout_text.noimage { width:100%; }
-
-
-	#callout .callout_image a{display: block;line-height: 1em;}
-	#callout .callout_image {float:right;width:30%; text-align: center; vertical-align: center;}
-
 /* @ Typekit */
 	.typekit-badge{ display: none !important; }
 
@@ -693,6 +646,175 @@ table {width: 100%;}
 		.wp-caption-dd { padding: 0 4px 5px;	margin: 0;	}
 		.wp-caption img { margin: 0; padding: 0; border: 0 none; }
 		.wp-caption-dd { padding: 0 4px 5px; margin: 0; }			
+
+
+
+
+		/* @ Soap Box */
+			#soapbox .content-pad { padding-top: 1em; }
+			#soapbox .fboxgraphic {
+				text-align: center;
+				margin: 0;
+				padding: 0;
+				overflow:hidden;
+			}
+				#soapbox .fboxgraphic img{vertical-align: bottom;}
+
+				#soapbox .fboxtitle h3 { font-size: 1.4em;}
+				#soapbox .fboxinfo { padding: 1.5em; }
+				#soapbox .dcol-pad { margin: 0 0 1.5em; }
+				#soapbox .post-edit-link{ float: right;}
+
+				a.soapbox_link{
+					float: left;
+					margin-right: 15px;
+				}
+
+		/* @ FlickrRSS Widget */
+
+		.widget_flickrRSS.widget ul{ margin: 7px 0px 0px 0px; }
+		.widget_flickrRSS.widget ul li{display:inline;padding:0;margin:0;border-bottom:none;}
+		.widget_flickr a{display: block;}
+		.widget_flickrRSS a img{margin:6px 5px 6px 5px}
+		.widget_flickrRSS a img {
+			font-size: 10px;
+			border-width: 0px 1px 1px 0px;
+			border-style:solid; 
+			padding: 5px; 
+		}
+
+		/* @ WP125 Advertising Widget */
+				.wp125_write_ads_widget .wp125_write_ads_widget.widget{
+					border:none;
+					padding:0;
+					margin:0 0 1em 0;
+				}
+				.wp125_write_ads_widget .wp125_write_ads_widget.widget .wtitle{display: none;}
+				.wp125_write_ads_widget.widget .winner {
+					padding:0;
+					line-height: 1px;
+				}
+
+				.wp125_write_ads_widget.widget #wp125adwrap_2c .wp125ad a{
+					padding: 5px;
+					width: 125px;
+					margin: 6px 5px 8px 5px;
+					display: block;
+				}
+
+				.wp125_write_ads_widget { padding: 0; }
+				.wp125_write_ads_widget  .winner #wp125adwrap_2c { width:100%;  }
+				.wp125_write_ads_widget #wp125adwrap_2c .wp125ad{
+					padding: 0;
+					width: auto;
+				}
+				#wp125adwrap_2c .wp125ad a{ 
+					margin: 6px;
+					display: block;
+					float:left; 
+					height: 125px;
+					width:125px; 
+					border: 1px solid transparent;
+				}	
+
+		/* @ Pagination & WP-PageNavi Plugin */
+			#page .wp-pagenavi {
+				margin:1.6em .4em 1.6em 0;
+				font-size: .9em;
+			}
+			#page .wp-pagenavi span.pages { border:none; background: transparent; }
+
+			#page .wp-pagenavi a, #page .wp-pagenavi .current, #page .wp-pagenavi .extend{
+				padding: 3px 7px 4px 8px;
+				border: none;
+				font-weight: normal;
+			}
+
+			/* Rounded corners in anything but IE */
+				#page .wp-pagenavi a, #page .wp-pagenavi span{
+					-moz-border-radius: 5px;
+					-khtml-border-radius: 5px;
+					-webkit-border-radius: 5px;
+					border-radius: 5px;
+				}
+
+		/* @Disqus */
+			#site #dsq-content .dsq-request-user-info td a{
+				font-weight: normal;
+				font-size: 1.2em;
+			}
+			#site .dsq-brlink {display: none;}
+			#site #dsq-content .dsq-request-user-info td small a {font-style:italic;}
+
+			#site #dsq-content h3 {
+				line-height:1.5em;
+				margin-bottom:1em;
+			}
+
+		/* @bbPress 2.0 */
+			body.bbPress #postnav, body.bbPress .metabar{display: none;}
+
+			article.forum .bbp-topic-title {text-align: left;}
+			article.forum .bbp-topics p{display: inline;margin: 0 10px;}
+			article.forum .bbp-topic-title .bbp-topic-started-by, article.forum .bbp-topic-title .bbp-topic-started-by a{font-size: 11px; }
+			article.forum .bbp-topic-title a{
+				font-size: 1.4em;
+			}
+			article.forum .bbp-topics th, article.forum .bbp-topics td{
+
+				padding: 5px 8px;
+			}
+			article.forum .bbp-topics th{font-size: 1.2em;}
+			.bbp-form .avatar{display: none;}
+			article.hentry .bbp-reply-content{text-align: left;}
+			#comments p.form-allowed-tags{width: auto;}
+		/* @Facebook Comments */
+			#site #dsq-content .dsq-request-user-info td a{
+				font-weight: normal;
+				font-size: 1.2em;
+			}
+			#site .dsq-brlink {display: none;}
+			#site #dsq-content .dsq-request-user-info td small a {font-style:italic;}
+
+			#site #dsq-content h3 {
+				line-height:1.5em;
+				margin-bottom:1em;
+			}
+
+
+
+		/* FORMS/CONTACT ETC */
+
+			.cform input {padding: 5px;font-size: 1.1em;}
+			.cform fieldset{background: #fff;border:none;}
+			input[type="text"].cf_error:focus {border: 1px solid #000;}
+			 .cform label {
+				display:block;
+				margin:0;
+				text-align:left;
+			}
+			.cform legend{display: none;}
+			.contentcontainer  .cform {margin:5px 50px;padding:0px 0;}
+			.cform ol, .cform li{list-style-type: none; margin:0;padding:0;}
+			.cform li{margin-bottom: .7em;}
+			.cform .single{width: 97%;}
+			.cform .area{width: 97%;}
+			.cform .emailreqtxt,.cform .reqtxt{font-style: italic;}
+			.cf_hidden {display: none;}
+
+			 .success {
+				padding: 15px; 
+				margin-bottom: .5em; 
+				font-size:1.4em;
+			}
+
+			/* Mailing List Form */
+			.mailinglist .cform ol{width:262px; float: left;}
+			.mailinglist .cform .single{width:97%}
+			.mailinglist .cform .sendbutton{margin:21px 0 0 10px;padding: 3px 0 2px 0;}
+			.linklove a{display: none;}
+
+		h2 a > cufon {display:none;}
 
 /* =============== */
 /* = End of CSS  = */

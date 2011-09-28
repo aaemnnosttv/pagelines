@@ -144,10 +144,6 @@ function pagelines_head_common(){
 	
 	// Get CSS Objects & Grids
 	pagelines_load_css_relative('css/objects.css', 'pagelines-objects');
-
-	// Get Pro Styles
-	if(VPRO)
-		pagelines_load_css_relative('pro/pro.css', 'pagelines-pro');
 	
 	// Get Main Styles
 	

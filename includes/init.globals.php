@@ -9,21 +9,12 @@ define('CORE_VERSION', $theme_data['Version']);
 $child_theme_data = get_theme_data(get_stylesheet_directory() . '/style.css');
 define('CHILD_VERSION', $child_theme_data['Version']);
 
-/**
- * If Pro Version
- */
-if(file_exists(get_template_directory().'/pro/init_pro.php'))
-	define('VPRO',true);
-else
-	define('VPRO',false);
-	
-/**
- * If Dev Version
- */
-if(file_exists(get_template_directory().'/dev/init_dev.php'))
-	define('VDEV',true);
-else
-	define('VDEV',false);
+
+/*
+	TODO simon fix this w/ API!!!!
+*/
+define('VPRO',true);
+define('VDEV',false);
 
 if(!defined('PL_DEV'))
 	define('PL_DEV',false);
@@ -31,10 +22,7 @@ if(!defined('PL_DEV'))
 /**
  * Set Theme Name
  */
-if(VPRO) 
-	$theme = 'PageLines';
-else 
-	$theme = 'PageLinesLE';
+$theme = (VPRO) ? 'PageLines' : 'PageLinesLE';
 
 define('CORE_LIB', PL_INCLUDES); // Deprecated, but used in bbPress forum < 1.2.3
 
@@ -75,12 +63,6 @@ define( 'PL_ADMIN_ICONS', PL_ADMIN_IMAGES . '/icons' );
  * Define theme path constants
  */
 define('PL_SECTIONS', get_template_directory() . '/sections');
-
-/**
- * Upload Folder information
- */
-define('PAGELINES_DCSS', get_template_directory() . '/css/dynamic.css');
-define('PAGELINES_DCSS_URI', PARENT_URL . '/css/dynamic.css');
 
 /**
  * Define web constants
