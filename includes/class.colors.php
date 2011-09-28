@@ -312,6 +312,35 @@ class PageLinesColor {
 		
 	}
 	
+	function shadow( $mix, $type = 'text', $diff = null, $echo = true ){
+		
+		
+	
+		if( $type == 'text'){
+			
+			$difference =  ( $this->get_hsl($mix, 'lightness') - $this->base_hsl['lightness'] );
+
+			$difference = ($difference > 0 ) ? .1 : -.2;
+			
+			$prop = ( $difference < 0 ) ?  'text-shadow: 0 1px 0 %s;' : 'text-shadow: 0 -1px 0 %s;';
+			 	
+		} elseif( $type == 'box' ){
+			
+			$difference = -.3;
+			
+			$prop = '%s';
+			
+			
+		}
+		
+		$rule = sprintf( $prop, $this->c( 'shadow', $difference, $mix ) );
+		
+		if($echo)
+			echo $rule;
+		else
+			return $rule;
+	}
+	
 
 }
 //-------- END OF CLASS --------//

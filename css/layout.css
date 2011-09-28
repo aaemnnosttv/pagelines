@@ -21,9 +21,9 @@
 	       width: 100%;
 	    }
 		body .navigation_wrap{text-align: center;}
-		body #primary-nav .main_nav, #primary-nav .main_nav_container {margin-right: 0;}
+		body .navigation_wrap .main_nav, .navigation_wrap .main_nav_container {margin-right: 0;}
 		
-		body #primary-nav .searchform {
+		body .navigation_wrap .searchform {
 			display: inline-block;
 			position: relative;
 			float: none;

@@ -240,6 +240,7 @@ function setColorPicker(optionid, color){
 	});
 	
 	jQuery('#'+optionid).ColorPicker({
+		color: color,
 		onSubmit: function(hsb, hex, rgb, el) {
 			jQuery(el).val(hex);
 			jQuery(el).ColorPickerHide();

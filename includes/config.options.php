@@ -337,7 +337,7 @@ class PageLinesOptionsArray {
 						'math'			=> array(
 							array( 'mode' => 'mix', 'mixwith' => pl_background_cascade(),  'cssgroup' => 'linkcolor_hover', 'css_prop' => 'color', 'diff' => '80%'),	
 							array( 'mode' => 'shadow', 'mixwith' => pl_background_cascade(), 'cssgroup' => 'linkcolor'),
-							)				
+						)				
 					),
 					'footer_text' => array(
 						'default'		=> '#AAAAAA',

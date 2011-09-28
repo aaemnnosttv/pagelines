@@ -102,22 +102,6 @@ class OptEngine {
 			
 			$oset['subkey'] = $oid;
 			
-			
-			// if($o['special'] == 'defaults'){
-			// 				
-			// 				if(ploption( $o['special'], $oset ))
-			// 					$o['val'] = ploption( $o['special'], $oset );
-			// 					
-			// 				elseif($o['default'] != ''){
-			// 					
-			// 					$o['val'] = $o['default'];
-			// 					plupop($o['special'], $o['val'], $oset);
-			// 				} else 
-			// 					$o['val'] = false;
-			// 					
-			// 				
-			// 			} else
-			
 			$o['val'] = ploption( $o['special'], $oset );			
 			$o['input_name'] = plname($o['special'], $oset);
 			$o['input_id'] = plid( $o['special'], $oset);
@@ -827,18 +811,17 @@ class OptEngine {
 
 	function _get_color_picker($oid, $o, $per_row = 3, $last = false){ // Color Picker Template 
 		
+		$the_id = $o['input_id'];
 		
- 		$gen = do_color_math($oid, $o, $o['val'], 'palette');
+ 		$gen = do_color_math($the_id, $o, $o['val'], 'palette');
 		
-		$picker = sprintf('<div id="%s" class="colorSelector"><div></div></div> %s', $oid.'_picker', $this->input_text($oid, $o['input_name'], $o['val'], 'colorpickerclass'));
-		
+		$picker = sprintf('<div id="%s" class="colorSelector"><div></div></div> %s', $the_id.'_picker', $this->input_text($the_id, $o['input_name'], $o['val'], 'colorpickerclass'));
 		
 		$pick_contain = sprintf('<div class="pick_contain">%s</div>', $picker);
-		
 	
-		printf('<div class="the_picker picker_row_%s %s"><div class="picker_panel"><div class="the_picker_pad">%s %s</div></div></div>', $per_row, ($last) ? 'p_end' : '', $this->input_label($oid, $o['inputlabel']), $pick_contain);
+		printf('<div class="the_picker picker_row_%s %s"><div class="picker_panel"><div class="the_picker_pad">%s %s</div></div></div>', $per_row, ($last) ? 'p_end' : '', $this->input_label($the_id, $o['inputlabel']), $pick_contain);
 		
-		printf('<script type="text/javascript">setColorPicker("%s", "%s");</script>', $oid, $o['val']);
+		printf('<script type="text/javascript">setColorPicker("%s", "%s");</script>', $the_id, $o['val']);
   	}
 	
 	
