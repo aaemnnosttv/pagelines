@@ -173,13 +173,6 @@ class PageLinesCarousel extends PageLinesSection {
 		}
 	}
 
-	function section_styles() {
-	
-		wp_register_style('carousel', $this->base_url . '/carousel.css', array(), CORE_VERSION, 'screen');
-	 	wp_enqueue_style( 'carousel' );
-		
-	}   
-
 	function section_head( $clone_id = null ) {   
 		
 		global $pagelines_ID;

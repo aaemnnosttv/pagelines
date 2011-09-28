@@ -13,7 +13,7 @@
 
 class PageLinesFeatures extends PageLinesSection {
 
-	var $taxId = 'feature-sets';
+	var $taxID = 'feature-sets';
 	var $ptID = 'feature';
 
 	function section_persistent(){
@@ -132,7 +132,7 @@ class PageLinesFeatures extends PageLinesSection {
 					'menu_icon'			=> $this->icon
 				);	
 			$taxonomies = array(
-				'feature-sets' => array(	
+				$this->taxID => array(	
 						"label" => __('Feature Sets', 'pagelines'), 
 						"singular_label" => __('Feature Set', 'pagelines'), 
 					)
@@ -142,7 +142,7 @@ class PageLinesFeatures extends PageLinesSection {
 				"title" 				=> "Title",
 				"feature-description" 	=> "Text",
 				"feature-media" 		=> "Media",
-				"feature-sets"			=> "Feature Sets"
+				$this->taxID			=> "Feature Sets"
 			);
 		
 		
@@ -168,7 +168,7 @@ class PageLinesFeatures extends PageLinesSection {
 						'version' 		=> 'pro',
 						'default'		=> 'default-features',
 						'type' 			=> 'select_taxonomy',
-						'taxonomy_id'	=> "feature-sets",				
+						'taxonomy_id'	=> $this->taxID,				
 						'title' 		=> 'Select Feature Set To Show',
 						'shortexp'		=> 'The "set" or category of feature posts',
 						'inputlabel'	=> 'Select Feature Set',
@@ -687,8 +687,8 @@ function draw_features($f, $class, $clone_id = null) {
 					echo '<img src="'.m_pagelines('feature-background-image', $post->ID).'" style="max-width: 200px; max-height: 200px" />'; 
 				}
 				break;
-			case "feature-sets":
-				echo get_the_term_list($post->ID, 'feature-sets', '', ', ','');
+			case $this->taxID:
+				echo get_the_term_list($post->ID, $this->taxID, '', ', ','');
 				break;
 		}
 	}

@@ -329,7 +329,7 @@ class PageLinesBoxes extends PageLinesSection {
 
 			$default_boxes[] = array(
 			        				'title' => 'PageLines Framework',
-					        		'text' 	=> 'The world\'s first ever drag-and-drop framework designed for professional websites. Build beautiful sites the faster.',
+					        		'text' 	=> 'The world\'s first ever drag-and-drop framework designed for professional websites. Build beautiful sites faster.',
 									'media' => $this->base_url.'/images/fbox2.png'
 			    				);
 

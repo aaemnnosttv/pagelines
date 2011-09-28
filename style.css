@@ -471,23 +471,6 @@ body{font-size: 87.5%; line-height: 1.714285em;height:100%;}
 		#footer .widget_twitter .twitter-item{ padding-bottom:10px; }
 		.twitter-item:nth-child(2n){ font-weight:bolder; }
 
-/* @ Simple Nav */ 
-.simplenav { text-align: center; padding: 15px 0;}
-
-.simplenav li a{
-	font-size: .95em;
-	display: inline-block;
-	margin: 0 5px;
-	padding: 2px 4px;
-}
-	.simplenav li a:hover{
-		
-	}
-
-
-/* @ Dynamic Grid */
-	.dcol {	float: left; display:inline;}
-	.dcol.lastcol .dcol-pad {padding-right: 0;}
 
 /* @ Page Navigation */
 	.page-nav-default {padding: 15px 0;}
@@ -608,7 +591,7 @@ body{font-size: 87.5%; line-height: 1.714285em;height:100%;}
 
 /* @ Content Pagination */
 	.content-pagination .cp-desc { font-style: italic; }
-		.content-pagination a:hover{text-decoration:none;}
+	.content-pagination a:hover{text-decoration:none;}
 	.content-pagination .cp-num, .content-pagination a:hover .cp-num{
 		margin: 0 2px;
 		text-decoration: none;
@@ -622,14 +605,33 @@ table {width: 100%;}
 .hentry table th, #comments table th { font-weight: normal; text-align: center; padding: .3em;}
 .hentry table td, #comments table td {padding: .35em .6em; text-align: center;}
 .hentry table .label, #comments table .label{text-align:left;}
-
-
 		
 	.iconlist li{margin-bottom: .5em;}
 	
 	.ui-img-big{margin-right: 15px;}
 
 	.styled-list{list-style-type: none;}
+	
+/* @ Soap Box */
+	#soapbox .content-pad { padding-top: 1em; }
+	#soapbox .fboxgraphic {
+		text-align: center;
+		margin: 0;
+		padding: 0;
+		overflow:hidden;
+	}
+		#soapbox .fboxgraphic img{vertical-align: bottom;}
+
+		#soapbox .fboxtitle h3 { font-size: 1.4em;}
+		#soapbox .fboxinfo { padding: 1.5em; }
+		#soapbox .dcol-pad { margin: 0 0 1.5em; }
+		#soapbox .post-edit-link{ float: right;}
+
+		a.soapbox_link{
+			float: left;
+			margin-right: 15px;
+		}
+
 	
 /* @ Wordpress Caption */
 	.wp-caption {
@@ -646,29 +648,6 @@ table {width: 100%;}
 		.wp-caption-dd { padding: 0 4px 5px;	margin: 0;	}
 		.wp-caption img { margin: 0; padding: 0; border: 0 none; }
 		.wp-caption-dd { padding: 0 4px 5px; margin: 0; }			
-
-
-
-
-		/* @ Soap Box */
-			#soapbox .content-pad { padding-top: 1em; }
-			#soapbox .fboxgraphic {
-				text-align: center;
-				margin: 0;
-				padding: 0;
-				overflow:hidden;
-			}
-				#soapbox .fboxgraphic img{vertical-align: bottom;}
-
-				#soapbox .fboxtitle h3 { font-size: 1.4em;}
-				#soapbox .fboxinfo { padding: 1.5em; }
-				#soapbox .dcol-pad { margin: 0 0 1.5em; }
-				#soapbox .post-edit-link{ float: right;}
-
-				a.soapbox_link{
-					float: left;
-					margin-right: 15px;
-				}
 
 		/* @ FlickrRSS Widget */
 
