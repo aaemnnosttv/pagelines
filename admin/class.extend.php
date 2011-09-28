@@ -363,6 +363,10 @@
 //				$p['type'] = 'free';
 			if ( $tab === 'installed' && !isset( $p['status']['status'] ) )
 				continue;
+				
+			if ( $tab === 'installed' && str_replace( '.php', '', PL_EXTEND_SECTIONS_PLUGIN ) === $p['slug'] )
+				continue;
+
 			if ( ( $tab === 'premium' || $tab === 'free' ) && isset( $p['status']['status'] ) )
 				continue;
 			if ( $tab === 'premium' && $p['price'] === 'free' )
@@ -373,7 +377,7 @@
 				$p['status'] = array( 'status' => '' );
 			if ( $tab === 'free' && $p['price'] != 'free' )
 				continue;	
-				
+			
 			$install = null;
 			$upgrade_available = null;
 			$active = null;
