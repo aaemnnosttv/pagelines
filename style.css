@@ -209,7 +209,7 @@ body{font-size: 87.5%; line-height: 1.714285em;height:100%;}
 			float: left;
 			margin-right: -230px;
 		}
-		#primary-nav .main_nav {			
+		.navigation_wrap .main_nav {			
 			margin-right: 230px;
 			text-align: left;
 			margin-top: 0px;
