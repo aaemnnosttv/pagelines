@@ -176,5 +176,5 @@ function pagelines_check_version() {
 
 add_filter('contextual_help', 'pagelines_inline_help', 10, 3);
 
-if ( WP_DEV )
+if ( PL_DEV )
 	add_action( 'admin_init', array( &$extension_control, 'flush_caches' ) );
