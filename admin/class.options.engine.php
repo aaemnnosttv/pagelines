@@ -928,15 +928,12 @@ class OptEngine {
 
 	function updates_setup($oid, $o){
 		
-			if ( pagelines_check_credentials() )
-				$updates_exp = sprintf( __( 'Successfully logged in to PageLines%1$s.', 'pagelines' ), ( pagelines_check_credentials( 'ssl' ) ) ? ' using SSL' : '' );
+		if ( pagelines_check_credentials() )
+			$updates_exp = sprintf( __( 'Successfully logged in to PageLines%1$s.', 'pagelines' ), ( pagelines_check_credentials( 'ssl' ) ) ? ' using SSL' : '' );
 
-
-
-			if ( pagelines_check_credentials( 'error' ) === 'creds' ) 
-					$updates_exp = sprintf( __( 'ERROR: %1$s<br />There was a problem logging in to PageLines.', 'pagelines' ), pagelines_check_credentials( 'message' ) );
+		if ( pagelines_check_credentials( 'error' ) === 'creds' ) 
+				$updates_exp = sprintf( __( 'ERROR: %1$s<br />There was a problem logging in to PageLines.', 'pagelines' ), pagelines_check_credentials( 'message' ) );
 		
-
 		if ( pagelines_check_credentials( 'licence' ) === 'dev' )
 			$updates_exp .= __( '<br />Developer edition enabled.', 'pagelines' );
 			
@@ -948,53 +945,49 @@ class OptEngine {
 			delete_transient( EXTEND_UPDATE );
 		}
 
-		if ( EXTEND_NETWORK )
+		if ( EXTEND_NETWORK ){
 			$updates_exp = __( 'Updates are disabled for non Network Admins</div>', 'pagelines' );
-			
+			return;
+		}
 		
 			
 		?>
-		<div class="pl_form">
-
-			
-				<?php if ( EXTEND_NETWORK )
-						return;
-					?>			
-			<form method="post" class="pl_account_info fix">
-				<div class="pl_account_info_pad">
+	<div class="pl_form">
+		<div class="pl_form_feedback">
+			<?php echo $updates_exp; ?>
+		</div>
+		
+		<form method="post" class="pl_account_info fix">
+			<div class="pl_account_info_pad">
+				
+				<div class="pl_account_form">
+					<div class="plform_title">
+						<h2>PageLines Account Info</h2>
+					</div>
+					<input type="hidden" name="form_submitted" value="plinfo" />
 					
-					<div class="pl_account_form">
-						<div class="plform_title">
-							<h2>PageLines Account Info</h2>
-						</div>
-						<input type="hidden" name="form_submitted" value="plinfo" />
-						<div class="pl_form_feedback">
-							<?php echo $updates_exp; ?>
-						</div>
-				<?php 
+			<?php 
 
-				if ( pagelines_check_credentials() ):
+			if ( pagelines_check_credentials() ):
 
 				echo '<input type="hidden" name="creds_reset" value="yes" />';
-				echo $this->superlink(__( 'Reset Account Credentials', 'pagelines' ), 'blue', 'updates-setup', 'submit');
-				else:
-				
+				echo $this->superlink(__( 'Reset Account Credentials &rarr;', 'pagelines' ), 'blue', 'updates-setup', 'submit');
+			else:
+			
 				echo $this->input_label( 'lp_username', __( 'PageLines Username', 'pagelines' )); 
 				echo $this->input_text( 'lp_username', 'lp_username', get_pagelines_credentials( 'user' ), 'bigtext pluser');
 				echo $this->input_label( 'lp_password', __( 'PageLines Password', 'pagelines' )); 
 				echo $this->input_text( 'lp_password', 'lp_password', '', 'bigtext pluser', 'password');
-				
-				echo $this->superlink(__( 'Submit Credentials', 'pagelines' ), 'blue', 'updates-setup', 'submit');
-				endif;
-				?>
-				</form>
-						</div>
-					<div class="clear"></div>
-				</div>
 			
-		</div>
-		
-		
+				echo $this->superlink(__( 'Submit Credentials', 'pagelines' ), 'blue', 'updates-setup', 'submit');
+			endif;
+			?>
+			</form>
+					</div>
+				<div class="clear"></div>
+			</div>
+	</div>
+
 <?php }
 
 
