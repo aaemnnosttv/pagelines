@@ -233,21 +233,6 @@ add_theme_support( 'menus' );
 add_theme_support( 'automatic-feed-links' );
 
 
-/** 
- * Add editor styling
- * -- relative link
- */
-add_editor_style( 'admin/css/editor-style.css' );
-
-/**
- * Setup Framework Versions
- */
-if(VPRO) 
-	require_once(PAGELINES_PRO . '/init_pro.php');
-	
-if(VDEV) 
-	require_once(PAGELINES_DEV . '/init_dev.php');	
-	
 /**
  * Build Version
  */	
