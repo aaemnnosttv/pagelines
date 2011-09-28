@@ -941,8 +941,7 @@ class OptEngine {
 			$updates_exp = __( 'Please set your PageLines login credentials.', 'pagelines' );
 
 		if ( pagelines_check_credentials( 'error' ) === 'licence' ) {
-			$updates_exp = sprintf( '%s', pagelines_check_credentials( 'message' ) );
-			delete_transient( EXTEND_UPDATE );
+			$updates_exp .= sprintf( '<br /><br />%s', pagelines_check_credentials( 'message' ) );
 		}
 
 		if ( EXTEND_NETWORK ){

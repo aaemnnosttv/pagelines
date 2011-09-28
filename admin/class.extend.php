@@ -100,7 +100,7 @@
 
 			$key = str_replace( '.', '', $key );
 			
-			$updates_configured = ( is_array( $a = get_transient( EXTEND_UPDATE ) ) && isset($a['package']) && $a['package'] !== 'bad' ) ? true : false;
+			$updates_configured = ( pagelines_check_credentials() ) ? true : false;
 
 			$purchased = ( isset( $s->purchased ) ) ? true : false;
 
@@ -356,7 +356,7 @@
 		}
 		
 		$list = array();
-		$updates_configured = ( is_array( $a = get_transient( EXTEND_UPDATE ) ) && isset($a['package']) && $a['package'] !== 'bad' ) ? true : false;
+		$updates_configured = ( pagelines_check_credentials() ) ? true : false;
 		foreach( $plugins as $key => $p ) {
 	
 //			if ( !isset( $p['type'] ) )
@@ -600,7 +600,7 @@
 					
 				$is_active = ( $key  == basename( get_stylesheet_directory() ))	? true : false;
 					
-				$updates_configured = ( is_array( $a = get_transient( EXTEND_UPDATE ) ) && isset($a['package']) && $a['package'] !== 'bad' ) ? true : false;	
+				$updates_configured = ( pagelines_check_credentials() ) ? true : false;	
 					
 				$activate = ($status == 'installed' && !$is_active) ? true : false;
 				$deactivate = ($status == 'installed' && $is_active) ? true : false;
