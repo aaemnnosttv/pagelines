@@ -928,25 +928,31 @@ class OptEngine {
 
 	function updates_setup($oid, $o){
 		
-		if ( get_pagelines_credentials( 'user' ) === '' )
-			$updates_exp = __( 'Please set your PageLines login credentials.', 'pagelines' );
-		else
 			if ( pagelines_check_credentials() )
 				$updates_exp = sprintf( __( 'Successfully logged in to PageLines%1$s.', 'pagelines' ), ( pagelines_check_credentials( 'ssl' ) ) ? ' using SSL' : '' );
-			else	
-				if ( pagelines_check_credentials( 'error' ) ) 
-					$updates_exp = sprintf( __( 'ERROR: %1$s<br />There was a problem logging in to PageLines.', 'pagelines' ), pagelines_check_credentials( 'error' ) );
-				else
-					$updates_exp = __( 'Unknown api error??', 'pagelines' );
+
+
+
+			if ( pagelines_check_credentials( 'error' ) === 'creds' ) 
+					$updates_exp = sprintf( __( 'ERROR: %1$s<br />There was a problem logging in to PageLines.', 'pagelines' ), pagelines_check_credentials( 'message' ) );
 		
-
-
 
 		if ( pagelines_check_credentials( 'licence' ) === 'dev' )
 			$updates_exp .= __( '<br />Developer edition enabled.', 'pagelines' );
+			
+		if ( get_pagelines_credentials( 'user' ) === '' || get_pagelines_credentials( 'pass' ) === '' )
+			$updates_exp = __( 'Please set your PageLines login credentials.', 'pagelines' );
+
+		if ( pagelines_check_credentials( 'error' ) === 'licence' ) {
+			$updates_exp = sprintf( '%s', pagelines_check_credentials( 'message' ) );
+			delete_transient( EXTEND_UPDATE );
+		}
 
 		if ( EXTEND_NETWORK )
 			$updates_exp = __( 'Updates are disabled for non Network Admins</div>', 'pagelines' );
+			
+		
+			
 		?>
 		<div class="pl_form">
 

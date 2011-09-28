@@ -654,7 +654,7 @@ function pagelines_check_credentials( $type = 'setup' ) {
 	switch( $type ) {
 		
 		case 'setup':
-			if ( is_array( $a = get_transient( EXTEND_UPDATE ) ) && isset($a['package']) && $a['package'] !== 'bad' )
+			if ( is_array( $a = get_transient( EXTEND_UPDATE ) ) && isset($a['credentials']) && $a['credentials'] === 'true' )
 				return true;
 			else
 				return false;		
@@ -678,5 +678,9 @@ function pagelines_check_credentials( $type = 'setup' ) {
 		case 'echo':
 			return get_transient( EXTEND_UPDATE );
 		break;
+		
+		case 'message':
+		if ( is_array( $a = get_transient( EXTEND_UPDATE ) ) && isset($a['message']) )
+			return $a['message'];
 	}
 }
