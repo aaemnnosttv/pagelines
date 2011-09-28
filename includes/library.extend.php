@@ -77,5 +77,4 @@ function pagelines_try_api( $url, $options ) {
 	}
 }
 
-if ( pagelines_check_credentials( 'licence' ) === 'dev' )
-	define( 'VDEV', true );
+define( 'VDEV', ( pagelines_check_credentials( 'licence' ) === 'dev' ) ? true : false );
