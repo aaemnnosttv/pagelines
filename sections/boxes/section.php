@@ -12,15 +12,18 @@
 
 class PageLinesBoxes extends PageLinesSection {
 
-	/*
-		Loads php that will run on every page load (admin and site)
-		Used for creating administrative information, like post types
-	*/
+	var $taxID = 'box-sets';
+	var $ptID = 'boxes';
 
 	function section_persistent(){
-		/* 
-			Create Custom Post Type 
-		*/
+		
+		$this->post_type_setup();
+		
+		$this->post_meta_setup();
+		
+	}
+	
+	function post_type_setup(){
 			$args = array(
 					'label' 			=> __('Boxes', 'pagelines'),  
 					'singular_label' 	=> __('Box', 'pagelines'),
@@ -28,72 +31,63 @@ class PageLinesBoxes extends PageLinesSection {
 					'menu_icon'			=> $this->icon
 				);
 			$taxonomies = array(
-				"box-sets" => array(	
+				$this->taxID => array(	
 						"label" => __('Box Sets', 'pagelines'), 
 						"singular_label" => __('Box Set', 'pagelines'), 
 					)
 			);
 			$columns = array(
-				"cb" => "<input type=\"checkbox\" />",
-				"title" => "Title",
-				"bdescription" => "Text",
-				"bmedia" => "Media",
-				"box-sets" => "Box Sets"
+				"cb"	 		=> "<input type=\"checkbox\" />",
+				"title" 		=> "Title",
+				"bdescription" 	=> "Text",
+				"bmedia" 		=> "Media",
+				$this->taxID 	=> "Box Sets"
 			);
 		
-			$column_value_function = 'box_column_display';
-		
-			$this->post_type = new PageLinesPostType($this->id, $args, $taxonomies, $columns, $column_value_function);
+			$this->post_type = new PageLinesPostType( $this->ptID, $args, $taxonomies, $columns, array(&$this, 'column_display'));
 		
 				/* Set default posts if none are present */
 				
 				$this->post_type->set_default_posts( 'pagelines_default_boxes', $this);
+	}
 
-
-		/*
-			Meta Options
-		*/
+	function post_meta_setup(){
 		
-				/*
-					Create meta fields for the post type
-				*/
-					$type_meta_array = array(
-						'the_box_icon' 		=> array(
-								'version' 	=> 'pro',
-								'type' 		=> 'image_upload',					
-								'title' 	=> 'Box Image',
-								'shortexp' 	=> 'Upload an image for the box.',
-								'exp'		=> 'Depending on your settings this image will be used as an icon, or splash image; so desired size may vary.'
-							), 
-						'the_box_icon_link'		=> array(
-								'version' => 'pro',
-								'type' => 'text',					
-								'title' => 'Box Link (Optional)',
-								'shortexp' => 'Make the box image and title clickable by adding a link here (optional)...'
-							)
-					);
+			$type_meta_array = array(
+				'the_box_icon' 		=> array(
+						'version' 	=> 'pro',
+						'type' 		=> 'image_upload',					
+						'title' 	=> 'Box Image',
+						'shortexp' 	=> 'Upload an image for the box.',
+						'exp'		=> 'Depending on your settings this image will be used as an icon, or splash image; so desired size may vary.'
+					), 
+				'the_box_icon_link'		=> array(
+						'version' => 'pro',
+						'type' => 'text',					
+						'title' => 'Box Link (Optional)',
+						'shortexp' => 'Make the box image and title clickable by adding a link here (optional)...'
+					)
+			);
 
-					$post_types = array($this->id); 
-					
-					$type_metapanel_settings = array(
-							'id' 		=> 'boxes-metapanel',
-							'name' 		=> THEMENAME." Box Options",
-							'posttype' 	=> $post_types,
-						);
-					
-					global $boxes_meta_panel;
-					
-					$boxes_meta_panel =  new PageLinesMetaPanel( $type_metapanel_settings );
-					
-					$type_metatab_settings = array(
-						'id' 		=> 'boxes-type-metatab',
-						'name' 		=> "Box Setup Options",
-						'icon' 		=> $this->icon,
-					);
+			$post_types = array($this->id); 
+			
+			$type_metapanel_settings = array(
+					'id' 		=> 'boxes-metapanel',
+					'name' 		=> THEMENAME." Box Options",
+					'posttype' 	=> $post_types,
+				);
+			
+			global $boxes_meta_panel;
+			
+			$boxes_meta_panel =  new PageLinesMetaPanel( $type_metapanel_settings );
+			
+			$type_metatab_settings = array(
+				'id' 		=> 'boxes-type-metatab',
+				'name' 		=> "Box Setup Options",
+				'icon' 		=> $this->icon,
+			);
 
-					$boxes_meta_panel->register_tab( $type_metatab_settings, $type_meta_array );
-						
-						
+			$boxes_meta_panel->register_tab( $type_metatab_settings, $type_meta_array );
 		
 	}
 
@@ -106,7 +100,7 @@ class PageLinesBoxes extends PageLinesSection {
 						'version' 		=> 'pro',
 						'default'		=> 'default-boxes',
 						'type' 			=> 'select_taxonomy',
-						'taxonomy_id'	=> "box-sets",				
+						'taxonomy_id'	=> $this->taxID,				
 						'title'		 	=> 'Select Box Set To Show',
 						'shortexp' 			=> 'If you are using the box section, select the box set you would like to show on this page.'
 					), 
@@ -255,7 +249,7 @@ class PageLinesBoxes extends PageLinesSection {
 		$query['orderby'] 	= 'ID'; 
 		
 		if(isset($set)) 
-			$query['box-sets'] = $set; 
+			$query[ $this->taxID ] = $set; 
 			
 		if(isset($limit)) 
 			$query['showposts'] = $limit; 
@@ -317,11 +311,11 @@ class PageLinesBoxes extends PageLinesSection {
 				if(isset($dp['media']))
 					update_post_meta($newPostID, 'the_box_icon', $dp['media']);
 
-				wp_set_object_terms($newPostID, 'default-boxes', 'box-sets');
+				wp_set_object_terms($newPostID, 'default-boxes', $this->taxID );
 
 				// Add other default sets, if applicable.
 				if(isset($dp['set']))
-					wp_set_object_terms($newPostID, $dp['set'], 'box-sets', true);
+					wp_set_object_terms($newPostID, $dp['set'], $this->taxID, true);
 
 			}
 		}
@@ -330,44 +324,44 @@ class PageLinesBoxes extends PageLinesSection {
 			$default_boxes[] = array(
 			        				'title' => 'Drag&amp;Drop Control',
 					        		'text' 	=> 'Control the structure of your site using drag and drop functionality. Pro web design has never been easier.',
-									'media' => $this->base_url.'/fbox3.png'
+									'media' => $this->base_url.'/images/fbox3.png'
 			    				);
 
 			$default_boxes[] = array(
 			        				'title' => 'PageLines Framework',
 					        		'text' 	=> 'The world\'s first ever drag-and-drop framework designed for professional websites. Build beautiful sites the faster.',
-									'media' => $this->base_url.'/fbox2.png'
+									'media' => $this->base_url.'/images/fbox2.png'
 			    				);
 
 			$default_boxes[] = array(
 			        				'title'	=> 'Add-On Marketplace',
 			        				'text' 	=> 'Load up your own sections, themes and plugins using PageLines\' one of a kind extension marketplace.', 
-									'media' => $this->base_url.'/fbox1.png'
+									'media' => $this->base_url.'/images/fbox1.png'
 			    				);
 
 			return apply_filters('pagelines_default_boxes', $default_boxes);
 		}
 	
-// End of Section Class //
+	function column_display($column){
+		global $post;
+
+		switch ($column){
+			case "bdescription":
+				the_excerpt();
+				break;
+			case "bmedia":
+				if(get_post_meta($post->ID, 'the_box_icon', true )){
+
+					echo '<img src="'.get_post_meta($post->ID, 'the_box_icon', true ).'" style="max-width: 80px; margin: 10px; border: 1px solid #ccc; padding: 5px; background: #fff" />';	
+				}
+
+				break;
+			case $this->taxID:
+				echo get_the_term_list($post->ID, 'box-sets', '', ', ','');
+				break;
+		}
+	}
+
 }
 
-function box_column_display($column){
-	global $post;
-	
-	switch ($column){
-		case "bdescription":
-			the_excerpt();
-			break;
-		case "bmedia":
-			if(get_post_meta($post->ID, 'the_box_icon', true )){
-			
-				echo '<img src="'.get_post_meta($post->ID, 'the_box_icon', true ).'" style="max-width: 80px; margin: 10px; border: 1px solid #ccc; padding: 5px; background: #fff" />';	
-			}
-			
-			break;
-		case "box-sets":
-			echo get_the_term_list($post->ID, 'box-sets', '', ', ','');
-			break;
-	}
-}
 

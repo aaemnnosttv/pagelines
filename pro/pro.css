@@ -13,72 +13,6 @@
 	.fixed_width #header .searchform { margin-right: 10px }
 	.fixed_width #boxes .dcol-pad {padding: 10px;}
 
-
-
-/* @ Highlight Section */
-
-	#highlight {
-		text-align: center;
-
-	}
-		#highlight .content-pad .highlight-area{padding: 50px 15px 60px;}
-		#highlight .copy-pad .highlight-area{padding: 20px 15px;}
-
-		#highlight .content .highlight-subhead, #highlight .copy-pad .highlight-subhead{
-			font-size: .85em;
-		}
-		
-		#highlight .hl-image-bottom{
-			margin: 3em 0 0 0;
-		}
-		
-		#highlight .highlight-splash img {max-width: 100%;}
-		
-/* @ Feature Boxes */
-
-	#boxes .content-pad{
-		padding-top: .4em;
-		padding-bottom: .4em;
-	}
-		.fboxtitle h3{
-			padding: 0 0 2px 0;
-			font-size: 1.3em;
-		}
-		#boxes .dcol-pad{ padding: 10px 0; }
-		.fboxes p { margin: 0; margin-bottom: 10px; }
-		.fboxes ul {
-		 	list-style-type: none;
-		 	margin-top: 5px;
-		 }
-
-		.fboxes ul a {
-		 	text-decoration: none;
-		 }
-		.fboxes a:hover {
-		 	text-decoration: underline;
-		 }
-		
-		.fboxes #searchbox {
-		 	padding: 1px;
-		 	width: 160px;
-		 }
-
-		.fboxes li {
-		 	margin-bottom: 5px;
-		 	line-height: 17px; /* Required for cross-browser consistency; cross-browser defaults vary. */
-		 }
-
-		.inline_thumbs .fboxgraphic { padding-top:5px; }
-
-		.top_thumbs .fboxgraphic, .only_thumbs .fboxgraphic{
-			text-align: center;
-			margin-bottom:5px;
-		}
-		.only_thumbs .fboxinfo{ display: none; }
-
-		.fboxinfo{ overflow:hidden; padding:5px 0px 0 0px; }
-	
-		
 /* @ Soap Box */
 	#soapbox .content-pad { padding-top: 1em; }
 	#soapbox .fboxgraphic {
@@ -98,61 +32,7 @@
 			float: left;
 			margin-right: 15px;
 		}
-	
-/* @ Banners */
-
-#banners .content-pad { padding-top: 15px; padding-bottom: 15px; }
-	.banner_container .banner-area {padding: 30px 0;}
-	
-	.banner_container .banner-media {text-align: center;}
-
-	.banner_container .banner_right .banner-media, .banner_container .banner_left .banner-text{ float: right; }
-	.banner_container .banner_left .banner-media, .banner_container .banner_right .banner-text{ float: left; }
-	
-	.banner_container .banner-text{
-		position:relative;
-		z-index:9;
-	}
-	.banner_container .banner-text-pad {
-		padding: 10px 30px;
-	}
-		.banner-title {margin-bottom: 1em;}
 		
-		.banner-content { font-size: 1.2em;line-height: 1.6em;}
-
-/* @ Twitter Bar */
-	#twitterbar .content .tbubble{
-		font-style:italic;
-		background: url(../sections/twitterbar/twitter-balloon.png) no-repeat 0 12px;
-		padding: 12px 25px;
-	}
-	#twitterbar .twitteraccount{font-style:normal;}
-	
-	.widget ul.twitter .twitter-item{
-		font-weight: normal;
-		font-style: italic;
-		margin-bottom: .4em;
-		font-size: .9em;
-	}
-
-/* @ MoreFoot Sidebars */
-
-	#morefoot .content-pad{
-		padding-top: 20px;
-		padding-bottom: 10px;
-	}
-
-		#morefoot .widget-title{
-			padding-left: 0;
-			margin-bottom: .7em;
-		}
-
-		#morefoot .widget ul{margin-left:10px;}
-		#morefoot .widget ul li{
-			padding: .2em 0;
-			border:none;
-		}
-	
 /* @ Content Widgetized Sidebar */
 	
 	#content_sidebar{ margin: 1em 0; }

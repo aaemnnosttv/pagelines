@@ -14,38 +14,17 @@
 class PageLinesFeatures extends PageLinesSection {
 
 	var $taxId = 'feature-sets';
-	var $ptId = 'pl_features';
+	var $ptID = 'feature';
 
 	function section_persistent(){
 		
-			$args = array(
-					'label' 			=> __('Features', 'pagelines'),  
-					'singular_label' 	=> __('Feature', 'pagelines'),
-					'description' 		=> 'For setting slides on the feature page template',
-					'taxonomies'		=> array( $this->taxID ), 
-					'menu_icon'			=> $this->icon
-				);	
-			$taxonomies = array(
-				'feature-sets' => array(	
-						"label" => __('Feature Sets', 'pagelines'), 
-						"singular_label" => __('Feature Set', 'pagelines'), 
-					)
-			);
-			$columns = array(
-				"cb" 					=> "<input type=\"checkbox\" />",
-				"title" 				=> "Title",
-				"feature-description" 	=> "Text",
-				"feature-media" 		=> "Media",
-				"feature-sets"			=> "Feature Sets"
-			);
+		$this->post_type_setup();
 		
-			$column_value_function = 'feature_column_display';
-		
-			$this->post_type = new PageLinesPostType( $this->id, $args, $taxonomies, $columns, $column_value_function );
-		
-			/* Set default posts if none are present */
-				
-			$this->post_type->set_default_posts( 'update_default_posts', $this);
+		$this->post_meta_setup();	 
+
+	}
+
+	function post_meta_setup(){
 		
 			$type_meta_array = array(
 					'feature-style' => array(
@@ -122,7 +101,7 @@ class PageLinesFeatures extends PageLinesSection {
 			);
 			
 			// Add options for correct post type.
-			$post_types = (ploption('feature_source') == 'posts') ? array($this->id, 'post') : array($this->id);
+			$post_types = (ploption('feature_source') == 'posts') ? array( $this->ptID, 'post' ) : array( $this->ptID );
 			
 			$type_metapanel_settings = array(
 					'id' 		=> 'feature-metapanel',
@@ -141,8 +120,35 @@ class PageLinesFeatures extends PageLinesSection {
 			);
 			
 			$type_meta_panel->register_tab( $type_metatab_settings, $type_meta_array );
-			 
+		
+	}
 
+	function post_type_setup(){
+			$args = array(
+					'label' 			=> __('Features', 'pagelines'),  
+					'singular_label' 	=> __('Feature', 'pagelines'),
+					'description' 		=> 'For setting slides on the feature page template',
+					'taxonomies'		=> array( $this->taxID ), 
+					'menu_icon'			=> $this->icon
+				);	
+			$taxonomies = array(
+				'feature-sets' => array(	
+						"label" => __('Feature Sets', 'pagelines'), 
+						"singular_label" => __('Feature Set', 'pagelines'), 
+					)
+			);
+			$columns = array(
+				"cb" 					=> "<input type=\"checkbox\" />",
+				"title" 				=> "Title",
+				"feature-description" 	=> "Text",
+				"feature-media" 		=> "Media",
+				"feature-sets"			=> "Feature Sets"
+			);
+		
+		
+			$this->post_type = new PageLinesPostType( $this->ptID, $args, $taxonomies, $columns, array(&$this, 'column_display') );
+		
+			$this->post_type->set_default_posts( 'update_default_posts', $this);
 	}
 
 	function section_optionator( $settings ){
@@ -444,7 +450,7 @@ function load_pagelines_features( $set = null, $limit = null, $source = null, $c
 
 	} else {
 		
-		$query['post_type'] = 'feature'; 
+		$query['post_type'] = $this->ptID; 
 		
 		if(isset($set)) 
 			$query[ $this->taxID ] = $set;
@@ -604,7 +610,7 @@ function draw_features($f, $class, $clone_id = null) {
 			$default = array();
 			$default['post_title'] = $p['title'];
 			$default['post_content'] = $p['text'];
-			$default['post_type'] = 'feature';
+			$default['post_type'] = $this->ptID;
 			$default['post_status'] = 'publish';
 			
 			if ( defined( 'ICL_LANGUAGE_CODE' ) )
@@ -618,7 +624,7 @@ function draw_features($f, $class, $clone_id = null) {
 			update_post_meta($newPostID, 'feature-media', $p['media']);
 			update_post_meta($newPostID, 'feature-background-image', $p['background']);
 			update_post_meta($newPostID, 'feature-design', $p['fcontent-design']);
-			wp_set_object_terms($newPostID, 'default-features', 'feature-sets');
+			wp_set_object_terms($newPostID, 'default-features', $this->taxID );
 		}
 	}
 	
@@ -665,30 +671,30 @@ function draw_features($f, $class, $clone_id = null) {
 		return ( isset( $categories) ) ? $categories : array();
 	}
 
-// End of Section Class //
-}
+	function column_display($column){
+		global $post;
 
-function feature_column_display($column){
-	global $post;
-	
-	switch ($column){
-		case "feature-description":
-			the_excerpt();
-			break;
-		case "feature-media":
-		 	if(m_pagelines('feature-media', $post->ID)){
-				em_pagelines('feature-media', $post->ID);
-			}elseif(m_pagelines('feature-media-image', $post->ID)){
-				echo '<img src="'.m_pagelines('feature-media', $post->ID).'" style="max-width: 200px; max-height: 200px" />'; 
-			}elseif(m_pagelines('feature-background-image', $post->ID)){
-				echo '<img src="'.m_pagelines('feature-background-image', $post->ID).'" style="max-width: 200px; max-height: 200px" />'; 
-			}
-			break;
-		case "feature-sets":
-			echo get_the_term_list($post->ID, 'feature-sets', '', ', ','');
-			break;
+		switch ($column){
+			case "feature-description":
+				the_excerpt();
+				break;
+			case "feature-media":
+			 	if(m_pagelines('feature-media', $post->ID)){
+					em_pagelines('feature-media', $post->ID);
+				}elseif(m_pagelines('feature-media-image', $post->ID)){
+					echo '<img src="'.m_pagelines('feature-media', $post->ID).'" style="max-width: 200px; max-height: 200px" />'; 
+				}elseif(m_pagelines('feature-background-image', $post->ID)){
+					echo '<img src="'.m_pagelines('feature-background-image', $post->ID).'" style="max-width: 200px; max-height: 200px" />'; 
+				}
+				break;
+			case "feature-sets":
+				echo get_the_term_list($post->ID, 'feature-sets', '', ', ','');
+				break;
+		}
 	}
 }
+
+
 
 		
 

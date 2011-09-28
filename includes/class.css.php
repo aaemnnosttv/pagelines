@@ -114,7 +114,6 @@ class PageLinesCSS {
 		elseif( $v )
 			$this->set_factory_key($cssgroup, $this->get_the_rule( 'color', $v ));
 		
-	
 	}
 	
 	function load_the_props( $props, $val ){

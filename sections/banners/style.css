@@ -1,0 +1,20 @@
+/* @ Banners */
+
+#banners .content-pad { padding-top: 15px; padding-bottom: 15px; }
+	.banner_container .banner-area {padding: 30px 0;}
+	
+	.banner_container .banner-media {text-align: center;}
+
+	.banner_container .banner_right .banner-media, .banner_container .banner_left .banner-text{ float: right; }
+	.banner_container .banner_left .banner-media, .banner_container .banner_right .banner-text{ float: left; }
+	
+	.banner_container .banner-text{
+		position:relative;
+		z-index:9;
+	}
+	.banner_container .banner-text-pad {
+		padding: 10px 30px;
+	}
+		.banner-title {margin-bottom: 1em;}
+		
+		.banner-content { font-size: 1.2em;line-height: 1.6em;}

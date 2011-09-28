@@ -1,0 +1,17 @@
+/* @ MoreFoot Sidebars */
+
+	#morefoot .content-pad{
+		padding-top: 20px;
+		padding-bottom: 10px;
+	}
+
+		#morefoot .widget-title{
+			padding-left: 0;
+			margin-bottom: .7em;
+		}
+
+		#morefoot .widget ul{margin-left:10px;}
+		#morefoot .widget ul li{
+			padding: .2em 0;
+			border:none;
+		}

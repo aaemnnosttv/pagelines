@@ -1,7 +1,7 @@
 /* Created by PageLines */
 
 
-#feature .content-pad{
+#features .content-pad{
 	padding-top: 1em;
 	padding-bottom: 1em;
 }
@@ -234,7 +234,7 @@
 				}
 				
 			/* @ Feature Thumb Navigation */
-				#feature .thumbs #featurenav a{
+				#features .thumbs #featurenav a{
 					background: none;
 					margin: 0;
 					padding: 0;
