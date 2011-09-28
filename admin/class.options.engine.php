@@ -964,17 +964,15 @@ class OptEngine {
 				<?php 
 			
 				echo $this->input_label( 'lp_username', __( 'PageLines Username', 'pagelines' )); 
-				echo $this->input_text( 'lp_username', 'lp_username', ploption( 'lp_username' ), 'bigtext pluser');
+				echo $this->input_text( 'lp_username', 'lp_username', get_pagelines_option( 'lp_username' ), 'bigtext pluser');
 				echo $this->input_label( 'lp_password', __( 'PageLines Password', 'pagelines' )); 
-				echo $this->input_text( 'lp_password', 'lp_password', ploption( 'lp_password' ), 'bigtext pluser', 'password');
+				echo $this->input_text( 'lp_password', 'lp_password', get_pagelines_option( 'lp_password' ), 'bigtext pluser', 'password');
 		
 				$checked = checked((bool) ploption('disable_updates'), true, false);
 
 				$input = $this->input_checkbox('disable_auto_update', 'disable_auto_update', $checked);
-
 				echo $this->input_label_inline('disable_auto_update', $input, __( 'Disable Auto Updates', 'pagelines' ));
 	
-
 				echo $this->superlink(__( 'Save Account Info', 'pagelines' ), 'blue', 'updates-setup', 'submit'); 
 			
 				?>
