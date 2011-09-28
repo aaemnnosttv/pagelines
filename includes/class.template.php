@@ -491,8 +491,11 @@ class PageLinesTemplate {
 				$clone_id = (isset($pieces[1])) ? $pieces[1] : null;
 				
 				if( $this->in_factory( $section ) ){
+					
 					$this->factory[$section]->section_head( $clone_id );
+					
 					echo plstrip( $this->factory[$section]->dynamic_style( $clone_id ) );
+					
 				}
 			}
 			
