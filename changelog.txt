@@ -13,6 +13,11 @@
 
 
 Version 2.0.0
+
+	BETA - 16
+	- Massive sections upgrade!
+	- New license check system
+
 	BETA - 15
 	- Whole admin is now fully translatable.
 	- Multisite 'fixes' for extend:
