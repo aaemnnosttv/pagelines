@@ -67,10 +67,12 @@ class PageLinesExtendUI {
 			
 		} else {
 			
-			foreach( $list as $eid => $e )
-				$ext .= $this->pane_template( $e );
-			
-			$output = sprintf('<ul class="the_sections plpanes">%s%s</ul>', $active, $ext);
+			$count = 1;
+			foreach( $list as $eid => $e ){
+				$ext .= $this->pane_template( $e, $count );
+				$count++;
+			}
+			$output = sprintf('<div class="the_sections plpanes fix">%s%s</div>', $active, $ext);
 			
 		}
 		
@@ -102,22 +104,21 @@ class PageLinesExtendUI {
 		
 	}
 	
-	function pane_template( $e ){
+	function pane_template( $e, $count ){
 
 		$s = wp_parse_args( $e, $this->defaultpane);
 
-		// Left for reference
-		//$screenshot = ( $s['image'] ) ? sprintf('<div class="extend-screenshot"><a class="screenshot-%s" href="http://api.pagelines.com/%s/img/%s.png" rel="http://api.pagelines.com/%s/img/%s.png"><img src="http://api.pagelines.com/%s/img/thumb-%s.png"></a></div>' , str_replace( '.', '-', $s['key']), $s['type'], $s['key'], $s['type'], $s['key'], $s['type'], $s['key']) : '';
+		$screen = sprintf( '<div class="img paneimg"><img src="%s" /></div>', PL_ADMIN_IMAGES.'/screenshot-default.png' );
 
-		$title = sprintf('<div class="pane-head"><div class="pane-head-pad"><h3 class="pane-title">%s</h3><div class="pane-sub">%s</div></div></div>', $s['name'], $this->get_extend_buttons( $e ));
+		$title = sprintf('<div class="pane-head"><div class="pane-head-pad"><h3 class="pane-title">%s</h3></div></div>', $s['name'] );
 
 		$auth = sprintf('<div class="pane-dets"><strong>%s</strong> | by <a href="%s">%s</a></div>', 'v' . $s['version'], $s['auth_url'], $s['auth']);
 
-		$body = sprintf('<div class="pane-desc"><div class="pane-desc-pad">%s %s</div></div>', $s['desc'], $auth);
+		$body = sprintf('<div class="pane-desc"><div class="pane-desc-pad">%s</div></div><div class="pane_buttons">%s</div>%s', $s['desc'], $this->get_extend_buttons( $e ), $auth);
+		
+		$break = ($count % 3 == 0) ? sprintf('<div class="clear"></div>') : '';
 
-		$response = sprintf('<li id="response%s" class="install_response"><div class="rp"></div></li>', $s['key']);
-
-		return sprintf('<li class="plpane pane-plugin"><div class="plpane-hl fix"><div class="plpane-pad fix">%s %s </div></div></li>%s', $title, $body, $response);
+		return sprintf('<div class="plpane"><div class="plpane-pad fix"><div class="plpane-box fix"><div class="plpane-box-pad">%s %s %s</div> </div></div></div>%s', $screen, $title, $body, $break);
 		
 	}
 	
@@ -181,10 +182,16 @@ class PageLinesExtendUI {
 		
 		$js_call = sprintf( $this->exprint, $a['case'], $a['key'], $a['type'], $a['file'], $a['path'], $a['product'], $a['dtext']);
 		
+		
+		if($a['mode'] == 'deactivate' || $a['mode'] == 'delete')
+			$class = 'discrete';
+		else 
+			$class = '';
+		
 		if($style == 'superlink')
 			$button = OptEngine::superlink( $a['text'], $a['mode'], '', '', $js_call);
 		else
-			$button = sprintf('<span class="extend_button %s" %s>%s</span>', $a['mode'], $js_call, $a['text']);
+			$button = sprintf('<span class="extend_button %s" %s>%s</span>', $class, $js_call, $a['text']);
 		
 		return $button;
 	}

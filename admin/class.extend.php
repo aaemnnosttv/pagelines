@@ -128,7 +128,7 @@
 						'type'		=> __( 'sections', 'pagelines' ),
 						'file'		=> $key,
 						'path'		=> $s->class,
-						'text'		=> __( 'Install', 'pagelines' ),
+						'text'		=> __( 'Install &darr;', 'pagelines' ),
 						'dtext'		=> ''
 					),
 					'login'	=> array(
@@ -137,7 +137,7 @@
 						'case'		=> 'theme_login',
 						'type'		=> 'sections',
 						'file'		=> $key,
-						'text'		=> __( 'Login', 'pagelines' ),
+						'text'		=> __( 'Login &rarr;', 'pagelines' ),
 						'dtext'		=> __( 'Redirecting', 'pagelines' ),
 					),
 					'purchase'	=> array(
@@ -146,7 +146,7 @@
 						'case'		=> 'theme_purchase',
 						'type'		=> 'themes',
 						'file'		=> ( isset( $s->productid ) ) ? $s->productid : '',
-						'text'		=> __( 'Purchase', 'pagelines' ),
+						'text'		=> sprintf('%s <span class="prc">($%s)</span>', __( 'Purchase', 'pagelines' ), $s->price),
 						'dtext'		=> __( 'Redirecting', 'pagelines' ),
 					)		
 			);	
@@ -218,7 +218,7 @@
 
 			foreach( $type as $key => $s)
 				$type[$key]['status'] = ( isset( $disabled[ $s['type'] ][ $s['class'] ] ) ) ? 'disabled' : 'enabled';
-
+			plprint($s);
 			/*
 	 		 * Sort Alphabetically
 	 		 */
