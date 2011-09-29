@@ -160,7 +160,9 @@
 					'type'		=> 'sections',
 					'key'		=> $key, 
 					'ext_txt'	=> __( 'Installing', 'pagelines' ), 
-					'actions'	=> $actions
+					'actions'	=> $actions,
+					'screen'	=> isset( $s->screen ) ? $s->screen : false,
+					'slug'		=> isset( $s->slug ) ? $s->slug : $key
 			);
 			
 		}
@@ -297,9 +299,9 @@
 						'key'		=> $key,
 						'status'	=> $s['status'], 
 						'actions'	=> $actions,
-						'screen'	=> ( file_exists($s['base_dir'].'/screenshot.png') ) ? $s['base_url'].'/screenshot.png' : PL_ADMIN_IMAGES.'/screenshot-default.png'
+						'screen'	=> isset( $s['screen'] ) ? $s['screen'] : false,
+						'slug'		=> isset( $s['slug'] ) ? $s['slug'] : $key
 				);
-
  			}
  		} 
 	
@@ -504,7 +506,9 @@
 					'key'		=> $key,
 					'type'		=> 'plugins',
 					'count'		=> $p['count'],
-					'actions'	=> $actions
+					'actions'	=> $actions,
+					'screen'	=> $p['screen'],
+					'slug'		=> $p['slug']
 			);	
 				
 		}

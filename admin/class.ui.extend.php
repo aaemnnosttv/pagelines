@@ -37,7 +37,8 @@ class PageLinesExtendUI {
 				'count'		=> '',
 				'status'	=> '',
 				'actions'	=> array(), 
-				'screen'	=> ''
+				'screen'	=> false,
+				'slug'		=> ''
 		);
 		
 		/**
@@ -108,9 +109,10 @@ class PageLinesExtendUI {
 	function pane_template( $e, $count ){
 
 		$s = wp_parse_args( $e, $this->defaultpane);
-
 		
-		$img = ($s['screen'] != '') ? sprintf( '<div class="img paneimg"><img src="%s" /></div>',  $s['screen']) : '';
+		$img_url = ( $s['screen'] ) ? sprintf( '%s/files/%s/img/%s.png', untrailingslashit( PL_API_FETCH ), $s['type'], $s['slug'] ) :  PL_ADMIN_IMAGES . '/screenshot-default.png';
+
+		$img = sprintf( '<div class="img paneimg"><img src="%s" /></div>', $img_url );
 
 		$title = sprintf('<div class="pane-head"><div class="pane-head-pad"><h3 class="pane-title">%s</h3></div></div>', $s['name'] );
 
@@ -127,7 +129,7 @@ class PageLinesExtendUI {
 	function active_extension(){
 		$e = wp_parse_args( $e, $this->defaultpane);
 
-		$image = ( $e['actions']['install']['condition'] || $e['actions']['purchase']['condition']) ? sprintf( 'http://api.pagelines.com/themes/img/%s.png', $e['key'] ) : get_theme_root_uri() .'/'. $e['key'] . '/screenshot.png';
+		$image = ( $e['actions']['install']['condition'] || $e['actions']['purchase']['condition']) ? sprintf( 'http://api.pagelines.com/files/themes/img/%s.png', $e['key'] ) : get_theme_root_uri() .'/'. $e['key'] . '/screenshot.png';
 
 		$image = sprintf( '<img class="" src="%s" alt="Screenshot" />', $image );
 
