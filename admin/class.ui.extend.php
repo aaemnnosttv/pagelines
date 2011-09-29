@@ -36,7 +36,8 @@ class PageLinesExtendUI {
 				'type'		=> '',
 				'count'		=> '',
 				'status'	=> '',
-				'actions'	=> array() 
+				'actions'	=> array(), 
+				'screen'	=> ''
 		);
 		
 		/**
@@ -108,7 +109,7 @@ class PageLinesExtendUI {
 
 		$s = wp_parse_args( $e, $this->defaultpane);
 
-		$screen = sprintf( '<div class="img paneimg"><img src="%s" /></div>', PL_ADMIN_IMAGES.'/screenshot-default.png' );
+		$img = sprintf( '<div class="img paneimg"><img src="%s" /></div>',  $s['screen']);
 
 		$title = sprintf('<div class="pane-head"><div class="pane-head-pad"><h3 class="pane-title">%s</h3></div></div>', $s['name'] );
 
@@ -118,7 +119,7 @@ class PageLinesExtendUI {
 		
 		$break = ($count % 3 == 0) ? sprintf('<div class="clear"></div>') : '';
 
-		return sprintf('<div class="plpane"><div class="plpane-pad fix"><div class="plpane-box fix"><div class="plpane-box-pad">%s %s %s</div> </div></div></div>%s', $screen, $title, $body, $break);
+		return sprintf('<div class="plpane"><div class="plpane-pad fix"><div class="plpane-box fix"><div class="plpane-box-pad">%s %s %s</div> </div></div></div>%s', $img, $title, $body, $break);
 		
 	}
 	

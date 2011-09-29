@@ -21,35 +21,33 @@ class PageLinesMetaPanel {
 
 		global $post; 
 		global $pagenow;
+					
+		/**
+		 * Single post pages have post as GET, not $post as object
+		 */
+		$post = (!isset($post) && isset($_GET['post'])) ? get_post($_GET['post'], 'object') : null;
 		
-			
-			
-			/**
-			 * Single post pages have post as GET, not $post as object
-			 */
-			$post = (!isset($post) && isset($_GET['post'])) ? get_post($_GET['post'], 'object') : null;
-			
-			$this->ptype = PageLinesTemplate::current_admin_post_type();
-		
-			$this->page_for_posts = ( isset($post) && get_option( 'page_for_posts' ) === $post->ID ) ? true : false;			
-		
-			$this->blacklist = apply_filters( 'pagelines_meta_blacklist', array( 'banners', 'feature', 'boxes', 'attachment', 'revision', 'nav_menu_item' ));
-			
-			$defaults = array(
-					'id' 		=> 'pagelines-metapanel',
-					'name' 		=> $this->get_the_title(),
-					'posttype' 	=> $this->get_the_post_types(),
-					'location' 	=> 'normal', 
-					'priority' 	=> 'low', 
-					'hide_tabs'	=> false, 
-					'global'	=> false
-				);
+		$this->ptype = PageLinesTemplate::current_admin_post_type();
 	
-			$this->settings = wp_parse_args($settings, $defaults); // settings for post type		
-		
-			$this->register_actions();
+		$this->page_for_posts = ( isset($post) && get_option( 'page_for_posts' ) === $post->ID ) ? true : false;			
 	
-			$this->hide_tabs = $this->settings['hide_tabs'];
+		$this->blacklist = apply_filters( 'pagelines_meta_blacklist', array( 'banners', 'feature', 'boxes', 'attachment', 'revision', 'nav_menu_item' ));
+		
+		$defaults = array(
+				'id' 		=> 'pagelines-metapanel',
+				'name' 		=> $this->get_the_title(),
+				'posttype' 	=> $this->get_the_post_types(),
+				'location' 	=> 'normal', 
+				'priority' 	=> 'low', 
+				'hide_tabs'	=> false, 
+				'global'	=> false
+			);
+
+		$this->settings = wp_parse_args($settings, $defaults); // settings for post type		
+	
+		$this->register_actions();
+
+		$this->hide_tabs = $this->settings['hide_tabs'];
 			
 	}
 

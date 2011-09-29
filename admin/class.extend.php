@@ -296,7 +296,8 @@
 						'importance'=> $s['importance'],
 						'key'		=> $key,
 						'status'	=> $s['status'], 
-						'actions'	=> $actions
+						'actions'	=> $actions,
+						'screen'	=> ( file_exists($s['base_dir'].'/screenshot.png') ) ? $s['base_url'].'/screenshot.png' : PL_ADMIN_IMAGES.'/screenshot-default.png'
 				);
 
  			}

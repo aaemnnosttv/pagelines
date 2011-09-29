@@ -153,9 +153,12 @@ class PageLinesRegister {
 		$it = ( strnatcmp( phpversion(), '5.3.1' ) >= 0 ) ? new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $dir, FilesystemIterator::FOLLOW_SYMLINKS) , RecursiveIteratorIterator::SELF_FIRST ) : new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $dir, RecursiveIteratorIterator::CHILD_FIRST ) );
 		
 		foreach( $it as $fullFileName => $fileSPLObject ) {
+			
 			if ( basename( $fullFileName) == PL_EXTEND_SECTIONS_PLUGIN )
 				continue;	
+				
 			if (pathinfo($fileSPLObject->getFilename(), PATHINFO_EXTENSION ) == 'php') {
+				
 				$headers = get_file_data( $fullFileName, $default_headers = array( 'tags' => 'Tags', 'internal' => 'Internal', 'version' => 'Version', 'author' => 'Author', 'authoruri' => 'Author URI', 'section' => 'Section', 'description' => 'Description', 'classname' => 'Class Name', 'depends' => 'Depends', 'workswith' => 'workswith', 'edition' => 'edition', 'cloning' => 'cloning', 'failswith' => 'failswith', 'tax' => 'tax' ) );
 
 				// If no pagelines class headers ignore this file.
@@ -163,12 +166,14 @@ class PageLinesRegister {
 					continue;
 				
 				preg_match( '/[\/|\-]sections\/([^\/]+)/', $fullFileName, $out );
+				
 				$folder = sprintf( '/%s', $out[1] );
 
 				if ( $type == 'child' || $type == 'custom' ) {
 					$base_url = ( $type == 'child' ) ? PL_EXTEND_URL . $folder : get_stylesheet_directory_uri()  . '/sections' . $folder;
 					$base_dir = ( $type == 'child' ) ? PL_EXTEND_DIR . $folder : get_stylesheet_directory()  . '/sections' . $folder;
 				}
+				
 				$sections[$headers['classname']] = array(
 					'class'			=> $headers['classname'],
 					'depends'		=> $headers['depends'],
@@ -187,7 +192,7 @@ class PageLinesRegister {
 					'edition'		=> $headers['edition'],
 					'cloning'		=> $headers['cloning'],
 					'failswith'		=> $headers['failswith'],
-					'tax'		=> $headers['tax']
+					'tax'			=> $headers['tax']
 				);	
 			}
 		}

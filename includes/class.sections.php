@@ -25,6 +25,7 @@ class PageLinesSection {
 	 */
 	function __construct( $settings = array() ) {
 	
+		global $load_sections;
 		
 		$defaults = array(
 				'markup'			=> null,
@@ -45,8 +46,6 @@ class PageLinesSection {
 		$this->hook_get_view();
 		
 		$this->hook_get_post_type();
-		
-		global $load_sections;
 		
 		$this->available = $load_sections->pagelines_register_sections( false, true );
 		
@@ -83,7 +82,8 @@ class PageLinesSection {
 		$this->settings['p_ver'] = $this->sinfo['version'];
 
 		$this->icon = $this->settings['icon'] = ( file_exists( sprintf( '%s/icon.png', $this->base_dir ) ) ) ? sprintf( '%s/icon.png', $this->base_url ) : PL_ADMIN_ICONS . '/leaf.png';
-		
+	
+		$this->screenshot = $this->settings['screenshot'] = ( file_exists( sprintf( '%s/screenshot.png', $this->base_dir ) ) ) ? sprintf( '%s/screenshot.png', $this->base_url ) : PL_ADMIN_IMAGES . '/screenshot-default.png';
 
 		$this->optionator_default = array(
 			'clone_id'	=> 1,

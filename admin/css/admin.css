@@ -751,7 +751,7 @@ background-repeat: no-repeat;
 			font-weight: bold;
 			font-size: 1em;
 			line-height: 15px;
-			
+			font-size: 13px;
 			-moz-box-sizing: content-box;
 			-webkit-box-sizing: content-box;
 			box-sizing: content-box;
@@ -761,7 +761,7 @@ background-repeat: no-repeat;
 		.extend_button.discrete, .superlink-wrap .superlink{
 			color:#666;
 			text-shadow: #fff 0 1px 0;
-			font-size: 13px;
+			
 			border: 1px solid #999;
 			border-top: 1px solid #f7f7f7;
 			border-left: 1px solid #f7f7f7;
