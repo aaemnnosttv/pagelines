@@ -190,7 +190,7 @@ class PageLinesRegister {
 					'base_file'		=> $fullFileName,
 					'workswith'		=> ( $headers['workswith'] ) ? array_map( 'trim', explode( ',', $headers['workswith'] ) ) : '',
 					'edition'		=> $headers['edition'],
-					'cloning'		=> $headers['cloning'],
+					'cloning'		=> ( 'true' === $headers['cloning'] ) ? true : '',
 					'failswith'		=> $headers['failswith'],
 					'tax'			=> $headers['tax']
 				);	
