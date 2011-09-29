@@ -17,6 +17,8 @@ class OptEngine {
 		
 		$this->settings_field = $settings_field;
 		
+		
+		
 		$this->defaults = array(
 			'post_id'				=> '', 
 			'setting'				=> '',
@@ -55,14 +57,26 @@ class OptEngine {
 		
 	}
 
+	function layout_type($o){
+		
+		if($o['type'] == 'color_multi'){
+			$o['layout'] = 'full';
+		}
+			
+		
+		return $o;
+	}
+
 	/**
 	 * Option generation engine
 	 *
 	 */
 	function option_engine($oid, $o, $pid = null, $setting = null){
-
+		
 		$o = wp_parse_args( $o, $this->defaults );
-
+		
+		$o = $this->layout_type($o);
+		
 		$setting = (isset($this->settings_field)) ? $this->settings_field : PAGELINES_SETTINGS;
 		
 		$o['pid'] = $pid;
@@ -941,8 +955,7 @@ class OptEngine {
 			$updates_exp = __( 'Please set your PageLines login credentials.', 'pagelines' );
 
 		if ( pagelines_check_credentials( 'error' ) === 'licence' ) {
-			$updates_exp = sprintf( '%s', pagelines_check_credentials( 'message' ) );
-			delete_transient( EXTEND_UPDATE );
+			$updates_exp .= sprintf( '<br /><br />%s', pagelines_check_credentials( 'message' ) );
 		}
 
 		if ( EXTEND_NETWORK ){

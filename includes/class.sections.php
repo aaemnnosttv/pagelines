@@ -63,20 +63,18 @@ class PageLinesSection {
 		$this->sinfo = $this->available[$type][$this->class_name];
 
 		// File location information
-		$this->base_dir = $this->sinfo['base_dir'];
-		$this->base_file = $this->sinfo['base_file'];
-		$this->base_url = $this->sinfo['base_url'];
-		$this->settings['base_dir'] = $this->sinfo['base_dir'];
-		$this->settings['base_file'] = $this->sinfo['base_file'];
-		$this->settings['base_url'] = $this->sinfo['base_url'];		
+		$this->base_dir = $this->settings['base_dir'] = $this->sinfo['base_dir'];
+		$this->base_file = $this->settings['base_file'] = $this->sinfo['base_file'];
+		$this->base_url = $this->settings['base_url'] = $this->sinfo['base_url'];
+		
+		$this->images = $this->base_url . '/images';
 
 		// Reference information
 		$this->id = basename( $this->base_dir );
-		$this->name = $this->sinfo['name'];
-		$this->description = $this->sinfo['description'];
-		$this->settings['name'] = $this->name;
-		$this->settings['description'] = $this->description;
 		
+		$this->name = $this->settings['name'] = $this->sinfo['name'];
+		$this->description = $this->settings['description'] = $this->sinfo['description'];
+
 		$this->settings['cloning'] = ( !empty( $this->sinfo['cloning'] ) ) ? $this->sinfo['cloning'] : $this->settings['cloning'];
 		$this->settings['workswith'] = ( !empty( $this->sinfo['workswith'] ) ) ? $this->sinfo['workswith'] : $this->settings['workswith'];
 		$this->settings['version'] = ( !empty( $this->sinfo['edition'] ) ) ? $this->sinfo['edition'] : $this->settings['version'];
@@ -84,8 +82,8 @@ class PageLinesSection {
 		$this->settings['tax_id'] = ( !empty( $this->sinfo['tax'] ) ) ? $this->sinfo['tax'] : $this->settings['tax_id'];
 		$this->settings['p_ver'] = $this->sinfo['version'];
 
-		$this->icon = ( file_exists( sprintf( '%s/icon.png', $this->base_dir ) ) ) ? sprintf( '%s/icon.png', $this->base_url ) : PL_ADMIN_ICONS . '/leaf.png';
-		$this->settings['icon'] = ( file_exists( sprintf( '%s/icon.png', $this->base_dir ) ) ) ? sprintf( '%s/icon.png', $this->base_url ) : PL_ADMIN_ICONS . '/leaf.png';			
+		$this->icon = $this->settings['icon'] = ( file_exists( sprintf( '%s/icon.png', $this->base_dir ) ) ) ? sprintf( '%s/icon.png', $this->base_url ) : PL_ADMIN_ICONS . '/leaf.png';
+		
 
 		$this->optionator_default = array(
 			'clone_id'	=> 1,
