@@ -165,7 +165,7 @@ class PageLinesRegister {
 				if ( !$headers['classname'] )
 					continue;
 				
-				preg_match( '/[\/|\-]sections\/([^\/]+)/', $fullFileName, $out );
+				preg_match( '/[\/|\-]sections[\/|\\\]([^\/|\\\]+)/', $fullFileName, $out );
 				
 				$folder = sprintf( '/%s', $out[1] );
 
