@@ -60,7 +60,7 @@ class OptEngine {
 	function layout_type($o){
 		
 		if($o['type'] == 'color_multi'){
-			$o['layout'] == 'full';
+			$o['layout'] = 'full';
 		}
 			
 		
