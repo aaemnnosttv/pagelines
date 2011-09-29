@@ -218,7 +218,7 @@
 
 			foreach( $type as $key => $s)
 				$type[$key]['status'] = ( isset( $disabled[ $s['type'] ][ $s['class'] ] ) ) ? 'disabled' : 'enabled';
-			plprint($s);
+
 			/*
 	 		 * Sort Alphabetically
 	 		 */
