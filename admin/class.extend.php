@@ -145,7 +145,7 @@
 						'condition'	=> $purchase,
 						'case'		=> 'theme_purchase',
 						'type'		=> 'themes',
-						'file'		=> ( isset( $s->productid ) ) ? $s->productid : '',
+						'file'		=> ( isset( $s->productid ) ) ? $s->productid . ',' . $s->uid . '|' . $s->price . '|' . $s->name: '',
 						'text'		=> sprintf('%s <span class="prc">($%s)</span>', __( 'Purchase', 'pagelines' ), $s->price),
 						'dtext'		=> __( 'Redirecting', 'pagelines' ),
 					)		
@@ -303,9 +303,7 @@
 						'slug'		=> isset( $s['slug'] ) ? $s['slug'] : $key
 				);
  			}
- 		} 
-	
-		
+ 		} 	
 		if(empty($list))
 			return $this->ui->extension_banner( sprintf ( __( 'Installed %1$s sections will appear here.', 'pagelines' ), $tab ) );
 		else
@@ -1086,7 +1084,7 @@
 			
 			case 'theme_purchase':
 			
-				_e( 'Transferring to PageLines.com', 'pagelines' );
+				_e( 'Transferring to Paypal.com', 'pagelines' );
 				$this->page_reload( 'pagelines_extend', $file );
 			
 			break;
@@ -1113,9 +1111,16 @@
 	
 		$r = rand( 1,100 );
 		$admin = admin_url( sprintf( 'admin.php?r=%1$s&page=%2$s', $r, $location ) );
-		$location = ( $product ) ? sprintf( '%1$s?tab=add_renew&price_group=-%2$s&redir=%3$s', PL_LAUNCHPAD_FRAME, $product, admin_url( 'admin.php' ) ): $admin;
+		$location = ( $product ) ? $this->get_payment_link( $product ) : $admin;
+
 		printf('<script type="text/javascript">setTimeout(function(){ window.location.href = \'%s\';}, %s);</script>', $location, $time );
  	}
+
+
+	function get_payment_link( $product ) {
+		
+		return sprintf( 'https://pagelines.com/api/?paypal=%s|%s', $product, admin_url( 'admin.php' ) );
+	}
 
 	function plugin_check_status( $file ) {
 		
