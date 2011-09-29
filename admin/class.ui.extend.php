@@ -109,7 +109,8 @@ class PageLinesExtendUI {
 
 		$s = wp_parse_args( $e, $this->defaultpane);
 
-		$img = sprintf( '<div class="img paneimg"><img src="%s" /></div>',  $s['screen']);
+		
+		$img = ($s['screen'] != '') ? sprintf( '<div class="img paneimg"><img src="%s" /></div>',  $s['screen']) : '';
 
 		$title = sprintf('<div class="pane-head"><div class="pane-head-pad"><h3 class="pane-title">%s</h3></div></div>', $s['name'] );
 
