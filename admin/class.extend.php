@@ -27,27 +27,13 @@
 		add_action( 'admin_init', array(&$this, 'update_lpinfo' ) );
 		add_action( 'admin_init', array(&$this, 'launchpad_returns' ) );
 		add_action( 'admin_init', array(&$this, 'check_creds' ) );
+		add_filter( 'http_request_args', array( &$this, 'pagelines_plugins_remove' ), 10, 2 );
  	}
 
-	function update_lpinfo() {
-
-		if (isset($_POST['form_submitted']) && $_POST['form_submitted'] === 'plinfo' ) {
-
-			if ( isset( $_POST['creds_reset'] ) )
-				update_option( 'pagelines_extend_creds', array( 'user' => '', 'pass' => '' ) );
-			else
-				set_pagelines_credentials( sanitize_text_field( $_POST['lp_username'] ),  sanitize_text_field( $_POST['lp_password'] ) );
-			$this->flush_caches();			
-			wp_redirect( admin_url('admin.php?page=pagelines_extend&plinfo=true') );
-			exit;
-		}
-	}
-
-	function launchpad_returns() {
-		
-		if (isset( $_GET['api_returned'] ) )
-			$this->flush_caches();
-	}
+	/**
+	 * Cache cleaner.
+	 * 
+	 */	
 	function flush_caches() {
 		
 		// Flush all our transienst ( Makes this save button a sort of reset button. )
@@ -58,6 +44,10 @@
 		delete_transient( 'pagelines_sections_cache' );
 	}
 
+	/**
+	 * Section install tab.
+	 * 
+	 */
  	function extension_sections_install( $tab = '' ) {
  		
  		/*
@@ -181,28 +171,9 @@
 		else
 			return $this->ui->extension_list( $list );
  	}
-
-	function has_extend_plugin( $status = false ){
-		
-		if($status){
-			
-			if( file_exists( PL_EXTEND_INIT ) && current( $this->plugin_check_status( PL_EXTEND_INIT ) ) == 'notactive' )
-				return 'notactive';
-			elseif(!is_dir( PL_EXTEND_DIR ) || !file_exists( PL_EXTEND_INIT ))
-				return 'notinstalled';
-			else
-				return 'active';
-			
-		} else {
-			if ( !is_dir( PL_EXTEND_DIR ) || ( file_exists( PL_EXTEND_INIT ) && current( $this->plugin_check_status( PL_EXTEND_INIT ) ) == 'notactive' ) )
-				return false;
-			else 
-				return true;
-		}
-	}
 	
 	/*
-	 * Get sections that are installed.
+	 * Installed sections tab.
 	 */
  	function extension_sections( $tab = '' ) {
 
@@ -320,16 +291,8 @@
 			return $this->ui->extension_list( $list );
  	}
 
-	function upgrade_available( $upgradable, $file, $s){
-	
-		if ( is_object( $upgradable ) && isset( $upgradable->$file ) && $s['version'] < $upgradable->$file->version ) 
-			return $upgradable->$file->version;
-		else 
-			return false;
-	}
-
 	/*
-	 * Document!
+	 * Plugins tab.
 	 */
 	function extension_plugins( $tab = '' ) {
 
@@ -428,8 +391,6 @@
 			$installed =  ( ( $tab === 'premium' || $tab === 'free' ) && $p['status']['status'] ) ? true : false;
 			
 			$login = ( !$purchased && !$updates_configured ) ? true : false;
-			
-
 				
 			$actions = array(
 				'install'	=> array(
@@ -543,46 +504,11 @@
 		else 
 			return $this->ui->extension_list( $list );
 	}
-
-	function extension_scan_themes( $themes ) {
-		
-		$themes = json_decode(json_encode($themes), true);
-		
-		$get_themes = get_themes();
-
-		foreach( $get_themes as $theme => $theme_data ) {
-			
-
-		
-			if ( $theme_data['Template'] != 'pagelines' )
-				continue;
-			if ( 'pagelines' == $theme_data['Stylesheet'] )
-				continue;
-			
-			// check for an update...	
-			if ( isset( $themes[ $theme_data['Stylesheet'] ]['version'] ) && $themes[ $theme_data['Stylesheet'] ]['version'] > $theme_data['Version']) 			
-				$up = $themes[ $theme_data['Stylesheet'] ]['version'];
-				
-			if ( in_array( $theme, $themes ) )
-				continue;
-
-			// If we got this far, theme is a pagelines child theme not handled by the API
-			// So we need to inject it into our themes array.
-			
-			$new_theme = array();
-			$new_theme['name'] =		$theme_data['Name'];
-			$new_theme['author'] =		$theme_data['Author Name'];
-			$new_theme['author_url'] =	$theme_data['Author URI'];
-			$new_theme['version'] =		( isset( $up ) ) ? $up : $theme_data['Version'];
-			$new_theme['text'] =		$theme_data['Description'];
-			$new_theme['tags'] =		$theme_data['Tags'];
-			$new_theme['productid'] = 	null;
-			$new_theme['count'] = 		null;
-			$themes[$theme_data['Stylesheet']] = $new_theme;		
-		}
-		return $themes;
-	}
 	
+	/**
+	 * Themes tab.
+	 * 
+	 */
 	function extension_themes( $tab = '' ) {
 
 		$themes = $this->get_latest_cached( 'themes' );
@@ -734,79 +660,15 @@
 						'type'		=> 'themes',
 						'count'		=> $theme['count'],
 						'actions'	=> $actions
-				);
-			
+				);		
 		}
-		
-		
-		
+
 		if(empty($list) && $tab == 'installed')
 			return $this->ui->extension_banner( __( 'Installed PageLines themes will appear here.', 'pagelines' ) );
 		elseif(empty($list))
 			return $this->ui->extension_banner( sprintf( __( 'Available %1$s themes will appear here.', 'pagelines' ), $tab ) );
 		else
 			return $this->ui->extension_list( $list, 'graphic' );
-			
-	}
-
-	function extension_uploader() {
-		
-		if ( !empty($_POST['upload_check'] ) && check_admin_referer( 'pagelines_extend_upload', 'upload_check') ) {
-
-			if ( $_FILES[ $_POST['type']]['size'] == 0 ) {
-				$this->page_reload( 'pagelines_extend&extend_error=blank', null, 0);
-				exit();
-			}
-
-			// right we made it this far! It needs to be a section!
-			$type = $_POST['type'];
-			$filename = $_FILES[ $type ][ 'name' ];
-			$payload = $_FILES[ $type ][ 'tmp_name' ];
-			
-						
-			if ( false === strpos( $filename, 'section' ) ) {
-				$this->page_reload( 'pagelines_extend&extend_error=filename', null, 0);
-				exit();
-			}
-				
-			switch ( $type ) {
-				
-				case 'section':
-					$uploader = true;
-					$_POST['extend_mode']	=	'section_install';
-					$_POST['extend_file']	=	$payload;
-					$_POST['extend_path']	= 	str_replace( '.zip', '', $filename );
-					$_POST['extend_type']	=	'section';
-				break;
-				
-				case 'plugin':
-					$uploader = true;
-					$_POST['extend_mode']	=	'plugin_install';
-					$_POST['extend_file']	=	$payload;
-					$_POST['extend_path']	= 	sprintf( '%1$s/%1$s.php', str_replace( '.zip', '', $filename ) );
-					$_POST['extend_type']	=	'plugin';
-				break;
-				
-			}
-			
-			if ( $uploader )
-				$this->extend_it_callback( $uploader, null );
-			exit;
-		
-		}	
-	}
-	
-	function check_creds( $extend = null, $context = WP_PLUGIN_DIR) {
-
-		if ( isset( $_GET['creds'] ) && $_POST && WP_Filesystem($_POST) )
-			$this->extend_it_callback( false, true );
-			
-		if ( !$extend )
-			return;			
-
-		if (false === ($creds = @request_filesystem_credentials(admin_url( 'admin.php?page=pagelines_extend&creds=yes'), $type = "", $error = false, $context, $extra_fields = array( 'extend_mode', 'extend_type', 'extend_file', 'extend_path')) ) ) {
-			exit; 
-		}	
 	}
 	
 	/**
@@ -815,10 +677,6 @@
 	 * 
 	 */
 	function extend_it_callback( $uploader = false, $checked = null) {
-
-		/*
-			TODO reload callbacks just go to the panel, need tab as well
-		*/	
 
 		// 1. Libraries
 			include_once( ABSPATH . 'wp-admin/includes/class-wp-upgrader.php' );
@@ -1121,7 +979,79 @@
 		}
 		die(); // needed at the end of ajax callbacks
 	}
+
+	/**
+	 * Uploader for sections.
+	 * 
+	 */
+	function extension_uploader() {
+		
+		if ( !empty($_POST['upload_check'] ) && check_admin_referer( 'pagelines_extend_upload', 'upload_check') ) {
+
+			if ( $_FILES[ $_POST['type']]['size'] == 0 ) {
+				$this->page_reload( 'pagelines_extend&extend_error=blank', null, 0);
+				exit();
+			}
+
+			// right we made it this far! It needs to be a section!
+			$type = $_POST['type'];
+			$filename = $_FILES[ $type ][ 'name' ];
+			$payload = $_FILES[ $type ][ 'tmp_name' ];
+			
+						
+			if ( false === strpos( $filename, 'section' ) ) {
+				$this->page_reload( 'pagelines_extend&extend_error=filename', null, 0);
+				exit();
+			}
+				
+			switch ( $type ) {
+				
+				case 'section':
+					$uploader = true;
+					$_POST['extend_mode']	=	'section_install';
+					$_POST['extend_file']	=	$payload;
+					$_POST['extend_path']	= 	str_replace( '.zip', '', $filename );
+					$_POST['extend_type']	=	'section';
+				break;
+				
+				case 'plugin':
+					$uploader = true;
+					$_POST['extend_mode']	=	'plugin_install';
+					$_POST['extend_file']	=	$payload;
+					$_POST['extend_path']	= 	sprintf( '%1$s/%1$s.php', str_replace( '.zip', '', $filename ) );
+					$_POST['extend_type']	=	'plugin';
+				break;
+				
+			}
+			
+			if ( $uploader )
+				$this->extend_it_callback( $uploader, null );
+			exit;
+		
+		}	
+	}
 	
+	/**
+	 * See if we have filesystem permissions.
+	 * 
+	 */	
+	function check_creds( $extend = null, $context = WP_PLUGIN_DIR) {
+
+		if ( isset( $_GET['creds'] ) && $_POST && WP_Filesystem($_POST) )
+			$this->extend_it_callback( false, true );
+			
+		if ( !$extend )
+			return;			
+
+		if (false === ($creds = @request_filesystem_credentials(admin_url( 'admin.php?page=pagelines_extend&creds=yes'), $type = "", $error = false, $context, $extra_fields = array( 'extend_mode', 'extend_type', 'extend_file', 'extend_path')) ) ) {
+			exit; 
+		}	
+	}
+	
+	/**
+	 * Generate a download link.
+	 * 
+	 */
 	function make_url( $type, $file, $product = null ) {
 		
 		return sprintf('%s%s/download.php?d=%s.zip%s', PL_API_FETCH, $type, $file, (isset( $product ) ) ? '&product=' . $product : '' );
@@ -1141,12 +1071,19 @@
 		printf('<script type="text/javascript">setTimeout(function(){ window.location.href = \'%s\';}, %s);</script>', $location, $time );
  	}
 
-
+	/**
+	 * Get a PayPal link.
+	 * 
+	 */
 	function get_payment_link( $product ) {
 		
 		return sprintf( 'https://pagelines.com/api/?paypal=%s|%s', $product, admin_url( 'admin.php' ) );
 	}
 
+	/**
+	 * Get current status for a plugin.
+	 * 
+	 */
 	function plugin_check_status( $file ) {
 		
 		if ( !file_exists( $file ) )
@@ -1186,7 +1123,133 @@
 
 		return json_decode( $api );
 	}
+
+	/**
+	 * Remove our plugins from the maim WordPress updates.
+	 * 
+	 */
+	function pagelines_plugins_remove( $r, $url ) {
+
+		if ( 0 === strpos( $url, 'http://api.wordpress.org/plugins/update-check/' ) ) {
+
+			$installed = get_option('active_plugins');
+			$plugins = unserialize( $r['body']['plugins'] );
+
+			foreach ( $installed as $plugin ) {
+				$data = get_file_data( sprintf( '%s/%s', WP_PLUGIN_DIR, $plugin ), $default_headers = array( 'pagelines' => 'PageLines' ) );
+				if ( !empty( $data['pagelines'] ) ) {
+
+					unset( $plugins->plugins[$plugin] );
+					unset( $plugins->active[array_search( $plugin, $plugins->active )] );				
+				}
+			}
+			$r['body']['plugins'] = serialize( $plugins );	
+		}
+		return $r;		
+	}
+
+	/**
+	 * Save our credentials
+	 * 
+	 */	
+	function update_lpinfo() {
+
+		if (isset($_POST['form_submitted']) && $_POST['form_submitted'] === 'plinfo' ) {
+
+			if ( isset( $_POST['creds_reset'] ) )
+				update_option( 'pagelines_extend_creds', array( 'user' => '', 'pass' => '' ) );
+			else
+				set_pagelines_credentials( sanitize_text_field( $_POST['lp_username'] ),  sanitize_text_field( $_POST['lp_password'] ) );
+			$this->flush_caches();			
+			wp_redirect( admin_url('admin.php?page=pagelines_extend&plinfo=true') );
+			exit;
+		}
+	}
+
+	/**
+	 * Were back! Flush the cache,
+	 * 
+	 */
+	function launchpad_returns() {
+		
+		if (isset( $_GET['api_returned'] ) )
+			$this->flush_caches();
+	}
+
+	/**
+	 * Check if we have the extend plugin.
+	 * 
+	 */	
+	function has_extend_plugin( $status = false ){
+		
+		if($status){
+			
+			if( file_exists( PL_EXTEND_INIT ) && current( $this->plugin_check_status( PL_EXTEND_INIT ) ) == 'notactive' )
+				return 'notactive';
+			elseif(!is_dir( PL_EXTEND_DIR ) || !file_exists( PL_EXTEND_INIT ))
+				return 'notinstalled';
+			else
+				return 'active';
+			
+		} else {
+			if ( !is_dir( PL_EXTEND_DIR ) || ( file_exists( PL_EXTEND_INIT ) && current( $this->plugin_check_status( PL_EXTEND_INIT ) ) == 'notactive' ) )
+				return false;
+			else 
+				return true;
+		}
+	}
+
+	/**
+	 * Check for an upgrade.
+	 * 
+	 */
+	function upgrade_available( $upgradable, $file, $s){
 	
+		if ( is_object( $upgradable ) && isset( $upgradable->$file ) && $s['version'] < $upgradable->$file->version ) 
+			return $upgradable->$file->version;
+		else 
+			return false;
+	}
 
+	/**
+	 * Scan for themes and combine api with installed.
+	 * 
+	 */	
+	function extension_scan_themes( $themes ) {
+		
+		$themes = json_decode(json_encode($themes), true);
+		
+		$get_themes = get_themes();
 
+		foreach( $get_themes as $theme => $theme_data ) {
+
+			if ( $theme_data['Template'] != 'pagelines' )
+				continue;
+			if ( 'pagelines' == $theme_data['Stylesheet'] )
+				continue;
+			
+			// check for an update...	
+			if ( isset( $themes[ $theme_data['Stylesheet'] ]['version'] ) && $themes[ $theme_data['Stylesheet'] ]['version'] > $theme_data['Version']) 			
+				$up = $themes[ $theme_data['Stylesheet'] ]['version'];
+				
+			if ( in_array( $theme, $themes ) )
+				continue;
+
+			// If we got this far, theme is a pagelines child theme not handled by the API
+			// So we need to inject it into our themes array.
+			
+			$new_theme = array();
+			$new_theme['name'] =		$theme_data['Name'];
+			$new_theme['author'] =		$theme_data['Author Name'];
+			$new_theme['author_url'] =	$theme_data['Author URI'];
+			$new_theme['version'] =		( isset( $up ) ) ? $up : $theme_data['Version'];
+			$new_theme['text'] =		$theme_data['Description'];
+			$new_theme['tags'] =		$theme_data['Tags'];
+			$new_theme['productid'] = 	null;
+			$new_theme['count'] = 		null;
+			$themes[$theme_data['Stylesheet']] = $new_theme;		
+		}
+		return $themes;
+	}
+	
  } // end PagelinesExtensions class
