@@ -96,7 +96,7 @@
 				continue;
 
 			if ( file_exists( $check_file ) )
-				continue;
+				$installed = true;
 
 			$key = str_replace( '.', '', $key );
 			
@@ -104,7 +104,7 @@
 
 			$purchased = ( isset( $s->purchased ) ) ? true : false;
 
-			$install = ( !EXTEND_NETWORK && $purchased ) ? true : false;
+			$install = ( !EXTEND_NETWORK && $purchased && ! $installed) ? true : false;
 			
 			$login = ( !$updates_configured && !$purchased ) ? true : false;
 			
@@ -148,7 +148,17 @@
 						'file'		=> ( isset( $s->productid ) ) ? $s->productid . ',' . $s->uid . '|' . $s->price . '|' . $s->name: '',
 						'text'		=> sprintf('%s <span class="prc">($%s)</span>', __( 'Purchase', 'pagelines' ), $s->price),
 						'dtext'		=> __( 'Redirecting', 'pagelines' ),
-					)		
+					),
+					'installed'	=>	array(
+						'mode'		=> 'installed',
+						'condition'	=> $installed,
+						'case'		=> '',
+						'type'		=> '',
+						'file'		=> '',
+						'path'		=> '',
+						'text'		=> __( 'Installed', 'pagelines' ),
+						'dtext'		=> ''
+						)			
 			);	
 			$list[$key] = array(
 					'name' 		=> $s->name, 

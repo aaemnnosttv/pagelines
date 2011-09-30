@@ -195,10 +195,10 @@ class PageLinesExtendUI {
 		
 		$a = wp_parse_args($a, $d);
 		
-		$js_call = sprintf( $this->exprint, $a['case'], $a['key'], $a['type'], $a['file'], $a['path'], $a['product'], $a['dtext']);
+		$js_call = ( $a['mode'] == 'installed' ) ? '' : sprintf( $this->exprint, $a['case'], $a['key'], $a['type'], $a['file'], $a['path'], $a['product'], $a['dtext']);
 		
 		
-		if($a['mode'] == 'deactivate' || $a['mode'] == 'delete')
+		if($a['mode'] == 'deactivate' || $a['mode'] == 'delete' || $a['mode'] == 'installed' )
 			$class = 'discrete';
 		else 
 			$class = '';
