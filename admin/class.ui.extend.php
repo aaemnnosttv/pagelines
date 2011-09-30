@@ -37,7 +37,8 @@ class PageLinesExtendUI {
 				'count'		=> '',
 				'status'	=> '',
 				'actions'	=> array(), 
-				'screen'	=> false,
+				'screen'	=> '',
+				'screenshot'=> '',
 				'slug'		=> ''
 		);
 		
@@ -110,7 +111,17 @@ class PageLinesExtendUI {
 
 		$s = wp_parse_args( $e, $this->defaultpane);
 		
-		$img_url = ( $s['screen'] ) ? sprintf( '%s/files/%s/img/%s.png', untrailingslashit( PL_API_FETCH ), $s['type'], $s['slug'] ) :  PL_ADMIN_IMAGES . '/screenshot-default.png';
+		// installed should have a screen set.
+		$img_url = ( isset( $s['screenshot'] ) ) ? $s['screenshot'] : '';
+		
+		// if it has an image on the api server, show it!
+		$img_url = ( !$img_url && $s['screen'] === 'true' ) ? sprintf( '%s/files/%s/img/%s.png', untrailingslashit( PL_API_FETCH ), $s['type'], $s['slug'] ) :  $img_url;		
+
+		// nothing yet? we might be a plugin i suppose..
+		$img_url = ( !$img_url && $s['type'] == 'plugins' && file_exists( sprintf( '%s/%s/screenshot.png', WP_PLUGIN_DIR, $s['slug'] ) ) ) ? sprintf( '%s/screenshot.png', plugins_url( $s['slug'] ) ) : $img_url;
+
+		// if all else fails show default.
+		$img_url = ( !$img_url ) ? PL_ADMIN_IMAGES . '/screenshot-default.png' : $img_url;
 
 		$img = sprintf( '<div class="img paneimg"><img src="%s" /></div>', $img_url );
 

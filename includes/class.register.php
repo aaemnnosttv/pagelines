@@ -174,6 +174,8 @@ class PageLinesRegister {
 					$base_dir = ( $type == 'child' ) ? PL_EXTEND_DIR . $folder : get_stylesheet_directory()  . '/sections' . $folder;
 				}
 				
+				$base_dir = ( isset( $base_dir ) ) ? $base_dir : PL_SECTIONS . $folder;
+				
 				$sections[$headers['classname']] = array(
 					'class'			=> $headers['classname'],
 					'depends'		=> $headers['depends'],
@@ -186,13 +188,14 @@ class PageLinesRegister {
 					'description'	=> $headers['description'],
 					'name'			=> $headers['section'],
 					'base_url'		=> ( isset( $base_url ) ) ? $base_url : SECTION_ROOT . $folder,
-					'base_dir'		=> ( isset( $base_dir ) ) ? $base_dir : PL_SECTIONS . $folder,
+					'base_dir'		=> $base_dir,
 					'base_file'		=> $fullFileName,
 					'workswith'		=> ( $headers['workswith'] ) ? array_map( 'trim', explode( ',', $headers['workswith'] ) ) : '',
 					'edition'		=> $headers['edition'],
 					'cloning'		=> ( 'true' === $headers['cloning'] ) ? true : '',
 					'failswith'		=> $headers['failswith'],
-					'tax'			=> $headers['tax']
+					'tax'			=> $headers['tax'],
+					'screenshot'	=> ( file_exists( $base_dir . '/screenshot.png' ) ) ? $base_url . '/screenshot.png' : ''
 				);	
 			}
 		}

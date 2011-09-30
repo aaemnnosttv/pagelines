@@ -299,8 +299,9 @@
 						'key'		=> $key,
 						'status'	=> $s['status'], 
 						'actions'	=> $actions,
-						'screen'	=> isset( $s['screen'] ) ? $s['screen'] : false,
-						'slug'		=> isset( $s['slug'] ) ? $s['slug'] : $key
+						'screen'	=> isset( $s['screen'] ) ? $s['screen'] : '',
+						'screenshot'=> isset( $s['screenshot'] ) ? $s['screenshot'] : '',
+						'slug'		=> isset( $s['slug'] ) ? $s['slug'] : $key,
 				);
  			}
  		} 	
@@ -506,7 +507,7 @@
 					'count'		=> $p['count'],
 					'actions'	=> $actions,
 					'screen'	=> $p['screen'],
-					'slug'		=> $p['slug']
+					'slug'		=> $p['slug'],
 			);	
 				
 		}
