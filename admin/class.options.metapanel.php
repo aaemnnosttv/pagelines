@@ -214,7 +214,45 @@ class PageLinesMetaPanel {
 		
 	}
 
+	
+	function panel_head( $title, $tag, $stext ){ ?>
+		
+		<div class="ohead  mp_bar mp_head">
+			<div class="mp_bar_pad fix ">
+				<div class="mp_title"><span class="mp_title_text"><?php echo $title; ?></span> <span class='btag'><?php echo $tag;?></span></div>
+			
+			
+				<div class="superlink-wrap osave-wrap">
+					<input id="update" class="superlink osave" type="submit" value="<?php echo $stext; ?>"  name="update" />
+				</div>
+			</div>
+		</div>
+		
+	<?php
+		
+	}
 
+	function tabn( $tabs ){ ?> 
+		
+		<ul id="tabsnav" class="mp_tabs">
+		
+			<?php foreach( $tabs as $tab => $t):?>
+				<li>
+					<a class="<?php echo $tab;?>  metapanel-tabn <?php if(!$t->active) echo 'inactive-tab';?>" href="#<?php echo $tab;?>">
+						<span class="metatab_icon" style="background: url(<?php echo $t->icon; ?>) no-repeat 0 0;display: block;">
+							<?php 
+								echo $t->name;
+								if(!$t->active) 
+									printf('<span class="tab_inactive">inactive</span>');
+							
+							 ?>
+						</span>
+					</a>
+				</li>
+			<?php endforeach;?>
+		</ul>
+	
+	<?php }
 	
 	function draw_meta_options(){ 
 		global $post_ID;  
@@ -231,37 +269,17 @@ class PageLinesMetaPanel {
 		
 		$this->tabs_setup(); ?>
 	<div class="pl_mp">
-		<div class="ohead  mp_bar mp_head">
-			<div class="mp_bar_pad fix ">
-				<div class="mp_title"><span class="mp_title_text">MetaPanel</span> <span class='btag'><?php echo ui_key($this->get_edit_type());?></span></div>
-			
-			
-				<div class="superlink-wrap osave-wrap">
-					<input id="update" class="superlink osave" type="submit" value="<?php _e("Save Meta Settings",'pagelines'); ?>"  name="update" />
-				</div>
-			</div>
-		</div>
+		<?php $this->panel_head( 'MetaPanel', ui_key($this->get_edit_type()), __("Save Meta Settings",'pagelines') ); ?>
+		
 			<div id="metatabs" class="pagelines_metapanel fix">
 				<div class="pagelines_metapanel_pad fix">
-					<?php if(!$this->hide_tabs):?>
-					<ul id="tabsnav" class="mp_tabs">
+					<?php 
+						
+						if(!$this->hide_tabs)
+							$this->tabn( $this->tabs );
+							
+							?>
 					
-						<?php foreach($this->tabs as $tab => $t):?>
-							<li>
-								<a class="<?php echo $tab;?>  metapanel-tabn <?php if(!$t->active) echo 'inactive-tab';?>" href="#<?php echo $tab;?>">
-									<span class="metatab_icon" style="background: url(<?php echo $t->icon; ?>) no-repeat 0 0;display: block;">
-										<?php 
-											echo $t->name;
-											if(!$t->active) 
-												printf('<span class="tab_inactive">inactive</span>');
-										
-										 ?>
-									</span>
-								</a>
-							</li>
-						<?php endforeach;?>
-					</ul>
-					<?php endif;?>
 					<div class="mp_panel fix <?php if($this->hide_tabs) echo 'hide_tabs';?>">
 						<div class="mp_panel_pad fix">
 						
@@ -277,6 +295,7 @@ class PageLinesMetaPanel {
 												
 													if(!$t->active) 
 														echo OptEngine::superlink(__( 'Inactive On Template', 'pagelines' ), 'black', 'right', admin_url('admin.php?page=pagelines&selectedtab=2'));
+														
 												 ?>
 											</div>
 											<?php 
