@@ -95,8 +95,7 @@
 			if ( $tab == 'premium' && $s->price ==- 'free' )
 				continue;
 
-			if ( file_exists( $check_file ) )
-				$installed = true;
+			$installed =  ( file_exists( $check_file ) ) ? true : false;
 
 			$key = str_replace( '.', '', $key );
 			
