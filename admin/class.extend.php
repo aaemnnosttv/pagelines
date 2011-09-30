@@ -372,20 +372,25 @@
 	
 //			if ( !isset( $p['type'] ) )
 //				$p['type'] = 'free';
+
 			if ( $tab === 'installed' && !isset( $p['status']['status'] ) )
 				continue;
 				
 			if ( $tab === 'installed' && str_replace( '.php', '', PL_EXTEND_SECTIONS_PLUGIN ) === $p['slug'] )
 				continue;
 
-			if ( ( $tab === 'premium' || $tab === 'free' ) && isset( $p['status']['status'] ) )
-				continue;
+//			if ( ( $tab === 'premium' || $tab === 'free' ) && isset( $p['status']['status'] ) )
+//				continue;
+
 			if ( $tab === 'premium' && $p['price'] === 'free' )
 				continue;
+
 //			if ( $tab === 'free' && $p['type'] === 'premium' )
 //				continue;
+
 			if ( !isset( $p['status'] ) )
 				$p['status'] = array( 'status' => '' );
+
 			if ( $tab === 'free' && $p['price'] != 'free' )
 				continue;	
 			
@@ -400,7 +405,7 @@
 			$purchased = null;
 			$redirect = null;
 			
-
+			$installed =  ( ( $tab === 'premium' || $tab === 'free' ) && $p['status']['status'] ) ? true : false;
 			
 			$purchased = ( isset( $p['purchased'] ) ) ? true : false;
 				
@@ -412,15 +417,15 @@
 
 			$upgrade_available = ( isset( $p['status']['version'] ) && $p['version'] > $p['status']['version'] ) ? true : false;
 			
-			$active = ($p['status']['status'] == 'active') ? true : false;
+			$active = ($p['status']['status'] == 'active' && !$installed ) ? true : false;
 			
-			$deactivated = (!$login && !$purchase && !$install && !$active) ? true : false;
+			$deactivated = (!$login && !$purchase && !$install && !$active  && !$installed) ? true : false;
 			
 			$delete = ( $deactivated && ! EXTEND_NETWORK ) ? true : false;
 			
 			$redirect = ( EXTEND_NETWORK && $install ) ? true : false;
 			
-
+			$installed =  ( ( $tab === 'premium' || $tab === 'free' ) && $p['status']['status'] ) ? true : false;
 			
 			$login = ( !$purchased && !$updates_configured ) ? true : false;
 			
@@ -501,7 +506,17 @@
 					'file'		=> ( isset( $p['productid'] ) ) ? $p['productid'] : '',
 					'text'		=> __( 'Purchase', 'pagelines' ),
 					'dtext'		=> __( 'Redirecting', 'pagelines' ),
-				)
+				),
+				'installed'	=>	array(
+					'mode'		=> 'installed',
+					'condition'	=> $installed,
+					'case'		=> '',
+					'type'		=> '',
+					'file'		=> '',
+					'path'		=> '',
+					'text'		=> __( 'Installed', 'pagelines' ),
+					'dtext'		=> ''
+					)
 			);			
 			$list[$key] = array(
 					'name' 		=> $p['name'], 
