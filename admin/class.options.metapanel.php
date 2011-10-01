@@ -254,6 +254,33 @@ class PageLinesMetaPanel {
 	
 	<?php }
 	
+	function draw_panel(){ 
+		global $post_ID;  
+		global $pagelines_template;
+	
+		// if page doesn't support settings
+		if ( $this->page_for_posts ){
+			$this->non_meta_template(); 
+			return;
+		}
+		
+		$set = array(
+				'handle'	=> 'metatabs',
+				'title' 	=> 'MetaPanel',
+				'tag' 		=> ui_key($this->get_edit_type()),
+				'type'		=> 'meta',
+				'stext' 	=> __("Save Meta Settings",'pagelines'),
+				'tabs' 		=> $this->tabs, 
+				'hidetabs'	=> $this->hide_tabs, 
+				'post_ID'	=> $post_ID, 
+				'post_type'	=> $this->settings['posttype'],
+			);
+			
+		$panel = new PLPanel();
+		
+		$panel->the_panel($set);
+	}
+	
 	function draw_meta_options(){ 
 		global $post_ID;  
 		global $pagelines_template;
@@ -267,7 +294,9 @@ class PageLinesMetaPanel {
 		
 		$option_engine = new OptEngine( 'meta' );
 		
-		$this->tabs_setup(); ?>
+		$this->tabs_setup(); 
+		
+		?>
 	<div class="pl_mp">
 		<?php $this->panel_head( 'MetaPanel', ui_key($this->get_edit_type()), __("Save Meta Settings",'pagelines') ); ?>
 		
@@ -282,9 +311,7 @@ class PageLinesMetaPanel {
 					
 					<div class="mp_panel fix <?php if($this->hide_tabs) echo 'hide_tabs';?>">
 						<div class="mp_panel_pad fix">
-						
 							<div class="pagelines_metapanel_options">
-						
 								<div class="pagelines_metapanel_options_pad">
 									<?php foreach($this->tabs as $tab => $t):?>
 										<div id="<?php echo $tab;?>" class="pagelines_metatab">
@@ -296,34 +323,40 @@ class PageLinesMetaPanel {
 													if(!$t->active) 
 														echo OptEngine::superlink(__( 'Inactive On Template', 'pagelines' ), 'black', 'right', admin_url('admin.php?page=pagelines&selectedtab=2'));
 														
-												 ?>
+												 	?>
 											</div>
 											<?php 
 											foreach($t->options as $oid => $o)
 												$option_engine->option_engine($oid, $o, $post_ID);
 											?>
-									
 										</div>
 									<?php endforeach;?>
 								</div>
 							</div>
 						</div>
-					
 					</div>
-				</div>
-				
+				</div>	
 			</div>
-			<div class="ohead mp_bar mp_footer ">
-				<div class="mp_bar_pad fix ">
-					<input type="hidden" name="_posttype" value="<?php echo $this->settings['posttype'];?>" />
-					<div class="superlink-wrap osave-wrap">
-						<input id="update" class="superlink osave" type="submit" value="<?php _e("Save Meta Settings",'pagelines'); ?>"  name="update" />
-					</div>
+			<?php $this->panel_foot( __("Save Meta Settings",'pagelines'), $this->settings['posttype']); ?>
+		</div>
+		
+<?php 
+	
+	}
+	
+	function panel_foot( $save_text, $post_type){
+		?> 
+		
+		<div class="ohead mp_bar mp_footer ">
+			<div class="mp_bar_pad fix ">
+				<input type="hidden" name="_posttype" value="<?php echo $post_type; ?>" />
+				<div class="superlink-wrap osave-wrap">
+					<input id="update" class="superlink osave" type="submit" value="<?php echo $save_text; ?>"  name="update" />
 				</div>
 			</div>
 		</div>
-<?php 
-	
+		
+		<?php
 	}
 	
 	function posts_metapanel( $type ){
@@ -408,30 +441,7 @@ class PageLinesMetaPanel {
 		</div>
 		
 	<?php }
-		
-	function tabs_setup( $selector = 'metatabs', $cookie_id = 'PageLinesMetaTabCookie', $var = 'TheTabs'){
-		if(!$this->hide_tabs):
-		
-			$selected_tab = (isset($_COOKIE[$cookie_id]) && $cookie_id != false) ? (int) $_COOKIE[$cookie_id] : 0;
-				
-		?>
-		<script type="text/javascript">
-			jQuery(document).ready(function() {						
-				var <?php echo $selector;?> = jQuery("#<?php echo $selector;?>").tabs({ fx: { opacity: "toggle", duration: "fast" }, selected: <?php echo $selected_tab; ?>});
 
-				jQuery('#<?php echo $selector;?>').bind('tabsshow', function(event, ui) {
-					var selectedTab = jQuery('#<?php echo $selector;?>').tabs('option', 'selected');
-					
-					<?php 
-						if($cookie_id != false)
-							printf('jQuery.cookie(\'%s\', selectedTab);', $cookie_id);
-					?>
-				});
-
-			});
-		</script><?php endif;
-		
-	}
 
 
 	/**
@@ -588,7 +598,7 @@ class PageLinesMetaPanel {
 
 function pagelines_metapanel_callback($post, $object){
 
-	$object['args'][0]->draw_meta_options();
+	$object['args'][0]->draw_panel();
 	
 }
 

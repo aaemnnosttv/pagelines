@@ -158,6 +158,11 @@ require_once( PL_ADMIN . '/class.options.ui.php' );
 require_once( PL_ADMIN . '/class.options.engine.php' );
 
 /**
+ * Load Panel UI
+ */
+require_once( PL_ADMIN . '/class.options.panel.php' );
+
+/**
  * Load Data Handling
  */
 require_once( PL_ADMIN . '/library.data.php' );

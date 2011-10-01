@@ -1,0 +1,172 @@
+<?php
+/**
+ * 
+ *
+ *  PageLines Panel UI
+ *
+ *
+ *  @package PageLines
+ *  @since 2.0
+ *
+ */
+class PLPanel {
+
+	function __construct( $settings = array() ) { }
+	
+	function the_panel( $s = array() ){ 
+		global $post_ID;  
+		global $pagelines_template;
+		
+		$defaults = array(
+				'handle'	=> 'plpanel',
+				'title' 	=> '',
+				'tag' 		=> false,
+				'type'		=> null,
+				'stext' 	=> __('Save', 'pagelines'),
+				'tabs' 		=> array(), 
+				'hidetabs'	=> false, 
+				'post_ID'	=> null, 
+				'post_type'	=> null,
+			);
+
+		$this->s = wp_parse_args($s, $defaults); // settings for post type
+		
+		$this->tabs_setup( $this->s['handle'] ); 
+		
+		?>
+		<div id="plpanel" class="pl_mp">
+			<?php $this->head( $this->s['title'], $this->s['tag'], $this->s['stext'] ); ?>
+			<div id="<?php echo $this->s['handle'];?>" class="pagelines_metapanel fix">
+				<div class="pagelines_metapanel_pad fix">
+					<?php 
+					
+						if(!$this->s['hidetabs'])
+							$this->tabn( $this->s['tabs'] );
+
+						$this->load_tabs($this->s['type'], $this->s['tabs'], $this->s['hidetabs'], $this->s['post_ID']);
+						
+					?>
+				</div>
+			</div>
+			<?php $this->panel_foot( $this->s['stext'], $this->s['post_type']); ?>
+		</div>
+	
+<?php 
+	
+	}
+	
+	
+	function tabs_setup( $handle = 'plpanel' ){
+	
+		if(!$this->s['hidetabs']):
+		?>
+		
+		<script type="text/javascript"> 
+			jQuery(document).ready(function() { 
+				<?php printf('var %1$s = jQuery("#%1$s").tabs({cookie: {}, fx: { opacity: "toggle", duration: 150 }});', $handle); ?> 
+			});
+		</script>
+	
+	<?php endif;
+
+	}
+	
+	function head( $title, $tag, $stext ){ ?>
+		
+		<div class="ohead  mp_bar mp_head">
+			<div class="mp_bar_pad fix ">
+				<div class="mp_title">
+					<span class="mp_title_text"><?php echo $title; ?></span>
+					 <?php if($tag):?><span class='btag'><?php echo $tag;?></span><?php endif; ?>
+				</div>
+			
+				<div class="superlink-wrap osave-wrap">
+					<input id="update" class="superlink osave" type="submit" value="<?php echo $stext; ?>"  name="update" />
+				</div>
+			</div>
+		</div>
+		
+	<?php
+		
+	}
+
+	function tabn( $tabs ){ ?> 
+		
+		<ul id="tabsnav" class="mp_tabs">
+		
+			<?php foreach( $tabs as $tab => $t):?>
+				<li>
+					<a class="<?php echo $tab;?>  metapanel-tabn <?php if(!$t->active) echo 'inactive-tab';?>" href="#<?php echo $tab;?>">
+						<span class="metatab_icon" style="background: url(<?php echo $t->icon; ?>) no-repeat 0 0;display: block;">
+							<?php 
+								echo $t->name;
+								
+								if(!$t->active) 
+									printf('<span class="tab_inactive">inactive</span>');
+							
+							 ?>
+						</span>
+					</a>
+				</li>
+			<?php endforeach;?>
+		</ul>
+	
+	<?php }
+	
+	function load_tabs( $type, $tabs, $hide_tabs = false, $post_ID = null){ ?>
+		<div class="mp_panel fix <?php if( $hide_tabs ) echo 'hide_tabs';?>">
+			<div class="mp_panel_pad fix">
+				<div class="pagelines_metapanel_options">
+					<div class="pagelines_metapanel_options_pad">
+						<?php foreach( $tabs as $tab => $t ):?>
+							<div id="<?php echo $tab;?>" class="pagelines_metatab">
+								<div class="metatab_title" style="background: url(<?php echo $t->icon; ?>) no-repeat 10px 13px;" >
+									<?php 
+									
+										echo $t->name;
+									
+										if(isset($post_ID) && !$t->active) 
+											echo OptEngine::superlink(__( 'Inactive On Template', 'pagelines' ), 'black', 'right', admin_url('admin.php?page=pagelines_templates'));
+											
+									 	?>
+								</div>
+								<?php  $this->load_engine( $type, $t->options, $post_ID); ?>
+							</div>
+						<?php endforeach;?>
+					</div>
+				</div>
+			</div>
+		</div>
+	<?php }
+	
+	function load_engine( $type, $opts, $post_ID = null ){
+		
+		$option_engine = new OptEngine( $type );
+		
+		foreach($opts as $oid => $o)
+			$option_engine->option_engine($oid, $o, $post_ID);
+		
+	}
+	
+	function panel_foot( $save_text, $post_type){
+		?> 
+		
+		<div class="ohead mp_bar mp_footer ">
+			<div class="mp_bar_pad fix ">
+				<input type="hidden" name="_posttype" value="<?php echo $post_type; ?>" />
+				<div class="superlink-wrap osave-wrap">
+					<input id="update" class="superlink osave" type="submit" value="<?php echo $save_text; ?>"  name="update" />
+				</div>
+			</div>
+		</div>
+		
+		<?php
+	}
+	
+
+}
+
+
+
+
+

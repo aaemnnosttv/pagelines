@@ -1447,8 +1447,8 @@ font-weight: bold;
 		.metatab_icon{
 			padding-left: 22px;
 		}
-		#metatabs li a.inactive-tab{ color: #999 }
-		#metatabs li a.inactive-tab .tab_inactive{float:right; color:#AAA; font-size:.85em; font-weight: normal}
+		#plpanel li a.inactive-tab{ color: #999 }
+		#plpanel li a.inactive-tab .tab_inactive{float:right; color:#AAA; font-size:.85em; font-weight: normal}
 		.metatab_title .tab_inactive{float:right;color:#bbb}
 		
 	.mp_panel{
