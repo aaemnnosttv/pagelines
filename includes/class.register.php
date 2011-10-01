@@ -167,7 +167,11 @@ class PageLinesRegister {
 				
 				preg_match( '/[\/|\-]sections[\/|\\\]([^\/|\\\]+)/', $fullFileName, $out );
 				
+ 
+				
 				$folder = sprintf( '/%s', $out[1] );
+
+				$base_dir = get_template_directory()  . '/sections' . $folder;
 
 				if ( $type == 'child' || $type == 'custom' ) {
 					$base_url = ( $type == 'child' ) ? PL_EXTEND_URL . $folder : get_stylesheet_directory_uri()  . '/sections' . $folder;

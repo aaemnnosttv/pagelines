@@ -69,7 +69,7 @@ class PageLinesSection {
 		$this->images = $this->base_url . '/images';
 
 		// Reference information
-		$this->id = basename( $this->base_dir );
+		$this->id = $this->settings['id'] = basename( $this->base_dir );
 		
 		$this->name = $this->settings['name'] = $this->sinfo['name'];
 		$this->description = $this->settings['description'] = $this->sinfo['description'];
