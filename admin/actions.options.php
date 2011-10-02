@@ -121,6 +121,8 @@ function pagelines_theme_settings_init() {
 	add_action('load-'.$_pagelines_templates_hook, 'pagelines_theme_settings_scripts');
 	add_action('load-post.php',  'pagelines_theme_settings_scripts');
 	add_action('load-post-new.php',  'pagelines_theme_settings_scripts');
+	add_action('load-user-edit.php',  'pagelines_theme_settings_scripts');
+	add_action('load-profile.php',  'pagelines_theme_settings_scripts');
 }
 
 

@@ -2681,27 +2681,27 @@ font-weight: bold;
 
 
 /* universal stuff */
-	#tabs textarea, #metatabs textarea{
-		font-size: 11px;
+	#tabs textarea, #plpanel textarea{
+		font-size: 12px;
 		width: 94%;
-		height: 150px;
+		height: 170px;
 	}
-	#tabs textarea.longtext, #metatabs textarea.big{
+	#tabs textarea.longtext, #plpanel textarea.big{
 		height: 200px;
 	}
-	#tabs option, #metatabs option{
+	#tabs option, #plpanel option{
 		font-size: 1.1em;
 		padding: 3px 6px;
 	}
-	#metatabs select {font-size: 1.1em;}
+	#plpanel select {font-size: 1.1em;}
 	
 	#tabs .admin_checkbox {
 		display: block;
 		float: left;
 		margin: 2px 12px 0 0px;
 	}
-	#tabs .regular-text, #metatabs .regular-text, .metatext-big, .metatext-reg{width: 90%;}
-	#tabs .tiny-text, #metatabs .tiny-text, .metatext-small{width: 100px;}
+	#tabs .regular-text, #plpanel .regular-text, .metatext-big, .metatext-reg{width: 90%;}
+	#tabs .tiny-text, #plpanel .tiny-text, .metatext-small{width: 100px;}
 	
 	.pagelines_image_preview{
 		background: #fff url(../images/stripe.png) repeat 0 0;

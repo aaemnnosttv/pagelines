@@ -121,6 +121,10 @@ require_once( PL_INCLUDES . '/class.sections.php' );
  */	
 require_once( PL_INCLUDES . '/class.template.php' );
 
+/**
+ * Load Profile Handling
+ */	
+require_once( PL_ADMIN . '/class.profiles.php' );
 
 /**
  * Load metapanel option handling class
@@ -192,6 +196,7 @@ require_once( PL_INCLUDES . '/class.css.php' );
  * Singleton for Metapanel Options
  */
 $GLOBALS['metapanel_options'] =  new PageLinesMetaPanel( array('global' => true) );
+$GLOBALS['profile_panel_options'] =  new ProfileEngine( );
 $GLOBALS['global_meta_options'] = get_global_meta_options();
 
 /**

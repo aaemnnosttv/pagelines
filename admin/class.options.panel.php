@@ -31,7 +31,12 @@ class PLPanel {
 
 		$this->s = wp_parse_args($s, $defaults); // settings for post type
 		
-		$this->tabs_setup( $this->s['handle'] ); 
+		$hide_tabs = ( count($this->s['tabs']) == 1 ) ? true : $this->s['hidetabs'];
+			
+		
+		if(!$hide_tabs)
+			$this->tabs_setup( $this->s['handle'] ); 
+		
 		
 		?>
 		<div id="plpanel" class="pl_mp">
@@ -40,10 +45,10 @@ class PLPanel {
 				<div class="pagelines_metapanel_pad fix">
 					<?php 
 					
-						if(!$this->s['hidetabs'])
+						if(!$hide_tabs)
 							$this->tabn( $this->s['tabs'] );
 
-						$this->load_tabs($this->s['type'], $this->s['tabs'], $this->s['hidetabs'], $this->s['post_ID']);
+						$this->load_tabs($this->s['type'], $this->s['tabs'], $hide_tabs, $this->s['post_ID']);
 						
 					?>
 				</div>
@@ -63,7 +68,7 @@ class PLPanel {
 		
 		<script type="text/javascript"> 
 			jQuery(document).ready(function() { 
-				<?php printf('var %1$s = jQuery("#%1$s").tabs({cookie: {}, fx: { opacity: "toggle", duration: 150 }});', $handle); ?> 
+				<?php printf('var %1$s = jQuery("#%1$s").tabs({cookie: { name: "%1$s-tabs" }, fx: { opacity: "toggle", duration: 150 }});', $handle); ?> 
 			});
 		</script>
 	
