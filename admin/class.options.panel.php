@@ -27,6 +27,7 @@ class PLPanel {
 				'hidetabs'	=> false, 
 				'post_ID'	=> null, 
 				'post_type'	=> null,
+				'user'		=> null
 			);
 
 		$this->s = wp_parse_args($s, $defaults); // settings for post type
@@ -48,7 +49,7 @@ class PLPanel {
 						if(!$hide_tabs)
 							$this->tabn( $this->s['tabs'] );
 
-						$this->load_tabs($this->s['type'], $this->s['tabs'], $hide_tabs, $this->s['post_ID']);
+						$this->load_tabs($this->s['type'], $this->s['tabs'], $hide_tabs, $this->s['post_ID'], $this->s['user']);
 						
 					?>
 				</div>
@@ -118,7 +119,7 @@ class PLPanel {
 	
 	<?php }
 	
-	function load_tabs( $type, $tabs, $hide_tabs = false, $post_ID = null){ ?>
+	function load_tabs( $type, $tabs, $hide_tabs = false, $post_ID = null, $user = null){ ?>
 		<div class="mp_panel fix <?php if( $hide_tabs ) echo 'hide_tabs';?>">
 			<div class="mp_panel_pad fix">
 				<div class="pagelines_metapanel_options">
@@ -135,7 +136,7 @@ class PLPanel {
 											
 									 	?>
 								</div>
-								<?php  $this->load_engine( $type, $t->options, $post_ID); ?>
+								<?php  $this->load_engine( $type, $t->options, $post_ID, $user); ?>
 							</div>
 						<?php endforeach;?>
 					</div>
@@ -144,12 +145,13 @@ class PLPanel {
 		</div>
 	<?php }
 	
-	function load_engine( $type, $opts, $post_ID = null ){
+	function load_engine( $type, $opts, $post_ID = null, $user = null ){
 		
 		$option_engine = new OptEngine( $type );
 		
+		
 		foreach($opts as $oid => $o)
-			$option_engine->option_engine($oid, $o, $post_ID);
+			$option_engine->option_engine($oid, $o, $user);
 		
 	}
 	

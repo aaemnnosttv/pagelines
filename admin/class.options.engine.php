@@ -71,7 +71,7 @@ class OptEngine {
 	 * Option generation engine
 	 *
 	 */
-	function option_engine($oid, $o, $pid = null, $setting = null){
+	function option_engine($oid, $o, $flag = null, $setting = null){
 		
 		$o = wp_parse_args( $o, $this->defaults );
 		
@@ -79,10 +79,8 @@ class OptEngine {
 		
 		$setting = (isset($this->settings_field)) ? $this->settings_field : PAGELINES_SETTINGS;
 		
-		$o['pid'] = $pid;
-		
-		$oset = array('post_id' => $pid, 'setting' => $setting);
-		
+		$oset = array( 'setting' => $setting );
+
 		if($o['type'] == 'select_same'){
 			
 			$new = array_flip($o['selectvalues']);
@@ -96,6 +94,8 @@ class OptEngine {
 				
 		
 		if($this->settings_field == 'meta'){
+			
+			$oset['post_id'] = $flag;
 			
 			$o['val'] = plmeta($oid, $oset);
 			$o['input_name'] = $oid;
@@ -112,6 +112,26 @@ class OptEngine {
 				}
 			}
 			
+		} elseif($this->settings_field == 'profile'){
+		
+			$user = $flag;
+			
+			$o['val'] = get_user_meta($user->ID, $oid, true);
+			$o['input_name'] = $oid;
+			$o['input_id'] = get_pagelines_option_id( $oid );
+			
+		//	plprint($user);
+			
+			if(!empty($o['selectvalues'])){
+				foreach($o['selectvalues'] as $sid => $s){
+
+					$o['selectvalues'][$sid]['val'] = get_user_meta($user->ID, $oid, true);
+					$o['selectvalues'][$sid]['input_id'] = get_pagelines_option_id( $sid );
+					$o['selectvalues'][$sid]['input_name'] = $sid;
+
+				}
+			}
+		
 		} elseif($this->settings_field == PAGELINES_SPECIAL){
 			
 			$oset['subkey'] = $oid;

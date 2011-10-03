@@ -56,12 +56,11 @@ class PageLinesMetaPanel {
 		if ( !current_user_can('publish_posts') )
 			return;	
 			
-				
 		// Adds the box
-		add_action( "admin_menu",  array(&$this, 'add_metapanel_box') );
+			add_action( "admin_menu",  array(&$this, 'add_metapanel_box') );
 		
 		// Saves the options.
-		add_action( 'save_post', array(&$this, 'save_meta_options') );
+			add_action( 'save_post', array(&$this, 'save_meta_options') );
 		
 	}
 	
