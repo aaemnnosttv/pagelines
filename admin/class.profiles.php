@@ -33,6 +33,9 @@ class ProfileEngine {
 	
 	function save_profile_admin( $user_ID ){
 
+		if(!isset($this->tabs) || empty($this->tabs))
+			return;
+
 		// Loop through tabs
 		foreach($this->tabs as $tab => $t){
 			
@@ -77,10 +80,10 @@ class ProfileEngine {
 
 		$set = array(
 				'handle'	=> 'profiletabs',
-				'title' 	=> 'PageLines Profile Options',
+				'title' 	=> 'Profile Options',
 				'tag' 		=> false,
 				'type'		=> 'profile',
-				'stext' 	=> __("Save Profile Settings",'pagelines'),
+				'stext' 	=> __("Save Profile Options",'pagelines'),
 				'tabs' 		=> $this->tabs, 
 				'user'		=> $user
 			);

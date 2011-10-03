@@ -77,10 +77,20 @@ class PLPanel {
 
 	}
 	
-	function head( $title, $tag, $stext ){ ?>
+	function head( $title, $tag, $stext ){ 
+		
+		global $post_ID;
+		$pl_link_url = ($this->s['type'] == 'meta' && $post_ID) ? esc_url( get_permalink($post_ID) ) : home_url();
+		$pl_link_title = ($this->s['type'] == 'meta' && $post_ID) ? __('View Page &rarr;', 'pagelines') : __('View Site &rarr;', 'pagelines');
+		?>
 		
 		<div class="ohead  mp_bar mp_head">
 			<div class="mp_bar_pad fix ">
+				<div id="the_pl_button" class="sl-pagelines sl-black superlink-wrap">
+					<a class="superlink" href="<?php echo $pl_link_url; ?>/" target="_blank" title="<?php echo $pl_link_title;?>">
+						<span class="superlink-pagelines">&nbsp;<span class="slpl">View Site</span></span>
+					</a>
+				</div>
 				<div class="mp_title">
 					<span class="mp_title_text"><?php echo $title; ?></span>
 					 <?php if($tag):?><span class='btag'><?php echo $tag;?></span><?php endif; ?>

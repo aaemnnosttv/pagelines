@@ -1510,7 +1510,9 @@ font-weight: bold;
 		.mp_title{ float: left;}
 		.mp_title .mp_title_text{ font-size: 23px; line-height: 1.32em; font-weight: bold; color: #BBB; text-shadow: #fff 0 1px 0;}
 		.mp_title .btag, .ohead-title .btag {margin-top: 6px;margin-left: 10px;}
+	
 		.mp_bar .superlink-wrap{float: right;}
+		.mp_bar .sl-pagelines{float: left;}
 		.mp_bar{border: 1px solid #ccc;}
 		.mp_head{border-bottom: none}	
 		.mp_footer{ border-top: 1px solid #fff; border-bottom: 1px solid #bbb; }
