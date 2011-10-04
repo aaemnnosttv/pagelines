@@ -3,4 +3,4 @@
 // Internal build versions.
 
 
-$platform_build = '2.0.b16';
+$platform_build = '2.0.b17';
