@@ -18,14 +18,21 @@ class ProfileEngine {
 	function __construct( array $settings = array() ) { 
 		
 		// Template Actions
-			add_action( 'edit_user_profile', array( &$this, 'admin_settings_tab' ) );
-			add_action( 'edit_user_profile', array( &$this, 'do_panel' ) );
-			add_action( 'show_user_profile', array( &$this, 'do_panel' ) );
 		
-		// Saving Actions
+			// Load Tabs
+			add_action( 'edit_user_profile', array( &$this, 'admin_settings_tab' ) );
 			add_action( 'edit_user_profile_update', array( &$this, 'admin_settings_tab' ) );
-			add_action( 'edit_user_profile_update', array( &$this, 'save_profile_admin' ) );
 			
+			if ( current_user_can('edit_user') ){
+				add_action( 'show_user_profile', array( &$this, 'admin_settings_tab' ) );
+				add_action( 'personal_options_update', array( &$this, 'admin_settings_tab' ) );
+			}
+			
+			// Draw Panel
+			add_action( 'edit_user_profile', array( &$this, 'do_panel' ) );
+			add_action( 'show_user_profile', array( &$this, 'do_panel' ) );		
+				
+			// Save!
 			add_action( 'edit_user_profile_update', array( &$this, 'save_profile_admin' ) );
 			add_action( 'personal_options_update', array( &$this, 'save_profile_admin' ) );
 		
@@ -113,7 +120,6 @@ class ProfileEngine {
 	}
 	
 	public function register_admin_opts( $opts ){
-		
 		
 		$this->admin_options = array_merge( $this->admin_options, $opts );
 		

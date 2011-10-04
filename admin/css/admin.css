@@ -591,6 +591,11 @@ background-repeat: no-repeat;
 		-moz-box-shadow: inset 2px 2px 3px  #eaeaea;
 		box-shadow: inset 2px 2px 3px  #eaeaea;
 	}
+	.optin{
+		-webkit-box-shadow: none;
+		-moz-box-shadow: none;
+		box-shadow: none;
+	}
 	.oinputs {
 		width: 62%;
 		float: left;
@@ -1458,7 +1463,7 @@ font-weight: bold;
 		background:#f7f7f7;
 	}
 		.mp_panel.hide_tabs{width: 100%; margin-left: 0%}
-		.mp_panel.hide_tabs .mp_panel_pad{border-left: 1px solid #fff;}
+		.mp_panel.hide_tabs .mp_panel_pad{border-left: none;}
 		.mp_panel.hide_tabs .optiontitle-pad {border-left: none;}
 		
 	 	.mp_panel_pad{	
