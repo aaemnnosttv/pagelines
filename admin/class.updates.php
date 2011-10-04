@@ -5,7 +5,7 @@ class PageLinesUpdateCheck {
 	
 		global $current_user;
     	$this->url_theme = apply_filters( 'pagelines_theme_update_url', PL_API . 'v3' );
-    	$this->theme  = 'PageLines_Framework';
+    	$this->theme  = 'PageLines';
  		$this->version = $version;
 		$this->username = get_pagelines_credentials( 'user' );
 		$this->password = get_pagelines_credentials( 'pass' );
@@ -13,11 +13,9 @@ class PageLinesUpdateCheck {
 		get_currentuserinfo();
 		$bad_users = apply_filters( 'pagelines_updates_badusernames', array( 'admin', 'root', 'test', 'testing', '' ) );
 		if ( in_array( strtolower( $this->username ),  $bad_users ) ) {
-			pagelines_update_option( 'lp_username', '' );
-			pagelines_update_option( 'lp_password', '' );
+			delete_option( 'pagelines_extend_creds' );
 			$this->username = '';
 			$this->password = '';
-		//	$this->pagelines_theme_clear_update_transient();
 		}
     }
 
@@ -84,7 +82,7 @@ class PageLinesUpdateCheck {
 
 			}
 		echo '<div id="update-nag">';
-		printf( '%s %s is available.', str_replace( '_', ' ', $this->theme ), esc_html( $pagelines_update['new_version'] ) );
+		printf( '%s Framework %s is available.', $this->theme, esc_html( $pagelines_update['new_version'] ) );
 		
 		printf( ' %s', ( $pagelines_update['package'] != 'bad' ) ? sprintf( 'You should <a href="%s">update now</a>.', admin_url('update-core.php') ) : sprintf( '<a href="%s">Click here</a> to setup your PageLines account.', admin_url('admin.php?page=pagelines_extend#Your_Account') ) );
 
