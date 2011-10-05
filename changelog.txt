@@ -13,7 +13,9 @@
 
 
 Version 2.0.0
-
+	BETA - 18
+	- Bug Fix - Meta not saving.
+	
 	BETA - 17
 	- Bug Fix - Sections all had same ID.
 	- Bug Fix - Windows sections all had same icon.
