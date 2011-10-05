@@ -88,27 +88,49 @@ function blink_edit( $post_id = '', $color = 'grey', $args = array()){
 	return PLObject::button(__('Edit', 'pagelines'), 'edit_post', $color, $args);
 }
 
-function pledit( $pid = '' ){
+function pledit( $id = '', $type = 'post' ){
 	
-	if($pid == ''){
-		global $post; 
-		$pid = $post->ID;
+	if($type == 'user'){
+		
+		$the_uid = $id;
+		
+		global $current_user;
+		
+		if($current_user == $the_uid)
+			$link = admin_url( 'profile.php' );
+		elseif(current_user_can('edit_users'))
+			$link = admin_url( sprintf('user-edit.php?user_id=%s', $the_uid) );
+		else 
+			$link = false;
+
+	} else {
+		
+		if($id == ''){
+			global $post; 
+			$id = $post->ID;
+		}
+	
+		if ( !$p = &get_post( $id ) )
+			return '';
+	
+		$post_type_object = get_post_type_object( $p->post_type );
+	
+		if ( !$post_type_object )
+			return '';
+
+		if ( !current_user_can( $post_type_object->cap->edit_post, $p->ID ) )
+			return '';
+			
+		$link = get_edit_post_link( $p->ID );
+			
 	}
 	
-	if ( !$p = &get_post( $pid ) )
+	if( $link ){
+		$button = sprintf(' <a class="pledit" href="%s"><span class="pledit-pad">(<em>edit</em>)</span></a> ', $link);
+		return $button;
+	} else 
 		return '';
 	
-	$post_type_object = get_post_type_object( $p->post_type );
-	
-	if ( !$post_type_object )
-		return '';
-
-	if ( !current_user_can( $post_type_object->cap->edit_post, $p->ID ) )
-		return '';
-	
-	$button = sprintf(' <a class="pledit" href="%s"><span class="pledit-pad">(<em>edit</em>)</span></a> ', get_edit_post_link( $p->ID ));
-	
-	return $button;
 }
 
 

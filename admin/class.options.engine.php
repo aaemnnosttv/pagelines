@@ -21,6 +21,7 @@ class OptEngine {
 		
 		$this->defaults = array(
 			'post_id'				=> '', 
+			'pid'					=> '', 
 			'setting'				=> '',
 			'default' 				=> '',
 			'default_free'		 	=> null,
