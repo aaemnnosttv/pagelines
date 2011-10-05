@@ -13,6 +13,11 @@
 
 
 Version 2.0.0
+
+	BETA - 19
+	- Add support for profiles section.
+	- Add plugins sandboxing.
+	
 	BETA - 18
 	- Bug Fix - Meta not saving.
 	
