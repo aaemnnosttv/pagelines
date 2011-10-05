@@ -671,6 +671,14 @@
 			return $this->ui->extension_list( $list, 'graphic' );
 	}
 	
+	function sandbox( $file, $type ) {
+
+register_shutdown_function( array(&$this, 'error_handler'), $type );
+@include_once( $file );
+
+}
+	
+	
 	/**
 	 * 
 	 * Extension AJAX callbacks
@@ -707,11 +715,12 @@
 				$skin = new PageLines_Upgrader_Skin();
 				$upgrader = new Plugin_Upgrader($skin);
 				$destination = ( ! $uploader ) ? $this->make_url( $type, $file ) : $file;
-				
+								
 				$upgrader->install( $destination );
 				if ( isset( $wp_filesystem )  && is_object( $wp_filesystem ) && $wp_filesystem->method == 'direct' )
 					_e( 'Success', 'pagelines' );
-
+				
+				$this->sandbox( WP_PLUGIN_DIR . $path, 'plugin');
 				activate_plugin( $path );			
 				$text = '&extend_text=plugin_install#installed';
 				$time = ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) && $wp_filesystem->method != 'direct' ) ? 0 : 700; 
@@ -726,7 +735,8 @@
 				
 				$skin = new PageLines_Upgrader_Skin();
 				$upgrader = new Plugin_Upgrader($skin);
-
+		
+				$active = is_plugin_active( ltrim( $path, '/' ) );
 				deactivate_plugins( array( $path ) );
 				
 				if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) )
@@ -734,7 +744,11 @@
 				else
 					extend_delete_directory( trailingslashit( WP_PLUGIN_DIR ) . $file );
 				$upgrader->install( $this->make_url( $type, $file ) );
+				$this->sandbox( WP_PLUGIN_DIR . $path, 'plugin');
+				if ( $active )
+					activate_plugin( ltrim( $path, '/' ) );
 				// Output
+
 				$text = '&extend_text=plugin_upgrade';
 				$time = ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) ) ? 0 : 700; 
 				$this->page_reload( 'pagelines_extend' . $text, null, $time);		
@@ -753,6 +767,7 @@
 			break;
 			case 'plugin_activate':
 
+				$this->sandbox( WP_PLUGIN_DIR . $file, 'plugin');
 			 	activate_plugin( $file );
 			 	_e( 'Activation complete!', 'pagelines' );
 			 	$this->page_reload( 'pagelines_extend' );
@@ -1210,7 +1225,18 @@
 		else 
 			return false;
 	}
-
+	
+	/**
+	 * Throw up on error.
+	 * 
+	 */
+	function error_handler( $type ) { 
+		$a = error_get_last();
+		$error =  ( $a['type'] == 4 || $a['type'] == 1 ) ? sprintf( 'Unable to activate the %s.', $type ) : '';
+		$error .= ( $error && PL_DEV ) ? sprintf( '<br />%s in %s on line: %s', $a['message'], basename( $a['file'] ), $a['line'] ) : '';
+		echo $error;
+	}
+	
 	/**
 	 * Scan for themes and combine api with installed.
 	 * 
@@ -1251,5 +1277,4 @@
 		}
 		return $themes;
 	}
-	
- } // end PagelinesExtensions class
+} // end PagelinesExtensions class
