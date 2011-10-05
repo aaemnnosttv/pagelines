@@ -5,19 +5,13 @@
  **/
 
 
-function grid( $query, $args = array() ){
+function grid( $data, $args = array() ){
 
-	// The Query
-	global $wp_query; 
-	
-	$wp_query = $query;
-	
-	$posts = $query->posts;
-	if( !is_array( $posts ) )
-		return;
+
 	
 	
 	$defaults = array(
+		'data'			=> 'query',
 		'per_row'		=> 3, 
 		'format'		=> 'img_grid', 
 		'paged'			=> false, 
@@ -33,6 +27,23 @@ function grid( $query, $args = array() ){
 	
 	$a = wp_parse_args($args, $defaults);
 	
+	if( $a['data'] == 'users'){
+		
+		$posts = $data;
+	
+	}else{
+		// The Query
+		global $wp_query; 
+	
+		$wp_query = $data;
+	
+		$posts = $data->posts;
+	
+		if( !is_array( $posts ) )
+			return;
+		
+	}
+	
 	// Standard Variables
 	$out = '';
 	$total = count($posts);
@@ -43,7 +54,7 @@ function grid( $query, $args = array() ){
 	// Grid loop
 	foreach($posts as $pid => $p){
 			
-		setup_postdata($p); 
+	
 		
 		// Grid Stuff
 		$start = (grid_row_start( $count, $total, $a['per_row'])) ? '<div class="pprow grid-row fix">' : '';
@@ -57,6 +68,8 @@ function grid( $query, $args = array() ){
 		if($a['callback'])
 			$content = call_user_func( $a['callback'], $p, $a );
 		else {
+			
+			setup_postdata($p); 
 			
 			// The Image
 			$thumb = ( has_post_thumbnail( $p->ID ) ) ? get_the_post_thumbnail( $p->ID ) : $default_img;

@@ -97,6 +97,8 @@ class OptEngine {
 			
 			$oset['post_id'] = $flag;
 			
+			$o['pid'] = $flag;
+			
 			$o['val'] = plmeta($oid, $oset);
 			$o['input_name'] = $oid;
 			$o['input_id'] = get_pagelines_option_id( $oid );
@@ -116,7 +118,7 @@ class OptEngine {
 		
 			$user = $flag;
 			
-			$o['val'] = get_user_meta($user->ID, $oid, true);
+			$o['val'] = pl_um($oid, $user->ID);
 			$o['input_name'] = $oid;
 			$o['input_id'] = get_pagelines_option_id( $oid );
 			
@@ -125,7 +127,7 @@ class OptEngine {
 			if(!empty($o['selectvalues'])){
 				foreach($o['selectvalues'] as $sid => $s){
 
-					$o['selectvalues'][$sid]['val'] = get_user_meta($user->ID, $oid, true);
+					$o['selectvalues'][$sid]['val'] = pl_um( $oid, $user->ID);
 					$o['selectvalues'][$sid]['input_id'] = get_pagelines_option_id( $sid );
 					$o['selectvalues'][$sid]['input_name'] = $sid;
 
@@ -867,9 +869,8 @@ class OptEngine {
 
 		// set value, id, name
 		foreach($bg as $k => $i){
-			$bgid = $oid.$k;
-
 			
+			$bgid = $oid.$k;
 
 			if($this->settings_field == 'meta'){
 				$bg[$k]['val'] = plmeta($bgid, $oset);

@@ -31,7 +31,7 @@
 	.media .img.rtimg{float:right; margin-left: 15px;}
 
 /* @ PageLines Proto CSS Grid */
-	.pprow { width: 100%; margin: 0 auto; overflow: hidden; }
+	.pprow { width: 100%; margin: 0 auto; }
 	.pp2, .pp3, .pp4, .pp5, .pp6 {margin: 0; padding:0; margin-right: 4%; float: left; border: none;}
 	.pp3{margin-right: 3%;}
 	.pp4, .pp5, .pp6{margin-right: 2%;}

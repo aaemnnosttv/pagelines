@@ -225,7 +225,7 @@ class PageLinesOptionsArray {
 				'layout'	=> 'full',
 				'selectvalues'	=> array(
 					'bodybg'	=> array(				
-						'default' 		=> '#EEEEEE',
+						'default' 		=> '#FFFFFF',
 						'css_prop'		=> 'background-color',
 						'cssgroup'		=> 'bodybg',
 						'inputlabel' 	=> __( 'Body Background', 'pagelines' ),

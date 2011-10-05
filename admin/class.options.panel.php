@@ -159,9 +159,10 @@ class PLPanel {
 		
 		$option_engine = new OptEngine( $type );
 		
+		$flag = ($type == 'meta') ? $post_ID : $user;
 		
 		foreach($opts as $oid => $o)
-			$option_engine->option_engine($oid, $o, $user);
+			$option_engine->option_engine($oid, $o, $flag);
 		
 	}
 	

@@ -57,7 +57,7 @@ class ProfileEngine {
 					foreach($o['selectvalues'] as $sid =>$s ){
 						$option_value =  isset($_POST[$sid]) ? $_POST[$sid] : null;
 						
-						if(!empty($option_value) || get_user_meta($user_ID, $sid, true))
+						if(!empty($option_value) || pl_um($sid, $user_ID))
 							update_post_meta($user_ID, $sid, $option_value );
 					}
 					
@@ -66,7 +66,7 @@ class ProfileEngine {
 					
 					$option_value =  isset($_POST[$oid]) ? $_POST[$oid] : null;
 
-					if(!empty($option_value) || get_user_meta($user_ID, $oid, true))
+					if(!empty($option_value) || pl_um($oid, $user_ID))
 						update_user_meta($user_ID, $oid, $option_value );
 					
 				}
@@ -199,4 +199,68 @@ function register_profile_admin_opts( $opts ){
 
 	$profile_panel_options->register_admin_opts( $opts );
 
+}
+
+function pagelines_get_users( $args ){
+	
+	$additional_defaults = array(
+	
+		'meta_order'	=> ''
+		
+	);
+	
+	$a = wp_parse_args($args, $additional_defaults);
+	
+	$users = get_users($a);
+	
+	usort($users, "cmp");
+	
+	return $users;
+	
+}
+
+function cmp($a, $b){
+	
+	if (pl_um('') == $b)
+		return 0;
+	
+	return ($a < $b) ? -1 : 1;
+	
+}
+
+function pl_user_id(){
+	
+	
+	if(isset($_GET['user_id']))
+		return (int) $_GET['user_id'];
+	else{
+		
+		global $user_ID;
+		return $user_ID;
+		
+	}
+	
+}
+
+
+/**
+ * 
+ * Not used currently, added here for reference.
+ */
+function pl_leaderboard(){
+	global $wpdb;
+
+	// Returns the SUM of karma within a period, and total
+	$rows = $wpdb->get_results( "SELECT k.user_id,
+									SUM(IF(k.timestamp > ADDDATE( NOW(), INTERVAL - {$period_units} {$period} ), k.karma, 0)) AS recent_karma, 
+									SUM(k.karma) as total_karma
+									FROM $wpdb->chess_karma k,  $wpdb->usermeta u
+									WHERE u.user_id = k.user_id
+										AND u.meta_key = 'pagelines_pro_publish'
+										AND u.meta_value = 'true'
+									GROUP BY k.user_id 
+									ORDER BY recent_karma DESC LIMIT $number" );
+	
+	return $rows;							
+								
 }

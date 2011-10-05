@@ -453,14 +453,15 @@ class PageLinesMetaPanel {
 	function save_meta_options( $postID ){
 	
 		// Make sure we are saving on the correct post type...
-		
-		
+	
 		// Current post type is passed in $_POST
 		$current_post_type = ( isset( $_POST['post_type'] ) ) ? $_POST['post_type'] : false;
 	
 		$post_type_save = ( in_array( $current_post_type, $this->settings['posttype'] ) ) ? true : false;
 
 		if((isset($_POST['update']) || isset($_POST['save']) || isset($_POST['publish'])) && $post_type_save){
+			
+				
 			
 			$page_template = (isset($_POST['page_template'])) ? $_POST['page_template'] : null;
 			$save_template = $this->get_save_template_type($_POST['post_type'], $page_template);
@@ -472,6 +473,8 @@ class PageLinesMetaPanel {
 			foreach($this->tabs as $tab => $t){
 				// Loop through tab options
 				foreach($t->options as $oid => $o){
+						
+					
 						
 					if($oid == 'section_control')
 						$this->save_sc( $postID );
@@ -491,12 +494,14 @@ class PageLinesMetaPanel {
 							}
 							
 						} else {
-						
+								
 							
-							$option_value =  isset($_POST[$oid]) ? $_POST[$oid] : null;
+							$option_value =  isset( $_POST[$oid] ) ? $_POST[ $oid ] : null;
 
-							if(!empty($option_value) || get_post_meta($postID, $oid))
+							if(!empty($option_value) || get_post_meta($postID, $oid)){
+							
 								update_post_meta($postID, $oid, $option_value );
+							}
 							
 						}
 						

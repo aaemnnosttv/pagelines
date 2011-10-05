@@ -230,6 +230,25 @@ function plid($key, $a){
 	return join('_', $output);
 }
 
+function pl_um($key, $args = null){
+	
+	if(is_array($args)){
+		
+		$d = array(
+			'user_id'	=> null
+		);
+
+		$o = wp_parse_args($args, $d);
+	} else {
+		
+		$o['user_id'] = $args;
+		
+	}
+
+	
+	return get_user_meta( $o['user_id'], $key, true );
+}
+
 /**
  * Sets up option name for saving of option settings
  *
