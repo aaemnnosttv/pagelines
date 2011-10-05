@@ -182,7 +182,8 @@ class ProfileEngine {
 		}
 
 	}
-	
+
+
 }
 
 function register_profile_tab( $set, $location = 'bottom' ){
@@ -201,32 +202,7 @@ function register_profile_admin_opts( $opts ){
 
 }
 
-function pagelines_get_users( $args ){
-	
-	$additional_defaults = array(
-	
-		'meta_order'	=> ''
-		
-	);
-	
-	$a = wp_parse_args($args, $additional_defaults);
-	
-	$users = get_users($a);
-	
-	usort($users, "cmp");
-	
-	return $users;
-	
-}
 
-function cmp($a, $b){
-	
-	if (pl_um('') == $b)
-		return 0;
-	
-	return ($a < $b) ? -1 : 1;
-	
-}
 
 function pl_user_id(){
 	

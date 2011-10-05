@@ -188,6 +188,28 @@ class PageLinesSection {
 	
 	function section_scripts(){}
 
+	function getting_started(){}
+		
+	function add_getting_started( $tab_array ){
+		
+		$tab = array(
+			'hide_getting_started_'.$this->id => array(
+				'type' 			=> 'text_content',		
+				'title'	 		=> 'Getting Started',
+				'shortexp' 		=> 'How to use this section',
+				'exp'			=> $this->getting_started(), 
+				'inputlabel'	=> 'Hide This Overview'
+			)
+		);
+		
+		global $post_ID;
+		
+		if( !plmeta('hide_getting_started_'.$this->id, array('post_id' => $post_ID)) )
+			$tab_array = array_merge($tab, $tab_array);
+			
+		return $tab_array;
+		
+	}
 
 	function hook_get_view(){
 

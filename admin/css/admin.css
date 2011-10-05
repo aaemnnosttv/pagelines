@@ -99,6 +99,7 @@ background-repeat: no-repeat;
 			margin: 14px 0;
 			vertical-align: top;
 		}
+			.lbl.inln span{margin: 0 5px}
 		.lbl.lbl-inline{
 			display: inline;
 			margin: 10px;
@@ -1172,6 +1173,23 @@ background-repeat: no-repeat;
 		.admin_option_info p{
 			color: #333;
 			margin-left: 5px;
+		}
+		
+	
+/* @ Text Content Options */
+	.pl_help{
+		margin: .5em 0 0;
+		background:#eee;
+		padding: 20px;
+		font-size: 12px;
+		line-height: 1.6em;
+	}
+		.pl_help ol, .pl_help ul{
+			padding: 10px 0 0 10px;
+			font-size: 1em;
+		}
+		.pl_help .lbl.inln{
+			margin-bottom:0;
 		}
 
 /* Pro Version Billboard */

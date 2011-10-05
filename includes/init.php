@@ -110,6 +110,10 @@ require_once( PL_INCLUDES . '/class.posts.php' );
  */
 require_once( PL_INCLUDES . '/class.layout.php' ); 
 
+/**
+ * Users Handling
+ */	
+require_once( PL_INCLUDES . '/class.users.php' );
 	
 /**
  * Load sections handling class

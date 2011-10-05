@@ -60,7 +60,7 @@ class OptEngine {
 
 	function layout_type($o){
 		
-		if($o['type'] == 'color_multi'){
+		if($o['type'] == 'color_multi' || $o['type'] == 'text_content'){
 			$o['layout'] = 'full';
 		}
 			
@@ -301,6 +301,9 @@ class OptEngine {
 			case 'select_menu' :
 				$this->_get_menu_select($oid, $o);
 				break;
+			case 'select_role' :
+				$this->_get_select_role($oid, $o);
+				break;
 			case 'image_upload' :
 				$this->_get_image_upload_option($oid, $o);
 				break;
@@ -374,6 +377,18 @@ class OptEngine {
 		else
 			printf( __( '<div class="option_default_statement">WP menus need to be created to use this option!<br/> Edit <a href="%s">WordPress Menus</a></div>', 'pagelines' ), admin_url( 'nav-menus.php'));
 			
+	}
+	
+	function _get_select_role($oid, $o){
+		
+		$opts = $this->input_option('', selected('', $o['val'], false), esc_html( 'Any Role' ) );
+		ob_start();
+		wp_dropdown_roles( $o['val'] );
+		$opts .= ob_get_clean();
+		
+		
+		echo $this->input_label($o['input_id'], $o['inputlabel']);
+		echo $this->input_select($o['input_id'], $o['input_name'], $opts);
 	}
 
 	/**
@@ -522,7 +537,16 @@ class OptEngine {
 	 * 
 	 **/
 	function _get_text_content($oid, $o, $val){ 	
-		printf('<div class="text_content fix">%s</div>', $o['exp']);
+		
+		
+		$checked = checked((bool) $o['val'], true, false);
+				
+		$input = $this->input_checkbox($o['input_id'], $o['input_name'], $checked);
+			
+		$hide_checkbox = $this->input_label_inline($o['input_id'], $input, $o['inputlabel']);
+		
+		printf('<div class="pl_help text_content fix">%s %s</div>', $o['exp'], $hide_checkbox);
+		
 	}
 
 	/**
