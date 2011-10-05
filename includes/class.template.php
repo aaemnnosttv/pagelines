@@ -477,6 +477,30 @@ class PageLinesTemplate {
 		
 	}
 
+	function run_before_page(){
+
+		if(is_array($this->allsections)){ 
+			
+			foreach($this->allsections as $sid){
+				
+				/**
+				 * If this is a cloned element, remove the clone flag before instantiation here.
+				 */
+				$pieces = explode("ID", $sid);		
+				$section = $pieces[0];
+				$clone_id = (isset($pieces[1])) ? $pieces[1] : null;
+				
+				if( $this->in_factory( $section ) ){
+					
+					$this->factory[$section]->section_before_page( $clone_id );
+					
+				}
+			}
+			
+		}
+		
+	}
+	
 	function print_template_section_headers(){
 
 		if(is_array($this->allsections)){ 

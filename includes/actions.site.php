@@ -37,8 +37,12 @@ add_action('admin_head', array(&$pagelines_template, 'load_section_optionator'))
 
 add_filter( 'pagelines_options_array', 'pagelines_merge_addon_options' );
 
-// In Site
+// Run Before Any HTML
+add_action('pagelines_before_html', array(&$pagelines_template, 'run_before_page'));
+
+// Run in <head>
 add_action('wp_head', array(&$pagelines_template, 'print_template_section_headers'));
+
 add_action('wp_print_styles', 'workaround_pagelines_template_styles'); // Used as workaround on WP login page (and other pages with wp_print_styles and no wp_head/pagelines_before_html)
 add_action('pagelines_head', array(&$pagelines_template, 'hook_and_print_sections'));
 add_action('wp_footer', array(&$pagelines_template, 'print_template_section_scripts'));

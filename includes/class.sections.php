@@ -241,6 +241,26 @@ class PageLinesSection {
 		
 	}
 
+	
+	/**
+	 * Runs before any html loads, but in the page.
+	 *
+	 * @package PageLines Core
+	 * @subpackage Sections
+	 * @since 1.0.0
+	 */
+	function section_before_page( $clone_id ){
+		
+		global $pagelines_ID;
+		
+		
+		// Setup common option configuration, considering clones and page ids
+		$this->oset = array('post_id' => $pagelines_ID, 'clone_id' => $clone_id);
+
+	}
+
+
+
 }
 /********** END OF SECTION CLASS  **********/
 
@@ -278,10 +298,6 @@ class PageLinesSectionFactory {
 
 }
 
-
-
-
-
 /**
  * Runs the persistent PHP for sections.
  *
@@ -291,9 +307,10 @@ class PageLinesSectionFactory {
  */
 function load_section_persistent(){
 	global $pl_section_factory;
-	
+
 	foreach($pl_section_factory->sections as $section)
 		$section->section_persistent();
+			
 
 }
 
