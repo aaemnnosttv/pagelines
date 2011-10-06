@@ -66,7 +66,7 @@ class PageLinesPostType {
 	
 	function init_register_post_type(){
 		
-		$cap = get_pagelines_option( 'hide_controls_cpt' );
+		$cap = get_pagelines_option( 'hide_controls_cpt', null, 'moderate_comments' );
 		
 		register_post_type( $this->id , array(  
 				'labels' => array(
