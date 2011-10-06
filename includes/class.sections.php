@@ -25,7 +25,7 @@ class PageLinesSection {
 	 */
 	function __construct( $settings = array() ) {
 	
-		global $load_sections;
+
 		
 		$defaults = array(
 				'markup'			=> null,
@@ -46,9 +46,7 @@ class PageLinesSection {
 		$this->hook_get_view();
 		
 		$this->hook_get_post_type();
-		
-		$this->available = $load_sections->pagelines_register_sections( false, true );
-		
+
 		$this->class_name = get_class($this);
 	
 		$this->set_section_info();
@@ -57,9 +55,14 @@ class PageLinesSection {
 	
 	function set_section_info(){
 		
-		$type = $this->section_install_type();
+		global $load_sections;
+		$available = $load_sections->pagelines_register_sections( false, true );
+		
+		$type = $this->section_install_type( $available );
 
-		$this->sinfo = $this->available[$type][$this->class_name];
+		global $load_sections;
+		$available = $load_sections->pagelines_register_sections( false, true );
+		$this->sinfo = $available[$type][$this->class_name];
 
 		// File location information
 		$this->base_dir = $this->settings['base_dir'] = $this->sinfo['base_dir'];
@@ -92,15 +95,15 @@ class PageLinesSection {
 		
 	}
 	
-	function section_install_type(){
+	function section_install_type( $available ){
 		
-		if ( isset( $this->available['custom'][$this->class_name] ) )
+		if ( isset( $available['custom'][$this->class_name] ) )
 			return 'custom';		
 		
-		if ( isset( $this->available['child'][$this->class_name] ) )
+		if ( isset( $available['child'][$this->class_name] ) )
 			return 'child';
 
-		if ( isset( $this->available['parent'][$this->class_name] ) )
+		if ( isset( $available['parent'][$this->class_name] ) )
 			return 'parent';
 	}
 
