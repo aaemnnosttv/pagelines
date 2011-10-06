@@ -109,8 +109,9 @@ class OptEngine {
 				foreach($o['selectvalues'] as $sid => $s){
 
 					$o['selectvalues'][$sid]['val'] = plmeta($sid, $oset);
-					$o['selectvalues'][$sid]['input_id'] = get_pagelines_option_id( $sid );
+					$o['selectvalues'][$sid]['input_id'] = get_pagelines_option_id( $oid, $sid );
 					$o['selectvalues'][$sid]['input_name'] = $sid;
+					
 
 				}
 			}

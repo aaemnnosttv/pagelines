@@ -13,9 +13,18 @@
 				cancel: '.required-section',
 				
 				items: 'li:not(.bank_title)',
-				
-				update: function() {
+				receive: function(event, ui) {
+					
 					jQuery(this).find('.section-controls-toggle:hidden').fadeIn();
+					
+					var sectionID = jQuery(ui.item).attr("id");
+					
+					handlePlace(selected_builder, sectionID);
+					
+				},
+				update: function(event, ui) {
+				
+					
 					saveSectionOrder( selected_builder );				
 		        }                                         
 		    }
@@ -33,6 +42,64 @@
 		jQuery(".selected_builder #sortable_template, .selected_builder #sortable_sections").disableSelection();	
 	}
 	
+	function handlePlace( selected_builder, sectionID ){
+		
+		var prefix = '.selected_builder #';
+		var newID;
+		
+		var bArea = selected_builder.split('-');
+		var sArea = bArea[0];
+		var sTemplate = bArea[1];
+		
+		var exp = sectionID.split('ID');
+		var section = exp[0];
+
+		if(sArea != 'main' && sArea != 'templates')
+			return;
+		
+		var oArea = (sArea == 'main') ? 'templates' : 'main';
+		
+		var interface_prefix = '.the_template_builder .'+oArea+'-'+sTemplate+' .template_layout #';
+		
+		$unique_id = false;
+		$set_new_id = false;
+		
+		$i = 2;
+		
+		while( !$unique_id ){
+			
+			if( !jQuery( interface_prefix + section ).exists() ){
+				
+				$unique_id = true;
+				
+			} else if( !jQuery( interface_prefix + section + 'ID' + $i ).exists() ){
+				$set_new_id = true;
+				
+				$unique_id = true;
+
+			} else {
+
+				$i++;
+
+			 }
+
+		}
+		
+		if($set_new_id == true){
+			
+			newID = section+ 'ID' + $i;
+			
+			jQuery( prefix+sectionID ).attr( 'id', newID );
+
+			jQuery( prefix+newID ).find( '.the_clone_id' ).html( '#'+$i );
+			
+		}
+		
+		
+	
+	}
+	
+
 	function cloneSection( sectionId ){
 		
 		var selected_builder = jQuery( '.selected_builder .template-slug' ).attr('id');

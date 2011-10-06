@@ -155,6 +155,16 @@ class PageLinesFeatures extends PageLinesSection {
 		$settings = wp_parse_args($settings, $this->optionator_default);
 		
 			$page_metatab_array = array(
+					
+					'feature_stage_height' => array(
+							'default' 		=> '380',
+							'version'		=> 'pro',
+							'type' 			=> 'text_small',
+							'inputlabel' 	=> 'Enter the height (In Pixels) of the Feature Stage Area',
+							'title' 		=> 'Feature Area Height',
+							'shortexp' 		=> "Use this feature to change the height of your feature area",
+							'exp' 			=> "To change the height of your feature area, just enter a number in pixels here.",
+					),
 					'feature_items' 	=> array(
 						'version' 		=> 'pro',
 						'default'		=> 5,
@@ -251,15 +261,6 @@ class PageLinesFeatures extends PageLinesSection {
 							'shortexp' => "",
 							'exp' => "Select a category to use if sourcing features from blog posts"
 						),
-					'feature_stage_height' => array(
-							'default' 		=> '380',
-							'version'		=> 'pro',
-							'type' 			=> 'text_small',
-							'inputlabel' 	=> 'Enter the height (In Pixels) of the Feature Stage Area',
-							'title' 		=> 'Feature Area Height',
-							'shortexp' 		=> "Use this feature to change the height of your feature area",
-							'exp' 			=> "To change the height of your feature area, just enter a number in pixels here.",
-						),
 					'fremovesync' => array(
 							'default' => false,
 							'type' => 'check',
@@ -273,7 +274,7 @@ class PageLinesFeatures extends PageLinesSection {
 
 			$metatab_settings = array(
 					'id' 		=> 'feature_meta',
-					'name' 		=> "Feature Meta",
+					'name' 		=> "Features",
 					'icon' 		=> $this->icon, 
 					'clone_id'	=> $settings['clone_id'], 
 					'active'	=> $settings['active']
@@ -300,7 +301,9 @@ class PageLinesFeatures extends PageLinesSection {
 		$playpause = (ploption('feature_playpause', $oset)) ? true : false;
 		$fmode = ploption('feature_nav_type', $oset);
 		
-		$selector = sprintf('#cycle.%s', 'fclone'.$clone_id);
+		$clone_class = sprintf('fclone%s', $clone_id);
+		
+		$selector = sprintf('#cycle.%s', $clone_class);
 		$fnav_selector = sprintf('#featurenav.%s', 'fclone'.$clone_id);
 		$playpause_selector = sprintf('.playpause.%s', 'fclone'.$clone_id);
 		
@@ -313,7 +316,7 @@ class PageLinesFeatures extends PageLinesSection {
 	//Feature Cycle Setup
 	printf( "jQuery('%s').cycle({ %s });", $selector, $args);
 	
-	$this->_js_feature_loop($fmode, $f);
+	$this->_js_feature_loop($fmode, $f, $clone_class);
 
 	if($playpause):
 	?>	
@@ -352,17 +355,18 @@ function _feature_css( $clone_id, $oset){
 	inline_css_markup('feature-css', $css);
 }
 
-function _js_feature_loop($fmode, $fposts = array()){
+function _js_feature_loop($fmode, $fposts = array(), $clone_class){
 	
 	$count = 1;
 	$link_js = '';
 	
 		foreach($fposts as $fid => $f){
 			$oset = array('post_id' => $f->ID);
-			$feature_name = (ploption('feature-name', $oset)) ? ploption('feature-name', $oset) : __('feature ', 'pagelines') . $count;
+			$feature_name = (ploption('feature-name', $oset)) ? ploption('feature-name', $oset) : $f->post_title;
 			$feature_thumb = ploption('feature-thumb', $oset);
 		
 			if($fmode == 'names' || $fmode == 'thumbs'){
+				echo "\n".' // '.$fmode.'!!!'."\n";
 				if($fmode == 'names')
 					$replace_value = $feature_name;
 			
@@ -380,7 +384,7 @@ function _js_feature_loop($fmode, $fposts = array()){
 			$count++; 
 		}
 	
-		printf('jQuery("div#featurenav").children("a").each(function() { %s });', $link_js);
+		printf('jQuery("div#featurenav.%s").children("a").each(function() { %s });', $clone_class, $link_js);
 
 }
 
@@ -489,7 +493,7 @@ function draw_features($f, $class, $clone_id = null) {
 	   
 	// Refine
 		$no_nav = ( isset($f) && count($f) == 1 ) ? 'nonav' : '';
-		$footer_nav_class = $feature_nav_type . $no_nav;
+		$footer_nav_class = $class. ' '. $feature_nav_type . $no_nav;
 		$cycle_selector = "fclone".$clone_id;
 ?>		
 
