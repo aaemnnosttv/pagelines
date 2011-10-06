@@ -242,7 +242,8 @@
 						'mode'		=> 'activate',
 						'condition'	=> (!$enabled) ? true : false,
 						'case'		=> 'section_activate',
-						'type'		=> $s['base_file'],
+						'type'		=> $s['type'],
+						'path'		=> $s['base_file'],
 						'file'		=> $s['class'],
 						'text'		=> __( 'Activate', 'pagelines' ),
 						'dtext'		=> __( 'Activating', 'pagelines' ),
@@ -793,8 +794,8 @@ register_shutdown_function( array(&$this, 'error_handler'), $type );
 			break;
 			
 			case 'section_activate':
-			
-				$this->sandbox( $type, 'section');
+
+				$this->sandbox( $path, 'section');
 				$available = get_option( 'pagelines_sections_disabled' );
 				unset( $available[$type][$file] );
 				update_option( 'pagelines_sections_disabled', $available );
@@ -839,9 +840,6 @@ register_shutdown_function( array(&$this, 'error_handler'), $type );
 						$time = 700;
 					}
 				}
-				$available = get_option( 'pagelines_sections_disabled' );
-				unset( $available['child'][$path] );
-				update_option( 'pagelines_sections_disabled', $available );
 				$text = '&extend_text=section_install#added';
 				$this->page_reload( 'pagelines_extend' . $text, null, $time);
 			break;
