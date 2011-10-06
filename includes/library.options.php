@@ -320,7 +320,7 @@ function pagelines_settings_callback( $input ) {
  * from the options database.
  *
  **/
-function get_pagelines_option($key, $setting = null) {
+function get_pagelines_option($key, $setting = null, $default = null) {
 	// get setting
 	$setting = $setting ? $setting : PAGELINES_SETTINGS;
 
@@ -332,8 +332,11 @@ function get_pagelines_option($key, $setting = null) {
 			return $global_pagelines_settings[$key];
 	
 		else
-			return false;
-		
+			if ( $default ) {
+				plupop( $key, $default );
+				return $default;
+			}
+		return false;
 	}
 }
 

@@ -52,8 +52,10 @@ class PageLinesMetaPanel {
 	}
 
 	function register_actions(){
-		
-		if ( !current_user_can('publish_posts') )
+
+
+
+		if ( !current_user_can( get_pagelines_option( 'hide_controls_meta', null, 'publish_posts' ) ) )
 			return;	
 			
 		// Adds the box

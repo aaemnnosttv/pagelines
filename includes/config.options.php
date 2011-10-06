@@ -833,7 +833,36 @@ class PageLinesOptionsArray {
 					'title'		=> __( 'Show Theme Introduction', 'pagelines' ),
 					'shortexp'	=> __( 'Uncheck this option to show theme introduction', 'pagelines' ),
 					'exp'		=> ""
-			)	
+			),
+			
+			'hide_controls_meta'	 => array(
+					'default' 		=> 'publish_posts',
+					'version'		=> 'pro',
+					'type' 			=> 'select',
+					'selectvalues'	=> array(
+						'edit_users'			=> array("name" => __( 'Administrator', 'pagelines') ),
+						'moderate_comments'		=> array("name" => __( 'Editor', 'pagelines') ),
+						'publish_posts'			=> array("name" => __( 'Author', 'pagelines') ),
+						'edit_posts'			=> array("name" => __( 'Contributor', 'pagelines') )
+					),
+					'inputlabel' 	=> __( 'Minimum user level for Post/Page Meta Settings', 'pagelines' ),
+					'title' 		=> __( 'User Levels', 'pagelines' ),
+					'shortexp' 		=> __( 'Set userlevels for the different settings pages. ', 'pagelines' ),
+					'exp' 			=> __( 'Members with a user level lower than the settings here will not be able to see the settings.', 'pagelines' )
+			),
+			'hide_controls_cpt' 	=> array(
+					'default' 		=> 'moderate_comments',
+					'version'		=> 'pro',
+					'type' 			=> 'select',
+					'selectvalues'	=> array(
+						'edit_users'			=> array("name" => __( 'Administrator', 'pagelines') ),
+						'moderate_comments'		=> array("name" => __( 'Editor', 'pagelines') ),
+						'publish_posts'			=> array("name" => __( 'Author', 'pagelines') ),
+						'edit_posts'			=> array("name" => __( 'Contributor', 'pagelines') )
+					),
+					'inputlabel' 	=> __( 'Minimum user level for Custom Post Types ( banners, features etc )', 'pagelines' ),
+
+			)
 
 		);
 		
