@@ -685,10 +685,9 @@
 	
 	function sandbox( $file, $type ) {
 
-register_shutdown_function( array(&$this, 'error_handler'), $type );
-@include_once( $file );
-
-}
+		register_shutdown_function( array(&$this, 'error_handler'), $type );
+		@include_once( $file );
+	}
 	
 	
 	/**

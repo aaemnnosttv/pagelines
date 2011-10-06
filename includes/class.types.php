@@ -65,6 +65,9 @@ class PageLinesPostType {
 	}
 	
 	function init_register_post_type(){
+		
+		$cap = get_pagelines_option( 'hide_controls_cpt' );
+		
 		register_post_type( $this->id , array(  
 				'labels' => array(
 							'name' 			=> $this->settings['label'],
@@ -92,15 +95,15 @@ class PageLinesPostType {
 				'has_archive'		=> $this->settings['has_archive'],
 				'map_meta_cap'		=> $this->settings['map_meta_cap'],
 				'capabilities' => array(
-			        'publish_posts' 		=> 'publish_posts',
-			        'edit_posts' 			=> 'publish_posts',
-			        'edit_others_posts' 	=> 'publish_posts',
-			        'delete_posts' 			=> 'publish_posts',
-			        'delete_others_posts' 	=> 'publish_posts',
-			        'read_private_posts' 	=> 'publish_posts',
-			        'edit_post' 			=> 'publish_posts',
-			        'delete_post' 			=> 'publish_posts',
-			        'read_post' 			=> 'publish_posts',
+			        'publish_posts' 		=> $cap,
+			        'edit_posts' 			=> $cap,
+			        'edit_others_posts' 	=> $cap,
+			        'delete_posts' 			=> $cap,
+			        'delete_others_posts' 	=> $cap,
+			        'read_private_posts' 	=> $cap,
+			        'edit_post' 			=> $cap,
+			        'delete_post' 			=> $cap,
+			        'read_post' 			=> $cap,
 			    ),
 				
 			));
