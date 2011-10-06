@@ -14,6 +14,14 @@
 
 Version 2.0.0
 
+	BETA - 20
+	- Add sections to sandboxing.
+	- Extend - Implement version checking for sections.
+	- Bug Fix - UTF8 html escape.
+	- Add user level support.
+	- Cloning fixes
+	- Memory leak discovered in section handling.
+
 	BETA - 19
 	- Add support for profiles section.
 	- Add plugins sandboxing.
