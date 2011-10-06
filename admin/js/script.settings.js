@@ -73,6 +73,7 @@
 				$unique_id = true;
 				
 			} else if( !jQuery( interface_prefix + section + 'ID' + $i ).exists() ){
+				
 				$set_new_id = true;
 				
 				$unique_id = true;
