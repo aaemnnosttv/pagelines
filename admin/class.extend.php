@@ -84,7 +84,9 @@
 
 			if ( $tab == 'premium' && $s->price ==- 'free' )
 				continue;
-
+			
+			$version_check = ( version_compare( CORE_VERSION, $s->plversion ) >= 0 ) ? true : false;
+			
 			$installed =  ( file_exists( $check_file ) ) ? true : false;
 
 			$key = str_replace( '.', '', $key );
@@ -93,7 +95,7 @@
 
 			$purchased = ( isset( $s->purchased ) ) ? true : false;
 
-			$install = ( !EXTEND_NETWORK && $purchased && ! $installed) ? true : false;
+			$install = ( $version_check && !EXTEND_NETWORK && $purchased && ! $installed) ? true : false;
 			
 			$login = ( !$updates_configured && !$purchased ) ? true : false;
 			
@@ -147,7 +149,17 @@
 						'path'		=> '',
 						'text'		=> __( 'Installed', 'pagelines' ),
 						'dtext'		=> ''
-						)			
+						),
+						'version_fail'	=>	array(
+							'mode'		=> 'installed',
+							'condition'	=> ( ! $version_check ) ? true : false,
+							'case'		=> '',
+							'type'		=> '',
+							'file'		=> '',
+							'path'		=> '',
+							'text'		=> sprintf( __( '%s is required', 'pagelines' ), $s->plversion ),
+							'dtext'		=> ''
+							)		
 			);	
 			$list[$key] = array(
 					'name' 		=> $s->name, 
@@ -230,7 +242,7 @@
 						'mode'		=> 'activate',
 						'condition'	=> (!$enabled) ? true : false,
 						'case'		=> 'section_activate',
-						'type'		=> $s['type'],
+						'type'		=> $s['base_file'],
 						'file'		=> $s['class'],
 						'text'		=> __( 'Activate', 'pagelines' ),
 						'dtext'		=> __( 'Activating', 'pagelines' ),
@@ -262,9 +274,8 @@
 						'text'		=> __( 'Delete', 'pagelines' ),
 						'dtext'		=> __( 'Deleting', 'pagelines' ),
 						'confirm'	=> true
-					)
-					
-				);				
+					)					
+				);			
 				$list[] = array(
 						'name' 		=> $s['name'], 
 						'version'	=> !empty( $s['version'] ) ? $s['version'] : CORE_VERSION, 
@@ -782,7 +793,8 @@ register_shutdown_function( array(&$this, 'error_handler'), $type );
 			break;
 			
 			case 'section_activate':
-
+			
+				$this->sandbox( $type, 'section');
 				$available = get_option( 'pagelines_sections_disabled' );
 				unset( $available[$type][$file] );
 				update_option( 'pagelines_sections_disabled', $available );
