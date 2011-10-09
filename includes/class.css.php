@@ -104,7 +104,7 @@ class PageLinesCSS {
 		
 		$v = $o['val'];
 			
-		if( !$v )
+		if( !$v && isset($o['flag']))
 			$v = ($o['flag'] == 'blank_default') ? false : $o['default'];
 	
 		do_color_math($oid, $o, $v, 'css');

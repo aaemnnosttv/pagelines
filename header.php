@@ -17,7 +17,8 @@
 		pagelines_register_hook('pagelines_head'); // Hook 
 		
 		wp_head(); // Hook (WordPress) 
-		print_pagelines_option('asynch_analytics');  // Recommended Spot For Asynchronous Google Analytics
+		
+		echo ploption('asynch_analytics');  // Recommended Spot For Asynchronous Google Analytics
 ?></head>
 <body <?php body_class( pagelines_body_classes() ); ?>>
 

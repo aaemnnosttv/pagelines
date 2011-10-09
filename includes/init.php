@@ -78,6 +78,11 @@ require_once( PL_INCLUDES . '/library.extend.php');
 require_once( PL_INCLUDES . '/library.layouts.php');
 
 /**
+ * Load Layouts library
+ */
+require_once( PL_INCLUDES . '/library.theming.php');
+
+/**
  * Theme configuration files
  */
 require_once( PL_INCLUDES . '/config.options.php' );

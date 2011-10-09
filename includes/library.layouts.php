@@ -23,11 +23,12 @@ function grid( $data, $args = array() ){
 		'row_class'		=> 'gridrow', 
 		'content_len'	=> 10, 
 		'callback'		=> false,
+		'margin'		=> true
 	);
 	
 	$a = wp_parse_args($args, $defaults);
 	
-	if( $a['data'] == 'users'){
+	if( $a['data'] == 'users' || $a['data'] == 'array_callback'){
 		
 		$posts = $data;
 	
@@ -50,14 +51,15 @@ function grid( $data, $args = array() ){
 	$count = 1;
 	$default_img = ( isset($a['img_default']) ) ? sprintf('<img src="%s" alt="%s"/>', $a['img_default'], __('No Image', 'pagelines')) : '';
 	
+	$margin_class = ($a['margin']) ? '' : 'ppfull';
 	
 	// Grid loop
 	foreach($posts as $pid => $p){
 			
-	
+		
 		
 		// Grid Stuff
-		$start = (grid_row_start( $count, $total, $a['per_row'])) ? '<div class="pprow grid-row fix">' : '';
+		$start = (grid_row_start( $count, $total, $a['per_row'])) ? sprintf('<div class="pprow grid-row fix %s">', $margin_class) : '';
 		$end = (grid_row_end( $count, $total, $a['per_row'])) ? '</div>' : '';
 		$last_class = (grid_row_end( $count, $total, $a['per_row'])) ? 'pplast' : '';
 		

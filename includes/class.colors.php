@@ -63,9 +63,8 @@ class PageLinesColor {
 				
 				// Special 
 				if($this->base_hsl['lightness'] < .1)
-					$diff = ($diff < .12 ) ? .12 : $diff;
+					$diff = 2*$diff;
 			
-				
 				$color =  $this->adjust($diff);
 			}else
 				$color =  $this->adjust(-$diff);
@@ -322,7 +321,7 @@ class PageLinesColor {
 
 			$difference = ($difference > 0 ) ? .1 : -.2;
 			
-			$prop = ( $difference < 0 ) ?  'text-shadow: 0 1px 0 %s;' : 'text-shadow: 0 -1px 0 %s;';
+			$prop = ( $difference < 0 ) ?  'text-shadow: 0 -1px 0 %s;' : 'text-shadow: 0 1px 0 %s;';
 			 	
 		} elseif( $type == 'box' ){
 			
@@ -332,7 +331,7 @@ class PageLinesColor {
 			
 			
 		}
-		
+	
 		$rule = sprintf( $prop, $this->c( 'shadow', $difference, $mix ) );
 		
 		if($echo)
@@ -471,10 +470,39 @@ function get_set_color( $id ){
 	
 }
 
-function cmath( $color ){
+
+function loadmath( $color ){
 	
 	return new PageLinesColor( $color );
 	
+}
+
+function setmath($type, $option = '', $oset = array()){
+	
+	if( $type == 'txt' )
+		$backup = pl_text_color(); 
+	elseif( $type == 'lnk' )
+		$backup = pl_link_color();
+	else
+		$backup = pl_bg_color();
+	
+	$color = ( ploption($option, $oset) ) ? ploption($option, $oset) : $backup;
+	
+	return loadmath( $color );
+	
+}
+
+
+function pl_bg_color(){
+	return get_set_color( 'the_bg' );
+}
+
+function pl_text_color(){
+	return get_set_color( 'text_primary' );
+}
+
+function pl_link_color(){
+	return get_set_color( 'linkcolor' );
 }
 
 

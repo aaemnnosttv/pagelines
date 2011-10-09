@@ -11,15 +11,13 @@
 
 class PageLinesBanners extends PageLinesSection {
 
-	/*
-		Loads php that will run on every page load (admin and site)
-		Used for creating administrative information, like post types
-	*/
+
+	var $ptID = 'banners';
+	var $taxID = 'banner-sets'; 
 
 	function section_persistent(){
-		/* 
-			Create Custom Post Type 
-		*/
+		
+		/* Create Custom Post Type */
 			$args = array(
 					'label' 			=> __('Banners', 'pagelines'),  
 					'singular_label' 	=> __('Banner', 'pagelines'),
@@ -27,7 +25,7 @@ class PageLinesBanners extends PageLinesSection {
 					'menu_icon'			=> $this->icon
 				);
 			$taxonomies = array(
-				"banner-sets" => array(	
+				$this->taxID => array(	
 						"label" => __('Banner Sets', 'pagelines'), 
 						"singular_label" => __('Banner Set', 'pagelines'), 
 					)
@@ -37,26 +35,22 @@ class PageLinesBanners extends PageLinesSection {
 				"title" => "Title",
 				"banner-description" => "Text",
 				"banner-media" => "Media",
-				"banner-sets" => "Banner Sets"
+				$this->taxID => "Banner Sets"
 			);
 		
-			$column_value_function = 'banner_column_display';
-		
-			$this->post_type = new PageLinesPostType($this->id, $args, $taxonomies, $columns, $column_value_function);
-		
-				/* Set default posts if none are present */
-				$this->post_type->set_default_posts('pagelines_default_banners');
+			$this->post_type = new PageLinesPostType( $this->ptID, $args, $taxonomies, $columns, array(&$this, 'banner_column_display') );
+	
+	
+		$this->type_meta_options();
 
-
-		/*
-			Meta Options
-		*/
+	
 		
-		/*
-			Create meta fields for the post type
-		*/
+	}
+	
+	function type_meta_options(){
+		/* Meta Options */
 			$type_meta_array = array(
-				
+
 				'the_banner_image' 	=> array(
 						'version' => 'pro',
 						'type' => 'image_upload',					
@@ -85,7 +79,7 @@ class PageLinesBanners extends PageLinesSection {
 						), 
 					'title' => 'Banner Alignment',				
 					'desc' => 'Put the media on the right or the left?',
-					
+
 				),
 				'banner_text_padding' => array(
 					'version' 	=> 'pro',
@@ -93,7 +87,7 @@ class PageLinesBanners extends PageLinesSection {
 					'size'		=> 'small',					
 					'title' 	=> 'Banner Text Padding',
 					'desc' 		=> '(optional) Set the padding for the text area. Use CSS shorthand, for example:<strong> 25px 30px 25px 35px</strong>; for top, right, bottom, then left padding.'
-					
+
 				),
 			);
 
@@ -107,7 +101,7 @@ class PageLinesBanners extends PageLinesSection {
 				);
 
 			$type_meta_panel =  new PageLinesMetaPanel( $type_metapanel_settings );
-			
+
 			$type_metatab_settings = array(
 				'id' 		=> 'banner-type-metatab',
 				'name' 		=> "Banner Setup Options",
@@ -115,7 +109,6 @@ class PageLinesBanners extends PageLinesSection {
 			);
 
 			$type_meta_panel->register_tab( $type_metatab_settings, $type_meta_array );
-		
 	}
 
 
@@ -137,7 +130,7 @@ class PageLinesBanners extends PageLinesSection {
 						'default' 		=> null,
 						'version'		=> 'pro',
 						'type' 			=> 'select_taxonomy',
-						'taxonomy_id'	=> 'banner-sets',
+						'taxonomy_id'	=> $this->taxID,
 						'desc'		 	=> 'Select Default Banner Set',
 						'inputlabel' 	=> 'Select Default Banner Set',
 						'title' 		=> 'Default Banner Set',
@@ -172,6 +165,13 @@ class PageLinesBanners extends PageLinesSection {
 		
 		// Actions
 			$b = $this->load_pagelines_banners($set, $limit);
+			
+			if(empty($b)){
+				echo setup_section_notify($this, __('No Banner posts matched this page\'s criteria', 'pagelines') );
+				return;
+			}
+			
+			
 			$this->draw_banners($b, 'banners ' . $set);
 	}
 
@@ -227,14 +227,12 @@ class PageLinesBanners extends PageLinesSection {
 	}
 	
 	
-	static function load_pagelines_banners($set = null, $limit = null){
-		$query = array();
-		
-		$query['post_type'] = 'banners'; 
-		$query['orderby'] 	= 'ID'; 
+	function load_pagelines_banners($set = null, $limit = null){
+	
+		$query = array( 'post_type' => $this->ptID, 'orderby' => 'ID' ); 
 		
 		if(isset($set)) 
-			$query['banner-sets'] = $set; 
+			$query[$this->taxID] = $set; 
 			
 		if(isset($limit)) 
 			$query['showposts'] = $limit; 
@@ -245,72 +243,30 @@ class PageLinesBanners extends PageLinesSection {
 			return $q->posts;
 		else 
 			return array();
-	
-	}
 
-	
-// End of Section Class //
-}
-
-function banner_column_display($column){
-	global $post;
-	
-	switch ($column){
-		case "banner-description":
-			the_excerpt();
-			break;
-		case "banner-media":
-			if(get_post_meta($post->ID, 'the_banner_image', true )){
-			
-				echo '<img src="'.get_post_meta($post->ID, 'the_banner_image', true ).'" style="width: 80px; margin: 10px; border: 1px solid #ccc; padding: 5px; background: #fff" />';	
-			}
-			
-			break;
-		case "banner-sets":
-			echo get_the_term_list($post->ID, 'banner-sets', '', ', ','');
-			break;
-	}
-}
-
-		
-function pagelines_default_banners($post_type){
-	
-	$d = array_reverse(get_default_banners());
-	
-	foreach($d as $dp){
-		// Create post object
-		$default_post = array();
-		$default_post['post_title'] = $dp['title'];
-		$default_post['post_content'] = $dp['text'];
-		$default_post['post_type'] = $post_type;
-		$default_post['post_status'] = 'publish';
-		if ( defined( 'ICL_LANGUAGE_CODE' ) )
-			$default_post['icl_post_language'] = ICL_LANGUAGE_CODE;		
-		$newPostID = wp_insert_post( $default_post );
-
-		wp_set_object_terms($newPostID, 'default-banners', 'banner-sets');
-	
-		if(isset($dp['image'])) 
-			update_post_meta($newPostID, 'the_banner_image', $dp['image']);
-			
-		if(isset($dp['media'])) 
-			update_post_meta($newPostID, 'the_banner_media', $dp['media']);
-	
-		if(isset($dp['set'])) 
-			wp_set_object_terms($newPostID, $dp['set'], 'banner-sets', true);
-		
-		if(isset($dp['width']))
-			update_post_meta($newPostID, 'banner_text_width', $dp['width']);
-		
-		if(isset($dp['align']))
-			update_post_meta($newPostID, 'banner_align', $dp['align']);
-		
-		if(isset($dp['pad']))
-			update_post_meta($newPostID, 'banner_text_padding', $dp['pad']);
 
 	}
+	
+	function banner_column_display($column){
+		global $post;
+
+		switch ($column){
+			case "banner-description":
+				the_excerpt();
+				break;
+			case "banner-media":
+				if(get_post_meta($post->ID, 'the_banner_image', true )){
+
+					echo '<img src="'.get_post_meta($post->ID, 'the_banner_image', true ).'" style="width: 80px; margin: 10px; border: 1px solid #ccc; padding: 5px; background: #fff" />';	
+				}
+
+				break;
+			case $this->taxID:
+				echo get_the_term_list($post->ID, $this->taxID, '', ', ','');
+				break;
+		}
+	}
+	
 }
 
-function get_default_banners(){
-	return apply_filters('pagelines_default_banners', array());
-}
+

@@ -332,34 +332,6 @@ function load_section_admin(){
 
 }
 
-
-function load_section_options($optionset = null, $location = 'bottom', $load_unavailable_options = false){
-	global $pl_section_factory;
-	
-	$load_options = array();
-	
-	foreach($pl_section_factory->sections as $section){
-		$section_options = $section->section_options($optionset, $location);
-		if(is_array($section_options)){
-			$load_options = array_merge($load_options, $section_options);
-		}
-	}
-	
-	/*
-		For Free Version
-	*/
-	if( $load_unavailable_options && is_array($pl_section_factory->unavailable_sections) ){
-		foreach($pl_section_factory->unavailable_sections as $section){
-			$section_options = $section->section_options($optionset, $location);
-			if(is_array($section_options)){
-				$load_options = array_merge($load_options, $section_options);
-			}
-		}
-	}
-
-	return $load_options;
-}
-
 function get_unavailable_section_areas(){
 	
 	$unavailable_section_areas = array();

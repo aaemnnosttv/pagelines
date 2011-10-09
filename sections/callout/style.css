@@ -1,10 +1,8 @@
-#callout .callout_head{ font-size:2em; }
-#callout .callout_copy{ font-size:.9em; }
-#callout .callout_image a{line-height: 1em;}
+.callout_head{ font-size:2em; }
+.callout_copy{ font-size:.9em; }
+.callout_image a{line-height: 1em;}
 
-#callout{ overflow:hidden;}
-
-#callout .content-pad{	padding:30px 17px 30px;}
+#callout .callout-area{	padding:30px 17px 30px;}
 #callout .callout_text{	
 	width:70%;
 	float:left;

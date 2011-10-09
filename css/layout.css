@@ -12,7 +12,7 @@
 
 	@media screen and (max-width:800px){
 		body #site .content, body .wcontent, body #footer .content, html body.fixed_width #page{width: 97%;}
-	    body #page #pagelines_content #column-wrap,  body #page  #buddypress-page #container, body #page  #pagelines_content #sidebar-wrap, html body.fixed_width #site .content{
+	    body #page #pagelines_content #column-wrap, body #page  #pagelines_content #sidebar-wrap, html body.fixed_width #site .content{
 	       width: 100%;
 	    }
 	}
@@ -64,11 +64,11 @@
 	/* @ Layout Floating */
 		#column-wrap, #container{float: left;}
 		#sidebar-wrap{float:right;}
-		.two-sidebar-left #column-wrap, .one-sidebar-left #column-wrap, .two-sidebar-left #buddypress-page #container, .one-sidebar-left #buddypress-page #container{ 
+		.two-sidebar-left #column-wrap, .one-sidebar-left #column-wrap{ 
 			float: right; 
 		}
 		.two-sidebar-left #sidebar-wrap, .one-sidebar-left #sidebar-wrap{ float: left; }
-		.two-sidebar-left #column-main, .one-sidebar-left #column-main, .two-sidebar-left #buddypress-page #container, .one-sidebar-left #buddypress-page #container{ 
+		.two-sidebar-left #column-main, .one-sidebar-left #column-main{ 
 			float: right; 
 		}
 		.two-sidebar-center #column-main { float: right;}
@@ -85,3 +85,14 @@
 		.one-sidebar-left #column-main .mcolumn-pad , .one-sidebar-left #container #content, .two-sidebar-left #column-main .mcolumn-pad , .two-sidebar-left #container #content{ 
 			padding: 2em 15px 0 30px;
 		}
+
+/* @ Fixed Width Design Mode*/
+.fixed_width #page{
+	margin: 12px auto 0;
+}
+	body.fixed_width{ border-top:none; }
+	.fixed_width #footer{ background: transparent; margin: 0 auto; }
+	.fixed_width #morefoot .dcol-pad { padding: 15px; }
+	.fixed_width #branding .content-pad{ padding: 20px 15px 15px; }
+	.fixed_width #header .searchform { margin-right: 10px }
+	.fixed_width #boxes .dcol-pad {padding: 10px;}

@@ -44,15 +44,24 @@
 	.pp6 { width: 15%; }
 	.pplast { margin-right: 0; }
 	
+	.ppfull .pp2, .ppfull .pp3, .ppfull .pp4, .ppfull .pp5, .ppfull .pp6{
+		margin-right: 0;
+	}
+	.ppfull .pp2{ width: 50% }
+	.ppfull .pp3{ width: 33.3333333% }
+	.ppfull .pp4{ width: 25% }
+	.ppfull .pp5{ width: 20% }
+	.ppfull .pp6{ width: 16.66666667% }
+	
 
 	@media screen and (max-width:650px) { 	
-		.pp2, .pp3{ 
+		#page .pp2, #page .pp3{ 
 	       	width: 100%;
 			margin-right: 0;
 	    }
 	}
 	@media screen and (max-width:700px) { 	
-		.pp4, .pp5, .pp6 { 
+		#page .pp4, #page .pp5, #page .pp6 { 
 	       	width: 100%;
 			margin-right: 0;
 	    }

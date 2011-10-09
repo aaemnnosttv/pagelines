@@ -11,14 +11,24 @@
 
 class PageLinesFootCols extends PageLinesSection {
 
+	public $markup_start;
+	public $markup_end;
+	
 	function section_persistent(){
+		
+		$per_row = (ploption('footer_num_columns')) ? ploption('footer_num_columns') : 5;
+		
+		$this->markup_start = '<div id="%1$s" class="%2$s pp'.$per_row.' footcol"><div class="footcol-pad">';
+		$this->markup_end 	= '</div></div>';
+		
+	
 		register_sidebar(array(
-		'name'=>$this->name,
-		'description' => __('Use this sidebar if you want to use widgets in your footer columns instead of the default.', 'pagelines'),
-		    'before_widget' => '<div id="%1$s" class="%2$s pp5 footcol"><div class="dcol-pad">',
-		    'after_widget' => '</div></div>',
-		    'before_title' => '<h3 class="widget-title">',
-		    'after_title' => '</h3>'
+			'name'=>$this->name,
+			'description'	=> __('Use this sidebar if you want to use widgets in your footer columns instead of the default.', 'pagelines'),
+		    'before_widget' => $this->markup_start,
+		    'after_widget' 	=> $this->markup_end,
+		    'before_title' 	=> '<h3 class="widget-title">',
+		    'after_title' 	=> '</h3>'
 		));
 		
 		register_nav_menus( array(
@@ -29,70 +39,62 @@ class PageLinesFootCols extends PageLinesSection {
 	}
 	
 	function section_template() { 
-		?>
-			<div id="fcolumns_container" class="pprow fix">
-				
-				<?php if (!dynamic_sidebar($this->name) ) : ?>
-					<div class="pp5 footcol">
-						<div class="dcol-pad">
-							<?php if(pagelines_option('footer_logo') && VPRO):?>
-								<a class="home" href="<?php echo home_url(); ?>" title="<?php _e('Home','pagelines');?>">
-									<img src="<?php echo pagelines_option('footer_logo');?>" alt="<?php bloginfo('name');?>" />
-								</a>
-							<?php else:?>
-								<h3 class="site-title">
-									<a class="home" href="<?php echo home_url(); ?>" title="<?php _e('Home','pagelines');?>">
-										<?php bloginfo('name');?>
-									</a>
-								</h3>
-							<?php endif;?>
-						</div>
-					</div>
-					<div class="pp5 footcol">
-						<div class="dcol-pad">
-							<h3 class="widget-title"><?php _e('Pages','pagelines');?></h3>
-								<?php wp_nav_menu( array('menu_class' => 'footer-links list-links', 'theme_location'=>'footer_nav', 'depth' => 1) ); ?>
-
-						</div>
-					</div>
-					<div class="pp5 footcol">
-						<div class="dcol-pad">
-							<h3 class="widget-title"><?php _e('The Latest','pagelines');?></h3>
-								<ul class="latest_posts">
-								<?php foreach(get_posts('numberposts=1&offset=0') as $key => $post):
-										setup_postdata($post);?>
-										<li class="list-item fix">
-											<div class="list_item_text">
-												<h5><a class="list_text_link" href="<?php echo get_permalink( $post->ID ); ?>"><span class="list-title"><?php echo $post->post_title; ?></span></a></h5>
-												<div class="list-excerpt"><?php echo ( !is_404() ) ? custom_trim_excerpt(get_the_excerpt(), 12) : ''; ?></div>
-											</div>
-										</li>
-								<?php endforeach;?></ul>
-						</div>
-					</div>
-					<div class="pp5 footcol">
-						<div class="dcol-pad">
-							<h3 class="widget-title"><?php _e('More','pagelines');?></h3>
-							<div class="findent footer-more">
-								<?php print_pagelines_option('footer_more');?>
-							</div>
-						</div>
-					</div>
-					<div class="pp5 pplast footcol">
-						<div class="dcol-pad">
-							<div class="findent terms">
-								<?php print_pagelines_option('footer_terms');?>
-							</div>
-						</div>
-					</div>
-				<?php endif; ?>
-			</div>	
-			<div class="clear"></div>
-		<?php
+		
+		$default = array();
+		
+		if(ploption('footer_logo') && VPRO)
+			$default[] = sprintf( '<a href="%s" class="home" title="%s"><img src="%s" alt="%s"/></a>',  home_url(),  __('Home', 'pagelines'), ploption('footer_logo'),  get_bloginfo('name') );
+		else 
+			$default[] = sprintf( '<h3 class="site-title"><a class="home" href="%s" title="%s">%s</a></h3>', home_url(), __('Home', 'pagelines'), get_bloginfo('name') );
+			
+		$default[] = sprintf( '<h3 class="widget-title">%s</h3>%s',
+				__('Pages','pagelines'), 
+				wp_nav_menu( array('menu_class' => 'footer-links list-links', 'theme_location'=>'footer_nav', 'depth' => 1, 'echo' => false) )
+			);
+			
+		$default[] = sprintf( '<h3 class="widget-title">%s</h3><ul class="latest_posts">%s</ul>',
+				__('The Latest','pagelines'), 
+				$this->recent_post()
+			);
+			
+		$default[] = sprintf( '<h3 class="widget-title">%s</h3><div class="findent footer-more">%s</div>',
+				__('More','pagelines'), 
+				ploption('footer_more')
+			);
+			
+		$default[] = sprintf( '<div class="findent terms">%s</div>',
+				ploption('footer_terms')
+			);
+		
+		
+		ob_start(); // dynamic sidebar always outputs
+	
+		if (!dynamic_sidebar($this->name) ) {
+		
+			foreach($default as $key => $c){
+				printf($this->markup_start, '', ''); 
+				echo $c;
+				echo $this->markup_end;
+			}
+			
+		}		
+		
+		printf('<div id="fcolumns_container" class="ppfull pprow fix">%s</div><div class="clear"></div>', ob_get_clean());
+		
 	}
 
-}
+	function recent_post(){
+		$out = '';
+		foreach( get_posts('numberposts=1&offset=0') as $key => $p ){
+			$out .= sprintf(
+				'<li class="list-item fix"><div class="list_item_text"><h5><a class="list_text_link" href="%s"><span class="list-title">%s</span></a></h5><div class="list-excerpt">%s</div></div></li>', 
+				get_permalink( $p->ID ), 
+				$p->post_title, 
+				custom_trim_excerpt($p->post_content, 12)
+			);
+		}
+		
+		return $out;
+	}
 
-/*
-	End of section class
-*/
+} // End

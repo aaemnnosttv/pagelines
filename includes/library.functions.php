@@ -33,11 +33,10 @@ function pagelines_special_pages(){
 }
 
 function pl_meta_set_url(){
+	
 	global $post; 
-	if(is_pagelines_special())
-		return admin_url('admin.php?page=pagelines_special');
-	else 
-		return get_edit_post_link( $post->ID );
+	
+	return (is_pagelines_special()) ? admin_url('admin.php?page=pagelines_special') : get_edit_post_link( $post->ID );
 		
 }
 
@@ -52,24 +51,11 @@ function pl_meta_set_url(){
  */
 function pagelines_body_classes(){
 	
+	global $pagelines_template;
+	
 	$design_mode = (ploption('site_design_mode')) ? ploption('site_design_mode') : 'full_width';
-
-	$body_classes = $design_mode;
 	
-	if(pagelines_is_buddypress_active() && !pagelines_bbpress_forum()){
-		$body_classes .= ' buddypress';
-	} 
-	
-	if (pagelines_bbpress_forum()){
-		
-		$body_classes .= ' bbpress';
-		
-	} else {
-		
-		global $pagelines_template;
-		$body_classes .= ' custom pagelines-'.$pagelines_template->template_type;
-		
-	}	
+	$body_classes = sprintf('custom %s %s', strtolower(CHILDTHEMENAME), $pagelines_template->template_type, $design_mode);
 	
 	return $body_classes;
 }
@@ -234,50 +220,30 @@ function pagelines_format_tweet( $title, $shorturl ) {
 function pl_background_cascade(){
 	
 	$cascade = array(
-		pagelines_option('contentbg'),
-		pagelines_option('pagebg'),
-		pagelines_option('bodybg'),
+		ploption('contentbg'),
+		ploption('pagebg'),
+		ploption('bodybg'),
+		'#ffffff'
 	);
 	
 	return apply_filters('background_cascade', $cascade);
 }
 
-
 /**
  * 
- *  Checks if currently viewed page is part of BuddyPress Template
+ *  Body BG
  *
- *  @package PageLines
- *  @subpackage BuddyPress Support
- *  @since 4.0
+ *  @since 2.0.b6
  *
  */
-function pagelines_is_buddypress_page(){
-	global $bp; 
-	if(isset($bp) && isset($bp->current_component) && !empty($bp->current_component)){
-		return true;
-	}else{
-		return false;
-	}
-}
-
-/**
- * 
- *   Checks if BuddyPress is active
- *
- *  @package PageLines
- *  @subpackage BuddyPress Support
- *  @since 4.0
- *
- */
-function pagelines_is_buddypress_active(){
-	global $bp; 
+function pl_body_bg(){
 	
-	if(isset($bp))
-		return true;
-	else
-		return false;
+	$cascade = array( ploption('bodybg'), '#ffffff' );
+	
+	return apply_filters('body_bg', $cascade);
 }
+
+
 
 /**
  *  Strips While Space

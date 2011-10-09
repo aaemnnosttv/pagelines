@@ -1,7 +1,7 @@
 /*  
 Theme Name: PageLines Framework
 
-Description: PageLines Framework is an drag-and-drop theme-design framework for WordPress and HTML5. It will help you do amazing things with your site, faster & easier than ever before. Designed and developed by <a href="http://pagelines.com/">PageLines</a> in California. Twitter @pagelines
+Description: PageLines Framework is an drag-and-drop platform for professional websites based on WordPress and HTML5. It will help you do amazing things with your site, faster & easier than ever before. Designed and developed by <a href="http://pagelines.com/">PageLines</a> in San Francisco, California. Twitter @pagelines
 
 Version: 2.0.b19
 
@@ -11,7 +11,8 @@ Author URI: http://www.pagelines.com/
 
 Theme URI: http://www.pagelines.com/tour
 
-Tags: buddypress, rtl-language-support, editor-style, theme-options, one-column, two-columns, three-columns, left-sidebar, right-sidebar, flexible-width, custom-menu, fixed-width, threaded-comments, custom-background,  custom-header, custom-colors, custom-menu, photoblogging, translation-ready, white, silver, light, blue, green, yellow
+Tags: rtl-language-support, editor-style, theme-options, one-column, two-columns, three-columns, left-sidebar, right-sidebar, flexible-width, custom-menu, fixed-width, threaded-comments, custom-background,  custom-header, custom-colors, custom-menu, photoblogging, translation-ready, white, silver, light, blue, green, yellow
+
 License: GPL
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -33,16 +34,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 ---------------------------------------------------------------  		
 */
 
-/* @ Fixed Width Design Mode*/
-.fixed_width #page{
-	margin: 12px auto 0;
-}
-	body.fixed_width{ border-top:none; }
-	.fixed_width #footer{ background: transparent; margin: 0 auto; }
-	.fixed_width #morefoot .dcol-pad { padding: 15px; }
-	.fixed_width #branding .content-pad{ padding: 20px 15px 15px; }
-	.fixed_width #header .searchform { margin-right: 10px }
-	.fixed_width #boxes .dcol-pad {padding: 10px;}
+
 
 body{font-size: 87.5%; line-height: 1.714285em;height:100%;}
 
@@ -153,18 +145,18 @@ body{font-size: 87.5%; line-height: 1.714285em;height:100%;}
 /*
 * @ Borders
 */	
-		hr, .fpost, .clip_box, .widget-title, #buddypress-page .item-list li, .metabar a, #morefoot .widget-title, #site #dsq-content h3, .navigation_wrap, ul.sf-menu ul li{
+		hr, .fpost, .clip_box, .widget-title, .metabar a, #morefoot .widget-title, #site #dsq-content h3, .navigation_wrap, ul.sf-menu ul li{
 			border-bottom: 1px solid transparent;
 		}
 		 ul.sf-menu ul li:last-child{border-bottom: none}
 	
 		.post.fpost .entry, #soapbox .fboxinfo, #feature-footer.nonav {border-top: 1px solid transparent;}
 		
-		#feature-footer, #featurenav a, #feature-footer span.playpause, #featurenav a.activeSlide, textarea:focus, #commentform textarea:focus, #commentform input[type="text"]:focus, input, textarea, .searchform .searchfield, .wp-caption, #buddypress-page div.activity-comments form .ac-textarea, #buddypress-page form#whats-new-form #whats-new-textarea, #grandchildnav.widget, .clip .clip-thumb img, .author-thumb img, #carousel .content ul li a img, .widget_flickrRSS a img, .wp125_write_ads_widget.widget #wp125adwrap_2c .wp125ad a{
+		#feature-footer, #featurenav a, #feature-footer span.playpause, #featurenav a.activeSlide, textarea:focus, #commentform textarea:focus, #commentform input[type="text"]:focus, input, textarea, .searchform .searchfield, .wp-caption, #grandchildnav.widget, .clip .clip-thumb img, .author-thumb img, #carousel .content ul li a img, .widget_flickrRSS a img, .wp125_write_ads_widget.widget #wp125adwrap_2c .wp125ad a{
 			border: 1px solid transparent;
 		}
 	
-		.setup_area{border: 4px dashed transparent;margin: 2em 0;}
+		.setup_area{border: 4px dashed transparent;margin: 1em 0;}
 		
 	
 /* 
@@ -274,7 +266,7 @@ body{font-size: 87.5%; line-height: 1.714285em;height:100%;}
 	.navigation_wrap .searchform { 
 		position: absolute;
 		right: 20px;
-		bottom: 4px;
+		bottom: 2px;
 	}
 	
 	.searchform input {
@@ -332,10 +324,10 @@ body{font-size: 87.5%; line-height: 1.714285em;height:100%;}
 			
 
 /* @ Clips */	
-	#pagelines_content .clip, #buddypress-page .clip{
+	#pagelines_content .clip{
 		width:47%;
 	}
-	 #site.fullwidth #pagelines_content .clip, #site.fullwidth #buddypress-page .clip{
+	 #site.fullwidth #pagelines_content .clip{
 		width: 48%;
 	}
 	.clip_box{ margin-bottom: .5em; padding: 1em 0; }
@@ -484,6 +476,7 @@ body{font-size: 87.5%; line-height: 1.714285em;height:100%;}
 		text-align: left;
 		position: relative;
 	}
+	#footer .footcol-pad{ padding: 0 10px; }
 	#footer .footcol ul{ padding: 0 5px; }
 	#footer li {list-style-type:none;}
 	#footer li a:hover {text-decoration: underline;}
@@ -584,10 +577,6 @@ body{font-size: 87.5%; line-height: 1.714285em;height:100%;}
 
 /* @ Typekit */
 	.typekit-badge{ display: none !important; }
-
-/* @ Special Effects */
-	.ithumb, .iframe { padding: 5px; }
-	.fancybox span{ display:block;}
 
 /* @ Content Pagination */
 	.content-pagination .cp-desc { font-style: italic; }
@@ -740,7 +729,6 @@ table {width: 100%;}
 				font-size: 1.4em;
 			}
 			article.forum .bbp-topics th, article.forum .bbp-topics td{
-
 				padding: 5px 8px;
 			}
 			article.forum .bbp-topics th{font-size: 1.2em;}

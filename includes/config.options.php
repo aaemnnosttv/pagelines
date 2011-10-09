@@ -20,7 +20,7 @@ class PageLinesOptionsArray {
 	 */
 	function __construct() {
 		
-		if(!pagelines_option('hide_introduction') && VPRO)
+		if(!ploption('hide_introduction') && VPRO)
 			$this->options['_welcome'] = $this->welcome();
 		
 		$this->options['website_setup'] = $this->website_setup();
@@ -29,10 +29,6 @@ class PageLinesOptionsArray {
 		$this->options['typography'] = $this->typography();
 		$this->options['header_and_footer'] = $this->header_footer();
 		$this->options['blog_and_posts'] = $this->blog_posts();
-		
-		if( pagelines_option('forum_options') )
-			$this->last_options['forum_settings'] = $this->forum_options();
-		
 		$this->last_options['advanced'] 	= $this->advanced();
 		$this->last_options['custom_code'] = $this->custom_code();
 	}
@@ -312,14 +308,6 @@ class PageLinesOptionsArray {
 				'type' 		=> 'color_multi',
 				'layout'	=> 'full',
 				'selectvalues'	=> array(
-					'headercolor'	=> array(		
-						'default' 	=> '#000000',
-						'cssgroup'	=> 'headercolor',
-						'inputlabel' 	=> __( 'Text Headers', 'pagelines' ),
-						'math'		=> array(
-							array( 'mode' => 'shadow', 'mixwith' => pl_background_cascade(), 'cssgroup' => 'headercolor'),
-						)
-					),
 					'text_primary' => array(		
 						'id'			=> 'text_primary',
 						'default' 		=> '#000000',
@@ -330,6 +318,15 @@ class PageLinesOptionsArray {
 							array( 'mode' => 'shadow', 'mixwith' => pl_background_cascade(), 'cssgroup' => array('text_primary', 'text_secondary', 'text_tertiary') ),
 						)
 					),
+					'headercolor'	=> array(		
+						'default' 	=> '#000000',
+						'cssgroup'	=> 'headercolor',
+						'inputlabel' 	=> __( 'Text Headers', 'pagelines' ),
+						'math'		=> array(
+							array( 'mode' => 'shadow', 'mixwith' => pl_background_cascade(), 'cssgroup' => 'headercolor'),
+						)
+					),
+					
 					'linkcolor' => array(
 						'default'		=> '#225E9B',
 						'cssgroup'		=>	'linkcolor',
@@ -344,8 +341,8 @@ class PageLinesOptionsArray {
 						'cssgroup'		=>	'footer_highlight',
 						'inputlabel' 	=> __( 'Footer Text', 'pagelines' ),	
 						'math'			=> array(
-							array( 'mode' => 'mix', 'mixwith' => array(pagelines_option('bodybg')),  'cssgroup' => 'footer_text', 'css_prop' => 'color', 'diff' => '66%'),
-							array( 'mode' => 'shadow', 'mixwith' => array(pagelines_option('bodybg')), 'cssgroup' => array('footer_text', 'footer_highlight') ),
+							array( 'mode' => 'mix', 'mixwith' => pl_body_bg(),  'cssgroup' => 'footer_text', 'css_prop' => 'color', 'diff' => '66%'),
+							array( 'mode' => 'shadow', 'mixwith' => pl_body_bg(), 'cssgroup' => array('footer_text', 'footer_highlight') ),
 						)					
 					),
 				),
@@ -362,7 +359,7 @@ class PageLinesOptionsArray {
 
 		);
 		
-		return apply_filters('pagelines_options_design_control', $a);
+		return apply_filters('pl_options_color_control', $a);
 		
 	}
 	
@@ -519,6 +516,14 @@ class PageLinesOptionsArray {
 					'shortexp'	=> __( 'Use this options if you want child pages in secondary nav, instead of WP menus', 'pagelines' ),
 					'exp'		=> ''
 				),
+			'footer_num_columns' => array(
+				'type' 			=> 'count_select',		
+				'count_start'	=> '1',
+				'count_number'	=> '6', 
+				'title' 		=> 'Number of Footer Columns',
+				'shortexp' 		=> 'Control the number of columns per row in your footer columns section.', 
+				'inputlabel'	=> 'Select Number of Footer Columns'
+			),
 			'footer_logo' => array(
 					'version'	=> 'pro',
 					'default'	=> PL_IMAGES.'/logo-small.png',
@@ -1051,27 +1056,25 @@ class PageLinesOptionsArray {
 
 
 /**
- * 
  *
  *  Returns Options Array
- *
- *
  *
  */
 function get_option_array( $load_unavailable = false ){
 	
+	global $disabled_settings; 
 	
 	$default = new PageLinesOptionsArray();
 	 
-	$optionarray =  array_merge(load_section_options('new', 'top', $load_unavailable), $default->options, load_section_options('new', 'bottom', $load_unavailable), $default->last_options);
+	$optionarray =  array_merge( $default->options, $default->last_options);
 	
-	if(isset($custom_options['custom_options']) && !empty($custom_options['custom_options']))
-		$optionarray = array_merge($optionarray, $custom_options);
-	
-	foreach($optionarray as $optionset => $options)
-		$optionarray[$optionset] = array_merge( load_section_options($optionset, 'top', $load_unavailable), $options, load_section_options($optionset, 'bottom', $load_unavailable));
+	if(isset($disabled_settings) && !empty($disabled_settings))
+		foreach($disabled_settings as $key)
+			unset($optionarray[$key]);
+
 	
 	return apply_filters('pagelines_options_array', $optionarray); 
+	
 }
 
 
@@ -1115,7 +1118,7 @@ class PageLinesWelcome {
 	function get_welcome_billboard(){
 		
 		$bill = '<div class="admin_billboard fix"><div class="admin_billboard_pad fix">';
-		$bill .= '<div class="admin_theme_screenshot"><img class="" src="'.PARENT_URL.'/screenshot.png" alt="Screenshot" /></div>';
+		$bill .= '<div class="admin_theme_screenshot"><img class="" src="'.CHILD_URL.'/screenshot.png" alt="Screenshot" /></div>';
 		$bill .= '<div class="admin_billboard_content"><div class="admin_header"><h3 class="admin_header_main">Congratulations!</h3></div>';
 		$bill .= '<div class="admin_billboard_text">You\'re ready to build a professional website.<br/> Here are a few tips to get you started...<br/><small>(Note: This intro can be removed below.)</small></div>';
 		$bill .= '<div class="clear"></div></div></div></div>';

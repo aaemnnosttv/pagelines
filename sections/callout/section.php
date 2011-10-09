@@ -72,7 +72,7 @@ class PageLinesCallout extends PageLinesSection {
 		
 		
 		if($call_title || $call_img){ ?>
-	<div id="callout-area">
+	<div class="callout-area">
 		<div class="callout_text">
 			<div class="callout_text-pad">
 				<?php 

@@ -203,19 +203,14 @@ function mediawiki_title(){
 
 function pagelines_integration_top(){
 	
-	if(pagelines_is_buddypress_page())
-		printf('<div id="%s" class="fix"><div class="content fix">', 'buddypress-page');
-	
-	elseif(pagelines_mediawiki())
+	if(pagelines_mediawiki())
 		printf('<div id="%s" class="fix">', 'mediawiki-page');
 	
 }
 
 function pagelines_integration_bottom(){
-	if(pagelines_is_buddypress_page())
-		echo "</div></div>";
 		
-	elseif( pagelines_mediawiki() )
+	if( pagelines_mediawiki() )
 		echo "</div>";
 }
 	
@@ -225,12 +220,7 @@ function pagelines_title_tag(){
 	*/
 	echo "\n<title>";
 
-	// BuddyPress has its own title.
-	if( pagelines_bbpress_forum() )
-		bb_title();
-	elseif( pagelines_is_buddypress_page() )
-		bp_page_title();
-	elseif( pagelines_mediawiki() )
+	if( pagelines_mediawiki() )
 		mediawiki_title();
 	else {
 		if ( !function_exists( 'aiosp_meta' ) && !function_exists( 'wpseo_get_value' ) ) {

@@ -9,7 +9,6 @@ define('CORE_VERSION', $theme_data['Version']);
 $child_theme_data = get_theme_data(get_stylesheet_directory() . '/style.css');
 define('CHILD_VERSION', $child_theme_data['Version']);
 
-
 /*
 	TODO simon fix this w/ API!!!!
 */

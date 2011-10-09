@@ -9,4 +9,4 @@
 */
 
 
-pagelines_search_form( $echo );
+pagelines_search_form( true );
