@@ -183,7 +183,7 @@ class PageLinesBoxes extends PageLinesSection {
 				}
 			
 			// Script 
-				printf('<script type="text/javascript">jQuery(document).ready(function(){ blocks(".box-media-pad", "maxheight");});</script>');
+				//printf('<script type="text/javascript">jQuery(document).ready(function(){ blocks(".box-media-pad", "maxheight");});</script>');
 			
 			// Grid Args
 				$args = array( 'per_row' => $per_row, 'callback' => array(&$this, 'draw_boxes') );
@@ -211,7 +211,7 @@ class PageLinesBoxes extends PageLinesSection {
 			
 		$info = ($thumb_type != 'only_thumbs') ? sprintf('<div class="fboxinfo fix bd">%s%s</div>', $title, $content) : '';				
 				
-		return sprintf('<div id="%s" class="fbox"><div class="media box-media %s"><div class="box-media-pad">%s%s</div></div></div>', 'fbox_'.$p->ID, $this->thumb_type, $image, $info);
+		return sprintf('<div id="%s" class="fbox"><div class="media box-media %s"><div class="blocks box-media-pad">%s%s</div></div></div>', 'fbox_'.$p->ID, $this->thumb_type, $image, $info);
 	
 	}
 

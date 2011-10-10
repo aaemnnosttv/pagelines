@@ -165,6 +165,7 @@ function pagelines_head_common(){
 	// Queue Common Javascript Libraries
 	wp_enqueue_script("jquery"); 
 	
+	
 	// Fix IE and special handling
 	pagelines_fix_ie();
 	

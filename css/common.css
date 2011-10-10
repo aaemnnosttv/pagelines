@@ -25,7 +25,13 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 	big {font-size: 1.3em;}
 	abbr, acronym{ border-bottom: .1em dotted; cursor: help; }
 	q:before, q:after{ content: "'";}
-
+	
+	code{
+		display: block;
+		padding: 10px;
+		margin: 1em;
+	}
+	
 /* Inputs */
 input{
 	font-size:110%;
