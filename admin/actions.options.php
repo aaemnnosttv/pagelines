@@ -177,9 +177,13 @@ function load_head(){
 }
 
 /**
- * This registers the settings field and adds defaults to the options table.
- * It also handles settings resets by pushing in the defaults.
+ * Sets default settings
  */
+add_action('init', 'set_default_pagelines_settings', 5);
+function set_default_pagelines_settings(){
+	add_option( PAGELINES_SETTINGS, pagelines_settings_defaults() ); // only fires first time	
+}
+
 add_action('admin_init', 'pagelines_register_settings', 5);
 function pagelines_register_settings() {
 	
@@ -188,14 +192,7 @@ function pagelines_register_settings() {
 	register_setting( PAGELINES_SPECIAL, PAGELINES_SPECIAL );
 	register_setting( PAGELINES_TEMPLATES, PAGELINES_TEMPLATES );
 	
-	 /*
-	 	Set default settings
-	 */
-		add_option( PAGELINES_SETTINGS, pagelines_settings_defaults() ); // only fires first time
-	
 
-
-	
 	/* Typography Options */
 	$GLOBALS['pl_foundry'] = new PageLinesFoundry;
 

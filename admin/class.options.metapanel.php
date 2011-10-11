@@ -53,9 +53,9 @@ class PageLinesMetaPanel {
 
 	function register_actions(){
 
+		$privelidge = (ploption('hide_controls_meta')) ? ploption('hide_controls_meta') : 'publish_posts';
 
-
-		if ( !current_user_can( get_pagelines_option( 'hide_controls_meta', null, 'publish_posts' ) ) )
+		if ( !current_user_can( $privelidge ) )
 			return;	
 			
 		// Adds the box
@@ -365,6 +365,8 @@ class PageLinesMetaPanel {
 						$this->save_sc( $postID );
 					elseif($oid == 'page_background_image')
 						$this->save_bg( $oid, $postID );
+					elseif($o['type'] == 'text_content')
+						update_option($oid, true);
 					else {
 						
 						// Note: If the value is null, then test to see if the option is already set to something

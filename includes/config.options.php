@@ -839,7 +839,6 @@ class PageLinesOptionsArray {
 					'shortexp'	=> __( 'Uncheck this option to show theme introduction', 'pagelines' ),
 					'exp'		=> ""
 			),
-			
 			'hide_controls_meta'	 => array(
 					'default' 		=> 'publish_posts',
 					'version'		=> 'pro',

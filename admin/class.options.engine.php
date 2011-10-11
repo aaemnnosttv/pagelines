@@ -540,9 +540,9 @@ class OptEngine {
 	function _get_text_content($oid, $o, $val){ 	
 		
 		
-		$checked = checked((bool) $o['val'], true, false);
+		$checked = checked((bool) ploption($oid), true, false);
 				
-		$input = $this->input_checkbox($o['input_id'], $o['input_name'], $checked);
+		$input = $this->input_checkbox($o['input_id'], $oid, $checked);
 			
 		$hide_checkbox = $this->input_label_inline($o['input_id'], $input, $o['inputlabel']);
 		

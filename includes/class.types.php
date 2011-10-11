@@ -66,7 +66,7 @@ class PageLinesPostType {
 	
 	function init_register_post_type(){
 		
-		$cap = get_pagelines_option( 'hide_controls_cpt', null, 'moderate_comments' );
+		$capability = (ploption('hide_controls_cpt')) ? ploption('hide_controls_cpt') : 'moderate_comments';
 		
 		register_post_type( $this->id , array(  
 				'labels' => array(
@@ -95,15 +95,15 @@ class PageLinesPostType {
 				'has_archive'		=> $this->settings['has_archive'],
 				'map_meta_cap'		=> $this->settings['map_meta_cap'],
 				'capabilities' => array(
-			        'publish_posts' 		=> $cap,
-			        'edit_posts' 			=> $cap,
-			        'edit_others_posts' 	=> $cap,
-			        'delete_posts' 			=> $cap,
-			        'delete_others_posts' 	=> $cap,
-			        'read_private_posts' 	=> $cap,
-			        'edit_post' 			=> $cap,
-			        'delete_post' 			=> $cap,
-			        'read_post' 			=> $cap,
+			        'publish_posts' 		=> $capability,
+			        'edit_posts' 			=> $capability,
+			        'edit_others_posts' 	=> $capability,
+			        'delete_posts' 			=> $capability,
+			        'delete_others_posts' 	=> $capability,
+			        'read_private_posts' 	=> $capability,
+			        'edit_post' 			=> $capability,
+			        'delete_post' 			=> $capability,
+			        'read_post' 			=> $capability,
 			    ),
 				
 			));

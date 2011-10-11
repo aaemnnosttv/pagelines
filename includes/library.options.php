@@ -500,8 +500,9 @@ function pagelines_remove_addon_options( $addon_name ) {
 function pagelines_settings_defaults() {
 
 	$default_options = array();
-
+	
 		foreach(get_option_array() as $menuitem => $options ){
+			
 			foreach($options as $optionid => $o ){
 
 				if($o['type']=='layout'){
