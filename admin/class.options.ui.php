@@ -35,7 +35,7 @@ class PageLinesOptionsUI {
 		$this->set = wp_parse_args( $args, $defaults );
 
 		// Set option array callbacks
-		$this->option_array = (isset($this->set['callback'])) ? call_user_func( $this->set['callback'] ) : get_option_array();
+		$this->option_array = (isset($this->set['callback'])) ? call_user_func( $this->set['callback'] ) : get_option_array( false );
 		
 		$this->primary_settings = ($this->set['settings'] == PAGELINES_SETTINGS) ? true : false;
 		

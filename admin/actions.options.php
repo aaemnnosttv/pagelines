@@ -209,12 +209,36 @@ function pagelines_register_settings() {
 	if ( !isset($_REQUEST['page']) || $_REQUEST['page'] != 'pagelines' )
 		return;
 	
+	global $new_default_settings; 
+	
+	/*
+		New Default Options in Child Themes
+	*/
+	if(!isset($_GET['newoptions']) && pagelines_activate_or_reset() && !empty($new_default_settings)){
+		
+		$type = sprintf('&%s=true', pagelines_activate_or_reset());
+		
+		foreach($new_default_settings as $key => $set)
+			plupop($set['key'], $set['value'], array('parent' => $set['parent'], 'subkey' => $set['subkey'], 'setting' => $set['setting']));
+		
+		wp_redirect( admin_url( 'admin.php?page=pagelines&newoptions=true'.$type ) );
+	}
+	
+	/*
+		Handle Reset of Options
+	*/
 	if ( ploption('reset') ) {
+		
 		update_option(PAGELINES_SETTINGS, pagelines_settings_defaults());
+		
 		global $extension_control;
+		
 		$extension_control->flush_caches();
+		
 		wp_redirect( admin_url( 'admin.php?page=pagelines&reset=true' ) );
+		
 		exit;
+		
 	}
 
 }

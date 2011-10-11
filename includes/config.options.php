@@ -1060,7 +1060,7 @@ class PageLinesOptionsArray {
  *  Returns Options Array
  *
  */
-function get_option_array( $load_unavailable = false ){
+function get_option_array( $load_unavailable = true ){
 	
 	global $disabled_settings; 
 	
@@ -1068,9 +1068,15 @@ function get_option_array( $load_unavailable = false ){
 	 
 	$optionarray =  array_merge( $default->options, $default->last_options);
 	
-	if(isset($disabled_settings) && !empty($disabled_settings))
-		foreach($disabled_settings as $key)
-			unset($optionarray[$key]);
+	if( isset($disabled_settings) && !empty($disabled_settings) ){
+		foreach($disabled_settings as $key => $s){
+			
+			if( isset($optionarray[ $s['slug'] ]) && ( !$load_unavailable || $s['keep'] == false ) ) 
+				unset($optionarray[ $s['slug'] ]);
+				
+		}
+	}
+			
 
 	
 	return apply_filters('pagelines_options_array', $optionarray); 

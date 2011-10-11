@@ -8,6 +8,8 @@
  */
 if(is_admin() && isset($_GET['activated'] ) && $pagenow == "themes.php" )
 	wp_redirect( admin_url( 'admin.php?page=pagelines&activated=true&pageaction=activated' ) );
+	
+
 
 /**
  * Add Javascript for Layout Controls from the Layout UI class

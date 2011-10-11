@@ -977,7 +977,7 @@
 				// Output
 				_e( 'Activated', 'pagelines' );
 				delete_transient( 'pagelines_sections_cache' );
-				$this->page_reload( 'pagelines&pageaction=activated' );	
+				$this->page_reload( 'pagelines&activated=true&pageaction=activated' );	
 			break;
 
 			case 'theme_deactivate':
