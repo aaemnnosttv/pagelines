@@ -172,7 +172,7 @@ class PageLinesBoxes extends PageLinesSection {
 		// Actions	
 			// Set up the query for this page
 				$params = array( 'orderby'	=> 'ID',  'post_type'	=> $this->ptID );
-				$params[ 'showposts' ] = ( ploption('box_items', $oset) ) ? ploption('box_items', $oset) : $per_row;
+				$params[ 'showposts' ] = ( ploption('box_items', $this->oset) ) ? ploption('box_items', $this->oset) : $per_row;
 				$params[ $this->taxID ] = ( ploption( 'box_set', $this->oset ) ) ? ploption( 'box_set', $this->oset ) : null;
 
 				$q = new WP_Query( $params );
@@ -209,7 +209,7 @@ class PageLinesBoxes extends PageLinesSection {
 
 		$content = sprintf('<div class="fboxtext">%s%s</div>', do_shortcode($p->post_content), pledit( $p->ID ));
 			
-		$info = ($thumb_type != 'only_thumbs') ? sprintf('<div class="fboxinfo fix bd">%s%s</div>', $title, $content) : '';				
+		$info = ($this->thumb_type != 'only_thumbs') ? sprintf('<div class="fboxinfo fix bd">%s%s</div>', $title, $content) : '';				
 				
 		return sprintf('<div id="%s" class="fbox"><div class="media box-media %s"><div class="blocks box-media-pad">%s%s</div></div></div>', 'fbox_'.$p->ID, $this->thumb_type, $image, $info);
 	
