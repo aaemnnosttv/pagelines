@@ -131,51 +131,6 @@ require_once( PL_INCLUDES . '/class.sections.php' );
 require_once( PL_INCLUDES . '/class.template.php' );
 
 /**
- * Load Profile Handling
- */	
-require_once( PL_ADMIN . '/class.profiles.php' );
-
-/**
- * Load metapanel option handling class
- */
-require_once( PL_ADMIN . '/class.options.metapanel.php' );
-
-/**
- * Load Drag and Drop UI
- */
-require_once( PL_ADMIN . '/class.ui.templates.php' );
-
-/**
- * Load Layout Controls
- */
-require_once( PL_ADMIN . '/class.ui.layout.php' );
-
-/**
- * Load Type Control
- */
-require_once( PL_ADMIN . '/class.ui.typography.php' );
-
-/**
- * Load Color Controls
- */
-require_once( PL_ADMIN . '/class.ui.color.php' );
-
-/**
- * Load options UI
- */
-require_once( PL_ADMIN . '/class.options.ui.php' );
-
-/**
- * Load options engine and breaker
- */
-require_once( PL_ADMIN . '/class.options.engine.php' );
-
-/**
- * Load Panel UI
- */
-require_once( PL_ADMIN . '/class.options.panel.php' );
-
-/**
  * Load Data Handling
  */
 require_once( PL_ADMIN . '/library.data.php' );
@@ -200,6 +155,16 @@ require_once( PL_INCLUDES . '/class.colors.php' );
  * Load dynamic CSS handling
  */
 require_once( PL_INCLUDES . '/class.css.php' );
+
+/**
+ * Load metapanel option handling class
+ */
+require_once( PL_ADMIN . '/class.options.metapanel.php' );
+
+/**
+ * Load Profile Handling
+ */	
+require_once( PL_ADMIN . '/class.profiles.php' );
 
 /**
  * Singleton for Metapanel Options
@@ -251,50 +216,11 @@ add_theme_support( 'post-thumbnails', apply_filters( 'pl_support_featured_image'
 add_theme_support( 'menus' );
 add_theme_support( 'automatic-feed-links' );
 
-
 /**
  * Build Version
  */	
 require_once( PL_INCLUDES . '/version.php' );
 
-/**
- * Enable debug if required.
- * 
- * @since 1.4.0
- */
-if ( get_pagelines_option( 'enable_debug' ) ) {
-
-	require_once ( PL_ADMIN . '/class.debug.php');
-	add_filter( 'pagelines_options_array', 'pagelines_enable_debug' );
-	
-}
-
-/**
- * Load updater class
- */
-require_once (PL_ADMIN.'/class.updates.php');
-
-/**
- * Load inline help
- */
-require_once (PL_ADMIN . '/library.help.php' );
-
-/**
- * Load plugin installer class
- */
-require_once ( PL_ADMIN . '/class.extend.php' );
-require_once ( PL_ADMIN . '/class.ui.extend.php' );
-$extension_control = new PagelinesExtensions;
-
-/**
- * Load admin actions
- */
-require_once (PL_ADMIN.'/actions.admin.php'); 
-
-/**
- * Load option actions
- */
-require_once (PL_ADMIN.'/actions.options.php');
 
 /**
  * Load site actions
@@ -311,10 +237,5 @@ require_once (PL_INCLUDES.'/actions.site.php');
  */
 pagelines_register_hook('pagelines_hook_init'); // Hook
 
-// beta test updates url REMOVE FOR RELEASE
-//add_filter('pagelines_theme_update_url', 'beta_url');
-
-function beta_url() {
-
-	return 'www.pagelines.com/api/beta_test/';
-}
+if ( is_admin() )
+	include( PL_ADMIN . '/admin.init.php' );
