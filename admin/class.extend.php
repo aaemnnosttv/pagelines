@@ -38,9 +38,9 @@
 		
 		// Flush all our transienst ( Makes this save button a sort of reset button. )
 		delete_transient( EXTEND_UPDATE );
-		delete_transient( 'pagelines_sections_api_themes' );
-		delete_transient( 'pagelines_sections_api_sections' );
-		delete_transient( 'pagelines_sections_api_plugins' );
+		delete_transient( 'pagelines_extend_themes' );
+		delete_transient( 'pagelines_extend_sections' );
+		delete_transient( 'pagelines_extend_plugins' );
 		delete_transient( 'pagelines_sections_cache' );
 	}
 
@@ -1137,12 +1137,25 @@
 			)
 		);
 		
-		if ( false === ( $api = get_transient( 'pagelines_sections_api_' . $type ) ) ) {
+		if ( false === ( $api_check = get_transient( 'pagelines_extend_' . $type ) ) ) {
+			
+			// ok no transient, we need an update...
+			
 			$response = pagelines_try_api( $url, $options );
-			$api = wp_remote_retrieve_body( $response );
-			set_transient( 'pagelines_sections_api_' . $type, $api, 86400 );			
+			
+			if ( $response !== false ) {
+				
+				// ok we have the data parse and store it
+				
+				$api = wp_remote_retrieve_body( $response );
+				set_transient( 'pagelines_extend_' . $type, true, 86400 );
+				update_option( 'pagelines_extend_' . $type, $api );
+			} 
+
 		}
-		if( is_wp_error( $api ) )
+		$api = get_option( 'pagelines_extend_' . $type, false );	
+
+		if( ! $api )
 			return __( '<h2>Unable to fetch from API</h2>', 'pagelines' );
 
 		return json_decode( $api );
