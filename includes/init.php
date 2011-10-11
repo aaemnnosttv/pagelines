@@ -93,11 +93,6 @@ require_once( PL_INCLUDES . '/config.options.php' );
 require_once( PL_INCLUDES . '/config.selectors.php' );
 
 
-/* Options Singleton */
-$GLOBALS['global_pagelines_settings'] = get_option(PAGELINES_SETTINGS);	
-$GLOBALS['pagelines_special_meta'] = get_option(PAGELINES_SPECIAL);	
-
-
 /**
  * Load Custom Post Type Class
  */
@@ -167,27 +162,10 @@ require_once( PL_ADMIN . '/class.options.metapanel.php' );
 require_once( PL_ADMIN . '/class.profiles.php' );
 
 /**
- * Singleton for Metapanel Options
- */
-$GLOBALS['metapanel_options'] =  new PageLinesMetaPanel( array('global' => true) );
-$GLOBALS['profile_panel_options'] =  new ProfileEngine( );
-$GLOBALS['global_meta_options'] = get_global_meta_options();
+ * Load Singleton Globals
+ */	
+require_once( PL_INCLUDES . '/init.singleton.php' );
 
-/**
- * PageLines Section Factory Object (Singleton)
- * Note: Must load before the config template file
- * @global object $pl_section_factory
- * @since 1.0.0
- */
-$GLOBALS['pl_section_factory'] = new PageLinesSectionFactory();
-
-
-/**
- * Dynamic CSS Factory
- * @global object $css_factory
- * @since 2.0.b6
- */
-$GLOBALS['css_factory'] = array();
 
 /**
  * Add Extension Handlers
@@ -209,12 +187,6 @@ if(is_admin())
 
 do_global_meta_options(); // Load the global meta settings tab
 	
-/**
- * Support optional WordPress functionality
- */
-add_theme_support( 'post-thumbnails', apply_filters( 'pl_support_featured_image', array('post') ) );
-add_theme_support( 'menus' );
-add_theme_support( 'automatic-feed-links' );
 
 /**
  * Build Version
@@ -226,11 +198,6 @@ require_once( PL_INCLUDES . '/version.php' );
  * Load site actions
  */
 require_once (PL_INCLUDES.'/actions.site.php');
-
-/**
- * Load actions list
- */
-//require_once (PL_INCLUDES.'/class.actions.php');
 
 /**
  * Run the pagelines_init Hook

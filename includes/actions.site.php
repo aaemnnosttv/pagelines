@@ -7,8 +7,6 @@ global $pagelines_template;
 // = Set up Section loading & create pagelines_template global in page (give access to conditionals) =
 // ===================================================================================================
 
-
-
 /**
  * Build PageLines Template Global (Singleton)
  * Must be built inside the page (wp_head) so conditionals can be used to identify the template

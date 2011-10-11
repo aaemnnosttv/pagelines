@@ -1,6 +1,18 @@
 <?php
 
 /**
+ * Support optional WordPress functionality 'add_theme_support'
+ */
+add_action('pagelines_setup', 'pl_theme_support');
+function pl_theme_support(  ){	
+	
+	add_theme_support( 'post-thumbnails', apply_filters( 'pl_support_featured_image', array('post') ) );
+	add_theme_support( 'menus' );
+	add_theme_support( 'automatic-feed-links' );
+	
+}
+
+/**
  *  Fix The WordPress Login Image URL
  */
 add_filter('login_headerurl', 'fix_wp_login_imageurl');
