@@ -174,9 +174,13 @@ function pagelines_check_version() {
 	}
 }
 
-// Load inline help.
-
-add_filter('contextual_help', 'pagelines_inline_help', 10, 3);
-
 if ( PL_DEV )
 	add_action( 'admin_init', array( &$extension_control, 'flush_caches' ) );
+
+// Load Inline help system.
+
+add_action( 'admin_init', 'pagelines_inline_help' );
+function pagelines_inline_help() {
+	
+	$pl_help = new PageLines_Inline_Help;
+}	
