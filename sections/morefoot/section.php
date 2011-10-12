@@ -56,7 +56,7 @@ class PageLinesMorefoot extends PageLinesSection {
 		if(!dynamic_sidebar( $sidebar['name']))
 			echo $sidebar['default'];
 			
-		return sprintf('<div class="box-media"><div class="box-media-pad">%s</div></div>', ob_get_clean());
+		return sprintf('<div class="box-media"><div class="box-media-pad blocks">%s</div></div>', ob_get_clean());
 			
 	}
 	

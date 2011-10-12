@@ -501,7 +501,7 @@ function pagelines_settings_defaults() {
 
 	$default_options = array();
 	
-		foreach(get_option_array() as $menuitem => $options ){
+		foreach(get_option_array( true ) as $menuitem => $options ){
 			
 			foreach($options as $optionid => $o ){
 
