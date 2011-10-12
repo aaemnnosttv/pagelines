@@ -7,17 +7,19 @@
  */
 ?>
 
-<div id="comments">
-	<?php if ( post_password_required() ) : ?>
-					<p class="nopassword"><?php _e( 'This post is password protected. Enter the password to view any comments.', 'pagelines' ); ?></p>
-				</div><!-- #comments -->
-	<?php
-			/* Stop the rest of comments.php from being processed,
-			 * but don't kill the script entirely -- we still have
-			 * to fully load the template.
-			 */
+<div id="comments" class="wp-comments">
+	<div class="wp-comments-pad">
+	<?php 
+	
+		/* Stop the rest of comments.php from being processed,
+		 * but don't kill the script entirely -- we still have
+		 * to fully load the template.
+		 */
+		if ( post_password_required() ){
+			printf('<p class="nopassword">%s</p></div></div>', __( 'This post is password protected. Enter the password to view any comments.', 'pagelines' ) );
 			return;
-		endif;
+			
+		}
 		
 		if ( have_comments() ) : ?>
 			<h3 id="comments-title"><?php
@@ -50,4 +52,5 @@
 		endif; // end have_comments() 
 	 
 	comment_form(); ?>
+	</div>
 </div>

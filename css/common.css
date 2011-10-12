@@ -101,10 +101,9 @@ input[type="submit"], .submit, input[type="button"], .button, input[type="reset"
 		width: 95%;
 		height: 140px;
 	}
-	 #respond {margin: 20px 0;}
+
 	 ol ul #commentform textarea {width: 90%;}
 
-	#commentform .form-submit{margin-bottom: 2em;}
 	#commentform #submit {display: inline;}
 	
 	.form-allowed-tags {font-size: .85em;}

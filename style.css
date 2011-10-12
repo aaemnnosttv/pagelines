@@ -311,7 +311,7 @@ body{font-size: 87.5%; line-height: 1.714285em;height:100%;}
 		.post.fpost .entry { margin-bottom: 1em; padding: 1em 0; }
 
 		/* @ Post Title Area */
-			.post-meta { margin-bottom: 1.5em; }
+			.post-meta { margin-bottom: .5em; }
 			.fpost .post-title h2 a:hover{	text-decoration: underline;	}
 			.post-comments a:hover{ text-decoration: none; }
 			.fpost .metabar { margin: 0 0 .2em 0;}
@@ -369,11 +369,10 @@ body{font-size: 87.5%; line-height: 1.714285em;height:100%;}
 
 /* @ Post Navigation */				
 	/* @ Post Footer Area */
-
-		.post-footer {
+		.post-footer-pad {
 			padding: 8px 18px 8px;
 			overflow: hidden;
-			margin-bottom:30px;
+			
 		}
 		.post-footer a{ font-weight: bold;}
 		
@@ -528,7 +527,7 @@ body{font-size: 87.5%; line-height: 1.714285em;height:100%;}
 	.breadcrumb a:hover {text-decoration:underline;}
 
 /* @ Comments Area */
-	#respond { padding: 20px 0px; }
+
 	#respond form{ margin-left: 25px;}
 	h3#comments-title { 
 		padding-left: 22px;
