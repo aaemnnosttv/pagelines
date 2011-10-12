@@ -86,7 +86,7 @@ function pagelines_search_form( $echo = true ){
 
 	$searchfield = sprintf('<input type="text" value="%1$s" name="s" class="searchfield" onfocus="if(this.value == \'%1$s\') {this.value = \'\';}" onblur="if (this.value == \'\') {this.value = \'%1$s\';}" />', __('Search', 'pagelines'));
 	
-	$searchimage = sprintf('<input type="image" class="submit btn" name="submit" src="%s" alt="Go" />', PL_IMAGES.'/search-btn.png');
+	$searchimage = sprintf('<input type="image" class="submit btn" name="submit" src="%s" alt="Go" />', apply_filters( 'pl_search_image', PL_IMAGES.'/search-btn.png' ) );
 	
 	$searchform = sprintf('<form method="get" class="searchform" onsubmit="this.submit();return false;" action="%s/" ><fieldset>%s %s</fieldset></form>', home_url(), $searchfield, $searchimage);
 	
