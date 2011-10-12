@@ -14,6 +14,10 @@
 
 Version 2.0.0
 
+	BETA - 21
+	- Huge memory savings.
+	- New theming options.
+
 	BETA - 20
 	- Add sections to sandboxing.
 	- Extend - Implement version checking for sections.
