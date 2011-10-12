@@ -392,7 +392,7 @@ body{font-size: 87.5%; line-height: 1.714285em;height:100%;}
 
 /* @ Sidebar */
 	
-		.scolumn-pad { padding: 2em .7em; }
+
 		#sidebar-wrap #sidebar_universal{ padding: 2em 1em 0 1em; }
 		ul.sidebar_widgets{ list-style-type: none; }
 		
