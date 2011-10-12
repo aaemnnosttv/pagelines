@@ -67,7 +67,7 @@ class PageLinesPosts {
 		$wrap_start = ( $clip && $clip_row_start ) ? sprintf('<div class="clip_box fix">') : ''; 	
 		$wrap_end = ( $clip && $clip_row_end ) ? sprintf('</div>') : '';
 
-		echo sprintf('%s<article class="%s" id="post-%s">%s%s</article>%s', $wrap_start, $post_classes, get_the_ID(), $this->post_header( $format ), $this->post_entry(), $wrap_end);
+		echo sprintf('%s<article class="%s" id="post-%s"><div class="hentry-pad">%s%s</div></article>%s', $wrap_start, $post_classes, get_the_ID(), $this->post_header( $format ), $this->post_entry(), $wrap_end);
 		
 		// Count the clips
 		if( $clip ) 
