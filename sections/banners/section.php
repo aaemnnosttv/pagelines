@@ -55,20 +55,20 @@ class PageLinesBanners extends PageLinesSection {
 						'version' => 'pro',
 						'type' => 'image_upload',					
 						'title' => 'Banner Media',
-						'desc' => 'Upload an image for the banner.'
+						'shortexp' => 'Upload an image for the banner.'
 					),
 				'the_banner_media' 		=> array(
 						'version' => 'pro',
 						'type' => 'textarea',					
 						'title' => 'Banner Media',
-						'desc' => 'Add HTML Media for the banner, e.g. Youtube embed code. This option is used if there is no image uploaded.'
+						'shortexp' => 'Add HTML Media for the banner, e.g. Youtube embed code. This option is used if there is no image uploaded.'
 					),
 				'banner_text_width' => array(
 						'version' 	=> 'pro',
 						'type' 		=> 'text',		
 						'size'		=> 'small',			
 						'title'		=> 'Banner Text Width (In %)',
-						'desc' 		=> 'Set the width of the text area as a percentage of full content width.  The media area will fill the rest.'
+						'shortexp' 		=> 'Set the width of the text area as a percentage of full content width.  The media area will fill the rest.'
 					),
 				'banner_align' => array(
 					'version' => 'pro',
@@ -78,7 +78,7 @@ class PageLinesBanners extends PageLinesSection {
 							'banner_left'	=> array("name" => "Banner Left")
 						), 
 					'title' => 'Banner Alignment',				
-					'desc' => 'Put the media on the right or the left?',
+					'shortexp' => 'Put the media on the right or the left?',
 
 				),
 				'banner_text_padding' => array(
@@ -86,7 +86,7 @@ class PageLinesBanners extends PageLinesSection {
 					'type' 		=> 'text',
 					'size'		=> 'small',					
 					'title' 	=> 'Banner Text Padding',
-					'desc' 		=> '(optional) Set the padding for the text area. Use CSS shorthand, for example:<strong> 25px 30px 25px 35px</strong>; for top, right, bottom, then left padding.'
+					'shortexp' 		=> '(optional) Set the padding for the text area. Use CSS shorthand, for example:<strong> 25px 30px 25px 35px</strong>; for top, right, bottom, then left padding.'
 
 				),
 			);
