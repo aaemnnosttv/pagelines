@@ -80,7 +80,8 @@ function pagelines_build_extension_interface(){
 		'callback'		=> 'extension_array',
 		'show_save'		=> false, 
 		'show_reset'	=> false, 
-		'fullform'		=> false
+		'fullform'		=> false,
+		'reset_store'	=> true
 	);
 	$optionUI = new PageLinesOptionsUI($args);
 }

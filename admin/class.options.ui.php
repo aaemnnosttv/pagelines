@@ -140,7 +140,14 @@ class PageLinesOptionsUI {
 							<div class="superlink-wrap osave-wrap">
 								<input class="superlink osave" type="submit" name="submit" value="<?php _e('Save Options', 'pagelines');?>" />
 							</div>
-							<?php else:?>
+							<?php elseif($this->set['reset_store']):?>									
+								<div class="superlink-wrap">
+									<form method="post">
+										<input type="hidden" name='reset_store' value="true" />
+										<input class="superlink osave" type="submit" name="submit" value="<?php _e('Refresh Store', 'pagelines');?>" />
+									</form>
+								</div>
+								<?php else: ?>
 								<div class="superlink-wrap">
 									<a class="superlink" href="http://www.pagelines.com/"><span class="superlink-pad">Visit PageLines Site &rarr;</span></a>
 								</div>

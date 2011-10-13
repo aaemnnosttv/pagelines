@@ -246,7 +246,7 @@ function pl_body_bg(){
 
 
 /**
- *  Strips While Space
+ *  Strips White Space
  *
  * @since 2.0.b13
  */
