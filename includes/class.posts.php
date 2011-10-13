@@ -61,7 +61,7 @@ class PageLinesPosts {
 		$clip_right = ( ($this->clipcount+1) % 2 == 0 ) ? true : false;
 		$clip_row_end = ( $clip_right || $this->count == $this->post_count ) ? true : false;
 		
-		$pagelines_post_classes = ($clip) ? ( $clip_right ? 'clip blocks clip-right' : 'blocks clip' ) : 'fpost';
+		$pagelines_post_classes = ($clip) ? ( $clip_right ? 'clip clip-right' : 'clip' ) : 'fpost';
 		$post_classes = join(' ', get_post_class( $pagelines_post_classes ));
 		
 		$wrap_start = ( $clip && $clip_row_start ) ? sprintf('<div class="clip_box fix">') : ''; 	
@@ -100,21 +100,26 @@ class PageLinesPosts {
 	
 	function post_content(){
 	
-	
+		
 		ob_start();
-		pagelines_register_hook( 'pagelines_loop_before_post_content', 'theloop' ); // Hook
-		the_content( __('<p>Continue reading &raquo;</p>','pagelines') );
-		echo '<div class="clear"></div>';
-		if( is_single() || is_page() ) 
-			wp_link_pages(array('before'=> __('<p class="content-pagination"><span class="cp-desc">pages:</span>', 'pagelines'), 'after' => '</p>', 'pagelink' => '<span class="cp-num">%</span>')); 
+		
+			pagelines_register_hook( 'pagelines_loop_before_post_content', 'theloop' ); // Hook
 
-		$hastags = get_the_tags();
-		if ( $hastags ) {
-		printf('<div class="p tags">%s&nbsp;</div>', get_the_tag_list(__('Tagged with: ', 'pagelines'),' &bull; ','') );
-		}
-		echo blink_edit('', 'grey', array('align'=>'left', 'clear' => true)); 
+			the_content( __('<p>Continue reading &raquo;</p>','pagelines') );
 	
-		pagelines_register_hook( 'pagelines_loop_after_post_content', 'theloop' ); // Hook 
+			echo '<div class="clear"></div>';
+	
+			if( is_single() || is_page() ) 
+				wp_link_pages(array('before'=> __('<p class="content-pagination"><span class="cp-desc">pages:</span>', 'pagelines'), 'after' => '</p>', 'pagelink' => '<span class="cp-num">%</span>')); 
+		
+			if ( get_the_tags() )
+				printf('<div class="p tags">%s&nbsp;</div>', get_the_tag_list(__('Tagged with: ', 'pagelines'),' &bull; ','') );
+		
+		
+			echo blink_edit('', 'grey', array('align'=>'left', 'clear' => true)); 
+	
+			pagelines_register_hook( 'pagelines_loop_after_post_content', 'theloop' ); // Hook 
+		
 		$the_content = ob_get_clean();
 
 		return $the_content;
@@ -128,24 +133,27 @@ class PageLinesPosts {
 			
 			global $post;
 			
-			$excerpt_mode = ($format == 'clip') ? pagelines_option('excerpt_mode_clip') : pagelines_option('excerpt_mode_full');
+			$id = get_the_ID();
 			
-			$thumb = ( $this->pagelines_show_thumb( get_the_ID() ) ) ? $this->post_thumbnail_markup( $excerpt_mode, $format ) : '';
+			$excerpt_mode = ($format == 'clip') ? ploption('excerpt_mode_clip') : ploption('excerpt_mode_full');
 			
-			$excerpt = ( $this->pagelines_show_excerpt( get_the_ID() ) ) ? $this->post_excerpt_markup( $excerpt_mode, $thumb ) : '';
+			$thumb = ( $this->pagelines_show_thumb( $id ) ) ? $this->post_thumbnail_markup( $excerpt_mode, $format ) : '';
 			
-			$classes = (!$this->pagelines_show_thumb($post->ID)) ? 'post-nothumb' : '';
+			$excerpt = ( $this->pagelines_show_excerpt( $id ) ) ? $this->post_excerpt_markup( $excerpt_mode, $thumb ) : '';
+			
+			$classes = 'post-meta fix ';
+			$classes .= (!$this->pagelines_show_thumb( $id )) ? 'post-nothumb ' : '';
+			$classes .= (!$this->pagelines_show_content( $id )) ? 'post-nocontent ' : '';
 				
 			$title = sprintf('<section class="bd post-title-section fix"><hgroup class="post-title fix">%s%s</hgroup></section>', $this->pagelines_get_post_title(), $this->pagelines_get_post_metabar( $format ));
 			
 			
 			if($excerpt_mode == 'left-excerpt' || $excerpt_mode == 'right-excerpt')
-				$post_header = sprintf('<section class="post-meta fix"><section class="bd post-header fix %s" >%s %s</section></section>', $classes, $title, $excerpt);
+				$post_header = sprintf('<section class="%s"><section class="bd post-header fix " >%s %s</section></section>', $classes, $title, $excerpt);
 			elseif($excerpt_mode == 'top')
-				$post_header = sprintf('<section class="post-meta fix">%s<section class="bd post-header fix %s" >%s %s</section></section>',$thumb, $classes, $title, $excerpt);
+				$post_header = sprintf('<section class="%s">%s<section class="bd post-header fix" >%s %s</section></section>',$classes, $thumb, $title, $excerpt);
 			else
-				$post_header = sprintf('<section class="post-meta media fix">%s<section class="bd post-header fix %s" >%s %s</section></section>', $thumb, $classes, $title, $excerpt);
-			
+				$post_header = sprintf('<section class="%s media">%s<section class="bd post-header fix" >%s %s</section></section>', $classes, $thumb, $title, $excerpt);
 			
 			
 			return apply_filters( 'pagelines_post_header', $post_header );
@@ -167,7 +175,7 @@ class PageLinesPosts {
 	 */
 	function show_post_header( ) {
 		
-		if( !is_page() || (is_page() && pagelines_option('pagetitles')) )
+		if( !is_page() || (is_page() && ploption('pagetitles')) )
 			return true;
 		else
 			return false;

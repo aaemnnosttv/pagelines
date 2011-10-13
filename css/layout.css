@@ -81,8 +81,7 @@
 		#sidebar1, #sidebar2{ float: left; overflow:hidden; }
 
 	/* @ Layout Column Padding */
-		.mcolumn-pad {padding-top: 2em;}
-		.scolumn-pad { padding: 0 .7em; }
+		.mcolumn-pad > :first-child{margin-top: 0;}
 		.two-sidebar-center #column-main .mcolumn-pad{ padding-right: 20px; padding-left: 20px;}
 		.fullwidth #column-main .mcolumn-pad{ padding-right: 15px; padding-left: 15px;}
 		.one-sidebar-right #column-main .mcolumn-pad, .one-sidebar-right #container #content, .two-sidebar-right #column-main .mcolumn-pad, .two-sidebar-right #container #content{ 

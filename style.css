@@ -53,7 +53,8 @@ body{font-size: 87.5%; line-height: 1.71em;height:100%;}
 
 	/* @ Paragraphs */
 		p, .p, .hentry ul, .hentry ol{margin:1.714285em 0;}
-		.entry_content :first-child, .post-excerpt :first-child{margin-top: 0;}
+		.entry_content :first-child, .post-excerpt > :first-child{margin-top: 0;}
+		.post-excerpt > :last-child{margin-bottom: 0;}
 		p {hyphenate: auto;hyphenate-before:2;hyphenate-after:3;hyphenate-lines: 3;orphans:4}
 		p span.pullquote{text-indent:0;}
 
@@ -293,8 +294,11 @@ body{font-size: 87.5%; line-height: 1.71em;height:100%;}
 /* @ The Loop  */
 
 	/* @ Both Page Content & Posts (.hentry) */
-		.hentry{ clear: both; }
-		.hentry-pad{padding: 20px 0;}
+		.hentry{ 
+			margin: 1em 0;
+			clear: both; 
+		}
+		.hentry-pad{padding: 1em 0 2em 0;}
 		.billboard { padding: 60px 15px; margin: 0 0 2.5em 0; }
 
 	/* @ Posts */		
@@ -310,7 +314,9 @@ body{font-size: 87.5%; line-height: 1.71em;height:100%;}
 		.post.fpost .entry { margin-bottom: 1em; padding: 1em 0; }
 
 		/* @ Post Title Area */
-			.post-meta { margin-bottom: .5em; }
+			.post-meta { margin-bottom: 1.71em; }
+			.post-nocontent.post-meta { margin-bottom: 0; }
+			
 			.fpost .post-title h2 a:hover{	text-decoration: underline;	}
 			.post-comments a:hover{ text-decoration: none; }
 			.fpost .metabar { margin: 0 0 .2em 0;}
@@ -329,8 +335,10 @@ body{font-size: 87.5%; line-height: 1.71em;height:100%;}
 	 #site.fullwidth #pagelines_content .clip{
 		width: 48%;
 	}
-	.clip_box{ margin-bottom: .5em; padding: 1em 0; }
-		.clip_box .hentry {padding:0;}
+	.clip_box{ margin: 1em 0; }
+		.clip_box .hentry {
+			margin:0;
+		}
 		
 	.clip {
 		float: left;
