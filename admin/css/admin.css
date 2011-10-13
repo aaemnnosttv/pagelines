@@ -497,6 +497,7 @@ background-repeat: no-repeat;
 			text-align: left;
 			width: 178px;
 			display: inline-block;
+			vertical-align: top;
 		}
 		.plist li a{
 			font-size: .95em;

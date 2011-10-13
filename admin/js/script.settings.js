@@ -30,15 +30,14 @@
 		    }
 		);
 		
-		jQuery(".selected_builder #sortable_sections.sortcolumn").sortable({ 
+		jQuery(".selected_builder #sortable_sections").sortable({ 
 				connectWith: '.connectedSortable',
 				cancel: '.required-section',
 				
 				items: 'li:not(.bank_title)',
 				
 				update: function() { 
-					setEmpty(".selected_builder #sortable_sections.colnum1"); 
-					setEmpty(".selected_builder #sortable_sections.colnum2"); 
+					setEmpty(".selected_builder #sortable_sections"); 
 				}                                         
 		});
 		

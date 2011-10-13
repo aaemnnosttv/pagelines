@@ -279,7 +279,7 @@ class PageLinesMetaPanel {
 										if(!$t->active) 
 											printf('<span class="tab_inactive">inactive</span>');
 											
-										echo $t->name; 
+										echo substr($t->name, 0, 17); 
 										 ?>
 								</span>
 							</span>
