@@ -36,12 +36,12 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 
 
-body{font-size: 87.5%; line-height: 1.714285em;height:100%;}
+body{font-size: 87.5%; line-height: 1.71em;height:100%;}
 
 	h1, h2, h3, h4, h5, h6{font-weight:normal; line-height: 1.2em;}
 	h1{font-size:3em; } 
 	h2{font-size:2.2em;}
-	h3{font-size:1.714285em;  }
+	h3{font-size:1.71em;  }
 	h4{font-size:1.5em;}
 	h5{font-size:1.1em;}
 	h6{font-size:1em;}
@@ -81,7 +81,7 @@ body{font-size: 87.5%; line-height: 1.714285em;height:100%;}
 	
 		.rss-date {font-size:.9em;line-height:1.2em;}
 		#footer .latest_posts li .list-excerpt {font-size: .9em;line-height: 1.5em;}
-		#fcolumns_container .socialicons span { font-size:17px;	}
+
 
 			.fcol ul ul{ font-size:.9em; }
 			
@@ -201,6 +201,7 @@ body{font-size: 87.5%; line-height: 1.714285em;height:100%;}
 			float: left;
 			margin-right: -230px;
 		}
+		.navigation_wrap{position: relative;}
 		.navigation_wrap .main_nav {			
 			margin-right: 230px;
 			text-align: left;
@@ -243,7 +244,7 @@ body{font-size: 87.5%; line-height: 1.714285em;height:100%;}
 			.main_nav ul ul li {text-align: left;}
 		
 /* @ SubNav Area */
-
+	#secondnav.container{margin: 0;}
 		#secondnav ul{ list-style:none; margin:0; }
 		#secondnav .secondnav_menu { margin:0 0 0 0px; }
 		#secondnav ul li{float: left;}
@@ -265,8 +266,8 @@ body{font-size: 87.5%; line-height: 1.714285em;height:100%;}
 	
 	.navigation_wrap .searchform { 
 		position: absolute;
-		right: 20px;
-		bottom: 2px;
+		right: 5px;
+		bottom: 3px;
 	}
 	
 	.searchform input {
@@ -293,12 +294,10 @@ body{font-size: 87.5%; line-height: 1.714285em;height:100%;}
 
 	/* @ Both Page Content & Posts (.hentry) */
 		.hentry{ clear: both; }
-
+		.hentry-pad{padding: 20px 0;}
 		.billboard { padding: 60px 15px; margin: 0 0 2.5em 0; }
 
-	/* @ Posts */
-		.fpost { margin-bottom: 1.6em; }
-		
+	/* @ Posts */		
 		.fpost .post-excerpt .post-thumb.img {margin-right: 13px}
 		.fpost .post-thumb.img { margin-right: 20px;}
 		.full_img {margin-bottom: .8em;}
@@ -453,9 +452,6 @@ body{font-size: 87.5%; line-height: 1.714285em;height:100%;}
 		a.rsswidget img{position:relative;top:1px;}
 	
 		#sidebar #widgets { margin-bottom: 1em;	}
-
-		.socialicons .widget-title, .widgetcform .widget-title{ margin-bottom:8px; }
-		.socialicons { margin-bottom:30px; }
 			
 		.textwidget { padding: 5px 2px; }
 		
@@ -479,8 +475,6 @@ body{font-size: 87.5%; line-height: 1.714285em;height:100%;}
 	#footer .footcol ul{ padding: 0 5px; }
 	#footer li {list-style-type:none;}
 	#footer li a:hover {text-decoration: underline;}
-		
-	#footer .content-pad { padding: 20px 0 1em; }
 	
 		#footer .widget-title{
 			padding-left:0;
@@ -492,24 +486,6 @@ body{font-size: 87.5%; line-height: 1.714285em;height:100%;}
 		#footer .latest_posts li {margin-bottom: .5em;}
 		#footer .latest_posts li .list-excerpt {line-height: 1.5em;}
 
-		#fcolumns_container .socialicons {
-			float:left;
-			background:none;
-			width:20%;
-			border:none;
-		}
-
-		#fcolumns_container .socialicons .socialeffect {
-			border:none;
-			padding:1px 20px;
-		}
-
-		#fcolumns_container .socialicons span {
-		
-			display:block;
-			padding-bottom:26px;	
-		}
-	
 		.fcol{
 			width: 152px;
 			float: left;

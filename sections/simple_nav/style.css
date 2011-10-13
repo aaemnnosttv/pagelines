@@ -1,5 +1,8 @@
 /* @ Simple Nav */ 
-.simplenav { text-align: center; padding: 15px 0;}
+.simplenav { 
+	text-align: center; 
+	padding: 15px 0;
+}
 
 .simplenav li a{
 	font-size: .95em;

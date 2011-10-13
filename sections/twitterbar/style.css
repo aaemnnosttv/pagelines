@@ -1,7 +1,7 @@
-#twitterbar .content .tbubble{
+#twitterbar .content .tbubble-pad{
 	font-style:italic;
 	background: url(twitter-balloon.png) no-repeat 0 12px;
-	padding: 12px 25px;
+	padding: .9em 25px;
 }
 #twitterbar .twitteraccount{font-style:normal;}
 

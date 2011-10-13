@@ -101,7 +101,13 @@ input[type="submit"], .submit, input[type="button"], .button, input[type="reset"
 		width: 95%;
 		height: 140px;
 	}
-
+	.wp-comments{
+		margin: 1.4em 0;
+	}
+	.wp-comments-pad{
+		padding: 20px 0;
+	}
+	 li #respond {margin: 20px 0;}
 	 ol ul #commentform textarea {width: 90%;}
 
 	#commentform #submit {display: inline;}

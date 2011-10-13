@@ -371,15 +371,27 @@ class PageLinesTemplate {
 				
 				if( $this->in_factory( $section ) ){
 					
-					$this->factory[ $section ]->before_section_template( $clone_id );
+					// Get Template in Buffer 
+					ob_start();
 					
-					$this->factory[ $section ]->before_section( $markup_type, $clone_id);
+					// If in child theme get that, if not load the class template function
+					$this->factory[ $section ]->section_template_load( $clone_id );
 				
-					$this->factory[ $section ]->section_template_load( $clone_id ); // If in child theme get that, if not load the class template function
+					$template = plstrip( ob_get_clean() );
 					
-					$this->factory[ $section ]->after_section( $markup_type );
+					if($template != ''){
 					
-					$this->factory[ $section ]->after_section_template( $clone_id );
+						$this->factory[ $section ]->before_section_template( $clone_id );
+					
+						$this->factory[ $section ]->before_section( $markup_type, $clone_id);
+				
+						echo $template;
+					
+						$this->factory[ $section ]->after_section( $markup_type );
+					
+						$this->factory[ $section ]->after_section_template( $clone_id );
+					
+					}
 				}
 			
 				$wp_query = $save_query;

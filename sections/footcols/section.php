@@ -79,7 +79,7 @@ class PageLinesFootCols extends PageLinesSection {
 			
 		}		
 		
-		printf('<div id="fcolumns_container" class="ppfull pprow fix">%s</div><div class="clear"></div>', ob_get_clean());
+		printf('<div class="fcolumns ppfull pprow"><div class="fcolumns-pad fix">%s</div></div><div class="clear"></div>', ob_get_clean());
 		
 	}
 

@@ -61,6 +61,11 @@
 	.content { width: 100%; margin: 0 auto; position: relative; /*border: 1px solid transparent;*/}
 	.content-pad {padding-right: 15px; padding-left: 15px}
 	
+/*	.container-group .outline > :first-child{margin-top: 0;}
+	.container-group .outline > :last-child{margin-bottom: 0;}*/
+	section.container{ margin: 1em 0;}
+	section.copy{ margin: 1em 0;}
+	
 	/* @ Layout Floating */
 		#column-wrap, #container{float: left;}
 		#sidebar-wrap{float:right;}
@@ -77,14 +82,14 @@
 
 	/* @ Layout Column Padding */
 		.mcolumn-pad {padding-top: 2em;}
-		.scolumn-pad { padding: 2em .7em; }
+		.scolumn-pad { padding: 0 .7em; }
 		.two-sidebar-center #column-main .mcolumn-pad{ padding-right: 20px; padding-left: 20px;}
 		.fullwidth #column-main .mcolumn-pad{ padding-right: 15px; padding-left: 15px;}
 		.one-sidebar-right #column-main .mcolumn-pad, .one-sidebar-right #container #content, .two-sidebar-right #column-main .mcolumn-pad, .two-sidebar-right #container #content{ 
-			padding: 2em 30px 0 15px;
+			padding: 0em 30px 0 15px;
 		}
 		.one-sidebar-left #column-main .mcolumn-pad , .one-sidebar-left #container #content, .two-sidebar-left #column-main .mcolumn-pad , .two-sidebar-left #container #content{ 
-			padding: 2em 15px 0 30px;
+			padding: 0em 15px 0 30px;
 		}
 
 /* @ Fixed Width Design Mode*/

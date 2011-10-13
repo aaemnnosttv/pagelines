@@ -29,13 +29,13 @@
 	<div id="page" class="thepage">
 		<div class="page-canvas">
 			<?php pagelines_register_hook('pagelines_before_header');?>
-			<header id="header" class="container-group fix">
+			<header id="header" class="container-group">
 				<div class="outline">
 					<?php pagelines_template_area('pagelines_header', 'header'); // Hook ?>
 				</div>
 			</header>
 			<?php pagelines_register_hook('pagelines_before_main'); // Hook ?>
-			<div id="page-main" class="container-group fix">
-				<div id="dynamic-content" class="outline fix">
+			<div id="page-main" class="container-group">
+				<div id="dynamic-content" class="outline">
 					<?php pagelines_integration_top();?>
 					

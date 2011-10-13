@@ -12,12 +12,12 @@
 
 pagelines_integration_bottom(); ?>
 			</div>
-			<div id="morefoot_area"><?php pagelines_template_area('pagelines_morefoot', 'morefoot'); // Hook ?></div>
+			<div id="morefoot_area" class="container-group"><?php pagelines_template_area('pagelines_morefoot', 'morefoot'); // Hook ?></div>
 			<div class="clear"></div>
 		</div>
 	</div>
 </div>
-<footer id="footer">
+<footer id="footer" class="container-group">
 	<div class="outline fix"><?php 
 		pagelines_template_area('pagelines_footer', 'footer'); // Hook 
 		pagelines_register_hook('pagelines_after_footer'); // Hook
