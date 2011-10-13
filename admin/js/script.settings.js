@@ -6,7 +6,7 @@
 	function setSortable( selected_builder ){
 		
 		setEmpty(".selected_builder #sortable_template");
-		setEmpty(".selected_builder #sortable_sections");
+		setEmpty(".selected_builder #sortable_sections.sortcolumn");
 	
 		jQuery(".selected_builder #sortable_template").sortable({ 
 				connectWith: '.connectedSortable',
@@ -30,16 +30,30 @@
 		    }
 		);
 		
-		jQuery(".selected_builder #sortable_sections").sortable({ 
+		jQuery(".selected_builder #sortable_sections.sortcolumn").sortable({ 
 				connectWith: '.connectedSortable',
 				cancel: '.required-section',
 				
 				items: 'li:not(.bank_title)',
 				
-				update: function() { setEmpty(".selected_builder #sortable_sections"); }                                         
+				update: function() { 
+					setEmpty(".selected_builder #sortable_sections.colnum1"); 
+					setEmpty(".selected_builder #sortable_sections.colnum2"); 
+				}                                         
 		});
 		
 		jQuery(".selected_builder #sortable_template, .selected_builder #sortable_sections").disableSelection();	
+	}
+	
+	
+	function setEmpty( sortablelist ){
+		
+		if( !jQuery(sortablelist).has('.section-bar').length ){
+			jQuery(sortablelist).addClass('nosections');
+		} else {
+			jQuery(sortablelist).removeClass('nosections');
+		}
+		
 	}
 	
 	function handlePlace( selected_builder, sectionID ){
@@ -183,14 +197,7 @@
 			}
 		});
 	}
-	
-	function setEmpty(sortablelist){
-		if(!jQuery(sortablelist).has('.section-bar').length){
-			jQuery(sortablelist).addClass('nosections');
-		} else {
-			jQuery(sortablelist).removeClass('nosections');
-		}
-	}
+
 
 /*
  * ###########################

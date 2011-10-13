@@ -42,8 +42,4 @@ class PageLinesBrandNav extends PageLinesNav {
 		}
 	}
 
-	// Some of the optional functions not used here.
-	// Load to prevent parent class reloading
-	function section_options($optionset = null, $location = null) {} 
-
 } /* End of section class - No closing tag needed */

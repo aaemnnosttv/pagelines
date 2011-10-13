@@ -2125,7 +2125,7 @@ font-weight: bold;
 			}
 		.sbank-pad{ padding: 15px; }
 		
-		.sbank .sortcolumn2{
+		.sbank .sortcolumn{
 			width: 50%;
 			float: left;
 		}
@@ -2138,7 +2138,14 @@ font-weight: bold;
 			background: url(../images/sections-none.png) no-repeat center center;
 			border: 5px dashed #DDD;
 			height: 150px;
+			width:auto;
+		
 		}
+			.sbank .nosections.sortcolumn{
+				float: none;
+			}
+			.sbank .nosections.colnum2{display: none;}
+			
 		.sbank li{ margin: 5px;	}
 		.sbank li .section-bar{
 			

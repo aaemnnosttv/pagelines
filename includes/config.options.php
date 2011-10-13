@@ -473,6 +473,54 @@ class PageLinesOptionsArray {
 
 		$a = array(
 			'icon'			=> PL_ADMIN_ICONS.'/header.png',
+			'drop_down_options' => array(
+				'default' => '',
+				'type' => 'check_multi',
+				'selectvalues'=> array(
+		
+					'enable_drop_down' => array(
+						'default' => false,
+						'type' => 'check',
+						'scope' => '',
+						'inputlabel' => 'Enable Drop Down Navigation?',
+						'title' => 'Drop Down Navigation',
+						'shortexp' => 'Enable universal drop down navigation',
+						'exp' => 'Checking this option will create drop down menus for all child pages when ' . 
+								 'users hover over main navigation items.'
+						),
+					'drop_down_shadow' => array(
+						'default' => true,
+						'type' => 'check',
+						'scope' => '',
+						'inputlabel' => 'Enable Shadow on Drop Down Menu?',
+						'title' => 'Drop Down Shadow',
+						'shortexp' => 'Enable shadow for drop down navigation',
+						'exp' => 'Checking this option will create shadows for the drop down menus'
+						),
+					'drop_down_arrows' => array(
+						'default' => true,
+						'type' => 'check',
+						'scope' => '',
+						'inputlabel' => 'Enable Arrows on Drop Down Menu?',
+						'title' => 'Drop Down Arrows',
+						'shortexp' => 'Enable arrows for drop down navigation',
+						'exp' => 'Checking this option will create arrows for the drop down menus'
+						)),
+				'inputlabel' => 'Select Which Drop Down Options To Show',
+				'title' => 'Drop Down Navigation - Nav and BrandNav Section',						
+				'shortexp' => 'Select Which To Show',
+				'exp' => "Enable drop downs and choose the options you would like to show" 
+			 
+			),
+			'hidesearch' => array(
+					'version' => 'pro',
+					'default' => false,
+					'type' => 'check',
+					'inputlabel' => 'Hide search field?',
+					'title' => 'Hide Search - Nav Section',						
+					'shortexp' => 'Remove the search field from the nav section',
+					'exp' => 'Removes the search field from the PageLines Navigation Section.'
+				), 
 			'icon_position' => array(
 					'version'	=> 'pro',
 					'type'		=> 'text_multi',

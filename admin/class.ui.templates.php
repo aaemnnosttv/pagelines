@@ -351,36 +351,43 @@ class PageLinesTemplateBuilder {
 		
 		// Draw in Column format
 		
+		$col = 1;
 		$numcol = 2;
 		$count = 1;
 		$total = count( $draw );
 		$coltotal = ( $total % 2 ) ? $total+1 : $total;
-		foreach($draw as $sid => $s){
 		
-			$start_list = ( $count == 1 || ($coltotal / ($count - 1) ) == $numcol ) ? true : false;
-			$end_list = ( $count == $total || ($coltotal / ($count) ) == $numcol ) ? true : false;
+		if(!empty($draw)){
+			foreach($draw as $sid => $s){
+		
+				$start_list = ( $count == 1 || ($coltotal / ($count - 1) ) == $numcol ) ? true : false;
+				$end_list = ( $count == $total || ($coltotal / ($count) ) == $numcol ) ? true : false;
 			
-			if($start_list)
-				printf('<ul id="sortable_sections" class="connectedSortable sortcolumn2">');
+				if($start_list)
+					printf('<ul id="sortable_sections" class="connectedSortable sortcolumn colnum%s">', $col);
 			
-			$section_args = array(
-				'id'		=> 'section_' . $sid,
-				'template'	=> $template,
-				'sid'		=> $sid,
-				'section'	=> $sid, 
-				'icon'		=> $s->settings['icon'], 
-				'name'		=> $s->name, 
-				'desc'		=> $s->settings['description'], 
-				'tslug'		=> $template_slug,
-				'tarea'		=> $hook,
-				'cloning'	=> $s->settings['cloning']
-			);
-			$this->draw_section( $section_args );
+				$section_args = array(
+					'id'		=> 'section_' . $sid,
+					'template'	=> $template,
+					'sid'		=> $sid,
+					'section'	=> $sid, 
+					'icon'		=> $s->settings['icon'], 
+					'name'		=> $s->name, 
+					'desc'		=> $s->settings['description'], 
+					'tslug'		=> $template_slug,
+					'tarea'		=> $hook,
+					'cloning'	=> $s->settings['cloning']
+				);
+				$this->draw_section( $section_args );
 			
-			if($end_list)
-				printf('</ul>');
-				
-			$count++;
+				if($end_list){
+					printf('</ul>');
+					$col++;
+				}
+				$count++;
+			}
+		} else {
+			printf('<ul id="sortable_sections" class="connectedSortable nosections sortcolumn"></ul>');
 		}
 		
 	}

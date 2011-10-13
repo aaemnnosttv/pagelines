@@ -69,13 +69,6 @@ class PageLinesBranding extends PageLinesSection {
 				
 		}
 
-	function section_head(){}
-
-	function section_scripts() {}
-
-	function section_options() {
-	
-	}
 
 }
 
