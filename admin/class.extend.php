@@ -1209,7 +1209,7 @@
 	 */
 	function launchpad_returns() {
 		
-		if (isset( $_GET['api_returned'] ) )
+		if (isset( $_GET['api_returned'] ) || $_POST['reset_store'] )
 			$this->flush_caches();
 	}
 
