@@ -17,9 +17,34 @@ class PageLines_Upgrader_Skin extends WP_Upgrader_Skin {
 	
 	function footer(){ }
 	
-	function feedback($string) {}
+	function feedback($string) {
+		
+		$string = str_replace( 'downloading_package', '', $string );
+		$string = str_replace( 'unpack_package', '', $string );
+		$string = str_replace( 'installing_package', '', $string );
+		$string = str_replace( 'process_failed', '', $string );	
+		$string = str_replace( 'process_success', '', $string );
+		
+		// if anything left, must be a fatal error!
+		
+		if ( $string )	{			
+			if ( strstr( $string, 'Download failed' ) ) {
+				_e( 'Could not connect to download site.', 'pagelines' );
+				exit();
+			}
+			if ( strstr( $string, 'Destination folder already exists' ) ) {
+				$string = str_replace( 'Destination folder already exists.', '', $string );
+				printf( __('Destination folder already exists %s', 'pagelines' ), $string );
+				exit;
+				
+			}
+			
+			// unmapped error...
+			echo $string;
+		}
+	}
 	
-	function error($error) {}
+//	function error($error) {}
 	
 	function after() {}
 

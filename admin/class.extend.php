@@ -727,7 +727,8 @@
 				$upgrader = new Plugin_Upgrader($skin);
 				$destination = ( ! $uploader ) ? $this->make_url( $type, $file ) : $file;
 								
-				$upgrader->install( $destination );
+				@$upgrader->install( $destination );
+
 				if ( isset( $wp_filesystem )  && is_object( $wp_filesystem ) && $wp_filesystem->method == 'direct' )
 					_e( 'Success', 'pagelines' );
 				
@@ -754,7 +755,7 @@
 					$wp_filesystem->delete( trailingslashit( WP_PLUGIN_DIR ) . $file, true, false  );
 				else
 					extend_delete_directory( trailingslashit( WP_PLUGIN_DIR ) . $file );
-				$upgrader->install( $this->make_url( $type, $file ) );
+				@$upgrader->install( $this->make_url( $type, $file ) );
 				$this->sandbox( WP_PLUGIN_DIR . $path, 'plugin');
 				if ( $active )
 					activate_plugin( ltrim( $path, '/' ) );
@@ -823,7 +824,7 @@
 				$upgrader = new Plugin_Upgrader($skin);
 				$time = 0;
 				if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) ) {
-					$upgrader->install( $this->make_url( 'sections', $file ) );			
+					@$upgrader->install( $this->make_url( 'sections', $file ) );		
 					$wp_filesystem->move( trailingslashit( WP_PLUGIN_DIR ) . $file, trailingslashit( PL_EXTEND_DIR ) . $file );					
 				} else {
 							$options = array( 'package' => ( ! $uploader) ? $this->make_url( 'sections', $file ) : $file, 
@@ -833,7 +834,7 @@
 							'is_multi'			=> false,
 							'hook_extra'		=> array() 
 					);
-					$upgrader->run($options);
+					@$upgrader->run($options);
 					if ( ! $uploader ) {
 						_e( 'Section Installed', 'pagelines' );
 						$time = 700;
@@ -858,7 +859,7 @@
 					extend_delete_directory( trailingslashit( PL_EXTEND_DIR ) . $file );				
 
 				if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) ) {
-					$upgrader->install( $this->make_url( 'sections', $file ) );			
+					@$upgrader->install( $this->make_url( 'sections', $file ) );			
 					$wp_filesystem->move( trailingslashit( WP_PLUGIN_DIR ) . $file, trailingslashit( PL_EXTEND_DIR ) . $file );
 					$time = 0;				
 				} else {
@@ -920,7 +921,7 @@
 					$time = 700;
 					_e( 'Success', 'pagelines' );
 				endif;
-				$upgrader->install( $this->make_url( $type, $file ) );
+				@$upgrader->install( $this->make_url( $type, $file ) );
 				
 				if ( $active )
 					switch_theme( basename( get_template_directory() ), $file );
@@ -937,7 +938,7 @@
 				$skin = new PageLines_Upgrader_Skin();
 				$upgrader = new Theme_Upgrader($skin);
 				global $wp_filesystem;
-				$upgrader->install( $this->make_url( $type, $file, $product ) );
+				@$upgrader->install( $this->make_url( $type, $file, $product ) );
 				
 				if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) && $wp_filesystem->method != 'direct' ):
 					$time = 0;
@@ -1209,7 +1210,7 @@
 	 */
 	function launchpad_returns() {
 		
-		if (isset( $_GET['api_returned'] ) || $_POST['reset_store'] )
+		if (isset( $_GET['api_returned'] ) || isset( $_POST['reset_store'] ) )
 			$this->flush_caches();
 	}
 
