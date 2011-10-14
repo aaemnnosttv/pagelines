@@ -2137,7 +2137,7 @@ font-weight: bold;
 		
 		.sbank ul.nosections {
 			background: url(../images/sections-none.png) no-repeat center center;
-			border: 5px dashed #DDD;
+			border: 5px dashed #ccc;
 			height: 150px;
 			width:auto;
 		
