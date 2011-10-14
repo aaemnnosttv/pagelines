@@ -352,14 +352,17 @@ function get_unavailable_section_areas(){
 	
 }
 
-function setup_section_notify( $section, $text, $url = null, $ltext = null){
+function setup_section_notify( $section, $text, $url = null, $ltext = null, $tab = null){
 	
 	
 	if(current_user_can('edit_themes')){
 	
 		$banner_title = sprintf('<h3 class="banner_title wicon" style="background-image: url(%s);">%s</h3>', $section->icon, $section->name);
 		
-		$url = (isset($url)) ? $url : pl_meta_set_url();
+		$tab = (isset($section->tabID)) ? $section->tabID : null;
+		
+		$url = (isset($url)) ? $url : pl_meta_set_url( $tab );
+		
 		$link_text = (isset($ltext)) ? $ltext : __('Set Meta', 'pagelines');
 		
 		$link = sprintf('<a href="%s">%s</a>', $url, $link_text . ' &rarr;');

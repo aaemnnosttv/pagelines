@@ -32,12 +32,15 @@ function pagelines_special_pages(){
 	return array('posts', 'search', 'archive', 'tag', 'category', '404');
 }
 
-function pl_meta_set_url(){
+function pl_meta_set_url( $tab = null ){
 	
 	global $post; 
 	
-	return (is_pagelines_special()) ? admin_url('admin.php?page=pagelines_special') : get_edit_post_link( $post->ID );
+	$tab = (isset($tab)) ? '#'.$tab : '';
+	
+	$url = (is_pagelines_special()) ? admin_url('admin.php?page=pagelines_special') : get_edit_post_link( $post->ID );
 		
+	return $url.$tab;
 }
 
 /**
@@ -55,7 +58,7 @@ function pagelines_body_classes(){
 	
 	$design_mode = (ploption('site_design_mode')) ? ploption('site_design_mode') : 'full_width';
 	
-	$body_classes = sprintf('custom %s %s', strtolower(CHILDTHEMENAME), $pagelines_template->template_type, $design_mode);
+	$body_classes = sprintf('custom %s %s %s', strtolower(CHILDTHEMENAME), $pagelines_template->template_type, $design_mode);
 	
 	return $body_classes;
 }

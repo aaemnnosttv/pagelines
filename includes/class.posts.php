@@ -61,7 +61,10 @@ class PageLinesPosts {
 		$clip_right = ( ($this->clipcount+1) % 2 == 0 ) ? true : false;
 		$clip_row_end = ( $clip_right || $this->count == $this->post_count ) ? true : false;
 		
-		$pagelines_post_classes = ($clip) ? ( $clip_right ? 'clip clip-right' : 'clip' ) : 'fpost';
+		$post_type_class = ($clip) ? ( $clip_right ? 'clip clip-right' : 'clip' ) : 'fpost';
+		
+		$pagelines_post_classes = sprintf('%s post-number-%s', $post_type_class, $this->count);
+		
 		$post_classes = join(' ', get_post_class( $pagelines_post_classes ));
 		
 		$wrap_start = ( $clip && $clip_row_start ) ? sprintf('<div class="clip_box fix">') : ''; 	

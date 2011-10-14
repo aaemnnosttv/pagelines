@@ -12,6 +12,8 @@
 
 class PageLinesCallout extends PageLinesSection {
 
+	var $tabID = 'callout_meta';
+
 	function section_optionator( $settings ){
 		$settings = wp_parse_args($settings, $this->optionator_default);
 		
@@ -47,7 +49,7 @@ class PageLinesCallout extends PageLinesSection {
 			);
 
 			$metatab_settings = array(
-					'id' 		=> 'callout_meta',
+					'id' 		=> $this->tabID,
 					'name' 		=> "Callout Meta",
 					'icon' 		=> $this->icon, 
 					'clone_id'	=> $settings['clone_id'], 
@@ -60,19 +62,15 @@ class PageLinesCallout extends PageLinesSection {
 
 		
  	function section_template() {
-	
-		global $pagelines_ID;
 		
-		$oset = array('post_id' => $pagelines_ID);
-		
-		$call_title = plmeta('pagelines_callout_header', $oset);
-		$call_sub = plmeta('pagelines_callout_subheader', $oset);
-		$call_img = plmeta('pagelines_callout_image', $oset);
-		$call_link = plmeta('pagelines_callout_link', $oset);
+		$call_title = ploption('pagelines_callout_header', $this->oset);
+		$call_sub = ploption('pagelines_callout_subheader', $this->oset);
+		$call_img = ploption('pagelines_callout_image', $this->oset);
+		$call_link = ploption('pagelines_callout_link', $this->oset);
 		
 		
 		if($call_title || $call_img){ ?>
-	<div class="callout-area">
+	<div class="callout-area fix">
 		<div class="callout_text">
 			<div class="callout_text-pad">
 				<?php 

@@ -174,9 +174,8 @@ body{font-size: 87.5%; line-height: 1.71em;height:100%;}
 	/* Branding Section */
 	
 	#branding .content{ z-index:10; }
-	#branding .content-pad{ padding: 25px 15px; }
-		#branding .branding_wrap{position: relative;zoom:1;}
-			.site-description { margin-left: .2em;}
+	#branding .branding_wrap{position: relative;zoom:1;}
+		.site-description { margin-left: .2em;}
 			a.site-title{
 				display: block;
 				margin: .3em 0 .15em;
@@ -294,11 +293,8 @@ body{font-size: 87.5%; line-height: 1.71em;height:100%;}
 /* @ The Loop  */
 
 	/* @ Both Page Content & Posts (.hentry) */
-		.hentry{ 
-			margin: 1em 0;
-			clear: both; 
-		}
-		.hentry-pad{padding: 1em 0 2em 0;}
+		.hentry{ clear: both; }
+	
 		.billboard { padding: 60px 15px; margin: 0 0 2.5em 0; }
 
 	/* @ Posts */		
@@ -329,24 +325,8 @@ body{font-size: 87.5%; line-height: 1.71em;height:100%;}
 			
 
 /* @ Clips */	
-	#pagelines_content .clip{
-		width:47%;
-	}
-	 #site.fullwidth #pagelines_content .clip{
-		width: 48%;
-	}
-	.clip_box{ margin: 1em 0; }
-		.clip_box .hentry {
-			margin:0;
-		}
-		
-	.clip {
-		float: left;
-		clear: none;
-	}
-		.clip-right {
-			float: right;
-		}
+	
+
 		
 		.clip .clip-header { 
 			padding: 4px 0 4px 0;
@@ -405,11 +385,11 @@ body{font-size: 87.5%; line-height: 1.71em;height:100%;}
 		
 		/* @ Sidebar Widgets */
 
-			.widget{ margin-bottom: 1em; overflow: hidden; }
+			.widget{ overflow: hidden; }
 			
 			.widget-title{
 				text-align:left;
-				padding:6px 8px 3px 0px;
+				padding:3px 8px 3px 0px;
 				margin-bottom: .6em;
 			}
 	

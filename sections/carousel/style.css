@@ -24,9 +24,6 @@
     cursor: pointer;    
     background: transparent url(images/carousel_navleft.png) no-repeat 0 0;
 }
-
-#carousel .content-pad{ margin: 1em 0; }
-
 #carousel .thecarousel{
 	position: relative;
 	font-size: 10px;

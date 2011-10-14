@@ -54,7 +54,7 @@ class PageLinesCSSGroups{
 		/**
 		 * Main Page Element Colors
 		 */
-		$s['bodybg'] = 'body, body.fixed_width';
+		$s['bodybg'] = 'body, body.fixed_width, #footer .content';
 
 		$s['pagebg'] = 'body #page,  .commentlist ul.children .even, .alt #commentform textarea';
 

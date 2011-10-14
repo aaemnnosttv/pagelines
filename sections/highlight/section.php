@@ -12,6 +12,8 @@
 
 class PageLinesHighlight extends PageLinesSection {
 	
+	var $tabID = 'highlight_meta';
+	
 	function section_optionator( $settings ){
 		
 		$settings = wp_parse_args($settings, $this->optionator_default);
@@ -54,7 +56,7 @@ class PageLinesHighlight extends PageLinesSection {
 			);
 		
 		$metatab_settings = array(
-				'id' 		=> 'highlight_meta',
+				'id' 		=> $this->tabID,
 				'name' 		=> "Highlight Meta",
 				'icon' 		=> $this->icon, 
 				'clone_id'	=> $settings['clone_id'], 
@@ -65,15 +67,11 @@ class PageLinesHighlight extends PageLinesSection {
 	}
 
 	function section_template( $clone_id ) { 
-		global $pagelines_ID;   
- 		
-		// Option Settings
-			$oset = array('post_id' => $pagelines_ID, 'clone_id' => $clone_id);
 
-		$h_head = ploption('_highlight_head', $oset);
-		$h_subhead = ploption('_highlight_subhead', $oset);
-		$h_splash = ploption('_highlight_splash', $oset);
-		$h_splash_position = ploption('_highlight_splash_position', $oset);
+		$h_head = ploption('_highlight_head', $this->oset);
+		$h_subhead = ploption('_highlight_subhead', $this->oset);
+		$h_splash = ploption('_highlight_splash', $this->oset);
+		$h_splash_position = ploption('_highlight_splash_position', $this->oset);
 		
 	
 	if($h_head || $h_subhead || $h_splash){?>
