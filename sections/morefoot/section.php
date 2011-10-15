@@ -24,7 +24,7 @@ class PageLinesMorefoot extends PageLinesSection {
 				array(
 					'name'			=> $i['name'], 
 					'description'	=> $i['description'], 
-					'before_widget' => '<div id="%1$s" class="%2$s widget fix"><div class="widget-pad blocks">',
+					'before_widget' => '<div id="%1$s" class="%2$s widget fix"><div class="widget-pad">',
 				    'after_widget' => '</div></div>',
 				    'before_title' => '<h3 class="widget-title">',
 				    'after_title' => '</h3>'
@@ -56,14 +56,14 @@ class PageLinesMorefoot extends PageLinesSection {
 		if(!dynamic_sidebar( $sidebar['name']))
 			echo $sidebar['default'];
 			
-		return sprintf('%s', ob_get_clean());
+		return sprintf('<div class="morefoot-col"><div class="morefoot-col-pad blocks">%s</div></div>', ob_get_clean());
 			
 	}
 	
 	function master_array(){
 		
 			$left = sprintf(
-				'<div class="widget"><div class="widget-pad blocks"><h3 class="widget-title">%s</h3><p>%s</p>%s<br class="clear"/><p>%s</p></div></div>', 
+				'<div class="widget"><div class="widget-pad"><h3 class="widget-title">%s</h3><p>%s</p>%s<br class="clear"/><p>%s</p></div></div>', 
 				__('Looking for something?','pagelines'),
 				__('Use the form below to search the site:','pagelines'), 
 				pagelines_search_form(false), 
@@ -71,14 +71,14 @@ class PageLinesMorefoot extends PageLinesSection {
 			);
 			
 			$middle = sprintf(
-				'<div class="widget"><div class="widget-pad blocks"><h3 class="widget-title">%s</h3><p>%s</p><ul>%s</ul></div></div>', 
+				'<div class="widget"><div class="widget-pad"><h3 class="widget-title">%s</h3><p>%s</p><ul>%s</ul></div></div>', 
 				__('Visit our friends!','pagelines'),
 				__('A few highly recommended friends...','pagelines'), 
 				wp_list_bookmarks('title_li=&categorize=0&echo=0')
 			);
 			
 			$right = sprintf(
-				'<div class="widget"><div class="widget-pad blocks"><h3 class="widget-title">%s</h3><p>%s</p><ul>%s</ul></div></div>', 
+				'<div class="widget"><div class="widget-pad"><h3 class="widget-title">%s</h3><p>%s</p><ul>%s</ul></div></div>', 
 				__('Archives','pagelines'),
 				__('All entries, chronologically...','pagelines'), 
 				wp_get_archives('type=monthly&limit=12&echo=0')

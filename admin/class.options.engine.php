@@ -539,14 +539,19 @@ class OptEngine {
 	 **/
 	function _get_text_content($oid, $o, $val){ 	
 		
+		$val = (bool) ploption($oid);
 		
-		$checked = checked((bool) ploption($oid), true, false);
+		if(!$val){
+		
+			$checked = checked((bool) ploption($oid), true, false);
 				
-		$input = $this->input_checkbox($o['input_id'], $oid, $checked);
+			$input = $this->input_checkbox($o['input_id'], $oid, $checked);
 			
-		$hide_checkbox = $this->input_label_inline($o['input_id'], $input, $o['inputlabel']);
+			$hide_checkbox = $this->input_label_inline($o['input_id'], $input, $o['inputlabel']);
 		
-		printf('<div class="pl_help text_content fix">%s %s</div>', $o['exp'], $hide_checkbox);
+			printf('<div class="pl_help text_content fix">%s %s</div>', $o['exp'], $hide_checkbox);
+		
+		}
 		
 	}
 

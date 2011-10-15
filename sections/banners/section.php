@@ -50,26 +50,6 @@ class PageLinesBanners extends PageLinesSection {
 	function type_meta_options(){
 		/* Meta Options */
 			$type_meta_array = array(
-
-				'the_banner_image' 	=> array(
-						'version' => 'pro',
-						'type' => 'image_upload',					
-						'title' => 'Banner Media',
-						'shortexp' => 'Upload an image for the banner.'
-					),
-				'the_banner_media' 		=> array(
-						'version' => 'pro',
-						'type' => 'textarea',					
-						'title' => 'Banner Media',
-						'shortexp' => 'Add HTML Media for the banner, e.g. Youtube embed code. This option is used if there is no image uploaded.'
-					),
-				'banner_text_width' => array(
-						'version' 	=> 'pro',
-						'type' 		=> 'text',		
-						'size'		=> 'small',			
-						'title'		=> 'Banner Text Width (In %)',
-						'shortexp' 		=> 'Set the width of the text area as a percentage of full content width.  The media area will fill the rest.'
-					),
 				'banner_align' => array(
 					'version' => 'pro',
 					'type' => 'select',
@@ -81,6 +61,23 @@ class PageLinesBanners extends PageLinesSection {
 					'shortexp' => 'Put the media on the right or the left?',
 
 				),
+				'the_banner_image' 	=> array(
+						'type' => 'image_upload',					
+						'title' => 'Banner Media',
+						'shortexp' => 'Upload an image for the banner.'
+					),
+				'banner_text_width' => array(
+						'type' 			=> 'count_select',		
+						'count_start'	=> '1',
+						'count_number'	=> '100',		
+						'title'		=> 'Banner Text Width (In %)',
+						'shortexp' 		=> 'Set the width of the text area as a percentage of full content width.  The media area will fill the rest.'
+					),
+				'the_banner_media' 		=> array(
+						'type' => 'textarea',					
+						'title' => 'Banner Media',
+						'shortexp' => 'Add HTML Media for the banner, e.g. Youtube embed code. This option is used if there is no image uploaded.'
+					),
 				'banner_text_padding' => array(
 					'version' 	=> 'pro',
 					'type' 		=> 'text',
@@ -153,15 +150,10 @@ class PageLinesBanners extends PageLinesSection {
 	}
 
    function section_template( $clone_id ) {    
-	
-		global $post, $pagelines_ID; 
-		
-		// Option Settings
-			$oset = array('post_id' => $pagelines_ID, 'clone_id' => $clone_id);
-		
+
 		// Options
-			$set = (ploption('banner_set', $oset)) ? ploption('banner_set', $oset) : null;
-			$limit = (ploption('banner_items', $oset)) ? ploption('banner_items', $oset) : null;
+			$set = (ploption('banner_set', $this->oset)) ? ploption('banner_set', $this->oset) : null;
+			$limit = (ploption('banner_items', $this->oset)) ? ploption('banner_items', $this->oset) : null;
 		
 		// Actions
 			$b = $this->load_pagelines_banners($set, $limit);

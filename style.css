@@ -81,7 +81,7 @@ body{font-size: 87.5%; line-height: 1.71em;height:100%;}
 		.post-footer .right span { line-height: 21px; }
 	
 		.rss-date {font-size:.9em;line-height:1.2em;}
-		#footer .latest_posts li .list-excerpt {font-size: .9em;line-height: 1.5em;}
+		#footer .latest_posts li .list-excerpt {font-size: .9em;line-height: 1.6em;}
 
 
 			.fcol ul ul{ font-size:.9em; }
@@ -470,10 +470,12 @@ body{font-size: 87.5%; line-height: 1.71em;height:100%;}
 			margin-bottom: .6em;
 		}
 		#footer .findent {padding: 0 5px 0 0;}
-		#footer .latest_posts {padding:0;}
-		#footer .latest_posts li {margin-bottom: .5em;}
-		#footer .latest_posts li .list-excerpt {line-height: 1.5em;}
-
+		.latest_posts h5{
+			margin-bottom: .4em;
+		}
+		.latest_posts {padding:0;}
+		.latest_posts li {margin-bottom: .5em;}
+		
 		.fcol{
 			width: 152px;
 			float: left;
