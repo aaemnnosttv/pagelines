@@ -29,7 +29,8 @@ class PageLinesOptionsUI {
 				'reset_cb'		=> false,
 				'title_size'	=> 'normal',
 				'fullform'		=> true, 
-				'tabs'			=> true
+				'tabs'			=> true, 
+				'reset_store'	=> false
 			);
 		
 		$this->set = wp_parse_args( $args, $defaults );
@@ -108,8 +109,6 @@ class PageLinesOptionsUI {
 				<?php echo OptEngine::superlink(__('Restore To Default', 'pagelines' ), 'grey', 'reset-options', 'submit', 'onClick="return ConfirmRestore();"', plname('reset', array('setting' => $this->set['settings'])));?>
 				<div class="ortext">Use this button to restore these settings to default. &mdash; <strong>Note</strong>: Restore template and layout information in their individual tabs.</p></div>
 				<?php pl_action_confirm('ConfirmRestore', __( 'Are you sure? This will restore these settings to default.', 'pagelines' ));?>
-				
-
 			</div>
 			<?php endif;?>
 			</form><!-- close entire form -->

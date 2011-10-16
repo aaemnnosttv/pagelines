@@ -13,10 +13,7 @@ class PageLinesPostsInfo extends PageLinesSection {
 
    function section_template() { 	
 	
-		if( is_category() || is_archive() || is_search() || is_author() ):
-		
-		?>
-		
+		if( is_category() || is_archive() || is_search() || is_author() ): ?>
 			<div class="current_posts_info">
 				<?php if(is_search()):?>
 					<?php _e("Search results for ", 'pagelines');?> 

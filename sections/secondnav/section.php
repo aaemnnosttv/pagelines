@@ -28,32 +28,17 @@ class PageLinesSecondNav extends PageLinesSection {
 	}
 	
    	function section_template() { 
-		global $post; 
-		global $pagelines_ID;
-
-		$pageID = (!pagelines_non_meta_data_page()) ? $post->ID : null;
 		
-		if(!is_404()){
 
-			if(!is_singular() && ploption('_second_nav_menu'))
-				$second_menu = ploption('_second_nav_menu');
-				
-			elseif (ploption('_second_nav_menu', $pageID))
-				$second_menu = ploption('_second_nav_menu', $pageID);
-			
-			if(isset($second_menu))
-				wp_nav_menu( array('menu_class'  => 'secondnav_menu lcolor3', 'menu' => $second_menu, 'container' => null, 'container_class' => '', 'depth' => 1, 'fallback_cb'=>'pagelines_page_subnav') );
-						
-			elseif(pagelines_option('nav_use_hierarchy', $pagelines_ID))
-				pagelines_page_subnav();
-			
-		}
+		$second_menu = (ploption('_second_nav_menu', $this->oset)) ? ploption('_second_nav_menu', $this->oset) : null;
 		
+		if(isset($second_menu))
+			wp_nav_menu( array('menu_class'  => 'secondnav_menu lcolor3', 'menu' => $second_menu, 'container' => null, 'container_class' => '', 'depth' => 1, 'fallback_cb'=>'pagelines_page_subnav') );
+					
+		elseif(ploption('nav_use_hierarchy', $this->oset))
+			pagelines_page_subnav();
 
 	}
 
 
 }
-/*
-	End of section class
-*/

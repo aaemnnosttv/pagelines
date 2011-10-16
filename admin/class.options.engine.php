@@ -124,8 +124,6 @@ class OptEngine {
 			$o['input_name'] = $oid;
 			$o['input_id'] = get_pagelines_option_id( $oid );
 			
-		//	plprint($user);
-			
 			if(!empty($o['selectvalues'])){
 				foreach($o['selectvalues'] as $sid => $s){
 
@@ -140,9 +138,19 @@ class OptEngine {
 			
 			$oset['subkey'] = $oid;
 			
-			$o['val'] = ploption( $o['special'], $oset );			
+			$o['val'] = ploption( $o['special'], $oset );	
 			$o['input_name'] = plname($o['special'], $oset);
 			$o['input_id'] = plid( $o['special'], $oset);
+			
+			// What a hassle. 
+			// Allow global option for text content (no sub key)
+			// If 'hidden' then option will be nuked on save, so in class.sections.php
+			// there is an 'upop' that updates to global settings 
+			if($o['type'] == 'text_content'){
+				$oset['subkey'] = null;
+				$o['val'] = ploption( $oid, $oset );
+				$o['input_name'] =  plname( $oid, $oset );
+			}
 			
 			if(!empty($o['selectvalues'])){
 				foreach($o['selectvalues'] as $sid => $s){
@@ -539,19 +547,18 @@ class OptEngine {
 	 **/
 	function _get_text_content($oid, $o, $val){ 	
 		
-		$val = (bool) ploption($oid);
+		$val = (bool) $o['val'];
 		
-		if(!$val){
-		
-			$checked = checked((bool) ploption($oid), true, false);
+		$checked = checked($val, true, false);
 				
-			$input = $this->input_checkbox($o['input_id'], $oid, $checked);
-			
-			$hide_checkbox = $this->input_label_inline($o['input_id'], $input, $o['inputlabel']);
+		$input = $this->input_checkbox($o['input_id'], $o['input_name'], $checked);
 		
-			printf('<div class="pl_help text_content fix">%s %s</div>', $o['exp'], $hide_checkbox);
+		$label = ($o['inputlabel'] != '') ? $o['inputlabel'] : __('Hide This Overview', 'pagelines');
 		
-		}
+		$hide_checkbox = $this->input_label_inline($o['input_id'], $input, $o['inputlabel']);
+	
+		printf('<div class="pl_help text_content fix">%s %s</div>', $o['exp'], $hide_checkbox);
+
 		
 	}
 

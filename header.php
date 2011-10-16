@@ -21,7 +21,6 @@
 		echo ploption('asynch_analytics');  // Recommended Spot For Asynchronous Google Analytics
 ?></head>
 <body <?php body_class( pagelines_body_classes() ); ?>>
-
 <?php pagelines_register_hook('pagelines_before_site'); // Hook
 	
 ?><div id="site" class="<?php echo pagelines_layout_mode();?>">

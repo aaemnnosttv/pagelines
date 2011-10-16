@@ -360,8 +360,8 @@ class PageLinesTemplate {
 			/**
 			 * Parse through sections assigned to this hook
 			 */
-			foreach( $this->$hook as $sid ){
-	
+			foreach( $this->$hook as $key => $sid ){	
+				
 				/**
 				 * If this is a cloned element, remove the clone flag before instantiation here.
 				 */
@@ -371,7 +371,14 @@ class PageLinesTemplate {
 				
 				if( $this->in_factory( $section ) ){
 					
-					// Get Template in Buffer 
+					$current_section = $this->factory[ $section ];
+					
+					$conjugation = $this->conjugation($hook, $key, $sid, $current_section);
+				
+					/**
+					 * Load Template
+					 * Get Template in Buffer 
+					 */
 					ob_start();
 					
 					// If in child theme get that, if not load the class template function
@@ -380,16 +387,18 @@ class PageLinesTemplate {
 					$template = plstrip( ob_get_clean() );
 					
 					if($template != ''){
+						
+						
 					
-						$this->factory[ $section ]->before_section_template( $clone_id );
+						$current_section->before_section_template( $clone_id );
 					
-						$this->factory[ $section ]->before_section( $markup_type, $clone_id);
+						$current_section->before_section( $markup_type, $clone_id, $conjugation);
 				
 						echo $template;
 					
-						$this->factory[ $section ]->after_section( $markup_type );
+						$current_section->after_section( $markup_type );
 					
-						$this->factory[ $section ]->after_section_template( $clone_id );
+						$current_section->after_section_template( $clone_id );
 					
 					}
 				}
@@ -400,6 +409,83 @@ class PageLinesTemplate {
 			}
 		}
 	}
+	
+	/**
+	 * Load in the next and previous area as classes
+	 * Useful for styling based on relationships between sections
+	 */
+	function conjugation( $hook, $key, $sid, $current_section ){
+		/**
+		 * Conjugation
+		 */
+		$in_area = $this->$hook;
+		
+		
+		$pre = (isset($in_area[$key-1])) ? $in_area[$key-1] : $this->conjugation_adjacent_area($hook, 'prev');
+		$post = (isset($in_area[$key+1])) ? $in_area[$key+1] : $this->conjugation_adjacent_area($hook, 'next');
+
+
+		if($pre == 'top') 
+			$pre_class = 'top';
+		elseif($pre)
+			$pre_class = $this->factory[ $pre ]->id;
+		else 
+			$pre_class = 'top';
+			
+		if($post == 'bottom') 
+			$post_class = 'bottom';
+		elseif($post)
+			$post_class = $this->factory[ $post ]->id;
+		else
+			$post_class = 'bottom';
+			
+
+		$conj = sprintf('%s-%s %s-%s', $pre_class, $current_section->id, $current_section->id, $post_class);
+		
+		return $conj;
+	}
+	
+	/**
+	 * Return sections from different areas
+	 */
+	function conjugation_adjacent_area( $hook, $relation = 'next' ){
+		
+		$order = array('header', 'templates', 'morefoot', 'footer');
+		
+		foreach($order as $key => $area){
+			
+			if( $hook == $area ){
+				
+				for($i = 1; $i <= 4; $i++) {
+				    
+					$adjust = ($relation == 'prev') ? $key-$i : $key+$i;
+
+					$area = (isset($order[ $adjust ])) ? $order[ $adjust ] : false;
+
+					if( $area && is_array($this->$area) && !empty($this->$area) ){
+
+						$rel = ($relation == 'next') ? reset($this->$area) : end($this->$area);
+						break;
+						
+					}
+					
+				}
+
+				if(isset($rel))
+					return $rel;
+				elseif($relation == 'prev')
+					return 'top';
+				else
+					return 'bottom';
+				
+			}
+		}
+		
+		return ($relation == 'prev') ? 'top' : 'bottom';
+	
+	}
+	
+	
 	
 	/**
 	 * Tests if the section is in the factory singleton

@@ -140,9 +140,11 @@ class PageLinesSection {
 		
 	}
 
-	function before_section( $markup = 'content', $clone_id = null){
+	function before_section( $markup = 'content', $clone_id = null, $conjugation = ''){
 		
-		$clone_class = (isset($clone_id)) ? 'clone_'.$clone_id : '';
+		$classes = $conjugation;
+		
+		$classes .= (isset($clone_id)) ? ' clone_'.$clone_id : '';
 		
 		if(isset($this->settings['markup']))
 			$set_markup = $this->settings['markup'];
@@ -152,9 +154,9 @@ class PageLinesSection {
 		pagelines_register_hook('pagelines_before_'.$this->id, $this->id);
 		
 		if( $set_markup == 'copy' ) 
-			printf('<section id="%s" class="copy fix %s"><div class="copy-pad">', $this->id, $clone_class);
+			printf('<section id="%s" class="copy fix %s"><div class="copy-pad">', $this->id, $classes);
 		elseif( $set_markup == 'content' )
-			printf('<section id="%s" class="container fix %s"><div class="texture"><div class="content"><div class="content-pad">', $this->id, $clone_class);
+			printf('<section id="%s" class="container fix %s"><div class="texture"><div class="content"><div class="content-pad">', $this->id, $classes);
 
 		pagelines_register_hook('pagelines_inside_top_'.$this->id, $this->id);
  	}
@@ -195,8 +197,24 @@ class PageLinesSection {
 		
 	function add_getting_started( $tab_array ){
 		
+		$key = 'hide_getting_started_'.$this->id;
+		
+		$special_oset = array('setting' => PAGELINES_SPECIAL);
+		
+		if( ploption( $key )  ){
+			$hide = true;
+		} elseif( ploption($key, $special_oset ) ){
+			
+			plupop($key, true);
+	
+			$hide = true;
+			
+		} else 
+			$hide = false;
+		
+		
 		$tab = array(
-			'hide_getting_started_'.$this->id => array(
+			$key => array(
 				'type' 			=> 'text_content',		
 				'title'	 		=> 'Getting Started',
 				'shortexp' 		=> 'How to use this section',
@@ -207,7 +225,7 @@ class PageLinesSection {
 		
 		global $post_ID;
 		
-		if( !plmeta('hide_getting_started_'.$this->id, array('post_id' => $post_ID)) )
+		if( !$hide )
 			$tab_array = array_merge($tab, $tab_array);
 			
 		return $tab_array;

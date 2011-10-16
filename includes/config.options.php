@@ -20,7 +20,7 @@ class PageLinesOptionsArray {
 	 */
 	function __construct() {
 		
-		if(!ploption('hide_introduction') && VPRO)
+		if(!ploption('hide_pagelines_introduction') && VPRO)
 			$this->options['_welcome'] = $this->welcome();
 		
 		$this->options['website_setup'] = $this->website_setup();
@@ -1064,19 +1064,10 @@ class PageLinesOptionsArray {
 		
 		$a = array(
 			'icon'			=> PL_ADMIN_ICONS.'/book.png',
-			'theme_introduction'	=> array(
-				'type'		=> 'text_content',
-				'layout'	=> 'full',
-				'exp'		=> $welcome->get_welcome()
-			),
-			'hide_introduction'	=> array(
-				'default'	=> '',
-				'type'		=> 'check',
-				'inputlabel'	=> '',
-				'inputlabel'	=> __( 'Hide the introduction', 'pagelines' ),
-				'title'		=> __( 'Remove This Theme Introduction', 'pagelines' ),
-				'shortexp'	=> __( 'Remove this introduction from the admin', 'pagelines' ),
-				'exp'		=> __( "This introduction can be added back under the 'custom code' tab (once hidden)...", 'pagelines' )
+			'hide_pagelines_introduction'	=> array(
+				'type'			=> 'text_content',
+				'inputlabel'	=> 'Hide Introduction',
+				'exp'			=> $welcome->get_welcome()
 			),
 		);
 		

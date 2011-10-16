@@ -306,11 +306,16 @@ function pagelines_settings_callback( $input ) {
 	// We whitelist some of the settings, these need to have html/js/css.
 	$whitelist = array( 'excerpt_tags', 'headerscripts', 'customcss', 'footerscripts', 'asynch_analytics', 'typekit_script', 'footer_terms', 'footer_more' );
 
-	// We run through the $input array, if it is not in the whitelist we run it through the wp filters.
-	foreach ($input as $name => $value){
-		if ( !is_array( $value ) && !in_array( $name, apply_filters( 'pagelines_settings_whitelist', $whitelist ) ) ) 
-			$input[$name] = wp_filter_nohtml_kses( $value );
+	if(is_array($input)){
+		
+		// We run through the $input array, if it is not in the whitelist we run it through the wp filters.
+		foreach ($input as $name => $value){
+			if ( !is_array( $value ) && !in_array( $name, apply_filters( 'pagelines_settings_whitelist', $whitelist ) ) ) 
+				$input[$name] = wp_filter_nohtml_kses( $value );
+		}
+		
 	}
+	
 	// Return our safe $input array.
 	return $input;
 }

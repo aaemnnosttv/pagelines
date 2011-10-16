@@ -248,7 +248,7 @@ body{font-size: 87.5%; line-height: 1.71em;height:100%;}
 		#secondnav ul{ list-style:none; margin:0; }
 		#secondnav .secondnav_menu { margin:0 0 0 0px; }
 		#secondnav ul li{float: left;}
-		#secondnav li a{ display: block; padding: 10px 10px; border:none;}
+		#secondnav li a{ display: block; padding: 3px 8px; border:none;}
 				
 			
 /* @ Search Form */
@@ -445,6 +445,29 @@ body{font-size: 87.5%; line-height: 1.71em;height:100%;}
 		
 		#footer .widget_twitter .twitter-item{ padding-bottom:10px; }
 		.twitter-item:nth-child(2n){ font-weight:bolder; }
+
+/* @ Post Navigation */
+.post-nav, .current_posts_info {
+	clear: both;
+	padding:5px 10px;
+	position: relative;
+}
+	.post-nav a, .post-nav a:visited { text-decoration: none; }
+	.post-nav a:hover { text-decoration: none; }
+	
+	.post-nav .previous a {
+		float: left;
+		display: block;
+		padding-left: 24px;
+		background: url(images/post-previous.png) no-repeat left center;
+	}
+	.post-nav .next a {
+		float: right;
+		display:block;
+		padding-right: 24px;
+		text-align: right;
+		background: url(images/post-next.png) no-repeat right center;
+	}
 
 
 /* @ Page Navigation */

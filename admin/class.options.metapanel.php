@@ -365,9 +365,13 @@ class PageLinesMetaPanel {
 						$this->save_sc( $postID );
 					elseif($oid == 'page_background_image')
 						$this->save_bg( $oid, $postID );
-					elseif($o['type'] == 'text_content')
-						update_option($oid, true);
-					else {
+					elseif($o['type'] == 'text_content'){
+						
+						$option_value =  isset( $_POST[$oid] ) ? $_POST[ $oid ] : null;
+						
+						plupop($oid, $option_value);
+						
+					}else {
 						
 						// Note: If the value is null, then test to see if the option is already set to something
 						// create and overwrite the option to null in that case (i.e. it is being set to empty)
