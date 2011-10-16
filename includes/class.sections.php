@@ -154,7 +154,7 @@ class PageLinesSection {
 		pagelines_register_hook('pagelines_before_'.$this->id, $this->id);
 		
 		if( $set_markup == 'copy' ) 
-			printf('<section id="%s" class="copy fix %s"><div class="copy-pad">', $this->id, $classes);
+			printf('<section id="%s" class="copy %s"><div class="copy-pad">', $this->id, $classes);
 		elseif( $set_markup == 'content' )
 			printf('<section id="%s" class="container fix %s"><div class="texture"><div class="content"><div class="content-pad">', $this->id, $classes);
 
@@ -390,7 +390,14 @@ function setup_section_notify( $section, $text, $url = null, $ltext = null, $tab
 	
 }
 
-
+function splice_section_slug( $slug ){
+	
+	$pieces = explode("ID", $slug);		
+	$section = (string) $pieces[0];
+	$clone_id = (isset($pieces[1])) ? $pieces[1] : 1;
+	
+	return array('section' => $section, 'clone_id' => $clone_id);
+}
 
 
 

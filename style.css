@@ -72,7 +72,8 @@ body{font-size: 87.5%; line-height: 1.71em;height:100%;}
 	.fpost .post-excerpt{font-size: 1.1em; line-height: 1.6em}
 	.metabar em{ font-size: .85em; line-height: 1.75em; }
 	.clip .entry-title { font-size: 1.5em; line-height: 1.2em; }
-
+	.clip .metabar{ font-size: .9em}
+	
 	/* Sidebars */
 	.widget ul li{line-height: 1.4em}
 	
@@ -208,6 +209,11 @@ body{font-size: 87.5%; line-height: 1.71em;height:100%;}
 			margin-top: 0px;
 			z-index:28;  /* Fancybox Uses 30 */
 			position:relative;
+			height: 31px;
+		}
+		.sf-menu li:hover ul,
+		.sf-menu li.sfHover ul{
+			top: 33px;
 		}
 		.main_nav_container.nosearch, .nosearch .main_nav{ margin-right: 0; } /* No search adjustment */
 		
@@ -353,6 +359,7 @@ body{font-size: 87.5%; line-height: 1.71em;height:100%;}
 			margin-bottom:1.5em;
 			margin-top:.5em;
 		}	
+		
 
 /* @ Post Navigation */				
 	/* @ Post Footer Area */

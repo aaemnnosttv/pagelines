@@ -66,19 +66,23 @@
 	
 		/* Default Spacing */
 		section.container, .hentry, .clip_box, .widget{ margin: 0;} 
-		section.copy{margin: 1em 0;}
+		section.copy{margin: 1.6em 0;}
 		.content-pad{padding: 15px;}
-		.hentry-pad{padding: 20px 0;}
-		.widget-pad{padding: 5px;}
+		
+		.hentry, .clip_box{margin-bottom: 1.6em}
+		.hentry-pad{padding: 0 0 20px;}
+		.widget-pad{padding: 10px;}
 		#pagelines_content .clip{ width:47%; }
 		
 		/* Adjustments */
+		
 		.mcolumn-pad > article .hentry-pad:first-of-type {padding-top: 0;}
 		.mcolumn-pad > :first-child, .copy-pad > :first-child, .scolumn-pad > :first-child, .sidebar_widgets > :first-child{margin-top: 0;}
 		.mcolumn-pad > :last-child, .copy-pad > :last-child, .scolumn-pad > :last-child, .sidebar_widgets > :last-child{margin-bottom: 0;}
 		.clip_box .hentry, .pprow .widget { margin:0; }
 		
 		/* Special Corrections */
+		#content .content-pad{ padding-top: 10px }
 		#branding .content-pad{ padding-top: 25px; padding-bottom: 25px; }
 		#nav .content-pad, #secondnav .content-pad{ padding-top: 5px; padding-bottom: 5px; }
 		
@@ -100,11 +104,11 @@
 		
 		.two-sidebar-center #column-main .mcolumn-pad{ padding-right: 20px; padding-left: 20px;}
 		.fullwidth #column-main .mcolumn-pad{ padding-right: 15px; padding-left: 15px;}
-		.one-sidebar-right #column-main .mcolumn-pad, .one-sidebar-right #container #content, .two-sidebar-right #column-main .mcolumn-pad, .two-sidebar-right #container #content{ 
-			padding: 0em 30px 0 15px;
+		.one-sidebar-right #column-main .mcolumn-pad, .two-sidebar-right #column-main .mcolumn-pad{ 
+			padding: 10px 30px 0 15px;
 		}
-		.one-sidebar-left #column-main .mcolumn-pad , .one-sidebar-left #container #content, .two-sidebar-left #column-main .mcolumn-pad , .two-sidebar-left #container #content{ 
-			padding: 0em 15px 0 30px;
+		.one-sidebar-left #column-main .mcolumn-pad, .two-sidebar-left #column-main .mcolumn-pad{ 
+			padding: 10px 15px 0 30px;
 		}
 
 /* @ Fixed Width Design Mode*/

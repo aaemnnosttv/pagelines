@@ -1,71 +1,107 @@
+(function($) {
+$.fn.equalizer = function(options) {
+	var base = {};
+	$('body').data('Equalizer', base);
+	base.$el = $(this); // base.$el contains all elements
+	base.options = $.extend({}, $.equalizerDefaults, options);
 
-// these are (ruh-roh) globals. You could wrap in an
-                // immediately-Invoked Function Expression (IIFE) if you wanted to...
-var currentTallest = 0,
-    currentRowStart = 0,
-    rowDivs = new Array();
+	base.init = function(){
+		// Setup sizes
+		base.options.min = parseInt(base.options.min, 10) || 0;
+		base.options.max = parseInt(base.options.max, 10) || 0;
+		base.hasMax = (base.options.max === 0) ? false : true;
+		base.hasMin = (base.options.min === 0) ? false : true;
+		base.curRowTop = 0; // current row offset top position
 
-function setConformingHeight(el, newHeight) {
-	
-        // set the height to something new, but remember the original height in case things change
-        el.data("originalHeight", (el.data("originalHeight") == undefined) ? (el.height()) : (el.data("originalHeight")));
-        el.css('min-height', newHeight);
-}
+		// height to use
+		base.useHeight = (/^o/.test(base.options.useHeight)) ? 'outerHeight' : /^i/.test(base.options.useHeight) ? 'innerHeight' : 'height';
 
-function getOriginalHeight(el) {
-        // if the height has changed, send the originalHeight
-        return (el.data("originalHeight") == undefined) ? (el.height()) : (el.data("originalHeight"));
-		//return el.height();
-}
+		if (base.options.resizeable) {
+			// wrap content with a span so we can always get the exact height of the content on resize
+			// inline styling needed for Chrome; the span must have display:block, or use a div
+			base.$el.wrapInner('<span class="equalizer-inner" style="display:block;margin:0;padding:0;" />');
 
-function columnConform() {
+			// throttled resize columns
+			$(window).resize(function(){
+				clearTimeout(base.throttle);
+				base.throttle = setTimeout(function(){
+					base.equalz();
+				}, 100);
+			});
+		}
 
-        // find the tallest DIV in the row, and set the heights of all of the DIVs to match it.
-        jQuery('.blocks').each(function() {
-        
-                // "caching"
-                var $el = jQuery(this);
-                
-                var topPosition = $el.position().top;
+		base.equalz();
 
-                if (currentRowStart != topPosition) {
-				
-                        // we just came to a new row.  Set all the heights on the completed row
-                        for(currentDiv = 0 ; currentDiv < rowDivs.length ; currentDiv++) {
-							
-							setConformingHeight(rowDivs[currentDiv], currentTallest);
-						}
+	};
 
-                        // set the variables for the new row
-                        rowDivs.length = 0; // empty the array
-                        currentRowStart = topPosition;
-                        currentTallest = getOriginalHeight($el);
-                        rowDivs.push($el);
+	base.equalz = function(){
+		base.curMax = base.options.min; // current max height
 
-                } else {
+		base.$el
+		.removeClass(base.options.overflow) // removed as it may have changed on resize
+		.each(function(){
+			var $this = $(this),
+				$el = (base.options.resizeable) ? $this.find('span.equalizer-inner') : $this;
+			// find offset (position relative to document)
+			base.curTop = $this.offset().top;
 
-                        // another div on the current row.  Add it to the list and check if it's taller
-                        rowDivs.push($el);
-                        currentTallest = (currentTallest < getOriginalHeight($el)) ? (getOriginalHeight($el)) : (currentTallest);
+			// Check for new row
+			if (base.curRowTop !== base.curTop) {
+				// New row, so check for max height first
+				if (base.hasMax && base.curMax > base.options.max) {
+					base.curMax = base.options.max;
+					base.curRows.addClass(base.options.overflow);
+				}
+				// New row found, set the heights of the previous row
+				// but ignore the row if not defined (very first element)
+				if (base.curRows) { base.curRows.css('min-height', base.curMax); }
+				// Set the variables for the new row
+				base.curMax = $el[base.useHeight]();
+				base.curMax = (base.hasMin) ? Math.max(base.options.min, base.curMax) : base.curMax;
+				base.curRowTop = base.curTop;
+				base.curRows = $this;
+			} else {
+				// Same row, continue comparing heights
+				base.curMax = Math.max(base.curMax, $el[base.useHeight]());
+				// Check limitations
+				base.curMax = (base.hasMax && base.curMax > base.options.max) ?
+					base.options.max : 
+					(base.hasMin && base.curMax < base.options.min) ? base.options.min : base.curMax;
+				// another div on the current row, add it to the list
+				base.curRows = base.curRows.add($this);
+			}
+			// catch last row
+			if (base.curRows) {
+				base.curRows.css('min-height', base.curMax);
+				if (base.hasMax && base.curMax >= base.options.max) {
+					base.curRows.addClass(base.options.overflow);
+				}
+			}
+		});
+	};
+	base.init();
+	return this; // maintain chainability
+};
 
-                }
-                // do the last row
-                for (currentDiv = 0 ; currentDiv < rowDivs.length ; currentDiv++) setConformingHeight(rowDivs[currentDiv], currentTallest);
+$.equalizerDefaults = {
+	// height = type of height to use
+	// "o" or "outer" = "outerHeight" - includes height + padding + border + margin
+	// "i" or "inner" = "innerHeight" - includes height + padding + border
+	// default        = "height"      - use just the height
+	useHeight : 'height',    // height measurement to use
+	resizeable: true,        // when true, heights are adjusted on window resize
+	min       : 0,           // Minimum height applied to all columns
+	max       : 0,           // Max height applied to all columns
+	overflow  : 'overflowed' // class applied to columns that are taller than the allowable max
+};
 
-        });
-
-}
-
-
-jQuery(window).resize(function() {
-	columnConform();
-});
+})(jQuery);
 
 // Dom Ready
 // You might also want to wait until window.onload if images are the things that
 // are unequalizing the blocks
 jQuery(window).load(function() {
-        columnConform();
+	jQuery('.blocks').equalizer();
 });
 
 

@@ -424,18 +424,23 @@ class PageLinesTemplate {
 		$pre = (isset($in_area[$key-1])) ? $in_area[$key-1] : $this->conjugation_adjacent_area($hook, 'prev');
 		$post = (isset($in_area[$key+1])) ? $in_area[$key+1] : $this->conjugation_adjacent_area($hook, 'next');
 
+		$pieces = explode("ID", $pre);		
+		$pre_section = $pieces[0];
 
 		if($pre == 'top') 
 			$pre_class = 'top';
 		elseif($pre)
-			$pre_class = $this->factory[ $pre ]->id;
+			$pre_class = $this->factory[ $pre_section ]->id;
 		else 
 			$pre_class = 'top';
+			
+		$pieces = explode("ID", $post);		
+		$post_section = $pieces[0];	
 			
 		if($post == 'bottom') 
 			$post_class = 'bottom';
 		elseif($post)
-			$post_class = $this->factory[ $post ]->id;
+			$post_class = $this->factory[ $post_section ]->id;
 		else
 			$post_class = 'bottom';
 			
@@ -674,11 +679,13 @@ class PageLinesTemplate {
 	function print_template_section_styles(){
 	
 		if(is_array($this->allsections)){
-			foreach($this->allsections as $section){
+			foreach($this->allsections as $section_slug){
 				
-				if($this->in_factory( $section )) {
+				$p = splice_section_slug( $section_slug );
+				
+				if($this->in_factory( $p['section'] )) {
 					
-					$s = $this->factory[$section];
+					$s = $this->factory[$p['section']];
 					
 					$s->section_styles();
 				

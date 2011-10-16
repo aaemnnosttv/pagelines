@@ -28,7 +28,7 @@ ul.sf-menu ul li a{ padding: 8px 15px 9px;	 }
 .sf-menu li:hover ul,
 .sf-menu li.sfHover ul {
 	left:			0;
-	top:			34px; /* match top ul list item height */
+
 	z-index:		99;
 }
 ul.sf-menu li:hover li ul,
