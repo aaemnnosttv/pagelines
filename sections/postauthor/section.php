@@ -19,7 +19,7 @@ class PageLinesPostAuthor extends PageLinesSection {
 		
 		<div class="author-info">
 			<div class="author-thumb">
-				<?php echo get_avatar(get_the_author_meta('email', $post->post_author), $size = '512', $default = PL_IMAGES . '/avatar_default.gif' ); ?>
+				<?php echo get_avatar( get_the_author_meta('email', $post->post_author), $size = '120', $default = PL_IMAGES . '/avatar_default.gif' ); ?>
 			</div>
 			<small class="subtext"><?php _e('About The Author', 'pagelines');?></small>
 			<h2>
