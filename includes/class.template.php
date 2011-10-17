@@ -381,39 +381,31 @@ class PageLinesTemplate {
 					
 					$conjugation = $this->conjugation($hook, $key, $sid, $s);
 				
-					if( !isset($template_output[$s->id]) ){
-						
-						/**
-						 * Load Template
-						 * Get Template in Buffer 
-						 */
-						ob_start();
-					
-						// If in child theme get that, if not load the class template function
-						$s->section_template_load( $clone_id );
+		
+					/**
+					 * Load Template
+					 * Get Template in Buffer 
+					 */
+					ob_start();
 				
-						$template_output[$s->id] = plstrip( ob_get_clean() );
-						
+					// If in child theme get that, if not load the class template function
+					$s->section_template_load( $clone_id );
+			
+					$template_output = plstrip( ob_get_clean() );
 					
-						$wp_query = $save_query;
-						$post = $save_post;
-					} 
-				
-					if($template_output[$s->id] != ''){
+					if($template_output != ''){
 				
 						$s->before_section_template( $clone_id );
 					
 						$s->before_section( $markup_type, $clone_id, $conjugation);
 				
-						echo $template_output[$s->id];
+						echo $template_output;
 					
 						$s->after_section( $markup_type );
 					
 						$s->after_section_template( $clone_id );
 					
-						$last_drawn = $s->id;
 						
-						unset($template_output[$s->id]);
 					}
 				}
 			
