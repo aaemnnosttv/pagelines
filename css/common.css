@@ -120,7 +120,7 @@ input[type="submit"], .submit, input[type="button"], .button, input[type="reset"
 			line-height: 1.6em;
 			padding-left:55px;
 		}
-			.commentlist li{ padding: 10px; overflow: hidden}
+			.commentlist li{ padding: 10px;}
 			.commentlist ul.children {list-style-type: none;margin: 1em 0;}
 			.commentlist cite { font-weight: bold; font-style: normal; }
 
