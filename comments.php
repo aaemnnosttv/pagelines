@@ -5,6 +5,11 @@
  *
  * @package PageLines
  */
+
+
+if(!have_comments() && !comments_open())
+	return;
+	
 ?>
 
 <div id="comments" class="wp-comments">

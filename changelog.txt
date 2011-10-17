@@ -14,6 +14,11 @@
 
 Version 2.0.0
 
+	BETA - 22
+	- Equalizer Script
+	- New Child Theming Refinements
+	- Bug Fixes and Refinements
+	
 	BETA - 21
 	- Huge memory savings.
 	- New theming options.
