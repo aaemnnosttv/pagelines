@@ -62,12 +62,20 @@
 	.ppfull .pp5{ width: 20% }
 	.ppfull .pp6{ width: 16.66666667% }
 	
+	
 
 	@media screen and (max-width:650px) { 	
 		#page .pp2, #page .pp3{ 
 	       	width: 100%;
 			margin-right: 0;
 	    }
+		#page .pprand{
+			width: 100% !important;
+			float: none;
+		}
+			#page .pprand-pad{
+				padding: 15px !important;
+			}
 	}
 	@media screen and (max-width:700px) { 	
 		#page .pp4, #page .pp5, #page .pp6 { 

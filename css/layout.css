@@ -29,6 +29,12 @@
 			float: none;
 			margin-top: 10px;
 		}
+		section.container .content-pad{
+			padding-right: 0;
+			padding-left: 0;
+		}
+		
+		
 	}
 	
 	@media screen and (max-width:450px) { 
@@ -41,6 +47,7 @@
 			padding:0;
 			border:0;
 		}
+		
 	}
 	
 	#column-wrap,  #sidebar-wrap, .clip, #column-main, #sidebar1, .content, #page{ 

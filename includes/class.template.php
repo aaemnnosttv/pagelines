@@ -345,10 +345,6 @@ class PageLinesTemplate {
 		global $wp_query;
 		global $pagelines_post;	
 		
-		global $template_output;
-		global $last_drawn;	
-		global $next_drawn;
-		
 		// Save Handling Globals
 		// Prevents sections from screwing them up.
 		$save_query = $wp_query;
