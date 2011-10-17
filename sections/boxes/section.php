@@ -309,18 +309,6 @@ class PageLinesBoxes extends PageLinesSection {
 		}
 	}
 
-
-	function section_scripts() {  
-		
-		return array(
-				'blocks' => array(
-						'file' => PL_JS . '/script.blocks.js',
-						'dependancy' => array('jquery'), 
-					)
-			);
-		
-	}
-	
 }
 
 

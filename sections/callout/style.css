@@ -1,5 +1,5 @@
-.callout_head{ font-size:2em; }
-.callout_copy{ font-size:.9em; }
+.callout_head{ font-size:3em; margin-bottom: 10px}
+.callout_copy{ font-size:1em; }
 .callout_image a{line-height: 1em;}
 
 #callout .callout-area{	padding:30px 17px 30px;}

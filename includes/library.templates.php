@@ -128,13 +128,6 @@ function pagelines_head_common(){
 	// Removes viewport scaling on Phones, Tablets, etc.
 	if(!apply_filters( 'viewport_width', '' ))
 		echo '<meta name="viewport" content="width=device-width, initial-scale=1.0" />';
-	
-	// bbPress Header... doesn't support hooks, or they need to be reloaded.
-//	if( pagelines_bbpress_forum() ){ 			
-//		pagelines_load_css( bb_get_stylesheet_uri(), 'pagelines-bbpress', CORE_VERSION);
-//		bb_feed_head();
-//		bb_head(); 
-//	}
 
 	// Get Common CSS & Reset
 	pagelines_load_css_relative('css/common.css', 'pagelines-common');
@@ -163,7 +156,8 @@ function pagelines_head_common(){
 		pagelines_load_css_relative( 'rtl.css', 'pagelines-rtl');
 	
 	// Queue Common Javascript Libraries
-	wp_enqueue_script("jquery"); 
+	wp_enqueue_script( 'jquery'); 
+	wp_enqueue_script( 'blocks', PL_JS . '/script.blocks.js', array('jquery'));
 	
 	
 	// Fix IE and special handling
