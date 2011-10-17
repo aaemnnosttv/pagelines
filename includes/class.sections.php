@@ -394,7 +394,7 @@ function splice_section_slug( $slug ){
 	
 	$pieces = explode("ID", $slug);		
 	$section = (string) $pieces[0];
-	$clone_id = (isset($pieces[1])) ? $pieces[1] : 1;
+	$clone_id = (isset($pieces[1])) ? $pieces[1] : null;
 	
 	return array('section' => $section, 'clone_id' => $clone_id);
 }

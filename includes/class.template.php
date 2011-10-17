@@ -343,7 +343,11 @@ class PageLinesTemplate {
 	
 		global $post;
 		global $wp_query;
-		global $pagelines_post;		
+		global $pagelines_post;	
+		
+		global $template_output;
+		global $last_drawn;	
+		global $next_drawn;
 		
 		// Save Handling Globals
 		// Prevents sections from screwing them up.
@@ -365,41 +369,51 @@ class PageLinesTemplate {
 				/**
 				 * If this is a cloned element, remove the clone flag before instantiation here.
 				 */
-				$pieces = explode("ID", $sid);		
-				$section = $pieces[0];
-				$clone_id = (isset($pieces[1])) ? $pieces[1] : null;
+				$p = splice_section_slug($sid);
+				$section = $p['section'];
+				$clone_id = $p['clone_id'];
 				
 				if( $this->in_factory( $section ) ){
 					
-					$current_section = $this->factory[ $section ];
+					$s = $this->factory[ $section ];
 					
-					$conjugation = $this->conjugation($hook, $key, $sid, $current_section);
+					$in_area = $this->$hook;
+					
+					$conjugation = $this->conjugation($hook, $key, $sid, $s);
 				
-					/**
-					 * Load Template
-					 * Get Template in Buffer 
-					 */
-					ob_start();
-					
-					// If in child theme get that, if not load the class template function
-					$this->factory[ $section ]->section_template_load( $clone_id );
-				
-					$template = plstrip( ob_get_clean() );
-					
-					if($template != ''){
+					if( !isset($template_output[$s->id]) ){
 						
+						/**
+						 * Load Template
+						 * Get Template in Buffer 
+						 */
+						ob_start();
+					
+						// If in child theme get that, if not load the class template function
+						$s->section_template_load( $clone_id );
+				
+						$template_output[$s->id] = plstrip( ob_get_clean() );
 						
 					
-						$current_section->before_section_template( $clone_id );
-					
-						$current_section->before_section( $markup_type, $clone_id, $conjugation);
+						$wp_query = $save_query;
+						$post = $save_post;
+					} 
 				
-						echo $template;
+					if($template_output[$s->id] != ''){
+				
+						$s->before_section_template( $clone_id );
 					
-						$current_section->after_section( $markup_type );
+						$s->before_section( $markup_type, $clone_id, $conjugation);
+				
+						echo $template_output[$s->id];
 					
-						$current_section->after_section_template( $clone_id );
+						$s->after_section( $markup_type );
 					
+						$s->after_section_template( $clone_id );
+					
+						$last_drawn = $s->id;
+						
+						unset($template_output[$s->id]);
 					}
 				}
 			
@@ -408,6 +422,61 @@ class PageLinesTemplate {
 	
 			}
 		}
+	}
+	
+	/**
+	 * For buffering, NOT BEING USED YET
+	 */
+	function next_up($in_area, $hook, $s){
+		global $post;
+		global $wp_query;
+		global $template_output;
+		global $last_drawn;	
+		global $next_drawn;
+		
+		/**
+		 * Load Next Template
+		 * Attempt to load next template. Useful in conjugations.
+		 ***************************************************************/
+	
+		$next_up = ( isset($in_area[$key+1]) ) ? $in_area[$key+1] : $this->conjugation_adjacent_area($hook, 'next');
+		
+		if($next_up != 'bottom'){
+			$p = splice_section_slug($next_up);
+			$psection = $p['section'];
+		} 
+		
+		if( $next_up != 'bottom' && $this->in_factory( $psection ) ){
+			
+			$next_section = $this->factory[ $psection ];
+			
+			ob_start();
+		
+			// If in child theme get that, if not load the class template function
+			$next_section->section_template_load( $clone_id );
+		
+			$template_output[ $next_section->id ] = plstrip( ob_get_clean() );
+			
+			if($template_output[$next_section->id] != '')
+				$next_drawn = $next_section->id;
+			
+			$wp_query = $save_query;
+			$post = $save_post;
+				
+		} elseif($next_up == 'bottom')
+			$next_drawn = 'bottom';
+		
+		
+		$content_hooks = array('main', 'sidebar1', 'sidebar2', 'sidebar_wrap');
+		
+		if(in_array($hook, $content_hooks)){
+		
+			if(!isset($in_area[$key-1]))
+				$last_drawn = 'top';
+				
+			
+		}
+		
 	}
 	
 	/**
@@ -422,7 +491,7 @@ class PageLinesTemplate {
 		
 		
 		$pre = (isset($in_area[$key-1])) ? $in_area[$key-1] : $this->conjugation_adjacent_area($hook, 'prev');
-		$post = (isset($in_area[$key+1])) ? $in_area[$key+1] : $this->conjugation_adjacent_area($hook, 'next');
+		$next = (isset($in_area[$key+1])) ? $in_area[$key+1] : $this->conjugation_adjacent_area($hook, 'next');
 
 		$pieces = explode("ID", $pre);		
 		$pre_section = $pieces[0];
@@ -434,12 +503,12 @@ class PageLinesTemplate {
 		else 
 			$pre_class = 'top';
 			
-		$pieces = explode("ID", $post);		
+		$pieces = explode("ID", $next);		
 		$post_section = $pieces[0];	
 			
-		if($post == 'bottom') 
+		if($next == 'bottom') 
 			$post_class = 'bottom';
-		elseif($post)
+		elseif($next)
 			$post_class = $this->factory[ $post_section ]->id;
 		else
 			$post_class = 'bottom';
