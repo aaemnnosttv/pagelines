@@ -678,7 +678,10 @@ class PageLinesTemplate {
 					
 					$this->factory[$section]->section_head( $clone_id );
 					
-					echo plstrip( $this->factory[$section]->dynamic_style( $clone_id ) );
+					global $disabled_settings;
+					
+					if(!isset($disabled_settings['color_control']))
+						echo plstrip( $this->factory[$section]->dynamic_style( $clone_id ) );
 					
 				}
 			}

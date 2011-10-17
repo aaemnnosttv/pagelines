@@ -53,17 +53,25 @@ class OptEngine {
 			'sprite'				=> '',
 			'showname'				=> false, 
 			'special'				=> null,
-			'flag'					=> ''
+			'flag'					=> '', 
+			'disabled'				=> false
 		);
 		
 	}
 
-	function layout_type($o){
+	function make_adjustments($o){
 		
 		if($o['type'] == 'color_multi' || $o['type'] == 'text_content'){
 			$o['layout'] = 'full';
 		}
 			
+		if($o['type'] == 'color_multi'){
+			global $disabled_settings;
+		
+			if(isset($disabled_settings['color_control']))
+				$o['disabled'] = true;
+		}
+		
 		
 		return $o;
 	}
@@ -76,8 +84,11 @@ class OptEngine {
 		
 		$o = wp_parse_args( $o, $this->defaults );
 		
-		$o = $this->layout_type($o);
+		$o = $this->make_adjustments($o);
 		
+		if($o['disabled'])
+			return;
+			
 		$setting = (isset($this->settings_field)) ? $this->settings_field : PAGELINES_SETTINGS;
 		
 		$oset = array( 'setting' => $setting );

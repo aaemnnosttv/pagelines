@@ -40,6 +40,7 @@
 #carousel .content ul li a{ position: relative; display: block;}
 #carousel .content ul li a span.list-title{
 	color: #fff;
+	text-shadow: #000 0 -1px 0;
 	background: #000;
 	opacity:0.8;
 	line-height: 16px;
