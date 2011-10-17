@@ -255,9 +255,10 @@ background-repeat: no-repeat;
 		width: 170px;
 		margin:0 -170px 0 0;
 	}
-		#tabsnav li{
+		#plpanel #tabsnav li{
 			margin: 0;
 			padding:0;
+			border:none;
 		}
 		#tabsnav li a, #tabsnav li span.graphic{
 			font-weight:bold;
