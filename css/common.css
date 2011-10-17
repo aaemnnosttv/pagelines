@@ -117,7 +117,7 @@ input[type="submit"], .submit, input[type="button"], .button, input[type="reset"
 		.commentlist {
 			list-style-type:none;
 			margin: 10px 0px 10px 18px;
-			line-height: 130%;
+			line-height: 1.6em;
 			padding-left:55px;
 		}
 			.commentlist li{ padding: 10px; }
