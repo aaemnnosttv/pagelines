@@ -65,20 +65,20 @@
 	
 
 	@media screen and (max-width:650px) { 	
-		#page .pp2, #page .pp3{ 
+		#site .pp2, #site .pp3{ 
 	       	width: 100%;
 			margin-right: 0;
 	    }
-		#page .pprand{
+		#site .pprand{
 			width: 100% !important;
 			float: none;
 		}
-			#page .pprand-pad{
+			#site .pprand-pad{
 				padding: 15px !important;
 			}
 	}
 	@media screen and (max-width:700px) { 	
-		#page .pp4, #page .pp5, #page .pp6 { 
+		#site .pp4, #site .pp5, #site .pp6, #site .pp4{ 
 	       	width: 100%;
 			margin-right: 0;
 	    }
