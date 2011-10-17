@@ -65,7 +65,7 @@ class PageLinesCSSGroups{
 		/**
 		 * Box & Element Colors
 		 */
-		$s['box_color_primary'] = '.bc1, #wp-calendar caption, #grandchildnav.widget, input, textarea, .searchform .searchfield, .wp-caption, .commentlist .alt, #wp-calendar #today, .post-nav, .current_posts_info, .post-footer,  #twitterbar, .crsl, .success,  .content-pagination a .cp-num, .hentry table .alternate td,  #featurenav a, .playpause, #page .wp-pagenavi a';
+		$s['box_color_primary'] = '.bc1, #wp-calendar caption, #grandchildnav.widget, input, textarea, .searchform .searchfield, .wp-caption, .commentlist .alt, #wp-calendar #today, .post-nav, .current_posts_info, .post-footer,  #twitterbar, .thecarousel, .success,  .content-pagination a .cp-num, .hentry table .alternate td,  #featurenav a, .playpause, #page .wp-pagenavi a';
 
 		$s['box_color_secondary'] = '.bc2, #wp-calendar thead th, .item-avatar a, .comment blockquote, #grandchildnav .current_page_item a, #grandchildnav li a:hover, #grandchildnav .current_page_item  ul li a:hover, #carousel .carousel_text, #page .wp-pagenavi a:hover, #page .wp-pagenavi .extend, .content-pagination .cp-num, .content-pagination a:hover .cp-num, ins, #featurenav a.activeSlide';
 
