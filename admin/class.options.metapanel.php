@@ -498,9 +498,12 @@ function pagelines_metapanel_callback($post, $object){
 }
 
 
-function register_metatab($settings, $option_array, $location = 'bottom'){
+function register_metatab($settings, $option_array, $section = '', $location = 'bottom'){
 	
 	global $metapanel_options;
+	
+	foreach($option_array as $key => $opt)
+		$option_array[$key]['section'] = $section;
 	
 	$metapanel_options->register_tab($settings, $option_array, $location);
 	
@@ -526,7 +529,7 @@ function do_global_meta_options(){
 			'icon' 	=>  PL_ADMIN_ICONS . '/ileaf.png'
 		);
 
-	register_metatab($metatab_settings,  $global_meta_options, 'top');
+	register_metatab($metatab_settings,  $global_meta_options, '', 'top');
 }
 
 /**

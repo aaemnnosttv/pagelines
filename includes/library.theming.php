@@ -35,6 +35,17 @@ function pagelines_disable_settings( $key, $keep = false ){
  **/
 function pl_support_section( $key, $args ){
 
+	global $supported_sections;
+
+	$defaults = array(
+		'key'				=> $key,
+		'disable_color'		=> false, 
+	);
+	
+	$args = wp_parse_args( $args, $defaults );
+	
+	$supported_sections[ $key ] = $args;
+
 
 }
 

@@ -20,6 +20,7 @@ class OptEngine {
 		
 		
 		$this->defaults = array(
+			'section'				=> '',
 			'post_id'				=> '', 
 			'pid'					=> '', 
 			'setting'				=> '',
@@ -65,13 +66,12 @@ class OptEngine {
 			$o['layout'] = 'full';
 		}
 			
-		if($o['type'] == 'color_multi'){
-			global $disabled_settings;
+		global $supported_sections;
 		
-			if(isset($disabled_settings['color_control']))
-				$o['disabled'] = true;
-		}
-		
+		$support = (isset($supported_sections[ $o['section'] ])) ? $supported_sections[ $o['section'] ] : false;
+	
+		if( $support && $o['type'] == 'color_multi' && $support['disable_color'] )
+			$o['disabled'] = true;	
 		
 		return $o;
 	}

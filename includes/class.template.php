@@ -670,18 +670,22 @@ class PageLinesTemplate {
 				/**
 				 * If this is a cloned element, remove the clone flag before instantiation here.
 				 */
-				$pieces = explode("ID", $sid);		
-				$section = $pieces[0];
-				$clone_id = (isset($pieces[1])) ? $pieces[1] : null;
+				$p = splice_section_slug($next_up);
+				$section = $p['section'];
+				$clone_id = $p['clone_id'];
 				
 				if( $this->in_factory( $section ) ){
 					
 					$this->factory[$section]->section_head( $clone_id );
 					
-					global $disabled_settings;
+					global $supported_sections;
 					
-					if(!isset($disabled_settings['color_control']))
-						echo plstrip( $this->factory[$section]->dynamic_style( $clone_id ) );
+					$support = (isset($supported_sections[ $section ])) ? $supported_sections[ $section ] : false;
+					
+					if( $support && $support['disable_color'] )
+						continue;
+						
+					echo plstrip( $this->factory[$section]->dynamic_style( $clone_id ) );
 					
 				}
 			}
