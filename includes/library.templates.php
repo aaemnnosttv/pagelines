@@ -33,11 +33,13 @@ function pagelines_default_widget($id, $name, $default){
 	elseif( current_user_can('edit_themes') ):
 	?>	
 
-	<li class="widget-default setup_area no_<?php echo $id;?>">
+	<li class="widget widget-default setup_area no_<?php echo $id;?>">
+		<div class="widget-pad">
 			<h3 class="widget-title">Add Widgets (<?php echo $name;?>)</h3>
 			<p class="fix">This is your <?php echo $name;?> but it needs some widgets!<br/> Easy! Just add some content to it in your <a href="<?php echo admin_url('widgets.php');?>">widgets panel</a>.	
 			</p>
 			<?php echo blink('Add Widgets &rarr;', 'link', 'black', array('action' => admin_url('widgets.php'), 'clear' => true)); ?>
+		</div>
 	</li>
 
 <?php endif;
