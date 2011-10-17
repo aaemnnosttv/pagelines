@@ -255,7 +255,7 @@ background-repeat: no-repeat;
 		width: 170px;
 		margin:0 -170px 0 0;
 	}
-		#plpanel #tabsnav li{
+		#plpanel #tabsnav li, .main_settings_form #tabsnav li{
 			margin: 0;
 			padding:0;
 			border:none;
