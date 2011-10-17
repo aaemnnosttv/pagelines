@@ -33,18 +33,19 @@ function pagelines_disable_settings( $key, $keep = false ){
  * @param 'args' controls on how the section will be supported.
  * 
  **/
-function pl_support_section( $key, $args ){
+function pl_support_section( $args ){
 
 	global $supported_sections;
 
 	$defaults = array(
-		'key'				=> $key,
+		
+		'class_name'		=> '',
 		'disable_color'		=> false, 
 	);
 	
 	$args = wp_parse_args( $args, $defaults );
 	
-	$supported_sections[ $key ] = $args;
+	$supported_sections[ $args['class_name'] ] = $args;
 
 
 }
