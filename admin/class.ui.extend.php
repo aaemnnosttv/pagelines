@@ -39,6 +39,7 @@ class PageLinesExtendUI {
 				'actions'	=> array(), 
 				'screen'	=> '',
 				'screenshot'=> '',
+				'extended'	=> '',
 				'slug'		=> ''
 		);
 		
@@ -128,8 +129,10 @@ class PageLinesExtendUI {
 		$title = sprintf('<div class="pane-head"><div class="pane-head-pad"><h3 class="pane-title">%s</h3></div></div>', $s['name'] );
 
 		$auth = sprintf('<div class="pane-dets"><strong>%s</strong> | by <a href="%s">%s</a></div>', 'v' . $s['version'], $s['auth_url'], $s['auth']);
+		
+		$info = ( $s['extended'] === 'true' ) ? sprintf( '<span class="pane-info"> <a class="pane-info" href="%s">[info]</a></span>', sprintf( '%s/files/%s/html/%s.html', untrailingslashit( PL_API_FETCH ), $s['type'], $s['slug'] ) ) : '';
 
-		$body = sprintf('<div class="pane-desc"><div class="pane-desc-pad">%s</div></div><div class="pane_buttons">%s</div>%s', $s['desc'], $this->get_extend_buttons( $e ), $auth);
+		$body = sprintf('<div class="pane-desc"><div class="pane-desc-pad">%s%s</div></div><div class="pane_buttons">%s</div>%s', $s['desc'], $info, $this->get_extend_buttons( $e ), $auth);
 		
 		$break = ($count % 3 == 0) ? sprintf('<div class="clear"></div>') : '';
 
@@ -303,7 +306,11 @@ class PageLinesExtendUI {
 		if ( !isset( $_GET['page'] ) || strpos( $_GET['page'], 'pagelines_extend' ) === false )
 			return;
 		?>
-<script type="text/javascript">/*<![CDATA[*/
+		<script type="text/javascript">/*<![CDATA[*/
+
+		jQuery(document).ready(function() {
+		   jQuery('a.pane-info').colorbox({iframe:true, width:"50%", height:"60%"});
+		});
 
 		function extendIt( mode, key, type, file, path, product, duringText ){
 

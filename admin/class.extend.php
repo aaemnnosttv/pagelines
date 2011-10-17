@@ -504,6 +504,7 @@
 					'count'		=> $p['count'],
 					'actions'	=> $actions,
 					'screen'	=> $p['screen'],
+					'extended'	=> $p['extended'],
 					'slug'		=> $p['slug'],
 			);	
 				

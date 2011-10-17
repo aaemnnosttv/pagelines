@@ -135,7 +135,6 @@ function pagelines_theme_settings_scripts() {
 	wp_enqueue_script( 'jquery-ui-core' );
 	wp_enqueue_script( 'jquery-ui-tabs' );
 	wp_enqueue_script( 'jquery-ui-dialog' );
-	wp_enqueue_script( 'jquery-imgpreview', PL_ADMIN_JS . '/jquery.imgpreview.js', array('jquery'));
 	wp_enqueue_script( 'script-pagelines-settings', PL_ADMIN_JS . '/script.settings.js');
 
 	wp_enqueue_script( 'jquery-ui-effects', PL_ADMIN_JS . '/jquery.effects.js', array('jquery')); // just has highlight effect
@@ -146,6 +145,9 @@ function pagelines_theme_settings_scripts() {
 	// Color Picker
 	wp_enqueue_script( 'colorpicker-js', PL_ADMIN_JS . '/colorpicker/js/colorpicker.js');
 	wp_enqueue_style( 'colorpicker', PL_ADMIN_JS . '/colorpicker/css/colorpicker.css' ); 
+
+	wp_enqueue_script( 'jquery-colorbox', PL_ADMIN_JS . '/colorbox/jquery.colorbox-min.js', array('jquery'));
+	wp_enqueue_style( 'colorbox', PL_ADMIN_JS . '/colorbox/colorbox.css' ); 	
 	
 	wp_enqueue_script( 'thickbox' );	
 	wp_enqueue_style( 'thickbox' ); 
