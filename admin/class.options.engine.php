@@ -66,9 +66,9 @@ class OptEngine {
 			$o['layout'] = 'full';
 		}
 			
-		global $supported_sections;
+		global $supported_elements;
 		
-		$support = (isset($supported_sections[ $o['section'] ])) ? $supported_sections[ $o['section'] ] : false;
+		$support = (isset($supported_elements['sections'][ $o['section'] ])) ? $supported_elements['sections'][ $o['section'] ] : false;
 	
 		if( $support && $o['type'] == 'color_multi' && $support['disable_color'] )
 			$o['disabled'] = true;	

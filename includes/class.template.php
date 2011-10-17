@@ -678,9 +678,9 @@ class PageLinesTemplate {
 					
 					$this->factory[$section]->section_head( $clone_id );
 					
-					global $supported_sections;
+					global $supported_elements;
 					
-					$support = (isset($supported_sections[ $section ])) ? $supported_sections[ $section ] : false;
+					$support = (isset($supported_elements['sections'][ $section ])) ? $supported_elements['sections'][ $section ] : false;
 					
 					if( $support && $support['disable_color'] )
 						continue;

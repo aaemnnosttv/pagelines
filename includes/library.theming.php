@@ -35,7 +35,7 @@ function pagelines_disable_settings( $key, $keep = false ){
  **/
 function pl_support_section( $args ){
 
-	global $supported_sections;
+	global $supported_elements;
 
 	$defaults = array(
 		
@@ -45,8 +45,30 @@ function pl_support_section( $args ){
 	
 	$args = wp_parse_args( $args, $defaults );
 	
-	$supported_sections[ $args['class_name'] ] = $args;
+	$supported_elements['sections'][ $args['class_name'] ] = $args;
 
+}
+
+/**
+ * Support a specific plugin in a child theme
+ * 
+ * @param 'key' the slug of the plugin
+ * @param 'args' controls on how the plugin will be supported.
+ * 
+ **/
+function pl_support_plugin( $args ){
+
+	global $supported_elements;
+
+	$defaults = array(
+		
+		'slug'		=> '',
+		'supported'		=> true, 
+	);
+	
+	$args = wp_parse_args( $args, $defaults );
+	
+	$supported_elements['plugins'][ $args['slug'] ] = $args;
 
 }
 
