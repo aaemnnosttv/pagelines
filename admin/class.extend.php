@@ -315,7 +315,7 @@
 			
 		$output = '';
 
-		$plugins = json_decode(json_encode($plugins), true); // convert objets to arrays
+		$plugins = json_decode(json_encode($plugins), true); // convert objects to arrays
 
 		foreach( $plugins as $key => $plugin )
 			$plugins[$key]['file'] = '/' . trailingslashit( $key ) . $key . '.php'; 
@@ -625,8 +625,8 @@
 						'condition'	=> $purchase,
 						'case'		=> 'theme_purchase',
 						'type'		=> 'themes',
-						'file'		=> ( isset( $theme['productid'] ) ) ? $theme['productid'] : '',
-						'text'		=> __( 'Purchase', 'pagelines' ),
+						'file'		=> ( isset( $theme['productid'] ) ) ? $theme['productid'] . ',' . $theme['uid'] . '|' . $theme['price'] . '|' . $theme['name'] : '',
+						'text'		=> sprintf('%s <span class="prc">($%s)</span>', __( 'Purchase', 'pagelines' ), $theme['price']),
 						'dtext'		=> __( 'Redirecting', 'pagelines' ),
 					),
 					'delete'	=> array(
