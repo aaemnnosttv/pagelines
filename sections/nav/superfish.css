@@ -69,7 +69,8 @@ ul.sf-menu a:focus, .sf-menu a:hover, .sf-menu a:active {
 
 /*** shadows for all but IE6 ***/
 	ul.sf-shadow ul.sub-menu, ul.sf-shadow ul.children {
-		background:	url('images/shadow.png') no-repeat bottom right;
+		background-image: url('images/shadow.png');
+		background-position: bottom right;
 		padding: 0 6px 7px 0px;
 	}
 	ul.sf-shadow ul.sub-menu.sf-shadow-off, ul.sf-shadow ul.children.sf-shadow-off {
