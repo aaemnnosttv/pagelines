@@ -670,7 +670,7 @@ class PageLinesTemplate {
 				/**
 				 * If this is a cloned element, remove the clone flag before instantiation here.
 				 */
-				$p = splice_section_slug($next_up);
+				$p = splice_section_slug($sid);
 				$section = $p['section'];
 				$clone_id = $p['clone_id'];
 				
