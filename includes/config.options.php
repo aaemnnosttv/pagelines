@@ -1215,7 +1215,12 @@ class PageLinesWelcome {
 	
 	function get_plugins_billboard(){
 		
-		$billboard = '<div class="admin_billboard plugins_billboard"><div class="admin_billboard_content"><div class="feature_icon"></div><h3 class="admin_header_main">Plugins</h3> <p>Although '.THEMENAME.' is universally plugin compatible, we have added "advanced" graphical/functional support for several WordPress plugins.</p><p> It\'s your responsibility to install each plugin, which can be done through "<strong>Plugins</strong>" &gt; "<strong>Add New</strong>" or through the <strong>developer\'s site</strong> where you can download them manually (e.g. CForms).</p>';
+		$billboard = sprintf( '<div class="admin_billboard plugins_billboard"><div class="admin_billboard_content"><div class="feature_icon"></div><h3 class="admin_header_main">%s</h3>', __( 'Plugins', 'pagelines' ) );
+	
+		$billboard .= $this->show_supported_elements( 'plugins' );
+		$billboard .= $this->show_supported_elements( 'sections' );		
+		
+		$billboard .= sprintf( __( '<p>Although %s is universally plugin compatible, we have added "advanced" graphical/functional support for several WordPress plugins.</p><p> It\'s your responsibility to install each plugin, which can be done through "<strong>Plugins</strong>" &gt; "<strong>Add New</strong>" or through the <strong>developer\'s site</strong> where you can download them manually (e.g. CForms).</p>', 'pagelines' ), NICETHEMENAME );
 			
 		$billboard .= '<ul class="welcome_plugin_list">';
 		foreach($this->get_welcome_plugins() as $k => $i){
@@ -1230,6 +1235,47 @@ class PageLinesWelcome {
 		return $billboard;
 	}
 	
+	function get_supported_elements( $type ) {
+	
+		global $supported_elements;
+		$available = json_decode( get_option( 'pagelines_extend_' . $type, false ) );	
+
+		if ( isset( $supported_elements[$type] ) ) {
+			$out = array();
+			foreach( $supported_elements[$type] as $a ) {
+				if ( ! $a['supported'] || ! $available->$a['slug'] )
+					continue;
+
+				$out[ $a['slug'] ] = array(
+					'name'	=> $available->$a['slug']->name,
+					'url'	=> sprintf( 'http://www.pagelines.com/extend/%s/%s/', $type, $a['slug'] ),
+					'desc'	=> $available->$a['slug']->text
+					);
+				}
+			return $out;
+			}
+
+		return false;	
+		}
+
+	function show_supported_elements( $type ) {
+		
+		if ( false != ( is_child_theme() && $a = $this->get_supported_elements( $type ) ) ) {
+			
+			$out .= sprintf( '<p>%s supports these additional %s:</p>', NICECHILDTHEMENAME, $type );
+			$out .= '<ul class="welcome_plugin_list">';
+			
+			foreach ( $a as $i ) {
+
+				$out .= sprintf('<li><div class="li-pad"><a href="%s" target="_blank">%s</a> %s</div></li>', $i['url'], $i['name'], $i['desc']);
+							
+			}
+			$out .= '</ul>';
+			return $out;
+		}
+		return '';
+	}
+
 	function get_welcome_plugins(){
 		$plugins = array(
 			'postorder'	=> array(

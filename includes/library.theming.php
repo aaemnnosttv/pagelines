@@ -40,7 +40,9 @@ function pl_support_section( $args ){
 	$defaults = array(
 		
 		'class_name'		=> '',
-		'disable_color'		=> false, 
+		'disable_color'		=> false,
+		'slug'				=> '',
+		'supported'			=> true 
 	);
 	
 	$args = wp_parse_args( $args, $defaults );
