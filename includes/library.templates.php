@@ -15,11 +15,16 @@
  *
  */
 
-function pagelines_draw_sidebar($id, $name, $default = null){?>
-	<ul id="<?php echo 'list_'.$id; ?>" class="sidebar_widgets fix">
-		<?php if (!dynamic_sidebar($name)){ pagelines_default_widget( $id, $name, $default); } ?>
-	</ul>
-<?php }
+function pagelines_draw_sidebar($id, $name, $default = null, $element = 'ul'){
+	
+	printf('<%s id="%s" class="sidebar_widgets fix">', $element, 'list_'.$id);
+	
+	if (!dynamic_sidebar($name))
+		pagelines_default_widget( $id, $name, $default); 
+	
+	printf('</%s>', $element);
+
+}
 
 /**
  * Sidebar - Default Widget

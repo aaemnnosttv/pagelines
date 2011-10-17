@@ -25,6 +25,20 @@ function pagelines_disable_settings( $key, $keep = false ){
 
 }
 
+
+/**
+ * Support a specific section in a child theme
+ * 
+ * @param 'key' the class name of the section
+ * @param 'args' controls on how the section will be supported.
+ * 
+ **/
+function pl_support_section( $key, $args ){
+
+
+}
+
+
 function pl_default_setting( $args ){
 	
 	if(pagelines_activate_or_reset()){
