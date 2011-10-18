@@ -9,23 +9,25 @@
 /**
  * Uses controls to find and retrieve the appropriate option value
  * 
- * @param 'key' the id of the option tab
+ * @param 'slug' the id of the option tab
+ * @param 'section' the id of the individual setting
  * @param 'keep' whether to keep the default options settings at runtime
  * e.g. keep default color control settings although this panel won't be shown in admin.
  * 
  **/
-function pagelines_disable_settings( $key, $keep = false, $section = false ){
+
+function pagelines_disable_settings( $args ){
 
 	global $disabled_settings;
 	
-	$disabled_settings[$key] = array(
-		'section'	=> $section,
-		'slug'		=> $key, 
-		'keep'		=> $keep
+	$defaults = array(
+		'section'	=> false,
+		'slug'		=> '', 
+		'keep'		=> false
 	);
-
+	$args = wp_parse_args( $args, $defaults );
+	$disabled_settings[$args['slug']] = $args;
 }
-
 
 /**
  * Support a specific section in a child theme

@@ -1107,9 +1107,9 @@ function get_option_array( $load_unavailable = true ){
 	if( isset($disabled_settings) && !empty($disabled_settings) ){
 		foreach($disabled_settings as $key => $s){
 			
-			if( isset( $s['section'] ) && ! empty( $s['section'] ) ) {
-				if( isset($optionarray[$s['section']][ $s['slug'] ]) && ( !$load_unavailable || $s['keep'] == false ) )
-					unset($optionarray[$s['section']][ $s['slug'] ]);
+			if( isset( $s['section'] ) && false != $s['section'] ) {
+				if( isset($optionarray[$s['slug']][ $s['section'] ]) && ( !$load_unavailable || $s['keep'] == false ) )
+					unset($optionarray[$s['slug']][ $s['section'] ]);
 			} else {
 				if( isset($optionarray[ $s['slug'] ]) && ( !$load_unavailable || $s['keep'] == false ) ) 
 					unset($optionarray[ $s['slug'] ]);
