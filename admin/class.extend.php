@@ -627,7 +627,7 @@
 						'case'		=> 'theme_purchase',
 						'type'		=> 'themes',
 						'file'		=> ( isset( $theme['productid'] ) ) ? $theme['productid'] . ',' . $theme['uid'] . '|' . $theme['price'] . '|' . $theme['name'] : '',
-						'text'		=> sprintf('%s <span class="prc">($%s)</span>', __( 'Purchase', 'pagelines' ), $theme['price']),
+						'text'		=> ( isset( $theme['price'] ) ) ? sprintf('%s <span class="prc">($%s)</span>', __( 'Purchase', 'pagelines' ), $theme['price']) : '',
 						'dtext'		=> __( 'Redirecting', 'pagelines' ),
 					),
 					'delete'	=> array(
