@@ -1479,8 +1479,8 @@ font-weight: bold;
 		margin-left: 28%;
 		width: 72%;
 		float: left;
-		background:#f7f7f7;
 	}
+		#plpanel .mp_panel, .mp_panel{background:#f7f7f7;}
 		.mp_panel.hide_tabs{width: 100%; margin-left: 0%}
 		.mp_panel.hide_tabs .mp_panel_pad{border-left: none;}
 		.mp_panel.hide_tabs .optiontitle-pad {border-left: none;}
