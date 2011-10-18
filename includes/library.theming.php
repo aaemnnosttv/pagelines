@@ -14,13 +14,14 @@
  * e.g. keep default color control settings although this panel won't be shown in admin.
  * 
  **/
-function pagelines_disable_settings( $key, $keep = false ){
+function pagelines_disable_settings( $key, $keep = false, $section = false ){
 
 	global $disabled_settings;
 	
 	$disabled_settings[$key] = array(
-		'slug'	=> $key, 
-		'keep'	=> $keep
+		'section'	=> $section,
+		'slug'		=> $key, 
+		'keep'		=> $keep
 	);
 
 }

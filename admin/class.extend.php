@@ -476,8 +476,8 @@
 					'condition'	=> $purchase,
 					'case'		=> 'theme_purchase',
 					'type'		=> 'plugins',
-					'file'		=> ( isset( $p['productid'] ) ) ? $p['productid'] : '',
-					'text'		=> __( 'Purchase', 'pagelines' ),
+					'file'		=> ( isset( $p['productid'] ) ) ? $p['productid'] . ',' . $p['uid'] . '|' . $p['price'] . '|' . $p['name'] : '',
+					'text'		=> sprintf('%s <span class="prc">($%s)</span>', __( 'Purchase', 'pagelines' ), $p['price']),
 					'dtext'		=> __( 'Redirecting', 'pagelines' ),
 				),
 				'installed'	=>	array(
