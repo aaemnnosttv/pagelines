@@ -101,28 +101,23 @@ class PageLinesCarousel extends PageLinesSection {
 	}
 	
    function section_template( $clone_id ) { 
-	
-		global $post;
-		global $pagelines_ID;
 		
-		$oset = array('clone_id' => $clone_id, 'post_id' => $pagelines_ID);
-		
-		$carousel_class = (isset($clone_id) && $clone_id != 1) ? 'thecarousel'.$clone_id : 'thecarousel';
+		$carousel_class = (isset($clone_id) && $clone_id != 1) ? 'crsl'.$clone_id : 'crsl';
 		
 		// Set Up Variables
-		$carouselitems = (ploption('carousel_items', $oset)) ? ploption('carousel_items', $oset) : 30;
-		$carousel_post_id = (ploption('carousel_post_id', $oset)) ? ploption('carousel_post_id', $oset) : null;
-		$carousel_image_width = (ploption('carousel_image_width', $oset)) ? ploption('carousel_image_width', $oset) : 64;
-		$carousel_image_height = (ploption('carousel_image_height', $oset)) ? ploption('carousel_image_height', $oset) : 64;
-		$cmode = (ploption('carousel_mode', $oset)) ? ploption('carousel_mode', $oset): null;
-		$ngen_id = (ploption('carousel_ngen_gallery', $oset)) ? ploption('carousel_ngen_gallery', $oset) : 1;
+		$carouselitems = (ploption('carousel_items', $this->oset)) ? ploption('carousel_items', $this->oset) : 30;
+		$carousel_post_id = (ploption('carousel_post_id', $this->oset)) ? ploption('carousel_post_id', $this->oset) : null;
+		$carousel_image_width = (ploption('carousel_image_width', $this->oset)) ? ploption('carousel_image_width', $this->oset) : 64;
+		$carousel_image_height = (ploption('carousel_image_height', $this->oset)) ? ploption('carousel_image_height', $this->oset) : 64;
+		$cmode = (ploption('carousel_mode', $this->oset)) ? ploption('carousel_mode', $this->oset): null;
+		$ngen_id = (ploption('carousel_ngen_gallery', $this->oset)) ? ploption('carousel_ngen_gallery', $this->oset) : 1;
 		
 		
 	if( ($cmode == 'flickr' && !function_exists('get_flickrRSS')) || ($cmode == 'ngen_gallery' && !function_exists('nggDisplayRandomImages')) )
 		echo setup_section_notify($this, __("The <strong>plugin</strong> for the selected carousel mode needs to be activated (FlickrRSS or NextGen Gallery).", 'pagelines'), admin_url().'plugins.php', 'Setup Plugin');
 	else {
 	?>		
-	<div class="<?php echo $carousel_class;?> crsl">
+	<div class="<?php echo $carousel_class;?> thecarousel">
 		<ul id="mycarousel" class="mycarousel">
 			<?php 
 			
@@ -175,14 +170,11 @@ class PageLinesCarousel extends PageLinesSection {
 
 	function section_head( $clone_id = null ) {   
 		
-		global $pagelines_ID;
-		$oset = array( 'clone_id' => $clone_id, 'post_id' => $pagelines_ID );
+		$carousel_class = ( isset( $clone_id ) && $clone_id != 1 ) ? 'crsl' . $clone_id : 'crsl';
 		
-		$carousel_class = ( isset( $clone_id ) && $clone_id != 1 ) ? 'thecarousel' . $clone_id : 'thecarousel';
-		
-		$num_items = ( ploption('carousel_display_items', $oset) ) ? ploption('carousel_display_items', $oset) : 9;
-		$scroll_items = ( ploption('carousel_scroll_items', $oset) ) ? ploption('carousel_scroll_items', $oset) : 6;
-		$anim_speed = ( ploption('carousel_animation_speed', $oset) ) ? ploption('carousel_animation_speed', $oset) : 800;
+		$num_items = ( ploption('carousel_display_items', $this->oset) ) ? ploption('carousel_display_items', $this->oset) : 9;
+		$scroll_items = ( ploption('carousel_scroll_items', $this->oset) ) ? ploption('carousel_scroll_items', $this->oset) : 6;
+		$anim_speed = ( ploption('carousel_animation_speed', $this->oset) ) ? ploption('carousel_animation_speed', $this->oset) : 800;
 		
 		$carousel_args = sprintf('wrap: "%s", visible: %s, easing: "%s", scroll: %s, animation: %s', 'circular', $num_items, 'swing', $scroll_items, $anim_speed);
 		?>

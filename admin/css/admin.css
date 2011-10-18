@@ -255,9 +255,10 @@ background-repeat: no-repeat;
 		width: 170px;
 		margin:0 -170px 0 0;
 	}
-		#tabsnav li{
+		#plpanel #tabsnav li, .main_settings_form #tabsnav li, #tabs #tabsnav li{
 			margin: 0;
 			padding:0;
+			border:none;
 		}
 		#tabsnav li a, #tabsnav li span.graphic{
 			font-weight:bold;
@@ -1478,8 +1479,8 @@ font-weight: bold;
 		margin-left: 28%;
 		width: 72%;
 		float: left;
-		background:#f7f7f7;
 	}
+		#plpanel .mp_panel, .mp_panel{background:#f7f7f7;}
 		.mp_panel.hide_tabs{width: 100%; margin-left: 0%}
 		.mp_panel.hide_tabs .mp_panel_pad{border-left: none;}
 		.mp_panel.hide_tabs .optiontitle-pad {border-left: none;}

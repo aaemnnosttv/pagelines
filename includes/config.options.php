@@ -1212,7 +1212,7 @@ class PageLinesWelcome {
 	
 	function get_plugins_billboard(){
 		
-		$billboard = sprintf( '<div class="admin_billboard plugins_billboard"><div class="admin_billboard_content"><div class="feature_icon"></div><h3 class="admin_header_main">%s</h3>', __( 'Plugins', 'pagelines' ) );
+		$billboard = sprintf( '<div class="admin_billboard plugins_billboard"><div class="admin_billboard_content"><div class="feature_icon"></div><h3 class="admin_header_main">%s</h3>', __( 'Supported Extensions', 'pagelines' ) );
 	
 		$billboard .= $this->show_supported_elements( 'plugins' );
 		$billboard .= $this->show_supported_elements( 'sections' );		
