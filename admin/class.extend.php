@@ -534,10 +534,11 @@
 		$list = array();
 		
 		$themes = $this->extension_scan_themes( $themes );
+
 		foreach( $themes as $key => $theme ) {
 			
 				// reset the vars first numbnuts!
-			
+		
 				$status = null;
 				$exists = null;
 				$is_active = null;
@@ -547,7 +548,7 @@
 				$purchase = null;
 				$delete = null;
 				$login = null;
-
+				$data = null;
 				if ( $tab == 'featured' ) // featured not implemented yet
 					continue;
 
@@ -1272,7 +1273,8 @@
 		$get_themes = get_themes();
 
 		foreach( $get_themes as $theme => $theme_data ) {
-
+			$up = null;
+			
 			if ( $theme_data['Template'] != 'pagelines' )
 				continue;
 			if ( 'pagelines' == $theme_data['Stylesheet'] )
