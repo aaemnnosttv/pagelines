@@ -370,18 +370,23 @@ class PageLinesPosts {
 				return true;
 
 			// Blog Page
-			elseif(is_home() && ploption('excerpt_blog')) return true;
+			elseif(is_home() && ploption('excerpt_blog')) 
+				return true;
 
 			// Search Page
-			elseif(is_search() && ploption('excerpt_search')) return true;
+			elseif(is_search() && ploption('excerpt_search')) 
+				return true;
 
 			// Category Page
-			elseif(is_category() && ploption('excerpt_category')) return true;
+			elseif(is_category() && ploption('excerpt_category')) 
+				return true;
 
 			// Archive Page
-			elseif(is_archive() && ploption('excerpt_archive')) return true;
+			elseif(is_archive() && ploption('excerpt_archive')) 
+				return true;
 
-			else return false;
+			else 
+				return false;
 	}
 
 	function pagelines_show_content($post = null){

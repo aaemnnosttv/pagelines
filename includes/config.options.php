@@ -223,24 +223,25 @@ class PageLinesOptionsArray {
 					'bodybg'	=> array(				
 						'default' 		=> '#FFFFFF',
 						'css_prop'		=> 'background-color',
+						'flag'			=> 'set_default',
 						'cssgroup'		=> 'bodybg',
 						'inputlabel' 	=> __( 'Body Background', 'pagelines' ),
 						
 					),
 					'pagebg'		=> array(				
-						'default' 	=> '',
-						'cssgroup'	=>	'pagebg',
-						'flag'		=> 'blank_default',
-						'css_prop'	=> 'background-color',
+						'default' 		=> '',
+						'cssgroup'		=>	'pagebg',
+						'flag'			=> 'blank_default',
+						'css_prop'		=> 'background-color',
 						'inputlabel' 	=> __( 'Page Background', 'pagelines' ),
 						),
 					'contentbg'	=> array(				
-						'version'	=> 'pro',
-						'default' 	=> '',
-						'cssgroup'	=>	'contentbg',
-						'flag'		=> 'blank_default',
-						'css_prop'	=> 'background-color',
-						'id'		=> 'the_bg',
+						'version'		=> 'pro',
+						'default' 		=> '',
+						'cssgroup'		=>	'contentbg',
+						'flag'			=> 'blank_default',
+						'css_prop'		=> 'background-color',
+						'id'			=> 'the_bg',
 						'inputlabel' 	=> __( 'Content Background', 'pagelines' ),
 						'math'		=> array(
 								array( 
@@ -302,15 +303,16 @@ class PageLinesOptionsArray {
 				),
 			),
 			'text_colors'		=> array(
-				'title' 	=> __( 'Page Text Colors', 'pagelines' ),						
-				'shortexp' 	=> __( 'Control The Color Of Text Used Throughout Your Site', 'pagelines' ),
-				'exp' 		=> __( 'These options control the colors of the text throughout the page or content area of your site.<br/><br/>Certain text types are designed to contrast with different box elements and are meant to be used with hover effects.<br/><br/>Experiment to find exactly how colors are combined with text on your site.', 'pagelines' ),
-				'type' 		=> 'color_multi',
-				'layout'	=> 'full',
+				'title' 		=> __( 'Page Text Colors', 'pagelines' ),						
+				'shortexp' 		=> __( 'Control The Color Of Text Used Throughout Your Site', 'pagelines' ),
+				'exp' 			=> __( 'These options control the colors of the text throughout the page or content area of your site.<br/><br/>Certain text types are designed to contrast with different box elements and are meant to be used with hover effects.<br/><br/>Experiment to find exactly how colors are combined with text on your site.', 'pagelines' ),
+				'type' 			=> 'color_multi',
+				'layout'		=> 'full',
 				'selectvalues'	=> array(
 					'text_primary' => array(		
 						'id'			=> 'text_primary',
 						'default' 		=> '#000000',
+						'flag'			=> 'set_default',
 						'cssgroup'		=>	'text_primary',
 						'inputlabel' 	=> __( 'Primary Text', 'pagelines' ),
 						'math'		=> array(
@@ -321,6 +323,7 @@ class PageLinesOptionsArray {
 					'headercolor'	=> array(		
 						'default' 	=> '#000000',
 						'cssgroup'	=> 'headercolor',
+						'flag'			=> 'set_default',
 						'inputlabel' 	=> __( 'Text Headers', 'pagelines' ),
 						'math'		=> array(
 							array( 'mode' => 'shadow', 'mixwith' => pl_background_cascade(), 'cssgroup' => 'headercolor'),
@@ -330,6 +333,7 @@ class PageLinesOptionsArray {
 					'linkcolor' => array(
 						'default'		=> '#225E9B',
 						'cssgroup'		=>	'linkcolor',
+						'flag'			=> 'set_default',
 						'inputlabel' 	=> __( 'Primary Links', 'pagelines' ),	
 						'math'			=> array(
 							array( 'mode' => 'mix', 'mixwith' => pl_background_cascade(),  'cssgroup' => 'linkcolor_hover', 'css_prop' => 'color', 'diff' => '80%'),	
@@ -339,6 +343,7 @@ class PageLinesOptionsArray {
 					'footer_text' => array(
 						'default'		=> '#AAAAAA',
 						'cssgroup'		=>	'footer_highlight',
+						'flag'			=> 'set_default',
 						'inputlabel' 	=> __( 'Footer Text', 'pagelines' ),	
 						'math'			=> array(
 							array( 'mode' => 'mix', 'mixwith' => pl_body_bg(),  'cssgroup' => 'footer_text', 'css_prop' => 'color', 'diff' => '66%'),

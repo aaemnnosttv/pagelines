@@ -222,7 +222,7 @@ function setColorPicker(optionid, color){
 	
 	jQuery('#'+optionid+'_picker').children('div').css('backgroundColor', color);    
 	
-	jQuery('#'+optionid+'_picker').ColorPicker({
+	jQuery('#'+optionid+'_picker').plColorPicker({
 		color: color,
 		onShow: function (colpkr) {
 			jQuery(colpkr).fadeIn(300);
@@ -239,7 +239,7 @@ function setColorPicker(optionid, color){
 		
 	});
 	
-	jQuery('#'+optionid).ColorPicker({
+	jQuery('#'+optionid).plColorPicker({
 		color: color,
 		onSubmit: function(hsb, hex, rgb, el) {
 			jQuery(el).val(hex);

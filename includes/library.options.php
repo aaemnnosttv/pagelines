@@ -164,7 +164,7 @@ function get_ploption( $key, $args = array() ){
 		
 		global $global_pagelines_settings;
 		
-		if( isset($global_pagelines_settings[$key]) )
+		if( is_array($global_pagelines_settings) && isset($global_pagelines_settings[$key])  )
 			return $global_pagelines_settings[$key];
 	
 		else
@@ -250,6 +250,25 @@ function pl_um($key, $args = null){
 }
 
 /**
+ * Get the option, if its not set, set it.
+ * @todo make usable with different settings types.
+ *
+ **/
+function pl_getset_option($key, $default = false) {
+	
+	global $global_pagelines_settings;
+	
+	if( is_array($global_pagelines_settings) && isset($global_pagelines_settings[$key]) )
+		return $global_pagelines_settings[$key];
+
+	else{	
+		plupop( $key, $default );
+		return $default;
+	}
+}
+
+
+/**
  * Sets up option name for saving of option settings
  *
  **/
@@ -333,7 +352,7 @@ function get_pagelines_option($key, $setting = null, $default = null) {
 		
 		global $global_pagelines_settings;
 		
-		if( isset($global_pagelines_settings[$key]) )
+		if( is_array($global_pagelines_settings) && isset($global_pagelines_settings[$key]) )
 			return $global_pagelines_settings[$key];
 	
 		else

@@ -79,7 +79,10 @@ class PageLinesLayout {
 
 		function get_layout_map(){
 			
-			$this->layout_map = ( ploption('layout') ) ? ploption('layout') : $this->default_layout_setup();
+			$db_layout_map = ploption('layout');
+			
+			$this->layout_map = ( $db_layout_map && is_array($db_layout_map) ) ? $db_layout_map : $this->default_layout_setup();
+			
 		
 		}
 		
@@ -273,7 +276,7 @@ class PageLinesLayout {
 				$this->west = $this->hidden;
 				$this->center = $this->main_content;
 			}else{
-				echo 'Issue setting layout ' . $this->layout_mode;
+				echo 'There was an issue setting layout. Please reset your settings.';
 			}
 		}
 		

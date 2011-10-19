@@ -7,7 +7,7 @@
  * 
  */
 (function ($) {
-	var ColorPicker = function () {
+	var plColorPicker = function () {
 		var
 			ids = {},
 			inAction,
@@ -477,9 +477,9 @@
 		};
 	}();
 	$.fn.extend({
-		ColorPicker: ColorPicker.init,
-		ColorPickerHide: ColorPicker.hidePicker,
-		ColorPickerShow: ColorPicker.showPicker,
-		ColorPickerSetColor: ColorPicker.setColor
+		plColorPicker: plColorPicker.init,
+		ColorPickerHide: plColorPicker.hidePicker,
+		ColorPickerShow: plColorPicker.showPicker,
+		ColorPickerSetColor: plColorPicker.setColor
 	});
 })(jQuery)

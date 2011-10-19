@@ -466,7 +466,7 @@ function get_set_color( $id ){
 	if(isset($set_colors[ $id ]))
 		return $set_colors[ $id ];
 	else
-		return '';
+		return false;
 	
 }
 
@@ -494,15 +494,27 @@ function setmath($type, $option = '', $oset = array()){
 
 
 function pl_bg_color(){
-	return get_set_color( 'the_bg' );
+	
+	if(get_set_color( 'the_bg' ))
+		return get_set_color( 'the_bg' );
+	else 
+		return '#FFFFFF';
+		
 }
 
 function pl_text_color(){
-	return get_set_color( 'text_primary' );
+	
+	if(get_set_color( 'text_primary' ))
+		return get_set_color( 'text_primary' );
+	else 
+		return '#000000';
 }
 
 function pl_link_color(){
-	return get_set_color( 'linkcolor' );
+	if(get_set_color( 'text_primary' ))
+		return get_set_color( 'text_primary' );
+	else 
+		return '#225E9B';
 }
 
 
