@@ -135,7 +135,10 @@ class PageLinesExtendUI {
 
 		$auth = sprintf('<div class="pane-dets"><strong>%s</strong> | by <a href="%s">%s</a></div>', 'v' . $s['version'], $s['auth_url'], $s['auth']);
 		
-		$info = ( $s['extended'] === 'true' ) ? sprintf( '<span class="pane-info"> <a class="pane-info" href="%s">[info]</a></span>', sprintf( '%s/files/%s/html/%s.html', untrailingslashit( PL_API_FETCH ), $s['type'], $s['slug'] ) ) : '';
+// left in for reference
+//		$info = ( $s['extended'] === 'true' ) ? sprintf( '<span class="pane-info"> <a class="pane-info" href="%s">[info]</a></span>', sprintf( '%s/files/%s/html/%s.html', untrailingslashit( PL_API_FETCH ), $s['type'], $s['slug'] ) ) : '';
+
+		$info = sprintf( '<span class="pane-info"> <a class="pane-info" href="%s">[info]</a></span>', sprintf( 'http://sandbox.pagelines.com/extend/%s/%s/?product_ref=true', $s['type'], $s['slug'] ) );
 
 		$body = sprintf('<div class="pane-desc"><div class="pane-desc-pad">%s%s</div></div><div class="pane_buttons">%s</div>%s', $s['desc'], $info, $this->get_extend_buttons( $e ), $auth);
 		
@@ -312,11 +315,12 @@ class PageLinesExtendUI {
 			return;
 		?>
 		<script type="text/javascript">/*<![CDATA[*/
-
+		
+		/* popup stuff for reference
 		jQuery(document).ready(function() {
-		   jQuery('a.pane-info').colorbox({iframe:true, width:"50%", height:"60%"});
+  			jQuery('a.pane-info').colorbox({iframe:true, width:"50%", height:"60%"});
 		});
-
+		*/
 		function extendIt( mode, key, type, file, path, product, duringText ){
 
 				/* 
