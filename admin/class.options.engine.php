@@ -984,7 +984,7 @@ class OptEngine {
 						'count_number'	=> 100,
 				),
 				'_attach' => array(				
-						'inputlabel'	=> __( 'Set Background Attachement', 'pagelines' ),
+						'inputlabel'	=> __( 'Set Background Attachment', 'pagelines' ),
 						'type'			=> 'select',
 						'selectvalues'	=> array(
 							'scroll'	=> array('name' => __( 'Scroll', 'pagelines' )), 
