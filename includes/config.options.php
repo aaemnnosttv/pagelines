@@ -878,7 +878,7 @@ class PageLinesOptionsArray {
 					'exp'		=> __( "This information can be useful in the forums if you have a problem.", 'pagelines' )
 			),
 
-			'hide_introduction' => array(
+			'hide_pagelines_introduction' => array(
 					'default'	=> '',
 					'version'	=> 'pro',
 					'type'		=> 'check',
