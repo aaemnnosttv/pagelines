@@ -40,7 +40,8 @@ class PageLinesMetaPanel {
 				'location' 	=> 'normal', 
 				'priority' 	=> 'low', 
 				'hide_tabs'	=> false, 
-				'global'	=> false
+				'global'	=> false, 
+				'handle'	=> 'metatabs',
 			);
 
 		$this->settings = wp_parse_args($settings, $defaults); // settings for post type		
@@ -227,8 +228,8 @@ class PageLinesMetaPanel {
 		}
 		
 		$set = array(
-				'handle'	=> 'metatabs',
-				'title' 	=> 'MetaPanel',
+				'handle'	=> $this->settings['handle'],
+				'title' 	=> $this->settings['name'],
 				'tag' 		=> ui_key($this->get_edit_type()),
 				'type'		=> 'meta',
 				'stext' 	=> __("Save Meta Settings",'pagelines'),
