@@ -1258,7 +1258,7 @@ class PageLinesWelcome {
 	function show_supported_elements( $type ) {
 		
 		if ( false != ( is_child_theme() && $a = $this->get_supported_elements( $type ) ) ) {
-			
+			$out = '';
 			$out .= sprintf( '<p>%s supports these additional %s:</p>', NICECHILDTHEMENAME, $type );
 			$out .= '<ul class="welcome_plugin_list">';
 			

@@ -89,7 +89,7 @@ class PageLinesExtendUI {
 	
 		$e = wp_parse_args( $e, $this->defaultpane);
 		
-		$image = ( $e['actions']['install']['condition'] || $e['actions']['login']['condition'] || $e['actions']['purchase']['condition'] || $e['actions']['redirect']['condition'] ) ? sprintf( 'http://www.pagelines.com/api/files/themes/img/%s.png', $e['key'] ) : get_theme_root_uri() .'/'. $e['key'] . '/screenshot.png';
+		$image = ( $e['actions']['install']['condition'] || $e['actions']['login']['condition'] || $e['actions']['purchase']['condition'] || $e['actions']['redirect']['condition'] ) ? sprintf( 'http://www.pagelines.com/api/files/themes/img/%s-thumb.png', $e['key'] ) : ( file_exists( get_theme_root_uri() .'/'. $e['key'] . '/thumb.png' ) ) ? get_theme_root_uri() .'/'. $e['key'] . '/thumb.png' : get_theme_root_uri() .'/'. $e['key'] . '/screenshot.png';
 		
 		$image = sprintf( '<img class="" src="%s" alt="Screenshot" />', $image );
 		
@@ -116,13 +116,13 @@ class PageLinesExtendUI {
 		$img_url = ( isset( $s['screenshot'] ) ) ? $s['screenshot'] : '';
 		
 		// if it has an image on the api server, show it!
-		$img_url = ( !$img_url && $s['screen'] === 'true' ) ? sprintf( '%s/files/%s/img/%s.png', untrailingslashit( PL_API_FETCH ), $s['type'], $s['slug'] ) :  $img_url;		
+		$img_url = ( !$img_url && $s['screen'] === 'true' ) ? sprintf( '%s/files/%s/img/%s-thumb.png', untrailingslashit( PL_API_FETCH ), $s['type'], $s['slug'] ) :  $img_url;		
 
 		// nothing yet? we might be a plugin i suppose..
-		$img_url = ( !$img_url && $s['type'] == 'plugins' && file_exists( sprintf( '%s/%s/screenshot.png', WP_PLUGIN_DIR, $s['slug'] ) ) ) ? sprintf( '%s/screenshot.png', plugins_url( $s['slug'] ) ) : $img_url;
+		$img_url = ( !$img_url && $s['type'] == 'plugins' && file_exists( sprintf( '%s/%s/thumb.png', WP_PLUGIN_DIR, $s['slug'] ) ) ) ? sprintf( '%s/thumb.png', plugins_url( $s['slug'] ) ) : $img_url;
 
 		// if all else fails show default.
-		$img_url = ( !$img_url ) ? PL_ADMIN_IMAGES . '/screenshot-default.png' : $img_url;
+		$img_url = ( !$img_url ) ? PL_ADMIN_IMAGES . '/thumb-default.png' : $img_url;
 
 		$img = sprintf( '<div class="img paneimg"><img src="%s" /></div>', $img_url );
 
@@ -143,7 +143,7 @@ class PageLinesExtendUI {
 	function active_extension(){
 		$e = wp_parse_args( $e, $this->defaultpane);
 
-		$image = ( $e['actions']['install']['condition'] || $e['actions']['purchase']['condition']) ? sprintf( 'http://api.pagelines.com/files/themes/img/%s.png', $e['key'] ) : get_theme_root_uri() .'/'. $e['key'] . '/screenshot.png';
+		$image = ( $e['actions']['install']['condition'] || $e['actions']['purchase']['condition']) ? sprintf( 'http://api.pagelines.com/files/themes/img/%s-thumb.png', $e['key'] ) : ( file_exists( get_theme_root_uri() .'/'. $e['key'] . '/thumb.png' ) ) ? get_theme_root_uri() .'/'. $e['key'] . '/thumb.png' : get_theme_root_uri() .'/'. $e['key'] . '/screenshot.png';
 
 		$image = sprintf( '<img class="" src="%s" alt="Screenshot" />', $image );
 

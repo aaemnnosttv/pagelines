@@ -10,7 +10,7 @@
  * Uses controls to find and retrieve the appropriate option value
  * 
  * @param 'panel' the id of the option tab
- * @param 'section' the id of the individual setting
+ * @param 'option_id' the id of the individual setting
  * @param 'keep' whether to keep the default options settings at runtime
  * e.g. keep default color control settings although this panel won't be shown in admin.
  * 
@@ -21,12 +21,12 @@ function pagelines_disable_settings( $args ){
 	global $disabled_settings;
 	
 	$defaults = array(
-		'section'	=> false,
+		'option_id'	=> false,
 		'panel'		=> '', 
 		'keep'		=> false
 	);
 	$args = wp_parse_args( $args, $defaults );
-	$disabled_settings[$args['slug']] = $args;
+	$disabled_settings[$args['panel']] = $args;
 }
 
 /**
