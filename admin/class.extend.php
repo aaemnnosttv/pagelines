@@ -537,8 +537,7 @@
 
 		foreach( $themes as $key => $theme ) {
 						
-				// reset the vars first numbnuts!
-		
+				// reset the vars first numbnuts!	
 				$status = null;
 				$exists = null;
 				$is_active = null;
@@ -549,9 +548,13 @@
 				$delete = null;
 				$login = null;
 				$data = null;
-				if ( $tab == 'featured' ) // featured not implemented yet
+
+				if ( $tab === 'featured' && $theme['featured'] == 'false' ) 
 					continue;
 
+				if ( $tab == 'premium' && $theme['featured'] == 'true' )
+					continue;
+				
 				$check_file = sprintf( '%s/themes/%s/style.css', WP_CONTENT_DIR, $key );
 				
 				if ( file_exists( $check_file ) )
