@@ -199,7 +199,7 @@ class PageLinesRegister {
 					'cloning'		=> ( 'true' === $headers['cloning'] ) ? true : '',
 					'failswith'		=> $headers['failswith'],
 					'tax'			=> $headers['tax'],
-					'screenshot'	=> ( file_exists( $base_dir . '/screenshot.png' ) ) ? $base_url . '/screenshot.png' : ''
+					'screenshot'	=> ( file_exists( $base_dir . '/thumb.png' ) ) ? $base_url . '/thumb.png' : ''
 				);	
 			}
 		}
