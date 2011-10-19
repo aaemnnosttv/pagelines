@@ -88,9 +88,9 @@ class PageLinesExtendUI {
 	function graphic_pane( $e, $style = ''){
 	
 		$e = wp_parse_args( $e, $this->defaultpane);
-		
-		$image = ( $e['actions']['install']['condition'] || $e['actions']['login']['condition'] || $e['actions']['purchase']['condition'] || $e['actions']['redirect']['condition'] ) ? sprintf( 'http://www.pagelines.com/api/files/themes/img/%s-thumb.png', $e['key'] ) : ( file_exists( get_theme_root_uri() .'/'. $e['key'] . '/thumb.png' ) ) ? get_theme_root_uri() .'/'. $e['key'] . '/thumb.png' : get_theme_root_uri() .'/'. $e['key'] . '/screenshot.png';
-		
+
+		$image = ( ( $e['actions']['install']['condition'] || $e['actions']['login']['condition'] || $e['actions']['purchase']['condition'] || $e['actions']['redirect']['condition'] ) && $e['theme']['screen'] ) ? sprintf( 'http://www.pagelines.com/api/files/themes/img/%s-thumb.png', $e['key'] ) : PL_ADMIN_IMAGES . '/thumb-default.png';
+
 		$image = sprintf( '<img class="" src="%s" alt="Screenshot" />', $image );
 		
 		$title = sprintf('<h2>%s</h2>', $e['name']);

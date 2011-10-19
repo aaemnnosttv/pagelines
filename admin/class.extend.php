@@ -536,7 +536,7 @@
 		$themes = $this->extension_scan_themes( $themes );
 
 		foreach( $themes as $key => $theme ) {
-			
+						
 				// reset the vars first numbnuts!
 		
 				$status = null;
@@ -673,6 +673,7 @@
 						'key'		=> $key,
 						'type'		=> 'themes',
 						'count'		=> $theme['count'],
+						'screen'	=> ( isset( $theme['screen'] ) ) ? $theme['screen'] : false,
 						'actions'	=> $actions
 				);		
 		}

@@ -1237,10 +1237,10 @@ class PageLinesWelcome {
 		global $supported_elements;
 		$available = json_decode( get_option( 'pagelines_extend_' . $type, false ) );	
 
-		if ( isset( $supported_elements[$type] ) ) {
+		if ( isset( $supported_elements[$type] ) && is_array( $supported_elements[$type] ) ) {
 			$out = array();
 			foreach( $supported_elements[$type] as $a ) {
-				if ( ! $a['supported'] || ! $available->$a['slug'] )
+				if ( ! $a['supported'] || ! isset( $available->$a['slug'] ) )
 					continue;
 
 				$out[ $a['slug'] ] = array(
