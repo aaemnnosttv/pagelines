@@ -69,7 +69,11 @@ function pagelines_try_api( $url, $options ) {
 	$prot = array( 'https://', 'http://' );
 		
 	foreach( $prot as $type ) {
-			
+		
+		// sometimes wamp does not have curl!
+		if ( $type === 'https://' && !function_exists( 'curl_init' ) )
+			continue;	
+
 		$r = wp_remote_post( $type . $url, $options );
 			if ( !is_wp_error($r) && is_array( $r ) ) {
 				return $r;				
