@@ -89,7 +89,13 @@ class PageLinesExtendUI {
 	
 		$e = wp_parse_args( $e, $this->defaultpane);
 
-		$image = ( ( $e['actions']['install']['condition'] || $e['actions']['login']['condition'] || $e['actions']['purchase']['condition'] || $e['actions']['redirect']['condition'] ) && $e['theme']['screen'] ) ? sprintf( 'http://www.pagelines.com/api/files/themes/img/%s-thumb.png', $e['key'] ) : ( file_exists( get_theme_root() .'/'. $e['key'] . '/thumb.png' ) ) ? get_theme_root_uri() .'/'. $e['key'] . '/thumb.png' : get_theme_root_uri() .'/'. $e['key'] . '/screenshot.png';
+		$image = ( ( $e['actions']['install']['condition'] || $e['actions']['login']['condition'] || $e['actions']['purchase']['condition'] || $e['actions']['redirect']['condition'] ) && $e['theme']['screen'] ) ? sprintf( 'http://www.pagelines.com/api/files/themes/img/%s-thumb.png', $e['key'] ) : '';
+
+		if ( empty( $image ) ) {
+			
+			$image = ( file_exists( get_theme_root() .'/'. $e['key'] . '/thumb.png' ) ) ? get_theme_root_uri() .'/'. $e['key'] . '/thumb.png' : PL_ADMIN_IMAGES . '/thumb-default.png';
+			
+		} 
 
 		$image = sprintf( '<img class="" src="%s" alt="Screenshot" />', $image );
 		
@@ -141,8 +147,6 @@ class PageLinesExtendUI {
 	
 	function active_extension(){
 		$e = wp_parse_args( $e, $this->defaultpane);
-		
-		
 
 		$image = ( ( $e['actions']['install']['condition'] || $e['actions']['purchase']['condition']) && $e['screen'] ) ? sprintf( 'http://api.pagelines.com/files/themes/img/%s-thumb.png', $e['key'] ) : ( file_exists( get_theme_root() .'/'. $e['key'] . '/thumb.png' ) ) ? get_theme_root_uri() .'/'. $e['key'] . '/thumb.png' : get_theme_root_uri() .'/'. $e['key'] . '/screenshot.png';
 
