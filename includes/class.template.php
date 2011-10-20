@@ -486,7 +486,7 @@ class PageLinesTemplate {
 
 		if($pre == 'top') 
 			$pre_class = 'top';
-		elseif($pre)
+		elseif($pre && $this->in_factory( $pre_section ) )
 			$pre_class = $this->factory[ $pre_section ]->id;
 		else 
 			$pre_class = 'top';
@@ -496,7 +496,7 @@ class PageLinesTemplate {
 			
 		if($next == 'bottom') 
 			$post_class = 'bottom';
-		elseif($next)
+		elseif($next && $this->in_factory( $post_section ))
 			$post_class = $this->factory[ $post_section ]->id;
 		else
 			$post_class = 'bottom';
