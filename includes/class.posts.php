@@ -109,7 +109,9 @@ class PageLinesPosts {
 			pagelines_register_hook( 'pagelines_loop_before_post_content', 'theloop' ); // Hook
 
 			the_content( __('<p>Continue reading &raquo;</p>','pagelines') );
-	
+			
+			echo pledit( get_the_ID() );
+			
 			echo '<div class="clear"></div>';
 	
 			if( is_single() || is_page() ) 
@@ -118,8 +120,6 @@ class PageLinesPosts {
 			if ( get_the_tags() )
 				printf('<div class="p tags">%s&nbsp;</div>', get_the_tag_list(__('Tagged with: ', 'pagelines'),' &bull; ','') );
 		
-		
-			echo blink_edit('', 'grey', array('align'=>'left', 'clear' => true)); 
 	
 			pagelines_register_hook( 'pagelines_loop_after_post_content', 'theloop' ); // Hook 
 		
