@@ -140,18 +140,30 @@ function pl_integration_parse( $args ) {
 			case 'css':
 				preg_match_all( '#<link rel=[\'|"]stylesheet[\'|"].*\/>#', $args['buffer'], $styles );
 				preg_match_all( '#<style type=[\'|"]text\/css[\'|"].*<\/style>#ms', $args['buffer'], $xtra_styles );
-				return array_merge( $styles[0], $xtra_styles[0] );
+				$styles = array_merge( $styles[0], $xtra_styles[0] );
+				if ( is_array( $styles ) ) {
+					$css = '';
+					foreach( $styles as $style )
+						$css .= $style . "\n";
+					return $css;
+				}
 			break;
 			
 			case 'js':
 				preg_match_all( '#<script type=[\'|"]text\/javascript[\'|"].*<\/script>#', $args['buffer'], $js );
-				return $js[0];
+				if( is_array( $js[0] ) ) {
+					$js_out = '';
+					foreach( $js[0] as $j )
+						$js_out .= $j . "\n";
+				return $js_out;
+				}
 			break;
 
 			case 'divs':
 				preg_match( '/<div.*>/ms',$args['buffer'], $divs );
-				return $divs[0];
+				return ( isset( $divs[0] ) ) ? $divs[0] : '';
 			break;
+
 			default:
 				return false;
 			break;
