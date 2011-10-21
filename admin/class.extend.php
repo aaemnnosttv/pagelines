@@ -548,6 +548,7 @@
 				$delete = null;
 				$login = null;
 				$data = null;
+				$theme['featured'] = ( isset( $theme['featured'] ) ) ? $theme['featured'] : false;
 
 				if ( $tab === 'featured' && $theme['featured'] == 'false' ) 
 					continue;
