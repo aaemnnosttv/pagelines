@@ -57,7 +57,6 @@ class PageLinesColor {
 		elseif($mode == 'darker')
 			$color =  $this->adjust(-$diff);
 		elseif($mode == 'contrast'){
-			// plprint($this->base_hsl['lightness'], $this->id.'-->'.$id);
 			
 			if( $this->base_hsl['lightness'] < .4 || ($this->base_hsl['lightness'] < .7 && $this->base_hsl['hugh'] > .6) || ($this->base_hsl['saturation'] > .8 && $this->base_hsl['lightness'] < .4)){
 				
@@ -86,8 +85,20 @@ class PageLinesColor {
 		return $color;	
 	} 
 	
+	function loadcolor( $base, $type, $difference ){
+		
+		$base = str_replace('#', '', $base);
+		
+		if(is_string($difference)){
+			$dp = (int) str_replace('%', '', $difference);
+			$diff = $dp/100;
+		} else 
+			$diff = $difference;
+		
+	}
 	
 	function adjust( $adjustment, $mode = 'lightness', $hex = null){
+		
 		
 		
 		if(isset($hex)){
@@ -101,6 +112,7 @@ class PageLinesColor {
 			$h = $althsl['hugh'];
 			$s = $althsl['saturation'];
 			$l = $althsl['lightness'];
+			
 		}else{
 			$h = $this->base_hsl['hugh'];
 			$s = $this->base_hsl['saturation'];
@@ -312,9 +324,7 @@ class PageLinesColor {
 	}
 	
 	function shadow( $mix, $type = 'text', $diff = null, $echo = true ){
-		
-		
-	
+
 		if( $type == 'text'){
 			
 			$difference =  ( $this->get_hsl($mix, 'lightness') - $this->base_hsl['lightness'] );
@@ -334,6 +344,44 @@ class PageLinesColor {
 	
 		$rule = sprintf( $prop, $this->c( 'shadow', $difference, $mix ) );
 		
+		if($echo)
+			echo $rule;
+		else
+			return $rule;
+	}
+	
+	function gradient( $mode = null, $diff = '10%', $direction = 'top', $echo = true ){
+
+		$hex = (isset($mode)) ? $this->c( $mode, $diff ) : $this->c(); 
+	
+	
+		$hex = str_replace('#', '', $hex);
+		
+		$lighter = '#'.$this->adjust( .03, 'lightness', $hex);
+		$darker  = '#'.$this->adjust( -.03, 'lightness', $hex);
+
+
+		if($direction == 'bottom'){
+			$dir = 'bottom';
+			$op_dir = 'top';
+		} else {
+			$dir = 'top';
+			$op_dir = 'bottom';
+		}
+
+		$rule = sprintf(
+				'background: %1$s;
+				background:-webkit-gradient(linear, center %5$s, center %4$s, from(%3$s), to(%2$s));
+				background:-moz-linear-gradient(%4$s, %2$s, %3$s);
+				-pie-background:linear-gradient(%4$s, %2$s, %3$s);
+				background:linear-gradient(%4$s, %2$s, %3$s);',
+				$hex, 
+				$lighter, 
+				$darker,
+				$dir, 
+				$op_dir
+			);
+
 		if($echo)
 			echo $rule;
 		else
@@ -477,7 +525,7 @@ function loadmath( $color ){
 	
 }
 
-function setmath($type, $option = '', $oset = array()){
+function setmath($type, $option = null, $oset = array()){
 	
 	if( $type == 'txt' )
 		$backup = pl_text_color(); 
@@ -486,7 +534,7 @@ function setmath($type, $option = '', $oset = array()){
 	else
 		$backup = pl_bg_color();
 	
-	$color = ( ploption($option, $oset) ) ? ploption($option, $oset) : $backup;
+	$color = ( isset($option) && ploption($option, $oset) ) ? ploption($option, $oset) : $backup;
 	
 	return loadmath( $color );
 	

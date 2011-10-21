@@ -97,9 +97,6 @@ $.equalizerDefaults = {
 
 })(jQuery);
 
-// Dom Ready
-// You might also want to wait until window.onload if images are the things that
-// are unequalizing the blocks
 jQuery(window).load(function() {
 	jQuery('.blocks').equalizer();
 });
