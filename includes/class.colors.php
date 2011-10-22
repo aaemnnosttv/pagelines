@@ -56,13 +56,24 @@ class PageLinesColor {
 			$color = $this->adjust($diff); 
 		elseif($mode == 'darker')
 			$color =  $this->adjust(-$diff);
-		elseif($mode == 'contrast'){
+		elseif($mode == 'light-contrast'){
+			
+			if($this->base_hsl['lightness'] > .92)
+				$color =  $this->adjust(-$diff);
+			else {
+				
+				$diff = $this->darkadjust($diff);
+				
+				$color =  $this->adjust($diff);
+			}
+				
+				
+		} elseif($mode == 'contrast'){
 			
 			if( $this->base_hsl['lightness'] < .4 || ($this->base_hsl['lightness'] < .7 && $this->base_hsl['hugh'] > .6) || ($this->base_hsl['saturation'] > .8 && $this->base_hsl['lightness'] < .4)){
 				
-				// Special 
-				if($this->base_hsl['lightness'] < .1)
-					$diff = 2*$diff;
+				$diff = $this->darkadjust($diff);
+			
 			
 				$color =  $this->adjust($diff);
 			}else
@@ -84,6 +95,17 @@ class PageLinesColor {
 			
 		return $color;	
 	} 
+	
+	function darkadjust( $diff ){
+		if($this->base_hsl['lightness'] < .05)
+			$diff = 4*$diff;
+		elseif($this->base_hsl['lightness'] < .1)
+			$diff = 2*$diff;
+		elseif($this->base_hsl['lightness'] < .2)
+			$diff = 1.5*$diff;
+			
+		return $diff;
+	}
 	
 	function loadcolor( $base, $type, $difference ){
 		
@@ -327,6 +349,9 @@ class PageLinesColor {
 
 		if( $type == 'text'){
 			
+			if( ploption('disable_text_shadow') )
+				return;
+			
 			$difference =  ( $this->get_hsl($mix, 'lightness') - $this->base_hsl['lightness'] );
 
 			$difference = ($difference > 0 ) ? .1 : -.2;
@@ -462,6 +487,9 @@ function do_color_math($oid, $o, $val, $format = 'css'){
 					$mix_color = $k['mixwith'];
 					
 				if($k['mode'] == 'shadow'){
+					
+					if( ploption('disable_text_shadow') )
+						return;
 					
 					$difference =  ($math->get_hsl($mix_color, 'lightness') - $math->base_hsl['lightness']);
 			

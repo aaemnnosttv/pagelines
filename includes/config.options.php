@@ -352,6 +352,13 @@ class PageLinesOptionsArray {
 					),
 				),
 			),
+			'disable_text_shadow' => array(
+				'title' 		=> __( 'Disable Text Emboss Effect (Text Shadow)', 'pagelines' ),						
+				'shortexp' 		=> __( 'Check this option to disable generated text shadows.', 'pagelines' ),
+				'exp' 			=> __( 'By default PageLines generates text shadows designed to create an embossing effect. If you want to disable this, simply check this option.', 'pagelines' ),
+				'type' 			=> 'check',
+				'inputlabel'	=> 'Disable Text Shadows'
+			),
 			'page_background_image' => array(
 				'title' 	=> __( 'Site Background Image (Optional)', 'pagelines' ),						
 				'shortexp' 	=> __( 'Setup A Background Image For The Background Of Your Site', 'pagelines' ),
