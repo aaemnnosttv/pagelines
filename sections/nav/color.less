@@ -1,0 +1,23 @@
+@contrast = darken( @pl-base, @invert-dark );
+
+@contrast2 = lighten( @contrast, 3 );
+
+.main-nav li:hover, 
+.main-nav .current-page-ancestor a,
+.main-nav li.current-page-ancestor ul a,
+.main-nav li.current_page_item a,
+.main-nav li.current-menu-item a,
+.sf-menu li li, 
+.sf-menu li li li{
+	background: @contrast;
+}
+
+.main-nav li a:hover,
+.main-nav .current-page-ancestor .current_page_item a,
+.main-nav li.current-page-ancestor ul a:hover{
+	background: @contrast2;
+}
+
+ul.sf-menu ul li{
+	border-bottom: 1px solid lighten(@contrast, 5);
+}
