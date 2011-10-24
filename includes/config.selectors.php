@@ -65,9 +65,9 @@ class PageLinesCSSGroups{
 		/**
 		 * Box & Element Colors
 		 */
-		$s['box_color_primary'] = '.bc1, #wp-calendar caption, #grandchildnav.widget, input, textarea, .searchform .searchfield, .wp-caption, .commentlist .alt, #wp-calendar #today, .post-nav, .current_posts_info, .post-footer,  #twitterbar, .thecarousel, .success,  .content-pagination a .cp-num, .hentry table .alternate td,  #featurenav a, .playpause, #page .wp-pagenavi a';
+		$s['box_color_primary'] = '.bc1, #wp-calendar caption, input, textarea, .searchform .searchfield, .wp-caption, .commentlist .alt, #wp-calendar #today, .post-nav, .current_posts_info, .post-footer,  .thecarousel, .success,  .content-pagination a .cp-num, .hentry table .alternate td, .playpause, #page .wp-pagenavi a';
 
-		$s['box_color_secondary'] = '.bc2, #wp-calendar thead th, .item-avatar a, .comment blockquote, #grandchildnav .current_page_item a, #grandchildnav li a:hover, #grandchildnav .current_page_item  ul li a:hover, #carousel .carousel_text, #page .wp-pagenavi a:hover, #page .wp-pagenavi .extend, .content-pagination .cp-num, .content-pagination a:hover .cp-num, ins, #featurenav a.activeSlide';
+		$s['box_color_secondary'] = '.bc2, #wp-calendar thead th, .item-avatar a, .comment blockquote, #carousel .carousel_text, #page .wp-pagenavi a:hover, #page .wp-pagenavi .extend, .content-pagination .cp-num, .content-pagination a:hover .cp-num, ins';
 
 		$s['box_color_tertiary'] = '.bc3, #page .wp-pagenavi .current';
 
@@ -80,7 +80,7 @@ class PageLinesCSSGroups{
 		$s['border_layout_darker'] = '.bldrk';
 		$s['border_layout_lighter'] = '.bllt';
 		
-		$s['border_primary'] = 'blockquote, input, textarea, .searchform .searchfield, .wp-caption,   #grandchildnav.widget,  #carousel .content ul li a img, #carousel .content ul li a:hover img, #soapbox .fboxinfo, .post-meta .c_img';
+		$s['border_primary'] = 'blockquote, input, textarea, .searchform .searchfield, .wp-caption, #carousel .content ul li a img, #carousel .content ul li a:hover img, #soapbox .fboxinfo, .post-meta .c_img';
 		$s['border_primary_darker'] = '.bpdrk';
 		$s['border_primary_lighter'] = '.bplt';
 
@@ -88,7 +88,7 @@ class PageLinesCSSGroups{
 
 		$s['border_tertiary'] = '';
 
-		$s['border_primary_shadow'] = '.bc1s, blockquote, input, textarea, .searchform .searchfield, .wp-caption,  #grandchildnav.widget, fpost .post-thumb img, .clip .clip-thumb img, .author-thumb img';
+		$s['border_primary_shadow'] = '.bc1s, blockquote, input, textarea, .searchform .searchfield, .wp-caption, fpost .post-thumb img, .clip .clip-thumb img, .author-thumb img';
 
 		$s['border_primary_highlight'] = '.bc1h, .bhighlight';
 
@@ -97,19 +97,19 @@ class PageLinesCSSGroups{
 		 */
 		$s['headercolor'] = 'h1, h2, h3, h4, h5, h6, h1 a, h2 a, h3 a, h4 a, h5 a, h6 a, a.site-title, .entry-title a, .entry-title a:hover, .widget-title a:hover, h3.widget-title a:hover';
 
-		$s['text_primary'] = '.tc1, .t1, .t1 a, body #page .t1:hover, #page, .tcolor1, #subnav ul li a:active, .commentlist cite a, #breadcrumb a, .metabar a:hover, .post-nav a:hover, .post-footer a,  #carousel .carousel_text, #site #dsq-content .dsq-request-user-info td a, #page .wp-pagenavi a:hover, #page .wp-pagenavi .current,  .content-pagination a:hover .cp-num';
+		$s['text_primary'] = '.tc1, .t1, .t1 a, body #page .t1:hover, #page, .tcolor1, #subnav ul li a:active, .commentlist cite a, .metabar a:hover, .post-nav a:hover, .post-footer a,  #carousel .carousel_text, #site #dsq-content .dsq-request-user-info td a, #page .wp-pagenavi a:hover, #page .wp-pagenavi .current,  .content-pagination a:hover .cp-num';
 
-		$s['text_secondary'] = '.tc2, .t2, .tcolor2, .lcolor2 a, .subhead, .widget-title, #branding .site-description, #callout, #commentform .required, #postauthor .subtext, #carousel .thecarousel, #page .wp-pagenavi span.pages, .commentlist .comment-meta  a,  #highlight .highlight-subhead, .content-pagination span, .content-pagination a .cp-num, .comment.alt .comment-author, .tcolor3, .lcolor3 a, .main_nav a, .widget-title a, h3.widget-title a, #subnav_row li a, .metabar em, .metabar a, .tags, #commentform label, .form-allowed-tags code, .rss-date, #breadcrumb, .comment.alt, .reply a,  .post-footer, .auxilary a, .widget ul.twitter .twitter-item, .cform .emailreqtxt,.cform .reqtxt, #page .wp-pagenavi a, #page .wp-pagenavi .current, #page .wp-pagenavi .extend';
+		$s['text_secondary'] = '.tc2, .t2, .tcolor2, .lcolor2 a, .subhead, .widget-title, #branding .site-description, #callout, #commentform .required, #postauthor .subtext, #carousel .thecarousel, #page .wp-pagenavi span.pages, .commentlist .comment-meta  a, .content-pagination span, .content-pagination a .cp-num, .comment.alt .comment-author, .tcolor3, .lcolor3 a, .main_nav a, .widget-title a, h3.widget-title a, #subnav_row li a, .metabar em, .metabar a, .tags, #commentform label, .form-allowed-tags code, .rss-date, .comment.alt, .reply a,  .post-footer, .auxilary a, .cform .emailreqtxt,.cform .reqtxt, #page .wp-pagenavi a, #page .wp-pagenavi .current, #page .wp-pagenavi .extend';
 
 		$s['text_tertiary'] = '.tc3, .t3';
 
-		$s['text_box'] = '.post-nav a, .post-nav a:visited, #twitterbar .content .tbubble, #wp-calendar caption, .searchform .searchfield, .main_nav .current-menu-item a, .main_nav li a:hover, .main_nav li a:hover, #wp-calendar thead th, textarea, #featurenav a, #twitterbar a, #featurenav a.activeSlide';
+		$s['text_box'] = '.post-nav a, .post-nav a:visited, #wp-calendar caption, .searchform .searchfield, .main_nav .current-menu-item a, .main_nav li a:hover, .main_nav li a:hover, #wp-calendar thead th, textarea';
 
 		$s['text_box_secondary'] = '';
 
-		$s['linkcolor'] = 'a, #subnav_row li.current_page_item a, #subnav_row li a:hover, #grandchildnav .current_page_item > a, .branding h1 a:hover, .post-comments a:hover, .bbcrumb a:hover';
+		$s['linkcolor'] = 'a, #subnav_row li.current_page_item a, #subnav_row li a:hover, .branding h1 a:hover, .post-comments a:hover, .bbcrumb a:hover';
 
-		$s['linkcolor_hover'] = 'a:hover, .commentlist cite a:hover,  #grandchildnav .current_page_item a:hover, .headline h1 a:hover';
+		$s['linkcolor_hover'] = 'a:hover, .commentlist cite a:hover, .headline h1 a:hover';
 
 		$s['footer_text'] = '#footer, #footer li.link-list a, #footer .latest_posts li .list-excerpt';
 		$s['footer_highlight'] = '#footer a, #footer .widget-title,  #footer li h5 a';
@@ -117,7 +117,7 @@ class PageLinesCSSGroups{
 		/**
 		 * Text Shadows & Effects 
 		 */
-		$s['text_shadow_color']	= '#grandchildnav li a, #grandchildnav .current_page_item  ul li a';
+		$s['text_shadow_color']	= '';
 		$s['footer_text_shadow_color'] = '#footer, .fixed_width #footer';
 
 		/**

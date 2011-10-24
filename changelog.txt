@@ -14,6 +14,9 @@
 
 Version 2.0.0
 
+	BETA - 24
+	- LESS CSS - New Color Api for Section Extension (lessphp.org)
+	
 	BETA - 23
 	- Bug Fix - wamp has curl disabled by default props Chris.
 	- Bug Fix - various.

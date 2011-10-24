@@ -472,17 +472,20 @@ function pagelines_settings_menu_link(  ){
 	}
 	
 	if(isset($edit))
-		$wp_admin_bar->menu->edit = $edit;
-	
-		
+		$wp_admin_bar->menu->edit = $edit; 
 	
 	if ( !current_user_can('edit_theme_options') )
 		return;
 
-	$wp_admin_bar->add_menu( array( 'id' => 'pagelines_settings_adminbar', 'title' => __("PageLines Settings", 'pagelines'), 'href' => admin_url( 'admin.php?page=pagelines' ) ) );
+
+	$wp_admin_bar->add_menu( array( 'id' => 'pl_settings', 'title' => __("PageLines", 'pagelines'), 'href' => admin_url( 'admin.php?page=pagelines' ) ) );
+	$wp_admin_bar->add_menu( array( 'id' => 'pl_main_settings', 'parent' => 'pl_settings', 'title' => __("Settings", 'pagelines'), 'href' => admin_url( 'admin.php?page=pagelines' ) ) );
+	$wp_admin_bar->add_menu( array( 'id' => 'pl_templates', 'parent' => 'pl_settings', 'title' => __("Templates", 'pagelines'), 'href' => admin_url( 'admin.php?page=pagelines_templates' ) ) );
+	$wp_admin_bar->add_menu( array( 'id' => 'pl_special', 'parent' => 'pl_settings', 'title' => __("Special", 'pagelines'), 'href' => admin_url( 'admin.php?page=pagelines_special' ) ) );
+	$wp_admin_bar->add_menu( array( 'id' => 'pl_extend', 'parent' => 'pl_settings', 'title' => __("Extend", 'pagelines'), 'href' => admin_url( 'admin.php?page=pagelines_extend' ) ) );
 
 	if(isset($pagelines_template->template_name)){
-		$page_type = __("Template: ", 'pagelines') . ucfirst($pagelines_template->template_name);
+		$page_type = __("Current Template: ", 'pagelines') . ucfirst($pagelines_template->template_name);
 		$wp_admin_bar->add_menu( array( 'id' => 'template_type', 'title' => $page_type, 'href' => admin_url( 'admin.php?page=pagelines_templates' ) ) );
 	}
 }

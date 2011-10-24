@@ -663,6 +663,8 @@ class PageLinesTemplate {
 	
 	function print_template_section_headers(){
 
+		$lesscode = '';
+
 		if(is_array($this->allsections)){ 
 			
 			foreach($this->allsections as $sid){
@@ -676,21 +678,46 @@ class PageLinesTemplate {
 				
 				if( $this->in_factory( $section ) ){
 					
-					$this->factory[$section]->section_head( $clone_id );
+					$s = $this->factory[$section];
+					
+					$s->section_head( $clone_id );
 					
 					global $supported_elements;
 					
 					$support = (isset($supported_elements['sections'][ $section ])) ? $supported_elements['sections'][ $section ] : false;
 					
 					if( $support && $support['disable_color'] )
-						continue;
-						
-					echo plstrip( $this->factory[$section]->dynamic_style( $clone_id ) );
+						continue;	
+							
+					echo plstrip( $s->dynamic_style( $clone_id ) );
+					
+					/*
+					 * Less CSS
+					 */
+					if( file_exists( $s->base_dir . '/color.less' ) )
+						$lesscode .= file_get_contents( $s->base_dir.'/color.less' );
+				
 					
 				}
+				
+				
 			}
 			
+			if($lesscode != ''){
+				
+				$pless = new PagelinesLess();
+				
+				printf(
+					'<style id="less-pagelines" rel="stylesheet" type="text/css">%s</style>', 
+					plstrip( $pless->parse($lesscode) )
+				);
+			}
+			
+			
+			
 		}
+		
+	
 		
 	}
 	

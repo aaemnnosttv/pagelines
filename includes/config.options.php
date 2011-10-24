@@ -233,7 +233,7 @@ class PageLinesOptionsArray {
 						'cssgroup'		=>	'pagebg',
 						'flag'			=> 'blank_default',
 						'css_prop'		=> 'background-color',
-						'inputlabel' 	=> __( 'Page Background', 'pagelines' ),
+						'inputlabel' 	=> __( 'Page Background (Optional)', 'pagelines' ),
 						),
 					'contentbg'	=> array(				
 						'version'		=> 'pro',
@@ -242,7 +242,7 @@ class PageLinesOptionsArray {
 						'flag'			=> 'blank_default',
 						'css_prop'		=> 'background-color',
 						'id'			=> 'the_bg',
-						'inputlabel' 	=> __( 'Content Background', 'pagelines' ),
+						'inputlabel' 	=> __( 'Content Background (Optional)', 'pagelines' ),
 						'math'		=> array(
 								array( 
 									'id'		=> 'bg', // use this for getting stored background color

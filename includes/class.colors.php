@@ -574,7 +574,7 @@ function pl_bg_color(){
 	if(get_set_color( 'the_bg' ))
 		return get_set_color( 'the_bg' );
 	else 
-		return '#FFFFFF';
+		return 'FFFFFF';
 		
 }
 
@@ -583,14 +583,14 @@ function pl_text_color(){
 	if(get_set_color( 'text_primary' ))
 		return get_set_color( 'text_primary' );
 	else 
-		return '#000000';
+		return '000000';
 }
 
 function pl_link_color(){
-	if(get_set_color( 'text_primary' ))
-		return get_set_color( 'text_primary' );
+	if(get_set_color( 'linkcolor' ))
+		return get_set_color( 'linkcolor' );
 	else 
-		return '#225E9B';
+		return '225E9B';
 }
 
 

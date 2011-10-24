@@ -173,6 +173,16 @@ require_once( PL_INCLUDES . '/init.singleton.php' );
 require_once( PL_INCLUDES . '/class.register.php' );
 
 /**
+ * Add Less Extension
+ */
+require_once( PL_INCLUDES . '/plugin.less.php' );
+
+/**
+ * Add Less Functions
+ */
+require_once( PL_INCLUDES . '/library.less.php' );
+
+/**
  * Register and load all sections
  */
 $load_sections = new PageLinesRegister();
