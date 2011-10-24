@@ -60,7 +60,7 @@ class PageLinesNav extends PageLinesSection {
 	}
 
 	function section_styles(){
-		if(pagelines('enable_drop_down')){
+		if(ploption('enable_drop_down')){
 			
 			wp_register_style('superfish', self::$nav_url . '/style.superfish.css', array(), CORE_VERSION, 'screen');
 		 	wp_enqueue_style( 'superfish' );
