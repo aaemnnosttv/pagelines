@@ -53,7 +53,7 @@ class PageLinesNav extends PageLinesSection {
 			
 			echo '</nav></div>';
 		
-		 	if(!pagelines_option('hidesearch'))
+		 	if(!ploption('hidesearch'))
 				get_search_form();
 	 	
 		echo '</div>';
@@ -61,8 +61,10 @@ class PageLinesNav extends PageLinesSection {
 
 	function section_styles(){
 		if(pagelines('enable_drop_down')){
-			wp_register_style('superfish', self::$nav_url . '/superfish.css', array(), CORE_VERSION, 'screen');
+			
+			wp_register_style('superfish', self::$nav_url . '/style.superfish.css', array(), CORE_VERSION, 'screen');
 		 	wp_enqueue_style( 'superfish' );
+		
 		}
 	}
 	
@@ -83,12 +85,12 @@ class PageLinesNav extends PageLinesSection {
 		
 		return array(
 				'superfish' => array(
-						'file' => self::$nav_url . '/superfish.js',
+						'file' => self::$nav_url . '/script.superfish.js',
 						'dependancy' => array('jquery'), 
 						'location' => 'footer'
 					), 
 				'bgiframe' => array(
-					'file' => self::$nav_url . '/jquery.bgiframe.min.js',
+					'file' => self::$nav_url . '/script.bgiframe.js',
 					'dependancy' => array('jquery', 'superfish'), 
 					'location' => 'footer'
 					),
