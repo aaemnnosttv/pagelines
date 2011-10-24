@@ -50,14 +50,12 @@ body{font-size: 87.5%; line-height: 1.71em;height:100%;}
 	h1 + img, h2 + img{margin-top:1em;}
 	h1.entry-title{ margin:0; }
 
-
 	/* @ Paragraphs */
 		p, .p, .hentry ul, .hentry ol{margin:1.714285em 0;}
 		.entry_content :first-child, .post-excerpt > :first-child{margin-top: 0;}
 		.post-excerpt > :last-child{margin-bottom: 0;}
 		p {hyphenate: auto;hyphenate-before:2;hyphenate-after:3;hyphenate-lines: 3;orphans:4}
 		p span.pullquote{text-indent:0;}
-
 
 	/* @ Font Sizes & Line Heights */
 	.widget-title, #footer li h5 a { font-size: 1em; }
@@ -84,9 +82,7 @@ body{font-size: 87.5%; line-height: 1.71em;height:100%;}
 		.rss-date {font-size:.9em;line-height:1.2em;}
 		#footer .latest_posts li .list-excerpt {font-size: .9em;line-height: 1.6em;}
 
-
-			.fcol ul ul{ font-size:.9em; }
-			
+			.fcol ul ul{ font-size:.9em; }	
 			#breadcrumb .content{ font-size:.8em; }
 
 			#simple_footer_nav #logo h1 { font-size:2em; }
@@ -125,7 +121,6 @@ body{font-size: 87.5%; line-height: 1.71em;height:100%;}
 /* 
  * @ Default Type Faces
  */
-
 	/* Primary Font Style */
 		body, .font1, .font-primary, .commentlist, input{ 
 			font-family:Georgia, 'Times New Roman', Times, serif; 
