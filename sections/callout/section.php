@@ -62,7 +62,6 @@ class PageLinesCallout extends PageLinesSection {
 
 		
  	function section_template() {
-		
 		$call_title = ploption('pagelines_callout_header', $this->oset);
 		$call_sub = ploption('pagelines_callout_subheader', $this->oset);
 		$call_img = ploption('pagelines_callout_image', $this->oset);

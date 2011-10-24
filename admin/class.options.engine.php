@@ -92,7 +92,7 @@ class OptEngine {
 		$setting = (isset($this->settings_field)) ? $this->settings_field : PAGELINES_SETTINGS;
 		
 		$oset = array( 'setting' => $setting );
-
+	
 		if($o['type'] == 'select_same'){
 			
 			$new = array_flip($o['selectvalues']);
