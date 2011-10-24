@@ -270,7 +270,7 @@ class PageLinesSection {
 	 * @subpackage Sections
 	 * @since 1.0.0
 	 */
-	function section_before_page( $clone_id ){
+	function setup_oset( $clone_id ){
 		
 		global $pagelines_ID;
 		

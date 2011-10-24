@@ -174,24 +174,48 @@ class PageLinesMetaPanel {
 		$tab_id = $o['id'].$o['clone_id'];
 
 		
-		if( $o['clone_id'] != 1 ){
+		if( isset($o['clone_id']) && $o['clone_id'] != 1 ){
 			
-			$name = $o['name'].' (Clone #'.$o['clone_id'].')';
+			$name = sprintf('%s (#%s)', $o['name'], $o['clone_id']);
 			
 			/**
 			 * For cloned tab, unset keys and change to new val w/ key
 			 */
 			foreach($option_array as $key => $opt){
 				
+
+				
 				$newkey = join( '_', array($key, $o['clone_id']) );
 				
-				$opt['title'] = $opt['title']. ' ('.$o['clone_id'].')';
+				$opt['title'] = sprintf('%s (#%s)', $opt['title'], $o['clone_id']);
 				
-				$option_array[$newkey] = $opt;
+				$new = $option_array[$newkey] = $opt;
 				
 				unset( $option_array[$key] );
 				
+				
+				
+				if( isset($option_array[$newkey]['selectvalues']) && is_array($option_array[$newkey]['selectvalues']) ){
+					foreach($option_array[$newkey]['selectvalues'] as $skey => $sopt){
+						
+						$snewkey = join( '_', array($skey, $o['clone_id']) );
+						
+						
+						$sopt['inputlabel'] = sprintf('%s (#%s)', $sopt['inputlabel'], $o['clone_id']);
+
+						$option_array[$newkey]['selectvalues'][$snewkey] = $sopt;
+						
+						//plprint($option_array[$newkey], 'newnew');
+						//plprint($option_array[$newkey]['selectvalues'][$skey], 'unset'.$skey);
+						
+						unset( $option_array[$newkey]['selectvalues'][$skey] );
+
+					}
+				}
+				
+			
 			}
+			
 			
 		} else 
 			$name = $o['name'];

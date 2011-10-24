@@ -373,6 +373,8 @@ class PageLinesTemplate {
 					
 					$s = $this->factory[ $section ];
 					
+					$s->setup_oset( $clone_id );
+					
 					$in_area = $this->$hook;
 					
 					$conjugation = $this->conjugation($hook, $key, $sid, $s);
@@ -639,26 +641,6 @@ class PageLinesTemplate {
 
 	function run_before_page(){
 
-		if(is_array($this->allsections)){ 
-			
-			foreach($this->allsections as $sid){
-				
-				/**
-				 * If this is a cloned element, remove the clone flag before instantiation here.
-				 */
-				$pieces = explode("ID", $sid);		
-				$section = $pieces[0];
-				$clone_id = (isset($pieces[1])) ? $pieces[1] : null;
-				
-				if( $this->in_factory( $section ) ){
-					
-					$this->factory[$section]->section_before_page( $clone_id );
-					
-				}
-			}
-			
-		}
-		
 	}
 	
 	function print_template_section_headers(){
@@ -679,6 +661,8 @@ class PageLinesTemplate {
 				if( $this->in_factory( $section ) ){
 					
 					$s = $this->factory[$section];
+					
+					$s->setup_oset( $clone_id );
 					
 					$s->section_head( $clone_id );
 					
@@ -738,15 +722,18 @@ class PageLinesTemplate {
 
 			
 		} else {
-			foreach( $this->default_allsections as $section_slug ){
+			foreach( $this->default_allsections as $sid ){
 			
-				$pieces = explode("ID", $section_slug);		
-				$section = (string) $pieces[0];
-				$clone_id = (isset($pieces[1])) ? $pieces[1] : 1;
+				$p = splice_section_slug($sid);
+				$section = $p['section'];
+				$clone_id = $p['clone_id'];
 			
-				if(isset($this->factory[$section]))
-					$this->factory[$section]->section_optionator( array( 'clone_id' => $clone_id ) );
-		
+				if(isset($this->factory[$section])){
+					$s = $this->factory[$section];
+					$s->setup_oset( $clone_id );
+					$s->section_optionator( array( 'clone_id' => $clone_id ) );
+					
+				}
 			
 			}
 	
