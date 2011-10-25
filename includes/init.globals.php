@@ -43,6 +43,7 @@ define('CHILD_IMAGES', CHILD_URL . '/images');
  */
 define('PAGELINES_SETTINGS', apply_filters('pagelines_settings_field', 'pagelines-settings'));
 define('PAGELINES_EXTENSION', apply_filters('pagelines_settings_extension', 'pagelines-extension'));
+define('PAGELINES_ACCOUNT', apply_filters('pagelines_settings_account', 'pagelines-account'));
 define('PAGELINES_SPECIAL', apply_filters('pagelines_settings_special', 'pagelines-special'));
 define('PAGELINES_TEMPLATES', apply_filters('pagelines_settings_templates', 'pagelines-templates'));
 define('PAGELINES_TEMPLATE_MAP', apply_filters('pagelines_settings_map', 'pagelines_template_map'));

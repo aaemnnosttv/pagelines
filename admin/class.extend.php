@@ -24,19 +24,20 @@
 		
 		add_action('wp_ajax_pagelines_ajax_extend_it_callback', array(&$this, 'extend_it_callback'));	
 		add_action( 'admin_init', array(&$this, 'extension_uploader' ) );
-		add_action( 'admin_init', array(&$this, 'update_lpinfo' ) );
+		
 		add_action( 'admin_init', array(&$this, 'launchpad_returns' ) );
 		add_action( 'admin_init', array(&$this, 'check_creds' ) );
 		add_filter( 'http_request_args', array( &$this, 'pagelines_plugins_remove' ), 10, 2 );
  	}
 
-	/**
+	/*
+	 *
 	 * Cache cleaner.
-	 * 
+	 * Flush all our transients ( Makes this save button a sort of reset button. )
+	 *
 	 */	
-	function flush_caches() {
-		
-		// Flush all our transienst ( Makes this save button a sort of reset button. )
+	static function flush_caches() {
+	
 		delete_transient( EXTEND_UPDATE );
 		delete_transient( 'pagelines_extend_themes' );
 		delete_transient( 'pagelines_extend_sections' );
@@ -999,14 +1000,14 @@
 			
 			case 'theme_purchase':
 			
-				_e( 'Transferring to Paypal.com', 'pagelines' );
+				_e( 'Taking you to PayPal.com', 'pagelines' );
 				$this->page_reload( 'pagelines_extend', $file );
 			
 			break;
 			
 			case 'theme_login':
-				_e( 'Moving to account page..', 'pagelines' );
-				$this->page_reload( 'pagelines_extend#Your_Account' );
+				_e( 'Moving to account setup..', 'pagelines' );
+				$this->page_reload( 'pagelines_account#Your_Account' );
 			break;
 		}
 		die(); // needed at the end of ajax callbacks
@@ -1193,23 +1194,7 @@
 		return $r;		
 	}
 
-	/**
-	 * Save our credentials
-	 * 
-	 */	
-	function update_lpinfo() {
 
-		if (isset($_POST['form_submitted']) && $_POST['form_submitted'] === 'plinfo' ) {
-
-			if ( isset( $_POST['creds_reset'] ) )
-				update_option( 'pagelines_extend_creds', array( 'user' => '', 'pass' => '' ) );
-			else
-				set_pagelines_credentials( sanitize_text_field( $_POST['lp_username'] ),  sanitize_text_field( $_POST['lp_password'] ) );
-			$this->flush_caches();			
-			wp_redirect( admin_url('admin.php?page=pagelines_extend&plinfo=true') );
-			exit;
-		}
-	}
 
 	/**
 	 * Were back! Flush the cache,

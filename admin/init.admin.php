@@ -9,6 +9,11 @@
  */
 
 /**
+ * Load account handling
+ */
+require_once ( PL_ADMIN . '/paths.admin.php' );
+
+/**
  * Load Drag and Drop UI
  */
 require_once( PL_ADMIN . '/class.ui.templates.php' );
@@ -65,6 +70,12 @@ require_once (PL_ADMIN.'/class.updates.php');
  * Load inline help
  */
 require_once (PL_ADMIN . '/library.help.php' );
+
+/**
+ * Load account handling
+ */
+require_once ( PL_ADMIN . '/class.account.php' );
+$account_control = new PageLinesAccount;
 
 /**
  * Load plugin installer class

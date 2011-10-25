@@ -24,6 +24,7 @@ function pagelines_add_admin_submenus() {
 	global $_pagelines_ext_hook;
 	global $_pagelines_special_hook;
 	global $_pagelines_templates_hook;
+	global $_pagelines_account_hook;
 		
 	// WP themes rep. wants it under the appearance tab.	
 	if( !VPRO )
@@ -32,7 +33,8 @@ function pagelines_add_admin_submenus() {
 		$_pagelines_options_page_hook = add_submenu_page('pagelines', 'Settings', 'Settings', 'edit_theme_options', 'pagelines','pagelines_build_option_interface'); // Default
 		$_pagelines_templates_hook = add_submenu_page('pagelines', 'Templates', 'Templates', 'edit_theme_options', 'pagelines_templates','pagelines_build_templates_interface');
 		$_pagelines_special_hook = add_submenu_page('pagelines', 'Special', 'Special', 'edit_theme_options', 'pagelines_special','pagelines_build_special');
-		$_pagelines_ext_hook = add_submenu_page('pagelines', 'Extend', 'Extend', 'edit_theme_options', 'pagelines_extend','pagelines_build_extension_interface');
+		$_pagelines_ext_hook = add_submenu_page('pagelines', 'Store', 'Store', 'edit_theme_options', 'pagelines_extend','pagelines_build_extension_interface');
+		$_pagelines_account_hook = add_submenu_page('pagelines', 'Account', 'Account', 'edit_theme_options', 'pagelines_account','pagelines_build_account_interface');
 	}
 }
 
@@ -75,7 +77,7 @@ function pagelines_build_templates_interface(){
 function pagelines_build_extension_interface(){ 
 	
 	$args = array(
-		'title'			=> 'PageLines Extend (Beta)', 
+		'title'			=> 'PageLines Store (Beta)', 
 		'settings' 		=> PAGELINES_EXTENSION,
 		'callback'		=> 'extension_array',
 		'show_save'		=> false, 
@@ -85,6 +87,24 @@ function pagelines_build_extension_interface(){
 	);
 	$optionUI = new PageLinesOptionsUI($args);
 }
+
+/**
+ * Build Extension Interface
+ * Will handle adding additional sections, plugins, child themes
+ */
+function pagelines_build_account_interface(){ 
+	
+	$args = array(
+		'title'			=> 'Your PageLines Account', 
+		'settings' 		=> PAGELINES_ACCOUNT,
+		'callback'		=> 'pagelines_account_array',
+		'show_save'		=> false, 
+		'show_reset'	=> false, 
+		'fullform'		=> false,
+	);
+	$optionUI = new PageLinesOptionsUI($args);
+}
+
 
 /**
  * Build Meta Interface
@@ -114,12 +134,16 @@ function pagelines_theme_settings_init() {
 	global $_pagelines_ext_hook;
 	global $_pagelines_special_hook;
 	global $_pagelines_templates_hook;
+	global $_pagelines_account_hook;
 	
 	// Call only on PL pages
 	add_action('load-'.$_pagelines_options_page_hook, 'pagelines_theme_settings_scripts');
 	add_action('load-'.$_pagelines_ext_hook, 'pagelines_theme_settings_scripts');
 	add_action('load-'.$_pagelines_special_hook, 'pagelines_theme_settings_scripts');
 	add_action('load-'.$_pagelines_templates_hook, 'pagelines_theme_settings_scripts');
+	add_action('load-'.$_pagelines_account_hook, 'pagelines_theme_settings_scripts');
+	
+	// WordPress Page types
 	add_action('load-post.php',  'pagelines_theme_settings_scripts');
 	add_action('load-post-new.php',  'pagelines_theme_settings_scripts');
 	add_action('load-user-edit.php',  'pagelines_theme_settings_scripts');
@@ -128,6 +152,9 @@ function pagelines_theme_settings_init() {
 
 
 function pagelines_theme_settings_scripts() {
+	
+	// Add Body Class
+	add_filter( 'admin_body_class', 'pagelines_admin_body_class' );
 	
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'jquery-ajaxupload', PL_ADMIN_JS . '/jquery.ajaxupload.js');

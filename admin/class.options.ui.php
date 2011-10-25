@@ -42,6 +42,8 @@ class PageLinesOptionsUI {
 		
 		$this->tab_cookie = 'PLTab_'.$this->set["settings"];
 		
+		
+		
 		// Draw the thing
 		$this->build_header();	
 		$this->build_body();
@@ -56,7 +58,7 @@ class PageLinesOptionsUI {
 		 */
 		function build_header(){?>
 			<div class='wrap'>
-				<table id="optionstable"><tbody><tr><td valign="top" width="100%">
+				<table id="optionstable" class="pl_opt_ui"><tbody><tr><td valign="top" width="100%">
 					<?php
 								
 						 	if( $this->set['fullform'] )
@@ -69,7 +71,7 @@ class PageLinesOptionsUI {
 						?>
 					
 						<div class="clear"></div>
-						<div id="dialog" class="thedialog" title="PageLines Extend"></div>
+						<div id="dialog" class="thedialog pldialog" title="PageLines Store"></div>
 						<div id="optionsheader" class="fix">
 							<div class="ohead" class="fix">
 								<div class="ohead-pad fix">

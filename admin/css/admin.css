@@ -12,20 +12,33 @@
 #adminmenu .wp-menu-image img { padding: 4px 0 0 1px; }
 	
 #dialog{display: none;}
-.ui-dialog { position: absolute; padding: .2em; width: 400px; overflow: hidden; }
-.ui-dialog .ui-dialog-titlebar { padding: .4em 1em; position: relative;  }
-.ui-dialog .ui-dialog-title { float: left; margin: .1em 16px .1em 0; } 
-.ui-dialog .ui-dialog-titlebar-close { position: absolute; right: .3em; top: 50%; width: 19px; margin: -10px 0 0 0; padding: 1px; height: 18px; }
-.ui-dialog .ui-dialog-titlebar-close span { display: block; margin: 1px; }
-.ui-dialog .ui-dialog-titlebar-close:hover, .ui-dialog .ui-dialog-titlebar-close:focus { padding: 0; }
-.ui-dialog .ui-dialog-content { position: relative; border: 0; padding: .5em 1em; background: none; overflow: auto; zoom: 1; }
-.ui-dialog .ui-dialog-buttonpane { text-align: left; border-width: 1px 0 0 0; background-image: none; margin: .5em 0 0 0; padding: .3em 1em .5em .4em; }
-.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset { float: right; }
-.ui-dialog .ui-dialog-buttonpane button { margin: .5em .4em .5em 0; cursor: pointer; }
-.ui-dialog .ui-resizable-se { width: 14px; height: 14px; right: 3px; bottom: 3px; }
+.pagelines_ui .ui-dialog { 
+	position: absolute; 
+	padding: .2em; 
+	width: 600px; 
+	overflow: hidden; 
 
-.ui-widget-overlay {
-	background: #666;
+}
+.pagelines_ui .ui-dialog .ui-dialog-titlebar { padding: .4em 1em; position: relative;  }
+.pagelines_ui .ui-dialog .ui-dialog-title { float: left; margin: .1em 16px .1em 0; } 
+.pagelines_ui .ui-dialog .ui-dialog-titlebar-close { position: absolute; right: .3em; top: 50%; width: 19px; margin: -10px 0 0 0; padding: 1px; height: 18px; }
+.pagelines_ui .ui-dialog .ui-dialog-titlebar-close span { display: block; margin: 1px; }
+.pagelines_ui .ui-dialog .ui-dialog-titlebar-close:hover, .ui-dialog .ui-dialog-titlebar-close:focus { padding: 0; }
+.pagelines_ui .ui-dialog .ui-dialog-content { position: relative; border: 0; padding: .5em 1em; background: none; overflow: auto; zoom: 1; }
+.pagelines_ui .ui-dialog .ui-dialog-buttonpane { text-align: left; border-width: 1px 0 0 0; background-image: none; margin: .5em 0 0 0; padding: .3em 1em .5em .4em; }
+.pagelines_ui .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset { float: right; }
+.pagelines_ui .ui-dialog .ui-dialog-buttonpane button { margin: .5em .4em .5em 0; cursor: pointer; }
+.pagelines_ui .ui-dialog .ui-resizable-se {  }
+
+.pagelines_ui .ui-dialog{
+	-moz-border-radius: 5px;
+	-khtml-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.pagelines_ui .ui-widget-overlay {
+	background: #444;
 	opacity: .50;
 	position: absolute;
 	top: 0;
@@ -34,36 +47,76 @@
 	height: 100%;
 }
  
-.ui-icon {
-display: block;
-text-indent: -99999px;
-overflow: hidden;
-background-repeat: no-repeat;
+.pagelines_ui .ui-icon {
+	display: block;
+	text-indent: -99999px;
+	overflow: hidden;
+	background-repeat: no-repeat;
 }
-.ui-draggable .ui-dialog-titlebar { cursor: move; }
-.ui-dialog.ui-widget {  font-size: 1.1em; }
-.ui-dialog.ui-widget-content { 
+.pagelines_ui .ui-draggable .ui-dialog-titlebar { cursor: move; }
+.pagelines_ui .ui-dialog.ui-widget {  font-size: 1.1em; }
+.pagelines_ui .ui-dialog.ui-widget-content { 
 	
-	color: #333333; 
-	background:#f5f5f5; 
-	text-shadow: #fff 0 1px 0;
-	-moz-box-shadow: 0px 0px 7px #555;
-	-webkit-box-shadow: 0px 0px 7px #555;
-	box-shadow: 0px 0px 7px #555;
+	color: #eee; 
+	border-right: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	background: rgba(0,0,0,.6); 
+	text-shadow: #000 0 -1px 0;
+	-mozbox-shadow: inset 0px 0px 7px #000;
+	-webkit-box-shadow: inset 0px 0px 7px #000;
+	box-shadow: inset 0px 0px 7px #000;
 	font-weight: bold;
 	padding: 0;
-	border: none;
 }
-.ui-dialog  .ui-dialog-content{
+.pagelines_ui .ui-dialog  .ui-dialog-content{
 	text-align: center;
-	font-size: 1.3em;
-	padding-top: 25px;
-	color:#888;
+	font-size: 1.9em;
+	line-height: 1.6em;
+	padding: 50px 20px;
+	color:#eee;
 }
-.ui-dialog.ui-widget-content a { color: #333333; }
-.ui-dialog-titlebar { background:#ddd; border-bottom: 1px solid #CCC; color: #AAA; font-weight: bold; text-align: center; }
-.ui-dialog-titlebar a { color: #AAA; }
-.ui-helper-clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden;} .ui-helper-clearfix{display:inline-block;} * html .ui-helper-clearfix{height:1%;} .ui-helper-clearfix{display:block;}
+.pagelines_ui .ui-dialog.ui-widget-content a { color: #333333; }
+.pagelines_ui .ui-dialog .ui-dialog-titlebar { display: none; color: #777; font-weight: bold; text-align: center; }
+.pagelines_ui .ui-dialog-titlebar a { color: #777; }
+.pagelines_ui .ui-helper-clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden;} .ui-helper-clearfix{display:inline-block;} 
+* html .ui-helper-clearfix{height:1%;} .ui-helper-clearfix{display:block;}
+
+/* @ Ajax Saving Popup */
+	.ajax-saved {
+		display: none;
+		font-size: 2.5em;
+		width: 400px;
+		text-align: center;
+		font-weight: bold;
+		background: transparent url('../images/bg_option_confirm.png') repeat 0 0;
+		color: #eee; 
+		border-right: 1px solid #ccc;
+		border-bottom: 1px solid #ccc;
+		background: rgba(0,0,0,.6); 
+		text-shadow: #000 0 -1px 0;
+		-mozbox-shadow: inset 0px 0px 7px #000;
+		-webkit-box-shadow: inset 0px 0px 7px #000;
+		box-shadow: inset 0px 0px 7px #000;
+		z-index: 100;
+		-moz-border-radius: 20px;
+		-webkit-border-radius: 20px;
+		border-radius: 20px;
+		
+	}
+		.ajax-saved-pad{ padding:  50px 50px 45px; }
+
+		.ajax-saved.success .ajax-saved-pad .ajax-saved-icon{
+			padding-top: 60px;
+			line-height: 50px;
+			background: transparent url('../images/icons/confirm-check.png') no-repeat top center;
+		}
+	
+		
+		.success-text, .uploading-text{display:none;}
+			.ajax-saved.success .success-text{display: inline;}
+			.ajax-saved.uploading .uploading-text{display: inline;}
+
+
 /*
  * Common Admin Elements
  */
@@ -136,35 +189,6 @@ background-repeat: no-repeat;
 	
 	#pagelines-settings-form{position:relative;}
 	
-/* @ Ajax Saving Popup */
-	.ajax-saved {
-		display: none;
-		text-shadow: #000 0px -1px 0;
-		color: #FFF;
-		font-size: 2.5em;
-		width: 400px;
-		
-		background: transparent url('../images/bg_option_confirm.png') repeat 0 0;
-		z-index: 100;
-		-moz-border-radius: 25px;
-		-khtml-border-radius: 25px;
-		-webkit-border-radius: 25px;
-		border-radius: 25px;
-		text-align: center;
-		font-weight: bold;
-	}
-		.ajax-saved-pad{ padding:  50px 50px 45px; }
-
-		.ajax-saved.success .ajax-saved-pad .ajax-saved-icon{
-			padding-top: 60px;
-			line-height: 50px;
-			background: transparent url('../images/icons/confirm-check.png') no-repeat top center;
-		}
-	
-		
-		.success-text, .uploading-text{display:none;}
-			.ajax-saved.success .success-text{display: inline;}
-			.ajax-saved.uploading .uploading-text{display: inline;}
 
 
 	.message_area { height: 35px; }

@@ -351,8 +351,7 @@ class PageLinesExtendUI {
 					beforeSend: function(){
 
 						responseElement.html( duringText ).dialog({ 
-							minWidth: 500, 
-							minHeight: 100,
+							minWidth: 600, 
 							modal: true, 
 							dialogClass: 'ajax_dialog', 
 							open: function(event, ui) { 
@@ -517,16 +516,6 @@ function extension_array(  ){
 				'layout'	=> 'full',
 				'title'		=> __( 'Import/Export PageLines Settings', 'pagelines' ),						
 				'shortexp'	=> __( 'Use this form to upload PageLines settings from another install.', 'pagelines' ),
-			),
-		),
-		'Your_Account'	=> array(
-			'icon'		=> PL_ADMIN_ICONS.'/rocket-fly.png',
-			'credentials' => array(
-				'version'	=> 'pro',
-				'type'		=> 'updates_setup',
-				'title'		=> __( 'Configure PageLines Account &amp; Auto Updates', 'pagelines' ),
-				'shortexp'	=> __( 'Get your latest updates automatically, direct from PageLines.', 'pagelines' ),
-				'layout'	=> 'full',
 			),
 		)
 

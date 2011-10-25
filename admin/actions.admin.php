@@ -21,7 +21,12 @@ $layout_control_js = new PageLinesLayoutControl();
 add_action('pagelines_admin_head', array(&$layout_control_js, 'layout_control_javascript'));
 
 
-
+function pagelines_admin_body_class($class){
+	
+	$class = $class.'pagelines_ui';
+	
+	return $class;
+}
 /**
  * 
  *  Checks if PHP5

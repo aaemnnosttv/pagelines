@@ -28,8 +28,10 @@ jQuery("#pagelines-settings-form").submit(function() {
 	if(jQuery("#input-full-submit").val() == 1){
 		return true;
 	} else {
+	
 		jQuery('.ajax-saved').center('#pagelines-settings-form');
 		var saveText = jQuery('.ajax-saved .ajax-saved-pad .ajax-saved-icon');
+	
 		jQuery.ajax({
 			type: 'POST',
 			url: 'options.php',
@@ -59,6 +61,7 @@ jQuery("#pagelines-settings-form").submit(function() {
 				
 				
 			}
+			
 		});
 		return false;
 	}

@@ -225,4 +225,4 @@ require_once (PL_INCLUDES.'/actions.site.php');
 pagelines_register_hook('pagelines_hook_init'); // Hook
 
 if ( is_admin() )
-	include( PL_ADMIN . '/admin.init.php' );
+	include( PL_ADMIN . '/init.admin.php' );
