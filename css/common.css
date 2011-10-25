@@ -60,24 +60,53 @@ textarea {
 /* @ Submits & Others Buttons */
 input[type="submit"], .submit, input[type="button"], .button, input[type="reset"], .reset{
 	padding: 4px 9px;
-	border: 1px solid #bbb;
-	text-shadow: #fff 0 1px 0;
-	background: #82a2ca url(../images/blink-sprite-grey.png) 0 -35px repeat-x;
 	cursor: pointer;
 	-moz-box-sizing: content-box;
 	-webkit-box-sizing: content-box;
 	box-sizing: content-box;
-}
-	input[type="submit"]:hover, .submit:hover, input[type="button"]:hover, .button:hover, input[type="reset"]:hover, .reset:hover{
-		background: #ddd url(../images/blink-sprite-grey.png) 0 0 repeat-x;
-		border:1px solid #999;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	color:#000000; 
+	text-shadow:0 1px 0 rgba(255,255,255,0.5); 
+	border:1px solid #bbbbbb; 
+	background:#eeeeee; 
+	background:-moz-linear-gradient(top,#ffffff 0%,#dcdcdc 100%); 
+	background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#ffffff),color-stop(100%,#dcdcdc)); 
+	background:-webkit-linear-gradient(top,#ffffff 0%,#dcdcdc 100%); 
+	background:-o-linear-gradient(top,#ffffff 0%,#dcdcdc 100%); 
+	background:-ms-linear-gradient(top,#ffffff 0%,#dcdcdc 100%); 
+	background:linear-gradient(top,#ffffff 0%,#dcdcdc 100%); 
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='@top',endColorstr='@bottom',GradientType=0); 
+} 
+
+	input[type="submit"]:hover, .submit:hover, input[type="button"]:hover, .button:hover, input[type="reset"]:hover, .reset:hover { 
+		color:#000000; 
+		text-shadow:0 1px 0 rgba(255,255,255,0.5); 
+		border:1px solid #aeaeae; 
+		background:#e1e1e1; 
+		background:-moz-linear-gradient(top,#f3f3f3 0%,#cfcfcf 100%); 
+		background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#ffffff),color-stop(100%,#cfcfcf)); 
+		background:-webkit-linear-gradient(top,#f3f3f3 0%,#cfcfcf 100%); 
+		background:-o-linear-gradient(top,#f3f3f3 0%,#cfcfcf 100%); 
+		background:-ms-linear-gradient(top,#f3f3f3 0%,#cfcfcf 100%); 
+		background:linear-gradient(top,#f3f3f3 0%,#cfcfcf 100%); 
+		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='@top',endColorstr='@bottom',GradientType=0); 
+	} 
+
+	input[type="submit"]:active, .submit:active, input[type="button"]:active, .button:active, input[type="reset"]:active, .reset:active { 
+		color:#000000; 
+		text-shadow:0 1px 0 rgba(255,255,255,0.5); 
+		border:1px solid #8e8e8e; 
+		background:#c1c1c1; 
+		background:-moz-linear-gradient(top,#afafaf 0%,#d3d3d3 100%); 
+		background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#ffffff),color-stop(100%,#d3d3d3)); 
+		background:-webkit-linear-gradient(top,#afafaf 0%,#d3d3d3 100%); 
+		background:-o-linear-gradient(top,#afafaf 0%,#d3d3d3 100%); 
+		background:-ms-linear-gradient(top,#afafaf 0%,#d3d3d3 100%); 
+		background:linear-gradient(top,#afafaf 0%,#d3d3d3 100%); 
+		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='@top',endColorstr='@bottom',GradientType=0); }
 	}
-	input[type="submit"]:active, .submit:active, input[type="button"]:active, .button:active, input[type="reset"]:active, .reset:active{
-		background: #82a2ca url(../images/blink-sprite-grey.png) 0 -70px repeat-x;border: 1px solid #666;color: #000; text-shadow: #eee 0 1px 0
-	}
-
-
-
 
 /* @ Widgets Default Formatting */
 	/* Calendar */

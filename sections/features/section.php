@@ -6,6 +6,7 @@
 	Description: Creates a feature slider and custom post type
 	Class Name: PageLinesFeatures
 	Workswith: templates, main, header, morefoot
+	Tags: internal
 	Cloning: true
 	Edition: pro
 	Tax: feature-sets

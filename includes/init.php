@@ -173,14 +173,24 @@ require_once( PL_INCLUDES . '/init.singleton.php' );
 require_once( PL_INCLUDES . '/class.register.php' );
 
 /**
+ * Add Integration Functionality
+ */
+require_once( PL_INCLUDES . '/class.integration.php' );
+
+/**
+ * Add Integration Functionality
+ */
+require_once( PL_INCLUDES . '/class.themesupport.php' );
+
+/**
  * Add Less Extension
  */
-require_once( PL_INCLUDES . '/plugin.less.php' );
+require_once( PL_INCLUDES . '/less.plugin.php' );
 
 /**
  * Add Less Functions
  */
-require_once( PL_INCLUDES . '/library.less.php' );
+require_once( PL_INCLUDES . '/less.functions.php' );
 
 /**
  * Register and load all sections
