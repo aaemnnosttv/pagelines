@@ -75,7 +75,7 @@ class PageLinesIntegration {
 
 				case 'css':
 					preg_match_all( '#<link rel=[\'|"]stylesheet[\'|"].*\/>#', $args['buffer'], $styles );
-					preg_match_all( '#<style type=[\'|"]text\/css[\'|"].*<\/style>#ms', $args['buffer'], $xtra_styles );
+					preg_match_all( '#<style type=[\'|"]text\/css[\'|"][^<]*<\/style>#ms', $args['buffer'], $xtra_styles );
 					$styles = array_merge( $styles[0], $xtra_styles[0] );
 					if ( is_array( $styles ) ) {
 						$css = '';
