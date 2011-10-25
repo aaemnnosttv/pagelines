@@ -5,7 +5,6 @@
 	Author URI: http://www.pagelines.com
 	Description: A 5 column widgetized sidebar in the footer
 	Class Name: PageLinesFootCols
-	Tags: internal
 	Workswith: morefoot, footer
 */
 

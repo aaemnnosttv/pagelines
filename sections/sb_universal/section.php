@@ -5,7 +5,6 @@
 	Author URI: http://www.pagelines.com
 	Description: A universal widgetized sidebar
 	Class Name: UniversalSidebar
-	Tags: internal
 	Workswith: sidebar1, sidebar2, sidebar_wrap, templates, main, header, morefoot
 	Edition: pro
 */

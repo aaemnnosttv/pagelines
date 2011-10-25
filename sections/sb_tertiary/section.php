@@ -5,7 +5,6 @@
 	Author URI: http://www.pagelines.com
 	Description: A 3rd widgetized sidebar for the theme that can be used in standard sidebar templates.
 	Class Name: TertiarySidebar
-	Tags: internal
 	Workswith: sidebar1, sidebar2, sidebar_wrap
 */
 

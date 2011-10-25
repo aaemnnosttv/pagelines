@@ -4,8 +4,7 @@
 	Author: PageLines
 	Author URI: http://www.pagelines.com
 	Description: Post Navigation - Shows titles for next and previous post.
-	Class Name: PageLinesPostNav
-	Tags: internal
+	Class Name: PageLinesPostNav	
 	Workswith: main
 	Failswith: pagelines_special_pages()
 */

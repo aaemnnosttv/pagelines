@@ -672,7 +672,7 @@ class PageLinesTemplate {
 					$support = (isset($supported_elements['sections'][ $section ])) ? $supported_elements['sections'][ $section ] : false;
 			
 			
-					if( ($support && $support['disable_color']) || ( $s->sinfo['tags'] == 'internal' && isset($disabled_settings['color_control']) ) ){
+					if( ($support && $support['disable_color']) || ( $s->sinfo['importance'] == 'internal' && isset($disabled_settings['color_control']) ) ){
 						continue;
 					}
 							
