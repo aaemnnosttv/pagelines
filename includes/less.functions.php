@@ -41,7 +41,7 @@ class PageLinesLess {
 		if($lesscode != ''){
 			
 			printf(
-				'<style id="less-pagelines" rel="stylesheet" type="text/css">%s</style>', 
+				'<style type="text/css" id="pagelines-less-css" >%s</style>', 
 				plstrip( $this->parse($lesscode) )
 			);
 			
@@ -153,14 +153,22 @@ class PageLinesLess {
  **************************/
 function pl_base_color(){
 	
-	if(ploption('contentbg'))
-		return pl_hash_strip( ploption('contentbg') );
-	elseif(ploption('pagebg'))
-		return pl_hash_strip( ploption('pagebg') );
-	elseif(ploption('bodybg'))
-		return pl_hash_strip( ploption('bodybg') );
-	else
-		return 'FFFFFF';
+	$base_color = PageLinesThemeSupport::BaseColor();
+
+	if( !$base_color ){
+	
+		if(ploption('contentbg'))
+			return pl_hash_strip( ploption('contentbg') );
+		elseif(ploption('pagebg'))
+			return pl_hash_strip( ploption('pagebg') );
+		elseif(ploption('bodybg'))
+			return pl_hash_strip( ploption('bodybg') );
+		else
+			return 'FFFFFF';
+	
+	} else
+		return $base_color;
+		
 	
 }
 

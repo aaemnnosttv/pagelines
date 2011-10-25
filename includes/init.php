@@ -178,6 +178,11 @@ require_once( PL_INCLUDES . '/class.register.php' );
 require_once( PL_INCLUDES . '/class.integration.php' );
 
 /**
+ * Add Integration Functionality
+ */
+require_once( PL_INCLUDES . '/class.themesupport.php' );
+
+/**
  * Add Less Extension
  */
 require_once( PL_INCLUDES . '/less.plugin.php' );

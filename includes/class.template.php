@@ -670,9 +670,12 @@ class PageLinesTemplate {
 					global $disabled_settings;
 					
 					$support = (isset($supported_elements['sections'][ $section ])) ? $supported_elements['sections'][ $section ] : false;
-					
-					if( ($support && $support['disable_color']) || ($s->sinfo['tags'] == 'internal' &&  isset($disabled_settings['color_control'])) )
-						continue;	
+			
+			
+					if( ($support && $support['disable_color']) || ( $s->sinfo['tags'] == 'internal' && isset($disabled_settings['color_control']) ) ){
+						continue;
+					}
+							
 						
 					echo plstrip( $s->dynamic_style( $clone_id ) );
 					

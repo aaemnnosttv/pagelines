@@ -6,6 +6,7 @@
 	Description: Loads twitter feed into the site footer
 	Class Name: PageLinesTwitterBar
 	Workswith: morefoot
+	Tags: internal
 	Edition: Pro
 */
 class PageLinesTwitterBar extends PageLinesSection {

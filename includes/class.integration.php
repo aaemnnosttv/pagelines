@@ -9,10 +9,7 @@ class PageLinesIntegration {
 	
 	public $lesscode = '';
 	
-	function __construct( $integration ){  
-		
-		// All of WordPress Initialization is done by this time
-		
+	function __construct( $integration = ''){  
 		
 		
 		$this->integration = $integration;
@@ -126,3 +123,4 @@ function pl_get_integration(){
 	
 	return (isset($pl_integration) && !$pl_integration) ? $pl_integration : false;
 }
+
