@@ -687,17 +687,12 @@ class PageLinesTemplate {
 				
 				
 			}
+
+			$lesscode = apply_filters('pagelines_lesscode', $lesscode);
 			
-			if($lesscode != ''){
-				
-				$pless = new PagelinesLess();
-				
-				printf(
-					'<style id="less-pagelines" rel="stylesheet" type="text/css">%s</style>', 
-					plstrip( $pless->parse($lesscode) )
-				);
-			}
+			$pless = new PagelinesLess();
 			
+			$pless->draw_less( $lesscode );
 			
 			
 		}
