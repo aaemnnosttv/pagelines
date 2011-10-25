@@ -55,6 +55,7 @@ class PageLinesLess {
 	public function parse( $pless ) {
 		
 		$pless = $this->add_constants( $pless );
+		$pless = $this->add_mixins( $pless );
 		
 		try{
 			$css = $this->lparser->parse( $pless );
@@ -63,6 +64,14 @@ class PageLinesLess {
 		}
 		 
 		return $css;
+		
+	}
+	
+	private function add_mixins($pless){
+		
+		$mixins = file_get_contents(PL_CSS.'/mixins.less');
+	
+		return $pless.$mixins;
 		
 	}
 	
@@ -77,28 +86,27 @@ class PageLinesLess {
 		
 	}
 	
-	private function invert( $mode = 'dark', $delta = 6 ){
+	private function invert( $mode = 'dark', $delta = 5 ){
 		
 		if($mode == 'light'){
 			
-			if($this->color_detect() == -2){
+			if($this->color_detect() == -2)
 				return 2*$delta;
-			}elseif($this->color_detect() == -1){
+			elseif($this->color_detect() == -1)
 				return 1.5*$delta;
-			}elseif($this->color_detect() == 1){
+			elseif($this->color_detect() == 1)
 				return -1.7*$delta;
-			}else {
+			else
 				return $delta;
-			}
 			
 		}else{
-			if($this->color_detect() == -2){
+			if($this->color_detect() == -2)
 				return -(2*$delta);
-			}elseif($this->color_detect() == -1){
+			elseif($this->color_detect() == -1)
 				return -$delta;
-			} else {
+			else
 				return $delta;
-			}
+
 		}
 		
 		
