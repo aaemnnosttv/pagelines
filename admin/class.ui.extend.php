@@ -403,7 +403,7 @@ function extension_array(  ){
 			'icon'		=> PL_ADMIN_ICONS.'/dragdrop.png',
 			'htabs' 	=> array(
 				'added'	=> array(
-					'title'		=> __( 'Sections Added Via Extend', 'pagelines' ),
+					'title'		=> __( 'Sections Added Via Store', 'pagelines' ),
 					'callback'	=> $extension_control->extension_sections( 'user' )
 					),
 				'core'	=> array(

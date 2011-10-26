@@ -482,7 +482,7 @@ function pagelines_settings_menu_link(  ){
 	$wp_admin_bar->add_menu( array( 'id' => 'pl_main_settings', 'parent' => 'pl_settings', 'title' => __("Settings", 'pagelines'), 'href' => admin_url( 'admin.php?page=pagelines' ) ) );
 	$wp_admin_bar->add_menu( array( 'id' => 'pl_templates', 'parent' => 'pl_settings', 'title' => __("Templates", 'pagelines'), 'href' => admin_url( 'admin.php?page=pagelines_templates' ) ) );
 	$wp_admin_bar->add_menu( array( 'id' => 'pl_special', 'parent' => 'pl_settings', 'title' => __("Special", 'pagelines'), 'href' => admin_url( 'admin.php?page=pagelines_special' ) ) );
-	$wp_admin_bar->add_menu( array( 'id' => 'pl_extend', 'parent' => 'pl_settings', 'title' => __("Extend", 'pagelines'), 'href' => admin_url( 'admin.php?page=pagelines_extend' ) ) );
+	$wp_admin_bar->add_menu( array( 'id' => 'pl_extend', 'parent' => 'pl_settings', 'title' => __("Store", 'pagelines'), 'href' => admin_url( 'admin.php?page=pagelines_extend' ) ) );
 	$wp_admin_bar->add_menu( array( 'id' => 'pl_account', 'parent' => 'pl_settings', 'title' => __("Account", 'pagelines'), 'href' => admin_url( 'admin.php?page=pagelines_account' ) ) );
 
 	if(isset($pagelines_template->template_name)){
