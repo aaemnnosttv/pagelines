@@ -15,7 +15,7 @@ class PageLinesThemeSupport {
 		
 	}
 	
-	public function Integration( $id ){
+	public function Integration( $id, $args ){
 		
 		
 		
