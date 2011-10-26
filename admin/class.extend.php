@@ -42,6 +42,7 @@
 		delete_transient( 'pagelines_extend_themes' );
 		delete_transient( 'pagelines_extend_sections' );
 		delete_transient( 'pagelines_extend_plugins' );
+		delete_transient( 'pagelines_extend_integrations' );		
 		delete_transient( 'pagelines_sections_cache' );
 	}
 
@@ -721,6 +722,8 @@
 				
 				$login = ( !$updates_configured ) ? true : false;
 				
+				$activate = ( ! ploption( $key ) == true ) ? true : false;
+				
 				$purchased = ( !$purchase && !$login) ? true : false;
 				$redirect = ( $login && EXTEND_NETWORK ) ? true : false;
 				
@@ -765,7 +768,17 @@
 						'file'		=> $key,
 						'text'		=> __( 'Login', 'pagelines' ),
 						'dtext'		=> ''
+					),
+					'activate'	=> array(
+						'mode'		=> 'activate',
+						'condition'	=> $activate,
+						'case'		=> 'integration_activate',
+						'type'		=> 'integrations',
+						'file'		=> $key,
+						'text'		=> __( 'Activate', 'pagelines' ),
+						'dtext'		=> __( 'Activating', 'pagelines' ),
 					)
+	
 				);
 
 				$list[$key] = array(
