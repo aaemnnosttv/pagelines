@@ -38,7 +38,7 @@
 }
 
 .pagelines_ui .ui-widget-overlay {
-	background: #444;
+	background: #666;
 	opacity: .50;
 	position: absolute;
 	top: 0;
@@ -72,7 +72,7 @@
 	text-align: center;
 	font-size: 1.9em;
 	line-height: 1.6em;
-	padding: 50px 20px;
+	padding: 56px 20px 50px;
 	color:#eee;
 }
 .pagelines_ui .ui-dialog.ui-widget-content a { color: #333333; }
@@ -108,7 +108,7 @@
 		.ajax-saved.success .ajax-saved-pad .ajax-saved-icon{
 			padding-top: 60px;
 			line-height: 50px;
-			background: transparent url('../images/icons/confirm-check.png') no-repeat top center;
+			background: transparent url('../images/confirm-check.png') no-repeat top center;
 		}
 	
 		

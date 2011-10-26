@@ -56,13 +56,14 @@ class PageLinesOptionsArray {
 				'exp' 			=> __( 'Optional way to replace "heading" and "description" text for your website ' . 
 						    		'with an image.', 'pagelines' )
 			),
-			'pagelines_favicon'	=> array(
-				'default' 	=> 	PL_ADMIN_IMAGES . "/favicon-pagelines.ico",
-				'type' 		=> 	'image_upload',
+			'pagelines_favicon'		=> array(
+				'default' 		=> 	PL_ADMIN_IMAGES . "/favicon-pagelines.ico",
+				'inputlabel'	=> 'Upload Favicon (16px by 16px)',
+				'type' 			=> 	'image_upload',
 				'imagepreview' 	=> 	'16',
-				'title' 	=> 	__( 'Favicon Image', 'pagelines' ),						
-				'shortexp' 	=> 	__( 'Input Full URL to favicon image ("favicon.ico" image file)', 'pagelines' ),
-				'exp' 		=> 	__( 'Enter the full URL location of your custom "favicon" which is visible in ' .
+				'title' 		=> 	__( 'Favicon Image', 'pagelines' ),						
+				'shortexp' 		=> 	__( 'Input Full URL to favicon image ("favicon.ico" image file)', 'pagelines' ),
+				'exp' 			=> 	__( 'Enter the full URL location of your custom "favicon" which is visible in ' .
 							'browser favorites and tabs.<br/> <strong>Must be .png or .ico file - 16px by 16px</strong>.', 'pagelines' )
 			),		
 			'twittername' => array(
@@ -77,6 +78,7 @@ class PageLinesOptionsArray {
 				'version' 		=> 'pro',
 				'default' 		=> PL_ADMIN_IMAGES . "/login-pl.png",
 				'type' 			=> 	'image_upload',
+				'inputlabel'	=> 'Upload Icon (80px Height)',
 				'imagepreview' 	=> 	'60',
 				'title' 		=> __( 'Login Page Image', 'pagelines' ),						
 				'shortexp' 		=> __( 'The image to use on your site\'s login page', 'pagelines' ),
@@ -85,6 +87,7 @@ class PageLinesOptionsArray {
 			'pagelines_touchicon'	=> array(
 				'version' 		=> 'pro',
 				'default' 		=> '',
+				'inputlabel'	=> 'Upload Icon (57px by 57px)',
 				'type' 			=> 	'image_upload',
 				'imagepreview' 	=> 	'60',
 				'title' 		=> __( 'Apple Touch Image', 'pagelines' ),						
