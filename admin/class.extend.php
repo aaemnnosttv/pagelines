@@ -288,7 +288,6 @@
 						'tags'		=> ( isset( $s['tags'] ) ) ? $s['tags'] : '',
 						'image'		=> ( isset( $s['image'] ) ) ? $s['image'] : '',
 						'auth'		=> $s['author'],
-						'importance'=> $s['importance'],
 						'key'		=> $key,
 						'status'	=> $s['status'], 
 						'actions'	=> $actions,
@@ -387,7 +386,7 @@
 				
 			$login = ( !$updates_configured && !$purchased) ? true : false;
 			
-			$purchase = ( !EXTEND_NETWORK && !$purchased && !$login ) ? true : false;
+			$purchase = ( !EXTEND_NETWORK && !$purchased && !$login && $tab != 'installed' && !$installed ) ? true : false;
 
 			$install = ($p['status']['status'] == '' && !$login && !$purchase) ? true : false;
 
@@ -400,8 +399,6 @@
 			$delete = ( $deactivated && ! EXTEND_NETWORK ) ? true : false;
 			
 			$redirect = ( EXTEND_NETWORK && $install ) ? true : false;
-			
-			$installed =  ( ( $tab === 'premium' || $tab === 'free' ) && $p['status']['status'] ) ? true : false;
 			
 			$login = ( !$purchased && !$updates_configured ) ? true : false;
 				
