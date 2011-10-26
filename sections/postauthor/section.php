@@ -4,8 +4,7 @@
 	Author: PageLines
 	Author URI: http://www.pagelines.com
 	Description: Adds post author to page/single post.
-	Class Name: PageLinesPostAuthor
-	Tags: internal
+	Class Name: PageLinesPostAuthor	
 	Workswith: main
 	Failswith: pagelines_special_pages()
 */

@@ -4,8 +4,7 @@
 	Author: PageLines
 	Author URI: http://www.pagelines.com
 	Description: The secondary widgetized sidebar for the theme.
-	Class Name: SecondarySidebar
-	Tags: internal
+	Class Name: SecondarySidebar	
 	Workswith: sidebar1, sidebar2, sidebar_wrap
 */
 

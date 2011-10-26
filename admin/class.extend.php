@@ -224,7 +224,7 @@
 				if ( $tab === 'user' && ( $s['type'] === 'custom' || $s['type'] === 'parent' ) )
 					continue;
 
-				if ( $tab === 'internal' && ( $s['type'] === 'custom' || $s['type'] === 'child' || $s['tags'] == 'internal' ) )
+				if ( $tab === 'internal' && ( $s['type'] === 'custom' || $s['type'] === 'child' ) )
 					continue;						
 
 				if ( $tab === 'child' && ( $s['type'] === 'child' || $s['type'] === 'parent' ) )

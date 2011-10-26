@@ -4,8 +4,7 @@
 	Author: PageLines
 	Author URI: http://www.pagelines.com
 	Description: The main widgetized sidebar.
-	Class Name: PrimarySidebar
-	Tags: internal
+	Class Name: PrimarySidebar	
 	Workswith: sidebar1, sidebar2, sidebar_wrap
 */
 

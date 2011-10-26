@@ -4,8 +4,7 @@
 	Author: PageLines
 	Author URI: http://www.pagelines.com
 	Description: Three widgetized sidebars above footer
-	Class Name: PageLinesMorefoot
-	Tags: internal
+	Class Name: PageLinesMorefoot	
 	Workswith: morefoot, footer
 	Edition: pro
 */

@@ -5,7 +5,6 @@
 	Author URI: http://www.pagelines.com
 	Description: Main site content area. Holds sidebars, page content, etc.. 
 	Class Name: PageLinesContent
-	Tags: internal
 	Workswith: templates
 	Cloning: false
 	Failswith: 404

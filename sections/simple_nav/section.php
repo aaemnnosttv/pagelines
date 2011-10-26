@@ -4,7 +4,6 @@
 	Author: PageLines
 	Author URI: http://www.pagelines.com
 	Description: Creates footer navigation.
-	Version: 1.0.0
 	Class Name: SimpleNav
 	Workswith: footer
 */

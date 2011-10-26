@@ -4,8 +4,7 @@
 	Author: PageLines
 	Author URI: http://www.pagelines.com
 	Description: Displays a widgetized sidebar inside the main content area. Set it up in the widgets panel.
-	Class Name: ContentSidebar
-	Tags: internal
+	Class Name: ContentSidebar	
 	Workswith: main-default, main-posts, main-single, main-404
 */
 

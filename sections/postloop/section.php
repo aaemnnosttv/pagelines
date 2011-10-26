@@ -4,8 +4,7 @@
 	Author: PageLines
 	Author URI: http://www.pagelines.com
 	Description: The Main Posts Loop. Includes content and post information.
-	Class Name: PageLinesPostLoop
-	Tags: internal
+	Class Name: PageLinesPostLoop	
 	Workswith: main
 */
 
