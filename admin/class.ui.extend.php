@@ -31,7 +31,6 @@ class PageLinesExtendUI {
 				'auth'		=> '',
 				'image'		=> '',
 				'buttons'	=> '',
-				'importance'=> '',
 				'key'		=> '',
 				'type'		=> '',
 				'count'		=> '',
