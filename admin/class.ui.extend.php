@@ -497,7 +497,7 @@ function extension_array(  ){
 		),
 		
 		'Integrations' => array(
-			'icon'		=> PL_ADMIN_ICONS.'/extend-themes.png',
+			'icon'		=> PL_ADMIN_ICONS.'/puzzle.png',
 			'htabs' 	=> array(
 				
 				'purchase'	=> array(

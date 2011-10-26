@@ -1187,7 +1187,7 @@ class OptEngine {
 		else
 			$button = sprintf('<%s id="%s" class="%s superlink" href="%s" %s ><span class="superlink-pad">%s</span></%s>', $att, $class, $class, $type, $extra, $text, $att);
 		
-		if($mode == 'purchase' || $mode == 'activate' || $mode == 'install')
+		if($mode == 'purchase' || $mode == 'activate' || $mode == 'install' || $mode == 'redirect')
 			$color = 'blue';
 		else 
 			$color = $mode;

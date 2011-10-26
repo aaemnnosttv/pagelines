@@ -748,15 +748,15 @@
 						'dtext'		=> __( 'Redirecting', 'pagelines' ),
 					),
 
-				'download'	=> array(
-					'mode'		=> 'redirect',
-					'condition'	=> $download,
-					'case'		=> 'integration_download',
-					'type'		=> __( 'integrations', 'pagelines' ),
-					'file'		=> $key,
-					'text'		=> __( 'Download', 'pagelines' ),
-					'dtext'		=> __( 'Downloading', 'pagelines' )
-				),
+					'download'	=> array(
+						'mode'		=> 'redirect',
+						'condition'	=> $download,
+						'case'		=> 'integration_download',
+						'type'		=> __( 'integrations', 'pagelines' ),
+						'file'		=> $key,
+						'text'		=> __( 'Download <strong>&darr;</strong>', 'pagelines' ),
+						'dtext'		=> __( 'Downloading', 'pagelines' )
+					),
 					'redirect'	=> array(
 						'mode'		=> 'redirect',
 						'condition'	=> $redirect,

@@ -200,8 +200,8 @@ class PageLinesMetaPanel {
 						
 						$snewkey = join( '_', array($skey, $o['clone_id']) );
 						
-						
-						$sopt['inputlabel'] = sprintf('%s (#%s)', $sopt['inputlabel'], $o['clone_id']);
+						if(isset($sopt['inputlabel']))
+							$sopt['inputlabel'] = sprintf('%s (#%s)', $sopt['inputlabel'], $o['clone_id']);
 
 						$option_array[$newkey]['selectvalues'][$snewkey] = $sopt;
 						
