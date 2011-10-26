@@ -159,7 +159,7 @@ class PageLinesRegister {
 				
 			if (pathinfo($fileSPLObject->getFilename(), PATHINFO_EXTENSION ) == 'php') {
 				
-				$headers = get_file_data( $fullFileName, $default_headers = array( 'tags' => 'Tags', 'version' => 'Version', 'author' => 'Author', 'authoruri' => 'Author URI', 'section' => 'Section', 'description' => 'Description', 'classname' => 'Class Name', 'depends' => 'Depends', 'workswith' => 'workswith', 'edition' => 'edition', 'cloning' => 'cloning', 'failswith' => 'failswith', 'tax' => 'tax' ) );
+				$headers = get_file_data( $fullFileName, $default_headers = array( 'tags' => 'Tags', 'internal' => 'Internal', 'version' => 'Version', 'author' => 'Author', 'authoruri' => 'Author URI', 'section' => 'Section', 'description' => 'Description', 'classname' => 'Class Name', 'depends' => 'Depends', 'workswith' => 'workswith', 'edition' => 'edition', 'cloning' => 'cloning', 'failswith' => 'failswith', 'tax' => 'tax' ) );
 
 				// If no pagelines class headers ignore this file.
 				if ( !$headers['classname'] )
@@ -167,7 +167,7 @@ class PageLinesRegister {
 				
 				preg_match( '/[\/|\-]sections[\/|\\\]([^\/|\\\]+)/', $fullFileName, $out );
 				
-				$int = ( $type == 'parent' ) ? 'internal' : '';
+ 
 				
 				$folder = sprintf( '/%s', $out[1] );
 
@@ -185,7 +185,7 @@ class PageLinesRegister {
 					'depends'		=> $headers['depends'],
 					'type'			=> $type,
 					'tags'			=> $headers['tags'],
-					'importance'	=> $int,
+					'importance'	=> $headers['internal'],
 					'author'		=> $headers['author'],
 					'version'		=> $headers['version'],
 					'authoruri'		=> ( isset( $headers['authoruri'] ) ) ? $headers['authoruri'] : '',
