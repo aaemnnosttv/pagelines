@@ -4,7 +4,9 @@
 	Author: PageLines
 	Author URI: http://www.pagelines.com/
 	Description: Creates site navigation, with optional superfish dropdowns.
-	Class Name: PageLinesNav	
+	Class Name: PageLinesNav
+	Workswith: header
+	Cloning: false
 */
 
 class PageLinesNav extends PageLinesSection {
@@ -12,31 +14,13 @@ class PageLinesNav extends PageLinesSection {
 	static $nav_url;
 	static $nav_dir;
 
-   function __construct( $registered_settings = array() ) {
-	
-		$default_settings = array(
-			'type' 			=> 'header',
-			'workswith' 	=> array('header'),
-			'description' 	=> 'Primary Site Navigation.',
-			'cloning'		=> false
-		);
-		
-		$settings = wp_parse_args( $registered_settings, $default_settings );
-		
-		self::$nav_dir = PL_SECTIONS.'/nav';
-		self::$nav_url = SECTION_ROOT.'/nav';
-
-		parent::__construct($settings);    
-   }
-
 	// PHP that always loads no matter if section is added or not -- e.g. creates menus, locations, admin stuff...
 	function section_persistent(){
-		
+		self::$nav_dir = PL_SECTIONS.'/nav';
+		self::$nav_url = SECTION_ROOT.'/nav';
 		register_nav_menus( array( 'primary' => __( 'Primary Website Navigation', 'pagelines' ) ) );
 
 	}
-	
-
 	
    function section_template() {  
 	
