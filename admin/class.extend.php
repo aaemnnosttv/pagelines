@@ -687,14 +687,113 @@
 		else
 			return $this->ui->extension_list( $list, 'graphic' );
 	}
-	
+
+	/**
+	 * Integrations tab.
+	 * 
+	 */
+	function extension_integrations( $tab = '' ) {
+
+		$integrations = $this->get_latest_cached( 'integrations' );
+
+		if ( !is_object($integrations) ) 
+			return $integrations;
+		$integrations = json_decode(json_encode($integrations), true); // convert objects to arrays	
+		$output = '';
+		$status = false;
+		$list = array();
+
+		foreach( $integrations as $key => $integration ) {
+						
+				// reset the vars first numbnuts!	
+
+				$purchase = null;
+				$delete = null;
+				$login = null;
+				$product = null;
+				$purchased = null;
+				$redirect = null;
+				$download = null;
+
+				$updates_configured = ( pagelines_check_credentials() ) ? true : false;	
+				$purchase = ( !isset( $integration['purchased'] ) ) ? true : false;
+				$product = ( isset( $integration['productid'] ) ) ? $integration['productid'] : 0;
+				
+				$login = ( !$updates_configured ) ? true : false;
+				
+				$purchased = ( !$purchase && !$login) ? true : false;
+				$redirect = ( $login && EXTEND_NETWORK ) ? true : false;
+				
+				$download = ( $purchased && !$login ) ? true : false;
+				
+				$actions = array(
+
+					'purchase'	=> array(
+						'mode'		=> 'purchase',
+						'condition'	=> $purchase,
+						'case'		=> 'theme_purchase',
+						'type'		=> 'themes',
+						'file'		=> ( isset( $integration['productid'] ) ) ? $integration['productid'] . ',' . $integration['uid'] . '|' . $integration['price'] . '|' . $integration['name'] : '',
+						'text'		=> ( isset( $integration['price'] ) ) ? sprintf('%s <span class="prc">($%s)</span>', __( 'Purchase', 'pagelines' ), $integration['price']) : '',
+						'dtext'		=> __( 'Redirecting', 'pagelines' ),
+					),
+
+					'login'	=> array(
+						'mode'		=> 'login',
+						'condition'	=> ( !EXTEND_NETWORK ) ? $login : false,
+						'case'		=> 'theme_login',
+						'type'		=> 'themes',
+						'file'		=> $key,
+						'text'		=> __( 'Login', 'pagelines' ),
+						'dtext'		=> __( 'Redirecting', 'pagelines' ),
+					),
+
+				'download'	=> array(
+					'mode'		=> 'redirect',
+					'condition'	=> $download,
+					'case'		=> 'integration_download',
+					'type'		=> __( 'integrations', 'pagelines' ),
+					'file'		=> $key,
+					'text'		=> __( 'Download', 'pagelines' ),
+					'dtext'		=> __( 'Downloading', 'pagelines' )
+				),
+					'redirect'	=> array(
+						'mode'		=> 'redirect',
+						'condition'	=> $redirect,
+						'case'		=> 'network_redirect',
+						'type'		=> __( 'themes', 'pagelines' ),
+						'file'		=> $key,
+						'text'		=> __( 'Login', 'pagelines' ),
+						'dtext'		=> ''
+					)
+				);
+
+				$list[$key] = array(
+						'theme'		=> $integration,
+						'name' 		=> $integration['name'], 
+						'active'	=> $is_active,
+						'version'	=> ( !empty( $status ) && isset( $data['Version'] ) ) ? $data['Version'] : $integration['version'], 
+						'desc'		=> $integration['text'],
+						'tags'		=> ( isset( $integration['tags'] ) ) ? $integration['tags'] : '',
+						'auth_url'	=> $integration['author_url'], 
+						'image'		=> ( isset( $integration['image'] ) ) ? $integration['image'] : '',
+						'auth'		=> $integration['author'], 
+						'key'		=> $key,
+						'type'		=> 'themes',
+						'count'		=> $integration['count'],
+						'screen'	=> ( isset( $integration['screen'] ) ) ? $integration['screen'] : false,
+						'actions'	=> $actions
+				);		
+		}
+			return $this->ui->extension_list( $list, 'graphic' );
+	}
+
 	function sandbox( $file, $type ) {
 
 		register_shutdown_function( array(&$this, 'error_handler'), $type );
 		@include_once( $file );
 	}
-	
-	
+
 	/**
 	 * 
 	 * Extension AJAX callbacks
@@ -723,6 +822,12 @@
 			
 			break;
 			
+			case 'integration_download':
+				$url = $this->make_url( $type, $file );
+				echo __( 'Downloaded', 'pagelines' );
+				$this->int_download( $url );
+			
+			break;
 			case 'plugin_install': // TODO check status first!
 
 				if ( !$checked )
@@ -1100,6 +1205,15 @@
 
 		printf('<script type="text/javascript">setTimeout(function(){ window.location.href = \'%s\';}, %s);</script>', $location, $time );
  	}
+
+ 	function int_download( $location, $time = 300 ) {
+	
+		$r = rand( 1,100 );
+		$admin = admin_url( sprintf( 'admin.php?r=%1$s&page=%2$s', $r, 'pagelines_extend#integrations' ) );
+		printf('<script type="text/javascript">setTimeout(function(){ window.location.href = \'%s\';}, %s);</script>', $location, $time );	
+		printf('<script type="text/javascript">setTimeout(function(){ window.location.href = \'%s\';}, %s);</script>', $admin, 700 );
+ 	}
+
 
 	/**
 	 * Get a PayPal link.

@@ -467,11 +467,7 @@ function extension_array(  ){
 						'title'		=> __( 'Premium PageLines Themes', 'pagelines' ),
 						'class'		=> 'right',
 						'callback'	=> $extension_control->extension_themes( 'premium' )
-						),
-//					'upload'		=> array(
-//						'title'		=> __( 'Upload A PageLines Theme', 'pagelines' ),
-//						'callback'	=> $extension_control->ui->upload_form( 'theme' )
-//						),
+						)
 					)
 				)
 		),
@@ -494,19 +490,24 @@ function extension_array(  ){
 					'top_free'		=> array(
 						'title'		=> __( 'Free Plugins', 'pagelines' ),
 						'callback'	=> $extension_control->extension_plugins( 'free' )
-					),
-					// 'search'		=> array(
-					// 	'title'		=> __( 'Search Plugins', 'pagelines' ),
-					// 	'callback'	=> $extension_control->ui->search_extend( 'plugin' )
-					// ),
-//					'upload'		=> array(
-//						'title'		=> __( 'Upload Plugin', 'pagelines' ),
-//						'callback'	=> $extension_control->ui->upload_form( 'plugin' )
-//					),
+					)
 				)
 			)
 
 		),
+		
+		'Integrations' => array(
+			'icon'		=> PL_ADMIN_ICONS.'/extend-themes.png',
+			'htabs' 	=> array(
+				
+				'purchase'	=> array(
+					'title'		=> __( 'PageLines Integrations', 'pagelines' ),
+					'callback'	=> $extension_control->extension_integrations( )
+					)
+				)
+				
+		),
+		
 		'Import-Export' => array(
 			'icon'		=> PL_ADMIN_ICONS.'/extend-inout.png',
 			'import_set'	=> array(
