@@ -60,7 +60,7 @@ class PageLinesExtendUI {
 		if($mode == 'graphic'){
 			
 			foreach( $list as $eid => $e ){
-				if($e['active'])
+				if(isset($e['active']) && $e['active'])
 					$active .= $this->graphic_pane( $e, 'active');
 				else
 					$ext .= $this->graphic_pane( $e );

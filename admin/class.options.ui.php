@@ -30,7 +30,7 @@ class PageLinesOptionsUI {
 				'title_size'	=> 'normal',
 				'fullform'		=> true, 
 				'tabs'			=> true, 
-				'reset_store'	=> false
+				'reset_store'	=> false, 
 			);
 		
 		$this->set = wp_parse_args( $args, $defaults );

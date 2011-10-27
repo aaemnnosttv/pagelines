@@ -28,6 +28,7 @@
 		add_action( 'admin_init', array(&$this, 'launchpad_returns' ) );
 		add_action( 'admin_init', array(&$this, 'check_creds' ) );
 		add_filter( 'http_request_args', array( &$this, 'pagelines_plugins_remove' ), 10, 2 );
+		
  	}
 
 	/*
@@ -46,23 +47,253 @@
 		delete_transient( 'pagelines_sections_cache' );
 	}
 
+
+	private function login_button( $purchased = false ){
+		return ( !EXTEND_NETWORK && !$this->updates_configured() && !$purchased) ? true : false;
+	}
+	
+	private function purchase_button( $purchased = false, $store = true ){
+		return ( $store && !EXTEND_NETWORK && !$purchased && !$this->login_button($purchased) ) ? true : false;
+	}
+	
+	private function install_button( $installed = false, $purchased = false, $version = 0 ){
+		return ( $this->version_check( $version ) && !EXTEND_NETWORK && $purchased && ! $installed) ? true : false;
+	}
+	
+	private function is_installed( $path = false ){
+		return ( file_exists( $path ) ) ? true : false;
+	}
+	
+	private function version_check( $version ){
+		return ( version_compare( CORE_VERSION, $version ) >= 0 ) ? true : false;
+	}
+	
+	private function version_fail( $version ){
+		return ( ! $this->version_check( $version ) ) ? true : false;
+	}
+	
+	private function updates_configured( ){
+		return ( pagelines_check_credentials() ) ? true : false;
+	}
+	
+	private function do_redirect( ){
+		return ( EXTEND_NETWORK ) ? true : false;
+	}
+	
+	private function paypal_link( $product_id, $uid, $price, $name ){
+		
+		return ( isset( $product_id ) ) ? sprintf('%s,%s|%s|%s', $product_id, $uid, $price, $name) : '';
+		
+	}
+	
+	private function purchase_text( $price ){
+		return sprintf('%s <span class="prc">($%s)</span>', __( 'Purchase', 'pagelines' ), $price); 
+	}
+	
+	private function show_in_tab( $type, $tab, $args ){
+		
+		$d = array(
+			'price'		=> '', 
+			'type'		=> '', 
+			'override'	=> false, 
+			'status'	=> false,
+			'featured'	=> false,
+			'exists'	=> false
+		);
+		
+		$a = wp_parse_args($args, $d);
+		
+		if($type == 'sections_manage'){
+			
+			if ( $tab === 'user' && ( $a['type'] === 'custom' || $a['type'] === 'parent' ) )
+				return false;
+			elseif ( $tab === 'internal' && ( $a['type'] === 'custom' || $a['type'] === 'child' ) )
+				return false;						
+			elseif ( $tab === 'child' && ( $a['type'] === 'child' || $a['type'] === 'parent' ) )
+				return false;
+			elseif ( $a['type'] == 'parent' && $a['override'] )
+				return false;
+			else
+				return true;
+			
+		} elseif($type == 'sections_install') {
+			
+			if( $a['price'] != 'free' && $tab === 'free' )
+				return false;
+
+			elseif( $tab == 'premium' && $a['price'] == 'free' )
+				return false;
+
+			else 
+				return true;
+			
+		} elseif($type == 'plugins'){
+			
+			if ( $tab === 'installed' && !$a['status'] )
+				return false;
+				
+			elseif ( $tab === 'installed' && $a['override'])
+				return false;
+
+			elseif ( $tab === 'premium' && $a['price'] === 'free' )
+				return false;
+
+			elseif ( $tab === 'free' && $a['price'] != 'free' )
+				return false;
+			
+			else 
+				return true;
+				
+		} elseif($type == 'themes'){
+			
+			if ( $tab === 'featured' && $a['featured'] == 'false' ) 
+				return false;
+
+			elseif ( $tab == 'premium' && $a['featured'] == 'true' )
+				return false;
+			
+			elseif ( ( $tab == 'premium' || $tab == 'featured' ) && $a['exists'] ) 
+				return false;
+				
+			elseif ( $tab == 'installed' && !$a['exists'] )
+				return false;
+				
+			else
+				return true;
+			
+		}
+		
+		
+	}
+
+	private function master_array( $args ){
+		
+		$d = array(
+			'store'			=> false,
+			'purchased'		=> false, 
+			'installed'		=> false, 
+			'version'		=> 0, 
+			'product_id'	=> 0, 
+			'unit_id'		=> 1, 
+			'price'			=> '1.00',
+			'name'			=> '',
+			'type'			=> 'sections',
+			'key'			=> '', 
+			'path'			=> '', 
+			'class'			=> '', 
+			'file'			=> '', 
+			'enabled'		=> false, 
+			'upgrade'		=> false, 
+			'delete'		=> false
+		);
+		
+		$a = wp_parse_args($args, $d);
+		
+		$actions = array(
+			'install'	=> array(
+				'mode'		=> 'install',
+				'condition'	=> $this->install_button($a['installed'], $a['purchased'], $a['version'] ),
+				'case'		=> 'section_install',
+				'type'		=> $a['type'],
+				'file'		=> $a['key'],
+				'path'		=> $a['path'],
+				'text'		=> __( 'Install', 'pagelines' ),
+				'dtext'		=> __( 'Installing', 'pagelines' )
+				),
+			'redirect'	=> array(
+				'mode'		=> 'redirect',
+				'condition'	=> $this->do_redirect(),
+				'case'		=> 'redirect',
+				'type'		=> $a['type'],
+				'file'		=> $a['key'],
+				'path'		=> $a['path'],
+				'text'		=> __( 'Install &darr;', 'pagelines' ),
+			),
+			'login'	=> array(
+				'mode'		=> 'login',
+				'condition'	=> $this->login_button( $a['purchased'] ),
+				'case'		=> 'login',
+				'type'		=> $a['type'],
+				'file'		=> $a['key'],
+				'text'		=> __( 'Login &rarr;', 'pagelines' ),
+				'dtext'		=> __( 'Redirecting', 'pagelines' ),
+			),
+			'purchase'	=> array(
+				'mode'		=> 'purchase',
+				'condition'	=> $this->purchase_button( $a['purchased'], $a['store'] ),
+				'case'		=> 'purchase',
+				'type'		=> $a['type'],
+				'file'		=> $this->paypal_link( $a['product_id'], $a['unit_id'], $a['price'], $a['name'] ), 
+				'text'		=> $this->purchase_text( $a['price'] ),
+				'dtext'		=> __( 'Redirecting', 'pagelines' ),
+			),
+			'activate'	=> array(
+				'mode'		=> 'activate',
+				'condition'	=> (!$a['enabled'] &&  !$a['store'] ) ? true : false,
+				'case'		=> 'section_activate',
+				'type'		=> $a['type'],
+				'path'		=> $a['path'],
+				'file'		=> $a['class'],
+				'text'		=> __( 'Activate', 'pagelines' ),
+				'dtext'		=> __( 'Activating', 'pagelines' ),
+			) ,
+			'deactivate'=> array(
+				'mode'		=> 'deactivate',
+				'condition'	=> $a['enabled'],
+				'case'		=> 'section_deactivate',
+				'type'		=> $a['type'],
+				'file'		=> $a['class'],
+				'text'		=> __( 'Deactivate', 'pagelines' ),
+				'dtext'		=> __( 'Deactivating', 'pagelines' ),
+			),
+			'upgrade'	=> array(
+				'mode'		=> 'upgrade',
+				'condition'	=> $a['upgrade'],
+				'case'		=> 'section_upgrade',
+				'type'		=> 'sections',
+				'file'		=> $a['file'],
+				'text'		=> sprintf(__( 'Upgrade to %s', 'pagelines' ), $a['upgrade'] ),
+				'dtext'		=> sprintf( __( 'Upgrading to version %1$s', 'pagelines' ), $a['upgrade'] ),
+			),
+			'delete'	=> array(
+				'mode'		=> 'delete',
+				'condition'	=> $a['delete'],
+				'case'		=> 'section_delete',
+				'type'		=> 'sections',
+				'file'		=> $a['file'],
+				'text'		=> __( 'Delete', 'pagelines' ),
+				'dtext'		=> __( 'Deleting', 'pagelines' ),
+				'confirm'	=> true
+			),
+			'installed'	=>	array(
+				'mode'		=> 'installed',
+				'condition'	=> $a['installed'],
+				'text'		=> __( 'Installed', 'pagelines' ),
+				),
+			'version_fail'	=>	array(
+				'mode'		=> 'installed',
+				'condition'	=> $this->version_fail( $a['version'] ),
+				'text'		=> sprintf( __( '%s is required', 'pagelines' ), $a['version'] ),
+				)		
+		);
+		
+		return $actions;
+		
+	}
+
 	/**
 	 * Section install tab.
 	 * 
 	 */
  	function extension_sections_install( $tab = '' ) {
- 		
- 		/*
- 			TODO make error checking better...
-			TODO Use plugin?
- 		*/
+ 
 		
  		if ( !$this->has_extend_plugin() )
 			return $this->ui->get_extend_plugin( $this->has_extend_plugin('status'), $tab );
 
 		$sections = $this->get_latest_cached( 'sections' );
 
-		if ( ! is_object($sections) ) 
+		if ( !is_object( $sections ) ) 
 			return $sections;
 
 
@@ -70,112 +301,50 @@
 		
 		foreach( $sections as $key => $s ) {
 
-			$updates_configured = null;
-			$purchased = null;
-			$install = null;
-			$login = null;
-			$purchase = null;
-
-			$check_file = sprintf('%1$s/%2$s/section.php', PL_EXTEND_DIR, $key ); 
+			$key = str_replace( '.', '', $key );
 
 			if ( !isset( $s->type) )
 				$s->type = 'free';
 			
-			if ( $s->price != 'free' && $tab === 'free' )
-				continue;
-
-			if ( $tab == 'premium' && $s->price ==- 'free' )
+			if( !$this->show_in_tab('sections_install', $tab, array('price' => $s->price ) ) )
 				continue;
 			
-			$version_check = ( version_compare( CORE_VERSION, $s->plversion ) >= 0 ) ? true : false;
-			
-			$installed =  ( file_exists( $check_file ) ) ? true : false;
-
-			$key = str_replace( '.', '', $key );
-			
-			$updates_configured = ( pagelines_check_credentials() ) ? true : false;
-
 			$purchased = ( isset( $s->purchased ) ) ? true : false;
 
-			$install = ( $version_check && !EXTEND_NETWORK && $purchased && ! $installed) ? true : false;
-			
-			$login = ( !$updates_configured && !$purchased ) ? true : false;
-			
-			$purchase = ( !EXTEND_NETWORK && !$purchased && !$login ) ? true : false;
+			$installed = $this->is_installed( sprintf('%1$s/%2$s/section.php', PL_EXTEND_DIR, $key ) );
 	
-			$actions = array(
-				'install'	=> array(
-					'mode'		=> 'install',
-					'condition'	=> $install,
-					'case'		=> 'section_install',
-					'type'		=> $s->type,
-					'file'		=> $key,
-					'path'		=> $s->class,
-					'text'		=> __( 'Install', 'pagelines' ),
-					'dtext'		=> __( 'Installing', 'pagelines' )
-					),
-					'redirect'	=> array(
-						'mode'		=> 'redirect',
-						'condition'	=> ( EXTEND_NETWORK ) ? true : false,
-						'case'		=> 'network_redirect',
-						'type'		=> __( 'sections', 'pagelines' ),
-						'file'		=> $key,
-						'path'		=> $s->class,
-						'text'		=> __( 'Install &darr;', 'pagelines' ),
-						'dtext'		=> ''
-					),
-					'login'	=> array(
-						'mode'		=> 'login',
-						'condition'	=> ( !EXTEND_NETWORK ) ? $login : false,
-						'case'		=> 'theme_login',
-						'type'		=> 'sections',
-						'file'		=> $key,
-						'text'		=> __( 'Login &rarr;', 'pagelines' ),
-						'dtext'		=> __( 'Redirecting', 'pagelines' ),
-					),
-					'purchase'	=> array(
-						'mode'		=> 'purchase',
-						'condition'	=> $purchase,
-						'case'		=> 'theme_purchase',
-						'type'		=> 'themes',
-						'file'		=> ( isset( $s->productid ) ) ? $s->productid . ',' . $s->uid . '|' . $s->price . '|' . $s->name: '',
-						'text'		=> sprintf('%s <span class="prc">($%s)</span>', __( 'Purchase', 'pagelines' ), $s->price),
-						'dtext'		=> __( 'Redirecting', 'pagelines' ),
-					),
-					'installed'	=>	array(
-						'mode'		=> 'installed',
-						'condition'	=> $installed,
-						'case'		=> '',
-						'type'		=> '',
-						'file'		=> '',
-						'path'		=> '',
-						'text'		=> __( 'Installed', 'pagelines' ),
-						'dtext'		=> ''
-						),
-						'version_fail'	=>	array(
-							'mode'		=> 'installed',
-							'condition'	=> ( ! $version_check ) ? true : false,
-							'case'		=> '',
-							'type'		=> '',
-							'file'		=> '',
-							'path'		=> '',
-							'text'		=> sprintf( __( '%s is required', 'pagelines' ), $s->plversion ),
-							'dtext'		=> ''
-							)		
-			);	
+	
+			$args = array(
+				'extend'		=> 'sections',
+				'type'			=> 'sections',
+				'purchased'		=> $purchased, 
+				'installed'		=> $installed, 
+				'version'		=> $s->plversion, 
+				'product_id'	=> $s->productid,
+				'unit_id'		=> $s->uid, 
+				'price'			=> $s->price,
+				'name'			=> $s->name,
+				'key'			=> $key, 
+				'path'			=> $s->class, 
+				'store'			=> true
+			);
+			
+			$actions = $this->master_array( $args );
+			
+			
 			$list[$key] = array(
-					'name' 		=> $s->name, 
-					'version'	=> $s->version, 
-					'desc'		=> $s->text, 
-					'auth_url'	=> $s->author_url, 
-					'auth'		=> $s->author,
-					'image'		=> ( isset( $s->image ) ) ? $s->image : '',
-					'type'		=> 'sections',
-					'key'		=> $key, 
-					'ext_txt'	=> __( 'Installing', 'pagelines' ), 
-					'actions'	=> $actions,
-					'screen'	=> isset( $s->screen ) ? $s->screen : false,
-					'slug'		=> isset( $s->slug ) ? $s->slug : $key
+				'name' 		=> $s->name, 
+				'version'	=> $s->version, 
+				'desc'		=> $s->text, 
+				'auth_url'	=> $s->author_url, 
+				'auth'		=> $s->author,
+				'image'		=> ( isset( $s->image ) ) ? $s->image : '',
+				'type'		=> 'sections',
+				'key'		=> $key, 
+				'ext_txt'	=> __( 'Installing', 'pagelines' ), 
+				'actions'	=> $actions,
+				'screen'	=> isset( $s->screen ) ? $s->screen : false,
+				'slug'		=> isset( $s->slug ) ? $s->slug : $key
 			);
 			
 		}
@@ -221,80 +390,53 @@
  			$type = pagelines_array_sort( $type, 'name' );
 
  			foreach( $type as $key => $s ) { // main loop
-	
-				if ( $tab === 'user' && ( $s['type'] === 'custom' || $s['type'] === 'parent' ) )
-					continue;
-
-				if ( $tab === 'internal' && ( $s['type'] === 'custom' || $s['type'] === 'child' ) )
-					continue;						
-
-				if ( $tab === 'child' && ( $s['type'] === 'child' || $s['type'] === 'parent' ) )
-					continue;
-									
-  				if ( $s['type'] == 'parent' && ( isset( $available['child'][ $s['class'] ] ) || isset( $available['custom'][ $s['class'] ] ) ) )
+		
+				$show = array(
+					'type'		=> $s['type'], 
+					'override' 	=> ( isset( $available['child'][ $s['class'] ] ) || isset( $available['custom'][ $s['class'] ] ) ) ? true : false
+				);
+				
+				if( !$this->show_in_tab( 'sections_manage', $tab, $show ) )
 					continue;
 				
 				$enabled = ( $s['status'] == 'enabled' ) ? true : false;
 
 				$file = basename( $s['base_dir'] );
+				
 				$upgrade_available = $this->upgrade_available( $upgradable, $file, $s);
+				
 				$delete = ( !EXTEND_NETWORK && !$enabled && ( $tab !== 'child' && $tab !== 'internal' ) ) ? true : false;
-				$actions = array(
-					'activate'	=> array(
-						'mode'		=> 'activate',
-						'condition'	=> (!$enabled) ? true : false,
-						'case'		=> 'section_activate',
-						'type'		=> $s['type'],
-						'path'		=> $s['base_file'],
-						'file'		=> $s['class'],
-						'text'		=> __( 'Activate', 'pagelines' ),
-						'dtext'		=> __( 'Activating', 'pagelines' ),
-					) ,
-					'deactivate'=> array(
-						'mode'		=> 'deactivate',
-						'condition'	=> $enabled,
-						'case'		=> 'section_deactivate',
-						'type'		=> $s['type'],
-						'file'		=> $s['class'],
-						'text'		=> __( 'Deactivate', 'pagelines' ),
-						'dtext'		=> __( 'Deactivating', 'pagelines' ),
-					),
-					'upgrade'	=> array(
-						'mode'		=> 'upgrade',
-						'condition'	=> $upgrade_available,
-						'case'		=> 'section_upgrade',
-						'type'		=> 'sections',
-						'file'		=> $file,
-						'text'		=> sprintf(__( 'Upgrade to %s', 'pagelines' ), $upgrade_available ),
-						'dtext'		=> sprintf( __( 'Upgrading to version %1$s', 'pagelines' ), $upgrade_available ),
-					),
-					'delete'	=> array(
-						'mode'		=> 'delete',
-						'condition'	=> $delete,
-						'case'		=> 'section_delete',
-						'type'		=> 'sections',
-						'file'		=> $file,
-						'text'		=> __( 'Delete', 'pagelines' ),
-						'dtext'		=> __( 'Deleting', 'pagelines' ),
-						'confirm'	=> true
-					)					
-				);			
+				
+				
+				$args = array(
+					'extend'		=> 'sections',
+					'type'			=> 'sections',
+					'path'			=> $s['base_file'],
+					'file'			=> $s['class'],
+					'delete'		=> $delete,
+					'enabled'		=> $enabled, 
+					'upgrade'		=> $upgrade_available, 
+					'store'			=> false
+				);
+
+				$actions = $this->master_array( $args );		
+				
 				$list[] = array(
-						'name' 		=> $s['name'], 
-						'version'	=> !empty( $s['version'] ) ? $s['version'] : CORE_VERSION, 
-						'desc'		=> $s['description'],
-						'auth_url'	=> $s['authoruri'],
-						'type'		=> 'sections',
-						'object'	=> $s['class'],
-						'tags'		=> ( isset( $s['tags'] ) ) ? $s['tags'] : '',
-						'image'		=> ( isset( $s['image'] ) ) ? $s['image'] : '',
-						'auth'		=> $s['author'],
-						'key'		=> $key,
-						'status'	=> $s['status'], 
-						'actions'	=> $actions,
-						'screen'	=> isset( $s['screen'] ) ? $s['screen'] : '',
-						'screenshot'=> isset( $s['screenshot'] ) ? $s['screenshot'] : '',
-						'slug'		=> isset( $s['slug'] ) ? $s['slug'] : $key,
+					'name' 		=> $s['name'], 
+					'version'	=> !empty( $s['version'] ) ? $s['version'] : CORE_VERSION, 
+					'desc'		=> $s['description'],
+					'auth_url'	=> $s['authoruri'],
+					'type'		=> 'sections',
+					'object'	=> $s['class'],
+					'tags'		=> ( isset( $s['tags'] ) ) ? $s['tags'] : '',
+					'image'		=> ( isset( $s['image'] ) ) ? $s['image'] : '',
+					'auth'		=> $s['author'],
+					'key'		=> $key,
+					'status'	=> $s['status'], 
+					'actions'	=> $actions,
+					'screen'	=> isset( $s['screen'] ) ? $s['screen'] : '',
+					'screenshot'=> isset( $s['screenshot'] ) ? $s['screenshot'] : '',
+					'slug'		=> isset( $s['slug'] ) ? $s['slug'] : $key,
 				);
  			}
  		} 	
@@ -345,31 +487,19 @@
 		$list = array();
 		$updates_configured = ( pagelines_check_credentials() ) ? true : false;
 		foreach( $plugins as $key => $p ) {
-	
-//			if ( !isset( $p['type'] ) )
-//				$p['type'] = 'free';
-
-			if ( $tab === 'installed' && !isset( $p['status']['status'] ) )
+				
+			$show = array(
+				'price'		=> $p['price'], 
+				'override'	=> str_replace( '.php', '', PL_EXTEND_SECTIONS_PLUGIN ) === $p['slug'], 
+				'status'	=> ( isset( $p['status']['status'] ) ) ? true : false
+			);
+				
+			if( !$this->show_in_tab( 'plugins', $tab, $show ) )
 				continue;
 				
-			if ( $tab === 'installed' && str_replace( '.php', '', PL_EXTEND_SECTIONS_PLUGIN ) === $p['slug'] )
-				continue;
-
-//			if ( ( $tab === 'premium' || $tab === 'free' ) && isset( $p['status']['status'] ) )
-//				continue;
-
-			if ( $tab === 'premium' && $p['price'] === 'free' )
-				continue;
-
-//			if ( $tab === 'free' && $p['type'] === 'premium' )
-//				continue;
-
 			if ( !isset( $p['status'] ) )
-				$p['status'] = array( 'status' => '' );
-
-			if ( $tab === 'free' && $p['price'] != 'free' )
-				continue;	
-			
+				$p['status'] = array( 'status' => '' );	
+				
 			$install = null;
 			$upgrade_available = null;
 			$active = null;
@@ -381,115 +511,91 @@
 			$purchased = null;
 			$redirect = null;
 			
-			$installed =  ( ( $tab === 'premium' || $tab === 'free' ) && $p['status']['status'] ) ? true : false;
+			$version = isset($p['status']['version']) ? $p['status']['version'] : false;
+			
+			$installed_tag =  ( ( $tab === 'premium' || $tab === 'free' ) && $p['status']['status'] ) ? true : false;
 			
 			$purchased = ( isset( $p['purchased'] ) ) ? true : false;
 				
 			$login = ( !$updates_configured && !$purchased) ? true : false;
 			
-			$purchase = ( !EXTEND_NETWORK && !$purchased && !$login && $tab != 'installed' && !$installed ) ? true : false;
+			$purchase = ( !EXTEND_NETWORK && !$purchased && !$login && $tab != 'installed' && !$installed_tag ) ? true : false;
 
-			$install = ($p['status']['status'] == '' && !$login && !$purchase) ? true : false;
+			$install = ($p['status']['status'] == '' && !$login && !$purchase && !EXTEND_NETWORK) ? true : false;
 
-			$upgrade_available = ( isset( $p['status']['version'] ) && $p['version'] > $p['status']['version'] ) ? true : false;
+			$upgrade_available = ( $version && $p['version'] > $version ) ? true : false;
 			
-			$active = ($p['status']['status'] == 'active' && !$installed ) ? true : false;
+			$active = ($p['status']['status'] == 'active' && !$installed_tag ) ? true : false;
 			
-			$deactivated = (!$login && !$purchase && !$install && !$active  && !$installed) ? true : false;
+			$deactivated = (!$login && !$purchase && !$install && !$active  && !$installed_tag) ? true : false;
 			
 			$delete = ( $deactivated && ! EXTEND_NETWORK ) ? true : false;
 			
-			$redirect = ( EXTEND_NETWORK && $install ) ? true : false;
-			
-			$login = ( !$purchased && !$updates_configured ) ? true : false;
+			$redirect = ( EXTEND_NETWORK && $install ) ? true : false;			
+				
+			$installed = (!$install) ? true : false;
+				
+			$args = array(
+				'extend'		=> 'plugins',
+				'type'			=> 'plugins',
+				'installed'		=> $installed,
+				'purchased'		=> $purchased,
+				'version'		=> $version,
+				'path'			=> $p['file'],
+				'file'			=> $key,
+				'delete'		=> $delete,
+				'upgrade'		=> $upgrade_available, 
+				'price'			=> $p['price'], 
+				'product_id'	=> $p['productid'], 
+				'unit_id'		=> $p['uid'], 
+				'name'			=> $p['name']
+			);
+
+			$core_actions = $this->master_array( $args );
+				
 				
 			$actions = array(
 				'install'	=> array(
-					'mode'		=> 'install',
-					'condition'	=> ( ! EXTEND_NETWORK ) ? $install : false,
+					'condition'	=> $install,
 					'case'		=> 'plugin_install',
-					'type'		=> 'plugins',
-					'file'		=> $key,
-					'text'		=> __( 'Install', 'pagelines' ),
 					'path'		=> $p['file'],
-					'dtext'		=> __( 'Installing', 'pagelines' ),
 				),
 				'activate'	=> array(
-					'mode'		=> 'activate',
 					'condition'	=> $deactivated,
 					'case'		=> 'plugin_activate',
-					'type'		=> 'plugins',
 					'file'		=> $p['file'],
-					'text'		=> __( 'Activate', 'pagelines' ),
-					'dtext'		=> __( 'Activating', 'pagelines' ),
 				),
 				'upgrade'	=> array(
-					'mode'		=> 'upgrade',
 					'condition'	=> $upgrade_available,
 					'case'		=> 'plugin_upgrade',
-					'type'		=> 'plugins',
-					'file'		=> $key,
 					'path'		=> $p['file'],
-					'text'		=> sprintf( __( 'Upgrade to %1$s', 'pagelines' ), $p['version'] ),
-					'dtext'		=> __( 'Upgrading', 'pagelines' ),
 				),
 				'deactivate'	=> array(
-					'mode'		=> 'deactivate',
 					'condition'	=> $active,
 					'case'		=> 'plugin_deactivate',
-					'type'		=> 'plugins',
 					'file'		=> $p['file'],
-					'text'		=> __( 'Deactivate', 'pagelines' ),
-					'dtext'		=> __( 'Deactivating', 'pagelines' ),
 				),
 				'delete'	=> array(
-					'mode'		=> 'delete',
 					'condition'	=> $delete,
 					'case'		=> 'plugin_delete',
-					'type'		=> 'plugins',
 					'file'		=> $p['file'],
-					'text'		=> __( 'Delete', 'pagelines' ),
-					'dtext'		=> __( 'Deleting', 'pagelines' ),
-					'confirm'	=> true
 				),
 				'redirect'	=> array(
-					'mode'		=> 'redirect',
-					'condition'	=> $redirect,
-					'case'		=> 'network_redirect',
 					'type'		=> __( 'plugins', 'pagelines' ),
 					'file'		=> $p['file'],
-					'text'		=> __( 'Install', 'pagelines' ),
-					'dtext'		=> ''
-				),
-				'login'	=> array(
-					'mode'		=> 'login',
-					'condition'	=> ( !EXTEND_NETWORK ) ? $login : false,
-					'case'		=> 'theme_login',
-					'type'		=> 'sections',
-					'file'		=> $key,
-					'text'		=> __( 'Login', 'pagelines' ),
-					'dtext'		=> __( 'Redirecting', 'pagelines' ),
 				),
 				'purchase'	=> array(
-					'mode'		=> 'purchase',
 					'condition'	=> $purchase,
-					'case'		=> 'theme_purchase',
-					'type'		=> 'plugins',
-					'file'		=> ( isset( $p['productid'] ) ) ? $p['productid'] . ',' . $p['uid'] . '|' . $p['price'] . '|' . $p['name'] : '',
-					'text'		=> sprintf('%s <span class="prc">($%s)</span>', __( 'Purchase', 'pagelines' ), $p['price']),
-					'dtext'		=> __( 'Redirecting', 'pagelines' ),
 				),
 				'installed'	=>	array(
-					'mode'		=> 'installed',
-					'condition'	=> $installed,
-					'case'		=> '',
-					'type'		=> '',
-					'file'		=> '',
-					'path'		=> '',
-					'text'		=> __( 'Installed', 'pagelines' ),
-					'dtext'		=> ''
-					)
+					'condition'	=> $installed_tag,
+				)
 			);			
+			
+			$actions = $this->parse_buttons($actions, $core_actions);
+			
+			
+			
 			$list[$key] = array(
 					'name' 		=> $p['name'], 
 					'version'	=> ( isset( $p['status']['data'] ) ) ? $p['status']['data']['Version'] : $p['version'], 
@@ -515,6 +621,25 @@
 			return $this->ui->extension_banner( sprintf( __( 'Available %1$s plugins will appear here.', 'pagelines' ), $tab ) );
 		else 
 			return $this->ui->extension_list( $list );
+	}
+	
+	
+	function parse_buttons($actions, $core_actions){
+		
+		$actions = wp_parse_args($actions, $core_actions);
+		
+		foreach($actions as $action => $button){
+			
+			if( isset($core_actions[$action]) ){
+			
+				$actions[$action] = wp_parse_args($button, $core_actions[$action]);
+			
+			}
+			
+		}
+		
+		return $actions;
+		
 	}
 	
 	/**
@@ -549,23 +674,22 @@
 				$data = null;
 				$theme['featured'] = ( isset( $theme['featured'] ) ) ? $theme['featured'] : false;
 
-				if ( $tab === 'featured' && $theme['featured'] == 'false' ) 
-					continue;
 
-				if ( $tab == 'premium' && $theme['featured'] == 'true' )
-					continue;
-				
 				$check_file = sprintf( '%s/themes/%s/style.css', WP_CONTENT_DIR, $key );
 				
 				if ( file_exists( $check_file ) )
 					$exists = true;
+					
+					
+				$show = array(
+					'featured'	=> $theme['featured'], 
+					'exists' 	=> $exists
+				);
 				
-				if ( ( $tab == 'premium' || $tab == 'featured' ) && isset($exists) )
+				if( !$this->show_in_tab( 'themes', $tab, $show ) )
 					continue;
 					
-				if ( $tab == 'installed' && !isset( $exists) )
-					continue;
-				
+					
 				if ( isset( $exists ) && $data = get_theme_data( $check_file ) ) 
 					$status = 'installed';
 					
@@ -575,7 +699,10 @@
 					
 				$activate = ($status == 'installed' && !$is_active) ? true : false;
 				$deactivate = ($status == 'installed' && $is_active) ? true : false;
-				$upgrade_available = (isset($data) && $data['Version'] && $theme['version'] > $data['Version']) ? true : false;
+				
+				$version = (isset($data)) ? $data['Version'] : false;
+				
+				$upgrade_available = ($version && $theme['version'] > $version) ? true : false;
 			
 				$purchase = ( !isset( $theme['purchased'] ) && !$status && $updates_configured ) ? true : false;
 				$product = ( isset( $theme['productid'] ) ) ? $theme['productid'] : 0;
@@ -596,82 +723,63 @@
 					$image = PL_ADMIN_IMAGES . '/thumb-default.png';
 			
 				
+				$args = array(
+					'extend'		=> 'themes',
+					'type'			=> 'themes',
+					'version'		=> $version,
+					'delete'		=> $delete,
+					'upgrade'		=> $upgrade_available, 
+					'product_id'	=> $theme['productid'], 
+					'unit_id'		=> $theme['uid'], 
+					'price'			=> $theme['price'], 
+					'name'			=> $theme['name'], 
+					'file'			=> $key
+				);
+
+				$core_actions = $this->master_array( $args );
+				
+				
 				$actions = array(
 					'install'	=> array(
-						'mode'		=> 'install',
 						'condition'	=> $install,
 						'case'		=> 'theme_install',
-						'type'		=> 'themes',
 						'file'		=> $key,
 						'product'	=> $product,
-						'text'		=> __( 'Install', 'pagelines' ),
-						'dtext'		=> __( 'Installing', 'pagelines' ),
 					),
 					'activate'	=> array(
-						'mode'		=> 'activate',
 						'condition'	=> $activate,
 						'case'		=> 'theme_activate',
-						'type'		=> 'themes',
 						'file'		=> $key,
-						'text'		=> __( 'Activate', 'pagelines' ),
-						'dtext'		=> __( 'Activating', 'pagelines' ),
 					),
 					'deactivate'	=> array(
-						'mode'		=> 'deactivate',
 						'condition'	=> $deactivate,
 						'case'		=> 'theme_deactivate',
-						'type'		=> 'themes',
 						'file'		=> $key,
-						'text'		=> __( 'Deactivate', 'pagelines' ),
-						'dtext'		=> __( 'Deactivating', 'pagelines' ),
 					),
 					'upgrade'	=> array(
-						'mode'		=> 'upgrade',
 						'condition'	=> $upgrade_available,
 						'case'		=> 'theme_upgrade',
-						'type'		=> 'themes',
 						'file'		=> $key,
-						'text'		=> sprintf( __( 'Upgrade to %1$s', 'pagelines' ), $theme['version'] ),
-						'dtext'		=> __( 'Upgrading', 'pagelines' ),
 					),
 					'purchase'	=> array(
-						'mode'		=> 'purchase',
 						'condition'	=> $purchase,
-						'case'		=> 'theme_purchase',
-						'type'		=> 'themes',
-						'file'		=> ( isset( $theme['productid'] ) ) ? $theme['productid'] . ',' . $theme['uid'] . '|' . $theme['price'] . '|' . $theme['name'] : '',
-						'text'		=> ( isset( $theme['price'] ) ) ? sprintf('%s <span class="prc">($%s)</span>', __( 'Purchase', 'pagelines' ), $theme['price']) : '',
-						'dtext'		=> __( 'Redirecting', 'pagelines' ),
 					),
 					'delete'	=> array(
-						'mode'		=> 'delete',
 						'condition'	=> $delete,
 						'case'		=> 'theme_delete',
-						'type'		=> 'themes',
 						'file'		=> $key,
-						'text'		=> __( 'Delete', 'pagelines' ),
-						'dtext'		=> __( 'Deleting', 'pagelines' ),
-						'confirm'	=> true
 					),
 					'login'	=> array(
-						'mode'		=> 'login',
 						'condition'	=> ( !EXTEND_NETWORK ) ? $login : false,
-						'case'		=> 'theme_login',
-						'type'		=> 'themes',
-						'file'		=> $key,
-						'text'		=> __( 'Login', 'pagelines' ),
-						'dtext'		=> __( 'Redirecting', 'pagelines' ),
 					),
 					'redirect'	=> array(
-						'mode'		=> 'redirect',
 						'condition'	=> $redirect,
-						'case'		=> 'network_redirect',
 						'type'		=> __( 'themes', 'pagelines' ),
 						'file'		=> $key,
-						'text'		=> __( 'Login', 'pagelines' ),
-						'dtext'		=> ''
 					)
 				);
+				
+				$actions = $this->parse_buttons($actions, $core_actions);
 
 				$list[$key] = array(
 						'theme'		=> $theme,
@@ -746,32 +854,33 @@
 				$download = ( $purchased && !$login ) ? true : false;
 				
 				
-				if( ( $install || $purchase || $login || $redirect ) && $integration['screen'])
+				if( ( $purchase || $login || $redirect ) && $integration['screen'])
 					$image = sprintf( 'http://www.pagelines.com/api/files/integrations/img/%s-thumb.png', $key );
 				else
 					$image = PL_ADMIN_IMAGES . '/thumb-default.png';
 				
 				
+				$args = array(
+					'extend'		=> 'integrations',
+					'type'			=> 'integrations',
+				);
+
+				$core_actions = $this->master_array( $args );
+
+			
+				
 				$actions = array(
 
 					'purchase'	=> array(
-						'mode'		=> 'purchase',
 						'condition'	=> $purchase,
-						'case'		=> 'theme_purchase',
-						'type'		=> 'themes',
 						'file'		=> ( isset( $integration['productid'] ) ) ? $integration['productid'] . ',' . $integration['uid'] . '|' . $integration['price'] . '|' . $integration['name'] : '',
 						'text'		=> ( isset( $integration['price'] ) ) ? sprintf('%s <span class="prc">($%s)</span>', __( 'Purchase', 'pagelines' ), $integration['price']) : '',
 						'dtext'		=> __( 'Redirecting', 'pagelines' ),
 					),
 
 					'login'	=> array(
-						'mode'		=> 'login',
 						'condition'	=> ( !EXTEND_NETWORK ) ? $login : false,
-						'case'		=> 'theme_login',
-						'type'		=> 'themes',
 						'file'		=> $key,
-						'text'		=> __( 'Login', 'pagelines' ),
-						'dtext'		=> __( 'Redirecting', 'pagelines' ),
 					),
 
 					'download'	=> array(
@@ -784,40 +893,31 @@
 						'dtext'		=> __( 'Downloading', 'pagelines' )
 					),
 					'redirect'	=> array(
-						'mode'		=> 'redirect',
 						'condition'	=> $redirect,
-						'case'		=> 'network_redirect',
 						'type'		=> __( 'themes', 'pagelines' ),
 						'file'		=> $key,
-						'text'		=> __( 'Login', 'pagelines' ),
 						'dtext'		=> ''
 					),
 					'activate'	=> array(
-						'mode'		=> 'activate',
 						'condition'	=> $activate,
 						'case'		=> 'integration_activate',
-						'type'		=> 'integrations',
 						'file'		=> $key,
 						'text'		=> __( 'Activate Options', 'pagelines' ),
-						'dtext'		=> __( 'Activating', 'pagelines' ),
 					),
 					'deactivate'	=> array(
-						'mode'		=> 'deactivate',
 						'condition'	=> $deactivate,
 						'case'		=> 'integration_deactivate',
-						'type'		=> 'integrations',
 						'file'		=> $key,
 						'text'		=> __( 'Deactivate Options', 'pagelines' ),
-						'dtext'		=> __( 'Deactivating', 'pagelines' ),
 					)
 	
 				);
 
+				$actions = $this->parse_buttons($actions, $core_actions);
+
 				$list[$key] = array(
 						'theme'		=> $integration,
 						'name' 		=> $integration['name'], 
-						'active'	=> $is_active,
-						
 						'version'	=> ( !empty( $status ) && isset( $data['Version'] ) ) ? $data['Version'] : $integration['version'], 
 						'desc'		=> $integration['text'],
 						'tags'		=> ( isset( $integration['tags'] ) ) ? $integration['tags'] : '',
@@ -831,8 +931,14 @@
 						'actions'	=> $actions
 				);		
 		}
-			return $this->ui->extension_list( $list, 'graphic' );
+		
+		return $this->ui->extension_list( $list, 'graphic' );
+		
+		
 	}
+
+
+
 
 	function sandbox( $file, $type ) {
 
@@ -862,11 +968,7 @@
 
 		switch ( $mode ) {
 			
-			case 'network_redirect':
 			
-				echo sprintf( __( 'Sorry only network admins can install %s.', 'pagelines' ), $type );
-			
-			break;
 			
 			case 'integration_download':
 				$url = $this->make_url( $type, $file );
@@ -1171,15 +1273,19 @@
 				delete_transient( 'pagelines_sections_cache' );
 				$this->page_reload( 'pagelines_extend' );
 			break;
+			case 'redirect':
 			
-			case 'theme_purchase':
+				echo sprintf( __( 'Sorry only network admins can install %s.', 'pagelines' ), $type );
+			
+			break;
+			case 'purchase':
 			
 				_e( 'Taking you to PayPal.com', 'pagelines' );
 				$this->page_reload( 'pagelines_extend', $file );
 			
 			break;
 			
-			case 'theme_login':
+			case 'login':
 				_e( 'Moving to account setup..', 'pagelines' );
 				$this->page_reload( 'pagelines_account#Your_Account' );
 			break;
