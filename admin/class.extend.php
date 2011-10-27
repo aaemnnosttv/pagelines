@@ -725,15 +725,21 @@
 				$purchased = null;
 				$redirect = null;
 				$download = null;
-
+				$active = null;
+				
+				$active = ploption( $key );		
+				$active = ( is_array( $active ) ) ? $active : false;
+				
 				$updates_configured = ( pagelines_check_credentials() ) ? true : false;	
 				$purchase = ( !isset( $integration['purchased'] ) ) ? true : false;
 				$product = ( isset( $integration['productid'] ) ) ? $integration['productid'] : 0;
 				
 				$login = ( !$updates_configured ) ? true : false;
 				
-				$activate = ( ! ploption( $key ) == true ) ? true : false;
+				$activate = ( !$active || ( $active  && $active['activated'] == 'false' ) ) ? true : false;
 				
+				$deactivate = ( $active && $active['activated'] == 'true' ) ? true : false;
+
 				$purchased = ( !$purchase && !$login) ? true : false;
 				$redirect = ( $login && EXTEND_NETWORK ) ? true : false;
 				
@@ -792,8 +798,17 @@
 						'case'		=> 'integration_activate',
 						'type'		=> 'integrations',
 						'file'		=> $key,
-						'text'		=> __( 'Activate', 'pagelines' ),
+						'text'		=> __( 'Activate Options', 'pagelines' ),
 						'dtext'		=> __( 'Activating', 'pagelines' ),
+					),
+					'deactivate'	=> array(
+						'mode'		=> 'deactivate',
+						'condition'	=> $deactivate,
+						'case'		=> 'integration_deactivate',
+						'type'		=> 'integrations',
+						'file'		=> $key,
+						'text'		=> __( 'Deactivate Options', 'pagelines' ),
+						'dtext'		=> __( 'Deactivating', 'pagelines' ),
 					)
 	
 				);
@@ -859,6 +874,32 @@
 				$this->int_download( $url );
 			
 			break;
+			
+			case 'integration_activate':
+			
+				$a = ploption( $file );
+				$int = array(
+				'version'	=> ( isset( $a['version'] ) ) ? $a['version'] : null,
+				'activated'	=> 'true'
+				);
+				plupop( $file, $int );
+				echo __( 'Activated', 'pagelines' );
+			 	$this->page_reload( 'pagelines_extend' );			
+			break;
+			
+			case 'integration_deactivate':
+
+			$a = ploption( $file );
+			$int = array(
+			'version'	=> ( isset( $a['version'] ) ) ? $a['version'] : null,
+			'activated'	=> 'false'
+			);
+			plupop( $file, $int );
+			echo __( 'Deactivated', 'pagelines' );
+			$this->page_reload( 'pagelines_extend' );			
+			
+			break;			
+		
 			case 'plugin_install': // TODO check status first!
 
 				if ( !$checked )
