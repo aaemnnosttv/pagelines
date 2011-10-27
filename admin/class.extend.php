@@ -177,7 +177,7 @@
 
 		} elseif( $type == 'plugin'){
 
-			if( isset($info['status']['status']) && $info['status']['status'] == 'active')
+			if( isset($info['status']['status']) && $info['status']['status'] != '')
 				return true;
 			else 
 				return false;
@@ -660,7 +660,7 @@
 				'install'	=> array(
 					'condition'	=> $show_install_button,
 					'case'		=> 'plugin_install',
-					'path'		=> $ext['file'],
+					'file'		=> $key,
 				),
 				'activate'	=> array(
 					'condition'	=> $show_activate_button,
@@ -670,7 +670,7 @@
 				'upgrade'	=> array(
 					'condition'	=> $upgrade_available,
 					'case'		=> 'plugin_upgrade',
-					'path'		=> $ext['file'],
+					'path'		=> $key,
 				),
 				'deactivate'	=> array(
 					'condition'	=> $show_deactivate_button,
@@ -684,7 +684,7 @@
 				),
 				'redirect'	=> array(
 					'type'		=> __( 'plugins', 'pagelines' ),
-					'file'		=> $ext['file'],
+					'file'		=> $key,
 				),
 				'purchase'	=> array(
 					'condition'	=> $show_purchase_button,
@@ -1113,8 +1113,7 @@
 				global $wp_filesystem;
 				$skin = new PageLines_Upgrader_Skin();
 				$upgrader = new Plugin_Upgrader($skin);
-				$destination = ( ! $uploader ) ? $this->make_url( $type, $file ) : $file;
-								
+				$destination = ( ! $uploader ) ? $this->make_url( $type, $file ) : $file;						
 				@$upgrader->install( $destination );
 
 				if ( isset( $wp_filesystem )  && is_object( $wp_filesystem ) && $wp_filesystem->method == 'direct' )
