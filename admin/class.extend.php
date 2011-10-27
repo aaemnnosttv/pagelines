@@ -218,6 +218,14 @@
 	
 	}
 
+	private function upgrade_available( $installed_version, $api_version){
+		
+		if ( $api_version > $installed_version )
+			return $api_version;
+		else
+			return false;
+	}
+	
 	private function button_logic( $type, $key, $ext, $tab ) {
 		
 		$logic = array();
@@ -229,7 +237,7 @@
 		
 		$logic['version'] = $this->get_the_version($type, $key, $ext);
 		
-		$logic['upgrade_available'] = $this->upgrade_available($type, $key, $ext);
+		$logic['upgrade_available'] = $this->upgrade_available( $this->get_the_version($type, $key, $ext), $ext['version']);
 		
 		$logic['show_login_button'] = ( !$this->updates_configured() && !$logic['is_purchased'] ) ? true : false;
 		
@@ -1685,17 +1693,7 @@
 		}
 	}
 
-	/**
-	 * Check for an upgrade.
-	 * 
-	 */
-	function upgrade_available( $upgradable, $file, $s){
-	
-		if ( is_object( $upgradable ) && isset( $upgradable->$file ) && $s['version'] < $upgradable->$file->version ) 
-			return $upgradable->$file->version;
-		else 
-			return false;
-	}
+
 	
 	/**
 	 * Throw up on error.
