@@ -299,17 +299,17 @@
 
 		$list = array();
 		
-		foreach( $sections as $key => $s ) {
+		foreach( $sections as $key => $ext ) {
 
 			$key = str_replace( '.', '', $key );
 
-			if ( !isset( $s->type) )
-				$s->type = 'free';
+			if ( !isset( $ext->type) )
+				$ext->type = 'free';
 			
-			if( !$this->show_in_tab('sections_install', $tab, array('price' => $s->price ) ) )
+			if( !$this->show_in_tab('sections_install', $tab, array('price' => $ext->price ) ) )
 				continue;
 			
-			$purchased = ( isset( $s->purchased ) ) ? true : false;
+			$purchased = ( isset( $ext->purchased ) ) ? true : false;
 
 			$installed = $this->is_installed( sprintf('%1$s/%2$s/section.php', PL_EXTEND_DIR, $key ) );
 	
@@ -319,13 +319,13 @@
 				'type'			=> 'sections',
 				'purchased'		=> $purchased, 
 				'installed'		=> $installed, 
-				'version'		=> $s->plversion, 
-				'product_id'	=> $s->productid,
-				'unit_id'		=> $s->uid, 
-				'price'			=> $s->price,
-				'name'			=> $s->name,
+				'version'		=> $ext->plversion, 
+				'product_id'	=> $ext->productid,
+				'unit_id'		=> $ext->uid, 
+				'price'			=> $ext->price,
+				'name'			=> $ext->name,
 				'key'			=> $key, 
-				'path'			=> $s->class, 
+				'path'			=> $ext->class, 
 				'store'			=> true
 			);
 			
@@ -333,18 +333,18 @@
 			
 			
 			$list[$key] = array(
-				'name' 		=> $s->name, 
-				'version'	=> $s->version, 
-				'desc'		=> $s->text, 
-				'auth_url'	=> $s->author_url, 
-				'auth'		=> $s->author,
-				'image'		=> ( isset( $s->image ) ) ? $s->image : '',
+				'name' 		=> $ext->name, 
+				'version'	=> $ext->version, 
+				'desc'		=> $ext->text, 
+				'auth_url'	=> $ext->author_url, 
+				'auth'		=> $ext->author,
+				'image'		=> ( isset( $ext->image ) ) ? $ext->image : '',
 				'type'		=> 'sections',
 				'key'		=> $key, 
 				'ext_txt'	=> __( 'Installing', 'pagelines' ), 
 				'actions'	=> $actions,
-				'screen'	=> isset( $s->screen ) ? $s->screen : false,
-				'slug'		=> isset( $s->slug ) ? $s->slug : $key
+				'screen'	=> isset( $ext->screen ) ? $ext->screen : false,
+				'slug'		=> isset( $ext->slug ) ? $ext->slug : $key
 			);
 			
 		}
@@ -381,27 +381,27 @@
  			if ( !$type )
  				continue;
 
-			foreach( $type as $key => $s)
-				$type[$key]['status'] = ( isset( $disabled[ $s['type'] ][ $s['class'] ] ) ) ? 'disabled' : 'enabled';
+			foreach( $type as $key => $ext)
+				$type[$key]['status'] = ( isset( $disabled[ $ext['type'] ][ $ext['class'] ] ) ) ? 'disabled' : 'enabled';
 
 			/*
 	 		 * Sort Alphabetically
 	 		 */
  			$type = pagelines_array_sort( $type, 'name' );
 
- 			foreach( $type as $key => $s ) { // main loop
+ 			foreach( $type as $key => $ext ) { // main loop
 		
 				$show = array(
-					'type'		=> $s['type'], 
-					'override' 	=> ( isset( $available['child'][ $s['class'] ] ) || isset( $available['custom'][ $s['class'] ] ) ) ? true : false
+					'type'		=> $ext['type'], 
+					'override' 	=> ( isset( $available['child'][ $ext['class'] ] ) || isset( $available['custom'][ $ext['class'] ] ) ) ? true : false
 				);
 				
 				if( !$this->show_in_tab( 'sections_manage', $tab, $show ) )
 					continue;
 				
-				$enabled = ( $s['status'] == 'enabled' ) ? true : false;
+				$enabled = ( $ext['status'] == 'enabled' ) ? true : false;
 
-				$file = basename( $s['base_dir'] );
+				$file = basename( $ext['base_dir'] );
 				
 				$delete = ( !EXTEND_NETWORK && !$enabled && ( $tab !== 'child' && $tab !== 'internal' ) ) ? true : false;
 				
@@ -409,32 +409,32 @@
 				$args = array(
 					'extend'		=> 'sections',
 					'type'			=> 'sections',
-					'path'			=> $s['base_file'],
-					'file'			=> $s['class'],
+					'path'			=> $ext['base_file'],
+					'file'			=> $ext['class'],
 					'delete'		=> $delete,
 					'enabled'		=> $enabled, 
-					'upgrade'		=> $this->upgrade_available( $upgradable, $file, $s), 
+					'upgrade'		=> $this->upgrade_available( $upgradable, $file, $ext), 
 					'store'			=> false
 				);
 
 				$actions = $this->master_array( $args );		
 				
 				$list[] = array(
-					'name' 		=> $s['name'], 
-					'version'	=> !empty( $s['version'] ) ? $s['version'] : CORE_VERSION, 
-					'desc'		=> $s['description'],
-					'auth_url'	=> $s['authoruri'],
+					'name' 		=> $ext['name'], 
+					'version'	=> !empty( $ext['version'] ) ? $ext['version'] : CORE_VERSION, 
+					'desc'		=> $ext['description'],
+					'auth_url'	=> $ext['authoruri'],
 					'type'		=> 'sections',
-					'object'	=> $s['class'],
-					'tags'		=> ( isset( $s['tags'] ) ) ? $s['tags'] : '',
-					'image'		=> ( isset( $s['image'] ) ) ? $s['image'] : '',
-					'auth'		=> $s['author'],
+					'object'	=> $ext['class'],
+					'tags'		=> ( isset( $ext['tags'] ) ) ? $ext['tags'] : '',
+					'image'		=> ( isset( $ext['image'] ) ) ? $ext['image'] : '',
+					'auth'		=> $ext['author'],
 					'key'		=> $key,
-					'status'	=> $s['status'], 
+					'status'	=> $ext['status'], 
 					'actions'	=> $actions,
-					'screen'	=> isset( $s['screen'] ) ? $s['screen'] : '',
-					'screenshot'=> isset( $s['screenshot'] ) ? $s['screenshot'] : '',
-					'slug'		=> isset( $s['slug'] ) ? $s['slug'] : $key,
+					'screen'	=> isset( $ext['screen'] ) ? $ext['screen'] : '',
+					'screenshot'=> isset( $ext['screenshot'] ) ? $ext['screenshot'] : '',
+					'slug'		=> isset( $ext['slug'] ) ? $ext['slug'] : $key,
 				);
  			}
  		} 	
@@ -459,13 +459,13 @@
 		$plugins = json_decode(json_encode($plugins), true); // convert objects to arrays
 
 		foreach( $plugins as $key => $plugin )
-			$plugins[$key]['file'] = '/' . trailingslashit( $key ) . $key . '.php'; 
+			$plugins[$key]['file'] = sprintf('/%1$s/%1$s.php', $key);
 		
 		$plugins = pagelines_array_sort( $plugins, 'name', false, true ); // sort by name
 
 		// get status of each plugin
-		foreach( $plugins as $key => $p ) {
-			$plugins[$key]['status'] = $this->plugin_check_status( WP_PLUGIN_DIR . $p['file'] );
+		foreach( $plugins as $key => $ext ) {
+			$plugins[$key]['status'] = $this->plugin_check_status( WP_PLUGIN_DIR . $ext['file'] );
 			$plugins[$key]['name'] = ( $plugins[$key]['status']['data']['Name'] ) ? $plugins[$key]['status']['data']['Name'] : $plugins[$key]['name'];
 			
 			
@@ -474,29 +474,29 @@
 		$plugins = pagelines_array_sort( $plugins, 'status', 'status' ); // sort by status
 
 		// reset array keys ( sort functions reset keys to int )
-		foreach( $plugins as $key => $p ) {
+		foreach( $plugins as $key => $ext ) {
 			
 			unset( $plugins[$key] );
-			$key = str_replace( '.php', '', basename( $p['file'] ) );
-			$plugins[$key] = $p;
+			$key = str_replace( '.php', '', basename( $ext['file'] ) );
+			$plugins[$key] = $ext;
 			
 		}
 		
 		$list = array();
 		$updates_configured = ( pagelines_check_credentials() ) ? true : false;
-		foreach( $plugins as $key => $p ) {
+		foreach( $plugins as $key => $ext ) {
 				
 			$show = array(
-				'price'		=> $p['price'], 
-				'override'	=> str_replace( '.php', '', PL_EXTEND_SECTIONS_PLUGIN ) === $p['slug'], 
-				'status'	=> ( isset( $p['status']['status'] ) ) ? true : false
+				'price'		=> $ext['price'], 
+				'override'	=> str_replace( '.php', '', PL_EXTEND_SECTIONS_PLUGIN ) === $ext['slug'], 
+				'status'	=> ( isset( $ext['status']['status'] ) ) ? true : false
 			);
 				
 			if( !$this->show_in_tab( 'plugins', $tab, $show ) )
 				continue;
 				
-			if ( !isset( $p['status'] ) )
-				$p['status'] = array( 'status' => '' );	
+			if ( !isset( $ext['status'] ) )
+				$ext['status'] = array( 'status' => '' );	
 				
 			$install = null;
 			$upgrade_available = null;
@@ -509,21 +509,21 @@
 			$purchased = null;
 			$redirect = null;
 			
-			$version = isset($p['status']['version']) ? $p['status']['version'] : false;
+			$version = isset($ext['status']['version']) ? $ext['status']['version'] : false;
 			
-			$installed_tag =  ( ( $tab === 'premium' || $tab === 'free' ) && $p['status']['status'] ) ? true : false;
+			$installed_tag =  ( ( $tab === 'premium' || $tab === 'free' ) && $ext['status']['status'] ) ? true : false;
 			
-			$purchased = ( isset( $p['purchased'] ) ) ? true : false;
+			$purchased = ( isset( $ext['purchased'] ) ) ? true : false;
 				
 			$login = ( !$updates_configured && !$purchased) ? true : false;
 			
 			$purchase = ( !EXTEND_NETWORK && !$purchased && !$login && $tab != 'installed' && !$installed_tag ) ? true : false;
 
-			$install = ($p['status']['status'] == '' && !$login && !$purchase && !EXTEND_NETWORK) ? true : false;
+			$install = ($ext['status']['status'] == '' && !$login && !$purchase && !EXTEND_NETWORK) ? true : false;
 
-			$upgrade_available = ( $version && $p['version'] > $version ) ? true : false;
+			$upgrade_available = ( $version && $ext['version'] > $version ) ? true : false;
 			
-			$active = ($p['status']['status'] == 'active' && !$installed_tag ) ? true : false;
+			$active = ($ext['status']['status'] == 'active' && !$installed_tag ) ? true : false;
 			
 			$deactivated = (!$login && !$purchase && !$install && !$active  && !$installed_tag) ? true : false;
 			
@@ -539,14 +539,14 @@
 				'installed'		=> $installed,
 				'purchased'		=> $purchased,
 				'version'		=> $version,
-				'path'			=> $p['file'],
+				'path'			=> $ext['file'],
 				'file'			=> $key,
 				'delete'		=> $delete,
 				'upgrade'		=> $upgrade_available, 
-				'price'			=> $p['price'], 
-				'product_id'	=> $p['productid'], 
-				'unit_id'		=> $p['uid'], 
-				'name'			=> $p['name']
+				'price'			=> $ext['price'], 
+				'product_id'	=> $ext['productid'], 
+				'unit_id'		=> $ext['uid'], 
+				'name'			=> $ext['name']
 			);
 
 			$core_actions = $this->master_array( $args );
@@ -556,31 +556,31 @@
 				'install'	=> array(
 					'condition'	=> $install,
 					'case'		=> 'plugin_install',
-					'path'		=> $p['file'],
+					'path'		=> $ext['file'],
 				),
 				'activate'	=> array(
 					'condition'	=> $deactivated,
 					'case'		=> 'plugin_activate',
-					'file'		=> $p['file'],
+					'file'		=> $ext['file'],
 				),
 				'upgrade'	=> array(
 					'condition'	=> $upgrade_available,
 					'case'		=> 'plugin_upgrade',
-					'path'		=> $p['file'],
+					'path'		=> $ext['file'],
 				),
 				'deactivate'	=> array(
 					'condition'	=> $active,
 					'case'		=> 'plugin_deactivate',
-					'file'		=> $p['file'],
+					'file'		=> $ext['file'],
 				),
 				'delete'	=> array(
 					'condition'	=> $delete,
 					'case'		=> 'plugin_delete',
-					'file'		=> $p['file'],
+					'file'		=> $ext['file'],
 				),
 				'redirect'	=> array(
 					'type'		=> __( 'plugins', 'pagelines' ),
-					'file'		=> $p['file'],
+					'file'		=> $ext['file'],
 				),
 				'purchase'	=> array(
 					'condition'	=> $purchase,
@@ -595,20 +595,20 @@
 			
 			
 			$list[$key] = array(
-					'name' 		=> $p['name'], 
-					'version'	=> ( isset( $p['status']['data'] ) ) ? $p['status']['data']['Version'] : $p['version'], 
-					'desc'		=> $p['text'],
-					'tags'		=> ( isset( $p['tags'] ) ) ? $p['tags'] : '',
-					'auth_url'	=> $p['author_url'], 
-					'image'		=> ( isset( $p['image'] ) ) ? $p['image'] : '',
-					'auth'		=> $p['author'], 
+					'name' 		=> $ext['name'], 
+					'version'	=> ( isset( $ext['status']['data'] ) ) ? $ext['status']['data']['Version'] : $ext['version'], 
+					'desc'		=> $ext['text'],
+					'tags'		=> ( isset( $ext['tags'] ) ) ? $ext['tags'] : '',
+					'auth_url'	=> $ext['author_url'], 
+					'image'		=> ( isset( $ext['image'] ) ) ? $ext['image'] : '',
+					'auth'		=> $ext['author'], 
 					'key'		=> $key,
 					'type'		=> 'plugins',
-					'count'		=> $p['count'],
+					'count'		=> $ext['count'],
 					'actions'	=> $actions,
-					'screen'	=> $p['screen'],
-					'extended'	=> $p['extended'],
-					'slug'		=> $p['slug'],
+					'screen'	=> $ext['screen'],
+					'extended'	=> $ext['extended'],
+					'slug'		=> $ext['slug'],
 			);	
 				
 		}
@@ -657,7 +657,7 @@
 		
 		$themes = $this->extension_scan_themes( $themes );
 
-		foreach( $themes as $key => $theme ) {
+		foreach( $themes as $key => $ext ) {
 						
 				// reset the vars first numbnuts!	
 				$status = null;
@@ -670,7 +670,7 @@
 				$delete = null;
 				$login = null;
 				$data = null;
-				$theme['featured'] = ( isset( $theme['featured'] ) ) ? $theme['featured'] : false;
+				$ext['featured'] = ( isset( $ext['featured'] ) ) ? $ext['featured'] : false;
 
 
 				$check_file = sprintf( '%s/themes/%s/style.css', WP_CONTENT_DIR, $key );
@@ -680,7 +680,7 @@
 					
 					
 				$show = array(
-					'featured'	=> $theme['featured'], 
+					'featured'	=> $ext['featured'], 
 					'exists' 	=> $exists
 				);
 				
@@ -700,10 +700,10 @@
 				
 				$version = (isset($data)) ? $data['Version'] : false;
 				
-				$upgrade_available = ($version && $theme['version'] > $version) ? true : false;
+				$upgrade_available = ($version && $ext['version'] > $version) ? true : false;
 			
-				$purchase = ( !isset( $theme['purchased'] ) && !$status && $updates_configured ) ? true : false;
-				$product = ( isset( $theme['productid'] ) ) ? $theme['productid'] : 0;
+				$purchase = ( !isset( $ext['purchased'] ) && !$status && $updates_configured ) ? true : false;
+				$product = ( isset( $ext['productid'] ) ) ? $ext['productid'] : 0;
 				$install = ( !$status && !$purchase && $updates_configured ) ? true : false;
 				$delete = ( $activate && !EXTEND_NETWORK ) ? true : false;
 				
@@ -713,7 +713,7 @@
 				
 				
 
-				if( ( $install || $purchase || $login || $redirect ) && $theme['screen'])
+				if( ( $install || $purchase || $login || $redirect ) && $ext['screen'])
 					$image = sprintf( 'http://www.pagelines.com/api/files/themes/img/%s-thumb.png', $key );
 				elseif ( file_exists( sprintf('%s/%s/thumb.png', get_theme_root(), $key) ) )
 					$image = $local_image_uri;
@@ -727,10 +727,10 @@
 					'version'		=> $version,
 					'delete'		=> $delete,
 					'upgrade'		=> $upgrade_available, 
-					'product_id'	=> $theme['productid'], 
-					'unit_id'		=> $theme['uid'], 
-					'price'			=> $theme['price'], 
-					'name'			=> $theme['name'], 
+					'product_id'	=> $ext['productid'], 
+					'unit_id'		=> $ext['uid'], 
+					'price'			=> $ext['price'], 
+					'name'			=> $ext['name'], 
 					'file'			=> $key
 				);
 
@@ -780,19 +780,19 @@
 				$actions = $this->parse_buttons($actions, $core_actions);
 
 				$list[$key] = array(
-						'theme'		=> $theme,
-						'name' 		=> $theme['name'], 
+						'theme'		=> $ext,
+						'name' 		=> $ext['name'], 
 						'active'	=> $is_active,
-						'version'	=> ( !empty( $status ) && isset( $data['Version'] ) ) ? $data['Version'] : $theme['version'], 
-						'desc'		=> $theme['text'],
-						'tags'		=> ( isset( $theme['tags'] ) ) ? $theme['tags'] : '',
-						'auth_url'	=> $theme['author_url'], 
-						'image'		=> ( isset( $theme['image'] ) ) ? $theme['image'] : $image,
-						'auth'		=> $theme['author'], 
+						'version'	=> ( !empty( $status ) && isset( $data['Version'] ) ) ? $data['Version'] : $ext['version'], 
+						'desc'		=> $ext['text'],
+						'tags'		=> ( isset( $ext['tags'] ) ) ? $ext['tags'] : '',
+						'auth_url'	=> $ext['author_url'], 
+						'image'		=> ( isset( $ext['image'] ) ) ? $ext['image'] : $image,
+						'auth'		=> $ext['author'], 
 						'key'		=> $key,
 						'type'		=> 'themes',
-						'count'		=> $theme['count'],
-						'screen'	=> ( isset( $theme['screen'] ) ) ? $theme['screen'] : false,
+						'count'		=> $ext['count'],
+						'screen'	=> ( isset( $ext['screen'] ) ) ? $ext['screen'] : false,
 						'actions'	=> $actions
 				);		
 		}
@@ -820,7 +820,7 @@
 		$status = false;
 		$list = array();
 
-		foreach( $integrations as $key => $integration ) {
+		foreach( $integrations as $key => $ext ) {
 						
 				// reset the vars first numbnuts!	
 
@@ -837,8 +837,8 @@
 				$active = ( is_array( $active ) ) ? $active : false;
 				
 				$updates_configured = ( pagelines_check_credentials() ) ? true : false;	
-				$purchase = ( !isset( $integration['purchased'] ) ) ? true : false;
-				$product = ( isset( $integration['productid'] ) ) ? $integration['productid'] : 0;
+				$purchase = ( !isset( $ext['purchased'] ) ) ? true : false;
+				$product = ( isset( $ext['productid'] ) ) ? $ext['productid'] : 0;
 				
 				$login = ( !$updates_configured ) ? true : false;
 				
@@ -852,7 +852,7 @@
 				$download = ( $purchased && !$login ) ? true : false;
 				
 				
-				if( $integration['screen'])
+				if( $ext['screen'])
 					$image = sprintf( 'http://www.pagelines.com/api/files/integrations/img/%s-thumb.png', $key );
 				else
 					$image = PL_ADMIN_IMAGES . '/thumb-default.png';
@@ -871,8 +871,8 @@
 
 					'purchase'	=> array(
 						'condition'	=> $purchase,
-						'file'		=> ( isset( $integration['productid'] ) ) ? $integration['productid'] . ',' . $integration['uid'] . '|' . $integration['price'] . '|' . $integration['name'] : '',
-						'text'		=> ( isset( $integration['price'] ) ) ? sprintf('%s <span class="prc">($%s)</span>', __( 'Purchase', 'pagelines' ), $integration['price']) : '',
+						'file'		=> ( isset( $ext['productid'] ) ) ? $ext['productid'] . ',' . $ext['uid'] . '|' . $ext['price'] . '|' . $ext['name'] : '',
+						'text'		=> ( isset( $ext['price'] ) ) ? sprintf('%s <span class="prc">($%s)</span>', __( 'Purchase', 'pagelines' ), $ext['price']) : '',
 						'dtext'		=> __( 'Redirecting', 'pagelines' ),
 					),
 
@@ -914,18 +914,18 @@
 				$actions = $this->parse_buttons($actions, $core_actions);
 
 				$list[$key] = array(
-						'theme'		=> $integration,
-						'name' 		=> $integration['name'], 
-						'version'	=> ( !empty( $status ) && isset( $data['Version'] ) ) ? $data['Version'] : $integration['version'], 
-						'desc'		=> $integration['text'],
-						'tags'		=> ( isset( $integration['tags'] ) ) ? $integration['tags'] : '',
-						'auth_url'	=> $integration['author_url'], 
-						'image'		=> ( isset( $integration['image'] ) ) ? $integration['image'] : $image,
-						'auth'		=> $integration['author'], 
+						'theme'		=> $ext,
+						'name' 		=> $ext['name'], 
+						'version'	=> ( !empty( $status ) && isset( $data['Version'] ) ) ? $data['Version'] : $ext['version'], 
+						'desc'		=> $ext['text'],
+						'tags'		=> ( isset( $ext['tags'] ) ) ? $ext['tags'] : '',
+						'auth_url'	=> $ext['author_url'], 
+						'image'		=> ( isset( $ext['image'] ) ) ? $ext['image'] : $image,
+						'auth'		=> $ext['author'], 
 						'key'		=> $key,
 						'type'		=> 'themes',
-						'count'		=> $integration['count'],
-						'screen'	=> ( isset( $integration['screen'] ) ) ? $integration['screen'] : false,
+						'count'		=> $ext['count'],
+						'screen'	=> ( isset( $ext['screen'] ) ) ? $ext['screen'] : false,
 						'actions'	=> $actions
 				);		
 		}
