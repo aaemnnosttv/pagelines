@@ -403,8 +403,6 @@
 
 				$file = basename( $s['base_dir'] );
 				
-				$upgrade_available = $this->upgrade_available( $upgradable, $file, $s);
-				
 				$delete = ( !EXTEND_NETWORK && !$enabled && ( $tab !== 'child' && $tab !== 'internal' ) ) ? true : false;
 				
 				
@@ -415,7 +413,7 @@
 					'file'			=> $s['class'],
 					'delete'		=> $delete,
 					'enabled'		=> $enabled, 
-					'upgrade'		=> $upgrade_available, 
+					'upgrade'		=> $this->upgrade_available( $upgradable, $file, $s), 
 					'store'			=> false
 				);
 
@@ -854,7 +852,7 @@
 				$download = ( $purchased && !$login ) ? true : false;
 				
 				
-				if( ( $purchase || $login || $redirect ) && $integration['screen'])
+				if( $integration['screen'])
 					$image = sprintf( 'http://www.pagelines.com/api/files/integrations/img/%s-thumb.png', $key );
 				else
 					$image = PL_ADMIN_IMAGES . '/thumb-default.png';
