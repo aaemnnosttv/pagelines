@@ -213,9 +213,7 @@
 				return true; 
 			else
 				return false;
-			
 		}
-	
 	}
 
 	private function upgrade_available( $installed_version, $api_version){
@@ -237,7 +235,7 @@
 		
 		$logic['version'] = $this->get_the_version($type, $key, $ext);
 		
-		$logic['upgrade_available'] = $this->upgrade_available( $this->get_the_version($type, $key, $ext), $ext['version']);
+		$logic['upgrade_available'] = ( $logic['is_installed']) ? $this->upgrade_available( $this->get_the_version($type, $key, $ext), $ext['version']) : false;
 		
 		$logic['show_login_button'] = ( !$this->updates_configured() && !$logic['is_purchased'] ) ? true : false;
 		
@@ -565,6 +563,14 @@
 			 return (isset($info['status']['version'])) ? $info['status']['version'] : false;
 			
 		}
+		
+		if ( $type == 'theme' ) {
+			
+			return $info['version'];
+			
+			
+		}
+		
 		
 		
 	}
