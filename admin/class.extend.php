@@ -148,7 +148,7 @@
 				return false;
 
 			elseif ( $tab == 'premium' && $a['featured'] == 'true' )
-				return true;
+				return false;
 			
 			elseif ( ( $tab == 'premium' || $tab == 'featured' ) && $a['exists'] ) 
 				return false;
@@ -541,9 +541,9 @@
 		
 	}
 	
-	private function show_install_button( $is_installed, $is_purchased, $in_store ){
+	private function show_install_button( $type, $key, $info, $tab){
 		
-		if(!$is_installed && $is_purchased && $in_store && !EXTEND_NETWORK)
+		if(!$this->is_installed($type, $key, $info) && $this->is_purchased($type, $key, $info) && $this->in_store($tab) && !EXTEND_NETWORK)
 			return true;
 		else
 			return false;
@@ -631,7 +631,7 @@
 			
 			$show_purchase_button = ( !EXTEND_NETWORK && !$is_purchased && !$show_login_button && $this->in_the_store( $tab ) && !$is_installed ) ? true : false;
 
-			$show_install_button = $this->show_install_button( $is_installed, $is_purchased, $this->in_the_store( $tab ) );
+			$show_install_button = $this->show_install_button( 'plugin', $key, $ext, $tab);
 
 			$show_deactivate_button = ($is_active && !$this->in_the_store( $tab ) ) ? true : false;
 			
@@ -817,23 +817,19 @@
 			
 				$purchase = ( !isset( $ext['purchased'] ) && !$status && $updates_configured ) ? true : false;
 				$product = ( isset( $ext['productid'] ) ) ? $ext['productid'] : 0;
-				
-				
-				
-				$needed = ( $ext['plversion'] && $this->version_fail( $ext['plversion'] ) ) ? true : false;				
-				$install = ( !$status && !$purchase && $updates_configured && !$needed ) ? true : false;
+				$install = ( !$status && !$purchase && $updates_configured ) ? true : false;
 				$delete = ( $activate && !EXTEND_NETWORK ) ? true : false;
 				
 				$login = ( !$updates_configured && !$status );
 				
 				$redirect = ( $login && EXTEND_NETWORK ) ? true : false;
 				
-
+				
 
 				if( ( $install || $purchase || $login || $redirect ) && $ext['screen'])
 					$image = sprintf( 'http://www.pagelines.com/api/files/themes/img/%s-thumb.png', $key );
 				elseif ( file_exists( sprintf('%s/%s/thumb.png', get_theme_root(), $key) ) )
-					$image = sprintf('%s/%s/thumb.png', get_theme_root_uri(), $key);
+					$image = $local_image_uri;
 				else
 					$image = PL_ADMIN_IMAGES . '/thumb-default.png';
 			
@@ -891,12 +887,7 @@
 						'condition'	=> $redirect,
 						'type'		=> __( 'themes', 'pagelines' ),
 						'file'		=> $key,
-					)	,
-					'version_fail'	=>	array(
-						'mode'		=> 'installed',
-						'condition'	=> $needed,
-						'text'		=> sprintf( __( '%s of the framework is required', 'pagelines' ), $ext['plversion'] ),
-						)
+					)
 				);
 				
 				$actions = $this->parse_buttons($actions, $core_actions);
