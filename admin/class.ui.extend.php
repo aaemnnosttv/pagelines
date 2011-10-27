@@ -29,7 +29,7 @@ class PageLinesExtendUI {
 				'desc'		=> 'No description.', 
 				'auth_url'	=> 'http://www.pagelines.com',
 				'auth'		=> '',
-				'image'		=> '',
+				'image'		=> PL_ADMIN_IMAGES . '/thumb-default.png',
 				'buttons'	=> '',
 				'key'		=> '',
 				'type'		=> '',
@@ -88,15 +88,7 @@ class PageLinesExtendUI {
 	
 		$e = wp_parse_args( $e, $this->defaultpane);
 
-		$image = ( ( $e['actions']['install']['condition'] || $e['actions']['login']['condition'] || $e['actions']['purchase']['condition'] || $e['actions']['redirect']['condition'] ) && $e['theme']['screen'] ) ? sprintf( 'http://www.pagelines.com/api/files/themes/img/%s-thumb.png', $e['key'] ) : '';
-
-		if ( empty( $image ) ) {
-			
-			$image = ( file_exists( get_theme_root() .'/'. $e['key'] . '/thumb.png' ) ) ? get_theme_root_uri() .'/'. $e['key'] . '/thumb.png' : PL_ADMIN_IMAGES . '/thumb-default.png';
-			
-		} 
-
-		$image = sprintf( '<img class="" src="%s" alt="Screenshot" />', $image );
+		$image = sprintf( '<img class="" src="%s" alt="Thumb" />', $e['image'] );
 		
 		$title = sprintf('<h2>%s</h2>', $e['name']);
 		
@@ -146,25 +138,7 @@ class PageLinesExtendUI {
 		return sprintf('<div class="plpane"><div class="plpane-pad fix"><div class="plpane-box fix"><div class="plpane-box-pad">%s %s %s</div> </div></div></div>%s', $img, $title, $body, $break);
 		
 	}
-	
-	function active_extension(){
-		$e = wp_parse_args( $e, $this->defaultpane);
 
-		$image = ( ( $e['actions']['install']['condition'] || $e['actions']['purchase']['condition']) && $e['screen'] ) ? sprintf( 'http://api.pagelines.com/files/themes/img/%s-thumb.png', $e['key'] ) : ( file_exists( get_theme_root() .'/'. $e['key'] . '/thumb.png' ) ) ? get_theme_root_uri() .'/'. $e['key'] . '/thumb.png' : get_theme_root_uri() .'/'. $e['key'] . '/screenshot.png';
-
-		$image = sprintf( '<img class="" src="%s" alt="Screenshot" />', $image );
-
-		$title = sprintf('<h2>%s</h2>', $e['name']);
-
-		$text = sprintf('<p>%s</p>', $e['desc']);
-
-		$link =  $this->get_extend_buttons( $e, 'superlink');
-
-		$out = sprintf('<div class="graphic_pane media fix"><div class="theme-screen img">%s</div><div class="theme-desc bd">%s%s%s</div></div>', $image, $title, $text, $link);
-
-		return $out;
-		
-	}
 	
 	function get_extend_buttons( $e, $style = 'small'){
 		

@@ -586,6 +586,16 @@
 				
 				$redirect = ( $login && EXTEND_NETWORK ) ? true : false;
 				
+				
+
+				if( ( $install || $purchase || $login || $redirect ) && $theme['screen'])
+					$image = sprintf( 'http://www.pagelines.com/api/files/themes/img/%s-thumb.png', $key );
+				elseif ( file_exists( sprintf('%s/%s/thumb.png', get_theme_root(), $key) ) )
+					$image = $local_image_uri;
+				else
+					$image = PL_ADMIN_IMAGES . '/thumb-default.png';
+			
+				
 				$actions = array(
 					'install'	=> array(
 						'mode'		=> 'install',
@@ -671,7 +681,7 @@
 						'desc'		=> $theme['text'],
 						'tags'		=> ( isset( $theme['tags'] ) ) ? $theme['tags'] : '',
 						'auth_url'	=> $theme['author_url'], 
-						'image'		=> ( isset( $theme['image'] ) ) ? $theme['image'] : '',
+						'image'		=> ( isset( $theme['image'] ) ) ? $theme['image'] : $image,
 						'auth'		=> $theme['author'], 
 						'key'		=> $key,
 						'type'		=> 'themes',
@@ -729,6 +739,13 @@
 				
 				$download = ( $purchased && !$login ) ? true : false;
 				
+				
+				if( ( $install || $purchase || $login || $redirect ) && $integration['screen'])
+					$image = sprintf( 'http://www.pagelines.com/api/files/integrations/img/%s-thumb.png', $key );
+				else
+					$image = PL_ADMIN_IMAGES . '/thumb-default.png';
+				
+				
 				$actions = array(
 
 					'purchase'	=> array(
@@ -785,11 +802,12 @@
 						'theme'		=> $integration,
 						'name' 		=> $integration['name'], 
 						'active'	=> $is_active,
+						
 						'version'	=> ( !empty( $status ) && isset( $data['Version'] ) ) ? $data['Version'] : $integration['version'], 
 						'desc'		=> $integration['text'],
 						'tags'		=> ( isset( $integration['tags'] ) ) ? $integration['tags'] : '',
 						'auth_url'	=> $integration['author_url'], 
-						'image'		=> ( isset( $integration['image'] ) ) ? $integration['image'] : '',
+						'image'		=> ( isset( $integration['image'] ) ) ? $integration['image'] : $image,
 						'auth'		=> $integration['author'], 
 						'key'		=> $key,
 						'type'		=> 'themes',
