@@ -215,6 +215,43 @@
 	
 	}
 
+	private function button_logic( $type, $key, $ext, $tab ) {
+		
+		$logic = array();
+		// button logic		
+		
+		$logic['is_installed'] = $this->is_installed($type, $key, $ext);
+
+		$logic['is_purchased'] = $this->is_purchased($type, $key, $ext);
+		
+		$logic['version'] = $this->get_the_version($type, $key, $ext);
+		
+		$logic['upgrade_available'] = $this->upgrade_available($type, $key, $ext);
+		
+		$logic['show_login_button'] = ( !$this->updates_configured() && !$logic['is_purchased'] ) ? true : false;
+		
+		$logic['is_active'] = $this->is_active($type, $key, $ext);
+		
+		$logic['show_installed_button'] =  ( $this->in_the_store( $tab ) && $logic['is_installed'] ) ? true : false;
+		
+		$logic['show_purchase_button'] = ( !EXTEND_NETWORK && !$logic['is_purchased'] && !$logic['show_login_button'] && $this->in_the_store( $tab ) && !$logic['is_installed'] ) ? true : false;
+
+		$logic['show_install_button'] = $this->show_install_button( $type, $key, $ext, $tab);
+
+		$logic['show_deactivate_button'] = ($logic['is_active'] && !$this->in_the_store( $tab ) ) ? true : false;
+		
+		$logic['show_activate_button'] = (!$this->in_the_store( $tab ) && $logic['is_installed'] && !$logic['is_active']) ? true : false;
+	
+		$logic['delete'] = ( $logic['show_activate_button'] && ! EXTEND_NETWORK ) ? true : false;
+		
+		$logic['redirect'] = ( EXTEND_NETWORK && $logic['show_install_button'] ) ? true : false;			
+			
+		$logic['installed'] = (!$logic['show_install_button']) ? true : false;	
+		
+		return $logic;
+	}
+	
+
 	private function master_array( $args ){
 		
 		$d = array(
@@ -601,15 +638,13 @@
 			if ( !isset( $ext['status'] ) )
 				$ext['status'] = array( 'status' => '' );	
 				
-
-			// button logic
+			$logic = $this->button_logic( 'plugin', $key, $ext, $tab );
 			
-			
-			
+			plprint( $logic, $key );
+			// button logic		
+/*			
 			$is_installed = $this->is_installed('plugin', $key, $ext);
-			
 
-			
 			$is_purchased = $this->is_purchased('plugin', $key, $ext);
 			
 			$version = $this->get_the_version('plugin', $key, $ext);
@@ -636,17 +671,19 @@
 				
 			$installed = (!$show_install_button) ? true : false;
 			
+*/
+
 				
 			$args = array(
 				'extend'		=> 'plugins',
 				'type'			=> 'plugins',
-				'installed'		=> $installed,
-				'purchased'		=> $is_purchased,
-				'version'		=> $version,
+				'installed'		=> $logic['installed'],
+				'purchased'		=> $logic['is_purchased'],
+				'version'		=> $logic['version'],
 				'path'			=> $ext['file'],
 				'file'			=> $key,
-				'delete'		=> $delete,
-				'upgrade'		=> $upgrade_available, 
+				'delete'		=> $logic['delete'],
+				'upgrade'		=> $logic['upgrade_available'], 
 				'price'			=> $ext['price'], 
 				'product_id'	=> $ext['productid'], 
 				'unit_id'		=> $ext['uid'], 
@@ -658,27 +695,27 @@
 				
 			$actions = array(
 				'install'	=> array(
-					'condition'	=> $show_install_button,
+					'condition'	=> $logic['show_install_button'],
 					'case'		=> 'plugin_install',
 					'file'		=> $key,
 				),
 				'activate'	=> array(
-					'condition'	=> $show_activate_button,
+					'condition'	=> $logic['show_activate_button'],
 					'case'		=> 'plugin_activate',
 					'file'		=> $ext['file'],
 				),
 				'upgrade'	=> array(
-					'condition'	=> $upgrade_available,
+					'condition'	=> $logic['upgrade_available'],
 					'case'		=> 'plugin_upgrade',
 					'path'		=> $key,
 				),
 				'deactivate'	=> array(
-					'condition'	=> $show_deactivate_button,
+					'condition'	=> $logic['show_deactivate_button'],
 					'case'		=> 'plugin_deactivate',
 					'file'		=> $ext['file'],
 				),
 				'delete'	=> array(
-					'condition'	=> $delete,
+					'condition'	=> $logic['delete'],
 					'case'		=> 'plugin_delete',
 					'file'		=> $ext['file'],
 				),
@@ -687,10 +724,10 @@
 					'file'		=> $key,
 				),
 				'purchase'	=> array(
-					'condition'	=> $show_purchase_button,
+					'condition'	=> $logic['show_purchase_button'],
 				),
 				'installed'	=>	array(
-					'condition'	=> $show_installed_button,
+					'condition'	=> $logic['show_installed_button'],
 				)
 			);			
 			
