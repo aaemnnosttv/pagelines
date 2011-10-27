@@ -60,9 +60,7 @@
 		return ( $this->version_check( $version ) && !EXTEND_NETWORK && $purchased && ! $installed) ? true : false;
 	}
 	
-	private function is_installed( $path = false ){
-		return ( file_exists( $path ) ) ? true : false;
-	}
+
 	
 	private function version_check( $version ){
 		return ( version_compare( CORE_VERSION, $version ) >= 0 ) ? true : false;
@@ -164,6 +162,57 @@
 		}
 		
 		
+	}
+	
+	private function is_installed( $type, $key, $info ){
+
+		if($type == 'section'){
+
+			$path = sprintf('%1$s/%2$s/section.php', PL_EXTEND_DIR, $key );
+
+			if(file_exists($path))
+				return true;
+			else 
+				return false;
+
+		} elseif( $type == 'plugin'){
+
+			if( isset($info['status']['status']) )
+				return true;
+			else 
+				return false;
+
+		} elseif( $type == 'theme' ){
+			
+			$check_file = sprintf( '%s/themes/%s/style.css', WP_CONTENT_DIR, $key );
+
+			if ( file_exists( $check_file ) )
+				$exists = true;
+				
+			if( isset( $exists ) && $data = get_theme_data( $check_file ) )
+				return true;
+			else
+				return false;
+
+		}
+
+	}
+	
+	private function is_purchased( $type, $key, $info ){
+
+		if($type == 'section'){
+			
+			return (isset( $ext->purchased )) ? true : false;
+			
+		} else {
+			
+			if( isset( $info['purchased'] ) )
+				return true; 
+			else
+				return false;
+			
+		}
+	
 	}
 
 	private function master_array( $args ){
@@ -280,7 +329,7 @@
 		return $actions;
 		
 	}
-
+	
 	/**
 	 * Section install tab.
 	 * 
@@ -309,9 +358,11 @@
 			if( !$this->show_in_tab('sections_install', $tab, array('price' => $ext->price ) ) )
 				continue;
 			
-			$purchased = ( isset( $ext->purchased ) ) ? true : false;
+			
+			$purchased = $this->is_purchased( 'section', $key, $ext );
 
-			$installed = $this->is_installed( sprintf('%1$s/%2$s/section.php', PL_EXTEND_DIR, $key ) );
+		
+			$installed = $this->is_installed( 'section', $key, $ext );
 	
 	
 			$args = array(
@@ -444,6 +495,60 @@
 			return $this->ui->extension_list( $list );
  	}
 
+	private function get_the_version($type, $key, $info){
+		
+		
+		if($type == 'plugin'){
+			
+			 return (isset($info['status']['version'])) ? $info['status']['version'] : false;
+			
+		}
+		
+		
+	}
+	
+	private function update_available( $type, $key, $info ){
+		
+		if($type == 'plugin'){
+			
+			$version = $this->get_the_version( $type, $key, $info);
+			
+			return ( $version && $info['version'] > $version ) ? true : false;
+			
+		}
+		
+	}
+	
+	private function is_active( $type, $key, $info ){
+		
+		if($type == 'plugin'){
+			
+			if( isset($ext['status']['status']) && $ext['status']['status'] == 'active')
+				return true;
+			else 
+				return false;
+				
+		}
+		
+	}
+
+	private function in_the_store( $tab ){
+		
+		if($tab == 'free' || $tab == 'premium' || $tab == 'featured')
+			return true;
+		else
+			return false;
+		
+	}
+	
+	private function show_install_button( $is_installed, $is_purchased, $in_store ){
+		
+		if(!$is_installed && $is_purchased && $in_store && !EXTEND_NETWORK)
+			return true;
+		else
+			return false;
+	}
+
 	/*
 	 * Plugins tab.
 	 */
@@ -482,8 +587,7 @@
 			
 		}
 		
-		$list = array();
-		$updates_configured = ( pagelines_check_credentials() ) ? true : false;
+		$list = array();		
 		foreach( $plugins as $key => $ext ) {
 				
 			$show = array(
@@ -509,35 +613,42 @@
 			$purchased = null;
 			$redirect = null;
 			
-			$version = isset($ext['status']['version']) ? $ext['status']['version'] : false;
 			
-			$installed_tag =  ( ( $tab === 'premium' || $tab === 'free' ) && $ext['status']['status'] ) ? true : false;
 			
-			$purchased = ( isset( $ext['purchased'] ) ) ? true : false;
-				
-			$login = ( !$updates_configured && !$purchased) ? true : false;
+			$is_installed = $this->is_installed('plugin', $key, $ext);
 			
-			$purchase = ( !EXTEND_NETWORK && !$purchased && !$login && $tab != 'installed' && !$installed_tag ) ? true : false;
+			$is_purchased = $this->is_purchased('plugin', $key, $ext);
+			
+			$version = $this->get_the_version('plugin', $key, $ext);
+			
+			$upgrade_available = $this->upgrade_available('plugin', $key, $ext);
+			
+			$show_login_button = ( !$this->updates_configured() && !$is_purchased) ? true : false;
+			
+			$is_active = $this->is_active('plugin', $key, $ext);
+			
+			$show_installed_button =  ( $this->in_the_store( $tab ) && $is_installed ) ? true : false;
+			
+			$show_purchase_button = ( !EXTEND_NETWORK && !$is_purchased && !$show_login_button && $this->in_the_store( $tab ) && !$is_installed ) ? true : false;
 
-			$install = ($ext['status']['status'] == '' && !$login && !$purchase && !EXTEND_NETWORK) ? true : false;
+			$show_install_button = $this->show_install_button( $is_installed, $is_purchased, $this->in_the_store( $tab ) );
 
-			$upgrade_available = ( $version && $ext['version'] > $version ) ? true : false;
+			$show_deactivate_button = ($is_active && !$this->in_the_store( $tab ) ) ? true : false;
 			
-			$active = ($ext['status']['status'] == 'active' && !$installed_tag ) ? true : false;
-			
-			$deactivated = (!$login && !$purchase && !$install && !$active  && !$installed_tag) ? true : false;
+			$show_activate_button = (!$this->in_the_store( $tab ) && $is_installed) ? true : false;
 			
 			$delete = ( $deactivated && ! EXTEND_NETWORK ) ? true : false;
 			
-			$redirect = ( EXTEND_NETWORK && $install ) ? true : false;			
+			$redirect = ( EXTEND_NETWORK && $show_install_button ) ? true : false;			
 				
-			$installed = (!$install) ? true : false;
+			$installed = (!$show_install_button) ? true : false;
+			
 				
 			$args = array(
 				'extend'		=> 'plugins',
 				'type'			=> 'plugins',
 				'installed'		=> $installed,
-				'purchased'		=> $purchased,
+				'purchased'		=> $is_purchased,
 				'version'		=> $version,
 				'path'			=> $ext['file'],
 				'file'			=> $key,
@@ -554,12 +665,12 @@
 				
 			$actions = array(
 				'install'	=> array(
-					'condition'	=> $install,
+					'condition'	=> $show_install_button,
 					'case'		=> 'plugin_install',
 					'path'		=> $ext['file'],
 				),
 				'activate'	=> array(
-					'condition'	=> $deactivated,
+					'condition'	=> $show_activate_button,
 					'case'		=> 'plugin_activate',
 					'file'		=> $ext['file'],
 				),
@@ -569,7 +680,7 @@
 					'path'		=> $ext['file'],
 				),
 				'deactivate'	=> array(
-					'condition'	=> $active,
+					'condition'	=> $show_deactivate_button,
 					'case'		=> 'plugin_deactivate',
 					'file'		=> $ext['file'],
 				),
@@ -583,10 +694,10 @@
 					'file'		=> $ext['file'],
 				),
 				'purchase'	=> array(
-					'condition'	=> $purchase,
+					'condition'	=> $show_purchase_button,
 				),
 				'installed'	=>	array(
-					'condition'	=> $installed_tag,
+					'condition'	=> $show_installed_button,
 				)
 			);			
 			
@@ -688,12 +799,14 @@
 					continue;
 					
 					
+				
+					
 				if ( isset( $exists ) && $data = get_theme_data( $check_file ) ) 
 					$status = 'installed';
 					
 				$is_active = ( $key  == basename( get_stylesheet_directory() ))	? true : false;
 					
-				$updates_configured = ( pagelines_check_credentials() ) ? true : false;	
+				$updates_configured = $this->updates_configured();
 					
 				$activate = ($status == 'installed' && !$is_active) ? true : false;
 				$deactivate = ($status == 'installed' && $is_active) ? true : false;
