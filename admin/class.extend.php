@@ -133,7 +133,7 @@
 			elseif ( $tab === 'installed' && $a['override'])
 				return false;
 
-			elseif ( $tab === 'premium' && $a['price'] === 'free' )
+			elseif ( ( $tab === 'premium' || $tab === 'featured' ) && $a['price'] === 'free' )
 				return false;
 
 			elseif ( $tab === 'free' && $a['price'] != 'free' )
@@ -177,7 +177,7 @@
 
 		} elseif( $type == 'plugin'){
 
-			if( isset($info['status']['status']) )
+			if( isset($info['status']['status']) && $info['status']['status'] == 'active')
 				return true;
 			else 
 				return false;
@@ -542,7 +542,7 @@
 	
 	private function show_install_button( $type, $key, $info, $tab){
 		
-		if(!$this->is_installed($type, $key, $info) && $this->is_purchased($type, $key, $info) && $this->in_store($tab) && !EXTEND_NETWORK)
+		if(!$this->is_installed($type, $key, $info) && $this->is_purchased($type, $key, $info) && $this->in_the_store($tab) && !EXTEND_NETWORK)
 			return true;
 		else
 			return false;
@@ -601,20 +601,14 @@
 			if ( !isset( $ext['status'] ) )
 				$ext['status'] = array( 'status' => '' );	
 				
-			$install = null;
-			$upgrade_available = null;
-			$active = null;
-			$deactivated = null;
-			$delete = null;
-			$redirect = null;
-			$login = null;
-			$purchase = null;
-			$purchased = null;
-			$redirect = null;
+
+			// button logic
 			
 			
 			
 			$is_installed = $this->is_installed('plugin', $key, $ext);
+			
+
 			
 			$is_purchased = $this->is_purchased('plugin', $key, $ext);
 			
@@ -636,7 +630,7 @@
 			
 			$show_activate_button = (!$this->in_the_store( $tab ) && $is_installed && !$is_active) ? true : false;
 		
-			$delete = ( $deactivated && ! EXTEND_NETWORK ) ? true : false;
+			$delete = ( $show_activate_button && ! EXTEND_NETWORK ) ? true : false;
 			
 			$redirect = ( EXTEND_NETWORK && $show_install_button ) ? true : false;			
 				
