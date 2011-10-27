@@ -147,11 +147,14 @@
 			if ( $tab === 'featured' && $a['featured'] == 'false' ) 
 				return false;
 
-			elseif ( $tab == 'premium' && $a['featured'] == 'true' )
-				return false;
+			elseif ( ( $tab == 'premium' || $tab === 'featured' ) && $a['featured'] == 'true' )
+				return true;
 			
 			elseif ( ( $tab == 'premium' || $tab == 'featured' ) && $a['exists'] ) 
 				return false;
+
+//			elseif (  $tab = 'free' && $a['price'] != 'free' ) 
+//				return false;
 				
 			elseif ( $tab == 'installed' && !$a['exists'] )
 				return false;
@@ -248,9 +251,23 @@
 			
 		$logic['installed'] = (!$logic['show_install_button']) ? true : false;	
 		
+		$logic['product'] = ( isset( $ext['productid'] ) ) ? $ext['productid'] : 0;
+		
 		return $logic;
 	}
 	
+	private function image_path( $type, $logic, $ext, $key ) {
+		
+		if ( $type == 'theme' ) {
+			if ( ( $logic['show_install_button'] || $logic['show_purchase_button'] || $logic['show_login_button'] || $logic['redirect'] ) && $ext['screen'])
+				return sprintf( 'http://www.pagelines.com/api/files/themes/img/%s-thumb.png', $key );
+			elseif ( file_exists( sprintf('%s/%s/thumb.png', get_theme_root(), $key) ) )
+				return sprintf('%s/%s/thumb.png', get_theme_root_uri(), $key);
+			else
+				return PL_ADMIN_IMAGES . '/thumb-default.png';
+		}
+
+	}
 
 	private function master_array( $args ){
 		
@@ -637,11 +654,13 @@
 				
 			if ( !isset( $ext['status'] ) )
 				$ext['status'] = array( 'status' => '' );	
-				
+
+
+			// button logic		
 			$logic = $this->button_logic( 'plugin', $key, $ext, $tab );
 			
-			plprint( $logic, $key );
-			// button logic		
+
+			// This whole block sux! 	
 /*			
 			$is_installed = $this->is_installed('plugin', $key, $ext);
 
@@ -799,6 +818,8 @@
 		$themes = $this->extension_scan_themes( $themes );
 
 		foreach( $themes as $key => $ext ) {
+
+/*
 						
 				// reset the vars first numbnuts!	
 				$status = null;
@@ -854,25 +875,31 @@
 				
 				$redirect = ( $login && EXTEND_NETWORK ) ? true : false;
 				
+*/				
+
+				$show = array(
+					'featured'	=> ( isset( $ext['featured'] ) ) ? $ext['featured'] : false, 
+					'exists' 	=> $this->is_installed('theme', $key, $ext)
+				);
+
+				if( !$this->show_in_tab( 'themes', $tab, $show ) )
+					continue;
+					
+				// button logic		
+				$logic = $this->button_logic( 'theme', $key, $ext, $tab );
+
+				$image = $this->image_path( 'theme', $logic, $ext, $key);
 				
 
-				if( ( $install || $purchase || $login || $redirect ) && $ext['screen'])
-					$image = sprintf( 'http://www.pagelines.com/api/files/themes/img/%s-thumb.png', $key );
-				elseif ( file_exists( sprintf('%s/%s/thumb.png', get_theme_root(), $key) ) )
-					$image = $local_image_uri;
-				else
-					$image = PL_ADMIN_IMAGES . '/thumb-default.png';
-			
-				
 				$args = array(
 					'extend'		=> 'themes',
 					'type'			=> 'themes',
-					'version'		=> $version,
-					'delete'		=> $delete,
-					'upgrade'		=> $upgrade_available, 
+					'version'		=> $logic['version'],
+					'delete'		=> $logic['delete'],
+					'upgrade'		=> $logic['upgrade_available'], 
 					'product_id'	=> $ext['productid'], 
-					'unit_id'		=> $ext['uid'], 
-					'price'			=> $ext['price'], 
+					'unit_id'		=> $ext['productid'], 
+					'price'			=> isset( $ext['price'] ) ? $ext['price'] : 'free', 
 					'name'			=> $ext['name'], 
 					'file'			=> $key
 				);
@@ -882,39 +909,39 @@
 				
 				$actions = array(
 					'install'	=> array(
-						'condition'	=> $install,
+						'condition'	=> $logic['show_install_button'],
 						'case'		=> 'theme_install',
 						'file'		=> $key,
-						'product'	=> $product,
+						'product'	=> $logic['product'],
 					),
 					'activate'	=> array(
-						'condition'	=> $activate,
+						'condition'	=> $logic['show_activate_button'],
 						'case'		=> 'theme_activate',
 						'file'		=> $key,
 					),
 					'deactivate'	=> array(
-						'condition'	=> $deactivate,
+						'condition'	=> $logic['show_deactivate_button'],
 						'case'		=> 'theme_deactivate',
 						'file'		=> $key,
 					),
 					'upgrade'	=> array(
-						'condition'	=> $upgrade_available,
+						'condition'	=> $logic['upgrade_available'],
 						'case'		=> 'theme_upgrade',
 						'file'		=> $key,
 					),
 					'purchase'	=> array(
-						'condition'	=> $purchase,
+						'condition'	=> $logic['show_purchase_button'],
 					),
 					'delete'	=> array(
-						'condition'	=> $delete,
+						'condition'	=> $logic['delete'],
 						'case'		=> 'theme_delete',
 						'file'		=> $key,
 					),
 					'login'	=> array(
-						'condition'	=> ( !EXTEND_NETWORK ) ? $login : false,
+						'condition'	=> $logic['show_login_button'],
 					),
 					'redirect'	=> array(
-						'condition'	=> $redirect,
+						'condition'	=> $logic['redirect'],
 						'type'		=> __( 'themes', 'pagelines' ),
 						'file'		=> $key,
 					)
@@ -925,12 +952,12 @@
 				$list[$key] = array(
 						'theme'		=> $ext,
 						'name' 		=> $ext['name'], 
-						'active'	=> $is_active,
+						'active'	=> $logic['is_active'],
 						'version'	=> ( !empty( $status ) && isset( $data['Version'] ) ) ? $data['Version'] : $ext['version'], 
 						'desc'		=> $ext['text'],
 						'tags'		=> ( isset( $ext['tags'] ) ) ? $ext['tags'] : '',
 						'auth_url'	=> $ext['author_url'], 
-						'image'		=> ( isset( $ext['image'] ) ) ? $ext['image'] : $image,
+						'image'		=> $image,
 						'auth'		=> $ext['author'], 
 						'key'		=> $key,
 						'type'		=> 'themes',
