@@ -522,8 +522,7 @@
 	private function is_active( $type, $key, $info ){
 		
 		if($type == 'plugin'){
-			
-			if( isset($ext['status']['status']) && $ext['status']['status'] == 'active')
+			if( isset($info['status']['status']) && $info['status']['status'] == 'active')
 				return true;
 			else 
 				return false;
@@ -635,8 +634,8 @@
 
 			$show_deactivate_button = ($is_active && !$this->in_the_store( $tab ) ) ? true : false;
 			
-			$show_activate_button = (!$this->in_the_store( $tab ) && $is_installed) ? true : false;
-			
+			$show_activate_button = (!$this->in_the_store( $tab ) && $is_installed && !$is_active) ? true : false;
+		
 			$delete = ( $deactivated && ! EXTEND_NETWORK ) ? true : false;
 			
 			$redirect = ( EXTEND_NETWORK && $show_install_button ) ? true : false;			
