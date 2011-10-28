@@ -232,6 +232,7 @@
 				'case'		=> $type.'_upgrade',
 				'type'		=> $type,
 				'file'		=> $this->get_the_file( 'activate', $type, $key, $ext, $tab ),
+				'path'		=> $key,
 				'text'		=> sprintf(__( 'Upgrade to %s', 'pagelines' ), $ext['version'] ),
 				'dtext'		=> sprintf( __( 'Upgrading to version %s', 'pagelines' ), $ext['version'] ),
 			),
@@ -482,8 +483,8 @@
 	}
 	
 	private function is_active( $type, $key, $ext ){
-		
-		if($ext == 'plugin'){
+
+		if($type == 'plugin'){
 			if( isset($ext['status']['status']) && $ext['status']['status'] == 'active')
 				return true;
 			else 
@@ -1016,16 +1017,6 @@
 			else 
 				return true;
 		}
-	}
-
-	/**
-	 * Throw up on error
-	 */
-	function error_handler( $type ) { 
-		$a = error_get_last();
-		$error =  ( $a['type'] == 4 || $a['type'] == 1 ) ? sprintf( 'Unable to activate the %s.', $type ) : '';
-		$error .= ( $error && PL_DEV ) ? sprintf( '<br />%s in %s on line: %s', $a['message'], basename( $a['file'] ), $a['line'] ) : '';
-		echo $error;
 	}
 	
 	/**

@@ -79,7 +79,6 @@
 			break;			
 
 			case 'plugin_install': // TODO check status first!
-
 				if ( !$checked )
 					$this->check_creds( 'extend', WP_PLUGIN_DIR );		
 				global $wp_filesystem;
@@ -107,17 +106,17 @@
 				$skin = new PageLines_Upgrader_Skin();
 				$upgrader = new Plugin_Upgrader($skin);
 
-				$active = is_plugin_active( ltrim( $path, '/' ) );
-				deactivate_plugins( array( $path ) );
+				$active = is_plugin_active( ltrim( $file, '/' ) );
+				deactivate_plugins( array( $file ) );
 
 				if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) )
-					$wp_filesystem->delete( trailingslashit( WP_PLUGIN_DIR ) . $file, true, false  );
+					$wp_filesystem->delete( trailingslashit( WP_PLUGIN_DIR ) . $path, true, false  );
 				else
-					extend_delete_directory( trailingslashit( WP_PLUGIN_DIR ) . $file );
-				@$upgrader->install( $this->make_url( $type, $file ) );
-				$this->sandbox( WP_PLUGIN_DIR . $path, 'plugin');
+					extend_delete_directory( trailingslashit( WP_PLUGIN_DIR ) . $path );
+				@$upgrader->install( $this->make_url( $type, $path ) );
+				$this->sandbox( WP_PLUGIN_DIR . $file, 'plugin');
 				if ( $active )
-					activate_plugin( ltrim( $path, '/' ) );
+					activate_plugin( ltrim( $file, '/' ) );
 				// Output
 
 				$text = '&extend_text=plugin_upgrade';
@@ -444,7 +443,7 @@
 	 */
 	function make_url( $type, $file, $product = null ) {
 		
-		return sprintf('%s%s/download.php?d=%s.zip%s', PL_API_FETCH, $type, $file, (isset( $product ) ) ? '&product=' . $product : '' );
+		return sprintf('%s%ss/download.php?d=%s.zip%s', PL_API_FETCH, $type, $file, (isset( $product ) ) ? '&product=' . $product : '' );
 		
 	}
 	
@@ -485,5 +484,14 @@
 		@include_once( $file );
 	}
 
+	/**
+	 * Throw up on error
+	 */
+	function error_handler( $type ) { 
+		$a = error_get_last();
+		$error =  ( $a['type'] == 4 || $a['type'] == 1 ) ? sprintf( 'Unable to activate the %s.', $type ) : '';
+		$error .= ( $error && PL_DEV ) ? sprintf( '<br />%s in %s on line: %s', $a['message'], basename( $a['file'] ), $a['line'] ) : '';
+		echo $error;
+	}
 	
 }
