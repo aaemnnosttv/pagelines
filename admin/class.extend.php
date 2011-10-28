@@ -88,7 +88,7 @@
 		return sprintf('%s <span class="prc">($%s)</span>', __( 'Purchase', 'pagelines' ), $price); 
 	}
 	
-	private function show_in_tab( $type, $tab, $args ){
+	private function show_in_tab( $type, $key, $ext, $tab ){
 		
 		$d = array(
 			'price'		=> '', 
@@ -101,62 +101,61 @@
 		
 		$a = wp_parse_args($args, $d);
 		
-		if($type == 'sections_manage'){
+		if($type == 'section'){
 			
-			if ( $tab === 'user' && ( $a['type'] === 'custom' || $a['type'] === 'parent' ) )
+			$ext = (array) $ext;
+			
+			if ( $tab === 'user' && ( $ext['type'] === 'custom' || $ext['type'] === 'parent' ) )
 				return false;
-			elseif ( $tab === 'internal' && ( $a['type'] === 'custom' || $a['type'] === 'child' ) )
+			elseif ( $tab === 'internal' && ( $ext['type'] === 'custom' || $ext['type'] === 'child' ) )
 				return false;						
-			elseif ( $tab === 'child' && ( $a['type'] === 'child' || $a['type'] === 'parent' ) )
+			elseif ( $tab === 'child' && ( $ext['type'] === 'child' || $ext['type'] === 'parent' ) )
 				return false;
-			elseif ( $a['type'] == 'parent' && $a['override'] )
+			elseif ( $ext['type'] == 'parent' && $ext['class_exists'] )
 				return false;
-			else
-				return true;
-			
-		} elseif($type == 'sections_install') {
-			
-			if( $a['price'] != 'free' && $tab === 'free' )
+			elseif( $ext['price'] != 'free' && $tab == 'free' )
 				return false;
-
-			elseif( $tab == 'premium' && $a['price'] == 'free' )
+			elseif( $tab == 'premium' && $ext['price'] == 'free' )
 				return false;
-
 			else 
 				return true;
 			
-		} elseif($type == 'plugins'){
+		} elseif($type == 'plugin'){
 			
-			if ( $tab === 'installed' && !$a['status'] )
+			if ( $tab === 'installed' && (!$ext['loaded'] || $ext['sections-plugin']) )
 				return false;
 				
-			elseif ( $tab === 'installed' && $a['override'])
+			elseif ( ( $tab === 'premium' || $tab === 'featured' ) && $ext['price'] === 'free' )
 				return false;
 
-			elseif ( ( $tab === 'premium' || $tab === 'featured' ) && $a['price'] === 'free' )
-				return false;
-
-			elseif ( $tab === 'free' && $a['price'] != 'free' )
+			elseif ( $tab === 'free' && $ext['price'] != 'free' )
 				return false;
 			
 			else 
 				return true;
 				
-		} elseif($type == 'themes'){
+		} elseif($type == 'theme'){
+		
+			$ext['featured'] 	= ( isset( $ext['featured'] ) ) ? $ext['featured'] : false; 
+			$ext['exists'] 		= $this->is_installed('theme', $key, $ext);
 			
-			if ( $tab === 'featured' && $a['featured'] == 'false' ) 
+			if ( file_exists( sprintf( '%s/themes/%s/style.css', WP_CONTENT_DIR, $key ) ) )
+				$exists = true;
+			
+	
+			if ( $tab === 'featured' && (bool) !$ext['featured'] ) 
 				return false;
 
-			elseif ( ( $tab == 'premium' || $tab === 'featured' ) && $a['featured'] == 'true' )
+			elseif ( ( $tab === 'featured' ) && (bool) $ext['featured'] )
 				return true;
 			
-			elseif ( ( $tab == 'premium' || $tab == 'featured' ) && $a['exists'] ) 
+			elseif ( ( $tab == 'premium' || $tab == 'featured' ) && $ext['exists'] ) 
 				return false;
 
-//			elseif (  $tab = 'free' && $a['price'] != 'free' ) 
-//				return false;
+			elseif (  $tab == 'free' && $ext['price'] != 'free' ) 
+				return false;
 				
-			elseif ( $tab == 'installed' && !$a['exists'] )
+			elseif ( $tab == 'installed' && !$ext['exists'] )
 				return false;
 				
 			else
@@ -224,44 +223,7 @@
 			return false;
 	}
 	
-	private function button_logic( $type, $key, $ext, $tab ) {
-		
-		$logic = array();
-		// button logic		
-		
-		$logic['is_installed'] = $this->is_installed($type, $key, $ext);
 
-		$logic['is_purchased'] = $this->is_purchased($type, $key, $ext);
-		
-		$logic['version'] = $this->get_the_version($type, $key, $ext);
-		
-		$logic['upgrade_available'] = ( $logic['is_installed']) ? $this->upgrade_available( $this->get_the_version($type, $key, $ext), $ext['version']) : false;
-		
-		$logic['show_login_button'] = ( !$this->updates_configured() && !$logic['is_purchased'] ) ? true : false;
-		
-		$logic['is_active'] = $this->is_active($type, $key, $ext);
-		
-		$logic['show_installed_button'] =  ( $this->in_the_store( $tab ) && $logic['is_installed'] ) ? true : false;
-		
-		$logic['show_purchase_button'] = ( !EXTEND_NETWORK && !$logic['is_purchased'] && !$logic['show_login_button'] && $this->in_the_store( $tab ) && !$logic['is_installed'] ) ? true : false;
-
-		$logic['show_install_button'] = $this->show_install_button( $type, $key, $ext, $tab);
-
-		$logic['show_deactivate_button'] = ($logic['is_active'] && !$this->in_the_store( $tab ) ) ? true : false;
-		
-		$logic['show_activate_button'] = (!$this->in_the_store( $tab ) && $logic['is_installed'] && !$logic['is_active']) ? true : false;
-	
-		$logic['delete'] = ( $logic['show_activate_button'] && ! EXTEND_NETWORK ) ? true : false;
-		
-		$logic['redirect'] = ( EXTEND_NETWORK && $logic['show_install_button'] ) ? true : false;			
-			
-		$logic['installed'] = (!$logic['show_install_button']) ? true : false;	
-		
-		$logic['product'] = ( isset( $ext['productid'] ) ) ? $ext['productid'] : 0;
-		
-		return $logic;
-	}
-	
 	private function image_path( $type, $logic, $ext, $key ) {
 		
 		if ( $type == 'theme' ) {
@@ -286,7 +248,7 @@
 			'unit_id'		=> 1, 
 			'price'			=> '1.00',
 			'name'			=> '',
-			'type'			=> 'sections',
+			'type'			=> 'section',
 			'key'			=> '', 
 			'path'			=> '', 
 			'class'			=> '', 
@@ -302,7 +264,7 @@
 			'install'	=> array(
 				'mode'		=> 'install',
 				'condition'	=> $this->install_button($a['installed'], $a['purchased'], $a['version'] ),
-				'case'		=> 'section_install',
+				'case'		=> $a['type'].'_install',
 				'type'		=> $a['type'],
 				'file'		=> $a['key'],
 				'path'		=> $a['path'],
@@ -339,7 +301,7 @@
 			'activate'	=> array(
 				'mode'		=> 'activate',
 				'condition'	=> (!$a['enabled'] &&  !$a['store'] ) ? true : false,
-				'case'		=> 'section_activate',
+				'case'		=> $a['type'].'_activate',
 				'type'		=> $a['type'],
 				'path'		=> $a['path'],
 				'file'		=> $a['class'],
@@ -349,7 +311,7 @@
 			'deactivate'=> array(
 				'mode'		=> 'deactivate',
 				'condition'	=> $a['enabled'],
-				'case'		=> 'section_deactivate',
+				'case'		=> $a['type'].'_deactivate',
 				'type'		=> $a['type'],
 				'file'		=> $a['class'],
 				'text'		=> __( 'Deactivate', 'pagelines' ),
@@ -358,7 +320,7 @@
 			'upgrade'	=> array(
 				'mode'		=> 'upgrade',
 				'condition'	=> $a['upgrade'],
-				'case'		=> 'section_upgrade',
+				'case'		=> $a['type'].'_upgrade',
 				'type'		=> 'sections',
 				'file'		=> $a['file'],
 				'text'		=> sprintf(__( 'Upgrade to %s', 'pagelines' ), $a['upgrade'] ),
@@ -367,7 +329,7 @@
 			'delete'	=> array(
 				'mode'		=> 'delete',
 				'condition'	=> $a['delete'],
-				'case'		=> 'section_delete',
+				'case'		=> $a['type'].'_delete',
 				'type'		=> 'sections',
 				'file'		=> $a['file'],
 				'text'		=> __( 'Delete', 'pagelines' ),
@@ -415,21 +377,17 @@
 			if ( !isset( $ext->type) )
 				$ext->type = 'free';
 			
-			if( !$this->show_in_tab('sections_install', $tab, array('price' => $ext->price ) ) )
-				continue;
+			if( !$this->show_in_tab( 'section', $key, $ext, $tab ) )
+				continue; 
 			
 			
-			$purchased = $this->is_purchased( 'section', $key, $ext );
-
-		
-			$installed = $this->is_installed( 'section', $key, $ext );
-	
-	
+			$logic = $this->button_logic( 'section', $key, $ext, $tab );
+			
 			$args = array(
-				'extend'		=> 'sections',
-				'type'			=> 'sections',
-				'purchased'		=> $purchased, 
-				'installed'		=> $installed, 
+				'extend'		=> 'section',
+				'type'			=> 'section',
+				'purchased'		=> $logic['is_purchased'], 
+				'installed'		=> $logic['is_installed'], 
 				'version'		=> $ext->plversion, 
 				'product_id'	=> $ext->productid,
 				'unit_id'		=> $ext->uid, 
@@ -491,7 +449,9 @@
 	
  			if ( !$type )
  				continue;
-
+			
+			
+	
 			foreach( $type as $key => $ext)
 				$type[$key]['status'] = ( isset( $disabled[ $ext['type'] ][ $ext['class'] ] ) ) ? 'disabled' : 'enabled';
 
@@ -502,24 +462,20 @@
 
  			foreach( $type as $key => $ext ) { // main loop
 		
-				$show = array(
-					'type'		=> $ext['type'], 
-					'override' 	=> ( isset( $available['child'][ $ext['class'] ] ) || isset( $available['custom'][ $ext['class'] ] ) ) ? true : false
-				);
+				$ext['class_exists'] = ( isset( $available['child'][ $ext['class'] ] ) || isset( $available['custom'][ $ext['class'] ] ) ) ? true : false;
 				
-				if( !$this->show_in_tab( 'sections_manage', $tab, $show ) )
+				if( !$this->show_in_tab( 'section', $key, $ext, $tab ) )
 					continue;
 				
 				$enabled = ( $ext['status'] == 'enabled' ) ? true : false;
 
 				$file = basename( $ext['base_dir'] );
 				
-				$delete = ( !EXTEND_NETWORK && !$enabled && ( $tab !== 'child' && $tab !== 'internal' ) ) ? true : false;
-				
+				$delete = ( !EXTEND_NETWORK && !$enabled && ( $tab !== 'child' && $tab !== 'internal' ) ) ? true : false;	
 				
 				$args = array(
-					'extend'		=> 'sections',
-					'type'			=> 'sections',
+					'extend'		=> 'section',
+					'type'			=> 'section',
 					'path'			=> $ext['base_file'],
 					'file'			=> $ext['class'],
 					'delete'		=> $delete,
@@ -571,8 +527,6 @@
 			
 		}
 		
-		
-		
 	}
 	
 	private function update_available( $type, $key, $info ){
@@ -608,13 +562,7 @@
 		
 	}
 	
-	private function show_install_button( $type, $key, $info, $tab){
-		
-		if(!$this->is_installed($type, $key, $info) && $this->is_purchased($type, $key, $info) && $this->in_the_store($tab) && !EXTEND_NETWORK)
-			return true;
-		else
-			return false;
-	}
+
 
 	/*
 	 * Plugins tab.
@@ -657,13 +605,10 @@
 		$list = array();		
 		foreach( $plugins as $key => $ext ) {
 				
-			$show = array(
-				'price'		=> $ext['price'], 
-				'override'	=> str_replace( '.php', '', PL_EXTEND_SECTIONS_PLUGIN ) === $ext['slug'], 
-				'status'	=> ( isset( $ext['status']['status'] ) ) ? true : false
-			);
-				
-			if( !$this->show_in_tab( 'plugins', $tab, $show ) )
+			$ext['loaded'] = ( isset( $ext['status']['status'] ) ) ? true : false;
+			$ext['sections-plugin'] = (str_replace( '.php', '', PL_EXTEND_SECTIONS_PLUGIN ) === $ext['slug'] ) ? true : false;
+			
+			if( !$this->show_in_tab( 'plugin', $key, $ext, $tab ) )
 				continue;
 				
 			if ( !isset( $ext['status'] ) )
@@ -672,44 +617,10 @@
 
 			// button logic		
 			$logic = $this->button_logic( 'plugin', $key, $ext, $tab );
-			
 
-			// This whole block sux! 	
-/*			
-			$is_installed = $this->is_installed('plugin', $key, $ext);
-
-			$is_purchased = $this->is_purchased('plugin', $key, $ext);
-			
-			$version = $this->get_the_version('plugin', $key, $ext);
-			
-			$upgrade_available = $this->upgrade_available('plugin', $key, $ext);
-			
-			$show_login_button = ( !$this->updates_configured() && !$is_purchased) ? true : false;
-			
-			$is_active = $this->is_active('plugin', $key, $ext);
-			
-			$show_installed_button =  ( $this->in_the_store( $tab ) && $is_installed ) ? true : false;
-			
-			$show_purchase_button = ( !EXTEND_NETWORK && !$is_purchased && !$show_login_button && $this->in_the_store( $tab ) && !$is_installed ) ? true : false;
-
-			$show_install_button = $this->show_install_button( 'plugin', $key, $ext, $tab);
-
-			$show_deactivate_button = ($is_active && !$this->in_the_store( $tab ) ) ? true : false;
-			
-			$show_activate_button = (!$this->in_the_store( $tab ) && $is_installed && !$is_active) ? true : false;
-		
-			$delete = ( $show_activate_button && ! EXTEND_NETWORK ) ? true : false;
-			
-			$redirect = ( EXTEND_NETWORK && $show_install_button ) ? true : false;			
-				
-			$installed = (!$show_install_button) ? true : false;
-			
-*/
 
 				
 			$args = array(
-				'extend'		=> 'plugins',
-				'type'			=> 'plugins',
 				'installed'		=> $logic['installed'],
 				'purchased'		=> $logic['is_purchased'],
 				'version'		=> $logic['version'],
@@ -729,27 +640,22 @@
 			$actions = array(
 				'install'	=> array(
 					'condition'	=> $logic['show_install_button'],
-					'case'		=> 'plugin_install',
 					'file'		=> $key,
 				),
 				'activate'	=> array(
 					'condition'	=> $logic['show_activate_button'],
-					'case'		=> 'plugin_activate',
 					'file'		=> $ext['file'],
 				),
 				'upgrade'	=> array(
 					'condition'	=> $logic['upgrade_available'],
-					'case'		=> 'plugin_upgrade',
 					'path'		=> $key,
 				),
 				'deactivate'	=> array(
 					'condition'	=> $logic['show_deactivate_button'],
-					'case'		=> 'plugin_deactivate',
 					'file'		=> $ext['file'],
 				),
 				'delete'	=> array(
 					'condition'	=> $logic['delete'],
-					'case'		=> 'plugin_delete',
 					'file'		=> $ext['file'],
 				),
 				'redirect'	=> array(
@@ -814,6 +720,142 @@
 		
 	}
 	
+	private function button_logic( $type, $key, $ext, $tab ) {
+		
+		$ext = (array) $ext;
+		
+		$logic = array();
+		// button logic		
+		
+		$logic['is_installed'] = $this->is_installed($type, $key, $ext);
+
+		$logic['is_purchased'] = $this->is_purchased($type, $key, $ext);
+		
+		$logic['version'] = $this->get_the_version($type, $key, $ext);
+		
+		$logic['upgrade_available'] = $this->show_upgrade_available( $type, $key, $ext, $tab);
+		
+		$logic['show_login_button'] = ( !$this->updates_configured() && !$logic['is_purchased'] ) ? true : false;
+		
+		$logic['is_active'] = $this->is_active($type, $key, $ext);
+		
+		$logic['show_installed_button'] =  $this->show_installed_button( $type, $key, $ext, $tab);
+		
+		$logic['show_purchase_button'] = $this->show_purchase_button( $type, $key, $ext, $tab);
+
+		$logic['show_install_button'] = $this->show_install_button( $type, $key, $ext, $tab);
+
+		$logic['show_deactivate_button'] = $this->show_deactivate_button( $type, $key, $ext, $tab);
+		
+		$logic['show_activate_button'] = $this->show_activate_button( $type, $key, $ext, $tab);
+	
+		$logic['delete'] = $this->show_delete_button( $type, $key, $ext, $tab);
+		
+		$logic['redirect'] = ( EXTEND_NETWORK && $logic['show_install_button'] ) ? true : false;			
+			
+		$logic['installed'] = (!$logic['show_install_button']) ? true : false;	
+		
+		$logic['product'] = ( isset( $ext['productid'] ) ) ? $ext['productid'] : 0;
+		
+		return $logic;
+	}
+	
+	private function show_install_button( $type, $key, $ext, $tab){
+		
+		if(!$this->is_installed($type, $key, $ext) 
+			&& $this->is_purchased($type, $key, $ext) 
+			&& $this->in_the_store($tab) 
+			&& !EXTEND_NETWORK
+		)
+			return true;
+		else
+			return false;
+	}
+	
+	function show_upgrade_available($type, $key, $ext, $tab){
+		
+		if( $this->is_installed($type, $key, $ext)
+			&& $this->upgrade_available( $this->get_the_version($type, $key, $ext), $ext['version'])
+		){
+			return true;
+		} else 
+			return false;
+		
+	}
+	
+	function show_installed_button( $type, $key, $ext, $tab ){
+		
+		if( $this->is_installed($type, $key, $ext)
+			&& $this->in_the_store( $tab )
+		){
+			return true;
+		} else 
+			return false;
+		
+	}
+	
+	function show_delete_button( $type, $key, $ext, $tab ){
+		
+		if( !$this->is_active($type, $key, $ext)
+			&& $this->is_installed($type, $key, $ext)
+			&& !EXTEND_NETWORK
+			&& !$this->in_the_store( $tab )
+		){
+			return true;
+		} else 
+			return false;
+		
+	}
+	
+	function show_activate_button( $type, $key, $ext, $tab ){
+		
+		if( !$this->in_the_store( $tab )
+			&& $this->is_installed($type, $key, $ext)
+			&& !$this->is_active($type, $key, $ext)
+		){
+			return true;
+		} else 
+			return false;
+	}
+	
+	function show_purchase_button( $type, $key, $ext, $tab ){
+		
+		if( !EXTEND_NETWORK 
+			&& !$this->is_purchased($type, $key, $ext) 
+			&& $this->updates_configured() 
+			&& $this->in_the_store( $tab ) 
+			&& !$this->is_installed($type, $key, $ext)
+			&& $this->is_premium($type, $key, $ext)
+		){
+			return true;
+		} else 
+			return false;
+	}
+	
+	function show_deactivate_button( $type, $key, $ext, $tab ){
+		
+		if( $this->is_active($type, $key, $ext)
+			&& !$this->in_the_store( $tab )
+		){
+			return true;
+		} else 
+			return false;
+	}
+	
+	function is_premium( $type, $key, $ext ){
+		
+		if($type == 'section')
+			plprint($ext);
+		
+		if( isset($ext['price']) 
+			&& $ext['price'] != 'free' 
+			&& $ext['price'] >= 0 
+		){
+			return true;
+		} else 
+			return false;
+	}
+	
 	/**
 	 * Themes tab.
 	 * 
@@ -833,71 +875,14 @@
 
 		foreach( $themes as $key => $ext ) {
 
-/*
-						
-				// reset the vars first numbnuts!	
-				$status = null;
-				$exists = null;
-				$is_active = null;
-				$activate = null;
-				$deactivate = null;
-				$upgrade_available = null;
-				$purchase = null;
-				$delete = null;
-				$login = null;
-				$data = null;
-				$ext['featured'] = ( isset( $ext['featured'] ) ) ? $ext['featured'] : false;
-
-
-				$check_file = sprintf( '%s/themes/%s/style.css', WP_CONTENT_DIR, $key );
-				
-				if ( file_exists( $check_file ) )
-					$exists = true;
-					
-					
-				$show = array(
-					'featured'	=> $ext['featured'], 
-					'exists' 	=> $exists
-				);
-				
-				if( !$this->show_in_tab( 'themes', $tab, $show ) )
-					continue;
-					
-					
-				
-					
-				if ( isset( $exists ) && $data = get_theme_data( $check_file ) ) 
-					$status = 'installed';
-					
-				$is_active = ( $key  == basename( get_stylesheet_directory() ))	? true : false;
-					
-				$updates_configured = $this->updates_configured();
-					
-				$activate = ($status == 'installed' && !$is_active) ? true : false;
-				$deactivate = ($status == 'installed' && $is_active) ? true : false;
-				
-				$version = (isset($data)) ? $data['Version'] : false;
-				
-				$upgrade_available = ($version && $ext['version'] > $version) ? true : false;
+			$check_file = sprintf( '%s/themes/%s/style.css', WP_CONTENT_DIR, $key );
 			
-				$purchase = ( !isset( $ext['purchased'] ) && !$status && $updates_configured ) ? true : false;
-				$product = ( isset( $ext['productid'] ) ) ? $ext['productid'] : 0;
-				$install = ( !$status && !$purchase && $updates_configured ) ? true : false;
-				$delete = ( $activate && !EXTEND_NETWORK ) ? true : false;
-				
-				$login = ( !$updates_configured && !$status );
-				
-				$redirect = ( $login && EXTEND_NETWORK ) ? true : false;
-				
-*/				
+			if ( file_exists( $check_file ) )
+				$exists = true;
 
-				$show = array(
-					'featured'	=> ( isset( $ext['featured'] ) ) ? $ext['featured'] : false, 
-					'exists' 	=> $this->is_installed('theme', $key, $ext)
-				);
+			if( !$this->show_in_tab( 'theme', $key, $ext, $tab ) )
+				continue;
 
-				if( !$this->show_in_tab( 'themes', $tab, $show ) )
-					continue;
 					
 				// button logic		
 				$logic = $this->button_logic( 'theme', $key, $ext, $tab );
@@ -906,8 +891,8 @@
 				
 
 				$args = array(
-					'extend'		=> 'themes',
-					'type'			=> 'themes',
+					'extend'		=> 'theme',
+					'type'			=> 'theme',
 					'version'		=> $logic['version'],
 					'delete'		=> $logic['delete'],
 					'upgrade'		=> $logic['upgrade_available'], 
@@ -920,27 +905,22 @@
 
 				$core_actions = $this->master_array( $args );
 				
-				
 				$actions = array(
 					'install'	=> array(
 						'condition'	=> $logic['show_install_button'],
-						'case'		=> 'theme_install',
 						'file'		=> $key,
 						'product'	=> $logic['product'],
 					),
 					'activate'	=> array(
 						'condition'	=> $logic['show_activate_button'],
-						'case'		=> 'theme_activate',
 						'file'		=> $key,
 					),
 					'deactivate'	=> array(
 						'condition'	=> $logic['show_deactivate_button'],
-						'case'		=> 'theme_deactivate',
 						'file'		=> $key,
 					),
 					'upgrade'	=> array(
 						'condition'	=> $logic['upgrade_available'],
-						'case'		=> 'theme_upgrade',
 						'file'		=> $key,
 					),
 					'purchase'	=> array(
@@ -948,7 +928,6 @@
 					),
 					'delete'	=> array(
 						'condition'	=> $logic['delete'],
-						'case'		=> 'theme_delete',
 						'file'		=> $key,
 					),
 					'login'	=> array(
@@ -1043,8 +1022,8 @@
 				
 				
 				$args = array(
-					'extend'		=> 'integrations',
-					'type'			=> 'integrations',
+					'extend'		=> 'integration',
+					'type'			=> 'integration',
 				);
 
 				$core_actions = $this->master_array( $args );
@@ -1082,7 +1061,6 @@
 					),
 					'activate'	=> array(
 						'condition'	=> $activate,
-						'case'		=> 'integration_activate',
 						'file'		=> $key,
 						'text'		=> __( 'Activate Options', 'pagelines' ),
 					),
