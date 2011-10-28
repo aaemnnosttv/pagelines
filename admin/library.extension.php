@@ -29,7 +29,7 @@ class PageLines_Upgrader_Skin extends WP_Upgrader_Skin {
 		
 		if ( $string )	{			
 			if ( strstr( $string, 'Download failed' ) ) {
-				_e( 'Could not connect to download site.', 'pagelines' );
+				_e( 'Could not connect to download.', 'pagelines' );
 				exit();
 			}
 			if ( strstr( $string, 'Destination folder already exists' ) ) {

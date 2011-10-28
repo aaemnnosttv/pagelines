@@ -81,7 +81,8 @@ $account_control = new PageLinesAccount;
  * Load plugin installer class
  */
 require_once ( PL_ADMIN . '/class.extend.php' );
-require_once ( PL_ADMIN . '/class.ui.extend.php' );
+require_once ( PL_ADMIN . '/class.extend.ui.php' );
+require_once ( PL_ADMIN . '/class.extend.actions.php' );
 $extension_control = new PagelinesExtensions;
 
 
