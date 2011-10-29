@@ -47,8 +47,15 @@
 
 
 	private function show_in_tab( $type, $key, $ext, $tab ){
-	
+
+		$a = array( 
+			'plversion'		=>	CORE_VERSION,
+			'price'		=>	'free',
+			'featured'	=>	"false"
+			);
 		
+		$ext = wp_parse_args( $ext, $a );
+				
 		if($type == 'section'){
 			
 			$ext = (array) $ext;
@@ -85,18 +92,17 @@
 				return true;
 				
 		} elseif($type == 'theme'){
-			
+
 			$featured 	= ( isset( $ext['featured'] ) ) ? (bool) $ext['featured'] : false; 
 			$ext['exists'] 		= $this->is_installed('theme', $key, $ext);
 			
 			if ( file_exists( sprintf( '%s/themes/%s/style.css', WP_CONTENT_DIR, $key ) ) )
 				$exists = true;
 			
-			if ( $tab === 'featured' && $ext['featured'] == 'false' ) 
-				return false;
-
-			elseif ( ( $tab === 'featured' ) && $ext['featured'] == 'true' )
+			if ( $tab === 'featured' && $ext['featured'] === "true" ) 
 				return true;
+			elseif ( $tab === 'featured' && $ext['featured'] === "false" ) 
+				return false;
 			
 			elseif ( ( $tab == 'premium' || $tab == 'featured' ) && $ext['exists'] ) 
 				return false;
@@ -168,6 +174,14 @@
 	}
 
 	private function master_array( $type, $key, $ext, $tab ){
+		
+		$a = array( 
+			'plversion'		=>	CORE_VERSION,
+			'price'		=>	'free',
+			'featured'	=>	"false"
+			);
+		
+		$ext = wp_parse_args( $ext, $a );
 
 		$actions = array(
 			'install'	=> array(
@@ -252,9 +266,11 @@
 				'text'		=> __( 'Installed', 'pagelines' ),
 				),
 			'version_fail'	=>	array(
-				'mode'		=> 'version_fail',
-				'condition'	=> $this->version_fail( $this->get_the_version($type, $key, $ext) ),
-				'text'		=> sprintf( __( '%s is required', 'pagelines' ), $ext['version'] ),
+				'case'		=> 'version_fail',
+				'file'		=>	$ext['plversion'],
+				'path'		=>	__( 'theme', 'pagelines' ),
+				'condition'	=> $this->version_fail( $ext['plversion'] ),
+				'text'		=> sprintf( __( '%s is required', 'pagelines' ), $ext['plversion'] ),
 				)		
 		);
 		
@@ -331,6 +347,7 @@
 			&& $this->is_purchased($type, $key, $ext) 
 			&& $this->in_the_store($tab) 
 			&& !EXTEND_NETWORK
+			&& ! $this->version_fail( $ext['plversion'] )
 		)
 			return true;
 		else
@@ -497,7 +514,13 @@
 			else
 				return false;
 			
-		}
+		}	elseif($type == 'theme'){
+
+				if( $key  == basename( get_stylesheet_directory() ) )
+					return true;
+				else
+					return false;
+			}
 		
 	}
 
@@ -753,7 +776,6 @@
 				$image = $this->image_path( 'theme', $key, $ext, $tab );
 
 				$actions = $this->master_array( 'theme', $key, $ext, $tab  );
-			
 
 				$list[$key] = array(
 						'theme'		=> $ext,
