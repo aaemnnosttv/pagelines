@@ -103,11 +103,8 @@
 				return true;
 			elseif ( $tab === 'featured' && $ext['featured'] === "false" ) 
 				return false;
-			
-			elseif ( ( $tab == 'premium' || $tab == 'featured' ) && $ext['exists'] ) 
-				return false;
 				
-			elseif ( $tab == 'premium' && $ext['price'] == 'free' ) 
+			elseif ( ( $tab == 'premium' || $tab == 'featured' )  && $ext['price'] == 'free' ) 
 				return false;
 
 			elseif (  $tab == 'free' && $ext['price'] != 'free' ) 
@@ -756,15 +753,13 @@
 
 		if ( !is_object($themes) ) 
 			return $themes;
-			
-		$output = '';
-		$status = false;
+
 		$list = array();
 		
 		$themes = $this->extension_scan_themes( $themes );
 
 		foreach( $themes as $key => $ext ) {
-
+			
 			$check_file = sprintf( '%s/themes/%s/style.css', WP_CONTENT_DIR, $key );
 			
 			if ( file_exists( $check_file ) )
@@ -1056,6 +1051,7 @@
 			
 			if ( $theme_data['Template'] != 'pagelines' )
 				continue;
+				
 			if ( 'pagelines' == $theme_data['Stylesheet'] )
 				continue;
 			
@@ -1065,7 +1061,6 @@
 				
 			if ( in_array( $theme, $themes ) )
 				continue;
-
 			// If we got this far, theme is a pagelines child theme not handled by the API
 			// So we need to inject it into our themes array.
 			
@@ -1076,6 +1071,8 @@
 			$new_theme['version'] =		( isset( $up ) ) ? $up : $theme_data['Version'];
 			$new_theme['text'] =		$theme_data['Description'];
 			$new_theme['tags'] =		$theme_data['Tags'];
+			$new_theme['featured']	=	( isset( $themes[$theme_data['Stylesheet']]['featured'] ) ) ? $themes[$theme_data['Stylesheet']]['featured'] : null;
+			$new_theme['price']		= 	( isset( $themes[$theme_data['Stylesheet']]['price'] ) ) ? $themes[$theme_data['Stylesheet']]['price'] : null;
 			$new_theme['productid'] = 	null;
 			$new_theme['count'] = 		null;
 			$themes[$theme_data['Stylesheet']] = $new_theme;		
