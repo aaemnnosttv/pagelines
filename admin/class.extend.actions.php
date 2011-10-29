@@ -77,6 +77,12 @@
 			$this->page_reload( 'pagelines_extend' );			
 
 			break;			
+			
+			case 'version_fail':
+			
+			printf( __( 'You need to have version %s of the framework for this %s', 'pagelines' ), $file, $path);
+
+			break;
 
 			case 'plugin_install': // TODO check status first!
 				if ( !$checked )
