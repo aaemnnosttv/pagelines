@@ -145,13 +145,17 @@
 	
 	private function get_the_path( $button, $type, $key, $ext, $tab ){
 		
-		
+		if ( $type == 'section' ) {
+			return $ext['type'];	
+		}	
 		
 	}
 	
 	private function get_the_file( $button, $type, $key, $ext, $tab ){
 		
-		if($type == 'plugin'){
+		if ( $type == 'section' ) {
+			return $ext['class'];	
+		} elseif($type == 'plugin'){
 			
 			if($button == 'activate'
 				|| $button == 'deactivate'
@@ -233,6 +237,7 @@
 				'condition'	=> $this->show_deactivate_button( $type, $key, $ext, $tab ),
 				'case'		=> $type.'_deactivate',
 				'type'		=> $type,
+				'path'		=> $this->get_the_path( 'deactivate', $type, $key, $ext, $tab),
 				'file'		=> $this->get_the_file( 'activate', $type, $key, $ext, $tab ),
 				'text'		=> __( 'Deactivate', 'pagelines' ),
 				'dtext'		=> __( 'Deactivating', 'pagelines' ),
@@ -551,7 +556,7 @@
 			$ext = (array) $ext;
 			
 			if ( !isset( $ext['type']) )
-				$ext['type'] = 'free';
+				$ext['type'] = 'internal';
 			
 			if( !$this->show_in_tab( 'section', $key, $ext, $tab ) )
 				continue; 
@@ -614,7 +619,7 @@
 				if( !$this->show_in_tab( 'section', $key, $ext, $tab ) )
 					continue;
 		
-				$actions = $this->master_array( 'section', $key, $ext, $tab  );		
+				$actions = $this->master_array( 'section', $key, $ext, $tab  );
 				
 				$list[] = array(
 					'name' 		=> $ext['name'], 

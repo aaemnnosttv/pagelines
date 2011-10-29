@@ -158,10 +158,9 @@
 			break;
 
 			case 'section_activate':
-
 				$this->sandbox( $path, 'section');
 				$available = get_option( 'pagelines_sections_disabled' );
-				unset( $available[$type][$file] );
+				unset( $available[$path][$file] );
 				update_option( 'pagelines_sections_disabled', $available );
 				// Output
 				_e( 'Section Activated!', 'pagelines' );
@@ -171,10 +170,11 @@
 			case 'section_deactivate':
 
 				$disabled = get_option( 'pagelines_sections_disabled', array( 'child' => array(), 'parent' => array()) );
-				$disabled[$type][$file] = true; 
+				$disabled[$path][$file] = true; 
 				update_option( 'pagelines_sections_disabled', $disabled );
 				// Output
 				_e( 'Section Deactivated.', 'pagelines' );
+
 				$this->page_reload( 'pagelines_extend' );		
 			break;
 
