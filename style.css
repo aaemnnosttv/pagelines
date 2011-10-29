@@ -38,7 +38,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 body{font-size: 87.5%; line-height: 1.71em;height:100%;}
 
-	h1, h2, h3, h4, h5, h6{font-weight:normal; line-height: 1.2em;}
+	h1, h2, h3, h4, h5, h6{font-weight:normal; line-height: 1.1em;}
 	h1{font-size:3em; } 
 	h2{font-size:2.2em;}
 	h3{font-size:1.71em;  }
@@ -48,12 +48,17 @@ body{font-size: 87.5%; line-height: 1.71em;height:100%;}
 	
 	/* @ Header Special Cases */
 	h1 + img, h2 + img{margin-top:1em;}
-	h1.entry-title{ margin:0; }
+	h1.entry-title{ 
+		
+		font-size: 2em; 
+		line-height: 1.4em;
+		margin:0; 
+	}
 
 	/* @ Paragraphs */
 		p, .p, .hentry ul, .hentry ol{margin:1.714285em 0;}
 		.entry_content :first-child, .post-excerpt > :first-child{margin-top: 0;}
-		.post-excerpt > :last-child{margin-bottom: 0;}
+		.post-excerpt > :last-child, .entry_content > :last-child {margin-bottom: 0;}
 		p {hyphenate: auto;hyphenate-before:2;hyphenate-after:3;hyphenate-lines: 3;orphans:4}
 		p span.pullquote{text-indent:0;}
 
@@ -101,7 +106,8 @@ body{font-size: 87.5%; line-height: 1.71em;height:100%;}
 			.wp-caption-dd { font-size: 11px; line-height: 17px;  }	
 	
 	/* @ Lists */ 
-	.hentry ul, .hentry ol { margin-left: 16px;}
+	.hentry ul, .hentry ol { margin: 1.7em 0 1.7em 16px;}
+	.hentry li { margin: 1.7em 0; }
  
 	.footnote{margin-top:3.5em;}
 	.footnote li{margin:1.5em 0 1.5em;word-spacing:.1em;line-height:1.75em;}
@@ -126,18 +132,6 @@ body{font-size: 87.5%; line-height: 1.71em;height:100%;}
 			font-family:Georgia, 'Times New Roman', Times, serif; 
 		}
 	
-	/* Header Font Style */	
-		h1, h2, h3, h4, h5, h6, .site-title{
-			font-family:Georgia, 'Times New Roman', Times, serif; 
-		}
-
-	/* Secondary Font Style */
-		.font2, .font-sub, ul.main-nav li a, #secondnav li a, .metabar, .subtext, .subhead, .widget-title, .post-comments, .reply a, .editpage, .wp-pagenavi, .post-edit-link, #wp-calendar caption, #wp-calendar thead th, .soapbox-links a, .fancybox, .standard-form .admin-links, #featurenav a, .blink, .ftitle small, .button, input[type="submit"], input[type="button"], input[type="reset"], .submit{
-			font-family: "Lucida Grande", "Lucida Sans", "Lucida Sans Unicode", sans-serif;
-		}
-		
-		input[type="text"], input[type="password"], textarea, #dsq-content textarea{ font-family: "Courier New", Courier, Verdana, sans-serif; }
-
 	
 /*
 * @ Borders
@@ -312,7 +306,7 @@ body{font-size: 87.5%; line-height: 1.71em;height:100%;}
 			
 			.fpost .post-title h2 a:hover{	text-decoration: underline;	}
 			.post-comments a:hover{ text-decoration: none; }
-			.fpost .metabar { margin: 0 0 .2em 0;}
+			.fpost .metabar { margin: 0 0 .3em 0;}
 			
 			.metabar em{ font-style: normal;}
 			.metabar a:hover {text-decoration: none;}
@@ -320,7 +314,14 @@ body{font-size: 87.5%; line-height: 1.71em;height:100%;}
 			.fpost .post-excerpt { margin: .6em 0; }
 			.entry_content img { max-width: 100%; }
 			
-
+	.cnt-comments{
+		float: left;
+	}	
+		.cnt-comments a{
+			display: block;
+			padding: 4px 10px;
+		}
+			
 /* @ Clips */	
 		.clip .clip-header { 
 			padding: 4px 0 4px 0;
@@ -545,15 +546,12 @@ table {width: 100%;}
 /* @ Wordpress Caption */
 	.wp-caption {
 		text-align: center;
-		padding:  5px;
-		-moz-border-radius: 3px;
-		-khtml-border-radius: 3px;
-		-webkit-border-radius: 3px;
+		padding:  10px 5px;
 		border-radius: 3px;
 		max-width: 98%;
 		margin-bottom: 1em;
 	}
-		.wp-caption-text { text-align: center; margin:0;padding:6px 3px 2px; }
+		.wp-caption-text { text-align: center; margin:0;padding:6px 0 2px; }
 		.wp-caption-dd { padding: 0 4px 5px;	margin: 0;	}
 		.wp-caption img { margin: 0; padding: 0; border: 0 none; }
 		.wp-caption-dd { padding: 0 4px 5px; margin: 0; }			

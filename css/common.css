@@ -175,7 +175,7 @@ input[type="submit"], .submit, input[type="button"], .button, input[type="reset"
 		.hidden {display: none;}
 		.aligncenter,.alignnone {display: block;margin-left: auto;margin-right: auto;}
 		.center, .textcenter {text-align: center;}
-		.alignleft {float: left;margin:0 1.2em .4em 0;}
+		.alignleft {float: left;margin:0 1.5em 1.5em 0;}
 		.left {	float: left; }
 		.textleft {text-align: left;}
 		.alignright {float: right;margin:0 0 .4em 1.4em;}

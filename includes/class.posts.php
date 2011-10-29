@@ -32,6 +32,8 @@ class PageLinesPosts {
 
 		$this->thumb_space = get_option('thumbnail_size_w') + 33; // Space for thumb with padding
 
+		$this->continue_reading = apply_filters('continue_reading_link_text', load_pagelines_option('continue_reading_text', __('[Continue Reading...]', 'pagelines')));
+		
 		add_filter('pagelines_post_metabar', 'do_shortcode', 20);
 
 	}
@@ -103,23 +105,26 @@ class PageLinesPosts {
 	
 	function post_content(){
 	
-		
 		ob_start();
 		
 			pagelines_register_hook( 'pagelines_loop_before_post_content', 'theloop' ); // Hook
 
-			the_content( __('<p>Continue reading &raquo;</p>','pagelines') );
+		//	global  $post;
 			
-			echo pledit( get_the_ID() );
+			$content = get_the_content( $this->continue_reading );
 			
-			echo '<div class="clear"></div>';
+			$content .= pledit( get_the_ID() );
+			
+			echo apply_filters('the_content', $content);
 	
-			if( is_single() || is_page() ) 
+			if( is_single() || is_page() )
 				wp_link_pages(array('before'=> __('<p class="content-pagination"><span class="cp-desc">pages:</span>', 'pagelines'), 'after' => '</p>', 'pagelink' => '<span class="cp-num">%</span>')); 
 		
-			if ( get_the_tags() )
+			if ( is_single() && get_the_tags() )
 				printf('<div class="p tags">%s&nbsp;</div>', get_the_tag_list(__('Tagged with: ', 'pagelines'),' &bull; ','') );
 		
+			if (is_home() && ploption('content_comments'))
+				echo do_shortcode('<div class="cnt-comments">[post_comments]</div>');
 	
 			pagelines_register_hook( 'pagelines_loop_after_post_content', 'theloop' ); // Hook 
 		
@@ -202,6 +207,9 @@ class PageLinesPosts {
 			
 		if(pagelines_is_posts_page() && !$this->pagelines_show_content( get_the_ID() )) // 'Continue Reading' link
 			$pagelines_excerpt .= $this->get_continue_reading_link( get_the_ID() );
+		
+		if (is_home() && ploption('content_comments'))
+			$pagelines_excerpt .= do_shortcode('<div class="cnt-comments">[post_comments]</div>');
 		
 		return apply_filters('pagelines_excerpt', $pagelines_excerpt);
 		
@@ -320,11 +328,13 @@ class PageLinesPosts {
 	 */
 	function get_continue_reading_link($post_id){
 
-		$text = sprintf('%s', load_pagelines_option('continue_reading_text', __('Continue Reading', 'pagelines')));
-
-		$thetext = apply_filters('continue_reading_link_text', $text);
-
-		$link = sprintf('<a class="continue_reading_link" href="%s" title="%s %s">%s</a>', get_permalink(), __("View", 'pagelines'), the_title_attribute(array('echo'=> 0)), $thetext );
+		$link = sprintf(
+			'<a class="continue_reading_link" href="%s" title="%s %s">%s</a>', 
+			get_permalink(), 
+			__("View", 'pagelines'), 
+			the_title_attribute(array('echo'=> 0)), 
+			$this->continue_reading 
+		);
 
 		return apply_filters('continue_reading_link', $link);
 	}

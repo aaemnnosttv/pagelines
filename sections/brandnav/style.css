@@ -1,6 +1,7 @@
 /* BrandNav CSS - PageLines 2011 */
-#brandnav {
-	padding: 2em 0px;
+#brandnav .content-pad{
+	padding-top: 2em;
+	padding-bottom: 2em;
 }
 
 #brandnav .mainlogo-link, #brandnav .title-container{

@@ -136,15 +136,11 @@ function pagelines_head_common(){
 	if(!apply_filters( 'viewport_width', '' ))
 		echo '<meta name="viewport" content="width=device-width, initial-scale=1.0" />';
 
-	// Get Common CSS & Reset
-	pagelines_load_css_relative('css/common.css', 'pagelines-common');
-
-	// Allow for PHP include of Framework CSS
-	if(is_child_theme() && !apply_filters( 'disable_pl_framework_css', '' ))
-		pagelines_load_css(  PARENT_URL.'/style.css', 'pagelines-framework', pagelines_get_style_ver( true ));
-
 	// Allow for extension deactivation of all css
 	if(!has_action('override_pagelines_css_output')){	
+
+		// Get Common CSS & Reset
+		pagelines_load_css_relative('css/common.css', 'pagelines-common');
 
 		// Get CSS Layout
 		pagelines_load_css_relative('css/layout.css', 'pagelines-layout');
@@ -154,6 +150,11 @@ function pagelines_head_common(){
 		
 		// WordPress CSS Api
 		pagelines_load_css(  get_bloginfo('stylesheet_url'), 'pagelines-stylesheet', pagelines_get_style_ver());
+		
+		// Allow for PHP include of Framework CSS
+		if(is_child_theme() && !apply_filters( 'disable_pl_framework_css', '' ))
+			pagelines_load_css(  PARENT_URL.'/style.css', 'pagelines-framework', pagelines_get_style_ver( true ));
+		
 	
 		// RTL Language Support
 		if(is_rtl()) 
@@ -167,6 +168,7 @@ function pagelines_head_common(){
 		wp_enqueue_script( 'blocks', PL_JS . '/script.blocks.js', array('jquery'));
 	
 	
+	pagelines_supersize_bg();
 	
 	// Fix IE and special handling
 	pagelines_fix_ie();
@@ -177,6 +179,37 @@ function pagelines_head_common(){
 	// Headerscripts option > custom code
 	if ( ploption( 'headerscripts' ) )
 		add_action( 'wp_head', create_function( '',  'print_pagelines_option("headerscripts");' ), 25 );
+}
+
+function pagelines_supersize_bg(){
+	
+	global $pagelines_ID;
+	$oset = array('post_id' => $pagelines_ID);
+	$url = ploption('page_background_image_url', $oset);
+
+	if(ploption('supersize_bg') && $url){ 
+		
+		wp_enqueue_script('supersize', PL_JS.'/script.supersize.js', 'jquery' );
+		
+		add_action('wp_head', 'pagelines_runtime_supersize', 20);
+	}
+		
+	
+}
+
+function pagelines_runtime_supersize(){
+	
+	global $pagelines_ID;
+	$oset = array('post_id' => $pagelines_ID);
+	$url = ploption('page_background_image_url', $oset);
+	?>
+	
+	<script type="text/javascript"> /*<![CDATA[*/ jQuery(document).ready(function(){
+		jQuery.supersized({ slides  :  	[ { image : '<?php echo $url; ?>' } ] });
+	});/* ]]> */
+	</script>
+	
+<?php
 }
 
 function pagelines_mediawiki(){

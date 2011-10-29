@@ -8,7 +8,7 @@
 
 
 /* @ Responsive Design */
-	body img {max-width: 100%; height: auto; width: auto\9; /* ie8 */}
+	body .content img {max-width: 100%; height: auto; width: auto\9; /* ie8 */}
 
 	@media screen and (max-width:800px){
 		body #site .content, body .wcontent, body #footer .content, html body.fixed_width #page{width: 97%;}
@@ -74,8 +74,8 @@
 		section.copy{margin: 1.6em 0;}
 		.content-pad{padding: 15px;}
 		
-		.hentry, .clip_box{margin-bottom: 1.6em}
-		.hentry-pad{padding: 0 0 20px;}
+		.hentry, .clip_box{margin-bottom: 1.8em}
+		.hentry-pad{padding: 0 0 25px;}
 		.widget-pad{padding: 10px;}
 		#pagelines_content .clip{ width:47%; }
 		
@@ -110,10 +110,10 @@
 		.two-sidebar-center #column-main .mcolumn-pad{ padding-right: 20px; padding-left: 20px;}
 		.fullwidth #column-main .mcolumn-pad{ padding-right: 15px; padding-left: 15px;}
 		.one-sidebar-right #column-main .mcolumn-pad, .two-sidebar-right #column-main .mcolumn-pad{ 
-			padding: 10px 30px 0 15px;
+			padding: 14px 30px 0 15px;
 		}
 		.one-sidebar-left #column-main .mcolumn-pad, .two-sidebar-left #column-main .mcolumn-pad{ 
-			padding: 10px 15px 0 30px;
+			padding: 14px 15px 0 30px;
 		}
 
 /* @ Fixed Width Design Mode*/

@@ -369,6 +369,13 @@ class PageLinesOptionsArray {
 				'type' 		=> 'background_image',
 				'selectors'	=> cssgroup('page_background_image')
 			),
+			'supersize_bg' => array(
+				'title' 		=> __( '"Supersize" The Background Image', 'pagelines' ),						
+				'shortexp' 		=> __( 'Uses a script to set the background for full width and responsive design', 'pagelines' ),
+				'exp' 			=> __( 'Sets the background to match the width of the browser.', 'pagelines' ),
+				'type' 			=> 'check',
+				'inputlabel'	=> 'Supersize The Background Image'
+			),
 			
 
 
@@ -715,16 +722,6 @@ class PageLinesOptionsArray {
 					'shortexp'		=> __( 'When using magazine layout mode, select the number of "featured" or full-width posts', 'pagelines' ),
 					'exp'			=> __( 'Select the number of posts you would like shown at the full width of the main content column in magazine layout mode (the rest will be half-width post "clips").', 'pagelines' )
 				),
-
-			'posts_page_layout' => array(
-				'default' 	=> "one-sidebar-right",
-				'type' 		=> 'layout_select',
-				'title' 	=> __( 'Default Posts Page Layout', 'pagelines' ),
-				'inputlabel'=> __( 'Select Default Posts Layout', 'pagelines' ),	
-				'layout' 	=> 'interface',						
-				'shortexp' 	=> __( 'Select the layout that will be used on posts pages', 'pagelines' ),
-				'exp' 		=> __( 'This layout will be used on all non-meta posts pages. These include author pages, tags, categories, and most importantly your blog page. Set up the dimensions of these in the Layout Editor panel.', 'pagelines' ),
-			),
 			'thumb_handling' => array(
 					'type'		=> 'check_multi',
 					'selectvalues'	=> array(
@@ -770,6 +767,14 @@ class PageLinesOptionsArray {
 					'shortexp'	=> __( 'The link at the end of your excerpt', 'pagelines' ),
 					'exp' 		=> __( "This text will be used as the link to your full article when viewing articles on your posts page (when excerpts are turned on).", 'pagelines' )
 			),
+			'content_comments' => array(
+					'default'	=> true,
+					'type'		=> 'check',
+					'inputlabel'=> __( 'Show Comments Link?', 'pagelines' ),
+					'title'		=> __( 'Show Comments Link After Teasers/Excerpt?', 'pagelines' ),						
+					'shortexp'	=> __( 'Shows the number of comments after a teaser or excerpt on your blog page', 'pagelines' ),
+			),
+			
 			'content_handling' => array(
 					'type'		=> 'check_multi',
 					'selectvalues'=> array(
@@ -861,18 +866,6 @@ class PageLinesOptionsArray {
 					'shortexp'	=> __( 'Change your PageLines footer link to a partner link', 'pagelines' ),
 					'exp'		=> __( 'If you are a <a href="http://www.pagelines.com/partners">PageLines Partner</a> enter your link here and the footer link will become a partner or affiliate link.', 'pagelines' )
 			),
-/*
- * TODO Do we leave this and reuse for vanilla?
-*/
-
-//			'forum_options' => array(
-//					'default' 	=> '',
-//					'type' 		=> 'check',
-//					'inputlabel' 	=> 'Show bbPress Forum Addon Options',
-//					'title' 	=> 'Activate Forum Options',
-//					'shortexp'	=> 'If you have integrated a PageLines bbPress forum, activate its options here.',
-//					'exp' 		=> 'This theme has some integrated options for its bbPress forum addon (if installed).'
-//			),
 
 			'disable_ajax_save' => array(
 					'default'	=> '',

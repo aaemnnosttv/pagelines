@@ -754,7 +754,7 @@ class PageLinesTemplate {
 	 */
 	function print_template_section_styles(){
 	
-		if(is_array($this->allsections)){
+		if(is_array($this->allsections) && !has_action('override_pagelines_css_output') ){
 			foreach($this->allsections as $section_slug){
 				
 				$p = splice_section_slug( $section_slug );
@@ -764,7 +764,7 @@ class PageLinesTemplate {
 					$s = $this->factory[$p['section']];
 					
 					$s->section_styles();
-				
+					
 					// Auto load style.css for simplicity if its there.
 					if( file_exists( $s->base_dir . '/style.css' ) ){
 						

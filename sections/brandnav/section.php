@@ -20,7 +20,12 @@ class PageLinesBrandNav extends PageLinesNav {
 	
 			pagelines_main_logo( $this->id ); 
 			
+			
+		if(has_action('brandnav_after_brand')){
 			pagelines_register_hook( 'brandnav_after_brand', 'brandnav' ); // Hook
+		
+		} else {
+		
 		?>
 		
 			<div class="brandnav-nav main_nav fix">		
@@ -32,7 +37,9 @@ class PageLinesBrandNav extends PageLinesNav {
 ?>
 			</div>
 	
-<?php }
+<?php 	}
+
+	}
 
 	function section_styles(){
 		
