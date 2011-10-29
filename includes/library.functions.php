@@ -620,6 +620,10 @@ function pagelines_register_plugins() {
  * @return sorted array
  */
 function pagelines_array_sort( $a, $subkey, $pre = null, $dec = null ) {
+
+	if ( ! is_array( $a) || ( is_array( $a ) && count( $a ) <= 1 ) )
+		return $a;
+
 	foreach( $a as $k => $v ) {
 		$b[$k] = ( $pre ) ? strtolower( $v[$pre][$subkey] ) : strtolower( $v[$subkey] );
 	}

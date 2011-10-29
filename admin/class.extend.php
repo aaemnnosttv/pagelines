@@ -152,6 +152,15 @@
 	}
 	
 	private function get_the_file( $button, $type, $key, $ext, $tab ){
+
+		if ( $button == 'delete' ) {
+			if ( $type == 'section'
+			 	&& isset( $ext['base_dir'] ) 
+					) {
+				return basename($ext['base_dir']);	
+			}
+		}
+		
 		
 		if ( $type == 'section' ) {
 			return $ext['class'];	
@@ -238,7 +247,7 @@
 				'case'		=> $type.'_deactivate',
 				'type'		=> $type,
 				'path'		=> $this->get_the_path( 'deactivate', $type, $key, $ext, $tab),
-				'file'		=> $this->get_the_file( 'activate', $type, $key, $ext, $tab ),
+				'file'		=> $this->get_the_file( 'deactivate', $type, $key, $ext, $tab ),
 				'text'		=> __( 'Deactivate', 'pagelines' ),
 				'dtext'		=> __( 'Deactivating', 'pagelines' ),
 			),
@@ -257,7 +266,7 @@
 				'condition'	=> $this->show_delete_button($type, $key, $ext, $tab),
 				'case'		=> $type.'_delete',
 				'type'		=> $type,
-				'file'		=> $this->get_the_file( 'activate', $type, $key, $ext, $tab ),
+				'file'		=> $this->get_the_file( 'delete', $type, $key, $ext, $tab ),
 				'text'		=> __( 'Delete', 'pagelines' ),
 				'dtext'		=> __( 'Deleting', 'pagelines' ),
 				'confirm'	=> true
@@ -610,7 +619,7 @@
 			foreach( $type as $key => $ext)
 				$type[$key]['status'] = ( isset( $disabled[ $ext['type'] ][ $ext['class'] ] ) ) ? 'disabled' : 'enabled';
 
- 			$type = pagelines_array_sort( $type, 'name' ); // Sort Alphabetically
+			$type = pagelines_array_sort( $type, 'name' ); // Sort Alphabetically
 
  			foreach( $type as $key => $ext ) { // main loop
 		
