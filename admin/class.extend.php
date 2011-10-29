@@ -48,6 +48,12 @@
 
 	private function show_in_tab( $type, $key, $ext, $tab ){
 	
+		$a = array( 
+			'price'		=>	'free',
+			'featured'	=>	"false"
+			);
+
+		$ext = wp_parse_args( $ext, $a );
 		
 		if($type == 'section'){
 			
@@ -85,18 +91,17 @@
 				return true;
 				
 		} elseif($type == 'theme'){
-			
+
 			$featured 	= ( isset( $ext['featured'] ) ) ? (bool) $ext['featured'] : false; 
 			$ext['exists'] 		= $this->is_installed('theme', $key, $ext);
 			
 			if ( file_exists( sprintf( '%s/themes/%s/style.css', WP_CONTENT_DIR, $key ) ) )
 				$exists = true;
 			
-			if ( $tab === 'featured' && $ext['featured'] == 'false' ) 
-				return false;
-
-			elseif ( ( $tab === 'featured' ) && $ext['featured'] == 'true' )
+			if ( $tab === 'featured' && $ext['featured'] === "true" ) 
 				return true;
+			elseif ( $tab === 'featured' && $ext['featured'] === "false" ) 
+				return false;
 			
 			elseif ( ( $tab == 'premium' || $tab == 'featured' ) && $ext['exists'] ) 
 				return false;
@@ -497,7 +502,13 @@
 			else
 				return false;
 			
-		}
+		}	elseif($type == 'theme'){
+
+				if( $key  == basename( get_stylesheet_directory() ) )
+					return true;
+				else
+					return false;
+			}
 		
 	}
 
