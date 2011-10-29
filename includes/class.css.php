@@ -33,7 +33,9 @@ class PageLinesCSS {
 	}
 	
 	function options(){
+		
 		$this->css .= $this->render_css();
+			
 	}
 	
 	
@@ -49,6 +51,9 @@ class PageLinesCSS {
 		
 		$css = '';
 		
+		if(has_action('override_pagelines_css_output'))
+			return;
+		
 		foreach ( get_option_array() as $menu){
 
 			foreach($menu as $oid => $o){ 
@@ -60,6 +65,8 @@ class PageLinesCSS {
 					foreach( $o['selectvalues'] as $sid => $s)
 						$o['selectvalues'][$sid]['val'] = ploption( $sid, $oset);
 				}
+				
+				
 				
 				if( $o['type'] == 'background_image' && ploption($oid.'_url', $oset)){
 					
@@ -90,8 +97,6 @@ class PageLinesCSS {
 						$this->render_css_colors($mid, $m, $cgroup, $cprop );
 					}
 				}
-				
-				
 				
 			} 
 		}

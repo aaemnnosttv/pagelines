@@ -23,7 +23,11 @@
 <body <?php body_class( pagelines_body_classes() ); ?>>
 <?php pagelines_register_hook('pagelines_before_site'); // Hook
 	
-?><div id="site" class="<?php echo pagelines_layout_mode();?>">
+if(has_action('override_pagelines_body_output')):
+	do_action('override_pagelines_body_output');
+
+else:  ?>
+<div id="site" class="<?php echo pagelines_layout_mode();?>">
 <?php pagelines_register_hook('pagelines_before_page'); // Hook ?>
 	<div id="page" class="thepage">
 		<div class="page-canvas">
@@ -38,3 +42,4 @@
 				<div id="dynamic-content" class="outline">
 					<?php pagelines_integration_top();?>
 					
+<?php endif;?>

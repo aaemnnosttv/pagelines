@@ -335,8 +335,9 @@ function pagelines_setup_menu() {
 function setup_pagelines_template() {
 	get_header();
 
-	pagelines_template_area('pagelines_template', 'templates');
-
+	if(!has_action('override_pagelines_body_output'))
+		pagelines_template_area('pagelines_template', 'templates');
+	
 	get_footer();
 }
 

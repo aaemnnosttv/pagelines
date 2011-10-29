@@ -10,7 +10,8 @@
 	
 */
 
-pagelines_integration_bottom(); ?>
+
+if(!has_action('override_pagelines_body_output')): ?>
 			</div>
 			<div id="morefoot_area" class="container-group"><?php pagelines_template_area('pagelines_morefoot', 'morefoot'); // Hook ?></div>
 			<div class="clear"></div>
@@ -26,6 +27,9 @@ pagelines_integration_bottom(); ?>
 </footer>
 </div>
 <?php 
+
+endif;
+
 	print_pagelines_option('footerscripts'); // Load footer scripts option 	
 	wp_footer(); // Hook (WordPress) 
 ?>

@@ -139,32 +139,33 @@ function pagelines_head_common(){
 	// Get Common CSS & Reset
 	pagelines_load_css_relative('css/common.css', 'pagelines-common');
 
-	// Get CSS Layout
-	pagelines_load_css_relative('css/layout.css', 'pagelines-layout');
-	
-	// Get CSS Objects & Grids
-	pagelines_load_css_relative('css/objects.css', 'pagelines-objects');
-	
-	// Get Main Styles
-	
 	// Allow for PHP include of Framework CSS
 	if(is_child_theme() && !apply_filters( 'disable_pl_framework_css', '' ))
 		pagelines_load_css(  PARENT_URL.'/style.css', 'pagelines-framework', pagelines_get_style_ver( true ));
 
-	// WordPress CSS Api
-	pagelines_load_css(  get_bloginfo('stylesheet_url'), 'pagelines-stylesheet', pagelines_get_style_ver());
+	// Allow for extension deactivation of all css
+	if(!has_action('override_pagelines_css_output')){	
 
-	// MediaWiki Integration
-	if ( pagelines_mediawiki() )
-		pl_mediawiki_head();
+		// Get CSS Layout
+		pagelines_load_css_relative('css/layout.css', 'pagelines-layout');
 
-	// RTL Language Support
-	if(is_rtl()) 
-		pagelines_load_css_relative( 'rtl.css', 'pagelines-rtl');
+		// Get CSS Objects & Grids
+		pagelines_load_css_relative('css/objects.css', 'pagelines-objects');
+		
+		// WordPress CSS Api
+		pagelines_load_css(  get_bloginfo('stylesheet_url'), 'pagelines-stylesheet', pagelines_get_style_ver());
 	
-	// Queue Common Javascript Libraries
-	wp_enqueue_script( 'jquery'); 
-	wp_enqueue_script( 'blocks', PL_JS . '/script.blocks.js', array('jquery'));
+		// RTL Language Support
+		if(is_rtl()) 
+			pagelines_load_css_relative( 'rtl.css', 'pagelines-rtl');
+		
+	}
+
+	
+		// Queue Common Javascript Libraries
+		wp_enqueue_script( 'jquery'); 
+		wp_enqueue_script( 'blocks', PL_JS . '/script.blocks.js', array('jquery'));
+	
 	
 	
 	// Fix IE and special handling
