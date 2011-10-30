@@ -389,7 +389,7 @@ class PageLinesTemplate {
 					// If in child theme get that, if not load the class template function
 					$s->section_template_load( $clone_id );
 			
-					$template_output = plstrip( ob_get_clean() );
+					$template_output =  ob_get_clean();
 					
 					if($template_output != ''){
 				

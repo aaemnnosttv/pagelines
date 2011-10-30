@@ -71,7 +71,7 @@ class PageLinesPosts {
 		
 		$wrap_start = ( $clip && $clip_row_start ) ? sprintf('<div class="clip_box fix">') : ''; 	
 		$wrap_end = ( $clip && $clip_row_end ) ? sprintf('</div>') : '';
-
+	
 		echo sprintf(
 			'%s<article class="%s" id="post-%s"><div class="hentry-pad %s">%s%s</div></article>%s', 
 			$wrap_start, 

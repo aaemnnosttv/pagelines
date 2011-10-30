@@ -942,7 +942,8 @@ class PageLinesOptionsArray {
 			'customcss' => array(
 					'version' 	=> 'pro',
 					'default' 	=> 'body{}',
-					'type' 		=> 'textarea',
+					'type' 		=> 'code',
+					'height'	=> '300px',
 					'layout' 	=> 'full',
 					'inputlabel'=> __( 'CSS Rules', 'pagelines' ),
 					'title' 	=> __( 'Custom CSS', 'pagelines' ),
@@ -955,7 +956,7 @@ class PageLinesOptionsArray {
 			'headerscripts' => array(
 					'version'	=> 'pro',
 					'default'	=> '',
-					'type'		=> 'textarea',
+					'type'		=> 'code',
 					'layout'	=> 'full',
 					'inputlabel'=> __( 'Headerscripts Code', 'pagelines' ),
 					'title'		=> __( 'Header Scripts', 'pagelines' ),
@@ -964,7 +965,7 @@ class PageLinesOptionsArray {
 				),
 			'footerscripts' => array(
 					'default'	=> '',						
-					'type'		=> 'textarea',
+					'type'		=> 'code',
 					'layout'	=> 'full',
 					'inputlabel'=> __( 'Footerscripts Code or Analytics', 'pagelines' ),
 					'title'		=> __( 'Footer Scripts &amp; Analytics', 'pagelines' ),
@@ -974,7 +975,7 @@ class PageLinesOptionsArray {
 			'asynch_analytics' => array(
 					'version'	=> 'pro',
 					'default'	=> '',
-					'type'		=> 'textarea',
+					'type'		=> 'code',
 					'layout'	=> 'full',
 					'inputlabel'=> __( 'Asynchronous Analytics', 'pagelines' ),
 					'title'		=> __( 'Asynchronous Analytics', 'pagelines' ),

@@ -21,6 +21,7 @@ class PageLinesComments extends PageLinesSection {
 
 		global $post;
 		comments_template();
+
 		
 	}
 

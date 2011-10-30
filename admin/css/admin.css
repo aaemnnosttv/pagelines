@@ -1336,6 +1336,7 @@
 			margin:4px 0;
 			font-size: 10px;
 		}
+	
 		.page_option .meta-text_small {
 			width: 100px;
 		}
@@ -2744,9 +2745,17 @@ font-weight: bold;
 		font-size: 12px;
 		width: 94%;
 		height: 170px;
+		-webkit-box-shadow: inset 2px 2px 4px #f7f7f7;
+		-moz-box-shadow: inset 2px 2px 4px  #f7f7f7;
+		box-shadow: inset 2px 2px 4px  #f7f7f7;
+		border: 1px solid #ddd;
 	}
 	#tabs textarea.longtext, #plpanel textarea.big{
 		height: 200px;
+	}
+	#tabs textarea.code_textarea{
+		font-family: courier;
+		padding: 10px;
 	}
 	#tabs option, #plpanel option{
 		font-size: 1.1em;

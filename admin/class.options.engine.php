@@ -297,6 +297,9 @@ class OptEngine {
 			case 'textarea' :
 				$this->_get_textarea($oid, $o, $val);
 				break;
+			case 'code' :
+				$this->_get_textarea($oid, $o, $val);
+				break;
 			case 'textarea_big' :
 				$this->_get_textarea($oid, $o, $val);
 				break;
@@ -539,10 +542,13 @@ class OptEngine {
 	function _get_textarea($oid, $o, $val){ 
 		
 		$class = ($o['type']=='textarea_big') ? 'longtext' : '';
+		$class .= ($o['type']=='code') ? 'code_textarea' : '';
+		
+		$extra = (isset($o['height']) && $o['height'] != '0px') ? sprintf( 'style="height: %s"', $o['height'] ) : '';
 		
 		// Output
 		echo $this->input_label($o['input_id'], $o['inputlabel']);
-		echo $this->input_textarea($o['input_id'], $o['input_name'], pl_html($o['val']), $class);
+		echo $this->input_textarea($o['input_id'], $o['input_name'], pl_html($o['val']), $class, $extra);
 	}
 
 	
@@ -1200,8 +1206,8 @@ class OptEngine {
 	function input_hidden($id, $name, $value, $class = ''){
 		return sprintf('<input type="hidden" id="%s" name="%s" value="%s" class="%s" />', $id, $name, $value, $class);
 	}
-	function input_textarea($id, $name, $value, $class = 'regular-text' ){
-		return sprintf('<textarea id="%s" name="%s" class="html-textarea %s" />%s</textarea>', $id, $name, $class, $value );
+	function input_textarea($id, $name, $value, $class = 'regular-text', $extra = '' ){
+		return sprintf('<textarea id="%s" name="%s" class="html-textarea %s" %s/>%s</textarea>', $id, $name, $class, $extra, $value );
 	}
 	
 	function input_text($id, $name, $value, $class = 'regular-text', $attr = 'text', $extra = ''){
