@@ -238,10 +238,17 @@ class PageLinesExtendUI {
 	/**
 	 * Draw a list of extended items
 	 */
-	function extension_banner( $text ){
+	function extension_banner( $text, $click = '', $button_text = 'Add Some &rarr;' ){
+		
+		if($click != ''){
+			$thebutton = OptEngine::superlink($button_text, 'blue', 'install_now iblock', $click );
+			$button = sprintf('<br/><br/>%s', $thebutton );
+		
+		} else 
+			$button = '';
 		
 		// The banner
-		return sprintf('<div class="install-control fix"><span class="banner-text">%s</span></div>', $text);
+		return sprintf('<div class="install-control fix"><span class="banner-text">%s</span>%s</div>', $text, $button);
 	}
 	
 	function upload_form( $type, $disabled = false ){

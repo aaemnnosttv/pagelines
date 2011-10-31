@@ -1183,7 +1183,7 @@ class OptEngine {
 
 	function superlink($text, $mode = 'grey', $class = '', $type = '', $extra='', $name = ''){
 		
-		if(false !== strpos($type, 'http'))
+		if(false !== strpos($type, 'http') || strpos($type, '#') == 0)
 			$att = 'a';
 		else 
 			$att = 'div';

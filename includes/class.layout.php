@@ -301,8 +301,8 @@ class PageLinesLayout {
 				$layout_handling = ploption('layout_handling');
 				$design_mode = ploption('site_design_mode');
 			
-			$contained = ($design_mode == 'fixed_width' || $design_mode == 'canvas') ? true : false;
-			
+			$contained = ($design_mode == 'fixed_width' && !pl_is_disabled('color_control')) ? true : false;
+		
 			if( $layout_handling == 'percent'){
 				if($contained){
 					$css .= sprintf($page_width_sel . '{ width: %s%%;}', $p);

@@ -61,3 +61,13 @@ class PageLinesThemeSupport {
 	}
 	
 }
+
+function pl_is_disabled( $what ){
+	
+	global $disabled_settings;
+	
+	if(isset($disabled_settings[$what]))
+		return true;
+	else
+		return false;
+}

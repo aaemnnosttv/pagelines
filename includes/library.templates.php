@@ -187,7 +187,7 @@ function pagelines_supersize_bg(){
 	$oset = array('post_id' => $pagelines_ID);
 	$url = ploption('page_background_image_url', $oset);
 
-	if(ploption('supersize_bg') && $url){ 
+	if(ploption('supersize_bg') && $url && !pl_is_disabled('color_control')){ 
 		
 		wp_enqueue_script('supersize', PL_JS.'/script.supersize.js', 'jquery' );
 		
@@ -204,7 +204,8 @@ function pagelines_runtime_supersize(){
 	$url = ploption('page_background_image_url', $oset);
 	?>
 	
-	<script type="text/javascript"> /*<![CDATA[*/ jQuery(document).ready(function(){
+	<script type="text/javascript"> /* <![CDATA[ */
+	jQuery(document).ready(function(){
 		jQuery.supersized({ slides  :  	[ { image : '<?php echo $url; ?>' } ] });
 	});/* ]]> */
 	</script>

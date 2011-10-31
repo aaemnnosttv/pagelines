@@ -712,6 +712,8 @@
 			);	
 				
 		}
+		
+		$add_url = admin_url('admin.php?page=pagelines_extend#add_plugins');
 	
 		if(empty($list) && $tab == 'installed')
 			return $this->ui->extension_banner( __( 'Installed plugins will appear here.', 'pagelines' ) );
