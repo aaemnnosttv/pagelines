@@ -735,5 +735,3 @@ function pagelines_get_tweets( $username, $latest = null) {
 			return $text;			
 		}	
 }
-
-

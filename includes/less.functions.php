@@ -69,7 +69,7 @@ class PageLinesLess {
 	
 	private function add_mixins($pless){
 		
-		$mixins = file_get_contents(PL_CSS.'/mixins.less');
+		$mixins = pl_file_get_contents(PL_CSS.'/mixins.less');
 	
 		return $pless.$mixins;
 		
@@ -229,11 +229,14 @@ function pl_hashify( $color ){
 	return sprintf('#%s', $clean_hex);
 }
 
-
-
-
-
-
-
-
-
+function pl_file_get_contents( $filename ) {
+	
+    if (is_file($filename)) {
+        ob_start();
+        include $filename;
+        $contents = ob_get_contents();
+        ob_end_clean();
+        return $contents;
+    }
+    return false;
+}

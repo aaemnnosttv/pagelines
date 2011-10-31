@@ -682,7 +682,7 @@ class PageLinesTemplate {
 					 * Less CSS
 					 */
 					if( file_exists( $s->base_dir . '/color.less' ) )
-						$lesscode .= file_get_contents( $s->base_dir.'/color.less' );
+						$lesscode .= pl_file_get_contents( $s->base_dir.'/color.less' );
 				
 					
 				}

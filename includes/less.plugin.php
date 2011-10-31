@@ -1774,7 +1774,7 @@ class lessc {
 
 			$this->fileName = $fname;
 			$this->importDir = $pi['dirname'].'/';
-			$this->buffer = file_get_contents($fname);
+			$this->buffer = pl_file_get_contents($fname);
 
 			$this->addParsedFile($fname);
 		}

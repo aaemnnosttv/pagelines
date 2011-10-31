@@ -24,7 +24,7 @@ class PageLinesIntegration {
 	public function add_less( $path){
 	
 		if(file_exists($path))
-			$this->lesscode .= file_get_contents($path);	
+			$this->lesscode .= pl_file_get_contents($path);	
 
 	}
 	
@@ -123,4 +123,3 @@ function pl_get_integration(){
 	
 	return (isset($pl_integration) && !$pl_integration) ? $pl_integration : false;
 }
-
