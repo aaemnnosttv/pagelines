@@ -123,8 +123,8 @@ class PageLinesPosts {
 			if ( is_single() && get_the_tags() )
 				printf('<div class="p tags">%s&nbsp;</div>', get_the_tag_list(__('Tagged with: ', 'pagelines'),' &bull; ','') );
 		
-			if (is_home() && ploption('content_comments'))
-				echo do_shortcode('<div class="cnt-comments">[post_comments]</div>');
+			//	if (is_home() && ploption('content_comments'))
+			//	echo do_shortcode('<div class="cnt-comments">[post_comments]</div>');
 	
 			pagelines_register_hook( 'pagelines_loop_after_post_content', 'theloop' ); // Hook 
 		
@@ -198,18 +198,18 @@ class PageLinesPosts {
 	 * @return string the excerpt markup
 	 */
 	function post_excerpt_markup( $mode = '', $thumbnail = '' ) {
-		
+	
 		if($mode == 'left-excerpt' || $mode == 'right-excerpt')
 			$pagelines_excerpt = sprintf( '<aside class="post-excerpt">%s %s</aside>', $thumbnail, get_the_excerpt() );
 		else
 			$pagelines_excerpt = sprintf( '<aside class="post-excerpt">%s</aside>', get_the_excerpt() );
-			
-			
+		
+	
 		if(pagelines_is_posts_page() && !$this->pagelines_show_content( get_the_ID() )) // 'Continue Reading' link
 			$pagelines_excerpt .= $this->get_continue_reading_link( get_the_ID() );
 		
-		if (is_home() && ploption('content_comments'))
-			$pagelines_excerpt .= do_shortcode('<div class="cnt-comments">[post_comments]</div>');
+//		if (is_home() && ploption('content_comments'))
+//			$pagelines_excerpt .= do_shortcode('<div class="cnt-comments">[post_comments]</div>');
 		
 		return apply_filters('pagelines_excerpt', $pagelines_excerpt);
 		
@@ -372,6 +372,8 @@ class PageLinesPosts {
 	
 	function pagelines_show_excerpt($post = null){
 
+	
+
 			if(is_page())
 				return false;
 
@@ -388,13 +390,12 @@ class PageLinesPosts {
 				return true;
 
 			// Category Page
-			elseif(is_category() && ploption('excerpt_category')) 
+			elseif(is_category() && ploption('excerpt_category'))
 				return true;
-
+				
 			// Archive Page
 			elseif(is_archive() && ploption('excerpt_archive')) 
 				return true;
-
 			else 
 				return false;
 	}

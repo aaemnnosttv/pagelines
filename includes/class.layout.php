@@ -312,10 +312,10 @@ class PageLinesLayout {
 				
 				
 			} elseif( $layout_handling == 'pixels' ){
-				$css .= sprintf($page_width_sel . '{ max-width:%spx; }', $c + 20);
+				$css .= sprintf($page_width_sel . '{ max-width:%spx; }', $c);
 				$css .= sprintf($content_width_sel . '{ width: 100%%; max-width:%spx;}', $c);
 			}else{
-				$css .= sprintf($page_width_sel . '{ max-width:%spx; }', $c + 20);
+				$css .= sprintf($page_width_sel . '{ max-width:%spx; }', $c);
 				$css .= sprintf($content_width_sel . '{ width:%spx;}', $c);
 			}
 			

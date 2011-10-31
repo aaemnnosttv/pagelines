@@ -219,28 +219,25 @@ function pagelines_title_tag(){
 	*/
 	echo "\n<title>";
 
-	if( pagelines_mediawiki() )
-		mediawiki_title();
-	else {
-		if ( !function_exists( 'aiosp_meta' ) && !function_exists( 'wpseo_get_value' ) ) {
-		// Pagelines seo titles.
-			global $page, $paged;
-			$title = wp_title( '|', false, 'right' );
+	if ( !function_exists( 'aiosp_meta' ) && !function_exists( 'wpseo_get_value' ) ) {
+	// Pagelines seo titles.
+		global $page, $paged;
+		$title = wp_title( '|', false, 'right' );
 
-			// Add the blog name.
-			$title .= get_bloginfo( 'name' );
+		// Add the blog name.
+		$title .= get_bloginfo( 'name' );
 
-			// Add the blog description for the home/front page.
-			$title .= ( ( is_home() || is_front_page() ) && get_bloginfo( 'description', 'display' ) ) ? ' | ' . get_bloginfo( 'description', 'display' ) : '';
+		// Add the blog description for the home/front page.
+		$title .= ( ( is_home() || is_front_page() ) && get_bloginfo( 'description', 'display' ) ) ? ' | ' . get_bloginfo( 'description', 'display' ) : '';
 
-			// Add a page number if necessary:
-			$title .= ( $paged >= 2 || $page >= 2 ) ? ' | ' . sprintf( __( 'Page %s', 'pagelines' ), max( $paged, $page ) ) : '';
-		} else
-			$title = trim( wp_title( '', false ) );
-		
-		// Print the title.
-		echo apply_filters( 'pagelines_meta_title', $title );
-	}
+		// Add a page number if necessary:
+		$title .= ( $paged >= 2 || $page >= 2 ) ? ' | ' . sprintf( __( 'Page %s', 'pagelines' ), max( $paged, $page ) ) : '';
+	} else
+		$title = trim( wp_title( '', false ) );
+	
+	// Print the title.
+	echo apply_filters( 'pagelines_meta_title', $title );
+	
 	echo "</title>\n";
 }	
 	

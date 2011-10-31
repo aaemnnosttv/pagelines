@@ -370,7 +370,7 @@ class PageLinesOptionsArray {
 				'selectors'	=> cssgroup('page_background_image')
 			),
 			'supersize_bg' => array(
-				'title' 		=> __( '"Supersize" The Background Image', 'pagelines' ),						
+				'title' 		=> __( '"Supersize" The Background Image (Fixed Width Mode Required)', 'pagelines' ),						
 				'shortexp' 		=> __( 'Uses a script to set the background for full width and responsive design', 'pagelines' ),
 				'exp' 			=> __( 'Sets the background to match the width of the browser.', 'pagelines' ),
 				'type' 			=> 'check',

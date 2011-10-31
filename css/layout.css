@@ -120,9 +120,14 @@
 .fixed_width #page{
 	margin: 12px auto 0;
 }
+	.fixed_width .page-canvas{
+		-moz-box-shadow: 0 1px 5px rgba(0,0,0, .8);
+		-webkit-box-shadow: 0 1px 5px rgba(0,0,0, .8);
+		box-shadow: 0 1px 5px rgba(0,0,0, .8);
+	}
 	body.fixed_width{ border-top:none; }
 	.fixed_width #footer{ background: transparent; margin: 0 auto; }
 	.fixed_width #morefoot .dcol-pad { padding: 15px; }
-	.fixed_width #branding .content-pad{ padding: 20px 15px 15px; }
+	.fixed_width #branding .content-pad{ padding: 25px; }
 	.fixed_width #header .searchform { margin-right: 10px }
 	.fixed_width #boxes .dcol-pad {padding: 10px;}
