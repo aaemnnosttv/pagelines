@@ -608,30 +608,27 @@ function pagelines_import_export(){
 				header("Cache-Control: public, must-revalidate");
 				header("Pragma: hack");
 				header("Content-Type: text/plain");
-				header('Content-Disposition: attachment; filename="PageLines-'.THEMENAME.'-Settings-' . date("Ymd") . '.dat"');				
-				
+				header( 'Content-Disposition: attachment; filename="' . THEMENAME . '-Settings-' . date("Ymd") . '.dat"' );						
 				echo json_encode( $options );
 				exit();
 			} 
 
 	}
 
-	if ( isset($_POST['form_submitted']) && $_POST['form_submitted'] == 'import_settings_form') {
-		
+	if ( isset($_POST['form_submitted']) && $_POST['form_submitted'] == 'import_settings_form') {	
 		if (strpos($_FILES['file']['name'], 'Settings') === false && strpos($_FILES['file']['name'], 'settings') === false){
-			wp_redirect( admin_url('admin.php?page=pagelines_extend&pageaction=import&error=wrongfile') ); 
+			wp_redirect( admin_url('admin.php?page=pagelines_account&pageaction=import&error=wrongfile') ); 
 		} elseif ($_FILES['file']['error'] > 0){
 			$error_type = $_FILES['file']['error'];
-			wp_redirect( admin_url('admin.php?page=pagelines_extend&pageaction=import&error=file&'.$error_type) );
+			wp_redirect( admin_url('admin.php?page=pagelines_account&pageaction=import&error=file&'.$error_type) );
 		} else {
-			
 			ob_start();
 			include($_FILES['file']['tmp_name']);
 			$raw_options = ob_get_contents();
 			ob_end_clean();
 	
 			$all_options = json_decode(json_encode(json_decode($raw_options)), true);
-			
+		
 			if ( !isset( $_POST['pagelines_layout'] ) && is_array( $all_options) && isset( $all_options['pagelines_settings'] ) )
 				unset( $all_options['pagelines_settings']['layout'] );
 			
@@ -654,9 +651,9 @@ function pagelines_import_export(){
 					wp_cache_clean_cache($file_prefix); 
 				}
 				if ( isset($done) ) {
-				wp_redirect( admin_url( 'admin.php?page=pagelines_extend&pageaction=import&imported=true' ) ); 
+				wp_redirect( admin_url( 'admin.php?page=pagelines_account&pageaction=import&imported=true' ) ); 
 			} else {
-				wp_redirect( admin_url('admin.php?page=pagelines_extend&pageaction=import&error=wrongfile') );
+				wp_redirect( admin_url('admin.php?page=pagelines_account&pageaction=import&error=wrongfile') );
 			}
 		}		
 	}

@@ -158,6 +158,7 @@
 			break;
 
 			case 'section_activate':
+
 				$this->sandbox( $path, 'section');
 				$available = get_option( 'pagelines_sections_disabled' );
 				unset( $available[$path][$file] );
@@ -188,11 +189,11 @@
 				$upgrader = new Plugin_Upgrader($skin);
 				$time = 0;
 				if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) ) {
-					@$upgrader->install( $this->make_url( 'sections', $file ) );		
-					$wp_filesystem->move( trailingslashit( WP_PLUGIN_DIR ) . $file, trailingslashit( PL_EXTEND_DIR ) . $file );					
+					@$upgrader->install( $this->make_url( 'section', $path ) );		
+					$wp_filesystem->move( trailingslashit( WP_PLUGIN_DIR ) . $path, trailingslashit( PL_EXTEND_DIR ) . $path );					
 				} else {
-							$options = array( 'package' => ( ! $uploader) ? $this->make_url( 'sections', $file ) : $file, 
-							'destination'		=> ( ! $uploader) ? trailingslashit( PL_EXTEND_DIR ) . $file : trailingslashit( PL_EXTEND_DIR ) . $path, 
+							$options = array( 'package' => ( ! $uploader) ? $this->make_url( 'section', $path ) : $path, 
+							'destination'		=> ( ! $uploader) ? trailingslashit( PL_EXTEND_DIR ) . $path : trailingslashit( PL_EXTEND_DIR ) . $file, 
 							'clear_destination' => false,
 							'clear_working'		=> false,
 							'is_multi'			=> false,
@@ -223,11 +224,11 @@
 					extend_delete_directory( trailingslashit( PL_EXTEND_DIR ) . $file );				
 
 				if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) ) {
-					@$upgrader->install( $this->make_url( 'sections', $file ) );			
+					@$upgrader->install( $this->make_url( 'section', $file ) );			
 					$wp_filesystem->move( trailingslashit( WP_PLUGIN_DIR ) . $file, trailingslashit( PL_EXTEND_DIR ) . $file );
 					$time = 0;				
 				} else {
-							$options = array( 'package' => ( ! $uploader) ? $this->make_url( 'sections', $file ) : $file, 
+							$options = array( 'package' => ( ! $uploader) ? $this->make_url( 'section', $file ) : $file, 
 							'destination'		=> ( ! $uploader) ? trailingslashit( PL_EXTEND_DIR ) . $file : trailingslashit( PL_EXTEND_DIR ) . $path, 
 							'clear_destination' => false,
 							'clear_working'		=> false,

@@ -483,21 +483,8 @@ function extension_array(  ){
 					'title'		=> __( 'PageLines Integrations', 'pagelines' ),
 					'callback'	=> $extension_control->extension_integrations( )
 					)
-				)
-				
-		),
-		
-		'Import-Export' => array(
-			'icon'		=> PL_ADMIN_ICONS.'/extend-inout.png',
-			'import_set'	=> array(
-				'default'	=> '',
-				'type'		=> 'import_export',
-				'layout'	=> 'full',
-				'title'		=> __( 'Import/Export PageLines Settings', 'pagelines' ),						
-				'shortexp'	=> __( 'Use this form to upload PageLines settings from another install.', 'pagelines' ),
-			),
+				)		
 		)
-
 	);
 
 	return apply_filters('extension_array', $d); 
