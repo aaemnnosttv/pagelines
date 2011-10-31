@@ -144,16 +144,19 @@
 	}
 	
 	private function get_the_path( $button, $type, $key, $ext, $tab ){
+
+		if ( ( $button == 'deactivate' || $button == 'activate' ) && $type == 'section' )
+			return $ext['type'];
 		
-		if ( $type == 'section' ) {
-			return $ext['type'];	
+		if ( ( $button == 'install' || $button == 'delete' ) && $type == 'section' ) {
+			return $key;	
 		}	
 		
 	}
 	
 	private function get_the_file( $button, $type, $key, $ext, $tab ){
 
-		if ( $button == 'delete' ) {
+		if ( $button == 'delete' || $button == 'upgrade' ) {
 			if ( $type == 'section'
 			 	&& isset( $ext['base_dir'] ) 
 					) {
@@ -188,7 +191,8 @@
 		$a = array( 
 			'plversion'		=>	CORE_VERSION,
 			'price'		=>	'free',
-			'featured'	=>	"false"
+			'featured'	=>	'false',
+			'upgrade'	=>	''
 			);
 		
 		$ext = wp_parse_args( $ext, $a );
@@ -256,10 +260,10 @@
 				'condition'	=> $this->show_upgrade_available($type, $key, $ext, $tab),
 				'case'		=> $type.'_upgrade',
 				'type'		=> $type,
-				'file'		=> $this->get_the_file( 'activate', $type, $key, $ext, $tab ),
+				'file'		=> $this->get_the_file( 'upgrade', $type, $key, $ext, $tab ),
 				'path'		=> $key,
-				'text'		=> sprintf(__( 'Upgrade to %s', 'pagelines' ), $ext['version'] ),
-				'dtext'		=> sprintf( __( 'Upgrading to version %s', 'pagelines' ), $ext['version'] ),
+				'text'		=> sprintf(__( 'Upgrade to %s', 'pagelines' ), $ext['upgrade'] ),
+				'dtext'		=> sprintf( __( 'Upgrading to version %s', 'pagelines' ), $ext['upgrade'] ),
 			),
 			'delete'	=> array(
 				'mode'		=> 'delete',
@@ -283,8 +287,7 @@
 				'condition'	=> $this->version_fail( $ext['plversion'] ),
 				'text'		=> sprintf( __( '%s is required', 'pagelines' ), $ext['plversion'] ),
 				)		
-		);
-		
+		);	
 		return $actions;
 		
 	}
@@ -299,26 +302,6 @@
 	
 	private function install_button( $installed = false, $purchased = false, $version = 0 ){
 		return ( $this->version_check( $version ) && !EXTEND_NETWORK && $purchased && ! $installed) ? true : false;
-	}
-	
-	private function upgrade_available( $installed_version, $api_version){
-		
-		if ( $api_version > $installed_version )
-			return $api_version;
-		else
-			return false;
-	}
-
-	private function get_the_version($type, $key, $ext){
-		
-		if($type == 'plugin')
-			return (isset($ext['status']['version'])) ? $ext['status']['version'] : false;
-		else
-			return $ext['version'];
-	}
-	
-	private function version_check( $version ){
-		return ( version_compare( CORE_VERSION, $version ) >= 0 ) ? true : false;
 	}
 	
 	private function version_fail( $version ){
@@ -341,7 +324,41 @@
 
 		return sprintf('%s%s', __( 'Purchase', 'pagelines' ), $price); 
 	}
+		private function upgrade_available( $api_version, $installed_version ){
+
+			if ( $api_version > $installed_version )
+				return $api_version;
+			else
+				return false;
+		}
+
+		private function get_the_version($type, $key, $ext){
+
+			if ( $type == 'section' ) 
+				return isset( $ext['upgrade'] ) ? $ext['upgrade'] : $ext['version'];	
+
+			if($type == 'plugin')
+				return (isset($ext['status']['version'])) ? $ext['status']['version'] : false;
+
+			if ( $type == 'theme' ) 
+				return isset( $ext['upgrade'] ) ? $ext['upgrade'] : $ext['version'];	
+		}
+
+		private function version_check( $version ){
+			return ( version_compare( CORE_VERSION, $version ) >= 0 ) ? true : false;
+		}
+		
+	function show_upgrade_available($type, $key, $ext, $tab){
 	
+		if( $this->is_installed($type, $key, $ext)
+			&& $this->upgrade_available( $this->get_the_version($type, $key, $ext), $ext['version'])
+		){
+			return true;
+		} else 
+			return false;
+		
+	}
+		
 	private function show_login_button( $type, $key, $ext, $tab ){
 		if( !EXTEND_NETWORK 
 			&& !$this->updates_configured()
@@ -353,7 +370,7 @@
 	}
 	
 	private function show_install_button( $type, $key, $ext, $tab){
-		
+
 		if(!$this->is_installed($type, $key, $ext) 
 			&& $this->is_purchased($type, $key, $ext) 
 			&& $this->in_the_store($tab) 
@@ -363,17 +380,6 @@
 			return true;
 		else
 			return false;
-	}
-	
-	function show_upgrade_available($type, $key, $ext, $tab){
-		
-		if( $this->is_installed($type, $key, $ext)
-			&& $this->upgrade_available( $this->get_the_version($type, $key, $ext), $ext['version'])
-		){
-			return true;
-		} else 
-			return false;
-		
 	}
 	
 	function show_installed_button( $type, $key, $ext, $tab ){
@@ -417,9 +423,12 @@
 			
 			$status = ( isset($ext['status']) ) ? true : false;
 			
-			$path = sprintf( '%s/%s/section.php', PL_EXTEND_DIR, $key );
-			
-			if( file_exists($path) || $status)
+			if ( isset( $ext['base_file'] ) )
+				$path = $ext['base_file'];
+			else
+				$path = sprintf( '%s/%s/section.php', PL_EXTEND_DIR, $ext['slug'] );
+		
+			if( file_exists($path) )
 				return true;
 			else 
 				return false;
@@ -487,7 +496,7 @@
 
 		if($type == 'section'){
 			
-			return (isset( $ext->purchased )) ? true : false;
+			return (isset( $info['purchased'] )) ? true : false;
 			
 		} else {
 			
@@ -622,7 +631,13 @@
 			$type = pagelines_array_sort( $type, 'name' ); // Sort Alphabetically
 
  			foreach( $type as $key => $ext ) { // main loop
-		
+
+
+				if ( isset( $ext['base_dir'] ) ) {
+					$upgrade = basename( $ext['base_dir'] );
+					$ext['upgrade'] = ( isset( $upgradable->$upgrade->version ) ) ? $upgradable->$upgrade->version : '';
+				}
+				
 				$ext['class_exists'] = ( isset( $available['child'][ $ext['class'] ] ) || isset( $available['custom'][ $ext['class'] ] ) ) ? true : false;
 				
 				if( !$this->show_in_tab( 'section', $key, $ext, $tab ) )
@@ -1072,7 +1087,7 @@
 			// check for an update...	
 			if ( isset( $themes[ $theme_data['Stylesheet'] ]['version'] ) && $themes[ $theme_data['Stylesheet'] ]['version'] > $theme_data['Version']) 			
 				$up = $themes[ $theme_data['Stylesheet'] ]['version'];
-				
+			
 			if ( in_array( $theme, $themes ) )
 				continue;
 			// If we got this far, theme is a pagelines child theme not handled by the API
@@ -1082,7 +1097,8 @@
 			$new_theme['name'] =		$theme_data['Name'];
 			$new_theme['author'] =		$theme_data['Author Name'];
 			$new_theme['author_url'] =	$theme_data['Author URI'];
-			$new_theme['version'] =		( isset( $up ) ) ? $up : $theme_data['Version'];
+			$new_theme['upgrade'] =		( isset( $up ) ) ? $up : '';			
+			$new_theme['version'] =		$theme_data['Version'];
 			$new_theme['text'] =		$theme_data['Description'];
 			$new_theme['tags'] =		$theme_data['Tags'];
 			$new_theme['featured']	=	( isset( $themes[$theme_data['Stylesheet']]['featured'] ) ) ? $themes[$theme_data['Stylesheet']]['featured'] : null;
