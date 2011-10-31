@@ -129,7 +129,8 @@
 			if ( ( $this->show_install_button($type, $key, $ext, $tab) 
 					|| $this->show_purchase_button($type, $key, $ext, $tab) 
 					|| $this->show_login_button($type, $key, $ext, $tab) 
-				) 
+				)
+				&& isset( $ext['screen'])
 				&& $ext['screen']
 			){
 				
@@ -363,6 +364,7 @@
 		if( !EXTEND_NETWORK 
 			&& !$this->updates_configured()
 			&& !$this->is_purchased( $type, $key, $ext )
+			&& $this->in_the_store($tab)
 		) {
 			return true;
 		} else
