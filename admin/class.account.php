@@ -61,9 +61,18 @@ function pagelines_account_array(  ){
 				'title'		=> __( 'Configure PageLines Account &amp; Auto Updates', 'pagelines' ),
 				'shortexp'	=> __( 'Get your latest updates automatically, direct from PageLines.', 'pagelines' ),
 				'layout'	=> 'full',
-			),
+			)
+		),
+		'Import-Export' => array(
+			'icon'		=> PL_ADMIN_ICONS.'/extend-inout.png',
+			'import_set'	=> array(
+				'default'	=> '',
+				'type'		=> 'import_export',
+				'layout'	=> 'full',
+				'title'		=> __( 'Import/Export PageLines Settings', 'pagelines' ),						
+				'shortexp'	=> __( 'Use this form to upload PageLines settings from another install.', 'pagelines' ),
+			)
 		)
-
 	);
 
 	return apply_filters('pagelines_account_array', $d); 
