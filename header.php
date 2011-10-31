@@ -42,6 +42,5 @@ else:  ?>
 			<?php pagelines_register_hook('pagelines_before_main'); // Hook ?>
 			<div id="page-main" class="container-group">
 				<div id="dynamic-content" class="outline">
-					<?php pagelines_integration_top();?>
 					
 <?php endif;?>

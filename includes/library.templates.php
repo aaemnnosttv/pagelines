@@ -212,43 +212,6 @@ function pagelines_runtime_supersize(){
 <?php
 }
 
-function pagelines_mediawiki(){
-	
-	global $pl_mediawiki; 
-	
-	if ($pl_mediawiki) 
-		return true;
-	else 
-		return false;
-}
-
-function pl_mediawiki_head(){
-
-	global $pl_mediawiki_scripts; 
-
-	pagelines_load_css_relative('css/wiki.css', 'pagelines-wiki');
-
-	echo $pl_mediawiki_scripts;
-
-}
-
-function mediawiki_title(){
-	global $wgOut; 
-	echo $wgOut->mPagetitle;
-}
-
-function pagelines_integration_top(){
-	
-	if(pagelines_mediawiki())
-		printf('<div id="%s" class="fix">', 'mediawiki-page');
-	
-}
-
-function pagelines_integration_bottom(){
-		
-	if( pagelines_mediawiki() )
-		echo "</div>";
-}
 	
 function pagelines_title_tag(){
 	/*
