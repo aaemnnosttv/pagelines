@@ -86,7 +86,7 @@ class PageLinesIntegration {
 				break;
 
 				case 'js':
-					preg_match_all( '#<script type=[\'|"]text\/javascript[\'|"].*<\/script>#', $args['buffer'], $js );
+					preg_match_all( '#<(s(?:cript))[^>]*>.*?</\1>#ms', $args['buffer'], $js );
 					if( is_array( $js[0] ) ) {
 						$js_out = '';
 						foreach( $js[0] as $j )
