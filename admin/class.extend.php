@@ -452,6 +452,8 @@
 			$active = ploption( $key );
 			if ( is_array( $active ) )
 				return $active['activated'];
+			else
+				return 'false';
 		}
 		
 		if($type == 'plugin'){
