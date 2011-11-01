@@ -239,7 +239,7 @@ class PageLinesExtendUI {
 				$this->exprint, 
 				'plugin_install', 
 				$key, 
-				'plugins', 
+				'plugin', 
 				'pagelines-sections', 
 				'/pagelines-sections/pagelines-sections.php',
 				'', 
