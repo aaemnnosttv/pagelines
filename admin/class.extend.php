@@ -789,7 +789,7 @@
 	}
 	
 	function load_plugins(){
-		
+	
 		$plugins = $this->get_latest_cached( 'plugins' );
 
 		if ( !is_object($plugins) ) 
@@ -798,12 +798,14 @@
 		$output = '';
 
 		$plugins = json_decode(json_encode($plugins), true); // convert objects to arrays
-
+		
+		$plugins = $this->external_plugins( $plugins );
+		
 		foreach( $plugins as $key => $plugin )
 			$plugins[$key]['file'] = sprintf('/%1$s/%1$s.php', $key);
 
 		$plugins = pagelines_array_sort( $plugins, 'name', false, true ); // sort by name
-
+		
 		// get status of each plugin
 		foreach( $plugins as $key => $ext ) {
 			$plugins[$key]['status'] = $this->plugin_check_status( WP_PLUGIN_DIR . $ext['file'] );
@@ -823,7 +825,41 @@
 		
 		return $plugins;
 	}
+	/*
+	* Get installed plugins and if they have the PageLines header, include them in the store.
+	*/
+	function external_plugins( $plugins ) {
+		
+		if ( is_multisite() )
+			return $plugins;
+			
+		$ext_plugins = (array) get_plugins();
+		
+		foreach( $ext_plugins as $ext => $data ) {
+			
+			$new_key = rtrim( str_replace( basename( $ext ), '', $ext ), '/' );
+			unset( $ext_plugins[$ext] );
+
+			if ( !array_key_exists( $new_key, $plugins ) ) {
 	
+				$a = get_file_data( WP_PLUGIN_DIR . '/' . $ext, $default_headers = array( 'pagelines' => 'PageLines' ) );
+				if ( !empty( $a['pagelines'] ) && !empty( $new_key ) ) {
+
+					$plugins[$new_key]['name'] = $data['Name']; 
+					$plugins[$new_key]['slug'] = $new_key;
+					$plugins[$new_key]['text'] = $data['Description'];
+					$plugins[$new_key]['version'] = $data['Version'];
+					$plugins[$new_key]['author_url'] = $data['AuthorURI'];
+					$plugins[$new_key]['author'] = $data['Author'];
+					$plugins[$new_key]['count'] = 0;
+					$plugins[$new_key]['screen'] = false;
+					$plugins[$new_key]['extended'] = false;
+	
+				}
+			}	
+		}
+		return $plugins;
+	}
 	
 	function parse_buttons($actions, $core_actions){
 		
