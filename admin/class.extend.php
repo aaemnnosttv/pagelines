@@ -277,12 +277,14 @@
 	
 	private function show_install_button( $type, $key, $ext, $tab){
 
+		if ( $type == 'integration' )
+			return false;
+
 		if( !$this->is_installed($type, $key, $ext) 
 			&& $this->is_purchased($type, $key, $ext) 
 			&& $this->in_the_store( $type, $key, $ext, $tab ) 
 			&& !EXTEND_NETWORK
 			&& ! $this->version_fail( $ext['plversion'] )
-			&& ! $type == 'integration'
 		)
 			return true;
 		else

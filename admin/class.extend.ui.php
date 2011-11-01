@@ -105,7 +105,7 @@ class PageLinesExtendUI {
 		
 		$text = sprintf('<p>%s</p>', $e['desc']);
 		
-		$link =  ( ! $style == 'download' ) ? $this->get_extend_buttons( $e, 'superlink') : $this->get_extend_buttons( $e, 'downlaod');
+		$link =  $this->get_extend_buttons( $e, $style ) ;
 		
 		$dtitle = ($style == 'active') ? __('<h4>Active Theme</h4>', 'pagelines') : '';
 					
