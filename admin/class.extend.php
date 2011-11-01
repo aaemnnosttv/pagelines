@@ -310,7 +310,7 @@
 	
 	private function show_download_button( $type, $key, $ext, $tab){
 
-		if( $this->updates_configured() )
+		if( $type == 'integration' && $this->updates_configured() )
 			return true;
 		else
 			return false;
@@ -436,16 +436,7 @@
 		
 	}
 	
-	function show_activate_button( $type, $key, $ext, $tab ){
-		
-		if( !$this->in_the_store( $type, $key, $ext, $tab )
-			&& $this->is_installed($type, $key, $ext, $tab)
-			&& !$this->is_active($type, $key, $ext)
-		){
-			return true;
-		} else 
-			return false;
-	}
+
 	
 	private function is_installed( $type, $key, $ext, $tab = '' ){
 
@@ -501,15 +492,7 @@
 			return false;
 	}
 	
-	function show_deactivate_button( $type, $key, $ext, $tab ){
-		
-		if( $this->is_active($type, $key, $ext)
-			&& !$this->in_the_store( $type, $key, $ext, $tab )
-		){
-			return true;
-		} else 
-			return false;
-	}
+
 	
 	function is_premium( $type, $key, $ext ){
 		$ext = (array) $ext;
@@ -549,8 +532,43 @@
 		
 	}
 	
+	function show_activate_button( $type, $key, $ext, $tab ){
+		
+		if ( $type == 'integration' && $this->is_active( $type, $key, $ext ) == 'false' )
+			return true;
+
+		if( !$this->in_the_store( $type, $key, $ext, $tab )
+			&& $this->is_installed($type, $key, $ext, $tab)
+			&& !$this->is_active($type, $key, $ext)
+		){
+			return true;
+		} else 
+			return false;
+	}
+	
+	function show_deactivate_button( $type, $key, $ext, $tab ){
+		
+		if ( $type == 'integration' ) {
+			
+			if( $this->is_active($type, $key, $ext) == 'true' )
+				return true;
+		}
+		if( $this->is_active($type, $key, $ext)
+			&& !$this->in_the_store( $type, $key, $ext, $tab )
+		){
+			return true;
+		} else 
+			return false;
+	}
+	
 	private function is_active( $type, $key, $ext ){
 
+		if ( $type == 'integration' ) {
+			$active = ploption( $key );
+			if ( is_array( $active ) )
+				return $active['activated'];
+		}
+		
 		if($type == 'plugin'){
 			if( isset($ext['status']['status']) && $ext['status']['status'] == 'active')
 				return true;
