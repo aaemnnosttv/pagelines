@@ -107,7 +107,7 @@ body{font-size: 87.5%; line-height: 1.71em;height:100%;}
 	
 	/* @ Lists */ 
 	.hentry ul, .hentry ol { margin: 1.7em 0 1.7em 16px;}
-	.hentry li { margin: 1.7em 0; }
+	.hentry li { margin: .85em 0; }
  
 	.footnote{margin-top:3.5em;}
 	.footnote li{margin:1.5em 0 1.5em;word-spacing:.1em;line-height:1.75em;}
