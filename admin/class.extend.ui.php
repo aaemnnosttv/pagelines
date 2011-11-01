@@ -57,6 +57,17 @@ class PageLinesExtendUI {
 		$ext = '';
 		$active = '';
 		
+		if ( $mode == 'download' ) {
+			
+			foreach( $list as $eid => $e ){
+					$ext .= $this->graphic_pane( $e, 'download' );
+			}
+
+			$output = sprintf('<ul class="graphic_panes fix">%s%s</ul>', $active, $ext);	
+			return $output;		
+		}
+		
+		
 		if($mode == 'graphic'){
 			
 			foreach( $list as $eid => $e ){
@@ -94,7 +105,7 @@ class PageLinesExtendUI {
 		
 		$text = sprintf('<p>%s</p>', $e['desc']);
 		
-		$link =  $this->get_extend_buttons( $e, 'superlink');
+		$link =  ( ! $style == 'download' ) ? $this->get_extend_buttons( $e, 'superlink') : $this->get_extend_buttons( $e, 'downlaod');
 		
 		$dtitle = ($style == 'active') ? __('<h4>Active Theme</h4>', 'pagelines') : '';
 					

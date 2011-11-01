@@ -900,7 +900,7 @@
 					),
 
 					'download'	=> array(
-						'mode'		=> 'redirect',
+						'mode'		=> 'download',
 						'condition'	=> $download,
 						'case'		=> 'integration_download',
 						'type'		=> __( 'integrations', 'pagelines' ),
@@ -947,7 +947,7 @@
 				);		
 		}
 		
-		return $this->ui->extension_list( $list, 'graphic' );
+		return $this->ui->extension_list( $list, 'download' );
 		
 		
 	}
