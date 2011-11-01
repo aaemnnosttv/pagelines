@@ -44,149 +44,6 @@
 		delete_transient( 'pagelines_sections_cache' );
 	}
 
-
-
-	private function show_in_tab( $type, $key, $ext, $tab ){
-
-		$a = array( 
-			'plversion'		=>	CORE_VERSION,
-			'price'		=>	'free',
-			'featured'	=>	"false"
-			);
-		
-		$ext = wp_parse_args( $ext, $a );
-				
-		if($type == 'section'){
-			
-			$ext = (array) $ext;
-			
-			if ( $tab === 'user' && ( $ext['type'] === 'custom' || $ext['type'] === 'parent' ) )
-				return false;
-			elseif ( $tab === 'internal' && ( $ext['type'] === 'custom' || $ext['type'] === 'child' ) )
-				return false;						
-			elseif ( $tab === 'child' && ( $ext['type'] === 'child' || $ext['type'] === 'parent' ) )
-				return false;
-			elseif ( $ext['type'] == 'parent' && $ext['class_exists'] )
-				return false;
-			elseif( isset($ext['price']) && $ext['price'] != 'free' && $tab == 'free' )
-				return false;
-			elseif( $tab == 'premium' && $ext['price'] == 'free' )
-				return false;
-			elseif( $tab == 'featured' && $ext['featured']  )
-				return false;
-			else 
-				return true;
-			
-		} elseif($type == 'plugin'){
-			
-			if ( $tab === 'installed' && (!$ext['loaded'] || $ext['sections-plugin']) )
-				return false;
-				
-			elseif ( ( $tab === 'premium' || $tab === 'featured' ) && $ext['price'] === 'free' )
-				return false;
-
-			elseif ( $tab === 'free' && $ext['price'] != 'free' )
-				return false;
-			
-			else 
-				return true;
-				
-		} elseif($type == 'theme'){
-
-			$featured 	= ( isset( $ext['featured'] ) ) ? (bool) $ext['featured'] : false; 
-			$ext['exists'] 		= $this->is_installed('theme', $key, $ext);
-			
-			if ( file_exists( sprintf( '%s/themes/%s/style.css', WP_CONTENT_DIR, $key ) ) )
-				$exists = true;
-			
-			if ( $tab === 'featured' && $ext['featured'] === "true" ) 
-				return true;
-			elseif ( $tab === 'featured' && $ext['featured'] === "false" ) 
-				return false;
-				
-			elseif ( ( $tab == 'premium' || $tab == 'featured' )  && $ext['price'] == 'free' ) 
-				return false;
-
-			elseif (  $tab == 'free' && $ext['price'] != 'free' ) 
-				return false;
-				
-			elseif ( $tab == 'installed' && !$ext['exists'] )
-				return false;
-				
-			else
-				return true;
-			
-		}
-		
-		
-	}
-	
-
-	private function image_path( $type, $key, $ext, $tab ) {
-		
-		if ( $type == 'theme' ) {
-			
-			if ( ( $this->show_install_button($type, $key, $ext, $tab) 
-					|| $this->show_purchase_button($type, $key, $ext, $tab) 
-					|| $this->show_login_button($type, $key, $ext, $tab) 
-				)
-				&& isset( $ext['screen'])
-				&& $ext['screen']
-			){
-				
-				return sprintf( 'http://www.pagelines.com/api/files/themes/img/%s-thumb.png', $key );
-					
-			}elseif ( file_exists( sprintf('%s/%s/thumb.png', get_theme_root(), $key) ) )
-				return sprintf('%s/%s/thumb.png', get_theme_root_uri(), $key);
-			else
-				return PL_ADMIN_IMAGES . '/thumb-default.png';
-		}
-
-	}
-	
-	private function get_the_path( $button, $type, $key, $ext, $tab ){
-
-		if ( ( $button == 'deactivate' || $button == 'activate' ) && $type == 'section' )
-			return $ext['type'];
-		
-		if ( ( $button == 'install' || $button == 'delete' ) && $type == 'section' ) {
-			return $key;	
-		}	
-		
-	}
-	
-	private function get_the_file( $button, $type, $key, $ext, $tab ){
-
-		if ( $button == 'delete' || $button == 'upgrade' ) {
-			if ( $type == 'section'
-			 	&& isset( $ext['base_dir'] ) 
-					) {
-				return basename($ext['base_dir']);	
-			}
-		}
-		
-		
-		if ( $type == 'section' ) {
-			return $ext['class'];	
-		} elseif($type == 'plugin'){
-			
-			if($button == 'activate'
-				|| $button == 'deactivate'
-				|| $button == 'delete'
-			){
-				return $ext['file'];
-			} else
-				return $key;
-	
-	
-		}elseif($type == 'theme'){
-			return $key;				
-				
-		} else
-			return $key;
-		
-	}
-
 	private function master_array( $type, $key, $ext, $tab ){
 		
 		$a = array( 
@@ -287,67 +144,110 @@
 				'path'		=>	__( 'theme', 'pagelines' ),
 				'condition'	=> $this->version_fail( $ext['plversion'] ),
 				'text'		=> sprintf( __( '%s is required', 'pagelines' ), $ext['plversion'] ),
+				),
+			'download'	=> array(
+				'mode'		=> 'download',
+				'condition'	=> $this->show_download_button( $type, $key, $ext, $tab ),
+				'case'		=> $type . '_download',
+				'type'		=> 'integration',
+				'file'		=> $key,
+				'text'		=> __( 'Download <strong>&darr;</strong>', 'pagelines' ),
+				'dtext'		=> __( 'Downloading', 'pagelines' )
 				)		
 		);	
-		return $actions;
-		
-	}
-	
-	private function paypal_link( $type, $key, $ext, $tab ){
-		return ( isset( $ext['productid'] ) ) ? sprintf('%s,%s|%s|%s', $ext['productid'], $ext['uid'], $ext['price'], $ext['name']) : '';		
-	}
-	
-	private function purchase_button( $purchased = false, $store = true ){
-		return ( $store && !EXTEND_NETWORK && !$purchased && !$this->login_button($purchased) ) ? true : false;
-	}
-	
-	private function install_button( $installed = false, $purchased = false, $version = 0 ){
-		return ( $this->version_check( $version ) && !EXTEND_NETWORK && $purchased && ! $installed) ? true : false;
-	}
-	
-	private function version_fail( $version ){
-		return ( ! $this->version_check( $version ) ) ? true : false;
-	}
-	
-	private function updates_configured( ){
-		return ( pagelines_check_credentials() ) ? true : false;
-	}
-	
-	private function do_redirect( ){
-		return ( EXTEND_NETWORK ) ? true : false;
+		return $actions;	
 	}
 
-	private function purchase_text( $type, $key, $ext, $tab ){
-		
-		$ext = (array) $ext;
-		
-		$price = (isset($ext['price'])) ? sprintf(' <span class="prc">($%s)</span>', $ext['price']) : '';
+// ======================
+// = Main button logic. =
+// ======================
 
-		return sprintf('%s%s', __( 'Purchase', 'pagelines' ), $price); 
-	}
-		private function upgrade_available( $api_version, $installed_version ){
+	private function show_in_tab( $type, $key, $ext, $tab ){
 
-			if ( $api_version > $installed_version )
-				return $api_version;
-			else
+		$a = array( 
+			'plversion'		=>	CORE_VERSION,
+			'price'		=>	'free',
+			'featured'	=>	"false"
+			);
+		
+		$ext = wp_parse_args( $ext, $a );
+				
+		if($type == 'section'){
+			
+			$ext = (array) $ext;
+			
+			if ( $tab === 'user' && ( $ext['type'] === 'custom' || $ext['type'] === 'parent' ) )
 				return false;
+			elseif ( $tab === 'internal' && ( $ext['type'] === 'custom' || $ext['type'] === 'child' ) )
+				return false;						
+			elseif ( $tab === 'child' && ( $ext['type'] === 'child' || $ext['type'] === 'parent' ) )
+				return false;
+			elseif ( $ext['type'] == 'parent' && $ext['class_exists'] )
+				return false;
+			elseif( isset($ext['price']) && $ext['price'] != 'free' && $tab == 'free' )
+				return false;
+			elseif( $tab == 'premium' && $ext['price'] == 'free' )
+				return false;
+			elseif( $tab == 'featured' && $ext['featured']  )
+				return false;
+			else 
+				return true;
+			
+		} elseif($type == 'plugin'){
+			
+			if ( $tab === 'installed' && (!$ext['loaded'] || $ext['sections-plugin']) )
+				return false;
+				
+			elseif ( ( $tab === 'premium' || $tab === 'featured' ) && $ext['price'] === 'free' )
+				return false;
+
+			elseif ( $tab === 'free' && $ext['price'] != 'free' )
+				return false;
+			
+			else 
+				return true;
+				
+		} elseif($type == 'theme'){
+
+			$featured 	= ( isset( $ext['featured'] ) ) ? (bool) $ext['featured'] : false; 
+			$ext['exists'] 		= $this->is_installed('theme', $key, $ext);
+			
+			if ( file_exists( sprintf( '%s/themes/%s/style.css', WP_CONTENT_DIR, $key ) ) )
+				$exists = true;
+			
+			if ( $tab === 'featured' && $ext['featured'] === "true" ) 
+				return true;
+			elseif ( $tab === 'featured' && $ext['featured'] === "false" ) 
+				return false;
+				
+			elseif ( ( $tab == 'premium' || $tab == 'featured' )  && $ext['price'] == 'free' ) 
+				return false;
+
+			elseif (  $tab == 'free' && $ext['price'] != 'free' ) 
+				return false;
+				
+			elseif ( $tab == 'installed' && !$ext['exists'] )
+				return false;
+				
+			else
+				return true;
+			
 		}
+		
+		
+	}
+	
+	private function show_download_button( $type, $key, $ext, $tab){
 
-		private function get_the_version($type, $key, $ext){
+		if( $type == 'integration' && $this->updates_configured() )
+			return true;
+		else
+			return false;
+	}
 
-			if ( $type == 'section' ) 
-				return isset( $ext['upgrade'] ) ? $ext['upgrade'] : $ext['version'];	
-
-			if($type == 'plugin')
-				return (isset($ext['status']['version'])) ? $ext['status']['version'] : false;
-
-			if ( $type == 'theme' ) 
-				return isset( $ext['upgrade'] ) ? $ext['upgrade'] : $ext['version'];	
-		}
-
-		private function version_check( $version ){
-			return ( version_compare( CORE_VERSION, $version ) >= 0 ) ? true : false;
-		}
+	private function version_check( $version ){
+		return ( version_compare( CORE_VERSION, $version ) >= 0 ) ? true : false;
+	}
 		
 	function show_upgrade_available($type, $key, $ext, $tab){
 	
@@ -361,10 +261,14 @@
 	}
 		
 	private function show_login_button( $type, $key, $ext, $tab ){
+
+		if ( $type == 'integration' && !$this->updates_configured() )
+			return true;
+		
 		if( !EXTEND_NETWORK 
 			&& !$this->updates_configured()
 			&& !$this->is_purchased( $type, $key, $ext )
-			&& $this->in_the_store($tab)
+			&& $this->in_the_store( $type, $key, $ext, $tab )
 		) {
 			return true;
 		} else
@@ -373,9 +277,12 @@
 	
 	private function show_install_button( $type, $key, $ext, $tab){
 
-		if(!$this->is_installed($type, $key, $ext) 
+		if ( $type == 'integration' )
+			return false;
+
+		if( !$this->is_installed($type, $key, $ext) 
 			&& $this->is_purchased($type, $key, $ext) 
-			&& $this->in_the_store($tab) 
+			&& $this->in_the_store( $type, $key, $ext, $tab ) 
 			&& !EXTEND_NETWORK
 			&& ! $this->version_fail( $ext['plversion'] )
 		)
@@ -387,7 +294,7 @@
 	function show_installed_button( $type, $key, $ext, $tab ){
 		
 		if( $this->is_installed($type, $key, $ext)
-			&& $this->in_the_store( $tab )
+			&& $this->in_the_store( $type, $key, $ext, $tab )
 		){
 			return true;
 		} else 
@@ -400,25 +307,14 @@
 		if( !$this->is_active($type, $key, $ext)
 			&& $this->is_installed($type, $key, $ext)
 			&& !EXTEND_NETWORK
-			&& !$this->in_the_store( $tab )
+			&& !$this->in_the_store( $type, $key, $ext, $tab )
 		){
 			return true;
 		} else 
 			return false;
 		
 	}
-	
-	function show_activate_button( $type, $key, $ext, $tab ){
-		
-		if( !$this->in_the_store( $tab )
-			&& $this->is_installed($type, $key, $ext, $tab)
-			&& !$this->is_active($type, $key, $ext)
-		){
-			return true;
-		} else 
-			return false;
-	}
-	
+
 	private function is_installed( $type, $key, $ext, $tab = '' ){
 
 		if( $type == 'section' ){
@@ -458,12 +354,11 @@
 
 	}
 	
-	
 	function show_purchase_button( $type, $key, $ext, $tab ){
 		
 		if( !EXTEND_NETWORK 
 			&& $this->updates_configured() 
-			&& $this->in_the_store( $tab )
+			&& $this->in_the_store( $type, $key, $ext, $tab )
 			&& !$this->is_purchased($type, $key, $ext) 
 			&& !$this->is_installed($type, $key, $ext)
 			&& $this->is_premium($type, $key, $ext)
@@ -472,17 +367,7 @@
 		} else 
 			return false;
 	}
-	
-	function show_deactivate_button( $type, $key, $ext, $tab ){
-		
-		if( $this->is_active($type, $key, $ext)
-			&& !$this->in_the_store( $tab )
-		){
-			return true;
-		} else 
-			return false;
-	}
-	
+
 	function is_premium( $type, $key, $ext ){
 		$ext = (array) $ext;
 		if( isset($ext['price']) 
@@ -521,8 +406,43 @@
 		
 	}
 	
+	function show_activate_button( $type, $key, $ext, $tab ){
+		
+		if ( $type == 'integration' && $this->is_active( $type, $key, $ext ) == 'false' )
+			return true;
+
+		if( !$this->in_the_store( $type, $key, $ext, $tab )
+			&& $this->is_installed($type, $key, $ext, $tab)
+			&& !$this->is_active($type, $key, $ext)
+		){
+			return true;
+		} else 
+			return false;
+	}
+	
+	function show_deactivate_button( $type, $key, $ext, $tab ){
+		
+		if ( $type == 'integration' ) {
+			
+			if( $this->is_active($type, $key, $ext) == 'true' )
+				return true;
+		}
+		if( $this->is_active($type, $key, $ext)
+			&& !$this->in_the_store( $type, $key, $ext, $tab )
+		){
+			return true;
+		} else 
+			return false;
+	}
+	
 	private function is_active( $type, $key, $ext ){
 
+		if ( $type == 'integration' ) {
+			$active = ploption( $key );
+			if ( is_array( $active ) )
+				return $active['activated'];
+		}
+		
 		if($type == 'plugin'){
 			if( isset($ext['status']['status']) && $ext['status']['status'] == 'active')
 				return true;
@@ -546,7 +466,10 @@
 		
 	}
 
-	private function in_the_store( $tab ){
+	private function in_the_store( $type, $key, $ext, $tab ){
+		
+		if ( $type == 'integration' )
+			return true;
 		
 		if($tab == 'free' || $tab == 'premium' || $tab == 'featured')
 			return true;
@@ -554,7 +477,135 @@
 			return false;
 		
 	}
+
+	private function purchase_button( $purchased = false, $store = true ){
+		return ( $store && !EXTEND_NETWORK && !$purchased && !$this->login_button($purchased) ) ? true : false;
+	}
 	
+	private function install_button( $installed = false, $purchased = false, $version = 0 ){
+		return ( $this->version_check( $version ) && !EXTEND_NETWORK && $purchased && ! $installed) ? true : false;
+	}
+	
+	private function version_fail( $version ){
+		return ( ! $this->version_check( $version ) ) ? true : false;
+	}
+	
+	private function updates_configured( ){
+		return ( pagelines_check_credentials() ) ? true : false;
+	}
+	
+	private function do_redirect( ){
+		return ( EXTEND_NETWORK ) ? true : false;
+	}
+
+	private function upgrade_available( $api_version, $installed_version ){
+
+		if ( $api_version > $installed_version )
+			return $api_version;
+		else
+			return false;
+	}
+
+// ===================================
+// = Images, files, links and paths. =
+// ===================================
+	private function image_path( $type, $key, $ext, $tab ) {
+		
+		if( $type == 'integration' ) {
+			if( $ext['screen'])
+				return sprintf( 'http://www.pagelines.com/api/files/integrations/img/%s-thumb.png', $key );
+			else
+				return PL_ADMIN_IMAGES . '/thumb-default.png';
+		}
+
+		if ( $type == 'theme' ) {
+			
+			if ( ( $this->show_install_button($type, $key, $ext, $tab) 
+					|| $this->show_purchase_button($type, $key, $ext, $tab) 
+					|| $this->show_login_button($type, $key, $ext, $tab) 
+				)
+				&& isset( $ext['screen'])
+				&& $ext['screen']
+			){
+				
+				return sprintf( 'http://www.pagelines.com/api/files/themes/img/%s-thumb.png', $key );
+					
+			}elseif ( file_exists( sprintf('%s/%s/thumb.png', get_theme_root(), $key) ) )
+				return sprintf('%s/%s/thumb.png', get_theme_root_uri(), $key);
+			else
+				return PL_ADMIN_IMAGES . '/thumb-default.png';
+		}
+
+	}
+	
+	private function get_the_path( $button, $type, $key, $ext, $tab ){
+
+		if ( ( $button == 'deactivate' || $button == 'activate' ) && $type == 'section' )
+			return $ext['type'];
+		
+		if ( ( $button == 'install' || $button == 'delete' ) && $type == 'section' ) {
+			return $key;	
+		}	
+		
+	}
+	
+	private function get_the_file( $button, $type, $key, $ext, $tab ){
+
+		if ( $button == 'delete' || $button == 'upgrade' ) {
+			if ( $type == 'section'
+			 	&& isset( $ext['base_dir'] ) 
+					) {
+				return basename($ext['base_dir']);	
+			}
+		}
+		
+		
+		if ( $type == 'section' ) {
+			return $ext['class'];	
+		} elseif($type == 'plugin'){
+			
+			if($button == 'activate'
+				|| $button == 'deactivate'
+				|| $button == 'delete'
+			){
+				return $ext['file'];
+			} else
+				return $key;
+	
+	
+		}elseif($type == 'theme'){
+			return $key;				
+				
+		} else
+			return $key;
+		
+	}
+		
+	private function paypal_link( $type, $key, $ext, $tab ){
+		return ( isset( $ext['productid'] ) ) ? sprintf('%s,%s|%s|%s', $ext['productid'], $ext['uid'], $ext['price'], $ext['name']) : '';		
+	}
+
+	private function purchase_text( $type, $key, $ext, $tab ){
+		
+		$ext = (array) $ext;
+		
+		$price = (isset($ext['price'])) ? sprintf(' <span class="prc">($%s)</span>', $ext['price']) : '';
+
+		return sprintf('%s%s', __( 'Purchase', 'pagelines' ), $price); 
+	}
+	
+	private function get_the_version($type, $key, $ext){
+
+		if ( $type == 'section' ) 
+			return isset( $ext['upgrade'] ) ? $ext['upgrade'] : $ext['version'];	
+
+		if($type == 'plugin')
+			return (isset($ext['status']['version'])) ? $ext['status']['version'] : false;
+
+		if ( $type == 'theme' ) 
+			return isset( $ext['upgrade'] ) ? $ext['upgrade'] : $ext['version'];	
+	}
+
 	/**
 	 * Section install tab.
 	 * 
@@ -801,8 +852,6 @@
 			if( !$this->show_in_tab( 'theme', $key, $ext, $tab ) )
 				continue;
 
-				$image = $this->image_path( 'theme', $key, $ext, $tab );
-
 				$actions = $this->master_array( 'theme', $key, $ext, $tab  );
 
 				$list[$key] = array(
@@ -813,7 +862,7 @@
 						'desc'		=> $ext['text'],
 						'tags'		=> ( isset( $ext['tags'] ) ) ? $ext['tags'] : '',
 						'auth_url'	=> $ext['author_url'], 
-						'image'		=> $image,
+						'image'		=> $this->image_path( 'theme', $key, $ext, $tab ),
 						'auth'		=> $ext['author'], 
 						'key'		=> $key,
 						'type'		=> 'themes',
@@ -842,93 +891,12 @@
 		if ( !is_object($integrations) ) 
 			return $integrations;
 		$integrations = json_decode(json_encode($integrations), true); // convert objects to arrays	
-		$output = '';
-		$status = false;
+
 		$list = array();
 
 		foreach( $integrations as $key => $ext ) {
-						
-				// reset the vars first numbnuts!	
-
-				$purchase = null;
-				$delete = null;
-				$login = null;
-				$product = null;
-				$purchased = null;
-				$redirect = null;
-				$download = null;
-				$active = null;
-				
-				$active = ploption( $key );		
-				$active = ( is_array( $active ) ) ? $active : false;
-				
-				$updates_configured = ( pagelines_check_credentials() ) ? true : false;	
-				$purchase = ( !isset( $ext['purchased'] ) ) ? true : false;
-				$product = ( isset( $ext['productid'] ) ) ? $ext['productid'] : 0;
-				
-				$login = ( !$updates_configured ) ? true : false;
-				
-				$activate = ( !$active || ( $active  && $active['activated'] == 'false' ) ) ? true : false;
-				
-				$deactivate = ( $active && $active['activated'] == 'true' ) ? true : false;
-
-				$purchased = ( !$purchase && !$login) ? true : false;
-				$redirect = ( $login && EXTEND_NETWORK ) ? true : false;
-				
-				$download = ( $purchased && !$login ) ? true : false;
-				
-				
-				if( $ext['screen'])
-					$image = sprintf( 'http://www.pagelines.com/api/files/integrations/img/%s-thumb.png', $key );
-				else
-					$image = PL_ADMIN_IMAGES . '/thumb-default.png';
-
-				$core_actions = $this->master_array( 'integration', $key, $ext, $tab );
-
-				$actions = array(
-
-					'purchase'	=> array(
-						'condition'	=> $purchase,
-						'file'		=> ( isset( $ext['productid'] ) ) ? $ext['productid'] . ',' . $ext['uid'] . '|' . $ext['price'] . '|' . $ext['name'] : '',
-						'text'		=> ( isset( $ext['price'] ) ) ? sprintf('%s <span class="prc">($%s)</span>', __( 'Purchase', 'pagelines' ), $ext['price']) : '',
-						'dtext'		=> __( 'Redirecting', 'pagelines' ),
-					),
-
-					'login'	=> array(
-						'condition'	=> ( !EXTEND_NETWORK ) ? $login : false,
-						'file'		=> $key,
-					),
-
-					'download'	=> array(
-						'mode'		=> 'redirect',
-						'condition'	=> $download,
-						'case'		=> 'integration_download',
-						'type'		=> __( 'integrations', 'pagelines' ),
-						'file'		=> $key,
-						'text'		=> __( 'Download <strong>&darr;</strong>', 'pagelines' ),
-						'dtext'		=> __( 'Downloading', 'pagelines' )
-					),
-					'redirect'	=> array(
-						'condition'	=> $redirect,
-						'type'		=> __( 'themes', 'pagelines' ),
-						'file'		=> $key,
-						'dtext'		=> ''
-					),
-					'activate'	=> array(
-						'condition'	=> $activate,
-						'file'		=> $key,
-						'text'		=> __( 'Activate Options', 'pagelines' ),
-					),
-					'deactivate'	=> array(
-						'condition'	=> $deactivate,
-						'case'		=> 'integration_deactivate',
-						'file'		=> $key,
-						'text'		=> __( 'Deactivate Options', 'pagelines' ),
-					)
-	
-				);
-
-				$actions = $this->parse_buttons($actions, $core_actions);
+		
+				$actions = $this->master_array( 'integration', $key, $ext, $tab  );
 
 				$list[$key] = array(
 						'theme'		=> $ext,
@@ -937,7 +905,7 @@
 						'desc'		=> $ext['text'],
 						'tags'		=> ( isset( $ext['tags'] ) ) ? $ext['tags'] : '',
 						'auth_url'	=> $ext['author_url'], 
-						'image'		=> ( isset( $ext['image'] ) ) ? $ext['image'] : $image,
+						'image'		=> $this->image_path( 'integration', $key, $ext, $tab ),
 						'auth'		=> $ext['author'], 
 						'key'		=> $key,
 						'type'		=> 'themes',
@@ -947,7 +915,7 @@
 				);		
 		}
 		
-		return $this->ui->extension_list( $list, 'graphic' );
+		return $this->ui->extension_list( $list, 'download' );
 		
 		
 	}
