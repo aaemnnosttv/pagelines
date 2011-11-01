@@ -54,6 +54,9 @@
 			);
 		
 		$ext = wp_parse_args( $ext, $a );
+		
+		if ( !$ext['upgrade'] )
+			$ext['upgrade'] = $ext['version'];
 
 		$actions = array(
 			'install'	=> array(
@@ -233,8 +236,6 @@
 				return true;
 			
 		}
-		
-		
 	}
 	
 	private function show_download_button( $type, $key, $ext, $tab){
@@ -250,6 +251,16 @@
 	}
 		
 	function show_upgrade_available($type, $key, $ext, $tab){
+	
+		if ( $type == 'plugin' ) {
+			
+			if( $this->is_installed($type, $key, $ext)
+				&& $this->upgrade_available( $this->get_the_version($type, $key, $ext), $ext['status']['version'])
+			){
+				return true;
+			} else 
+				return false;		
+		}
 	
 		if( $this->is_installed($type, $key, $ext)
 			&& $this->upgrade_available( $this->get_the_version($type, $key, $ext), $ext['version'])
@@ -393,7 +404,7 @@
 				return false;
 		}
 	}
-
+/*
 	private function update_available( $type, $key, $info ){
 		
 		if($type == 'plugin'){
@@ -405,7 +416,7 @@
 		}
 		
 	}
-	
+*/	
 	function show_activate_button( $type, $key, $ext, $tab ){
 		
 		if ( $type == 'integration' && $this->is_active( $type, $key, $ext ) == 'false' )
@@ -596,11 +607,12 @@
 	
 	private function get_the_version($type, $key, $ext){
 
+
 		if ( $type == 'section' ) 
 			return isset( $ext['upgrade'] ) ? $ext['upgrade'] : $ext['version'];	
 
 		if($type == 'plugin')
-			return (isset($ext['status']['version'])) ? $ext['status']['version'] : false;
+			return $ext['version'];
 
 		if ( $type == 'theme' ) 
 			return isset( $ext['upgrade'] ) ? $ext['upgrade'] : $ext['version'];	
