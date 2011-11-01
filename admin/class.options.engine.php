@@ -825,7 +825,13 @@ class OptEngine {
 		$wlist = (1 / count($t)) * 100;
 		foreach( $t as $skey => $st){
 			
-			$list_items .= sprintf('<li class="st-%s" style="width: %s%%"><a href="#%s" ><span class="st-pad">%s</span></a></li>', 'subtab', $wlist, $skey,  ui_key($skey) );
+			$list_items .= sprintf(
+				'<li class="st-%s" style="width: %s%%"><a href="#%s" ><span class="st-pad">%s</span></a></li>', 
+				'subtab', 
+				$wlist, 
+				$skey,  
+				$st['title'] 
+			);
 			
 		}
 		

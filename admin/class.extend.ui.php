@@ -404,43 +404,20 @@ function extension_array(  ){
 		'Sections' => array(
 			'icon'		=> PL_ADMIN_ICONS.'/dragdrop.png',
 			'htabs' 	=> array(
-				'added'	=> array(
-					'title'		=> __( 'Sections Added Via Store', 'pagelines' ),
-					'callback'	=> $extension_control->extension_sections( 'user' )
-					),
-				'core'	=> array(
-					'title'		=> __( 'Sections From PageLines Framework', 'pagelines' ),
-					'callback'	=> $extension_control->extension_sections( 'internal' )
-					),
-				'child'	=> array(
-					'title'		=> __( 'Sections From Your Child Theme', 'pagelines' ),
-					'callback'	=> $extension_control->extension_sections( 'child' )
-					),
-				'add_sections'	=> array(
-					'type'		=> 'subtabs',
-					'title'		=> __( 'Extend Sections', 'pagelines' ),
-					'class'		=> 'left ht-special',
-						'featured'	=> array(
-							'title'		=> __( 'Featured Sections', 'pagelines' ),
-							'class'		=> 'right',
-							'callback'	=> $extension_control->extension_sections_install( 'featured' )
-							),
-						'premium'	=> array(
-							'title'		=> __( 'Premium Sections', 'pagelines' ),
-							'class'		=> 'right',
-							'callback'	=> $extension_control->extension_sections_install( 'premium' )
-							),
-						'free'	=> array(
-							'title'		=> __( 'Free Sections', 'pagelines' ),
-							'class'		=> 'right',
-							'callback'	=> $extension_control->extension_sections_install( 'free' )
-							),
-					'upload'		=> array(
-						'title'		=> __( 'Upload Sections', 'pagelines' ),
-						'callback'	=> $extension_control->ui->upload_form( 'section', ( !is_writable( WP_PLUGIN_DIR ) ) ? true : false )
-					),
+					'added'	=> array(
+						'title'		=> __( 'Sections Added Via Store', 'pagelines' ),
+						'callback'	=> $extension_control->extension_engine( 'section_added', 'user' )
+						),
+					'core'	=> array(
+						'title'		=> __( 'Sections From PageLines Framework', 'pagelines' ),
+						'callback'	=> $extension_control->extension_engine( 'section_added', 'internal' )
+						),
+					'child'	=> array(
+						'title'		=> __( 'Sections From Your Child Theme', 'pagelines' ),
+						'callback'	=> $extension_control->extension_engine( 'section_added', 'child' )
+						),
+					'add_sections'	=> store_subtabs('section')
 					
-				)
 			)
 
 		),
@@ -450,28 +427,9 @@ function extension_array(  ){
 				
 				'added'	=> array(
 					'title'		=> __( 'Installed PageLines Themes', 'pagelines' ),
-					'callback'	=> $extension_control->extension_themes( 'installed' )
+					'callback'	=> $extension_control->extension_engine( 'theme', 'installed' )
 					),
-				'add_themes'	=> array(
-					'type'		=> 'subtabs',
-					'title'		=> __( 'Extend Themes', 'pagelines' ),
-					'class'		=> 'left ht-special',
-						'featured'	=> array(
-							'title'		=> __( 'Featured PageLines Themes', 'pagelines' ),
-							'class'		=> 'right',
-							'callback'	=> $extension_control->extension_themes( 'featured' )
-							),
-						'premium'	=> array(
-							'title'		=> __( 'Premium PageLines Themes', 'pagelines' ),
-							'class'		=> 'right',
-							'callback'	=> $extension_control->extension_themes( 'premium' )
-							),
-						'free'	=> array(
-							'title'		=> __( 'Free PageLines Themes', 'pagelines' ),
-							'class'		=> 'right',
-							'callback'	=> $extension_control->extension_themes( 'free' )
-							),
-					)
+				'add_themes'	=> store_subtabs('theme')
 				)
 		),
 		'Plugins' => array(
@@ -480,25 +438,9 @@ function extension_array(  ){
 				
 				'added'	=> array(
 					'title'		=> __( 'Installed PageLines Plugins', 'pagelines' ),
-					'callback'	=> $extension_control->extension_plugins( 'installed' )
+					'callback'	=> $extension_control->extension_engine( 'plugin', 'installed' )
 					),
-				'add_plugins'	=> array(
-					'type'		=> 'subtabs',
-					'title'		=> __( 'Add PageLines Plugins', 'pagelines' ),
-					'class'		=> 'left ht-special',
-						'featured'		=> array(
-							'title'		=> __( 'Featured Plugins', 'pagelines' ),
-							'callback'	=> $extension_control->extension_plugins( 'featured' )
-						),
-						'premium'		=> array(
-							'title'		=> __( 'Premium Plugins', 'pagelines' ),
-							'callback'	=> $extension_control->extension_plugins( 'premium' )
-						),
-						'free'		=> array(
-							'title'		=> __( 'Free Plugins', 'pagelines' ),
-							'callback'	=> $extension_control->extension_plugins( 'free' )
-						)
-				)
+				'add_plugins'	=> store_subtabs('plugin')
 			)
 
 		),
@@ -509,7 +451,7 @@ function extension_array(  ){
 				
 				'added'	=> array(
 					'title'		=> __( 'PageLines Integrations', 'pagelines' ),
-					'callback'	=> $extension_control->extension_integrations( )
+					'callback'	=> $extension_control->extension_engine( 'integration' )
 					)
 				)		
 		)
@@ -518,4 +460,59 @@ function extension_array(  ){
 	return apply_filters('extension_array', $d); 
 }
 
+function store_subtabs( $type ){
+	global $extension_control;
+	
+	$s = array(
+		'type'		=> 'subtabs',
+		'class'		=> 'left ht-special',
+		'featured'	=> array(
+			'title'		=> __( 'Featured', 'pagelines' ),
+			'class'		=> 'right',
+			),
+		'premium'	=> array(
+			'title'		=> __( 'Top Premium', 'pagelines' ),
+			'class'		=> 'right',
+			),
+		'free'	=> array(
+			'title'		=> __( 'Top Free', 'pagelines' ),
+			'class'		=> 'right',
+			),
+	);
+	
+	
+	foreach($s as $key => $subtab){
+		
+		if($type == 'theme'){
+			
+			$s['title']				= __( 'Add Themes', 'pagelines' );
+			
+			if($key == 'featured' || $key == 'premium' || $key == 'free')
+				$s[$key]['callback'] 	= $extension_control->extension_engine( $type, $key );
+			
+		} elseif ($type == 'section'){
+			
+			$s['title']				= __( 'Add Sections', 'pagelines' );
+			
+			if($key == 'featured' || $key == 'premium' || $key == 'free')
+				$s[$key]['callback'] 	= $extension_control->extension_engine( 'section_extend', $key );
+			
+			$s['upload'] = array(
+				'title'		=> __( 'Upload', 'pagelines' ),
+				'callback'	=> $extension_control->ui->upload_form( 'section', ( !is_writable( WP_PLUGIN_DIR ) ) ? true : false )
+			);
+			
+		} elseif ($type == 'plugin' ){
+			
+			$s['title']				= __( 'Add Plugins', 'pagelines' );
+			
+			if($key == 'featured' || $key == 'premium' || $key == 'free')
+				$s[$key]['callback'] 	= $extension_control->extension_engine( $type, $key );
+		}
+	}
+	
+	
+	return $s;
+	
+}
 
