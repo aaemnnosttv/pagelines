@@ -281,7 +281,7 @@ function pagelines_admin_confirms(){
 	$confirms = array();
 	
 	if( isset($_GET['settings-updated']) )
-		$confirms[]['text'] = sprintf( __( '%1$s Settings Saved. &nbsp;<a class="sh_preview" href="%2$s/" target="_blank" target-position="front">View Your Site &rarr;</a>', 'pagelines' ), NICECHILDTHEMENAME, home_url() );
+		$confirms[]['text'] = sprintf( __( '%1$s Settings Saved. &nbsp;<a class="sh_preview" href="%2$s/" target="_blank">View Your Site &rarr;</a>', 'pagelines' ), NICECHILDTHEMENAME, home_url() );
 	if( isset($_GET['pageaction']) ){
 	
 		if( $_GET['pageaction']=='activated' && !isset($_GET['settings-updated']) ){
@@ -368,7 +368,7 @@ function pagelines_admin_confirms(){
 function pagelines_draw_confirms(){ 
 	
 	$confirms = pagelines_admin_confirms();
-	$save_text = sprintf('%s Settings Saved. &nbsp;<a class="btag" href="%s/" target="_blank" target-position="front">View Your Site &rarr;</a>', NICECHILDTHEMENAME, home_url());
+	$save_text = sprintf('%s Settings Saved. &nbsp;<a class="btag" href="%s/" target="_blank">View Your Site &rarr;</a>', NICECHILDTHEMENAME, home_url());
 	printf('<div id="message" class="confirmation slideup_message fade c_ajax"><div class="confirmation-pad c_response">%s</div></div>', $save_text);
 
 	if(!empty($confirms)){

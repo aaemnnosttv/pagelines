@@ -131,7 +131,7 @@ class PageLinesExtendUI {
 		// if all else fails show default.
 		$img_url = ( !$img_url ) ? PL_ADMIN_IMAGES . '/thumb-default.png' : $img_url;
 
-		$img = sprintf( '<div class="img paneimg"><img src="%s" /></div>', $img_url );
+		$img = sprintf( '<div class="img paneimg"><img src="%s" alt="thumb" /></div>', $img_url );
 
 		$title = sprintf('<div class="pane-head"><div class="pane-head-pad"><h3 class="pane-title">%s</h3></div></div>', $s['name'] );
 
@@ -234,7 +234,17 @@ class PageLinesExtendUI {
 		} elseif($status == 'notinstalled'){
 			$btext = __( 'Install It Now!', 'pagelines' );
 			$text = __( 'You need to install and activate PageLines Sections Plugin', 'pagelines' );
-			$install_js_call = sprintf( $this->exprint, 'plugin_install', $key, 'plugins', 'pagelines-sections', '/pagelines-sections/pagelines-sections.php','', __( 'Installing', 'pagelines' ) );
+	
+			$install_js_call = sprintf( 
+				$this->exprint, 
+				'plugin_install', 
+				$key, 
+				'plugins', 
+				'pagelines-sections', 
+				'/pagelines-sections/pagelines-sections.php',
+				'', 
+				__( 'Installing', 'pagelines' ) 
+			);
 		}
 			
 		$eresponse = 'response'.$key;

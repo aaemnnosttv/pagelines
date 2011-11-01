@@ -73,7 +73,7 @@ class PageLinesOptionsUI {
 						<div class="clear"></div>
 						<div id="dialog" class="thedialog pldialog" title="PageLines Store"></div>
 						<div id="optionsheader" class="fix">
-							<div class="ohead" class="fix">
+							<div class="ohead fix">
 								<div class="ohead-pad fix">
 									<div id="the_pl_button" class="sl-black superlink-wrap">
 										<a class="superlink" href="<?php echo home_url(); ?>/" target="_blank" title="View Site &rarr;">
@@ -223,11 +223,11 @@ class PageLinesOptionsUI {
 					?>
 					<li><span class="graphic bottom">&nbsp;</span></li>
 					
-					<div class="framework_loading"> 
+					<li class="framework_loading"> 
 						<a href="http://www.pagelines.com/forum/discussion/6489" target="_blank" title="Javascript Issue Detector">
 							<span class="framework_loading_gif" >&nbsp;</span>
 						</a>
-					</div>
+					</li>
 					<script type="text/javascript">/*<![CDATA[*/ jQuery(document).ready(function(){ jQuery('.framework_loading').hide(); }); /*]]>*/</script>
 				</ul>
 				<?php endif; ?>
