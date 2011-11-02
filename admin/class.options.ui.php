@@ -57,7 +57,7 @@ class PageLinesOptionsUI {
 		 *
 		 */
 		function build_header(){?>
-			<div class='wrap'>
+			<div class='plwrap'>
 				<table id="optionstable" class="pl_opt_ui"><tbody><tr><td valign="top" width="100%">
 					<?php
 								
