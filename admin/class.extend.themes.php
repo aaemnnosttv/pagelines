@@ -18,7 +18,7 @@ class ExtensionThemes extends PageLinesExtensions {
 		$themes = self::extension_scan_themes( $themes );
 
 		foreach( $themes as $key => $ext ) {
-			
+
 			$check_file = sprintf( '%s/themes/%s/style.css', WP_CONTENT_DIR, $key );
 			
 			if ( file_exists( $check_file ) )
@@ -28,6 +28,7 @@ class ExtensionThemes extends PageLinesExtensions {
 				continue;
 
 			$list[$key] = $this->master_list( $type, $key, $ext, $tab );
+
 		}
 		if(empty($list) && $tab == 'installed')
 			return $this->ui->extension_banner( __( 'Installed PageLines themes will appear here.', 'pagelines' ) );
@@ -59,6 +60,8 @@ class ExtensionThemes extends PageLinesExtensions {
 			// check for an update...	
 			if ( isset( $themes[ $theme_data['Stylesheet'] ]['version'] ) && $themes[ $theme_data['Stylesheet'] ]['version'] > $theme_data['Version']) 			
 				$up = $themes[ $theme_data['Stylesheet'] ]['version'];
+			else
+				$up = '';
 			
 			if ( in_array( $theme, $themes ) )
 				continue;
@@ -69,7 +72,7 @@ class ExtensionThemes extends PageLinesExtensions {
 			$new_theme['name'] =		$theme_data['Name'];
 			$new_theme['author'] =		$theme_data['Author Name'];
 			$new_theme['author_url'] =	$theme_data['Author URI'];
-			$new_theme['upgrade'] =		( isset( $up ) ) ? $up : '';			
+			$new_theme['apiversion'] =	$up;			
 			$new_theme['version'] =		$theme_data['Version'];
 			$new_theme['text'] =		$theme_data['Description'];
 			$new_theme['tags'] =		$theme_data['Tags'];

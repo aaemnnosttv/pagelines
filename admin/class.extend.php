@@ -61,11 +61,8 @@
 				case 'integration' :
 					$out = ExtensionIntegrations::extension_integrations( $set );
 					break;
-
 			} 
-			
 			return $out;
-		
 	}
 
 	 function master_array( $type, $key, $ext, $tab ){
@@ -73,14 +70,10 @@
 		$a = array( 
 			'plversion'		=>	CORE_VERSION,
 			'price'		=>	'free',
-			'featured'	=>	'false',
-			'upgrade'	=>	''
+			'featured'	=>	'false'
 			);
 		
 		$ext = wp_parse_args( $ext, $a );
-		
-		if ( !$ext['upgrade'] )
-			$ext['upgrade'] = $ext['version'];
 
 		$actions = array(
 			'install'	=> array(
@@ -147,8 +140,8 @@
 				'type'		=> $type,
 				'file'		=> $this->get_the_file( 'upgrade', $type, $key, $ext, $tab ),
 				'path'		=> $key,
-				'text'		=> sprintf(__( 'Upgrade to %s', 'pagelines' ), $ext['upgrade'] ),
-				'dtext'		=> sprintf( __( 'Upgrading to version %s', 'pagelines' ), $ext['upgrade'] ),
+				'text'		=> sprintf(__( 'Upgrade to %s', 'pagelines' ), $ext['apiversion'] ),
+				'dtext'		=> sprintf( __( 'Upgrading to version %s', 'pagelines' ), $ext['apiversion'] ),
 			),
 			'delete'	=> array(
 				'mode'		=> 'delete',
@@ -271,7 +264,7 @@
 		if ( $type == 'plugin' ) {
 			
 			if( $this->is_installed($type, $key, $ext)
-				&& $this->upgrade_available( $this->get_the_version($type, $key, $ext), $ext['status']['version'])
+				&& $this->upgrade_available( $this->get_api_version($type, $key, $ext), $this->get_the_version($type, $key, $ext) )
 			){
 				return true;
 			} else 
@@ -279,12 +272,20 @@
 		}
 	
 		if( $this->is_installed($type, $key, $ext)
-			&& $this->upgrade_available( $this->get_the_version($type, $key, $ext), $ext['version'])
+			&& $this->upgrade_available( $this->get_api_version($type, $key, $ext), $ext['version'])
 		){
 			return true;
 		} else 
 			return false;
 		
+	}
+	
+	 function upgrade_available( $api_version, $installed_version ){
+
+		if ( $api_version > $installed_version )
+			return $api_version;
+		else
+			return false;
 	}
 	
 	 function show_download_button( $type, $key, $ext, $tab){
@@ -384,7 +385,6 @@
 				return true;
 			else
 				return false;
-
 		} 
 
 	}
@@ -523,14 +523,6 @@
 		return ( EXTEND_NETWORK ) ? true : false;
 	}
 
-	 function upgrade_available( $api_version, $installed_version ){
-
-		if ( $api_version > $installed_version )
-			return $api_version;
-		else
-			return false;
-	}
-
 // ===================================
 // = Images, files, links and paths. =
 // ===================================
@@ -638,20 +630,24 @@
 	}
 	
 	 function get_the_version($type, $key, $ext){
-
-
-		if ( $type == 'section' ) 
-			return isset( $ext['upgrade'] ) ? $ext['upgrade'] : $ext['version'];	
-
-		if($type == 'plugin')
+	
+		// has to be the installed version.
+		
+		if ( $this->is_installed( $type, $key, $ext ) ) {
+			
+			if ( $type == 'plugin' )
+				return $ext['status']['data']['Version'];
+		}
 			return $ext['version'];
-
-		if ( $type == 'theme' ) 
-			return isset( $ext['upgrade'] ) ? $ext['upgrade'] : $ext['version'];	
 	}
 
-	
-
+	function get_api_version($type, $key, $ext) {
+		
+		if ( isset( $ext['apiversion'] ) )
+			return $ext['apiversion'];
+		
+		return false;
+	}
 	
 	function parse_buttons($actions, $core_actions){
 		
@@ -662,11 +658,8 @@
 				$actions[$action] = wp_parse_args($button, $core_actions[$action]);
 			}
 		}
-		
 		return $actions;
-		
 	}	
-	
 
 	/**
 	* Simple cache.
@@ -821,9 +814,10 @@
 		else
 			return false;
 	}
-	
+
 	function master_list( $type, $key, $ext, $tab ) {
 		
+		$ext['apiversion'] = ( isset( $ext['apiversion'] ) ) ? $ext['apiversion'] : $ext['version'];
 		$list = array(
 				$type		=> $ext,
 				'name' 		=> $this->get_the_name( $type, $key, $ext, $tab ), 
@@ -844,11 +838,5 @@
 		);
 	return $list;
 	}
-	
-	
-	
-	
-	
-	
-	
+
 } // [END]

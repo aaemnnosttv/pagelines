@@ -55,7 +55,6 @@ class ExtensionSections extends PageLinesExtensions {
  		$disabled = get_option( 'pagelines_sections_disabled', array() );
 
 		$upgradable = $this->get_latest_cached( 'sections' );
-		
 		$type = 'section';
  		foreach( $available as $section ) {
 	
@@ -66,10 +65,9 @@ class ExtensionSections extends PageLinesExtensions {
 
  			foreach( $section as $key => $ext ) { // main loop
 
-
 				if ( isset( $ext['base_dir'] ) ) {
 					$upgrade = basename( $ext['base_dir'] );
-					$ext['upgrade'] = ( isset( $upgradable->$upgrade->version ) ) ? $upgradable->$upgrade->version : '';
+					$ext['apiversion'] = ( isset( $upgradable->$upgrade->version ) ) ? $upgradable->$upgrade->version : '';
 				}
 				
 				$ext['class_exists'] = ( isset( $available['child'][ $ext['class'] ] ) || isset( $available['custom'][ $ext['class'] ] ) ) ? true : false;

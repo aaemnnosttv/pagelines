@@ -18,7 +18,7 @@ class ExtensionPlugins extends PageLinesExtensions {
 				
 			$ext['loaded'] = ( isset( $ext['status']['status'] ) ) ? true : false;
 			$ext['sections-plugin'] = (str_replace( '.php', '', PL_EXTEND_SECTIONS_PLUGIN ) === $ext['slug'] ) ? true : false;
-			
+
 			if( !$this->show_in_tab( $type, $key, $ext, $tab ) )
 				continue;
 				
@@ -26,7 +26,6 @@ class ExtensionPlugins extends PageLinesExtensions {
 				$ext['status'] = array( 'status' => '' );	
 
 			$list[$key] = $this->master_list( $type, $key, $ext, $tab );
-
 		}
 		
 		$add_url = admin_url('admin.php?page=pagelines_extend#add_plugins');
