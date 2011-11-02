@@ -78,12 +78,19 @@ require_once ( PL_ADMIN . '/class.account.php' );
 $account_control = new PageLinesAccount;
 
 /**
- * Load plugin installer class
+ * Load store class
  */
 require_once ( PL_ADMIN . '/class.extend.php' );
 require_once ( PL_ADMIN . '/class.extend.ui.php' );
 require_once ( PL_ADMIN . '/class.extend.actions.php' );
+
+require_once ( PL_ADMIN . '/class.extend.integrations.php' );
+require_once ( PL_ADMIN . '/class.extend.themes.php' );
+require_once ( PL_ADMIN . '/class.extend.plugins.php' );
+require_once ( PL_ADMIN . '/class.extend.sections.php' );
 $extension_control = new PagelinesExtensions;
+
+
 
 
 /**

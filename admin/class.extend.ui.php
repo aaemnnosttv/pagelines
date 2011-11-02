@@ -118,20 +118,8 @@ class PageLinesExtendUI {
 	function pane_template( $e, $count ){
 
 		$s = wp_parse_args( $e, $this->defaultpane);
-		
-		// installed should have a screen set.
-		$img_url = ( isset( $s['screenshot'] ) ) ? $s['screenshot'] : '';
-		
-		// if it has an image on the api server, show it!
-		$img_url = ( !$img_url && $s['screen'] === 'true' ) ? sprintf( '%s/files/%s/img/%s-thumb.png', untrailingslashit( PL_API_FETCH ), $s['type'], $s['slug'] ) :  $img_url;		
-
-		// nothing yet? we might be a plugin i suppose..
-		$img_url = ( !$img_url && $s['type'] == 'plugins' && file_exists( sprintf( '%s/%s/thumb.png', WP_PLUGIN_DIR, $s['slug'] ) ) ) ? sprintf( '%s/thumb.png', plugins_url( $s['slug'] ) ) : $img_url;
-
-		// if all else fails show default.
-		$img_url = ( !$img_url ) ? PL_ADMIN_IMAGES . '/thumb-default.png' : $img_url;
-
-		$img = sprintf( '<div class="img paneimg"><img src="%s" alt="thumb" /></div>', $img_url );
+	
+		$img = sprintf( '<div class="img paneimg"><img src="%s" alt="thumb" /></div>', $s['image'] );
 
 		$title = sprintf('<div class="pane-head"><div class="pane-head-pad"><h3 class="pane-title">%s</h3></div></div>', $s['name'] );
 

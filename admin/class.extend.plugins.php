@@ -1,0 +1,140 @@
+<?php
+
+class ExtensionPlugins extends PageLinesExtensions {
+	
+	function __contruct() {
+		
+		add_filter( 'http_request_args', array( &$this, 'pagelines_plugins_remove' ), 10, 2 );
+	}
+	/*
+	 * Plugins tab.
+	 */
+	function extension_plugins( $tab = '' ) {
+
+		$plugins = self::load_plugins();
+		
+		$type = 'plugin';		
+		foreach( $plugins as $key => $ext ) {
+				
+			$ext['loaded'] = ( isset( $ext['status']['status'] ) ) ? true : false;
+			$ext['sections-plugin'] = (str_replace( '.php', '', PL_EXTEND_SECTIONS_PLUGIN ) === $ext['slug'] ) ? true : false;
+			
+			if( !$this->show_in_tab( $type, $key, $ext, $tab ) )
+				continue;
+				
+			if ( !isset( $ext['status'] ) )
+				$ext['status'] = array( 'status' => '' );	
+
+			$list[$key] = $this->master_list( $type, $key, $ext, $tab );
+
+		}
+		
+		$add_url = admin_url('admin.php?page=pagelines_extend#add_plugins');
+	
+		if(empty($list) && $tab == 'installed')
+			return $this->ui->extension_banner( __( 'Installed plugins will appear here.', 'pagelines' ) );
+		elseif(empty($list))
+			return $this->ui->extension_banner( sprintf( __( 'Available %1$s plugins will appear here.', 'pagelines' ), $tab ) );
+		else 
+			return $this->ui->extension_list( $list );
+	}
+	
+	function load_plugins(){
+	
+		$plugins = $this->get_latest_cached( 'plugins' );
+
+		if ( !is_object($plugins) ) 
+			return $plugins;
+
+		$output = '';
+
+		$plugins = json_decode(json_encode($plugins), true); // convert objects to arrays
+		
+		$plugins = self::external_plugins( $plugins );
+		
+		foreach( $plugins as $key => $plugin )
+			$plugins[$key]['file'] = sprintf('/%1$s/%1$s.php', $key);
+
+		$plugins = pagelines_array_sort( $plugins, 'name', false, true ); // sort by name
+		
+		// get status of each plugin
+		foreach( $plugins as $key => $ext ) {
+			$plugins[$key]['status'] = $this->plugin_check_status( WP_PLUGIN_DIR . $ext['file'] );
+			$plugins[$key]['name'] = ( $plugins[$key]['status']['data']['Name'] ) ? $plugins[$key]['status']['data']['Name'] : $plugins[$key]['name'];
+		}
+
+		$plugins = pagelines_array_sort( $plugins, 'status', 'status' ); // sort by status
+
+		// reset array keys ( sort functions reset keys to int )
+		foreach( $plugins as $key => $ext ) {
+
+			unset( $plugins[$key] );
+			$key = str_replace( '.php', '', basename( $ext['file'] ) );
+			$plugins[$key] = $ext;
+
+		}
+		
+		return $plugins;
+	}
+	
+	/*
+	* Get installed plugins and if they have the PageLines header, include them in the store.
+	*/
+	function external_plugins( $plugins ) {
+		
+		if ( is_multisite() )
+			return $plugins;
+			
+		$ext_plugins = (array) get_plugins();
+		
+		foreach( $ext_plugins as $ext => $data ) {
+			
+			$new_key = rtrim( str_replace( basename( $ext ), '', $ext ), '/' );
+			unset( $ext_plugins[$ext] );
+
+			if ( !array_key_exists( $new_key, $plugins ) ) {
+	
+				$a = get_file_data( WP_PLUGIN_DIR . '/' . $ext, $default_headers = array( 'pagelines' => 'PageLines' ) );
+				if ( !empty( $a['pagelines'] ) && !empty( $new_key ) ) {
+
+					$plugins[$new_key]['name'] = $data['Name']; 
+					$plugins[$new_key]['slug'] = $new_key;
+					$plugins[$new_key]['text'] = $data['Description'];
+					$plugins[$new_key]['version'] = $data['Version'];
+					$plugins[$new_key]['author_url'] = $data['AuthorURI'];
+					$plugins[$new_key]['author'] = $data['Author'];
+					$plugins[$new_key]['count'] = 0;
+					$plugins[$new_key]['screen'] = false;
+					$plugins[$new_key]['extended'] = false;
+	
+				}
+			}	
+		}
+		return $plugins;
+	}
+		
+	/**
+	 * Remove our plugins from the maim WordPress updates.
+	 * 
+	 */
+	function pagelines_plugins_remove( $r, $url ) {
+
+		if ( 0 === strpos( $url, 'http://api.wordpress.org/plugins/update-check/' ) ) {
+
+			$installed = get_option('active_plugins');
+			$plugins = unserialize( $r['body']['plugins'] );
+
+			foreach ( $installed as $plugin ) {
+				$data = get_file_data( sprintf( '%s/%s', WP_PLUGIN_DIR, $plugin ), $default_headers = array( 'pagelines' => 'PageLines' ) );
+				if ( !empty( $data['pagelines'] ) ) {
+
+					unset( $plugins->plugins[$plugin] );
+					unset( $plugins->active[array_search( $plugin, $plugins->active )] );				
+				}
+			}
+			$r['body']['plugins'] = serialize( $plugins );	
+		}
+		return $r;		
+	}
+	
+}
