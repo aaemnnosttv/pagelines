@@ -536,45 +536,33 @@
 // ===================================
 	 function image_path( $type, $key, $ext, $tab ) {
 		
+		if( $type == 'integration' ) {
+			if( isset( $ext['screen'] ) && $ext['screen'] )
+				return sprintf( 'http://www.pagelines.com/api/files/integrations/img/%s-thumb.png', $key );
+		}
+		
 		if ( $type == 'plugin' ) {
 			
 			if ( $this->is_installed( $type, $key, $ext, $tab ) ) {
 				
 				if ( file_exists( sprintf( '%s/%s/thumb.png', WP_PLUGIN_DIR, $ext['slug'] ) ) )
 					return sprintf( '%s/thumb.png', plugins_url( $ext['slug'] ) );
-				else
-					return PL_ADMIN_IMAGES . '/thumb-default.png';	
 			} else {
 				
-				if( $ext['screen'] )
+				if( isset( $ext['screen'] ) && $ext['screen'] )
 					return sprintf( '%s/files/%ss/img/%s-thumb.png', untrailingslashit( PL_API_FETCH ), $type, $ext['slug'] );
-				else
-					return PL_ADMIN_IMAGES . '/thumb-default.png';
 			}
 		}
 		
 		if ( $type == 'section' ) {
-			
-			if ( $this->is_installed( $type, $key, $ext, $tab ) ) {
+
 				if ( isset( $ext['base_dir'] ) && file_exists( sprintf( '%s/thumb.png', $ext['base_dir'] ) ) )
 					return sprintf( '%s/thumb.png', $ext['base_url'] );
-				else
-					return PL_ADMIN_IMAGES . '/thumb-default.png';	
-			} else {
-				
-				if( $ext['screen'] )
+
+				if( isset( $ext['screen'] ) && $ext['screen'] )
 					return sprintf( '%s/files/%ss/img/%s-thumb.png', untrailingslashit( PL_API_FETCH ), $type, $ext['slug'] );
-				else
-					return PL_ADMIN_IMAGES . '/thumb-default.png';
-			}	
 		}
 		
-		if( $type == 'integration' ) {
-			if( $ext['screen'])
-				return sprintf( 'http://www.pagelines.com/api/files/integrations/img/%s-thumb.png', $key );
-			else
-				return PL_ADMIN_IMAGES . '/thumb-default.png';
-		}
 
 		if ( $type == 'theme' ) {
 			
@@ -584,16 +572,13 @@
 				)
 				&& isset( $ext['screen'])
 				&& $ext['screen']
-			){
-				
+			) {
 				return sprintf( 'http://www.pagelines.com/api/files/themes/img/%s-thumb.png', $key );
 					
-			}elseif ( file_exists( sprintf('%s/%s/thumb.png', get_theme_root(), $key) ) )
+			} elseif ( file_exists( sprintf('%s/%s/thumb.png', get_theme_root(), $key) ) )
 				return sprintf('%s/%s/thumb.png', get_theme_root_uri(), $key);
-			else
-				return PL_ADMIN_IMAGES . '/thumb-default.png';
 		}
-
+		return PL_ADMIN_IMAGES . '/thumb-default.png';
 	}
 	
 	 function get_the_path( $button, $type, $key, $ext, $tab ){
