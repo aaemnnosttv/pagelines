@@ -93,3 +93,21 @@ function pagelines_add_google_profile( $contactmethods ) {
 	return $contactmethods;
 }
 add_filter( 'user_contactmethods', 'pagelines_add_google_profile', 10, 1);
+
+/**
+ * ng gallery fix.
+ *
+ * @return gallery template path
+ * 
+ **/
+
+add_filter( 'ngg_render_template', 'gallery_filter' , 10, 2);
+
+function gallery_filter( $a, $template_name) {
+
+	if ( $template_name == 'gallery-plcarousel')
+		return sprintf( '%s/carousel/gallery-plcarousel.php', PL_SECTIONS);
+	else
+		return false;
+}
+
