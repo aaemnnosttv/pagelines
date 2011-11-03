@@ -7,7 +7,9 @@ class ExtensionSections extends PageLinesExtensions {
 	 * 
 	 */
  	function extension_sections_install( $tab = '' ) {
- 
+ 		
+		$list = array();
+		$type = 'section';		
 		if ( !$this->has_extend_plugin() )
 			return $this->ui->get_extend_plugin( $this->has_extend_plugin('status'), $tab );
 		
@@ -15,8 +17,6 @@ class ExtensionSections extends PageLinesExtensions {
 
 		if ( !is_object( $sections ) ) 
 			return $sections;
-
-		$type = 'section';
 		
 		foreach( $sections as $key => $ext ) {
 			
@@ -32,10 +32,7 @@ class ExtensionSections extends PageLinesExtensions {
 			
 		}
 		
-		if(empty($list))
-			return $this->ui->extension_banner( sprintf ( __( 'Available %1$s sections will appear here.', 'pagelines' ), $tab ) );
-		else
-			return $this->ui->extension_list( $list );
+		return $this->ui->extension_list( array( 'list' => $list, 'tab' => $tab, 'type' => 'sections' ) );
  	}
 
 	
@@ -45,7 +42,9 @@ class ExtensionSections extends PageLinesExtensions {
  	function extension_sections( $tab = '' ) {
 
  		global $load_sections;
-
+		$type = 'section';
+		$list = array();
+		
 		if($tab == 'child' && !is_child_theme())
 			return $this->ui->extension_banner( __( 'A PageLines child theme is not currently activated', 'pagelines' ) );
 
@@ -55,7 +54,7 @@ class ExtensionSections extends PageLinesExtensions {
  		$disabled = get_option( 'pagelines_sections_disabled', array() );
 
 		$upgradable = $this->get_latest_cached( 'sections' );
-		$type = 'section';
+
  		foreach( $available as $section ) {
 	
 			foreach( $section as $key => $ext)
@@ -67,7 +66,10 @@ class ExtensionSections extends PageLinesExtensions {
 
 				if ( isset( $ext['base_dir'] ) ) {
 					$upgrade = basename( $ext['base_dir'] );
-					$ext['apiversion'] = ( isset( $upgradable->$upgrade->version ) ) ? $upgradable->$upgrade->version : '';
+					if ( isset( $upgradable->$upgrade->version ) ) {
+						$ext['apiversion'] = ( isset( $upgradable->$upgrade->version ) ) ? $upgradable->$upgrade->version : '';
+						$ext['slug'] = $upgradable->$upgrade->slug;
+					}
 				}
 				
 				$ext['class_exists'] = ( isset( $available['child'][ $ext['class'] ] ) || isset( $available['custom'][ $ext['class'] ] ) ) ? true : false;
@@ -75,13 +77,12 @@ class ExtensionSections extends PageLinesExtensions {
 				if( !$this->show_in_tab( 'section', $key, $ext, $tab ) )
 					continue;
 
-					$list[$key] = $this->master_list( $type, $key, $ext, $tab );
+					$list[ basename( $ext['base_dir'] ) ] = $this->master_list( $type, $key, $ext, $tab );
 			}
- 		} 	
-		if(empty($list))
-			return $this->ui->extension_banner( sprintf ( __( 'Installed %1$s sections will appear here.', 'pagelines' ), $tab ) );
-		else
-			return $this->ui->extension_list( $list );
+ 		}
+
+	
+		return $this->ui->extension_list( array( 'list' => $list, 'tab' => $tab, 'type' => 'sections' ) );
  	}
 	
 }

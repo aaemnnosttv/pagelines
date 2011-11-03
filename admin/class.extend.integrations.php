@@ -7,7 +7,10 @@ class ExtensionIntegrations extends PageLinesExtensions {
 	 * 
 	 */
 	function extension_integrations( $tab = '' ) {
-
+		
+		$type = 'integration';
+		$list = array();
+		
 		$integrations = $this->get_latest_cached( 'integrations' );
 
 		if ( !is_object($integrations) ) 
@@ -20,6 +23,6 @@ class ExtensionIntegrations extends PageLinesExtensions {
 		
 			$list[$key] = $this->master_list( $type, $key, $ext, $tab );		
 		}
-		return $this->ui->extension_list( $list, 'download' );
+		return $this->ui->extension_list( array( 'list' => $list, 'tab' => $tab, 'type' => 'integrations', 'mode' => 'download' ) );
 	}
 }

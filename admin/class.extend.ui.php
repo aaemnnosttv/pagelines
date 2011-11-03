@@ -52,47 +52,60 @@ class PageLinesExtendUI {
 	/**
 	 * Draw a list of extended items
 	 */
-	function extension_list( $list = array(), $mode = 'list'){
-		
-		$ext = '';
-		$active = '';
-		
-		if ( $mode == 'download' ) {
+	function extension_list( $args ){
 			
-			foreach( $list as $eid => $e ){
-					$ext .= $this->graphic_pane( $e, 'download' );
+		$defaults = array (
+
+			'list'		=> array(),
+			'type'		=> 'addon',
+			'tab'		=> '',
+			'mode'		=> '',
+			'ext'		=> '',
+			'active'	=> ''
+			);
+			
+		$list = wp_parse_args( $args, $defaults );
+			
+		if( empty( $list['list'] ) ) {
+			if ( $list['tab'] == 'installed' )
+				return $this->extension_banner( sprintf( __( 'Installed %s will appear here.', 'pagelines' ), $list['type'] ) );
+			else
+				return $this->extension_banner( sprintf( __( 'Available %s %s will appear here.', 'pagelines' ), $list['tab'], $list['type'] ) );
+		}
+
+			if ( $list['mode'] == 'download' ) {
+			
+			foreach( $list['list'] as $eid => $e ){
+					$list['ext'] .= $this->graphic_pane( $e, 'download' );
 			}
 
-			$output = sprintf('<ul class="graphic_panes fix">%s%s</ul>', $active, $ext);	
+			$output = sprintf('<ul class="graphic_panes fix">%s</ul>', $list['ext']);	
 			return $output;		
 		}
 		
 		
-		if($mode == 'graphic'){
+		if($list['mode'] == 'graphic'){
 			
-			foreach( $list as $eid => $e ){
+			foreach( $list['list'] as $eid => $e ){
 				if(isset($e['active']) && $e['active'])
-					$active .= $this->graphic_pane( $e, 'active');
+					$list['active'] .= $this->graphic_pane( $e, 'active');
 				else
-					$ext .= $this->graphic_pane( $e );
+					$list['ext'] .= $this->graphic_pane( $e );
 			}
 
-			$output = sprintf('<ul class="graphic_panes fix">%s%s</ul>', $active, $ext);
+			$output = sprintf('<ul class="graphic_panes fix">%s%s</ul>', $list['active'], $list['ext']);
 			
 		} else {
 			
 			$count = 1;
-			foreach( $list as $eid => $e ){
-				$ext .= $this->pane_template( $e, $count );
+			foreach( $list['list'] as $eid => $e ){
+				$list['ext'] .= $this->pane_template( $e, $count );
 				$count++;
 			}
-			$output = sprintf('<div class="the_sections plpanes fix">%s%s</div>', $active, $ext);
+			$output = sprintf('<div class="the_sections plpanes fix">%s%s</div>', $list['active'], $list['ext']);
 			
 		}
-		
 			return $output;
-		
-		
 	}
 	
 	function graphic_pane( $e, $style = ''){
@@ -128,7 +141,7 @@ class PageLinesExtendUI {
 // left in for reference
 //		$info = ( $s['extended'] === 'true' ) ? sprintf( '<span class="pane-info"> <a class="pane-info" href="%s">[info]</a></span>', sprintf( '%s/files/%s/html/%s.html', untrailingslashit( PL_API_FETCH ), $s['type'], $s['slug'] ) ) : '';
 
-		$info = sprintf( '<span class="pane-info"> <a class="pane-info" href="%s">[info]</a></span>', sprintf( 'http://sandbox.pagelines.com/extend/%s/%s/?product_ref=true', $s['type'], $s['slug'] ) );
+		$info = sprintf( '<span class="pane-info"> <a class="pane-info" href="%s">[info]</a></span>', $s['infourl'] );
 
 		$body = sprintf('<div class="pane-desc"><div class="pane-desc-pad">%s%s</div></div><div class="pane_buttons">%s</div>%s', $s['desc'], $info, $this->get_extend_buttons( $e ), $auth);
 		

@@ -11,31 +11,19 @@ class ExtensionPlugins extends PageLinesExtensions {
 	 */
 	function extension_plugins( $tab = '' ) {
 
+		$list = array();
+		$type = 'plugin';
+		
 		$plugins = self::load_plugins();
 		
-		$type = 'plugin';		
 		foreach( $plugins as $key => $ext ) {
-				
-			$ext['loaded'] = ( isset( $ext['status']['status'] ) ) ? true : false;
-			$ext['sections-plugin'] = (str_replace( '.php', '', PL_EXTEND_SECTIONS_PLUGIN ) === $ext['slug'] ) ? true : false;
-
+			
 			if( !$this->show_in_tab( $type, $key, $ext, $tab ) )
-				continue;
-				
-			if ( !isset( $ext['status'] ) )
-				$ext['status'] = array( 'status' => '' );	
+				continue;	
 
 			$list[$key] = $this->master_list( $type, $key, $ext, $tab );
 		}
-		
-		$add_url = admin_url('admin.php?page=pagelines_extend#add_plugins');
-	
-		if(empty($list) && $tab == 'installed')
-			return $this->ui->extension_banner( __( 'Installed plugins will appear here.', 'pagelines' ) );
-		elseif(empty($list))
-			return $this->ui->extension_banner( sprintf( __( 'Available %1$s plugins will appear here.', 'pagelines' ), $tab ) );
-		else 
-			return $this->ui->extension_list( $list );
+		return $this->ui->extension_list( array( 'list' => $list, 'tab' => $tab, 'type' => 'plugins' ) );
 	}
 	
 	function load_plugins(){

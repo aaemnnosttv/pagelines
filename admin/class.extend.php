@@ -185,9 +185,11 @@
 	 function show_in_tab( $type, $key, $ext, $tab ){
 
 		$a = array( 
-			'plversion'		=>	CORE_VERSION,
-			'price'		=>	'free',
-			'featured'	=>	"false"
+			'plversion'			=>	CORE_VERSION,
+			'price'				=>	'free',
+			'featured'			=>	'false',
+			'loaded' 			=> ( isset( $ext['status']['status'] ) ) ? true : false,
+			'sections-plugin'	=> ( isset( $ext['file']) && PL_EXTEND_SECTIONS_PLUGIN === basename( $ext['file'] ) ) ? true : false
 			);
 		
 		$ext = wp_parse_args( $ext, $a );
@@ -208,17 +210,20 @@
 				return false;
 			elseif( $tab == 'premium' && $ext['price'] == 'free' )
 				return false;
-			elseif( $tab == 'featured' && $ext['featured']  )
+			elseif( $tab == 'featured' && $ext['featured'] == 'false' )
 				return false;
 			else 
 				return true;
 			
 		} elseif($type == 'plugin'){
+
+			if ( $tab == 'featured' && $ext['featured'] == 'false' )
+				return false;
 			
 			if ( $tab === 'installed' && (!$ext['loaded'] || $ext['sections-plugin']) )
 				return false;
 				
-			elseif ( ( $tab === 'premium' || $tab === 'featured' ) && $ext['price'] === 'free' )
+			elseif ( ( $tab === 'premium' ) && $ext['price'] === 'free' )
 				return false;
 
 			elseif ( $tab === 'free' && $ext['price'] != 'free' )
@@ -814,10 +819,19 @@
 		else
 			return false;
 	}
+	
+	function get_info_url( $type, $key, $ext, $tab ) {
+		
+		$slug = ( isset( $ext['slug'] ) ) ? $ext['slug'] : $key;
+		return sprintf( 'http://sandbox.pagelines.com/extend/%ss/%s/?product_ref=true', $type, $slug );
+	}
 
 	function master_list( $type, $key, $ext, $tab ) {
 		
 		$ext['apiversion'] = ( isset( $ext['apiversion'] ) ) ? $ext['apiversion'] : $ext['version'];
+		if ( !isset( $ext['status'] ) )
+			$ext['status'] = array( 'status' => '' );
+		
 		$list = array(
 				$type		=> $ext,
 				'name' 		=> $this->get_the_name( $type, $key, $ext, $tab ), 
@@ -829,8 +843,9 @@
 				'auth'		=> $this->get_the_author( $type, $key, $ext, $tab ),
 				'auth_url'	=> $this->get_the_author_url( $type, $key, $ext, $tab ), 						
 				'key'		=> $key,
-				'slug'		=> $key,
+//				'slug'		=> $ext['slug'],
 				'type'		=> $type,
+				'infourl'	=> $this->get_info_url( $type, $key, $ext, $tab ),
 				'object'	=> $this->get_the_object( $type, $key, $ext, $tab ),
 				'count'		=> $this->get_the_count( $type, $key, $ext, $tab ),
 				'screen'	=> $this->get_the_screen( $type, $key, $ext, $tab ),

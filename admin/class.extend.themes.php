@@ -8,13 +8,14 @@ class ExtensionThemes extends PageLinesExtensions {
 	 */
 	function extension_themes( $tab = '' ) {
 
+		$type = 'theme';
+		$list = array();
+		
 		$themes = $this->get_latest_cached( 'themes' );
 
 		if ( !is_object($themes) ) 
 			return $themes;
 
-		$type = 'theme';
-		
 		$themes = self::extension_scan_themes( $themes );
 
 		foreach( $themes as $key => $ext ) {
@@ -30,12 +31,7 @@ class ExtensionThemes extends PageLinesExtensions {
 			$list[$key] = $this->master_list( $type, $key, $ext, $tab );
 
 		}
-		if(empty($list) && $tab == 'installed')
-			return $this->ui->extension_banner( __( 'Installed PageLines themes will appear here.', 'pagelines' ) );
-		elseif(empty($list))
-			return $this->ui->extension_banner( sprintf( __( 'Available %1$s themes will appear here.', 'pagelines' ), $tab ) );
-		else
-			return $this->ui->extension_list( $list, 'graphic' );
+		return $this->ui->extension_list( array( 'list' => $list, 'tab' => $tab, 'type' => 'themes', 'mode' => 'graphic' ) );
 	}
 	
 	/**
