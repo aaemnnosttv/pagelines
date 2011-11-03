@@ -320,7 +320,7 @@ class PageLinesExtendUI {
 		
 		/* popup stuff for reference
 		jQuery(document).ready(function() {
-  			jQuery('a.pane-info').colorbox({iframe:true, width:"50%", height:"60%"});
+			jQuery('a.pane-info').colorbox({iframe:true, width:"50%", height:"60%"});
 		});
 		*/
 		function extendIt( mode, key, type, file, path, product, duringText ){
