@@ -9,7 +9,6 @@ class ExtensionThemes extends PageLinesExtensions {
 	function extension_themes( $tab = '' ) {
 
 		$type = 'theme';
-		$list = array();
 		
 		$themes = $this->get_latest_cached( 'themes' );
 
@@ -18,19 +17,8 @@ class ExtensionThemes extends PageLinesExtensions {
 
 		$themes = self::extension_scan_themes( $themes );
 
-		foreach( $themes as $key => $ext ) {
-
-			$check_file = sprintf( '%s/themes/%s/style.css', WP_CONTENT_DIR, $key );
-			
-			if ( file_exists( $check_file ) )
-				$exists = true;
-
-			if( !$this->show_in_tab( $type, $key, $ext, $tab ) )
-				continue;
-
-			$list[$key] = $this->master_list( $type, $key, $ext, $tab );
-
-		}
+		$list = $this->get_master_list( $themes, $type, $tab );
+		
 		return $this->ui->extension_list( array( 'list' => $list, 'tab' => $tab, 'type' => 'themes', 'mode' => 'graphic' ) );
 	}
 	

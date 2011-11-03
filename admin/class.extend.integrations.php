@@ -9,20 +9,16 @@ class ExtensionIntegrations extends PageLinesExtensions {
 	function extension_integrations( $tab = '' ) {
 		
 		$type = 'integration';
-		$list = array();
-		
+	
 		$integrations = $this->get_latest_cached( 'integrations' );
 
 		if ( !is_object($integrations) ) 
 			return $integrations;
+
 		$integrations = json_decode(json_encode($integrations), true); // convert objects to arrays	
 
-		$type = 'integration';
-
-		foreach( $integrations as $key => $ext ) {
+		$list = $this->get_master_list( $integrations, $type, $tab );
 		
-			$list[$key] = $this->master_list( $type, $key, $ext, $tab );		
-		}
 		return $this->ui->extension_list( array( 'list' => $list, 'tab' => $tab, 'type' => 'integrations', 'mode' => 'download' ) );
 	}
 }

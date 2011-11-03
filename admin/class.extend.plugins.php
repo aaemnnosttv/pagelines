@@ -11,21 +11,19 @@ class ExtensionPlugins extends PageLinesExtensions {
 	 */
 	function extension_plugins( $tab = '' ) {
 
-		$list = array();
 		$type = 'plugin';
 		
 		$plugins = self::load_plugins();
 		
-		foreach( $plugins as $key => $ext ) {
-			
-			if( !$this->show_in_tab( $type, $key, $ext, $tab ) )
-				continue;	
-
-			$list[$key] = $this->master_list( $type, $key, $ext, $tab );
-		}
+		$list = $this->get_master_list( $plugins, $type, $tab );
+		
 		return $this->ui->extension_list( array( 'list' => $list, 'tab' => $tab, 'type' => 'plugins' ) );
 	}
-	
+
+	// ====================
+	// = Helper functions =
+	// ====================
+
 	function load_plugins(){
 	
 		$plugins = $this->get_latest_cached( 'plugins' );
@@ -58,9 +56,7 @@ class ExtensionPlugins extends PageLinesExtensions {
 			unset( $plugins[$key] );
 			$key = str_replace( '.php', '', basename( $ext['file'] ) );
 			$plugins[$key] = $ext;
-
 		}
-		
 		return $plugins;
 	}
 	

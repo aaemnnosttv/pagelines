@@ -23,15 +23,8 @@ class ExtensionSections extends PageLinesExtensions {
 			if ( !is_object( $sections ) ) 
 				return $sections;
 
-			foreach( $sections as $key => $ext ) {
+			$list = $this->get_master_list( $sections, $type, $tab );
 			
-				$ext = (array) $ext;
-			
-				if( !$this->show_in_tab( 'section', $key, $ext, $tab ) )
-					continue; 
-		
-				$list[$key] = $this->master_list( $type, $key, $ext, $tab );	
-			}
 		} // end install mode
 		
 		if ( 'installed' == $mode ) {
@@ -48,14 +41,7 @@ class ExtensionSections extends PageLinesExtensions {
 	 		foreach( $available as $section ) {
 
 				$section = self::sort_status( $section, $disabled, $available, $upgradable );
-
-	 			foreach( $section as $key => $ext ) { // main loop
-
-					if( !$this->show_in_tab( 'section', $key, $ext, $tab ) )
-						continue;
-
-					$list[ basename( $ext['base_dir'] ) ] = $this->master_list( $type, $key, $ext, $tab );
-				}
+				$list = $this->get_master_list( $section, $type, $tab, $mode );
 	 		}	
 		
 		} // end installed mode

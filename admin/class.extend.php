@@ -257,9 +257,9 @@
 				return false;
 				
 			else
-				return true;
-			
+				return true;	
 		}
+		return true;
 	}
 
 	 function version_check( $version ){
@@ -829,6 +829,24 @@
 		
 		$slug = ( isset( $ext['slug'] ) ) ? $ext['slug'] : $key;
 		return sprintf( 'http://sandbox.pagelines.com/extend/%ss/%s/?product_ref=true', $type, $slug );
+	}
+	
+	function get_master_list( $extension, $type, $tab, $mode = '') {
+		
+		$list = array();
+		foreach( $extension as $key => $ext ) {
+			
+			$ext = (array) $ext;
+
+			if( !$this->show_in_tab( $type, $key, $ext, $tab ) )
+				continue;	
+			
+			if ( 'installed' == $mode )
+				$key = basename( $ext['base_dir'] );
+			
+			$list[$key] = $this->master_list( $type, $key, $ext, $tab );
+		}
+		return $list;
 	}
 
 	function master_list( $type, $key, $ext, $tab ) {
