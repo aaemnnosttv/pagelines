@@ -346,6 +346,9 @@
 	}
 	
 	function show_delete_button( $type, $key, $ext, $tab ){
+
+		if ( $type == 'section' && ( $tab == 'child' || $tab == 'internal' ) )
+			return false;
 		
 		if( !$this->is_active($type, $key, $ext)
 			&& $this->is_installed($type, $key, $ext)
@@ -499,7 +502,7 @@
 	}
 
 	 function in_the_store( $type, $key, $ext, $tab ){
-		
+
 		if ( $type == 'integration' )
 			return true;
 		
