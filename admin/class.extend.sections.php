@@ -54,7 +54,7 @@ class ExtensionSections extends PageLinesExtensions {
 
  		foreach( $available as $section ) {
 
-			$section = self::sort_status( $section, $disabled, $available );
+			$section = self::sort_status( $section, $disabled, $available, $upgradable );
 
  			foreach( $section as $key => $ext ) { // main loop
 				
@@ -68,19 +68,18 @@ class ExtensionSections extends PageLinesExtensions {
  	}
 
 
-	function sort_status( $section, $disabled, $available) {
+	function sort_status( $section, $disabled, $available, $upgradable) {
 		
 		foreach( $section as $key => $ext) {
 			$section[$key]['status'] = ( isset( $disabled[ $ext['type'] ][ $ext['class'] ] ) ) ? 'disabled' : 'enabled';
-			$section[$key] = self::check_version( $section[$key] );
+			$section[$key] = self::check_version( $ext, $upgradable );
 			$section[$key]['class_exists'] = ( isset( $available['child'][ $ext['class'] ] ) || isset( $available['custom'][ $ext['class'] ] ) ) ? true : false;
-			$section[$key]['arse'] = 'hello';
 		}
 
 		return pagelines_array_sort( $section, 'name' ); // Sort Alphabetically
 	}
 
-	function check_version( $ext ) {
+	function check_version( $ext, $upgradable ) {
 		
 		if ( isset( $ext['base_dir'] ) ) {
 			$upgrade = basename( $ext['base_dir'] );
