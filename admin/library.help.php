@@ -61,7 +61,7 @@ class PageLines_Inline_Help {
 				'header-footer'	=> __( 'Header and Footer', 'pagelines' ),
 				'blog-posts'	=> __( 'Blog and Posts', 'pagelines' ),
 				'advanced'		=> __( 'Advanced', 'pagelines' ),
-				'custom'		=> __( 'Custom Code')
+				'custom'		=> __( 'Custom Code', 'pagelines' )
 				));
 			break;
 							
@@ -95,7 +95,7 @@ class PageLines_Inline_Help {
 			'plugins'			=> 'This is the plugins markup',
 			'themes'			=> 'This is the themes markup',			
 			'import'			=> 'This is the import markup',
-			'ccount'			=> 'This is the account markup',	
+			'account'			=> 'This is the account markup',	
 			
 			'special-blog'				=> 'blog stuff',
 			'special-archive'			=> 'Archive stuff',			
