@@ -93,11 +93,9 @@
 				$destination = ( ! $uploader ) ? $this->make_url( $type, $file ) : $file;						
 				@$upgrader->install( $destination );
 
-				if ( isset( $wp_filesystem )  && is_object( $wp_filesystem ) && $wp_filesystem->method == 'direct' )
-					_e( 'Success', 'pagelines' );
-
 				$this->sandbox( WP_PLUGIN_DIR . $path, 'plugin');
-				activate_plugin( $path );			
+				activate_plugin( $path );
+				_e( 'Success', 'pagelines' );		
 				$text = '&extend_text=plugin_install#installed';
 				$time = ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) && $wp_filesystem->method != 'direct' ) ? 0 : 700; 
 				$this->page_reload( 'pagelines_extend' . $text, null, $time);
