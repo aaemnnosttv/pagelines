@@ -22,9 +22,6 @@ class ExtensionSections extends PageLinesExtensions {
 			
 			$ext = (array) $ext;
 			
-			if ( !isset( $ext['type']) )
-				$ext['type'] = 'internal';
-			
 			if( !$this->show_in_tab( 'section', $key, $ext, $tab ) )
 				continue; 
 		
@@ -56,23 +53,10 @@ class ExtensionSections extends PageLinesExtensions {
 		$upgradable = $this->get_latest_cached( 'sections' );
 
  		foreach( $available as $section ) {
-	
-			foreach( $section as $key => $ext)
-				$section[$key]['status'] = ( isset( $disabled[ $ext['type'] ][ $ext['class'] ] ) ) ? 'disabled' : 'enabled';
 
-			$section = pagelines_array_sort( $section, 'name' ); // Sort Alphabetically
+			$section = self::sort_status( $section, $disabled, $available );
 
  			foreach( $section as $key => $ext ) { // main loop
-
-				if ( isset( $ext['base_dir'] ) ) {
-					$upgrade = basename( $ext['base_dir'] );
-					if ( isset( $upgradable->$upgrade->version ) ) {
-						$ext['apiversion'] = ( isset( $upgradable->$upgrade->version ) ) ? $upgradable->$upgrade->version : '';
-						$ext['slug'] = $upgradable->$upgrade->slug;
-					}
-				}
-				
-				$ext['class_exists'] = ( isset( $available['child'][ $ext['class'] ] ) || isset( $available['custom'][ $ext['class'] ] ) ) ? true : false;
 				
 				if( !$this->show_in_tab( 'section', $key, $ext, $tab ) )
 					continue;
@@ -80,9 +64,31 @@ class ExtensionSections extends PageLinesExtensions {
 					$list[ basename( $ext['base_dir'] ) ] = $this->master_list( $type, $key, $ext, $tab );
 			}
  		}
-
-	
 		return $this->ui->extension_list( array( 'list' => $list, 'tab' => $tab, 'type' => 'sections' ) );
  	}
-	
+
+
+	function sort_status( $section, $disabled, $available) {
+		
+		foreach( $section as $key => $ext) {
+			$section[$key]['status'] = ( isset( $disabled[ $ext['type'] ][ $ext['class'] ] ) ) ? 'disabled' : 'enabled';
+			$section[$key] = self::check_version( $section[$key] );
+			$section[$key]['class_exists'] = ( isset( $available['child'][ $ext['class'] ] ) || isset( $available['custom'][ $ext['class'] ] ) ) ? true : false;
+			$section[$key]['arse'] = 'hello';
+		}
+
+		return pagelines_array_sort( $section, 'name' ); // Sort Alphabetically
+	}
+
+	function check_version( $ext ) {
+		
+		if ( isset( $ext['base_dir'] ) ) {
+			$upgrade = basename( $ext['base_dir'] );
+			if ( isset( $upgradable->$upgrade->version ) ) {
+				$ext['apiversion'] = ( isset( $upgradable->$upgrade->version ) ) ? $upgradable->$upgrade->version : '';
+				$ext['slug'] = $upgradable->$upgrade->slug;
+			}
+		}
+		return $ext;
+	}
 }

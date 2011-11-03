@@ -70,7 +70,8 @@
 		$a = array( 
 			'plversion'		=>	CORE_VERSION,
 			'price'		=>	'free',
-			'featured'	=>	'false'
+			'featured'	=>	'false',
+			'type'		=>	'internal'
 			);
 		
 		$ext = wp_parse_args( $ext, $a );
@@ -189,7 +190,8 @@
 			'price'				=>	'free',
 			'featured'			=>	'false',
 			'loaded' 			=> ( isset( $ext['status']['status'] ) ) ? true : false,
-			'sections-plugin'	=> ( isset( $ext['file']) && PL_EXTEND_SECTIONS_PLUGIN === basename( $ext['file'] ) ) ? true : false
+			'sections-plugin'	=> ( isset( $ext['file']) && PL_EXTEND_SECTIONS_PLUGIN === basename( $ext['file'] ) ) ? true : false,
+			'type'				=> 'internal'
 			);
 		
 		$ext = wp_parse_args( $ext, $a );
@@ -772,7 +774,7 @@
 			return '';
 	}
 
-	function get_the_author_url( $type, $key, $ext, $tab ) {
+	function get_the_author_uri( $type, $key, $ext, $tab ) {
 		
 		if ( isset( $ext['author_url'] ) && ! empty( $ext['author_url'] ) )
 			return $ext['author_url'];
@@ -792,8 +794,11 @@
 		
 		if ( isset( $ext['text'] ) && ! empty( $ext['text'] ) )
 			return $ext['text'];
-		else
-			return '';
+
+		if ( isset( $ext['description'] ) )
+			return $ext['description'];
+		
+		return '';
 	}
 	
 	function get_the_count( $type, $key, $ext, $tab ) {
@@ -841,7 +846,7 @@
 				'tags'		=> $this->get_the_tags( $type, $key, $ext, $tab ),
 				'image'		=> $this->image_path( $type, $key, $ext, $tab ),
 				'auth'		=> $this->get_the_author( $type, $key, $ext, $tab ),
-				'auth_url'	=> $this->get_the_author_url( $type, $key, $ext, $tab ), 						
+				'auth_url'	=> $this->get_the_author_uri( $type, $key, $ext, $tab ), 						
 				'key'		=> $key,
 //				'slug'		=> $ext['slug'],
 				'type'		=> $type,
