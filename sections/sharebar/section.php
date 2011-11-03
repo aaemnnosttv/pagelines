@@ -38,7 +38,7 @@ class PageLinesShareBar extends PageLinesSection {
 				}
 				
 				if(ploption('share_twitter')){
-					$url = sprintf('http://twitter.com/?status=%s', pagelines_shorturl($upermalink));
+					$url = sprintf('http://twitter.com/?status=%s', pagelines_format_tweet( get_the_title(), get_permalink( $post->ID ) ) );
 					printf($string, $url, __('Share on Twitter', 'pagelines'), $this->base_url.'/twitter.png', 'Twitter');
 				}
 				

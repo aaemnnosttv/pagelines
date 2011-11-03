@@ -805,7 +805,6 @@ class PageLinesOptionsArray {
 					
 						'share_facebook'	=> array('inputlabel'=> __( 'Facebook Sharing Icon', 'pagelines' ), 'default'=> true),
 						'share_twitter'		=> array('inputlabel'=> __( 'Twitter Sharing Icon', 'pagelines' ), 'default'=> true),
-						'share_twitter_cache'=>array('inputlabel'=> __( 'Enable twitter short urls', 'pagelines' ), 'default'=> false),
 						'share_delicious'	=> array('inputlabel'=> __( 'Del.icio.us Sharing Icon', 'pagelines' ), 'default'=> true),
 						'share_reddit'		=> array('inputlabel'=> __( 'Reddit Sharing Icon', 'pagelines' ), 'default'=> true),
 						'share_digg'		=> array('inputlabel'=> __( 'Digg Sharing Icon', 'pagelines' ), 'default'=> false),

@@ -202,15 +202,9 @@ function pagelines_shorturl( $url, $timeout = 86400 ) {
 	return pagelines_format_tweet( get_the_title(), $out->shorturl );
 }
 
-function pagelines_format_tweet( $title, $shorturl ) {
-	
-	$total_char = strlen( $title ) + strlen( $shorturl ) + 3;
-	$title_limit = 140 - ( strlen( $shorturl ) + 3 );
+function pagelines_format_tweet( $title, $url ) {
 
-	if ( $total_char > 140 )
-		$title = substr($title, 0, strrpos(substr($title, 0, $title_limit), ' '));
-
-	return sprintf( '%1$s - %2$s', strip_tags( $title ), $shorturl );
+	return sprintf( '%1$s - %2$s', $title, $url );
 }
 
 /**
