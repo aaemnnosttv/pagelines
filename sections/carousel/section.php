@@ -26,16 +26,17 @@ class PageLinesCarousel extends PageLinesSection {
 					),
 					'carousel_mode' => array(
 						'version' => 'pro',
-						'type' => 'select',	
+						'type' => 'select',
+						'default'	=> 'posts',
 						'selectvalues'=> array(
-							'flickr'		=> array( 'name' => 'Flickr (default)'),
-							'posts' 		=> array( 'name' => 'Post Thumbnails'),
+							'posts' 		=> array( 'name' => 'Post Thumbnails (posts)'),							
+							'flickr'		=> array( 'name' => 'Flickr'),
 							'ngen_gallery' 	=> array( 'name' => 'NextGen Gallery'), 
 							'hook'			=> array( 'name' => 'Hook: "pagelines_carousel_list"')
 						),					
 						'title' 	=> 'Carousel Image/Link Mode (Carousel Page Template)',
 						'shortexp' 	=> 'Select the mode that the carousel should use for its thumbnails.',
-						'exp'		=> '<strong>Flickr</strong> - (default) Uses thumbs from FlickrRSS plugin.<br/><strong> Post Thumbnails</strong> - Uses links and thumbnails from posts <br/><strong>NextGen Gallery</strong> - Uses an image gallery from the NextGen Gallery Plugin'
+						'exp'		=> '<strong> Post Thumbnails (default)</strong> - Uses links and thumbnails from posts <br/><strong>Flickr</strong> - Uses thumbs from FlickrRSS plugin.<br/><strong>NextGen Gallery</strong> - Uses an image gallery from the NextGen Gallery Plugin'
 					),
 					'carousel_ngen_gallery' => array(
 						'version' => 'pro',
