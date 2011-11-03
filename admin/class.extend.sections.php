@@ -38,17 +38,18 @@ class ExtensionSections extends PageLinesExtensions {
 
 			$upgradable = $this->get_latest_cached( 'sections' );
 
-	 		foreach( $available as $section ) {
+	 		foreach( $available as $key => $section ) {
 
-				$section = self::sort_status( $section, $disabled, $available, $upgradable );
-				$list = $this->get_master_list( $section, $type, $tab, $mode );
-	 		}	
-		
+				$available[$key] = self::sort_status( $section, $disabled, $available, $upgradable );
+			}	
+			$sections = array_merge( $available['child'], $available['parent'], $available['custom'] );
+
+			$list = $this->get_master_list( $sections, $type, $tab, 'installed' );	
+	
 		} // end installed mode
 
 		return $this->ui->extension_list( array( 'list' => $list, 'tab' => $tab, 'type' => 'sections' ) );
  	}
-
 
 	function sort_status( $section, $disabled, $available, $upgradable) {
 		

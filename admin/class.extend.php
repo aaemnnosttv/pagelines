@@ -842,11 +842,13 @@
 				continue;	
 			
 			if ( 'installed' == $mode )
-				$key = basename( $ext['base_dir'] );
-			
-			$list[$key] = $this->master_list( $type, $key, $ext, $tab );
+				$array_key = basename( $ext['base_dir'] );
+			else
+				$array_key = $key;
+
+			$list[$array_key] = $this->master_list( $type, $key, $ext, $tab );
 		}
-		return $list;
+		return (! empty($list) ) ? $list : '';
 	}
 
 	function master_list( $type, $key, $ext, $tab ) {
