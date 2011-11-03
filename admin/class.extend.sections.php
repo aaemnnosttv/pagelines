@@ -32,6 +32,7 @@ class ExtensionSections extends PageLinesExtensions {
 			global $load_sections;
 			
 			// Get sections
+			
 	 		$available = $load_sections->pagelines_register_sections( true, true );
 
 	 		$disabled = get_option( 'pagelines_sections_disabled', array() );
@@ -41,8 +42,9 @@ class ExtensionSections extends PageLinesExtensions {
 	 		foreach( $available as $key => $section ) {
 
 				$available[$key] = self::sort_status( $section, $disabled, $available, $upgradable );
-			}	
-			$sections = array_merge( $available['child'], $available['parent'], $available['custom'] );
+			}
+			
+			$sections = self::merge_sections( $available );
 
 			$list = $this->get_master_list( $sections, $type, $tab, 'installed' );	
 	
@@ -50,6 +52,18 @@ class ExtensionSections extends PageLinesExtensions {
 
 		return $this->ui->extension_list( array( 'list' => $list, 'tab' => $tab, 'type' => 'sections' ) );
  	}
+
+	function merge_sections( $sections ) {
+		
+		$out = array();
+		
+		foreach ( $sections as $key => $section) {
+			
+			$out = array_merge( $out, $sections[$key] );
+		}
+		
+		return $out;
+	}
 
 	function sort_status( $section, $disabled, $available, $upgradable) {
 		
