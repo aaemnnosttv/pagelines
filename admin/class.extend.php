@@ -47,10 +47,10 @@
 			switch ( $type ){
 
 				case 'section_added' :
-					$out = ExtensionSections::extension_sections( $set );
+					$out = ExtensionSections::extension_sections( $set, 'installed' );
 					break;
 				case 'section_extend' :
-					$out = ExtensionSections::extension_sections_install( $set );
+					$out = ExtensionSections::extension_sections( $set, 'install' );
 					break;
 				case 'theme' :
 					$out = ExtensionThemes::extension_themes( $set );
