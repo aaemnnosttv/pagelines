@@ -579,6 +579,8 @@
 					
 			} elseif ( file_exists( sprintf('%s/%s/thumb.png', get_theme_root(), $key) ) )
 				return sprintf('%s/%s/thumb.png', get_theme_root_uri(), $key);
+			else return sprintf('%s/%s/screenshot.png', get_theme_root_uri(), $key);
+				
 		}
 		return PL_ADMIN_IMAGES . '/thumb-default.png';
 	}
