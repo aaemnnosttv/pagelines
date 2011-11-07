@@ -12,7 +12,7 @@ class PageLines_Upgrader_Skin extends WP_Upgrader_Skin {
 	function __construct( $args = array() ) {
 		parent::__construct($args);
 	}
-
+	
 	function header() { }
 	
 	function footer(){ }
@@ -40,7 +40,7 @@ class PageLines_Upgrader_Skin extends WP_Upgrader_Skin {
 			}
 			
 			// unmapped error...
-			echo $string;
+		//	echo $string;
 		}
 	}
 	

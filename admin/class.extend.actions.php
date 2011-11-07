@@ -122,7 +122,7 @@
 				if ( $active )
 					activate_plugin( ltrim( $file, '/' ) );
 				// Output
-
+				_e( 'Success', 'pagelines' );
 				$text = '&extend_text=plugin_upgrade';
 				$time = ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) ) ? 0 : 700; 
 				$this->page_reload( 'pagelines_extend' . $text, null, $time);		
@@ -186,25 +186,30 @@
 				$skin = new PageLines_Upgrader_Skin();
 				$upgrader = new Plugin_Upgrader($skin);
 				$time = 0;
+				$url = ( $uploader ) ? $file : $this->make_url( 'section', $path );
 				if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) ) {
-					@$upgrader->install( $this->make_url( 'section', $path ) );		
+					$url = ( $uploader ) ? $file : $this->make_url( 'section', $path );
+					$out = @$upgrader->install( $url );		
 					$wp_filesystem->move( trailingslashit( WP_PLUGIN_DIR ) . $path, trailingslashit( PL_EXTEND_DIR ) . $path );					
 				} else {
-							$options = array( 'package' => ( ! $uploader) ? $this->make_url( 'section', $path ) : $path, 
-							'destination'		=> ( ! $uploader) ? trailingslashit( PL_EXTEND_DIR ) . $path : trailingslashit( PL_EXTEND_DIR ) . $file, 
+							$options = array( 'package' => $url, 
+							'destination'		=> trailingslashit( PL_EXTEND_DIR ) . $path, 
 							'clear_destination' => false,
 							'clear_working'		=> false,
 							'is_multi'			=> false,
 							'hook_extra'		=> array() 
 					);
-					@$upgrader->run($options);
+					$out = @$upgrader->run($options);
 					if ( ! $uploader ) {
 						_e( 'Section Installed', 'pagelines' );
 						$time = 700;
 					}
 				}
 				$text = '&extend_text=section_install#added';
-				$this->page_reload( 'pagelines_extend' . $text, null, $time);
+				if ( $uploader && is_wp_error( $out ) )
+					$this->page_reload( sprintf( 'pagelines_extend&extend_error=%s', $out->get_error_code() ) , null, 0);
+				else
+					$this->page_reload( 'pagelines_extend' . $text, null, $time);
 			break;
 
 			case 'section_upgrade':
@@ -391,35 +396,19 @@
 			$type = $_POST['type'];
 			$filename = $_FILES[ $type ][ 'name' ];
 			$payload = $_FILES[ $type ][ 'tmp_name' ];
-			
-						
-			if ( false === strpos( $filename, 'section' ) ) {
+				
+			if ( !preg_match( '/section-([^\.]*)\.zip/i', $filename, $out) ) {
 				$this->page_reload( 'pagelines_extend&extend_error=filename', null, 0);
 				exit();
 			}
-				
-			switch ( $type ) {
-				
-				case 'section':
-					$uploader = true;
-					$_POST['extend_mode']	=	'section_install';
-					$_POST['extend_file']	=	$payload;
-					$_POST['extend_path']	= 	str_replace( '.zip', '', $filename );
-					$_POST['extend_type']	=	'section';
-				break;
-				
-				case 'plugin':
-					$uploader = true;
-					$_POST['extend_mode']	=	'plugin_install';
-					$_POST['extend_file']	=	$payload;
-					$_POST['extend_path']	= 	sprintf( '%1$s/%1$s.php', str_replace( '.zip', '', $filename ) );
-					$_POST['extend_type']	=	'plugin';
-				break;
-				
-			}
-			
-			if ( $uploader )
-				$this->extend_it_callback( $uploader, null );
+
+			$uploader = true;
+			$_POST['extend_mode']	=	'section_install';
+			$_POST['extend_file']	=	$payload;
+			$_POST['extend_path']	= 	$out[1];
+			$_POST['extend_type']	=	'section';
+			$_POST['extend_product']=	'';
+			$this->extend_it_callback( $uploader, null );
 			exit;
 		
 		}	
