@@ -33,6 +33,10 @@
 			padding-right: 0;
 			padding-left: 0;
 		}
+		
+		#branding .icons {
+			position: static;
+		}
 	}
 	
 	@media screen and (max-width:450px) { 
