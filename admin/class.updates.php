@@ -85,7 +85,7 @@ class PageLinesUpdateCheck {
 
 		}
 			
-		echo '<div id="update-nag">';
+		echo '<div class="updated fade update-nag">';
 		
 		printf( '%s Framework %s is available.', $this->theme, esc_html( $pagelines_update['new_version'] ) );
 		

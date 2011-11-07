@@ -410,6 +410,9 @@ function pagelines_admin_errors(){
 				$errors['extend']['text'] = __( 'The file did not appear to be a PageLines section.', 'pagelines' );
 			break;
 			
+			default:
+				$errors['extend']['text'] = sprintf( __( 'Unknown error: %s', 'pagelines' ), $_GET['extend_error'] );
+			break;
 		}
 
 	}
