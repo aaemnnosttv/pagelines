@@ -13,6 +13,8 @@
 
 
 Version 2.0.0
+	BETA - 26
+	- Store refactored.
 
 	BETA - 25
 	- Refined the 'store'
