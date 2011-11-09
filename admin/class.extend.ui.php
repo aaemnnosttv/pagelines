@@ -355,7 +355,7 @@ class PageLinesExtendUI {
 						responseElement.html( duringText ).dialog({ 
 							minWidth: 600, 
 							modal: true, 
-							dialogClass: 'ajax_dialog', 
+							dialogClass: 'pl_ajax_dialog', 
 							open: function(event, ui) { 
 								jQuery(".ui-dialog-titlebar-close").hide(); 
 							} 

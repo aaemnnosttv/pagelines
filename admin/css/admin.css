@@ -19,25 +19,25 @@
 	overflow: hidden; 
 
 }
-.pagelines_ui .ui-dialog .ui-dialog-titlebar { padding: .4em 1em; position: relative;  }
-.pagelines_ui .ui-dialog .ui-dialog-title { float: left; margin: .1em 16px .1em 0; } 
-.pagelines_ui .ui-dialog .ui-dialog-titlebar-close { position: absolute; right: .3em; top: 50%; width: 19px; margin: -10px 0 0 0; padding: 1px; height: 18px; }
-.pagelines_ui .ui-dialog .ui-dialog-titlebar-close span { display: block; margin: 1px; }
-.pagelines_ui .ui-dialog .ui-dialog-titlebar-close:hover, .ui-dialog .ui-dialog-titlebar-close:focus { padding: 0; }
-.pagelines_ui .ui-dialog .ui-dialog-content { position: relative; border: 0; padding: .5em 1em; background: none; overflow: auto; zoom: 1; }
-.pagelines_ui .ui-dialog .ui-dialog-buttonpane { text-align: left; border-width: 1px 0 0 0; background-image: none; margin: .5em 0 0 0; padding: .3em 1em .5em .4em; }
-.pagelines_ui .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset { float: right; }
-.pagelines_ui .ui-dialog .ui-dialog-buttonpane button { margin: .5em .4em .5em 0; cursor: pointer; }
-.pagelines_ui .ui-dialog .ui-resizable-se {  }
+.pl_ajax_dialog.ui-dialog .ui-dialog-titlebar { padding: .4em 1em; position: relative;  }
+.pl_ajax_dialog.ui-dialog .ui-dialog-title { float: left; margin: .1em 16px .1em 0; } 
+.pl_ajax_dialog.ui-dialog .ui-dialog-titlebar-close { position: absolute; right: .3em; top: 50%; width: 19px; margin: -10px 0 0 0; padding: 1px; height: 18px; }
+.pl_ajax_dialog.ui-dialog .ui-dialog-titlebar-close span { display: block; margin: 1px; }
+.pl_ajax_dialog.ui-dialog .ui-dialog-titlebar-close:hover, .ui-dialog .ui-dialog-titlebar-close:focus { padding: 0; }
+.pl_ajax_dialog.ui-dialog .ui-dialog-content { position: relative; border: 0; padding: .5em 1em; background: none; overflow: auto; zoom: 1; }
+.pl_ajax_dialog.ui-dialog .ui-dialog-buttonpane { text-align: left; border-width: 1px 0 0 0; background-image: none; margin: .5em 0 0 0; padding: .3em 1em .5em .4em; }
+.pl_ajax_dialog.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset { float: right; }
+.pl_ajax_dialog.ui-dialog .ui-dialog-buttonpane button { margin: .5em .4em .5em 0; cursor: pointer; }
+.pl_ajax_dialog.ui-dialog .ui-resizable-se {  }
 
-.pagelines_ui .ui-dialog{
+.pl_ajax_dialog.ui-dialog{
 	-moz-border-radius: 5px;
 	-khtml-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
 }
 
-.pagelines_ui .ui-widget-overlay {
+.pl_ajax_dialog .ui-widget-overlay {
 	background: #666;
 	opacity: .50;
 	position: absolute;
@@ -47,15 +47,15 @@
 	height: 100%;
 }
  
-.pagelines_ui .ui-icon {
+.pl_ajax_dialog .ui-icon {
 	display: block;
 	text-indent: -99999px;
 	overflow: hidden;
 	background-repeat: no-repeat;
 }
-.pagelines_ui .ui-draggable .ui-dialog-titlebar { cursor: move; }
-.pagelines_ui .ui-dialog.ui-widget {  font-size: 1.1em; }
-.pagelines_ui .ui-dialog.ui-widget-content { 
+.pl_ajax_dialog.ui-draggable .ui-dialog-titlebar { cursor: move; }
+.pl_ajax_dialog.ui-dialog.ui-widget {  font-size: 1.1em; }
+.pl_ajax_dialog.ui-dialog.ui-widget-content { 
 	
 	color: #eee; 
 	border-right: 1px solid #ccc;
@@ -68,17 +68,17 @@
 	font-weight: bold;
 	padding: 0;
 }
-.pagelines_ui .ui-dialog  .ui-dialog-content{
+.pl_ajax_dialog.ui-dialog  .ui-dialog-content{
 	text-align: center;
 	font-size: 1.9em;
 	line-height: 1.6em;
 	padding: 56px 20px 50px;
 	color:#eee;
 }
-.pagelines_ui .ui-dialog.ui-widget-content a { color: #333333; }
-.pagelines_ui .ui-dialog .ui-dialog-titlebar { display: none; color: #777; font-weight: bold; text-align: center; }
-.pagelines_ui .ui-dialog-titlebar a { color: #777; }
-.pagelines_ui .ui-helper-clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden;} .ui-helper-clearfix{display:inline-block;} 
+.pl_ajax_dialog.ui-dialog.ui-widget-content a { color: #333333; }
+.pl_ajax_dialog.ui-dialog .ui-dialog-titlebar { display: none; color: #777; font-weight: bold; text-align: center; }
+.pl_ajax_dialog.ui-dialog .ui-dialog-titlebar a { color: #777; }
+.pl_ajax_dialog.ui-dialog .ui-helper-clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden;} .ui-helper-clearfix{display:inline-block;} 
 * html .ui-helper-clearfix{height:1%;} .ui-helper-clearfix{display:block;}
 
 /* @ Ajax Saving Popup */
