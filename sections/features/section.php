@@ -243,14 +243,26 @@ function draw_features($f, $class, $clone_id = null) {
 						$flink_text = ( plmeta( 'feature-link-text', $oset) ) ? plmeta('feature-link-text', $oset) : __('More', 'pagelines');
 						$feature_background_image = plmeta( 'feature-background-image', $oset);
 						$feature_design = (plmeta( 'feature-design', $oset)) ? plmeta('feature-design', $oset) : '';
-						$action = plmeta( 'feature-link-url', $oset);
+						$action = plmeta('feature-link-url', $oset); 
 						$fcontent_class = (plmeta( 'fcontent-bg', $oset)) ? plmeta('feature-bg', $oset) : '';
 						
 						$media_image = plmeta('feature-media-image', $oset);
 						
-						$feature_media = plmeta( 'feature-media', $oset); ?>
-						<div id="<?php echo 'feature_'.$post->ID;?>"  class="fcontainer <?php echo $feature_style.' '.$feature_design; ?> fix" >
-							<div class="feature-wrap" <?php if($feature_background_image):?>style="background: url('<?php echo $feature_background_image;?>') no-repeat top center" <?php endif;?>>
+						$feature_media = plmeta( 'feature-media', $oset); 
+						
+						$feature_wrap_markup = ($feature_style == 'text-none' && $action) ? 'a' : 'div';
+						$feature_wrap_link = ($feature_style == 'text-none' && $action) ? sprintf('href="%s"', $action) : '';
+						
+						$more_link = ($feature_style != 'text-none' && $action) ? sprintf( ' <a href="%s" >%s</a>', $action, __('More &rarr;', 'pagelines') ) : '';
+						
+						$background_css = ($feature_background_image) ? sprintf('style="background: url(\'%s\') no-repeat top center"', $feature_background_image ) : '';
+					
+					
+					
+					printf( '<div id="%s" class="fcontainer %s %s fix" >', 'feature_'.$post->ID, $feature_style, $feature_design ); 
+						
+						printf('<%s class="feature-wrap" %s %s >', $feature_wrap_markup, $feature_wrap_link, $background_css); ?>
+							
 								<div class="feature-pad fix">
 									<div class="fcontent <?php echo $fcontent_class;?>">
 										<div class="dcol-pad fix">
@@ -262,12 +274,16 @@ function draw_features($f, $class, $clone_id = null) {
 													
 													$content = ($feature_source == 'posts') ? apply_filters( 'pagelines_feature_output', get_the_excerpt()) : get_the_content(); 
 													
-													printf('<div class="ftext"><div class="fexcerpt">%s%s</div>%s</div>', $content, pledit($post->ID), blink($flink_text, 'link', 'black', array('action' => $action)));
 													
+													printf(
+														'<div class="ftext"><div class="fexcerpt">%s%s%s</div></div>', 
+														$content, 
+														$more_link,
+														pledit( $post->ID )
+													);
 													
 												pagelines_register_hook( 'pagelines_fcontent_after', $this->id ); // Hook ?>
 										</div>
-										
 									</div>
 						
 									<div class="fmedia" style="">
@@ -288,9 +304,15 @@ function draw_features($f, $class, $clone_id = null) {
 									<?php pagelines_register_hook( 'pagelines_feature_after', $this->id ); // Hook ?>
 									<div class="clear"></div>
 								</div>
-							</div>
-						</div>
-					<?php endforeach; 
+							
+							<?php 
+							
+						printf('</%s>', $feature_wrap_markup); 
+
+					echo '</div>';
+					
+					
+					endforeach; 
 							
 					$post = $current_page_post;
 				 ?>
@@ -340,7 +362,7 @@ function draw_features($f, $class, $clone_id = null) {
 								'text-left'		=> array( 'name' => 'Text On Left'),
 								'text-right' 	=> array( 'name' => 'Text On Right'),
 								'text-bottom' 	=> array( 'name' => 'Text On Bottom'),
-								'text-none' 	=> array( 'name' => 'Full Width Image or Media - No Text')
+								'text-none' 	=> array( 'name' => 'Full Width Background Image - No Text - Links Entire BG')
 							),
 						),
 					'feature-background-image' => array(
@@ -383,9 +405,10 @@ function draw_features($f, $class, $clone_id = null) {
 						),
 					'feature-link-url' => array(
 							'shortexp' 			=> 'Adding a URL here will add a link to your feature slide',
-							'title' 		=> 'Feature Link URL',
-							'label'			=> 'Enter Feature Link URL',
-							'type' 			=> 'text'
+							'title' 			=> 'Feature Link URL',
+							'label'				=> 'Enter Feature Link URL',
+							'type' 				=> 'text', 
+							'exp'				=> 'Adds a "More" link to your text. If you have "Full Width Background Image" mode selected, the entire slide will be linked.'
 						),
 					'feature-link-text' => array(
 							'default'		=> 'More',
