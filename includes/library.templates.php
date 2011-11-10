@@ -265,9 +265,12 @@ function do_dynamic_css(){
  */
 function pagelines_fix_ie( ){
 	
+	global $is_IE;
+	if ( ! $is_IE )
+		return;
+
 	if(pagelines('google_ie'))
 		echo '<!--[if lt IE 8]> <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE8.js"></script> <![endif]-->'."\n";
-
 	
 	printf('<!--[if lt IE 9]>%3$s<script src="%1$s"></script>%3$s<script src="%2$s" ></script>%3$s<![endif]-->%3$s', 'http://html5shim.googlecode.com/svn/trunk/html5.js', 'http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js',"\n");
 	
