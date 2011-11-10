@@ -77,7 +77,7 @@ input[type="submit"], .submit, input[type="button"], .button, input[type="reset"
 	background:-o-linear-gradient(top,#ffffff 0%,#dcdcdc 100%); 
 	background:-ms-linear-gradient(top,#ffffff 0%,#dcdcdc 100%); 
 	background:linear-gradient(top,#ffffff 0%,#dcdcdc 100%); 
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='@top',endColorstr='@bottom',GradientType=0); 
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#d3d3d3',GradientType=0); 
 } 
 
 	input[type="submit"]:hover, .submit:hover, input[type="button"]:hover, .button:hover, input[type="reset"]:hover, .reset:hover { 
@@ -91,7 +91,7 @@ input[type="submit"], .submit, input[type="button"], .button, input[type="reset"
 		background:-o-linear-gradient(top,#f3f3f3 0%,#cfcfcf 100%); 
 		background:-ms-linear-gradient(top,#f3f3f3 0%,#cfcfcf 100%); 
 		background:linear-gradient(top,#f3f3f3 0%,#cfcfcf 100%); 
-		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='@top',endColorstr='@bottom',GradientType=0); 
+		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#d3d3d3',GradientType=0); 
 	} 
 
 	input[type="submit"]:active, .submit:active, input[type="button"]:active, .button:active, input[type="reset"]:active, .reset:active { 
@@ -105,7 +105,7 @@ input[type="submit"], .submit, input[type="button"], .button, input[type="reset"
 		background:-o-linear-gradient(top,#afafaf 0%,#d3d3d3 100%); 
 		background:-ms-linear-gradient(top,#afafaf 0%,#d3d3d3 100%); 
 		background:linear-gradient(top,#afafaf 0%,#d3d3d3 100%); 
-		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='@top',endColorstr='@bottom',GradientType=0); }
+		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#d3d3d3',GradientType=0); }
 	}
 
 /* @ Widgets Default Formatting */

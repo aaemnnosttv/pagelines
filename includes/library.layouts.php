@@ -6,9 +6,6 @@
 
 
 function grid( $data, $args = array() ){
-
-
-	
 	
 	$defaults = array(
 		'data'			=> 'query',
@@ -16,6 +13,7 @@ function grid( $data, $args = array() ){
 		'format'		=> 'img_grid', 
 		'paged'			=> false, 
 		'has_img'		=> true,
+		'image'			=> false,
 		'img_default'	=> null, 
 		'img_width'		=> '100%', 
 		'title'			=> '',
@@ -56,8 +54,6 @@ function grid( $data, $args = array() ){
 	// Grid loop
 	foreach($posts as $pid => $p){
 			
-		
-		
 		// Grid Stuff
 		$start = (grid_row_start( $count, $total, $a['per_row'])) ? sprintf('<div class="pprow grid-row fix %s">', $margin_class) : '';
 		$end = (grid_row_end( $count, $total, $a['per_row'])) ? '</div>' : '';
@@ -74,13 +70,38 @@ function grid( $data, $args = array() ){
 			setup_postdata($p); 
 			
 			// The Image
-			$thumb = ( has_post_thumbnail( $p->ID ) ) ? get_the_post_thumbnail( $p->ID ) : $default_img;
-			$image = sprintf( '<a href="%s" class="img grid-img" style="width: %s"><span class="grid-img-pad">%s</span></a>', get_permalink($p->ID), $a['img_width'], $thumb);
+			
+			if($a['image'])
+				$thumb = $a['image'];
+			elseif( has_post_thumbnail( $p->ID ) )
+				$thumb = get_the_post_thumbnail( $p->ID );
+			else
+				$thumb = $default_img;
+			
+			$image = sprintf( 
+				'<a href="%s" class="img grid-img" style="width: %s"><span class="grid-img-pad">%s</span></a>',
+				get_permalink($p->ID), 
+				$a['img_width'], 
+				$thumb
+			);
 	
 			$content .= $image;
 	
 			// Text
-			$content .= ($a['format'] == 'media') ? sprintf('<div class="bd grid-content"><h4><a href="%s">%s</a></h4> <p>%s %s</p></div>', get_permalink($p->ID), $p->post_title, custom_trim_excerpt($p->post_content, $a['content_len']), pledit( $p->ID ) ) : '';
+			
+			if($a['format'] == 'media'){
+				
+				$content .= sprintf(
+					'<div class="bd grid-content"><h4><a href="%s">%s</a></h4> <p>%s %s %s</p></div>', 
+					get_permalink($p->ID), 
+					$p->post_title, 
+					custom_trim_excerpt($p->post_content, $a['content_len']), 
+					sprintf('<a href="%s" >More &rarr;</a>', get_permalink($p->ID)),
+					pledit( $p->ID )
+					
+				);
+				
+			}
 		
 		}
 		

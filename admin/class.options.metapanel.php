@@ -139,8 +139,8 @@ class PageLinesMetaPanel {
 		else
 			$slug = 'Default';
 
-		
-		$this->edit_slug = $slug;
+		if(isset($slug))
+			$this->edit_slug = $slug;
 		
 		return ( isset( $slug ) ) ? $slug : '';
 	}
