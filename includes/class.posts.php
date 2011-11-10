@@ -243,7 +243,9 @@ class PageLinesPosts {
 		
 		global $post;
 		
-		$the_image = sprintf('<span class="c_img">%s</span>', get_the_post_thumbnail(null, 'thumbnail'));
+		$img = ($mode == 'top') ? get_the_post_thumbnail(null, 'large') : get_the_post_thumbnail(null, 'thumbnail');
+		
+		$the_image = sprintf('<span class="c_img">%s</span>', $img);
 		
 		$thumb_link = sprintf('<a class="%s" href="%s" rel="bookmark" title="%s %s" style="%s">%s</a>', $classes, get_permalink( $post ), __('Link To', 'pagelines'), the_title_attribute( array('echo' => false) ), $style, $the_image );
 		

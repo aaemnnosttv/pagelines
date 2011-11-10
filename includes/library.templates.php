@@ -458,16 +458,7 @@ function pagelines_settings_menu_link(  ){
 	global $wp_admin_bar;
 	
 	global $pagelines_template;
-	
-	$edit = (isset($wp_admin_bar->menu->edit)) ? $wp_admin_bar->menu->edit : null;
-	
-	if( is_home() && isset($edit) ){
-		$edit['title'] = __( 'Blog Meta', 'pagelines' );
-		$edit['href'] = admin_url( 'admin.php?page=pagelines_special#blog_page' );
-	}
-	
-	if(isset($edit))
-		$wp_admin_bar->menu->edit = $edit; 
+
 	
 	if ( !current_user_can('edit_theme_options') )
 		return;
@@ -480,10 +471,45 @@ function pagelines_settings_menu_link(  ){
 	$wp_admin_bar->add_menu( array( 'id' => 'pl_extend', 'parent' => 'pl_settings', 'title' => __("Store", 'pagelines'), 'href' => admin_url( 'admin.php?page=pagelines_extend' ) ) );
 	$wp_admin_bar->add_menu( array( 'id' => 'pl_account', 'parent' => 'pl_settings', 'title' => __("Account", 'pagelines'), 'href' => admin_url( 'admin.php?page=pagelines_account' ) ) );
 
-	if(isset($pagelines_template->template_name)){
-		$page_type = __("Current Template: ", 'pagelines') . ucfirst($pagelines_template->template_name);
+	$template_name = (isset($pagelines_template->template_name)) ? $pagelines_template->template_name : false;
+
+	if( $template_name ){
+		$page_type = __("Current Page: ", 'pagelines') . ucfirst($template_name );
 		$wp_admin_bar->add_menu( array( 'id' => 'template_type', 'title' => $page_type, 'href' => admin_url( 'admin.php?page=pagelines_templates' ) ) );
 	}
+	
+	$spurl = pl_special_url( $template_name );
+	
+	if( $template_name && is_pagelines_special() && $spurl){
+		$wp_admin_bar->add_menu( array( 'id' => 'special_settings', 'title' => __("Edit Special", 'pagelines'), 'href' => $spurl ) );
+	}
+}
+
+function pl_special_url( $t ){
+	
+	$t = strtolower( trim($t) );
+	
+	if($t == 'blog')
+		$slug = 'blog_page';
+	elseif($t == 'category')
+		$slug = 'category_page';
+	elseif($t == 'archive')
+		$slug = 'archive_page';
+	elseif($t == 'search')
+		$slug = 'search_results';
+	elseif($t == 'tag')
+		$slug = 'tag_listing';
+	elseif($t == '404_error')
+		$slug = '404_page';
+	elseif($t == 'author')
+		$slug = 'author_posts';
+	else 
+		return false;
+
+	$rurl = sprintf('admin.php?page=pagelines_special%s', '#'.$slug);
+
+	return admin_url( $rurl );
+
 }
 
 /**
