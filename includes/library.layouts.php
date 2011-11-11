@@ -13,7 +13,7 @@ function grid( $data, $args = array() ){
 		'format'		=> 'img_grid', 
 		'paged'			=> false, 
 		'has_img'		=> true,
-		'image'			=> false,
+		'image_field'	=> false,
 		'img_default'	=> null, 
 		'img_width'		=> '100%', 
 		'title'			=> '',
@@ -69,10 +69,12 @@ function grid( $data, $args = array() ){
 			
 			setup_postdata($p); 
 			
+			$oset = array('post_id' => $p->ID);
+			
 			// The Image
 			
-			if($a['image'])
-				$thumb = $a['image'];
+			if( ploption($a['image_field'], $oset) )
+				$thumb = sprintf('<img src="%s" alt="thumb" />', ploption($a['image_field'], $oset) );
 			elseif( has_post_thumbnail( $p->ID ) )
 				$thumb = get_the_post_thumbnail( $p->ID );
 			else
