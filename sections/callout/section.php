@@ -4,7 +4,6 @@
 	Author: PageLines
 	Author URI: http://www.pagelines.com
 	Description: Shows a callout banner with optional graphic call to action
-	Version: 1.0.0
 	Class Name: PageLinesCallout
 	Cloning: true
 	Workswith: templates, main, header, morefoot

@@ -77,6 +77,7 @@
 				$this->plugin_delete( $type, $file, $path, $uploader, $checked );
 				
 			break;
+
 			case 'plugin_activate':
 
 				$this->plugin_activate( $type, $file, $path, $uploader, $checked );
@@ -154,6 +155,7 @@
 				$this->redirect( $type, $file, $path, $uploader, $checked );
 
 			break;
+
 			case 'purchase':
 
 				$this->purchase( $type, $file, $path, $uploader, $checked );

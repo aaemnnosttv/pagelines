@@ -167,7 +167,7 @@ class PageLinesRegister {
 				
 				preg_match( '/[\/|\-]sections[\/|\\\]([^\/|\\\]+)/', $fullFileName, $out );
 				
- 
+ 				$version = ( '' != $headers['version'] ) ? $headers['version'] : CORE_VERSION;
 				
 				$folder = sprintf( '/%s', $out[1] );
 
@@ -186,7 +186,7 @@ class PageLinesRegister {
 					'type'			=> $type,
 					'tags'			=> $headers['tags'],
 					'author'		=> $headers['author'],
-					'version'		=> $headers['version'],
+					'version'		=> $version,
 					'authoruri'		=> ( isset( $headers['authoruri'] ) ) ? $headers['authoruri'] : '',
 					'description'	=> $headers['description'],
 					'name'			=> $headers['section'],
