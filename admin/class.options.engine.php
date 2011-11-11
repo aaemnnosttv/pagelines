@@ -330,6 +330,9 @@ class OptEngine {
 			case 'image_upload' :
 				$this->_get_image_upload_option($oid, $o);
 				break;
+			case 'image_upload_multi' :
+				$this->_get_image_upload_multi($oid, $o);
+				break;
 			case 'background_image' :
 				$this->_get_background_image_control($oid, $o); 
 				break;
@@ -460,7 +463,7 @@ class OptEngine {
 	 **/
 	function _get_check_multi($oid, $o, $val){ 
 		
-		foreach($o['selectvalues'] as $mid => $m):
+		foreach($o['selectvalues'] as $mid => $m){
 		
 			$value = checked((bool) $m['val'], true, false);
 			
@@ -470,7 +473,8 @@ class OptEngine {
 			
 			echo $this->input_label_inline($m['input_id'], $input, $m['inputlabel']);
 
-		endforeach; 
+		}
+		
 	}
 
 
@@ -604,6 +608,18 @@ class OptEngine {
 
 	}
 
+	function _get_image_upload_multi( $oid, $o ){
+		
+		foreach($o['selectvalues'] as $mid => $m){
+			
+			$m = wp_parse_args( $m, $this->defaults );
+			
+			$this->_get_image_upload_option( $mid, $m );
+			
+		}
+		
+	}
+
 	/**
 	 * 
 	 * Creates An AJAX Image Uploader
@@ -623,6 +639,7 @@ class OptEngine {
 		$reset_button = sprintf('<span title="%1$s" id="%2$s" class="image_reset_button button reset_%1$s">Remove</span>', $button_id, $this->settings_field); 
 		
 		$ajax_url = $this->input_hidden('', 'wp_ajax_action_url', admin_url("admin-ajax.php"), 'ajax_action_url');
+		
 		$preview_size = $this->input_hidden('', 'img_size_'.$oid, $o['imagepreview'], 'image_preview_size'); 
 		
 		// Output
@@ -1249,3 +1266,9 @@ class OptEngine {
 	}	
 
 } // End of Class
+
+
+
+
+
+

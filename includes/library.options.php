@@ -527,25 +527,26 @@ function pagelines_settings_defaults() {
 	
 		foreach(get_option_array( true ) as $menuitem => $options ){
 			
-			foreach($options as $optionid => $o ){
+			foreach($options as $oid => $o ){
 
 				if($o['type']=='layout'){
 					
 					$dlayout = new PageLinesLayout;
 					$default_options['layout'] = $dlayout->default_layout_setup();
 					
-				}elseif($o['type']=='check_multi' || $o['type']=='text_multi' || $o['type']=='color_multi'){
-					foreach($o['selectvalues'] as $multi_optionid => $multi_o){
+				}elseif( pagelines_is_multi_option($oid, $o) ){
+					
+					foreach($o['selectvalues'] as $multi_optionid => $multi_o)
 						if(isset($multi_o['default'])) $default_options[$multi_optionid] = $multi_o['default'];
-					}
+					
 
 				}else{ 
 					if(!VPRO && isset($o['version_set_default']) && $o['version_set_default'] == 'pro') 
-						$default_options[$optionid] = null;
+						$default_options[$oid] = null;
 					elseif(!VPRO && isset($o['default_free'])) 
-						$default_options[$optionid] = $o['default_free'];
+						$default_options[$oid] = $o['default_free'];
 					elseif(isset($o['default'])) 
-						$default_options[$optionid] = $o['default'];
+						$default_options[$oid] = $o['default'];
 				}
 
 			}
@@ -589,6 +590,22 @@ function pagelines_process_reset_options( $option_array = null ) {
 	}
 
 }
+
+function pagelines_is_multi_option( $oid, $o ){
+	
+	if(
+		$o['type'] == 'text_multi' 
+		|| $o['type'] == 'check_multi' 
+		|| $o['type'] == 'color_multi'
+		|| $o['type'] == 'image_upload_multi'
+	){
+		return true;
+	} else
+		return false;
+	
+}
+
+
 
 function pagelines_import_export(){
 
