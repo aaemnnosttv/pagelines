@@ -475,7 +475,7 @@ body{font-size: 87.5%; line-height: 1.71em;height:100%;}
 
 /* @ Comments Area */
 
-	#respond form{ margin-left: 25px;}
+	#respond form{ margin-left: 27px;}
 	h3#comments-title { 
 		padding-left: 22px;
 		background:url("sections/comments/icon-comment.png") no-repeat scroll 0 3px transparent; 

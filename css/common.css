@@ -131,7 +131,14 @@ input[type="submit"], .submit, input[type="button"], .button, input[type="reset"
 	}
 	.wp-comments{ margin: 1.4em 0 0; }
 	.wp-comments-pad{ padding: 20px 0; }
-	
+	p.logged-in-as, p.comment-form-comment, p.form-allowed-tags, p.form-submit{margin: .3em 0;}
+	p.comment-form-comment{margin: .8em 0;}
+	p.form-allowed-tags code{
+		font-size: 10px;
+		line-height: 1.4em;
+		margin: .4em 0;
+		padding: 0;
+	}
 	 #respond {margin: 20px 0;}
 	 ol ul #commentform textarea {width: 90%;}
 
