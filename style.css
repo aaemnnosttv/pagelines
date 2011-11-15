@@ -626,7 +626,11 @@ table {width: 100%;}
 				}
 
 		/* @Disqus */
+			#site #dsq-content, #site #dsq-content a{
+				text-shadow: none;
+			}
 			#site #dsq-content .dsq-request-user-info td a{
+				
 				font-weight: normal;
 				font-size: 1.2em;
 			}
