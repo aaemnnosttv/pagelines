@@ -9,7 +9,7 @@
 
 <li id="darchive" class="widget_archive widget">
 	<div class="widget-pad">
-		<h3 class="widget-title"><?php _e('Articles','pagelines'); ?></h3>
+		<h3 class="widget-title"><?php _e('Archives','pagelines'); ?></h3>
 		<ul>
 			<?php wp_get_archives('type=monthly'); ?>
 		</ul>
