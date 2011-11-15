@@ -82,10 +82,10 @@ class PageLinesHighlight extends PageLinesSection {
 					printf('<div class="highlight-splash hl-image-top"><img src="%s" alt="" /></div>', $h_splash);
 					
 				if($h_head)
-					printf('<h1 class="highlight-head">%s</h1>', $h_head);
+					printf('<h1 class="highlight-head">%s</h1>', __( $h_head, 'pagelines' ) );
 				
 				if($h_subhead)
-					printf('<h3 class="highlight-subhead subhead">%s</h3>', $h_subhead);
+					printf('<h3 class="highlight-subhead subhead">%s</h3>', __( $h_subhead, 'pagelines' ) );
 					
 				if( $h_splash_position != 'top' && $h_splash)
 					printf('<div class="highlight-splash hl-image-bottom"><img src="%s" alt="" /></div>', $h_splash);

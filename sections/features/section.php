@@ -240,7 +240,7 @@ function draw_features($f, $class, $clone_id = null) {
 						
 
 						$feature_style = ( plmeta( 'feature-style', $oset)) ? plmeta('feature-style', $oset) : 'text-left';
-						$flink_text = ( plmeta( 'feature-link-text', $oset) ) ? plmeta('feature-link-text', $oset) : __('More', 'pagelines');
+						$flink_text = ( plmeta( 'feature-link-text', $oset) ) ? __( plmeta('feature-link-text', $oset) ) : __('More', 'pagelines');
 						$feature_background_image = plmeta( 'feature-background-image', $oset);
 						$feature_design = (plmeta( 'feature-design', $oset)) ? plmeta('feature-design', $oset) : '';
 						$action = plmeta('feature-link-url', $oset); 
