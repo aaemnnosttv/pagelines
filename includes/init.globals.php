@@ -41,12 +41,14 @@ define('CHILD_IMAGES', CHILD_URL . '/images');
 /**
  * Define Settings Constants for option DB storage
  */
-define('PAGELINES_SETTINGS', apply_filters('pagelines_settings_field', 'pagelines-settings'));
-define('PAGELINES_EXTENSION', apply_filters('pagelines_settings_extension', 'pagelines-extension'));
-define('PAGELINES_ACCOUNT', apply_filters('pagelines_settings_account', 'pagelines-account'));
-define('PAGELINES_SPECIAL', apply_filters('pagelines_settings_special', 'pagelines-special'));
-define('PAGELINES_TEMPLATES', apply_filters('pagelines_settings_templates', 'pagelines-templates'));
-define('PAGELINES_TEMPLATE_MAP', apply_filters('pagelines_settings_map', 'pagelines_template_map'));
+define( 'PAGELINES_SETTINGS', apply_filters( 'pagelines_settings_field', 'pagelines-settings-two' ));
+define( 'PAGELINES_EXTENSION', apply_filters( 'pagelines_settings_extension', 'pagelines-extension' ));
+define( 'PAGELINES_ACCOUNT', apply_filters( 'pagelines_settings_account', 'pagelines-account' ));
+define( 'PAGELINES_SPECIAL', apply_filters( 'pagelines_settings_special', 'pagelines-special' ));
+define( 'PAGELINES_TEMPLATES', apply_filters( 'pagelines_settings_templates', 'pagelines-templates' ));
+define( 'PAGELINES_TEMPLATE_MAP', apply_filters( 'pagelines_settings_map', 'pagelines-template-map-two' ));
+define( 'PAGELINES_SETTINGS_LEGACY', 'pagelines-settings' );
+define( 'PAGELINES_TEMPLATE_MAP_LEGACY', 'pagelines-template-map' );
 
 /**
  * Define PL Admin Paths
