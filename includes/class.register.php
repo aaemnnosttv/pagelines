@@ -122,6 +122,11 @@ class PageLinesRegister {
 							include( $dep_data['base_file'] );
 							$pl_section_factory->register( $dep, $dep_data );
 						}
+						// dep loaded...
+						if ( !class_exists( $section['class'] ) && file_exists( $section['base_file'] ) ) {
+							include( $section['base_file'] );
+							$pl_section_factory->register( $section['class'], $section_data );
+						}	
 					} else {
 							if ( !class_exists( $section['class'] ) && file_exists( $section['base_file'] ) ) {
 								include( $section['base_file'] );
