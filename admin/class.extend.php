@@ -833,7 +833,7 @@
 	function get_info_url( $type, $key, $ext, $tab ) {
 		
 		$slug = ( isset( $ext['slug'] ) ) ? $ext['slug'] : $key;
-		return sprintf( 'http://sandbox.pagelines.com/extend/%ss/%s/?product_ref=true', $type, $slug );
+		return sprintf( '%s/%ss/%s/?product_ref=true', PL_STORE_URL, $type, $slug );
 	}
 	
 	function get_master_list( $extension, $type, $tab, $mode = '') {

@@ -141,7 +141,7 @@ class PageLinesExtendUI {
 // left in for reference
 //		$info = ( $s['extended'] === 'true' ) ? sprintf( '<span class="pane-info"> <a class="pane-info" href="%s">[info]</a></span>', sprintf( '%s/files/%s/html/%s.html', untrailingslashit( PL_API_FETCH ), $s['type'], $s['slug'] ) ) : '';
 
-		$info = sprintf( '<span class="pane-info"> <a class="pane-info" href="%s">[info]</a></span>', $s['infourl'] );
+		$info = sprintf( '<span class="pane-info"> <a class="pane-info" href="%s">Store</a></span>', $s['infourl'] );
 
 		$body = sprintf('<div class="pane-desc"><div class="pane-desc-pad">%s%s</div></div><div class="pane_buttons">%s</div>%s', $s['desc'], $info, $this->get_extend_buttons( $e ), $auth);
 		
