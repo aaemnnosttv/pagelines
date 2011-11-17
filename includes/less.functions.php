@@ -14,9 +14,10 @@ class PageLinesLess {
 	
 	function __construct() {
 		
+		global $less_vars;
+		
 		// The LESS Class
 		$this->lparser = new lessc();
-		
 		
 		$this->base_color = pl_hashify( pl_base_color() );
 		
@@ -30,6 +31,9 @@ class PageLinesLess {
 			'invert-dark'	=> $this->invert(),
 			'invert-light'	=> $this->invert('light')
 		);
+		
+		if(is_array($less_vars))
+			$constants = array_merge($less_vars, $constants);
 		
 		// Make Filterable
 		$this->constants = apply_filters('pless_vars', $constants);
@@ -149,26 +153,51 @@ class PageLinesLess {
 }
 
 /* 
+ * Add Less Variables
+ * 
+ * Must be added before header.
+ **************************/
+function pagelines_less_var( $name, $value ){
+	
+	global $less_vars;
+	
+	$less_vars[$name] = $value;
+	
+}
+
+
+/* 
  *  Color Fetch
  **************************/
-function pl_base_color(){
+function pl_base_color( $mode = '', $difference = '10%'){
 	
 	$base_color = PageLinesThemeSupport::BaseColor();
 
 	if( !$base_color ){
 	
 		if(ploption('contentbg'))
-			return pl_hash_strip( ploption('contentbg') );
+			$base = pl_hash_strip( ploption('contentbg') );
 		elseif(ploption('pagebg'))
-			return pl_hash_strip( ploption('pagebg') );
+			$base = pl_hash_strip( ploption('pagebg') );
 		elseif(ploption('bodybg'))
-			return pl_hash_strip( ploption('bodybg') );
+			$base = pl_hash_strip( ploption('bodybg') );
 		else
-			return 'FFFFFF';
+			$base = 'FFFFFF';
 	
 	} else
-		return $base_color;
+		$base = $base_color;
 		
+		
+	if($mode != ''){
+		
+		$adjust_base = new PageLinesColor($base);
+		
+		$adjusted = $adjust_base->c($mode, $difference);
+		
+		return $adjusted;
+		
+	} else
+		return $base;
 	
 }
 
