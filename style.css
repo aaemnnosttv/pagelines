@@ -116,6 +116,15 @@ body{font-size: 87.5%; line-height: 1.71em;height:100%;}
 	.drop-cap {display:block;font-style:normal;font-size:8em;float:left;margin:.04em .1em 0 0;line-height:.67em;}
 	.kern{letter-spacing:-.1em;}
 
+	/* Blockquote */
+	blockquote{
+		border-left: 3px solid transparent;
+		padding: .85em 1.7em;
+		margin: 1.7em 0 1.7em .85em;
+	}
+		blockquote > :last-child{margin-bottom: 0}
+		
+		
 		.comment blockquote{border: none;padding-right: 10px;}
 		.comment blockquote blockquote{margin-bottom:0;}
 	

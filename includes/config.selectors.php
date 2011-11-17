@@ -88,7 +88,7 @@ class PageLinesCSSGroups{
 
 		$s['border_tertiary'] = '';
 
-		$s['border_primary_shadow'] = '.bc1s, blockquote, input, textarea, .searchform .searchfield, .wp-caption, fpost .post-thumb img, .clip .clip-thumb img, .author-thumb img';
+		$s['border_primary_shadow'] = '.bc1s, input, textarea, .searchform .searchfield, .wp-caption, fpost .post-thumb img, .clip .clip-thumb img, .author-thumb img';
 
 		$s['border_primary_highlight'] = '.bc1h, .bhighlight';
 
