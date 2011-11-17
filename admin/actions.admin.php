@@ -179,9 +179,6 @@ function pagelines_check_version() {
 	}
 }
 
-if ( PL_DEV )
-	add_action( 'admin_init', array( &$extension_control, 'flush_caches' ) );
-
 // Load Inline help system.
 
 add_action( 'admin_init', 'pagelines_inline_help' );
