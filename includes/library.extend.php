@@ -34,13 +34,15 @@ function load_child_functions() {
 }
 
 add_action( 'init', 'base_check_templates' );
+
 function base_check_templates() {
-	
+
 	if ( is_child_theme() ) {
 		foreach ( glob( get_stylesheet_directory() . "/*.php") as $file) {
 			if ( preg_match( '/page\.([a-z-0-9]+)\.php/', $file, $match ) ) {
 				$data = get_file_data( trailingslashit( get_stylesheet_directory() ) . basename( $file ), array( 'name' => 'Template Name' ) );
-				pagelines_add_page( $match[1], $data['name'] );
+				if ( is_array( $data ) )
+					pagelines_add_page( $match[1], $data['name'] );
 			}	
 		}
 	}
@@ -56,7 +58,8 @@ function base_check_templates() {
 				copy( $file, trailingslashit( get_stylesheet_directory() ) . basename( $file ) );
 
 			if ( file_exists( trailingslashit( get_stylesheet_directory() ) . basename( $file ) ) ) {
-					$data = get_file_data( trailingslashit( get_stylesheet_directory() ) . basename( $file ), array( 'name' => 'Template Name' ) );
+				$data = get_file_data( trailingslashit( get_stylesheet_directory() ) . basename( $file ), array( 'name' => 'Template Name' ) );
+				if ( is_array( $data ) )
 					pagelines_add_page( $match[1], $data['name'] );
 			}
 
