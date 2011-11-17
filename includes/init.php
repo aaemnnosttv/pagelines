@@ -161,6 +161,8 @@ require_once( PL_ADMIN . '/class.options.metapanel.php' );
  */	
 require_once( PL_ADMIN . '/class.profiles.php' );
 
+
+include( PL_INCLUDES . '/library.upgrades.php' );
 /**
  * Load Singleton Globals
  */	
