@@ -150,6 +150,24 @@ class PageLinesRegister {
 		if ( ( $type == 'child' || $type == 'custom' ) && ! is_dir($dir) ) 
 			return;			
 
+		$default_headers = array(
+			'External'		=> 'External',
+			'Demo'			=> 'Demo',
+			'tags'			=> 'Tags',
+			'version'		=> 'Version',
+			'author'		=> 'Author',
+			'authoruri'		=> 'Author URI',
+			'section'		=> 'Section',
+			'description'	=> 'Description',
+			'classname'		=> 'Class Name',
+			'depends'		=> 'Depends',
+			'workswith'		=> 'workswith',
+			'edition'		=> 'edition',
+			'cloning'		=> 'cloning',
+			'failswith'		=> 'failswith',
+			'tax'			=> 'tax'
+			);
+			
 		$sections = array();
 		
 		// setup out directory iterator.
@@ -164,7 +182,7 @@ class PageLinesRegister {
 				
 			if (pathinfo($fileSPLObject->getFilename(), PATHINFO_EXTENSION ) == 'php') {
 				
-				$headers = get_file_data( $fullFileName, $default_headers = array( 'tags' => 'Tags', 'version' => 'Version', 'author' => 'Author', 'authoruri' => 'Author URI', 'section' => 'Section', 'description' => 'Description', 'classname' => 'Class Name', 'depends' => 'Depends', 'workswith' => 'workswith', 'edition' => 'edition', 'cloning' => 'cloning', 'failswith' => 'failswith', 'tax' => 'tax' ) );
+				$headers = get_file_data( $fullFileName, $default_headers );
 
 				// If no pagelines class headers ignore this file.
 				if ( !$headers['classname'] )
@@ -203,6 +221,8 @@ class PageLinesRegister {
 					'cloning'		=> ( 'true' === $headers['cloning'] ) ? true : '',
 					'failswith'		=> $headers['failswith'],
 					'tax'			=> $headers['tax'],
+					'demo'			=> $headers['Demo'],
+					'external'		=> $headers['External'],
 					'screenshot'	=> ( file_exists( $base_dir . '/thumb.png' ) ) ? $base_url . '/thumb.png' : ''
 				);	
 			}

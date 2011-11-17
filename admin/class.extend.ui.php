@@ -39,7 +39,10 @@ class PageLinesExtendUI {
 				'screen'	=> '',
 				'screenshot'=> '',
 				'extended'	=> '',
-				'slug'		=> ''
+				'slug'		=> '',
+				'long'		=> '',
+				'external'	=> '',
+				'demo'		=> ''
 		);
 		
 		/**
@@ -129,21 +132,36 @@ class PageLinesExtendUI {
 	}
 	
 	function pane_template( $e, $count ){
+		
+		$demo = '';
+		$external = '';
+		$info = '';
+		$auth = '';
 
 		$s = wp_parse_args( $e, $this->defaultpane);
-	
+		
+		// if we are 'core' tab or 'child' tab we dont want to see store urls or versions, they are pointless...
+		$int = ( isset( $s['section']['type'] ) && ( $s['section']['type'] == 'parent' || $s['section']['type'] == 'custom') ) ? true : false;
+
 		$img = sprintf( '<div class="img paneimg"><img src="%s" alt="thumb" /></div>', $s['image'] );
 
 		$title = sprintf('<div class="pane-head"><div class="pane-head-pad"><h3 class="pane-title">%s</h3></div></div>', $s['name'] );
-
-		$auth = sprintf('<div class="pane-dets"><strong>%s</strong> | by <a href="%s">%s</a></div>', 'v' . $s['version'], $s['auth_url'], $s['auth']);
+		
+		if ( !$int )
+			$auth = sprintf('<div class="pane-dets"><strong>%s</strong> | by <a href="%s">%s</a></div>', 'v' . $s['version'], $s['auth_url'], $s['auth']);
 		
 // left in for reference
 //		$info = ( $s['extended'] === 'true' ) ? sprintf( '<span class="pane-info"> <a class="pane-info" href="%s">[info]</a></span>', sprintf( '%s/files/%s/html/%s.html', untrailingslashit( PL_API_FETCH ), $s['type'], $s['slug'] ) ) : '';
+		
+		if ( !$int )
+			$info = sprintf( '<span class="pane-info"> <a class="pane-info" href="%s">Store</a></span>', $s['infourl'] );
+		
+		if ( $s['demo'] )
+			$demo = sprintf( '<span class="pane-info"> <a class="pane-info" href="%s">Demo</a></span>', $s['demo'] );
+		if ( $s['external'] )
+			$external = sprintf( '<span class="pane-info"> <a class="pane-info" href="%s">Link</a></span>', $s['external'] );
 
-		$info = sprintf( '<span class="pane-info"> <a class="pane-info" href="%s">Store</a></span>', $s['infourl'] );
-
-		$body = sprintf('<div class="pane-desc"><div class="pane-desc-pad">%s%s</div></div><div class="pane_buttons">%s</div>%s', $s['desc'], $info, $this->get_extend_buttons( $e ), $auth);
+		$body = sprintf('<div class="pane-desc"><div class="pane-desc-pad">%s%s%s%s</div></div><div class="pane_buttons">%s</div>%s', $s['desc'], $info, $demo, $external, $this->get_extend_buttons( $e ), $auth);
 		
 		$break = ($count % 3 == 0) ? sprintf('<div class="clear"></div>') : '';
 

@@ -781,6 +781,9 @@
 
 	function get_the_author_uri( $type, $key, $ext, $tab ) {
 		
+		if ( isset( $ext['external'] ) && ! empty( $ext['external'] ) )
+			return $ext['external'];
+
 		if ( isset( $ext['author_url'] ) && ! empty( $ext['author_url'] ) )
 			return $ext['author_url'];
 		else
@@ -836,6 +839,22 @@
 		return sprintf( '%s/%ss/%s/?product_ref=true', PL_STORE_URL, $type, $slug );
 	}
 	
+	function get_demo_url( $type, $key, $ext, $tab ) {
+		
+		return ( isset( $ext['demo'] ) ) ? $ext['demo'] : '';
+
+	}
+	
+	function get_external_url( $type, $key, $ext, $tab ) {
+	
+	if ( isset( $ext['external'] ) )
+		return $ext['external'];
+		
+	if ( isset( $ext['authorurl'] ) )
+		return $ext['authorurl'];
+
+	}
+	
 	function get_master_list( $extension, $type, $tab, $mode = '') {
 		
 		$list = array();
@@ -879,7 +898,9 @@
 				'object'	=> $this->get_the_object( $type, $key, $ext, $tab ),
 				'count'		=> $this->get_the_count( $type, $key, $ext, $tab ),
 				'screen'	=> $this->get_the_screen( $type, $key, $ext, $tab ),
-				'actions'	=> $this->master_array( $type, $key, $ext, $tab  )
+				'actions'	=> $this->master_array( $type, $key, $ext, $tab  ),
+				'demo'		=> $this->get_demo_url( $type, $key, $ext, $tab ),
+				'external'	=> $this->get_external_url( $type, $key, $ext, $tab ),
 		);
 	return $list;
 	}

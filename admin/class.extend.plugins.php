@@ -65,6 +65,13 @@ class ExtensionPlugins extends PageLinesExtensions {
 	*/
 	function external_plugins( $plugins ) {
 		
+		$default_headers = array(
+			'Demo'		=> 'Demo',
+			'External'	=> 'External',
+			'Long'		=> 'Long',
+			'PageLines'	=> 'PageLines'
+			);
+
 		if ( is_multisite() )
 			return $plugins;
 			
@@ -77,8 +84,8 @@ class ExtensionPlugins extends PageLinesExtensions {
 
 			if ( !array_key_exists( $new_key, $plugins ) ) {
 	
-				$a = get_file_data( WP_PLUGIN_DIR . '/' . $ext, $default_headers = array( 'pagelines' => 'PageLines' ) );
-				if ( !empty( $a['pagelines'] ) && !empty( $new_key ) ) {
+				$a = get_file_data( WP_PLUGIN_DIR . '/' . $ext, $default_headers );
+				if ( !empty( $a['PageLines'] ) && !empty( $new_key ) ) {
 
 					$plugins[$new_key]['name'] = $data['Name']; 
 					$plugins[$new_key]['slug'] = $new_key;
@@ -89,6 +96,9 @@ class ExtensionPlugins extends PageLinesExtensions {
 					$plugins[$new_key]['count'] = 0;
 					$plugins[$new_key]['screen'] = false;
 					$plugins[$new_key]['extended'] = false;
+					$plugins[$new_key]['demo'] = $a['Demo'];
+					$plugins[$new_key]['external'] = $a['External'];
+					$plugins[$new_key]['long'] = $a['Long'];
 	
 				}
 			}	
