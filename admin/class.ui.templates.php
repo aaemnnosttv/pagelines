@@ -673,7 +673,7 @@ function templates_array(){
 			'type'		=> 'templates',
 			'layout'	=> 'interface',
 			'title'		=> __( 'Drag &amp; Drop Template Setup', 'pagelines'),					
-			'shortexp'	=> __( 'Use draggable sections to control the design of your site\'s templates.', 'pagelines'),
+			'shortexp'	=> __( "Use draggable sections to control the design of your site's templates.", 'pagelines'),
 		)	
 	);
 	

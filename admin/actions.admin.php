@@ -39,7 +39,7 @@ function pagelines_admin_body_class($class){
 add_action('pagelines_before_optionUI', 'pagelines_check_php');
 function pagelines_check_php(){
 	if(floatval(phpversion()) < 5.0){
-		_e('<div class="config-error"><h2>PHP Version Problem</h2>Looks like you are using PHP version: <strong>'.phpversion().'</strong>. To run this framework you will need PHP <strong>5.0</strong> or better...<br/><br/> Don\'t worry though! Just check with your host about a quick upgrade.</div>', 'pagelines');
+		printf( __( "<div class='config-error'><h2>PHP Version Problem</h2>Looks like you are using PHP version: <strong>%s</strong>. To run this framework you will need PHP <strong>5.0</strong> or better...<br/><br/> Don't worry though! Just check with your host about a quick upgrade.</div>", 'pagelines'), phpversion() );
 	}
 
 }

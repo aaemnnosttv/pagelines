@@ -66,7 +66,7 @@ class PageLinesMorefoot extends PageLinesSection {
 				__('Looking for something?','pagelines'),
 				__('Use the form below to search the site:','pagelines'), 
 				pagelines_search_form(false), 
-				__('Still not finding what you\'re looking for? Drop us a note so we can take care of it!','pagelines')
+				__("Still not finding what you're looking for? Drop us a note so we can take care of it!",'pagelines')
 			);
 			
 			$middle = sprintf(

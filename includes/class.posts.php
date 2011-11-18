@@ -458,7 +458,7 @@ class PageLinesPosts {
 		
 		$head = ( is_search() ) ? sprintf(__('No results for "%s"', 'pagelines'), get_search_query()) : __('Nothing Found', 'pagelines');
 		
-		$subhead = ( is_search() ) ? __('Try another search?', 'pagelines') : __('Sorry, what you are looking for isn\'t here.', 'pagelines');
+		$subhead = ( is_search() ) ? __('Try another search?', 'pagelines') : __("Sorry, what you are looking for isn't here.", 'pagelines');
 		
 		$the_text = sprintf('<h2 class="center">%s</h2><p class="subhead center">%s</p>', $head, $subhead);
 		
