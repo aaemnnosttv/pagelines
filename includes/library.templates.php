@@ -383,7 +383,7 @@ function pagelines_nav_fallback() {
 function blank_nav_fallback() {
 	
 	if(current_user_can('edit_themes'))
-		printf( __( '<ul class="inline-list">Please select a nav menu for this area in the <a href="%s">WordPress menu admin</a>.</ul>', 'pagelines' ), admin_url('nav-menus.php') );
+		printf( __( "<ul class='inline-list'>Please select a nav menu for this area in the <a href='%s'>WordPress menu admin</a>.</ul>", 'pagelines' ), admin_url('nav-menus.php') );
 }
 
 /**

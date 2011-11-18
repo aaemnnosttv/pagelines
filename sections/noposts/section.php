@@ -14,10 +14,10 @@ class PageLinesNoPosts extends PageLinesSection {
 	<div id="notfound">
 	<?php if(current_user_can( 'edit_posts' ) && isset($_GET['boxes']) || isset($_GET['feature']) || isset($_GET['banners']) ):?>
 	
-			<h2 class="notavail center"><?php _e('Direct Previewing <em>of</em> "Special Post Types" Not Available... Yet','pagelines');?></h2>
+			<h2 class="notavail center"><?php _e('Direct Previewing <em>of</em> &quot;Special Post Types&quot; Not Available... Yet','pagelines');?></h2>
 			<p class="subhead center"><?php _e('Sorry, direct previewing of special post types such as <strong>features</strong> or <strong>boxes</strong> is unavailable. This WordPress functionality is new and rapidly developing, so it should be available soon.', 'pagelines');?></p>
 			<p class="subhead center">
-				<?php _e('To preview a "custom post type" just view a page with that "section" on it.', 'pagelines');?>
+				<?php _e('To preview a &quot;custom post type&quot; just view a page with that &quot;section&quot; on it.', 'pagelines');?>
 			</p>
 	
 	<?php else: ?>

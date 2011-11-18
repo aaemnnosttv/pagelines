@@ -278,13 +278,13 @@ class PageLinesBoxes extends PageLinesSection {
 
 			$default_boxes[] = array(
 			        				'title' => 'PageLines Framework',
-					        		'text' 	=> 'The world\'s first ever drag-and-drop framework designed for professional websites. Build beautiful sites faster.',
+					        		'text' 	=> "The world's first ever drag-and-drop framework designed for professional websites. Build beautiful sites faster.",
 									'media' => $this->base_url.'/images/fbox2.png'
 			    				);
 
 			$default_boxes[] = array(
 			        				'title'	=> 'Add-On Marketplace',
-			        				'text' 	=> 'Load up your own sections, themes and plugins using PageLines\' one of a kind extension marketplace.', 
+			        				'text' 	=> "Load up your own sections, themes and plugins using PageLines' one of a kind extension marketplace.", 
 									'media' => $this->base_url.'/images/fbox1.png'
 			    				);
 

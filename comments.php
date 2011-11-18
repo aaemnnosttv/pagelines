@@ -37,8 +37,8 @@ if(!have_comments() && !comments_open())
 			</ol>
 			<?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : // Are there comments to navigate through? ?>
 						<div class="navigation">
-							<div class="alignleft"><?php previous_comments_link( __( '<span class="meta-nav">&larr;</span> Older Comments', 'pagelines' ) ); ?></div>
-							<div class="alignright"><?php next_comments_link( __( 'Newer Comments <span class="meta-nav">&rarr;</span>', 'pagelines' ) ); ?></div>
+							<div class="alignleft"><?php previous_comments_link( __( "<span class='meta-nav'>&larr;</span> Older Comments", 'pagelines' ) ); ?></div>
+							<div class="alignright"><?php next_comments_link( __( "Newer Comments <span class='meta-nav'>&rarr;</span>", 'pagelines' ) ); ?></div>
 						</div> <!-- .navigation -->
 			<?php endif; // check for comment navigation ?>
 

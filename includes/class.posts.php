@@ -118,7 +118,7 @@ class PageLinesPosts {
 			echo apply_filters('the_content', $content);
 	
 			if( is_single() || is_page() )
-				wp_link_pages(array('before'=> __('<p class="content-pagination"><span class="cp-desc">pages:</span>', 'pagelines'), 'after' => '</p>', 'pagelink' => '<span class="cp-num">%</span>')); 
+				wp_link_pages(array('before'=> __("<p class='content-pagination'><span class='cp-desc'>pages:</span>", 'pagelines'), 'after' => '</p>', 'pagelink' => '<span class="cp-num">%</span>')); 
 		
 			if ( is_single() && get_the_tags() )
 				printf('<div class="p tags">%s&nbsp;</div>', get_the_tag_list(__('Tagged with: ', 'pagelines'),' &bull; ','') );
@@ -456,7 +456,7 @@ class PageLinesPosts {
 	
 	function posts_404(){
 		
-		$head = ( is_search() ) ? sprintf(__('No results for "%s"', 'pagelines'), get_search_query()) : __('Nothing Found', 'pagelines');
+		$head = ( is_search() ) ? sprintf(__('No results for &quot;%s&quot;', 'pagelines'), get_search_query()) : __('Nothing Found', 'pagelines');
 		
 		$subhead = ( is_search() ) ? __('Try another search?', 'pagelines') : __("Sorry, what you are looking for isn't here.", 'pagelines');
 		

@@ -703,7 +703,7 @@ function pagelines_get_tweets( $username, $latest = null) {
 			switch( $error ) {
 
 				case 401:
-					$text = wp_kses( sprintf( __( 'Error: Please make sure the Twitter account is <a href="%s">public</a>.', 'pagelines' ), 'http://support.twitter.com/forums/10711/entries/14016' ), array( 'a' => array( 'href' => true ) ) );
+					$text = wp_kses( sprintf( __( "Error: Please make sure the Twitter account is <a href='%s'>public</a>.", 'pagelines' ), 'http://support.twitter.com/forums/10711/entries/14016' ), array( 'a' => array( 'href' => true ) ) );
 				break;
 				
 				case 403:

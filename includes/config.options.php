@@ -370,7 +370,7 @@ class PageLinesOptionsArray {
 				'selectors'	=> cssgroup('page_background_image')
 			),
 			'supersize_bg' => array(
-				'title' 		=> __( '"Supersize" The Background Image (Fixed Width Mode Required)', 'pagelines' ),						
+				'title' 		=> __( '<strong>Supersize</strong> The Background Image (Fixed Width Mode Required)', 'pagelines' ),						
 				'shortexp' 		=> __( 'Uses a script to set the background for full width and responsive design', 'pagelines' ),
 				'exp' 			=> __( 'Sets the background to match the width of the browser.', 'pagelines' ),
 				'type' 			=> 'check',
@@ -402,7 +402,7 @@ class PageLinesOptionsArray {
 					'inputlabel' 	=> 'Select Font',
 					'title' 	=> __( 'Typography - Text Headers', 'pagelines' ),
 					'shortexp' 	=> __( "Select and Style Your Site's Header Tags (H1, H2, H3...)", 'pagelines' ),
-					'exp' 		=> __( 'Set typography for your h1, h2, etc.. tags. <br/><br/><strong>*</strong> Denotes Web Safe Fonts<br/><strong>G</strong> Denotes Google Fonts<br/><br/><strong>Note:</strong> These options make use of the <a href="http://code.google.com/webfonts" target="_blank">Google fonts API</a> to vastly increase the number of websafe fonts you can use.', 'pagelines' ),
+					'exp' 		=> __( "Set typography for your h1, h2, etc.. tags. <br/><br/><strong>*</strong> Denotes Web Safe Fonts<br/><strong>G</strong> Denotes Google Fonts<br/><br/><strong>Note:</strong> These options make use of the <a href='http://code.google.com/webfonts' target='_blank'>Google fonts API</a> to vastly increase the number of websafe fonts you can use.", 'pagelines' ),
 					'pro_note'	=> __( 'The Pro version of this framework has over 50 websafe and Google fonts.', 'pagelines' )
 			),
 
@@ -440,7 +440,7 @@ class PageLinesOptionsArray {
 					'inputlabel' 	=> __( 'Select Font', 'pagelines' ),
 					'title' 	=> __( 'Typography - Inputs and Textareas', 'pagelines' ),
 					'shortexp' 	=> __( "Select and Style Your Site's Text Inputs and Textareas", 'pagelines' ),
-					'exp' 		=> __( 'This options sets the typography for general text inputs and textarea inputs. This includes default WordPress comment fields, etc.. <br/><br/> This option makes use of the <a href="http://code.google.com/webfonts">Google fonts API</a> to vastly increase the number of websafe fonts you can use.<br/><strong>*</strong> Denotes web safe fonts<br/><strong>G</strong> Denotes Google fonts<br/><br/><strong>Note:</strong> the <strong>preview</strong> pane represents the font in your current browser and OS. If developing locally, Google fonts require an internet connection.', 'pagelines' ),
+					'exp' 		=> __( "This options sets the typography for general text inputs and textarea inputs. This includes default WordPress comment fields, etc.. <br/><br/> This option makes use of the <a href='http://code.google.com/webfonts'>Google fonts API</a> to vastly increase the number of websafe fonts you can use.<br/><strong>*</strong> Denotes web safe fonts<br/><strong>G</strong> Denotes Google fonts<br/><br/><strong>Note:</strong> the <strong>preview</strong> pane represents the font in your current browser and OS. If developing locally, Google fonts require an internet connection.", 'pagelines' ),
 			),
 
 			'typekit_script' => array(
@@ -615,7 +615,7 @@ class PageLinesOptionsArray {
 					'type' 		=> 'textarea',
 					'inputlabel'=> __( 'Terms line in footer:', 'pagelines' ),
 					'title' 	=> __( 'Site Terms Statement', 'pagelines' ),
-					'shortexp' 	=> __( 'A line in your footer for "terms and conditions text" or similar', 'pagelines' ),
+					'shortexp' 	=> __( 'A line in your footer for <strong>terms and conditions</strong> text or similar', 'pagelines' ),
 					'exp' 		=> __( "It's sometimes a good idea to give your users a terms and conditions statement so they know how they should use your service or content.", 'pagelines' )
 			)
 		);
@@ -731,7 +731,7 @@ class PageLinesOptionsArray {
 					),
 					'title'		=> __( 'Post Thumbnail Placement', 'pagelines' ),
 					'shortexp'	=> __( 'Where should the theme use post thumbnails?', 'pagelines' ),
-					'exp'		=> __( 'Use this option to control where post "featured images" or thumbnails are used. Note: The post clips option only applies when magazine layout is selected.', 'pagelines' )
+					'exp'		=> __( 'Use this option to control where post <strong>featured images</strong> or thumbnails are used. Note: The post clips option only applies when magazine layout is selected.', 'pagelines' )
 			),
 			'excerpt_handling' => array(
 					'type'		=> 'check_multi',
@@ -760,7 +760,7 @@ class PageLinesOptionsArray {
 					'default'	=> 'Read Full Article &rarr;',
 					'type'		=> 'text',
 					'inputlabel'=> __( 'Continue Reading Link Text', 'pagelines' ),
-					'title'		=> __( '"Continue Reading" Link Text (When Using Excerpts)', 'pagelines' ),						
+					'title'		=> __( '<strong>Continue Reading</strong> Link Text (When Using Excerpts)', 'pagelines' ),						
 					'shortexp'	=> __( 'The link at the end of your excerpt', 'pagelines' ),
 					'exp' 		=> __( "This text will be used as the link to your full article when viewing articles on your posts page (when excerpts are turned on).", 'pagelines' )
 			),
@@ -829,7 +829,7 @@ class PageLinesOptionsArray {
 					'inputlabel'=> __( 'Allowed Tags', 'pagelines' ),
 					'title' 	=> __( 'Allow Tags in Excerpt', 'pagelines' ),
 					'shortexp' 	=> __( 'Control which tags are stripped from excerpts', 'pagelines' ),
-					'exp' 		=> __( 'By default WordPress strips all HTML tags from excerpts. You can use this option to allow certain tags. Simply enter the allowed tags in this field. <br/>An example of allowed tags could be: <strong>&lt;p&gt;&lt;br&gt;&lt;a&gt;</strong>. <br/><br/> <strong>Note:</strong> Enter a period "<strong>.</strong>" to disallow all tags.', 'pagelines' )
+					'exp' 		=> __( 'By default WordPress strips all HTML tags from excerpts. You can use this option to allow certain tags. Simply enter the allowed tags in this field. <br/>An example of allowed tags could be: <strong>&lt;p&gt;&lt;br&gt;&lt;a&gt;</strong>. <br/><br/> <strong>Note:</strong> Enter a period <strong>.</strong> to disallow all tags.', 'pagelines' )
 			)			
 		);
 		
@@ -944,7 +944,7 @@ class PageLinesOptionsArray {
 					'inputlabel'=> __( 'CSS Rules', 'pagelines' ),
 					'title' 	=> __( 'Custom CSS', 'pagelines' ),
 					'shortexp' 	=> __( 'Insert custom CSS styling here. It will be stored in the DB and not overwritten. <br/>Note: The professional way to customize your site is using a child theme, or customization plugin', 'pagelines' ),
-					'exp' 		=> __( '<div class="theexample">Example:<br/> <strong>body{<br/> &nbsp;&nbsp;color:  #3399CC;<br/>&nbsp;&nbsp;line-height: 20px;<br/>&nbsp;&nbsp;font-size: 11px<br/>}</strong></div>Enter CSS Rules to change the style of your site.<br/><br/> A lot can be accomplished by simply changing the default styles of the <strong>body</strong> tag such as <strong>line-height</strong>, <strong>font-size</strong>, or <strong>color</strong> (as in text color).', 'pagelines' ), 
+					'exp' 		=> __( "<div class='theexample'>Example:<br/> <strong>body{<br/> &nbsp;&nbsp;color:  #3399CC;<br/>&nbsp;&nbsp;line-height: 20px;<br/>&nbsp;&nbsp;font-size: 11px<br/>}</strong></div>Enter CSS Rules to change the style of your site.<br/><br/> A lot can be accomplished by simply changing the default styles of the <strong>body</strong> tag such as <strong>line-height</strong>, <strong>font-size</strong>, or <strong>color</strong> (as in text color).", 'pagelines' ), 
 					'docslink'	=> 'http://www.pagelines.com/docs/changing-colors-fonts', 
 					'vidtitle'	=> __( 'View Customization Documentation', 'pagelines' )
 				),

@@ -159,7 +159,7 @@ class PageLinesBanners extends PageLinesSection {
 			$b = $this->load_pagelines_banners($set, $limit);
 			
 			if(empty($b)){
-				echo setup_section_notify($this, __('No Banner posts matched this page\'s criteria', 'pagelines') );
+				echo setup_section_notify($this, __( "No Banner posts matched this page's criteria", 'pagelines' ) );
 				return;
 			}
 			

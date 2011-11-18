@@ -401,7 +401,7 @@ class OptEngine {
 		if($opts != '')
 			echo $this->input_select($o['input_id'], $o['input_name'], $opts);
 		else
-			printf( __( '<div class="option_default_statement">WP menus need to be created to use this option!<br/> Edit <a href="%s">WordPress Menus</a></div>', 'pagelines' ), admin_url( 'nav-menus.php'));
+			printf( __( "<div class='option_default_statement'>WP menus need to be created to use this option!<br/> Edit <a href='%s'>WordPress Menus</a></div>", 'pagelines' ), admin_url( 'nav-menus.php'));
 			
 	}
 	
@@ -1042,7 +1042,7 @@ class OptEngine {
 	function updates_setup($oid, $o){
 		
 		if ( pagelines_check_credentials() )
-			$updates_exp = sprintf( __( 'Successfully logged in as "%s" to PageLines%s.', 'pagelines' ), get_pagelines_credentials( 'user'), ( pagelines_check_credentials( 'ssl' ) ) ? ' with a secured connection' : '' );
+			$updates_exp = sprintf( __( 'Successfully logged in as &quot;%s&quot; to PageLines%s.', 'pagelines' ), get_pagelines_credentials( 'user'), ( pagelines_check_credentials( 'ssl' ) ) ? ' with a secured connection' : '' );
 
 		if ( pagelines_check_credentials( 'error' ) === 'creds' ) 
 				$updates_exp = sprintf( __( 'ERROR: %1$s<br />There was a problem logging in to PageLines.', 'pagelines' ), pagelines_check_credentials( 'message' ) );
@@ -1051,7 +1051,7 @@ class OptEngine {
 			$updates_exp .= __( '<br />Developer edition enabled.', 'pagelines' );
 			
 		if ( get_pagelines_credentials( 'user' ) === '' || get_pagelines_credentials( 'pass' ) === '' )
-			$updates_exp = __( 'Please set your PageLines login credentials.<br />No account yet? <a href="https://www.pagelines.com/launchpad/login.php">Get one now</a>.', 'pagelines' );
+			$updates_exp = __( "Please set your PageLines login credentials.<br />No account yet? <a href='https://www.pagelines.com/launchpad/login.php'>Get one now</a>.", 'pagelines' );
 
 		if ( pagelines_check_credentials( 'error' ) === 'licence' ) {
 			$updates_exp .= sprintf( '<br /><br />%s', pagelines_check_credentials( 'message' ) );
