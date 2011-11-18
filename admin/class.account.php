@@ -23,7 +23,7 @@ class PageLinesAccount {
 	 */	
 	function update_lpinfo() {
 
-		if (isset($_POST['form_submitted']) && $_POST['form_submitted'] === 'plinfo' ) {
+		if ( isset( $_POST['form_submitted'] ) && $_POST['form_submitted'] === 'plinfo' ) {
 
 			if ( isset( $_POST['creds_reset'] ) )
 				update_option( 'pagelines_extend_creds', array( 'user' => '', 'pass' => '' ) );
@@ -32,17 +32,12 @@ class PageLinesAccount {
 
 			PagelinesExtensions::flush_caches();		
 
-			wp_redirect( PLAdminPaths::account('&plinfo=true') );
+			wp_redirect( PLAdminPaths::account( '&plinfo=true' ) );
 
 			exit;
-			
 		}
 	}
-	
-
 }
-
-
 
 /**
  *
@@ -53,9 +48,9 @@ function pagelines_account_array(  ){
 
 	$d = array(
 	
-		'Your_Account'	=> array(
-			'icon'		=> PL_ADMIN_ICONS.'/rocket-fly.png',
-			'credentials' => array(
+		'Your_Account'		=> array(
+			'icon'			=> PL_ADMIN_ICONS.'/rocket-fly.png',
+			'credentials' 	=> array(
 				'version'	=> 'pro',
 				'type'		=> 'updates_setup',
 				'title'		=> __( 'Configure PageLines Account &amp; Auto Updates', 'pagelines' ),
@@ -63,8 +58,8 @@ function pagelines_account_array(  ){
 				'layout'	=> 'full',
 			)
 		),
-		'Import-Export' => array(
-			'icon'		=> PL_ADMIN_ICONS.'/extend-inout.png',
+		'Import-Export'		=> array(
+			'icon'			=> PL_ADMIN_ICONS.'/extend-inout.png',
 			'import_set'	=> array(
 				'default'	=> '',
 				'type'		=> 'import_export',
@@ -75,5 +70,5 @@ function pagelines_account_array(  ){
 		)
 	);
 
-	return apply_filters('pagelines_account_array', $d); 
+	return apply_filters( 'pagelines_account_array', $d ); 
 }

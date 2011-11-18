@@ -18,10 +18,9 @@
 
 		$this->ui = new PageLinesExtendUI;
 
-		add_action('wp_ajax_pagelines_ajax_extend_it_callback', array(&$this, 'extend_it_callback'));	
+		add_action( 'wp_ajax_pagelines_ajax_extend_it_callback', array(&$this, 'extend_it_callback' ) );	
 		add_action( 'admin_init', array(&$this, 'extension_uploader' ) );
 		add_action( 'admin_init', array(&$this, 'check_creds' ) );
-
  	}
 
 	/**
@@ -29,7 +28,7 @@
 	 * Extension AJAX callbacks
 	 * 
 	 */
-	function extend_it_callback( $uploader = false, $checked = null) {
+	function extend_it_callback( $uploader = false, $checked = null ) {
 
 		// 2. Variable Setup
 			$mode =  $_POST['extend_mode'];
@@ -187,7 +186,7 @@
 		if ( !empty($_POST['upload_check'] ) && check_admin_referer( 'pagelines_extend_upload', 'upload_check') ) {
 
 			if ( $_FILES[ $_POST['type']]['size'] == 0 ) {
-				$this->page_reload( 'pagelines_extend&extend_error=blank', null, 0);
+				$this->page_reload( 'pagelines_extend&extend_error=blank', null, 0 );
 				exit();
 			}
 
@@ -196,20 +195,19 @@
 			$filename = $_FILES[ $type ][ 'name' ];
 			$payload = $_FILES[ $type ][ 'tmp_name' ];
 				
-			if ( !preg_match( '/section-([^\.]*)\.zip/i', $filename, $out) ) {
-				$this->page_reload( 'pagelines_extend&extend_error=filename', null, 0);
+			if ( !preg_match( '/section-([^\.]*)\.zip/i', $filename, $out ) ) {
+				$this->page_reload( 'pagelines_extend&extend_error=filename', null, 0 );
 				exit();
 			}
 
 			$uploader = true;
-			$_POST['extend_mode']	=	'section_install';
-			$_POST['extend_file']	=	$payload;
-			$_POST['extend_path']	= 	$out[1];
-			$_POST['extend_type']	=	'section';
-			$_POST['extend_product']=	'';
+			$_POST['extend_mode']	= 'section_install';
+			$_POST['extend_file']	= $payload;
+			$_POST['extend_path']	= $out[1];
+			$_POST['extend_type']	= 'section';
+			$_POST['extend_product']= '';
 			$this->extend_it_callback( $uploader, null );
 			exit;
-		
 		}	
 	}
 	
@@ -217,15 +215,15 @@
 	 * See if we have filesystem permissions.
 	 * 
 	 */	
-	function check_creds( $extend = null, $context = WP_PLUGIN_DIR) {
+	function check_creds( $extend = null, $context = WP_PLUGIN_DIR ) {
 
-		if ( isset( $_GET['creds'] ) && $_POST && WP_Filesystem($_POST) )
+		if ( isset( $_GET['creds'] ) && $_POST && WP_Filesystem( $_POST ) )
 			$this->extend_it_callback( false, true );
 			
 		if ( !$extend )
 			return;			
 
-		if (false === ($creds = @request_filesystem_credentials(admin_url( 'admin.php?page=pagelines_extend&creds=yes'), $type = "", $error = false, $context, $extra_fields = array( 'extend_mode', 'extend_type', 'extend_file', 'extend_path')) ) ) {
+		if ( false === ( $creds = @request_filesystem_credentials( admin_url( 'admin.php?page=pagelines_extend&creds=yes' ), $type = "", $error = false, $context, $extra_fields = array( 'extend_mode', 'extend_type', 'extend_file', 'extend_path' ) ) ) ) {
 			exit; 
 		}	
 	}
@@ -236,7 +234,7 @@
 	 */
 	function make_url( $type, $file, $product = null ) {
 		
-		return sprintf('%s%ss/download.php?d=%s.zip%s', PL_API_FETCH, $type, $file, (isset( $product ) ) ? '&product=' . $product : '' );
+		return sprintf( '%s%ss/download.php?d=%s.zip%s', PL_API_FETCH, $type, $file, ( isset( $product ) ) ? '&product=' . $product : '' );
 		
 	}
 	
@@ -260,15 +258,15 @@
 		$admin = admin_url( sprintf( 'admin.php?r=%1$s&page=%2$s', $r, $location ) );
 		$location = ( $product ) ? $this->get_payment_link( $product ) : $admin;
 
-		printf('<script type="text/javascript">setTimeout(function(){ window.location.href = \'%s\';}, %s);</script>', $location, $time );
+		printf( '<script type="text/javascript">setTimeout(function(){ window.location.href = \'%s\';}, %s);</script>', $location, $time );
  	}
 
  	function int_download( $location, $time = 300 ) {
 	
 		$r = rand( 1,100 );
 		$admin = admin_url( sprintf( 'admin.php?r=%1$s&page=%2$s', $r, 'pagelines_extend#integrations' ) );
-		printf('<script type="text/javascript">setTimeout(function(){ window.location.href = \'%s\';}, %s);</script>', $location, $time );	
-		printf('<script type="text/javascript">setTimeout(function(){ window.location.href = \'%s\';}, %s);</script>', $admin, 700 );
+		printf( '<script type="text/javascript">setTimeout(function(){ window.location.href = \'%s\';}, %s);</script>', $location, $time );	
+		printf( '<script type="text/javascript">setTimeout(function(){ window.location.href = \'%s\';}, %s);</script>', $admin, 700 );
  	}
 
 	function sandbox( $file, $type ) {
@@ -323,7 +321,7 @@
 	
 	function version_fail( $type, $file, $path, $uploader, $checked ) {
 		
-		printf( __( 'You need to have version %s of the framework for this %s', 'pagelines' ), $file, $path);
+		printf( __( 'You need to have version %s of the framework for this %s', 'pagelines' ), $file, $path );
 		
 	}
 	
@@ -336,16 +334,16 @@
 			$this->check_creds( 'extend', WP_PLUGIN_DIR );		
 		global $wp_filesystem;
 		$skin = new PageLines_Upgrader_Skin();
-		$upgrader = new Plugin_Upgrader($skin);
+		$upgrader = new Plugin_Upgrader( $skin );
 		$destination = ( ! $uploader ) ? $this->make_url( $type, $file ) : $file;						
 		@$upgrader->install( $destination );
 
-		$this->sandbox( WP_PLUGIN_DIR . $path, 'plugin');
+		$this->sandbox( WP_PLUGIN_DIR . $path, 'plugin' );
 		activate_plugin( $path );
 		_e( 'Success', 'pagelines' );		
 		$text = '&extend_text=plugin_install#installed';
 		$time = ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) && $wp_filesystem->method != 'direct' ) ? 0 : 700; 
-		$this->page_reload( 'pagelines_extend' . $text, null, $time);
+		$this->page_reload( 'pagelines_extend' . $text, null, $time );
 		
 	}
 	
@@ -360,7 +358,7 @@
 		$text = '&extend_text=plugin_delete';
 		_e( 'Success', 'pagelines' );
 		$time = ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) ) ? 0 : 700; 
-		$this->page_reload( 'pagelines_extend' . $text, null, $time);
+		$this->page_reload( 'pagelines_extend' . $text, null, $time );
 		
 	}
 	
@@ -373,7 +371,7 @@
 		global $wp_filesystem;
 
 		$skin = new PageLines_Upgrader_Skin();
-		$upgrader = new Plugin_Upgrader($skin);
+		$upgrader = new Plugin_Upgrader( $skin );
 
 		$active = is_plugin_active( ltrim( $file, '/' ) );
 		deactivate_plugins( array( $file ) );
@@ -396,7 +394,7 @@
 	
 	function plugin_activate( $type, $file, $path, $uploader, $checked ) {
 		
-		$this->sandbox( WP_PLUGIN_DIR . $file, 'plugin');
+		$this->sandbox( WP_PLUGIN_DIR . $file, 'plugin' );
 	 	activate_plugin( $file );
 	 	_e( 'Activation complete!', 'pagelines' );
 	 	$this->page_reload( 'pagelines_extend' );
@@ -421,7 +419,7 @@
 		global $wp_filesystem;
 
 		$skin = new PageLines_Upgrader_Skin();
-		$upgrader = new Plugin_Upgrader($skin);
+		$upgrader = new Plugin_Upgrader( $skin );
 		$time = 0;
 		$url = ( $uploader ) ? $file : $this->make_url( 'section', $path );
 		if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) ) {
@@ -436,7 +434,7 @@
 					'is_multi'			=> false,
 					'hook_extra'		=> array() 
 			);
-			$out = @$upgrader->run($options);
+			$out = @$upgrader->run( $options );
 			if ( ! $uploader ) {
 				_e( 'Section Installed', 'pagelines' );
 				$time = 700;
@@ -444,9 +442,9 @@
 		}
 		$text = '&extend_text=section_install#added';
 		if ( $uploader && is_wp_error( $out ) )
-			$this->page_reload( sprintf( 'pagelines_extend&extend_error=%s', $out->get_error_code() ) , null, 0);
+			$this->page_reload( sprintf( 'pagelines_extend&extend_error=%s', $out->get_error_code() ) , null, 0 );
 		else
-			$this->page_reload( 'pagelines_extend' . $text, null, $time);
+			$this->page_reload( 'pagelines_extend' . $text, null, $time );
 		
 	}
 	
@@ -460,7 +458,7 @@
 		global $wp_filesystem;
 
 		if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) ):
-			$wp_filesystem->delete( trailingslashit( PL_EXTEND_DIR ) . $file, true, false  );
+			$wp_filesystem->delete( trailingslashit( PL_EXTEND_DIR ) . $file, true, false );
 			$time = 0;
 		else:
 			extend_delete_directory( trailingslashit( PL_EXTEND_DIR ) . $file );
@@ -469,7 +467,7 @@
 			endif;
 
 		$text = '&extend_text=section_delete';
-		$this->page_reload( 'pagelines_extend' . $text, null, $time);
+		$this->page_reload( 'pagelines_extend' . $text, null, $time );
 		
 	}
 	
@@ -513,7 +511,7 @@
 	
 	function section_activate( $type, $file, $path, $uploader, $checked ) {
 
-		$this->sandbox( $path, 'section');
+		$this->sandbox( $path, 'section' );
 		$available = get_option( 'pagelines_sections_disabled' );
 		unset( $available[$path][$file] );
 		update_option( 'pagelines_sections_disabled', $available );
@@ -525,7 +523,7 @@
 	
 	function section_deactivate( $type, $file, $path, $uploader, $checked ) {
 		
-		$disabled = get_option( 'pagelines_sections_disabled', array( 'child' => array(), 'parent' => array()) );
+		$disabled = get_option( 'pagelines_sections_disabled', array( 'child' => array(), 'parent' => array() ) );
 		$disabled[$path][$file] = true; 
 		update_option( 'pagelines_sections_disabled', $disabled );
 		// Output
@@ -543,7 +541,7 @@
 			$this->check_creds( 'extend', PL_EXTEND_THEMES_DIR );
 		}			
 		$skin = new PageLines_Upgrader_Skin();
-		$upgrader = new Theme_Upgrader($skin);
+		$upgrader = new Theme_Upgrader( $skin );
 		global $wp_filesystem;
 		@$upgrader->install( $this->make_url( $type, $file, $product ) );
 
@@ -555,7 +553,7 @@
 		endif;
 		// Output
 		$text = '&extend_text=theme_install#installed';
-		$this->page_reload( 'pagelines_extend' . $text, null, $time);
+		$this->page_reload( 'pagelines_extend' . $text, null, $time );
 		
 	}
 	
@@ -568,7 +566,7 @@
 		}
 		global $wp_filesystem;
 		if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) )
-			$wp_filesystem->delete( trailingslashit( PL_EXTEND_THEMES_DIR ) . $file, true, false  );
+			$wp_filesystem->delete( trailingslashit( PL_EXTEND_THEMES_DIR ) . $file, true, false );
 		else
 			extend_delete_directory( trailingslashit( PL_EXTEND_THEMES_DIR ) . $file );
 		if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) && $wp_filesystem->method != 'direct' ):
@@ -578,7 +576,7 @@
 			_e( 'Success', 'pagelines' );
 		endif;
 		$text = '&extend_text=theme_delete#installed';
-		$this->page_reload( 'pagelines_extend' . $text, null, $time);
+		$this->page_reload( 'pagelines_extend' . $text, null, $time );
 		
 	}
 	
@@ -596,10 +594,10 @@
 			switch_theme( basename( get_template_directory() ), basename( get_template_directory() ) );
 
 		$skin = new PageLines_Upgrader_Skin();
-		$upgrader = new Theme_Upgrader($skin);
+		$upgrader = new Theme_Upgrader( $skin );
 
 		if ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) ):
-			$wp_filesystem->delete( trailingslashit( PL_EXTEND_THEMES_DIR ) . $file, true, false  );
+			$wp_filesystem->delete( trailingslashit( PL_EXTEND_THEMES_DIR ) . $file, true, false );
 			$time = 0;
 		else:
 			extend_delete_directory( trailingslashit( PL_EXTEND_THEMES_DIR ) . $file );
@@ -612,7 +610,7 @@
 			switch_theme( basename( get_template_directory() ), $file );
 		// Output
 		$text = '&extend_text=theme_upgrade#installed';
-		$this->page_reload( 'pagelines_extend' . $text, null, $time);
+		$this->page_reload( 'pagelines_extend' . $text, null, $time );
 		
 	}
 	
@@ -661,6 +659,5 @@
 		include_once( ABSPATH . 'wp-admin/includes/class-wp-upgrader.php' );
 		include( PL_ADMIN . '/library.extension.php' );
 		
-	}
-	
+	}	
 }
