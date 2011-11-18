@@ -804,7 +804,7 @@
 			return $ext['text'];
 
 		if ( isset( $ext['description'] ) )
-			return $ext['description'];
+			return wp_kses( $ext['description'], array() );
 		
 		return '';
 	}

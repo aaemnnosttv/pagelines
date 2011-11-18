@@ -119,7 +119,7 @@ function pagelines_head_common(){
 	
 	// Some Credit
 	if(!VDEV)
-		echo '<!-- PageLines Professional Drag-and-Drop Framework - www.PageLines.com -->\n';
+		echo "<!-- PageLines Professional Drag-and-Drop Framework - www.PageLines.com -->\n";
 		
 	// Meta Images
 	if(ploption('pagelines_favicon'))
