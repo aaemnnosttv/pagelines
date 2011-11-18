@@ -600,7 +600,7 @@ class PageLinesTemplateBuilder {
 		foreach($sections as $key => $sid){
 			
 			
-			$pieces = explode("ID", $sid);		
+			$pieces = explode('ID', $sid);		
 			$section = (string) $pieces[0];
 			$clone_id = (isset($pieces[1])) ? $pieces[1] : 1;
 			
@@ -619,7 +619,7 @@ class PageLinesTemplateBuilder {
 				
 				// The name of the section
 				$clone = ($clone_id != 1) ? ' #'.$clone_id : '';
-				$check_label = ucfirst($check_type)." " . $section_data->name.$clone;
+				$check_label = ucfirst($check_type).' ' . $section_data->name.$clone;
 
 				?>
 				<div class="sc_wrap <?php echo 'type_'.$check_type;?>" >

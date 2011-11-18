@@ -206,17 +206,17 @@ class PageLinesLayout {
 		
 		
 		function set_wrap_dimensions(){
-			if($this->layout_mode == "two-sidebar-center"){
+			if($this->layout_mode == 'two-sidebar-center'){
 				$this->column_wrap->width = $this->main_content->width + $this->sidebar1->width;
 				$this->sidebar_wrap->width = $this->sidebar2->width;
 				
 				$this->clip->width = ($this->main_content->width - (3 * $this->gutter->width))/2 ;
 				
-			}elseif($this->layout_mode == "two-sidebar-right" || $this->layout_mode == "two-sidebar-left"){
+			}elseif($this->layout_mode == 'two-sidebar-right' || $this->layout_mode == 'two-sidebar-left'){
 				$this->column_wrap->width = $this->main_content->width;
 				$this->sidebar_wrap->width = $this->sidebar1->width + $this->sidebar2->width;
 				$this->clip->width = ($this->main_content->width - (2 * $this->gutter->width))/2 ;
-			}elseif($this->layout_mode == "one-sidebar-right" || $this->layout_mode == "one-sidebar-left"){
+			}elseif($this->layout_mode == 'one-sidebar-right' || $this->layout_mode == 'one-sidebar-left'){
 				$this->column_wrap->width = $this->main_content->width;
 				$this->sidebar_wrap->width = $this->sidebar1->width;
 				

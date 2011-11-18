@@ -242,9 +242,9 @@
 			if ( file_exists( sprintf( '%s/themes/%s/style.css', WP_CONTENT_DIR, $key ) ) )
 				$exists = true;
 			
-			if ( $tab === 'featured' && $ext['featured'] === "true" ) 
+			if ( $tab === 'featured' && $ext['featured'] === 'true' ) 
 				return true;
-			elseif ( $tab === 'featured' && $ext['featured'] === "false" ) 
+			elseif ( $tab === 'featured' && $ext['featured'] === 'false' ) 
 				return false;
 				
 			elseif ( ( $tab == 'premium' || $tab == 'featured' )  && $ext['price'] == 'free' ) 

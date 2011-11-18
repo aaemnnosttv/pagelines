@@ -135,7 +135,7 @@ class PageLinesTemplate {
 			return 'single';
 		elseif( isset($_GET['page']) && $_GET['page'] == 'pagelines' )
 			return 'posts';
-		elseif( isset($post) && !empty($post->page_template) && $post->post_type == "page" ) {
+		elseif( isset($post) && !empty($post->page_template) && $post->post_type == 'page' ) {
 			$page_filename = str_replace('.php', '', $post->page_template);
 			$template_name = str_replace('page.', '', $page_filename);
 			return $template_name;
@@ -483,7 +483,7 @@ class PageLinesTemplate {
 		$pre = (isset($in_area[$key-1])) ? $in_area[$key-1] : $this->conjugation_adjacent_area($hook, 'prev');
 		$next = (isset($in_area[$key+1])) ? $in_area[$key+1] : $this->conjugation_adjacent_area($hook, 'next');
 
-		$pieces = explode("ID", $pre);		
+		$pieces = explode('ID', $pre);		
 		$pre_section = $pieces[0];
 
 		if($pre == 'top') 
@@ -493,7 +493,7 @@ class PageLinesTemplate {
 		else 
 			$pre_class = 'top';
 			
-		$pieces = explode("ID", $next);		
+		$pieces = explode('ID', $next);		
 		$post_section = $pieces[0];	
 			
 		if($next == 'bottom') 

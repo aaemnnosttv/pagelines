@@ -32,16 +32,16 @@ class PageLinesBoxes extends PageLinesSection {
 				);
 			$taxonomies = array(
 				$this->taxID => array(	
-						"label" => __('Box Sets', 'pagelines'), 
-						"singular_label" => __('Box Set', 'pagelines'), 
+						'label' => __('Box Sets', 'pagelines'), 
+						'singular_label' => __('Box Set', 'pagelines'), 
 					)
 			);
 			$columns = array(
-				"cb"	 		=> "<input type=\"checkbox\" />",
-				"title" 		=> "Title",
-				"bdescription" 	=> "Text",
-				"bmedia" 		=> "Media",
-				$this->taxID 	=> "Box Sets"
+				'cb'	 		=> "<input type=\"checkbox\" />",
+				'title' 		=> 'Title',
+				'bdescription' 	=> 'Text',
+				'bmedia' 		=> 'Media',
+				$this->taxID 	=> 'Box Sets'
 			);
 		
 			$this->post_type = new PageLinesPostType( $this->ptID, $args, $taxonomies, $columns, array(&$this, 'column_display'));
@@ -71,7 +71,7 @@ class PageLinesBoxes extends PageLinesSection {
 			
 			$type_metapanel_settings = array(
 					'id' 		=> 'boxes-metapanel',
-					'name' 		=> THEMENAME." Box Options",
+					'name' 		=> THEMENAME.' Box Options',
 					'posttype' 	=> $post_types,
 				);
 			
@@ -81,7 +81,7 @@ class PageLinesBoxes extends PageLinesSection {
 			
 			$type_metatab_settings = array(
 				'id' 		=> 'boxes-type-metatab',
-				'name' 		=> "Box Setup Options",
+				'name' 		=> 'Box Setup Options',
 				'icon' 		=> $this->icon,
 			);
 
@@ -118,9 +118,9 @@ class PageLinesBoxes extends PageLinesSection {
 						'type' 		=> 'radio',
 						'default'	=> 'inline_thumbs',
 						'selectvalues'	=> array(
-								'inline_thumbs'	=> array("name" => "Image At Left"),
-								'top_thumbs'	=> array("name" => "Image On Top"), 
-								'only_thumbs'	=> array("name" => "Only The Image, No Text")
+								'inline_thumbs'	=> array('name' => 'Image At Left'),
+								'top_thumbs'	=> array('name' => 'Image On Top'), 
+								'only_thumbs'	=> array('name' => "Only The Image, No Text")
 							), 
 						'title' => 'Box Thumb Style',				
 						'shortexp' => 'Choose between thumbs on left and thumbs on top of boxes.',
@@ -132,7 +132,7 @@ class PageLinesBoxes extends PageLinesSection {
 						'type' 			=> 'text',
 						'size'			=> 'small',
 						'title' 		=> 'Box Icon Size (in Pixels)',
-						'inputlabel' 		=> "Enter the icon size in pixels",
+						'inputlabel' 		=> 'Enter the icon size in pixels',
 						'shortexp' 			=> "Select the default icon size in pixels, set the images when creating new boxes.",
 					),
 					'box_items' => array(
@@ -148,7 +148,7 @@ class PageLinesBoxes extends PageLinesSection {
 
 			$tab_settings = array(
 					'id' 		=> 'fboxes_meta',
-					'name' 		=> "Boxes Section",
+					'name' 		=> 'Boxes Section',
 					'icon' 		=> $this->icon, 
 					'clone_id'	=> $settings['clone_id'], 
 					'active'	=> $settings['active']
@@ -295,10 +295,10 @@ class PageLinesBoxes extends PageLinesSection {
 		global $post;
 
 		switch ($column){
-			case "bdescription":
+			case 'bdescription':
 				the_excerpt();
 				break;
-			case "bmedia":
+			case 'bmedia':
 				if(get_post_meta($post->ID, 'the_box_icon', true ))
 					echo '<img src="'.get_post_meta($post->ID, 'the_box_icon', true ).'" style="max-width: 80px; margin: 10px; border: 1px solid #ccc; padding: 5px; background: #fff" />';	
 	

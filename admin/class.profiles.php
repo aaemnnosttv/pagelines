@@ -90,7 +90,7 @@ class ProfileEngine {
 				'title' 	=> 'Profile Options',
 				'tag' 		=> false,
 				'type'		=> 'profile',
-				'stext' 	=> __("Save Profile Options",'pagelines'),
+				'stext' 	=> __('Save Profile Options','pagelines'),
 				'tabs' 		=> $this->tabs, 
 				'user'		=> $user
 			);

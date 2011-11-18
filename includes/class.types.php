@@ -37,7 +37,7 @@ class PageLinesPostType {
 				'hierarchical' 		=> false,  
 				'rewrite' 			=> false,  
 				'supports' 			=> array( 'title', 'editor', 'thumbnail' ), 
-				'menu_icon' 		=> PL_ADMIN_IMAGES . "/favicon-pagelines.ico", 
+				'menu_icon' 		=> PL_ADMIN_IMAGES . '/favicon-pagelines.ico', 
 				'taxonomies'		=> array(),
 				'menu_position'		=> 20, 
 				'featured_image'	=> false, 
@@ -117,10 +117,10 @@ class PageLinesPostType {
 			foreach($this->taxonomies as $tax_id => $tax_settings){
 			
 				$defaults = array(
-					"hierarchical" 		=> true, 
-					"label" 			=> '', 
-					"singular_label" 	=> '', 
-					"rewrite" 			=> true
+					'hierarchical' 		=> true, 
+					'label' 			=> '', 
+					'singular_label' 	=> '', 
+					'rewrite' 			=> true
 				);
 					
 				$a = wp_parse_args($tax_settings, $defaults);
@@ -136,7 +136,7 @@ class PageLinesPostType {
 		
 		add_filter("manage_edit-{$this->id}_columns", array(&$this, 'set_columns'));
 		
-		add_action("manage_posts_custom_column",  array(&$this, 'set_column_values'));
+		add_action('manage_posts_custom_column',  array(&$this, 'set_column_values'));
 	}
 		
 	function set_columns( $columns ){ 

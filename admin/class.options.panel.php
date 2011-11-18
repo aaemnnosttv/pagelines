@@ -180,11 +180,4 @@ class PLPanel {
 		
 		<?php
 	}
-	
-
 }
-
-
-
-
-

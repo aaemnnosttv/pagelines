@@ -40,7 +40,7 @@ class PageLinesOptionsUI {
 		
 		$this->primary_settings = ($this->set['settings'] == PAGELINES_SETTINGS) ? true : false;
 		
-		$this->tab_cookie = 'PLTab_'.$this->set["settings"];
+		$this->tab_cookie = 'PLTab_'.$this->set['settings'];
 		
 		
 		

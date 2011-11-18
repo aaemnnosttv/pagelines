@@ -302,9 +302,9 @@ class PageLinesColor {
 		$g = $rgb['green'];
 		$b = $rgb['blue'];
 		
-		$rhex = sprintf( "%02X", round($r) );
-		$ghex = sprintf( "%02X", round($g) );
-		$bhex = sprintf( "%02X", round($b) );
+		$rhex = sprintf( '%02X', round($r) );
+		$ghex = sprintf( '%02X', round($g) );
+		$bhex = sprintf( '%02X', round($b) );
 
 		$hex = $rhex.$ghex.$bhex;
 		

@@ -127,7 +127,7 @@ function pagelines_post_author_link_shortcode($atts) {
 	if ( get_the_author_meta('url') ) {
 		
 		//	Build the link
-		$author = '<a href="' . get_the_author_meta('url') . '" title="' . esc_attr( sprintf(__("Visit %s&#8217;s website", 'pagelines'), $author) ) . '" rel="external">' . $author . '</a>';
+		$author = '<a href="' . get_the_author_meta('url') . '" title="' . esc_attr( sprintf(__('Visit %s&#8217;s website', 'pagelines'), $author) ) . '" rel="external">' . $author . '</a>';
 		
 	}
 	

@@ -433,7 +433,7 @@ function draw_features($f, $class, $clone_id = null) {
 			
 			$pt_panel = array(
 					'id' 		=> 'feature-metapanel',
-					'name' 		=> "Feature Setup Options",
+					'name' 		=> 'Feature Setup Options',
 					'posttype' 	=> $post_types, 
 					'hide_tabs'	=> true
 				);
@@ -443,7 +443,7 @@ function draw_features($f, $class, $clone_id = null) {
 			
 			$pt_tab = array(
 				'id' 		=> 'feature-type-metatab',
-				'name' 		=> "Feature Setup Options",
+				'name' 		=> 'Feature Setup Options',
 				'icon' 		=> $this->icon,
 			);
 			
@@ -462,16 +462,16 @@ function draw_features($f, $class, $clone_id = null) {
 				);	
 			$taxonomies = array(
 				$this->taxID => array(	
-						"label" => __('Feature Sets', 'pagelines'), 
-						"singular_label" => __('Feature Set', 'pagelines'), 
+						'label' => __('Feature Sets', 'pagelines'), 
+						'singular_label' => __('Feature Set', 'pagelines'), 
 					)
 			);
 			$columns = array(
-				"cb" 					=> "<input type=\"checkbox\" />",
-				"title" 				=> "Title",
-				"feature-description" 	=> "Text",
-				"feature-media" 		=> "Media",
-				$this->taxID			=> "Feature Sets"
+				'cb' 					=> "<input type=\"checkbox\" />",
+				'title' 				=> 'Title',
+				"feature-description" 	=> 'Text',
+				"feature-media" 		=> 'Media',
+				$this->taxID			=> 'Feature Sets'
 			);
 		
 		
@@ -492,7 +492,7 @@ function draw_features($f, $class, $clone_id = null) {
 							'type' 			=> 'text_small',
 							'inputlabel' 	=> 'Enter the height (In Pixels) of the Feature Stage Area',
 							'title' 		=> 'Feature Area Height',
-							'shortexp' 		=> "Use this feature to change the height of your feature area",
+							'shortexp' 		=> 'Use this feature to change the height of your feature area',
 							'exp' 			=> "To change the height of your feature area, just enter a number in pixels here.",
 					),
 					'feature_items' 	=> array(
@@ -515,7 +515,7 @@ function draw_features($f, $class, $clone_id = null) {
 						'exp' 			=> 'If you are using the feature section, select the feature set you would like to show on this page.'
 					), 
 					'feature_nav_type' => array(
-						'default' => "thumbs",
+						'default' => 'thumbs',
 						'version'	=> 'pro',
 						'type' => 'radio',
 						'selectvalues' => array(
@@ -527,7 +527,7 @@ function draw_features($f, $class, $clone_id = null) {
 						),
 						'inputlabel' => 'Feature navigation type?',
 						'title' => 'Feature Navigation Mode',
-						'shortexp' => "Select the mode for your feature navigation",
+						'shortexp' => 'Select the mode for your feature navigation',
 						'exp' => "Select from the three modes. Using feature names will use the names of the features, using the numbers will use incremental numbers, thumbnails will use feature thumbnails if provided.", 
 						'docslink'		=> 'http://www.pagelines.com/docs/feature-slider', 
 						'vidtitle'		=> 'View Feature Documentation'
@@ -557,7 +557,7 @@ function draw_features($f, $class, $clone_id = null) {
 							'selectvalues' => array('blindX', 'blindY', 'blindZ', 'cover', 'curtainX', 'curtainY', 'fade', 'fadeZoom', 'growX', 'growY', 'none', 'scrollUp', 'scrollDown', 'scrollLeft', 'scrollRight', 'scrollHorz', 'scrollVert','shuffle','slideX','slideY','toss','turnUp','turnDown','turnLeft','turnRight','uncover','wipe','zoom'),
 							'inputlabel' => 'Select Transition Effect',
 							'title' => 'Transition Effect',
-							'shortexp' => "How the features transition",
+							'shortexp' => 'How the features transition',
 							'exp' => "This controls the mode with which the features transition to one another."
 						),
 					'feature_playpause' => array(
@@ -574,12 +574,12 @@ function draw_features($f, $class, $clone_id = null) {
 							'version'	=> 'pro',
 							'type' => 'select',
 							'selectvalues' => array(
-								'featureposts' 	=> array("name" => 'Feature Posts (custom post type)'),
-								'posts' 		=> array("name" => 'Use Post Category'),
+								'featureposts' 	=> array('name' => 'Feature Posts (custom post type)'),
+								'posts' 		=> array('name' => 'Use Post Category'),
 							),
 							'inputlabel' => 'Select source',
 							'title' => 'Feature Post Source',
-							'shortexp' => "Use feature posts or a post category",
+							'shortexp' => 'Use feature posts or a post category',
 							'exp' => "By default the feature section will use feature posts, you can also set the source for features to a blog post category. Set the category ID in its option below. <br/> <strong>NOTE: If set to posts, excerpts will be used as content (control length through them). Also a new option panel will be added on post creation and editing pages.</strong>"
 						),
 					'feature_category' => array(
@@ -589,7 +589,7 @@ function draw_features($f, $class, $clone_id = null) {
 							'selectvalues' => $this->get_cats(),
 							'title' => 'Post Category (Blog Post Mode Only)',
 							'shortexp' => "",
-							'exp' => "Select a category to use if sourcing features from blog posts"
+							'exp' => 'Select a category to use if sourcing features from blog posts'
 						),
 					'fremovesync' => array(
 							'default' => false,
@@ -597,14 +597,14 @@ function draw_features($f, $class, $clone_id = null) {
 							'version'	=> 'pro',
 							'inputlabel' => 'Remove Transition Syncing',
 							'title' => 'Remove Feature Transition Syncing',
-							'shortexp' => "Make features wait to move on until after the previous one has cleared the screen",
+							'shortexp' => 'Make features wait to move on until after the previous one has cleared the screen',
 							'exp' => "This controls whether features can move on to the screen while another is transitioning off. If removed features will have to leave the screen before the next can transition on to it."
 						)
 				);
 
 			$metatab_settings = array(
 					'id' 		=> 'feature_meta',
-					'name' 		=> "Features",
+					'name' 		=> 'Features',
 					'icon' 		=> $this->icon, 
 					'clone_id'	=> $settings['clone_id'], 
 					'active'	=> $settings['active']

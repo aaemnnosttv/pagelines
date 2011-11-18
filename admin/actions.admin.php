@@ -59,7 +59,7 @@ function pagelines_ajax_callback() {
 	$setting = $_POST['setting'];
 	$button_id = $_POST['oid'];
 
-	$pieces = explode("OID", $_POST['oid']);		
+	$pieces = explode('OID', $_POST['oid']);		
 	$oid = $pieces[0];
 	$parent_oid = ( isset($pieces[1]) ) ? $pieces[1] : null;
 

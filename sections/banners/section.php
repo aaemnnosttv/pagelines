@@ -26,13 +26,13 @@ class PageLinesBanners extends PageLinesSection {
 				);
 			$taxonomies = array(
 				$this->taxID => array(	
-						"label" => __('Banner Sets', 'pagelines'), 
-						"singular_label" => __('Banner Set', 'pagelines'), 
+						'label' => __('Banner Sets', 'pagelines'), 
+						'singular_label' => __('Banner Set', 'pagelines'), 
 					)
 			);
 			$columns = array(
-				"cb" => "<input type=\"checkbox\" />",
-				"title" => "Title",
+				'cb' => "<input type=\"checkbox\" />",
+				'title' => "Title",
 				"banner-description" => "Text",
 				"banner-media" => "Media",
 				$this->taxID => "Banner Sets"
@@ -54,8 +54,8 @@ class PageLinesBanners extends PageLinesSection {
 					'version' => 'pro',
 					'type' => 'select',
 					'selectvalues'	=> array(
-							'banner_right'	=> array("name" => "Banner Right"),
-							'banner_left'	=> array("name" => "Banner Left")
+							'banner_right'	=> array('name' => 'Banner Right'),
+							'banner_left'	=> array('name' => 'Banner Left')
 						), 
 					'title' => 'Banner Alignment',				
 					'shortexp' => 'Put the media on the right or the left?',
@@ -92,7 +92,7 @@ class PageLinesBanners extends PageLinesSection {
 
 			$type_metapanel_settings = array(
 					'id' 		=> 'banner-metapanel',
-					'name' 		=> "Banner Setup Options",
+					'name' 		=> 'Banner Setup Options',
 					'posttype' 	=> $post_types, 
 					'hide_tabs'	=> true
 				);
@@ -101,7 +101,7 @@ class PageLinesBanners extends PageLinesSection {
 
 			$type_metatab_settings = array(
 				'id' 		=> 'banner-type-metatab',
-				'name' 		=> "Banner Setup Options",
+				'name' 		=> 'Banner Setup Options',
 				'icon' 		=> $this->icon,
 			);
 
@@ -140,7 +140,7 @@ class PageLinesBanners extends PageLinesSection {
 
 		$metatab_settings = array(
 				'id' 		=> 'banner_page_meta',
-				'name' 		=> "Banner Section",
+				'name' 		=> 'Banner Section',
 				'icon' 		=>  $this->icon,
 				'clone_id'	=> $settings['clone_id'], 
 				'active'	=> $settings['active']

@@ -622,10 +622,10 @@ function pagelines_import_export(){
 
 			if ( isset($options) && is_array( $options) ) {
 				
-				header("Cache-Control: public, must-revalidate");
-				header("Pragma: hack");
-				header("Content-Type: text/plain");
-				header( 'Content-Disposition: attachment; filename="' . THEMENAME . '-Settings-' . date("Ymd") . '.dat"' );						
+				header('Cache-Control: public, must-revalidate');
+				header('Pragma: hack');
+				header('Content-Type: text/plain');
+				header( 'Content-Disposition: attachment; filename="' . THEMENAME . '-Settings-' . date('Ymd') . '.dat"' );						
 				echo json_encode( $options );
 				exit();
 			} 

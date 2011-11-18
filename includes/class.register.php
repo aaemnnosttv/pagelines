@@ -4,7 +4,7 @@
  *
  * 
  *
- * @author		Simon Prosser
+ * @author		PageLines
  * @copyright	2011 PageLines
  */
 

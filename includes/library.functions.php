@@ -283,9 +283,9 @@ function pagelines_bbpress_forum(){
 function show_query_analysis(){
 	if (current_user_can('administrator')){
 	    global $wpdb;
-	    echo "<pre>";
+	    echo '<pre>';
 	    print_r($wpdb->queries);
-	    echo "</pre>";
+	    echo '</pre>';
 	}
 }
 
@@ -385,7 +385,7 @@ function improved_trim_excerpt($text) {
 		$excerpt_length = apply_filters('excerpt_length', $excerpt_len );
 		$excerpt_more = apply_filters('excerpt_more', ' ' . '[...]');
 		
-		$words = preg_split("/[\n\r\t ]+/", $text, $excerpt_length + 1, PREG_SPLIT_NO_EMPTY);
+		$words = preg_split('/[\n\r\t ]+/', $text, $excerpt_length + 1, PREG_SPLIT_NO_EMPTY);
 		
 		if ( count($words) > $excerpt_length ) {
 			array_pop($words);
@@ -579,7 +579,7 @@ add_filter('request_filesystem_credentials', '__return_true' );
 
 		global $wp_filesystem;
 		if ( ! $wp_filesystem->put_contents( PAGELINES_DCSS, $txt, FS_CHMOD_FILE) ) {
-			echo "error saving file!";
+			echo 'error saving file!';
 			return false;
 		}
 	}

@@ -286,7 +286,7 @@ function pagelines_admin_confirms(){
 	
 		if( $_GET['pageaction']=='activated' && !isset($_GET['settings-updated']) ){
 			$confirms['activated']['text'] = sprintf( __( 'Congratulations! %s Has Been Successfully Activated.', 'pagelines' ), NICECHILDTHEMENAME );
-			$confirms['activated']['class'] = "activated";
+			$confirms['activated']['class'] = 'activated';
 		}
 	
 		elseif( $_GET['pageaction']=='import' && isset($_GET['imported'] )){

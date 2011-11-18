@@ -119,7 +119,7 @@ function pagelines_head_common(){
 	
 	// Some Credit
 	if(!VDEV)
-		echo "<!-- PageLines Professional Drag-and-Drop Framework - www.PageLines.com -->\n";
+		echo '<!-- PageLines Professional Drag-and-Drop Framework - www.PageLines.com -->\n';
 		
 	// Meta Images
 	if(ploption('pagelines_favicon'))
@@ -397,14 +397,14 @@ function blank_nav_fallback() {
  */
 function pagelines_page_subnav(){ 
 	global $post; 
-	if(!is_404() && isset($post) && is_object($post) && !pagelines_option('hide_sub_header') && ($post->post_parent || wp_list_pages("title_li=&child_of=".$post->ID."&echo=0"))):?>
+	if(!is_404() && isset($post) && is_object($post) && !pagelines_option('hide_sub_header') && ($post->post_parent || wp_list_pages('title_li=&child_of='.$post->ID.'&echo=0'))):?>
 	<ul class="secondnav_menu lcolor3">
 		<?php 
 			if(count($post->ancestors)>=2){
 				$reverse_ancestors = array_reverse($post->ancestors);
-				$children = wp_list_pages("title_li=&depth=1&child_of=".$reverse_ancestors[0]."&echo=0&sort_column=menu_order");	
-			}elseif($post->post_parent){ $children = wp_list_pages("title_li=&depth=1&child_of=".$post->post_parent."&echo=0&sort_column=menu_order");
-			}else{	$children = wp_list_pages("title_li=&depth=1&child_of=".$post->ID."&echo=0&sort_column=menu_order");}
+				$children = wp_list_pages('title_li=&depth=1&child_of='.$reverse_ancestors[0].'&echo=0&sort_column=menu_order');	
+			}elseif($post->post_parent){ $children = wp_list_pages('title_li=&depth=1&child_of='.$post->post_parent.'&echo=0&sort_column=menu_order');
+			}else{	$children = wp_list_pages('title_li=&depth=1&child_of='.$post->ID.'&echo=0&sort_column=menu_order');}
 
 			if ($children) { echo $children;}
 		?>
@@ -467,24 +467,24 @@ function pagelines_settings_menu_link(  ){
 		return;
 
 
-	$wp_admin_bar->add_menu( array( 'id' => 'pl_settings', 'title' => __("PageLines", 'pagelines'), 'href' => admin_url( 'admin.php?page=pagelines' ) ) );
-	$wp_admin_bar->add_menu( array( 'id' => 'pl_main_settings', 'parent' => 'pl_settings', 'title' => __("Settings", 'pagelines'), 'href' => admin_url( 'admin.php?page=pagelines' ) ) );
-	$wp_admin_bar->add_menu( array( 'id' => 'pl_templates', 'parent' => 'pl_settings', 'title' => __("Templates", 'pagelines'), 'href' => admin_url( 'admin.php?page=pagelines_templates' ) ) );
-	$wp_admin_bar->add_menu( array( 'id' => 'pl_special', 'parent' => 'pl_settings', 'title' => __("Special", 'pagelines'), 'href' => admin_url( 'admin.php?page=pagelines_special' ) ) );
-	$wp_admin_bar->add_menu( array( 'id' => 'pl_extend', 'parent' => 'pl_settings', 'title' => __("Store", 'pagelines'), 'href' => admin_url( 'admin.php?page=pagelines_extend' ) ) );
-	$wp_admin_bar->add_menu( array( 'id' => 'pl_account', 'parent' => 'pl_settings', 'title' => __("Account", 'pagelines'), 'href' => admin_url( 'admin.php?page=pagelines_account' ) ) );
+	$wp_admin_bar->add_menu( array( 'id' => 'pl_settings', 'title' => __('PageLines', 'pagelines'), 'href' => admin_url( 'admin.php?page=pagelines' ) ) );
+	$wp_admin_bar->add_menu( array( 'id' => 'pl_main_settings', 'parent' => 'pl_settings', 'title' => __('Settings', 'pagelines'), 'href' => admin_url( 'admin.php?page=pagelines' ) ) );
+	$wp_admin_bar->add_menu( array( 'id' => 'pl_templates', 'parent' => 'pl_settings', 'title' => __('Templates', 'pagelines'), 'href' => admin_url( 'admin.php?page=pagelines_templates' ) ) );
+	$wp_admin_bar->add_menu( array( 'id' => 'pl_special', 'parent' => 'pl_settings', 'title' => __('Special', 'pagelines'), 'href' => admin_url( 'admin.php?page=pagelines_special' ) ) );
+	$wp_admin_bar->add_menu( array( 'id' => 'pl_extend', 'parent' => 'pl_settings', 'title' => __('Store', 'pagelines'), 'href' => admin_url( 'admin.php?page=pagelines_extend' ) ) );
+	$wp_admin_bar->add_menu( array( 'id' => 'pl_account', 'parent' => 'pl_settings', 'title' => __('Account', 'pagelines'), 'href' => admin_url( 'admin.php?page=pagelines_account' ) ) );
 
 	$template_name = (isset($pagelines_template->template_name)) ? $pagelines_template->template_name : false;
 
 	if( $template_name ){
-		$page_type = __("Current Page: ", 'pagelines') . ucfirst($template_name );
+		$page_type = __('Current Page: ', 'pagelines') . ucfirst($template_name );
 		$wp_admin_bar->add_menu( array( 'id' => 'template_type', 'title' => $page_type, 'href' => admin_url( 'admin.php?page=pagelines_templates' ) ) );
 	}
 	
 	$spurl = pl_special_url( $template_name );
 	
 	if( $template_name && is_pagelines_special() && $spurl){
-		$wp_admin_bar->add_menu( array( 'id' => 'special_settings', 'title' => __("Edit Special", 'pagelines'), 'href' => $spurl ) );
+		$wp_admin_bar->add_menu( array( 'id' => 'special_settings', 'title' => __('Edit Special', 'pagelines'), 'href' => $spurl ) );
 	}
 }
 

@@ -9,4 +9,4 @@
 
 */
 
-require_once(get_template_directory() . "/includes/init.php");
+require_once(get_template_directory() . '/includes/init.php');

@@ -60,7 +60,7 @@ class PageLinesMetaPanel {
 			return;	
 			
 		// Adds the box
-			add_action( "admin_menu",  array(&$this, 'add_metapanel_box') );
+			add_action( 'admin_menu',  array(&$this, 'add_metapanel_box') );
 		
 		// Saves the options.
 			add_action( 'save_post', array(&$this, 'save_meta_options') );
@@ -80,7 +80,7 @@ class PageLinesMetaPanel {
 					continue;
 			}
 			
-			add_meta_box($this->settings['id'], $this->settings['name'], "pagelines_metapanel_callback", $post_type, $this->settings['location'], $this->settings['priority'], array( $this ));
+			add_meta_box($this->settings['id'], $this->settings['name'], 'pagelines_metapanel_callback', $post_type, $this->settings['location'], $this->settings['priority'], array( $this ));
 		}
 			
 		
@@ -256,7 +256,7 @@ class PageLinesMetaPanel {
 				'title' 	=> $this->settings['name'],
 				'tag' 		=> ui_key($this->get_edit_type()),
 				'type'		=> 'meta',
-				'stext' 	=> __("Save Meta Settings",'pagelines'),
+				'stext' 	=> __('Save Meta Settings','pagelines'),
 				'tabs' 		=> $this->tabs, 
 				'hidetabs'	=> $this->hide_tabs, 
 				'post_ID'	=> $post_ID, 
@@ -552,7 +552,7 @@ function do_global_meta_options(){
 	
 	$metatab_settings = array(
 			'id' 	=> 'general_page_meta',
-			'name' 	=> __( "Page Setup", 'pagelines' ),
+			'name' 	=> __( 'Page Setup', 'pagelines' ),
 			'icon' 	=>  PL_ADMIN_ICONS . '/ileaf.png'
 		);
 

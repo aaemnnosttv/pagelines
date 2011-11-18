@@ -25,7 +25,7 @@ if( floatval( phpversion() ) < 5.0 ) {
  */
 do_action('pagelines_hook_pre', 'core'); // Hook
 
-define('PL_INCLUDES', get_template_directory() . "/includes");
+define('PL_INCLUDES', get_template_directory() . '/includes');
 
 /**
  * Setup all the globals for the framework

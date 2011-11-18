@@ -500,7 +500,7 @@ class PageLinesFoundry {
 		$t = wp_parse_args($typesettings, $defaults);
 
 		if(isset($t['font']) && !empty($t['font'])) {
-			$pre = (!empty($t['prepend'])) ? trim(trim($t['prepend']), ",") . ',' : '';
+			$pre = (!empty($t['prepend'])) ? trim(trim($t['prepend']), ',') . ',' : '';
 			$type_css = 'font-family:' . $pre . $this->get_stack($t['font']) .';';	
 		}
 		
@@ -542,12 +542,12 @@ class PageLinesFoundry {
 
 						$type_selectors = $o['selectors']; 
 
-						if( isset($type['selectors']) && !empty($type['selectors']) ) $type_selectors .=  ',' . trim(trim($type['selectors']), ",");
+						if( isset($type['selectors']) && !empty($type['selectors']) ) $type_selectors .=  ',' . trim(trim($type['selectors']), ',');
 
 						$type_css = $this->get_type_css($type);
 					
 					
-						$type_css_keys[] = $type_selectors . "{".$type_css."}";
+						$type_css_keys[] = $type_selectors . '{'.$type_css.'}';
 					}
 					
 				}

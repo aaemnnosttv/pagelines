@@ -53,7 +53,7 @@ class PageLinesOptionsArray {
 				'inputlabel' 	=> __( 'Upload custom logo', 'pagelines' ),
 				'title'			=> __( 'Custom Header Image', 'pagelines' ),						
 				'shortexp' 		=> __( 'Input Full URL to your custom header or logo image', 'pagelines' ),
-				'exp' 			=> __( 'Optional way to replace "heading" and "description" text for your website ' . 
+				'exp' 			=> __( 'Optional way to replace <strong>heading</strong> and <strong>description</strong> text for your website ' . 
 						    		'with an image.', 'pagelines' )
 			),
 			'pagelines_favicon'		=> array(
@@ -62,8 +62,8 @@ class PageLinesOptionsArray {
 				'type' 			=> 	'image_upload',
 				'imagepreview' 	=> 	'16',
 				'title' 		=> 	__( 'Favicon Image', 'pagelines' ),						
-				'shortexp' 		=> 	__( 'Input Full URL to favicon image ("favicon.ico" image file)', 'pagelines' ),
-				'exp' 			=> 	__( 'Enter the full URL location of your custom "favicon" which is visible in ' .
+				'shortexp' 		=> 	__( 'Input Full URL to favicon image (<strong>favicon.ico</strong> image file)', 'pagelines' ),
+				'exp' 			=> 	__( 'Enter the full URL location of your custom <strong>favicon</strong> which is visible in ' .
 							'browser favorites and tabs.<br/> <strong>Must be .png or .ico file - 16px by 16px</strong>.', 'pagelines' )
 			),		
 			'twittername' => array(
@@ -81,7 +81,7 @@ class PageLinesOptionsArray {
 				'inputlabel'	=> 'Upload Icon (80px Height)',
 				'imagepreview' 	=> 	'60',
 				'title' 		=> __( 'Login Page Image', 'pagelines' ),						
-				'shortexp' 		=> __( 'The image to use on your site\'s login page', 'pagelines' ),
+				'shortexp' 		=> __( "The image to use on your site's login page", 'pagelines' ),
 				'exp'			=> __( 'This image will be used on the login page to your admin. Use an image that is approximately <strong>80px</strong> in height.', 'pagelines' )
 			),
 			'pagelines_touchicon'	=> array(
@@ -111,8 +111,8 @@ class PageLinesOptionsArray {
 					'version'	=> 'pro',
 					'type' 		=> 'select',
 					'selectvalues'	=> array(
-						'top'		=> array("name" => __( 'On Top of Sidebar', 'pagelines') ),
-						'bottom'	=> array("name" => __( 'On Bottom of Sidebar', 'pagelines') )
+						'top'		=> array('name' => __( 'On Top of Sidebar', 'pagelines') ),
+						'bottom'	=> array('name' => __( 'On Bottom of Sidebar', 'pagelines') )
 					),
 					'inputlabel' 	=> __( 'Sidebar Wrap Widgets Position', 'pagelines' ),
 					'title' 	=> __( 'Sidebar Wrap Widgets', 'pagelines' ),
@@ -153,7 +153,7 @@ class PageLinesOptionsArray {
 				),
 				'title'		=> __( 'Layout Handling', 'pagelines' ),						
 				'shortexp'	=> __( 'Select between responsive vs. static; pixel based or percentage based layout', 'pagelines' ),
-				'exp'		=> __( 'Responsive layout adjusts to the size of your user\'s browser window; static is fixed width. Use this option to switch between the pixel based site width and a percentage based one.', 'pagelines' )
+				'exp'		=> __( "Responsive layout adjusts to the size of your user's browser window; static is fixed width. Use this option to switch between the pixel based site width and a percentage based one.", 'pagelines' )
 			),
 			'layout_default' => array(
 				'default' 	=> "one-sidebar-right",
@@ -207,13 +207,13 @@ class PageLinesOptionsArray {
 				'width'			=> '130px',
 				'layout' 		=> 'interface',	
 				'selectvalues'	=> array(
-					'full_width'	=> array("name" => __( "Full-Width Sections", 'pagelines' ), 'offset' => '0px 0px'),
-					'fixed_width'	=> array("name" => __( "Content Width Page", 'pagelines' ), "version" => "pro", 'offset' => '0px -88px')
+					'full_width'	=> array('name' => __( "Full-Width Sections", 'pagelines' ), 'offset' => '0px 0px'),
+					'fixed_width'	=> array('name' => __( "Content Width Page", 'pagelines' ), 'version' => 'pro', 'offset' => '0px -88px')
 				), 
 				'inputlabel'	=> __( 'Site Design Mode', 'pagelines' ),
 				'title'		=> __( 'Site Design Mode', 'pagelines' ),						
 				'shortexp'	=> __( 'The basic HTML layout structure for color and background effects', 'pagelines' ),
-				'exp'		=> __( 'This option controls how the basic HTML layout is built. Different layout structures change the way background colors and images behave.<ul><li><strong>Full-Width Mode</strong> Full width design mode allows you to have aspects of your site that are the full-width of your screen; while others are the width of the content area.</li><li><strong>Fixed-Width Mode</strong> Fixed width design mode creates a fixed with "page" that can be used as the area for your design.  You can set a background to the page; and the content will have a seperate "fixed-width" background area (i.e. the width of the content).</li></ul>', 'pagelines' ),
+				'exp'		=> __( 'This option controls how the basic HTML layout is built. Different layout structures change the way background colors and images behave.<ul><li><strong>Full-Width Mode</strong> Full width design mode allows you to have aspects of your site that are the full-width of your screen; while others are the width of the content area.</li><li><strong>Fixed-Width Mode</strong> Fixed width design mode creates a fixed with <strong>page</strong> that can be used as the area for your design.  You can set a background to the page; and the content will have a seperate <strong>fixed-width</strong> background area (i.e. the width of the content).</li></ul>', 'pagelines' ),
 			),	
 			'page_colors'		=> array(
 				'title' 	=> __( 'Basic Layout Colors', 'pagelines' ),						
@@ -365,7 +365,7 @@ class PageLinesOptionsArray {
 			'page_background_image' => array(
 				'title' 	=> __( 'Site Background Image (Optional)', 'pagelines' ),						
 				'shortexp' 	=> __( 'Setup A Background Image For The Background Of Your Site', 'pagelines' ),
-				'exp' 		=> __( 'Use this option to apply a background image to your site. This option will be applied to different areas depending on the design mode you have set.<br/><br/><strong>Positioning</strong> Use percentages to position the images, 0% corresponds to the "top" or "left" side, 50% to center, etc..', 'pagelines' ),
+				'exp' 		=> __( 'Use this option to apply a background image to your site. This option will be applied to different areas depending on the design mode you have set.<br/><br/><strong>Positioning</strong> Use percentages to position the images, 0% corresponds to the <strong>top</strong> or <strong>left</strong> side, 50% to center, etc..', 'pagelines' ),
 				'type' 		=> 'background_image',
 				'selectors'	=> cssgroup('page_background_image')
 			),
@@ -401,7 +401,7 @@ class PageLinesOptionsArray {
 					'selectors'	=> cssgroup('type_headers'),
 					'inputlabel' 	=> 'Select Font',
 					'title' 	=> __( 'Typography - Text Headers', 'pagelines' ),
-					'shortexp' 	=> __( 'Select and Style Your Site\'s Header Tags (H1, H2, H3...)', 'pagelines' ),
+					'shortexp' 	=> __( "Select and Style Your Site's Header Tags (H1, H2, H3...)", 'pagelines' ),
 					'exp' 		=> __( 'Set typography for your h1, h2, etc.. tags. <br/><br/><strong>*</strong> Denotes Web Safe Fonts<br/><strong>G</strong> Denotes Google Fonts<br/><br/><strong>Note:</strong> These options make use of the <a href="http://code.google.com/webfonts" target="_blank">Google fonts API</a> to vastly increase the number of websafe fonts you can use.', 'pagelines' ),
 					'pro_note'	=> __( 'The Pro version of this framework has over 50 websafe and Google fonts.', 'pagelines' )
 			),
@@ -414,7 +414,7 @@ class PageLinesOptionsArray {
 					'inputlabel'=> __( 'Select Font', 'pagelines' ),
 					'title' 	=> __( 'Typography - Primary Font', 'pagelines' ),
 					'shortexp' 	=> __( 'Select and Style The Standard Type Used In Your Site (body)', 'pagelines' ),
-					'exp' 		=> __( 'Set typography for your primary site text. This is assigned to your site\'s body tag. <br/><br/> <strong>*</strong> Denotes Web Safe Fonts<br/><strong>G</strong> Denotes Google Fonts', 'pagelines' ),
+ 					'exp' 		=> __( "Set typography for your primary site text. This is assigned to your site's body tag. <br/><br/> <strong>*</strong> Denotes Web Safe Fonts<br/><strong>G</strong> Denotes Google Fonts", 'pagelines' ),
 					'pro_note'	=> __( 'The Pro version of this framework has over 50 websafe and Google fonts.', 'pagelines' )
 			),
 
@@ -426,7 +426,7 @@ class PageLinesOptionsArray {
 					'selectors'	=> cssgroup('type_secondary'),
 					'inputlabel' 	=> __( 'Select Font', 'pagelines' ),
 					'title' 	=> __( 'Typography - Secondary Font ', 'pagelines' ),
-					'shortexp' 	=> __( 'Select and Style Your Site\'s Secondary or Sub Title Text (Metabar, Sub Titles, etc..)', 'pagelines' ),
+ 					'shortexp' 	=> __( "Select and Style Your Site's Secondary or Sub Title Text (Metabar, Sub Titles, etc..)", 'pagelines' ),
 					'exp' 		=> __( 'This options sets the typography for secondary text used throughout your site. This includes your navigation, subtitles, widget titles, etc.. <br/><br/> <strong>*</strong> Denotes Web Safe Fonts<br/><strong>G</strong> Denotes Google Fonts', 'pagelines' ),
 					'pro_note'	=> __( 'The Pro version of this framework has over 50 websafe and Google fonts.', 'pagelines' )
 			),
@@ -439,8 +439,8 @@ class PageLinesOptionsArray {
 					'selectors'	=> cssgroup('type_inputs'),
 					'inputlabel' 	=> __( 'Select Font', 'pagelines' ),
 					'title' 	=> __( 'Typography - Inputs and Textareas', 'pagelines' ),
-					'shortexp' 	=> __( 'Select and Style Your Site\'s Text Inputs and Textareas', 'pagelines' ),
-					'exp' 		=> __( 'This options sets the typography for general text inputs and textarea inputs. This includes default WordPress comment fields, etc.. <br/><br/> This option makes use of the <a href="http://code.google.com/webfonts">Google fonts API</a> to vastly increase the number of websafe fonts you can use.<br/><strong>*</strong> Denotes web safe fonts<br/><strong>G</strong> Denotes Google fonts<br/><br/><strong>Note:</strong> the "preview" pane represents the font in your current browser and OS. If developing locally, Google fonts require an internet connection.', 'pagelines' ),
+					'shortexp' 	=> __( "Select and Style Your Site's Text Inputs and Textareas", 'pagelines' ),
+					'exp' 		=> __( 'This options sets the typography for general text inputs and textarea inputs. This includes default WordPress comment fields, etc.. <br/><br/> This option makes use of the <a href="http://code.google.com/webfonts">Google fonts API</a> to vastly increase the number of websafe fonts you can use.<br/><strong>*</strong> Denotes web safe fonts<br/><strong>G</strong> Denotes Google fonts<br/><br/><strong>Note:</strong> the <strong>preview</strong> pane represents the font in your current browser and OS. If developing locally, Google fonts require an internet connection.', 'pagelines' ),
 			),
 
 			'typekit_script' => array(
@@ -449,8 +449,7 @@ class PageLinesOptionsArray {
 					'inputlabel'	=> __( 'Typekit Header Script', 'pagelines' ),
 					'title'		=> __( 'Typekit Font Replacement', 'pagelines' ),
 					'shortexp'	=> __( 'Typekit is a service that allows you to use tons of new fonts on your site', 'pagelines' ),
-					'exp'		=> __( 'Typekit is a new service and technique that allows you to use fonts outside of the 10 or so "web-safe" fonts. <br/><br/>' .
-							 'Visit <a href="www.typekit.com" target="_blank">Typekit.com</a> to get the script for this option. Instructions for setting up Typekit are <a href="http://typekit.assistly.com/portal/article/6780-Adding-fonts-to-your-site" target="_blank">here</a>.', 'pagelines')
+					'exp'		=> __( "Typekit is a new service and technique that allows you to use fonts outside of the 10 or so <strong>web-safe</strong> fonts. <br/><br/>Visit <a href='www.typekit.com' target='_blank'>Typekit.com</a> to get the script for this option. Instructions for setting up Typekit are <a href='http://typekit.assistly.com/portal/article/6780-Adding-fonts-to-your-site' target='_blank'>here</a>.", 'pagelines')
 			),
 			'fontreplacement' => array(
 					'version'	=> 'pro',
@@ -459,8 +458,7 @@ class PageLinesOptionsArray {
 					'inputlabel'=> __( 'Use Cufon font replacement?', 'pagelines' ),
 					'title'		=> __( 'Use Cufon Font Replacement', 'pagelines' ),
 					'shortexp'	=> __( 'Use a special font replacement technique for certain text', 'pagelines' ),
-					'exp'		=> __( 'Cufon is a special technique for allowing you to use fonts outside of the 10 or so "web-safe" fonts. <br/><br/>' .
-							 THEMENAME.' is equipped to use it.  Select this option to enable it. Visit the <a href="http://cufon.shoqolate.com/generate/">Cufon site</a>.', 'pagelines' )
+					'exp'		=> sprintf( __( "Cufon is a special technique for allowing you to use fonts outside of the 10 or so <strong>web-safe</strong> fonts. <br/><br/>%s is equipped to use it.  Select this option to enable it. Visit the <a href='http://cufon.shoqolate.com/generate/'>Cufon site</a>.", 'pagelines' ), NICETHEMENAME )
 			),
 			'font_file'	=> array(
 					'version'	=> 'pro',
@@ -469,7 +467,7 @@ class PageLinesOptionsArray {
 					'inputlabel'	=> __( 'Cufon replacement font file URL', 'pagelines' ),
 					'title'		=> __( 'Cufon: Replacement Font File URL', 'pagelines' ),
 					'shortexp'	=> __( 'The font file used to replace text', 'pagelines' ),
-					'exp'		=> __( 'Use the <a href="http://cufon.shoqolate.com/generate/">Cufon site</a> to generate a font file for use with this theme.  Place it in your theme folder and add the full URL to it here. The default font is Museo Sans.', 'pagelines' )
+					'exp'		=> __( "Use the <a href='http://cufon.shoqolate.com/generate/'>Cufon site</a> to generate a font file for use with this theme.  Place it in your theme folder and add the full URL to it here. The default font is Museo Sans.", 'pagelines' )
 			),
 			'replace_font' => array(
 					'version'	=> 'pro',
@@ -553,7 +551,7 @@ class PageLinesOptionsArray {
 					),
 					'title'		=> __( 'Social Icon Position', 'pagelines' ),
 					'shortexp'	=> __( 'Control the location of the social icons in the branding section', 'pagelines' ),
-					'exp'		=> __( 'Set the position of your header icons with these options. They will be relative to the "branding" section of your site.', 'pagelines' )
+					'exp'		=> __( 'Set the position of your header icons with these options. They will be relative to the <strong>branding</strong> section of your site.', 'pagelines' )
 			),
 			'rsslink' => array(
 					'default'	=> true,
@@ -605,8 +603,7 @@ class PageLinesOptionsArray {
 					'exp'		=> __( 'Add the full url of an image for use in the footer. Recommended size: 140px wide.', 'pagelines' )
 			),
 			'footer_more' => array(
-					'default'	=> __( "Thanks for dropping by! Feel free to join the discussion by leaving " . 
-							"comments, and stay updated by subscribing to the <a href='".get_bloginfo('rss2_url')."'>RSS feed</a>.", 'pagelines' ),
+					'defalut'	=> sprintf( __( "Thanks for dropping by! Feel free to join the discussion by leaving comments, and stay updated by subscribing to the <a href='%s'>RSS feed</a>.", 'pagelines' ), get_bloginfo('rss2_url') ),
 					'type'		=> 'textarea',
 					'inputlabel'=> __( 'More Statement In Footer', 'pagelines' ),
 					'title'		=> __( 'More Statement', 'pagelines' ),
@@ -646,13 +643,13 @@ class PageLinesOptionsArray {
 					'width'			=> '115px',
 					'layout'		=> 'interface',
 					'selectvalues'	=> array(
-						'magazine'	=> array("name" => __( "Magazine Layout Mode", 'pagelines' ), "version" => "pro", 'offset' => '0px -90px'),
-						'blog'		=> array("name" => __( "Blog Layout Mode", 'pagelines' ), 'offset' => '0px 0px')
+						'magazine'	=> array('name' => __( "Magazine Layout Mode", 'pagelines' ), 'version' => 'pro', 'offset' => '0px -90px'),
+						'blog'		=> array('name' => __( "Blog Layout Mode", 'pagelines' ), 'offset' => '0px 0px')
 						), 
 					'inputlabel'	=> __( 'Select Post Layout Mode', 'pagelines' ),
 					'title'			=> __( 'Blog Post Layout Mode', 'pagelines' ),						
 					'shortexp'		=> __( 'Choose between magazine style and blog style layout', 'pagelines' ),
-					'exp'			=> __( 'Choose between two magazine or blog layout mode. <br/><br/> <strong>Magazine Layout Mode</strong><br/> Magazine layout mode makes use of post "clips". These are summarized excerpts shown at half the width of the main content column.<br/>  <strong>Note:</strong> There is an option for showing "full-width" posts on your main "posts" page.<br/><br/><strong>Blog Layout Mode</strong><br/> This is your classical blog layout. Posts span the entire width of the main content column.', 'pagelines' )
+					'exp'			=> __( 'Choose between two magazine or blog layout mode. <br/><br/> <strong>Magazine Layout Mode</strong><br/> Magazine layout mode makes use of post <strong>clips</strong>. These are summarized excerpts shown at half the width of the main content column.<br/>  <strong>Note:</strong> There is an option for showing <strong>full-width</strong> posts on your main <strong>posts</strong> page.<br/><br/><strong>Blog Layout Mode</strong><br/> This is your classical blog layout. Posts span the entire width of the main content column.', 'pagelines' )
 				), 
 			'excerpt_mode_full' => array(
 				'default'		=> 'left',
@@ -701,7 +698,7 @@ class PageLinesOptionsArray {
 				),
 				'title'		=> __( 'Clip Excerpt Mode', 'pagelines' ),						
 				'shortexp'	=> __( 'Select how thumbs should be handled in clips', 'pagelines' ),
-				'exp'		=> __( 'Use this option to configure how thumbs will be shown in clips. These are the smaller "magazine" style excerpts on your blog page.', 'pagelines' )
+				'exp'		=> __( 'Use this option to configure how thumbs will be shown in clips. These are the smaller <strong>magazine</strong> style excerpts on your blog page.', 'pagelines' )
 			),
 			'metabar_clip' => array(
 				'default'		=> 'On [post_date] By [post_author_posts_link] [post_edit]',
@@ -719,8 +716,8 @@ class PageLinesOptionsArray {
 					'count_number'	=> get_option('posts_per_page'),
 					'inputlabel'	=> __( 'Number of Full Width Posts?', 'pagelines' ),
 					'title'			=> __( 'Full Width Posts (Magazine Layout Mode Only)', 'pagelines' ),						
-					'shortexp'		=> __( 'When using magazine layout mode, select the number of "featured" or full-width posts', 'pagelines' ),
-					'exp'			=> __( 'Select the number of posts you would like shown at the full width of the main content column in magazine layout mode (the rest will be half-width post "clips").', 'pagelines' )
+					'shortexp'		=> __( 'When using magazine layout mode, select the number of <strong>featured</strong> or full-width posts', 'pagelines' ),
+					'exp'			=> __( 'Select the number of posts you would like shown at the full width of the main content column in magazine layout mode (the rest will be half-width post <strong>clips</strong>).', 'pagelines' )
 				),
 			'thumb_handling' => array(
 					'type'		=> 'check_multi',
@@ -863,7 +860,7 @@ class PageLinesOptionsArray {
 					'inputlabel'=> __( 'Enter Partner Link', 'pagelines' ),
 					'title'		=> __( 'PageLines Partner Link', 'pagelines' ),
 					'shortexp'	=> __( 'Change your PageLines footer link to a partner link', 'pagelines' ),
-					'exp'		=> __( 'If you are a <a href="http://www.pagelines.com/partners">PageLines Partner</a> enter your link here and the footer link will become a partner or affiliate link.', 'pagelines' )
+					'exp'		=> __( "If you are a <a href='http://www.pagelines.com/partners'>PageLines Partner</a> enter your link here and the footer link will become a partner or affiliate link.", 'pagelines' )
 			),
 
 			'disable_ajax_save' => array(
@@ -899,10 +896,10 @@ class PageLinesOptionsArray {
 					'version'		=> 'pro',
 					'type' 			=> 'select',
 					'selectvalues'	=> array(
-						'edit_users'			=> array("name" => __( 'Administrator', 'pagelines') ),
-						'moderate_comments'		=> array("name" => __( 'Editor', 'pagelines') ),
-						'publish_posts'			=> array("name" => __( 'Author', 'pagelines') ),
-						'edit_posts'			=> array("name" => __( 'Contributor', 'pagelines') )
+						'edit_users'			=> array('name' => __( 'Administrator', 'pagelines') ),
+						'moderate_comments'		=> array('name' => __( 'Editor', 'pagelines') ),
+						'publish_posts'			=> array('name' => __( 'Author', 'pagelines') ),
+						'edit_posts'			=> array('name' => __( 'Contributor', 'pagelines') )
 					),
 					'inputlabel' 	=> __( 'Minimum user level for Post/Page Meta Settings', 'pagelines' ),
 					'title' 		=> __( 'User Levels', 'pagelines' ),
@@ -914,10 +911,10 @@ class PageLinesOptionsArray {
 					'version'		=> 'pro',
 					'type' 			=> 'select',
 					'selectvalues'	=> array(
-						'edit_users'			=> array("name" => __( 'Administrator', 'pagelines') ),
-						'moderate_comments'		=> array("name" => __( 'Editor', 'pagelines') ),
-						'publish_posts'			=> array("name" => __( 'Author', 'pagelines') ),
-						'edit_posts'			=> array("name" => __( 'Contributor', 'pagelines') )
+						'edit_users'			=> array('name' => __( 'Administrator', 'pagelines') ),
+						'moderate_comments'		=> array('name' => __( 'Editor', 'pagelines') ),
+						'publish_posts'			=> array('name' => __( 'Author', 'pagelines') ),
+						'edit_posts'			=> array('name' => __( 'Contributor', 'pagelines') )
 					),
 					'inputlabel' 	=> __( 'Minimum user level for Custom Post Types ( banners, features etc )', 'pagelines' ),
 
@@ -947,7 +944,7 @@ class PageLinesOptionsArray {
 					'inputlabel'=> __( 'CSS Rules', 'pagelines' ),
 					'title' 	=> __( 'Custom CSS', 'pagelines' ),
 					'shortexp' 	=> __( 'Insert custom CSS styling here. It will be stored in the DB and not overwritten. <br/>Note: The professional way to customize your site is using a child theme, or customization plugin', 'pagelines' ),
-					'exp' 		=> __( '<div class="theexample">Example:<br/> <strong>body{<br/> &nbsp;&nbsp;color:  #3399CC;<br/>&nbsp;&nbsp;line-height: 20px;<br/>&nbsp;&nbsp;font-size: 11px<br/>}</strong></div>Enter CSS Rules to change the style of your site.<br/><br/> A lot can be accomplished by simply changing the default styles of the "body" tag such as "line-height", "font-size", or "color" (as in text color).', 'pagelines' ), 
+					'exp' 		=> __( '<div class="theexample">Example:<br/> <strong>body{<br/> &nbsp;&nbsp;color:  #3399CC;<br/>&nbsp;&nbsp;line-height: 20px;<br/>&nbsp;&nbsp;font-size: 11px<br/>}</strong></div>Enter CSS Rules to change the style of your site.<br/><br/> A lot can be accomplished by simply changing the default styles of the <strong>body</strong> tag such as <strong>line-height</strong>, <strong>font-size</strong>, or <strong>color</strong> (as in text color).', 'pagelines' ), 
 					'docslink'	=> 'http://www.pagelines.com/docs/changing-colors-fonts', 
 					'vidtitle'	=> __( 'View Customization Documentation', 'pagelines' )
 				),
@@ -978,7 +975,7 @@ class PageLinesOptionsArray {
 					'layout'	=> 'full',
 					'inputlabel'=> __( 'Asynchronous Analytics', 'pagelines' ),
 					'title'		=> __( 'Asynchronous Analytics', 'pagelines' ),
-					'shortexp'	=> __( 'Placeholder for Google asynchronous analytics. Goes underneath "body" tag', 'pagelines' ),
+					'shortexp'	=> __( 'Placeholder for Google asynchronous analytics. Goes underneath <strong>body</strong> tag', 'pagelines' ),
 					'exp'		=> ''
 			),
 		);
@@ -1157,7 +1154,7 @@ class PageLinesWelcome {
 		
 		$intro .= $this->get_plugins_billboard();
 		
-		$intro .= '<div class="finally"><h3>That\'s it for now! Have fun and good luck.</h3></div>';
+		$intro .= sprintf( '<div class="finally"><h3>%s</h3></div>', __( "That's it for now! Have fun and good luck.", 'pagelines' ) );
 		
 		$intro .= '</div></div>';
 
@@ -1179,19 +1176,19 @@ class PageLinesWelcome {
 		$f = array(
 			'1strule'	=> array(
 				'name'			=> __( 'The First Rule', 'pagelines' ),
-				'desc'			=> __( 'It\'s time we introduce you to the first rule.  The first rule of PageLines is that you come first. We truly appreciate your business and support.', 'pagelines' ),
+				'desc'			=> __( "It's time we introduce you to the first rule.  The first rule of PageLines is that you come first. We truly appreciate your business and support.", 'pagelines' ),
 				'class'			=> 'feature_firstrule', 
 				'icon'			=> '',
 			),
 			'support'	=> array(
 				'name'			=> __( 'World Class Support', 'pagelines' ),
-				'desc'			=> __( 'For help getting started, we offer our customers tons of support including comprehensive <a href="http://www.pagelines.com/docs/" target="_blank">docs</a>, and an active, moderated <a href="http://www.pagelines.com/forum/" target="_blank">forum</a>.', 'pagelines' ),
+				'desc'			=> __( "For help getting started, we offer our customers tons of support including comprehensive <a href='http://www.pagelines.com/docs/' target='_blank'>docs</a>, and an active, moderated <a href='http://www.pagelines.com/forum/' target='_blank'>forum</a>.", 'pagelines' ),
 				'class'			=> 'feature_support', 
 				'icon'			=> '',
 			),
 			'dragdrop'	=> array(
 				'name'			=> __( 'Drag &amp; Drop Templates', 'pagelines' ),
-				'desc'			=> __( 'Check out the Template Setup panel! This is how you will control site elements using drag &amp; drop on your site. Learn more in the <a href="http://docs.pagelines.com/">docs</a>.', 'pagelines' ),
+				'desc'			=> __( "Check out the Template Setup panel! This is how you will control site elements using drag &amp; drop on your site. Learn more in the <a href='http://docs.pagelines.com/'>docs</a>.", 'pagelines' ),
 				'class'			=> 'feature_templates', 
 				'icon'			=> '',
 			),
@@ -1203,13 +1200,13 @@ class PageLinesWelcome {
 			),
 			'widgets'	=> array(
 				'name'			=> __( 'Draggable Layout &amp; Widgets', 'pagelines' ),
-				'desc'			=> __( 'Use the Layout Editor to control your content layout.  There are also several "widgetized" areas that are controlled through your widgets panel.', 'pagelines' ),
+				'desc'			=> __( 'Use the Layout Editor to control your content layout.  There are also several <strong>widgetized</strong> areas that are controlled through your widgets panel.', 'pagelines' ),
 				'class'			=> 'feature_dynamic', 
 				'icon'			=> '',
 			),
 			'metapanel'	=> array(
 				'name'			=> __( 'MetaPanel', 'pagelines' ),
-				'desc'			=> __( 'You\'ll find the MetaPanel at the bottom of WordPress page/post creation pages.  It will allow you to set options specific to that page or post.', 'pagelines' ),
+				'desc'			=> __( "You'll find the MetaPanel at the bottom of WordPress page/post creation pages.  It will allow you to set options specific to that page or post.", 'pagelines' ),
 				'class'			=> 'feature_meta', 
 				'icon'			=> '',
 			),
@@ -1225,7 +1222,7 @@ class PageLinesWelcome {
 		$billboard .= $this->show_supported_elements( 'plugins' );
 		$billboard .= $this->show_supported_elements( 'sections' );		
 		
-		$billboard .= sprintf( __( '<p>Although %s is universally plugin compatible, we have added "advanced" graphical/functional support for several WordPress plugins.</p><p> It\'s your responsibility to install each plugin, which can be done through "<strong>Plugins</strong>" &gt; "<strong>Add New</strong>" or through the <strong>developer\'s site</strong> where you can download them manually (e.g. CForms).</p>', 'pagelines' ), NICETHEMENAME );
+		$billboard .= sprintf( __( "<p>Although %s is universally plugin compatible, we have added <strong>advanced</strong> graphical/functional support for several WordPress plugins.</p><p> It's your responsibility to install each plugin, which can be done through <strong>Plugins</strong> &gt; <strong>Add New</strong> or through the <strong>developer's site</strong> where you can download them manually (e.g. CForms).</p>", 'pagelines' ), NICETHEMENAME );
 			
 		$billboard .= '<ul class="welcome_plugin_list">';
 		foreach($this->get_welcome_plugins() as $k => $i){
@@ -1316,7 +1313,7 @@ class PageLinesWelcome {
 			'pagenavi'	=> array(
 				'name'			=> __( 'Wp-PageNavi', 'pagelines' ),
 				'url'			=> 'http://wordpress.org/extend/plugins/wp-pagenavi/', 
-				'desc'			=> __( 'Creates advanced "paginated" post navigation.', 'pagelines' ),
+				'desc'			=> __( 'Creates advanced <strong>paginated</strong> post navigation.', 'pagelines' ),
 			),
 			'breadcrumb'	=> array(
 				'name'			=> __( 'Breadcrumb NavXT', 'pagelines' ),

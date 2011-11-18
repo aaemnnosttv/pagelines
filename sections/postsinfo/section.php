@@ -15,7 +15,7 @@ class PageLinesPostsInfo extends PageLinesSection {
 		if( is_category() || is_archive() || is_search() || is_author() ): ?>
 			<div class="current_posts_info">
 				<?php if(is_search()):?>
-					<?php _e("Search results for ", 'pagelines');?> 
+					<?php _e('Search results for ', 'pagelines');?> 
 					<strong>"<?php the_search_query();?>"</strong>
 				<?php elseif(is_category()):?>
 					<?php _e("Currently viewing the category: ", 'pagelines');?> 
@@ -40,7 +40,7 @@ class PageLinesPostsInfo extends PageLinesSection {
 						<?php _e('From the yearly archives:', 'pagelines'); ?>
 						<strong><?php the_time('Y'); ?></strong>
 					<?php } else {?> 
-						<?php _e("Viewing archives for ", 'pagelines');?>
+						<?php _e('Viewing archives for ', 'pagelines');?>
 						<strong>"<?php the_date();?>"</strong>
 					<?php } ?>
 				<?php endif;?>
