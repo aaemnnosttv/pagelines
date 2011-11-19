@@ -14,6 +14,10 @@
 
 Version 2.0.0
 
+	BETA - 29
+	- i18n fixes
+	- new 'fonts' option.
+
 	BETA - 28
 	- Various fixes
 	- Store refining
