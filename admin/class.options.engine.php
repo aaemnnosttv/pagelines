@@ -318,6 +318,9 @@ class OptEngine {
 			case 'check_multi' :
 				$this->_get_check_multi($oid, $o, $val);
 				break;
+			case 'fonts' :
+				$this->_get_fonts_option($oid, $o);
+				break;
 			case 'typography' :
 				$this->_get_type_control($oid, $o);
 				break;
@@ -417,6 +420,21 @@ class OptEngine {
 		echo $this->input_select($o['input_id'], $o['input_name'], $opts);
 	}
 
+	/**
+	 * 
+	 * Gets Fonts
+	 * 
+	 * @since 1.0.0
+	 * @author Andrew Powers
+	 * 
+	 **/
+	function _get_fonts_option($oid, $o){
+		
+		$control = new PageLinesTypeUI();
+		
+		$control->fonts_option( $oid, $o );
+	}
+	
 	/**
 	 * 
 	 * Gets Typography Control Panel

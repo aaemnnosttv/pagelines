@@ -414,60 +414,6 @@ class PageLinesTemplate {
 		}
 	}
 	
-	/**
-	 * For buffering, NOT BEING USED YET
-	 */
-	function next_up($in_area, $hook, $s){
-		global $post;
-		global $wp_query;
-		global $template_output;
-		global $last_drawn;	
-		global $next_drawn;
-		
-		/**
-		 * Load Next Template
-		 * Attempt to load next template. Useful in conjugations.
-		 ***************************************************************/
-	
-		$next_up = ( isset($in_area[$key+1]) ) ? $in_area[$key+1] : $this->conjugation_adjacent_area($hook, 'next');
-		
-		if($next_up != 'bottom'){
-			$p = splice_section_slug($next_up);
-			$psection = $p['section'];
-		} 
-		
-		if( $next_up != 'bottom' && $this->in_factory( $psection ) ){
-			
-			$next_section = $this->factory[ $psection ];
-			
-			ob_start();
-		
-			// If in child theme get that, if not load the class template function
-			$next_section->section_template_load( $clone_id );
-		
-			$template_output[ $next_section->id ] = plstrip( ob_get_clean() );
-			
-			if($template_output[$next_section->id] != '')
-				$next_drawn = $next_section->id;
-			
-			$wp_query = $save_query;
-			$post = $save_post;
-				
-		} elseif($next_up == 'bottom')
-			$next_drawn = 'bottom';
-		
-		
-		$content_hooks = array('main', 'sidebar1', 'sidebar2', 'sidebar_wrap');
-		
-		if(in_array($hook, $content_hooks)){
-		
-			if(!isset($in_area[$key-1]))
-				$last_drawn = 'top';
-				
-			
-		}
-		
-	}
 	
 	/**
 	 * Load in the next and previous area as classes

@@ -17,7 +17,14 @@ class PageLinesTypeUI {
 	/**
 	 * Construct
 	 */
-	function __construct() { }
+	function __construct() { 
+		
+		global $pl_foundry; 
+
+		$this->foundry = $pl_foundry;
+		$this->fonts = $pl_foundry->foundry;
+	
+	}
 
 	/**
 	 *
@@ -26,33 +33,14 @@ class PageLinesTypeUI {
 	 */
 	function build_typography_control($oid, $o){ 
 
-		global $pl_foundry; 
-
-		$fonts = $pl_foundry->foundry; 
 
 		$preview_styles = '';
 
-		$preview_styles = $pl_foundry->get_type_css( pagelines_option($oid) );
+		$preview_styles = $this->foundry->get_type_css( ploption($oid) );
 		
 		echo OptEngine::input_label( get_pagelines_option_id($oid, 'font'), __('Select Font', 'pagelines'));
 		
-		$opts = '';
-		foreach($fonts as $fid => $f){
-			$free = (isset($f['free']) && $f['free']) ? true : false;
-
-			if(!VPRO && !$free){
-			}else{
-				$font_name = $f['name']; 
-
-				if($f['web_safe']) $font_name .= ' *';
-				if($f['google']) $font_name .= ' G';
-			
-				$title = sprintf('title="%s"', $pl_foundry->gfont_key($fid));
-			
-				$opts .= OptEngine::input_option( $fid, selected( $fid, pagelines_sub_option($oid, 'font'), false), $font_name, $f['family'], $title);
-			}
-			
-		}
+		$opts = $this->get_opts($oid, $o, pagelines_sub_option($oid, 'font'));
 		
 		$extra = 'onChange="PageLinesStyleFont(this, \'font-family\')" size="1"';
 		
@@ -85,6 +73,39 @@ class PageLinesTypeUI {
 	<?php
 	
 	
+	}
+	
+	function fonts_option($oid, $o){
+	
+	
+		echo OptEngine::input_label($o['input_id'], $o['inputlabel']);
+		echo OptEngine::input_select($o['input_id'], $o['input_name'], $this->get_opts($oid, $o, $o['val']), 'fontselector');
+		
+		
+	}
+	
+	function get_opts($oid, $o, $val){
+		
+		$opts = '';
+		foreach($this->fonts as $fid => $f){
+			$free = (isset($f['free']) && $f['free']) ? true : false;
+
+			if(!VPRO && !$free){
+			}else{
+				$font_name = $f['name']; 
+
+				if($f['web_safe']) $font_name .= ' *';
+				if($f['google']) $font_name .= ' G';
+			
+				$title = sprintf('title="%s"', $this->foundry->gfont_key($fid));
+			
+				$opts .= OptEngine::input_option( $fid, selected( $fid, $val, false), $font_name, $f['family'], $title);
+			}
+			
+		}
+		
+		return $opts;
+		
 	}
 
 	function get_type_styles($oid, $o){

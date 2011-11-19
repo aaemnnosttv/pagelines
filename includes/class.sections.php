@@ -179,6 +179,8 @@ class PageLinesSection {
 
 	function section_persistent(){}
 	
+	function section_init(){}
+	
 	function section_admin(){}
 	
 	function section_head(){}

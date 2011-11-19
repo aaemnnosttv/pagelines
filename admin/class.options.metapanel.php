@@ -398,7 +398,7 @@ class PageLinesMetaPanel {
 						
 					}else {
 						
-						
+					
 						
 						// Note: If the value is null, then test to see if the option is already set to something
 						// create and overwrite the option to null in that case (i.e. it is being set to empty)
@@ -413,13 +413,15 @@ class PageLinesMetaPanel {
 							
 						} else {
 								
-							
+								
 							$option_value =  isset( $_POST[$oid] ) ? $_POST[ $oid ] : null;
-
+							
+							
 							if(!empty($option_value) || get_post_meta($postID, $oid)){
 							
 								update_post_meta($postID, $oid, $option_value );
 							}
+							
 							
 						}
 						

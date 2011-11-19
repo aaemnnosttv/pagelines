@@ -432,12 +432,12 @@ class PageLinesFoundry {
 				'monospace' => false
 			),
 			'tahoma' => array(
-				'name' => 'Tahoma',
-				'family' => 'Tahoma, Geneva, Verdana, sans-serif',
-				'web_safe' => false,
-				'google' => false,
-				'monospace' => false, 
-				'free'		=> true
+				'name' 			=> 'Tahoma',
+				'family' 		=> 'Tahoma, Geneva, Verdana, sans-serif',
+				'web_safe' 		=> false,
+				'google' 		=> false,
+				'monospace' 	=> false, 
+				'free'			=> true
 			)
 		);
 		
@@ -455,8 +455,20 @@ class PageLinesFoundry {
 			$family[] = urlencode($this->foundry[$id]['name']) . (is_array($this->foundry[$id]['google']) ? ':' . implode(',', $this->foundry[$id]['google']) : '');
 			$this->gfont_key = implode('|', $family);
 			$this->gfont_uri = $this->gfont_base_uri . $this->gfont_key;
-			$this->gfont_import = '@import url(' . $this->gfont_uri . ");\n";
+			$this->gfont_import = sprintf('@import url(%s);%s', $this->gfont_uri, "\n");
 		return $this->gfont_import;
+	}
+	
+	function get_the_import( $font ){
+		
+		$family[] = urlencode($this->foundry[$font]['name']) . (is_array($this->foundry[$font]['google']) ? ':' . implode(',', $this->foundry[$font]['google']) : '');
+		
+		$this->gfont_key = implode('|', $family);
+		$this->gfont_uri = $this->gfont_base_uri . $this->gfont_key;
+		$this->gfont_import = sprintf('@import url(%s);', $this->gfont_uri);
+		
+		return $this->gfont_import;
+		
 	}
 	
 	function gfont_key($font_id){
@@ -530,7 +542,7 @@ class PageLinesFoundry {
 				
 				if($o['type'] == 'typography'){
 					
-					$type = pagelines_option($oid);
+					$type = ploption($oid);
 					
 					$font_id = $type['font'];
 					
@@ -573,4 +585,20 @@ class PageLinesFoundry {
 		return $css;
 		
 	}
+}
+
+function load_custom_font($font, $selectors){
+	
+	
+	if( $font ){
+		
+		$foundry = new PageLinesFoundry;
+		
+		$rule = sprintf('%s{font-family: %s;}', $selectors, $font);
+	
+		return sprintf('<style type="text/css">%s%s</style>', $foundry->get_the_import($font), $rule);
+		
+	}else 
+		return '';
+	
 }
