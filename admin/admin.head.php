@@ -17,10 +17,10 @@ jQuery(document).ready(function(){
  * @since 1.2.0
  */
 // Allow users to disable AJAX saving... 
-if(!pagelines_option('disable_ajax_save')): ?>	
+if( !pagelines_option( 'disable_ajax_save' ) ): ?>	
 jQuery("#pagelines-settings-form").submit(function() {
 	
-	var ajaxAction = "<?php echo admin_url("admin-ajax.php"); ?>";
+	var ajaxAction = "<?php echo admin_url( "admin-ajax.php" ); ?>";
 	
 	formData = jQuery("#pagelines-settings-form");
 	serializedData = jQuery(formData).serialize();

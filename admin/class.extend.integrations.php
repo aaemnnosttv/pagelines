@@ -12,10 +12,10 @@ class ExtensionIntegrations extends PageLinesExtensions {
 	
 		$integrations = $this->get_latest_cached( 'integrations' );
 
-		if ( !is_object($integrations) ) 
+		if ( !is_object($integrations ) ) 
 			return $integrations;
 
-		$integrations = json_decode(json_encode($integrations), true); // convert objects to arrays	
+		$integrations = json_decode( json_encode( $integrations ), true ); // convert objects to arrays	
 
 		$list = $this->get_master_list( $integrations, $type, $tab );
 		

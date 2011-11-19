@@ -498,50 +498,49 @@ class PageLinesOptionsArray {
 				'type' => 'check_multi',
 				'selectvalues'=> array(
 		
-					'enable_drop_down' => array(
-						'default' => false,
-						'type' => 'check',
-						'scope' => '',
-						'inputlabel' => 'Enable Drop Down Navigation?',
-						'title' => 'Drop Down Navigation',
-						'shortexp' => 'Enable universal drop down navigation',
-						'exp' => 'Checking this option will create drop down menus for all child pages when ' . 
-								 'users hover over main navigation items.'
+					'enable_drop_down'	=> array(
+						'default'		=> false,
+						'type'			=> 'check',
+						'scope'			=> '',
+						'inputlabel'	=> __( 'Enable Drop Down Navigation?', 'pagelines' ),
+						'title'			=> __( 'Drop Down Navigation', 'pagelines' ),
+						'shortexp'		=> __( 'Enable universal drop down navigation', 'pagelines' ),
+						'exp'			=> __( 'Checking this option will create drop down menus for all child pages when users hover over main navigation items.', 'pagelines' )
 						),
-					'drop_down_shadow' => array(
-						'default' => true,
-						'type' => 'check',
-						'scope' => '',
-						'inputlabel' => 'Enable Shadow on Drop Down Menu?',
-						'title' => 'Drop Down Shadow',
-						'shortexp' => 'Enable shadow for drop down navigation',
-						'exp' => 'Checking this option will create shadows for the drop down menus'
+					'drop_down_shadow'	=> array(
+						'default'		=> true,
+						'type'			=> 'check',
+						'scope'			=> '',
+						'inputlabel'	=> __( 'Enable Shadow on Drop Down Menu?', 'pagelines' ),
+						'title'			=> __( 'Drop Down Shadow', 'pagelines' ),
+						'shortexp'		=> __( 'Enable shadow for drop down navigation', 'pagelines' ),
+						'exp'			=> __( 'Checking this option will create shadows for the drop down menus', 'pagelines' )
 						),
-					'drop_down_arrows' => array(
-						'default' => true,
-						'type' => 'check',
-						'scope' => '',
-						'inputlabel' => 'Enable Arrows on Drop Down Menu?',
-						'title' => 'Drop Down Arrows',
-						'shortexp' => 'Enable arrows for drop down navigation',
-						'exp' => 'Checking this option will create arrows for the drop down menus'
+					'drop_down_arrows'	=> array(
+						'default'		=> true,
+						'type'			=> 'check',
+						'scope'			=> '',
+						'inputlabel'	=> __( 'Enable Arrows on Drop Down Menu?', 'pagelines' ),
+						'title'			=> __( 'Drop Down Arrows', 'pagelines' ),
+						'shortexp'		=> __( 'Enable arrows for drop down navigation', 'pagelines' ),
+						'exp'			=> __( 'Checking this option will create arrows for the drop down menus', 'pagelines' )
 						)),
-				'inputlabel' => 'Select Which Drop Down Options To Show',
-				'title' => 'Drop Down Navigation - Nav and BrandNav Section',						
-				'shortexp' => 'Select Which To Show',
-				'exp' => "Enable drop downs and choose the options you would like to show" 
+				'inputlabel'			=> __( 'Select Which Drop Down Options To Show', 'pagelines' ),
+				'title'					=> __( 'Drop Down Navigation - Nav and BrandNav Section', 'pagelines' ),						
+				'shortexp'				=> __( 'Select Which To Show', 'pagelines' ),
+				'exp'					=> __( 'Enable drop downs and choose the options you would like to show', 'pagelines' ) 
 			 
 			),
 			'hidesearch' => array(
-					'version' => 'pro',
-					'default' => false,
-					'type' => 'check',
-					'inputlabel' => 'Hide search field?',
-					'title' => 'Hide Search - Nav Section',						
-					'shortexp' => 'Remove the search field from the nav section',
-					'exp' => 'Removes the search field from the PageLines Navigation Section.'
+					'version'			=> 'pro',
+					'default'			=> false,
+					'type'				=> 'check',
+					'inputlabel'		=> __( 'Hide search field?', 'pagelines' ),
+					'title'				=> __( 'Hide Search - Nav Section', 'pagelines' ),						
+					'shortexp'			=> __( 'Remove the search field from the nav section', 'pagelines' ),
+					'exp'				=> __( 'Removes the search field from the PageLines Navigation Section.', 'pagelines' )
 				), 
-			'icon_position' => array(
+			'icon_position'		=> array(
 					'version'	=> 'pro',
 					'type'		=> 'text_multi',
 					'inputsize'	=> 'tiny',
@@ -1165,8 +1164,8 @@ class PageLinesWelcome {
 		
 		$bill = '<div class="admin_billboard fix"><div class="admin_billboard_pad fix">';
 		$bill .= '<div class="admin_theme_screenshot"><img class="" src="'.CHILD_URL.'/screenshot.png" alt="Screenshot" /></div>';
-		$bill .= '<div class="admin_billboard_content"><div class="admin_header"><h3 class="admin_header_main">Congratulations!</h3></div>';
-		$bill .= '<div class="admin_billboard_text">Welcome to your PageLines site.<br/> Here are a few tips to get you started...<br/><small>(Note: This intro can be removed below.)</small></div>';
+		$bill .= sprintf( '<div class="admin_billboard_content"><div class="admin_header"><h3 class="admin_header_main">%s</h3></div>' , __( 'Congratulations!', 'pagelines' ) );
+		$bill .= __( "<div class='admin_billboard_text'>Welcome to your PageLines site.<br/> Here are a few tips to get you started...<br/><small>(Note: This intro can be removed below.)</small></div>", 'pagelines' );
 		$bill .= '<div class="clear"></div></div></div></div>';
 		
 		return apply_filters('pagelines_welcome_billboard', $bill);
