@@ -71,7 +71,8 @@
 			'plversion'		=>	CORE_VERSION,
 			'price'		=>	'free',
 			'featured'	=>	'false',
-			'type'		=>	'internal'
+			'type'		=>	'internal',
+			'depends'	=>	false
 			);
 		
 		$ext = wp_parse_args( $ext, $a );
@@ -166,6 +167,14 @@
 				'condition'	=> $this->version_fail( $ext['plversion'] ),
 				'text'		=> sprintf( __( '%s is required', 'pagelines' ), $ext['plversion'] ),
 				),
+			'dependancy'	=>	array(
+				'case'		=> 'depends_fail',
+				'file'		=>	$this->depends_nice_name( $type, $key, $ext, $tab ),
+				'path'		=>	$type,
+				'condition'	=> $this->depends_check( $type, $key, $ext, $tab ),
+				'text'		=> __( 'Install', 'pagelines' ),
+				),
+			
 			'download'	=> array(
 				'mode'		=> 'download',
 				'condition'	=> $this->show_download_button( $type, $key, $ext, $tab ),
@@ -265,7 +274,21 @@
 	 function version_check( $version ){
 		return ( version_compare( CORE_VERSION, $version ) >= 0 ) ? true : false;
 	}
+	
+	function depends_check( $type, $key, $ext, $tab ) {
 		
+		if ( $type == 'plugin' ) {
+						
+			if (  isset( $ext['depends']) ) {
+				
+				$file = sprintf( '%s/%s/%s.php', WP_PLUGIN_DIR, $ext['depends'], $ext['depends'] );
+				if ( !file_exists( $file ) )
+					return true;
+			}
+		return false;
+		}
+	}
+	
 	function show_upgrade_available($type, $key, $ext, $tab){
 	
 		if ( $type == 'plugin' ) {
@@ -328,6 +351,7 @@
 			&& $this->in_the_store( $type, $key, $ext, $tab ) 
 			&& !EXTEND_NETWORK
 			&& ! $this->version_fail( $ext['plversion'] )
+			&& ! $this->depends_check( $type, $key, $ext, $tab )
 		)
 			return true;
 		else
@@ -853,6 +877,20 @@
 	if ( isset( $ext['authorurl'] ) )
 		return $ext['authorurl'];
 
+	}
+	
+	function depends_nice_name( $type, $key, $ext, $tab ) {
+
+		if ( isset( $ext['depends'] ) ) {
+			
+			if ( $type == 'plugin' ) {
+				
+				$plugins = $this->get_latest_cached( 'plugins' );
+				
+				if ( isset( $plugins->$ext['depends']->name ) )
+					return $plugins->$ext['depends']->name;
+			}	
+		}
 	}
 	
 	function get_master_list( $extension, $type, $tab, $mode = '') {

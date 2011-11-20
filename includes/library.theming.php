@@ -67,14 +67,19 @@ function pl_support_plugin( $args ){
 
 	$defaults = array(
 		
-		'slug'		=> '',
-		'supported'		=> true, 
+		'slug'		=>	'',
+		'supported'	=>	true,
+		'url'		=>	null,
+		'desc'		=>	null,
+		'name'		=>	null
 	);
 	
 	$args = wp_parse_args( $args, $defaults );
 	
-	$supported_elements['plugins'][ $args['slug'] ] = $args;
-
+	if ( isset( $args['name'] ) )
+		$supported_elements['plugins'][ $args['name'] ] = $args;
+	else
+		$supported_elements['plugins'][ $args['slug'] ] = $args;
 }
 
 
@@ -115,6 +120,21 @@ function pagelines_activate_or_reset(){
 		
 	}else 
 		return false;
-	
 }
 
+function pl_welcome_plugins( $args ){
+	
+	global $pl_welcome_plugins;
+	
+	$default = array(
+		'name'		=> '', 
+		'url'		=> '', 
+		'desc'		=> '',
+	); 
+
+	$plugin = wp_parse_args($args, $default);
+
+	$pl_welcome_plugins[]  = $plugin;
+	
+	
+}

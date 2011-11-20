@@ -729,3 +729,20 @@ function pagelines_get_tweets( $username, $latest = null) {
 			return $text;			
 		}	
 }
+
+function pl_file_get_contents( $filename ) {
+
+	if ( is_file( $filename ) ) {
+		
+		$file = file( $filename, FILE_SKIP_EMPTY_LINES );
+		$out = '';
+		if( is_array( $file ) )
+			foreach( $file as $contents )
+				$out .= $contents;
+
+		if( $out )
+			return $out;
+		else
+			return false;	
+	}
+}
