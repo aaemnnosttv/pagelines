@@ -65,6 +65,10 @@ class OptEngine {
 		if($o['type'] == 'color_multi' || $o['type'] == 'text_content'){
 			$o['layout'] = 'full';
 		}
+
+		if($o['type'] == 'text_content_reverse'){
+			$o['layout'] = 'interface';
+		}
 			
 		global $supported_elements;
 		
@@ -157,7 +161,7 @@ class OptEngine {
 			// Allow global option for text content (no sub key)
 			// If 'hidden' then option will be nuked on save, so in class.sections.php
 			// there is an 'upop' that updates to global settings 
-			if($o['type'] == 'text_content'){
+			if($o['type'] == 'text_content' || $o['type'] == 'text_content_reverse'){
 				$oset['subkey'] = null;
 				$o['val'] = ploption( $oid, $oset );
 				$o['input_name'] =  plname( $oid, $oset );
@@ -353,6 +357,9 @@ class OptEngine {
 				break;
 			case 'text_content' :
 				$this->_get_text_content($oid, $o, $val);
+				break;
+			case 'text_content_reverse' :
+				$this->_get_text_content_reverse($oid, $o, $val);
 				break;
 			case 'reset' :
 				$this->_get_reset_option($oid, $o, $val);
@@ -600,6 +607,37 @@ class OptEngine {
 
 		
 	}
+	
+	/**
+	 * 
+	 * Option to show text content after being hidden
+	 * 
+	 * @since 1.0.0
+	 * @author Andrew Powers
+	 * 
+	 **/
+	function _get_text_content_reverse($oid, $o, $val){ 	
+		
+		// @todo fix the handling of this on special pages
+		// unchecking the checkbox doesn't work because all panels have it
+		if($this->settings_field != PAGELINES_SPECIAL){
+			
+			
+			$val = (bool) ploption( $oid );
+		
+			$checked = checked($val, true, false);
+				
+			$input = $this->input_checkbox($o['input_id'], $o['input_name'], $checked);
+		
+			$hide_checkbox = $this->input_label_inline($o['input_id'], $input, $o['inputlabel']);
+	
+			printf('<div class="just_checkbox_option fix">%s %s</div>', $o['exp'], $hide_checkbox);
+		
+		}
+
+		
+	}
+	
 
 	/**
 	 * 

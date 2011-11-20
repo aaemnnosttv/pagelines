@@ -1216,6 +1216,19 @@
 			padding: 10px;
 			background:#e2e2e2;
 		}
+		
+	.just_checkbox_option{
+		
+		padding: 0;
+	}
+		.just_checkbox_option .lbl.inln{
+			margin: 0;
+			padding: 10px;
+			color:#777;
+			opacity: .5;
+			border-top: 1px solid #ddd;
+			background: #eee;
+		}
 
 /* Pro Version Billboard */
 
@@ -1493,11 +1506,20 @@ font-weight: bold;
 			border-top: 1px solid #bbb;
 			border-bottom: 1px solid transparent;
 		}
+		
 		.metatab_icon{
 			padding-left: 22px;
 		}
+		
+		
 		#plpanel li a.inactive-tab{ color: #999 }
-		#plpanel li a.inactive-tab .tab_inactive{float:right; color:#AAA; font-size:.85em; font-weight: normal}
+		#plpanel li a.inactive-tab .tab_inactive{
+			float:right; 
+			color:#AAA;
+			font-size:.85em; 
+			font-weight: normal; 
+			padding-left: 0;
+		}
 		.metatab_title .tab_inactive{float:right;color:#bbb}
 		
 	.mp_panel{

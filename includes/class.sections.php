@@ -197,40 +197,81 @@ class PageLinesSection {
 
 	function getting_started(){}
 		
+	function add_guide( $options ){
+		
+		
+		if( file_exists( $this->base_dir . '/guide.php' ) ){
+			
+			ob_start();
+				include( $this->base_dir . '/guide.php' );
+			$guide = ob_get_clean();
+			
+			$key = sprintf('hide_guide_%s', $this->id);
+			
+			$opt = array(
+				$key => array(
+					'type' 			=> 'text_content',		
+					'title'	 		=> 'Getting Started',
+					'shortexp' 		=> 'How to use this section',
+					'exp'			=> $guide, 
+					'inputlabel'	=> 'Hide This Overview'
+				)
+			);
+			
+			
+			// Has this been hidden?
+				
+		
+				$special_oset = array('setting' => PAGELINES_SPECIAL);
+		
+				$global_option = (bool) ploption( $key );
+				$special_option = (bool) ploption($key, $special_oset );
+			
+			//	var_dump( $special_option );
+					
+				if( $global_option && $special_option ){
+					$hide = true;
+					
+				}elseif( $special_option && !$global_option){
+			
+					plupop($key, true);
+	
+					$hide = true;
+			
+				}elseif( !$special_option && $global_option) {
+					
+					plupop($key, false);
+	
+					$hide = false;
+					
+				}else 
+					$hide = false;
+
+			if( !$hide )
+				$options = array_merge($opt, $options);
+			else {
+			
+				$opt = array(
+					$key => array(
+						'type' 			=> 'text_content_reverse',
+						'inputlabel'	=> 'Hide Section Guide'
+					)
+				);
+				
+				$options = array_merge( $options, $opt);
+			}
+		
+		}
+		
+		return $options;
+		
+		
+	}	
+	
+	// Deprecated
 	function add_getting_started( $tab_array ){
 		
-		$key = 'hide_getting_started_'.$this->id;
-		
-		$special_oset = array('setting' => PAGELINES_SPECIAL);
-		
-		if( ploption( $key )  ){
-			$hide = true;
-		} elseif( ploption($key, $special_oset ) ){
-			
-			plupop($key, true);
-	
-			$hide = true;
-			
-		} else 
-			$hide = false;
-		
-		
-		$tab = array(
-			$key => array(
-				'type' 			=> 'text_content',		
-				'title'	 		=> 'Getting Started',
-				'shortexp' 		=> 'How to use this section',
-				'exp'			=> $this->getting_started(), 
-				'inputlabel'	=> 'Hide This Overview'
-			)
-		);
-		
-		global $post_ID;
-		
-		if( !$hide )
-			$tab_array = array_merge($tab, $tab_array);
-			
-		return $tab_array;
+		return $this->add_guide($tab_array);
 		
 	}
 

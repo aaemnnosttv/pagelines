@@ -390,11 +390,12 @@ class PageLinesMetaPanel {
 						$this->save_sc( $postID );
 					elseif($oid == 'page_background_image')
 						$this->save_bg( $oid, $postID );
-					elseif($o['type'] == 'text_content'){
+					elseif($o['type'] == 'text_content' || $o['type'] == 'text_content_reverse'){
 						
 						$option_value =  isset( $_POST[$oid] ) ? $_POST[ $oid ] : null;
 						
 						plupop($oid, $option_value);
+						plupop($oid, $option_value, array('setting' => PAGELINES_SPECIAL));
 						
 					}else {
 						

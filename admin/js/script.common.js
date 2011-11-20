@@ -13,7 +13,6 @@
  */
 jQuery(document).ready(function(){
 	
-	
 	jQuery('.sc_save_check').click( function(){		
 		var sectionBar = jQuery(this).parents('li').find('div.section-bar').each( function() {
 			if( jQuery(this).hasClass('hidden-section') ) {
