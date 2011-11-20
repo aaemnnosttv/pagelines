@@ -1136,20 +1136,11 @@ class PageLinesWelcome {
 	
 	function get_welcome(){
 		
-		$count = 1; 
+		 
 		
 		$intro = '<div class="theme_intro"><div class="theme_intro_pad">';
 		
-		$intro .= $this->get_welcome_billboard();
-		
-		$intro .= '<ul class="welcome_feature_list">';
-		foreach($this->get_welcome_features() as $k => $i){
-			$endrow = ($count % 2 == 0) ? true : false;
-			$intro .= sprintf('<li class="welcomef %s %s"><div class="welcomef-pad"><div class="feature_icon"></div><strong>%s</strong><p>%s</p></div></li>', $i['class'], ($endrow) ? 'rlast' : '', $i['name'], $i['desc']);
-			if($endrow) $intro .= '<div class="clear"></div>';
-			$count++; 
-		}
-		$intro .= '<div class="clear"></div></ul>';
+		$intro .= $this->get_intro();
 		
 		$intro .= $this->get_plugins_billboard();
 		
@@ -1160,6 +1151,35 @@ class PageLinesWelcome {
 		return apply_filters('pagelines_theme_intro', $intro);
 	}
 	
+	
+	function get_intro() {
+		
+		if ( file_exists( get_stylesheet_directory() . '/welcome.php' ) ) {
+			
+			ob_start();
+				include( get_stylesheet_directory() . '/welcome.php' );
+			return ob_get_clean();	
+		}
+		return $this->default_headers();
+	}
+	
+	function default_headers() {
+	
+		$intro = $this->get_welcome_billboard();
+	
+		$intro .= '<ul class="welcome_feature_list">';
+	
+		$count = 1;
+		foreach($this->get_welcome_features() as $k => $i){
+			$endrow = ($count % 2 == 0) ? true : false;
+			$intro .= sprintf('<li class="welcomef %s %s"><div class="welcomef-pad"><div class="feature_icon"></div><strong>%s</strong><p>%s</p></div></li>', $i['class'], ($endrow) ? 'rlast' : '', $i['name'], $i['desc']);
+			if($endrow) $intro .= '<div class="clear"></div>';
+			$count++; 
+		}
+		$intro .= '<div class="clear"></div></ul>';
+		return $intro;
+
+}	
 	function get_welcome_billboard(){
 		
 		$bill = '<div class="admin_billboard fix"><div class="admin_billboard_pad fix">';
@@ -1244,15 +1264,26 @@ class PageLinesWelcome {
 		if ( isset( $supported_elements[$type] ) && is_array( $supported_elements[$type] ) ) {
 			$out = array();
 			foreach( $supported_elements[$type] as $a ) {
-				if ( ! $a['supported'] || ! isset( $available->$a['slug'] ) )
-					continue;
 
-				$out[ $a['slug'] ] = array(
-					'name'	=> $available->$a['slug']->name,
-					'url'	=> sprintf( 'http://www.pagelines.com/extend/%s/%s/', $type, $a['slug'] ),
-					'desc'	=> $available->$a['slug']->text
-					);
+				if ( isset( $a['name'] ) && isset( $a['desc'] ) && isset( $a['url'] ) ) {
+					
+					$out[ $a['name'] ] = array(
+						'name'	=> $a['name'],
+						'url'	=> $a['url'],
+						'desc'	=> $a['desc']
+						);
+				} else {
+					
+					if ( ! $a['supported'] || ! isset( $available->$a['slug'] ) )
+						continue;
+						
+					$out[ $a['slug'] ] = array(
+						'name'	=> $available->$a['slug']->name,
+						'url'	=> sprintf( 'http://www.pagelines.com/store/%s/%s/', $type, $a['slug'] ),
+						'desc'	=> $available->$a['slug']->text
+						);	
 				}
+			}
 			return $out;
 			}
 
