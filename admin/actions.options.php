@@ -282,7 +282,7 @@ function pagelines_admin_confirms(){
 	$confirms = array();
 	
 	if( isset( $_GET['settings-updated'] ) )
-		$confirms[]['text'] = sprintf( __( "%1$s Settings Saved. &nbsp;<a class='sh_preview' href='%2$s/' target='_blank'>View Your Site &rarr;</a>", 'pagelines' ), NICECHILDTHEMENAME, home_url() );
+		$confirms[]['text'] = sprintf( __( "%s Settings Saved. &nbsp;<a class='sh_preview' href='%s/' target='_blank'>View Your Site &rarr;</a>", 'pagelines' ), NICECHILDTHEMENAME, home_url() );
 	if( isset($_GET['pageaction']) ){
 	
 		if( $_GET['pageaction']=='activated' && !isset($_GET['settings-updated']) ){
