@@ -183,11 +183,18 @@ class PageLinesMetaPanel {
 			 */
 			foreach($option_array as $key => $opt){
 				
+				if($opt['type'] == 'text_content' || $opt['type'] == 'text_content_reverse'){
+					unset( $option_array[$key] );
+					continue;
 
+				}
 				
 				$newkey = join( '_', array($key, $o['clone_id']) );
 				
-				$opt['title'] = sprintf('%s (#%s)', $opt['title'], $o['clone_id']);
+			
+				
+				if(isset($opt['title']))
+					$opt['title'] = sprintf('%s (#%s)', $opt['title'], $o['clone_id']);
 				
 				$new = $option_array[$newkey] = $opt;
 				
@@ -204,9 +211,7 @@ class PageLinesMetaPanel {
 							$sopt['inputlabel'] = sprintf('%s (#%s)', $sopt['inputlabel'], $o['clone_id']);
 
 						$option_array[$newkey]['selectvalues'][$snewkey] = $sopt;
-						
-						//plprint($option_array[$newkey], 'newnew');
-						//plprint($option_array[$newkey]['selectvalues'][$skey], 'unset'.$skey);
+				
 						
 						unset( $option_array[$newkey]['selectvalues'][$skey] );
 
