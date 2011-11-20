@@ -173,6 +173,12 @@
 
 			break;
 			
+			case 'depends_fail':
+			
+				$this->depends_fail( $type, $file, $path, $uploader, $checked );
+
+			break;
+			
 		}
 		die(); // needed at the end of ajax callbacks
 	}
@@ -322,6 +328,12 @@
 	function version_fail( $type, $file, $path, $uploader, $checked ) {
 		
 		printf( __( 'You need to have version %s of the framework for this %s', 'pagelines' ), $file, $path );
+		
+	}
+	
+	function depends_fail( $type, $file, $path, $uploader, $checked ) {
+		
+		printf( __( 'You need to install %s first.', 'pagelines' ), $file );
 		
 	}
 	

@@ -69,7 +69,8 @@ class ExtensionPlugins extends PageLinesExtensions {
 			'Demo'		=> 'Demo',
 			'External'	=> 'External',
 			'Long'		=> 'Long',
-			'PageLines'	=> 'PageLines'
+			'PageLines'	=> 'PageLines',
+			'Depends'	=> 'Depends'
 			);
 
 		if ( is_multisite() )
@@ -99,7 +100,7 @@ class ExtensionPlugins extends PageLinesExtensions {
 					$plugins[$new_key]['demo'] = $a['Demo'];
 					$plugins[$new_key]['external'] = $a['External'];
 					$plugins[$new_key]['long'] = $a['Long'];
-	
+					$plugins[$new_key]['depends'] = $a['depends'];
 				}
 			}	
 		}
