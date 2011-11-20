@@ -54,7 +54,7 @@ function base_check_templates() {
 
 		if ( preg_match( '/page\.([a-z-0-9]+)\.php/', $file, $match ) ) {
 
-			if ( !file_exists( trailingslashit( EXTEND_CHILD_DIR ) . $file ) ) 
+			if ( !file_exists( trailingslashit( get_stylesheet_directory() ) . $file ) && is_writable( get_stylesheet_directory() ) ) 
 				copy( $file, trailingslashit( get_stylesheet_directory() ) . basename( $file ) );
 
 			if ( file_exists( trailingslashit( get_stylesheet_directory() ) . basename( $file ) ) ) {
@@ -62,7 +62,6 @@ function base_check_templates() {
 				if ( is_array( $data ) )
 					pagelines_add_page( $match[1], $data['name'] );
 			}
-
 		}
 	}
 }
