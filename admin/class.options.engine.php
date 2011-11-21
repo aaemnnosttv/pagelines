@@ -1097,9 +1097,13 @@ class OptEngine {
 
 	function updates_setup($oid, $o){
 		
+		
+		
 		if ( pagelines_check_credentials() )
 			$updates_exp = sprintf( __( 'Successfully logged in as &quot;%s&quot; to PageLines%s.', 'pagelines' ), get_pagelines_credentials( 'user'), ( pagelines_check_credentials( 'ssl' ) ) ? ' with a secured connection' : '' );
-
+		else 
+			$updates_exp = sprintf( __( 'Could not connect to PageLines as user &quot;%s&quot;.', 'pagelines' ), get_pagelines_credentials( 'user') ); 
+			
 		if ( pagelines_check_credentials( 'error' ) === 'creds' ) 
 				$updates_exp = sprintf( __( 'ERROR: %1$s<br />There was a problem logging in to PageLines.', 'pagelines' ), pagelines_check_credentials( 'message' ) );
 		
