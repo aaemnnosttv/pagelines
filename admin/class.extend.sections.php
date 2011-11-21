@@ -67,6 +67,8 @@ class ExtensionSections extends PageLinesExtensions {
 
 	function sort_status( $section, $disabled, $available, $upgradable) {
 		
+		if (! is_array( $section ) )
+			return;
 		foreach( $section as $key => $ext) {
 			$section[$key]['status'] = ( isset( $disabled[ $ext['type'] ][ $ext['class'] ] ) ) ? 'disabled' : 'enabled';
 			$section[$key] = self::check_version( $section[$key], $upgradable );
