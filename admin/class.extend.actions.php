@@ -285,30 +285,61 @@
 	 * Throw up on error
 	 */
 	function error_handler( $type ) { 
+		
 		$a = error_get_last();
-		$error =  ( $a['type'] == 4 || $a['type'] == 1 ) ? sprintf( 'Unable to activate the %s.', $type ) : '';
-		$error .= ( $error && PL_DEV ) ? sprintf( '<br />%s in %s on line: %s', $a['message'], basename( $a['file'] ), $a['line'] ) : '';
+		
+		$error = '';
+		
+		// Unable to activate
+		if( $a['type'] == 4 || $a['type'] == 1  )
+			$error .= sprintf( 'Unable to activate the %s.', $type );
+		
+		//Error on line
+		if( $error && PL_DEV )
+			$error .= sprintf( '<br />%s in %s on line: %s', $a['message'], basename( $a['file'] ), $a['line'] );
+		
 		echo $error;
 	}
 	
+	
+	/**
+	 * Provide Download to integration
+	 */
 	function integration_download( $type, $file, $path, $uploader, $checked ) {
 		
 		$url = $this->make_url( $type, $file );
+	
 		echo __( 'Downloaded', 'pagelines' );
+	
 		$this->int_download( $url );
 		
 	}
 	
-	function integration_activate( $type, $file, $path, $uploader, $checked ) {
+	
+	/**
+	 * Activate Integration Options
+	 */
+	function integration_activate( $type, $slug, $path, $uploader, $checked ) {
 		
-		$a = ploption( $file );
+		$a = ploption( $slug );
+		
 		$int = array(
+			'slug'		=> $slug,
 			'version'	=> ( isset( $a['version'] ) ) ? $a['version'] : null,
 			'activated'	=> 'true'
 		);
-		plupop( $file, $int );
+		
+		plupop( $slug, $int );
+		
+		echo '<pre>';
+		echo $slug . '<br/>';
+		echo $path . '<br/>';
+		print_r( ploption($slug) );
+		echo '</pre>';
+		
 		echo __( 'Activated', 'pagelines' );
-	 	$this->page_reload( 'pagelines_extend' );
+		
+	 	//$this->page_reload( 'pagelines_extend' );
 		
 	}
 	

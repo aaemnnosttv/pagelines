@@ -17,8 +17,19 @@ class ExtensionIntegrations extends PageLinesExtensions {
 
 		$integrations = json_decode( json_encode( $integrations ), true ); // convert objects to arrays	
 
+		
 		$list = $this->get_master_list( $integrations, $type, $tab );
 		
-		return $this->ui->extension_list( array( 'list' => $list, 'tab' => $tab, 'type' => 'integrations', 'mode' => 'download' ) );
+		$args = array( 
+			'list' 	=> $list, 
+			'tab' 	=> $tab, 
+			'type' 	=> 'integrations', 
+			'mode' 	=> 'download' 
+		);
+		
+		return $this->ui->extension_list( $args );
 	}
+	
+	
+	
 }
