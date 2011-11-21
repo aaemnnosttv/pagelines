@@ -47,8 +47,18 @@ define( 'PAGELINES_ACCOUNT', apply_filters( 'pagelines_settings_account', 'pagel
 define( 'PAGELINES_SPECIAL', apply_filters( 'pagelines_settings_special', 'pagelines-special' ));
 define( 'PAGELINES_TEMPLATES', apply_filters( 'pagelines_settings_templates', 'pagelines-templates' ));
 define( 'PAGELINES_TEMPLATE_MAP', apply_filters( 'pagelines_settings_map', 'pagelines-template-map-two' ));
+
+/**
+ * Legacy Settings Fields >> ALLOWS FOR REVERT
+ */
 define( 'PAGELINES_SETTINGS_LEGACY', 'pagelines-settings' );
 define( 'PAGELINES_TEMPLATE_MAP_LEGACY', 'pagelines_template_map' );
+
+/**
+ * Active Integrations (adds options in core)
+ */
+define( 'PAGELINES_INTEGRATIONS', 'pagelines-integrations-handling' );
+
 
 /**
  * Define PL Admin Paths

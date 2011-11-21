@@ -78,8 +78,11 @@ class PageLinesTemplate {
 	 */
 	function page_type_breaker(){
 		global $post;
+		global $pl_integration;
 		
-		if(is_404())
+		if(pl_is_integration())
+			$type = pl_get_integration();
+		elseif(is_404())
 			$type = '404_page';
 		elseif( pl_is_cpt('archive') )
 			$type = get_post_type_plural();
@@ -1016,11 +1019,21 @@ function the_sub_templates( $t = 'templates' ){
 	
 	$pt = custom_post_type_handler( $t );
 
+	$ints = integrations_handler( $t );
+
 	$map = array_merge($map, $pt);
 
 	return apply_filters('the_sub_templates', $map, $t);
 	
 }
+
+
+function integrations_handler( $template_area ){
+	
+	
+	
+}
+
 
 /**
  * Handles custom post types, and adds panel if applicable
