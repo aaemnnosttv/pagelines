@@ -13,7 +13,7 @@
 
 if(!has_action('override_pagelines_body_output')): ?>
 			</div>
-			<?php pagelines_register_hook('pagelines_before_morefoot'); // Hook ?>
+			<?php pagelines_register_hook('pagelines_after_main'); // Hook ?>
 			<div id="morefoot_area" class="container-group"><?php pagelines_template_area('pagelines_morefoot', 'morefoot'); // Hook ?></div>
 			<div class="clear"></div>
 		</div>
