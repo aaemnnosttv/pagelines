@@ -1159,8 +1159,12 @@ class PageLinesWelcome {
 			ob_start();
 				include( get_stylesheet_directory() . '/welcome.php' );
 			return ob_get_clean();	
-		}
-		return $this->default_headers();
+		} else {
+			ob_start();
+			include( PL_ADMIN . '/welcome.php' );
+			$intro = ob_get_clean();
+			return $this->default_headers() . $intro;
+			}
 	}
 	
 	function default_headers() {
