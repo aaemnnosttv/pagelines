@@ -22,6 +22,7 @@ class PageLinesTemplate {
 	var $tsections = array(); 
 	var $allsections = array();
 	var $default_allsections = array();
+	var $non_template_sections = array();
 	
 	
 	/**
@@ -200,6 +201,10 @@ class PageLinesTemplate {
 			// Create an array with all sections used on current page - 
 			if(is_array($this->$hook)) 
 				$this->allsections = array_merge($this->allsections, $this->$hook);
+				
+			if( is_array($this->$hook) && ($hook == 'header' || $hook == 'footer' || $hook == 'morefoot') )
+				$this->non_template_sections = array_merge($this->non_template_sections, $this->$hook);
+				
 			
 		}
 		
@@ -659,7 +664,7 @@ class PageLinesTemplate {
 	 * @subpackage Sections
 	 * @since 2.0.b3
 	 */
-	function load_section_optionator( $defaults = false ){
+	function load_section_optionator( $defaults = false, $mode = '' ){
 	
 		if($defaults){
 			
@@ -667,7 +672,25 @@ class PageLinesTemplate {
 				$section->section_optionator( array() );
 
 			
+		} elseif($mode == 'integration') {
+			
+			foreach( $this->non_template_sections as $sid ){
+				
+				$p = splice_section_slug($sid);
+				$section = $p['section'];
+				$clone_id = $p['clone_id'];
+
+				if(isset($this->factory[$section])){
+					$s = $this->factory[$section];
+					$s->setup_oset( $clone_id );
+					$s->section_optionator( array( 'clone_id' => $clone_id ) );
+
+				}
+				
+			}
+		
 		} else {
+			
 			foreach( $this->default_allsections as $sid ){
 			
 				$p = splice_section_slug($sid);
@@ -691,6 +714,7 @@ class PageLinesTemplate {
 				if($inactive)
 					$section->section_optionator( array('clone_id' => $clone_id, 'active' => false) );
 			}
+			
 		}
 			
 
@@ -1019,18 +1043,10 @@ function the_sub_templates( $t = 'templates' ){
 	
 	$pt = custom_post_type_handler( $t );
 
-	$ints = integrations_handler( $t );
 
 	$map = array_merge($map, $pt);
 
 	return apply_filters('the_sub_templates', $map, $t);
-	
-}
-
-
-function integrations_handler( $template_area ){
-	
-	
 	
 }
 

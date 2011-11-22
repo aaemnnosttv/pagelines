@@ -21,6 +21,7 @@ class OptEngine {
 		
 		$this->defaults = array(
 			'section'				=> '',
+			'scontrol'				=> '',
 			'post_id'				=> '', 
 			'pid'					=> '', 
 			'setting'				=> '',

@@ -123,5 +123,5 @@ function pl_is_integration(){
 function pl_get_integration(){
 	global $pl_integration;
 	
-	return (isset($pl_integration) && $pl_integration) ? sprintf('pagelines-integration-%s', $pl_integration) : false;
+	return (isset($pl_integration) && $pl_integration) ? sprintf('%s', $pl_integration) : false;
 }

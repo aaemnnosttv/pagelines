@@ -16,9 +16,13 @@ add_option( PAGELINES_SETTINGS, pagelines_settings_defaults() );
 $GLOBALS['global_pagelines_settings'] = get_option( PAGELINES_SETTINGS );	
 $GLOBALS['pagelines_special_meta'] = get_option( PAGELINES_SPECIAL );	
 
+/**
+ * Singleton >> Integrations Handling
+ */
+$GLOBALS['pl_active_integrations'] = get_option(PAGELINES_INTEGRATIONS);
 
 /**
- * Singleton for Metapanel Options
+ * Singletons >> Metapanel Options
  */
 $GLOBALS['metapanel_options'] =  new PageLinesMetaPanel( array('global' => true) );
 $GLOBALS['profile_panel_options'] =  new ProfileEngine( );

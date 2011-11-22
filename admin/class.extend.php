@@ -465,7 +465,7 @@
 	
 	function show_activate_button( $type, $key, $ext, $tab ){
 		
-		if ( $type == 'integration' && $this->is_active( $type, $key, $ext ) == 'false' )
+		if ( $type == 'integration' && is_integration_active($key) == false )
 			return true;
 
 		if( !$this->in_the_store( $type, $key, $ext, $tab )
@@ -479,11 +479,9 @@
 	
 	function show_deactivate_button( $type, $key, $ext, $tab ){
 		
-		if ( $type == 'integration' ) {
-			
-			if( $this->is_active( $type, $key, $ext ) == 'true' )
-				return true;
-		}
+		if ( $type == 'integration' ) 
+			return is_integration_active( $key );
+		
 		if( $this->is_active( $type, $key, $ext )
 			&& !$this->in_the_store( $type, $key, $ext, $tab )
 		){
@@ -494,15 +492,10 @@
 	
 	 function is_active( $type, $key, $ext ){
 
-		if ( $type == 'integration' ) {
-			$active = ploption( $key );
-			if ( is_array( $active ) )
-				return $active['activated'];
-			else
-				return 'false';
-		}
-		
-		if($type == 'plugin'){
+		if ( $type == 'integration' )
+			return is_integration_active($key);
+			
+		elseif($type == 'plugin'){
 			if( isset( $ext['status']['status'] ) && $ext['status']['status'] == 'active' )
 				return true;
 			else 
@@ -609,14 +602,25 @@
 		return PL_ADMIN_IMAGES . '/thumb-default.png';
 	}
 	
+	
+	/**
+	 *
+	 *  @Todo make this a serialized array of all data.
+	 *
+	 */
 	 function get_the_path( $button, $type, $key, $ext, $tab ){
 
+
+		// If Section >>> 
 		if ( ( $button == 'deactivate' || $button == 'activate' ) && $type == 'section' )
 			return $ext['type'];
 		
 		if ( ( $button == 'install' || $button == 'delete' ) && $type == 'section' ) {
 			return $key;	
 		}	
+		
+		if( $type == 'integration' )
+			return get_integration_path($ext);
 		
 	}
 	
@@ -916,6 +920,7 @@
 	function master_list( $type, $key, $ext, $tab ) {
 		
 		$ext['apiversion'] = ( isset( $ext['apiversion'] ) ) ? $ext['apiversion'] : $ext['version'];
+		
 		if ( !isset( $ext['status'] ) )
 			$ext['status'] = array( 'status' => '' );
 		
@@ -930,7 +935,6 @@
 				'auth'		=> $this->get_the_author( $type, $key, $ext, $tab ),
 				'auth_url'	=> $this->get_the_author_uri( $type, $key, $ext, $tab ), 						
 				'key'		=> $key,
-//				'slug'		=> $ext['slug'],
 				'type'		=> $type,
 				'infourl'	=> $this->get_info_url( $type, $key, $ext, $tab ),
 				'object'	=> $this->get_the_object( $type, $key, $ext, $tab ),
@@ -940,7 +944,8 @@
 				'demo'		=> $this->get_demo_url( $type, $key, $ext, $tab ),
 				'external'	=> $this->get_external_url( $type, $key, $ext, $tab ),
 		);
-	return $list;
+		
+		return $list;
 	}
 
 } // [END]

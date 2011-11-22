@@ -511,6 +511,8 @@ class PageLinesTemplateBuilder {
 		} else 
 			$is_special = false;
 		
+		$integration = ( $o['scontrol'] == 'integration' ) ? true : false;
+		
 		$template_slug = join( '-', array('templates', $this->template->template_type) );
 		$main_slug = join( '-', array('main', $this->template->template_type) );
 
@@ -532,8 +534,14 @@ class PageLinesTemplateBuilder {
 					</div>
 					<div class="sc_area sc_templates">
 						<div class="sc_area_pad fix">
+							
 							<div class="scta_head">Template</div>
-							<?php $this->sc_inputs($template_slug, $this->template->templates, $o ); ?>
+							<?php 
+							if($integration)
+								printf('<div class="sc_inputs"><div class="emptyarea">%s Integration</div></div>', ui_key( $editing ));
+							else
+								$this->sc_inputs($template_slug, $this->template->templates, $o ); 
+							?>
 						</div>
 					</div>
 					<div class="sc_area sc_morefoot">
@@ -550,36 +558,40 @@ class PageLinesTemplateBuilder {
 					</div>
 				</div>
 			</div>
-			<div class="sc_gap fix">
-				<div class="sc_gap_title"><?php echo ui_key( $editing );?> - Content Area</div>
-				<div class="sc_gap_pad">
+			<?php if(!$integration): ?>
+				<div class="sc_gap fix">
 				
-					<div class="sc_area sc_header ntb">
-						<div class="sc_area_pad fix">
-							<div class="scta_head">Content</div>
-							<?php $this->sc_inputs($main_slug, $this->template->main, $o ); ?>
+					<div class="sc_gap_title"><?php echo ui_key( $editing );?> - Content Area</div>
+					<div class="sc_gap_pad">
+			
+						<div class="sc_area sc_header ntb">
+							<div class="sc_area_pad fix">
+								<div class="scta_head">Content</div>
+								<?php $this->sc_inputs($main_slug, $this->template->main, $o ); ?>
+							</div>
+						</div>
+						<div class="sc_area sc_header">
+							<div class="sc_area_pad fix">
+								<div class="scta_head">Wrap</div>
+								<?php $this->sc_inputs('sidebar_wrap', $this->template->sidebar_wrap, $o ); ?>
+							</div>
+						</div>
+						<div class="sc_area sc_header">
+							<div class="sc_area_pad fix">
+								<div class="scta_head">Sidebar 1</div>
+								<?php $this->sc_inputs('sidebar1', $this->template->sidebar1, $o ); ?>
+							</div>
+						</div>
+						<div class="sc_area sc_header nbb">
+							<div class="sc_area_pad fix">
+								<div class="scta_head">Sidebar 2</div>
+								<?php $this->sc_inputs('sidebar2', $this->template->sidebar2, $o ); ?>
+							</div>
 						</div>
 					</div>
-					<div class="sc_area sc_header">
-						<div class="sc_area_pad fix">
-							<div class="scta_head">Wrap</div>
-							<?php $this->sc_inputs('sidebar_wrap', $this->template->sidebar_wrap, $o ); ?>
-						</div>
-					</div>
-					<div class="sc_area sc_header">
-						<div class="sc_area_pad fix">
-							<div class="scta_head">Sidebar 1</div>
-							<?php $this->sc_inputs('sidebar1', $this->template->sidebar1, $o ); ?>
-						</div>
-					</div>
-					<div class="sc_area sc_header nbb">
-						<div class="sc_area_pad fix">
-							<div class="scta_head">Sidebar 2</div>
-							<?php $this->sc_inputs('sidebar2', $this->template->sidebar2, $o ); ?>
-						</div>
-					</div>
+			
 				</div>
-			</div>
+			<?php endif; ?>
 		</div>
 		
 	<?php }

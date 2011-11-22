@@ -273,7 +273,7 @@ class PageLinesMetaPanel {
 		$panel->the_panel($set);
 	}
 	
-	function posts_metapanel( $type ){
+	function posts_metapanel( $type, $mode = ''){
 		
 		
 		$option_engine = new OptEngine( PAGELINES_SPECIAL );
@@ -283,11 +283,13 @@ class PageLinesMetaPanel {
 		// Zero Out Tabs
 		$this->tabs = array();
 		
-		do_global_meta_options();
+		do_global_meta_options( $mode );
+		
 	 	$special_template = new PageLinesTemplate( $type );	
 		
-		$special_template->load_section_optionator( );
+		$special_template->load_section_optionator( false, $mode );
 
+		
 
 		ob_start();
 		?>
@@ -298,26 +300,32 @@ class PageLinesMetaPanel {
 	</script>
 	
 		<div id="<?php echo $handle;?>" class="plist-nav fix">
+			
+			
 			<ul class="fix plist">
-				<lh class="hlist-header">Select Settings Panel</lh>
-				<?php foreach($this->tabs as $tab => $t): ?>
-					<li>
-						<a class="<?php echo $tab;?>  metapanel-tab <?php if(!$t->active) echo 'inactive-tab';?>" href="#<?php echo $tab;?>">
-							<span class="metatab_pad fix">
-								<span class="metatab_icon" style="background: transparent url(<?php echo $t->icon; ?>) no-repeat 0 0;display: block;">
-									<?php 
-										if(!$t->active) 
-											printf('<span class="tab_inactive">inactive</span>');
+				<?php if(count($this->tabs) != 1): ?>
+					<lh class="hlist-header">Select Settings Panel</lh>
+					<?php foreach($this->tabs as $tab => $t): ?>
+						<li>
+							<a class="<?php echo $tab;?>  metapanel-tab <?php if(!$t->active) echo 'inactive-tab';?>" href="#<?php echo $tab;?>">
+								<span class="metatab_pad fix">
+									<span class="metatab_icon" style="background: transparent url(<?php echo $t->icon; ?>) no-repeat 0 0;display: block;">
+										<?php 
+											if(!$t->active) 
+												printf('<span class="tab_inactive">inactive</span>');
 											
-										echo substr($t->name, 0, 17); 
-										 ?>
+											echo substr($t->name, 0, 17); 
+											 ?>
+									</span>
 								</span>
-							</span>
-						</a>
-					</li>
-				<?php endforeach;?>
+							</a>
+						</li>
+					<?php endforeach;?>
+				<?php else: ?>
+					<lh class="hlist-header"><?php echo ucfirst($mode);?> Settings</lh>
+				<?php endif;?>
 			</ul>
-
+			
 			<?php foreach($this->tabs as $tab => $t): ?>
 				<div id="<?php echo $tab;?>" class="posts_tab_content">
 					<div class="posts_tab_content_pad">
@@ -333,6 +341,7 @@ class PageLinesMetaPanel {
 						<?php 
 						foreach($t->options as $oid => $o){
 							$o['special'] = $type;
+							$o['scontrol'] = $mode;
 							
 							$option_engine->option_engine($oid, $o);
 						}
@@ -555,7 +564,7 @@ function add_global_meta_options( $meta_array = array(), $location = 'bottom'){
 	
 }
 
-function do_global_meta_options(){
+function do_global_meta_options( $mode = '' ){
 	global $global_meta_options;
 	
 	$metatab_settings = array(
@@ -563,6 +572,12 @@ function do_global_meta_options(){
 			'name' 	=> __( 'Page Setup', 'pagelines' ),
 			'icon' 	=>  PL_ADMIN_ICONS . '/ileaf.png'
 		);
+
+	if($mode == 'integration'){
+		
+		unset($global_meta_options['_pagelines_layout_mode']);
+
+	}
 
 	register_metatab($metatab_settings,  $global_meta_options, '', 'top');
 }
@@ -607,6 +622,10 @@ function special_page_settings_array(  ){
 			'icon'		=> PL_ADMIN_ICONS.'/404.png'
 		),
 	);
+	
+	$ints = handle_integrations_meta();
+	
+	$d = array_merge($d, $ints);
 
 	return apply_filters('postsmeta_settings_array', $d); 
 }

@@ -49,15 +49,17 @@ define( 'PAGELINES_TEMPLATES', apply_filters( 'pagelines_settings_templates', 'p
 define( 'PAGELINES_TEMPLATE_MAP', apply_filters( 'pagelines_settings_map', 'pagelines-template-map-two' ));
 
 /**
+ * Active Integrations (adds options in core)
+ */
+define( 'PAGELINES_INTEGRATIONS', 'pagelines-integrations-handling' );
+
+
+/**
  * Legacy Settings Fields >> ALLOWS FOR REVERT
  */
 define( 'PAGELINES_SETTINGS_LEGACY', 'pagelines-settings' );
 define( 'PAGELINES_TEMPLATE_MAP_LEGACY', 'pagelines_template_map' );
 
-/**
- * Active Integrations (adds options in core)
- */
-define( 'PAGELINES_INTEGRATIONS', 'pagelines-integrations-handling' );
 
 
 /**

@@ -49,13 +49,13 @@
 
 			case 'integration_activate':
 
-				$this->integration_activate( $type, $file, $path, $uploader, $checked );
+				integration_activate( $type, $file, $path, $uploader, $checked );
 				
 			break;
 
 			case 'integration_deactivate':
 
-				$this->integration_deactivate( $type, $file, $path, $uploader, $checked );
+				integration_deactivate( $type, $file, $path, $uploader, $checked );
 
 			break;			
 
@@ -261,10 +261,17 @@
  	function page_reload( $location, $product = null, $time = 700 ) {
 	
 		$r = rand( 1,100 );
+		
 		$admin = admin_url( sprintf( 'admin.php?r=%1$s&page=%2$s', $r, $location ) );
-		$location = ( $product ) ? $this->get_payment_link( $product ) : $admin;
+		
+		$location = ( $product ) ? self::get_payment_link( $product ) : $admin;
 
-		printf( '<script type="text/javascript">setTimeout(function(){ window.location.href = \'%s\';}, %s);</script>', $location, $time );
+		printf( 
+			'<script type="text/javascript">setTimeout(function(){ window.location.href = \'%s\';}, %s);</script>', 
+			$location, 
+			$time 
+		);
+		
  	}
 
  	function int_download( $location, $time = 300 ) {
@@ -319,42 +326,6 @@
 	/**
 	 * Activate Integration Options
 	 */
-	function integration_activate( $type, $slug, $path, $uploader, $checked ) {
-		
-		$a = ploption( $slug );
-		
-		$int = array(
-			'slug'		=> $slug,
-			'version'	=> ( isset( $a['version'] ) ) ? $a['version'] : null,
-			'activated'	=> 'true'
-		);
-		
-		plupop( $slug, $int );
-		
-		echo '<pre>';
-		echo $slug . '<br/>';
-		echo $path . '<br/>';
-		print_r( ploption($slug) );
-		echo '</pre>';
-		
-		echo __( 'Activated', 'pagelines' );
-		
-	 	//$this->page_reload( 'pagelines_extend' );
-		
-	}
-	
-	function integration_deactivate( $type, $file, $path, $uploader, $checked ) {
-		
-		$a = ploption( $file );
-		$int = array(
-			'version'	=> ( isset( $a['version'] ) ) ? $a['version'] : null,
-			'activated'	=> 'false'
-		);
-		plupop( $file, $int );
-		echo __( 'Deactivated', 'pagelines' );
-		$this->page_reload( 'pagelines_extend' );
-		
-	}
 	
 	function version_fail( $type, $file, $path, $uploader, $checked ) {
 		
