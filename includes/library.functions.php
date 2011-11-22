@@ -746,3 +746,20 @@ function pl_file_get_contents( $filename ) {
 			return false;	
 	}
 }
+
+function pl_detect_ie( $version = false ) {
+	
+	global $is_IE;
+	if ( ! $version && $is_IE ) {
+		
+		return round( substr($_SERVER['HTTP_USER_AGENT'], strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') + 5, 3) );
+	}
+	
+	if ( $is_IE && is_int( $version ) && stristr( $_SERVER['HTTP_USER_AGENT'], sprintf( 'msie %s', $version ) ) )
+		return true;
+	else
+		return false;
+}
+
+
+

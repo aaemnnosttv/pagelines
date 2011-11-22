@@ -148,9 +148,6 @@ function pagelines_head_common(){
 		// Get CSS Objects & Grids
 		pagelines_load_css_relative('css/objects.css', 'pagelines-objects');
 		
-		// WordPress CSS Api
-		pagelines_load_css(  get_bloginfo('stylesheet_url'), 'pagelines-stylesheet', pagelines_get_style_ver());
-		
 		// Allow for PHP include of Framework CSS
 		if(is_child_theme() && !apply_filters( 'disable_pl_framework_css', '' ))
 			pagelines_load_css(  PARENT_URL.'/style.css', 'pagelines-framework', pagelines_get_style_ver( true ));
@@ -171,7 +168,8 @@ function pagelines_head_common(){
 	pagelines_supersize_bg();
 	
 	// Fix IE and special handling
-	pagelines_fix_ie();
+	if ( pl_detect_ie() )
+		pagelines_fix_ie();
 	
 	// Cufon replacement 
 	pagelines_font_replacement();
@@ -265,25 +263,16 @@ function do_dynamic_css(){
  */
 function pagelines_fix_ie( ){
 	
-	global $is_IE;
-	if ( ! $is_IE )
-		return;
-
-	if(pagelines('google_ie'))
-		echo '<!--[if lt IE 8]> <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE8.js"></script> <![endif]-->'."\n";
+	$ie_ver = pl_detect_ie();
+	if( pagelines('google_ie') && ( $ie_ver < 8 ) )
+		echo '<script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE8.js"></script>'."\n";
 	
-	printf('<!--[if lt IE 9]>%3$s<script src="%1$s"></script>%3$s<script src="%2$s" ></script>%3$s<![endif]-->%3$s', 'http://html5shim.googlecode.com/svn/trunk/html5.js', 'http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js',"\n");
-	
-	/*
-		IE File Setting up with conditionals
-		TODO Why doesnt WP allow you to conditionally enqueue scripts?
-	*/
+	if ( $ie_ver < 9 )
+		printf('%3$s<script src="%1$s"></script>%3$s<script src="%2$s" ></script>%3$s', 'http://html5shim.googlecode.com/svn/trunk/html5.js', 'http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js',"\n");
 
 	// If IE7 add the Internet Explorer 7 specific stylesheet
-	global $wp_styles;
-	wp_enqueue_style('ie7-style', PL_CSS  . '/ie7.css', array(), CORE_VERSION);
-	$wp_styles->add_data( 'ie7-style', 'conditional', 'IE 7' );
-	
+	if ( $ie_ver == 7 )
+		wp_enqueue_style('ie7-style', PL_CSS  . '/ie7.css', array(), CORE_VERSION);
 } 
 
 /**
@@ -547,4 +536,7 @@ function pagelines_cred(){
 
 }
 
-
+function pagelines_get_childcss() {
+	if ( ! is_admin() )
+		pagelines_load_css(  get_bloginfo('stylesheet_url'), 'pagelines-stylesheet', pagelines_get_style_ver());
+}
