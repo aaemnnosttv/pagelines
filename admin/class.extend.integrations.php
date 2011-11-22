@@ -103,6 +103,9 @@ function handle_integrations_meta(){
 	
 	$current_integrations = get_option( PAGELINES_INTEGRATIONS );
 	
+	if ( ! $current_integrations )
+		return array();
+
 	$ints = array();
 	foreach($current_integrations as $slug => $info){
 		
