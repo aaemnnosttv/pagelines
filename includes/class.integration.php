@@ -91,8 +91,10 @@ class PageLinesIntegration {
 					preg_match_all( '#<(s(?:cript))[^>]*>.*?</\1>#ms', $args['buffer'], $js );
 					if( is_array( $js[0] ) ) {
 						$js_out = '';
-						foreach( $js[0] as $j )
-							$js_out .= $j . "\n";
+						foreach( $js[0] as $j ) {
+							if ( false == strpos( $j, 'google_ad_client' ) )
+								$js_out .= $j . "\n";
+						}
 					return $js_out;
 					}
 				break;
