@@ -100,7 +100,7 @@ class ExtensionPlugins extends PageLinesExtensions {
 					$plugins[$new_key]['demo'] = $a['Demo'];
 					$plugins[$new_key]['external'] = $a['External'];
 					$plugins[$new_key]['long'] = $a['Long'];
-					$plugins[$new_key]['depends'] = $a['depends'];
+					$plugins[$new_key]['depends'] = $a['Depends'];
 				}
 			}	
 		}
