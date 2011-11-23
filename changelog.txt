@@ -13,7 +13,10 @@
 
 
 Version 2.0.0
-
+	
+	BETA - 32
+	- Bug Fix.
+	
 	BETA - 31
 	- Integrations Special Settings.
 	- IE Handling.
