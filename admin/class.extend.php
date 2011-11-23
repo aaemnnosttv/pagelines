@@ -891,7 +891,7 @@
 				
 				$plugins = $this->get_latest_cached( 'plugins' );
 				
-				if ( isset( $plugins->$ext['depends']->name ) )
+				if ( isset($plugins->$ext['depends']) &&  isset( $plugins->$ext['depends']->name ) )
 					return $plugins->$ext['depends']->name;
 			}	
 		}
