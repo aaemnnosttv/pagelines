@@ -355,7 +355,7 @@
 		$this->sandbox( WP_PLUGIN_DIR . $path, 'plugin' );
 		activate_plugin( $path );
 		_e( 'Success', 'pagelines' );		
-		$text = '&extend_text=plugin_install#installed';
+		$text = '&extend_text=plugin_install#added';
 		$time = ( isset( $wp_filesystem ) && is_object( $wp_filesystem ) && $wp_filesystem->method != 'direct' ) ? 0 : 700; 
 		$this->page_reload( 'pagelines_extend' . $text, null, $time );
 		
@@ -566,7 +566,7 @@
 			_e( 'Success', 'pagelines' );
 		endif;
 		// Output
-		$text = '&extend_text=theme_install#installed';
+		$text = '&extend_text=theme_install#added';
 		$this->page_reload( 'pagelines_extend' . $text, null, $time );
 		
 	}
@@ -589,7 +589,7 @@
 			$time = 700;
 			_e( 'Success', 'pagelines' );
 		endif;
-		$text = '&extend_text=theme_delete#installed';
+		$text = '&extend_text=theme_delete#added';
 		$this->page_reload( 'pagelines_extend' . $text, null, $time );
 		
 	}
@@ -623,7 +623,7 @@
 		if ( $active )
 			switch_theme( basename( get_template_directory() ), $file );
 		// Output
-		$text = '&extend_text=theme_upgrade#installed';
+		$text = '&extend_text=theme_upgrade#added';
 		$this->page_reload( 'pagelines_extend' . $text, null, $time );
 		
 	}
