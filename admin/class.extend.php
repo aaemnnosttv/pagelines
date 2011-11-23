@@ -279,14 +279,14 @@
 		
 		if ( $type == 'plugin' ) {
 						
-			if (  isset( $ext['depends']) ) {
-				
+			if (  !empty( $ext['depends']) ) {		
 				$file = sprintf( '%s/%s/%s.php', WP_PLUGIN_DIR, $ext['depends'], $ext['depends'] );
 				if ( !file_exists( $file ) )
 					return true;
 			}
 		return false;
 		}
+		return false;
 	}
 	
 	function show_upgrade_available($type, $key, $ext, $tab){
@@ -891,7 +891,7 @@
 				
 				$plugins = $this->get_latest_cached( 'plugins' );
 				
-				if ( isset( $plugins->$ext['depends']->name ) )
+				if ( isset( $plugins->$ext['depends']) && !empty( $plugins->$ext['depends']->name ) )
 					return $plugins->$ext['depends']->name;
 			}	
 		}
