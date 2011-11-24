@@ -938,7 +938,7 @@ function the_template_map() {
 		'hook' 			=> 'pagelines_morefoot',
 		'markup'		=> 'content', 
 		'version'		=> 'pro',
-		'sections' 		=> array('PageLinesMorefoot', 'PageLinesTwitterBar')
+		'sections' 		=> array()
 	);
 	
 	$template_map['sidebar1'] = array(

@@ -90,15 +90,15 @@ class PageLinesLayout {
 		
 		function default_layout_setup(){
 			
-			$this->content->width = 960;
+			$this->content->width = 1100;
 			$this->content->percent = $this->get_content_percent($this->content->width);
 			
 			$this->gutter->width = 20;
 			
-			$def_main_two = 640;
+			$def_main_two = 780;
 			$def_sb_two = 320;
 			
-			$def_main_three = 480;
+			$def_main_three = 620;
 			$def_sb_three = 240;
 			
 			$default_map = array(
