@@ -78,7 +78,7 @@ function pagelines_build_templates_interface(){
 function pagelines_build_extension_interface(){ 
 	
 	$args = array(
-		'title'			=> 'PageLines Store (Beta)', 
+		'title'			=> 'The PageLines Store', 
 		'settings' 		=> PAGELINES_EXTENSION,
 		'callback'		=> 'extension_array',
 		'show_save'		=> false, 
