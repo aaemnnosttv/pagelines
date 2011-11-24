@@ -70,10 +70,9 @@ function grid( $data, $args = array() ){
 			setup_postdata($p); 
 			
 			$oset = array('post_id' => $p->ID);
-			
+		
 			// The Image
-			
-			if( ploption($a['image_field'], $oset) )
+			if( $a['image_field'] && ploption($a['image_field'], $oset) )
 				$thumb = sprintf('<img src="%s" alt="thumb" />', ploption($a['image_field'], $oset) );
 			elseif( has_post_thumbnail( $p->ID ) )
 				$thumb = get_the_post_thumbnail( $p->ID );
