@@ -125,11 +125,23 @@ class PageLinesExtendUI {
 		
 		$text = sprintf('<p>%s</p>', $e['desc']);
 		
+		$details = $this->grab_details( $e );
+		
 		$link =  $this->get_extend_buttons( $e, $style ) ;
 		
 		$dtitle = ($style == 'active') ? __('<h4>Active Theme</h4>', 'pagelines') : '';
 					
-		$out = sprintf('<div class="%s graphic_pane media fix">%s<div class="theme-screen img">%s</div><div class="theme-desc bd">%s%s%s</div></div>', $style, $dtitle, $image, $title, $text, $link);
+		$out = sprintf(
+			'<div class="%s graphic_pane media fix">%s<div class="theme-screen img">%s</div><div class="theme-desc bd">%s%s<div class="pane-buttons">%s</div><div class="pane-dets">%s</div></div></div>', 
+			$style, 
+			$dtitle, 
+			$image, 
+			$title, 
+			$text, 
+			$link,
+			join($details, ' <span class="pipe">|</span> ')
+			
+		);
 	
 		return $out;
 		
@@ -150,21 +162,7 @@ class PageLinesExtendUI {
 	
 		$alt = ($count % 2 == 0) ? 'alt_row' : '';
 		
-		$details = array();	
-		
-		if(!$int)
-			$details['version']  = sprintf('<strong>v%s</strong>', $s['version']);
-
-		$details['cred']	 = sprintf('by <a href="%s">%s</a>', $s['auth_url'], $s['auth']);
-
-		if(!$int)
-			$details['overview'] = sprintf( '<a href="%s">Overview</a>', $s['infourl'] );
-	
-		if ( $s['external'] )
-			$details['homepage'] = sprintf( '<a href="%s">Homepage</a>', $s['external'] );
-	
-		if ( $s['demo'] )
-			$details['demo'] = sprintf( '<a href="%s">Demo</a>', $s['demo'] );
+		$details = $this->grab_details( $s );
 		
 	
 		// Thumb
@@ -193,6 +191,27 @@ class PageLinesExtendUI {
 
 		return $out;
 		
+	}
+
+	function grab_details( $args ){
+	
+		$details = array();	
+		
+		if(!$int)
+			$details['version']  = sprintf('<strong>v%s</strong>', $args['version']);
+
+		$details['cred'] = sprintf('by <a href="%s">%s</a>', $args['auth_url'], $args['auth']);
+
+		if(!$int)
+			$details['overview'] = sprintf( '<a href="%s">Overview</a>', $args['infourl'] );
+	
+		if ( $s['external'] )
+			$details['homepage'] = sprintf( '<a href="%s">Homepage</a>', $args['external'] );
+	
+		if ( $s['demo'] )
+			$details['demo'] = sprintf( '<a href="%s">Demo</a>', $args['demo'] );
+			
+		return $details;
 	}
 
 	
