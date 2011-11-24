@@ -916,6 +916,12 @@
 		}
 		return ( !empty( $list ) ) ? $list : '';
 	}
+	
+	function get_the_tab( $type, $key, $ext, $tab ) {
+		
+		return $tab;
+		
+	}
 
 	function master_list( $type, $key, $ext, $tab ) {
 		
@@ -943,6 +949,7 @@
 				'actions'	=> $this->master_array( $type, $key, $ext, $tab  ),
 				'demo'		=> $this->get_demo_url( $type, $key, $ext, $tab ),
 				'external'	=> $this->get_external_url( $type, $key, $ext, $tab ),
+				'tab'		=> $this->get_the_tab( $type, $key, $ext, $tab )
 		);
 		
 		return $list;
