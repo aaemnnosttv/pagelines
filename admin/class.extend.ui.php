@@ -105,7 +105,11 @@ class PageLinesExtendUI {
 				$list['ext'] .= $this->pane_template( $e, $count );
 				$count++;
 			}
-			$output = sprintf('<div class="the_sections plpanes fix">%s%s</div>', $list['active'], $list['ext']);
+			$output = sprintf(
+				'<div class="the_sections plpanes fix"><div class="plpanes-pad"><div class="plpanes-wrap">%s%s</div></div></div>', 
+				$list['active'], 
+				$list['ext']
+			);
 			
 		}
 			return $output;
@@ -143,35 +147,51 @@ class PageLinesExtendUI {
 		// if we are 'core' tab or 'child' tab we dont want to see store urls or versions, they are pointless...
 		$int = ( isset( $s['section']['type'] ) && ( $s['section']['type'] == 'parent' || $s['section']['type'] == 'custom') ) ? true : false;
 
-		$img = sprintf( '<div class="img paneimg"><img src="%s" alt="thumb" /></div>', $s['image'] );
-
-		$title = sprintf('<div class="pane-head"><div class="pane-head-pad"><h3 class="pane-title">%s</h3></div></div>', $s['name'] );
+	
+		$alt = ($count % 2 == 0) ? 'alt_row' : '';
 		
-		if ( !$int )
-			$auth = sprintf('<div class="pane-dets"><strong>%s</strong> | by <a href="%s">%s</a></div>', 'v' . $s['version'], $s['auth_url'], $s['auth']);
-
-		if ( !$int )
-			$info = sprintf( '<span class="pane-info"> <a class="pane-info" href="%s">Store</a></span>', $s['infourl'] );
+		$details = array();	
 		
-		if ( $s['demo'] )
-			$demo = sprintf( '<span class="pane-info"> <a class="pane-info" href="%s">Demo</a></span>', $s['demo'] );
-			
+		if(!$int)
+			$details['version']  = sprintf('<strong>v%s</strong>', $s['version']);
+
+		$details['cred']	 = sprintf('by <a href="%s">%s</a>', $s['auth_url'], $s['auth']);
+
+		if(!$int)
+			$details['overview'] = sprintf( '<a href="%s">Overview</a>', $s['infourl'] );
+	
 		if ( $s['external'] )
-			$external = sprintf( '<span class="pane-info"> <a class="pane-info" href="%s">Link</a></span>', $s['external'] );
+			$details['homepage'] = sprintf( '<a href="%s">Homepage</a>', $s['external'] );
+	
+		if ( $s['demo'] )
+			$details['demo'] = sprintf( '<a href="%s">Demo</a>', $s['demo'] );
+		
+	
+		// Thumb
+		$thumb = sprintf( '<div class="pane-img-col"><div class="img paneimg"><img src="%s" alt="thumb" /></div></div>', $s['image'] );
+
+		$title = sprintf(
+			'<div class="pane-head"><div class="pane-head-pad"><h3 class="pane-title">%s</h3><div class="pane-buttons">%s</div></div></div>', 
+			$s['name'], 
+			$this->get_extend_buttons( $e )
+		);
 
 		$body = sprintf(
-			'<div class="pane-desc"><div class="pane-desc-pad">%s%s%s%s</div></div><div class="pane_buttons">%s</div>%s', 
+			'<div class="pane-desc"><div class="pane-desc-pad"><div class="pane-text">%s</div><div class="pane-dets"><div class="pane-dets-pad">%s</div></div></div></div>', 
 			$s['desc'], 
-			$info, 
-			$demo, 
-			$external, 
-			$this->get_extend_buttons( $e ), 
-			$auth
+			join($details, ' <span class="pipe">|</span> ')
 		);
-		
-		$break = ($count % 3 == 0) ? sprintf('<div class="clear"></div>') : '';
+	
 
-		return sprintf('<div class="plpane"><div class="plpane-pad fix"><div class="plpane-box fix"><div class="plpane-box-pad">%s %s %s</div> </div></div></div>%s', $img, $title, $body, $break);
+		$out = sprintf(
+			'<div class="plpane %s"><div class="plpane-pad fix"><div class="plpane-box"><div class="plpane-box-pad fix">%s %s %s<div class="clear"></div></div> </div></div></div>', 
+			$alt,
+			$thumb, 
+			$title, 
+			$body
+		);
+
+		return $out;
 		
 	}
 

@@ -2594,56 +2594,89 @@ font-weight: bold;
 	.plpanes {
 		list-style-type: none;
 		font-size: 1em;
-	}
-	.plpane{
-		margin: 0; 
-		padding:0;
-		list-style-type: none;
-		width: 33%;
-		float:left;
-	}
-	 .plpane-pad{
-		padding: 8px;
-	}
-	.plpane-box{
 		background:#eaeaea;
+		border-right: 1px solid #fff;
+		border-bottom: 1px solid #fff;
 	}
-		.plpane-box-pad{
-			padding: 15px;
+		.plpanes-pad{
+			border-right: 1px solid #d1d1d1;
+			border-top: 1px solid #ccc;
+			border-left: 1px solid #ccc;
+		}
+		.plpanes-wrap{
+		}
+		.plpane{
+			margin: 0; 
+			padding:0;
+			list-style-type: none;
+			border-top: 1px solid #f7f7f7;
+			border-bottom:1px solid #d1d1d1;
+		}
+		 .plpane-pad{
+			border-left: 1px solid #f7f7f7;
+			padding: 18px;
 		}
 
+		.plpane.alt_row{
+			background: #efefef;
+		}
+	.pane-head{
+		padding-bottom: .1em;
+		float:left;
+		width: 25%;
+		margin-right: 3%;
+	}
+	.pane-desc{
+		float: left;
+		width: 57%;
+		font-size: .95em;
+		line-height: 1.6em;
+		padding-top: .2em;
+		
+	}
+		.pane-text{
+			padding: 0 0 .5em 0;
+		}
+		.pane-dets{ 
+			font-size: .9em;
+		}
+			.pane-dets-pad{
+				padding: .5em 0;
+			}
+		
+			.pane-dets a{
+				text-decoration: none;
+
+			}
+	.pane-img-col{
+		float:left;
+		width: 12%;
+		margin-right: 3%;
+	}
 	.paneimg{
 		background:#f7f7f7;
 		border: 1px solid #fff;
-		padding: 5px;
+		padding: 3px;
 		-moz-box-shadow: 0 1px 4px #aaa;
 		-webkit-box-shadow: 0 1px 4px #aaa;
 		box-shadow: 0 1px 4px #aaa;
-		margin-bottom: 1.4em;
 	}
 
 	.plpane .superlink-wrap{float:right; margin-right: 0}
 	
-	 h3{ margin: 0; font-size: 1.14em; }
+	 h3{ 
+		margin: 0; 
+		font-size: 1.34em; 
+		margin-top: 4px;
+	}
 	
-	.pane-head{
-		padding-bottom: .1em;
+	.pipe{
+		color:#bbb;
+		text-shadow: 1px 0 0 #f7f7f7;
 	}
-	.pane-desc{
-		font-size: .85em;
-		line-height: 1.6em;
-		height: 50px;
-		padding-top: .2em;
-	}
-		.pane-dets{ 
-			margin: .5em; 
-			font-size:.8em;
-		}
 		
 	.pane-buttons{
-		margin: .5em 0;
-		background:#e1e1e1;
-		padding: 5px;
+		margin: .2em 0;
 	}
 	
 	.pane-sub {color: #999;font-size: .9em; font-weight: bold;}
