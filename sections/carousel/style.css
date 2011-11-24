@@ -26,13 +26,11 @@
 }
 #carousel .thecarousel{
 	position: relative;
-	font-size: 10px;
     padding: 30px 67px 25px ;
 	overflow: hidden;
 	display: none; /* Prevents all images from showing on load; must be shown using JS ahead of carousel init. */
 }
 
-#carousel .carousel_text{ font-size: 1.5em; padding: 20px; }
 #carousel .content ul li{ float: left; text-align: center; position: relative; }
 #carousel .content ul li img { padding: 3px;  }
 
@@ -41,7 +39,9 @@
 #carousel .content ul li a span.list-title{
 	color: #fff;
 	text-shadow: #000 0 -1px 0;
-	background: #000;
+	background: rgba(0,0,0, .7);
+	font-family: arial;
+	font-size: 11px;
 	opacity:0.8;
 	line-height: 16px;
 	position: absolute;

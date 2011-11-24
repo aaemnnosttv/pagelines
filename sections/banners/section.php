@@ -186,8 +186,7 @@ class PageLinesBanners extends PageLinesSection {
 							<div class="banner-title"><h2><?php echo do_shortcode($bpost->post_title); ?></h2></div>
 							<div class="banner-content">	
 								<?php 
-									echo blink_edit($bpost->ID); 	
-									echo apply_filters( 'the_content', do_shortcode($bpost->post_content) ); 
+									echo apply_filters( 'the_content', do_shortcode($bpost->post_content).pledit($bpost->ID) ); 
 								?>
 							</div>
 					</div>

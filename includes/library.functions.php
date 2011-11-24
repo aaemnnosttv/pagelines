@@ -56,9 +56,20 @@ function pagelines_body_classes(){
 	
 	global $pagelines_template;
 	
+	$canvas_shadow = (ploption('canvas_shadow')) ? 'content-shadow' : '';
+	
+	$responsive = (ploption('layout_handling') == 'pixels' || ploption('layout_handling') == 'percent') ? 'responsive' : 'static';
+	
 	$design_mode = (ploption('site_design_mode') && !pl_is_disabled('color_control')) ? ploption('site_design_mode') : 'full_width';
 	
-	$body_classes = sprintf('custom %s %s %s', strtolower(CHILDTHEMENAME), $pagelines_template->template_type, $design_mode);
+	$body_classes = sprintf(
+		'custom %s %s %s %s %s', 
+		$canvas_shadow, 
+		$responsive, 
+		strtolower(CHILDTHEMENAME), 
+		$pagelines_template->template_type, 
+		$design_mode
+	);
 	
 	return $body_classes;
 }

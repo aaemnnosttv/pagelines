@@ -668,6 +668,14 @@ function get_global_meta_options(){
 			'type' 		=> 'background_image',
 			'selectors'	=> cssgroup('page_background_image')
 		),
+		'disable_mobile_view' => array(
+			'default' 	=> false,
+			'type' 		=> 'check',
+			'title' 	=> __( 'Disable Mobile Optimized View', 'pagelines' ),
+			'inputlabel'	=> __( 'Disable Mobile View', 'pagelines' ),				
+			'shortexp' 	=> __( 'Make it so mobile devices will see the full site, not the mobile optimized one.', 'pagelines' ),
+			'exp' 		=> __( 'By default PageLines accommodates mobile devices resolution and shows a mobile optimized view. Check this option to make it so users see your full site.', 'pagelines' ),
+		),
 		
 	);
 	

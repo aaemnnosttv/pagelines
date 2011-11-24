@@ -155,6 +155,14 @@ class PageLinesOptionsArray {
 				'shortexp'	=> __( 'Select between responsive vs. static; pixel based or percentage based layout', 'pagelines' ),
 				'exp'		=> __( "Responsive layout adjusts to the size of your user's browser window; static is fixed width. Use this option to switch between the pixel based site width and a percentage based one.", 'pagelines' )
 			),
+			'disable_mobile_view' => array(
+				'default' 	=> false,
+				'type' 		=> 'check',
+				'title' 	=> __( 'Disable Mobile Optimized View', 'pagelines' ),
+				'inputlabel'	=> __( 'Disable Mobile View', 'pagelines' ),				
+				'shortexp' 	=> __( 'Make it so mobile devices will see the full site, not the mobile optimized one.', 'pagelines' ),
+				'exp' 		=> __( 'By default PageLines accommodates mobile devices resolution and shows a mobile optimized view. Check this option to make it so users see your full site.', 'pagelines' ),
+			),
 			'layout_default' => array(
 				'default' 	=> "one-sidebar-right",
 				'type' 		=> 'layout_select',
@@ -247,6 +255,14 @@ class PageLinesOptionsArray {
 						'id'			=> 'the_bg',
 						'inputlabel' 	=> __( 'Content Background (Optional)', 'pagelines' ),
 						'math'		=> array(
+								array( 
+									'id'		=> 'cascade', // use this for getting stored background color
+									'mode' 		=> 'contrast', 
+									'cssgroup' 	=> 'cascade', 
+									'css_prop' 	=> 'background-color', 
+									'diff' 		=> '1%', 
+									'depends' 	=> pl_background_cascade()
+								),
 								array( 
 									'id'		=> 'bg', // use this for getting stored background color
 									'mode' 		=> 'contrast', 
@@ -361,6 +377,14 @@ class PageLinesOptionsArray {
 				'exp' 			=> __( 'By default PageLines generates text shadows designed to create an embossing effect. If you want to disable this, simply check this option.', 'pagelines' ),
 				'type' 			=> 'check',
 				'inputlabel'	=> 'Disable Text Shadows'
+			),
+			'canvas_shadow' => array(
+				'title' 		=> __( 'Enable Content Shadow (Fixed Width Mode Only)', 'pagelines' ),						
+				'shortexp' 		=> __( 'Adds a shadow on the fixed width content area for a little style.', 'pagelines' ),
+				'exp' 			=> __( 'Check this option to enable a drop shadow on the canvas area when using "fixed width" mode.', 'pagelines' ),
+				'type' 			=> 'check',
+				'default'		=> true,
+				'inputlabel'	=> 'Content Shadow'
 			),
 			'page_background_image' => array(
 				'title' 	=> __( 'Site Background Image (Optional)', 'pagelines' ),						

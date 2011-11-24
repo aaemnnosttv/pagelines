@@ -109,6 +109,8 @@ function pagelines_search_form( $echo = true ){
  *
  */
 function pagelines_head_common(){
+	global $pagelines_ID;
+	$oset = array('post_id' => $pagelines_ID);
 	
 	pagelines_register_hook('pagelines_code_before_head'); // Hook 
 
@@ -133,7 +135,7 @@ function pagelines_head_common(){
 		echo '<link rel="profile" href="http://gmpg.org/xfn/11" />'."\n";
 
 	// Removes viewport scaling on Phones, Tablets, etc.
-	if(!apply_filters( 'viewport_width', '' ))
+	if(!ploption('disable_mobile_view', $oset) && !apply_filters( 'disable_mobile_view', '' ))
 		echo '<meta name="viewport" content="width=device-width, initial-scale=1.0" />';
 
 	// Allow for extension deactivation of all css

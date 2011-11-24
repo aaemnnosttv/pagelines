@@ -11,40 +11,40 @@
 	body .content img {max-width: 100%; height: auto; width: auto\9; /* ie8 */}
 
 	@media screen and (max-width:800px){
-		body #site .content, body .wcontent, body #footer .content, html body.fixed_width #page{width: 97%;}
-	    body #page #pagelines_content #column-wrap, body #page  #pagelines_content #sidebar-wrap, html body.fixed_width #site .content{
+		.responsive #site .content, .responsive .wcontent, .responsive #footer .content, html .responsive.fixed_width #page{width: 97%;}
+	    .responsive #page #pagelines_content #column-wrap, .responsive #page  #pagelines_content #sidebar-wrap, html .responsive.fixed_width #site .content{
 	       width: 100%;
 	    }
 	}
 	@media screen and (max-width:600px) { 
-	    body #page #pagelines_content #column-wrap #sidebar1, body #page #pagelines_content #column-main { 
+	    .responsive #page #pagelines_content #column-wrap #sidebar1, .responsive #page #pagelines_content #column-main { 
 	       width: 100%;
 	    }
-		body .navigation_wrap{text-align: center;}
-		body .navigation_wrap .main_nav, .navigation_wrap .main_nav_container {margin-right: 0;}
+		.responsive .navigation_wrap{text-align: center;}
+		.responsive .navigation_wrap .main_nav, .responsive .navigation_wrap .main_nav_container {margin-right: 0;}
 		
-		body .navigation_wrap .searchform {
+		.responsive .navigation_wrap .searchform {
 			display: inline-block;
 			position: relative;
 			float: none;
 			margin-top: 10px;
 		}
-		section.container .content-pad{
+		.responsive section.container .content-pad{
 			padding-right: 0;
 			padding-left: 0;
 		}
 		
-		#branding .icons {
+		.responsive #branding .icons {
 			position: static;
 		}
 	}
 	
 	@media screen and (max-width:450px) { 
 		html { -webkit-text-size-adjust: none; }
-	    body #page #pagelines_content .clip {
+	    .responsive #page #pagelines_content .clip {
 	        width: 100%;
 	    }
-		body .clip_box{
+		.responsive .clip_box{
 			margin:0;
 			padding:0;
 			border:0;
@@ -124,7 +124,7 @@
 .fixed_width #page{
 	margin: 12px auto 0;
 }
-	.fixed_width .page-canvas{
+	.content-shadow.fixed_width .page-canvas{
 		-moz-box-shadow: 0 1px 5px rgba(0,0,0, .8);
 		-webkit-box-shadow: 0 1px 5px rgba(0,0,0, .8);
 		box-shadow: 0 1px 5px rgba(0,0,0, .8);
