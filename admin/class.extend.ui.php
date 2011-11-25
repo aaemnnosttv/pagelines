@@ -76,27 +76,37 @@ class PageLinesExtendUI {
 				return $this->extension_banner( sprintf( __( 'Available %s %s will appear here.', 'pagelines' ), $list['tab'], $list['type'] ) );
 		}
 
-			if ( $list['mode'] == 'download' ) {
+		$count = 1;
+		if ( $list['mode'] == 'download' ) {
 			
 			foreach( $list['list'] as $eid => $e ){
-					$list['ext'] .= $this->graphic_pane( $e, 'download' );
+				$list['ext'] .= $this->graphic_pane( $e, 'download', $count );
+				$count++;
 			}
 
-			$output = sprintf('<ul class="graphic_panes fix">%s</ul>', $list['ext']);	
+			$output = sprintf('<ul class="graphic_panes plpanes fix"><div class="plpanes-pad">%s</div></ul>', $list['ext']);	
 			return $output;		
 		}
 		
 		
 		if($list['mode'] == 'graphic'){
 			
+			$count = 1;
 			foreach( $list['list'] as $eid => $e ){
+				
 				if(isset($e['active']) && $e['active'])
-					$list['active'] .= $this->graphic_pane( $e, 'active');
+					$list['active'] .= $this->graphic_pane( $e, 'active', $count);
 				else
-					$list['ext'] .= $this->graphic_pane( $e );
+					$list['ext'] .= $this->graphic_pane( $e, '', $count);
+					
+				$count++;
 			}
 
-			$output = sprintf('<ul class="graphic_panes fix">%s%s</ul>', $list['active'], $list['ext']);
+			$output = sprintf(
+				'<div class="graphic_panes plpanes fix"><div class="plpanes-pad">%s%s</div></div>', 
+				$list['active'], 
+				$list['ext']
+			);
 			
 		} else {
 			
@@ -106,7 +116,7 @@ class PageLinesExtendUI {
 				$count++;
 			}
 			$output = sprintf(
-				'<div class="the_sections plpanes fix"><div class="plpanes-pad"><div class="plpanes-wrap">%s%s</div></div></div>', 
+				'<div class="plpanes fix"><div class="plpanes-pad"><div class="plpanes-wrap">%s%s</div></div></div>', 
 				$list['active'], 
 				$list['ext']
 			);
@@ -115,7 +125,7 @@ class PageLinesExtendUI {
 			return $output;
 	}
 	
-	function graphic_pane( $e, $style = ''){
+	function graphic_pane( $e, $style = '', $count = ''){
 	
 		$e = wp_parse_args( $e, $this->defaultpane);
 
@@ -131,9 +141,12 @@ class PageLinesExtendUI {
 		
 		$dtitle = ($style == 'active') ? __('<h4>Active Theme</h4>', 'pagelines') : '';
 					
+		$alt = ($count % 2 == 0) ? 'alt_row' : '';			
+					
 		$out = sprintf(
-			'<div class="%s graphic_pane media fix">%s<div class="theme-screen img">%s</div><div class="theme-desc bd">%s%s<div class="pane-buttons">%s</div><div class="pane-dets">%s</div></div></div>', 
+			'<div class="%s %s plpane graphic_pane media fix">%s<div class="theme-screen img">%s</div><div class="theme-desc bd">%s%s<div class="pane-buttons">%s</div><div class="pane-dets">%s</div></div></div>', 
 			$style, 
+			$alt,
 			$dtitle, 
 			$image, 
 			$title, 
@@ -142,6 +155,7 @@ class PageLinesExtendUI {
 			join($details, ' <span class="pipe">|</span> ')
 			
 		);
+		
 	
 		return $out;
 		
