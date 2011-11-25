@@ -897,9 +897,7 @@
 	}
 	
 	function get_master_list( $extension, $type, $tab, $mode = '') {
-		
-		if ( !is_array( $extension ) )
-			return;
+
 		$list = array();
 		foreach( $extension as $key => $ext ) {
 			
