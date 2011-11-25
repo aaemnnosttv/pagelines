@@ -28,7 +28,7 @@ class PageLinesExtendUI {
 				'active'	=> false,
 				'desc'		=> 'No description.', 
 				'auth_url'	=> 'http://www.pagelines.com',
-				'auth'		=> '',
+				'auth'		=> 'PageLines',
 				'image'		=> PL_ADMIN_IMAGES . '/thumb-default.png',
 				'buttons'	=> '',
 				'key'		=> '',

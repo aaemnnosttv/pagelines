@@ -12,10 +12,6 @@
 	
 	function __construct() {
 
-		$this->exprint = 'onClick="extendIt(\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\')"';
-		$this->username = get_pagelines_credentials( 'user' );
-		$this->password = get_pagelines_credentials( 'pass' );
-
 		$this->ui = new PageLinesExtendUI;
 
 		add_action( 'wp_ajax_pagelines_ajax_extend_it_callback', array(&$this, 'extend_it_callback' ) );	
