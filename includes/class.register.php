@@ -48,7 +48,7 @@ class PageLinesRegister {
 			'parent'	=> PL_SECTIONS			
 			);
 		
-		if ( is_child_theme() )
+		if ( is_child_theme() && is_dir( get_stylesheet_directory()  . '/sections' ) )
 			$section_dirs = array_merge( array( 'custom' => get_stylesheet_directory()  . '/sections' ), $section_dirs );
 
 		$section_dirs = apply_filters( 'pagelines_sections_dirs', $section_dirs );
