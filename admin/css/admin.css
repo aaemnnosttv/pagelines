@@ -1034,13 +1034,16 @@
 /* @ Text Content*/
 
 
+	.theme_intro_pad{
+		padding: 0 10px;
+	}
 		.admin_billboard_content{
-			padding: 1em 2em 2em;
+			padding: 1em 0;
 		}
 
 			h3.admin_header_main {
-				margin:0;
-				font-size: 3em;
+				margin:.8em 0;
+				font-size: 2em;
 				line-height: 1.6em;
 			}
 			.admin_billboard_text{
@@ -1054,9 +1057,7 @@
 					color:#AAA;
 					font-size: 11px;
 				}
-			.plugins_billboard .admin_billboard_content{
-				padding-left: 70px;
-			}
+			
 		.admin_theme_screenshot{
 	
 			padding: 8px;
@@ -1067,6 +1068,9 @@
 			border-bottom: 1px solid #d1d1d1;
 			background: #fff;
 			margin-left: 15px;
+			-moz-box-shadow: 0 1px 4px #bbb;
+		   -webkit-box-shadow:0 1px 4px #bbb;
+		  	box-shadow: 0 1px 3px #aaa;
 		}
 			.admin_theme_screenshot img{
 				width: 250px;
@@ -1081,11 +1085,9 @@
 				color:#000;
 			}
 			
-			.welcome_feature_list{margin: .5em 0;}
 		
 			.welcomef{
-				width: 45.5%;
-				margin: 0 2% 10px;
+				width: 48.5%;
 				float: left;
 				background:#e1e1e1;
 					border-right: 1px solid #fff;
@@ -1094,15 +1096,21 @@
 				   -webkit-box-shadow:inset 0 0 5px #bbb;
 				   box-shadow:inset 0 0 5px #bbb;
 			}
+				.welcomef.rlast{
+					float:right;
+				}
 			
 				.welcomef-pad{
-					height: 85px;
+					height: 95px;
 					padding: 20px 20px;
 					padding-left: 70px;
 					border: 1px solid #bbb;
 					border-right: 1px solid #ddd;
 					border-bottom: 1px solid #ddd;
 				}
+					.theme_intro .welcome_feature_list{
+						margin: 0;padding: 0;
+					}
 					.welcome_feature_list p{margin: 0 0 1em 0;}
 					
 			.welcome_feature_list li .feature_icon, .admin_feature_list li .feature_icon, .admin_billboard_content .feature_icon{
@@ -1112,9 +1120,6 @@
 				width: 40px;
 			}
 			.admin_billboard_content .feature_icon{margin-top: 8px;}
-			.plugins_billboard .admin_billboard_content .feature_icon{
-				background: url(../images/icons/sprite-admin-features.png) no-repeat 0px -160px;
-			}
 			
 			.feature_firstrule .feature_icon{
 				background: url(../images/icons/sprite-admin-features.png) no-repeat 0px 0px;
@@ -1209,7 +1214,7 @@
 			font-size: 1em;
 		}
 			.pl_help li{
-				margin-bottom: 1em;
+				margin-top: 1em;
 			}
 		.pl_help .lbl.inln{
 			margin: 0;
@@ -2598,6 +2603,7 @@ font-weight: bold;
 		background:#eaeaea;
 		border-right: 1px solid #fff;
 		border-bottom: 1px solid #fff;
+		margin-bottom: 1.7em;
 	}
 		.plpanes-pad{
 			border-right: 1px solid #d1d1d1;

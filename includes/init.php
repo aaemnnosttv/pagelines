@@ -88,6 +88,11 @@ require_once( PL_INCLUDES . '/library.theming.php');
 require_once( PL_INCLUDES . '/config.options.php' );
 
 /**
+ * Theme/Framework Welcome
+ */
+require_once( PL_ADMIN . '/class.welcome.php' );
+
+/**
  * Dynamic CSS Selectors
  */
 require_once( PL_INCLUDES . '/config.selectors.php' );
