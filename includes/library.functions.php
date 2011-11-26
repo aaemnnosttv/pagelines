@@ -4,11 +4,32 @@
 // = PageLines Function Library =
 // ==============================
 
+/**
+ *  Determines if on a foreign integration page
+ *
+ * @since 2.0.0
+ */
+function pl_is_integration(){
+	global $pl_integration;
+	
+	return (isset($pl_integration) && $pl_integration) ? true : false;
+}
+
+/**
+ *  returns the integration slug if viewing an integration page
+ *
+ * @since 2.0.0
+ */
+function pl_get_integration(){
+	global $pl_integration;
+	
+	return (isset($pl_integration) && $pl_integration) ? sprintf('%s', $pl_integration) : false;
+}
 
 /**
  *  Determines if this page is showing several posts.
  *
- * @since 4.0.0
+ * @since 2.0.0
  */
 function pagelines_is_posts_page(){	
 	if(is_home() || is_search() || is_archive() || is_category() || is_tag()) return true; 
@@ -23,6 +44,8 @@ function pagelines_non_meta_data_page(){
 function is_pagelines_special(){
 	if(is_404() || is_home() || is_author() || is_search() || is_archive() || is_category() || is_tag() ) 
 		return true; 
+	elseif(pl_is_integration())
+		return true;
 	else 
 		return false;
 }

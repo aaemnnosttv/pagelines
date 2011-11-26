@@ -115,15 +115,3 @@ class PageLinesIntegration {
 	
 	
 }
-
-function pl_is_integration(){
-	global $pl_integration;
-	
-	return (isset($pl_integration) && $pl_integration) ? true : false;
-}
-
-function pl_get_integration(){
-	global $pl_integration;
-	
-	return (isset($pl_integration) && $pl_integration) ? sprintf('%s', $pl_integration) : false;
-}
