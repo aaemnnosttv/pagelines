@@ -128,7 +128,8 @@ function plspecial($key, $args){
 		$id_key = $key.'_'.$args['clone_id'];
 	else
 		$id_key = $key;
-
+	
+	
 	if(isset($pagelines_special_meta[$type]) && is_array($pagelines_special_meta[$type]) && isset($pagelines_special_meta[$type][$id_key]))
 		return $pagelines_special_meta[$type][$id_key];
 	else 

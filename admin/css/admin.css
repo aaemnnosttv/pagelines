@@ -490,6 +490,7 @@
 	
 /* @ Horizontal List - Used in Posts Control */
 	.plist-nav{
+		padding: 0;
 		border-top: 1px solid #fff;	
 	}
 	.posts_tab_content{
@@ -505,7 +506,7 @@
 		background:#eaeaea;
 		border-bottom: 1px solid #ccc;
 		border-top: 1px solid #ccc;
-
+		margin: 0;
 		text-align: center;
 	}
 		.plist lh.hlist-header{

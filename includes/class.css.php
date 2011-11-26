@@ -66,7 +66,7 @@ class PageLinesCSS {
 						$o['selectvalues'][$sid]['val'] = ploption( $sid, $oset);
 				}
 				
-				if( !ploption('supersize_bg') && $o['type'] == 'background_image' && ploption($oid.'_url', $oset)){
+				if( !ploption('supersize_bg', $oset) && $o['type'] == 'background_image' && ploption($oid.'_url', $oset)){
 					
 					$bg_repeat = (ploption($oid.'_repeat', $oset)) ? ploption($oid.'_repeat', $oset) : 'no-repeat';
 					$bg_attach = (ploption($oid.'_attach', $oset)) ? ploption($oid.'_attach', $oset): 'scroll';

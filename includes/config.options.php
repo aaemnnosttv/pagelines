@@ -383,7 +383,7 @@ class PageLinesOptionsArray {
 				'shortexp' 		=> __( 'Adds a shadow on the fixed width content area for a little style.', 'pagelines' ),
 				'exp' 			=> __( 'Check this option to enable a drop shadow on the canvas area when using "fixed width" mode.', 'pagelines' ),
 				'type' 			=> 'check',
-				'default'		=> true,
+				'default'		=> false,
 				'inputlabel'	=> 'Content Shadow'
 			),
 			'page_background_image' => array(
@@ -398,6 +398,7 @@ class PageLinesOptionsArray {
 				'shortexp' 		=> __( 'Uses a script to set the background for full width and responsive design', 'pagelines' ),
 				'exp' 			=> __( 'Sets the background to match the width of the browser.', 'pagelines' ),
 				'type' 			=> 'check',
+				'default'		=> true,
 				'inputlabel'	=> 'Supersize The Background Image'
 			),
 			
