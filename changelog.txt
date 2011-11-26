@@ -15,22 +15,24 @@
 Version 2.0.0
 	
 	Release Candidate One
-	- Integrations Special Settings fixed.
-	- minor fixes.
+	- Integrations - Special Settings fixed.
+	- Section - Refined Carousel
+	- Bugs - Fixed special option handling
+	- Store - New interface
 	
 	BETA - 32
-	- Bug Fix.
+	- Store - Error Fix
 	
 	BETA - 31
 	- Integrations Special Settings.
 	- IE Handling.
 	
 	BETA - 30
-	- Added new footer hooks.
+	- Extension - Added new footer hooks.
 
 	BETA - 29
-	- i18n fixes
-	- new 'fonts' option.
+	- Localization - i18n fixes
+	- Option - new 'fonts' option.
 
 	BETA - 28
 	- Various fixes
