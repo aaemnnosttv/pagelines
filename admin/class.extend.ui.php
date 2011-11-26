@@ -28,7 +28,7 @@ class PageLinesExtendUI {
 				'active'	=> false,
 				'desc'		=> 'No description.', 
 				'auth_url'	=> 'http://www.pagelines.com',
-				'auth'		=> '',
+				'auth'		=> 'PageLines',
 				'image'		=> PL_ADMIN_IMAGES . '/thumb-default.png',
 				'buttons'	=> '',
 				'key'		=> '',
@@ -210,19 +210,18 @@ class PageLinesExtendUI {
 	function grab_details( $args ){
 	
 		$details = array();	
-		
-		if(!$int)
+		if( 'internal' != $args['tab'] )
 			$details['version']  = sprintf('<strong>v%s</strong>', $args['version']);
 
 		$details['cred'] = sprintf('by <a href="%s">%s</a>', $args['auth_url'], $args['auth']);
 
-		if(!$int)
+		if( 'internal' != $args['tab'] )
 			$details['overview'] = sprintf( '<a href="%s">Overview</a>', $args['infourl'] );
 	
-		if ( $s['external'] )
+		if ( $args['external'] )
 			$details['homepage'] = sprintf( '<a href="%s">Homepage</a>', $args['external'] );
 	
-		if ( $s['demo'] )
+		if ( $args['demo'] )
 			$details['demo'] = sprintf( '<a href="%s">Demo</a>', $args['demo'] );
 			
 		return $details;

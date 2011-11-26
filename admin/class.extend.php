@@ -16,7 +16,6 @@
 
  	function __construct() {
 
-		$this->exprint = 'onClick="extendIt(\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\')"';
 		$this->username = get_pagelines_credentials( 'user' );
 		$this->password = get_pagelines_credentials( 'pass' );
 		
@@ -32,7 +31,7 @@
 	 * Flush all our transients ( Makes this save button a sort of reset button. )
 	 *
 	 */	
-	static function flush_caches() {
+	 function flush_caches() {
 	
 		delete_transient( EXTEND_UPDATE );
 		delete_transient( 'pagelines_extend_themes' );
@@ -898,7 +897,7 @@
 	}
 	
 	function get_master_list( $extension, $type, $tab, $mode = '') {
-		
+
 		$list = array();
 		foreach( $extension as $key => $ext ) {
 			
@@ -915,6 +914,12 @@
 			$list[$array_key] = $this->master_list( $type, $key, $ext, $tab );
 		}
 		return ( !empty( $list ) ) ? $list : '';
+	}
+	
+	function get_the_tab( $type, $key, $ext, $tab ) {
+		
+		return $tab;
+		
 	}
 
 	function master_list( $type, $key, $ext, $tab ) {
@@ -943,6 +948,7 @@
 				'actions'	=> $this->master_array( $type, $key, $ext, $tab  ),
 				'demo'		=> $this->get_demo_url( $type, $key, $ext, $tab ),
 				'external'	=> $this->get_external_url( $type, $key, $ext, $tab ),
+				'tab'		=> $this->get_the_tab( $type, $key, $ext, $tab )
 		);
 		
 		return $list;

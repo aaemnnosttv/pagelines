@@ -38,9 +38,8 @@ class PageLines_Upgrader_Skin extends WP_Upgrader_Skin {
 				exit;
 				
 			}
-			
-			// unmapped error...
-		//	echo $string;
+				// fatal error?
+				wp_die( sprintf( '<h1>Fatal error!</h1><strong>%s</strong>', $string ) );
 		}
 	}
 	
