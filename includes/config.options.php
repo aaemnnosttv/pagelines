@@ -1009,80 +1009,6 @@ class PageLinesOptionsArray {
 	}
 	
 	/**
-	 * Forum Related Options
-	 *
-	 * @since 2.0.0
-	 */
-	function forum_options(){
-
-		$a = array(
-			'icon'			=> PL_ADMIN_ICONS.'/forum_options.png',
-			'forum_tags'		=> array(
-				'default'	=> true,
-				'type'		=> 'check',
-				'inputlabel'=> __( 'Show tags in sidebar?', 'pagelines' ),
-				'title'		=> __( 'Tag Cloud In Sidebar', 'pagelines' ),
-				'shortexp'	=> __( 'Including post tags on the forum sidebar', 'pagelines' ),
-				'exp'		=> __( 'Tags are added by users and moderators on your forum and can help people locate posts.', 'pagelines' )
-			),
-			'forum_image_1'		=> array(
-				'default'	=> '',
-				'type'		=> 'image_upload',
-				'inputlabel'=> __( 'Upload Forum Image', 'pagelines' ),
-				'imagepreview'	=> 125,
-				'title'		=> __( 'Forum Sidebar Image #1', 'pagelines' ),
-				'shortexp'	=> __( 'Add a 125px by 125px image to your forum sidebar', 'pagelines' ),
-				'exp'		=> __( "Spice up your forum with a promotional image in the forum sidebar.", 'pagelines' )
-			),
-			'forum_image_link_1' => array(
-				'default'	=> '',
-				'type'		=> 'text',
-				'inputlabel'=> __( 'Image Link URL', 'pagelines' ),
-				'title'		=> __( 'Forum Image #1 Link', 'pagelines' ),
-				'shortexp'	=> __( 'Full URL for your forum image', 'pagelines' ),
-				'exp'		=> __( "Add the full url for your forum image.", 'pagelines' )
-			),
-			'forum_image_2' => array(
-				'default'	=> '',
-				'type'		=> 'image_upload',
-				'imagepreview'	=> 125,
-				'inputlabel'=> __( 'Upload Forum Image', 'pagelines' ),
-				'title'		=> __( 'Forum Sidebar Image #2', 'pagelines' ),
-				'shortexp'	=> __( 'Add a 125px by 125px image to your forum sidebar', 'pagelines' ),
-				'exp'		=> __( "Spice up your forum with a promotional image in the forum sidebar.", 'pagelines' )
-			),
-			'forum_image_link_2'	=> array(
-				'default'	=> '',
-				'type'		=> 'text',
-				'inputlabel'=> __( 'Image Link URL', 'pagelines' ),
-				'title'		=> __( 'Forum Image #2 Link', 'pagelines' ),
-				'shortexp'	=> __( 'Full URL for your forum image', 'pagelines' ),
-				'exp'		=> __( "Add the full url for your forum image.", 'pagelines' )
-			),
-			'forum_sidebar_link'	=> array(
-				'default'	=> '#',
-				'type'		=> 'text',
-				'inputlabel'=> __( 'Forum Image Caption URL', 'pagelines' ),
-				'title'		=> __( 'Forum Caption Link URL (Text Link)', 'pagelines' ),
-				'shortexp'	=> __( 'Add the URL for your forum caption (optional)', 'pagelines' ),
-				'exp'		=> __( "Text link underneath your forum images.", 'pagelines' )
-			),
-			'forum_sidebar_link_text' => array(
-				'default'	=> 'About '.get_bloginfo('name'),
-				'type'		=> 'text',
-				'inputlabel'=> __( 'Forum Sidebar Link Text', 'pagelines' ),
-				'title'		=> __( 'Forum Sidebar Link Text', 'pagelines' ),
-				'shortexp'	=> __( 'The text of your image caption link', 'pagelines' ),
-				'exp'		=> __( "Change the text of the caption placed under your forum images.", 'pagelines' )
-			)
-	
-		);
-		
-		return apply_filters('pagelines_options_forum_options', $a);
-		
-	}
-	
-	/**
 	 * Welcome Message
 	 *
 	 * @since 2.0.0
@@ -1248,7 +1174,7 @@ class PageLinesWelcome {
 			),
 			'widgets'	=> array(
 				'name'			=> __( 'Draggable Layout &amp; Widgets', 'pagelines' ),
-				'desc'			=> __( 'Use the Layout Editor to control your content layout.  There are also several <strong>widgetized</strong> areas that are controlled through your widgets panel.', 'pagelines' ),
+				'desc'			=> __( 'Use the Layout Editor to control your content layout. There are also several <strong>widgetized</strong> areas that are controlled through your widgets panel.', 'pagelines' ),
 				'class'			=> 'feature_dynamic', 
 				'icon'			=> '',
 			),
