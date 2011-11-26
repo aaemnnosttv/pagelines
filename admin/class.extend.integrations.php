@@ -52,7 +52,7 @@ function integration_activate( $type, $slug, $name, $uploader, $checked ) {
 	
 	echo __( 'Options Activated', 'pagelines' );
 	
- 	PageLinesExtendActions::page_reload( 'pagelines_extend' );
+ 	integration_reload( 'pagelines_extend' );
 	
 }
 
@@ -63,7 +63,22 @@ function integration_deactivate( $type, $slug, $name, $uploader, $checked ) {
 	
 	echo __( 'Options Deactivated', 'pagelines' );
 	
-	PageLinesExtendActions::page_reload( 'pagelines_extend' );
+	integration_reload( 'pagelines_extend' );
+	
+}
+
+function integration_reload( $location ){
+	
+	$r = rand( 1,100 );
+	
+	$admin = admin_url( sprintf( 'admin.php?r=%1$s&page=%2$s', $r, $location ) );
+
+	printf( 
+		'<script type="text/javascript">setTimeout(function(){ window.location.href = \'%s\';}, %s);</script>', 
+		$admin, 
+		700
+	);
+	
 	
 }
 
