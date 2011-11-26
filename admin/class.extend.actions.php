@@ -550,7 +550,7 @@
 		$disabled[$path][$file] = true; 
 		update_option( 'pagelines_sections_disabled', $disabled );
 		// Output
-	 	$message = __( 'Section Dectivated.', 'pagelines' );
+	 	$message = __( 'Section Deactivated.', 'pagelines' );
 	 	$this->page_reload( 'pagelines_extend', null, $message );
 		
 	}
@@ -640,7 +640,7 @@
 		switch_theme( basename( get_template_directory() ), basename( get_template_directory() ) );
 		delete_transient( 'pagelines_sections_cache' );
 		
-		$message = __( 'Theme Dectivated.', 'pagelines' );
+		$message = __( 'Theme Deactivated.', 'pagelines' );
 		$this->page_reload( 'pagelines_extend', null, $message );
 		
 	}
