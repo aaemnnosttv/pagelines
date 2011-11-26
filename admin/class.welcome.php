@@ -165,17 +165,21 @@ class PageLinesWelcome {
 	function get_plugins_billboard(){
 	
 		$plugins = $this->show_supported_elements( 'plugins' );
-		$sections = $this->show_supported_elements( 'sections' );		
+		$sections = $this->show_supported_elements( 'sections' );
+		
+		if (is_child_theme() && ($plugins != '' || $sections != ''))
+			$support = sprintf('<h3 class="admin_header_main">%s</h3>%s%s', NICECHILDTHEMENAME.__(' Supported Extensions', 'pagelines'), $plugins, $sections);
+		else 
+			$support = '';
+		
 		
 		$overview = sprintf( __( "<p>Although %s is universally plugin compatible, we have added <strong>advanced</strong> graphical/functional support for several WordPress plugins.</p><p> It's your responsibility to install each plugin, which can be done through <strong>Plugins</strong> &gt; <strong>Add New</strong> or through the <strong>developer's site</strong> where you can download them manually (e.g. CForms).</p>", 'pagelines' ), NICETHEMENAME );
 			
 		$core = $this->supported_element_ui( $this->get_welcome_plugins() );
 			
 		$billboard = sprintf( 
-			'<div class="admin_billboard plugins_billboard"><div class="admin_billboard_content"><div class="feature_icon"></div><h3 class="admin_header_main">%s</h3>%s%s<h3 class="admin_header_main">%s</h3>%s%s</div></div>', 
-			__( 'Supported Extensions', 'pagelines' ), 
-			$plugins, 
-			$sections,
+			'<div class="admin_billboard plugins_billboard"><div class="admin_billboard_content"><div class="feature_icon"></div>%s<h3 class="admin_header_main">%s</h3>%s%s</div></div>', 
+			$support,
 			__( 'Core Support', 'pagelines' ), 
 			$overview, 
 			$core
