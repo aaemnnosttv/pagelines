@@ -14,6 +14,10 @@
 
 Version 2.0.0
 	
+	Release Candidate One
+	- Integrations Special Settings fixed.
+	- minor fixes.
+	
 	BETA - 32
 	- Bug Fix.
 	
