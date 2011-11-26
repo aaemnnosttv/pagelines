@@ -13,6 +13,9 @@
     height: 40px;
 	cursor: pointer;
 }
+#carousel .jcarousel-next, #carousel .jcarousel-prev{
+	opacity: .5;
+}
 #carousel .jcarousel-next { 
     right: 15px;
     cursor: pointer;
@@ -39,7 +42,7 @@
 #carousel .content ul li a span.list-title{
 	color: #fff;
 	text-shadow: #000 0 -1px 0;
-	background: rgba(0,0,0, .7);
+	background: rgba(0,0,0, .9);
 	font-family: arial;
 	font-size: 11px;
 	opacity:0.8;

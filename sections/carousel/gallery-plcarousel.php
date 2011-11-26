@@ -11,11 +11,13 @@ Follow variables are useable :
  You can check the content when you insert the tag <?php var_dump($variable) ?>
  If you would like to show the timestamp of the image ,you can use <?php echo $exif['created_timestamp'] ?>
 */
-?>
-<?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?><?php if (!empty ($gallery)) : ?>
+ 
+if (!defined ('ABSPATH')) 
+	die ('No direct access allowed');
 
-	<!-- Thumbnails -->
-	<?php foreach ( $images as $image ) : ?>
+if (!empty ($gallery)) : 
+	
+	foreach ( $images as $image ) : ?>
 	
 	<li id="ngg-image-<?php echo $image->pid ?>" class="list-item ngg-gallery-thumbnail-box" <?php echo $image->style ?> >
 		<a href="<?php echo $image->imageURL ?>" title="<?php echo $image->description ?>" <?php echo $image->thumbcode ?> >
@@ -25,6 +27,7 @@ Follow variables are useable :
 		</a>
 	</li>
 	
- 	<?php endforeach; ?>
+<?php
+	endforeach; 
+endif; 
 
-<?php endif; ?>

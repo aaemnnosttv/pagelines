@@ -199,20 +199,18 @@ class PageLinesMetaPanel {
 				$new = $option_array[$newkey] = $opt;
 				
 				unset( $option_array[$key] );
-				
-				
-				
-				if( isset($option_array[$newkey]['selectvalues']) && is_array($option_array[$newkey]['selectvalues']) ){
+			
+				/**
+				 * For multi options, keys will need to be changed too.
+				 */
+				if( pagelines_is_multi_option( $key, $opt ) && isset($option_array[$newkey]['selectvalues']) && is_array($option_array[$newkey]['selectvalues']) ){
 					foreach($option_array[$newkey]['selectvalues'] as $skey => $sopt){
-						
+	
+
 						$snewkey = join( '_', array($skey, $o['clone_id']) );
 						
-						if(isset($sopt['inputlabel']))
-							$sopt['inputlabel'] = sprintf('%s (#%s)', $sopt['inputlabel'], $o['clone_id']);
-
 						$option_array[$newkey]['selectvalues'][$snewkey] = $sopt;
-				
-						
+	
 						unset( $option_array[$newkey]['selectvalues'][$skey] );
 
 					}
