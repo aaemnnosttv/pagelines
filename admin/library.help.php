@@ -21,7 +21,6 @@ class PageLines_Inline_Help {
 	function get_help() {
 		global $current_screen;		
 		$this->screen = $current_screen;
-
 		switch( $this->screen->id ) {
 			
 			case 'pagelines_page_pagelines_extend':
@@ -29,10 +28,10 @@ class PageLines_Inline_Help {
 					'sections'	=> __( 'Sections', 'pagelines' ),
 					'themes'	=> __( 'Themes', 'pagelines' ),
 					'plugins'	=> __( 'Plugins', 'pagelines' ),
-					'import'	=> __( 'Import-Export', 'pagelines' ),
-					'account'	=> __( 'Account', 'pagelines' )
+					'integrations'	=> __( 'Integrations', 'pagelines' ),					
 				));
 			break;
+					
 			
 			case 'pagelines_page_pagelines_special':
 				$this->extend_help( array(
@@ -64,7 +63,12 @@ class PageLines_Inline_Help {
 				'custom'		=> __( 'Custom Code', 'pagelines' )
 				));
 			break;
-							
+
+			case 'pagelines_page_pagelines_account':
+				$this->extend_help( array(
+					'your_account'	=> __( 'Your Account', 'pagelines' ),
+					'import'	=> __( 'Import-Export', 'pagelines' ),
+				));							
 			default:
 			break;
 		}
@@ -91,12 +95,12 @@ class PageLines_Inline_Help {
 		
 		$markup = array(
 			
-			'sections'			=> 'This is the sections markup',
-			'plugins'			=> 'This is the plugins markup',
-			'themes'			=> 'This is the themes markup',			
-			'import'			=> 'This is the import markup',
-			'account'			=> 'This is the account markup',	
-			
+			'sections'			=> 'What is a section??',
+			'plugins'			=> 'What is a plugin??',
+			'themes'			=> 'What is a theme ( child theme info?)',
+			'integrations'		=> 'A what???',		
+			'your_account'			=> __( 'To be able to receive PageLines updates you have to setup your account credentials.' , 'pagelines' ),	
+			'import'			=> __( 'Export and Import your settings.', 'pagelines' ),
 			'special-blog'				=> 'blog stuff',
 			'special-archive'			=> 'Archive stuff',			
 		);
