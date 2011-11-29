@@ -80,7 +80,7 @@ function grid( $data, $args = array() ){
 				$thumb = $default_img;
 			
 			$image = sprintf( 
-				'<a href="%s" class="img grid-img" style="width: %s"><span class="grid-img-pad">%s</span></a>',
+				'<a href="%s" class="img grid-img" style="width: %s"><span class="grid-img-pad"><span class="vignette">%s</span></span></a>',
 				get_permalink($p->ID), 
 				$a['img_width'], 
 				$thumb
