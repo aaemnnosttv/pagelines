@@ -22,8 +22,8 @@
 		margin:0;
 		width: 100%; /* clear IE 7 */
 	}
-	ul.tabbed-list li {margin: 0; padding: 0; float: left;}
-	ul.tabbed-list li a{display: block; }
+	ul.tabbed-list li, ul.tabbed-list lh {margin: 0; padding: 0; float: left;}
+	ul.tabbed-list li a, ul.tabbed-list lh a{display: block; }
 
 /* 
  * @ Media / Image Format
