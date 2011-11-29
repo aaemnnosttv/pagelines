@@ -436,8 +436,17 @@ function pagelines_main_logo( $location = null ){
 		
 }
 
-
-
+/**
+ * 
+ * Wraps in standard js on ready format
+ *
+ * @since 2.0.0
+ */
+function pl_js_wrap( $js ){
+	
+	return sprintf('<script type="text/javascript">/*<![CDATA[*/ jQuery(document).ready(function(){ %s }); /*]]>*/</script>', $js);
+	
+}
 
 /**
  * 

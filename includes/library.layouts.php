@@ -21,7 +21,8 @@ function grid( $data, $args = array() ){
 		'row_class'		=> 'gridrow', 
 		'content_len'	=> 10, 
 		'callback'		=> false,
-		'margin'		=> true
+		'margin'		=> true, 
+		'hovercard'		=> false
 	);
 	
 	$a = wp_parse_args($args, $defaults);
@@ -51,6 +52,11 @@ function grid( $data, $args = array() ){
 	
 	$margin_class = ($a['margin']) ? '' : 'ppfull';
 	
+	
+	if($a['hovercard'])
+		$out .= pl_js_wrap(sprintf('jQuery(".vignette").hover(function(){jQuery(this).find(".hovercard").fadeIn();}, function(){jQuery(this).find(".hovercard").fadeOut();});'));
+
+
 	// Grid loop
 	foreach($posts as $pid => $p){
 			
@@ -79,11 +85,14 @@ function grid( $data, $args = array() ){
 			else
 				$thumb = $default_img;
 			
+			$hovercard = ($a['hovercard']) ? sprintf('<div class="hovercard"><span>%s</span></div>', $p->post_title) : '';
+			
 			$image = sprintf( 
-				'<a href="%s" class="img grid-img" style="width: %s"><span class="grid-img-pad"><span class="vignette">%s</span></span></a>',
+				'<a href="%s" class="img grid-img" style="width: %s"><div class="grid-img-pad"><div class="vignette">%s%s</div></div></a>',
 				get_permalink($p->ID), 
 				$a['img_width'], 
-				$thumb
+				$thumb, 
+				$hovercard
 			);
 	
 			$content .= $image;
