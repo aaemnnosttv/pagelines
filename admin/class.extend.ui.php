@@ -215,7 +215,7 @@ class PageLinesExtendUI {
 
 		$details['cred'] = sprintf('by <a href="%s">%s</a>', $args['auth_url'], $args['auth']);
 
-		if( 'internal' != $args['tab'] )
+		if( 'internal' != $args['tab'] && 'integration' != $args['type'] )
 			$details['overview'] = sprintf( '<a href="%s">Overview</a>', $args['infourl'] );
 	
 		if ( $args['external'] )
