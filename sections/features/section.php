@@ -223,7 +223,7 @@ function draw_features($f, $class, $clone_id = null) {
 		$feature_nav_type = ploption('feature_nav_type', $this->oset);
 	   
 	// Refine
-		$no_nav = ( isset($f) && count($f) == 1 ) ? 'nonav' : '';
+		$no_nav = ( isset($f) && count($f) == 1 ) ? ' nonav' : '';
 		$footer_nav_class = $class. ' '. $feature_nav_type . $no_nav;
 		$cycle_selector = "fclone".$clone_id;
 ?>		
