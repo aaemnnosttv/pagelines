@@ -517,7 +517,7 @@ function pl_special_url( $t ){
  */
 function pagelines_cred(){ 
 	
-	if(pagelines_option('no_credit') || !VDEV){
+	if(ploption('no_credit') || !VDEV || (VDEV && has_action('add_leaf'))){
 		
 		
 		$img 	= sprintf('<img src="%s" alt="%s by PageLines" />', apply_filters('pagelines_leaf_image', PL_IMAGES.'/pagelines.png'), THEMENAME);

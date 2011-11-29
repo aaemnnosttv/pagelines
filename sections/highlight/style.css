@@ -5,6 +5,10 @@
 	#highlight .content-pad .highlight-area{padding: 50px 15px 60px;}
 	#highlight .copy-pad .highlight-area{padding: 20px 15px;}
 
+	.highlight-head{
+		line-height: 1.4em;
+	}
+
 	#highlight .content .highlight-subhead, #highlight .copy-pad .highlight-subhead{
 		font-size: .85em;
 	}
