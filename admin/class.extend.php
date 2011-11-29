@@ -319,7 +319,7 @@
 	
 	 function show_download_button( $type, $key, $ext, $tab ){
 
-		if( $type == 'integration' && $this->updates_configured() )
+		if( $type == 'integration' && $this->updates_configured() && VDEV )
 			return true;
 		else
 			return false;
