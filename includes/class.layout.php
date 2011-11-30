@@ -187,7 +187,13 @@ class PageLinesLayout {
 					$this->main_content->width = $settings['maincolumn_width'];
 					$this->sidebar1->width = $this->content->width - $settings['maincolumn_width'];
 					
-				} elseif($this->layout_mode == $layoutmode) {
+				} elseif($this->layout_mode == $layoutmode && ($layoutmode == 'fullwidth')){
+					
+					//Account for javascript saving of other layout type
+					$this->main_content->width = $this->content->width;
+					$this->sidebar1->width = 0;
+					
+				}elseif($this->layout_mode == $layoutmode) {
 				
 					$this->main_content->width = $settings['maincolumn_width'];
 					$this->sidebar1->width = $settings['primarysidebar_width'];

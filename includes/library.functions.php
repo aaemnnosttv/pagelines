@@ -764,6 +764,17 @@ function pagelines_get_tweets( $username, $latest = null) {
 		}	
 }
 
+
+function pl_admin_is_page(){
+	global $post;
+	
+	if( (isset($_GET['post_type']) && $_GET['post_type'] == 'page')  || (isset($post) && $post->post_type == 'page') )
+		return true; 
+	else
+		return false;
+
+}
+
 function pl_file_get_contents( $filename ) {
 
 	if ( is_file( $filename ) ) {

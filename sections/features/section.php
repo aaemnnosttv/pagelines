@@ -253,7 +253,7 @@ function draw_features($f, $class, $clone_id = null) {
 						$feature_wrap_markup = ($feature_style == 'text-none' && $action) ? 'a' : 'div';
 						$feature_wrap_link = ($feature_style == 'text-none' && $action) ? sprintf('href="%s"', $action) : '';
 						
-						$more_link = ($feature_style != 'text-none' && $action) ? sprintf( ' <a href="%s" >%s</a>', $action, __('More &rarr;', 'pagelines') ) : '';
+						$more_link = ($feature_style != 'text-none' && $action) ? sprintf( ' <a class="plmore" href="%s" >%s</a>', $action, __('More &rarr;', 'pagelines') ) : '';
 						
 						$background_css = ($feature_background_image) ? sprintf('style="background: url(\'%s\') no-repeat top center"', $feature_background_image ) : '';
 					
