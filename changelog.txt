@@ -14,6 +14,12 @@
 
 Version 2.0.0
 	
+	Release Candidate Two
+	- Welcome Screen Changes
+	- Fixed Layout Management Bug
+	- Add class to feature link
+	- Misc improvements
+	
 	Release Candidate One
 	- Integrations - Special Settings fixed.
 	- Section - Refined Carousel

@@ -3,4 +3,4 @@
 // Internal build versions.
 
 
-$platform_build = '2.0.RC1';
+$platform_build = '2.0.RC2';
