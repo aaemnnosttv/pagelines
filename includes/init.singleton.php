@@ -8,7 +8,8 @@
 /**
  * Sets default global settings -- NOTE only fires first time
  */
-add_option( PAGELINES_SETTINGS, pagelines_settings_defaults() ); 
+if(!get_option(PAGELINES_SETTINGS))
+	add_option( PAGELINES_SETTINGS, pagelines_settings_defaults() ); 
 
 /**
  * Set options globals, cache?

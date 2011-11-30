@@ -35,6 +35,7 @@ class PageLinesLayout {
 			$this->build_layout($layout_mode);
 			
 			
+			
 		}
 		
 		function build_layout($layout_mode){
@@ -83,13 +84,14 @@ class PageLinesLayout {
 			
 			$this->layout_map = ( $db_layout_map && is_array($db_layout_map) ) ? $db_layout_map : $this->default_layout_setup();
 			
-		
+			
+			
 		}
 		
 
 		
 		function default_layout_setup(){
-			
+		
 			$this->content->width = 1100;
 			$this->content->percent = $this->get_content_percent($this->content->width);
 			
@@ -168,10 +170,7 @@ class PageLinesLayout {
 				$this->sidebar2->text = 'SB2';
 				$this->sidebar2->id = 'layout-sidebar-2';
 			
-			$this->content->width = 960;
-
 			$this->gutter->width = 30;
-		
 			
 			$this->fudgefactor = 24;
 		
@@ -206,7 +205,6 @@ class PageLinesLayout {
 			$this->sidebar2->width = $this->content->width - $this->main_content->width - $this->sidebar1->width;
 		
 			$this->dynamic_grid->width = $this->content->width/12;
-			
 		
 		}
 		
@@ -219,9 +217,11 @@ class PageLinesLayout {
 				$this->clip->width = ($this->main_content->width - (3 * $this->gutter->width))/2 ;
 				
 			}elseif($this->layout_mode == 'two-sidebar-right' || $this->layout_mode == 'two-sidebar-left'){
+				
 				$this->column_wrap->width = $this->main_content->width;
 				$this->sidebar_wrap->width = $this->sidebar1->width + $this->sidebar2->width;
 				$this->clip->width = ($this->main_content->width - (2 * $this->gutter->width))/2 ;
+				
 			}elseif($this->layout_mode == 'one-sidebar-right' || $this->layout_mode == 'one-sidebar-left'){
 				$this->column_wrap->width = $this->main_content->width;
 				$this->sidebar_wrap->width = $this->sidebar1->width;
@@ -339,6 +339,7 @@ class PageLinesLayout {
 			$l = array();
 
 			/* (target / context)*100 = percent-result */
+			
 			$l['colwrap'] = $this->get_width( $this->column_wrap->width, $this->content->width ); 
 			$l['sbwrap'] = $this->get_width( $this->sidebar_wrap->width, $this->content->width );
 
@@ -448,7 +449,7 @@ function get_the_layouts(){
 }
 
 function reset_layout_to_default(){
-	
+
 	$dlayout = new PageLinesLayout;
 	
 	$layout_map = $dlayout->default_layout_setup();

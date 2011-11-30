@@ -249,16 +249,19 @@ jQuery(document).ready(function(){
 				jQuery('.'+LayoutMode).addClass('selectededitor');
 
 			<?php foreach(get_the_layouts() as $layout):
+			
 					$mylayout = new PageLinesLayout($layout);
 					$default_margin = $mylayout->margin->bwidth;
 					$ewidth = $mylayout->east->bwidth;
 					$wwidth = $mylayout->west->bwidth;
-				?>if (LayoutMode == '<?php echo $layout;?>') { 
+				?>
+					if (LayoutMode == '<?php echo $layout;?>') { 
 						marginwidth = mwidth + 2;
 						innereastwidth = <?php echo $ewidth;?>;
 						innerwestwidth = <?php echo $wwidth;?>; 
 						gtrwidth = 10
 					}
+					
 			<?php endforeach;?>
 
 				setLayoutBuilder(LayoutMode, marginwidth, innereastwidth, innerwestwidth, gtrwidth);
