@@ -11,16 +11,17 @@
 class PageLines_Inline_Help {
 
 	function __construct() {
-		$this->init();
-	}
-	
-	function init(){
-		add_filter( 'contextual_help_list', array( &$this, 'get_help' ) ,9999);
+		
+		global $wp_version;
+		if ( true == ( version_compare( $wp_version, '3.3-beta1', '>=' ) ) )	
+			add_filter( 'contextual_help_list', array( &$this, 'get_help' ) ,9999);
 	}
 	
 	function get_help() {
+		
 		global $current_screen;		
 		$this->screen = $current_screen;
+
 		switch( $this->screen->id ) {
 			
 			case 'pagelines_page_pagelines_extend':
@@ -76,9 +77,6 @@ class PageLines_Inline_Help {
 	}
 	
 	function extend_help( $helps ) {
-
-		if ( !method_exists( $this->screen, 'add_help_tab' ) )
-			return;
 		
 		foreach( $helps as $id => $help ) {
 			
@@ -87,8 +85,12 @@ class PageLines_Inline_Help {
 				'title'   => $help,
 				'content' => $this->help_markup( $id ),
 			));	
-		
-		}		
+			$this->screen->set_help_sidebar(
+		        '<p><strong>' . __( 'For more information:', 'pagelines' ) . '</strong></p>' .
+		        '<p>' . __( '<a href="http://www.pagelines.com/wiki/" target="_blank">Documentation</a>' ) . '</p>' .
+		        '<p>' . __( '<a href="http://www.pagelines.com/forum/" target="_blank">Support Forums</a>' ) . '</p>'
+		);
+		}	
 	}
 
 	function help_markup( $help ) {
