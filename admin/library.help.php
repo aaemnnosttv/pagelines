@@ -2,7 +2,7 @@
 /**
  * PageLine Inline Help System.
  *
- * test
+ *
  * @author PageLines
  *
  * @since 2.0.b21
