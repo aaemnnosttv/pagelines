@@ -26,16 +26,15 @@ class PageLines_Inline_Help {
 			
 			case 'pagelines_page_pagelines_extend':
 				$this->extend_help( array(
-					'sections'	=> __( 'Sections', 'pagelines' ),
-					'themes'	=> __( 'Themes', 'pagelines' ),
-					'plugins'	=> __( 'Plugins', 'pagelines' ),
-					'integrations'	=> __( 'Integrations', 'pagelines' ),					
+					'pagelines-store'	=> __( 'PageLines Store', 'pagelines' ),
+					'integrations'		=> __( 'Integrations', 'pagelines' ),					
 				));
 			break;
 					
 			
 			case 'pagelines_page_pagelines_special':
 				$this->extend_help( array(
+					'special-about'		=> __( 'About Special Pages', 'pagelines' ),
 					'special-blog'		=> __( 'Blog Page', 'pagelines' ),
 					'special-archive'	=> __( 'Archive Page', 'pagelines' ),
 					'special-category'	=> __( 'Category Page', 'pagelines' ),
@@ -145,25 +144,63 @@ class PageLines_Inline_Help {
 									<br /><br />For more information, click on 
 									<a href="http://www.pagelines.com/wiki/index.php?title=How_to_Use_the_Custom_Code_Settings" 
 									target="_blank">How to Use the Custom Code Settings</a></p>',
+			
+			'templates'			=> '<p>The Template Setup is one of PageLine\'s most powerful features. Using drag and drop technology, 
+									you can easily place your sections wherever you want on your site. 
+									<br /><br />For more information, click on 
+									<a href="http://www.pagelines.com/wiki/index.php?title=How_to_Use_the_Template_Setup" 
+									target="_blank">How to Use the Template Setup</a></p>',
+			
+			'pagelines-store'	=>	'<p>The PageLines Store is your one stop online market place for everything you need to truely 
+									customize your website. Built by fellow members of the PageLines community, the Store offers the 
+									following types of components:
+
+									<ul>
+									<li><strong>Sections -</strong> Drag and Drop pieces of web design that you can control on page templates</li> 
+									<li><strong>Themes -</strong> The overall appearance and structure of the site; its visual presentation.</li>
+									<li><strong>Plugins -</strong> Extend the functionality of your website.</li>
+									</ul>
+									For more information, click on 
+									<a href="http://www.pagelines.com/wiki/index.php?title=How_to_Use_the_PageLines_Store" 
+									target="_blank">How to Use the PageLines Store</a>
+									<br /><br />
+									Interested in developing your own Sections/Themes/Plugins for the PageLines Store? Click on 
+									<a href="http://www.pagelines.com/wiki/index.php?title=Getting_Started_as_a_Developer" 
+									target="_blank">Getting Started as a Developer</a> for more information.</p>',
 													
-			'sections'			=>	'What is a section??',
-			'plugins'			=>	'What is a plugin??',
-			'themes'			=>	'What is a theme ( child theme info?)',
-			'integrations'		=>	'A what???',
-			
-			
+													
+			'integrations'		=>	'<p>If you purchased the PageLines Developer Edition, you have access to PageLines Integrations. <br />
+									This allows you to use non-WordPress software on your website such as <strong>Vanilla</strong> forums & <strong>MediaWiki</strong> 
+									help docs, and complety integrate it with your PageLines site. 
+									<br /><br />
+									For more information, click on 
+									<a href="http://www.pagelines.com/wiki/index.php?title=How_to_Use_Integrations" 
+									target="_blank">How to Use Integrations</a></p>',
 				
-			'your_account'		=>	'account',	
-			'import'			=>	'import',
+			'your_account'		=>	'<p>To be able to receive PageLines updates and purchase & download items from the Store, you must setup your account credentials.</p>',	
 			
+			'import'			=>	'<p>You can easily transfer your PageLines 2.0 settings to another PageLines 2.0 site by using the Import-Export feature. 
+									Remember that this will only transfer your <em>PageLines</em> Settings. <br /><br />
+									If you want to transfer your posts, pages, comments, custom fields, categories, and tags, you must use the WordPress Import-Export feature. 
+									This is located under "Tools" inside your WordPress Administration Menu.<br /><br />
+									For more information, click on <a href="http://www.pagelines.com/wiki/index.php?title=How_to_Migrate_PageLines_from_Another_Site" 
+									target="_blank">How to Migrate PageLines from Another Site</a></p>',
 			
-			'special-blog'		=>	'blog stuff',
-			'special-archive'	=>	'Archive stuff',
-			'special-category'	=>	'category',
-			'special-search'	=>	'search',
-			'special-tags'		=>	'tags',
-			'special-author'	=>	'author',
-			'special-404'		=>	'404'		
+			'special-about'		=>	'<p>Special Pages refer to the WordPress pages which dynamically display data from your site. 
+									For example, your Blog is a Special Page, because it takes all of your individually entered posts 
+									and displays them on one page. <br /><br />
+									Each type of Special Page has the same settings. Click on each tab to find out more on each page type.
+									<br /><br />
+									For more information, click on 
+									<a href="http://www.pagelines.com/wiki/index.php?title=How_to_Use_Special_Pages" 
+									target="_blank">How to Use the Special Pages</a></p>',
+			'special-blog'		=>	'<p>This page contains of all the blog posts on your site.</p>',
+			'special-archive'	=>	'<p>This page displays all blog posts created in a particular month. Users can select the month via the Archives Widget in the Sidebar.</</p>',
+			'special-category'	=>	'<p>If a blog post is assigned to a certain category, a user can click on that category and arrive at this page. It will contain all the other posts in that same category.</p>',
+			'special-search'	=>	'<p>When a user types in a search on your website, the Search Results page will appear containing the results.</p>',
+			'special-tags'		=>	'<p>You can assign tag words to a post. If a user clicks on the tag word, he will arrive at this page containing other posts with the same tag.</p>',
+			'special-author'	=>	'<p>This page will show all of the posts by a certain author. Clicking on the author\'s name will take the user there.</p>',
+			'special-404'		=>	'<p>If a user tries to go to a page on your site that doesn\'t exist, he will arrive at this page.</p>'		
 		);
 		
 		return ( isset( $markup[$help] ) ) ? $markup[ $help ] : __( 'No help for this tab yet!', 'pagelines' );		
