@@ -895,7 +895,7 @@ class PageLinesOptionsArray {
 					'shortexp'	=> __( 'Check to disable AJAX saving', 'pagelines' ),
 					'exp'		=> __( "Check this option if you are having problems with AJAX saving. For example, if design control or typography options aren't working", 'pagelines' )
 			),
-
+/*
 			'enable_debug' => array(
 					'default'	=> '',
 					'version'	=> 'pro',
@@ -905,7 +905,7 @@ class PageLinesOptionsArray {
 					'shortexp'	=> __( 'Show detailed settings information', 'pagelines' ),
 					'exp'		=> __( "This information can be useful in the forums if you have a problem.", 'pagelines' )
 			),
-
+*/
 			'hide_pagelines_introduction' => array(
 					'default'	=> '',
 					'version'	=> 'pro',
