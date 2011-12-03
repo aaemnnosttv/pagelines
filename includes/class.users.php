@@ -37,8 +37,8 @@ class UserEngine {
 
 	function order($a, $b){
 
-		$ap = pl_um($this->args['order_field'], $a->ID);
-		$bp = pl_um($this->args['order_field'], $b->ID);
+		$ap = (pl_um($this->args['order_field'], $a->ID)) ? pl_um($this->args['order_field'], $a->ID) : 10;
+		$bp = (pl_um($this->args['order_field'], $b->ID)) ? pl_um($this->args['order_field'], $b->ID) : 10;
 
 		if ( $ap == $bp )
 			return 0;

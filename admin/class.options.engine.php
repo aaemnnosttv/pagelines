@@ -63,7 +63,7 @@ class OptEngine {
 
 	function make_adjustments($o){
 		
-		if($o['type'] == 'color_multi' || $o['type'] == 'text_content'){
+		if($o['type'] == 'color_multi' || $o['type'] == 'text_content' || $o['inputsize'] == 'big'){
 			$o['layout'] = 'full';
 		}
 
