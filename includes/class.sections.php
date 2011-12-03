@@ -420,7 +420,7 @@ function setup_section_notify( $section, $text, $url = null, $ltext = null, $tab
 	
 		$banner_title = sprintf('<h3 class="banner_title wicon" style="background-image: url(%s);">%s</h3>', $section->icon, $section->name);
 		
-		$tab = (isset($section->tabID)) ? $section->tabID : null;
+		$tab = ( !isset( $tab) && isset($section->tabID)) ? $section->tabID : $tab;
 		
 		$url = (isset($url)) ? $url : pl_meta_set_url( $tab );
 		
