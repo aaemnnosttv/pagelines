@@ -69,6 +69,7 @@
 	       	width: 100%;
 			margin-right: 0;
 	    }
+			
 		.responsive #site .pprand{
 			width: 100% !important;
 			float: none;
@@ -197,6 +198,9 @@ body #page .blink-wrap	.blink{
 	
 /* @ Grid */ 
 .grid-element, .media_overview{ margin-bottom: 12px; }
+.grid-img-pad{
+	float:left;
+}
 .vignette{position: relative;}
 .hovercard {
 	position: absolute; 

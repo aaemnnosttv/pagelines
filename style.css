@@ -620,7 +620,7 @@ table {width: 100%;}
 			#page .wp-pagenavi span.pages { border:none; background: transparent; }
 
 			#page .wp-pagenavi a, #page .wp-pagenavi .current, #page .wp-pagenavi .extend{
-				padding: 3px 7px 4px 8px;
+				padding: 3px 7px 4px 7px;
 				border: none;
 				font-weight: normal;
 			}
