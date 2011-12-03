@@ -182,6 +182,9 @@ class PageLinesRegister {
 				
 			if (pathinfo($fileSPLObject->getFilename(), PATHINFO_EXTENSION ) == 'php') {
 				
+				$base_url = null;
+				$base_dir = null;
+				
 				$headers = get_file_data( $fullFileName, $default_headers );
 
 				// If no pagelines class headers ignore this file.
