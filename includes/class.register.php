@@ -202,6 +202,7 @@ class PageLinesRegister {
 				}
 				
 				$base_dir = ( isset( $base_dir ) ) ? $base_dir : PL_SECTIONS . $folder;
+				$base_url = ( isset( $base_url ) ) ? $base_url : SECTION_ROOT . $folder;
 				
 				$sections[$headers['classname']] = array(
 					'class'			=> $headers['classname'],
@@ -213,7 +214,7 @@ class PageLinesRegister {
 					'authoruri'		=> ( isset( $headers['authoruri'] ) ) ? $headers['authoruri'] : '',
 					'description'	=> $headers['description'],
 					'name'			=> $headers['section'],
-					'base_url'		=> ( isset( $base_url ) ) ? $base_url : SECTION_ROOT . $folder,
+					'base_url'		=> $base_url,
 					'base_dir'		=> $base_dir,
 					'base_file'		=> $fullFileName,
 					'workswith'		=> ( $headers['workswith'] ) ? array_map( 'trim', explode( ',', $headers['workswith'] ) ) : '',
