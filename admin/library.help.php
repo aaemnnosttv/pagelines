@@ -87,8 +87,8 @@ class PageLines_Inline_Help {
 			));	
 			$this->screen->set_help_sidebar(
 		        '<p><strong>' . __( 'For more information:', 'pagelines' ) . '</strong></p>' .
-		        '<p>' . __( '<a href="http://www.pagelines.com/wiki/" target="_blank">Documentation</a>' ) . '</p>' .
-		        '<p>' . __( '<a href="http://www.pagelines.com/forum/" target="_blank">Support Forums</a>' ) . '</p>'
+		        '<p>' . sprintf( '<a href="http://www.pagelines.com/wiki/" target="_blank">%s</a>', __( 'Documentation', 'pagelines' ) ) . '</p>' .
+		        '<p>' . sprintf( '<a href="http://www.pagelines.com/forum/" target="_blank">%s</a>', __( 'Support Forums', 'pagelines' ) ) . '</p>'
 		);
 		}	
 	}
@@ -97,61 +97,61 @@ class PageLines_Inline_Help {
 		
 		$markup = array(
 			
-			'welcome'			=>	'<p>Welcome to the PageLines Help Section! Here you can find a brief overview of each tab, as well as a link to a more detailed help doc.</p>',
+			'welcome'			=>	__( '<p>Welcome to the PageLines Help Section! Here you can find a brief overview of each tab, as well as a link to a more detailed help doc.</p>', 'pagelines' ),
 			
-			'website_setup'		=>	'<p>Website Setup is generally the first thing people configure when they activate PageLines.<br />
+			'website_setup'		=>	__( "<p>Website Setup is generally the first thing people configure when they activate PageLines.<br />
 									These are the options that get your logo, brand name, and other custom elements up on your site.<br />
-									For more information, click on <a href="http://www.pagelines.com/wiki/index.php?title=
-									How_to_Use_the_Website_Setup_Settings" target="_blank">How to Use the Website Setup Settings</a></p>',
+									For more information, click on <a href='http://www.pagelines.com/wiki/index.php?title=
+									How_to_Use_the_Website_Setup_Settings' target='_blank'>How to Use the Website Setup Settings</a></p>", 'pagelines' ),
 			
-			'layout'			=>	'<p>The Layout Editor is what changes the layout of your site. You can change the dimensions of your 
+			'layout'			=>	__( "<p>The Layout Editor is what changes the layout of your site. You can change the dimensions of your 
 									content, the number & location of your sidebar(s), etc... <br />For more information, click on 
-									<a href="http://www.pagelines.com/wiki/index.php?title=How_to_Use_the_Layout_Editor_Settings" 
-									target="_blank">How to Use the Layout Editor Settings</a></p>',
+									<a href='http://www.pagelines.com/wiki/index.php?title=How_to_Use_the_Layout_Editor_Settings' 
+									target='_blank'>How to Use the Layout Editor Settings</a></p>", 'pagelines' ),
 									
-			'color'				=>	'<p>Color Control lets you choose the main colors that will be displayed on your website. 
-									It will then decide the best colors for your site\'s secondary and tertiary elements. 
+			'color'				=>	__( "<p>Color Control lets you choose the main colors that will be displayed on your website. 
+									It will then decide the best colors for your site's secondary and tertiary elements. 
 									You can always edit these manually by using CSS but Color Control chooses the best 
 									complementary colors to your site design. <br /><br />For more information, click on 
-									<a href="http://www.pagelines.com/wiki/index.php?title=How_to_Use_the_Color_Control_Settings" 
-									target="_blank">How to Use the Color Control Settings</a></p>',
+									<a href='http://www.pagelines.com/wiki/index.php?title=How_to_Use_the_Color_Control_Settings' 
+									target='_blank'>How to Use the Color Control Settings</a></p>", 'pagelines' ),
 			
-			'typography'		=>	'<p>Typography allows you to change the fonts that appear on your website. 
+			'typography'		=>	__( "<p>Typography allows you to change the fonts that appear on your website. 
 									No need for html or css to make changes to the most common place that you might want to change your fonts. <br /><br />For more information, click on 
-									<a href="http://www.pagelines.com/wiki/index.php?title=How_to_Use_the_Typography_Settings" 
-									target="_blank">How to Use the Typography Settings</a></p>',
+									<a href='http://www.pagelines.com/wiki/index.php?title=How_to_Use_the_Typography_Settings' 
+									target='_blank'>How to Use the Typography Settings</a></p>", 'pagelines' ),
 			
-			'header-footer'		=>	'<p>The Header & Footer  settings provide flexibility and ease in setting up important site content 
+			'header-footer'		=>	__( "<p>The Header & Footer  settings provide flexibility and ease in setting up important site content 
 									such as Dropdown Navigation, Search capability, Social links, and Copyright statements.
 									<br /><br />For more information, click on 
-									<a href="http://www.pagelines.com/wiki/index.php?title=How_to_Use_the_Header_and_Footer_Settings" 
-									target="_blank">How to Use the Header and Footer Settings</a></p>',
+									<a href='http://www.pagelines.com/wiki/index.php?title=How_to_Use_the_Header_and_Footer_Settings' 
+									target='_blank'>How to Use the Header and Footer Settings</a></p>", 'pagelines' ),
 			
-			'blog-posts'		=>	'<p>The Blog And Posts settings is where you can set up the general structure and appearance of your blog post content.
+			'blog-posts'		=>	__( "<p>The Blog And Posts settings is where you can set up the general structure and appearance of your blog post content.
 									<br /><br />For more information, click on 
-									<a href="http://www.pagelines.com/wiki/index.php?title=How_to_Use_the_Blog_and_Posts_Settings" 
-									target="_blank">How to Use the Blog and Posts Settings</a></p>',
+									<a href='http://www.pagelines.com/wiki/index.php?title=How_to_Use_the_Blog_and_Posts_Settings' 
+									target='_blank'>How to Use the Blog and Posts Settings</a></p>", 'pagelines' ),
 			
-			'advanced'			=>	'<p>The Advanced settings contain some additional options that can be useful to solve some 
+			'advanced'			=>	__( "<p>The Advanced settings contain some additional options that can be useful to solve some 
 									specific issues when developing your site. These include notorious browser compatibility issues 
 									with JS, server issues with Ajax and some useful other options for helping troubleshoot your 
 									site or connect with the affiliate program. <br /><br />For more information, click on 
-									<a href="http://www.pagelines.com/wiki/index.php?title=How_to_Use_the_Advanced_Settings" 
-									target="_blank">How to Use the Advanced Settings</a></p>',
+									<a href='http://www.pagelines.com/wiki/index.php?title=How_to_Use_the_Advanced_Settings' 
+									target='_blank'>How to Use the Advanced Settings</a></p>", 'pagelines' ),
 			
-			'custom'			=>	'<p>The Custom Code setting is where you can insert your Custom CSS styling. 
+			'custom'			=>	__( "<p>The Custom Code setting is where you can insert your Custom CSS styling. 
 									If you have any Header, Footer, or Google Analytics script, all of that goes here as well. 
 									<br /><br />For more information, click on 
-									<a href="http://www.pagelines.com/wiki/index.php?title=How_to_Use_the_Custom_Code_Settings" 
-									target="_blank">How to Use the Custom Code Settings</a></p>',
+									<a href='http://www.pagelines.com/wiki/index.php?title=How_to_Use_the_Custom_Code_Settings' 
+									target='_blank'>How to Use the Custom Code Settings</a></p>", 'pagelines' ),
 			
-			'templates'			=> '<p>The Template Setup is one of PageLine\'s most powerful features. Using drag and drop technology, 
+			'templates'			=> __( "<p>The Template Setup is one of PageLine's most powerful features. Using drag and drop technology, 
 									you can easily place your sections wherever you want on your site. 
 									<br /><br />For more information, click on 
-									<a href="http://www.pagelines.com/wiki/index.php?title=How_to_Use_the_Template_Setup" 
-									target="_blank">How to Use the Template Setup</a></p>',
+									<a href='http://www.pagelines.com/wiki/index.php?title=How_to_Use_the_Template_Setup' 
+									target='_blank'>How to Use the Template Setup</a></p>", 'pagelines' ),
 			
-			'pagelines-store'	=>	'<p>The PageLines Store is your one stop online market place for everything you need to truely 
+			'pagelines-store'	=>	__( "<p>The PageLines Store is your one stop online market place for everything you need to truely 
 									customize your website. Built by fellow members of the PageLines community, the Store offers the 
 									following types of components:
 
@@ -161,46 +161,47 @@ class PageLines_Inline_Help {
 									<li><strong>Plugins -</strong> Extend the functionality of your website.</li>
 									</ul>
 									For more information, click on 
-									<a href="http://www.pagelines.com/wiki/index.php?title=How_to_Use_the_PageLines_Store" 
-									target="_blank">How to Use the PageLines Store</a>
+									<a href='http://www.pagelines.com/wiki/index.php?title=How_to_Use_the_PageLines_Store' 
+									target='_blank'>How to Use the PageLines Store</a>
 									<br /><br />
 									Interested in developing your own Sections/Themes/Plugins for the PageLines Store? Click on 
-									<a href="http://www.pagelines.com/wiki/index.php?title=Getting_Started_as_a_Developer" 
-									target="_blank">Getting Started as a Developer</a> for more information.</p>',
+									<a href='http://www.pagelines.com/wiki/index.php?title=Getting_Started_as_a_Developer' 
+									target='_blank'>Getting Started as a Developer</a> for more information.</p>", 'pagelines' ),
 													
 													
-			'integrations'		=>	'<p>If you purchased the PageLines Developer Edition, you have access to PageLines Integrations. <br />
+			'integrations'		=>	__( "<p>If you purchased the PageLines Developer Edition, you have access to PageLines Integrations. <br />
 									This allows you to use non-WordPress software on your website such as <strong>Vanilla</strong> forums & <strong>MediaWiki</strong> 
 									help docs, and complety integrate it with your PageLines site. 
 									<br /><br />
 									For more information, click on 
-									<a href="http://www.pagelines.com/wiki/index.php?title=How_to_Use_Integrations" 
-									target="_blank">How to Use Integrations</a></p>',
+									<a href='http://www.pagelines.com/wiki/index.php?title=How_to_Use_Integrations' 
+									target='_blank'>How to Use Integrations</a></p>", 'pagelines' ),
 				
-			'your_account'		=>	'<p>To be able to receive PageLines updates and purchase & download items from the Store, you must setup your account credentials.</p>',	
+			'your_account'		=>	__( '<p>To be able to receive PageLines updates and purchase & download items from the Store, you must setup your account credentials.</p>', 'pagelines' ),	
 			
-			'import'			=>	'<p>You can easily transfer your PageLines 2.0 settings to another PageLines 2.0 site by using the Import-Export feature. 
+			'import'			=>	__( "<p>You can easily transfer your PageLines 2.0 settings to another PageLines 2.0 site by using the Import-Export feature. 
 									Remember that this will only transfer your <em>PageLines</em> Settings. <br /><br />
 									If you want to transfer your posts, pages, comments, custom fields, categories, and tags, you must use the WordPress Import-Export feature. 
-									This is located under "Tools" inside your WordPress Administration Menu.<br /><br />
-									For more information, click on <a href="http://www.pagelines.com/wiki/index.php?title=How_to_Migrate_PageLines_from_Another_Site" 
-									target="_blank">How to Migrate PageLines from Another Site</a></p>',
+									This is located under 'Tools' inside your WordPress Administration Menu.<br /><br />
+									For more information, click on <a href='http://www.pagelines.com/wiki/index.php?title=How_to_Migrate_PageLines_from_Another_Site' 
+									target='_blank'>How to Migrate PageLines from Another Site</a></p>", 'pagelines' ),
 			
-			'special-about'		=>	'<p>Special Pages refer to the WordPress pages which dynamically display data from your site. 
+			'special-about'		=>	__( "<p>Special Pages refer to the WordPress pages which dynamically display data from your site. 
 									For example, your Blog is a Special Page, because it takes all of your individually entered posts 
 									and displays them on one page. <br /><br />
 									Each type of Special Page has the same settings. Click on each tab to find out more on each page type.
 									<br /><br />
 									For more information, click on 
-									<a href="http://www.pagelines.com/wiki/index.php?title=How_to_Use_Special_Pages" 
-									target="_blank">How to Use the Special Pages</a></p>',
-			'special-blog'		=>	'<p>This page contains of all the blog posts on your site.</p>',
-			'special-archive'	=>	'<p>This page displays all blog posts created in a particular month. Users can select the month via the Archives Widget in the Sidebar.</</p>',
-			'special-category'	=>	'<p>If a blog post is assigned to a certain category, a user can click on that category and arrive at this page. It will contain all the other posts in that same category.</p>',
-			'special-search'	=>	'<p>When a user types in a search on your website, the Search Results page will appear containing the results.</p>',
-			'special-tags'		=>	'<p>You can assign tag words to a post. If a user clicks on the tag word, he will arrive at this page containing other posts with the same tag.</p>',
-			'special-author'	=>	'<p>This page will show all of the posts by a certain author. Clicking on the author\'s name will take the user there.</p>',
-			'special-404'		=>	'<p>If a user tries to go to a page on your site that doesn\'t exist, he will arrive at this page.</p>'		
+									<a href='http://www.pagelines.com/wiki/index.php?title=How_to_Use_Special_Pages' 
+									target='_blank'>How to Use the Special Pages</a></p>", 'pagelines' ),
+									
+			'special-blog'		=>	__( '<p>This page contains of all the blog posts on your site.</p>', 'pagelines' ),
+			'special-archive'	=>	__( '<p>This page displays all blog posts created in a particular month. Users can select the month via the Archives Widget in the Sidebar.</</p>', 'pagelines' ),
+			'special-category'	=>	__( '<p>If a blog post is assigned to a certain category, a user can click on that category and arrive at this page. It will contain all the other posts in that same category.</p>', 'pagelines' ),
+			'special-search'	=>	__( '<p>When a user types in a search on your website, the Search Results page will appear containing the results.</p>', 'pagelines' ),
+			'special-tags'		=>	__( '<p>You can assign tag words to a post. If a user clicks on the tag word, he will arrive at this page containing other posts with the same tag.</p>', 'pagelines' ),
+			'special-author'	=>	__( '<p>This page will show all of the posts by a certain author. Clicking on the authors name will take the user there.</p>', 'pagelines' ),
+			'special-404'		=>	__( "<p>If a user tries to go to a page on your site that doesn't exist, he will arrive at this page.</p>", 'pagelines' )	
 		);
 		
 		return ( isset( $markup[$help] ) ) ? $markup[ $help ] : __( 'No help for this tab yet!', 'pagelines' );		
