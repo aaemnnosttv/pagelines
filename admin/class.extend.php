@@ -583,15 +583,13 @@
 		
 
 		if ( $type == 'theme' ) {
-			
 			if ( ( $this->show_install_button( $type, $key, $ext, $tab ) 
 					|| $this->show_purchase_button( $type, $key, $ext, $tab ) 
 					|| $this->show_login_button( $type, $key, $ext, $tab ) 
 				)
-				&& isset( $ext['screen'] )
-				&& $ext['screen']
 			) {
-				return sprintf( 'http://www.pagelines.com/api/files/themes/img/%s-thumb.png', $key );
+				if ( $ext['screen'] == true )
+					return sprintf( 'http://www.pagelines.com/api/files/themes/img/%s-thumb.png', $key );
 					
 			} elseif ( file_exists( sprintf( '%s/%s/thumb.png', get_theme_root(), $key ) ) )
 				return sprintf( '%s/%s/thumb.png', get_theme_root_uri(), $key );
