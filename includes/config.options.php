@@ -226,8 +226,7 @@ class PageLinesOptionsArray {
 			'page_colors'		=> array(
 				'title' 	=> __( 'Basic Layout Colors', 'pagelines' ),						
 				'shortexp' 	=> __( 'The Main Layout Colors For Your Site', 'pagelines' ),
-				'exp' 		=> __( 'Use these options to quickly setup the main layout colors for your site.  You can use these options to build custom sites very quickly, or to quickly prototype a design then refine through custom CSS.<br/><br/><strong>Notes:</strong> <ol><li>To make the background transparent, you can leave the options blank (delete text).</li>  <li>Further customize and refine colors through custom CSS or plugins
-</li></ol>', 'pagelines' ),
+				'exp' 		=> __( 'Use these options to quickly setup the main layout colors for your site.  You can use these options to build custom sites very quickly, or to quickly prototype a design then refine through custom CSS.<br/><br/><strong>Notes:</strong> <ol><li>To make the background transparent, you can leave the options blank (delete text).</li>  <li>Further customize and refine colors through custom CSS or plugins</li></ol>', 'pagelines' ),
 				'type' 		=> 'color_multi',
 				'layout'	=> 'full',
 				'selectvalues'	=> array(
