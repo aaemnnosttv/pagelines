@@ -380,7 +380,7 @@ class PageLinesOptionsArray {
 			'canvas_shadow' => array(
 				'title' 		=> __( 'Enable Content Shadow (Fixed Width Mode Only)', 'pagelines' ),						
 				'shortexp' 		=> __( 'Adds a shadow on the fixed width content area for a little style.', 'pagelines' ),
-				'exp' 			=> __( 'Check this option to enable a drop shadow on the canvas area when using "fixed width" mode.', 'pagelines' ),
+				'exp' 			=> __( 'Check this option to enable a drop shadow on the canvas area when using fixed width mode.', 'pagelines' ),
 				'type' 			=> 'check',
 				'default'		=> false,
 				'inputlabel'	=> 'Content Shadow'
