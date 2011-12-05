@@ -7,7 +7,7 @@
 	font-size: 1.1em;
 	line-height: 1.63em;
 }
-.mu_register h2{
+.mu_register h1, .mu_register h2{
 	text-align: center;
 	margin: 1.5em;
 }
@@ -19,6 +19,10 @@
 .mu_register ul {
 	padding-left: 25px;
 	list-style-type: none;
+}
+.mu_register p{
+	font-size: 16px;
+	line-height: 1.6em;
 }
 
 p.submit, p.submit:hover, p.submit:active{
