@@ -1,0 +1,28 @@
+#multisite_area{
+	font-size: 1.1em;
+	line-height: 1.63em;
+}
+.mu_register h2{
+	text-align: center;
+	margin: 1.5em;
+}
+#multisite_area .mu_alert{
+	margin: 1em 0;
+	font-weight: normal;
+}
+
+.mu_register ul {
+	padding-left: 25px;
+	list-style-type: none;
+}
+
+p.submit, p.submit:hover, p.submit:active{
+	background: none;
+	border: none;
+	box-shadow:none;
+}
+
+#multisite_area .mu_register input[type="submit"]{
+	width: auto;
+	padding: 8px 18px;
+}

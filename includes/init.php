@@ -185,6 +185,12 @@ require_once( PL_INCLUDES . '/class.register.php' );
 require_once( PL_INCLUDES . '/class.integration.php' );
 
 /**
+ * Add Multisite
+ */
+if(is_multisite())
+	require_once( PL_INCLUDES . '/library.multisite.php' );
+
+/**
  * Add Integration Functionality
  */
 require_once( PL_INCLUDES . '/class.themesupport.php' );
