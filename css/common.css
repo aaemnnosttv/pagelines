@@ -110,6 +110,8 @@ input[type="submit"], .submit, input[type="button"], .button, input[type="reset"
 		box-shadow: none;
 	}
 
+	input[type="image"]{box-shadow: none}
+
 /* @ Widgets Default Formatting */
 	/* Calendar */
 	#calendar_wrap {text-align:center;padding: 8px 15px;margin: 0;}

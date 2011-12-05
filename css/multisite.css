@@ -1,3 +1,8 @@
+#content.widecolumn{
+	width: 600px;
+	margin: 15px auto;
+}
+
 #multisite_area{
 	font-size: 1.1em;
 	line-height: 1.63em;
