@@ -14,6 +14,13 @@
 
 Version 2.0.0
 	
+	Release Candidate Three
+	- Localization - Translation fixes.
+	- Bugs - Layout bug fixed.
+	- Docs - Inline help added (chris).
+	- Bugs - Screenshot url fix.
+	- Bugs - base_url fix.
+	
 	Release Candidate Two
 	- Welcome Screen Changes
 	- Fixed Layout Management Bug
