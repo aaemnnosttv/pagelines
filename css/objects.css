@@ -202,7 +202,7 @@ body #page .blink-wrap	.blink{
 	max-width: 100%;
 }
 .grid-img-pad{
-	max-width: 100%;
+	width: 100%;
 	float:left;
 }
 .vignette{position: relative;}
