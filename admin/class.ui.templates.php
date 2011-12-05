@@ -103,7 +103,7 @@ class PageLinesTemplateBuilder {
 		?>	
 	<div class="template-selector fix">	
 		<div class="template-selector-pad fix">
-			<h4 class="over">1. Select Template Area</h4>
+			<h4 class="over"><?php _e( '1. Select Template Area', 'pagelines' ); ?></h4>
 			<div class="tgraph tgraph-templates">
 				<div class="tgraph-pad">
 					<div class="tgraph-controls">
@@ -440,7 +440,7 @@ class PageLinesTemplateBuilder {
 		printf('<div class="section-controls" %s><div class="section-controls-pad">', (!$a['controls']) ? 'style="display:none;"' : '');
 					
 			if($a['cloning']){
-				$clone_btn = sprintf('<div class="clone_button" onClick="cloneSection(\'%s\');"><div class="clone_button_pad">Clone</div></div>', $a['id']);
+				$clone_btn = sprintf('<div class="clone_button" onClick="cloneSection(\'%s\');"><div class="clone_button_pad">%s</div></div>', $a['id'], __( 'Clone', 'pagelines' ) );
 				$remove_clone = sprintf('<div class="clone_button clone_remove" style="%s" onClick="deleteSection(this, \'%s\');"><div class="clone_button_pad">Remove</div></div>', ($a['clone'] == 1) ? 'display: none;' : '', $a['id']);
 				
 				printf('<div class="sc_buttons">%s %s</div>', $clone_btn, $remove_clone);
@@ -449,13 +449,13 @@ class PageLinesTemplateBuilder {
 			if($this->show_sc( $a['template'] )){
 				
 				$clone = ($a['clone'] != 1) ? sprintf('<span class="the_clone_id">%s</span>', '#' . $a['clone']) : '';
-				printf('<strong>%s %s %s</strong>', $a['name'], $clone, 'Settings');
+				printf('<strong>%s %s %s</strong>', $a['name'], $clone, __( 'Settings', 'pagelines' ) );
 				
 				echo '<div class="section-options">';
 			
 					
 					$checkbox = sprintf('<input class="section_control_check sc_save_check" type="checkbox" id="%1$s" name="%1$s" %2$s/>', $check_name, checked( $check_value, true, false));
-					$label = sprintf('<label for="%s" class="%s">%s</label>', $check_name, '', 'Hide This By Default');
+					$label = sprintf('<label for="%s" class="%s">%s</label>', $check_name, '', __( 'Hide This By Default', 'pagelines' ) );
 					
 					printf('<div class="section-options-row">%s %s</div>', $checkbox, $label);
 					
@@ -523,22 +523,22 @@ class PageLinesTemplateBuilder {
 		
 		<div class="section_control_wrap">
 			<div class="sc_gap fix">
-				<div class="sc_gap_title"><?php echo ui_key( $editing );?> - Basic Template</div>
+				<div class="sc_gap_title"><?php echo ui_key( $editing );?> - <?php _e( 'Basic Template', 'pagelines' )?></div>
 				<div class="sc_gap_pad">
 					
 					<div class="sc_area sc_header ntb">
 						<div class="sc_area_pad fix">
-							<div class="scta_head">Header</div>
+							<div class="scta_head"><?php _e( 'Header', 'pagelines' )?></div>
 							<?php $this->sc_inputs('header', $this->template->header, $o); ?>
 						</div>
 					</div>
 					<div class="sc_area sc_templates">
 						<div class="sc_area_pad fix">
 							
-							<div class="scta_head">Template</div>
+							<div class="scta_head"><?php _e( 'Template', 'pagelines' )?></div>
 							<?php 
 							if($integration)
-								printf('<div class="sc_inputs"><div class="emptyarea">%s Integration</div></div>', ui_key( $editing ));
+								printf('<div class="sc_inputs"><div class="emptyarea">%s %s</div></div>', ui_key( $editing ), __( 'Integration', 'pagelines' ) );
 							else
 								$this->sc_inputs($template_slug, $this->template->templates, $o ); 
 							?>
@@ -546,13 +546,13 @@ class PageLinesTemplateBuilder {
 					</div>
 					<div class="sc_area sc_morefoot">
 						<div class="sc_area_pad fix">
-							<div class="scta_head">Morefoot</div>
+							<div class="scta_head"><?php _e( 'Morefoot', 'pagelines' )?></div>
 							<?php $this->sc_inputs('morefoot', $this->template->morefoot, $o ); ?>
 						</div>
 					</div>
 					<div class="sc_area sc_footer nbb">
 						<div class="sc_area_pad fix">
-							<div class="scta_head">Footer</div>
+							<div class="scta_head"><?php _e( 'Footer', 'pagelines' )?></div>
 							<?php $this->sc_inputs('footer', $this->template->footer, $o ); ?>
 						</div>
 					</div>
@@ -561,30 +561,30 @@ class PageLinesTemplateBuilder {
 			<?php if(!$integration): ?>
 				<div class="sc_gap fix">
 				
-					<div class="sc_gap_title"><?php echo ui_key( $editing );?> - Content Area</div>
+					<div class="sc_gap_title"><?php echo ui_key( $editing );?> - <?php _e( 'Content Area', 'pagelines' )?></div>
 					<div class="sc_gap_pad">
 			
 						<div class="sc_area sc_header ntb">
 							<div class="sc_area_pad fix">
-								<div class="scta_head">Content</div>
+								<div class="scta_head"><?php _e( 'Content', 'pagelines' )?></div>
 								<?php $this->sc_inputs($main_slug, $this->template->main, $o ); ?>
 							</div>
 						</div>
 						<div class="sc_area sc_header">
 							<div class="sc_area_pad fix">
-								<div class="scta_head">Wrap</div>
+								<div class="scta_head"><?php _e( 'Wrap', 'pagelines' )?></div>
 								<?php $this->sc_inputs('sidebar_wrap', $this->template->sidebar_wrap, $o ); ?>
 							</div>
 						</div>
 						<div class="sc_area sc_header">
 							<div class="sc_area_pad fix">
-								<div class="scta_head">Sidebar 1</div>
+								<div class="scta_head"><?php _e( 'Sidebar 1', 'pagelines' )?></div>
 								<?php $this->sc_inputs('sidebar1', $this->template->sidebar1, $o ); ?>
 							</div>
 						</div>
 						<div class="sc_area sc_header nbb">
 							<div class="sc_area_pad fix">
-								<div class="scta_head">Sidebar 2</div>
+								<div class="scta_head"><?php _e( 'Sidebar 2', 'pagelines' )?></div>
 								<?php $this->sc_inputs('sidebar2', $this->template->sidebar2, $o ); ?>
 							</div>
 						</div>
@@ -604,7 +604,7 @@ class PageLinesTemplateBuilder {
 		
 		// No sections in area
 		if(empty($sections)){
-			echo '<div class="sc_inputs"><div class="emptyarea">Area is empty.</div></div>';
+			echo sprintf( '<div class="sc_inputs"><div class="emptyarea">%s</div></div>', __( 'Area is empty.', 'pagelines') );
 			return;
 		}
 		

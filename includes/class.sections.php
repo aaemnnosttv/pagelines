@@ -211,10 +211,10 @@ class PageLinesSection {
 			$opt = array(
 				$key => array(
 					'type' 			=> 'text_content',		
-					'title'	 		=> 'Getting Started',
-					'shortexp' 		=> 'How to use this section',
+					'title'	 		=> __( 'Getting Started', 'pagelines' ),
+					'shortexp' 		=> __( 'How to use this section', 'pagelines' ),
 					'exp'			=> $guide, 
-					'inputlabel'	=> 'Hide This Overview'
+					'inputlabel'	=> __( 'Hide This Overview', 'pagelines')
 				)
 			);
 			
@@ -254,7 +254,7 @@ class PageLinesSection {
 				$opt = array(
 					$key => array(
 						'type' 			=> 'text_content_reverse',
-						'inputlabel'	=> 'Hide Section Guide'
+						'inputlabel'	=> __( 'Hide Section Guide', 'pagelines' )
 					)
 				);
 				
