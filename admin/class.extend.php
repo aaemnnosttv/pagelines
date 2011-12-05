@@ -549,7 +549,7 @@
 	}
 	
 	 function do_redirect( $type, $key, $ext, $tab ){
-		if ( $tab == 'installed' || $tab == 'user' || $type == 'integration' )
+		if ( $tab == 'installed' || $tab == 'user' || $type == 'integration' || $type = 'internal' )
 			return false;
 		if ( $this->show_installed_button( $type, $key, $ext, $tab ) )
 			return false;
@@ -590,12 +590,19 @@
 		
 
 		if ( $type == 'theme' ) {
-			if ( ( $this->show_install_button( $type, $key, $ext, $tab ) || $this->show_purchase_button( $type, $key, $ext, $tab ) || $this->show_login_button( $type, $key, $ext, $tab ) || EXTEND_NETWORK ) ) {
-				return sprintf( 'http://www.pagelines.com/api/files/themes/img/%s-thumb.png', $key );		
-			} elseif ( file_exists( sprintf( '%s/%s/thumb.png', get_theme_root(), $key ) ) )
+
+			if ( ( $this->show_install_button( $type, $key, $ext, $tab ) || $this->show_purchase_button( $type, $key, $ext, $tab ) || $this->show_login_button( $type, $key, $ext, $tab ) || EXTEND_NETWORK ) )			
+				if ( isset( $ext['screen'] ) && $ext['screen'] )
+					return sprintf( 'http://www.pagelines.com/api/files/themes/img/%s-thumb.png', $key );		
+
+			// theme installed or no screenshot...
+
+			if ( file_exists( sprintf( '%s/%s/thumb.png', get_theme_root(), $key ) ) )
 				return sprintf( '%s/%s/thumb.png', get_theme_root_uri(), $key );
-			else return sprintf( '%s/%s/screenshot.png', get_theme_root_uri(), $key );
-				
+			
+			if ( file_exists( sprintf( '%s/%s/screenshot.png', get_theme_root(), $key ) ) )
+				return sprintf( '%s/%s/screenshot.png', get_theme_root_uri(), $key );
+
 		}
 		return PL_ADMIN_IMAGES . '/thumb-default.png';
 	}
