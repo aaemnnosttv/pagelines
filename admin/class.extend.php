@@ -92,7 +92,7 @@
 				'case'		=> 'redirect',
 				'text'		=> __( 'Install &darr;', 'pagelines' ),
 				'type'		=> $type,
-				'condition'	=> $this->do_redirect(),
+				'condition'	=> $this->do_redirect( $type, $key, $ext, $tab ),
 				'file'		=> $this->get_the_file( 'redirect', $type, $key, $ext, $tab ),
 				'path'		=> $this->get_the_path( 'redirect', $type, $key, $ext, $tab ),	
 			),
@@ -289,7 +289,10 @@
 	}
 	
 	function show_upgrade_available($type, $key, $ext, $tab){
-	
+		
+		if ( EXTEND_NETWORK )
+			return false;
+		
 		if ( $type == 'plugin' ) {
 			
 			if( $this->is_installed($type, $key, $ext)
@@ -319,7 +322,7 @@
 	
 	 function show_download_button( $type, $key, $ext, $tab ){
 
-		if( $type == 'integration' && $this->updates_configured() && VDEV )
+		if( $type == 'integration' && $this->updates_configured() && VDEV && !EXTEND_NETWORK)
 			return true;
 		else
 			return false;
@@ -327,7 +330,7 @@
 		
 	 function show_login_button( $type, $key, $ext, $tab ){
 
-		if ( $type == 'integration' && !$this->updates_configured() )
+		if ( $type == 'integration' && !$this->updates_configured() && !EXTEND_NETWORK )
 			return true;
 		
 		if( !EXTEND_NETWORK 
@@ -348,7 +351,7 @@
 		if( !$this->is_installed( $type, $key, $ext ) 
 			&& $this->is_purchased( $type, $key, $ext ) 
 			&& $this->in_the_store( $type, $key, $ext, $tab ) 
-			&& !EXTEND_NETWORK
+			&& ! EXTEND_NETWORK
 			&& ! $this->version_fail( $ext['plversion'] )
 			&& ! $this->depends_check( $type, $key, $ext, $tab )
 		)
@@ -545,7 +548,11 @@
 		return ( pagelines_check_credentials() ) ? true : false;
 	}
 	
-	 function do_redirect( ){
+	 function do_redirect( $type, $key, $ext, $tab ){
+		if ( $tab == 'installed' || $tab == 'user' || $type == 'integration' )
+			return false;
+		if ( $this->show_installed_button( $type, $key, $ext, $tab ) )
+			return false;
 		return ( EXTEND_NETWORK ) ? true : false;
 	}
 
@@ -583,14 +590,8 @@
 		
 
 		if ( $type == 'theme' ) {
-			if ( ( $this->show_install_button( $type, $key, $ext, $tab ) 
-					|| $this->show_purchase_button( $type, $key, $ext, $tab ) 
-					|| $this->show_login_button( $type, $key, $ext, $tab ) 
-				)
-			) {
-				if ( $ext['screen'] == true )
-					return sprintf( 'http://www.pagelines.com/api/files/themes/img/%s-thumb.png', $key );
-					
+			if ( ( $this->show_install_button( $type, $key, $ext, $tab ) || $this->show_purchase_button( $type, $key, $ext, $tab ) || $this->show_login_button( $type, $key, $ext, $tab ) || EXTEND_NETWORK ) ) {
+				return sprintf( 'http://www.pagelines.com/api/files/themes/img/%s-thumb.png', $key );		
 			} elseif ( file_exists( sprintf( '%s/%s/thumb.png', get_theme_root(), $key ) ) )
 				return sprintf( '%s/%s/thumb.png', get_theme_root_uri(), $key );
 			else return sprintf( '%s/%s/screenshot.png', get_theme_root_uri(), $key );

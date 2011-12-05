@@ -647,7 +647,7 @@
 	
 	function redirect( $type, $file, $path, $uploader, $checked ) {
 		
-		echo sprintf( __( 'Sorry only network admins can install %s.', 'pagelines' ), $type );		
+		echo sprintf( __( 'Sorry only network admins can install %ss.', 'pagelines' ), $type );		
 		
 	}
 	
