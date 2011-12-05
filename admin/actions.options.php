@@ -56,7 +56,7 @@ function pagelines_build_option_interface(){
 function pagelines_build_templates_interface(){ 
 	
 	$args = array(
-		'title'			=> 'Template Setup', 
+		'title'			=> __( 'Template Setup', 'pagelines' ), 
 		'settings' 		=> PAGELINES_TEMPLATES,
 		'callback'		=> 'templates_array',
 		'basic_reset'	=> true,
@@ -78,7 +78,7 @@ function pagelines_build_templates_interface(){
 function pagelines_build_extension_interface(){ 
 	
 	$args = array(
-		'title'			=> 'The PageLines Store', 
+		'title'			=> __( 'The PageLines Store', 'pagelines' ), 
 		'settings' 		=> PAGELINES_EXTENSION,
 		'callback'		=> 'extension_array',
 		'show_save'		=> false, 
@@ -96,7 +96,7 @@ function pagelines_build_extension_interface(){
 function pagelines_build_account_interface(){ 
 	
 	$args = array(
-		'title'			=> 'Your PageLines Account', 
+		'title'			=> __( 'Your PageLines Account', 'pagelines' ),
 		'settings' 		=> PAGELINES_ACCOUNT,
 		'callback'		=> 'pagelines_account_array',
 		'show_save'		=> false, 
@@ -114,7 +114,7 @@ function pagelines_build_account_interface(){
 function pagelines_build_special(){ 
 	
 	$args = array(
-		'title'			=> 'Special Pages', 
+		'title'			=> __( 'Special Pages', 'pagelines' ), 
 		'settings' 		=> PAGELINES_SPECIAL,
 		'callback'		=> 'special_page_settings_array',
 		'show_reset'	=> false, 

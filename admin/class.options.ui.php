@@ -19,7 +19,7 @@ class PageLinesOptionsUI {
 	function __construct( $args = array() ) {
 		
 		$defaults = array(
-				'title'			=> sprintf( __( '%1$sSettings', 'pagelines' ), ( is_child_theme() ) ? NICECHILDTHEMENAME . ' ' : '' ),
+				'title'			=> sprintf( '%s %s', ( is_child_theme() ) ? NICECHILDTHEMENAME : '', __( 'Settings', 'pagelines') ),
 				'callback'		=> null,
 				'settings'		=> PAGELINES_SETTINGS, 
 				'sanitize'		=> '',
