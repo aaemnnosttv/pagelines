@@ -206,7 +206,7 @@ class PageLinesRegister {
 				
 				$base_dir = ( isset( $base_dir ) ) ? $base_dir : PL_SECTIONS . $folder;
 				$base_url = ( isset( $base_url ) ) ? $base_url : SECTION_ROOT . $folder;
-				
+			
 				$sections[$headers['classname']] = array(
 					'class'			=> $headers['classname'],
 					'depends'		=> $headers['depends'],

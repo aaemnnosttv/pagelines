@@ -88,7 +88,7 @@ function grid( $data, $args = array() ){
 			$hovercard = ($a['hovercard']) ? sprintf('<div class="hovercard"><span>%s</span></div>', $p->post_title) : '';
 			
 			$image = sprintf( 
-				'<a href="%s" class="img grid-img" style="width: %s"><div class="grid-img-pad"><div class="vignette">%s%s</div></div></a>',
+				'<a href="%s" class="img grid-img" style="width: %s"><div class="grid-img-pad"><div class="grid-img-frame"><div class="vignette">%s%s</div></div></div></a>',
 				get_permalink($p->ID), 
 				$a['img_width'], 
 				$thumb, 

@@ -198,7 +198,11 @@ body #page .blink-wrap	.blink{
 	
 /* @ Grid */ 
 .grid-element, .media_overview{ margin-bottom: 12px; }
+.grid-img-frame{
+	max-width: 100%;
+}
 .grid-img-pad{
+	max-width: 100%;
 	float:left;
 }
 .vignette{position: relative;}
