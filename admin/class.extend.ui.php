@@ -208,21 +208,22 @@ class PageLinesExtendUI {
 	}
 
 	function grab_details( $args ){
-	
+		
+		$target = 'target="_blank"';
 		$details = array();	
 		if( 'internal' != $args['tab'] )
 			$details['version']  = sprintf('<strong>v%s</strong>', $args['version']);
 
-		$details['cred'] = sprintf('by <a href="%s">%s</a>', $args['auth_url'], $args['auth']);
+		$details['cred'] = sprintf('by <a %s href="%s">%s</a>', $target, $args['auth_url'], $args['auth']);
 
 		if( 'internal' != $args['tab'] && 'integration' != $args['type'] )
-			$details['overview'] = sprintf( '<a href="%s">Overview</a>', $args['infourl'] );
+			$details['overview'] = sprintf( '<a %s href="%s">Overview</a>', $target, $args['infourl'] );
 	
 		if ( $args['external'] )
-			$details['homepage'] = sprintf( '<a href="%s">Homepage</a>', $args['external'] );
+			$details['homepage'] = sprintf( '<a %s href="%s">Homepage</a>', $target, $args['external'] );
 	
 		if ( $args['demo'] )
-			$details['demo'] = sprintf( '<a href="%s">Demo</a>', $args['demo'] );
+			$details['demo'] = sprintf( '<a %s href="%s">Demo</a>', $target, $args['demo'] );
 			
 		return $details;
 	}
