@@ -21,6 +21,7 @@ Version 2.0.0
 
 	Hotfixes
 	- Nav Enhancement - Better highlighting
+	- Store - Remove integration buttons for non-dev
 
 	Release Candidate Four
 	- Bugs - Screenshot url fix.

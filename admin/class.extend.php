@@ -467,7 +467,7 @@
 	
 	function show_activate_button( $type, $key, $ext, $tab ){
 		
-		if ( $type == 'integration' && is_integration_active($key) == false )
+		if ( $type == 'integration' && VDEV && is_integration_active($key) == false )
 			return true;
 
 		if( !$this->in_the_store( $type, $key, $ext, $tab )
@@ -481,7 +481,7 @@
 	
 	function show_deactivate_button( $type, $key, $ext, $tab ){
 		
-		if ( $type == 'integration' ) 
+		if ( $type == 'integration' && VDEV ) 
 			return is_integration_active( $key );
 		
 		if( $this->is_active( $type, $key, $ext )
