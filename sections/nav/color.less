@@ -2,18 +2,19 @@
 
 @contrast2 = lighten( @contrast, 2 );
 
-.main-nav .current-page-ancestor a,
-.main-nav li.current-page-ancestor ul a,
+.main-nav .current-menu-ancestor a,
+.main-nav li.current-menu-ancestor ul a,
 .main-nav li.current_page_item a,
 .main-nav li.current-menu-item a,
+.main-nav li.current_page_parent a,
 .sf-menu li li, 
 .sf-menu li li li{
 	background: @contrast;
 }
 
 .main-nav li a:hover,
-.main-nav .current-page-ancestor .current_page_item a,
-.main-nav li.current-page-ancestor ul a:hover{
+.main-nav .current-menu-ancestor .current_page_item a,
+.main-nav li.current-menu-ancestor ul a:hover{
 	background: @contrast2;
 }
 

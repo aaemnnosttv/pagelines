@@ -14,6 +14,14 @@
 
 Version 2.0.0
 	
+	Official Release 2.0.0!
+	- Special Thanks to
+		- Chris Johnston (Awesome New Documentation)
+		- Beta Tester Team (Mike Zielonka, Ian Sterne, Posey Gaines)
+
+	Hotfixes
+	- Nav Enhancement - Better highlighting
+
 	Release Candidate Four
 	- Bugs - Screenshot url fix.
 	- Fix sandbox urls.
