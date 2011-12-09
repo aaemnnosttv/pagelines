@@ -282,7 +282,7 @@ class PageLinesPosts {
 
 		}
 
-		return sprintf( '<div class="metabar"><em>%s</em></div>', apply_filters('pagelines_post_metabar', $metabar, $format) );
+		return sprintf( '<div class="metabar"><div class="metabar-pad"><em>%s</em></div></div>', apply_filters('pagelines_post_metabar', $metabar, $format) );
 
 	}
 
