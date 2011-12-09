@@ -34,7 +34,7 @@ class PLObject {
 		$size_class = 'bl-size-'.$a['size'];
 		$position = 'bl-align-'.$a['align'];
 
-		$classes = join(' ', array($color_class, $size_class, $position));
+		$classes = join(' ', array( $color_class, $size_class, $position, $a['class'] ) );
 	
 		$display = (isset($a['display'])) ?  'display: '.$a['display'] : '';
 		
