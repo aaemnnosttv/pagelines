@@ -454,7 +454,7 @@
 		if ( $this->get_fs_method() ) {
 			$url = ( $uploader ) ? $file : $this->make_url( 'section', $path );
 			$out = @$upgrader->install( $url );		
-			$wp_filesystem->move( trailingslashit( WP_PLUGIN_DIR ) . $path, trailingslashit( PL_EXTEND_DIR ) . $path );
+			$wp_filesystem->move( trailingslashit( $wp_filesystem->wp_plugins_dir() ) . $path, sprintf( '%s/pagelines-sections/%s', trailingslashit( $wp_filesystem->wp_plugins_dir() ), $path ) );
 			$message = '';				
 		} else {
 					$options = array( 'package' => $url, 
@@ -486,7 +486,7 @@
 		global $wp_filesystem;
 
 		if ( $this->get_fs_method() )
-			$wp_filesystem->delete( trailingslashit( PL_EXTEND_DIR ) . $file, true, false );
+			$wp_filesystem->delete( sprintf( '%s/pagelines-sections/%s', trailingslashit( $wp_filesystem->wp_plugins_dir() ), $file ), true, false );
 		else
 			extend_delete_directory( trailingslashit( PL_EXTEND_DIR ) . $file );
 
@@ -508,13 +508,13 @@
 		$upgrader = new Plugin_Upgrader($skin);
 
 		if ( $this->get_fs_method() )
-			$wp_filesystem->delete( trailingslashit( PL_EXTEND_DIR ) . $file, true, false  );
+			$wp_filesystem->delete( sprintf( '%s/pagelines-sections/%s', trailingslashit( $wp_filesystem->wp_plugins_dir() ), $file ), true, false  );
 		else
 			extend_delete_directory( trailingslashit( PL_EXTEND_DIR ) . $file );				
 
 		if ( $this->get_fs_method() ) {
 			@$upgrader->install( $this->make_url( 'section', $file ) );			
-			$wp_filesystem->move( trailingslashit( WP_PLUGIN_DIR ) . $file, trailingslashit( PL_EXTEND_DIR ) . $file );			
+			$wp_filesystem->move( trailingslashit( PL_PLUGINS_FTP ) . $file, sprintf( '%s/pagelines-sections/%s', trailingslashit( $wp_filesystem->wp_plugins_dir() ), $file ) );	
 		} else {
 					$options = array( 'package' => ( ! $uploader) ? $this->make_url( 'section', $file ) : $file, 
 					'destination'		=> ( ! $uploader) ? trailingslashit( PL_EXTEND_DIR ) . $file : trailingslashit( PL_EXTEND_DIR ) . $path, 
