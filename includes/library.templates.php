@@ -116,6 +116,9 @@ function pagelines_head_common(){
 
 	printf('<meta http-equiv="Content-Type" content="%s; charset=%s" />',  get_bloginfo('html_type'),  get_bloginfo('charset'));
 
+	if(ploption('pagelines_favicon'))
+		printf('<link rel="shortcut icon" href="%s" type="image/x-icon" />%s', ploption('pagelines_favicon'), "\n");
+
 	// Draw Page <title> Tag
 	pagelines_title_tag();
 	
@@ -124,8 +127,7 @@ function pagelines_head_common(){
 		echo "<!-- PageLines Professional Drag-and-Drop Framework - www.PageLines.com -->\n";
 		
 	// Meta Images
-	if(ploption('pagelines_favicon'))
-		printf('<link rel="shortcut icon" href="%s" type="image/x-icon" />%s', ploption('pagelines_favicon'), "\n");
+
 	
 	if(ploption('pagelines_touchicon'))
 		printf('<link rel="apple-touch-icon" href="%s" />%s', ploption('pagelines_touchicon'), "\n");
