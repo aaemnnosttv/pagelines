@@ -171,7 +171,7 @@ class PageLinesOptionsArray {
 				'layout' 	=> 'interface',						
 				'shortexp' 	=> __( 'Select your default layout mode, this can be changed on individual pages.<br />Once selected, you can adjust the layout in the Layout Dimension Editor', 'pagelines' ),
 				'exp' 		=> __( 'The default layout for pages and posts on your site. Dimensions can be changed using the Layout Dimension Editor.', 'pagelines' ),
-				'docslink'	=> 'http://www.pagelines.com/docs/editing-layout'
+				'docslink'	=> 'http://www.pagelines.com/wiki/index.php?title=How_to_Use_the_Layout_Editor_Settings'
 			),
 			'layout' => array(
 				'default'	=> 'one-sidebar-right',
@@ -473,7 +473,7 @@ class PageLinesOptionsArray {
 					'inputlabel'	=> __( 'Typekit Header Script', 'pagelines' ),
 					'title'		=> __( 'Typekit Font Replacement', 'pagelines' ),
 					'shortexp'	=> __( 'Typekit is a service that allows you to use tons of new fonts on your site', 'pagelines' ),
-					'exp'		=> __( "Typekit is a new service and technique that allows you to use fonts outside of the 10 or so <strong>web-safe</strong> fonts. <br/><br/>Visit <a href='www.typekit.com' target='_blank'>Typekit.com</a> to get the script for this option. Instructions for setting up Typekit are <a href='http://typekit.assistly.com/portal/article/6780-Adding-fonts-to-your-site' target='_blank'>here</a>.", 'pagelines')
+					'exp'		=> __( "Typekit is a new service and technique that allows you to use fonts outside of the 10 or so <strong>web-safe</strong> fonts. <br/><br/>Visit <a href='http://www.typekit.com' target='_blank'>Typekit.com</a> to get the script for this option. Instructions for setting up Typekit are <a href='http://typekit.assistly.com/portal/article/6780-Adding-fonts-to-your-site' target='_blank'>here</a>.", 'pagelines')
 			),
 			'fontreplacement' => array(
 					'version'	=> 'pro',
@@ -875,7 +875,7 @@ class PageLinesOptionsArray {
 					'inputlabel'=> __( 'Include Google IE Compatibility Script?', 'pagelines' ),
 					'title'		=> __( 'Google IE Compatibility Fix', 'pagelines' ),
 					'shortexp'	=> __( 'Include a Google JS script that fixes problems with IE', 'pagelines' ),
-					'exp'		=> __( 'More info on this can be found here: <strong>http://code.google.com/p/ie7-js/</strong>.', 'pagelines' )
+					'exp'		=> __( "More info on this can be found <a target='_blank' href='http://code.google.com/p/ie7-js/'>here</a>.", 'pagelines' )
 			),
 			'partner_link' 	=> array(
 					'default'	=> '',
@@ -883,7 +883,7 @@ class PageLinesOptionsArray {
 					'inputlabel'=> __( 'Enter Partner Link', 'pagelines' ),
 					'title'		=> __( 'PageLines Partner Link', 'pagelines' ),
 					'shortexp'	=> __( 'Change your PageLines footer link to a partner link', 'pagelines' ),
-					'exp'		=> __( "If you are a <a href='http://www.pagelines.com/partners'>PageLines Partner</a> enter your link here and the footer link will become a partner or affiliate link.", 'pagelines' )
+					'exp'		=> __( "If you are a <a target='_blank' href='http://www.pagelines.com/partners'>PageLines Partner</a> enter your link here and the footer link will become a partner or affiliate link.", 'pagelines' )
 			),
 
 			'disable_ajax_save' => array(
@@ -968,7 +968,7 @@ class PageLinesOptionsArray {
 					'title' 	=> __( 'Custom CSS', 'pagelines' ),
 					'shortexp' 	=> __( 'Insert custom CSS styling here. It will be stored in the DB and not overwritten. <br/>Note: The professional way to customize your site is using a child theme, or customization plugin', 'pagelines' ),
 					'exp' 		=> __( "<div class='theexample'>Example:<br/> <strong>body{<br/> &nbsp;&nbsp;color:  #3399CC;<br/>&nbsp;&nbsp;line-height: 20px;<br/>&nbsp;&nbsp;font-size: 11px<br/>}</strong></div>Enter CSS Rules to change the style of your site.<br/><br/> A lot can be accomplished by simply changing the default styles of the <strong>body</strong> tag such as <strong>line-height</strong>, <strong>font-size</strong>, or <strong>color</strong> (as in text color).", 'pagelines' ), 
-					'docslink'	=> 'http://www.pagelines.com/docs/changing-colors-fonts', 
+					'docslink'	=> 'http://www.pagelines.com/wiki/index.php?title=How_to_Use_the_Custom_Code_Settings', 
 					'vidtitle'	=> __( 'View Customization Documentation', 'pagelines' )
 				),
 
