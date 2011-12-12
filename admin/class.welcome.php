@@ -86,13 +86,13 @@ class PageLinesWelcome {
 			),
 			'support'	=> array(
 				'name'			=> __( 'World Class Support', 'pagelines' ),
-				'desc'			=> __( "For help getting started, we offer our customers tons of support including comprehensive <a href='http://www.pagelines.com/docs/' target='_blank'>docs</a>, and an active, moderated <a href='http://www.pagelines.com/forum/' target='_blank'>forum</a>.", 'pagelines' ),
+				'desc'			=> __( "For help getting started, we offer our customers tons of support including comprehensive <a href='http://www.pagelines.com/wiki/' target='_blank'>docs</a>, and an active, moderated <a href='http://www.pagelines.com/forum/' target='_blank'>forum</a>.", 'pagelines' ),
 				'class'			=> 'feature_support', 
 				'icon'			=> '',
 			),
 			'dragdrop'	=> array(
 				'name'			=> __( 'Drag &amp; Drop Templates', 'pagelines' ),
-				'desc'			=> __( "Check out the Template Setup panel! This is how you will control site elements using drag &amp; drop on your site. Learn more in the <a href='http://docs.pagelines.com/'>docs</a>.", 'pagelines' ),
+				'desc'			=> __( "Check out the Template Setup panel! This is how you will control site elements using drag &amp; drop on your site. Learn more in the <a href='http://www.pagelines.com/wiki/'>docs</a>.", 'pagelines' ),
 				'class'			=> 'feature_templates', 
 				'icon'			=> '',
 			),
