@@ -143,24 +143,19 @@ function section_template( $clone_id ) {
 
 function pagelines_features_set( $clone_id ){
 	
-	global $post; 
-	global $pagelines_ID;
 	
-	$oset = array('post_id' => $pagelines_ID, 'clone_id' => $clone_id );
-	
-	
-	if( plmeta('feature_set', $oset) )
-		$this->set = plmeta('feature_set', $oset);
-	elseif (ploption('feature_default_tax', $oset))
-		$this->set = ploption('feature_default_tax', $oset);
+	if( ploption('feature_set', $this->oset) )
+		$this->set = ploption('feature_set', $this->oset);
+	elseif (ploption('feature_default_tax', $this->oset))
+		$this->set = ploption('feature_default_tax', $this->oset);
 	else 
 		$this->set = null;
 	
-	$limit = ploption('feature_items', $oset);
+	$limit = ploption('feature_items', $this->oset);
 		
-	$source = ( ploption('feature_source', $oset) == 'posts') ? 'posts' : 'customtype';	
+	$source = ( ploption('feature_source', $this->oset) == 'posts') ? 'posts' : 'customtype';	
 	
-	$category = ploption('feature_category', $oset);	
+	$category = ploption('feature_category', $this->oset);	
 		
 	$f = $this->load_pagelines_features($this->set, $limit, $source, $category); 
 	
