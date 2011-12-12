@@ -371,7 +371,7 @@ class PageLinesSectionFactory {
  */
 function load_section_persistent(){
 	global $pl_section_factory;
-
+	
 	foreach($pl_section_factory->sections as $section)
 		$section->section_persistent();
 			
