@@ -92,7 +92,7 @@ class PageLinesIntegration {
 					if( is_array( $js[0] ) ) {
 						$js_out = '';
 						foreach( $js[0] as $j ) {
-							if ( false == strpos( $j, 'google' ) )
+			//				if ( false == strpos( $j, 'google' ) )
 								$js_out .= $j . "\n";
 						}
 					return $js_out;
