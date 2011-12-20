@@ -59,7 +59,6 @@ class PageLinesLess {
 	public function parse( $pless ) {
 		
 		$pless = $this->add_constants( $pless );
-		$pless = $this->add_mixins( $pless );
 		
 		try{
 			$css = $this->lparser->parse( $pless );
@@ -71,13 +70,7 @@ class PageLinesLess {
 		
 	}
 	
-	private function add_mixins($pless){
-		
-		$mixins = pl_file_get_contents(PL_CSS.'/mixins.less');
-	
-		return $pless.$mixins;
-		
-	}
+
 	
 	private function add_constants( $pless ) {
 		

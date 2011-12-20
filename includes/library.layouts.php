@@ -17,6 +17,7 @@ function grid( $data, $args = array() ){
 		'img_default'	=> null, 
 		'img_width'		=> '100%', 
 		'title'			=> '',
+		'title_link'	=> '',
 		'class'			=> 'pagelines-grid', 
 		'row_class'		=> 'gridrow', 
 		'content_len'	=> 10, 
@@ -128,7 +129,9 @@ function grid( $data, $args = array() ){
 	} else
 		$pages = '';
 	
-	$title = ($a['title'] != '') ? sprintf('<h4 class="grid-title"><div class="grid-title-pad">%s</div></h4>', $a['title']) : '';
+	$title_link = ($a['title_link'] != '') ? sprintf('<a href="%s" class="button title-link">See All</a>', $a['title_link']) : '';
+	
+	$title = ($a['title'] != '') ? sprintf('<div class="grid-title"><div class="grid-title-pad fix"><h4 class="gtitle">%s</h4>%s</div></div>', $a['title'], $title_link) : '';
 	
 	$wrap = sprintf('<div class="plgrid %s"><div class="plgrid-pad">%s%s%s</div></div>', $a['class'], $title, $out, $pages);
 
