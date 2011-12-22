@@ -84,20 +84,21 @@ class PageLinesCarousel extends PageLinesSection {
 							'shortexp' 	=> 'Control the dimensions of the carousel images',
 							'exp' 		=> 'Use this option to control the max height and width of the images in the carousel. You may have to use this option in conjunction with the scroll items option.<br/><br/> For the FlickrRSS and NextGen Gallery modes, image sizes are set by Flickr thumb sizes and the NextGen Gallery plugin respectively.'
 					),
+					'carousel_post_id' => array(
+						'default'		=> '', 
+						'type' 			=> 'select_taxonomy',
+						'taxonomy_id'	=> 'category',		
+						'title'			=> 'Posts Mode - Select Post Category', 
+						'shortexp'		=> 'The category slug to pull posts from',
+						'inputlabel' 	=> 'Select Category for Carousel',
+						'exp' 			=> 'Posts Mode - Select the default category for carousel post images.  If not set, the carousel will get the most recent posts.'
+					),
 					'carousel_ngen_gallery' => array(
 						'version' => 'pro',
 						'type' => 'text',					
 						'title' => 'NextGen Gallery ID For Carousel (Carousel Page Template / NextGen Mode)',
 						'shortexp' => 'Enter the ID of the NextGen Image gallery for the carousel.', 
 						'exp'		=> '<strong>Note:</strong>The NextGen Gallery and carousel template must be selected.'
-					),
-					'carousel_post_id' => array(
-						'default'		=> '', 
-						'type' 			=> 'text',		
-						'title'			=> 'Carousel - Post Category Name', 
-						'shortexp'		=> 'The category slug to pull posts from',
-						'inputlabel' 	=> 'Category Slug (Optional)',
-						'exp' 			=> 'Posts Mode - Select the default category for carousel post images.  If not set, the carousel will get the most recent posts.'
 					),
 					
 					
@@ -166,11 +167,15 @@ class PageLinesCarousel extends PageLinesSection {
 				foreach($recentposts as $cid => $c){
 				
 					$a = array();
+				
 					if(has_post_thumbnail($c->ID)){
 						$img_data = wp_get_attachment_image_src( get_post_thumbnail_id( $c->ID ));
-						$a['img'] = $img_data[0];
+					
+						$a['img'] = ($img_data[0] != '') ? $img_data[0] : $this->base_url.'/post-blank.jpg';
+					
 						$a['width'] = $img_data[1];
 						$a['height'] = $img_data[2];
+						
 					} else {
 						$a['img'] = $this->base_url.'/post-blank.jpg';
 						$a['width'] = 100;

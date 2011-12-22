@@ -12,6 +12,12 @@
 ********************************************************
 
 
+Version 2.0.1
+- Features - Bug fix - Meta on blog page
+- Carousel - Taxonomy select, tweaks
+- Performance - Post Saving - Changed hook
+------------------------------------- Date: 12-23-2011
+
 Version 2.0.0
 	
 	Official Release 2.0.0!

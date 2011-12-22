@@ -272,11 +272,17 @@ function do_dynamic_css(){
 function pagelines_fix_ie( ){
 	
 	$ie_ver = pl_detect_ie();
-	if( pagelines('google_ie') && ( $ie_ver < 8 ) )
+	if( ploption('google_ie') && ( $ie_ver < 8 ) )
 		echo '<script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE8.js"></script>'."\n";
 	
-	if ( $ie_ver < 9 )
-		printf('%3$s<script src="%1$s"></script>%3$s<script src="%2$s" ></script>%3$s', 'http://html5shim.googlecode.com/svn/trunk/html5.js', 'http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js',"\n");
+	if ( $ie_ver < 9 ){
+		printf(
+			'%3$s<script src="%1$s"></script>%3$s<script src="%2$s" ></script>%3$s', 
+			'http://html5shim.googlecode.com/svn/trunk/html5.js', 
+			'http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js',
+			"\n"
+		);
+	}
 
 	// If IE7 add the Internet Explorer 7 specific stylesheet
 	if ( $ie_ver == 7 )
@@ -294,14 +300,14 @@ function pagelines_fix_ie( ){
  */
 function pagelines_font_replacement( $default_font = ''){
 	
-	if(pagelines_option('typekit_script')){
+	if(ploption('typekit_script')){
 		echo pagelines_option('typekit_script');
 	}
 	
-	if(pagelines_option('fontreplacement')){
+	if(ploption('fontreplacement')){
 		global $cufon_font_path;
 		
-		if(pagelines_option('font_file')) $cufon_font_path = pagelines_option('font_file');
+		if(ploption('font_file')) $cufon_font_path = ploption('font_file');
 		elseif($default_font) $cufon_font_path = PL_JS.'/'.$default_font;
 		else $cufon_font_path = null;
 		
@@ -327,7 +333,7 @@ function pagelines_font_replacement( $default_font = ''){
 		function cufon_inline_script(){
 			?><script type="text/javascript"><?php 
 			if(pagelines('replace_font')): 
-				?>jQuery(document).ready(function () { Cufon.replace('<?php echo pagelines_option("replace_font"); ?>', {hover: true}); });<?php 
+				?>jQuery(document).ready(function () { Cufon.replace('<?php echo ploption("replace_font"); ?>', {hover: true}); });<?php 
 			endif;
 			?></script><?php
 		 }
