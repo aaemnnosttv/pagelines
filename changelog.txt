@@ -13,9 +13,13 @@
 
 
 Version 2.0.1
-- Features - Bug fix - Meta on blog page
-- Carousel - Taxonomy select, tweaks
-- Performance - Post Saving - Changed hook
+	- Features - Bug fix - Meta on blog page
+	- Carousel - Taxonomy select, tweaks
+	- Performance - Post Saving - Changed hook
+	- Multisite - Added support for 'blogs' folder in customize plugin
+	- Bugs - Remove css3 media queries js ( broken )
+	- Features - Category mode now pulls in featured image
+
 ------------------------------------- Date: 12-23-2011
 
 Version 2.0.0
