@@ -28,7 +28,12 @@ class PageLinesNoPosts extends PageLinesSection {
 	<?php endif;?>
 		<div class="center fix"><?php get_search_form(); ?> </div>
 	</div>
-	<?php }
+	<?php 
+	
+	
+		pagelines_register_hook('pagelines_not_found_actions'); // Hook 
+	
+	}
 
 }
 

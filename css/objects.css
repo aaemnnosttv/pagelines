@@ -206,6 +206,28 @@ body #page .blink-wrap	.blink{
 		float:left; 
 	}
 .vignette{position: relative;}
+
+	.grid-title{
+		margin: .7em 0;
+	}
+	.grid-title-pad{
+		position: relative;
+		padding: 7px 0;
+	}
+		.gtitle{
+			float:left;
+		}
+		.title-link{
+			position: absolute;
+			bottom: 7px;
+			right:4px;
+			font-size: 11px;
+			font-family: 'calibri','lucida grande', helvetica, arial;
+			font-weight: bold;
+			color:#888;
+			padding: 3px 7px 4px;
+			line-height: 1em;
+		}
 .hovercard {
 	position: absolute; 
 	bottom: 20px; 
