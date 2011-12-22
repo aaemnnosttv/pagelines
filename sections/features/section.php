@@ -108,8 +108,7 @@ function _js_feature_loop($fmode, $fposts = array(), $clone_class){
 			if ( ( ploption('feature_source', $this->oset) == 'posts' ) && has_post_thumbnail( $f->ID ) ) {
 				$feature_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $f->ID ) );
 				$feature_thumb = $feature_thumb[0];
-				$cat_css = 'background-size: 100% 100%;';
-			}
+			} 
 			
 			if($fmode == 'names' || $fmode == 'thumbs'){
 				echo "\n".' // '.$fmode.'!!!'."\n";
@@ -117,7 +116,7 @@ function _js_feature_loop($fmode, $fposts = array(), $clone_class){
 					$replace_value = $feature_name;
 			
 				elseif ($fmode == 'thumbs')
-					$replace_value = sprintf("<span class='nav_thumb' style='background:#fff url(%s) no-repeat;%s'><span class='nav_overlay'>&nbsp;</span></span>", $feature_thumb, $cat_css);
+					$replace_value = sprintf("<span class='nav_thumb' style='background-image: url(%s);'><span class='nav_overlay'>&nbsp;</span></span>", $feature_thumb);
 		
 				$replace_js = sprintf('jQuery(this).html("%s");', $replace_value );
 			} else
@@ -242,8 +241,15 @@ function draw_features($f, $class, $clone_id = null) {
 						if ( $feature_source == 'posts' && has_post_thumbnail( $post->ID ) ) {
 							$feature_background_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'single-post-thumbnail'  );
 							$feature_background_image = $feature_background_image[0];
+							
+							$background_class = 'bg_cover';
+							
 						} else {
+							
 							$feature_background_image = plmeta( 'feature-background-image', $oset);
+							
+							$background_class = 'bg_standard';
+							
 						}
 
 							
@@ -260,11 +266,11 @@ function draw_features($f, $class, $clone_id = null) {
 						
 						$more_link = ($feature_style != 'text-none' && $action) ? sprintf( ' <a class="plmore" href="%s" >%s</a>', $action, $flink_text ) : '';
 						
-						$background_css = ($feature_background_image) ? sprintf('style="background: url(\'%s\') no-repeat top center"', $feature_background_image ) : '';
+						$background_css = ($feature_background_image) ? sprintf('style="background-image: url(\'%s\');"', $feature_background_image ) : '';
 
 					printf( '<div id="%s" class="fcontainer %s %s fix" >', 'feature_'.$post->ID, $feature_style, $feature_design ); 
 						
-						printf('<%s class="feature-wrap" %s %s >', $feature_wrap_markup, $feature_wrap_link, $background_css); ?>
+						printf('<%s class="feature-wrap %s" %s %s >', $feature_wrap_markup, $background_class, $feature_wrap_link, $background_css); ?>
 							
 								<div class="feature-pad fix">
 									<div class="fcontent <?php echo $fcontent_class;?>">
