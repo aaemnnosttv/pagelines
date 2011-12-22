@@ -277,9 +277,8 @@ function pagelines_fix_ie( ){
 	
 	if ( $ie_ver < 9 ){
 		printf(
-			'%3$s<script src="%1$s"></script>%3$s<script src="%2$s" ></script>%3$s', 
+			'%2$s<script src="%1$s"></script>%2$s', 
 			'http://html5shim.googlecode.com/svn/trunk/html5.js', 
-			'http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js',
 			"\n"
 		);
 	}
