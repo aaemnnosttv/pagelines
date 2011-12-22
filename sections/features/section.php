@@ -242,10 +242,8 @@ function draw_features($f, $class, $clone_id = null) {
 						if ( $feature_source == 'posts' && has_post_thumbnail( $post->ID ) ) {
 							$feature_background_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'single-post-thumbnail'  );
 							$feature_background_image = $feature_background_image[0];
-							$cat_css = '; background-size: 100% 100%;';
 						} else {
 							$feature_background_image = plmeta( 'feature-background-image', $oset);
-							$cat_css = '';
 						}
 
 							
@@ -262,10 +260,8 @@ function draw_features($f, $class, $clone_id = null) {
 						
 						$more_link = ($feature_style != 'text-none' && $action) ? sprintf( ' <a class="plmore" href="%s" >%s</a>', $action, $flink_text ) : '';
 						
-						$background_css = ($feature_background_image) ? sprintf('style="background: url(\'%s\') no-repeat top center%s"', $feature_background_image, $cat_css ) : '';
-					
-					
-					
+						$background_css = ($feature_background_image) ? sprintf('style="background: url(\'%s\') no-repeat top center"', $feature_background_image ) : '';
+
 					printf( '<div id="%s" class="fcontainer %s %s fix" >', 'feature_'.$post->ID, $feature_style, $feature_design ); 
 						
 						printf('<%s class="feature-wrap" %s %s >', $feature_wrap_markup, $feature_wrap_link, $background_css); ?>
