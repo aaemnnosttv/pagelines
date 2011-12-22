@@ -99,19 +99,25 @@ function _js_feature_loop($fmode, $fposts = array(), $clone_class){
 	
 	$count = 1;
 	$link_js = '';
-	
+	$cat_css = '';
 		foreach($fposts as $fid => $f){
 			$oset = array('post_id' => $f->ID);
 			$feature_name = (ploption('feature-name', $oset)) ? ploption('feature-name', $oset) : $f->post_title;
 			$feature_thumb = ploption('feature-thumb', $oset);
-		
+			
+			if ( ( ploption('feature_source', $this->oset) == 'posts' ) && has_post_thumbnail( $f->ID ) ) {
+				$feature_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $f->ID ) );
+				$feature_thumb = $feature_thumb[0];
+				$cat_css = 'background-size: 100% 100%;';
+			}
+			
 			if($fmode == 'names' || $fmode == 'thumbs'){
 				echo "\n".' // '.$fmode.'!!!'."\n";
 				if($fmode == 'names')
 					$replace_value = $feature_name;
 			
 				elseif ($fmode == 'thumbs')
-					$replace_value = sprintf("<span class='nav_thumb' style='background:#fff url(%s);'><span class='nav_overlay'>&nbsp;</span></span>", $feature_thumb);
+					$replace_value = sprintf("<span class='nav_thumb' style='background:#fff url(%s) no-repeat;%s'><span class='nav_overlay'>&nbsp;</span></span>", $feature_thumb, $cat_css);
 		
 				$replace_js = sprintf('jQuery(this).html("%s");', $replace_value );
 			} else
@@ -127,10 +133,6 @@ function _js_feature_loop($fmode, $fposts = array(), $clone_class){
 		printf('jQuery("div#featurenav.%s").children("a").each(function() { %s });', $clone_class, $link_js);
 
 }
-
-
-
-
 
 function section_template( $clone_id ) {    
 
@@ -236,7 +238,17 @@ function draw_features($f, $class, $clone_id = null) {
 
 						$feature_style = ( plmeta( 'feature-style', $oset)) ? plmeta('feature-style', $oset) : 'text-left';
 						$flink_text = ( plmeta( 'feature-link-text', $oset) ) ? __( plmeta('feature-link-text', $oset) ) : __('More', 'pagelines');
-						$feature_background_image = plmeta( 'feature-background-image', $oset);
+						
+						if ( $feature_source == 'posts' && has_post_thumbnail( $post->ID ) ) {
+							$feature_background_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'single-post-thumbnail'  );
+							$feature_background_image = $feature_background_image[0];
+							$cat_css = '; background-size: 100% 100%;';
+						} else {
+							$feature_background_image = plmeta( 'feature-background-image', $oset);
+							$cat_css = '';
+						}
+
+							
 						$feature_design = (plmeta( 'feature-design', $oset)) ? plmeta('feature-design', $oset) : '';
 						$action = plmeta('feature-link-url', $oset); 
 						$fcontent_class = (plmeta( 'fcontent-bg', $oset)) ? plmeta('feature-bg', $oset) : '';
@@ -250,7 +262,7 @@ function draw_features($f, $class, $clone_id = null) {
 						
 						$more_link = ($feature_style != 'text-none' && $action) ? sprintf( ' <a class="plmore" href="%s" >%s</a>', $action, $flink_text ) : '';
 						
-						$background_css = ($feature_background_image) ? sprintf('style="background: url(\'%s\') no-repeat top center"', $feature_background_image ) : '';
+						$background_css = ($feature_background_image) ? sprintf('style="background: url(\'%s\') no-repeat top center%s"', $feature_background_image, $cat_css ) : '';
 					
 					
 					
