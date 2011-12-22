@@ -13,15 +13,24 @@ function load_child_style() {
 
 	if ( !defined( 'PL_CUSTOMIZE' ) )
 		return;
-		
-	if ( file_exists( PL_EXTEND_STYLE_PATH ) ){
+	
+	// check for MU styles
+	if ( VDEV && is_multisite() ) {
 
-		$cache_ver = '?ver=' . pl_cache_version( PL_EXTEND_STYLE_PATH ); 
-		
-		pagelines_draw_css( PL_EXTEND_STYLE . $cache_ver, 'pl-extend-style' );
-		
+		global $blog_id;
+		$mu_style = sprintf( '%s/blogs/%s/style.css', EXTEND_CHILD_DIR, $blog_id );
+		if ( file_exists( $mu_style ) ) {
+			$mu_style_url = sprintf( '%s/blogs/%s/style.css', EXTEND_CHILD_URL, $blog_id );
+			$cache_ver = '?ver=' . pl_cache_version( $mu_style );
+			pagelines_draw_css( $mu_style_url . $cache_ver, 'pl-extend-style' );
+		}
+	} else {	
+		if ( file_exists( PL_EXTEND_STYLE_PATH ) ){
+
+			$cache_ver = '?ver=' . pl_cache_version( PL_EXTEND_STYLE_PATH ); 	
+			pagelines_draw_css( PL_EXTEND_STYLE . $cache_ver, 'pl-extend-style' );
+		}	
 	}	
-		
 }
 
 add_action( 'init', 'load_child_functions' );
@@ -29,8 +38,18 @@ function load_child_functions() {
 	if ( !defined( 'PL_CUSTOMIZE' ) )
 		return;
 
-	if ( file_exists( PL_EXTEND_FUNCTIONS ) )
-		require_once( PL_EXTEND_FUNCTIONS );
+	// check for MU styles
+	if ( VDEV && is_multisite() ) {
+		
+		global $blog_id;
+		$mu_functions = sprintf( '%s/blogs/%s/functions.php', EXTEND_CHILD_DIR, $blog_id );
+		if ( file_exists( $mu_functions ) )
+			require_once( $mu_functions );
+	} else {
+
+		if ( file_exists( PL_EXTEND_FUNCTIONS ) )
+			require_once( PL_EXTEND_FUNCTIONS );
+	}
 }
 
 add_action( 'init', 'base_check_templates' );
@@ -81,5 +100,3 @@ function pagelines_try_api( $url, $options ) {
 	}
 	return false;
 }
-
-define( 'VDEV', ( pagelines_check_credentials( 'licence' ) === 'dev' ) ? true : false );

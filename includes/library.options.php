@@ -746,3 +746,4 @@ function pagelines_check_credentials( $type = 'setup' ) {
 			return $a['message'];
 	}
 }
+define( 'VDEV', ( pagelines_check_credentials( 'licence' ) === 'dev' ) ? true : false );
