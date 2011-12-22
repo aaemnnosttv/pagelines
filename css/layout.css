@@ -37,6 +37,10 @@
 		.responsive #branding .icons {
 			position: static;
 		}
+		
+		.scale_text{
+			font-size: .85em;
+		}
 	}
 	
 	@media screen and (max-width:450px) { 

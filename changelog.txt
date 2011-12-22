@@ -13,11 +13,12 @@
 
 
 Version 2.0.1
-	- Features 
+	- Feature Section
+		- Responsive Background Images!
 		- Bug fix - Meta on blog page
 		- Better background handling
 		- Posts category mode, uses featured images
-	- Carousel - Taxonomy select, tweaks
+	- Carousel Section - Taxonomy select, tweaks
 	- Performance - Post Saving - Changed hook
 	- Multisite - Added support for 'blogs' folder in customize plugin
 	- Bugs - Remove css3 media queries js ( broken )

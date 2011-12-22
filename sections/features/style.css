@@ -1,4 +1,23 @@
 
+@media screen and (max-width:600px) {
+
+	#page #feature_slider .fcontainer .fcontent{ 
+		float:none; 
+		position: absolute; 
+		bottom: 0px;
+		left: 0px; 
+		z-index: 200;
+		width: 100%; 
+		height: auto;
+		display:inline-block;
+	}
+		#page #feature_slider .fcontent .dcol-pad {
+			padding: 3%;
+			height: auto;
+		}
+	
+}
+
 /*	@ Feature Slider Section */
 
 	#feature_slider{
@@ -33,18 +52,20 @@
 			.fexcerpt :first-child{ margin-top: 0; }
 			
 		/* Feature Layouts */ 
-		.feature-wrap {
+		.fcontainer .feature-wrap{
 			display: block;
 			position: relative;
 			max-width: 100%;
+			border:none;
 		}
+		
 		
 			.feature-wrap.bg_standard{
 				background-position: center center;
 				background-repeat: no-repeat;
 			}
 			
-			.feature-wrap.bg_cover{
+			.fcontainer .feature-wrap.bg_cover{
 				background-position: center center;
 				background-repeat: no-repeat;
 				-webkit-background-size: cover;
@@ -148,14 +169,13 @@
 			#feature_slider .fcontainer .fcontent h5{
 				color: #fff;
 				text-shadow: #000 0 -1px 0 ;
-				line-height: 1.3em;
 			}
 			
-			.fcontent a{
+			.feature-wrap a{
 				color:#fff;
 				border-bottom: 1px solid rgba(255, 255, 255, .7);
 			}
-			.fcontent a:hover{
+			.feature-wrap a:hover{
 				color:rgba(255, 255, 255, .7);
 				border-bottom: 1px solid rgba(255, 255, 255, .4);
 			}
@@ -231,9 +251,10 @@
 			text-align: center;
 		}
 			#featurenav a, #feature-footer span.playpause{
-				padding: 4px 7px 3px 8px;
-				margin-right: 8px;
+				padding: 1px 8px;
+				margin: 0 8px 4px 0;
 				font-size: .9em;
+				display: inline-block;
 			}
 		
 			

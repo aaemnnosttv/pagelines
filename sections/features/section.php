@@ -227,6 +227,7 @@ function draw_features($f, $class, $clone_id = null) {
 		<div id="feature-area">
 			<div id="cycle" class="<?php echo $cycle_selector;?>">
 			<?php
+			
 				foreach($f as $post) : 
 						
 						// Setup For Std WP functions
@@ -248,7 +249,7 @@ function draw_features($f, $class, $clone_id = null) {
 							
 							$feature_background_image = plmeta( 'feature-background-image', $oset);
 							
-							$background_class = 'bg_standard';
+							$background_class = 'bg_cover';
 							
 						}
 
@@ -270,22 +271,26 @@ function draw_features($f, $class, $clone_id = null) {
 
 					printf( '<div id="%s" class="fcontainer %s %s fix" >', 'feature_'.$post->ID, $feature_style, $feature_design ); 
 						
-						printf('<%s class="feature-wrap %s" %s %s >', $feature_wrap_markup, $background_class, $feature_wrap_link, $background_css); ?>
+						printf('<%s class="feature-wrap %s" %s %s >', $feature_wrap_markup, $background_class, $feature_wrap_link, $background_css); 
+						
+						if($feature_wrap_markup != 'a'):
+						?>
 							
 								<div class="feature-pad fix">
-									<div class="fcontent <?php echo $fcontent_class;?>">
+									<div class="fcontent scale_text <?php echo $fcontent_class;?>">
 										<div class="dcol-pad fix">
 												<?php
 												
-												printf('<div class="fheading"> <h2 class="ftitle">%s</h2> </div>', get_the_title());
 													
 													pagelines_register_hook( 'pagelines_feature_text_top', $this->id ); // Hook 
 													
+													$title = sprintf('<div class="fheading"> <h2 class="ftitle">%s</h2> </div>', $post->post_title);
+													
 													$content = ($feature_source == 'posts') ? apply_filters( 'pagelines_feature_output', get_the_excerpt()) : get_the_content(); 
-													
-													
+											
 													printf(
-														'<div class="ftext"><div class="fexcerpt">%s%s%s</div></div>', 
+														'%s<div class="ftext"><div class="fexcerpt">%s%s%s</div></div>', 
+														$title,
 														$content, 
 														$more_link,
 														pledit( $post->ID )
@@ -315,6 +320,7 @@ function draw_features($f, $class, $clone_id = null) {
 								</div>
 							
 							<?php 
+							endif;
 							
 						printf('</%s>', $feature_wrap_markup); 
 
