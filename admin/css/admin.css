@@ -1238,69 +1238,61 @@
 
 /* Pro Version Billboard */
 
-	#vpro_billboard{
+	.vpro-billboard{
 		background: #eee;
-		padding: 13px;
-		border:3px solid #ddd;
+		
+		border-bottom:1px solid #bbb;
+		
+		
 		font-size: 11px;
 	}
-		#vpro_billboard .vpro_billboard_height{
+		.vpro-billboard-pad{
+			padding: 13px;
 			
-			height: 85px;
+			border: 1px solid #f1f1f1;
+			box-shadow: inset 1px 1px 15px #ccc;
+		}
+		.vpro-billboard .vpro_billboard_height{
+			
+			height: 95px;
 			margin-bottom: .5em;
 		}
-		#vpro_billboard .vpro_desc{
+		.vpro-billboard .vpro_desc{
 			float: left;
 			width: 520px;
 		}
 		
-		#vpro_billboard .vpro_thumb {
+		.vpro-billboard .vpro_thumb {
 			display: block;
 			float:right;
 			width: 125px;
-			border: 1px solid #ddd;
-			padding: 3px;
+			border: 1px solid #fff;
+			padding: 2px;
 			background: #fff;
+			box-shadow: 0 2px 5px #888;
 		}
-		
-		#vpro_billboard .vpro_link{
-			background:url("../images/white-grad.png") repeat-x scroll left top #F2F2F2;
-			border: 1px solid #ddd;
-			border-right: 1px solid #ccc;
-			border-bottom: 1px solid #ccc;
-			padding: 2px 7px;
-			color: #444;
-			display:block;
-			float: left;
-			margin: .5em .5em 0em 0;
-			text-decoration: none;
-		}
-		
-		#vpro_billboard .vpro_link.vpro_call{
-			border: 1px solid #31A5DB;
-			border-right: 1px solid #134156;
-			border-bottom: 1px solid #134156;
-			color: #fff;
-			text-shadow: #000 0 -1px 0;
-			background:url("../images/button-grad.png") repeat-x scroll left top #21759B;
-		}
-		
-		#vpro_billboard .vpro_link:hover{border: 1px solid #aaa;}
-		#vpro_billboard .vpro_link.vpro_call:hover{border: 1px solid #000;}
+			.vpro_thumb img{
+				display: block;
+			}
 
-		#vpro_billboard .whatsmissing{
-			background: #ddd url(../images/icons/pro_options.png) no-repeat 10px 21px;
-			border: 1px solid #c1c1c1;
-			border-right: 1px solid #d1d1d1;
-			border-bottom: 1px solid #d1d1d1;
-			margin-top: 1em;
+		.pro_buttons{
+			margin: 1em 0 0;
+		}
+
+		.vpro-billboard .whatsmissing{
+			background: #f7f7f7 url(../images/icons/pro_options.png) no-repeat 10px 21px;
+			border: 1px solid #ccc;
+			border-right: 1px solid #bbb;
+			border-bottom: 1px solid #bbb;
+			box-shadow: inset 2px 2px 3px #fff;
+			margin: 1.5em 0 0;
 			padding: 10px 20px 20px 35px;
 			display:none;
 		
 		}	
 			.whatsmissing p.mod{
-					font-size: 9px;
-					margin: .5em;
+				font-size: 10px;
+				margin: .5em;
 			}
 /* PAGE OPTIONS */
 	
@@ -2837,13 +2829,11 @@ font-weight: bold;
 	.pagelines_image_preview{
 		background: #fff url(../images/stripe.png) repeat 0 0;
 		padding: 7px;
-		border: 1px solid #ccc;
-		border-top: 1px solid #ddd;
-		border-left: 1px solid #ddd;
+		border: 2px solid #FFF;
 		margin-top: 7px;
-		-webkit-box-shadow: 1px 1px 6px  #aaa;
-		-moz-box-shadow: 1px 1px 6px  #aaa;
-		box-shadow: 1px 1px 4px  #ddd;
+		-webkit-box-shadow: 0px 1px 4px  #888;
+		-moz-box-shadow: 0px 1px 4px  #888;
+		box-shadow: 0px 1px 4px  #888;
 	}
 
 	.plprint{

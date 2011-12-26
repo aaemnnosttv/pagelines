@@ -286,52 +286,72 @@ class PageLinesOptionsUI {
 		
 		?>
 	
-		<div id="vpro_billboard" class="">
-			<div class="vpro_billboard_height">
-				<a class="vpro_thumb" href="<?php echo PROVERSIONOVERVIEW;?>"><img src="<?php echo PL_IMAGES;?>/pro-thumb-125x50.png" alt="<?php echo PROVERSION;?>" /></a>
-				<div class="vpro_desc">
-					<strong style="font-size: 1.2em">Get the Pro Version </strong><br/>
-					<?php echo THEMENAME;?> is the free version of <?php echo PROVERSION;?>, a premium product by <a href="http://www.pagelines.com" target="_blank">PageLines</a>.<br/> 
-					Buy <?php echo PROVERSION;?> for tons more options, sections and templates.<br/> 	
+		<div id="vpro_billboard" class="vpro-billboard">
+			<div class="vpro-billboard-pad">
+				<div class="vpro_billboard_height fix">
+					<a class="vpro_thumb" href="<?php echo VPRO_TOUR;?>"><img src="<?php echo PL_IMAGES;?>/pro-thumb.png" alt="<?php echo VPRO_NAME;?>" /></a>
+					<div class="vpro_desc">
+						<strong style="font-size: 1.2em">Upgrade Your Site To Pro</strong><br/>
+						You're using the <strong>free version</strong> of <?php echo VPRO_NAME;?>, a premium product by <a href="http://www.pagelines.com" target="_blank">PageLines</a>.<br/> 
+						Buy <?php echo VPRO_NAME;?> for tons more templates, options, drag &amp; drop sections, and dedicated support.<br/> 	
 				
-					<a class="vpro_link" href="#" onClick="jQuery(this).parent().parent().parent().find('.whatsmissing').slideToggle();">Pro Features &darr;</a>
-					<a class="vpro_link" href="<?php echo PROVERSIONOVERVIEW;?>">Why Pro?</a>
-					<a class="vpro_link"  href="<?php echo PROVERSIONDEMO;?>"><?php echo PROVERSION;?> Demo</a>
-					<?php if(defined('PROBUY')):?><a class="vpro_link vpro_call"  href="<?php echo PROBUY;?>"><strong>Buy Now &rarr;</strong></a><?php endif;?>
-				
+						<?php
+					
+						$features_js = 'onClick="jQuery(\'.vpro-billboard\').find(\'.whatsmissing\').fadeToggle();"';
+					
+						$pro_buttons = OptEngine::superlink(__( 'What\'s missing?', 'pagelines' ), 'grey', 'left', '#', $features_js);
+					
+						$target = 'target="_blank"';
+						$pro_buttons .= OptEngine::superlink(__( 'Overview', 'pagelines' ), 'grey', 'left', VPRO_TOUR, $target);
+					
+						$pro_buttons .= OptEngine::superlink(__( 'Get It Now &rarr;', 'pagelines' ), 'blue', 'left', VPRO_PRICING, $target);
+					
+						printf('<div class="pro_buttons fix">%s</div>', $pro_buttons);
+					
+						?>
+					</div>
+			
 				</div>
-			
-			</div>
-			<div class="whatsmissing">
-				 <h3>Pro Only Features</h3>
-				<?php if(isset($usections) && is_array($usections)):?>
-					<p class="mod"><strong>Pro Sections</strong> (drag &amp; drop)<br/>
+				<div class="whatsmissing">
+					 <h3>What you'll get with PageLines Premium...</h3>
+					
+					<?php if(isset($usections) && is_array($usections)):?>
+						<p class="mod"><strong>Pro Drag&amp;Drop Sections</strong><br/>
+						<?php 
+						
+							$list_sections = array();
+							foreach( $usections as $unavailable_section )
+								$list_sections[] = $unavailable_section->name;
+							
+							echo join(' &middot; ', $list_sections);
+						?>
+						</p>
+					<?php endif;?>
+				
 					<?php 
-						foreach( $usections as $unavailable_section )
-							echo $unavailable_section->name;if($unavailable_section !== end($usections)) echo ' &middot; ';?>
+					$unavailable_section_areas = get_unavailable_section_areas();
+					if(isset($unavailable_section_areas) && is_array($unavailable_section_areas)):?>
+						<p class="mod"><strong>Pro Templates &amp; Section Areas</strong> (i.e. places to put sections)<br/>
+						<?php foreach( $unavailable_section_areas as $unavailable_section_area_name ):?>
+							<?php echo $unavailable_section_area_name; if($unavailable_section_area_name !== end($unavailable_section_areas)) echo ' &middot; ';?> 
+						<?php endforeach;?></p>
+					<?php endif;?>
+				
+					<p class="mod"><strong>Pro Settings &amp; Options</strong><br/>
+					<?php foreach( get_option_array(true) as $optionset ):
+							foreach ( $optionset as $oid => $o): 
+								if( isset($o['version']) && $o['version'] == 'pro' ):
+									echo $o['title']; echo ' &middot; ';
+								endif;
+							endforeach; 
+						endforeach;?></p>
+				
+					<p class="mod">
+						<strong>Plus additional meta options, integrated plugins, technical support, and more...</strong>
 					</p>
-				<?php endif;?>
-				
-				<?php 
-				$unavailable_section_areas = get_unavailable_section_areas();
-				if(isset($unavailable_section_areas) && is_array($unavailable_section_areas)):?>
-					<p class="mod"><strong>Pro Templates &amp; Section Areas</strong> (i.e. places to put sections)<br/>
-					<?php foreach( $unavailable_section_areas as $unavailable_section_area_name ):?>
-						<?php echo $unavailable_section_area_name; if($unavailable_section_area_name !== end($unavailable_section_areas)) echo ' &middot; ';?> 
-					<?php endforeach;?></p>
-				<?php endif;?>
-				
-				<p class="mod"><strong>Pro Settings &amp; Options</strong><br/>
-				<?php foreach( get_option_array(true) as $optionset ):
-						foreach ( $optionset as $oid => $o): 
-							if( isset($o['version']) && $o['version'] == 'pro' ):
-								echo $o['title']; echo ' &middot; ';
-							endif;
-						endforeach; 
-					endforeach;?></p>
-				
-				<p class="mod"><strong>Plus additional meta options, integrated plugins, technical support, and more...</strong></p>
 			
+				</div>
+				
 			</div>
 		</div>
 	

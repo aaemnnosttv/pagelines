@@ -611,7 +611,7 @@ class PageLinesOptionsArray {
 				'type' 			=> 'count_select',		
 				'count_start'	=> '1',
 				'count_number'	=> '6', 
-				'title' 		=> 'Number of Footer Columns',
+				'title' 		=> 'Number of Footer Columns (FootCols)',
 				'shortexp' 		=> 'Control the number of columns per row in your footer columns section.', 
 				'inputlabel'	=> 'Select Number of Footer Columns'
 			),
@@ -621,7 +621,7 @@ class PageLinesOptionsArray {
 					'type'		=> 'image_upload',
 					'imagepreview'	=> '100',
 					'inputlabel'	=> __( 'Add Footer logo', 'pagelines' ),
-					'title'		=> __( 'Footer Logo', 'pagelines' ),
+					'title'		=> __( 'Footer Logo (FootCols)', 'pagelines' ),
 					'shortexp'	=> __( 'Show a logo in the footer', 'pagelines' ),
 					'exp'		=> __( 'Add the full url of an image for use in the footer. Recommended size: 140px wide.', 'pagelines' )
 			),
@@ -629,7 +629,7 @@ class PageLinesOptionsArray {
 					'defalut'	=> sprintf( __( "Thanks for dropping by! Feel free to join the discussion by leaving comments, and stay updated by subscribing to the <a href='%s'>RSS feed</a>.", 'pagelines' ), get_bloginfo('rss2_url') ),
 					'type'		=> 'textarea',
 					'inputlabel'=> __( 'More Statement In Footer', 'pagelines' ),
-					'title'		=> __( 'More Statement', 'pagelines' ),
+					'title'		=> __( 'More Statement (FootCols)', 'pagelines' ),
 					'shortexp'	=> __( 'Add a quick statement for users who want to know more...', 'pagelines' ),
 					'exp'		=> __( "This statement will show in the footer columns under the word more. It is for users who may want to know more about your company or service.", 'pagelines' )
 			),
@@ -637,7 +637,7 @@ class PageLinesOptionsArray {
 					'default' 	=> '&copy; '.date('Y').' '.get_bloginfo('name'),
 					'type' 		=> 'textarea',
 					'inputlabel'=> __( 'Terms line in footer:', 'pagelines' ),
-					'title' 	=> __( 'Site Terms Statement', 'pagelines' ),
+					'title' 	=> __( 'Site Terms Statement (FootCols)', 'pagelines' ),
 					'shortexp' 	=> __( 'A line in your footer for <strong>terms and conditions</strong> text or similar', 'pagelines' ),
 					'exp' 		=> __( "It's sometimes a good idea to give your users a terms and conditions statement so they know how they should use your service or content.", 'pagelines' )
 			)
@@ -685,9 +685,9 @@ class PageLinesOptionsArray {
 				'layout'		=> 'interface',
 				'selectvalues'	=> array(
 					'left'			=> array( 'name' => __( 'Left Justified', 'pagelines' ), 'offset' => '0px -50px' ), 
-					'top'			=> array( 'name' => __( 'On Top', 'pagelines' ), 'offset' => '0px 0px' ), 
-					'left-excerpt'	=> array( 'name' => __( 'Left, In Excerpt', 'pagelines' ), 'offset' => '0px -100px' ), 
-					'right-excerpt'	=> array( 'name' => __( 'Right, In Excerpt', 'pagelines' ), 'offset' => '0px -150px' ), 
+					'top'			=> array( 'name' => __( 'On Top', 'pagelines' ), 'offset' => '0px 0px', 'version' => 'pro' ), 
+					'left-excerpt'	=> array( 'name' => __( 'Left, In Excerpt', 'pagelines' ), 'offset' => '0px -100px', 'version' => 'pro' ), 
+					'right-excerpt'	=> array( 'name' => __( 'Right, In Excerpt', 'pagelines' ), 'offset' => '0px -150px', 'version' => 'pro' ), 
 					
 				),
 				'title'		=> __( 'Feature Post Excerpt Mode', 'pagelines' ),						

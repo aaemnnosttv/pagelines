@@ -12,7 +12,7 @@ define('CHILD_VERSION', $child_theme_data['Version']);
 /*
 	TODO simon fix this w/ API!!!!
 */
-define( 'VPRO', true );
+define( 'VPRO', false );
 
 if( !defined('PL_DEV' ) )
 	define( 'PL_DEV',false );
@@ -123,14 +123,6 @@ define( 'PL_API_FETCH', 'http://www.pagelines.com/api/' );
 define( 'PL_LAUNCHPAD_FRAME', 'http://www.pagelines.com/launchpad/member.php' );
 
 /**
- * Define version constants
- */
-define('PAGELINES_PRO', get_template_directory() . '/pro' );
-define('PAGELINES_DEV', get_template_directory() . '/dev' );
-
-define('PAGELINES_PRO_ROOT', PARENT_URL . '/pro' );
-
-/**
  * Define language constants
  */
 $lang = ( is_dir( EXTEND_CHILD_DIR . '/language' ) ) ? EXTEND_CHILD_DIR . '/language' : get_template_directory() . '/language';
@@ -144,7 +136,9 @@ $GLOBALS['pagelines_user_pages'] = array();
 /**
  * Pro/Free Version Variables
  */
-define('PROVERSION','PageLines Pro');
-define('PROVERSIONDEMO','http://www.pagelines.com/demos/platformpro');
-define('PROVERSIONOVERVIEW','http://www.pagelines.com/themes/platformpro');
-define('PROBUY', 'http://www.pagelines.com/launchpad/signup.php?price_group[]=110&price_group[]=210&product_id=46&hide_paysys=paypal_r');
+define('VPRO_NAME','PageLines Framework');
+define('VPRO_TOUR','http://www.pagelines.com/tour/');
+define('VPRO_PRICING','http://www.pagelines.com/pricing/');
+
+
+

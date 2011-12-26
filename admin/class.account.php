@@ -51,7 +51,6 @@ function pagelines_account_array(  ){
 		'Your_Account'		=> array(
 			'icon'			=> PL_ADMIN_ICONS.'/rocket-fly.png',
 			'credentials' 	=> array(
-				'version'	=> 'pro',
 				'type'		=> 'updates_setup',
 				'title'		=> __( 'Configure PageLines Account &amp; Auto Updates', 'pagelines' ),
 				'shortexp'	=> __( 'Get your latest updates automatically, direct from PageLines.', 'pagelines' ),
