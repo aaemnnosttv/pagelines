@@ -12,7 +12,7 @@ define('CHILD_VERSION', $child_theme_data['Version']);
 /*
 	TODO simon fix this w/ API!!!!
 */
-define( 'VPRO', true );
+define( 'VPRO', false );
 
 if( !defined('PL_DEV' ) )
 	define( 'PL_DEV',false );
@@ -139,6 +139,3 @@ $GLOBALS['pagelines_user_pages'] = array();
 define('VPRO_NAME','PageLines Framework');
 define('VPRO_TOUR','http://www.pagelines.com/tour/');
 define('VPRO_PRICING','http://www.pagelines.com/pricing/');
-define('CHANGELOG_URL', 'http://www.pagelines.com/demos/platformpro/wp-content/themes/platformpro/changelog.txt');
-
-

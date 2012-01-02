@@ -2,7 +2,7 @@
 /**
  * This file initializes the PageLines framework 
  *
- * @package Platform
+ * @package PageLines Framework
  *
  **/
 
@@ -15,7 +15,7 @@
 **/ 
 if( floatval( phpversion() ) < 5.0 ) {
 	echo '<div style="border: 1px red solid">This server is running <strong>PHP ' . phpversion() . '</strong> we are switching back to the default theme for you!<br />';
-	echo 'Please contact your host and switch to PHP5 before activating Platform. <a href="' . get_admin_url() . '">Site admin</a></div>';
+	echo 'Please contact your host and switch to PHP5 before activating PageLines Framework. <a href="' . get_admin_url() . '">Site admin</a></div>';
 	switch_theme( 'twentyten', 'twentyten');
 	die(); // Brutal but we need to suppress those ugly php errors!
 }

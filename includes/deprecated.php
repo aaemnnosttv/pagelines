@@ -11,7 +11,7 @@
  *
  * @since 1.0
  * @deprecated 2.0
- * @deprecated Sections are now autoloaded and registered by platform core.
+ * @deprecated Sections are now autoloaded and registered by the framework.
  **/
 function pagelines_register_section() {
 	_deprecated_function( __FUNCTION__, '2.0', 'the CHILDTHEME/sections/ folder' );

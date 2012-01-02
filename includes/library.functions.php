@@ -455,7 +455,7 @@ function pagelines_nav_classes(){
  * 
  *  Loads Special PageLines CSS Files, Optimized
  *
- *  @package PageLines
+ *  @package PageLines Framework
  *  @subpackage Functions Library
  *  @since 1.2.0
  *
@@ -469,7 +469,7 @@ function pagelines_draw_css( $css_url, $id = '', $enqueue = false){
  * 
  *  Abstracts the Enqueue of Stylesheets, fixes bbPress issues with dropping hooks
  *
- *  @package Platform
+ *  @package PageLines Framework
  *  @since 1.3.0
  *
  */
@@ -490,7 +490,7 @@ function pagelines_load_css( $css_url, $id, $hash = CORE_VERSION, $enqueue = tru
  * 
  *  Loading CSS using relative path to theme root. This allows dynamic versioning, overriding in child theme
  *
- *  @package Platform
+ *  @package PageLines Framework
  *  @since 1.4.0
  *
  */
@@ -532,7 +532,7 @@ function pl_cache_version( $path, $version = CORE_VERSION ){
  * 
  *  Get Stylesheet Version
  *
- *  @package Platform
+ *  @package PageLines Framework
  *  @since 1.4.0
  *
  */

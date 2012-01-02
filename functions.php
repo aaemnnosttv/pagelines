@@ -3,7 +3,7 @@
 	
 	THEME INITIALIZATION
 	
-	This file loads the core framework for Platform which handles everything. 
+	This file loads the core framework which handles everything. 
 	
 	This theme copyright (C) 2008-2010 PageLines
 

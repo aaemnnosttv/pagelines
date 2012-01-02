@@ -175,7 +175,7 @@ class PageLinesCSS {
  * 
  *  Load Dynamic CSS inline
  *
- *  @package Platform
+ *  @package PageLines Framework
  *  @since 1.2.0
  *
  */

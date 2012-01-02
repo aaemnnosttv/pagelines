@@ -1,5 +1,5 @@
 /**
- * Platform Javascript Functions
+ * Framework Javascript Functions
  * Copyright (c) PageLines 2008 - 2011
  *
  * Written By PageLines
