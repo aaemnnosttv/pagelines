@@ -77,37 +77,40 @@ class PageLinesFeatures extends PageLinesSection {
 /* ]]> */ </script>
 <?php }
 
-function _feature_css( $clone_id, $oset){
-	$height = (ploption('feature_stage_height', $oset)) ? ploption('feature_stage_height', $oset).'px' : '380px';
-	
-	$feature_height_selectors = array('#feature-area', '.feature-wrap', '#feature_slider .fmedia, #feature_slider .fcontent', '#feature_slider .text-bottom .fmedia .dcol-pad', '#feature_slider .text-bottom .feature-pad', '#feature_slider .text-none .fmedia .dcol-pad');
-	
-	$selectors = array();
-	foreach($feature_height_selectors as $sel){
-		if( isset($clone_id) && $clone_id != 1)
-			$selectors[] = sprintf('.clone_%s %s', $clone_id, $sel);
-		else 
-			$selectors[] = $sel;
-	}
-	
-	$css = sprintf( '%s{height:%s;}', join(',', $selectors), $height);
-	
-	inline_css_markup('feature-css', $css);
-}
+	function _feature_css( $clone_id, $oset){
 
-function _js_feature_loop($fmode, $fposts = array(), $clone_class){
+		$height = (ploption('feature_stage_height', $oset)) ? ploption('feature_stage_height', $oset).'px' : '380px';	
+		$feature_height_selectors = array('#feature-area', '.feature-wrap', '#feature_slider .fmedia, #feature_slider .fcontent', '#feature_slider .text-bottom .fmedia .dcol-pad', '#feature_slider .text-bottom .feature-pad', '#feature_slider .text-none .fmedia .dcol-pad');
+		$selectors = array();
+		foreach($feature_height_selectors as $sel){
+			if( isset($clone_id) && $clone_id != 1)
+				$selectors[] = sprintf('.clone_%s %s', $clone_id, $sel);
+			else 
+				$selectors[] = $sel;
+		}
 	
-	$count = 1;
-	$link_js = '';
-	$cat_css = '';
+		$css = sprintf( '%s{height:%s;}', join(',', $selectors), $height);	
+		inline_css_markup('feature-css', $css);
+	}
+
+	function _js_feature_loop($fmode, $fposts = array(), $clone_class){
+	
+		$count = 1;
+		$link_js = '';
+		$cat_css = '';
 		foreach($fposts as $fid => $f){
 			$oset = array('post_id' => $f->ID);
 			$feature_name = (ploption('feature-name', $oset)) ? ploption('feature-name', $oset) : $f->post_title;
 			$feature_thumb = ploption('feature-thumb', $oset);
 			
-			if ( ( ploption('feature_source', $this->oset) == 'posts' ) && has_post_thumbnail( $f->ID ) ) {
-				$feature_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $f->ID ) );
-				$feature_thumb = $feature_thumb[0];
+			if ( ( ploption('feature_source', $this->oset) == 'posts' ) ) {
+				
+				if( has_post_thumbnail( $f->ID )) {
+					$feature_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $f->ID ) );
+					$feature_thumb = $feature_thumb[0];
+				} else {					
+					$feature_thumb = apply_filters( 'pagelines-feature-cat-default-thumb', $this->base_url . '/images/fthumb3.png' );
+				}
 			} 
 			
 			if($fmode == 'names' || $fmode == 'thumbs'){
@@ -127,76 +130,69 @@ function _js_feature_loop($fmode, $fposts = array(), $clone_class){
 			$link_js .= sprintf('if(jQuery(this).html() == "%s") { %s %s }', $count, $link_title, $replace_js);
 		
 			$count++; 
+		}	
+		printf('jQuery("div#featurenav.%s").children("a").each(function() { %s });', $clone_class, $link_js);
+	}
+
+	function section_template( $clone_id ) {    
+
+		$f = $this->pagelines_features_set( $clone_id ); 
+
+		// $this->set set in pagelines_feature_set, better way to do this?
+		$this->draw_features($f, $this->set, $clone_id);
+	}
+
+	function pagelines_features_set( $clone_id ){
+	
+		if( ploption('feature_set', $this->oset) )
+			$this->set = ploption('feature_set', $this->oset);
+		elseif (ploption('feature_default_tax', $this->oset))
+			$this->set = ploption('feature_default_tax', $this->oset);
+		else 
+			$this->set = null;
+
+		$limit = ploption('feature_items', $this->oset);
+		
+		$source = ( ploption('feature_source', $this->oset) == 'posts') ? 'posts' : 'customtype';	
+	
+		$category = ploption('feature_category', $this->oset);	
+		
+		$f = $this->load_pagelines_features($this->set, $limit, $source, $category); 
+	
+		return $f;		
+	}
+
+	function load_pagelines_features( $set = null, $limit = null, $source = null, $category = false){
+		
+		$query = array();
+		$query['orderby'] 	= 'ID'; 
+	
+		if($source == 'posts'){
+		
+			$query['post_type'] = 'post';
+		
+			if( $category )
+				$query['cat'] = $category;
+		} else {
+		
+			$query['post_type'] = $this->ptID; 
+		
+			if( isset( $set ) ) 
+				$query[ $this->taxID ] = $set;	
 		}
 	
-		printf('jQuery("div#featurenav.%s").children("a").each(function() { %s });', $clone_class, $link_js);
+		if( isset( $limit ) ) 
+			$query['showposts'] = $limit; 
 
-}
-
-function section_template( $clone_id ) {    
-
-	$f = $this->pagelines_features_set( $clone_id ); 
-
-	// $this->set set in pagelines_feature_set, better way to do this?
-	$this->draw_features($f, $this->set, $clone_id);
-
-}
-
-function pagelines_features_set( $clone_id ){
+		$q = new WP_Query($query);
 	
-	
-	if( ploption('feature_set', $this->oset) )
-		$this->set = ploption('feature_set', $this->oset);
-	elseif (ploption('feature_default_tax', $this->oset))
-		$this->set = ploption('feature_default_tax', $this->oset);
-	else 
-		$this->set = null;
-	
-	$limit = ploption('feature_items', $this->oset);
-		
-	$source = ( ploption('feature_source', $this->oset) == 'posts') ? 'posts' : 'customtype';	
-	
-	$category = ploption('feature_category', $this->oset);	
-		
-	$f = $this->load_pagelines_features($this->set, $limit, $source, $category); 
-	
-	return $f;	
-		
-}
-
-function load_pagelines_features( $set = null, $limit = null, $source = null, $category = false){
-	$query = array();
-	
-	$query['orderby'] 	= 'ID'; 
-	
-	if($source == 'posts'){
-		
-		$query['post_type'] = 'post';
-		
-		if( $category )
-			$query['cat'] = $category;
-
-	} else {
-		
-		$query['post_type'] = $this->ptID; 
-		
-		if(isset($set)) 
-			$query[ $this->taxID ] = $set;
-		
+		if( is_array( $q->posts ) ) 
+			return $q->posts;
+		else 
+			return array();
 	}
-	
-	if(isset($limit)) 
-		$query['showposts'] = $limit; 
 
-	$q = new WP_Query($query);
-	
-	if(is_array($q->posts)) 
-		return $q->posts;
-	else 
-		return array();
-}
-
-function draw_features($f, $class, $clone_id = null) {     
+	function draw_features($f, $class, $clone_id = null) {     
 	
 	// Setup 
 		global $post; 
@@ -232,16 +228,25 @@ function draw_features($f, $class, $clone_id = null) {
 						
 						// Setup For Std WP functions
 						setup_postdata($post); 
-						
+
 						$oset = array('post_id' => $post->ID);
-						
 
 						$feature_style = ( plmeta( 'feature-style', $oset)) ? plmeta('feature-style', $oset) : 'text-left';
+						
+						$feature_style = apply_filters( 'pagelines-feature-style', $feature_style );
+						
 						$flink_text = ( plmeta( 'feature-link-text', $oset) ) ? __( plmeta('feature-link-text', $oset) ) : __('More', 'pagelines');
 						
-						if ( $feature_source == 'posts' && has_post_thumbnail( $post->ID ) ) {
-							$feature_background_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'single-post-thumbnail'  );
-							$feature_background_image = $feature_background_image[0];
+						if ( $feature_source == 'posts' ) {
+							
+							if ( has_post_thumbnail( $post->ID ) ) {
+								$feature_background_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'single-post-thumbnail'  );
+								$feature_background_image = $feature_background_image[0];
+							} else {
+								
+								$feature_background_image = apply_filters( 'pagelines-feature-cat-default-image', $this->base_url.'/images/feature1.jpg' );
+								
+							}
 							
 							$background_class = 'bg_cover';
 							
@@ -255,12 +260,19 @@ function draw_features($f, $class, $clone_id = null) {
 
 							
 						$feature_design = (plmeta( 'feature-design', $oset)) ? plmeta('feature-design', $oset) : '';
-						$action = plmeta('feature-link-url', $oset); 
+						
+						if ( $feature_source == 'posts' )
+							setup_postdata( $post );
+						
+						$action = ( $feature_source == 'posts' ) ? get_permalink() : plmeta('feature-link-url', $oset);
+						
 						$fcontent_class = (plmeta( 'fcontent-bg', $oset)) ? plmeta('feature-bg', $oset) : '';
 						
 						$media_image = plmeta('feature-media-image', $oset);
-						
+
 						$feature_media = plmeta( 'feature-media', $oset); 
+						
+						plprint( $feature_media );
 						
 						$feature_wrap_markup = ($feature_style == 'text-none' && $action) ? 'a' : 'div';
 						$feature_wrap_link = ($feature_style == 'text-none' && $action) ? sprintf('href="%s"', $action) : '';
@@ -269,7 +281,7 @@ function draw_features($f, $class, $clone_id = null) {
 						
 						$background_css = ($feature_background_image) ? sprintf('style="background-image: url(\'%s\');"', $feature_background_image ) : '';
 
-					printf( '<div id="%s" class="fcontainer %s %s fix" >', 'feature_'.$post->ID, $feature_style, $feature_design ); 
+						printf( '<div id="%s" class="fcontainer %s %s fix" >', 'feature_'.$post->ID, $feature_style, $feature_design ); 
 						
 						printf('<%s class="feature-wrap %s" %s %s >', $feature_wrap_markup, $background_class, $feature_wrap_link, $background_css); 
 						
@@ -350,7 +362,8 @@ function draw_features($f, $class, $clone_id = null) {
 		
 	</div>
 	<div class="clear"></div>
-<?php }
+<?php
+	}
 
 	function section_scripts() {  
 	
@@ -360,10 +373,8 @@ function draw_features($f, $class, $clone_id = null) {
 						'dependancy' => array('jquery'), 
 						'location' => 'footer', 
 						'version' => '2.9994'
-					)
-				
+					)	
 			);
-	
 	}
 	
 	function post_meta_setup(){
@@ -698,6 +709,7 @@ function draw_features($f, $class, $clone_id = null) {
 	}
 
 	function column_display($column){
+
 		global $post;
 
 		switch ($column){
@@ -719,9 +731,3 @@ function draw_features($f, $class, $clone_id = null) {
 		}
 	}
 }
-
-
-
-		
-
-
