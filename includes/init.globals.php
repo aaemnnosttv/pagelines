@@ -12,7 +12,7 @@ define('CHILD_VERSION', $child_theme_data['Version']);
 /*
 	TODO simon fix this w/ API!!!!
 */
-define( 'VPRO', false );
+define( 'VPRO', true );
 
 if( !defined('PL_DEV' ) )
 	define( 'PL_DEV',false );
