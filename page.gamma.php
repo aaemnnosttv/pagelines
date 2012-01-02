@@ -1,8 +1,7 @@
 <?php
-if(VPRO) {
+
 /*
-	Template Name: Box Page
+	Template Name: Template | 3
 */
 
 setup_pagelines_template();
-}

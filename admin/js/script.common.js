@@ -205,9 +205,14 @@ function PageLinesStyleFont(element, property){
  * Changes input val based on image click....
  */
 function GraphicSelect ( ClickedLayout ){
-	jQuery(ClickedLayout).parent().parent().find('.graphic_select_border').removeClass('selectedgraphic');
-	jQuery(ClickedLayout).addClass('selectedgraphic');
-	jQuery(ClickedLayout).parent().find('.graphic_select_input').attr("checked", "checked");
+	
+	if( !jQuery(ClickedLayout).hasClass('disabled_option') ){
+		
+		jQuery(ClickedLayout).parent().parent().find('.graphic_select_border').removeClass('selectedgraphic');
+		jQuery(ClickedLayout).addClass('selectedgraphic');
+		jQuery(ClickedLayout).parent().find('.graphic_select_input').attr("checked", "checked");
+	
+	}
 }
 
 

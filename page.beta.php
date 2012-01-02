@@ -1,9 +1,7 @@
 <?php
-if(VPRO) {
+
 /*
-	Template Name: Carousel Page
+	Template Name: Template | 2
 */
 
 setup_pagelines_template();
-
-}

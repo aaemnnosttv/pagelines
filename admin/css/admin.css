@@ -3,7 +3,7 @@
    git-platform-framework
    
    Created by PageLines on 2011-07-03.
-   Copyright 2011 PageLines Inc. All rights reserved.
+   Copyright 2012 PageLines Inc. All rights reserved.
 */
 
 /*
@@ -1806,7 +1806,7 @@ font-weight: bold;
 		display: inline-block;
 		margin-left: 3%;
 	}
-	.graphic_select_border{
+	.graphic_select_border, .disabled_option.graphic_select_border:hover, .disabled_option.graphic_select_border:active{
 		display: inline-block;
 		border: 1px solid #ccc;
 		border-right: 1px solid #aaa;
@@ -1872,11 +1872,29 @@ font-weight: bold;
 	   -webkit-box-shadow:inset 0 0 5px #777;
 	   box-shadow:inset 0 0 5px #777;
 	}
-	.graphic_select_image{
-		display: block;
+	body .disabled_option.graphic_select_border, body .disabled_option.graphic_select_border:hover, body .disabled_option.graphic_select_border:active{
+		border: 1px solid #BBB;
+		cursor: default;
+		box-shadow: none;
+	}
+	
+	.enabled_option .graphic_fill{
 		text-indent: -3333em;
 	}
 	
+	.graphic_select_image, .graphic_fill{
+		display: block;
+	}
+	
+		.disabled_option .graphic_fill{
+			text-transform: uppercase;
+			background: rgba(255, 255, 255, .8);
+			font-weight: bold;
+			color: rgba(0, 0, 0, .3);
+			font-size: 1.2em;
+		}
+		
+		
 /* @ Template Option */ 
 	.tselect_label{
 		font-size: .8em;
@@ -2067,17 +2085,23 @@ font-weight: bold;
 				border-bottom: 1px solid #aaa;
 				font-weight: bold;
 				color: #000;
-				font-size: .85em;
-				width: 13%;
+				font-size: .9em;
+				width: 15.5%;
 				margin: 4px .5%;
 				overflow: hidden;
 				text-decoration: none;
 			}
+				.sub-template-selector .sss-button .sss-tag{
+					color: rgba(0,0,0, .6);
+				}
+					.sub-template-selector .sss-button.sss-selected .sss-tag{
+						color: rgba(255, 255,255, .8);
+					}
 				.sss-button-pad{
 					border-top: 1px solid #ddd;
 					border-left: 1px solid #ddd;
 					padding: .4em 7px;
-					height: 1.8em;
+					height: 1.7em;
 				}
 				.sub-template-selector .sss-button:hover{background: #c5c5c5;}
 				.sub-template-selector .sss-button.sss-selected{
@@ -2092,6 +2116,8 @@ font-weight: bold;
 						border-top: 1px solid transparent;
 						border-left: 1px solid transparent;
 					}
+					
+					
 /* @ Section Layout */
 	#template_data{display: none;}
 	

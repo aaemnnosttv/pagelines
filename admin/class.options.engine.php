@@ -807,25 +807,51 @@ class OptEngine {
 			<div class="graphic_selector fix">
 				<div class="graphic_selector_pad fix">
 					<label for="<?php echo $o['input_id'];?>" class="graphic_selector_overview"><?php echo $o['inputlabel'];?></label>
-					
-<?php 					foreach( $o['selectvalues'] as $sid => $s ): 
-							$css = sprintf('background: url(%s) no-repeat %s; width: %s; height: %s;', $o['sprite'], $s['offset'], $o['width'], $o['height']);
+					<?php 					
+
+					foreach( $o['selectvalues'] as $sid => $s ): 
+							
+							$css = sprintf('background: url(%s) no-repeat %s;', $o['sprite'], $s['offset']);
+							
+							$size = sprintf('width: %s; height: %s;', $o['width'], $o['height']);
+							
+							$line_height = sprintf('line-height: %s;', $o['height']);
+							
+							$selected = ($sid == $o['val']) ? 'selectedgraphic' : '';
+							
+							$checked = checked($sid, $o['val'], false);
+							
+							if(!VPRO && $s['version'] == 'pro'){
+								
+								$option_status = 'disabled_option';
+								$graphic_content = 'pro';
+								
+							} else {
+								
+								$option_status = 'enabled_option';
+								$graphic_content = '&nbsp;';
+							}
+						
+							$graphic_classes = sprintf('%s %s', $selected, $option_status);
 					?>
 					<span class="graphic_select_item">
-						<span class="graphic_select_border <?php if($sid == $o['val']) echo 'selectedgraphic';?> fix">
-							<span class="graphic_select_image <?php echo $sid;?>" style="<?php echo $css;?>">
-								&nbsp;
+						<span class="graphic_select_border <?php echo $graphic_classes;?> fix">
+							<span class="graphic_select_image <?php echo $sid;?>" style="<?php echo $css . $size;?>">
+								<?php printf('<span class="graphic_fill" style="%s %s">%s</span>', $size, $line_height, $graphic_content); ?>
 							</span>
 						</span>
 						<?php 
 						if($o['showname'] && isset($s['name']))
 							printf('<span class="graphic_title clear">%s</span>', $s['name']);
 							
-						printf('<input type="radio" id="%s" class="graphic_select_input" name="%s" value="%s" %s />', $o['input_id'], $o['input_name'], $sid, checked($sid, $o['val'], false));
+						printf('<input type="radio" id="%s" class="graphic_select_input" name="%s" value="%s" %s />', $o['input_id'], $o['input_name'], $sid, $checked );
 						
 						?>
 					</span>
-					<?php endforeach;?>
+					
+					<?php 
+						endforeach;
+					?>
 					
 					<?php if(isset($o['exp']) && $o['exp'] != ''):?>
 					<div class="gselect_toggle" onclick="jQuery(this).parent().parent().next().slideToggle();">

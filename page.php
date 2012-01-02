@@ -1,6 +1,6 @@
 <?php 
 /*
-	This theme is Copyright (C) 2008-2010 Andrew Powers, PageLines.com (andrew AT pagelines DOT com)
+	This software is Copyright (C) 2008-2012 PageLines.com (contact: hello@pagelines.com)
 */
 
 setup_pagelines_template();

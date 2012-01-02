@@ -563,6 +563,13 @@ class PageLinesTemplate {
 						$map[$hook_id]['templates'][$sub_template] = $stemplate;
 					
 					$map[$hook_id]['templates'][$sub_template]['name'] = $stemplate['name'];
+					
+					if(isset($stemplate['page_type']))
+						$map[$hook_id]['templates'][$sub_template]['page_type'] = $stemplate['page_type'];
+					
+				//	plprint( $stemplate );
+					$map[$hook_id]['templates'][$sub_template]['version'] = ( isset($stemplate['version']) && $stemplate['version'] != '' ) ? $stemplate['version'] : null;
+					
 				}
 				
 			}
@@ -971,71 +978,80 @@ function the_sub_templates( $t = 'templates' ){
 	
 	$map = array(
 		'default' => array(
-				'name'			=> __( 'Default Page', 'pagelines' ),
-				'sections' 		=> ($t == 'main') ? array('PageLinesPostLoop', 'PageLinesComments') : array('PageLinesContent')
+				'name'			=> __( 'Default', 'pagelines' ),
+				'sections' 		=> ($t == 'main') ? array('PageLinesPostLoop', 'PageLinesComments') : array('PageLinesContent'),
+				'page_type'		=> 'page'
 		),
 		'alpha' => array(
-				'name'			=> __( 'Feature Page', 'pagelines' ),
+				'name'			=> __( '1', 'pagelines' ),
 				'sections' 		=> ($t == 'main') ? array( 'PageLinesPostLoop' ) : array('PageLinesFeatures', 'PageLinesBoxes', 'PageLinesContent'),
-				'version'		=> 'pro'
+				'page_type'		=> 'page'
 			),
 		'beta' => 	array(
-				'name'			=> __( 'Carousel Page', 'pagelines' ),
+				'name'			=> __( '2', 'pagelines' ),
 				'sections' 		=> ($t == 'main') ? array( 'PageLinesPostLoop' ) : array('PageLinesCarousel', 'PageLinesContent'),
-				'version'		=> 'pro'
+				'page_type'		=> 'page'
 			),
 		'gamma' => 	array(
-				'name'			=> __( 'Box Page', 'pagelines' ),
+				'name'			=> __( '3', 'pagelines' ),
 				'sections' 		=> ($t == 'main') ? array( 'PageLinesPostLoop' ) : array( 'PageLinesHighlight', 'PageLinesSoapbox', 'PageLinesBoxes' ),
-				'version'		=> 'pro'
+				'page_type'		=> 'page'
 			),
 		'delta' => 	array(
-				'name'			=> __( 'Highlight Page', 'pagelines' ),
+				'name'			=> __( '4', 'pagelines' ),
 				'sections' 		=> ($t == 'main') ? array( 'PageLinesPostLoop' ) : array( 'PageLinesHighlight', 'PageLinesContent' ),
-				'version'		=> 'pro'
+				'page_type'		=> 'page'
 			),
 		'epsilon' => 	array(
-				'name'			=> __( 'Banner Page', 'pagelines' ),
+				'name'			=> __( '5', 'pagelines' ),
 				'sections' 		=> ($t == 'main') ? array( 'PageLinesPostLoop' ) : array( 'PageLinesHighlight', 'PageLinesBanners', 'PageLinesContent' ),
-				'version'		=> 'pro'
-			),
-		'posts' => array(
-				'name'			=> __( 'Blog', 'pagelines' ),
-				'sections' 		=> ($t == 'main') ? array('PageLinesPostsInfo','PageLinesPostLoop', 'PageLinesPagination') : array('PageLinesContent')
+				'page_type'		=> 'page'
 			),
 		'single' => array(
 				'name'			=> __( 'Blog Post', 'pagelines' ),
-				'sections' 		=> ($t == 'main') ? array('PageLinesPostNav', 'PageLinesPostLoop', 'PageLinesShareBar', 'PageLinesComments', 'PageLinesPagination') : array('PageLinesContent')
+				'sections' 		=> ($t == 'main') ? array('PageLinesPostNav', 'PageLinesPostLoop', 'PageLinesShareBar', 'PageLinesComments', 'PageLinesPagination') : array('PageLinesContent'),
+				'page_type'		=> 'post'
+			),
+		'posts' => array(
+				'name'			=> __( 'Blog', 'pagelines' ),
+				'sections' 		=> ($t == 'main') ? array('PageLinesPostsInfo','PageLinesPostLoop', 'PageLinesPagination') : array('PageLinesContent'),
+				'page_type'		=> 'special'
 			),
 		'tag' => array(
 				'name'			=> __( 'Tag', 'pagelines' ),
 				'sections' 		=> ($t == 'main') ? array( 'PageLinesPostsInfo', 'PageLinesPostLoop' ) : array('PageLinesContent'),
-				'version'		=> 'pro'
+				'version'		=> 'pro',
+				'page_type'		=> 'special'
 			),
 		'archive' => 	array(
 				'name'			=> __( 'Archive', 'pagelines' ),
 				'sections' 		=> ($t == 'main') ? array( 'PageLinesPostsInfo', 'PageLinesPostLoop' ) : array('PageLinesContent'),
-				'version'		=> 'pro'
+				'version'		=> 'pro',
+				'page_type'		=> 'special'
 			),
 		'category' => 	array(
 				'name'			=> __( 'Category', 'pagelines' ),
 				'sections' 		=> ($t == 'main') ? array( 'PageLinesPostsInfo', 'PageLinesPostLoop' ) : array('PageLinesContent'),
-				'version'		=> 'pro'
+				'version'		=> 'pro',
+				'page_type'		=> 'special'
 			),
 		'search' => 	array(
 				'name'			=> __( 'Search', 'pagelines' ),
 				'sections' 		=> ($t == 'main') ? array( 'PageLinesPostsInfo', 'PageLinesPostLoop' ) : array('PageLinesContent'),
-				'version'		=> 'pro'
+				'version'		=> 'pro',
+				'page_type'		=> 'special'
 			),
 		'author' => 	array(
 				'name'			=> __( 'Author', 'pagelines' ),
 				'sections' 		=> ($t == 'main') ? array( 'PageLinesPostsInfo', 'PageLinesPostLoop' ) : array('PageLinesContent'),
-				'version'		=> 'pro'
+				'version'		=> 'pro',
+				'page_type'		=> 'special'
 			),
 		'404_page' => 	array(
 				'name'			=> __( '404 Error', 'pagelines' ),
 				'sections' 		=> ($t == 'main') ? array( ) : array('PageLinesNoPosts'),
-				'version'		=> 'pro'
+				'version'		=> 'pro',
+				'page_type'		=> 'special'
 			),
 		
 		

@@ -1,9 +1,7 @@
 <?php
-if(VPRO) {
+
 /*
-	Template Name: Banner Page
+	Template Name: Template | 5
 */
 
 setup_pagelines_template();
-
-}

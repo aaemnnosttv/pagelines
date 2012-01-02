@@ -148,7 +148,7 @@ class PageLinesOptionsArray {
 				'layout'		=> 'interface',
 				'selectvalues'	=> array(
 					'pixels'		=> array( 'name' => __( 'Responsive with Pixel Width', 'pagelines' ), 'offset' => '0px 0px' ), 
-					'percent'		=> array( 'name' => __( 'Responsive with Percent Width', 'pagelines' ), 'offset' => '0px -88px' ), 
+					'percent'		=> array( 'name' => __( 'Responsive with Percent Width', 'pagelines' ), 'offset' => '0px -88px', 'version'	=> 'pro' ), 
 					'static'		=> array( 'name' => __( 'Static with Pixel Width', 'pagelines' ), 'offset' => '0px -176px' )
 				),
 				'title'		=> __( 'Layout Handling', 'pagelines' ),						
@@ -206,7 +206,7 @@ class PageLinesOptionsArray {
 		$a = array(	
 			'icon'			=> PL_ADMIN_ICONS.'/color.png',
 			'site_design_mode'	=> array(
-				'version'	=> 'pro',
+				
 				'default'	=> 'full_width',
 				'type'		=> 'graphic_selector',
 				'showname'	=> true,
@@ -216,7 +216,7 @@ class PageLinesOptionsArray {
 				'layout' 		=> 'interface',	
 				'selectvalues'	=> array(
 					'full_width'	=> array('name' => __( "Full-Width Sections", 'pagelines' ), 'offset' => '0px 0px'),
-					'fixed_width'	=> array('name' => __( "Content Width Page", 'pagelines' ), 'version' => 'pro', 'offset' => '0px -88px')
+					'fixed_width'	=> array('name' => __( "Content Width Page", 'pagelines' ), 'version' => 'pro', 'offset' => '0px -88px', 'version'	=> 'pro')
 				), 
 				'inputlabel'	=> __( 'Site Design Mode', 'pagelines' ),
 				'title'		=> __( 'Site Design Mode', 'pagelines' ),						
@@ -383,7 +383,8 @@ class PageLinesOptionsArray {
 				'exp' 			=> __( 'Check this option to enable a drop shadow on the canvas area when using fixed width mode.', 'pagelines' ),
 				'type' 			=> 'check',
 				'default'		=> false,
-				'inputlabel'	=> 'Content Shadow'
+				'inputlabel'	=> 'Content Shadow', 
+				'version'		=> 'pro'
 			),
 			'page_background_image' => array(
 				'title' 	=> __( 'Site Background Image (Optional)', 'pagelines' ),						

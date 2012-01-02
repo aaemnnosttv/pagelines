@@ -29,7 +29,7 @@ define('CHILDTHEMENAME', get_option('stylesheet'));
 
 define('NICETHEMENAME', $theme_data['Name']);
 define('NICECHILDTHEMENAME', $child_theme_data['Name']);
-define('CHANGELOG_URL', 'http://www.pagelines.com/demos/platformpro/wp-content/themes/platformpro/changelog.txt');
+
 
 define('PARENT_DIR', get_template_directory());
 define('CHILD_DIR', get_stylesheet_directory());
@@ -139,6 +139,6 @@ $GLOBALS['pagelines_user_pages'] = array();
 define('VPRO_NAME','PageLines Framework');
 define('VPRO_TOUR','http://www.pagelines.com/tour/');
 define('VPRO_PRICING','http://www.pagelines.com/pricing/');
-
+define('CHANGELOG_URL', 'http://www.pagelines.com/demos/platformpro/wp-content/themes/platformpro/changelog.txt');
 
 

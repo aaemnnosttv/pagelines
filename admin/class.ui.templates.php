@@ -182,8 +182,16 @@ class PageLinesTemplateBuilder {
 		$buttons = '';
 		foreach($pagelines_template->map[$type]['templates'] as $template => $t){
 			
-			if( (!isset($t['version']) || ($t['version'] == 'pro' && VPRO)) && isset($t['name']))
-				$buttons .= sprintf('<div id="%s" class="sss-button"><div class="sss-button-pad">%s</div></div>', join( '-', array($type, $template) ), $t['name']);
+			if( (!isset($t['version']) || ($t['version'] == 'pro' && VPRO)) && isset($t['name'])){
+		
+				if( isset($t['page_type']) && $t['page_type'] == 'page')
+					$name = sprintf('<span class="sss-tag">Template | </span>%s', $t['name']);
+				else
+					$name = $t['name'];
+			
+				$buttons .= sprintf('<div id="%s" class="sss-button"><div class="sss-button-pad">%s</div></div>', join( '-', array($type, $template) ), $name);
+				
+			}
 				
 		}
 		
@@ -237,7 +245,9 @@ class PageLinesTemplateBuilder {
 ?><div id="template_data" class="<?php echo $template_slug; ?> layout-type-<?php echo $template_area;?>" title="">
 		<span class="template-slug" id="<?php echo $template_slug; ?>"></span>
 		<div class="ttitle fix" id="highlightme">
-			<div class="ttitle-text"><span>Editing &rarr;</span> <?php echo $tfield['name'].' '. $addl;?> </div>
+			<div class="ttitle-text">
+				<span>Editing &rarr;</span> <?php echo $tfield['name'].' '. $addl;?> 
+			</div>
 			<div class="confirm_save"><div class="confirm_save_pad">&nbsp;</div></div>
 		</div>
 		<div id="section_map" class="template-edit-panel ">

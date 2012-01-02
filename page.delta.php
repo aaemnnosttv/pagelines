@@ -1,9 +1,7 @@
 <?php
-if(VPRO) {
 /*
-	Template Name: Highlight Page
+	Template Name: Template | 4
 */
 
 setup_pagelines_template();
 
-}

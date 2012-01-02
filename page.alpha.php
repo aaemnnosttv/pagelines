@@ -1,9 +1,8 @@
 <?php
-if(VPRO) {
+
 /*
-	Template Name: Feature Page
+	Template Name: Template | 1
 */
 	
 setup_pagelines_template(); 
 
-}
