@@ -218,6 +218,12 @@
 	 * 
 	 */	
 	function check_creds( $extend = null, $context = WP_PLUGIN_DIR ) {
+		
+		if ( get_filesystem_method() == 'direct' ) {
+			
+			WP_Filesystem();
+			return;
+		}
 
 		if ( isset( $_GET['creds'] ) && $_POST && WP_Filesystem( $_POST ) )
 			$this->extend_it_callback( false, true );
@@ -225,7 +231,7 @@
 		if ( !$extend )
 			return;			
 
-		if ( false === ( $creds = @request_filesystem_credentials( admin_url( 'admin.php?page=pagelines_extend&creds=yes' ), $type = "", $error = false, $context, $extra_fields = array( 'extend_mode', 'extend_type', 'extend_file', 'extend_path', 'extend_product' ) ) ) ) {
+		if ( false === ( $creds = @request_filesystem_credentials( admin_url( 'admin.php?page=pagelines_extend&creds=yes' ), $type = '', $error = false, $context, $extra_fields = array( 'extend_mode', 'extend_type', 'extend_file', 'extend_path', 'extend_product' ) ) ) ) {
 			exit; 
 		}	
 	}
@@ -360,10 +366,10 @@
 		
 
 		$this->wp_libs();
-			
+		
 		if ( !$checked )
-			$this->check_creds( 'extend', WP_PLUGIN_DIR );		
-		global $wp_filesystem;
+			$this->check_creds( 'extend', WP_PLUGIN_DIR );
+
 		$skin = new PageLines_Upgrader_Skin();
 		$upgrader = new Plugin_Upgrader( $skin );
 		$destination = ( ! $uploader ) ? $this->make_url( $type, $file ) : $file;						
@@ -405,12 +411,10 @@
 
 		$active = is_plugin_active( ltrim( $file, '/' ) );
 		deactivate_plugins( array( $file ) );
-
-		if ( $this->get_fs_method() )
-			$wp_filesystem->delete( trailingslashit( WP_PLUGIN_DIR ) . $path, true, false  );
-		else
-			extend_delete_directory( trailingslashit( WP_PLUGIN_DIR ) . $path );
+		
+		$wp_filesystem->delete( trailingslashit( WP_PLUGIN_DIR ) . $path, true, false  );
 		@$upgrader->install( $this->make_url( $type, $path ) );
+
 		$this->sandbox( WP_PLUGIN_DIR . $file, 'plugin');
 		if ( $active )
 			activate_plugin( ltrim( $file, '/' ) );
@@ -448,31 +452,18 @@
 		global $wp_filesystem;
 
 		$skin = new PageLines_Upgrader_Skin();
-		$upgrader = new Plugin_Upgrader( $skin );
+		$upgrader = new PageLines_Section_Installer( $skin );
 		$time = 0;
+		
 		$url = ( $uploader ) ? $file : $this->make_url( 'section', $path );
-		if ( $this->get_fs_method() ) {
-			$url = ( $uploader ) ? $file : $this->make_url( 'section', $path );
-			$out = @$upgrader->install( $url );		
-			$wp_filesystem->move( trailingslashit( $wp_filesystem->wp_plugins_dir() ) . $path, sprintf( '%s/pagelines-sections/%s', trailingslashit( $wp_filesystem->wp_plugins_dir() ), $path ) );
-			$message = '';				
-		} else {
-					$options = array( 'package' => $url, 
-					'destination'		=> trailingslashit( PL_EXTEND_DIR ) . $path, 
-					'clear_destination' => false,
-					'clear_working'		=> false,
-					'is_multi'			=> false,
-					'hook_extra'		=> array() 
-			);
-			$out = @$upgrader->run( $options );
-			if ( ! $uploader )
-				$message = __( 'Section Installed', 'pagelines' );	
-		}
+		$out = @$upgrader->install( $url );		
+		$wp_filesystem->move( trailingslashit( $wp_filesystem->wp_plugins_dir() ) . $path, sprintf( '%s/pagelines-sections/%s', trailingslashit( $wp_filesystem->wp_plugins_dir() ), $path ) );
+	
 		$text = '&extend_text=section_install#added';
 		if ( $uploader && is_wp_error( $out ) )
 			$this->page_reload( sprintf( 'pagelines_extend&extend_error=%s', $out->get_error_code() ) , null, 0 );
 		else
-			$this->page_reload( 'pagelines_extend' . $text, null, $message );
+			$this->page_reload( 'pagelines_extend' . $text, null, __( 'Section Installed.', 'pagelines' ) );
 		
 	}
 	
@@ -485,10 +476,7 @@
 		}
 		global $wp_filesystem;
 
-		if ( $this->get_fs_method() )
-			$wp_filesystem->delete( sprintf( '%s/pagelines-sections/%s', trailingslashit( $wp_filesystem->wp_plugins_dir() ), $file ), true, false );
-		else
-			extend_delete_directory( trailingslashit( PL_EXTEND_DIR ) . $file );
+		$wp_filesystem->delete( sprintf( '%s/pagelines-sections/%s', trailingslashit( $wp_filesystem->wp_plugins_dir() ), $file ), true, false );
 
 		$message = __( 'Section Deleted.', 'pagelines' );
 		$text = '&extend_text=section_delete#added';
@@ -505,30 +493,16 @@
 		global $wp_filesystem;
 
 		$skin = new PageLines_Upgrader_Skin();
-		$upgrader = new Plugin_Upgrader($skin);
+		$upgrader = new PageLines_Section_Installer($skin);
 
-		if ( $this->get_fs_method() )
-			$wp_filesystem->delete( sprintf( '%s/pagelines-sections/%s', trailingslashit( $wp_filesystem->wp_plugins_dir() ), $file ), true, false  );
-		else
-			extend_delete_directory( trailingslashit( PL_EXTEND_DIR ) . $file );				
-
-		if ( $this->get_fs_method() ) {
-			@$upgrader->install( $this->make_url( 'section', $file ) );			
-			$wp_filesystem->move( trailingslashit( PL_PLUGINS_FTP ) . $file, sprintf( '%s/pagelines-sections/%s', trailingslashit( $wp_filesystem->wp_plugins_dir() ), $file ) );	
-		} else {
-					$options = array( 'package' => ( ! $uploader) ? $this->make_url( 'section', $file ) : $file, 
-					'destination'		=> ( ! $uploader) ? trailingslashit( PL_EXTEND_DIR ) . $file : trailingslashit( PL_EXTEND_DIR ) . $path, 
-					'clear_destination' => false,
-					'clear_working'		=> false,
-					'is_multi'			=> false,
-					'hook_extra'		=> array() 
-			);
-			@$upgrader->run($options);	
-		}
+		$wp_filesystem->delete( sprintf( '%s/pagelines-sections/%s', trailingslashit( $wp_filesystem->wp_plugins_dir() ), $file ), true, false  );
+				
+		@$upgrader->install( $this->make_url( 'section', $file ) );			
+		$wp_filesystem->move( trailingslashit( $wp_filesystem->wp_plugins_dir() ) . $file, sprintf( '%s/pagelines-sections/%s', trailingslashit( $wp_filesystem->wp_plugins_dir() ), $file ) );
+		
 		// Output
-		$message = __( 'Section Upgraded', 'pagelines' );
 		$text = '&extend_text=section_upgrade#added';
-		$this->page_reload( 'pagelines_extend' . $text, null, $message );
+		$this->page_reload( 'pagelines_extend' . $text, null, __( 'Section Upgraded', 'pagelines' ) );
 		
 	}
 	
@@ -582,10 +556,7 @@
 			$this->check_creds( 'extend', PL_EXTEND_THEMES_DIR );		
 		}
 		global $wp_filesystem;
-		if ( $this->get_fs_method() )
-			$wp_filesystem->delete( trailingslashit( PL_EXTEND_THEMES_DIR ) . $file, true, false );
-		else
-			extend_delete_directory( trailingslashit( PL_EXTEND_THEMES_DIR ) . $file );
+		$wp_filesystem->delete( trailingslashit( PL_EXTEND_THEMES_DIR ) . $file, true, false );
 
 		$text = '&extend_text=theme_delete#added';
 		$message = __( 'Theme Deleted.', 'pagelines' );
@@ -609,10 +580,7 @@
 		$skin = new PageLines_Upgrader_Skin();
 		$upgrader = new Theme_Upgrader( $skin );
 
-		if ( $this->get_fs_method() )
-			$wp_filesystem->delete( trailingslashit( PL_EXTEND_THEMES_DIR ) . $file, true, false );
-		else
-			extend_delete_directory( trailingslashit( PL_EXTEND_THEMES_DIR ) . $file );
+		$wp_filesystem->delete( trailingslashit( PL_EXTEND_THEMES_DIR ) . $file, true, false );
 
 		@$upgrader->install( $this->make_url( $type, $file ) );
 
