@@ -488,14 +488,14 @@ function pagelines_settings_menu_link(  ){
 	$template_name = (isset($pagelines_template->template_name)) ? $pagelines_template->template_name : false;
 
 	if( $template_name ){
-		$page_type = __('Current Page: ', 'pagelines') . ucfirst($template_name );
+		$page_type = __('Template: ', 'pagelines') . ucfirst($template_name );
 		$wp_admin_bar->add_menu( array( 'id' => 'template_type', 'title' => $page_type, 'href' => admin_url( 'admin.php?page=pagelines_templates' ) ) );
 	}
 	
 	$spurl = pl_special_url( $template_name );
 	
 	if( $template_name && is_pagelines_special() && $spurl){
-		$wp_admin_bar->add_menu( array( 'id' => 'special_settings', 'title' => __('Edit Special', 'pagelines'), 'href' => $spurl ) );
+		$wp_admin_bar->add_menu( array( 'id' => 'special_settings', 'title' => __('Edit Meta', 'pagelines'), 'href' => $spurl ) );
 	}
 }
 

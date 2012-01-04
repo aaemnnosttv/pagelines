@@ -12,6 +12,11 @@
 ********************************************************
 
 
+Version 2.0.2
+	- Template Name Convention Change
+	- Modifications for free version
+------------------------------------- Date: 
+
 Version 2.0.1
 	- Feature Section
 		- Responsive Background Images!

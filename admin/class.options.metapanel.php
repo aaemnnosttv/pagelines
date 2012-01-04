@@ -598,27 +598,33 @@ function special_page_settings_array(  ){
 		),		
 		'archive_page' => array(
 			'metapanel' => $metapanel_options->posts_metapanel( 'archive' ),
-			'icon'		=> PL_ADMIN_ICONS.'/archives.png'
+			'icon'		=> PL_ADMIN_ICONS.'/archives.png', 
+			'version'	=> 'pro'
 		),
 		'category_page' => array(
 			'metapanel' => $metapanel_options->posts_metapanel( 'category' ),
-			'icon'		=> PL_ADMIN_ICONS.'/category.png'
+			'icon'		=> PL_ADMIN_ICONS.'/category.png', 
+			'version'	=> 'pro'
 		),
 		'search_results' => array(
 			'metapanel' => $metapanel_options->posts_metapanel('search'),
-			'icon'		=> PL_ADMIN_ICONS.'/search.png'
+			'icon'		=> PL_ADMIN_ICONS.'/search.png',
+			'version'	=> 'pro'
 		),
 		'tag_listing' => array(
 			'metapanel' => $metapanel_options->posts_metapanel('tag'),
-			'icon'		=> PL_ADMIN_ICONS.'/tag.png'
+			'icon'		=> PL_ADMIN_ICONS.'/tag.png', 
+			'version'	=> 'pro'
 		),
 		'author_posts' => array(
 			'metapanel' => $metapanel_options->posts_metapanel('author'),
-			'icon'		=> PL_ADMIN_ICONS.'/author.png'
+			'icon'		=> PL_ADMIN_ICONS.'/author.png', 
+			'version'	=> 'pro'
 		),
 		'404_page' => array(
 			'metapanel' => $metapanel_options->posts_metapanel('404_page'),
-			'icon'		=> PL_ADMIN_ICONS.'/404.png'
+			'icon'		=> PL_ADMIN_ICONS.'/404.png', 
+			'version'	=> 'pro'
 		),
 	);
 	

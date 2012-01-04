@@ -450,7 +450,15 @@ class PageLinesTemplateBuilder {
 		printf('<div class="section-controls" %s><div class="section-controls-pad">', (!$a['controls']) ? 'style="display:none;"' : '');
 					
 			if($a['cloning']){
-				$clone_btn = sprintf('<div class="clone_button" onClick="cloneSection(\'%s\');"><div class="clone_button_pad">%s</div></div>', $a['id'], __( 'Clone', 'pagelines' ) );
+				
+				$clone_js = (VPRO) ? sprintf('onClick="cloneSection(\'%s\');"', $a['id']) : '';
+				
+				$clone_text = (VPRO) ? 	__( 'Clone', 'pagelines' ) : __( 'Clone <span class="sss-tag">(PRO)</span>', 'pagelines' );
+				
+				$clone_class = (!VPRO) ?  'disabled_clone_button' : '';
+				
+				$clone_btn = sprintf('<div class="clone_button %s" %s><div class="clone_button_pad">%s</div></div>', $clone_class, $clone_js, $clone_text );
+				
 				$remove_clone = sprintf('<div class="clone_button clone_remove" style="%s" onClick="deleteSection(this, \'%s\');"><div class="clone_button_pad">Remove</div></div>', ($a['clone'] == 1) ? 'display: none;' : '', $a['id']);
 				
 				printf('<div class="sc_buttons">%s %s</div>', $clone_btn, $remove_clone);

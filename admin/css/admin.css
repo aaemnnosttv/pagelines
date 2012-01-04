@@ -323,10 +323,15 @@
 					border-bottom: 1px solid transparent;
 					background: #dedede;
 			}
-			#tabsnav li a span {
+			#tabsnav li a span.icn {
 				padding-left: 25px;
 				display: block;
 			}
+			
+				#tabsnav li a.pro_tab span{
+					opacity: .3;
+				}
+			
 			#tabsnav li.listsave {
 				padding: 10px 30px;
 				border-top: 1px solid #ddd;
@@ -338,17 +343,8 @@
 		/* @ Tab Navigation Icons */
 		
 			/* Default Case */
-				.tabnav-element span{background: transparent url(../images/icons/wrench.png) no-repeat 0 0;}
+				.tabnav-element span.icn{background: transparent url(../images/icons/wrench.png) no-repeat 0 0;}
 				.tabtitle{background: transparent url(../images/icons/wrench.png) no-repeat 10px 16px;}
-			
-			.feature_settings span{background: transparent url(../images/icons/images-stack.png) no-repeat 0px 0px;}
-			#feature_settings .tabtitle{background: transparent url(../images/icons/images-stack.png) no-repeat 10px 16px;}
-			
-			.box_settings span{background: transparent url(../images/icons/boxes.png) no-repeat 0px 0px;}
-			#box_settings .tabtitle{background: transparent url(../images/icons/boxes.png) no-repeat 10px 16px;}
-			
-			.carousel_settings span{background: transparent url(../images/icons/carousel.png) no-repeat 0px 0px;}
-			#carousel_settings .tabtitle{background: transparent url(../images/icons/carousel.png) no-repeat 10px 16px;}
 			
 			.update_available {background: #ddd; }
 			#tabsnav a.update_available  {border-top: 1px solid #f7f7f7; border-bottom: 1px solid #ccc }
@@ -1074,6 +1070,7 @@
 			.admin_theme_screenshot img{
 				width: 250px;
 				border: 1px solid #eee;
+				display: block;
 			}
 		.admin_feature_list li{
 			margin:0;
@@ -2090,7 +2087,7 @@ font-weight: bold;
 				overflow: hidden;
 				text-decoration: none;
 			}
-				.sub-template-selector .sss-button .sss-tag{
+				.sub-template-selector .sss-button .sss-tag, .sss-tag{
 					color: rgba(0,0,0, .6);
 				}
 					.sub-template-selector .sss-button.sss-selected .sss-tag{
@@ -2275,6 +2272,15 @@ font-weight: bold;
 				-webkit-border-radius: 4px;
 				border-radius: 4px;
 		}
+			.clone_button.disabled_clone_button, .clone_button.disabled_clone_button:hover, .clone_button.disabled_clone_button:active{
+				opacity: .7;
+				background: #e1e1e1;
+				border: 1px solid #bbb;
+			}
+				.clone_button.disabled_clone_button:active .clone_button_pad{
+					border-left: 1px solid #fff;
+					border-top: 1px solid #fff;
+				}
 			.clone_button_pad{
 				border-left: 1px solid #fff;
 				border-top: 1px solid #fff;
@@ -2734,8 +2740,11 @@ font-weight: bold;
 		color:#dce7f4;
 	}
 	
+	.user-banner{
+		margin: 2em;
+	}
 	
-	.install-control{
+	.install-control, .user-banner{
 		border: 4px dashed #DDD;
 		background:url(../images/extendleaf.png) no-repeat 50% 50px;
 		padding: 130px 50px 100px;
@@ -2743,10 +2752,11 @@ font-weight: bold;
 		color: #555;
 		text-align: center;
 	}
-		.install-control .banner-text{
+		.install-control .banner-text, .user-banner .banner-text{
 			font-size: 1.45em;
 			line-height: 1.7em;
 		}
+		
 
 	.graphic_panes{
 	}

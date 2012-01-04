@@ -216,10 +216,17 @@ class PageLinesOptionsUI {
 					
 					foreach($this->option_array as $menu => $oids){
 						
+						$pro_tab = (!VPRO && isset($oids['version']) && $oids['version'] == 'pro') ? true : false;
+						
 						$bg = (isset($oids['icon'])) ? sprintf('style="background: transparent url(%s) no-repeat 0 0;"', $oids['icon']) : '';
 						
-						printf('<li><a class="%1$s tabnav-element" href="#%1$s"><span %3$s >%2$s</span></a></li>', $menu, ui_key($menu), $bg);
+						$name = ($pro_tab) ? sprintf('%s <span class="sss-tag">(Pro)</span>', ui_key($menu)) : ui_key($menu);
+						
+						$special_class = ($pro_tab) ? 'pro_tab' : '';
+						
+						printf('<li><a class="%1$s tabnav-element %4$s" href="#%1$s"><span class="icn" %3$s >%2$s</span></a></li>', $menu, $name, $bg, $special_class);
 					}
+					
 					?>
 					<li><span class="graphic bottom">&nbsp;</span></li>
 					
@@ -235,6 +242,9 @@ class PageLinesOptionsUI {
 <?php 				if(!VPRO) $this->get_pro_call();
 					 
 					foreach($this->option_array as $menu => $oids){
+						
+						$pro_tab = (!VPRO && isset($oids['version']) && $oids['version'] == 'pro') ? true : false;
+						
 						$bg = (isset($oids['icon'])) ? sprintf('style="background: transparent url(%s) no-repeat 10px 16px;"', $oids['icon']) : '';
 						
 						$is_htabs = ( isset($oids['htabs']) ) ? true : false;
@@ -250,15 +260,27 @@ class PageLinesOptionsUI {
 							// Render Options
 							if( isset($oids['htabs']))
 								OptEngine::get_horizontal_nav( $menu, $oids );
+							
+							elseif( $pro_tab )
+								echo $this->show_banner( 
+									sprintf('The pro or dev version is needed for "%s" meta options.<br/> Please use "Blog Page" options instead.',  ui_key($menu)),
+									'http://www.pagelines.com/pricing', 
+									'Upgrade &raquo;'
+								);	
 								
 							elseif( isset($oids['metapanel']))
 								echo $oids['metapanel'];
 								
-							else
-								foreach( $oids as $oid => $o )
+							else{
+								
+								foreach( $oids as $oid => $o ){
+							
 									if( $oid != 'icon' )
 										$option_engine->option_engine($oid, $o);
-								
+							
+							
+								}
+							}
 								
 						echo '<div class="clear"></div></div>';
 					}
@@ -266,6 +288,19 @@ class PageLinesOptionsUI {
 				</div>
 			</div>
 <?php 	}
+
+	function show_banner( $text, $click = '', $button_text = 'Add Some &rarr;' ){
+		
+		if($click != ''){
+			$thebutton = OptEngine::superlink($button_text, 'blue', 'install_now iblock', $click );
+			$button = sprintf('<br/><br/>%s', $thebutton );
+		
+		} else 
+			$button = '';
+		
+		// The banner
+		return sprintf('<div class="user-banner fix"><span class="banner-text">%s</span>%s</div>', $text, $button);
+	}
 
 	/**
 	 *  Tab Stuff

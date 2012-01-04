@@ -89,17 +89,17 @@ class PageLinesTemplate {
 			$type = get_post_type_plural();
 		elseif( pl_is_cpt() )
 			$type = get_post_type();
-		elseif(is_tag())
+		elseif(is_tag() && VPRO)
 			$type = 'tag';
-		elseif(is_search())
+		elseif(is_search() && VPRO)
 			$type = 'search';
-		elseif(is_category())
+		elseif(is_category() && VPRO)
 			$type = 'category';
-		elseif(is_author())
+		elseif(is_author() && VPRO)
 			$type = 'author';
-		elseif(is_archive())
+		elseif(is_archive() && VPRO)
 			$type = 'archive';
-		elseif(is_home())
+		elseif(is_home() || (!VPRO && is_pagelines_special()))
 			$type = 'posts';
 		elseif(is_page_template()){
 			/*

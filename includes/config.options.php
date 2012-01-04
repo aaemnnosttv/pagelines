@@ -47,7 +47,6 @@ class PageLinesOptionsArray {
 			),
 			'pagelines_custom_logo' => array(
 				'default' 		=> PL_IMAGES.'/logo.png',
-				'default_free'	=> PL_IMAGES.'/logo-platform.png',
 				'type' 			=> 'image_upload',
 				'imagepreview' 	=> '270',
 				'inputlabel' 	=> __( 'Upload custom logo', 'pagelines' ),
