@@ -379,7 +379,7 @@ add_filter('widget_text', 'do_shortcode');
 					$charttype = $type;
 				break;
 			}
- 
+			$string = '';
 			if ($title) $string .= '&chtt='.$title.'';
 			if ($labels) $string .= '&chl='.$labels.'';
 			if ($colors) $string .= '&chco='.$colors.'';
