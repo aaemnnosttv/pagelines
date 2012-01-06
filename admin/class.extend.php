@@ -211,7 +211,9 @@
 			if ( $tab === 'user' && ( $ext['type'] === 'custom' || $ext['type'] === 'parent' ) )
 				return false;
 			elseif ( $tab === 'internal' && ( $ext['type'] === 'custom' || $ext['type'] === 'child' ) )
-				return false;						
+				return false;
+			elseif ( $tab === 'internal' && ( ! VPRO && $ext['edition'] === 'pro' ) )
+				return false;				
 			elseif ( $tab === 'child' && ( $ext['type'] === 'child' || $ext['type'] === 'parent' ) )
 				return false;
 			elseif ( $ext['type'] == 'parent' && $ext['class_exists'] )
