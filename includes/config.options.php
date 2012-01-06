@@ -925,7 +925,7 @@ class PageLinesOptionsArray {
 						'edit_posts'			=> array('name' => __( 'Contributor', 'pagelines') )
 					),
 					'inputlabel' 	=> __( 'Minimum user level for Post/Page Meta Settings', 'pagelines' ),
-					'title' 		=> __( 'User Levels', 'pagelines' ),
+					'title' 		=> __( 'Post/Page Meta', 'pagelines' ),
 					'shortexp' 		=> __( 'Set userlevels for the different settings pages. ', 'pagelines' ),
 					'exp' 			=> __( 'Members with a user level lower than the settings here will not be able to see the settings.', 'pagelines' )
 			),
@@ -933,6 +933,7 @@ class PageLinesOptionsArray {
 					'default' 		=> 'moderate_comments',
 					'version'		=> 'pro',
 					'type' 			=> 'select',
+					'title'			=> 'Special Post Types',
 					'selectvalues'	=> array(
 						'edit_users'			=> array('name' => __( 'Administrator', 'pagelines') ),
 						'moderate_comments'		=> array('name' => __( 'Editor', 'pagelines') ),
@@ -940,6 +941,7 @@ class PageLinesOptionsArray {
 						'edit_posts'			=> array('name' => __( 'Contributor', 'pagelines') )
 					),
 					'inputlabel' 	=> __( 'Minimum user level for Custom Post Types ( banners, features etc )', 'pagelines' ),
+					'exp' 			=> __( 'Members with a user level lower than the settings here will not be able to see the settings.', 'pagelines' )
 
 			)
 

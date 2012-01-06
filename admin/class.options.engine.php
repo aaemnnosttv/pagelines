@@ -820,8 +820,8 @@ class OptEngine {
 							$selected = ($sid == $o['val']) ? 'selectedgraphic' : '';
 							
 							$checked = checked($sid, $o['val'], false);
-							
-							if(!VPRO && $s['version'] == 'pro'){
+														
+							if(!VPRO && isset( $s['version']) && $s['version'] == 'pro'){
 								
 								$option_status = 'disabled_option';
 								$graphic_content = 'pro';

@@ -28,12 +28,15 @@ class PageLinesUpdateCheck {
 			return;
 		if ( get_pagelines_option('disable_updates') == true )
 			return;
-		add_action('admin_notices', array(&$this,'pagelines_theme_update_nag') );
-		add_filter('site_transient_update_themes', array(&$this,'pagelines_theme_update_push') );
-		add_filter('transient_update_themes', array(&$this,'pagelines_theme_update_push') );		
-		add_action('load-update.php', array(&$this,'pagelines_theme_clear_update_transient') );
-		add_action('load-themes.php', array(&$this,'pagelines_theme_clear_update_transient') );
-
+		if ( !VPRO ) {
+			$this->pagelines_theme_update_check();
+		} else {
+			add_action('admin_notices', array(&$this,'pagelines_theme_update_nag') );
+			add_filter('site_transient_update_themes', array(&$this,'pagelines_theme_update_push') );
+			add_filter('transient_update_themes', array(&$this,'pagelines_theme_update_push') );		
+			add_action('load-update.php', array(&$this,'pagelines_theme_clear_update_transient') );
+			add_action('load-themes.php', array(&$this,'pagelines_theme_clear_update_transient') );
+		}
 	}
 	
 	/**

@@ -747,3 +747,6 @@ function pagelines_check_credentials( $type = 'setup' ) {
 	}
 }
 define( 'VDEV', ( pagelines_check_credentials( 'licence' ) === 'dev' ) ? true : false );
+
+if( !defined('VPRO' ) )
+	define( 'VPRO', ( pagelines_check_credentials( 'licence' ) === 'pro' || pagelines_check_credentials( 'licence' ) === 'dev' ) ? true : false );

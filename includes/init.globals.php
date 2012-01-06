@@ -9,18 +9,16 @@ define('CORE_VERSION', $theme_data['Version']);
 $child_theme_data = get_theme_data(get_stylesheet_directory() . '/style.css');
 define('CHILD_VERSION', $child_theme_data['Version']);
 
-/*
-	TODO simon fix this w/ API!!!!
-*/
-define( 'VPRO', true );
-
+//if( !defined('VPRO' ) )
+//	define( 'VPRO',false );
+	
 if( !defined('PL_DEV' ) )
 	define( 'PL_DEV',false );
 
 /**
  * Set Theme Name
  */
-$theme = (VPRO) ? 'PageLines' : 'PageLinesLE';
+$theme = ( !defined( 'VPRO' ) ) ? 'PageLines' : 'PageLinesLE';
 
 define('CORE_LIB', PL_INCLUDES); // Deprecated, but used in bbPress forum < 1.2.3
 
