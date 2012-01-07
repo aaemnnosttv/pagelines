@@ -6,6 +6,7 @@
 	Description: Post Navigation - Shows titles for next and previous post.
 	Class Name: PageLinesPostNav	
 	Workswith: main
+	Cloning: true
 	Failswith: pagelines_special_pages()
 */
 
