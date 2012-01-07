@@ -334,7 +334,7 @@ class PageLinesOptionsUI {
 					
 						$features_js = 'onClick="jQuery(\'.vpro-billboard\').find(\'.whatsmissing\').fadeToggle();"';
 					
-						$pro_buttons = OptEngine::superlink(__( 'What\'s missing?', 'pagelines' ), 'grey', 'left', '#', $features_js);
+						$pro_buttons = OptEngine::superlink(__( 'Why Upgrade? &darr;', 'pagelines' ), 'grey', 'left', '#', $features_js);
 					
 						$target = 'target="_blank"';
 						$pro_buttons .= OptEngine::superlink(__( 'Overview', 'pagelines' ), 'grey', 'left', VPRO_TOUR, $target);
@@ -348,12 +348,22 @@ class PageLinesOptionsUI {
 			
 				</div>
 				<div class="whatsmissing">
-					 <h3>What you'll get with PageLines Premium...</h3>
+					 <h3>What when you upgrade your PageLines site...</h3>
+					
+					<p>
+						When you upgrade to the premium versions of PageLines you will get TONS more core functionality. This includes over 10 'core' drag &amp; drop sections, tons more areas for sections, and a bunch of options that give you a professional (and marketing) edge. 
+					</p>
+					<p>
+						The pro version also has the ability to control 'special' pages and 'clone' (or duplicate) sections. For advanced users, there is also a Developer version that supports "integrations" and WP "multisite"... To learn more see the <a href="http://www.pagelines.com/pricing">pricing page</a> or <a href="http://www.pagelines.com/tour/">PageLines tour</a>...
+					</p>
+					<p>
+						<strong>Here are some specifics:</strong>
+					</p>
 					
 					<?php if(isset($usections) && is_array($usections)):?>
-						<p class="mod"><strong>Pro Drag&amp;Drop Sections</strong><br/>
+						<p class="mod"><strong>Professional Sections In Pro Version</strong><br/>
 						<?php 
-						
+						  
 							$list_sections = array();
 							foreach( $usections as $unavailable_section )
 								$list_sections[] = $unavailable_section->name;
@@ -366,24 +376,28 @@ class PageLinesOptionsUI {
 					<?php 
 					$unavailable_section_areas = get_unavailable_section_areas();
 					if(isset($unavailable_section_areas) && is_array($unavailable_section_areas)):?>
-						<p class="mod"><strong>Pro Templates &amp; Section Areas</strong> (i.e. places to put sections)<br/>
+						<p class="mod"><strong>New Templates and Template Areas</strong> (i.e. places to put sections)<br/>
 						<?php foreach( $unavailable_section_areas as $unavailable_section_area_name ):?>
 							<?php echo $unavailable_section_area_name; if($unavailable_section_area_name !== end($unavailable_section_areas)) echo ' &middot; ';?> 
 						<?php endforeach;?></p>
 					<?php endif;?>
 				
-					<p class="mod"><strong>Pro Settings &amp; Options</strong><br/>
-					<?php foreach( get_option_array(true) as $optionset ):
-							foreach ( $optionset as $oid => $o): 
-								if( isset($o['version']) && $o['version'] == 'pro' ):
-									echo $o['title']; echo ' &middot; ';
-								endif;
-							endforeach; 
-						endforeach;?></p>
+					<p class="mod"><strong>New Settings &amp; Options</strong><br/>
+					<?php 
+					
+						$list = array();
+						foreach( get_option_array(true) as $optionset ){
+							foreach ( $optionset as $oid => $o){
+								if( isset($o['version']) && $o['version'] == 'pro' )
+									$list[] = $o['title'];
+							}
+						}
+						
+						echo join(' &middot; ', $list);
+						
+					?></p>
 				
-					<p class="mod">
-						<strong>Plus additional meta options, integrated plugins, technical support, and more...</strong>
-					</p>
+					
 			
 				</div>
 				

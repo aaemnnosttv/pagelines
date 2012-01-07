@@ -657,8 +657,8 @@ class PageLinesOptionsArray {
 		$a = array(
 			'icon'			=> PL_ADMIN_ICONS.'/blog.png',
 			'blog_layout_mode'	=> array(
-					'version'		=> 'pro',
 					'default'		=> 'magazine',
+					'default_free'	=> 'blog',
 					'type'			=> 'graphic_selector',
 					'showname'		=> true,
 					'sprite'		=> PL_ADMIN_IMAGES.'/sprite-blog-modes.png',
@@ -666,7 +666,7 @@ class PageLinesOptionsArray {
 					'width'			=> '115px',
 					'layout'		=> 'interface',
 					'selectvalues'	=> array(
-						'magazine'	=> array('name' => __( "Magazine Layout Mode", 'pagelines' ), 'version' => 'pro', 'offset' => '0px -90px'),
+						'magazine'	=> array('name' => __( "Magazine Layout Mode", 'pagelines' ), 'version' => 'pro', 'offset' => '0px -90px', 'version' => 'pro'),
 						'blog'		=> array('name' => __( "Blog Layout Mode", 'pagelines' ), 'offset' => '0px 0px')
 						), 
 					'inputlabel'	=> __( 'Select Post Layout Mode', 'pagelines' ),
@@ -686,7 +686,7 @@ class PageLinesOptionsArray {
 				'selectvalues'	=> array(
 					'left'			=> array( 'name' => __( 'Left Justified', 'pagelines' ), 'offset' => '0px -50px' ), 
 					'top'			=> array( 'name' => __( 'On Top', 'pagelines' ), 'offset' => '0px 0px', 'version' => 'pro' ), 
-					'left-excerpt'	=> array( 'name' => __( 'Left, In Excerpt', 'pagelines' ), 'offset' => '0px -100px', 'version' => 'pro' ), 
+					'left-excerpt'	=> array( 'name' => __( 'Left, In Excerpt', 'pagelines' ), 'offset' => '0px -100px' ), 
 					'right-excerpt'	=> array( 'name' => __( 'Right, In Excerpt', 'pagelines' ), 'offset' => '0px -150px', 'version' => 'pro' ), 
 					
 				),
@@ -704,6 +704,7 @@ class PageLinesOptionsArray {
 				'exp'			=> __( 'Use shortcodes to control the dynamic information in your metabar. Example shortcodes you can use are: <ul><li><strong>[post_categories]</strong> - List of categories</li><li><strong>[post_edit]</strong> - Link for admins to edit the post</li><li><strong>[post_tags]</strong> - List of post tags</li><li><strong>[post_comments]</strong> - Link to post comments</li><li><strong>[post_author_posts_link]</strong> - Author and link to archive</li><li><strong>[post_author_link]</strong> - Link to author URL</li><li><strong>[post_author]</strong> - Post author with no link</li><li><strong>[post_time]</strong> - Time of post</li><li><strong>[post_date]</strong> - Date of post</li></ul>', 'pagelines' )
 			),
 			'excerpt_mode_clip' => array(
+				'version'		=> 'pro',
 				'default'		=> 'left',
 				'type'			=> 'graphic_selector',
 				'inputlabel'	=> __( 'Select Clip Excerpt Mode', 'pagelines' ),
@@ -724,6 +725,7 @@ class PageLinesOptionsArray {
 				'exp'		=> __( 'Use this option to configure how thumbs will be shown in clips. These are the smaller <strong>magazine</strong> style excerpts on your blog page.', 'pagelines' )
 			),
 			'metabar_clip' => array(
+				'version'		=> 'pro',
 				'default'		=> 'On [post_date] By [post_author_posts_link] [post_edit]',
 				'type'			=> 'text',
 				'layout'		=> 'full',
@@ -961,7 +963,6 @@ class PageLinesOptionsArray {
 		$a = array(
 			'icon'			=> PL_ADMIN_ICONS.'/code.png',
 			'customcss' => array(
-					'version' 	=> 'pro',
 					'default' 	=> 'body{}',
 					'type' 		=> 'code',
 					'height'	=> '300px',

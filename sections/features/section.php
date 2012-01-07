@@ -298,7 +298,7 @@ class PageLinesFeatures extends PageLinesSection {
 													
 													$title = sprintf('<div class="fheading"> <h2 class="ftitle">%s</h2> </div>', $post->post_title);
 													
-													$content = ($feature_source == 'posts') ? apply_filters( 'pagelines_feature_output', get_the_excerpt()) : get_the_content(); 
+													$content = ($feature_source == 'posts') ? apply_filters( 'pagelines_feature_output', custom_trim_excerpt(get_the_excerpt(), '30')) : get_the_content(); 
 											
 													printf(
 														'%s<div class="ftext"><div class="fexcerpt">%s%s%s</div></div>', 
