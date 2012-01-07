@@ -688,21 +688,39 @@ function set_pagelines_credentials( $user, $pass ) {
 }
 
 /*
+ * Add persistant licence info  
+ *
+ */
+function update_pagelines_licence( $licence ) {
+	
+	$creds = get_option( 'pagelines_extend_creds' );
+	
+	$creds['licence'] = $licence;
+	
+	update_option( 'pagelines_extend_creds', $creds );
+}
+
+
+/*
  * Get username or password
  *
  */
 function get_pagelines_credentials( $t ) {
 	
 	$creds = get_option( 'pagelines_extend_creds', array( 'user' => '', 'pass' => '' ) );
-	
+
 	switch( $t ) {
 		
 		case 'user':
-			return $creds['user'];
+			return ( isset( $creds['user'] ) ) ? $creds['user'] : null;
 		break;
 
 		case 'pass':
-			return $creds['pass'];
+			return ( isset( $creds['pass'] ) ) ? $creds['pass'] : false;
+		break;
+		
+		case 'licence':
+			return ( isset( $creds['licence'] ) ) ? $creds['licence'] : false;
 		break;
 	}
 }
@@ -746,7 +764,12 @@ function pagelines_check_credentials( $type = 'setup' ) {
 			return $a['message'];
 	}
 }
-define( 'VDEV', ( pagelines_check_credentials( 'licence' ) === 'dev' ) ? true : false );
+
+/*
+ * Set runtime licence types
+ *
+ */
+define( 'VDEV', ( get_pagelines_credentials( 'licence' ) === 'dev' ) ? true : false );
 
 if( !defined('VPRO' ) )
-	define( 'VPRO', ( pagelines_check_credentials( 'licence' ) === 'pro' || pagelines_check_credentials( 'licence' ) === 'dev' ) ? true : false );
+	define( 'VPRO', ( get_pagelines_credentials( 'licence' ) === 'pro' || get_pagelines_credentials( 'licence' ) === 'dev' ) ? true : false );

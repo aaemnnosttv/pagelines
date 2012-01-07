@@ -124,7 +124,7 @@ function pagelines_head_common(){
 	
 	// Some Credit
 	if(!VDEV)
-		echo "<!-- PageLines Professional Drag-and-Drop Framework - www.PageLines.com -->\n";
+		printf ( "<!-- PageLines Professional Drag-and-Drop Framework ( %s ) - www.PageLines.com -->\n", get_pagelines_credentials( 'licence' ) );
 		
 	// Meta Images
 

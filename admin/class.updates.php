@@ -143,6 +143,8 @@ class PageLinesUpdateCheck {
 
 			// And store in transient
 			set_transient( EXTEND_UPDATE, $pagelines_update, 60*60*24); // store for 24 hours
+			if ( isset( $pagelines_update['licence'] ) )
+				update_pagelines_licence( $pagelines_update['licence'] );
 		}
 
 		// If we're already using the latest version, return FALSE
