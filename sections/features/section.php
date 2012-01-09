@@ -24,7 +24,6 @@ class PageLinesFeatures extends PageLinesSection {
 
 	}
 
-
 	function section_head( $clone_id ) {   
 		
 		global $pagelines_ID;
@@ -153,19 +152,33 @@ class PageLinesFeatures extends PageLinesSection {
 
 		$limit = ploption('feature_items', $this->oset);
 		
+		$orderby = ploption('feature_orderby', $this->oset);
+		
 		$source = ( ploption('feature_source', $this->oset) == 'posts') ? 'posts' : 'customtype';	
 	
 		$category = ploption('feature_category', $this->oset);	
 		
-		$f = $this->load_pagelines_features($this->set, $limit, $source, $category); 
+		$f = $this->load_pagelines_features( array( 'set' => $this->set, 'limit' => $limit, 'orderby' => $orderby, 'source' => $source, 'category' => $category ) ); 
 	
 		return $f;		
 	}
-
-	function load_pagelines_features( $set = null, $limit = null, $source = null, $category = false){
+	
+	function load_pagelines_features( $args ) {
+		$defaults = array(
+			
+			'query'		=>	array(),
+			'set'		=>	null,
+			'limit'		=>	null,
+			'orderby'	=>	'ID',
+			'source'	=>	null,
+			'category'	=>	null
+		);
 		
-		$query = array();
-		$query['orderby'] 	= 'ID'; 
+		$args = wp_parse_args( $args, $defaults );
+		extract( $args, EXTR_SKIP );
+
+		$query['orderby'] = ( $orderby == 'rand' ) ? $orderby : 'ID';
+		$query['order']		= $orderby;
 	
 		if($source == 'posts'){
 		
@@ -271,8 +284,6 @@ class PageLinesFeatures extends PageLinesSection {
 						$media_image = plmeta('feature-media-image', $oset);
 
 						$feature_media = plmeta( 'feature-media', $oset); 
-						
-						plprint( $feature_media );
 						
 						$feature_wrap_markup = ($feature_style == 'text-none' && $action) ? 'a' : 'div';
 						$feature_wrap_link = ($feature_style == 'text-none' && $action) ? sprintf('href="%s"', $action) : '';
@@ -396,7 +407,6 @@ class PageLinesFeatures extends PageLinesSection {
 							'title' 		=> 'Feature Background Image',
 							'type' 			=> 'image_upload'
 						),
-					
 					'feature-design' => array(
 							'type'			=> 'select',
 							'shortexp' 			=> 'Select the design style you would like this feature to have (e.g. default background color, text color, overlay? etc...).',
@@ -407,8 +417,7 @@ class PageLinesFeatures extends PageLinesSection {
 								'fstyle-darkbg'			=> array( 'name' => 'White Text - Dark Feature Background - No Overlay'),
 								'fstyle-nobg'			=> array( 'name' => 'Black Text - No Feature Background - No Overlay'),
 							),
-						),
-						
+						),						
 					'feature-media-image' => array(
 							'version' 		=> 'pro',
 							'type' 			=> 'image_upload',					
@@ -529,7 +538,22 @@ class PageLinesFeatures extends PageLinesSection {
 						'title' 		=> 'Number of Feature Slides',
 						'shortexp'		=> 'The amount of slides to show on this page',
 						'exp' 			=> 'Enter the max number of feature slides to show on this page. Note: If left blank, the number of posts selected under reading settings in the admin will be used.'
-					),
+					),			
+					'feature_orderby' => array(
+							'default' => 'ID',
+							'version'	=> 'pro',
+							'type' => 'select',
+							'selectvalues' => array(
+								'ID' 		=> array('name' => 'Post ID (default)'),
+								'desc' 		=> array('name' => 'Descending'),
+								'asc' 		=> array('name' => 'Ascending'),
+								'rand' 		=> array('name' => 'Random'),								
+							),
+							'inputlabel' => 'Select sort order',
+							'title' => 'Feature Post sort order',
+							'shortexp' => 'How will the features be sorted.',
+							'exp' => "By default the feature section will sort by post ID."
+						),	
 					'feature_set' => array(
 						'version' 		=> 'pro',
 						'default'		=> 'default-features',
@@ -666,7 +690,6 @@ class PageLinesFeatures extends PageLinesSection {
 			wp_set_object_terms($newPostID, 'default-features', $this->taxID );
 		}
 	}
-	
 
 	function default_posts( ){
 
@@ -697,7 +720,6 @@ class PageLinesFeatures extends PageLinesSection {
 
 		return apply_filters('pagelines_default_features', $posts);
 	}
-	
 
 	function get_cats() {
 	
