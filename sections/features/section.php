@@ -30,7 +30,7 @@ class PageLinesFeatures extends PageLinesSection {
 
 		$oset = array('post_id' => $pagelines_ID, 'clone_id' => $clone_id);
 
-		$f = $this->pagelines_features_set( $clone_id ); 	
+		$f = $this->post_set = $this->pagelines_features_set( $clone_id ); 	
 	
 		$feffect = (ploption('feffect', $oset)) ? ploption('feffect', $oset) : 'fade';
 		$timeout = (ploption('timeout', $oset)) ? ploption('timeout', $oset) : 0;
@@ -135,10 +135,8 @@ class PageLinesFeatures extends PageLinesSection {
 
 	function section_template( $clone_id ) {    
 
-		$f = $this->pagelines_features_set( $clone_id ); 
-
 		// $this->set set in pagelines_feature_set, better way to do this?
-		$this->draw_features($f, $this->set, $clone_id);
+		$this->draw_features($this->post_set, $this->set, $clone_id);
 	}
 
 	function pagelines_features_set( $clone_id ){
