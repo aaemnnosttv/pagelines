@@ -177,8 +177,9 @@ class PageLinesFeatures extends PageLinesSection {
 		$args = wp_parse_args( $args, $defaults );
 		extract( $args, EXTR_SKIP );
 
-		$query['orderby'] = ( $orderby == 'rand' ) ? $orderby : 'ID';
-		$query['order']		= $orderby;
+		$query['orderby']	= ( $orderby == 'rand' ) ? $orderby : 'ID';
+
+		$query['order']		= ( $orderby == 'ASC' || $orderby == 'DESC') ? $orderby : 'DESC';
 	
 		if($source == 'posts'){
 		
@@ -545,8 +546,8 @@ class PageLinesFeatures extends PageLinesSection {
 							'type' => 'select',
 							'selectvalues' => array(
 								'ID' 		=> array('name' => 'Post ID (default)'),
-								'desc' 		=> array('name' => 'Descending'),
-								'asc' 		=> array('name' => 'Ascending'),
+								'DESC' 		=> array('name' => 'Descending'),
+								'ASC' 		=> array('name' => 'Ascending'),
 								'rand' 		=> array('name' => 'Random'),								
 							),
 							'inputlabel' => 'Select sort order',
