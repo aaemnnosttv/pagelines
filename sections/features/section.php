@@ -108,7 +108,7 @@ class PageLinesFeatures extends PageLinesSection {
 					$feature_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $f->ID ) );
 					$feature_thumb = $feature_thumb[0];
 				} else {					
-					$feature_thumb = apply_filters( 'pagelines-feature-cat-default-thumb', $this->base_url . '/images/fthumb3.png' );
+					$feature_thumb = apply_filters( 'pagelines-feature-cat-default-thumb', $this->base_url . '/images/fthumb3.png', $f );
 				}
 			} 
 			
@@ -256,7 +256,7 @@ class PageLinesFeatures extends PageLinesSection {
 								$feature_background_image = $feature_background_image[0];
 							} else {
 								
-								$feature_background_image = apply_filters( 'pagelines-feature-cat-default-image', $this->base_url.'/images/feature1.jpg' );
+								$feature_background_image = apply_filters( 'pagelines-feature-cat-default-image', $this->base_url.'/images/feature1.jpg', $post );
 								
 							}
 							
