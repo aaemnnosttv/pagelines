@@ -1139,7 +1139,7 @@ class OptEngine {
 			$updates_exp .= __( '<br />Developer edition enabled.', 'pagelines' );
 			
 		if ( get_pagelines_credentials( 'user' ) === '' || get_pagelines_credentials( 'pass' ) === '' )
-			$updates_exp = __( "Please set your PageLines login credentials.<br />No account yet? <a href='https://www.pagelines.com/launchpad/login.php'>Get one now</a>.", 'pagelines' );
+			$updates_exp = sprintf( __( "Please set your PageLines login credentials.<br />No account yet? <a href='%s'>Get one now</a>.", 'pagelines' ), PL_SIGNUP );
 
 		if ( pagelines_check_credentials( 'error' ) === 'licence' ) {
 			$updates_exp .= sprintf( '<br /><br />%s', pagelines_check_credentials( 'message' ) );

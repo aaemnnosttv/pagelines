@@ -720,7 +720,7 @@ function get_pagelines_credentials( $t ) {
 		break;
 		
 		case 'licence':
-			return ( isset( $creds['licence'] ) ) ? $creds['licence'] : false;
+			return ( isset( $creds['licence'] ) ) ? $creds['licence'] : 'not logged in';
 		break;
 	}
 }
@@ -773,3 +773,4 @@ define( 'VDEV', ( get_pagelines_credentials( 'licence' ) === 'dev' ) ? true : fa
 
 if( !defined('VPRO' ) )
 	define( 'VPRO', ( get_pagelines_credentials( 'licence' ) === 'pro' || get_pagelines_credentials( 'licence' ) === 'dev' ) ? true : false );
+define( 'PL_SIGNUP', ( VPRO) ? 'http://www.pagelines.com/launchpad/member.php' : 'http://www.pagelines.com/launchpad/signup.php?price_group=-128&product_id=128&hide_paysys=free' );

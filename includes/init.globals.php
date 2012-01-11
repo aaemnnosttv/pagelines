@@ -9,12 +9,6 @@ define('CORE_VERSION', $theme_data['Version']);
 $child_theme_data = get_theme_data(get_stylesheet_directory() . '/style.css');
 define('CHILD_VERSION', $child_theme_data['Version']);
 
-//if( !defined('VPRO' ) )
-//	define( 'VPRO',false );
-	
-if( !defined('PL_DEV' ) )
-	define( 'PL_DEV',false );
-
 /**
  * Set Theme Name
  */
@@ -118,7 +112,6 @@ define( 'PL_API', 'www.pagelines.com/api/');
 
 define( 'PL_API_FETCH', 'http://www.pagelines.com/api/' );
 
-define( 'PL_LAUNCHPAD_FRAME', 'http://www.pagelines.com/launchpad/member.php' );
 
 /**
  * Define language constants
