@@ -346,25 +346,25 @@ class PageLinesPosts {
 		 if( function_exists('the_post_thumbnail') && has_post_thumbnail($post) ){
 
 			// For Hook Parsing
-			if(is_admin() || !get_option(PAGELINES_SETTINGS)) return true;
+			if( is_admin() || ! get_option(PAGELINES_SETTINGS) ) return true;
 
-			if($location == 'clip' && ploption('thumb_clip')) return true;
+			if( $location == 'clip' && ploption('thumb_clip') ) return true;
 
 			if( !isset($location) ){
 				// Thumb Page
-				if(is_single() && ploption('thumb_single')) return true;
+				if( is_single() && ploption('thumb_single') ) return true;
 
 				// Blog Page
-				elseif(is_home() && ploption('thumb_blog')) return true;
+				elseif( is_home() && ploption('thumb_blog') ) return true;
 
 				// Search Page
-				elseif(is_search() && ploption('thumb_search')) return true;
+				elseif( is_search() && ploption('thumb_search') ) return true;
 
 				// Category Page
-				elseif(is_category() && ploption('thumb_category')) return true;
+				elseif( is_category() && ! is_date() && ploption('thumb_category') ) return true;
 
 				// Archive Page
-				elseif(is_archive() && ploption('thumb_archive')) return true;
+				elseif( ! is_category() && is_archive() && ploption('thumb_archive') ) return true;
 
 				else return false;
 			} else return false;
@@ -372,31 +372,29 @@ class PageLinesPosts {
 
 	}
 	
-	function pagelines_show_excerpt($post = null){
+	function pagelines_show_excerpt( $post = null ){
 
-	
-
-			if(is_page())
+			if( is_page() )
 				return false;
 
 			// Thumb Page
-			if(is_single() && ploption('excerpt_single')) 
+			if( is_single() && ploption('excerpt_single') ) 
 				return true;
 
 			// Blog Page
-			elseif(is_home() && ploption('excerpt_blog')) 
+			elseif( is_home() && ploption('excerpt_blog') ) 
 				return true;
 
 			// Search Page
-			elseif(is_search() && ploption('excerpt_search')) 
+			elseif( is_search() && ploption('excerpt_search') ) 
 				return true;
 
 			// Category Page
-			elseif(is_category() && ploption('excerpt_category'))
+			elseif( is_category() && ! is_date() && ploption('excerpt_category') )
 				return true;
 				
 			// Archive Page
-			elseif(is_archive() && ploption('excerpt_archive')) 
+			elseif( ! is_category() && is_archive() && ploption('excerpt_archive') ) 
 				return true;
 			else 
 				return false;
@@ -404,27 +402,27 @@ class PageLinesPosts {
 
 	function pagelines_show_content($post = null){
 			// For Hook Parsing
-			if(is_admin()) 
+			if( is_admin() ) 
 				return true;
 
 			// show on single post pages only
-			if(is_page() || is_single()) 
+			if( is_page() || is_single() ) 
 				return true;
 
 			// Blog Page
-			elseif(is_home() && ploption('content_blog')) 
+			elseif( is_home() && ploption('content_blog') ) 
 				return true;
 
 			// Search Page
-			elseif(is_search() && ploption('content_search')) 
+			elseif( is_search() && ploption('content_search') ) 
 				return true;
 
 			// Category Page
-			elseif(is_category() && ploption('content_category')) 
+			elseif( is_category() && ploption('content_category') ) 
 				return true;
 
 			// Archive Page
-			elseif(is_archive() && ploption('content_archive')) 
+			elseif( ! is_category() && is_archive() && ploption('content_archive') ) 
 				return true;
 
 			else 
