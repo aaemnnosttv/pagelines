@@ -110,7 +110,9 @@ class PageLinesTemplateBuilder {
 						<div class="tgraph-controls-pad fix">
 							<div id="ta-header" class="load-build tg-format tg-header"><div class="tg-pad">Header</div></div>
 							<div id="ta-templates" class="tg-format tg-templates"><div class="tg-pad">Page Templates</div></div>
-							<div id="ta-morefoot" class="load-build tg-format tg-morefoot"><div class="tg-pad">Morefoot</div></div>
+							<div id="ta-morefoot" class="load-build tg-format tg-morefoot <?php if(!VPRO) echo 'pro-area'; ?>">
+								<div class="tg-pad">Morefoot <?php if(!VPRO) echo '<span class="protag">(Pro)</span>'; ?></div>
+							</div>
 							<div id="ta-footer" class="load-build tg-format tg-footer"><div class="tg-pad">Footer</div></div>
 						</div>
 					</div>
@@ -133,8 +135,8 @@ class PageLinesTemplateBuilder {
 							<div class="tg-wrap">
 								<div class="tg-sidebarwrap">
 									<div class="tgc">
-										<div id="ta-sidebar_wrap" class="load-build tg-format">
-											<div class="tg-pad">Sidebar Wrap</div>
+										<div id="ta-sidebar_wrap" class="load-build tg-format <?php if(!VPRO) echo 'pro-area'; ?>">
+											<div class="tg-pad">Wrap <?php if(!VPRO) echo '<span class="protag">(Pro)</span>'; ?></div>
 										</div>
 									</div>
 								</div>

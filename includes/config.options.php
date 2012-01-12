@@ -163,14 +163,24 @@ class PageLinesOptionsArray {
 				'exp' 		=> __( 'By default PageLines accommodates mobile devices resolution and shows a mobile optimized view. Check this option to make it so users see your full site.', 'pagelines' ),
 			),
 			'layout_default' => array(
-				'default' 	=> "one-sidebar-right",
-				'type' 		=> 'layout_select',
-				'title' 	=> __( 'Default Layout Mode', 'pagelines' ),
-				'inputlabel'	=> __( 'Select Default Layout', 'pagelines' ),	
-				'layout' 	=> 'interface',						
-				'shortexp' 	=> __( 'Select your default layout mode, this can be changed on individual pages.<br />Once selected, you can adjust the layout in the Layout Dimension Editor', 'pagelines' ),
-				'exp' 		=> __( 'The default layout for pages and posts on your site. Dimensions can be changed using the Layout Dimension Editor.', 'pagelines' ),
-				'docslink'	=> 'http://www.pagelines.com/wiki/index.php?title=How_to_Use_the_Layout_Editor_Settings'
+				'type' 			=> 'graphic_selector',
+				'layout' 		=> 'interface',		
+				'sprite'		=> PL_ADMIN_IMAGES.'/sprite-layouts.png', 
+				'height'		=> '50px', 
+				'width'			=> '50px', 
+				'selectvalues'	=> array(
+					'fullwidth'				=> array( 'name' => __( 'Fullwidth layout', 'pagelines' ), 'offset' => '0px 0px'),
+					'one-sidebar-right' 	=> array( 'name' => __( 'One sidebar on right', 'pagelines' ), 'offset' => '0px -50px'),
+					'one-sidebar-left'		=> array( 'name' => __( 'One sidebar on left', 'pagelines' ), 'offset' => '0px -100px'),
+					'two-sidebar-right' 	=> array( 'name' => __( 'Two sidebars on right', 'pagelines' ), 'version' => 'pro', 'offset' => '0px -150px' ),
+					'two-sidebar-left' 		=> array( 'name' => __( 'Two sidebars on left', 'pagelines' ), 'version' => 'pro', 'offset' => '0px -200px' ),
+					'two-sidebar-center' 	=> array( 'name' => __( 'Two sidebars, one on each side', 'pagelines' ), 'version' => 'pro', 'offset' => '0px -250px' ),
+				),
+				'title' 		=> __( 'Default Layout Mode', 'pagelines' ),
+				'inputlabel'	=> __( 'Select Default Layout', 'pagelines' ),				
+				'shortexp' 		=> __( 'Select your default layout mode, this can be changed on individual pages.<br />Once selected, you can adjust the layout in the Layout Dimension Editor', 'pagelines' ),
+				'exp' 			=> __( 'The default layout for pages and posts on your site. Dimensions can be changed using the Layout Dimension Editor.', 'pagelines' ),
+				'docslink'		=> 'http://www.pagelines.com/wiki/index.php?title=How_to_Use_the_Layout_Editor_Settings'
 			),
 			'layout' => array(
 				'default'	=> 'one-sidebar-right',

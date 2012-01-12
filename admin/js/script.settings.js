@@ -229,21 +229,25 @@ jQuery(document).ready(function(){
 	
 	// when a user clicks, highlight the area; slide up the sub selector panels (if they're open)
 	jQuery('.tg-format').click(function() {
-		// For select interface selection
-		jQuery('.builder_selected_area').removeClass('builder_selected_area');
 		
-		jQuery(this).addClass('builder_selected_area');
-		
-		if(!jQuery(this).hasClass('tg-templates')) 
-			jQuery('.sel-templates-sub.sub-template-selector').slideUp();
+		if(!jQuery(this).hasClass('pro-area')) {
 			
-		if(!jQuery(this).hasClass('tg-content-templates')) 
-			jQuery('.sel-content-sub.sub-template-selector').slideUp();
+			// For select interface selection
+			jQuery('.builder_selected_area').removeClass('builder_selected_area');
+		
+			jQuery(this).addClass('builder_selected_area');
+		
+			if(!jQuery(this).hasClass('tg-templates')) 
+				jQuery('.sel-templates-sub.sub-template-selector').slideUp();
 			
-		var stemplate_id = jQuery(this).attr('id');
+			if(!jQuery(this).hasClass('tg-content-templates')) 
+				jQuery('.sel-content-sub.sub-template-selector').slideUp();
+			
+			var stemplate_id = jQuery(this).attr('id');
 		
-		jQuery.cookie('buildAreaCookie', stemplate_id);
+			jQuery.cookie('buildAreaCookie', stemplate_id);
 		
+		}
 	});
 	
 	jQuery('.sss-button').click(function() {
@@ -260,8 +264,11 @@ jQuery(document).ready(function(){
 	
 	// Load the ID of the element if it has a load build class on it
 	jQuery('.load-build').click(function() {
-		var stemplate_id = jQuery(this).attr('id');
-		doAreaSelect(stemplate_id);
+		
+		if(!jQuery(this).hasClass('pro-area')) {
+			var stemplate_id = jQuery(this).attr('id');
+			doAreaSelect(stemplate_id);
+		}
 	});
 	
 	jQuery('.tg-templates').click(function() {

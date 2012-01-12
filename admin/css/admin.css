@@ -592,9 +592,9 @@
 			font-size: 11px;
 		}
 	
-	.vidlink{float: right; border: 1px solid #ddd;border-right: 1px solid #c1c1c1;border-bottom: 1px solid #c1c1c1;}
-	.vidlink:hover{border: 1px solid #ccc;border-right: 1px solid #aaa;border-bottom: 1px solid #aaa;}
-
+	.vidlink{float: right; background:#fff; box-shadow: 0 1px 3px #aaa;}
+	.vidlink:hover{box-shadow: 0 1px 5px #888;}
+	.vidlink img{display: block;}
 	
 	.insidebox.context{
 		margin: 5px;
@@ -1987,21 +1987,29 @@ font-weight: bold;
 		.no_tabs .tgraph-templates .tgraph-pad{ padding: 0 130px; }
 		
 		.tgraph .tg-format{
-			
 			text-align: center;
 			color: #666;
-			
 			border: 1px solid #ddd;
 			border-right: 1px solid #cecece;
 			border-bottom: 1px solid #ccc;
 			background: #f1f1f2 url(../images/tabsnav-item.png) repeat-x left bottom;
 			margin-bottom: 3px;
 		}
+			.template-selector .tgraph .tg-format.pro-area, .template-selector .tgraph .tg-format.pro-area:hover{
+				color: #888;
+				cursor: default;
+				border-right: 1px solid #bbb;
+				border-bottom: 1px solid #bbb;
+			}
+				.tg-format.pro-area .protag{
+					color:#aaa;
+				}
+			
 			.tgraph .tg-format:hover{
 				cursor:pointer;
 				background:#fff url(../images/section-hover.png) repeat-x left bottom;
 			}
-			.tgraph .tg-format:active{
+			.tgraph .tg-format:active, .tgraph .tg-format.pro-area, .tgraph .tg-format.pro-area:hover{
 				background:#ddd;
 				color:#000;
 				border: 1px solid #c1c1c1;
@@ -2012,6 +2020,11 @@ font-weight: bold;
 					border-top: 1px solid #ddd;
 					border-left: 1px solid #ddd;
 				}
+					.tgraph .tg-format.pro-area:active .tg-pad{
+						border-top: 1px solid #fff;
+						border-left: 1px solid #fff;
+					}
+					
 			.tgraph .tg-format.builder_selected_area{
 				background: #8FCBFD url(../images/sprite-navigation.png) repeat-x left bottom;
 				border: 1px solid #196BCE;

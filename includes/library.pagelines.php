@@ -1,3 +1,3 @@
 <?php
 if( !defined('VPRO' ) )
-	define( 'VPRO', true );
+	define( 'VPRO', false );

@@ -150,7 +150,7 @@ class PageLinesOptionsUI {
 								</div>
 								<?php else: ?>
 								<div class="superlink-wrap">
-									<a class="superlink" href="http://www.pagelines.com/"><span class="superlink-pad">Visit PageLines Site &rarr;</span></a>
+									<a class="superlink" href="http://www.pagelines.com/"><span class="superlink-pad"><?php _e('Visit PageLines Site &rarr;','pagelines');?></span></a>
 								</div>
 							<?php endif;?>
 						</div>
@@ -187,8 +187,8 @@ class PageLinesOptionsUI {
 						
 						pl_action_confirm('ConfirmRestore', __( 'Are you sure? This will restore these settings to default.', 'pagelines' ) );
 						?>
-						<div class="ortext">Use this button to restore these settings to default.</div>
-				
+						
+						<div class="ortext"><?php _e('Use this button to restore these settings to default.', 'pagelines');?></div>
 				
 				</div>
 			</form>
@@ -348,10 +348,12 @@ class PageLinesOptionsUI {
 			
 				</div>
 				<div class="whatsmissing">
-					 <h3>What when you upgrade your PageLines site...</h3>
+					 <h3>
+						<?php _e('What when you upgrade your PageLines site...', 'pagelines');?>
+					</h3>
 					
 					<p>
-						When you upgrade to the premium versions of PageLines you will get TONS more core functionality. This includes over 10 'core' drag &amp; drop sections, tons more areas for sections, and a bunch of options that give you a professional (and marketing) edge. 
+						When you upgrade to the premium versions of PageLines you will get <strong>tons</strong> more core functionality. This includes over 10 advanced drag &amp; drop sections, tons more areas for sections, and a bunch of options that give you a professional (and marketing) edge. 
 					</p>
 					<p>
 						The pro version also has the ability to control 'special' pages and 'clone' (or duplicate) sections. For advanced users, there is also a Developer version that supports "integrations" and WP "multisite"... To learn more see the <a href="http://www.pagelines.com/pricing">pricing page</a> or <a href="http://www.pagelines.com/tour/">PageLines tour</a>...
