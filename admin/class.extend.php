@@ -435,6 +435,7 @@
 			&& !$this->is_purchased( $type, $key, $ext ) 
 			&& !$this->is_installed( $type, $key, $ext )
 			&& $this->is_premium( $type, $key, $ext )
+			&& ! $this->version_fail( $ext['plversion'] )
 		){
 			return true;
 		} else 
