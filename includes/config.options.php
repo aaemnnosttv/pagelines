@@ -254,8 +254,7 @@ class PageLinesOptionsArray {
 						'css_prop'		=> 'background-color',
 						'inputlabel' 	=> __( 'Page Background (Optional)', 'pagelines' ),
 						),
-					'contentbg'	=> array(				
-						'version'		=> 'pro',
+					'contentbg'	=> array(		
 						'default' 		=> '',
 						'cssgroup'		=>	'contentbg',
 						'flag'			=> 'blank_default',
