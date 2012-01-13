@@ -1038,12 +1038,13 @@
 
 			h3.admin_header_main {
 				margin:.8em 0;
-				font-size: 2em;
+				font-size: 2.9em;
 				line-height: 1.6em;
+				text-shadow: 0px 2px 0 #fff;
 			}
 			.admin_billboard_text{
 				margin-top: 1em;
-				font-size: 1.2em;
+				font-size: 1.1em;
 				font-weight: bold;
 				line-height: 1.5em;
 			}

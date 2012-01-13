@@ -70,7 +70,7 @@ class PageLinesWelcome {
 		$bill = '<div class="admin_billboard fix"><div class="admin_billboard_pad fix">';
 		$bill .= '<div class="admin_theme_screenshot"><img class="" src="'.CHILD_URL.'/screenshot.png" alt="Screenshot" /></div>';
 		$bill .= sprintf( '<div class="admin_billboard_content"><div class="admin_header"><h3 class="admin_header_main">%s</h3></div>' , __( 'Congratulations!', 'pagelines' ) );
-		$bill .= __( "<div class='admin_billboard_text'>Welcome to your PageLines site.<br/> Here are a few tips to get you started...<br/><small>(Note: This intro can be removed below.)</small></div>", 'pagelines' );
+		$bill .= __( "<div class='admin_billboard_text'>Welcome to your <strong>professional</strong> website platform.<br/> Here are a few tips to get you started with PageLines...<br/><small>(Note: This intro can be removed below.)</small></div>", 'pagelines' );
 		$bill .= '<div class="clear"></div></div></div></div>';
 		
 		return apply_filters('pagelines_welcome_billboard', $bill);
@@ -245,6 +245,11 @@ class PageLinesWelcome {
 				'name'			=> __( 'Post Types Order', 'pagelines' ),
 				'url'			=> 'http://wordpress.org/extend/plugins/post-types-order/', 
 				'desc'			=> __( 'Allows you to re-order custom post types like features and boxes.', 'pagelines' ),
+			),
+			'specialrecent'	=> array(
+				'name'			=> __( 'Special Recent Posts', 'pagelines' ),
+				'url'			=> 'http://wordpress.org/extend/plugins/special-recent-posts/', 
+				'desc'			=> __( 'A sidebar widget that shows your most recent blog posts and their thumbs.', 'pagelines' ),
 			),
 			'disqus'	=> array(
 				'name'			=> __( 'Disqus Comments', 'pagelines' ),

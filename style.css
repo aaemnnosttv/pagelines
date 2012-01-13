@@ -579,11 +579,18 @@ table {width: 100%;}
 		}
 
 		/* @ Instagram */ 
-		div.srp-thumbnail-box{}
+		.widget div.srp-thumbnail-box{ padding-right: 15px; }
 		.widget .srp-widget-singlepost{
-			font-size: .9em;
+			font-size: .85em;
 			margin: 0;
 			padding: 1.2em 0;
+		}
+		.srp-widget-title-link{
+			font-size: .9em;
+			line-height: 1.2em;
+		}
+		.srp-widget-excerpt{
+			line-height: 1.5em;
 		}
 		.srp-widget-thmblink{
 			display: block;
@@ -591,6 +598,7 @@ table {width: 100%;}
 			text-decoration: none;
 			border: none;
 			text-shadow: none;
+			width: 50px;
 		}
 			.srp-widget-thmblink img{display: block;}
 		
