@@ -70,7 +70,11 @@ class PageLinesWelcome {
 		$bill = '<div class="admin_billboard fix"><div class="admin_billboard_pad fix">';
 		$bill .= '<div class="admin_theme_screenshot"><img class="" src="'.CHILD_URL.'/screenshot.png" alt="Screenshot" /></div>';
 		$bill .= sprintf( '<div class="admin_billboard_content"><div class="admin_header"><h3 class="admin_header_main">%s</h3></div>' , __( 'Congratulations!', 'pagelines' ) );
-		$bill .= __( "<div class='admin_billboard_text'>Welcome to your <strong>professional</strong> website platform.<br/> Here are a few tips to get you started with PageLines...<br/><small>(Note: This intro can be removed below.)</small></div>", 'pagelines' );
+		$bill .= sprintf( "<div class='admin_billboard_text'>%s<br/>%s<br/><small>(%s)</small></div>", 	
+		__( 'Welcome to your <strong>professional</strong> website platform.', 'pagelines' ),
+		__( 'Here are a few tips to get you started with PageLines...', 'pagelines' ),
+		__( 'Note: This intro can be removed below.', 'pagelines' )
+		);
 		$bill .= '<div class="clear"></div></div></div></div>';
 		
 		return apply_filters('pagelines_welcome_billboard', $bill);
