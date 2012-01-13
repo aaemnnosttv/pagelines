@@ -620,6 +620,7 @@ table {width: 100%;}
 					padding: 0;
 					width: auto;
 					float: left;
+					max-width: 50%;
 				}
 				
 				#page .wp125_write_ads_widget .wp125ad a{ 
@@ -630,8 +631,8 @@ table {width: 100%;}
 					border: 1px solid transparent;
 				}	
 					#page .wp125_write_ads_widget .wp125ad a img{
-						height: 125px;
-						width:125px;
+						width: 125px;
+						height: auto;
 						display: block;
 					}
 
