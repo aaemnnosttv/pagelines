@@ -209,6 +209,12 @@ require_once( PL_INCLUDES . '/less.plugin.php' );
 require_once( PL_INCLUDES . '/less.functions.php' );
 
 /**
+ * Add WordPress Plugin Support
+ */
+require_once( PL_INCLUDES . '/library.plugins.php' );
+
+
+/**
  * Register and load all sections
  */
 $load_sections = new PageLinesRegister();

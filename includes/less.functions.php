@@ -59,6 +59,7 @@ class PageLinesLess {
 	public function parse( $pless ) {
 		
 		$pless = $this->add_constants( $pless );
+		$pless = $this->add_core_less( $pless );
 		
 		try{
 			$css = $this->lparser->parse( $pless );
@@ -71,6 +72,13 @@ class PageLinesLess {
 	}
 	
 
+	private function add_core_less($pless){
+		
+		$core = pl_file_get_contents(PARENT_DIR.'/css/color.less');
+			
+		return $pless.$core;
+		
+	}
 	
 	private function add_constants( $pless ) {
 		

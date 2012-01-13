@@ -151,7 +151,7 @@ body{font-size: 87.5%; line-height: 1.71em;height:100%;}
 	
 		.post.fpost .entry, #soapbox .fboxinfo, #feature-footer.nonav {border-top: 1px solid transparent;}
 		
-		#feature-footer, #featurenav a, #feature-footer span.playpause, #featurenav a.activeSlide, textarea:focus, input, textarea, .searchform .searchfield, .wp-caption, #grandchildnav.widget, .clip .clip-thumb img, .author-thumb img, #carousel .content ul li a img, .widget_flickrRSS a img, .wp125_write_ads_widget.widget #wp125adwrap_2c .wp125ad a{
+		#feature-footer, #featurenav a, #feature-footer span.playpause, #featurenav a.activeSlide, textarea:focus, input, textarea, .searchform .searchfield, .wp-caption, #grandchildnav.widget, .clip .clip-thumb img, .author-thumb img, #carousel .content ul li a img, .widget_flickrRSS a img{
 			border: 1px solid transparent;
 		}
 	
@@ -567,16 +567,33 @@ table {width: 100%;}
 		/* @ FlickrRSS Widget */
 
 		.widget_flickrRSS.widget ul{ margin: 7px 0px 0px 0px; }
-		.widget_flickrRSS.widget ul li{display:inline;padding:0;margin:0;border-bottom:none;}
-		.widget_flickr a{display: block;}
-		.widget_flickrRSS a img{margin:6px 5px 6px 5px}
+		.widget_flickrRSS.widget ul li{display:inline-block;padding:0;margin:0;border-bottom:none;}
+		
+		.widget_flickrRSS a{display: inline-block; margin:6px 5px 2px 5px; }
+		.widget_flickrRSS a img{display: block; }
 		.widget_flickrRSS a img {
 			font-size: 10px;
 			border-width: 0px 1px 1px 0px;
 			border-style:solid; 
-			padding: 5px; 
+			padding: 3px; 
 		}
 
+		/* @ Instagram */ 
+		div.srp-thumbnail-box{}
+		.widget .srp-widget-singlepost{
+			font-size: .9em;
+			margin: 0;
+			padding: 1.2em 0;
+		}
+		.srp-widget-thmblink{
+			display: block;
+			padding: 3px;
+			text-decoration: none;
+			border: none;
+			text-shadow: none;
+		}
+			.srp-widget-thmblink img{display: block;}
+		
 		/* @ WP125 Advertising Widget */
 				.wp125_write_ads_widget .wp125_write_ads_widget.widget{
 					border:none;
@@ -602,6 +619,7 @@ table {width: 100%;}
 					padding: 0;
 					width: auto;
 				}
+				
 				#wp125adwrap_2c .wp125ad a{ 
 					margin: 6px;
 					display: block;

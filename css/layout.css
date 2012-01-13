@@ -10,6 +10,8 @@
 /* @ Responsive Design */
 	body .content img {max-width: 100%; height: auto; width: auto\9; /* ie8 */}
 
+	body .content iframe, body .content video, body .content object{max-width: 100%;}
+	
 	@media screen and (max-width:800px){
 		.responsive #site .content, .responsive .wcontent, .responsive #footer .content, html .responsive.fixed_width #page{width: 97%;}
 	    .responsive #page #pagelines_content #column-wrap, .responsive #page  #pagelines_content #sidebar-wrap, html .responsive.fixed_width #site .content{
