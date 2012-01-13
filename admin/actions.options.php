@@ -5,26 +5,39 @@
 // ====================================
 
 
-if ( !VPRO || ( VPRO && ! function_exists( 'pagelines_add_admin_menu' ) ) ) {
-	
-	add_action('admin_menu', 'pagelines_add_admin_submenus_free');
-	
-}
+add_action('admin_menu', 'pagelines_add_admin_menus');
 
-function pagelines_add_admin_submenus_free() {
+function pagelines_add_admin_menus() {
 	global $_pagelines_options_page_hook;
 	global $_pagelines_ext_hook;
 	global $_pagelines_special_hook;
 	global $_pagelines_templates_hook;
 	global $_pagelines_account_hook;
 		
-		// WP themes rep. wants it under the appearance tab.
-		$_pagelines_options_page_hook = add_theme_page( 'pagelines', 'PageLines Settings', 'edit_theme_options', 'pagelines', 'pagelines_build_option_interface' );
-		$_pagelines_templates_hook = add_theme_page( 'pagelines', 'PageLines Templates', 'edit_theme_options', 'pagelines_templates', 'pagelines_build_templates_interface' );
-		$_pagelines_special_hook = add_theme_page( 'pagelines', 'PageLines Special', 'edit_theme_options', 'pagelines_special', 'pagelines_build_special' );
-		$_pagelines_ext_hook = add_theme_page( 'pagelines', 'PageLines Store', 'edit_theme_options', 'pagelines_extend', 'pagelines_build_extension_interface' );
-		$_pagelines_account_hook = add_theme_page( 'pagelines', 'PageLines Account', 'edit_theme_options', 'pagelines_account', 'pagelines_build_account_interface' );	
+		
+	$_pagelines_options_page_hook = pagelines_insert_menu( 'pagelines', __( 'Settings', 'pagelines' ), 'edit_theme_options', 'pagelines', 'pagelines_build_option_interface' );
+	$_pagelines_templates_hook = pagelines_insert_menu( 'pagelines', __( 'Templates', 'pagelines' ), 'edit_theme_options', 'pagelines_templates', 'pagelines_build_templates_interface' );
+	$_pagelines_special_hook = pagelines_insert_menu( 'pagelines', __( 'Special', 'pagelines' ), 'edit_theme_options', 'pagelines_special', 'pagelines_build_special' );
+	$_pagelines_ext_hook = pagelines_insert_menu( 'pagelines', __( 'Store', 'pagelines' ), 'edit_theme_options', 'pagelines_extend', 'pagelines_build_extension_interface' );
+	$_pagelines_account_hook = pagelines_insert_menu( 'pagelines', __( 'Account', 'pagelines' ), 'edit_theme_options', 'pagelines_account', 'pagelines_build_account_interface' );	
 }
+
+/**
+ * 
+ * PageLines menu wrapper
+ */
+function pagelines_insert_menu( $page_title, $menu_title, $capability, $menu_slug, $function ) {
+
+	if ( function_exists( 'pagelines_insert_menu_full' ) ) {
+		
+		return pagelines_insert_menu_full( $page_title, $menu_title, $capability, $menu_slug, $function );
+
+	} else {
+		
+		return add_theme_page( $page_title, sprintf( 'PageLines %s', $menu_title ), $capability, $menu_slug, $function );	
+	}
+}
+
 
 // Build option interface
 function pagelines_build_option_interface(){ 
