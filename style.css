@@ -623,17 +623,15 @@ table {width: 100%;}
 				
 				#page .wp125_write_ads_widget .wp125ad a{ 
 					margin: 6px;
-					display: block;
-					float:left; 
 					padding: 5px;
-					margin: 6px 5px 8px 5px;
-					height: 125px;
-					width:125px; 
+					margin: 2px 5px 5px 5px;
+					display: inline-block;
 					border: 1px solid transparent;
 				}	
 					#page .wp125_write_ads_widget .wp125ad a img{
 						height: 125px;
 						width:125px;
+						display: block;
 					}
 
 		/* @ Pagination & WP-PageNavi Plugin */
