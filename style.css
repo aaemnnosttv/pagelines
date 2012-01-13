@@ -578,7 +578,7 @@ table {width: 100%;}
 			padding: 3px; 
 		}
 
-		/* @ Instagram */ 
+		/* @ Special Posts  */ 
 		.widget div.srp-thumbnail-box{ padding-right: 15px; }
 		.widget .srp-widget-singlepost{
 			font-size: .85em;
@@ -614,13 +614,6 @@ table {width: 100%;}
 					line-height: 1px;
 				}
 
-				#page .wp125_write_ads_widget.widget .wp125ad a{
-					padding: 5px;
-					width: 125px;
-					margin: 6px 5px 8px 5px;
-					display: block;
-				}
-
 				#page .wp125_write_ads_widget { padding: 0; }
 				#page .wp125_write_ads_widget  .winner  { width:100%;  }
 				#page .wp125_write_ads_widget .wp125ad{
@@ -632,10 +625,16 @@ table {width: 100%;}
 					margin: 6px;
 					display: block;
 					float:left; 
+					padding: 5px;
+					margin: 6px 5px 8px 5px;
 					height: 125px;
 					width:125px; 
 					border: 1px solid transparent;
 				}	
+					#page .wp125_write_ads_widget .wp125ad a img{
+						height: 125px;
+						width:125px;
+					}
 
 		/* @ Pagination & WP-PageNavi Plugin */
 			#page .wp-pagenavi {
