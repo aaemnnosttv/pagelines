@@ -619,6 +619,7 @@ table {width: 100%;}
 				#page .wp125_write_ads_widget .wp125ad{
 					padding: 0;
 					width: auto;
+					float: left;
 				}
 				
 				#page .wp125_write_ads_widget .wp125ad a{ 
