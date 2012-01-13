@@ -614,21 +614,21 @@ table {width: 100%;}
 					line-height: 1px;
 				}
 
-				.wp125_write_ads_widget.widget #wp125adwrap_2c .wp125ad a{
+				#page .wp125_write_ads_widget.widget #wp125adwrap_2c .wp125ad a{
 					padding: 5px;
 					width: 125px;
 					margin: 6px 5px 8px 5px;
 					display: block;
 				}
 
-				.wp125_write_ads_widget { padding: 0; }
-				.wp125_write_ads_widget  .winner #wp125adwrap_2c { width:100%;  }
-				.wp125_write_ads_widget #wp125adwrap_2c .wp125ad{
+				#page .wp125_write_ads_widget { padding: 0; }
+				#page .wp125_write_ads_widget  .winner #wp125adwrap_2c { width:100%;  }
+				#page .wp125_write_ads_widget .wp125ad{
 					padding: 0;
 					width: auto;
 				}
 				
-				#wp125adwrap_2c .wp125ad a{ 
+				#page .wp125_write_ads_widget .wp125ad a{ 
 					margin: 6px;
 					display: block;
 					float:left; 
