@@ -52,17 +52,6 @@ require_once( PL_ADMIN . '/class.options.engine.php' );
 require_once( PL_ADMIN . '/class.options.panel.php' );
 
 /**
- * Enable debug if required.
- * 
- * @since 1.4.0
- */
-if ( get_pagelines_option( 'enable_debug' ) ) {
-
-	require_once ( PL_ADMIN . '/class.debug.php');
-	add_filter( 'pagelines_options_array', 'pagelines_enable_debug' );	
-}
-
-/**
  * Load updater class
  */
 require_once (PL_ADMIN.'/class.updates.php');

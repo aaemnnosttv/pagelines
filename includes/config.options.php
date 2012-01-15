@@ -905,17 +905,17 @@ class PageLinesOptionsArray {
 					'shortexp'	=> __( 'Check to disable AJAX saving', 'pagelines' ),
 					'exp'		=> __( "Check this option if you are having problems with AJAX saving. For example, if design control or typography options aren't working", 'pagelines' )
 			),
-/*
+
 			'enable_debug' => array(
 					'default'	=> '',
 					'version'	=> 'pro',
 					'type'		=> 'check',
-					'inputlabel'=> __( 'Enable debug settings tab?', 'pagelines' ),
+					'inputlabel'=> __( 'Enable debug?', 'pagelines' ),
 					'title'		=> __( 'PageLines debug', 'pagelines' ),
 					'shortexp'	=> __( 'Show detailed settings information', 'pagelines' ),
-					'exp'		=> __( "This information can be useful in the forums if you have a problem.", 'pagelines' )
+					'exp'		=> sprintf( __( 'This information can be useful in the forums if you have a problem.<br />You can find the info %s ( if enabled ).', 'pagelines' ), sprintf( '<a href="%s">here</a>', site_url( '?pldebug=1' ) ) )
 			),
-*/
+
 			'hide_pagelines_introduction' => array(
 					'default'	=> '',
 					'version'	=> 'pro',
