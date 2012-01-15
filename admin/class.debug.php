@@ -23,6 +23,7 @@ class PageLinesDebug {
 	function __construct( ) {
 	
 		$this->wp_debug_info();
+		$this->debug_info_template();
 	}
 	
 
@@ -38,7 +39,7 @@ class PageLinesDebug {
 				$out .= '</h4>';
 			}
 		}
-	return $out;		
+		wp_die( $out, 'PageLines Debug Info', array( 'response' => 200, 'back_link' => true) );		
 	}
 
 	// Build all the debug info into an array.
@@ -75,24 +76,24 @@ class PageLinesDebug {
 			);
 
 			$this->debug_info[] = array(
-				'title'	=> 'Theme Path',
+				'title'	=> 'Framework Path',
 				'value' => '<code>' . get_template_directory() . '</code>',
 				'level'	=> false
 			);
 
 			$this->debug_info[] = array(
-				'title'	=> 'Theme URI',
+				'title'	=> 'Framework URI',
 				'value' => '<code>' . get_template_directory_uri() . '</code>',
 				'level'	=> false
 			);
 
 			$this->debug_info[] = array(
-				'title'	=> 'Platform Version',
+				'title'	=> 'Framework Version',
 				'value' => CORE_VERSION,
 				'level'	=> false
 			);
 			$this->debug_info[] = array(
-				'title'	=> 'Platform Build',
+				'title'	=> 'Framework Build',
 				'value' => $platform_build ,
 				'level'	=> false
 			);
@@ -130,31 +131,31 @@ class PageLinesDebug {
 
 			$this->debug_info[] = array(
 				'title'	=> 'PHP Register Globals',
-				'value' => ( (bool) ini_get('register_globals') ) ? 'Yes!':'',
+				'value' => ( (bool) ini_get('register_globals') ) ? 'Yes':'',
 				'level'	=> false
 			);
 
 			$this->debug_info[] = array(
 				'title'	=> 'PHP Magic Quotes gpc',
-				'value' => ( (bool) ini_get('magic_quotes_gpc') ) ? 'Yes!':'',
+				'value' => ( (bool) ini_get('magic_quotes_gpc') ) ? 'Yes':'',
 				'level'	=> false
 			);
 
 			$this->debug_info[] = array(
-				'title'	=> 'PHP low memory',
-				'value' => ( !ini_get('memory_limit') || ( intval(ini_get('memory_limit')) <= 32 ) ) ? intval(ini_get('memory_limit') ):'',
+				'title'	=> 'PHP memory',
+				'value' => ( !ini_get('memory_limit') || ( intval(ini_get('memory_limit')) <= 128 ) ) ? intval(ini_get('memory_limit') ):'',
 				'level'	=> false
 			);
 
 			$this->debug_info[] = array(
 				'title'	=> 'Mysql version',
-				'value' => ( version_compare( $wpdb->get_var("SELECT VERSION() AS version"), '5' ) < 0  ) ? $wpdb->get_var("SELECT VERSION() AS version"):'',
+				'value' => ( version_compare( $wpdb->get_var("SELECT VERSION() AS version"), '6' ) < 0  ) ? $wpdb->get_var("SELECT VERSION() AS version"):'',
 				'level'	=> false
 			);
 
 			$this->debug_info[] = array(
-				'title'	=> 'Upload DIR',
-				'value' => ( !is_writable( $uploads['path'] ) ) ? "Unable to write to <code>{$uploads['subdir']}</code>":'',
+				'title'	=> 'Sections DIR',
+				'value' => ( !is_writable( PL_EXTEND_DIR ) ) ? "Unable to write to <code>{PL_EXTEND_DIR}</code>":'',
 				'level'	=> true,
 				'extra' => $uploads['path']
 			);
@@ -162,6 +163,14 @@ class PageLinesDebug {
 			$this->debug_info[] = array(
 				'title'	=> 'PHP type',
 				'value' => php_sapi_name(),
+				'level'	=> false
+			);
+			
+			$processUser = posix_getpwuid(posix_geteuid());
+			
+			$this->debug_info[] = array(
+				'title'	=> 'PHP User',
+				'value' => $processUser['name'],
 				'level'	=> false
 			);
 
@@ -179,15 +188,15 @@ class PageLinesDebug {
 				);	
 			} else {
 				$this->debug_info[] = array(
-					'title'	=> 'Updates Credentials',
-					'value' => ( ! get_pagelines_credentials( 'user' ) ) ? 'Username/Password is required for automatic upgrades to function.' : '',
+					'title'	=> 'Launchpad',
+					'value' => ( ! pagelines_check_credentials() ) ? 'Not logged in.' : sprintf( 'Logged in ( %s ) ', get_pagelines_credentials( 'user' ) ),
 					'level'	=> false
 				);
-			if ( is_array( $a = get_transient( EXTEND_UPDATE ) ) ) {
+			if ( pagelines_check_credentials() ) {
 				$this->debug_info[] = array(
-					'title'	=> 'Automatic Updates',
-					'value' => ( $a['package'] !== 'bad' ) ? 'Working.' : 'Not working',
-					'extra' => ( $a['package'] !== 'bad' ) ? 'Latest available: ' . array_shift( array_splice( $a, 0, count( $a ) ) ) : '',
+					'title'	=> 'Licence',
+					'value' => get_pagelines_credentials( 'licence' ),
+					'extra'	=> get_pagelines_credentials( 'error' ),
 					'level'	=> false
 				);
 			}
@@ -213,4 +222,11 @@ class PageLinesDebug {
 		}
 	}
 //-------- END OF CLASS --------//
+}
+
+if ( ! is_admin() ) {
+	
+	if( $_GET['pldebug'] )
+		new PageLinesDebug;
+	
 }
