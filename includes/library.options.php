@@ -19,12 +19,15 @@ function ploption( $key, $args = array() ){
 	
 	if(is_pagelines_special() && plspecial($key, $args))
 		return plspecial($key, $args);
-	
-	elseif(isset($o['post_id']) && plmeta( $key, $args ))
-		return plmeta( $key, $args );
-		
+
 	elseif( get_ploption($key, $args) )
 		return get_ploption( $key, $args );
+
+	elseif( isset( $o['post_id'] ) && plmeta( $key, $args ) )
+		return plmeta( $key, $args );
+
+	elseif( isset( $o['post_id'] ) && !plmeta( $key, $args ) )
+		return apply_filters( 'pagelines_meta_global', plmeta( $key, $args ), $key );
 		
 	elseif( get_ploption($key, $args) === null )
 		if ( $newkey = plnewkey( $key ) )
