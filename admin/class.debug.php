@@ -226,7 +226,7 @@ class PageLinesDebug {
 
 if ( ! is_admin() ) {
 	
-	if( $_GET['pldebug'] )
+	if( isset( $_GET['pldebug'] ) )
 		new PageLinesDebug;
 	
 }
