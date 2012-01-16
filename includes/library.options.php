@@ -656,12 +656,14 @@ function pagelines_import_export(){
 			}
 			
 			if ( isset( $_POST['pagelines_special'] ) && is_array( $all_options) && isset( $all_options['pagelines_special'] ) ) {
-				update_option( PAGELINES_SPECIAL, array_merge( get_option( PAGELINES_SPECIAL ), $all_options['pagelines_special'] ) );
+				$special = get_option( PAGELINES_SPECIAL, array() );
+				update_option( PAGELINES_SPECIAL, array_merge( $special, $all_options['pagelines_special'] ) );
 				$done = 1;
 			}
 			
 			if ( isset( $_POST['pagelines_template'] ) && is_array( $all_options) && isset( $all_options['pagelines_template'] ) ) {
-				update_option( PAGELINES_TEMPLATE_MAP, array_merge( get_option( PAGELINES_TEMPLATE_MAP ), $all_options['pagelines_template'] ) );
+				$template = get_option( PAGELINES_TEMPLATE_MAP, array() );
+				update_option( PAGELINES_TEMPLATE_MAP, array_merge( $template, $all_options['pagelines_template'] ) );
 				$done = 1;
 			}					
 				if (function_exists('wp_cache_clean_cache')) { 

@@ -102,7 +102,7 @@ class PageLinesFeatures extends PageLinesSection {
 			$feature_name = (ploption('feature-name', $oset)) ? ploption('feature-name', $oset) : $f->post_title;
 			$feature_thumb = ploption('feature-thumb', $oset);
 			
-			if ( ( ploption('feature_source', $this->oset) == 'posts' ) ) {
+			if ( ( ploption('feature_source', $this->oset) == 'posts' || ploption('feature_source', $this->oset) == 'posts_all' ) ) {
 				
 				if( has_post_thumbnail( $f->ID )) {
 					$feature_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $f->ID ) );
@@ -152,9 +152,9 @@ class PageLinesFeatures extends PageLinesSection {
 		
 		$orderby = ploption('feature_orderby', $this->oset);
 		
-		$source = ( ploption('feature_source', $this->oset) == 'posts') ? 'posts' : 'customtype';	
+		$source = ( ploption('feature_source', $this->oset) == 'posts' || ploption('feature_source', $this->oset) == 'posts_all') ? ploption('feature_source', $this->oset) : 'customtype';	
 	
-		$category = ploption('feature_category', $this->oset);	
+		$category = ( $source == 'posts' ) ? ploption('feature_category', $this->oset) : '';	
 		
 		$f = $this->load_pagelines_features( array( 'set' => $this->set, 'limit' => $limit, 'orderby' => $orderby, 'source' => $source, 'category' => $category ) ); 
 	
@@ -174,12 +174,12 @@ class PageLinesFeatures extends PageLinesSection {
 		
 		$args = wp_parse_args( $args, $defaults );
 		extract( $args, EXTR_SKIP );
-
+plprint($source);
 		$query['orderby']	= ( $orderby == 'rand' ) ? $orderby : 'ID';
 
 		$query['order']		= ( $orderby == 'ASC' || $orderby == 'DESC') ? $orderby : 'DESC';
 	
-		if($source == 'posts'){
+		if($source == 'posts' || $source == 'posts_all' ){
 		
 			$query['post_type'] = 'post';
 		
@@ -243,13 +243,13 @@ class PageLinesFeatures extends PageLinesSection {
 
 						$oset = array('post_id' => $post->ID);
 
-						$feature_style = ( plmeta( 'feature-style', $oset)) ? plmeta('feature-style', $oset) : 'text-left';
+						$feature_style = ( ploption( 'feature-style', $oset)) ? ploption('feature-style', $oset) : 'text-left';
 						
 						$feature_style = apply_filters( 'pagelines-feature-style', $feature_style );
 						
-						$flink_text = ( plmeta( 'feature-link-text', $oset) ) ? __( plmeta('feature-link-text', $oset) ) : __('More', 'pagelines');
+						$flink_text = ( ploption( 'feature-link-text', $oset) ) ? __( ploption('feature-link-text', $oset) ) : __('More', 'pagelines');
 						
-						if ( $feature_source == 'posts' ) {
+						if ( $feature_source == 'posts' || $feature_source == 'posts_all') {
 							
 							if ( has_post_thumbnail( $post->ID ) ) {
 								$feature_background_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'single-post-thumbnail'  );
@@ -264,25 +264,25 @@ class PageLinesFeatures extends PageLinesSection {
 							
 						} else {
 							
-							$feature_background_image = plmeta( 'feature-background-image', $oset);
+							$feature_background_image = ploption( 'feature-background-image', $oset);
 							
 							$background_class = 'bg_cover';
 							
 						}
 
 							
-						$feature_design = (plmeta( 'feature-design', $oset)) ? plmeta('feature-design', $oset) : '';
+						$feature_design = (ploption( 'feature-design', $oset)) ? ploption('feature-design', $oset) : '';
 						
 						if ( $feature_source == 'posts' )
 							setup_postdata( $post );
 						
-						$action = ( $feature_source == 'posts' ) ? get_permalink() : plmeta('feature-link-url', $oset);
+						$action = ( $feature_source == 'posts' || $feature_source == 'posts_all' ) ? get_permalink() : ploption('feature-link-url', $oset);
 						
-						$fcontent_class = (plmeta( 'fcontent-bg', $oset)) ? plmeta('feature-bg', $oset) : '';
+						$fcontent_class = (ploption( 'fcontent-bg', $oset)) ? ploption('feature-bg', $oset) : '';
 						
-						$media_image = plmeta('feature-media-image', $oset);
+						$media_image = ploption('feature-media-image', $oset);
 
-						$feature_media = plmeta( 'feature-media', $oset); 
+						$feature_media = ploption( 'feature-media', $oset); 
 						
 						$feature_wrap_markup = ($feature_style == 'text-none' && $action) ? 'a' : 'div';
 						$feature_wrap_link = ($feature_style == 'text-none' && $action) ? sprintf('href="%s"', $action) : '';
@@ -621,6 +621,7 @@ class PageLinesFeatures extends PageLinesSection {
 							'selectvalues' => array(
 								'featureposts' 	=> array('name' => 'Feature Posts (custom post type)'),
 								'posts' 		=> array('name' => 'Use Post Category'),
+								'posts_all' 	=> array('name' => 'Use all Posts'),
 							),
 							'inputlabel' => 'Select source',
 							'title' => 'Feature Post Source',

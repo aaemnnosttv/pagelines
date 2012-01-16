@@ -12,7 +12,7 @@ define('CHILD_VERSION', $child_theme_data['Version']);
 /**
  * Set Theme Name
  */
-$theme = ( !defined( 'VPRO' ) ) ? 'PageLines' : 'PageLinesLE';
+$theme = 'PageLines';
 
 define('CORE_LIB', PL_INCLUDES); // Deprecated, but used in bbPress forum < 1.2.3
 
