@@ -174,7 +174,7 @@ class PageLinesFeatures extends PageLinesSection {
 		
 		$args = wp_parse_args( $args, $defaults );
 		extract( $args, EXTR_SKIP );
-plprint($source);
+
 		$query['orderby']	= ( $orderby == 'rand' ) ? $orderby : 'ID';
 
 		$query['order']		= ( $orderby == 'ASC' || $orderby == 'DESC') ? $orderby : 'DESC';
