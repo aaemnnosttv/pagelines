@@ -128,7 +128,7 @@ class PageLinesRegister {
 							$pl_section_factory->register( $section['class'], $section_data );
 						}	
 					} else {
-							if ( !class_exists( $section['class'] ) && file_exists( $section['base_file'] ) ) {
+							if ( !class_exists( $section['class'] ) && file_exists( $section['base_file'] ) && ! isset( $disabled['parent'][$section['depends']] ) ) {
 								include( $section['base_file'] );
 								$pl_section_factory->register( $section['class'], $section_data );
 							}
