@@ -334,6 +334,8 @@ class PageLinesMetaPanel {
 					
 								if(!$t->active && $type != 'default') 
 									echo OptEngine::superlink(__( 'Inactive On Template', 'pagelines' ), 'black', 'right', admin_url('admin.php?page=pagelines_templates'));
+								elseif($type == 'default')
+									echo OptEngine::superlink(__( 'Sitewide Defaults', 'pagelines' ), null, 'right');
 							 ?>
 						</div>
 						<?php 

@@ -2884,7 +2884,10 @@ font-weight: bold;
 		-moz-box-shadow: 0px 1px 4px  #888;
 		box-shadow: 0px 1px 4px  #888;
 	}
-
+		.default-image-preview{
+			opacity: .5;
+		}
+	
 	.plprint{
 		font-family: arial, helvetica;
 		font-size: .85em;

@@ -56,7 +56,8 @@ class OptEngine {
 			'showname'				=> false, 
 			'special'				=> null,
 			'flag'					=> '', 
-			'disabled'				=> false
+			'disabled'				=> false, 
+			'placeholder'			=> false
 		);
 		
 	}
@@ -120,6 +121,7 @@ class OptEngine {
 			$o['input_name'] = $oid;
 			$o['input_id'] = get_pagelines_option_id( $oid );
 			
+			$o['placeholder'] = pldefault( $oid, $oset);
 			
 			if(!empty($o['selectvalues'])){
 				foreach($o['selectvalues'] as $sid => $s){
@@ -127,7 +129,7 @@ class OptEngine {
 					$o['selectvalues'][$sid]['val'] = plmeta($sid, $oset);
 					$o['selectvalues'][$sid]['input_id'] = get_pagelines_option_id( $oid, $sid );
 					$o['selectvalues'][$sid]['input_name'] = $sid;
-					
+					$o['selectvalues'][$sid]['placeholder'] = pldefault( $sid, $oset);
 
 				}
 			}
@@ -158,6 +160,8 @@ class OptEngine {
 			$o['input_name'] = plname($o['special'], $oset);
 			$o['input_id'] = plid( $o['special'], $oset);
 			
+			$o['placeholder'] = pldefault( $oid, $oset);
+			
 			// What a hassle. 
 			// Allow global option for text content (no sub key)
 			// If 'hidden' then option will be nuked on save, so in class.sections.php
@@ -174,6 +178,7 @@ class OptEngine {
 					$o['selectvalues'][$sid]['val'] = ploption( $o['special'], $oset);
 					$o['selectvalues'][$sid]['input_id'] = plid( $o['special'], $oset);
 					$o['selectvalues'][$sid]['input_name'] = plname( $o['special'], $oset);
+					$o['selectvalues'][$sid]['placeholder'] = pldefault( $sid, $oset);
 
 				}
 			}
@@ -524,7 +529,7 @@ class OptEngine {
 			
 			// Output
 			echo $this->input_label($m['input_id'], $m['inputlabel']);
-			echo $this->input_text($m['input_id'], $m['input_name'], pl_html($m['val']), $class, $attr );
+			echo $this->input_text($m['input_id'], $m['input_name'], pl_html($m['val']), $class, $attr, '', $m['placeholder']);
 
 		}
 	}
@@ -542,7 +547,7 @@ class OptEngine {
 	function _get_text_small($oid, $o, $val){ 
 		
 		echo $this->input_label($o['input_id'], $o['inputlabel']);
-		echo $this->input_text($o['input_id'], $o['input_name'], pl_html($o['val']), 'small-text');
+		echo $this->input_text($o['input_id'], $o['input_name'], pl_html($o['val']), 'small-text', 'text', '', $o['placeholder']);
 	}
 
 	/**
@@ -556,7 +561,7 @@ class OptEngine {
 	function _get_text($oid, $o, $val){ 
 
 		echo $this->input_label($o['input_id'], $o['inputlabel']);
-		echo $this->input_text($o['input_id'], $o['input_name'], pl_html($o['val']));
+		echo $this->input_text($o['input_id'], $o['input_name'], pl_html($o['val']), 'regular-text', 'text', '', $o['placeholder'] );
 		
 	}
 
@@ -688,7 +693,7 @@ class OptEngine {
 	 **/
 	function _get_image_upload_option( $oid, $o ){ 
 
-		$up_url = $this->input_text($o['input_id'], $o['input_name'], esc_url($o['val']), 'regular-text uploaded_url');
+		$up_url = $this->input_text($o['input_id'], $o['input_name'], esc_url($o['val']), 'regular-text uploaded_url', 'text', '', $o['placeholder']);
 		
 		$button_id = (isset($o['special'])) ? $oid.'OID'.$o['special'] : $oid;
 		
@@ -703,9 +708,19 @@ class OptEngine {
 		// Output
 		$label = $this->input_label($oid, $o['inputlabel']);
 		printf('<p>%s %s %s %s %s %s</p>',$label, $up_url, $up_button, $reset_button, $ajax_url, $preview_size);		
-				
+		
+		$special_image_class = '';
+		
 		if($o['val'])
-			printf('<img class="pagelines_image_preview" id="image_%s" src="%s" style="max-width:%spx"/>', $button_id, $o['val'], $o['imagepreview']);
+			$active_image_url = $o['val'];
+		elseif($o['placeholder']){
+			$active_image_url = $o['placeholder'];
+			$special_image_class = 'default-image-preview';
+		}else
+			$active_image_url = false;
+				
+		if($active_image_url)
+			printf('<img class="pagelines_image_preview %s" id="image_%s" src="%s" style="max-width:%spx"/>', $special_image_class, $button_id, $active_image_url, $o['imagepreview']);
 	}
 	
 
@@ -1318,12 +1333,12 @@ class OptEngine {
 	function input_hidden($id, $name, $value, $class = ''){
 		return sprintf('<input type="hidden" id="%s" name="%s" value="%s" class="%s" />', $id, $name, $value, $class);
 	}
-	function input_textarea($id, $name, $value, $class = 'regular-text', $extra = '' ){
+	function input_textarea($id, $name, $value, $class = 'regular-text', $extra = '', $placeholder = '' ){
 		return sprintf('<textarea id="%s" name="%s" class="html-textarea %s" %s/>%s</textarea>', $id, $name, $class, $extra, $value );
 	}
 	
-	function input_text($id, $name, $value, $class = 'regular-text', $attr = 'text', $extra = ''){
-		return sprintf('<input type="%s" id="%s" name="%s" value="%s" class="%s" %s  />', $attr, $id, $name, $value, $class, $extra);
+	function input_text($id, $name, $value, $class = 'regular-text', $attr = 'text', $extra = '', $placeholder = ''){
+		return sprintf('<input type="%s" id="%s" name="%s" value="%s" class="%s" placeholder="%s" %s />', $attr, $id, $name, $value, $class, $placeholder, $extra);
 	}
 	
 	function input_checkbox($id, $name, $value, $class = 'admin_checkbox'){

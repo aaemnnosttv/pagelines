@@ -138,7 +138,7 @@ function pagelines_build_account_interface(){
 function pagelines_build_special(){ 
 	
 	$args = array(
-		'title'			=> __( 'Special Pages', 'pagelines' ), 
+		'title'			=> __( 'Special Meta', 'pagelines' ), 
 		'settings' 		=> PAGELINES_SPECIAL,
 		'callback'		=> 'special_page_settings_array',
 		'show_reset'	=> false, 

@@ -129,7 +129,7 @@ class PageLinesBoxes extends PageLinesSection {
 					'box_thumb_size' => array(
 						'version'		=> 'pro',
 						'default'		=> '64',
-						'type' 			=> 'text',
+						'type' 			=> 'text_small',
 						'size'			=> 'small',
 						'title' 		=> 'Box Icon Size (in Pixels)',
 						'inputlabel' 		=> 'Enter the icon size in pixels',
@@ -138,7 +138,7 @@ class PageLinesBoxes extends PageLinesSection {
 					'box_items' => array(
 						'version'		=> 'pro',
 						'default'		=> '6',
-						'type' 			=> 'text',
+						'type' 			=> 'text_small',
 						'size'			=> 'small',
 						'inputlabel' 	=> 'Maximum Boxes To Show On Page',
 						'title' 		=> 'Max Number of Boxes',
