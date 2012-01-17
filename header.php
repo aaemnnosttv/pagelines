@@ -24,7 +24,6 @@
 ?></head>
 <body <?php body_class( pagelines_body_classes() ); ?>>
 <?php 
-
 pagelines_register_hook('pagelines_before_site'); // Hook
 	
 if(has_action('override_pagelines_body_output')):

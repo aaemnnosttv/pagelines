@@ -394,14 +394,19 @@ body{font-size: 87.5%; line-height: 1.71em;height:100%;}
 			.widget ul { margin:0 0 10px .4em; }
 			.widget ul.sub-menu { margin:0px;}
 			.widget ul li{
+				font-size:.95em;
 				list-style:none;
 				display: block;
-				padding: .2em 2px;
+				padding: .4em 2px;
 			}
 			.widget ul li a:hover{ text-decoration: underline; }
 			.widget ul li ul li{ margin-left: .3em; }
 		
 		/* @ Special Widgets */
+		.tagcloud{
+			padding: .7em;
+			line-height:1.4em;
+		}
 		.widget-default{ margin-bottom: .7em; }
 		.widget_search .widget-title {margin-bottom:10px;}
 		.widget_categories .postform {margin:10px 10px;}
@@ -690,7 +695,7 @@ table {width: 100%;}
 			article.forum .bbp-topics th{font-size: 1.2em;}
 			.bbp-form .avatar{display: none;}
 			article.hentry .bbp-reply-content{text-align: left;}
-			#comments p.form-allowed-tags{width: auto;}
+			#comments p.form-allowed-tags{width: auto;margin-bottom: 1.6em; }
 		/* @Facebook Comments */
 			#site #dsq-content .dsq-request-user-info td a{
 				font-weight: normal;

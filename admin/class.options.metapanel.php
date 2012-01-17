@@ -288,10 +288,9 @@ class PageLinesMetaPanel {
 		
 		$special_template->load_section_optionator( false, $mode );
 
-		
 
-		ob_start();
-		?>
+		ob_start(); ?>
+
 	<script type="text/javascript"> 
 		jQuery(document).ready(function() { 
 			<?php printf('var %1$s = jQuery("#%1$s").tabs({cookie: {}, fx: { opacity: "toggle", duration: 150 }});', $handle); ?> 
@@ -306,11 +305,11 @@ class PageLinesMetaPanel {
 					<lh class="hlist-header">Select Settings Panel</lh>
 					<?php foreach($this->tabs as $tab => $t): ?>
 						<li>
-							<a class="<?php echo $tab;?>  metapanel-tab <?php if(!$t->active) echo 'inactive-tab';?>" href="#<?php echo $tab;?>">
+							<a class="<?php echo $tab;?>  metapanel-tab <?php if(!$t->active && $type != 'default' ) echo 'inactive-tab';?>" href="#<?php echo $tab;?>">
 								<span class="metatab_pad fix">
 									<span class="metatab_icon" style="background: transparent url(<?php echo $t->icon; ?>) no-repeat 0 0;display: block;">
 										<?php 
-											if(!$t->active) 
+											if(!$t->active && $type != 'default' ) 
 												printf('<span class="tab_inactive">inactive</span>');
 											
 											echo substr($t->name, 0, 17); 
@@ -333,7 +332,7 @@ class PageLinesMetaPanel {
 					
 								echo $t->name;
 					
-								if(!$t->active) 
+								if(!$t->active && $type != 'default') 
 									echo OptEngine::superlink(__( 'Inactive On Template', 'pagelines' ), 'black', 'right', admin_url('admin.php?page=pagelines_templates'));
 							 ?>
 						</div>
@@ -564,6 +563,7 @@ function add_global_meta_options( $meta_array = array(), $location = 'bottom'){
 }
 
 function do_global_meta_options( $mode = '' ){
+	
 	global $global_meta_options;
 	
 	$metatab_settings = array(
@@ -572,12 +572,12 @@ function do_global_meta_options( $mode = '' ){
 			'icon' 	=>  PL_ADMIN_ICONS . '/ileaf.png'
 		);
 
-	if($mode == 'integration'){
-		
+	if($mode == 'integration')
 		unset($global_meta_options['_pagelines_layout_mode']);
 
-	}
-
+	if($mode == 'default')
+		return; 
+		
 	register_metatab($metatab_settings,  $global_meta_options, '', 'top');
 }
 
@@ -592,6 +592,10 @@ function special_page_settings_array(  ){
 	
 	$d = array(
 		
+		'site_defaults' => array(
+			'metapanel' => $metapanel_options->posts_metapanel( 'default', 'default' ),
+			'icon'		=> PL_ADMIN_ICONS.'/equalizer.png'
+		),
 		'blog_page' => array(
 			'metapanel' => $metapanel_options->posts_metapanel( 'posts' ),
 			'icon'		=> PL_ADMIN_ICONS.'/blog.png'

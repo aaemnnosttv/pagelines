@@ -20,14 +20,17 @@ function ploption( $key, $args = array() ){
 	if(is_pagelines_special() && plspecial($key, $args))
 		return plspecial($key, $args);
 
-	elseif( get_ploption($key, $args) )
-		return get_ploption( $key, $args );
-
 	elseif( isset( $o['post_id'] ) && plmeta( $key, $args ) )
 		return plmeta( $key, $args );
 
-	elseif( isset( $o['post_id'] ) && !plmeta( $key, $args ) )
-		return apply_filters( 'pagelines_meta_global', plmeta( $key, $args ), $key );
+//	elseif( isset( $o['post_id'] ) && !plmeta( $key, $args ) )
+//		return apply_filters( 'pagelines_meta_global', plmeta( $key, $args ), $key );
+
+	elseif( pldefault( $key, $args ) )	
+		return pldefault( $key, $args );
+
+	elseif( get_ploption($key, $args) )
+		return get_ploption( $key, $args );	
 		
 	elseif( get_ploption($key, $args) === null )
 		if ( $newkey = plnewkey( $key ) )
@@ -36,6 +39,8 @@ function ploption( $key, $args = array() ){
 	else
 		return false;
 }
+
+
 /**
  * Attempt to set default value if not found with ploption()
  * 
@@ -121,6 +126,33 @@ function plmeta( $key, $args ){
 	
 }
 
+/**
+ * Grab from global defaults panel
+ * 
+ * @param 'key' the id of the option
+ * 
+ **/
+function pldefault( $key, $args ) {
+
+	
+	global $pagelines_special_meta;
+
+	$sp = $pagelines_special_meta;	
+	$slug = 'default';
+	
+	if( isset($args['clone_id']) && $args['clone_id'] != 1 )
+		$id_key = $key.'_'.$args['clone_id'];
+	else
+		$id_key = $key;
+	
+	if(isset($sp[$slug]) && is_array($sp[$slug]) && isset($sp[$slug][$id_key]))
+		return $sp[$slug][$id_key];
+	else 
+		return false;
+}
+
+
+
 function plspecial($key, $args){
 
 	global $pagelines_special_meta;
@@ -139,15 +171,6 @@ function plspecial($key, $args){
 		return false;
 }
 
-function pldefault($key){
-	global $pagelines_special_meta;
-	
-	if(isset($pagelines_special_meta['defaults'][$key]))
-		return $pagelines_special_meta['defaults'][$key];
-	else
-		return false;
-	
-}
 
 function get_ploption( $key, $args = array() ){
 	
