@@ -797,7 +797,8 @@ function pagelines_check_credentials( $type = 'setup' ) {
  * Set runtime licence types
  *
  */
-define( 'VDEV', ( get_pagelines_credentials( 'licence' ) === 'dev' ) ? true : false );
+if ( !defined( 'VDEV') )
+	define( 'VDEV', ( get_pagelines_credentials( 'licence' ) === 'dev' ) ? true : false );
 
 if( !defined('VPRO' ) )
 	define( 'VPRO', ( get_pagelines_credentials( 'licence' ) === 'pro' || get_pagelines_credentials( 'licence' ) === 'dev' ) ? true : false );
