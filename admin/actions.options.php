@@ -18,10 +18,15 @@ function pagelines_add_admin_menus() {
 		
 		
 	$_pagelines_options_page_hook = pagelines_insert_menu( 'pagelines', __( 'Settings', 'pagelines' ), 'edit_theme_options', 'pagelines', 'pagelines_build_option_interface' );
+
+	$_pagelines_special_hook = pagelines_insert_menu( 'pagelines', __( 'Meta', 'pagelines' ), 'edit_theme_options', 'pagelines_special', 'pagelines_build_special' );
+	
 	$_pagelines_templates_hook = pagelines_insert_menu( 'pagelines', __( 'Templates', 'pagelines' ), 'edit_theme_options', 'pagelines_templates', 'pagelines_build_templates_interface' );
-	$_pagelines_special_hook = pagelines_insert_menu( 'pagelines', __( 'Special', 'pagelines' ), 'edit_theme_options', 'pagelines_special', 'pagelines_build_special' );
+	
 	$_pagelines_ext_hook = pagelines_insert_menu( 'pagelines', __( 'Store', 'pagelines' ), 'edit_theme_options', 'pagelines_extend', 'pagelines_build_extension_interface' );
+	
 	$_pagelines_account_hook = pagelines_insert_menu( 'pagelines', __( 'Account', 'pagelines' ), 'edit_theme_options', 'pagelines_account', 'pagelines_build_account_interface' );	
+
 }
 
 /**

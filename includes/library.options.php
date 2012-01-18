@@ -23,9 +23,6 @@ function ploption( $key, $args = array() ){
 	elseif( isset( $o['post_id'] ) && plmeta( $key, $args ) )
 		return plmeta( $key, $args );
 
-//	elseif( isset( $o['post_id'] ) && !plmeta( $key, $args ) )
-//		return apply_filters( 'pagelines_meta_global', plmeta( $key, $args ), $key );
-
 	elseif( pldefault( $key, $args ) )	
 		return pldefault( $key, $args );
 
@@ -39,6 +36,93 @@ function ploption( $key, $args = array() ){
 	else
 		return false;
 }
+
+/**
+ * Locates a meta option if it exists
+ * 
+ * @param string $key the key of the option
+ */
+function plmeta( $key, $args ){
+	
+	$d = array(
+		'subkey'	=> null, 
+		'post_id'	=> null, 
+		'setting'	=> null, 
+		'clone_id'	=> null,
+	);
+	
+	$o = wp_parse_args($args, $d);
+		
+	// Deal with cloning options	
+	if( isset($args['clone_id']) && $args['clone_id'] != 1 )
+		$id_key = $key.'_'.$args['clone_id'];	
+	else 
+		$id_key = $key;
+
+	// Deal w/ default checkbox/boolean stuff
+	// If default is set, return if reversed
+	
+	if( isset($o['post_id']) && !empty($o['post_id']) ) {
+		
+		$default_value = get_post_meta($o['post_id'], $id_key, true);
+		
+		$reverse = ( pldefault($key, $args, 'val') ) ? get_post_meta($o['post_id'], $key.'_reverse', true) : false;
+
+		if( (bool) $default_value && (bool) $reverse)
+			return false;
+		else
+			return $default_value;
+	
+	} else
+		return false;
+	
+}
+
+function plspecial($key, $args){
+
+	global $pagelines_special_meta;
+	
+	$type = PageLinesTemplate::page_type_breaker();
+	
+	if( isset($args['clone_id']) && $args['clone_id'] != 1 )
+		$id_key = $key.'_'.$args['clone_id'];
+	else
+		$id_key = $key;
+	
+	
+	if(isset($pagelines_special_meta[$type]) && is_array($pagelines_special_meta[$type]) && isset($pagelines_special_meta[$type][$id_key]))
+		return $pagelines_special_meta[$type][$id_key];
+	else 
+		return false;
+}
+
+/**
+ * Grab from global defaults panel
+ * 
+ * @param 'key' the id of the option
+ * 
+ **/
+function pldefault( $key, $args = array(), $mode = '') {
+
+	
+	global $pagelines_special_meta;
+
+	$sp = $pagelines_special_meta;	
+	$slug = 'default';
+	$reverse_key = $key.'_reverse';
+	
+	$default_value = ( isset( $sp[$slug] )	&& is_array( $sp[$slug] ) && isset( $sp[$slug][$key] ) ) ? $sp[$slug][$key] : false;
+
+	// check if on default option is reversed by meta
+	$reverse_value = ( $mode != 'val' && (plmeta($reverse_key, $args) || plspecial( $reverse_key, $args )) ) ? true : false;
+	
+	if( !$reverse_value )
+		return $default_value;	
+	else
+		return false;
+
+}
+
 
 
 /**
@@ -97,79 +181,12 @@ function plupop($key, $val, $oset = array()){
 
 }
 
-/**
- * Locates a meta option if it exists
- * 
- * @param string $key the key of the option
- */
-function plmeta( $key, $args ){
-	
-	$d = array(
-		'subkey'	=> null, 
-		'post_id'	=> null, 
-		'setting'	=> null, 
-		'clone_id'	=> null,
-	);
-	
-	$o = wp_parse_args($args, $d);
-		
-	if( isset($args['clone_id']) && $args['clone_id'] != 1 )
-		$id_key = $key.'_'.$args['clone_id'];	
-	else 
-		$id_key = $key;
-
-	if( isset($o['post_id']) && !empty($o['post_id']) )
-		return get_post_meta($o['post_id'], $id_key, true);
-	
-	else
-		return false;
-	
-}
-
-/**
- * Grab from global defaults panel
- * 
- * @param 'key' the id of the option
- * 
- **/
-function pldefault( $key, $args ) {
-
-	
-	global $pagelines_special_meta;
-
-	$sp = $pagelines_special_meta;	
-	$slug = 'default';
-	
-	if( isset($args['clone_id']) && $args['clone_id'] != 1 )
-		$id_key = $key.'_'.$args['clone_id'];
-	else
-		$id_key = $key;
-	
-	if(isset($sp[$slug]) && is_array($sp[$slug]) && isset($sp[$slug][$id_key]))
-		return $sp[$slug][$id_key];
-	else 
-		return false;
-}
 
 
 
-function plspecial($key, $args){
 
-	global $pagelines_special_meta;
-	
-	$type = PageLinesTemplate::page_type_breaker();
-	
-	if( isset($args['clone_id']) && $args['clone_id'] != 1 )
-		$id_key = $key.'_'.$args['clone_id'];
-	else
-		$id_key = $key;
-	
-	
-	if(isset($pagelines_special_meta[$type]) && is_array($pagelines_special_meta[$type]) && isset($pagelines_special_meta[$type][$id_key]))
-		return $pagelines_special_meta[$type][$id_key];
-	else 
-		return false;
-}
+
+
 
 
 function get_ploption( $key, $args = array() ){
@@ -246,6 +263,9 @@ function plid($key, $a){
 	
 	$grandkey = (isset($a['subkey']) && is_array($a['subkey']) && isset($a['subkey']['grandkey'])) ? $a['subkey']['grandkey'] : false;
 
+	$clone_id = (isset($a['clone_id']) && $a['clone_id'] != 1) ? '_'.$a['clone_id'] : '';
+	
+//	plprint($a, $subkey);
 
 	if( $grandkey )
 		$output = array($set, $key, $subkey, $grandkey);
@@ -254,7 +274,7 @@ function plid($key, $a){
 	else 
 		$output = array($set, $key);
 		
-	return join('_', $output);
+	return join('_', $output) . $clone_id;
 }
 
 function pl_um($key, $args = null){
@@ -625,6 +645,18 @@ function pagelines_is_multi_option( $oid, $o ){
 		|| $o['type'] == 'check_multi' 
 		|| $o['type'] == 'color_multi'
 		|| $o['type'] == 'image_upload_multi'
+	){
+		return true;
+	} else
+		return false;
+	
+}
+
+function pagelines_is_boolean_option($oid, $o){
+	
+	if(
+		$o['type'] == 'check' 
+		|| $o['type'] == 'check_multi' 
 	){
 		return true;
 	} else

@@ -227,10 +227,11 @@ class PageLinesMetaPanel {
 		
 		if($location == 'top'){
 			
-			$top[$tab_id]->options = $option_array;
-			$top[$tab_id]->icon = $o['icon'];
-			$top[$tab_id]->active = $o['active'];
-			$top[$tab_id]->name = $name;
+			$top[ $tab_id ]->options = $option_array;
+			$top[ $tab_id ]->icon = $o['icon'];
+			$top[ $tab_id ]->active = $o['active'];
+			$top[ $tab_id ]->clone_id = $o['clone_id'];
+			$top[ $tab_id ]->name = $name;
 			
 
 			$this->tabs = array_merge($top, $this->tabs);
@@ -239,6 +240,7 @@ class PageLinesMetaPanel {
 			$this->tabs[ $tab_id ]->options = $option_array;
 			$this->tabs[ $tab_id ]->icon = $o['icon'];
 			$this->tabs[ $tab_id ]->active = $o['active'];
+			$this->tabs[ $tab_id ]->clone_id = $o['clone_id'];
 			$this->tabs[ $tab_id ]->name = $name;
 		}
 		
@@ -272,7 +274,7 @@ class PageLinesMetaPanel {
 		$panel->the_panel($set);
 	}
 	
-	function posts_metapanel( $type, $mode = ''){
+	function posts_metapanel( $type, $mode = 'meta' ){
 		
 		
 		$option_engine = new OptEngine( PAGELINES_SPECIAL );
@@ -286,7 +288,7 @@ class PageLinesMetaPanel {
 		
 	 	$special_template = new PageLinesTemplate( $type );	
 		
-		$special_template->load_section_optionator( false, $mode );
+		$special_template->load_section_optionator( $mode );
 
 
 		ob_start(); ?>
@@ -329,7 +331,7 @@ class PageLinesMetaPanel {
 					<div class="posts_tab_content_pad">
 						<div class="metatab_title" style="background: url(<?php echo $t->icon; ?>) no-repeat 10px 13px;" >
 							<?php 
-					
+						
 								echo $t->name;
 					
 								if(!$t->active && $type != 'default') 
@@ -342,6 +344,7 @@ class PageLinesMetaPanel {
 						foreach($t->options as $oid => $o){
 							$o['special'] = $type;
 							$o['scontrol'] = $mode;
+							$o['clone_id'] = (isset($t->clone_id)) ? $t->clone_id : 1;
 							
 							$option_engine->option_engine($oid, $o);
 						}
@@ -411,7 +414,21 @@ class PageLinesMetaPanel {
 						plupop($oid, $option_value);
 						plupop($oid, $option_value, array('setting' => PAGELINES_SPECIAL));
 						
-					}else {
+					}elseif($o['type'] == 'check' && (bool) pldefault($oid)){
+
+							
+						$reverse = $oid."_reverse";
+						
+						$option_value =  isset( $_POST[$reverse] ) ? $_POST[ $reverse ] : null;
+					
+						if( !empty($option_value) || get_post_meta($postID, $reverse)  ){
+						
+							update_post_meta($postID, $reverse, $option_value );
+						
+						}
+						
+						
+					} else {
 						
 					
 						
@@ -428,13 +445,13 @@ class PageLinesMetaPanel {
 							
 						} else {
 								
-								
 							$option_value =  isset( $_POST[$oid] ) ? $_POST[ $oid ] : null;
 							
 							
-							if(!empty($option_value) || get_post_meta($postID, $oid)){
+							if( !empty($option_value) || get_post_meta($postID, $oid)  ){
 							
 								update_post_meta($postID, $oid, $option_value );
+							
 							}
 							
 							

@@ -671,58 +671,58 @@ class PageLinesTemplate {
 	 * @subpackage Sections
 	 * @since 2.0.b3
 	 */
-	function load_section_optionator( $defaults = false, $mode = '' ){
+	function load_section_optionator( $mode = 'meta' ){
 	
-		if($defaults){
-			
-			foreach( $this->factory as $key => $section )
-				$section->section_optionator( array() );
-
-			
-		} elseif($mode == 'integration') {
-			
-			foreach( $this->non_template_sections as $sid ){
+		// Which sections to load and parse
+		if($mode == 'integration')
+			$parsed_sections = $this->non_template_sections;
+		elseif($mode == 'default')
+			$parsed_sections = $this->factory;
+		else
+			$parsed_sections = $this->default_allsections;
+		
+		// Parse active sections and load tab		
+		foreach( $parsed_sections as $key => $sid ){
+		
+			if($mode == 'default'){
+				
+				$section = $key;
+				$clone_id = 1;
+				
+			} else {
 				
 				$p = splice_section_slug($sid);
 				$section = $p['section'];
 				$clone_id = $p['clone_id'];
-
-				if(isset($this->factory[$section])){
-					$s = $this->factory[$section];
-					$s->setup_oset( $clone_id );
-					$s->section_optionator( array( 'clone_id' => $clone_id ) );
-
-				}
 				
 			}
 		
-		} else {
-			
-			foreach( $this->default_allsections as $sid ){
-			
-				$p = splice_section_slug($sid);
-				$section = $p['section'];
-				$clone_id = $p['clone_id'];
-			
-				if(isset($this->factory[$section])){
-					$s = $this->factory[$section];
-					$s->setup_oset( $clone_id );
-					$s->section_optionator( array( 'clone_id' => $clone_id ) );
-					
-				}
-			
+			if(isset($this->factory[$section])){
+				
+				$s = $this->factory[$section];
+				
+				$s->setup_oset( $clone_id );
+				
+				$s->section_optionator( array( 'clone_id' => $clone_id ) );
+				
 			}
-	
+		
+		}
+
+		// Load inactive sections last for meta stuff
+		if($mode == 'meta'){
+			
 			// Get inactive
 			foreach( $this->factory as $key => $section ){
-			
+		
 				$inactive = ( !in_array( $key, $this->default_allsections) ) ? true : false;
-			
+		
 				if($inactive)
 					$section->section_optionator( array('clone_id' => $clone_id, 'active' => false) );
 			}
 			
 		}
+			
 			
 
 	}
