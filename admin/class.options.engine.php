@@ -57,7 +57,8 @@ class OptEngine {
 			'special'				=> null,
 			'flag'					=> '', 
 			'disabled'				=> false, 
-			'placeholder'			=> false
+			'placeholder'			=> false, 
+			'clone_id'				=> 1
 		);
 		
 	}
@@ -117,12 +118,24 @@ class OptEngine {
 			
 			$o['pid'] = $flag;
 			
-			$o['val'] = plmeta($oid, $oset);
-			$o['input_name'] = $oid;
 			$o['input_id'] = get_pagelines_option_id( $oid );
 			
+			if( $o['type'] == 'check'  && (bool) pldefault( $oid )){
+				
+				$o['val'] = plmeta($oid.'_reverse', $oset);
+				$o['input_name'] = $oid.'_reverse';
+				$o['inputlabel'] = '(Turn Off) ' . $o['inputlabel'];
+				
+			}else{
+				$o['val'] = plmeta($oid, $oset);
+				$o['input_name'] = $oid;
+			}
+			
+			// Check is difficult w/ defaults got to compensate
 			$o['placeholder'] = pldefault( $oid, $oset);
 			
+			
+			// Parse through multi-selects
 			if(!empty($o['selectvalues'])){
 				foreach($o['selectvalues'] as $sid => $s){
 
@@ -153,8 +166,15 @@ class OptEngine {
 			}
 		
 		} elseif($this->settings_field == PAGELINES_SPECIAL){
+		
 			
-			$oset['subkey'] = $oid;
+			if( $o['special'] != 'default' && $o['type'] == 'check'  && (bool) pldefault( $oid )){
+				$oset['subkey'] = $oid.'_reverse';
+				$o['inputlabel'] = '(Turn Off) ' . $o['inputlabel'];
+				
+			}else{
+				$oset['subkey'] = $oid;
+			}
 			
 			$o['val'] = ploption( $o['special'], $oset );	
 			$o['input_name'] = plname($o['special'], $oset);
@@ -175,6 +195,8 @@ class OptEngine {
 			if(!empty($o['selectvalues'])){
 				foreach($o['selectvalues'] as $sid => $s){
 					$oset['subkey'] = $sid;
+					$oset['clone_id'] = $o['clone_id'];
+					
 					$o['selectvalues'][$sid]['val'] = ploption( $o['special'], $oset);
 					$o['selectvalues'][$sid]['input_id'] = plid( $o['special'], $oset);
 					$o['selectvalues'][$sid]['input_name'] = plname( $o['special'], $oset);
