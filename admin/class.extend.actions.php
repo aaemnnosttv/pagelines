@@ -458,7 +458,8 @@
 		$url = ( $uploader ) ? $file : $this->make_url( 'section', $path );
 		$out = @$upgrader->install( $url );		
 		$wp_filesystem->move( trailingslashit( $wp_filesystem->wp_plugins_dir() ) . $path, sprintf( '%s/pagelines-sections/%s', trailingslashit( $wp_filesystem->wp_plugins_dir() ), $path ) );
-	
+		
+		$this->sections_reset();
 		$text = '&extend_text=section_install#added';
 		if ( $uploader && is_wp_error( $out ) )
 			$this->page_reload( sprintf( 'pagelines_extend&extend_error=%s', $out->get_error_code() ) , null, 0 );
@@ -477,7 +478,8 @@
 		global $wp_filesystem;
 
 		$wp_filesystem->delete( sprintf( '%s/pagelines-sections/%s', trailingslashit( $wp_filesystem->wp_plugins_dir() ), $file ), true, false );
-
+		
+		$this->sections_reset();
 		$message = __( 'Section Deleted.', 'pagelines' );
 		$text = '&extend_text=section_delete#added';
 			$this->page_reload( 'pagelines_extend' . $text, null, $message );
@@ -500,6 +502,7 @@
 		@$upgrader->install( $this->make_url( 'section', $file ) );			
 		$wp_filesystem->move( trailingslashit( $wp_filesystem->wp_plugins_dir() ) . $file, sprintf( '%s/pagelines-sections/%s', trailingslashit( $wp_filesystem->wp_plugins_dir() ), $file ) );
 		
+		$this->sections_reset();
 		// Output
 		$text = '&extend_text=section_upgrade#added';
 		$this->page_reload( 'pagelines_extend' . $text, null, __( 'Section Upgraded', 'pagelines' ) );
@@ -523,6 +526,7 @@
 		$disabled = get_option( 'pagelines_sections_disabled', array( 'child' => array(), 'parent' => array() ) );
 		$disabled[$path][$file] = true; 
 		update_option( 'pagelines_sections_disabled', $disabled );
+		$this->sections_reset();
 		// Output
 	 	$message = __( 'Section Deactivated.', 'pagelines' );
 	 	$this->page_reload( 'pagelines_extend', null, $message );
@@ -639,4 +643,11 @@
 		include( PL_ADMIN . '/library.extension.php' );
 		
 	}	
+	
+	function sections_reset() {
+		
+		global $load_sections;
+		delete_transient( 'pagelines_sections_cache' );
+		$load_sections->pagelines_register_sections( true, false );
+	}
 }
