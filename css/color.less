@@ -7,7 +7,7 @@
 hr, .fpost, .clip_box, .widget-title, .metabar a, #morefoot .widget-title, #site #dsq-content h3, .navigation_wrap, .setup_area, .fpost .post-thumb img, .clip .clip-thumb img, .author-thumb img, ul.sf-menu ul li{
 	border-color: @dark-base;
 }
-#page .wp-pagenavi a, #page .wp-pagenavi .current, #page .wp-pagenavi .extend, #page .wp-pagenavi span.pages,{
+#page .wp-pagenavi a, #page .wp-pagenavi .current, #page .wp-pagenavi .extend, #page .wp-pagenavi span.pages,.pl-sharebar-text{
 	color: fadeout(@pl-text, 70%);
 }
 
@@ -15,7 +15,7 @@ hr, .fpost, .clip_box, .widget-title, .metabar a, #morefoot .widget-title, #site
 	background-color: @dark-base;
 	color: fadeout(@pl-text, 40%);
 }
-	.cnt-comments a, #wp-calendar caption, input, textarea, .searchform .searchfield, .wp-caption, .commentlist .alt, #wp-calendar #today, .post-nav, .current_posts_info, .post-footer, .success,  .content-pagination a .cp-num, .hentry table .alternate td, .playpause, .main-nav li:hover, .main-nav .current-page-ancestor a,  .main-nav li.current-page-ancestor ul a, .main-nav li.current_page_item a, .main-nav li.current-menu-item a, .sf-menu li li, .sf-menu li li li{
+	.cnt-comments a, #wp-calendar caption, input, textarea, .searchform .searchfield, .wp-caption, .commentlist .alt, #wp-calendar #today, .post-nav, .current_posts_info, .success,  .content-pagination a .cp-num, .hentry table .alternate td, .playpause, .main-nav li:hover, .main-nav .current-page-ancestor a,  .main-nav li.current-page-ancestor ul a, .main-nav li.current_page_item a, .main-nav li.current-menu-item a, .sf-menu li li, .sf-menu li li li{
 		background-color: @dark-base;
 	}
 	
@@ -48,11 +48,11 @@ hr, .fpost, .clip_box, .widget-title, .metabar a, #morefoot .widget-title, #site
 		color: @pl-header;
 	}
 	
-	.tc1, .t1, .t1 a,  body #page .t1:hover, #page, .tcolor1, #subnav ul li a:active, .commentlist cite a, .metabar a:hover, .post-nav a:hover, .post-footer a, #site #dsq-content .dsq-request-user-info td a, #page .wp-pagenavi a:hover, #page .wp-pagenavi .current,  .content-pagination a:hover .cp-num{
+	.tc1, .t1, .t1 a,  body #page .t1:hover, #page, .tcolor1, #subnav ul li a:active, .commentlist cite a, .metabar a:hover, .post-nav a:hover, #site #dsq-content .dsq-request-user-info td a, #page .wp-pagenavi a:hover, #page .wp-pagenavi .current,  .content-pagination a:hover .cp-num{
 		color: @pl-text;
 	}
 	
-	.tc2, .t2, .cnt-comments a, .cnt-comments a:hover, .tcolor2, .lcolor2 a, .subhead, .widget-title, #branding .site-description, #callout, #commentform .required, #postauthor .subtext, .commentlist .comment-meta  a, .content-pagination span, .content-pagination a .cp-num, .comment.alt .comment-author, .tcolor3, .lcolor3 a, .main_nav a, .widget-title a, h3.widget-title a, #subnav_row li a, .metabar em, .metabar a, .tags, #commentform label, .form-allowed-tags code, .rss-date, .comment.alt, .reply a,  .post-footer, .auxilary a, .cform .emailreqtxt,.cform .reqtxt{
+	.tc2, .t2, .cnt-comments a, .cnt-comments a:hover, .tcolor2, .lcolor2 a, .subhead, .widget-title, #branding .site-description, #callout, #commentform .required, #postauthor .subtext, .commentlist .comment-meta  a, .content-pagination span, .content-pagination a .cp-num, .comment.alt .comment-author, .tcolor3, .lcolor3 a, .main_nav a, .widget-title a, h3.widget-title a, #subnav_row li a, .metabar em, .metabar a, .tags, #commentform label, .form-allowed-tags code, .rss-date, .comment.alt, .reply a, .auxilary a, .cform .emailreqtxt,.cform .reqtxt{
 		color: fadeout(@pl-text, 40%);
 	}
 	
@@ -63,11 +63,11 @@ hr, .fpost, .clip_box, .widget-title, .metabar a, #morefoot .widget-title, #site
 			color: fadeout(@pl-link, 20%);
 		}
 		
-	#footer, #footer li.link-list a, #footer .latest_posts li .list-excerpt{
-		color: @pl-footer;
+	#footer, #footer li.link-list a, #footer .latest_posts li .list-excerpt, #footer .widget-title{
+		color: fadeout(@pl-footer, 40%);
 	}
 		#footer a, #footer li h5 a{
-			color: darken( @pl-footer, @invert-dark * 5 );
+			color: @pl-footer;
 		}
 
 /* 

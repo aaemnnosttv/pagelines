@@ -73,6 +73,15 @@ class PageLinesOptionsArray {
 				'shortexp'	 	=> __( 'Places your Twitter feed in your site', 'pagelines' ),
 				'exp' 			=> __( 'This places your Twitter feed on the site. Leave blank if you want to hide or not use.', 'pagelines' )
 			),
+			'site-hashtag' => array(
+				'default' 		=> '',
+				'type' 			=> 'text',
+				'inputlabel' 	=> __( 'Your Website Hashtag', 'pagelines' ),
+				'title' 		=> __( 'Website Hashtag', 'pagelines' ),
+				'shortexp'	 	=> __( 'This hashtag will be used in social media (e.g. Twitter) and elsewhere to create feeds.', 'pagelines' ),
+				'exp' 			=> __( 'Having a hashtag can be useful in creating a common thread or feed in your social media efforts.', 'pagelines' )
+			),
+			
 			'pl_login_image'	=> array(
 				'version' 		=> 'pro',
 				'default' 		=> PL_ADMIN_IMAGES . "/login-pl.png",
@@ -595,7 +604,6 @@ class PageLinesOptionsArray {
 						'facebooklink'		=> array('inputlabel'=> __( 'Your Facebook Profile URL', 'pagelines' ), 'default'=> ''),
 						'twitterlink'		=> array('inputlabel'=> __( 'Your Twitter Profile URL', 'pagelines' ), 'default'=> ''),
 						'linkedinlink'		=> array('inputlabel'=> __( 'Your LinkedIn Profile URL', 'pagelines' ), 'default'=> ''),
-						'youtubelink'		=> array('inputlabel'=> __( 'Your YouTube Profile URL', 'pagelines' ), 'default'=> ''),
 					),
 					'title'		=> __( 'Social Icons', 'pagelines' ),
 					'shortexp'	=> __( 'Add social network profile icons to your header', 'pagelines' ),
@@ -774,7 +782,6 @@ class PageLinesOptionsArray {
 					'exp'		=> __( 'This option helps you control where post excerpts are displayed.<br/><br/> <strong>About:</strong> Excerpts are small summaries of articles filled out when creating a post.', 'pagelines' )
 			),
 			'pagetitles' => array(
-					'version'	=> 'pro',
 					'default'	=> '',
 					'type'		=> 'check',
 					'inputlabel'=> __( 'Automatically show Page titles?', 'pagelines' ),
@@ -782,6 +789,22 @@ class PageLinesOptionsArray {
 					'shortexp'	=> __( 'Show the title of pages above the page content.', 'pagelines' ),
 					'exp'		=> __( 'This option will automatically place page titles on all pages.', 'pagelines' )
 			),
+			
+			'social_shares' => array(
+					'type'		=> 'check_multi',
+					'selectvalues'	=> array(
+						'share_facebook'	=> array('inputlabel'=> __( 'Facebook', 'pagelines' ), 'default'=> true),
+						'share_twitter'		=> array('inputlabel'=> __( 'Twitter', 'pagelines' ), 'default'=> true),
+						'share_stumble'		=> array('inputlabel'=> __( 'StumbleUpon', 'pagelines' ), 'default'=> false, 'version' => 'pro'),
+						'share_google'		=> array('inputlabel'=> __( 'Google+', 'pagelines' ), 'default'=> true, 'version' => 'pro'),
+						'share_buffer'		=> array('inputlabel'=> __( 'Buffer', 'pagelines' ), 'default'=> false, 'version' => 'pro'),
+						'share_linkedin'	=> array('inputlabel'=> __( 'LinkedIn', 'pagelines' ), 'default'=> false, 'version' => 'pro'),
+					),
+					'inputlabel'=> __( 'Select Which Share Buttons To Show', 'pagelines' ),
+					'title'		=> __( 'Sharebar Social Sharing Buttons', 'pagelines' ),						
+					'shortexp'	=> __( 'Select Which To Show', 'pagelines' ),
+					'exp'		=> __( "Select which social sharing buttons you would like to use in your Sharebar.", 'pagelines' )
+		    ),
 			'continue_reading_text' => array(
 					'version'	=> 'pro',
 					'default'	=> 'Read Full Article &rarr;',
@@ -812,34 +835,6 @@ class PageLinesOptionsArray {
 					'exp'		=> __( 'Choose where the full content of posts is displayed. Choose between all posts pages or just single post pages (i.e. posts pages can just show excerpts or titles).', 'pagelines' )
 			),
 
-			'post_footer_social_text' => array(
-					'default'	=> 'If you enjoyed this article, please consider sharing it!',
-					'type'		=> 'text',
-					'inputlabel'=> __( 'Post Footer Social Links Text', 'pagelines' ),
-					'title'		=> __( 'Post Footer Social Links Text', 'pagelines' ),						
-					'shortexp'	=> __( 'The text next to your social icons', 'pagelines' ),
-					'exp'		=> __( "Set the text next to your social links shown on single post pages or on all" . 
-							 "posts pages if the post footer link is set to 'always sharing links'.", 'pagelines' )
-			),
-
-			'post_footer_share_links' => array(
-					'default'	=> '',
-					'type'		=> 'check_multi',
-					'selectvalues'	=> array(
-					
-						'share_facebook'	=> array('inputlabel'=> __( 'Facebook Sharing Icon', 'pagelines' ), 'default'=> true),
-						'share_twitter'		=> array('inputlabel'=> __( 'Twitter Sharing Icon', 'pagelines' ), 'default'=> true),
-						'share_delicious'	=> array('inputlabel'=> __( 'Del.icio.us Sharing Icon', 'pagelines' ), 'default'=> true),
-						'share_reddit'		=> array('inputlabel'=> __( 'Reddit Sharing Icon', 'pagelines' ), 'default'=> true),
-						'share_digg'		=> array('inputlabel'=> __( 'Digg Sharing Icon', 'pagelines' ), 'default'=> false),
-						'share_stumbleupon'	=> array('inputlabel'=> __( 'StumbleUpon Sharing Icon', 'pagelines' ), 'default'=> false)
-					),
-					'inputlabel'=> __( 'Select Which Share Links To Show', 'pagelines' ),
-					'title'		=> __( 'Post Footer Sharing Icons', 'pagelines' ),						
-					'shortexp'	=> __( 'Select Which To Show', 'pagelines' ),
-					'exp'		=> __( "Select which icons you would like to show in your post footer when sharing" . 
-							 "links are shown.", 'pagelines' )
-		    ), 
 			'excerpt_len' => array(
 					'version'	=> 'pro',
 					'default' 	=> 55,
