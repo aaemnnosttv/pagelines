@@ -199,17 +199,29 @@ class PageLinesCSS {
  *
  */
 function get_dynamic_css(){
+	
+	global $lesscode;
+	
+	$lesscode = apply_filters('pagelines_lesscode', $lesscode);
+	
+	$pless = new PagelinesLess();
+	
+	$pless->draw_less( $lesscode );
+	
+	
 	$pagelines_dynamic_css = new PageLinesCSS;
 	$pagelines_dynamic_css->create();
 	
 	$css = apply_filters('pl-dynamic-css', $pagelines_dynamic_css->css);
 	inline_css_markup('dynamic-css', $css);
+	
+
 }
 
 
 
 function inline_css_markup($id, $css, $echo = true){
-	$mark = sprintf('<style type="text/css" id="%3$s">%2$s %1$s %2$s</style>%2$s', $css, "\n", $id);
+	$mark = sprintf('%2$s<style type="text/css" id="%3$s">%2$s %1$s %2$s</style>%2$s', $css, "\n", $id);
 	
 	if($echo) 
 		echo $mark;

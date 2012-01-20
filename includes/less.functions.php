@@ -45,7 +45,8 @@ class PageLinesLess {
 		if($lesscode != ''){
 			
 			printf(
-				'<style type="text/css" id="pagelines-less-css" >%s</style>', 
+				'%1$s<style type="text/css" id="pagelines-less-css" >%2$s</style>%1$s', 
+				"\n",
 				plstrip( $this->parse($lesscode) )
 			);
 			

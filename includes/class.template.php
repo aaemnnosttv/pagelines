@@ -606,7 +606,7 @@ class PageLinesTemplate {
 	
 	function print_template_section_headers(){
 
-		$lesscode = '';
+	
 
 		if(is_array($this->allsections)){ 
 			
@@ -635,15 +635,7 @@ class PageLinesTemplate {
 					if( ($support && $support['disable_color']) || ( $s->sinfo['type'] == 'parent' && isset($disabled_settings['color_control']) ) ){
 						continue;
 					}
-							
 						
-					echo plstrip( $s->dynamic_style( $clone_id ) );
-					
-					/*
-					 * Less CSS
-					 */
-					if( file_exists( $s->base_dir . '/color.less' ) )
-						$lesscode .= pl_file_get_contents( $s->base_dir.'/color.less' );
 				
 					
 				}
@@ -734,6 +726,8 @@ class PageLinesTemplate {
 	 */
 	function print_template_section_styles(){
 	
+		global $lesscode;
+		
 		if(is_array($this->allsections) && !has_action('override_pagelines_css_output') ){
 			foreach($this->allsections as $section_slug){
 				
@@ -754,8 +748,18 @@ class PageLinesTemplate {
 					}
 					
 					
+					/*
+					 * Less CSS
+					 */
+					if( file_exists( $s->base_dir . '/color.less' ) )
+						$lesscode .= pl_file_get_contents( $s->base_dir.'/color.less' );
+
+				
 				}	
-			}	
+			}
+			
+			
+			
 		}
 	
 	}
