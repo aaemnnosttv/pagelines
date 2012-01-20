@@ -210,11 +210,13 @@
 			
 			if ( $tab === 'user' && ( $ext['type'] === 'custom' || $ext['type'] === 'parent' ) )
 				return false;
+			if ( $tab === 'user' && ( $ext['type'] != 'parent' && $ext['type'] != 'custom' ) )
+				return true;
 			elseif ( $tab === 'internal' && ( $ext['type'] === 'custom' || $ext['type'] === 'child' ) )
 				return false;
 			elseif ( $tab === 'internal' && ( ! VPRO && $ext['edition'] === 'pro' ) )
 				return false;				
-			elseif ( $tab === 'child' && ( $ext['type'] === 'child' || $ext['type'] === 'parent' ) )
+			elseif ( $tab === 'child' && $ext['type'] != 'custom' )
 				return false;
 			elseif ( $ext['type'] == 'parent' && $ext['class_exists'] )
 				return false;

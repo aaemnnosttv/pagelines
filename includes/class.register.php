@@ -52,7 +52,7 @@ class PageLinesRegister {
 			$section_dirs = array_merge( array( 'custom' => get_stylesheet_directory()  . '/sections' ), $section_dirs );
 
 		$section_dirs = apply_filters( 'pagelines_sections_dirs', $section_dirs );
-		
+
 		/**
 		* If cache exists load into $sections array
 		* If not populate array and prime cache
@@ -93,15 +93,14 @@ class PageLinesRegister {
 					* Checks to see if we are a child section, if so disable the parent
 					* Also if a parent section and disabled, skip.
 					*/
-
-					if ( ( $section['type'] == 'child' || $section['type'] == 'custom' ) && isset( $sections['parent'][$section['class']]) )					
+					if ( 'parent' != $section['type'] && isset( $sections['parent'][$section['class']]) )					
 						$disabled['parent'][$section['class']] = true;
 
 					if (isset( $disabled[$section['type']][$section['class']] ) )
 						continue;
 					
 					// consolidate array vars
-					$dep = ( ( $section['type'] == 'child' || $section['type'] == 'custom' ) && $section['depends'] != '') ? $section['depends'] : null;
+					$dep = ( 'parent' != $section['type'] && $section['depends'] != '') ? $section['depends'] : null;
 					$parent_dep = (isset($sections['parent'][$section['depends']])) ? $sections['parent'][$section['depends']] : null;
 
 					$dep_data = array(
@@ -147,7 +146,7 @@ class PageLinesRegister {
 	 **/
 	function pagelines_getsections( $dir, $type ) {
 
-		if ( ( $type == 'child' || $type == 'custom' ) && ! is_dir($dir) ) 
+		if ( 'parent' != $type && ! is_dir($dir) ) 
 			return;			
 
 		$default_headers = array(
@@ -199,9 +198,33 @@ class PageLinesRegister {
 
 				$base_dir = get_template_directory()  . '/sections' . $folder;
 
-				if ( $type == 'child' || $type == 'custom' ) {
-					$base_url = ( $type == 'child' ) ? PL_EXTEND_URL . $folder : get_stylesheet_directory_uri()  . '/sections' . $folder;
-					$base_dir = ( $type == 'child' ) ? PL_EXTEND_DIR . $folder : get_stylesheet_directory()  . '/sections' . $folder;
+				if ( 'child' == $type ) {
+					
+					$base_url =  PL_EXTEND_URL . $folder;
+					$base_dir =  PL_EXTEND_DIR . $folder;
+					
+				}
+
+				if ( 'custom' == $type ) {
+					
+					$base_url =  get_stylesheet_directory_uri()  . '/sections' . $folder;
+					$base_dir =  PL_EXTEND_DIR . get_stylesheet_directory()  . '/sections' . $folder;
+					
+				}
+				
+				/*
+				* Look for custom dirs.
+				*/
+				if ( 'custom' != $type && 'child' != $type && 'parent' != $type ) {
+
+					// prepare url
+					$file = basename( $dir );
+					$path = plugin_dir_path( $file );
+					$url = plugins_url( $file );
+					
+					$base_url = sprintf( '%s/sections%s', $url, $folder );
+					$base_dir =  sprintf( '%ssections%s', $dir, $folder );;
+					
 				}
 				
 				$base_dir = ( isset( $base_dir ) ) ? $base_dir : PL_SECTIONS . $folder;
