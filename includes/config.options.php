@@ -378,13 +378,6 @@ class PageLinesOptionsArray {
 					),
 				),
 			),
-			'disable_text_shadow' => array(
-				'title' 		=> __( 'Disable Text Emboss Effect (Text Shadow)', 'pagelines' ),						
-				'shortexp' 		=> __( 'Check this option to disable generated text shadows.', 'pagelines' ),
-				'exp' 			=> __( 'By default PageLines generates text shadows designed to create an embossing effect. If you want to disable this, simply check this option.', 'pagelines' ),
-				'type' 			=> 'check',
-				'inputlabel'	=> 'Disable Text Shadows'
-			),
 			'canvas_shadow' => array(
 				'title' 		=> __( 'Enable Content Shadow (Fixed Width Mode Only)', 'pagelines' ),						
 				'shortexp' 		=> __( 'Adds a shadow on the fixed width content area for a little style.', 'pagelines' ),

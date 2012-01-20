@@ -12,10 +12,17 @@
 ********************************************************
 
 
+Version 2.1.0
+	- Improved navigation search
+	- Color handling system
+	- Meta defaults
+	- Updates LESS system
+-------------------------------------
+
 Version 2.0.2
 	- Template Name Convention Change
 	- Modifications for free version
-------------------------------------- Date: 
+------------------------------------- 
 
 Version 2.0.1
 	- Feature Section

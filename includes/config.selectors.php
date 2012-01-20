@@ -67,60 +67,60 @@ class PageLinesCSSGroups{
 		/**
 		 * Box & Element Colors
 		 */
-		$s['box_color_primary'] = '.bc1, .cnt-comments a, #wp-calendar caption, input, textarea, .searchform .searchfield, .wp-caption, .commentlist .alt, #wp-calendar #today, .post-nav, .current_posts_info, .post-footer, .success,  .content-pagination a .cp-num, .hentry table .alternate td, .playpause, #page .wp-pagenavi a';
+		$s['box_color_primary'] = '';
 
-		$s['box_color_secondary'] = '.bc2, .cnt-comments a:hover, #wp-calendar thead th, .item-avatar a, .comment blockquote, #page .wp-pagenavi a:hover, #page .wp-pagenavi .extend, .content-pagination .cp-num, .content-pagination a:hover .cp-num, ins';
+		$s['box_color_secondary'] = '';
 
-		$s['box_color_tertiary'] = '.bc3, #page .wp-pagenavi .current, .alt #commentform textarea';
+		$s['box_color_tertiary'] = '';
 
-		$s['box_color_lighter'] = '.post-meta .c_img';
+		$s['box_color_lighter'] = '';
 
 		/**
 		 * Border Colors
 		 */
-		$s['border_layout'] = 'hr, .fpost, .clip_box, .widget-title, .metabar a, #morefoot .widget-title, #site #dsq-content h3, .navigation_wrap, .setup_area, .fpost .post-thumb img, .clip .clip-thumb img, .author-thumb img';
-		$s['border_layout_darker'] = '.bldrk';
-		$s['border_layout_lighter'] = '.bllt';
+		$s['border_layout'] = '';
+		$s['border_layout_darker'] = '';
+		$s['border_layout_lighter'] = '';
 		
-		$s['border_primary'] = 'blockquote, input, textarea, .searchform .searchfield, .wp-caption, #soapbox .fboxinfo, .post-meta .c_img';
-		$s['border_primary_darker'] = '.bpdrk';
-		$s['border_primary_lighter'] = '.bplt';
+		$s['border_primary'] = '';
+		$s['border_primary_darker'] = '';
+		$s['border_primary_lighter'] = '';
 
 		$s['border_secondary'] = '';
 
-		$s['border_tertiary'] = 'textarea:focus';
+		$s['border_tertiary'] = '';
 
-		$s['border_primary_shadow'] = '.bc1s, input, textarea, .searchform .searchfield, .wp-caption, fpost .post-thumb img, .clip .clip-thumb img, .author-thumb img';
+		$s['border_primary_shadow'] = '';
 
-		$s['border_primary_highlight'] = '.bc1h, .bhighlight';
+		$s['border_primary_highlight'] = '';
 
 		/**
 		 * Text Colors
 		 */
-		$s['headercolor'] = 'h1, h2, h3, h4, h5, h6, h1 a, h2 a, h3 a, h4 a, h5 a, h6 a, a.site-title, .entry-title a, .entry-title a:hover, .widget-title a:hover, h3.widget-title a:hover';
+		$s['headercolor'] = '';
 
-		$s['text_primary'] = '.tc1, .t1, .t1 a,  body #page .t1:hover, #page, .tcolor1, #subnav ul li a:active, .commentlist cite a, .metabar a:hover, .post-nav a:hover, .post-footer a, #site #dsq-content .dsq-request-user-info td a, #page .wp-pagenavi a:hover, #page .wp-pagenavi .current,  .content-pagination a:hover .cp-num';
+		$s['text_primary'] = '';
 
-		$s['text_secondary'] = '.tc2, .t2, .cnt-comments a, .cnt-comments a:hover, .tcolor2, .lcolor2 a, .subhead, .widget-title, #branding .site-description, #callout, #commentform .required, #postauthor .subtext, #page .wp-pagenavi span.pages, .commentlist .comment-meta  a, .content-pagination span, .content-pagination a .cp-num, .comment.alt .comment-author, .tcolor3, .lcolor3 a, .main_nav a, .widget-title a, h3.widget-title a, #subnav_row li a, .metabar em, .metabar a, .tags, #commentform label, .form-allowed-tags code, .rss-date, .comment.alt, .reply a,  .post-footer, .auxilary a, .cform .emailreqtxt,.cform .reqtxt, #page .wp-pagenavi a, #page .wp-pagenavi .current, #page .wp-pagenavi .extend';
+		$s['text_secondary'] = '';
 
 		$s['text_tertiary'] = '.tc3, .t3';
 
-		$s['text_box'] = '.post-nav a, .post-nav a:visited, #wp-calendar caption, .searchform .searchfield, .main_nav .current-menu-item a, .main_nav li a:hover, .main_nav li a:hover, #wp-calendar thead th, textarea';
+		$s['text_box'] = '';
 
 		$s['text_box_secondary'] = '';
 
-		$s['linkcolor'] = 'a, #subnav_row li.current_page_item a, #subnav_row li a:hover, .branding h1 a:hover';
+		$s['linkcolor'] = '';
 
-		$s['linkcolor_hover'] = 'a:hover, .commentlist cite a:hover, .headline h1 a:hover';
+		$s['linkcolor_hover'] = '';
 
-		$s['footer_text'] = '#footer, #footer li.link-list a, #footer .latest_posts li .list-excerpt';
-		$s['footer_highlight'] = '#footer a, #footer .widget-title,  #footer li h5 a';
+		$s['footer_text'] = '';
+		$s['footer_highlight'] = '';
 
 		/**
 		 * Text Shadows & Effects 
 		 */
 		$s['text_shadow_color']	= '';
-		$s['footer_text_shadow_color'] = '#footer, .fixed_width #footer';
+		$s['footer_text_shadow_color'] = '';
 
 		/**
 		 * Typography 

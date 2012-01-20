@@ -43,4 +43,4 @@ $GLOBALS['pl_section_factory'] = new PageLinesSectionFactory();
  * @global object $css_factory
  * @since 2.0.b6
  */
-$GLOBALS['css_factory'] = array();
+$GLOBALS['css_factory'] = array( );

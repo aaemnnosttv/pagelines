@@ -488,8 +488,9 @@ function do_color_math($oid, $o, $val, $format = 'css'){
 					
 				if($k['mode'] == 'shadow'){
 					
-					if( ploption('disable_text_shadow') )
-						return;
+					//if( ploption('disable_text_shadow') )
+					
+					return;
 					
 					$difference =  ($math->get_hsl($mix_color, 'lightness') - $math->base_hsl['lightness']);
 			
@@ -505,14 +506,28 @@ function do_color_math($oid, $o, $val, $format = 'css'){
 				$color = $math->get_color($k['mode'], $difference, null, $id);
 
 			$css = new PageLinesCSS;
-		
-			$cssgroup = $k['cssgroup'];
+
+			if(isset($o['selectors']) && $o['selectors'] != ''){
+				
+				$output .= $css->load_the_props( $k['css_prop'], '#'.$color );
+				
+			} else {
 			
-			if(is_array($cssgroup))
-				foreach($cssgroup as $cgroup)
-					$css->set_factory_key($cgroup, $css->load_the_props( $k['css_prop'], '#'.$color ));
-			else
-				$css->set_factory_key($cssgroup, $css->load_the_props( $k['css_prop'], '#'.$color ));
+				// If using cssgroups
+				
+
+				$cssgroup = $k['cssgroup'];
+
+				if(is_array($cssgroup))
+					foreach($cssgroup as $cgroup)
+						$css->set_factory_key($cgroup, $css->load_the_props( $k['css_prop'], '#'.$color ));
+				else
+					$css->set_factory_key($cssgroup, $css->load_the_props( $k['css_prop'], '#'.$color ));
+				
+				
+			}
+			
+			
 			
 			// Recursion
 			if( isset($k['math']) )

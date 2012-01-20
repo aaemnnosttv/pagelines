@@ -90,9 +90,23 @@ class PageLinesCSS {
 					
 					foreach($o['selectvalues'] as $mid => $m){			
 						
-						$cgroup = (isset($m['cssgroup'])) ? $m['cssgroup'] : null;
-						$cprop = (isset($m['css_prop'])) ? $m['css_prop'] : null;
-						$this->render_css_colors($mid, $m, $cgroup, $cprop );
+						$cprop = (isset($m['css_prop'])) ? $m['css_prop'] : 'color';
+						
+						if( $m['val'] != '' && isset($m['selectors']) && $m['selectors'] != ''){
+							
+							$rules = $this->load_the_props( $cprop, $m['val'] );
+							
+							$rules .= do_color_math($mid, $m, $m['val']);
+							
+							$css .= sprintf('%s %s{%s} /* %s */ %s %s', "\n", $m['selectors'], $rules, $mid, "\n", "\n" );
+							
+						} else {
+							
+							$cgroup = (isset($m['cssgroup'])) ? $m['cssgroup'] : null;
+							$cprop = (isset($m['css_prop'])) ? $m['css_prop'] : null;
+							$this->render_css_colors($mid, $m, $cgroup, $cprop );
+							
+						}
 					}
 				}
 				
@@ -163,9 +177,14 @@ class PageLinesCSS {
 		global $css_factory;
 		
 		$output = '';
-		foreach( $css_factory as $cssgroup => $props)
-			$output .= sprintf('%s{%s}', cssgroup($cssgroup), $props);
-	
+		foreach( $css_factory as $cssgroup => $props){
+		
+			$selectors = cssgroup($cssgroup);
+			
+			if($selectors != '')
+				$output .= sprintf('%s{%s}', $selectors, $props);
+		
+		}
 		return $output;
 	}
 

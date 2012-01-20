@@ -257,16 +257,32 @@ body{font-size: 87.5%; line-height: 1.71em;height:100%;}
 		margin: 3px 5px 3px 0;
 		display: inline-block;
 	}
+	
 	.searchform .searchfield{
-		width: 150px;
+		width: 100px;
 		height: 13px;
-		padding: 7px 30px 5px 7px;
-	}
+		padding: 5px 5px 5px 28px;
+		float:right;
+		background:url(images/search-btn.png) no-repeat 5px 50%;
+		-webkit-border-radius: 13px;
+		-moz-border-radius: 13px;
+		border-radius: 13px;
+		-webkit-transition: .7s;
+		-moz-transition: .7s;
+		-o-transition: .7s;
+		transition: .7s;
+	}	
+		.searchform .searchfield:focus{
+			width: 150px;
+		}
+		#notfound .searchfield{
+			float: none;
+		}
 	
 	.navigation_wrap .searchform { 
 		position: absolute;
-		right: 5px;
-		bottom: 3px;
+		right: 3px;
+		bottom: 2px;
 	}
 	
 	.searchform input {

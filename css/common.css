@@ -57,6 +57,10 @@ textarea {
 	display: block;
 }
 
+#page :-moz-placeholder {
+   color: rgba(128, 128, 128, .5);
+}
+
 /* @ Submits & Others Buttons */
 input[type="submit"], .submit, input[type="button"], .button, input[type="reset"], .reset{
 	padding: 4px 9px;

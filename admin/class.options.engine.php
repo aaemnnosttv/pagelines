@@ -1032,13 +1032,17 @@ class OptEngine {
 		else 
 			$per_row = 3;
 		
+		$count = 1;
 		foreach($o['selectvalues'] as $mid => $m){
 
-			$last = (end($o['selectvalues']) == $m) ? true : false;
+			$end_row = ($count % $per_row == 0) ? true : false;
+
+			$last = (end($o['selectvalues']) == $m || $end_row) ? true : false;
 				
 			if( !isset($m['version']) || (isset($m['version']) && $m['version'] != 'pro') || (isset($m['version']) && $m['version'] == 'pro' && VPRO ))
 				$this->_get_color_picker($mid, $m, $per_row, $last);
 
+			$count++;
 		}
 
 	}
