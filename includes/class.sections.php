@@ -99,12 +99,20 @@ class PageLinesSection {
 		
 		if ( isset( $available['custom'][$this->class_name] ) )
 			return 'custom';		
-		
-		if ( isset( $available['child'][$this->class_name] ) )
+		elseif ( isset( $available['child'][$this->class_name] ) )
 			return 'child';
-
-		if ( isset( $available['parent'][$this->class_name] ) )
+		elseif ( isset( $available['parent'][$this->class_name] ) )
 			return 'parent';
+		else {
+			
+			/** 
+			 * We dont know the type, could be a 3rd party plugin.
+			 */
+			$results = array_search_ext($available, $this->class_name, true);
+			if ( is_array( $results ) && isset( $results[0]['keys']))
+				return $results[0]['keys'][0];
+		}
+			
 	}
 
 	/** 

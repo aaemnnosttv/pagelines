@@ -150,14 +150,19 @@ class PageLinesFeatures extends PageLinesSection {
 
 		$limit = ploption('feature_items', $this->oset);
 		
+		$order = ploption('feature_order', $this->oset);
+		
 		$orderby = ploption('feature_orderby', $this->oset);
 		
 		$source = ( ploption('feature_source', $this->oset) == 'posts' || ploption('feature_source', $this->oset) == 'posts_all') ? ploption('feature_source', $this->oset) : 'customtype';	
 	
 		$category = ( $source == 'posts' ) ? ploption('feature_category', $this->oset) : '';	
 		
-		$f = $this->load_pagelines_features( array( 'set' => $this->set, 'limit' => $limit, 'orderby' => $orderby, 'source' => $source, 'category' => $category ) ); 
-	
+		
+		
+		$f = $this->load_pagelines_features( array( 'set' => $this->set, 'limit' => $limit, 'orderby' => $orderby, 'order' => $order, 'source' => $source, 'category' => $category ) ); 
+		
+		
 		return $f;		
 	}
 	
@@ -167,6 +172,7 @@ class PageLinesFeatures extends PageLinesSection {
 			'query'		=>	array(),
 			'set'		=>	null,
 			'limit'		=>	null,
+			'order'		=>	'DESC',
 			'orderby'	=>	'ID',
 			'source'	=>	null,
 			'category'	=>	null
@@ -175,9 +181,9 @@ class PageLinesFeatures extends PageLinesSection {
 		$args = wp_parse_args( $args, $defaults );
 		extract( $args, EXTR_SKIP );
 
-		$query['orderby']	= ( $orderby == 'rand' ) ? $orderby : 'ID';
+		$query['orderby']	= $orderby;
 
-		$query['order']		= ( $orderby == 'ASC' || $orderby == 'DESC') ? $orderby : 'DESC';
+		$query['order']		= $order;
 	
 		if($source == 'posts' || $source == 'posts_all' ){
 		
@@ -197,7 +203,7 @@ class PageLinesFeatures extends PageLinesSection {
 			$query['showposts'] = $limit; 
 
 		$q = new WP_Query($query);
-	
+		
 		if( is_array( $q->posts ) ) 
 			return $q->posts;
 		else 
@@ -209,7 +215,7 @@ class PageLinesFeatures extends PageLinesSection {
 	// Setup 
 		global $post; 
 		global $pagelines_ID;
-		global $pagelines_layout; 
+		global $pagelines_layout;
 		$current_page_post = $post;
 		
 		if ( post_password_required() )
@@ -219,7 +225,7 @@ class PageLinesFeatures extends PageLinesSection {
 			echo setup_section_notify($this, __('No Feature posts matched this page\'s criteria', 'pagelines') );
 			return;
 		}
-		
+
 	// Options 
 		$feature_source = ploption('feature_source', $this->oset);
 		$timeout = ploption('timeout', $this->oset);
@@ -273,7 +279,7 @@ class PageLinesFeatures extends PageLinesSection {
 							
 						$feature_design = (ploption( 'feature-design', $oset)) ? ploption('feature-design', $oset) : '';
 						
-						if ( $feature_source == 'posts' )
+						if ( $feature_source == 'posts' || $feature_source == 'posts_all' )
 							setup_postdata( $post );
 						
 						$action = ( $feature_source == 'posts' || $feature_source == 'posts_all' ) ? get_permalink() : ploption('feature-link-url', $oset);
@@ -306,9 +312,11 @@ class PageLinesFeatures extends PageLinesSection {
 													
 													pagelines_register_hook( 'pagelines_feature_text_top', $this->id ); // Hook 
 													
-													$title = sprintf('<div class="fheading"> <h2 class="ftitle">%s</h2> </div>', $post->post_title);
+													$link = ( $feature_source == 'posts' || $feature_source == 'posts_all' ) ? sprintf( '<a href="%s">%s</a>', $action, $post->post_title ) : $post->post_title;
 													
-													$content = ($feature_source == 'posts') ? apply_filters( 'pagelines_feature_output', custom_trim_excerpt(get_the_excerpt(), '30')) : get_the_content(); 
+													$title = sprintf('<div class="fheading"> <h2 class="ftitle">%s</h2> </div>', $link);
+													
+													$content = ( $feature_source == 'posts' || $feature_source == 'posts_all' ) ? apply_filters( 'pagelines_feature_output', custom_trim_excerpt(get_the_excerpt(), '30')) : get_the_content(); 
 											
 													printf(
 														'%s<div class="ftext"><div class="fexcerpt">%s%s%s</div></div>', 
@@ -352,6 +360,7 @@ class PageLinesFeatures extends PageLinesSection {
 					endforeach; 
 							
 					$post = $current_page_post;
+
 				 ?>
 		
 			</div>
@@ -540,15 +549,31 @@ class PageLinesFeatures extends PageLinesSection {
 							'type' => 'select',
 							'selectvalues' => array(
 								'ID' 		=> array('name' => 'Post ID (default)'),
-								'DESC' 		=> array('name' => 'Descending'),
-								'ASC' 		=> array('name' => 'Ascending'),
-								'rand' 		=> array('name' => 'Random'),								
+								'title' 		=> array('name' => 'Title'),
+								'date' 		=> array('name' => 'Date'),
+								'modified' 		=> array('name' => 'Last Modified'),
+								'rand' 		=> array('name' => 'Random'),							
 							),
 							'inputlabel' => 'Select sort order',
 							'title' => 'Feature Post sort order',
 							'shortexp' => 'How will the features be sorted.',
 							'exp' => "By default the feature section will sort by post ID."
-						),	
+						),
+						
+					'feature_order' => array(
+							'default' => 'DESC',
+							'version'	=> 'pro',
+							'type' => 'select',
+							'selectvalues' => array(
+								'DESC' 		=> array('name' => 'Descending'),
+								'ASC' 		=> array('name' => 'Ascending'),
+							),
+							'inputlabel' => 'Select sort order',
+							'title' => 'Feature Post sort order',
+							'shortexp' => 'How will the features be sorted.',
+							'exp' => "By default the feature section will sort by descending order ID."
+						),
+
 					'feature_set' => array(
 						'version' 		=> 'pro',
 						'default'		=> 'default-features',
