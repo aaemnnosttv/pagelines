@@ -208,7 +208,7 @@ class PageLinesRegister {
 				if ( 'custom' == $type ) {
 					
 					$base_url =  get_stylesheet_directory_uri()  . '/sections' . $folder;
-					$base_dir =  PL_EXTEND_DIR . get_stylesheet_directory()  . '/sections' . $folder;
+					$base_dir =  get_stylesheet_directory()  . '/sections' . $folder;
 					
 				}
 				

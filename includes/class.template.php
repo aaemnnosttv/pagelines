@@ -745,7 +745,6 @@ class PageLinesTemplate {
 					$s = $this->factory[$p['section']];
 					
 					$s->section_styles();
-					
 					// Auto load style.css for simplicity if its there.
 					if( file_exists( $s->base_dir . '/style.css' ) ){
 						
