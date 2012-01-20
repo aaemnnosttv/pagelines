@@ -29,4 +29,3 @@ function cmath( $color ) {
 	_deprecated_function( __FUNCTION__, '2.0', 'loadmath' );
 	return new PageLinesColor( $color );
 }
-

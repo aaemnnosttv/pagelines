@@ -4,4 +4,3 @@
 */
 
 setup_pagelines_template();
-	

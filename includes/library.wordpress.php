@@ -52,5 +52,4 @@ function pl_fix_admin_favicon( ){
 	$css = sprintf('#wphead #header-logo{background: url(%s) no-repeat scroll center center;}', $image_url);
 	
 	inline_css_markup('pagelines-wphead-img', $css);
-
 }

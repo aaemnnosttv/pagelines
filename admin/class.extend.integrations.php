@@ -137,9 +137,5 @@ function handle_integrations_meta(){
 		
 	}
 	
-	return $ints;
-	
+	return $ints;	
 }
-
-
-

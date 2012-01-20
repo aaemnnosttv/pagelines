@@ -582,6 +582,3 @@ function setmath($type, $option = null, $oset = array()){
 	return loadmath( $color );
 	
 }
-
-
-

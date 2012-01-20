@@ -1396,9 +1396,3 @@ class OptEngine {
 	}	
 
 } // End of Class
-
-
-
-
-
-

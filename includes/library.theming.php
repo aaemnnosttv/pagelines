@@ -135,6 +135,4 @@ function pl_welcome_plugins( $args ){
 	$plugin = wp_parse_args($args, $default);
 
 	$pl_welcome_plugins[]  = $plugin;
-	
-	
 }

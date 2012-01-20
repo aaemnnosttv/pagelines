@@ -53,5 +53,4 @@ function pl_strip_only($str, $tags, $stripContent = false) {
 		$str = preg_replace('#</?'.$tag.'[^>]*>'.$content.'#is', '', $str);
 	}
 	return $str;
-	
 }

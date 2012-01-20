@@ -89,9 +89,6 @@ class PageLinesCallout extends PageLinesSection {
 		} else
 			echo setup_section_notify($this, __('Set Callout meta fields to activate.', 'pagelines') );
 	}
-
-
-
 }
 /*
 	End of section class

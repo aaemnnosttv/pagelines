@@ -77,9 +77,6 @@ class PageLinesNav extends PageLinesSection {
 					'location' => 'footer'
 					),
 					
-			);
-		
+			);	
 	}
-
-
 }

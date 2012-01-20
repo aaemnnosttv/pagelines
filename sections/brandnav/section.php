@@ -60,5 +60,4 @@ class PageLinesBrandNav extends PageLinesNav {
 		 	wp_enqueue_style( 'superfish' );
 		}
 	}
-
 } /* End of section class - No closing tag needed */

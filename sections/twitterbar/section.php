@@ -27,10 +27,7 @@ class PageLinesTwitterBar extends PageLinesSection {
 			$account
 		);
 	
-		printf('<div class="tbubble"><div class="tbubble-pad">%s</div></div>', $twitter);
-		
-		
-		
+		printf('<div class="tbubble"><div class="tbubble-pad">%s</div></div>', $twitter);	
 	}
 }
 /*

@@ -68,10 +68,7 @@ class PageLinesBranding extends PageLinesSection {
 <?php 	
 				
 		}
-
-
 }
-
 /*
 	End of section class
 */

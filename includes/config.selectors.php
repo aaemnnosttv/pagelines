@@ -179,8 +179,5 @@ function pl_add_selectors( $group, $selectors ){
 
 	global $add_selectors;
 	
-	$add_selectors[] = array( 'group' => $group, 'sel' => $selectors);
-
-	
+	$add_selectors[] = array( 'group' => $group, 'sel' => $selectors);	
 }
-

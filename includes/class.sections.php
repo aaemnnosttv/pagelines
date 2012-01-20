@@ -447,6 +447,3 @@ function splice_section_slug( $slug ){
 	
 	return array('section' => $section, 'clone_id' => $clone_id);
 }
-
-
-

@@ -63,7 +63,4 @@ if(VPRO && class_exists('WP_Widget')){
 		
 		
 	register_widget('PageLines_GrandChild');
-
 }
-
-

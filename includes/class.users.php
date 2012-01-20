@@ -11,11 +11,7 @@
  */
 class UserEngine {
 
-
-	function __construct( array $settings = array() ) { 
-
-		
-	}
+	function __construct( array $settings = array() ) {}
 
 	function get_users( $args ){
 		$additional_defaults = array(

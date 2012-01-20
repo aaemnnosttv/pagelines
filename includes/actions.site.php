@@ -1,6 +1,5 @@
 <?php
 
-
 global $pagelines_template;
 
 // ===================================================================================================
@@ -114,4 +113,3 @@ function gallery_filter( $a, $template_name) {
 	else
 		return false;
 }
-

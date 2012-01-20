@@ -13,7 +13,6 @@
  */
 require_once ( PL_ADMIN . '/paths.admin.php' );
 
-
 /**
  * Load Drag and Drop UI
  */
@@ -80,9 +79,6 @@ require_once ( PL_ADMIN . '/class.extend.plugins.php' );
 require_once ( PL_ADMIN . '/class.extend.sections.php' );
 $extension_control = new PagelinesExtensions;
 
-
-
-
 /**
  * Load admin actions
  */
@@ -92,4 +88,3 @@ require_once (PL_ADMIN.'/actions.admin.php');
  * Load option actions
  */
 require_once (PL_ADMIN.'/actions.options.php');
-

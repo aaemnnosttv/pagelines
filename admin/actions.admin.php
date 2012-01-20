@@ -8,8 +8,6 @@
  */
 if( is_admin() && isset($_GET['activated'] ) && $pagenow == "themes.php" )
 	wp_redirect( admin_url( 'admin.php?page=pagelines&activated=true&pageaction=activated' ) );
-	
-
 
 /**
  * Add Javascript for Layout Controls from the Layout UI class
@@ -182,4 +180,4 @@ add_action( 'admin_init', 'pagelines_inline_help' );
 function pagelines_inline_help() {
 	
 	$pl_help = new PageLines_Inline_Help;
-}	
+}

@@ -220,7 +220,5 @@ function inline_css_markup($id, $css, $echo = true){
 	if($echo) 
 		echo $mark;
 	else
-		return $mark;
-	
+		return $mark;	
 }
-

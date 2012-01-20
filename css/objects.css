@@ -247,4 +247,3 @@ body #page .blink-wrap	.blink{
 
 #supersized { position:fixed; left:0; top:0; overflow:hidden; z-index:-999; height:100%; width:100%; }
 #supersized img{ height:auto; width:auto; position:relative; outline:none; border:none; -ms-interpolation-mode:bicubic; image-rendering: optimizeQuality; }
-

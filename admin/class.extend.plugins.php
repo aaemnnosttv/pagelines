@@ -129,6 +129,5 @@ class ExtensionPlugins extends PageLinesExtensions {
 			$r['body']['plugins'] = serialize( $plugins );	
 		}
 		return $r;		
-	}
-	
+	}	
 }

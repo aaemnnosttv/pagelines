@@ -11,7 +11,6 @@
  *
  */
 
-
 class PageLinesExtendUI {
 	
 
@@ -588,9 +587,6 @@ function store_subtabs( $type ){
 				$s[$key]['callback'] 	= $extension_control->extension_engine( $type, $key );
 		}
 	}
-	
-	
-	return $s;
-	
-}
 
+	return $s;	
+}

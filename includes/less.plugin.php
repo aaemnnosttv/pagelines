@@ -2236,4 +2236,3 @@ class lessc {
 		'yellowgreen' => '154,205,50'
 	);
 }
-
