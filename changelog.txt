@@ -13,10 +13,12 @@
 
 
 Version 2.1.0
-	- Improved navigation search
-	- Color handling system
-	- Meta defaults
-	- Updates LESS system
+	- NEW Sharebar rewrite to use buttons
+	- NEW Hashtag option
+	- NEW Dynamic search field
+	- CORE - Color handling system
+	- CORE - Meta defaults
+	- CORE - Updates LESS system
 -------------------------------------
 
 Version 2.0.2

@@ -224,14 +224,6 @@ letter-spacing:0px;
 text-transform: none;
 }
 
-.post-footer .right {
-	float: left;
-}
-
-.post-footer .left {
-	float: right;
-}
-
 .form-allowed-tags code {
 	direction: ltr;
 	text-align: left;

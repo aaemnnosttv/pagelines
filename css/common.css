@@ -14,10 +14,11 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 	a:focus{outline:1px dotted invert;}
 	input::-moz-focus-inner { border: 0; } 
 	hr{border:0 transparent solid;border-bottom-width:1px;clear:both;height:0}
-	ol{list-style:decimal}
-	ol ol{list-style:lower-roman}
-	ol ol ol{list-style:lower-alpha}
-	ul{list-style:square;}
+	ol,ul{list-style-type:none}
+	.content ol{list-style:decimal}
+	.content ol ol{list-style:lower-roman}
+	.content ol ol ol{list-style:lower-alpha}
+	.content ul{list-style:disc;}
 	dt {font-weight:bold;}
 	dd {font-style: italic;}
 	sup {font-size:.7em;vertical-align: top;vertical-align:super;}

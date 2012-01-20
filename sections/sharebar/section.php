@@ -6,60 +6,98 @@
 	Description: Adds ways to share content on pages/single posts
 	Class Name: PageLinesShareBar
 	Workswith: main
-	Failswith: pagelines_special_pages()
+	Failswith: pagelines_special_pages() 
+	Cloning: true
 */
 
 class PageLinesShareBar extends PageLinesSection {
 		
    function section_template() { 
-	$sharepre  = '';
-	$sharepost = '';
-	global $post; ?>
-	<div class="post-footer">
-		<div class="post-footer-pad">
-		<div class="left"><?php echo ploption('post_footer_social_text');?></div>
-			<div class="right">
-				<?php 
-					$upermalink = urlencode( get_permalink( $post->ID ) );
-					$utitle = urlencode( strip_tags( get_the_title() ) );
-					
-					$string = '<a class="sharelink" href="%s" title="%s" rel="nofollow" target="_blank"><img src="%s" alt="%s" /></a>';
-					
-					echo apply_filters( 'pagelines_before_sharebar', $sharepre ); // Hook
-					
-				if(ploption('share_reddit')){
-					$url = sprintf('http://reddit.com/submit?phase=2&amp;url=%s&amp;title=%s', $upermalink, $utitle);
-					printf($string, $url, __('Share on Reddit', 'pagelines'), $this->base_url.'/reddit.png', 'Reddit');
-				}
-				
-				if(ploption('share_facebook')){
-					$url = sprintf('http://www.facebook.com/sharer.php?u=%s&amp;t=%s', $upermalink, $utitle);
-					printf($string, $url, __('Share on Facebook', 'pagelines'), $this->base_url.'/facebook.png', 'Facebook');
-				}
-				
-				if(ploption('share_twitter')){
-					$url = sprintf('http://twitter.com/?status=%s', pagelines_format_tweet( get_the_title(), get_permalink( $post->ID ) ) );
-					printf($string, $url, __('Share on Twitter', 'pagelines'), $this->base_url.'/twitter.png', 'Twitter');
-				}
-				
-				if(ploption('share_delicious')){
-					$url = sprintf('http://del.icio.us/post?url=%s&amp;title=%s', $upermalink, $utitle);
-					printf($string, $url, __('Share on Delicious', 'pagelines'), $this->base_url.'/delicious.png', 'Delicious');
-				}
-				
-				if(ploption('share_stumbleupon')){
-					$url = sprintf('http://www.stumbleupon.com/submit?url=%s&amp;title=%s', $upermalink, $utitle);
-					printf($string, $url, __('Share on StumbleUpon', 'pagelines'), $this->base_url.'/stumble.png', 'StumbleUpon');
-				}
-				
-				if(ploption('share_digg')){
-					$url = sprintf('http://digg.com/submit?phase=2&amp;url=%s&amp;title=%s', $upermalink, $utitle);
-					printf($string, $url, __('Share on Digg', 'pagelines'), $this->base_url.'/digg.png', 'Digg');
-				}
-				
-				echo apply_filters( 'pagelines_after_sharebar', $sharepost ); // Hook
-					?>
+	
+	global $post; 
+	
+	$perm = get_permalink($post->ID);
+	$hash = ploption('site-hashtag');
+	$twitter_handle = ploption('twittername');
+	$title = get_the_title();
+	$text = __('Share &rarr;', 'pagelines');
+	
+	?>
+	<div class="pl-sharebar">
+		<div class="pl-sharebar-pad media">
+			<div class="img">
+			<?php 
+				printf('<em class="pl-sharebar-text">%s</em>', $text); 
+			?>
+			
 			</div>
+			<div class="bd">
+				<?php 
+				
+				if(ploption('share_facebook')):
+					// Facebook
+					printf('<div class="fb-like" data-href="%s" data-send="false" data-layout="button_count" data-width="90" data-show-faces="false" data-font="arial" style="vertical-align: top"></div>', $perm);
+				
+				endif;
+			
+				if(ploption('share_google')):
+				
+					// G+
+					printf('<div class="g-plusone" data-size="medium" data-width="80" data-href="%s"></div>', $perm);
+			
+				?>
+				<!-- Place this render call where appropriate -->
+				<script type="text/javascript">
+				  (function() {
+				    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+				    po.src = 'https://apis.google.com/js/plusone.js';
+				    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+				  })();
+				</script>
+			
+				<?php endif;
+				
+				if(ploption('share_twitter')):
+					// Twitter
+					printf('<a href="https://twitter.com/share" class="twitter-share-button" data-url="%s" data-via="%s" data-hashtags="%s">Tweet</a>', $perm, $twitter_handle, $hash);
+				
+				?>
+				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+			
+				<?php 
+			
+				endif; 
+				
+				if(ploption('share_buffer')):
+					// Buffer
+					printf('<a href="http://bufferapp.com/add" class="buffer-add-button" data-text="hello" data-url="%s" data-count="horizontal" data-via="%s">Buffer</a><script type="text/javascript" src="http://static.bufferapp.com/js/button.js"></script>', $perm, $title, $twitter_handle);
+			
+				endif;
+				
+				if(ploption('share_stumble')):
+				?>
+			
+				<su:badge layout="2" ></su:badge>
+
+				 <script type="text/javascript"> 
+				 (function() { 
+				     var li = document.createElement('script'); li.type = 'text/javascript'; li.async = true; 
+				      li.src = 'https://platform.stumbleupon.com/1/widgets.js'; 
+				      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(li, s); 
+				 })(); 
+				 </script>
+				<?php endif;
+				
+				if(ploption('share_linkedin')): ?>
+				<script src="http://platform.linkedin.com/in.js" type="text/javascript"></script>
+				<script width="100" type="IN/Share" data-url="<?php echo $perm;?>" data-width="80" data-counter="right"></script>
+				
+				<?php endif;?>
+		
+			</div>
+			
+
+
 		<div class="clear"></div>
 		</div>
 	</div>

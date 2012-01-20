@@ -80,10 +80,6 @@ body{font-size: 87.5%; line-height: 1.71em;height:100%;}
 	/* Sidebars */
 	.widget ul li{line-height: 1.4em}
 	
-		.post-footer { font-size: 1em; line-height: 25px; }
-		.post-footer .left span { font-size: 14px; line-height: 21px; }
-		.post-footer .right span { line-height: 21px; }
-	
 		.rss-date {font-size:.9em;line-height:1.2em;}
 		#footer .latest_posts li .list-excerpt {font-size: .9em;line-height: 1.6em;}
 
@@ -107,7 +103,6 @@ body{font-size: 87.5%; line-height: 1.71em;height:100%;}
 	
 	/* @ Lists */ 
 	.hentry ul, .hentry ol { margin: 1.7em 0 1.7em 16px;}
-	.hentry li { margin: .85em 0; }
  
 	.footnote{margin-top:3.5em;}
 	.footnote li{margin:1.5em 0 1.5em;word-spacing:.1em;line-height:1.75em;}
@@ -374,25 +369,24 @@ body{font-size: 87.5%; line-height: 1.71em;height:100%;}
 
 /* @ Post Navigation */				
 	/* @ Post Footer Area */
-		.post-footer-pad {
-			padding: 8px 18px 8px;
-			overflow: hidden;
-			
+
+		.pl-sharebar{
 		}
-		.post-footer a{ font-weight: bold;}
+
+	
+			.pl-sharebar-pad{
+				line-height: 12px;
+				padding: 10px;
+			}
+			.pl-sharebar-text{
+				display: inline;
+				vertical-align: top;
+				margin-right: 16px;
+				font: normal 75%/190% "Lucida Grande", Arial, "Lucida Sans Unicode", sans-serif;
+				text-transform: uppercase;
+				letter-spacing: .1em;
+			}
 		
-		.post-footer .right img { vertical-align: top; }
-						
-		.post-footer .left span {
-			font-weight: bold;
-			text-align: center;
-			padding: 4px 0 8px 0;
-			width: 33px;
-			margin-right: 6px;
-			display: inline-block;
-		}
-		.post-footer .right { padding: 0px 0 0; }
-		.post-footer img { margin: 0 0 0 5px; }
 		.tags {font-style: italic;}
 
 /* @ Sidebar */
