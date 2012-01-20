@@ -200,13 +200,7 @@ class PageLinesCSS {
  */
 function get_dynamic_css(){
 	
-	global $lesscode;
 	
-	$lesscode = apply_filters('pagelines_lesscode', $lesscode);
-	
-	$pless = new PagelinesLess();
-	
-	$pless->draw_less( $lesscode );
 	
 	
 	$pagelines_dynamic_css = new PageLinesCSS;

@@ -759,6 +759,11 @@ class PageLinesTemplate {
 			}
 			
 			
+			$lesscode = apply_filters('pagelines_lesscode', $lesscode);
+
+			$pless = new PagelinesLess();
+
+			$pless->draw_less( $lesscode );
 			
 		}
 	
