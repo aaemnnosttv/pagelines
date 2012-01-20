@@ -606,7 +606,7 @@ class PageLinesTemplate {
 	
 	function print_template_section_headers(){
 
-	
+		global $lesscode;
 
 		if(is_array($this->allsections)){ 
 			
@@ -636,6 +636,13 @@ class PageLinesTemplate {
 						continue;
 					}
 						
+				
+					/*
+					 * Less CSS
+					 */
+					if( file_exists( $s->base_dir . '/color.less' ) )
+						$lesscode .= pl_file_get_contents( $s->base_dir.'/color.less' );
+
 				
 					
 				}
@@ -726,7 +733,7 @@ class PageLinesTemplate {
 	 */
 	function print_template_section_styles(){
 	
-		global $lesscode;
+	
 		
 		if(is_array($this->allsections) && !has_action('override_pagelines_css_output') ){
 			foreach($this->allsections as $section_slug){
@@ -748,22 +755,10 @@ class PageLinesTemplate {
 					}
 					
 					
-					/*
-					 * Less CSS
-					 */
-					if( file_exists( $s->base_dir . '/color.less' ) )
-						$lesscode .= pl_file_get_contents( $s->base_dir.'/color.less' );
-
 				
 				}	
 			}
 			
-			
-			$lesscode = apply_filters('pagelines_lesscode', $lesscode);
-
-			$pless = new PagelinesLess();
-
-			$pless->draw_less( $lesscode );
 			
 		}
 	
