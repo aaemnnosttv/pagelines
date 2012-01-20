@@ -461,7 +461,7 @@ function pagelines_nav_classes(){
  *
  */
 function pagelines_draw_css( $css_url, $id = '', $enqueue = false){ 
-	echo '<link href="'.$css_url.'" rel="stylesheet"/>'."\n";
+	echo '<link rel="stylesheet" href="'.$css_url.'" />'."\n";
 }
 
 
