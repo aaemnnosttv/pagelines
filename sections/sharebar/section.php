@@ -59,7 +59,12 @@ class PageLinesShareBar extends PageLinesSection {
 				
 				if(ploption('share_twitter')):
 					// Twitter
-					printf('<a href="https://twitter.com/share" class="twitter-share-button" data-url="%s" data-via="%s" data-hashtags="%s">Tweet</a>', $perm, $twitter_handle, $hash);
+					printf(
+						'<a href="https://twitter.com/share" class="twitter-share-button" data-url="%s" data-via="%s" data-hashtags="%s">Tweet</a>', 
+						$perm, 
+						(ploption('twitter_via')) ? $twitter_handle : '', 
+						(ploption('twitter_hash')) ? $hash : ''
+					);
 				
 				?>
 				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>

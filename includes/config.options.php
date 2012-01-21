@@ -794,6 +794,8 @@ class PageLinesOptionsArray {
 					'selectvalues'	=> array(
 						'share_facebook'	=> array('inputlabel'=> __( 'Facebook', 'pagelines' ), 'default'=> true),
 						'share_twitter'		=> array('inputlabel'=> __( 'Twitter', 'pagelines' ), 'default'=> true),
+						'twitter_hash'		=> array('inputlabel'=> __( 'Twitter - Add #Hashtag', 'pagelines' ), 'default'=> true, 'version' => 'pro'),
+						'twitter_via'		=> array('inputlabel'=> __( 'Twitter - Show Via @Handle', 'pagelines' ), 'default'=> false, 'version' => 'pro'),
 						'share_stumble'		=> array('inputlabel'=> __( 'StumbleUpon', 'pagelines' ), 'default'=> false, 'version' => 'pro'),
 						'share_google'		=> array('inputlabel'=> __( 'Google+', 'pagelines' ), 'default'=> true, 'version' => 'pro'),
 						'share_buffer'		=> array('inputlabel'=> __( 'Buffer', 'pagelines' ), 'default'=> false, 'version' => 'pro'),
@@ -845,7 +847,7 @@ class PageLinesOptionsArray {
 			),
 			'excerpt_tags' => array(
 					'version'	=> 'pro',
-					'default' 	=> '<p><br><a>',
+					'default' 	=> '<a>',
 					'type' 		=> 'text',
 					'inputlabel'=> __( 'Allowed Tags', 'pagelines' ),
 					'title' 	=> __( 'Allow Tags in Excerpt', 'pagelines' ),
