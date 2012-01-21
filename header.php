@@ -42,6 +42,5 @@ else:  ?>
 			</header>
 			<?php pagelines_register_hook('pagelines_before_main'); // Hook ?>
 			<div id="page-main" class="container-group">
-				<div id="dynamic-content" class="outline">
-					
+				<div id="dynamic-content" class="outline">		
 <?php endif;?>

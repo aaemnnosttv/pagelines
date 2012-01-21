@@ -822,4 +822,3 @@ function array_search_ext($arr, $search, $exact = true, $trav_keys = null)
   }
   return $res_arr ? $res_arr : false;
 }
-

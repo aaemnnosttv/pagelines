@@ -18,6 +18,5 @@ class PLAdminPaths {
 		
 		return admin_url( $string.$vars.$hash );
 		
-	}
-	
+	}	
 }

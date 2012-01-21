@@ -8,7 +8,6 @@
  * @copyright	2011 PageLines
  */
 
-
 class PageLinesRegister {
 	
 	/**

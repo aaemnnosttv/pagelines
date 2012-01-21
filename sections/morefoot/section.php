@@ -100,11 +100,7 @@ class PageLinesMorefoot extends PageLinesSection {
 					'description' 	=> __('Right sidebar in <strong>morefoot</strong> section.', 'pagelines'),
 					'default'		=> $right
 				),
-			);
-			
-			
-			
-			
+			);		
 	}
 	
 

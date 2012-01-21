@@ -12,7 +12,6 @@
  */
 class PLObject {
 
-	
 	function __contruct(){}
 		
 	function button( $text = '&nbsp;', $type = 'button', $color = 'grey', $args ){
@@ -129,9 +128,5 @@ function pledit( $id = '', $type = 'post' ){
 		$button = sprintf(' <a class="pledit" href="%s"><span class="pledit-pad">(<em>edit</em>)</span></a> ', $link);
 		return $button;
 	} else 
-		return '';
-	
+		return '';	
 }
-
-
-

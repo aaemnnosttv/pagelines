@@ -231,9 +231,5 @@ class PageLinesCarousel extends PageLinesSection {
 		
 		return $out;
 	}
-
-
-
-
 // End of Section Class //
 }

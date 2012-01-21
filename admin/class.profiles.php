@@ -237,6 +237,5 @@ function pl_leaderboard(){
 									GROUP BY k.user_id 
 									ORDER BY recent_karma DESC LIMIT $number" );
 	
-	return $rows;							
-								
+	return $rows;															
 }

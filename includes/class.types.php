@@ -233,6 +233,5 @@ function get_post_type_plural( $id = null ){
 	if(isset($id))
 		return $id.'_archive';
 	else
-		return get_post_type().'_archive';
-	
+		return get_post_type().'_archive';	
 }

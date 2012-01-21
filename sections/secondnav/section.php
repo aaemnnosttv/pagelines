@@ -37,8 +37,5 @@ class PageLinesSecondNav extends PageLinesSection {
 					
 		elseif(ploption('nav_use_hierarchy', $this->oset))
 			pagelines_page_subnav();
-
 	}
-
-
 }

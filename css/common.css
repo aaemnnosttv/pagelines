@@ -227,5 +227,4 @@ input[type="submit"], .submit, input[type="button"], .button, input[type="reset"
 		img.right, img[align="right"] {	float:right;margin: 2px 0px 5px 10px;}
 		
 	/* @ Clearfixing */
-		.fix:after{content:".";display:block;height:0;clear:both;visibility:hidden;} .fix{display:inline-block;} * html .fix{height:1%;} .fix{display:block;}
-		
+		.fix:after{content:".";display:block;height:0;clear:both;visibility:hidden;} .fix{display:inline-block;} * html .fix{height:1%;} .fix{display:block;}		

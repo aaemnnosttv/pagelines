@@ -709,7 +709,5 @@ function templates_array(){
 		)	
 	);
 	
-	return apply_filters('pagelines_templates_opt_array', $return);
-	
+	return apply_filters('pagelines_templates_opt_array', $return);	
 }
-

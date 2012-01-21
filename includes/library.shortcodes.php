@@ -462,4 +462,3 @@ add_filter('widget_text', 'do_shortcode');
 	 	return $pagelink;
 	}
 	add_shortcode('bookmark', 'bookmark_link');
-

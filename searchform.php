@@ -8,5 +8,4 @@
 	
 */
 
-
 pagelines_search_form( true );

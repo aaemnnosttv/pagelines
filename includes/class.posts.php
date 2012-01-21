@@ -467,5 +467,3 @@ class PageLinesPosts {
 
 }
 /* ------- END OF CLASS -------- */
-
-

@@ -4,5 +4,4 @@
 	Template Name: Template | 1
 */
 	
-setup_pagelines_template(); 
-
+setup_pagelines_template();

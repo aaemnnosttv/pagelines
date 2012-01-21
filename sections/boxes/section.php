@@ -308,7 +308,4 @@ class PageLinesBoxes extends PageLinesSection {
 				break;
 		}
 	}
-
 }
-
-

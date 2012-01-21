@@ -709,8 +709,3 @@ function get_global_meta_options(){
 	
 	return apply_filters('global_meta_options', $opts);
 }
-
-
-
-
-

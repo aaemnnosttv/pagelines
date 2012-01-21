@@ -14,7 +14,6 @@
 
 class PageLinesOptionsArray {
 
-
 	/**
 	 * Construct
 	 */
@@ -1070,7 +1069,5 @@ function get_option_array( $load_unavailable = true ){
 			}	
 		}
 	}
-	return apply_filters('pagelines_options_array', $optionarray); 
-	
+	return apply_filters('pagelines_options_array', $optionarray);	
 }
-

@@ -9,17 +9,9 @@ class PageLinesThemeSupport {
 	
 	private $base_color = null;
 	
-	function __construct( ){  
+	function __construct() {}
 	
-		
-		
-	}
-	
-	public function Integration( $args ){
-		
-		
-		
-	}
+	public function Integration( $args ) {}
 	
 	public function SetBaseColor( $hex ){
 		

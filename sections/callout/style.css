@@ -1,15 +1,11 @@
-.callout_head{ font-size:3em; margin-bottom: 10px}
+.callout_head{ font-size:3em; margin-bottom: 10px; }
 .callout_copy{ font-size:1em; }
-.callout_image a{line-height: 1em;}
+.callout_image a{line-height: 1em; }
 
-#callout .callout-area{	padding:30px 17px 30px;}
-#callout .callout_text{	
-	width:70%;
-	float:left;
-}
-	#callout .callout_text-pad{ padding: 0 10px; }
-	#callout .callout_text.noimage { width:100%; }
+#callout .callout-area{	padding:30px 17px 30px; }
+#callout .callout_text{	width:70%; float:left; }
+#callout .callout_text-pad{ padding: 0 10px; }
+#callout .callout_text.noimage { width:100%; }
 
-
-#callout .callout_image a{display: block;line-height: 1em;}
-#callout .callout_image {float:right;width:30%; text-align: center; vertical-align: center;}
+#callout .callout_image a{ display: block;line-height: 1em;}
+#callout .callout_image { float:right;width:30%; text-align: center; vertical-align: center; }

@@ -22,5 +22,4 @@ class PageLinesPostNav extends PageLinesSection {
 <?php 	pagelines_register_hook( 'pagelines_section_after_postnav' ); // Hook 
 	
 	}
-
 }

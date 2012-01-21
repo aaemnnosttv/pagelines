@@ -256,8 +256,5 @@ class PageLinesBanners extends PageLinesSection {
 				echo get_the_term_list($post->ID, $this->taxID, '', ', ','');
 				break;
 		}
-	}
-	
+	}	
 }
-
-

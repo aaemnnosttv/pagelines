@@ -1115,13 +1115,8 @@ function custom_post_type_handler( $area = 'main' ){
 			$post_type_array[ $cpt_single ] = array(
 				'name'		=> ui_key($cpt_single), 
 				'sections'	=> $sections_array
-			);
-			
-		}
-		
-		
+			);	
+		}	
 	}
-	
 	return $post_type_array;
-	
 }
