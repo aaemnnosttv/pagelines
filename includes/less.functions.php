@@ -21,15 +21,21 @@ class PageLinesLess {
 		
 		$this->base_color = pl_hashify( pl_base_color() );
 		
+		/* Type */
+		$fontsize = 15;
+		$content_width = 600;
+		
 		// PageLines Variables
 		$constants = array(
-			'pl-base'		=> $this->base_color, 
-			'pl-text'		=> pl_hashify( pl_text_color() ), 
-			'pl-link'		=> pl_hashify( pl_link_color() ),
-			'pl-header'   	=> pl_hashify( pl_header_color() ),
-			'pl-footer'   	=> pl_hashify( pl_footer_color() ),
-			'invert-dark'	=> $this->invert(),
-			'invert-light'	=> $this->invert('light')
+			'pl-base'			=> $this->base_color, 
+			'pl-text'			=> pl_hashify( pl_text_color() ), 
+			'pl-link'			=> pl_hashify( pl_link_color() ),
+			'pl-header'   		=> pl_hashify( pl_header_color() ),
+			'pl-footer'  	 	=> pl_hashify( pl_footer_color() ),
+			'invert-dark'		=> $this->invert(),
+			'invert-light'		=> $this->invert('light'),
+			'font-size'			=> $fontsize.'px', 
+			'line-height'		=> page_line_height($fontsize, $content_width).'px'
 		);
 		
 		if(is_array($less_vars))
@@ -74,10 +80,10 @@ class PageLinesLess {
 	
 
 	private function add_core_less($pless){
-		
-		$core = pl_file_get_contents(PARENT_DIR.'/css/color.less');
+	
+		$color = pl_file_get_contents(PARENT_DIR.'/css/color.less');
 			
-		return $pless.$core;
+		return $pless . $color;
 		
 	}
 	

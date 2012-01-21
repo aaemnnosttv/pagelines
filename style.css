@@ -56,8 +56,8 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
  * Defaults
  ****************************/
 body{
-	font-size: 15px; 
-	line-height: 160%; 
+	font-size: 14px; 
+	line-height: 164%; 
 	min-height:100%; 
 	overflow-x: hidden;
 }
@@ -66,7 +66,7 @@ body{
  * Common Text
  *****************************/
 	a:focus{outline:1px dotted invert;}
-	input::-moz-focus-inner { border: 0; } 
+
 	hr{border:0 transparent solid;border-bottom-width:1px;clear:both;height:0}
 	ol,ul{list-style-type:none}
 	.hentry ol{list-style:decimal}
@@ -185,12 +185,12 @@ body{
 		margin: 1.4em 0 .6em;
 	}
 	
-	h1, .fpost .entry-title{font-size: 1.8em;}
-	h2{font-size: 1.5em;}
-	h3{font-size: 1.3em;}
-	h4{font-size: 1.2em;}
-	h5{font-size: 1.1em;}
-	h6{font-size: 1.0em;}
+	h1, .fpost .entry-title{font-size: 200%;}
+	h2{font-size: 180%;}
+	h3{font-size: 155%;}
+	h4{font-size: 130%;}
+	h5{font-size: 110%;}
+	h6{font-size: 100%;}
 	
 	/* @ Header Special Cases */
 	h1 + img, h2 + img{margin-top:1em;}
@@ -210,21 +210,21 @@ body{
 	 * @ Font Sizes & Line Heights 
 	 *******************************/
 	.main_nav, h6.site-description, .widget-title, #footer li h5 a, .subhead, .main_nav, #postauthor .subtext, .author-details, .post-nav, .current_posts_info, #secondnav{ 
-		font-size: 85%; 
+		font-size: 86%; 
 	}
 	
 	a.site-title{ font-size: 2.6em; line-height: 1.1em; }
 	
-	.metabar{ font-size: 80%; }
+	.metabar{ font-size: 84%; }
 	
-	.searchfield, .tags{ font-size: 70% }
+	.searchfield, .tags{ font-size: 80% }
 
 	/* Posts Meta & Excerpts */
 	
-	.clip .post-excerpt{ font-size: .9em; line-height: 1.5em}
+	.hentry, .fpost .post-excerpt {font-size: 1.03em; line-height: 1.67em;}
+	.clip .post-excerpt{ font-size: 90%; line-height: 1.6em}
 	
 	/* Sidebars */
-	.widget ul li{line-height: 1.4em}
 	
 		.rss-date {font-size:.9em;line-height:1.2em;}
 		#footer .latest_posts li .list-excerpt {font-size: .9em;line-height: 1.6em;}
@@ -549,7 +549,7 @@ body{
 				font-size:.95em;
 				list-style:none;
 				display: block;
-				padding: .4em 2px;
+				padding: 0 2px;
 			}
 			.widget ul li a:hover{ text-decoration: underline; }
 			.widget ul li ul li{ margin-left: .3em; }
@@ -920,6 +920,10 @@ table {width: 100%;}
 		line-height:normal;
 		padding: 5px;
 	}
+	input:focus{
+		outline: none;
+	}
+	input::-moz-focus-inner { border: 0; } 
 	input[type="text"]{
 		max-width: 600px;
 	}

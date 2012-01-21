@@ -7,9 +7,5 @@
 		}
 		#morefoot p{margin: 1em 0;}
 		#morefoot .widget ul{margin-left:10px;}
-		#morefoot .widget ul li{
-			padding: .2em 0;
-			border:none;
-		}
 		
 		#morefoot .searchform{left: 10%;}

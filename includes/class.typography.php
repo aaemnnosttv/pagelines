@@ -602,3 +602,13 @@ function load_custom_font($font, $selectors){
 		return '';
 	
 }
+
+function page_line_height($fontsize, $line_width){
+	
+	$golden = 1.618;
+	
+	$lh = $golden - ( 1 / (2*$golden) ) * ( 1 - $line_width/pow(($fontsize*$golden), 2) );
+	
+	return round($lh*$fontsize);
+	
+}
