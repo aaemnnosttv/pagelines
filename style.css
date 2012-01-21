@@ -851,7 +851,7 @@ table {width: 100%;}
 
 	body .content img {max-width: 100%; height: auto; width: auto\9; /* ie8 */}
 
-	body .content iframe, body .content video, body .content object{max-width: 100%;}
+	body .hentry iframe, body .hentry video, body .hentry object{max-width: 100%;}
 	
 	@media screen and (max-width:800px){
 		.responsive #site .content, .responsive .wcontent, .responsive #footer .content, html .responsive.fixed_width #page{width: 97%;}
