@@ -185,7 +185,7 @@ body{
 		margin: 1.4em 0 .6em;
 	}
 	
-	h1{font-size: 1.8em;}
+	h1, .fpost .entry-title{font-size: 1.8em;}
 	h2{font-size: 1.5em;}
 	h3{font-size: 1.3em;}
 	h4{font-size: 1.2em;}
@@ -194,7 +194,8 @@ body{
 	
 	/* @ Header Special Cases */
 	h1 + img, h2 + img{margin-top:1em;}
-	.hentry .entry-title{  margin:0 0 5px; }
+	.hentry .entry-title{  margin:0; }
+
 
 	/* 
 	 * @ Paragraphs 
@@ -214,14 +215,13 @@ body{
 	
 	a.site-title{ font-size: 2.6em; line-height: 1.1em; }
 	
+	.metabar em{ font-size: 80%; line-height: 1.7em; }
 	
-	.tags{ font-size: 70% }
+	.searchfield, .tags{ font-size: 70% }
 
 	/* Posts Meta & Excerpts */
-	.fpost .post-excerpt{font-size: 1.1em; line-height: 1.6em}
-	.metabar em{ font-size: .85em; line-height: 1.75em; }
-	.clip .entry-title { font-size: 1.5em; line-height: 1.2em; }
-	.clip .metabar{ font-size: .9em}
+	
+	.clip .metabar, .clip .post-excerpt{ font-size: .9em; line-height: 1.5em}
 	
 	/* Sidebars */
 	.widget ul li{line-height: 1.4em}
@@ -428,7 +428,7 @@ body{
 	}
 	.searchform .searchfield, #forumsidebar input.forumsearchfield{
 		font-family: "Lucida Grande", "Lucida Sans", "Lucida Sans Unicode", sans-serif;
-		font-size: 12px;
+		font-size: 11px;
 	}
  
 	 .searchform input.submit {
@@ -462,12 +462,15 @@ body{
 		.post.fpost .entry { margin-bottom: 1em; padding: 1em 0; }
 
 		/* @ Post Title Area */
+			.post-title-section{
+				padding-bottom: 6px;
+			}
 			.post-meta { margin-bottom: 1.71em; }
 			.post-nocontent.post-meta { margin-bottom: 0; }
 			
 			.fpost .post-title h2 a:hover{	text-decoration: underline;	}
 			.post-comments a:hover{ text-decoration: none; }
-			.fpost .metabar { margin: 0 0 .3em 0;}
+			.fpost .metabar { margin-bottom: 5px;}
 			
 			.metabar em{ font-style: normal;}
 			.metabar a:hover {text-decoration: none;}
