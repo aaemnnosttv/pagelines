@@ -6,11 +6,34 @@
    Copyright 2011 PageLines. All rights reserved.
 */
 
-/* Reset CSS Defaults */
-html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outline:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
-article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {  display: block; }
+/* 
+ * Reset CSS Defaults 
+ *****************************/
+html, body, address, blockquote, div, dl, form, h1, h2, h3, h4, h5, h6, ol, p, pre, table, ul,
+dd, dt, li, tbody, td, tfoot, th, thead, tr, button, del, ins, map, object,
+a, abbr, acronym, b, bdo, big, br, cite, code, dfn, em, i, img, kbd, q, samp, small, span,
+strong, sub, sup, tt, var, legend, fieldset {
+	margin: 0;
+	padding: 0;
+}
+img, fieldset {
+	border: 0;
+}
+img {
+	max-width: 98%;
+	height: auto;
+}
+.ie8 img {
+	width: auto;
+	height: auto;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { 
+    display:block;
+}
 
-/* @ Common Text Element Styling */
+/* 
+ * Common Text
+ *****************************/
 	a:focus{outline:1px dotted invert;}
 	input::-moz-focus-inner { border: 0; } 
 	hr{border:0 transparent solid;border-bottom-width:1px;clear:both;height:0}

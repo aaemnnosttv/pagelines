@@ -141,12 +141,6 @@ function pagelines_head_common(){
 	// Allow for extension deactivation of all css
 	if(!has_action('override_pagelines_css_output')){	
 
-		// Get Common CSS & Reset
-		pagelines_load_css_relative('css/common.css', 'pagelines-common');
-
-		// Get CSS Layout
-		pagelines_load_css_relative('css/layout.css', 'pagelines-layout');
-
 		// Get CSS Objects & Grids
 		pagelines_load_css_relative('css/objects.css', 'pagelines-objects');
 		
