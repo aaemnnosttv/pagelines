@@ -215,7 +215,7 @@ body{
 	
 	a.site-title{ font-size: 2.6em; line-height: 1.1em; }
 	
-	.metabar em{ font-size: 80%; line-height: 1.7em; }
+	.metabar{ font-size: 80%; }
 	
 	.searchfield, .tags{ font-size: 70% }
 
