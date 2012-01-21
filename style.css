@@ -221,7 +221,7 @@ body{
 
 	/* Posts Meta & Excerpts */
 	
-	.clip .metabar, .clip .post-excerpt{ font-size: .9em; line-height: 1.5em}
+	.clip .post-excerpt{ font-size: .9em; line-height: 1.5em}
 	
 	/* Sidebars */
 	.widget ul li{line-height: 1.4em}
