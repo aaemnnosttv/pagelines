@@ -371,7 +371,7 @@ class PageLinesFeatures extends PageLinesSection {
 				
 				$playpause = ( $timeout != 0 && $playpause) ? sprintf('<span class="playpause pause %s"><span>&nbsp;</span></span>', $cycle_selector) : '';
 				
-				$nav = sprintf('<div id="featurenav" class="%s fix"></div>', $cycle_selector);
+				$nav = sprintf('<div id="featurenav" class="%s subtext fix"></div>', $cycle_selector);
 				
 				printf('<div id="feature-footer" class="%s fix"><div class="feature-footer-pad">%s%s<div class="clear"></div></div></div>', $footer_nav_class, $playpause, $nav);
 ?>	

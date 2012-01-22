@@ -35,7 +35,6 @@
 
 	#feature-area .fcontainer.fstyle-nobg {	 background: none; }
 	#feature-area .fcontainer.fstyle-lightbg { background: #fff; }
-	#feature-area .fcontainer.fstyle-lightbg .feature-pad {	 border: 1px solid #eee; }
 		
 		#feature-area, .feature-wrap, #feature_slider .fmedia, #feature_slider .fcontent, #feature_slider .text-bottom .fmedia .dcol-pad, #feature_slider .text-bottom .feature-pad, #feature_slider .text-none .fmedia .dcol-pad{
 			height: 380px;
@@ -253,7 +252,7 @@
 			#featurenav a, #feature-footer span.playpause{
 				padding: 1px 8px;
 				margin: 0 8px 4px 0;
-				font-size: .9em;
+				font-size: 90%;
 				display: inline-block;
 			}
 		
