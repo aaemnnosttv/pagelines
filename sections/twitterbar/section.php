@@ -22,7 +22,7 @@ class PageLinesTwitterBar extends PageLinesSection {
 	
 		$twitter = sprintf(
 			'<span class="twitter">%s &nbsp;&mdash;&nbsp;<a class="twitteraccount" href="http://twitter.com/#!/%s">%s</a></span>',
-			make_clickable( pagelines_get_tweets( $account, true ) ), 
+			pagelines_tweet_clickable( pagelines_get_tweets( $account, true ) ), 
 			$account,
 			$account
 		);

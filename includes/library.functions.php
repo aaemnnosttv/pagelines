@@ -726,9 +726,11 @@ function pagelines_get_tweets( $username, $latest = null) {
 		// We should have a list of tweets for $username or an error code to return.
 
 		if ( 'error' != $tweets ) { // Tweets are good, return the array or a single if asked for ($latest)
-				
-			return ( $latest ) ? $tweets[0]['text'] : $tweets; 
-				
+			
+			if ( $latest && is_array( $tweets ) && isset( $tweets[0]['text'] ) )
+				return  $tweets[0]['text'];
+			elseif ( is_array( $latest ) )
+				return $latest;				
 		} else {
 			
 			// We couldnt get the tweets so lets cycle through the possible errors.
@@ -764,6 +766,21 @@ function pagelines_get_tweets( $username, $latest = null) {
 		}	
 }
 
+function pagelines_tweet_clickable( $tweet ) {
+
+	$regex = '/http([s]?):\/\/([^\ \)$]*)/';
+	$link_pattern = '<a href="http$1://$2" rel="nofollow" title="$2">http$1://$2</a>';
+	$tweet = preg_replace($regex,$link_pattern,$tweet);
+	$regex = '/@([a-zA-Z0-9_]*)/';
+	$link_pattern = '<a href="http://twitter.com/$1" title="$1 profile on Twitter" rel="nofollow">@$1</a>';
+	$tweet = preg_replace($regex,$link_pattern,$tweet);
+	$regex = '/\#([a-zA-Z0-9_]*)/';
+	$link_pattern = '<a href="http://search.twitter.com/search?q=%23$1" title="search for $1 on Twitter" rel="nofollow">#$1</a>';
+	$tweet = preg_replace($regex,$link_pattern,$tweet);
+	
+	return $tweet;
+	
+}
 
 function pl_admin_is_page(){
 	global $post;
