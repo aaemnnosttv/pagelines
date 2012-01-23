@@ -113,3 +113,19 @@ function gallery_filter( $a, $template_name) {
 	else
 		return false;
 }
+
+add_action( 'init', 'pagelines_add_sidebars', 999 );
+
+function pagelines_add_sidebars() {
+	
+	global $pagelines_sidebars;
+
+	if ( !is_array( $pagelines_sidebars ) )
+		return;
+
+	ksort( $pagelines_sidebars );
+	
+	foreach ( $pagelines_sidebars as $key => $sidebar )
+		register_sidebar( $sidebar );
+
+}

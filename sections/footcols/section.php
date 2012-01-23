@@ -21,14 +21,14 @@ class PageLinesFootCols extends PageLinesSection {
 		$this->markup_end 	= '</div></div>';
 		
 	
-		register_sidebar(array(
+		pagelines_register_sidebar(array(
 			'name'=>$this->name,
 			'description'	=> __('Use this sidebar if you want to use widgets in your footer columns instead of the default.', 'pagelines'),
 		    'before_widget' => $this->markup_start,
 		    'after_widget' 	=> $this->markup_end,
 		    'before_title' 	=> '<h3 class="widget-title">',
 		    'after_title' 	=> '</h3>'
-		));
+		), 10);
 		
 		register_nav_menus( array(
 			'footer_nav' => __( 'Page Navigation in Footer Columns', 'pagelines' )

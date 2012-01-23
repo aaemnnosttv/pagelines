@@ -12,13 +12,12 @@ class TertiarySidebar extends PageLinesSection {
 
    function section_persistent() { 
 		$setup = pagelines_standard_sidebar($this->name, $this->settings['description']);
-		register_sidebar($setup);
+		pagelines_register_sidebar($setup, 3);
 	}
 
    function section_template() { 
 	 	 pagelines_draw_sidebar($this->id, $this->name);
 	}
-
 }
 
 /*
