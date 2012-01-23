@@ -327,7 +327,7 @@ class PageLinesOptionsUI {
 					<a class="vpro_thumb" href="<?php echo VPRO_TOUR;?>"><img src="<?php echo PL_IMAGES;?>/pro-thumb.png" alt="<?php echo VPRO_NAME;?>" /></a>
 					<div class="vpro_desc">
 						<strong style="font-size: 1.2em">Upgrade Your Site To Pro</strong><br/>
-						You're using the <strong>free version</strong> of <?php echo VPRO_NAME;?>, a premium product by <a href="http://www.pagelines.com" target="_blank">PageLines</a>.<br/> 
+						You're using the <strong>free version</strong> of <?php echo VPRO_NAME;?>, which is a premium product by <a href="http://www.pagelines.com" target="_blank">PageLines</a>.<br/> 
 						Buy <?php echo VPRO_NAME;?> for tons more templates, options, drag &amp; drop sections, and dedicated support.<br/> 	
 				
 						<?php
@@ -349,17 +349,17 @@ class PageLinesOptionsUI {
 				</div>
 				<div class="whatsmissing">
 					 <h3>
-						<?php _e('What when you upgrade your PageLines site...', 'pagelines');?>
+						<?php _e('Why You\'ll Love PageLines Pro...', 'pagelines');?>
 					</h3>
 					
 					<p>
-						When you upgrade to the premium versions of PageLines you will get <strong>tons</strong> more core functionality. This includes over 10 advanced drag &amp; drop sections, tons more areas for sections, and a bunch of options that give you a professional (and marketing) edge. 
+						When you upgrade you get the functionality that gives you a professional (and marketing) edge. This includes over 10 additional drag &amp; drop sections, tons more areas for sections, better handling &amp; control capability, and a bunch of new options.
 					</p>
 					<p>
-						The pro version also has the ability to control 'special' pages and 'clone' (or duplicate) sections. For advanced users, there is also a Developer version that supports "integrations" and WP "multisite"... To learn more see the <a href="http://www.pagelines.com/pricing">pricing page</a> or <a href="http://www.pagelines.com/tour/">PageLines tour</a>...
+						The pro version has the ability to control 'special' pages and 'clone' (or duplicate) sections. For advanced users, there is also a Developer version that supports "integrations" and WP "multisite"... To learn more see the <a href="http://www.pagelines.com/pricing">pricing page</a> or <a href="http://www.pagelines.com/tour/">PageLines tour</a>...
 					</p>
 					<p>
-						<strong>Here are some specifics:</strong>
+						<strong>Some specifics:</strong>
 					</p>
 					
 					<?php if(isset($usections) && is_array($usections)):?>
