@@ -18,7 +18,6 @@ class TertiarySidebar extends PageLinesSection {
    function section_template() { 
 	 	 pagelines_draw_sidebar($this->id, $this->name);
 	}
-
 }
 
 /*
