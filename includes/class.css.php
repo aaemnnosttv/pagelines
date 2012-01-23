@@ -17,7 +17,6 @@ class PageLinesCSS {
 		$this->typography();
 		$this->layout();
 		$this->options();
-		$this->custom_css();
 		
 	}
 	
@@ -38,10 +37,7 @@ class PageLinesCSS {
 			
 	}
 	
-	
-	function custom_css(){
-		$this->css .= pagelines_option('customcss');
-	}
+
 	
 	/**
 	 *  CSS Rendering In <head>
