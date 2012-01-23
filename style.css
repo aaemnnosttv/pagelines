@@ -537,7 +537,7 @@ body{
 				font-size:.95em;
 				list-style:none;
 				display: block;
-				padding: 0 2px;
+				padding: 4px;
 			}
 			.widget ul li a:hover{ text-decoration: underline; }
 			.widget ul li ul li{ margin-left: .3em; }
