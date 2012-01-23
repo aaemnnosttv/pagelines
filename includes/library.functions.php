@@ -839,3 +839,18 @@ function array_search_ext($arr, $search, $exact = true, $trav_keys = null)
   }
   return $res_arr ? $res_arr : false;
 }
+
+/** 
+ * Register Sidebars with added priority.
+ */
+function pagelines_register_sidebar( $args, $priorty = null ) {
+	
+	global $pagelines_sidebars;
+
+	if ( isset( $priorty ) )
+		$pagelines_sidebars[ $priorty ] = $args;
+	else
+		$pagelines_sidebars[] = $args;
+
+//	plprint( $pagelines_sidebars );
+}

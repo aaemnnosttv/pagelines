@@ -13,7 +13,7 @@ class FullWidthSidebar extends PageLinesSection {
 
    function section_persistent() { 
 		$setup = pagelines_standard_sidebar($this->name, $this->settings['description']);
-		register_sidebar($setup);
+		pagelines_register_sidebar($setup, 5);
 	
 	}
 

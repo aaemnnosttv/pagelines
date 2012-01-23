@@ -18,8 +18,8 @@ class PageLinesMorefoot extends PageLinesSection {
 		
 		// Register Section Sidebars
 		foreach($this->master as $key => $i){
-			
-			register_sidebar(
+
+			pagelines_register_sidebar(
 				array(
 					'name'			=> $i['name'], 
 					'description'	=> $i['description'], 
@@ -27,7 +27,7 @@ class PageLinesMorefoot extends PageLinesSection {
 				    'after_widget' => '</div></div>',
 				    'before_title' => '<h3 class="widget-title">',
 				    'after_title' => '</h3>'
-				)
+				), $i['priorty']
 			);
 			
 		}
@@ -88,17 +88,20 @@ class PageLinesMorefoot extends PageLinesSection {
 				'left'	=> array(
 					'name'			=> 'MoreFoot Left', 
 					'description' 	=> __('Left sidebar in <strong>morefoot</strong> section.', 'pagelines'),
-					'default'		=> $left
+					'default'		=> $left,
+					'priorty'		=> 7
 				),
 				'middle'	=> array(
 					'name'			=> 'MoreFoot Middle', 
 					'description' 	=> __('Middle sidebar in <strong>morefoot</strong> section.', 'pagelines'),
-					'default'		=> $middle
+					'default'		=> $middle,
+					'priorty'		=> 8
 				),
 				'right'	=> array(
 					'name'			=> 'MoreFoot Right', 
 					'description' 	=> __('Right sidebar in <strong>morefoot</strong> section.', 'pagelines'),
-					'default'		=> $right
+					'default'		=> $right,
+					'priorty'		=> 9
 				),
 			);		
 	}
