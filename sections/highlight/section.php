@@ -23,7 +23,6 @@ class PageLinesHighlight extends PageLinesSection {
 				'_highlight_head' => array(
 					'version' 		=> 'pro',
 					'type' 			=> 'text',
-					'default'		=> 'Test 1233123',
 					'size'			=> 'big',		
 					'title' 		=> 'Highlight Header Text (Optional)',
 					'shortexp' 		=> 'Add the main header text for the highlight section.'
