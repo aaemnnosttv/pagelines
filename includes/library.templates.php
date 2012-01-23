@@ -177,6 +177,9 @@ function pagelines_head_common(){
 	// Headerscripts option > custom code
 	if ( ploption( 'headerscripts' ) )
 		add_action( 'wp_head', create_function( '',  'print_pagelines_option("headerscripts");' ), 25 );
+		
+	if( ploption('asynch_analytics'))
+		add_action( 'pagelines_head_last', create_function( '',  'echo ploption("asynch_analytics");' ), 25 );
 }
 
 function pagelines_supersize_bg(){
