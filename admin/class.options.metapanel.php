@@ -393,7 +393,7 @@ class PageLinesMetaPanel {
 			$page_template = (isset($_POST['page_template'])) ? $_POST['page_template'] : null;
 			$save_template = $this->get_save_template_type($_POST['post_type'], $page_template);
 			$template_type = new PageLinesTemplate($save_template);
-			$template_type->load_section_optionator();
+			$template_type->load_section_optionator( );
 			
 			
 			// Loop through tabs

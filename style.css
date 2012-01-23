@@ -37,16 +37,8 @@ strong, sub, sup, tt, var, legend, fieldset {
 	margin: 0;
 	padding: 0;
 }
-img, fieldset {
+fieldset {
 	border: 0;
-}
-img {
-	max-width: 98%;
-	height: auto;
-}
-.ie8 img {
-	width: auto;
-	height: auto;
 }
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { 
     display:block;
@@ -58,8 +50,8 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 body{
 	font-size: 14px; 
 	line-height: 164%; 
-	min-height:100%; 
-	overflow-x: hidden;
+/*	min-height:100%; 
+	overflow-x: hidden;*/
 }
 
 /* 
@@ -167,9 +159,6 @@ body{
 	.fixed_width #branding .content-pad{ padding: 25px; }
 	.fixed_width #header .searchform { margin-right: 10px }
 	.fixed_width #boxes .dcol-pad {padding: 10px;}
-
-
-
 
 
 /* 
@@ -470,7 +459,6 @@ body{
 			
 			.fpost .post-title h2 a:hover{	text-decoration: underline;	}
 			.post-comments a:hover{ text-decoration: none; }
-			.fpost .metabar { margin-bottom: 5px;}
 			
 			.metabar em{ font-style: normal;}
 			.metabar a:hover {text-decoration: none;}
@@ -850,7 +838,10 @@ table {width: 100%;}
  ****************************************/
 
 	body .content img {max-width: 100%; height: auto; width: auto\9; /* ie8 */}
-
+	body .ie8 img {
+		width: auto;
+		height: auto;
+	}
 	body .hentry iframe, body .hentry video, body .hentry object{max-width: 100%;}
 	
 	@media screen and (max-width:800px){

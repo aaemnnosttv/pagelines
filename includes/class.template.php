@@ -709,8 +709,8 @@ class PageLinesTemplate {
 		}
 
 		// Load inactive sections last for meta stuff
-		if($mode == 'meta'){
-			
+		if($mode == 'meta' || $mode == ''){
+		
 			// Get inactive
 			foreach( $this->factory as $key => $section ){
 		
