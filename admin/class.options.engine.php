@@ -549,9 +549,12 @@ class OptEngine {
 			
 			$class = $o['inputsize'].'-text';
 			
+			$placeholder = (isset($m['placeholder'])) ? $m['placeholder'] : '';
+			
+			
 			// Output
 			echo $this->input_label($m['input_id'], $m['inputlabel']);
-			echo $this->input_text($m['input_id'], $m['input_name'], pl_html($m['val']), $class, $attr, '', $m['placeholder']);
+			echo $this->input_text($m['input_id'], $m['input_name'], pl_html($m['val']), $class, $attr, '', $placeholder);
 
 		}
 	}
