@@ -116,9 +116,9 @@ class PageLinesCSS {
 	function render_css_colors( $oid, $o, $cssgroup = null, $css_prop = null ){
 		
 		$v = $o['val'];
-			
+
 		if( !$v && isset($o['flag']))
-			$v = ($o['flag'] == 'blank_default') ? false : $o['default'];
+			$v = ($o['flag'] == 'blank_default' ) ? false : $o['default'] = false;
 	
 		do_color_math($oid, $o, $v, 'css');
 		
