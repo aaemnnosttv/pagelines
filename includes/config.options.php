@@ -172,7 +172,8 @@ class PageLinesOptionsArray {
 			),
 			'layout_default' => array(
 				'type' 			=> 'graphic_selector',
-				'layout' 		=> 'interface',		
+				'layout' 		=> 'interface',
+				'default'		=> 'one-sidebar-right',	
 				'sprite'		=> PL_ADMIN_IMAGES.'/sprite-layouts.png', 
 				'height'		=> '50px', 
 				'width'			=> '50px', 

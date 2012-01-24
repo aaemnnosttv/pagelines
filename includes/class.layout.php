@@ -30,7 +30,7 @@ class PageLinesLayout {
 			elseif ( isset($this->layout_map['saved_layout'])  && !empty($this->layout_map['saved_layout']) )
 				$layout_mode = $this->layout_map['saved_layout'];	
 			else
-				$layout_mode = 'one-sidebar-right';
+				$layout_mode = ( ploption( 'layout_default' ) ) ? ploption( 'layout_default' ) : 'one-sidebar-right';
 		
 			$this->build_layout($layout_mode);
 			
