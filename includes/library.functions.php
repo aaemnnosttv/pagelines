@@ -849,7 +849,7 @@ function pagelines_register_sidebar( $args, $priorty = null ) {
 		register_sidebar( $args );
 	global $pagelines_sidebars;
 
-	if ( isset( $priorty ) )
+	if ( isset( $priorty ) && ! isset( $pagelines_sidebars[ $priorty ] ) )
 		$pagelines_sidebars[ $priorty ] = $args;
 	else
 		$pagelines_sidebars[] = $args;
