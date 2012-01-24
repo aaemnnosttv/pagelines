@@ -902,7 +902,9 @@ class PageLinesOptionsArray {
 					'inputlabel'=> __( 'Enable debug?', 'pagelines' ),
 					'title'		=> __( 'PageLines debug', 'pagelines' ),
 					'shortexp'	=> __( 'Show detailed settings information', 'pagelines' ),
-					'exp'		=> sprintf( __( 'This information can be useful in the forums if you have a problem.<br />You can find the info %s ( if enabled ).', 'pagelines' ), sprintf( '<a href="%s">here</a>', site_url( '?pldebug=1' ) ) )
+					'exp'		=>	sprintf( __( 'This information can be useful in the forums if you have a problem. %s', 'pagelines' ),
+									sprintf( '%s', ( ploption( 'enable_debug' ) ) ? 
+									sprintf( '<br /><a href="%s">Click here</a> for your debug info.', site_url( '?pldebug=1' ) ) : '' ) )
 			),
 			
 			'enable_sidebar_reorder' => array(
