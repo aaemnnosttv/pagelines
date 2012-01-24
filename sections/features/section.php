@@ -571,7 +571,7 @@ class PageLinesFeatures extends PageLinesSection {
 							'inputlabel' => 'Select sort order',
 							'title' => 'Feature Post sort order',
 							'shortexp' => 'How will the features be sorted.',
-							'exp' => "By default the feature section will sort by descending order ID."
+							'exp' => "By default the features will be in descending order."
 						),
 
 					'feature_set' => array(
