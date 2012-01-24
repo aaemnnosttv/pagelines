@@ -904,6 +904,16 @@ class PageLinesOptionsArray {
 					'shortexp'	=> __( 'Show detailed settings information', 'pagelines' ),
 					'exp'		=> sprintf( __( 'This information can be useful in the forums if you have a problem.<br />You can find the info %s ( if enabled ).', 'pagelines' ), sprintf( '<a href="%s">here</a>', site_url( '?pldebug=1' ) ) )
 			),
+			
+			'enable_sidebar_reorder' => array(
+					'default'	=> '',
+					'version'	=> 'pro',
+					'type'		=> 'check',
+					'inputlabel'=> __( 'Enable sidebar priorities?', 'pagelines' ),
+					'title'		=> __( 'Sidebar Priority', 'pagelines' ),
+					'shortexp'	=> __( 'Enable sidebar priorities.', 'pagelines' ),
+					'exp'		=> __( 'Enable new sidebar loading system<br />With this enabled sidebars will be loaded: Primary, Secondary, Tertiary etc. ( This will become default by 2.2 )', 'pagelines' )
+			),
 
 			'hide_pagelines_introduction' => array(
 					'default'	=> '',

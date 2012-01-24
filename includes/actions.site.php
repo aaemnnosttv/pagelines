@@ -118,6 +118,8 @@ add_action( 'init', 'pagelines_add_sidebars', 999 );
 
 function pagelines_add_sidebars() {
 	
+	if ( ! ploption( 'enable_sidebar_reorder') )
+		return;
 	global $pagelines_sidebars;
 
 	if ( !is_array( $pagelines_sidebars ) )

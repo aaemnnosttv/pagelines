@@ -845,6 +845,8 @@ function array_search_ext($arr, $search, $exact = true, $trav_keys = null)
  */
 function pagelines_register_sidebar( $args, $priorty = null ) {
 	
+	if ( ! ploption( 'enable_sidebar_reorder' ) )
+		register_sidebar( $args );
 	global $pagelines_sidebars;
 
 	if ( isset( $priorty ) )
