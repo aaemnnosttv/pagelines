@@ -148,6 +148,10 @@
 		text-shadow: #000 0 -1px 0 ;	
 		line-height: 1.63em;
 	}
+		#feature_slider .fcontent .ftitle a{
+			text-decoration: none;
+			border: none;
+		}
 		#feature_slider .fcontent a:hover{
 			color: rgba(255, 255, 255, .7);
 		}
@@ -180,6 +184,17 @@
 			}
 			
 			
+				#feature_slider .fcontent .plmore{
+					display: inline-block;
+					background: rgba(0,0,0, .3);
+					padding: 3px 8px;
+					margin: 0 5px;
+					border:none;
+				}
+					#feature_slider .fcontent .plmore:hover{
+						background: rgba(0,0,0, .6);
+					}
+
 		/* @ FContent No Background */
 		#feature_slider .fcontainer.fstyle-nobg .fcontent, #feature_slider .fcontainer.fstyle-lightbg .fcontent, #feature_slider .fcontainer.fstyle-darkbg .fcontent{
 			background: none;
@@ -252,11 +267,11 @@
 			#featurenav a, #feature-footer span.playpause{
 				padding: 1px 8px;
 				margin: 0 8px 4px 0;
-				font-size: 90%;
+				font-size: .86em;
 				display: inline-block;
 			}
 		
-			
+		
 			/* @ Feature Dot Navigation */	 
 			
 				#feature-footer.dots a{
