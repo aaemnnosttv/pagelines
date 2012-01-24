@@ -26,6 +26,7 @@ Version 2.1.0
 	- Bugs - Better licence handling
 	- Bugs - Fix importer trying to set a null array
 	- Bugs - Category is not an archive
+	- Bugs - Use main layout for posts/pages 
 	- Store - Better filesystem handling 100% WP functioality
 	- Twitter Section - @ and # links made clickable
 	- PostNav Section - Allow cloning
