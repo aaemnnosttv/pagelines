@@ -5,4 +5,4 @@
 
 $platform_build = '2.0.1';
 
-$free_build = '0.9.7';
+$free_build = '0.9.8';
