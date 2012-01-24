@@ -1930,7 +1930,7 @@ class lessc {
 
 			$this->fileName = $fname;
 			$this->importDir = $pi['dirname'].'/';
-			$this->buffer = file_get_contents($fname);
+			$this->buffer = pl_file_get_contents($fname);
 
 			$this->addParsedFile($fname);
 		}
@@ -2005,19 +2005,6 @@ class lessc {
 	public function allParsedFiles() { return $this->allParsedFiles; }
 	protected function addParsedFile($file) {
 		$this->allParsedFiles[realpath($file)] = filemtime($file);
-	}
-
-
-	// compile to $in to $out if $in is newer than $out
-	// returns true when it compiles, false otherwise
-	public static function ccompile($in, $out) {
-		if (!is_file($out) || filemtime($in) > filemtime($out)) {
-			$less = new lessc($in);
-			file_put_contents($out, $less->parse());
-			return true;
-		}
-
-		return false;
 	}
 
 	/**

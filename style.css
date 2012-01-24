@@ -53,7 +53,9 @@ body{
 /*	min-height:100%; 
 	overflow-x: hidden;*/
 }
-
+.sticky{}
+.gallery-caption{}
+.bypostauthor{}
 /* 
  * Common Text
  *****************************/
