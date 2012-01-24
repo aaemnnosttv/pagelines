@@ -16,9 +16,20 @@ Version 2.1.0
 	- NEW Sharebar rewrite to use buttons
 	- NEW Hashtag option
 	- NEW Dynamic search field
+	- NEW - Sidebar load priority
 	- CORE - Color handling system
 	- CORE - Meta defaults
 	- CORE - Updates LESS system
+	- CORE - Custom CSS now loaded last
+	- CORE - New debug system
+	- CORE - New template naming
+	- Bugs - Better licence handling
+	- Bugs - Fix importer trying to set a null array
+	- Bugs - Category is not an archive
+	- Store - Better filesystem handling 100% WP functioality
+	- Twitter Section - @ and # links made clickable
+	- PostNav Section - Allow cloning
+	- Feature Section - New sort functions + all posts
 -------------------------------------
 
 Version 2.0.2
