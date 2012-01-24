@@ -349,11 +349,11 @@ class PageLinesOptionsUI {
 				</div>
 				<div class="whatsmissing">
 					 <h3>
-						<?php _e('Why You\'ll Love PageLines Pro...', 'pagelines');?>
+						Why You'll Love PageLines Pro...
 					</h3>
 					
 					<p>
-						When you upgrade you get the functionality that gives you a professional (and marketing) edge. This includes over 10 additional drag &amp; drop sections, tons more areas for sections, better handling &amp; control capability, and a bunch of new options.
+						When you upgrade you get the functionality that gives you a professional (and marketing) edge. This includes over 10 additional drag &amp; drop sections, more areas for sections, better handling &amp; control capability, and a bunch of new options.
 					</p>
 					<p>
 						The pro version has the ability to control 'special' pages and 'clone' (or duplicate) sections. For advanced users, there is also a Developer version that supports "integrations" and WP "multisite"... To learn more see the <a href="http://www.pagelines.com/pricing">pricing page</a> or <a href="http://www.pagelines.com/tour/">PageLines tour</a>...
