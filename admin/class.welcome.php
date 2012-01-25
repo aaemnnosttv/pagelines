@@ -19,11 +19,11 @@ class PageLinesWelcome {
 		
 		$intro .= $this->get_plugins_billboard();
 		
-		$intro .= sprintf( '<div class="finally"><h3>%s</h3></div>', __( "That's it for now! Have fun and good luck.", 'pagelines' ) );
+		$intro .= apply_filters( 'pagelines_welcome_finally' , sprintf( '<div class="finally"><h3>%s</h3></div>', __( "That's it for now! Have fun and good luck.", 'pagelines' ) ) );
 		
 		$intro .= '</div></div>';
 
-		return apply_filters('pagelines_theme_intro', $intro);
+		return apply_filters('pagelines_welcome_intro', $intro);
 	}
 	
 	
@@ -127,7 +127,8 @@ class PageLinesWelcome {
 	
 		$out = '<div class="plpanes"><div class="plpanes-pad">';
 	
-	
+		if ( !is_array( $elements ) )
+			return;
 		$count = 1;
 		foreach ( $elements as $args ) {
 	
@@ -189,7 +190,7 @@ class PageLinesWelcome {
 			$core
 		);	
 			
-		return $billboard;
+		return apply_filters( 'pagelines_welcome_plugins_billboard', $billboard );
 	}
 	
 	function get_supported_elements( $type ) {

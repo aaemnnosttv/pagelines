@@ -341,6 +341,7 @@
 			&& !$this->updates_configured()
 			&& !$this->is_purchased( $type, $key, $ext )
 			&& $this->in_the_store( $type, $key, $ext, $tab )
+			&& !$this->is_installed( $type, $key, $ext )
 		) {
 			return true;
 		} else
