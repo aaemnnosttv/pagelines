@@ -144,6 +144,15 @@ class PageLinesBoxes extends PageLinesSection {
 						'title' 		=> 'Max Number of Boxes',
 						'shortexp' 			=> "Select the max number of boxes to show on this page (overrides default).",
 					),
+					'box_class' => array(
+						'version'		=> 'pro',
+						'default'		=> '',
+						'type' 			=> 'text',
+						'size'			=> 'small',
+						'inputlabel' 	=> 'Add custom css class to these boxes',
+						'title' 		=> 'Custom CSS class',
+						'shortexp' 		=> 'Add a custom CSS class to this set of boxes.',
+					),
 				);
 
 			$tab_settings = array(
@@ -200,6 +209,7 @@ class PageLinesBoxes extends PageLinesSection {
 		$oset = array('post_id' => $p->ID);
 	 	$box_link = plmeta('the_box_icon_link', $oset);
 		$box_icon = plmeta('the_box_icon', $oset);
+		$class = ( ploption( 'box_class', $this->oset ) ) ? sprintf( ' %s', ploption( 'box_class', $this->oset ) ) : '';
 		
 		$image = ($box_icon) ? self::_get_box_image( $p, $box_icon, $box_link, $this->thumb_size, $this->thumb_type) : '';
 	
@@ -211,7 +221,7 @@ class PageLinesBoxes extends PageLinesSection {
 			
 		$info = ($this->thumb_type != 'only_thumbs') ? sprintf('<div class="fboxinfo fix bd">%s%s</div>', $title, $content) : '';				
 				
-		return sprintf('<div id="%s" class="fbox"><div class="media box-media %s"><div class="blocks box-media-pad">%s%s</div></div></div>', 'fbox_'.$p->ID, $this->thumb_type, $image, $info);
+		return sprintf('<div id="%s" class="fbox%s"><div class="media box-media %s"><div class="blocks box-media-pad">%s%s</div></div></div>', 'fbox_'.$p->ID, $class, $this->thumb_type, $image, $info);
 	
 	}
 
