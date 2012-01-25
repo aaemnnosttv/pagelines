@@ -81,7 +81,11 @@ class PageLinesLess {
 
 	private function add_core_less($pless){
 	
-		$color = pl_file_get_contents(PARENT_DIR.'/css/color.less');
+		global $disabled_settings;
+		
+		$add_color = (isset($disabled_settings['color_control'])) ? false : true;
+	
+		$color = ($add_color) ? pl_file_get_contents(PARENT_DIR.'/css/color.less') : '';
 			
 		return $pless . $color;
 		
