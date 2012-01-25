@@ -810,21 +810,7 @@ table {width: 100%;}
 				margin-bottom:1em;
 			}
 
-		/* @bbPress 2.0 */
-			body.bbPress #postnav, body.bbPress .metabar{display: none;}
-
-			article.forum .bbp-topic-title {text-align: left;}
-			article.forum .bbp-topics p{display: inline;margin: 0 10px;}
-			article.forum .bbp-topic-title .bbp-topic-started-by, article.forum .bbp-topic-title .bbp-topic-started-by a{font-size: 11px; }
-			article.forum .bbp-topic-title a{
-				font-size: 1.4em;
-			}
-			article.forum .bbp-topics th, article.forum .bbp-topics td{
-				padding: 5px 8px;
-			}
-			article.forum .bbp-topics th{font-size: 1.2em;}
-			.bbp-form .avatar{display: none;}
-			article.hentry .bbp-reply-content{text-align: left;}
+		
 			#comments p.form-allowed-tags{width: auto;margin-bottom: 1.6em; }
 	
 		/* @Facebook Comments */
