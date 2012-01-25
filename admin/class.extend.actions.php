@@ -372,7 +372,7 @@
 
 		$skin = new PageLines_Upgrader_Skin();
 		$upgrader = new Plugin_Upgrader( $skin );
-		$destination = ( ! $uploader ) ? $this->make_url( $type, $file ) : $file;						
+		$destination = $this->make_url( $type, $file );						
 		@$upgrader->install( $destination );
 
 		$this->sandbox( WP_PLUGIN_DIR . $path, 'plugin' );
@@ -543,7 +543,7 @@
 		$skin = new PageLines_Upgrader_Skin();
 		$upgrader = new Theme_Upgrader( $skin );
 		global $wp_filesystem;
-		@$upgrader->install( $this->make_url( $type, $file, $product ) );
+		@$upgrader->install( $this->make_url( $type, $file ) );
 
 		// Output
 		$text = '&extend_text=theme_install#added';
