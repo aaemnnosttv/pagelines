@@ -325,7 +325,7 @@
 			$error .= sprintf( 'Unable to activate the %s.', $type );
 		
 		//Error on line
-		if( $error && PL_DEV )
+		if( $error && defined( 'PL_DEV' ) && PL_DEV )
 			$error .= sprintf( '<br />%s in %s on line: %s', $a['message'], basename( $a['file'] ), $a['line'] );
 		
 		echo $error;

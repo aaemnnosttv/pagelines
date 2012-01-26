@@ -94,9 +94,25 @@ function pagelines_body_classes(){
 		$design_mode
 	);
 	
+	global $pagelines_addclasses;
+	
+	if ( isset( $pagelines_addclasses ) )
+		$body_classes .= sprintf( ' %s', $pagelines_addclasses ); 
+	
 	return $body_classes;
 }
 
+function pagelines_add_bodyclass( $class ) {
+	
+	global $pagelines_addclasses;
+	
+	if ( !isset( $pagelines_addclasses ) )
+		$pagelines_addclasses = '';
+	
+	if ( isset( $class ) )
+		$pagelines_addclasses .= sprintf( ' %s', $class ); 
+	
+}
 
 /**
  * 
@@ -565,7 +581,7 @@ function pagelines_get_style_ver( $tpath = false ){
  */
 function plprint( $data, $title = false, $echo = false){
 
-	if(PL_DEV){
+	if( defined( 'PL_DEV' ) && PL_DEV ){
 		
 		ob_start();
 	
