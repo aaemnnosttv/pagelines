@@ -47,17 +47,13 @@ class PageLinesLess {
 	}
 	
 	public function draw_less( $lesscode ){
-		
-		if($lesscode != ''){
 			
 			printf(
 				'%1$s<style type="text/css" id="pagelines-less-css" >%2$s</style>%1$s', 
 				"\n",
 				plstrip( $this->parse($lesscode) )
 			);
-			
-		}
-		
+	
 	}
 	
 	/*
