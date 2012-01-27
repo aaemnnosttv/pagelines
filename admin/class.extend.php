@@ -342,6 +342,7 @@
 			&& !$this->is_purchased( $type, $key, $ext )
 			&& $this->in_the_store( $type, $key, $ext, $tab )
 			&& !$this->is_installed( $type, $key, $ext )
+			&& ! $this->version_fail( $ext['plversion'] )
 		) {
 			return true;
 		} else
