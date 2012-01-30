@@ -31,6 +31,7 @@ Version 2.1.0
 	- Twitter Section - @ and # links made clickable
 	- PostNav Section - Allow cloning
 	- Feature Section - New sort functions + all posts
+	- Boxes Section	  - New sort functions
 -------------------------------------
 
 Version 2.0.2
