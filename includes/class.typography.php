@@ -595,7 +595,8 @@ function load_custom_font($font, $selectors){
 		$foundry = new PageLinesFoundry;
 		
 		$rule = sprintf('%s{font-family: %s;}', $selectors, $font);
-	
+		if ( ! isset($foundry->foundry[$font]) )
+			return '';
 		return sprintf('<style type="text/css">%s%s</style>', $foundry->get_the_import($font), $rule);
 		
 	}else 
