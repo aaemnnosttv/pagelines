@@ -153,6 +153,36 @@ class PageLinesBoxes extends PageLinesSection {
 						'title' 		=> 'Custom CSS class',
 						'shortexp' 		=> 'Add a custom CSS class to this set of boxes.',
 					),
+					'box_orderby' => array(
+							'default' => 'ID',
+							'version'	=> 'pro',
+							'type' => 'select',
+							'selectvalues' => array(
+								'ID' 		=> array('name' => 'Post ID (default)'),
+								'title' 		=> array('name' => 'Title'),
+								'date' 		=> array('name' => 'Date'),
+								'modified' 		=> array('name' => 'Last Modified'),
+								'rand' 		=> array('name' => 'Random'),							
+							),
+							'inputlabel' => 'Select sort order',
+							'title' => 'Boxes sort order',
+							'shortexp' => 'How will the boxes be sorted.',
+							'exp' => "By default the boxes section will sort by post ID."
+						),
+						
+					'box_order' => array(
+							'default' => 'DESC',
+							'version'	=> 'pro',
+							'type' => 'select',
+							'selectvalues' => array(
+								'DESC' 		=> array('name' => 'Descending'),
+								'ASC' 		=> array('name' => 'Ascending'),
+							),
+							'inputlabel' => 'Select sort order',
+							'title' => 'Boxes sort order',
+							'shortexp' => 'How will the boxes be sorted.',
+							'exp' => "By default the boxes will be in descending order."
+						),
 				);
 
 			$tab_settings = array(
@@ -180,7 +210,9 @@ class PageLinesBoxes extends PageLinesSection {
 				
 		// Actions	
 			// Set up the query for this page
-				$params = array( 'orderby'	=> 'ID',  'post_type'	=> $this->ptID );
+				$orderby = ( ploption('box_orderby', $this->oset) ) ? ploption('box_orderby', $this->oset) : 'ID';
+				$order = ( ploption('box_order', $this->oset) ) ? ploption('box_order', $this->oset) : 'DESC';
+				$params = array( 'orderby'	=> $orderby, 'order' => $order, 'post_type'	=> $this->ptID );
 				$params[ 'showposts' ] = ( ploption('box_items', $this->oset) ) ? ploption('box_items', $this->oset) : $per_row;
 				$params[ $this->taxID ] = ( ploption( 'box_set', $this->oset ) ) ? ploption( 'box_set', $this->oset ) : null;
 
