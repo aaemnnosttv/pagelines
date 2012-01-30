@@ -48,8 +48,8 @@ class PageLinesCSSGroups{
 		/**
 		 * Layout Width Control
 		 */
-		$s['page_width'] = 'body.fixed_width #page, body.fixed_width #footer, body.canvas .page-canvas'; 
-		$s['content_width'] = '#site .content, .wcontent, #footer .content';
+		// $s['page_width'] = 'body.fixed_width #page, body.fixed_width #footer, body.canvas .page-canvas'; 
+		// $s['content_width'] = '#site .content, .wcontent, #footer .content';
 
 		/**
 		 * Main Page Element Colors

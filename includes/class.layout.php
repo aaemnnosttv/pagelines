@@ -300,36 +300,50 @@ class PageLinesLayout {
 			$p = $this->content->percent;
 			
 			// Selectors 
-				$page_width_sel = cssgroup('page_width');
-				$content_width_sel = cssgroup('content_width');
+			
+				// Setup Page Width
+					$page_width_array = apply_filters( 'pl_page_width', array('body.fixed_width #page', 'body.fixed_width #footer', 'body.canvas .page-canvas') );
+					$page_width_sel = join(',', $page_width_array);
+				
+				// Setup Content Width
+					$content_width_array = apply_filters( 'pl_content_width', array('#site .content', '#footer .content') );
+					$content_width_sel = join(',', $content_width_array);
+				
 		
 			// Options 
 				$layout_handling = ploption('layout_handling');
 				$design_mode = ploption('site_design_mode');
 			
-			$contained = ($design_mode == 'fixed_width' && !pl_is_disabled('color_control')) ? true : false;
+				$contained = ($design_mode == 'fixed_width' && !pl_is_disabled('color_control')) ? true : false;
 		
-			if( $layout_handling == 'percent'){
-				if($contained){
-					$css .= sprintf($page_width_sel . '{ width: %s%%;}', $p);
-					$css .= sprintf($content_width_sel . '{ width: %s%%; }', '100');
-				} else 
-					$css .= sprintf($content_width_sel . '{ width: %s%%; }', $p);
+		
+			// Set CSS for content and page width
+				if( $layout_handling == 'percent'){
 				
+					if($contained){
+						$css .= sprintf($page_width_sel . '{ width: %s%%;}', $p);
+						$css .= sprintf($content_width_sel . '{ width: %s%%; }', '100');
+					} else 
+						$css .= sprintf($content_width_sel . '{ width: %s%%; }', $p);
 				
-			} elseif( $layout_handling == 'pixels' ){
-				$css .= sprintf($page_width_sel . '{ max-width:%spx; }', $c);
-				$css .= sprintf($content_width_sel . '{ width: 100%%; max-width:%spx;}', $c);
-			}else{
-				$css .= sprintf($page_width_sel . '{ max-width:%spx; }', $c);
-				$css .= sprintf($content_width_sel . '{ width:%spx;}', $c);
-			}
+				} elseif( $layout_handling == 'pixels' ){
+					$css .= sprintf($page_width_sel . '{ max-width:%spx; }', $c);
+					$css .= sprintf($content_width_sel . '{ width: 100%%; max-width:%spx;}', $c);
+				}else{
+					$css .= sprintf($page_width_sel . '{ max-width:%spx; }', $c);
+					$css .= sprintf($content_width_sel . '{ width:%spx;}', $c);
+				}
 			
-			$css .= sprintf('%1$s #pagelines_content #column-main, %1$s .wmain{ %2$s }', $mode, $l['main']);
-			$css .= sprintf('%1$s #pagelines_content #sidebar1{ %2$s }', $mode, $l['sb1']);
-			$css .= sprintf('%1$s #pagelines_content #sidebar2{ %2$s }', $mode, $l['sb2']);
-			$css .= sprintf('%1$s #pagelines_content #column-wrap{ %2$s }', $mode, $l['colwrap']);
-			$css .= sprintf('%1$s #pagelines_content #sidebar-wrap{ %2$s }', $mode, $l['sbwrap']);
+			// Set CSS for inner elements based on mode
+				$content_id = apply_filters('pl_content_id', '#pagelines_content');
+			
+				$main_col_id = apply_filters('pl_main_id', '#column-main');
+			
+				$css .= sprintf('%1$s %3$s %4$s{ %2$s }', $mode, $l['main'], $content_id, $main_col_id);
+				$css .= sprintf('%1$s %3$s #sidebar1{ %2$s }', $mode, $l['sb1'], $content_id);
+				$css .= sprintf('%1$s %3$s #sidebar2{ %2$s }', $mode, $l['sb2'], $content_id);
+				$css .= sprintf('%1$s %3$s #column-wrap{ %2$s }', $mode, $l['colwrap'], $content_id);
+				$css .= sprintf('%1$s %3$s #sidebar-wrap{ %2$s }', $mode, $l['sbwrap'], $content_id);
 
 			return $css;
 		}
