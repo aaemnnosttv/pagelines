@@ -769,9 +769,11 @@ class PageLinesTemplate {
 
 		foreach($this->allsections as $section){
 
-			if($this->in_factory( $section )){
+			$p = splice_section_slug( $section );
+
+			if($this->in_factory( $p['section'] )){
 				
-				$section_scripts = $this->factory[$section]->section_scripts();
+				$section_scripts = $this->factory[$p['section']]->section_scripts();
 				
 				
 				if(is_array( $section_scripts )){
