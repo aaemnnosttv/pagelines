@@ -13,6 +13,7 @@
 
 
 Version 2.1.0
+	- NEW Global default meta options
 	- NEW Sharebar rewrite to use buttons
 	- NEW Hashtag option
 	- NEW Dynamic search field
@@ -27,7 +28,7 @@ Version 2.1.0
 	- Bugs - Fix importer trying to set a null array
 	- Bugs - Category is not an archive
 	- Bugs - Use main layout for posts/pages 
-	- Store - Better filesystem handling 100% WP functioality
+	- Store - Better filesystem handling 100% WP functionality
 	- Twitter Section - @ and # links made clickable
 	- PostNav Section - Allow cloning
 	- Feature Section - New sort functions + all posts
