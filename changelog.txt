@@ -12,14 +12,14 @@
 ********************************************************
 
 
-Version 2.1.0
+Version 2.1
 	- NEW - Global default meta options
 	- NEW - BuddyPress and bbPress Extensions
 	- NEW - Sharebar Section Rewrite (dynamic buttons)
 	- NEW - Hashtag option (Used in social media)
 	- NEW - Dynamic search field (CSS3 Search Field)
 	- NEW - Sidebar load priority
-	- NEw - Widget - Special Recent Posts
+	- NEW - Widget - Special Recent Posts
 	- CORE - Color handling system
 	- CORE - Meta defaults
 	- CORE - Updates LESS system
@@ -29,7 +29,8 @@ Version 2.1.0
 	- Bugs - Better license handling
 	- Bugs - Fix importer trying to set a null array
 	- Bugs - Category is not an archive
-	- Bugs - Use main layout for posts/pages 
+	- Bugs - Use main layout for posts/pages
+	- Bugs - JS not loading for a clone.
 	- Store - Better filesystem handling 100% WP functionality
 	- Twitter Section - @ and # links made clickable
 	- PostNav Section - Allow cloning
