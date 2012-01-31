@@ -290,6 +290,7 @@ class PageLinesMetaPanel {
 		
 		$special_template->load_section_optionator( $mode );
 
+		
 
 		ob_start(); ?>
 
@@ -591,6 +592,7 @@ function do_global_meta_options( $mode = '' ){
 			'icon' 	=>  PL_ADMIN_ICONS . '/ileaf.png'
 		);
 
+	
 	if($mode == 'integration')
 		unset($global_meta_options['_pagelines_layout_mode']);
 
@@ -694,7 +696,8 @@ function get_global_meta_options(){
 			'shortexp' 	=> 'Setup A Background Image For This Page',
 			'exp' 		=> 'Use this option to apply a background image to this page. This option will only be applied to the current page.<br/><br/><strong>Positioning</strong> Use percentages to position the images, 0% corresponds to the "top" or "left" side, 50% to center, etc..',
 			'type' 		=> 'background_image',
-			'selectors'	=> cssgroup('page_background_image')
+			'selectors'	=> cssgroup('page_background_image'), 
+			'disabled_mode'	=> 'color_control'
 		),
 		'disable_mobile_view' => array(
 			'default' 	=> false,

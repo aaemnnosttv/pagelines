@@ -57,6 +57,7 @@ class OptEngine {
 			'special'				=> null,
 			'flag'					=> '', 
 			'disabled'				=> false, 
+			'disabled_mode'			=> false,
 			'placeholder'			=> false, 
 			'clone_id'				=> 1
 		);
@@ -75,11 +76,17 @@ class OptEngine {
 			
 		global $supported_elements;
 		
+		
 		$support = (isset($supported_elements['sections'][ $o['section'] ])) ? $supported_elements['sections'][ $o['section'] ] : false;
 	
 		if( $support && $o['type'] == 'color_multi' && $support['disable_color'] )
 			$o['disabled'] = true;	
+			
+		global $disabled_settings;
 		
+		if( $o['disabled_mode'] && isset($disabled_settings[$o['disabled_mode']]) )
+			$o['disabled'] = true;	
+			
 		return $o;
 	}
 
