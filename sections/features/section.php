@@ -772,7 +772,7 @@ class PageLinesFeatures extends PageLinesSection {
 			    )
 		);
 
-		return apply_filters('pagelines_default_features', $posts);
+		return apply_filters('pagelines_default_features', array_reverse($posts));
 	}
 
 	function get_cats() {
