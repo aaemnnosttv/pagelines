@@ -705,7 +705,7 @@ table {width: 100%;}
 		.widget_flickrRSS.widget ul{ margin: 7px 0px 0px 0px; }
 		.widget_flickrRSS.widget ul li{display:inline-block;padding:0;margin:0;border-bottom:none;}
 		
-		.widget_flickrRSS a{display: inline-block; margin: 8px 8px 2px 8px; }
+		.widget_flickrRSS a{display: inline-block; margin: 8px 12px 2px 5px; }
 		.widget_flickrRSS a img{display: block; }
 		.widget_flickrRSS a img {
 			font-size: 10px;
