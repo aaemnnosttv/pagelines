@@ -735,7 +735,40 @@ class PageLinesFeatures extends PageLinesSection {
 						'background' 	=> $this->base_url.'/images/feature2.jpg',
 						'name'			=>	'Design',
 						'fcontent-design'	=> '',
+						'thumb'				=> $this->base_url.'/images/fthumb2.png'
+			    ), 
+				'3' => array(
+					 	'title' 		=> 'The PageLines Store',
+			        	'text' 			=> 'Buy and sell drag and drop sections, plugins and themes. The first ever "app-store" for web design.',
+			        	'media' 		=> '',
+			        	'style'			=> 'text-none',
+						'link' 			=> '#fake_link',
+						'background' 	=> $this->base_url.'/images/feature3.jpg',
+						'name'			=>	'Design',
+						'fcontent-design'	=> '',
 						'thumb'				=> $this->base_url.'/images/fthumb3.png'
+			    ), 
+				'4' => array(
+					 	'title' 		=> 'Page-by-Page Options',
+			        	'text' 			=> 'Want to do something totally unique? PageLines offers options for almost everything in an intuitive and easy to use format.',
+			        	'media' 		=> '',
+			        	'style'			=> 'text-none',
+						'link' 			=> '#fake_link',
+						'background' 	=> $this->base_url.'/images/feature4.jpg',
+						'name'			=>	'Design',
+						'fcontent-design'	=> '',
+						'thumb'				=> $this->base_url.'/images/fthumb4.png'
+			    ), 
+				'5' => array(
+					 	'title' 		=> 'Design Control',
+			        	'text' 			=> 'Use advanced typography and color control to fine tune your design with point and click simplicity.',
+			        	'media' 		=> '',
+			        	'style'			=> 'text-none',
+						'link' 			=> '#fake_link',
+						'background' 	=> $this->base_url.'/images/feature5.jpg',
+						'name'			=>	'Design',
+						'fcontent-design'	=> '',
+						'thumb'				=> $this->base_url.'/images/fthumb5.png'
 			    )
 		);
 
