@@ -162,7 +162,7 @@
 			'version_fail'	=>	array(
 				'case'		=> 'version_fail',
 				'file'		=>	$ext['plversion'],
-				'path'		=>	__( 'theme', 'pagelines' ),
+				'path'		=>	$type,
 				'condition'	=> $this->version_fail( $ext['plversion'] ),
 				'text'		=> sprintf( __( '%s is required', 'pagelines' ), $ext['plversion'] ),
 				),
