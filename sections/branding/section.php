@@ -51,7 +51,7 @@ class PageLinesBranding extends PageLinesSection {
 							printf('<a target="_blank" href="%s" class="youtubelink"><img src="%s" alt="Youtube"/></a>', ploption('youtubelink'), $this->base_url.'/youtube.png');
 						
 						if(ploption('gpluslink'))
-							printf('<a target="_blank" href="%s" class="gpluslink"><img src="%s" alt="Twitter"/></a>', ploption('gpluslink'), $this->base_url.'/google.png');
+							printf('<a target="_blank" href="%s" class="gpluslink"><img src="%s" alt="Google+"/></a>', ploption('gpluslink'), $this->base_url.'/google.png');
 						
 						pagelines_register_hook( 'pagelines_branding_icons_end', 'branding' ); // Hook 
 				
