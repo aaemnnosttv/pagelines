@@ -1020,7 +1020,7 @@ input[type="submit"], .submit, input[type="button"], .button, input[type="reset"
 /* @ Widgets Default Formatting */
 	.wp-caption {
 		text-align: center;
-		padding:  10px 5px;
+		padding: 8px;
 		border-radius: 3px;
 		max-width: 98%;
 		margin-bottom: 1em;
