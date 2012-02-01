@@ -65,14 +65,14 @@ class PageLinesPosts {
 		
 		$post_type_class = ($clip) ? ( $clip_right ? 'clip clip-right' : 'clip' ) : 'fpost';
 		
-		$pagelines_post_classes = sprintf('%s post-number-%s', $post_type_class, $this->count);
+		$pagelines_post_classes = apply_filters( 'pagelines_get_article_post_classes', sprintf( '%s post-number-%s', $post_type_class, $this->count ) );
 		
 		$post_classes = join(' ', get_post_class( $pagelines_post_classes ));
 		
 		$wrap_start = ( $clip && $clip_row_start ) ? sprintf('<div class="clip_box fix">') : ''; 	
 		$wrap_end = ( $clip && $clip_row_end ) ? sprintf('</div>') : '';
 	
-		echo sprintf(
+		$out = sprintf(
 			'%s<article class="%s" id="post-%s"><div class="hentry-pad %s">%s%s</div></article>%s', 
 			$wrap_start, 
 			$post_classes, 
@@ -82,6 +82,8 @@ class PageLinesPosts {
 			$this->post_entry(), 
 			$wrap_end
 		);
+		
+		echo apply_filters( 'pagelines_get_article_output', $out );
 		
 		// Count the clips
 		if( $clip ) 
