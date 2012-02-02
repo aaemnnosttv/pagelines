@@ -7,7 +7,7 @@
 #callout .callout_text.noimage { width:100%; }
 
 #callout .callout_image a{ display: block;line-height: 1em;}
-#callout .callout_image { float:right;width:30%; text-align: center; vertical-align: center; }
+#callout .callout_image { text-align: center; vertical-align: center; }
 
 #callout .callout_button{
 	font-size: 1.7em;
