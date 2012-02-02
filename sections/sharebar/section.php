@@ -31,7 +31,7 @@ class PageLinesShareBar extends PageLinesSection {
 			?>
 			
 			</div>
-			<div class="bd">
+			<div class="bd fix">
 				<?php 
 				
 				if(ploption('share_facebook')):

@@ -3,7 +3,7 @@ Theme Name: PageLines Framework
 
 Description: PageLines is a drag-and-drop platform for professional websites based on WordPress and HTML5. It will help you do amazing things with your site, faster & easier than ever before. Designed and developed by <a href="http://pagelines.com/">PageLines</a> in San Francisco, California. Twitter @pagelines
 
-Version: 2.1
+Version: 2.1.1
 
 Author: PageLines
 
@@ -30,20 +30,8 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 /* 
  * Reset
  *****************************/
-html, body, address, blockquote, div, dl, form, h1, h2, h3, h4, h5, h6, ol, p, pre, table, ul,
-dd, dt, li, tbody, td, tfoot, th, thead, tr, button, del, ins, map, object,
-a, abbr, acronym, b, bdo, big, br, cite, code, dfn, em, i, img, kbd, q, samp, small, span,
-strong, sub, sup, tt, var, legend, fieldset {
-	margin: 0;
-	padding: 0;
-}
-fieldset {
-	border: 0;
-}
-article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { 
-    display:block;
-}
-
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outline:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {  display: block; }
 /* 
  * Defaults
  ****************************/
@@ -523,7 +511,7 @@ body{
 				text-transform: uppercase;
 				letter-spacing: .1em;
 			}
-		
+
 		.tags {font-style: italic;}
 
 /* @ Sidebar */
@@ -677,6 +665,7 @@ body{
 	.typekit-badge{ display: none !important; }
 
 /* @ Content Pagination */
+	.content-pagination { clear:both; }
 	.content-pagination .cp-desc { font-style: italic; }
 	.content-pagination a:hover{text-decoration:none;}
 	.content-pagination .cp-num, .content-pagination a:hover .cp-num{

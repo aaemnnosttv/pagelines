@@ -11,6 +11,8 @@
 
 ********************************************************
 
+Version 2.1.1
+	- Bugs - IE8 <img> css
 
 Version 2.1
 	- NEW - Global default meta options
