@@ -999,7 +999,7 @@ input[type="submit"], .submit, input[type="button"], .button, input[type="reset"
 	box-shadow: inset 1px 1px 0px #FFF;
 } 
 
-	input[type="submit"]:hover, .submit:hover, input[type="button"]:hover, .button:hover, input[type="reset"]:hover, .reset:hover { 
+	input[type="submit"]:hover, .submit:hover, input[type="button"]:hover, .button:hover, a.button:hover, input[type="reset"]:hover, .reset:hover { 
 		text-decoration: none;
 		color:#000000; 
 		text-shadow:0 1px 0 rgba(255,255,255,0.5); 
