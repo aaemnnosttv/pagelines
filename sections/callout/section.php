@@ -59,8 +59,8 @@ class PageLinesCallout extends PageLinesSection {
 					'shortexp' 		=> 'Aligns the action left or right (defaults right)',
 					'exp' 			=> 'Default alignment for the callout is on the right.', 
 					'selectvalues'	=> array(
-						'right'		=> array('name'=>'Align Right'),
-						'left'		=> array('name '=>'Align Left'),
+						'right'		=> array('name'	=>'Align Right'),
+						'left'		=> array('name'	=>'Align Left'),
 					),
 				),
 			);
