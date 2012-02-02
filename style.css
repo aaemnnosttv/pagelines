@@ -978,6 +978,7 @@ table {width: 100%;}
 input[type="submit"], .submit, input[type="button"], .button, input[type="reset"], .reset{
 	padding: 4px 9px;
 	cursor: pointer;
+	text-decoration: none;
 	-moz-box-sizing: content-box;
 	-webkit-box-sizing: content-box;
 	box-sizing: content-box;
@@ -999,6 +1000,7 @@ input[type="submit"], .submit, input[type="button"], .button, input[type="reset"
 } 
 
 	input[type="submit"]:hover, .submit:hover, input[type="button"]:hover, .button:hover, input[type="reset"]:hover, .reset:hover { 
+		text-decoration: none;
 		color:#000000; 
 		text-shadow:0 1px 0 rgba(255,255,255,0.5); 
 		border:1px solid #aeaeae; 
