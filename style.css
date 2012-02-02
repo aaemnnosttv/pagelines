@@ -942,6 +942,29 @@ table {width: 100%;}
 			font-size:1.4em;
 		}
 
+
+		/* Contact Forms 7 */ 
+			#page div.wpcf7-mail-sent-ok{
+				border: 1px solid #70E43E;
+				background: #D4F7C5;
+			}
+		
+			#page span.wpcf7-not-valid-tip{
+				border:1px solid #e17869;
+				background: #f6d8d3;
+			
+			
+			}
+			#page div.wpcf7-validation-errors{
+				border: 1px solid #F1CC35;
+				background: #FDF6DD;
+			}
+			#page div.wpcf7-mail-sent-ok, #page span.wpcf7-not-valid-tip, #page div.wpcf7-validation-errors{
+				text-shadow: 0 1px 0 rgba(255,255,255,.8);
+				box-shadow: inset 1px 1px 2px rgba(255,255,255,.5);
+				text-align: center;
+			}
+
 		/* Mailing List Form */
 		.mailinglist .cform ol{width:262px; float: left;}
 		.mailinglist .cform .single{width:97%}
