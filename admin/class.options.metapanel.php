@@ -296,7 +296,7 @@ class PageLinesMetaPanel {
 
 	<script type="text/javascript"> 
 		jQuery(document).ready(function() { 
-			<?php printf('var %1$s = jQuery("#%1$s").tabs({cookie: {}, fx: { opacity: "toggle", duration: 150 }});', $handle); ?> 
+			<?php printf('var %1$s = jQuery("#%1$s").tabs({cookie: {  name: "htabs-%2$s" }, fx: { opacity: "toggle", duration: 150 }});', $handle, $type ); ?> 
 		});
 	</script>
 	

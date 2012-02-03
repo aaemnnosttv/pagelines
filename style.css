@@ -1014,7 +1014,7 @@ input[type="submit"], .submit, input[type="button"], .button, input[type="reset"
 		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#d3d3d3',GradientType=0); 
 	} 
 
-	input[type="submit"]:active, .submit:active, input[type="button"]:active, .button:active, input[type="reset"]:active, .reset:active { 
+	input[type="submit"]:active, .submit:active, input[type="button"]:active, .button:active, a.button:active, input[type="reset"]:active, .reset:active { 
 		color:#000000; 
 		text-shadow:0 1px 0 rgba(255,255,255,0.5); 
 		border:1px solid #8e8e8e; 
