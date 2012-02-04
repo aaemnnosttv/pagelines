@@ -171,7 +171,7 @@ function pagelines_head_common(){
 		printf( "<meta property='og:title' content='%s' />", get_the_title($pagelines_ID));
 		printf( "<meta property='og:url' content='%s' />", get_permalink($pagelines_ID));
 		printf( "<meta property='og:site_name' content='%s' />", get_bloginfo( 'name' ));
-		printf( "<meta property='og:description' content='%s' />", strip_tags(get_the_excerpt($pagelines_ID)));
+//		printf( "<meta property='og:description' content='%s' />", strip_tags(get_the_excerpt($pagelines_ID)));
 		printf( "<meta property='og:type' content='%s' />", (is_home()) ? 'website' : 'article');
 		
 	}
