@@ -1,6 +1,23 @@
 <?php
 
 /**
+ * Get just the WordPress thumbnail URL - False if not there.
+ */
+function pl_the_thumbnail_url( $post_id ){
+	
+	if( has_post_thumbnail($post_id) ){
+		
+		$img_data = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ));
+
+		$a['img'] = ($img_data[0] != '') ? $img_data[0] : '';
+
+		return $a['img'];
+		
+	} else
+		return false;
+}
+
+/**
  * Support optional WordPress functionality 'add_theme_support'
  */
 add_action('pagelines_setup', 'pl_theme_support');

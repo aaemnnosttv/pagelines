@@ -122,7 +122,7 @@ function pagelines_head_common(){
 	
 	// Some Credit
 	if(!VDEV)
-		printf ( "<!-- PageLines Professional Drag-and-Drop Framework ( %s ) - www.PageLines.com -->\n", get_pagelines_credentials( 'licence' ) );
+		printf ( "<!-- PageLines Professional Drag-and-Drop Platform ( %s ) - www.PageLines.com -->\n", get_pagelines_credentials( 'licence' ) );
 		
 	// Meta Images
 
@@ -138,6 +138,8 @@ function pagelines_head_common(){
 	if(!ploption('disable_mobile_view', $oset) && !apply_filters( 'disable_mobile_view', '' ))
 		echo '<meta name="viewport" content="width=device-width, initial-scale=1.0" />';
 
+	
+		
 	// Allow for extension deactivation of all css
 	if(!has_action('override_pagelines_css_output')){	
 
@@ -156,6 +158,19 @@ function pagelines_head_common(){
 		// RTL Language Support
 		if(is_rtl()) 
 			pagelines_load_css_relative( 'rtl.css', 'pagelines-rtl');
+		
+		// Facebook Like Images
+		if(pl_the_thumbnail_url($pagelines_ID)){
+
+			printf("<meta property='og:image' content='%s' />", pl_the_thumbnail_url($pagelines_ID));
+			printf("<meta property='og:title' content='%s' />", get_the_title($pagelines_ID));
+			printf("<meta property='og:url' content='%s' />", get_permalink($pagelines_ID));
+			printf("<meta property='og:site_name' content='%s' />", get_bloginfo( 'name' ));
+			printf("<meta property='og:description' content='%s' />", strip_tags(get_the_excerpt($pagelines_ID)));
+
+			printf("<meta property='og:type' content='%s' />", (is_home()) ? 'website' : 'article');
+
+		}
 		
 	}
 

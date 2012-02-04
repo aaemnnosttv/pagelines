@@ -11,8 +11,13 @@
 
 ********************************************************
 
+Version 2.1.2
+	- New - Callout Options (alignment, CSS button)
+	- New - Facebook Like Image uses 'Featured Image' (if available)
+
 Version 2.1.1
 	- Bugs - IE8 <img> css
+	- Section Tweaks - Highlight
 
 Version 2.1
 	- NEW - Global default meta options
