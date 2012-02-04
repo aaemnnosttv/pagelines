@@ -115,7 +115,7 @@ class PageLinesFeatures extends PageLinesSection {
 			if($fmode == 'names' || $fmode == 'thumbs'){
 				echo "\n".' // '.$fmode.'!!!'."\n";
 				if($fmode == 'names')
-					$replace_value = $feature_name;
+					$replace_value = esc_js( $feature_name );
 			
 				elseif ($fmode == 'thumbs')
 					$replace_value = sprintf("<span class='nav_thumb' style='background-image: url(%s);'><span class='nav_overlay'>&nbsp;</span></span>", $feature_thumb);
@@ -124,7 +124,7 @@ class PageLinesFeatures extends PageLinesSection {
 			} else
 				$replace_js = '';
 			
-			$link_title = sprintf('jQuery(this).attr("title", "%s");', $feature_name );
+			$link_title = sprintf('jQuery(this).attr("title", "%s");', esc_js( $feature_name ) );
 		
 			$link_js .= sprintf('if(jQuery(this).html() == "%s") { %s %s }', $count, $link_title, $replace_js);
 		
