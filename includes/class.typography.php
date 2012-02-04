@@ -154,8 +154,8 @@ class PageLinesFoundry {
 				'monospace' => true
 			),
 			'josefin_sans' => array(
-				'name' => 'Josefin Sans Std Light',
-				'family' => '"Josefin Sans Std Light", "Century Gothic", Verdana, sans-serif',
+				'name' => 'Josefin Sans',
+				'family' => '"Josefin Sans", "Century Gothic", Verdana, sans-serif',
 				'web_safe' => true,
 				'google' => true,
 				'monospace' => false, 
