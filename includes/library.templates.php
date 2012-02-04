@@ -159,18 +159,20 @@ function pagelines_head_common(){
 		if(is_rtl()) 
 			pagelines_load_css_relative( 'rtl.css', 'pagelines-rtl');
 		
-		// Facebook Like Images
-		if(pl_the_thumbnail_url($pagelines_ID)){
 
-			printf("<meta property='og:image' content='%s' />", pl_the_thumbnail_url($pagelines_ID));
-			printf("<meta property='og:title' content='%s' />", get_the_title($pagelines_ID));
-			printf("<meta property='og:url' content='%s' />", get_permalink($pagelines_ID));
-			printf("<meta property='og:site_name' content='%s' />", get_bloginfo( 'name' ));
-			printf("<meta property='og:description' content='%s' />", strip_tags(get_the_excerpt($pagelines_ID)));
-
-			printf("<meta property='og:type' content='%s' />", (is_home()) ? 'website' : 'article');
-
-		}
+		
+		$fb_img = apply_filters('pl_opengraph_image', pl_the_thumbnail_url($pagelines_ID));
+		
+		
+		
+		if($fb_img)
+			printf( "<meta property='og:image' content='%s' />", $fb_img);
+			
+		printf( "<meta property='og:title' content='%s' />", get_the_title($pagelines_ID));
+		printf( "<meta property='og:url' content='%s' />", get_permalink($pagelines_ID));
+		printf( "<meta property='og:site_name' content='%s' />", get_bloginfo( 'name' ));
+		printf( "<meta property='og:description' content='%s' />", strip_tags(get_the_excerpt($pagelines_ID)));
+		printf( "<meta property='og:type' content='%s' />", (is_home()) ? 'website' : 'article');
 		
 	}
 
