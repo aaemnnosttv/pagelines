@@ -604,6 +604,7 @@ class PageLinesOptionsArray {
 						'facebooklink'		=> array('inputlabel'=> __( 'Your Facebook Profile URL', 'pagelines' ), 'default'=> ''),
 						'twitterlink'		=> array('inputlabel'=> __( 'Your Twitter Profile URL', 'pagelines' ), 'default'=> ''),
 						'linkedinlink'		=> array('inputlabel'=> __( 'Your LinkedIn Profile URL', 'pagelines' ), 'default'=> ''),
+						'youtubelink'		=> array('inputlabel'=> __( 'Your YouTube Profile URL', 'pagelines' ), 'default'=> ''),
 					),
 					'title'		=> __( 'Social Icons', 'pagelines' ),
 					'shortexp'	=> __( 'Add social network profile icons to your header', 'pagelines' ),
