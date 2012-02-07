@@ -264,8 +264,6 @@ function plid($key, $a){
 	$grandkey = (isset($a['subkey']) && is_array($a['subkey']) && isset($a['subkey']['grandkey'])) ? $a['subkey']['grandkey'] : false;
 
 	$clone_id = (isset($a['clone_id']) && $a['clone_id'] != 1) ? '_'.$a['clone_id'] : '';
-	
-//	plprint($a, $subkey);
 
 	if( $grandkey )
 		$output = array($set, $key, $subkey, $grandkey);

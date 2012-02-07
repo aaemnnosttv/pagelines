@@ -566,8 +566,7 @@ class PageLinesTemplate {
 					
 					if(isset($stemplate['page_type']))
 						$map[$hook_id]['templates'][$sub_template]['page_type'] = $stemplate['page_type'];
-					
-				//	plprint( $stemplate );
+
 					$map[$hook_id]['templates'][$sub_template]['version'] = ( isset($stemplate['version']) && $stemplate['version'] != '' ) ? $stemplate['version'] : null;
 					
 				}
