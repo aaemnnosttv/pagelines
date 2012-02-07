@@ -118,6 +118,8 @@ require_once( PL_INCLUDES . '/class.posts.php' );
  */
 require_once( PL_INCLUDES . '/class.layout.php' ); 
 
+require_once( PL_INCLUDES . '/library.layout.php' ); 
+
 /**
  * Users Handling
  */	
