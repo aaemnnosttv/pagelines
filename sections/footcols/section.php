@@ -8,6 +8,12 @@
 	Workswith: morefoot, footer
 */
 
+/**
+ * Footer Columns Sidebar Section
+ *
+ * @package PageLines Framework
+ * @author PageLines
+ **/
 class PageLinesFootCols extends PageLinesSection {
 
 	public $markup_start;
@@ -96,4 +102,4 @@ class PageLinesFootCols extends PageLinesSection {
 		return $out;
 	}
 
-} // End
+}

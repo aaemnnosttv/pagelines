@@ -8,6 +8,12 @@
 	Workswith: 404
 */
 
+/**
+ * No Posts Section
+ *
+ * @package PageLines Framework
+ * @author PageLines
+ **/
 class PageLinesNoPosts extends PageLinesSection {
 
    function section_template() { ?>
@@ -36,7 +42,3 @@ class PageLinesNoPosts extends PageLinesSection {
 	}
 
 }
-
-/*
-	End of section class
-*/

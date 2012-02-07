@@ -9,6 +9,12 @@
 	Edition: pro
 */
 
+/**
+ * Universal Sidebar Section
+ *
+ * @package PageLines Framework
+ * @author PageLines
+ **/
 class UniversalSidebar extends PageLinesSection {
 
    function section_persistent() { 
@@ -21,7 +27,3 @@ class UniversalSidebar extends PageLinesSection {
 	}
 
 }
-
-/*
-	End of section class
-*/

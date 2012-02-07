@@ -8,6 +8,12 @@
 	Workswith: main-default, main-posts, main-single, main-404
 */
 
+/**
+ * Content Sidebar Section
+ *
+ * @package PageLines Framework
+ * @author PageLines
+ **/
 class ContentSidebar extends PageLinesSection {
 
    function section_persistent() { 
@@ -20,7 +26,3 @@ class ContentSidebar extends PageLinesSection {
 	}
 
 }
-
-/*
-	End of section class
-*/

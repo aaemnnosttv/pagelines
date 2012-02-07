@@ -12,18 +12,13 @@
 /**
  * Twitter Feed Section
  *
- * Uses pagelines_get_tweets() to display the latest tweet in the moorfoot area.
+ * Uses pagelines_get_tweets() to display the latest tweet in the morefoot area.
  *
  * @package PageLines Framework
  * @author PageLines
  **/
 class PageLinesTwitterBar extends PageLinesSection {
 
-	/**
-	 * Section Template
-	 *
-	 * @author PageLines
-	 **/
 	function section_template() { 
 
 		if( !pagelines('twittername') ) :
@@ -44,6 +39,3 @@ class PageLinesTwitterBar extends PageLinesSection {
 		printf('<div class="tbubble"><div class="tbubble-pad">%s</div></div>', $twitter);	
 	}
 }
-/*
-	End of section class
-*/

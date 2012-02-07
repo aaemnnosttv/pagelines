@@ -8,6 +8,12 @@
 	Workswith: main
 */
 
+/**
+ * Posts Info Section
+ *
+ * @package PageLines Framework
+ * @author PageLines
+ **/
 class PageLinesPostsInfo extends PageLinesSection {
 
    function section_template() { 	
@@ -49,7 +55,3 @@ class PageLinesPostsInfo extends PageLinesSection {
 	}
 
 }
-
-/*
-	End of section class
-*/

@@ -8,6 +8,12 @@
 	Workswith: header 
 */
 
+/**
+ * Branding Section
+ *
+ * @package PageLines Framework
+ * @author PageLines
+ **/
 class PageLinesBranding extends PageLinesSection {
 
    function __construct( $registered_settings = array() ) {
@@ -69,6 +75,3 @@ class PageLinesBranding extends PageLinesSection {
 				
 		}
 }
-/*
-	End of section class
-*/

@@ -9,6 +9,12 @@
 	Failswith: pagelines_special_pages()
 */
 
+/**
+ * Comments Section
+ *
+ * @package PageLines Framework
+ * @author PageLines
+ **/
 class PageLinesComments extends PageLinesSection {
 
 	function section_styles() {  
@@ -23,7 +29,3 @@ class PageLinesComments extends PageLinesSection {
 		comments_template();	
 	}
 }
-
-/*
-	End of section class
-*/

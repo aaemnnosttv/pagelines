@@ -9,6 +9,12 @@
 	Cloning: true 
 */
 
+/**
+ * Banners Section
+ *
+ * @package PageLines Framework
+ * @author PageLines
+ **/
 class PageLinesBanners extends PageLinesSection {
 
 

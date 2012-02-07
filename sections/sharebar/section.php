@@ -10,6 +10,12 @@
 	Cloning: true
 */
 
+/**
+ * ShareBar Section
+ *
+ * @package PageLines Framework
+ * @author PageLines
+ **/
 class PageLinesShareBar extends PageLinesSection {
 		
    function section_template() { 
@@ -120,7 +126,3 @@ class PageLinesShareBar extends PageLinesSection {
 <?php	}
 
 }
-
-/*
-	End of section class
-*/

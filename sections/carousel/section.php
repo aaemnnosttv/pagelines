@@ -10,6 +10,12 @@
 	Edition: pro
 */
 
+/**
+ * Carousel Section
+ *
+ * @package PageLines Framework
+ * @author PageLines
+ **/
 class PageLinesCarousel extends PageLinesSection {
 	
 	function section_styles(){
@@ -231,5 +237,4 @@ class PageLinesCarousel extends PageLinesSection {
 		
 		return $out;
 	}
-// End of Section Class //
 }
