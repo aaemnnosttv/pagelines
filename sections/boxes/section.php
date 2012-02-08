@@ -10,6 +10,12 @@
 	Edition: pro
 */
 
+/**
+ * Boxes Section
+ *
+ * @package PageLines Framework
+ * @author PageLines
+ **/
 class PageLinesBoxes extends PageLinesSection {
 
 	var $taxID = 'box-sets';

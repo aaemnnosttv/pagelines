@@ -9,6 +9,12 @@
 	Failswith: pagelines_special_pages()
 */
 
+/**
+ * Post Author Section
+ *
+ * @package PageLines Framework
+ * @author PageLines
+ **/
 class PageLinesPostAuthor extends PageLinesSection {
 
    function section_template() { 
@@ -40,7 +46,3 @@ class PageLinesPostAuthor extends PageLinesSection {
 <?php	}
 
 }
-
-/*
-	End of section class
-*/

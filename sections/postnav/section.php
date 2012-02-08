@@ -10,6 +10,12 @@
 	Failswith: pagelines_special_pages()
 */
 
+/**
+ * Next/Prev Post Navigation Section
+ *
+ * @package PageLines Framework
+ * @author PageLines
+ **/
 class PageLinesPostNav extends PageLinesSection {
 
    function section_template() {

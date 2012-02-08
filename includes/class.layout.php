@@ -439,7 +439,6 @@ function pagelines_layout_mode() {
 	 
 }
 
-
 function get_layout_mode(){
 	$load_layout = new PageLinesLayout();
 	$layoutmap = $load_layout->get_layout_map();

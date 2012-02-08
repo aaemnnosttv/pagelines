@@ -11,6 +11,12 @@
 	Tax: feature-sets
 */
 
+/**
+ * Features Section
+ *
+ * @package PageLines Framework
+ * @author PageLines
+ **/
 class PageLinesFeatures extends PageLinesSection {
 
 	var $taxID = 'feature-sets';

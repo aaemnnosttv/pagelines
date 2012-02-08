@@ -869,6 +869,4 @@ function pagelines_register_sidebar( $args, $priorty = null ) {
 		$pagelines_sidebars[ $priorty ] = $args;
 	else
 		$pagelines_sidebars[] = $args;
-
-//	plprint( $pagelines_sidebars );
 }

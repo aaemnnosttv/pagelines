@@ -9,6 +9,12 @@
 	Failswith: pagelines_special_pages()
 */
 
+/**
+ * Post/Page navigation Section
+ *
+ * @package PageLines Framework
+ * @author PageLines
+ **/
 class PageLinesPagination extends PageLinesSection {
 
    function section_template() { 

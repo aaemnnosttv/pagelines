@@ -9,6 +9,12 @@
 	Workswith: templates, footer, morefoot
 */
 
+/**
+ * Full Width Sidebar Section
+ *
+ * @package PageLines Framework
+ * @author PageLines
+ **/
 class FullWidthSidebar extends PageLinesSection {
 
    function section_persistent() { 

@@ -9,6 +9,12 @@
 	Edition: pro
 */
 
+/**
+ * Morefoot Sidebars Section
+ *
+ * @package PageLines Framework
+ * @author PageLines
+ **/
 class PageLinesMorefoot extends PageLinesSection {
 
 	function section_persistent(){

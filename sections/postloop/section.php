@@ -8,6 +8,12 @@
 	Workswith: main
 */
 
+/**
+ * Main Post Loop Section
+ *
+ * @package PageLines Framework
+ * @author PageLines
+ **/
 class PageLinesPostLoop extends PageLinesSection {
 
    function section_template() { 
@@ -17,7 +23,3 @@ class PageLinesPostLoop extends PageLinesSection {
 	}
 
 }
-
-/*
-	End of section class
-*/

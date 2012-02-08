@@ -8,6 +8,15 @@
 	Workswith: morefoot
 	Edition: Pro
 */
+
+/**
+ * Twitter Feed Section
+ *
+ * Uses pagelines_get_tweets() to display the latest tweet in the morefoot area.
+ *
+ * @package PageLines Framework
+ * @author PageLines
+ **/
 class PageLinesTwitterBar extends PageLinesSection {
 
 	function section_template() { 
@@ -30,6 +39,3 @@ class PageLinesTwitterBar extends PageLinesSection {
 		printf('<div class="tbubble"><div class="tbubble-pad">%s</div></div>', $twitter);	
 	}
 }
-/*
-	End of section class
-*/

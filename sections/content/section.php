@@ -10,6 +10,12 @@
 	Failswith: 404
 */
 
+/**
+ * Content Section
+ *
+ * @package PageLines Framework
+ * @author PageLines
+ **/
 class PageLinesContent extends PageLinesSection {
 
    function section_template() {  
@@ -43,7 +49,3 @@ class PageLinesContent extends PageLinesSection {
 <?php }
 
 }
-
-/*
-	End of section class
-*/

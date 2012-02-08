@@ -8,6 +8,12 @@
 	Workswith: morefoot, footer
 */
 
+/**
+ * Footer Columns Sidebar Section
+ *
+ * @package PageLines Framework
+ * @author PageLines
+ **/
 class PageLinesFootCols extends PageLinesSection {
 
 	public $markup_start;
@@ -17,7 +23,7 @@ class PageLinesFootCols extends PageLinesSection {
 		
 		$per_row = (ploption('footer_num_columns')) ? ploption('footer_num_columns') : 5;
 		
-		$this->markup_start = '<div id="%1$s" class="%2$s pp'.$per_row.' footcol"><div class="footcol-pad">';
+		$this->markup_start = sprintf( '<div class="pp%s footcol"><div class="footcol-pad">', $per_row );
 		$this->markup_end 	= '</div></div>';
 		
 	
@@ -96,4 +102,4 @@ class PageLinesFootCols extends PageLinesSection {
 		return $out;
 	}
 
-} // End
+}

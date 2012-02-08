@@ -8,6 +8,12 @@
 	Workswith: footer
 */
 
+/**
+ * Simple Nav Section
+ *
+ * @package PageLines Framework
+ * @author PageLines
+ **/
 class SimpleNav extends PageLinesSection {
 
 	function section_persistent(){
@@ -15,7 +21,6 @@ class SimpleNav extends PageLinesSection {
 
 	}
 
-	
    function section_template() { 
 
 	if(function_exists('wp_nav_menu'))

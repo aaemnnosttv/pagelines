@@ -9,6 +9,12 @@
 	Edition: pro
 */
 
+/**
+ * Secondary Nav Section
+ *
+ * @package PageLines Framework
+ * @author PageLines
+ **/
 class PageLinesSecondNav extends PageLinesSection {
 
 	// PHP that always loads no matter if section is added or not -- e.g. creates menus, locations, admin stuff...

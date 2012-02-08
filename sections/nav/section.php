@@ -9,6 +9,12 @@
 	Cloning: false
 */
 
+/**
+ * Navigation Section
+ *
+ * @package PageLines Framework
+ * @author PageLines
+ **/
 class PageLinesNav extends PageLinesSection {
 
 	static $nav_url;

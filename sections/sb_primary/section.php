@@ -8,6 +8,12 @@
 	Workswith: sidebar1, sidebar2, sidebar_wrap
 */
 
+/**
+ * Primary Sidebar Section
+ *
+ * @package PageLines Framework
+ * @author PageLines
+ **/
 class PrimarySidebar extends PageLinesSection {
 
    function section_persistent() { 
@@ -20,7 +26,3 @@ class PrimarySidebar extends PageLinesSection {
 	}
 
 }
-
-/*
-	End of section class
-*/

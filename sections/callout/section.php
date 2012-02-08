@@ -9,6 +9,12 @@
 	Workswith: templates, main, header, morefoot
 */
 
+/**
+ * Callout Section
+ *
+ * @package PageLines Framework
+ * @author PageLines
+ **/
 class PageLinesCallout extends PageLinesSection {
 
 	var $tabID = 'callout_meta';
@@ -124,6 +130,3 @@ class PageLinesCallout extends PageLinesSection {
 			echo setup_section_notify($this, __('Set Callout meta fields to activate.', 'pagelines') );
 	}
 }
-/*
-	End of section class
-*/

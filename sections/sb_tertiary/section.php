@@ -8,6 +8,12 @@
 	Workswith: sidebar1, sidebar2, sidebar_wrap
 */
 
+/**
+ * Tertiary Sidebar Section
+ *
+ * @package PageLines Framework
+ * @author PageLines
+ **/
 class TertiarySidebar extends PageLinesSection {
 
    function section_persistent() { 
@@ -19,7 +25,3 @@ class TertiarySidebar extends PageLinesSection {
 	 	 pagelines_draw_sidebar($this->id, $this->name);
 	}
 }
-
-/*
-	End of section class
-*/
