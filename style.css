@@ -1034,10 +1034,6 @@ input[type="submit"], .submit, input[type="button"], .button, input[type="reset"
 
 	/* Blue Button */
 	.button.bblue{
-
-		color:#FFF; 
-		text-shadow:0 -1px 0 rgba(0,0,0,0.8); 
-		border:1px solid #34588B; 
 		background:#4574B8; 
 		background:-moz-linear-gradient(top,#6E9ED2 0%,#4574B8 100%); 
 		background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#6E9ED2),color-stop(100%,#4574B8)); 
@@ -1050,8 +1046,6 @@ input[type="submit"], .submit, input[type="button"], .button, input[type="reset"
 	} 
 
 		.button.bblue:hover{ 
-			color:#fff;
-			text-decoration: none;
 			background:-moz-linear-gradient(top,#517EBD 0%,#2853A1 100%); 
 			background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#517EBD),color-stop(100%,#2853A1)); 
 			background:-webkit-linear-gradient(top,#517EBD 0%,#2853A1 100%); 
@@ -1063,7 +1057,6 @@ input[type="submit"], .submit, input[type="button"], .button, input[type="reset"
 
 		.button.bblue:active { 
 			box-shadow: none;
-			color: #FFF;
 			background:-moz-linear-gradient(top,#1A3764 0%,#517EBD 100%); 
 			background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#1A3764),color-stop(100%,#517EBD)); 
 			background:-webkit-linear-gradient(top,#1A3764 0%,#517EBD 100%); 
@@ -1071,6 +1064,13 @@ input[type="submit"], .submit, input[type="button"], .button, input[type="reset"
 			background:-ms-linear-gradient(top,#1A3764 0%,#517EBD 100%); 
 			background:linear-gradient(top,#1A3764 0%,#517EBD 100%); 
 			filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#1A3764',endColorstr='#517EBD',GradientType=0);
+		}
+		
+		.button.bblue, .button.bblue:hover, .button.bblue:active{
+			color:#FFF; 
+			text-decoration: none;
+			text-shadow:0 -1px 0 rgba(0,0,0,0.8); 
+			border:1px solid #34588B; 
 		}
 
 /* @ Widgets Default Formatting */
