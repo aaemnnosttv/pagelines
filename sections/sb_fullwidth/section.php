@@ -7,6 +7,7 @@
 	Class Name: FullWidthSidebar
 	Edition: pro
 	Workswith: templates, footer, morefoot
+	Persistant: true
 */
 
 /**

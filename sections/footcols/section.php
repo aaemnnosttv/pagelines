@@ -6,6 +6,7 @@
 	Description: A 5 column widgetized sidebar in the footer
 	Class Name: PageLinesFootCols
 	Workswith: morefoot, footer
+	Persistant: true
 */
 
 /**

@@ -7,6 +7,7 @@
 	Class Name: PageLinesMorefoot	
 	Workswith: morefoot, footer
 	Edition: pro
+	Persistant: true
 */
 
 /**

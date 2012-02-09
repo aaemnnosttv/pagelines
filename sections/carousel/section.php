@@ -31,10 +31,41 @@ class PageLinesCarousel extends PageLinesSection {
 			$scroll_items = ( ploption('carousel_scroll_items', $this->oset) ) ? ploption('carousel_scroll_items', $this->oset) : 6;
 			$anim_speed = ( ploption('carousel_animation_speed', $this->oset) ) ? ploption('carousel_animation_speed', $this->oset) : 800;
 
-			$carousel_args = sprintf('wrap: "%s", visible: %s, easing: "%s", scroll: %s, animation: %s', 'circular', $num_items, 'swing', $scroll_items, $anim_speed);
+			if ( 'none' == ploption('carousel_scroll', $this->oset) )
+				$auto = 0;
+			elseif( '' != ploption('carousel_wait_timeout', $this->oset) )
+				$auto = ploption('carousel_wait_timeout', $this->oset);
+			else
+				$auto = 2;
+		
+			$wrap = ( 'auto_repeat' == ploption('carousel_scroll', $this->oset) ) ? 'last' : 'circular';
+
+			$callback = ( 'none' != ploption('carousel_scroll', $this->oset) ) ? ',initCallback: mycarousel_initCallback' : '';			
+
+			$carousel_args = sprintf('wrap: "%s", visible: %s, easing: "%s", scroll: %s, animation: %s, auto: %s %s', $wrap, $num_items, 'swing', $scroll_items, $anim_speed, $auto, $callback);
 			?>
 	<script type="text/javascript">
 	/* <![CDATA[ */
+	<?php if ( 'none' != ploption('carousel_scroll', $this->oset) ) : ?>
+	function mycarousel_initCallback(carousel)
+	{
+	    // Disable autoscrolling if the user clicks the prev or next button.
+	    carousel.buttonNext.bind('click', function() {
+	        carousel.startAuto(0);
+	    });
+
+	    carousel.buttonPrev.bind('click', function() {
+	        carousel.startAuto(0);
+	    });
+
+	    // Pause autoscrolling if the user moves with the cursor over the clip.
+	    carousel.clip.hover(function() {
+	        carousel.stopAuto();
+	    }, function() {
+	        carousel.startAuto();
+	    });
+	};
+<?php endif; ?>
 		jQuery(document).ready(function () {
 			<?php printf('jQuery(".%s").show().jcarousel({%s});', $carousel_class, $carousel_args); ?>
 			jQuery(".jcarousel-prev, .jcarousel-next").disableTextSelect().hover(function(){ 
@@ -65,6 +96,25 @@ class PageLinesCarousel extends PageLinesSection {
 							'shortexp' 	=> 'The total numbers for total, shown and scrolled images',
 							'exp' 		=> 'Use this option to control the number of carousel items, the total shown, and the number scrolled at one time.'
 					),
+				'carousel_scroll' => array(
+					'version' => 'pro',
+					'type' => 'select',
+					'default'	=> 'none',
+					'selectvalues'=> array(
+						'none' 			=> array( 'name' => 'No Auto Scroll'),							
+						'auto'			=> array( 'name' => 'Auto Scroll'),
+						'auto_repeat' 	=> array( 'name' => 'Auto Scroll with Rewind'), 
+					),					
+					'title' 	=> 'Carousel Auto Scrolling',
+					'shortexp' 	=> 'Select Scrolling mode.',
+					'exp'		=> 'blah'
+				),
+				'carousel_wait_timeout' => array(
+					'type'			=> 'text',
+					'inputsize'		=> 'small',
+					'default'		=> 2,
+
+	          ),
 					'carousel_mode' => array(
 						'version' => 'pro',
 						'type' => 'select',

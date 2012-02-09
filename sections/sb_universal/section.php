@@ -7,6 +7,7 @@
 	Class Name: UniversalSidebar
 	Workswith: sidebar1, sidebar2, sidebar_wrap, templates, main, header, morefoot
 	Edition: pro
+	Persistant: true
 */
 
 /**

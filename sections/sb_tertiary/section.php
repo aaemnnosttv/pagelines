@@ -6,6 +6,7 @@
 	Description: A 3rd widgetized sidebar for the theme that can be used in standard sidebar templates.
 	Class Name: TertiarySidebar
 	Workswith: sidebar1, sidebar2, sidebar_wrap
+	Persistant: true
 */
 
 /**
