@@ -14,12 +14,15 @@
  *
  * @package PageLines Framework
  * @author PageLines
- **/
+ */
 class PageLinesFootCols extends PageLinesSection {
 
 	public $markup_start;
 	public $markup_end;
-	
+
+	/**
+	* PHP that always loads no matter if section is added or not.
+	*/	
 	function section_persistent(){
 		
 		$per_row = (ploption('footer_num_columns')) ? ploption('footer_num_columns') : 5;
@@ -43,7 +46,10 @@ class PageLinesFootCols extends PageLinesSection {
 	
 		
 	}
-	
+
+	/**
+	* Section template.
+	*/	
 	function section_template() { 
 		
 		$default = array();

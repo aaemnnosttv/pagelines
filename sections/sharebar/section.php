@@ -15,9 +15,12 @@
  *
  * @package PageLines Framework
  * @author PageLines
- **/
+ */
 class PageLinesShareBar extends PageLinesSection {
-		
+
+	/**
+	* Section template.
+	*/		
    function section_template() { 
 	
 	global $post; 

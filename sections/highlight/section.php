@@ -15,7 +15,7 @@
  *
  * @package PageLines Framework
  * @author PageLines
- **/
+ */
 class PageLinesHighlight extends PageLinesSection {
 	
 	var $tabID = 'highlight_meta';

@@ -14,7 +14,7 @@
  *
  * @package PageLines Framework
  * @author PageLines
- **/
+ */
 class PageLinesCallout extends PageLinesSection {
 
 	var $tabID = 'callout_meta';
@@ -83,7 +83,9 @@ class PageLinesCallout extends PageLinesSection {
 
 	}
 
-		
+	/**
+	* Section template.
+	*/
  	function section_template() {
 		$call_title = ploption('pagelines_callout_header', $this->oset);
 		$call_img = ploption('pagelines_callout_image', $this->oset);

@@ -448,7 +448,7 @@ class PageLinesFoundry {
 	/**
 	 * Creates the import URL for google fonts
 	 *
-	 **/
+	 */
 	function google_import($gfonts) {
 		
 		foreach(array_unique($gfonts) as $id)

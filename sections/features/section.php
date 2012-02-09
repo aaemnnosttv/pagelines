@@ -16,12 +16,15 @@
  *
  * @package PageLines Framework
  * @author PageLines
- **/
+ */
 class PageLinesFeatures extends PageLinesSection {
 
 	var $taxID = 'feature-sets';
 	var $ptID = 'feature';
 
+	/**
+	* PHP that always loads no matter if section is added or not.
+	*/
 	function section_persistent(){
 		
 		$this->post_type_setup();

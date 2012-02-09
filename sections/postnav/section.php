@@ -15,9 +15,12 @@
  *
  * @package PageLines Framework
  * @author PageLines
- **/
+ */
 class PageLinesPostNav extends PageLinesSection {
 
+	/**
+	* Section template.
+	*/
    function section_template() {
 	
 		pagelines_register_hook( 'pagelines_section_before_postnav' ); // Hook ?>

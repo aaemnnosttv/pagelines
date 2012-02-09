@@ -15,7 +15,7 @@
  *
  * @package PageLines Framework
  * @author PageLines
- **/
+ */
 class PageLinesCarousel extends PageLinesSection {
 	
 	function section_styles(){

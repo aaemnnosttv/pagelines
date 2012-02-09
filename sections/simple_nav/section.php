@@ -13,14 +13,20 @@
  *
  * @package PageLines Framework
  * @author PageLines
- **/
+ */
 class SimpleNav extends PageLinesSection {
 
+	/**
+	* PHP that always loads no matter if section is added or not.
+	*/
 	function section_persistent(){
 		register_nav_menus( array( 'simple_nav' => __( 'Simple Nav Section', 'pagelines' ) ) );
 
 	}
 
+	/**
+	* Section template.
+	*/
    function section_template() { 
 
 	if(function_exists('wp_nav_menu'))

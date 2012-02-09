@@ -15,12 +15,15 @@
  *
  * @package PageLines Framework
  * @author PageLines
- **/
+ */
 class PageLinesBoxes extends PageLinesSection {
 
 	var $taxID = 'box-sets';
 	var $ptID = 'boxes';
 
+	/**
+	* PHP that always loads no matter if section is added or not.
+	*/
 	function section_persistent(){
 		
 		$this->post_type_setup();

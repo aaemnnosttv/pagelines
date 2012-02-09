@@ -13,9 +13,12 @@
  *
  * @package PageLines Framework
  * @author PageLines
- **/
+ */
 class PageLinesNoPosts extends PageLinesSection {
 
+	/**
+	* Section template.
+	*/
    function section_template() { ?>
 	<div id="notfound">
 	<?php if(current_user_can( 'edit_posts' ) && isset($_GET['boxes']) || isset($_GET['feature']) || isset($_GET['banners']) ):?>
