@@ -158,6 +158,9 @@ class PageLinesBanners extends PageLinesSection {
 		register_metatab($metatab_settings, $metatab_array);
 	}
 
+	/**
+	* Section template.
+	*/
    function section_template( $clone_id ) {    
 
 		// Options

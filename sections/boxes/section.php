@@ -205,6 +205,9 @@ class PageLinesBoxes extends PageLinesSection {
 			register_metatab($tab_settings, $tab);
 	}
 
+	/**
+	* Section template.
+	*/
    function section_template( $clone_id = null ) {    
 		
 		if( post_password_required() )
