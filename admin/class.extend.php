@@ -503,11 +503,10 @@
 	
 	function is_persistant( $type, $key, $ext, $tab ) {
 		
-		if ( $ext['persistant'] )
+		if ( isset( $ext['persistant'] ) && true == $ext['persistant'] )
 			return true;
 		else
 			return false;
-		
 	}
 
 	function is_active( $type, $key, $ext ){
