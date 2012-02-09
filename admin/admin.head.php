@@ -13,7 +13,8 @@ jQuery(document).ready(function(){
 /**
  * AJAX Saving of framework settings
  * 
- * @package AJAX
+ * @package PageLines Framework
+ * @subpackage AJAX
  * @since 1.2.0
  */
 // Allow users to disable AJAX saving... 

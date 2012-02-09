@@ -6,7 +6,7 @@
  *  PageLines Actions
  *
  *
- *  @package PageLines Core
+ *  @package PageLines Framework
  *  @subpackage Actions
  *  @since 1.4.0
  *

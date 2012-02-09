@@ -1,11 +1,9 @@
 <?php
 /**
  * 
- *
  *  PageLines Panel UI
  *
- *
- *  @package PageLines
+ *  @package PageLines Framework
  *  @since 2.0
  *
  */

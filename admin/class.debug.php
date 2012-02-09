@@ -5,8 +5,8 @@
  *  PageLines Debugging Information Class
  *
  *
- *  @package Platform Framework
- *  @subpackage Includes
+ *  @package PageLines Framework
+ *  @subpackage Debugging
  *  @since 1.4.0
  *
  */

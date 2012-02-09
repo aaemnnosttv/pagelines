@@ -5,7 +5,7 @@
  *  Options Layout Class
  *
  *
- *  @package PageLines Core
+ *  @package PageLines Framework
  *  @subpackage Options
  *  @since 4.0
  *

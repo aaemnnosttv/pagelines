@@ -5,7 +5,7 @@
  *  PageLines Custom Post Type Class
  *
  *
- *  @package PageLines Core
+ *  @package PageLines Framework
  *  @subpackage Post Types
  *  @since 4.0
  *

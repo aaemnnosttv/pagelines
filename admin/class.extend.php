@@ -8,8 +8,8 @@
  * Install PageLines plugins and looks after them.
  * 
  * @author PageLines
- *
- * @since 2.0.b3
+ * @package PageLines Framework
+ * @since 2.0
  */
 
  class PagelinesExtensions {

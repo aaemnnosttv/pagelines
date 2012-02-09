@@ -70,7 +70,7 @@ function pl_meta_set_url( $tab = null ){
  * 
  *  Sets up classes for controlling design and layout and is used on the body tag
  *
- *  @package PageLines
+ *  @package PageLines Framework
  *  @subpackage Functions Library
  *  @since 1.1.0
  *
@@ -118,7 +118,7 @@ function pagelines_add_bodyclass( $class ) {
  * 
  *  Sets up global post ID and $post global for handling, reference and consistency
  *
- *  @package PageLines
+ *  @package PageLines Framework
  *  @subpackage Functions Library
  *  @since 1.0.0
  *
@@ -143,7 +143,7 @@ function pagelines_id_setup(){
  * 
  *  Registered PageLines Hooks. Stores for reference or use elsewhere.
  *
- *  @package PageLines
+ *  @package PageLines Framework
  *  @subpackage Functions Library
  *  @since 1.3.3
  *
@@ -161,7 +161,7 @@ function pagelines_register_hook( $hook_name, $hook_area_id = null){
  * 
  *  Does hooks for template areas
  *
- *  @package PageLines
+ *  @package PageLines Framework
  *  @subpackage Functions Library
  *  @since 1.3.3
  *
@@ -179,7 +179,7 @@ function pagelines_template_area( $hook_name, $hook_area_id = null){
  * 
  *  Check the authentication level for administrator status (security)
  *
- *  @package PageLines
+ *  @package PageLines Framework
  *  @subpackage Functions Library
  *  @since 1.x.x
  *
@@ -193,7 +193,7 @@ function checkauthority(){
  * 
  *  Checks for IE and Returns Version
  *
- *  @package PageLines
+ *  @package PageLines Framework
  *  @subpackage Functions Library
  *  @since 4.0.0
  *
@@ -210,7 +210,7 @@ function ie_version() {
  * 
  *  Gets a 'tiny' url. Returns URL if response is not 200
  *
- *  @package PageLines
+ *  @package PageLines Framework
  *  @subpackage Functions Library
  *  @since 1.5.0
  *  
@@ -452,7 +452,7 @@ function improved_trim_excerpt($text) {
  * 
  *  Returns nav menu classes
  *
- *  @package PageLines
+ *  @package PageLines Framework
  *  @subpackage Functions Library
  *  @since 1.1.0
  *

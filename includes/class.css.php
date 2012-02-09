@@ -5,7 +5,7 @@
  *  Write Dynamic CSS to file
  *
  *
- *  @package PageLines Core
+ *  @package PageLines Framework
  *  @subpackage Sections
  *  @since 4.0
  *

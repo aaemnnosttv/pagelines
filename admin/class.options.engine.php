@@ -6,7 +6,7 @@
  *  Sorts and Draws options based on the 'option array'
  *  Option array is loaded in config.option.php and through filters
  *
- *  @package PageLines Core
+ *  @package PageLines Framework
  *  @subpackage Options
  *  @since 4.0
  *

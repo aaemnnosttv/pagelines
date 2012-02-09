@@ -5,7 +5,7 @@
  *  PageLines Template Class
  *
  *
- *  @package PageLines Core
+ *  @package PageLines Framework
  *  @subpackage Sections
  *  @since 4.0
  *
@@ -665,7 +665,7 @@ class PageLinesTemplate {
 	/**
 	 * Runs the options w/ cloning
 	 *
-	 * @package PageLines Core
+	 * @package PageLines Framework
 	 * @subpackage Sections
 	 * @since 2.0.b3
 	 */

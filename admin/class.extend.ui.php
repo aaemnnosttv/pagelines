@@ -4,8 +4,7 @@
  *
  *  Extend Control Interface
  *
- *
- *  @package PageLines Admin
+ *  @package PageLines Framework
  *  @subpackage OptionsUI
  *  @since 2.0.b9
  *

@@ -5,7 +5,7 @@
  *  PageLines Posts Handling
  *
  *
- *  @package PageLines
+ *  @package PageLines Framework
  *  @subpackage Posts
  *  @since 2.0.b2
  *
@@ -292,7 +292,7 @@ class PageLinesPosts {
 	 * 
 	 *  Gets the Post Title for Blog Posts
 	 *
-	 *  @package PageLines
+	 *  @package PageLines Framework
 	 *  @subpackage Functions Library
 	 *  @since 1.1.0
 	 *
@@ -325,7 +325,7 @@ class PageLinesPosts {
 	 * 
 	 *  Gets the continue reading link after excerpts
 	 *
-	 *  @package PageLines
+	 *  @package PageLines Framework
 	 *  @subpackage Functions Library
 	 *  @since 1.3.0
 	 *
