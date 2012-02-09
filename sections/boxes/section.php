@@ -255,11 +255,13 @@ class PageLinesBoxes extends PageLinesSection {
 	
 		$title = do_shortcode(sprintf('<div class="fboxtitle"><h3>%s</h3></div>', $title_text));
 
-		$more_link = (!$box_link) ? sprintf('<a class="fboxmore" href="%s">%s</a>', $box_link, __('More...', 'pagelines')) : '';
+		$more_text = apply_filters('box_more_text', __('More<span>...</span>', 'pagelines'));
+		
+		$more_link = ($box_link) ? sprintf('<span class="fboxmore-wrap"><a class="fboxmore" href="%s">%s</a></span>', $box_link, $more_text) : '';
 		
 		$more_link = apply_filters('box_more_link', $more_link);
 		
-		$content = sprintf('<div class="fboxtext">%s %s %s</div>', do_shortcode($p->post_content), $more_link, pledit( $p->ID ));
+		$content = sprintf('<div class="fboxtext">%s %s %s</div>', do_shortcode($p->post_content), pledit( $p->ID ), $more_link);
 			
 		$info = ($this->thumb_type != 'only_thumbs') ? sprintf('<div class="fboxinfo fix bd">%s%s</div>', $title, $content) : '';				
 				
