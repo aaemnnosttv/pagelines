@@ -1,13 +1,24 @@
 <?php
 /**
- * 
  *
- *  PageLines Debugging Information Class
+ * PageLines Debugging system
  *
+ * Enabled in Framework admin 'advanced' tab
+ * Show server debug info using special URL
  *
- *  @package PageLines Framework
- *  @subpackage Debugging
- *  @since 1.4.0
+ * @package PageLines Framework
+ * @subpackage Debugging
+ * @since 2.1
+ *
+ */
+
+
+/**
+ * PageLines Debugging Information Class
+ *
+ * @package PageLines Framework
+ * @subpackage Debugging
+ * @since 2.1
  *
  */
 class PageLinesDebug {
@@ -15,18 +26,17 @@ class PageLinesDebug {
 	// Array of debugging information
 	var $debug_info = array();
 	
-	/**
-	 * PHP5 constructor
-	 * Use this to build the initial form of the object, before its manipulated by methods
-	 *
-	 */
 	function __construct( ) {
 	
 		$this->wp_debug_info();
 		$this->debug_info_template();
 	}
 	
-
+	/**
+	 * Main output.
+	 * @return str Formatted results for page.
+	 *
+	 */
 	function debug_info_template(){
 		
 		$out = '';
@@ -42,8 +52,10 @@ class PageLinesDebug {
 		wp_die( $out, 'PageLines Debug Info', array( 'response' => 200, 'back_link' => true) );		
 	}
 
-	// Build all the debug info into an array.
-
+	/**
+	 * Debug tests.
+	 * @return array Test results.
+	 */
 	function wp_debug_info(){
 		
 		global $wpdb, $wp_version, $platform_build;
@@ -208,7 +220,11 @@ class PageLinesDebug {
 			);
 
 	}
-
+	/**
+	 * Get active plugins.
+	 * @return str List of plugins.
+	 *
+	 */
 	function debug_get_plugins() {
 		$plugins = get_option('active_plugins');
 		if ( $plugins ) {
