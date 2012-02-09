@@ -13,21 +13,12 @@
  *
  * @package PageLines Framework
  * @author PageLines
- **/
+ */
 class PageLinesBranding extends PageLinesSection {
 
-   function __construct( $registered_settings = array() ) {
-		
-		$default_settings = array(
-			'type'        => 'header',
-			'workswith'   => array('header'),
-		);
-
-		
-		$settings = wp_parse_args( $registered_settings, $default_settings );
-		parent::__construct($settings);    
-   }
-
+	/**
+	* Section template.
+	*/
    function section_template() { 
 			
 			printf('<div class="branding_wrap">');
