@@ -168,9 +168,12 @@ class PageLinesSection {
 		
 		if( $set_markup == 'copy' ) 
 			printf('<section id="%s" class="copy %s"><div class="copy-pad">', $section_id, $classes);
-		elseif( $set_markup == 'content' )
-			printf('<section id="%s" class="container fix %s"><div class="texture"><div class="content"><div class="content-pad">', $this->id, $classes);
-
+		elseif( $set_markup == 'content' ){
+			printf('<section id="%s" class="container fix %s"><div class="texture">', $this->id, $classes);
+			pagelines_register_hook('pagelines_outer_'.$this->id, $this->id);
+			printf('<div class="content"><div class="content-pad">');
+		}
+		
 		pagelines_register_hook('pagelines_inside_top_'.$this->id, $this->id);
  	}
 
