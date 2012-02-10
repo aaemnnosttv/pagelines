@@ -5,6 +5,9 @@
 	#highlight .content-pad .highlight-area{padding: 20px;}
 	#highlight .copy-pad .highlight-area{padding: 20px 15px;}
 
+	.hl-image-top{
+		margin: 20px;
+	}
 	.highlight-head{
 		line-height: 1.4em;
 	}
