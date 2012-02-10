@@ -897,6 +897,15 @@ class PageLinesOptionsArray {
 					'exp'		=> __( "Check this option if you are having problems with AJAX saving. For example, if design control or typography options aren't working", 'pagelines' )
 			),
 
+			'special_body_class' 	=> array(
+					'default'	=> '',
+					'version'	=> 'pro',
+					'type'		=> 'text',
+					'inputlabel'=> __( 'Install Class', 'pagelines' ),
+					'title'		=> __( 'Current Install Class', 'pagelines' ),
+					'shortexp'	=> __( 'Add a special "body" class to this install of PageLines', 'pagelines' ),
+					'exp'		=> __( "Use this option to add a class to the &gt;body&lt; element of the website. This can be useful when using the same child theme on several installations or sub domains and can be used to control CSS customizations.", 'pagelines' )
+			),
 			'enable_debug' => array(
 					'default'	=> '',
 					'version'	=> 'pro',

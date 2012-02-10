@@ -70,7 +70,26 @@ class PageLinesBoxes extends PageLinesSection {
 						'type' => 'text',					
 						'title' => 'Box Link (Optional)',
 						'shortexp' => 'Make the box image and title clickable by adding a link here (optional)...'
-					)
+					), 
+				'box_class' => array(
+					'version'		=> 'pro',
+					'default'		=> '',
+					'type' 			=> 'text',
+					'size'			=> 'small',
+					'inputlabel' 	=> 'Boxes Custom Class',
+					'title' 		=> 'Custom CSS class',
+					'shortexp' 		=> 'Add a custom CSS class to this box only.',
+				),
+				'box_more_text' => array(
+					'version'		=> 'pro',
+					'default'		=> '',
+					'type' 			=> 'text',
+					'size'			=> 'small',
+					'inputlabel' 	=> 'More Link Text',
+					'title' 		=> 'More Link Text',
+					'shortexp' 		=> 'Enter text for this boxes "more" link.',
+					'exp'			=> 'If this option is not set here, in page meta, or meta defaults, then the more link will not show.'
+				),
 			);
 
 			$post_types = array($this->id); 
@@ -159,6 +178,16 @@ class PageLinesBoxes extends PageLinesSection {
 						'title' 		=> 'Custom CSS class',
 						'shortexp' 		=> 'Add a custom CSS class to this set of boxes.',
 					),
+					'box_more_text' => array(
+						'version'		=> 'pro',
+						'default'		=> '',
+						'type' 			=> 'text',
+						'size'			=> 'small',
+						'inputlabel' 	=> 'More Link Text',
+						'title' 		=> 'More Link Text',
+						'shortexp' 		=> 'Enter text for "more" links on linked box elements for this page.',
+						'exp'			=> 'If this option is blank (and not set in defaults), no more text will show.<br/><br/> This option can be overridden in individual box settings.'
+					),
 					'box_orderby' => array(
 							'default' => 'ID',
 							'version'	=> 'pro',
@@ -213,7 +242,8 @@ class PageLinesBoxes extends PageLinesSection {
 			$box_limit = ploption( 'box_items', $this->oset );
 			$this->thumb_type = ( ploption( 'box_thumb_type', $this->oset) ) ? ploption( 'box_thumb_type', $this->oset) : 'inline_thumbs';	
 			$this->thumb_size = ( ploption('box_thumb_size', $this->oset) ) ? ploption('box_thumb_size', $this->oset) : 64;
-				
+			$class = ( ploption( 'box_class', $this->oset ) ) ? ploption( 'box_class', $this->oset ) : null;
+			
 		// Actions	
 			// Set up the query for this page
 				$orderby = ( ploption('box_orderby', $this->oset) ) ? ploption('box_orderby', $this->oset) : 'ID';
@@ -232,8 +262,10 @@ class PageLinesBoxes extends PageLinesSection {
 			// Script 
 				//printf('<script type="text/javascript">jQuery(document).ready(function(){ blocks(".box-media-pad", "maxheight");});</script>');
 			
+			
+			
 			// Grid Args
-				$args = array( 'per_row' => $per_row, 'callback' => array(&$this, 'draw_boxes') );
+				$args = array( 'per_row' => $per_row, 'callback' => array(&$this, 'draw_boxes'), 'class' => $class );
 
 			// Call the Grid
 				printf('<div class="fboxes fix">%s</div>', grid( $q, $args ));
@@ -247,7 +279,8 @@ class PageLinesBoxes extends PageLinesSection {
 		$oset = array('post_id' => $p->ID);
 	 	$box_link = plmeta('the_box_icon_link', $oset);
 		$box_icon = plmeta('the_box_icon', $oset);
-		$class = ( ploption( 'box_class', $this->oset ) ) ? sprintf( ' %s', ploption( 'box_class', $this->oset ) ) : '';
+		
+		$class = ( plmeta( 'box_class', $oset ) ) ? plmeta( 'box_class', $oset ) : null;
 		
 		$image = ($box_icon) ? self::_get_box_image( $p, $box_icon, $box_link, $this->thumb_size, $this->thumb_type) : '';
 	
@@ -255,9 +288,14 @@ class PageLinesBoxes extends PageLinesSection {
 	
 		$title = do_shortcode(sprintf('<div class="fboxtitle"><h3>%s</h3></div>', $title_text));
 
-		$more_text = apply_filters('box_more_text', __('More<span>...</span>', 'pagelines'));
+		if(plmeta('box_more_text', $oset)){
+			$more_text = plmeta('box_more_text', $oset);
+		} elseif(ploption('box_more_text', $this->oset)){
+			$more_text = ploption('box_more_text', $this->oset);
+		}else 
+			$more_text = false;
 		
-		$more_link = ($box_link) ? sprintf('<span class="fboxmore-wrap"><a class="fboxmore" href="%s">%s</a></span>', $box_link, $more_text) : '';
+		$more_link = ($box_link && $more_text) ? sprintf('<span class="fboxmore-wrap"><a class="fboxmore" href="%s">%s</a></span>', $box_link, $more_text) : '';
 		
 		$more_link = apply_filters('box_more_link', $more_link);
 		
@@ -265,7 +303,7 @@ class PageLinesBoxes extends PageLinesSection {
 			
 		$info = ($this->thumb_type != 'only_thumbs') ? sprintf('<div class="fboxinfo fix bd">%s%s</div>', $title, $content) : '';				
 				
-		return sprintf('<div id="%s" class="fbox%s"><div class="media box-media %s"><div class="blocks box-media-pad">%s%s</div></div></div>', 'fbox_'.$p->ID, $class, $this->thumb_type, $image, $info);
+		return sprintf('<div id="%s" class="fbox %s"><div class="media box-media %s"><div class="blocks box-media-pad">%s%s</div></div></div>', 'fbox_'.$p->ID, $class, $this->thumb_type, $image, $info);
 	
 	}
 
