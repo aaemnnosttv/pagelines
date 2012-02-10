@@ -14,10 +14,12 @@
  *
  * @package PageLines Framework
  * @author PageLines
- **/
+*/
 class PageLinesSecondNav extends PageLinesSection {
 
-	// PHP that always loads no matter if section is added or not -- e.g. creates menus, locations, admin stuff...
+	/**
+	* PHP that always loads no matter if section is added or not.
+	*/
 	function section_persistent(){
 		
 			$metatab_array = array(
@@ -32,9 +34,11 @@ class PageLinesSecondNav extends PageLinesSection {
 			add_global_meta_options( $metatab_array );
 		
 	}
-	
+
+	/**
+	* Section template.
+	*/	
    	function section_template() { 
-		
 
 		$second_menu = (ploption('_second_nav_menu', $this->oset)) ? ploption('_second_nav_menu', $this->oset) : null;
 		

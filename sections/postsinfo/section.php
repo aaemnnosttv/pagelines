@@ -13,9 +13,12 @@
  *
  * @package PageLines Framework
  * @author PageLines
- **/
+ */
 class PageLinesPostsInfo extends PageLinesSection {
 
+	/**
+	* Section template.
+	*/
    function section_template() { 	
 	
 		if( is_category() || is_archive() || is_search() || is_author() ): ?>

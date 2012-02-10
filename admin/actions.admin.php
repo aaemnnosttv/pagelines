@@ -3,7 +3,8 @@
 /**
  * Show Options Panel after theme activation
  * 
- * @package Redirects
+ * @package PageLines Framework
+ * @subpackage Redirects
  * @since 1.0.0
  */
 if( is_admin() && isset($_GET['activated'] ) && $pagenow == "themes.php" )
@@ -12,7 +13,8 @@ if( is_admin() && isset($_GET['activated'] ) && $pagenow == "themes.php" )
 /**
  * Add Javascript for Layout Controls from the Layout UI class
  * 
- * @package LayoutUI
+ * @package PageLines Framework
+ * @subpackage LayoutUI
  * @since 2.0.b3
  */
 $layout_control_js = new PageLinesLayoutControl();
@@ -27,11 +29,11 @@ function pagelines_admin_body_class( $class ){
 }
 /**
  * 
- *  Checks if PHP5
+ * Checks if PHP5
  *
- *  @package PageLines
- *  @subpackage Functions Library
- *  @since 4.0.0
+ * @package PageLines Framework
+ * @subpackage Functions Library
+ * @since 4.0.0
  *
  */
 add_action( 'pagelines_before_optionUI', 'pagelines_check_php' );
@@ -44,6 +46,7 @@ function pagelines_check_php(){
 /**
  * AJAX OPTION SAVING - Used to save via AJAX theme options and image uploads
  * 
+ * @package PageLines Framework
  * @since 1.2.0
  */
 add_action( 'wp_ajax_pagelines_ajax_post_action', 'pagelines_ajax_callback' );

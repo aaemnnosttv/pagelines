@@ -4,15 +4,13 @@
  *
  * @package PageLines Framework
  *
- **/
+*/
 
 /**
 * Before we start, check for PHP4. It is not supported and crashes with a parse error.
 * We have to do it here before any other files are loaded.
 *
-* This can be removed with WordPress 3.2, which will only support PHP 5.2
-*
-**/ 
+* This can be removed with WordPress 3.2, which will only support PHP 5.2 */ 
 if( floatval( phpversion() ) < 5.0 ) {
 	echo '<div style="border: 1px red solid">This server is running <strong>PHP ' . phpversion() . '</strong> we are switching back to the default theme for you!<br />';
 	echo 'Please contact your host and switch to PHP5 before activating PageLines Framework. <a href="' . get_admin_url() . '">Site admin</a></div>';

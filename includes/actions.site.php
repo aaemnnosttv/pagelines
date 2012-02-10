@@ -102,7 +102,7 @@ add_filter( 'user_contactmethods', 'pagelines_add_google_profile', 10, 1);
  *
  * @return gallery template path
  * 
- **/
+ */
 
 add_filter( 'ngg_render_template', 'gallery_filter' , 10, 2);
 
@@ -114,7 +114,7 @@ function gallery_filter( $a, $template_name) {
 		return false;
 }
 
-add_action( 'init', 'pagelines_add_sidebars', 999 );
+add_action( 'init', 'pagelines_add_sidebars', 1 );
 
 function pagelines_add_sidebars() {
 	

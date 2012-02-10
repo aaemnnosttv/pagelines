@@ -2,7 +2,7 @@
 /**
  * This file contains a library of common templates accessed by functions
  *
- * @package PageLines Core
+ * @package PageLines Framework
  *
  **/
 
@@ -279,7 +279,7 @@ function do_dynamic_css(){
  * 
  *  Fix IE to the extent possible
  *
- *  @package PageLines
+ *  @package PageLines Framework
  *  @subpackage Functions Library
  *  @since 1.3.3
  *
@@ -307,7 +307,7 @@ function pagelines_fix_ie( ){
  * 
  *  Cufon Font Replacement
  *
- *  @package PageLines
+ *  @package PageLines Framework
  *  @subpackage Functions Library
  *  @since 1.3.3
  *
@@ -358,7 +358,7 @@ function pagelines_font_replacement( $default_font = ''){
  * 
  *  Pagination Function
  *
- *  @package PageLines
+ *  @package PageLines Framework
  *  @subpackage Functions Library
  *  @since 2.0.b12 moved
  *
@@ -378,7 +378,7 @@ function pagelines_pagination() {
  * 
  *  Fallback for navigation, if it isn't set up
  *
- *  @package PageLines
+ *  @package PageLines Framework
  *  @subpackage Functions Library
  *  @since 1.1.0
  *
@@ -407,7 +407,7 @@ function blank_nav_fallback() {
  * 
  *  Returns child pages for subnav, setup in hierarchy
  *
- *  @package PageLines
+ *  @package PageLines Framework
  *  @subpackage Functions Library
  *  @since 1.1.0
  *
@@ -433,7 +433,7 @@ function pagelines_page_subnav(){
  * 
  *  The main site logo template
  *
- *  @package PageLines
+ *  @package PageLines Framework
  *  @subpackage Functions Library
  *  @since 1.1.0
  *
@@ -478,7 +478,7 @@ function pl_js_wrap( $js ){
  * 
  *  Adds PageLines to Admin Bar
  *
- *  @package PageLines
+ *  @package PageLines Framework
  *  @subpackage Functions Library
  *  @since 1.3.0
  *
@@ -545,7 +545,7 @@ function pl_special_url( $t ){
  * 
  *  PageLines Attribution
  *
- *  @package PageLines
+ *  @package PageLines Framework
  *  @subpackage Functions Library
  *  @since 1.3.3
  *

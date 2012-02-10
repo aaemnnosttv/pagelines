@@ -5,7 +5,7 @@
  *  PageLines Color Calculations and Handling
  *
  *
- *  @package PageLines Core
+ *  @package PageLines Framework
  *  @subpackage Post Types
  *  @since 2.0.b6
  *

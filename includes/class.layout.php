@@ -5,7 +5,7 @@
  *  Class for managing content layout
  *
  *
- *  @package PageLines Core
+ *  @package PageLines Framework
  *  @subpackage Layout
  *  @since 4.0
  *
@@ -404,7 +404,7 @@ function build_pagelines_layout(){
  * 
  *  Sets Content Width for Large images when adding media
  *
- *  @package PageLines
+ *  @package PageLines Framework
  *  @subpackage Functions Library
  *  @since 1.2.3
  *
@@ -427,7 +427,7 @@ function pagelines_current_page_content_width() {
  * 
  *  Returns Current Layout Mode
  *
- *  @package PageLines
+ *  @package PageLines Framework
  *  @subpackage Functions Library
  *  @since 1.0.0
  *

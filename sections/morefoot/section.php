@@ -7,6 +7,7 @@
 	Class Name: PageLinesMorefoot	
 	Workswith: morefoot, footer
 	Edition: pro
+	Persistant: true
 */
 
 /**
@@ -14,9 +15,12 @@
  *
  * @package PageLines Framework
  * @author PageLines
- **/
+ */
 class PageLinesMorefoot extends PageLinesSection {
 
+	/**
+	* PHP that always loads no matter if section is added or not.
+	*/
 	function section_persistent(){
 		
 		// Setup master array
@@ -34,13 +38,13 @@ class PageLinesMorefoot extends PageLinesSection {
 				    'before_title' => '<h3 class="widget-title">',
 				    'after_title' => '</h3>'
 				), $i['priorty']
-			);
-			
+			);	
 		}
-		
-	
 	}
 
+	/**
+	* Section template.
+	*/
    function section_template() { 
 		
 		$grid_args = array(

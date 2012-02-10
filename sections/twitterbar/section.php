@@ -16,9 +16,12 @@
  *
  * @package PageLines Framework
  * @author PageLines
- **/
+ */
 class PageLinesTwitterBar extends PageLinesSection {
 
+	/**
+	* Section template.
+	*/
 	function section_template() { 
 
 		if( !pagelines('twittername') ) :

@@ -5,7 +5,7 @@
  *  PageLines Meta Panel Option Handling
  *
  *
- *  @package PageLines Core
+ *  @package PageLines Framework
  *  @subpackage Post Types
  *  @since 4.0
  *

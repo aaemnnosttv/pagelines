@@ -95,7 +95,7 @@ class PageLinesRegister {
 					if ( 'parent' != $section['type'] && isset( $sections['parent'][$section['class']]) )					
 						$disabled['parent'][$section['class']] = true;
 
-					if (isset( $disabled[$section['type']][$section['class']] ) )
+					if (isset( $disabled[$section['type']][$section['class']] ) && ! $section['persistant'] )
 						continue;
 					
 					// consolidate array vars
@@ -163,7 +163,8 @@ class PageLinesRegister {
 			'edition'		=> 'edition',
 			'cloning'		=> 'cloning',
 			'failswith'		=> 'failswith',
-			'tax'			=> 'tax'
+			'tax'			=> 'tax',
+			'persistant'	=> 'Persistant'
 			);
 			
 		$sections = array();
@@ -249,6 +250,7 @@ class PageLinesRegister {
 					'tax'			=> $headers['tax'],
 					'demo'			=> $headers['Demo'],
 					'external'		=> $headers['External'],
+					'persistant'	=> $headers['persistant'],
 					'screenshot'	=> ( file_exists( $base_dir . '/thumb.png' ) ) ? $base_url . '/thumb.png' : ''
 				);	
 			}

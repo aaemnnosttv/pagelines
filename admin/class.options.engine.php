@@ -6,7 +6,7 @@
  *  Sorts and Draws options based on the 'option array'
  *  Option array is loaded in config.option.php and through filters
  *
- *  @package PageLines Core
+ *  @package PageLines Framework
  *  @subpackage Options
  *  @since 4.0
  *
@@ -432,7 +432,7 @@ class OptEngine {
 	 * @since 1.0.0
 	 * @author Andrew Powers
 	 * 
-	 **/
+	 */
 	function _get_menu_select($oid, $o){
 		
 		echo $this->input_label($o['input_id'], $o['inputlabel']);
@@ -470,7 +470,7 @@ class OptEngine {
 	 * @since 1.0.0
 	 * @author Andrew Powers
 	 * 
-	 **/
+	 */
 	function _get_fonts_option($oid, $o){
 		
 		$control = new PageLinesTypeUI();
@@ -485,7 +485,7 @@ class OptEngine {
 	 * @since 1.0.0
 	 * @author Andrew Powers
 	 * 
-	 **/
+	 */
 	function _get_type_control($oid, $o){
 		
 		$control = new PageLinesTypeUI();
@@ -501,7 +501,7 @@ class OptEngine {
 	 * @since 1.0.0
 	 * @author Andrew Powers
 	 * 
-	 **/
+	 */
 	function _get_check_option($oid, $o){ 
 		
 		$checked = checked((bool) $o['val'], true, false);
@@ -521,7 +521,7 @@ class OptEngine {
 	 * @since 1.0.0
 	 * @author Andrew Powers
 	 * 
-	 **/
+	 */
 	function _get_check_multi($oid, $o, $val){ 
 		
 		foreach($o['selectvalues'] as $mid => $m){
@@ -547,7 +547,7 @@ class OptEngine {
 	 * @since 1.0.0
 	 * @author Andrew Powers
 	 * 
-	 **/
+	 */
 	function _get_text_multi($oid, $o){ 
 		
 		foreach($o['selectvalues'] as $mid => $m){
@@ -575,7 +575,7 @@ class OptEngine {
 	 * @since 1.0.0
 	 * @author Andrew Powers
 	 * 
-	 **/
+	 */
 	function _get_text_small($oid, $o, $val){ 
 		
 		echo $this->input_label($o['input_id'], $o['inputlabel']);
@@ -589,7 +589,7 @@ class OptEngine {
 	 * @since 1.0.0
 	 * @author Andrew Powers
 	 * 
-	 **/
+	 */
 	function _get_text($oid, $o, $val){ 
 
 		echo $this->input_label($o['input_id'], $o['inputlabel']);
@@ -606,7 +606,7 @@ class OptEngine {
 	 * @since 1.0.0
 	 * @author Andrew Powers
 	 * 
-	 **/
+	 */
 	function _get_textarea($oid, $o, $val){ 
 		
 		$class = ($o['type']=='textarea_big') ? 'longtext' : '';
@@ -629,7 +629,7 @@ class OptEngine {
 	 * @since 1.0.0
 	 * @author Andrew Powers
 	 * 
-	 **/
+	 */
 	function _get_text_content($oid, $o, $val){ 	
 		
 		$val = (bool) $o['val'];
@@ -654,7 +654,7 @@ class OptEngine {
 	 * @since 1.0.0
 	 * @author Andrew Powers
 	 * 
-	 **/
+	 */
 	function _get_text_content_reverse($oid, $o, $val){ 	
 		
 		// @todo fix the handling of this on special pages
@@ -686,7 +686,7 @@ class OptEngine {
 	 * @since 1.0.0
 	 * @author Andrew Powers
 	 * 
-	 **/
+	 */
 	function _get_reset_option($oid, $o, $val){ 
 
 		$confirmID = 'Confirm'.$oid;
@@ -722,7 +722,7 @@ class OptEngine {
 	 * @since 1.0.0
 	 * @author Andrew Powers
 	 * 
-	 **/
+	 */
 	function _get_image_upload_option( $oid, $o ){ 
 
 		$up_url = $this->input_text($o['input_id'], $o['input_name'], esc_url($o['val']), 'regular-text uploaded_url', 'text', '', $o['placeholder']);
@@ -769,7 +769,7 @@ class OptEngine {
 	 * @since 1.0.0
 	 * @author Andrew Powers
 	 * 
-	 **/
+	 */
 	function _get_count_select_option( $oid, $o ){ 
 		
 		
@@ -795,7 +795,7 @@ class OptEngine {
 	 * @since 1.0.0
 	 * @author Andrew Powers
 	 * 
-	 **/
+	 */
 	function _get_radio_option( $oid, $o ){
 	
 		foreach($o['selectvalues'] as $sid => $s){
@@ -819,7 +819,7 @@ class OptEngine {
 	 * @since 1.0.0
 	 * @author Andrew Powers
 	 * 
-	 **/
+	 */
 	function _get_select_option( $oid, $o ){ 
 		
 		echo $this->input_label($o['input_id'], $o['inputlabel']);
@@ -845,7 +845,7 @@ class OptEngine {
 	 * @since 2.0.b3
 	 * @author Andrew Powers
 	 * 
-	 **/
+	 */
 	function graphic_selector( $oid, $o ){ 
 		
 		
@@ -925,7 +925,7 @@ class OptEngine {
 	 * @since 1.0.0
 	 * @author Andrew Powers
 	 * 
-	 **/
+	 */
 	function get_horizontal_nav( $menu, $oids){ 
 		$handle = 'htabs'.$menu; ?>
 	<script type="text/javascript"> 
@@ -1013,7 +1013,7 @@ class OptEngine {
 	 * @since 1.0.0
 	 * @author Andrew Powers
 	 * 
-	 **/
+	 */
 	function _get_taxonomy_select( $oid, $o ){ 
 		
 		$terms_array = get_terms( $o['taxonomy_id']); 

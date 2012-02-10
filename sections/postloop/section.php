@@ -13,9 +13,12 @@
  *
  * @package PageLines Framework
  * @author PageLines
- **/
+ */
 class PageLinesPostLoop extends PageLinesSection {
 
+	/**
+	* Section template.
+	*/
    function section_template() { 
 		//Included in theme root for easy editing.
 		$theposts = new PageLinesPosts();

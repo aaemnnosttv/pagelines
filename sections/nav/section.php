@@ -14,20 +14,25 @@
  *
  * @package PageLines Framework
  * @author PageLines
- **/
+ */
 class PageLinesNav extends PageLinesSection {
 
 	static $nav_url;
 	static $nav_dir;
 
-	// PHP that always loads no matter if section is added or not -- e.g. creates menus, locations, admin stuff...
+	/**
+	* PHP that always loads no matter if section is added or not.
+	*/
 	function section_persistent(){
 		self::$nav_dir = PL_SECTIONS.'/nav';
 		self::$nav_url = SECTION_ROOT.'/nav';
 		register_nav_menus( array( 'primary' => __( 'Primary Website Navigation', 'pagelines' ) ) );
 
 	}
-	
+
+	/**
+	* Section template.
+	*/	
    function section_template() {  
 	
 		$container_class = ( ploption('hidesearch') ) ? 'nosearch' : '';

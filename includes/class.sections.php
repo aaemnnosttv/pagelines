@@ -5,7 +5,7 @@
  *  API for creating and using PageLines sections
  *
  *
- *  @package PageLines Core
+ *  @package PageLines Framework
  *  @subpackage Sections
  *  @since 4.0
  *
@@ -323,7 +323,7 @@ class PageLinesSection {
 	/**
 	 * Runs before any html loads, but in the page.
 	 *
-	 * @package PageLines Core
+	 * @package PageLines Framework
 	 * @subpackage Sections
 	 * @since 1.0.0
 	 */
@@ -345,7 +345,7 @@ class PageLinesSection {
 /**
  * Singleton that registers and instantiates PageLinesSection classes.
  *
- * @package PageLines Core
+ * @package PageLines Framework
  * @subpackage Sections
  * @since 1.0.0
  */
@@ -379,7 +379,7 @@ class PageLinesSectionFactory {
 /**
  * Runs the persistent PHP for sections.
  *
- * @package PageLines Core
+ * @package PageLines Framework
  * @subpackage Sections
  * @since 1.0.0
  */
@@ -395,7 +395,7 @@ function load_section_persistent(){
 /**
  * Runs the admin PHP for sections.
  *
- * @package PageLines Core
+ * @package PageLines Framework
  * @subpackage Sections
  * @since 1.0.0
  */

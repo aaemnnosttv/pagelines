@@ -8,8 +8,8 @@
  * Install PageLines plugins and looks after them.
  * 
  * @author PageLines
- *
- * @since 2.0.b3
+ * @package PageLines Framework
+ * @since 2.0
  */
 
  class PagelinesExtensions {
@@ -480,6 +480,7 @@
 		if( !$this->in_the_store( $type, $key, $ext, $tab )
 			&& $this->is_installed( $type, $key, $ext, $tab )
 			&& !$this->is_active( $type, $key, $ext )
+			&& ! $this->is_persistant( $type, $key, $ext, $tab )
 		){
 			return true;
 		} else 
@@ -492,14 +493,23 @@
 			return is_integration_active( $key );
 		
 		if( $this->is_active( $type, $key, $ext )
-			&& !$this->in_the_store( $type, $key, $ext, $tab )
+			&& ! $this->in_the_store( $type, $key, $ext, $tab )
+			&& ! $this->is_persistant( $type, $key, $ext, $tab )
 		){
 			return true;
 		} else 
 			return false;
 	}
 	
-	 function is_active( $type, $key, $ext ){
+	function is_persistant( $type, $key, $ext, $tab ) {
+		
+		if ( isset( $ext['persistant'] ) && true == $ext['persistant'] )
+			return true;
+		else
+			return false;
+	}
+
+	function is_active( $type, $key, $ext ){
 
 		if ( $type == 'integration' )
 			return is_integration_active($key);

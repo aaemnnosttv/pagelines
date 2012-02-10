@@ -14,9 +14,12 @@
  *
  * @package PageLines Framework
  * @author PageLines
- **/
+ */
 class PageLinesPostAuthor extends PageLinesSection {
 
+	/**
+	* Section template.
+	*/
    function section_template() { 
 	global $post; 
 	setup_postdata($post);

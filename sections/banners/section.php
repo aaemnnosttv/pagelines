@@ -14,13 +14,16 @@
  *
  * @package PageLines Framework
  * @author PageLines
- **/
+ */
 class PageLinesBanners extends PageLinesSection {
 
 
 	var $ptID = 'banners';
 	var $taxID = 'banner-sets'; 
 
+	/**
+	* PHP that always loads no matter if section is added or not.
+	*/
 	function section_persistent(){
 		
 		/* Create Custom Post Type */
@@ -155,6 +158,9 @@ class PageLinesBanners extends PageLinesSection {
 		register_metatab($metatab_settings, $metatab_array);
 	}
 
+	/**
+	* Section template.
+	*/
    function section_template( $clone_id ) {    
 
 		// Options

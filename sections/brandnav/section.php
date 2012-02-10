@@ -14,14 +14,19 @@
  *
  * @package PageLines Framework
  * @author PageLines
- **/
+ */
 class PageLinesBrandNav extends PageLinesNav {
-	
+
+	/**
+	* PHP that always loads no matter if section is added or not.
+	*/	
 	function section_persistent(){
 			register_nav_menus( array( 'brandnav' => __( 'BrandNav Section Navigation', 'pagelines' ) ) );
 	}
 	
-	/* Use this function to create the template for the section */	
+	/**
+	* Section template.
+	*/
  	function section_template() { 
 	
 			pagelines_main_logo( $this->id ); 

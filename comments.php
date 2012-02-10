@@ -3,7 +3,7 @@
  * The template for displaying Comments.
  *
  *
- * @package PageLines
+ * @package PageLines Framework
  */
 
 
