@@ -26,9 +26,7 @@ class PageLinesShareBar extends PageLinesSection {
 	global $post; 
 	
 	$perm = get_permalink($post->ID);
-	$hash = ploption('site-hashtag');
-	$twitter_handle = ploption('twittername');
-	$title = get_the_title();
+	$title = get_the_title($post->ID);
 	$text = __('Share &rarr;', 'pagelines');
 	
 	?>
@@ -43,58 +41,19 @@ class PageLinesShareBar extends PageLinesSection {
 			<div class="bd fix">
 				<?php 
 				
-				if(ploption('share_facebook')):
-					// Facebook
-					?>
-					<script>(function(d, s, id) {
-  							var js, fjs = d.getElementsByTagName(s)[0];
-  							if (d.getElementById(id)) return;
-  							js = d.createElement(s); js.id = id;
-  							js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1";
-  							fjs.parentNode.insertBefore(js, fjs);
-							}(document, 'script', 'facebook-jssdk'));
-					</script>
-					<?php
-					printf('<div class="fb-like" data-href="%s" data-send="false" data-layout="button_count" data-width="90" data-show-faces="false" data-font="arial" style="vertical-align: top"></div>', $perm);
+				if(ploption('share_facebook'))
+					echo self::facebook(array('permalink' => $perm));
+			
+				if(ploption('share_google'))
+					echo self::google(array('permalink' => $perm));
 				
-				endif;
-			
-				if(ploption('share_google')):
 				
-					// G+
-					printf('<div class="g-plusone" data-size="medium" data-width="80" data-href="%s"></div>', $perm);
-			
-				?>
-				<!-- Place this render call where appropriate -->
-				<script type="text/javascript">
-				  (function() {
-				    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-				    po.src = 'https://apis.google.com/js/plusone.js';
-				    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-				  })();
-				</script>
-			
-				<?php endif;
-				
-				if(ploption('share_twitter')):
-					// Twitter
-					printf(
-						'<a href="https://twitter.com/share" class="twitter-share-button" data-url="%s" data-via="%s" data-hashtags="%s">Tweet</a>', 
-						$perm, 
-						(ploption('twitter_via')) ? $twitter_handle : '', 
-						(ploption('twitter_hash')) ? $hash : ''
-					);
-				
-				?>
-				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-			
-				<?php 
-			
-				endif; 
+				if(ploption('share_twitter'))
+					echo self::twitter(array('permalink' => $perm, 'title' => $title));
 				
 				if(ploption('share_buffer')):
 					// Buffer
-					printf('<a href="http://bufferapp.com/add" class="buffer-add-button" data-text="hello" data-url="%s" data-count="horizontal" data-via="%s">Buffer</a><script type="text/javascript" src="http://static.bufferapp.com/js/button.js"></script>', $perm, $title, $twitter_handle);
+					printf('<a href="http://bufferapp.com/add" class="buffer-add-button" data-text="hello" data-url="%s" data-count="horizontal" data-via="%s">Buffer</a><script type="text/javascript" src="http://static.bufferapp.com/js/button.js"></script>', $perm, $title, ploption('twittername'));
 			
 				endif;
 				
@@ -127,5 +86,99 @@ class PageLinesShareBar extends PageLinesSection {
 	</div>
 	
 <?php	}
+
+	
+	function twitter( $args ){
+		
+		$defaults = array(
+			'permalink'	=> '', 
+			'width'		=> '80',
+			'hash'		=> ploption('site-hashtag'), 
+			'handle'	=> ploption('twittername'), 
+			'title'		=> '',
+		); 	
+		
+		$a = wp_parse_args($args, $defaults);
+		
+		ob_start();
+		
+			// Twitter
+			printf(
+				'<a href="https://twitter.com/share" class="twitter-share-button" data-url="%s" data-text="%s" data-via="%s" data-hashtags="%s">Tweet</a>', 
+				$a['permalink'], 
+				$a['title'],
+				(ploption('twitter_via')) ? $a['handle'] : '', 
+				(ploption('twitter_hash')) ? $a['hash'] : ''
+			);
+		
+		?>
+		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+		
+		<?php 
+		
+		return ob_get_clean();
+		
+	}
+
+	function google( $args ){
+		
+		$defaults = array(
+			'permalink'	=> '', 
+			'width'		=> '80',
+		); 
+		
+		$a = wp_parse_args($args, $defaults);
+		
+		ob_start();
+		
+			// G+
+			printf('<div class="g-plusone" data-size="medium" data-width="%s" data-href="%s"></div>', $a['width'], $a['permalink']);
+	
+		?>
+		<!-- Place this render call where appropriate -->
+		<script type="text/javascript">
+		  (function() {
+		    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+		    po.src = 'https://apis.google.com/js/plusone.js';
+		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+		  })();
+		</script>
+		
+		<?php 
+		
+		return ob_get_clean();
+		
+	}
+
+	function facebook( $args ){
+		
+		$defaults = array(
+			'permalink'	=> '', 
+			'width'		=> '80',
+		); 
+		
+		$a = wp_parse_args($args, $defaults);
+		
+		
+		ob_start();
+			// Facebook
+			?>
+			<script>(function(d, s, id) {
+					var js, fjs = d.getElementsByTagName(s)[0];
+					if (d.getElementById(id)) return;
+					js = d.createElement(s); js.id = id;
+					js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1";
+					fjs.parentNode.insertBefore(js, fjs);
+					}(document, 'script', 'facebook-jssdk'));
+			</script>
+			<?php
+			printf(
+				'<div class="fb-like" data-href="%s" data-send="false" data-layout="button_count" data-width="%s" data-show-faces="false" data-font="arial" style="vertical-align: top"></div>', 
+				$a['permalink'], 
+				$a['width']);
+				
+		return ob_get_clean();
+		
+	}
 
 }

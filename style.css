@@ -512,6 +512,12 @@ body{
 				letter-spacing: .1em;
 			}
 
+			.meta-share{
+				padding-top: 5px;
+			}
+				.meta-share iframe, .meta-share object{
+					width: auto;
+				}
 		.tags {font-style: italic;}
 
 /* @ Sidebar */
@@ -827,7 +833,7 @@ table {width: 100%;}
 		width: auto;
 		height: auto;
 	}
-	body .hentry iframe, body .hentry video, body .hentry object{max-width: 100%;}
+	body .entry_content iframe, body .entry_content video, body .entry_content object{max-width: 100%;}
 	
 	@media screen and (max-width:800px){
 		.responsive #site .content, .responsive #footer .content, html .responsive.fixed_width #page{width: 97%;}
