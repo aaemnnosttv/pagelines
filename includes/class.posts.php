@@ -35,8 +35,23 @@ class PageLinesPosts {
 		$this->continue_reading = apply_filters('continue_reading_link_text', load_pagelines_option('continue_reading_text', __('[Continue Reading...]', 'pagelines')));
 		
 		add_filter('pagelines_post_metabar', 'do_shortcode', 20);
+		
+		if(has_action('add_social_under_meta'))
+			add_filter('pagelines_post_metabar', array( @$this,'add_social_under_meta'));
 
 	}
+	
+	function add_social_under_meta($metabar){
+		global $post;
+		
+		$args = array('permalink' => get_permalink($post->ID), 'width'=>'50', 'title' => get_the_title($post->ID));
+		$share = PageLinesShareBar::facebook($args);
+		$share .= PageLinesShareBar::twitter($args);
+		$meta_share = sprintf('<div class="meta-share">%s</div>', $share);
+		
+		return $metabar.$meta_share;
+	}
+	
 	
 	/**
 	 * Loads the content using WP's standard output functions
