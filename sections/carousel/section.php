@@ -30,23 +30,15 @@ class PageLinesCarousel extends PageLinesSection {
 			$num_items = ( ploption('carousel_display_items', $this->oset) ) ? ploption('carousel_display_items', $this->oset) : 9;
 			$scroll_items = ( ploption('carousel_scroll_items', $this->oset) ) ? ploption('carousel_scroll_items', $this->oset) : 6;
 			$anim_speed = ( ploption('carousel_animation_speed', $this->oset) ) ? ploption('carousel_animation_speed', $this->oset) : 800;
-
-			if ( 'none' == ploption('carousel_scroll', $this->oset) )
-				$auto = 0;
-			elseif( '' != ploption('carousel_wait_timeout', $this->oset) )
-				$auto = ploption('carousel_wait_timeout', $this->oset);
-			else
-				$auto = 2;
-		
-			$wrap = ( 'auto_repeat' == ploption('carousel_scroll', $this->oset) ) ? 'last' : 'circular';
-
-			$callback = ( 'none' != ploption('carousel_scroll', $this->oset) ) ? ',initCallback: mycarousel_initCallback' : '';			
-
-			$carousel_args = sprintf('wrap: "%s", visible: %s, easing: "%s", scroll: %s, animation: %s, auto: %s %s', $wrap, $num_items, 'swing', $scroll_items, $anim_speed, $auto, $callback);
+			$callback = ( 0 != ploption('carousel_scroll_time', $this->oset) ) ? ',initCallback: mycarousel_initCallback' : '';			
+			$auto = ( 0 != ploption('carousel_scroll_time', $this->oset) ) ? round( ploption('carousel_scroll_time', $this->oset) ) / 1000 : 0;
+			
+			
+			$carousel_args = sprintf('wrap: "circular", visible: %s, easing: "%s", scroll: %s, animation: %s, auto: %s %s', $num_items, 'swing', $scroll_items, $anim_speed, $auto, $callback);
 			?>
 	<script type="text/javascript">
 	/* <![CDATA[ */
-	<?php if ( 'none' != ploption('carousel_scroll', $this->oset) ) : ?>
+	<?php if ( 0 != ploption('carousel_scroll_time', $this->oset) ) : ?>
 	function mycarousel_initCallback(carousel)
 	{
 	    // Disable autoscrolling if the user clicks the prev or next button.
@@ -87,34 +79,16 @@ class PageLinesCarousel extends PageLinesSection {
 							'type' 		=> 'text_multi',
 							'inputsize'	=> 'small',
 							'selectvalues'=> array(
-								'carousel_items'			=> array('inputlabel'=>'Total Carousel Items'),
-								'carousel_display_items'	=> array('inputlabel'=>'Displayed Carousel Items', 'default' => 7),
-								'carousel_scroll_items'		=> array('inputlabel'=>'Scrolled Carousel Items', 'default' => 4),
-								'carousel_animation_speed'	=> array('inputlabel'=>'Animation Speed of Scroll (milliseconds)', 'default' => 800),
+								'carousel_items'			=> array('inputlabel'=>__( 'Total Carousel Items', 'pagelines' ) ),
+								'carousel_display_items'	=> array('inputlabel'=>__( 'Displayed Carousel Items', 'pagelines' ) , 'default' => 7),
+								'carousel_scroll_items'		=> array('inputlabel'=>__( 'Scrolled Carousel Items', 'pagelines' ) , 'default' => 4),
+								'carousel_animation_speed'	=> array('inputlabel'=>__( 'Transition Speed (milliseconds)', 'pagelines' ) , 'default' => 800),
+								'carousel_scroll_time'		=> array('inputlabel'=>__( 'Autoscroll Speed (milliseconds)', 'pagelines' ) , 'default' => 0),
 							),
 							'title' 	=> 'Carousel Display and Scroll',
 							'shortexp' 	=> 'The total numbers for total, shown and scrolled images',
 							'exp' 		=> 'Use this option to control the number of carousel items, the total shown, and the number scrolled at one time.'
 					),
-				'carousel_scroll' => array(
-					'version' => 'pro',
-					'type' => 'select',
-					'default'	=> 'none',
-					'selectvalues'=> array(
-						'none' 			=> array( 'name' => 'No Auto Scroll'),							
-						'auto'			=> array( 'name' => 'Auto Scroll'),
-						'auto_repeat' 	=> array( 'name' => 'Auto Scroll with Rewind'), 
-					),					
-					'title' 	=> 'Carousel Auto Scrolling',
-					'shortexp' 	=> 'Select Scrolling mode.',
-					'exp'		=> 'blah'
-				),
-				'carousel_wait_timeout' => array(
-					'type'			=> 'text',
-					'inputsize'		=> 'small',
-					'default'		=> 2,
-
-	          ),
 					'carousel_mode' => array(
 						'version' => 'pro',
 						'type' => 'select',
