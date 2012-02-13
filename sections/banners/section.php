@@ -149,7 +149,7 @@ class PageLinesBanners extends PageLinesSection {
 
 		$metatab_settings = array(
 				'id' 		=> 'banner_page_meta',
-				'name' 		=> 'Banner Section',
+				'name' 		=> 'Banners',
 				'icon' 		=>  $this->icon,
 				'clone_id'	=> $settings['clone_id'], 
 				'active'	=> $settings['active']

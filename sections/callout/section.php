@@ -73,7 +73,7 @@ class PageLinesCallout extends PageLinesSection {
 
 			$metatab_settings = array(
 					'id' 		=> $this->tabID,
-					'name' 		=> 'Callout Meta',
+					'name' 		=> 'Callout',
 					'icon' 		=> $this->icon, 
 					'clone_id'	=> $settings['clone_id'], 
 					'active'	=> $settings['active']

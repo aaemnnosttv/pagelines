@@ -62,7 +62,7 @@ class PageLinesHighlight extends PageLinesSection {
 		
 		$metatab_settings = array(
 				'id' 		=> $this->tabID,
-				'name' 		=> 'Highlight Meta',
+				'name' 		=> 'Highlight',
 				'icon' 		=> $this->icon, 
 				'clone_id'	=> $settings['clone_id'], 
 				'active'	=> $settings['active']

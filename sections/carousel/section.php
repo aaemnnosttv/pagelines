@@ -137,7 +137,7 @@ class PageLinesCarousel extends PageLinesSection {
 			
 			$metatab_settings = array(
 					'id' 		=> 'carousel_meta',
-					'name'	 	=> 'Carousel Meta',
+					'name'	 	=> 'Carousel',
 					'icon' 		=> $this->icon,
 					'clone_id'	=> $settings['clone_id'], 
 					'active'	=> $settings['active']

@@ -225,7 +225,7 @@ class PageLinesBoxes extends PageLinesSection {
 
 			$tab_settings = array(
 					'id' 		=> 'fboxes_meta',
-					'name' 		=> 'Boxes Section',
+					'name' 		=> 'Boxes',
 					'icon' 		=> $this->icon, 
 					'clone_id'	=> $settings['clone_id'], 
 					'active'	=> $settings['active']
