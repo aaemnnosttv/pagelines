@@ -870,13 +870,20 @@ table {width: 100%;}
 	
 	@media screen and (max-width:450px) { 
 		html { -webkit-text-size-adjust: none; }
+		
 	    .responsive #page #pagelines_content .clip {
 	        width: 100%;
 	    }
+		
 		.responsive .clip_box{
 			margin:0;
 			padding:0;
 			border:0;
+		}
+		
+		#page .media .post-thumb {
+			float: none;
+			margin-bottom: 8px;
 		}
 		
 	}

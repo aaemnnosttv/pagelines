@@ -244,7 +244,7 @@ class PageLinesPosts {
 		
 		$thumb_width = get_option('thumbnail_size_w');
 		
-		$classes = 'post-thumb img';
+		$classes = 'post-thumb img fix';
 		
 		$percent_width  = ($mode == 'top') ? 100 : 25;
 		
