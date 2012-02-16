@@ -184,3 +184,29 @@ function pagelines_inline_help() {
 	
 	$pl_help = new PageLines_Inline_Help;
 }
+
+add_filter('manage_edit-page_columns', 'pl_page_columns');
+function pl_page_columns($columns) {
+    $columns['template'] = 'Template';
+    return $columns;
+}
+
+add_action('manage_pages_custom_column',  'pl_page_show_columns');
+function pl_page_show_columns($name) {
+    global $post;
+    switch ($name) {
+        case 'template':
+            $template = get_post_meta( $post->ID, '_wp_page_template', true );
+            
+			$data = pl_file_get_contents( sprintf( '%s/%s', PARENT_DIR, $template ) );
+			
+			preg_match( '/Template Name:(.*)/', $data, $out );
+			
+			if ( isset( $out[1] ) )
+				$template = $out[1];
+			else
+				$template = 'Default';
+			
+			echo $template;
+    }
+}
