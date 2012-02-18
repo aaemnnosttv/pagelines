@@ -185,10 +185,42 @@ function pagelines_inline_help() {
 	$pl_help = new PageLines_Inline_Help;
 }
 
+
+/**
+ * Add custom columns to page/post views.
+ *
+ */
 add_filter('manage_edit-page_columns', 'pl_page_columns');
 function pl_page_columns($columns) {
-    $columns['template'] = 'Template';
-    return $columns;
+
+	if ( ploption( 'enable_template_view_page' ) )
+    	$columns['template'] = 'PageLines Template';
+
+	if ( ploption( 'enable_feature_view_page' ) )
+    	$columns['feature'] = 'Featured Image';
+	return $columns;
+}
+
+add_filter('manage_edit-post_columns', 'pl_post_columns');
+function pl_post_columns($columns) {
+
+	if ( ploption( 'enable_feature_view_post' ) )
+    	$columns['feature'] = 'Featured Image';
+	return $columns;
+}
+
+add_action('manage_posts_custom_column',  'pl_posts_show_columns');
+function pl_posts_show_columns($name) {
+    global $post;
+    switch ($name) {
+	
+		case 'feature':
+			if( has_post_thumbnail( $post->ID )) {
+				the_post_thumbnail('thumbnail', array( 'class' => 'page-list-feature'));
+			}
+		
+		break;		
+    }
 }
 
 add_action('manage_pages_custom_column',  'pl_page_show_columns');
@@ -208,5 +240,13 @@ function pl_page_show_columns($name) {
 				$template = 'Default';
 			
 			echo $template;
+		break;
+		
+		case 'feature':
+			if( has_post_thumbnail( $post->ID )) {
+				the_post_thumbnail('thumbnail', array( 'class' => 'page-list-feature'));
+			}
+		
+		break;		
     }
 }

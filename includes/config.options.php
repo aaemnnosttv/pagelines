@@ -871,6 +871,36 @@ class PageLinesOptionsArray {
 
 		$a = array(
 			'icon'			=> PL_ADMIN_ICONS.'/settings.png',
+			
+			'page_list_options' => array(
+				'default' => '',
+				'type' => 'check_multi',
+				'selectvalues'=> array(
+		
+					'enable_template_view_page'	=> array(
+						'default'		=> false,
+						'type'			=> 'check',
+						'scope'			=> '',
+						'inputlabel'	=> __( 'Show enabled page template.', 'pagelines' ),
+						),
+					'enable_feature_view_post'	=> array(
+						'default'		=> false,
+						'type'			=> 'check',
+						'scope'			=> '',
+						'inputlabel'	=> __( 'Show featured image (posts).', 'pagelines' ),
+						),
+					'enable_feature_view_page'	=> array(
+						'default'		=> false,
+						'type'			=> 'check',
+						'scope'			=> '',
+						'inputlabel'	=> __( 'Show featured image (pages).', 'pagelines' ),
+						)
+						),
+				'title'					=> __( 'Add Custom Page List Columns.', 'pagelines' ),						
+				'shortexp'				=> __( 'Select Which Columns To Show', 'pagelines' ),
+				'exp'					=> __( 'These options will add extra columns to the main page and post listings.', 'pagelines' ) 
+			),
+
 			'google_ie' => array(
 					'default'	=> false,
 					'type'		=> 'check',
@@ -925,7 +955,7 @@ class PageLinesOptionsArray {
 					'inputlabel'=> __( 'Enable sidebar priorities?', 'pagelines' ),
 					'title'		=> __( 'Sidebar Priority', 'pagelines' ),
 					'shortexp'	=> __( 'Enable sidebar priorities.', 'pagelines' ),
-					'exp'		=> __( 'Enable new sidebar loading system<br />With this enabled sidebars will be loaded: Primary, Secondary, Tertiary etc. ( This will become default by 2.2 )', 'pagelines' )
+					'exp'		=> __( 'Enable new sidebar loading system<br />With this enabled sidebars will be loaded: Primary, Secondary, Tertiary etc.', 'pagelines' )
 			),
 
 			'hide_pagelines_introduction' => array(
