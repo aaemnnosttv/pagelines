@@ -216,7 +216,7 @@ function pl_posts_show_columns($name) {
 	
 		case 'feature':
 			if( has_post_thumbnail( $post->ID )) {
-				the_post_thumbnail('thumbnail', array( 'class' => 'page-list-feature'));
+				the_post_thumbnail( array(48,48) );
 			}
 		
 		break;		
@@ -230,21 +230,36 @@ function pl_page_show_columns($name) {
         case 'template':
             $template = get_post_meta( $post->ID, '_wp_page_template', true );
             
-			$data = pl_file_get_contents( sprintf( '%s/%s', PARENT_DIR, $template ) );
+			if ( 'default' == $template ) {	
+				_e( 'Default', 'pagelines' );
+				break;
+			}
+
+			$file = sprintf( '%s/%s', PARENT_DIR, $template );
+			
+			if ( !file_exists( $file ) )
+				$file = sprintf( '%s/%s', CHILD_DIR, $template );
+			
+			if ( !file_exists( $file ) ) {
+				_e( 'Error', 'pagelines' );
+				break;
+			}
+				
+			$data = pl_file_get_contents( $file );
 			
 			preg_match( '/Template Name:(.*)/', $data, $out );
 			
 			if ( isset( $out[1] ) )
 				$template = $out[1];
 			else
-				$template = 'Default';
+				$template = __( 'Default', 'pagelines' );
 			
 			echo $template;
 		break;
 		
 		case 'feature':
 			if( has_post_thumbnail( $post->ID )) {
-				the_post_thumbnail('thumbnail', array( 'class' => 'page-list-feature'));
+				the_post_thumbnail( array(48,48) );
 			}
 		
 		break;		
