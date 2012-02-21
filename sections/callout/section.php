@@ -29,6 +29,7 @@ class PageLinesCallout extends PageLinesSection {
 						'title' 			=> $this->name.' Text',	
 						'selectvalues'	=> array(
 							'pagelines_callout_header'		=> array('inputlabel'=>'Callout Header', 'default'=> ''),
+							'pagelines_callout_subheader'	=> array('inputlabel'=>'Callout Subtext', 'default'=> '')
 						),				
 						'shortexp' 			=> 'The text for the callout banner section',
 						'exp' 				=> 'This text will be used as the title/text for the callout section of the theme.'
@@ -88,6 +89,7 @@ class PageLinesCallout extends PageLinesSection {
 	*/
  	function section_template() {
 		$call_title = ploption('pagelines_callout_header', $this->oset);
+		$call_sub = ploption('pagelines_callout_subheader', $this->oset);
 		$call_img = ploption('pagelines_callout_image', $this->oset);
 		$call_link = ploption('pagelines_callout_link', $this->oset);
 		
@@ -118,7 +120,10 @@ class PageLinesCallout extends PageLinesSection {
 				<?php 
 				
 					printf( '<h2 class="callout_head %s">%s</h2>', (!$call_img) ? 'noimage' : '', $call_title);
-				
+					
+					if($call_sub)
+						printf( '<p class="callout_sub subhead %s">%s</p>', (!$call_img) ? 'noimage' : '', $call_sub);
+					
 				?>
 				
 			</div>
