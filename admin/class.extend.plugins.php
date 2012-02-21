@@ -33,9 +33,9 @@ class ExtensionPlugins extends PageLinesExtensions {
 
 		$output = '';
 
-		$plugins = json_decode(json_encode($plugins), true); // convert objects to arrays
+		$plugins = pagelines_store_object_sort( $plugins );
 
-		$plugins = pagelines_array_sort( $plugins, 'created', false, true ); // sort by created dated
+		$plugins = json_decode(json_encode($plugins), true); // convert objects to arrays
 		
 		$plugins = self::external_plugins( $plugins );
 		
@@ -49,8 +49,6 @@ class ExtensionPlugins extends PageLinesExtensions {
 			$plugins[$key]['status'] = $this->plugin_check_status( WP_PLUGIN_DIR . $ext['file'] );
 			$plugins[$key]['name'] = ( $plugins[$key]['status']['data']['Name'] ) ? $plugins[$key]['status']['data']['Name'] : $plugins[$key]['name'];
 		}
-
-//		$plugins = pagelines_array_sort( $plugins, 'status', 'status' ); // sort by status
 
 		// reset array keys ( sort functions reset keys to int )
 		foreach( $plugins as $key => $ext ) {
