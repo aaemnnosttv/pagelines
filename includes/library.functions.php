@@ -502,7 +502,7 @@ function pagelines_nav_classes(){
 	
 	$additional_menu_classes = '';
 		
-	if(pagelines_option('enable_drop_down'))
+	if(ploption('enable_drop_down'))
 		$additional_menu_classes .= ' sf-menu';
 	
 	return $additional_menu_classes;
