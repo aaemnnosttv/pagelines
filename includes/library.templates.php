@@ -158,22 +158,7 @@ function pagelines_head_common(){
 		// RTL Language Support
 		if(is_rtl()) 
 			pagelines_load_css_relative( 'rtl.css', 'pagelines-rtl');
-		
 
-		
-		$fb_img = apply_filters('pl_opengraph_image', pl_the_thumbnail_url($pagelines_ID));
-		
-		
-		
-		if($fb_img)
-			printf( "<meta property='og:image' content='%s' />", $fb_img);
-			
-		printf( "<meta property='og:title' content='%s' />", get_the_title($pagelines_ID));
-		printf( "<meta property='og:url' content='%s' />", get_permalink($pagelines_ID));
-		printf( "<meta property='og:site_name' content='%s' />", get_bloginfo( 'name' ));
-//		printf( "<meta property='og:description' content='%s' />", strip_tags(get_the_excerpt($pagelines_ID)));
-		printf( "<meta property='og:type' content='%s' />", (is_home()) ? 'website' : 'article');
-		
 	}
 
 	
@@ -181,6 +166,8 @@ function pagelines_head_common(){
 		wp_enqueue_script( 'jquery'); 
 		wp_enqueue_script( 'blocks', PL_JS . '/script.blocks.js', array('jquery'));
 	
+	if ( ploption( 'facebook_headers' ) )
+		pagelines_facebook_header();
 	
 	pagelines_supersize_bg();
 	
@@ -202,6 +189,24 @@ function pagelines_head_common(){
 		add_action( 'pagelines_head_last', create_function( '',  'echo ploption("asynch_analytics");' ), 25 );
 }
 
+function pagelines_facebook_header() {
+
+	if( is_home() || is_archive() )
+		return;
+	global $pagelines_ID;
+	$fb_img = apply_filters('pl_opengraph_image', pl_the_thumbnail_url($pagelines_ID));
+	if($fb_img)
+		printf( "<meta property='og:image' content='%s' />", $fb_img);
+		
+	printf( "<meta property='og:title' content='%s' />", get_the_title($pagelines_ID));
+	printf( "<meta property='og:url' content='%s' />", get_permalink($pagelines_ID));
+	printf( "<meta property='og:site_name' content='%s' />", get_bloginfo( 'name' ));
+	$fb_content = get_post( $pagelines_ID );
+	printf( "<meta property='og:description' content='%s' />", pl_short_excerpt( $fb_content, 15 ) );
+	printf( "<meta property='og:type' content='%s' />", (is_home()) ? 'website' : 'article');
+
+}
+
 function pagelines_supersize_bg(){
 	
 	global $pagelines_ID;
@@ -213,9 +218,7 @@ function pagelines_supersize_bg(){
 		wp_enqueue_script('supersize', PL_JS.'/script.supersize.js', 'jquery' );
 		
 		add_action('wp_head', 'pagelines_runtime_supersize', 20);
-	}
-		
-	
+	}	
 }
 
 function pagelines_runtime_supersize(){

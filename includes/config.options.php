@@ -591,6 +591,14 @@ class PageLinesOptionsArray {
 					'shortexp'	=> __( 'Places News/Blog RSS icon in your header', 'pagelines' ),
 					'exp'		=> ''
 				),
+			'facebook_headers' => array(
+					'default'	=> false,
+					'version'	=> 'pro',
+					'type'		=> 'check',
+					'inputlabel'=> __( 'Enable Facebook Open Graph data?', 'pagelines' ),
+					'title'		=> __( 'Facebook Open Graph', 'pagelines' ),
+					'exp'	=> __( 'Places Facebook Open Graph data in the page headers.', 'pagelines' ),
+				),
 			'icon_social' => array(
 					'version'	=> 'pro',
 					'type'		=> 'text_multi',
@@ -870,6 +878,7 @@ class PageLinesOptionsArray {
 			
 			'page_list_options' => array(
 				'default' => '',
+				'version' => 'pro',
 				'type' => 'check_multi',
 				'selectvalues'=> array(
 		

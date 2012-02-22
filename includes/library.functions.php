@@ -452,6 +452,44 @@ function improved_trim_excerpt($text) {
 }
 
 /**
+ * Generates an really short excerpt from the content or postid for tweets, facebook etc
+ *
+ * @param int|object $post_or_id can be the post ID, or the actual $post object itself
+ * @param int $words the amount of words to allow
+ * @param string $excerpt_more the text that is applied to the end of the excerpt if we algorithically snip it
+ * @return string the snipped excerpt or the manual excerpt if it exists         
+ */
+function pl_short_excerpt($post_or_id, $words = 10, $excerpt_more = ' [...]') {
+
+	if ( is_object( $post_or_id ) )
+		$postObj = $post_or_id;
+	else $postObj = get_post($post_or_id);
+
+	$raw_excerpt = $text = $postObj->post_excerpt;
+	if ( '' == $text ) {
+		$text = $postObj->post_content;
+
+		$text = strip_shortcodes( $text );
+
+		$text = apply_filters('the_content', $text);
+		$text = str_replace(']]>', ']]&gt;', $text);
+		$text = strip_tags($text);
+		$excerpt_length = $words;
+
+		$words = preg_split("/[\n\r\t ]+/", $text, $excerpt_length + 1, PREG_SPLIT_NO_EMPTY);
+		if ( count($words) > $excerpt_length ) {
+			array_pop($words);
+			$text = implode(' ', $words);
+			$text = $text . $excerpt_more;
+		} else {
+			$text = implode(' ', $words);
+		}
+	}
+	return $text;
+}
+
+
+/**
  * 
  *  Returns nav menu classes
  *
