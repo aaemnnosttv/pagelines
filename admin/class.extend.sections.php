@@ -23,6 +23,8 @@ class ExtensionSections extends PageLinesExtensions {
 			if ( !is_object( $sections ) ) 
 				return $sections;
 
+			$sections = pagelines_store_object_sort( $sections );
+
 			$list = $this->get_master_list( $sections, $type, $tab );
 			
 		} // end install mode
@@ -44,7 +46,7 @@ class ExtensionSections extends PageLinesExtensions {
 				$available[$key] = self::sort_status( $section, $disabled, $available, $upgradable );
 			}
 			
-			$sections = self::merge_sections( $available );
+			$sections = self::merge_sections( $available );			
 
 			$list = $this->get_master_list( $sections, $type, $tab, 'installed' );	
 	

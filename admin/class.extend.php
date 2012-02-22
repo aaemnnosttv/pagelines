@@ -173,7 +173,14 @@
 				'condition'	=> $this->depends_check( $type, $key, $ext, $tab ),
 				'text'		=> __( 'Install', 'pagelines' ),
 				),
-			
+			'pro_fail'	=>	array(
+				'case'		=> 'pro_fail',
+				'mode'		=>	'pro_fail',
+				'path'		=>	$type,
+				'condition'	=> $this->is_pro_only( $type, $key, $ext, $tab ),
+				'text'		=> __( 'Upgrade', 'pagelines' ),
+				),
+	
 			'download'	=> array(
 				'mode'		=> 'download',
 				'condition'	=> $this->show_download_button( $type, $key, $ext, $tab ),
@@ -360,10 +367,20 @@
 			&& ! EXTEND_NETWORK
 			&& ! $this->version_fail( $ext['plversion'] )
 			&& ! $this->depends_check( $type, $key, $ext, $tab )
+			&& ! $this->is_pro_only( $type, $key, $ext, $tab )
 		)
 			return true;
 		else
 			return false;
+	}
+	
+	function is_pro_only( $type, $key, $ext, $tab ) {
+		
+		if ( isset( $ext['edition']) && 'pro' == $ext['edition'] && ! VPRO 
+			&& $this->is_purchased( $type, $key, $ext ) )
+			return true;
+		else 
+			return false;	
 	}
 	
 	function show_installed_button( $type, $key, $ext, $tab ){
@@ -479,8 +496,9 @@
 
 		if( !$this->in_the_store( $type, $key, $ext, $tab )
 			&& $this->is_installed( $type, $key, $ext, $tab )
-			&& !$this->is_active( $type, $key, $ext )
+			&& ! $this->is_active( $type, $key, $ext )
 			&& ! $this->is_persistant( $type, $key, $ext, $tab )
+			&& ! $this->is_pro_only( $type, $key, $ext, $tab )
 		){
 			return true;
 		} else 

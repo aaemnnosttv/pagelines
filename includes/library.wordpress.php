@@ -20,7 +20,7 @@ function pl_the_thumbnail_url( $post_id ){
 /**
  * Support optional WordPress functionality 'add_theme_support'
  */
-add_action('pagelines_setup', 'pl_theme_support');
+add_action('after_setup_theme', 'pl_theme_support');
 function pl_theme_support(  ){	
 	
 	add_theme_support( 'post-thumbnails' );

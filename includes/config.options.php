@@ -61,8 +61,7 @@ class PageLinesOptionsArray {
 				'imagepreview' 	=> 	'16',
 				'title' 		=> 	__( 'Favicon Image', 'pagelines' ),						
 				'shortexp' 		=> 	__( 'Input Full URL to favicon image (<strong>favicon.ico</strong> image file)', 'pagelines' ),
-				'exp' 			=> 	__( 'Enter the full URL location of your custom <strong>favicon</strong> which is visible in ' .
-							'browser favorites and tabs.<br/> <strong>Must be .png or .ico file - 16px by 16px</strong>.', 'pagelines' )
+				'exp' 			=> 	__( 'Enter the full URL location of your custom <strong>favicon</strong> which is visible in browser favorites and tabs.<br/> <strong>Must be .png or .ico file - 16px by 16px</strong>.', 'pagelines' )
 			),		
 			'twittername' => array(
 				'default' 		=> '',
@@ -99,10 +98,7 @@ class PageLinesOptionsArray {
 				'imagepreview' 	=> 	'60',
 				'title' 		=> __( 'Apple Touch Image', 'pagelines' ),						
 				'shortexp' 		=> __( 'Input Full URL to Apple touch image (.jpg, .gif, .png)', 'pagelines' ),
-				'exp'			=> __( 'Enter the full URL location of your Apple Touch Icon which is visible when ' .
-						  'your users set your site as a <strong>webclip</strong> in Apple Iphone and ' . 
-						  'Touch Products. It is an image approximately 57px by 57px in either .jpg, ' .
-						  '.gif or .png format.', 'pagelines' )
+				'exp'			=> __( 'Enter the full URL location of your Apple Touch Icon which is visible when your users set your site as a <strong>webclip</strong> in Apple Iphone and Touch Products. It is an image approximately 57px by 57px in either .jpg, .gif or .png format.', 'pagelines' )
 			),
 		
 			'sidebar_no_default' => array(

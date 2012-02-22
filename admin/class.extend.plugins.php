@@ -33,6 +33,8 @@ class ExtensionPlugins extends PageLinesExtensions {
 
 		$output = '';
 
+		$plugins = pagelines_store_object_sort( $plugins );
+
 		$plugins = json_decode(json_encode($plugins), true); // convert objects to arrays
 		
 		$plugins = self::external_plugins( $plugins );
@@ -40,15 +42,13 @@ class ExtensionPlugins extends PageLinesExtensions {
 		foreach( $plugins as $key => $plugin )
 			$plugins[$key]['file'] = sprintf('/%1$s/%1$s.php', $key);
 
-		$plugins = pagelines_array_sort( $plugins, 'name', false, true ); // sort by name
+
 		
 		// get status of each plugin
 		foreach( $plugins as $key => $ext ) {
 			$plugins[$key]['status'] = $this->plugin_check_status( WP_PLUGIN_DIR . $ext['file'] );
 			$plugins[$key]['name'] = ( $plugins[$key]['status']['data']['Name'] ) ? $plugins[$key]['status']['data']['Name'] : $plugins[$key]['name'];
 		}
-
-		$plugins = pagelines_array_sort( $plugins, 'status', 'status' ); // sort by status
 
 		// reset array keys ( sort functions reset keys to int )
 		foreach( $plugins as $key => $ext ) {

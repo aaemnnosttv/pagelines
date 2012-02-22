@@ -35,6 +35,8 @@ class ExtensionThemes extends PageLinesExtensions {
 			);
 
 
+		$themes = pagelines_store_object_sort( $themes );
+
 		$themes = json_decode(json_encode($themes), true);
 		
 		$get_themes = apply_filters( 'store_get_themes', get_themes() );

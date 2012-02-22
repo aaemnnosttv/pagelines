@@ -873,3 +873,19 @@ function pagelines_register_sidebar( $args, $priorty = null ) {
 	else
 		$pagelines_sidebars[] = $args;
 }
+
+/** 
+ * Insert into array at a position.
+ *
+ * @param $orig array Original array.
+ * @param $new array Array to insert.
+ * @param $offset int Offset
+ * @return array
+ */
+function pl_insert_into_array( $orig, $new, $offset ) {
+	
+	$newArray = array_slice($orig, 0, $offset, true) +
+	            $new +
+	            array_slice($orig, $offset, NULL, true);
+	return $newArray;
+}

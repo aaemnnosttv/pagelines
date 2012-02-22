@@ -100,3 +100,24 @@ function pagelines_try_api( $url, $options ) {
 	}
 	return false;
 }
+
+function pagelines_store_object_sort( $object ) {
+
+    $array = json_decode( json_encode( $object ), true );
+
+	$array = pagelines_array_sort( $array, 'created', false, true );
+
+    $object = new stdClass();
+    if (is_array($array) && count($array) > 0) {
+      foreach ($array as $name=>$value) {
+         $name = ( isset( $value['slug'] ) ) ? $value['slug'] : $name;
+         if (!empty($name)) {
+            $object->$name = (object) $value;
+         }
+      }
+      return $object; 
+    }
+    else {
+      return FALSE;
+    }
+}

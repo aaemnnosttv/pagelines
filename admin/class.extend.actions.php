@@ -175,6 +175,13 @@
 
 			break;
 			
+			case 'pro_fail':
+			
+				$this->pro_fail( $type, $file, $path, $uploader, $checked );
+
+			break;
+			
+			
 		}
 		die(); // needed at the end of ajax callbacks
 	}
@@ -359,6 +366,12 @@
 	function depends_fail( $type, $file, $path, $uploader, $checked ) {
 		
 		printf( __( 'You need to install %s first.', 'pagelines' ), $file );
+		
+	}
+	
+	function pro_fail( $type, $file, $path, $uploader, $checked ) {
+		
+		printf( __( 'This %s is free with a Pro license.', 'pagelines' ), $path );
 		
 	}
 	
