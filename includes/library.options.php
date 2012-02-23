@@ -669,10 +669,12 @@ function pagelines_import_export(){
 		if ( isset( $_POST['form_submitted']) && $_POST['form_submitted'] == 'export_settings_form' ) {
 
 			$pagelines_settings = get_option(PAGELINES_SETTINGS);
-			$pagelines_template = get_option( PAGELINES_TEMPLATE_MAP );
+			$pagelines_template_map = get_option( PAGELINES_TEMPLATE_MAP );
+			$pagelines_templates = get_option( PAGELINES_TEMPLATES );
 			$pagelines_special = get_option( PAGELINES_SPECIAL );
 
-			$options['pagelines_template'] = $pagelines_template;
+			$options['pagelines_templates'] = $pagelines_templates;
+			$options['pagelines_template_map'] = $pagelines_template_map;
 			$options['pagelines_settings'] = $pagelines_settings;
 			$options['pagelines_special'] = $pagelines_special;
 
@@ -703,23 +705,25 @@ function pagelines_import_export(){
 	
 			$all_options = json_decode(json_encode(json_decode($raw_options)), true);
 		
-			if ( !isset( $_POST['pagelines_layout'] ) && is_array( $all_options) && isset( $all_options['pagelines_settings'] ) )
+			if ( !isset( $_POST['pagelines_layout'] ) && is_array( $all_options) && isset( $all_options['pagelines_settings'] ) && is_array( $all_options['pagelines_settings'] ) )
 				unset( $all_options['pagelines_settings']['layout'] );
 			
-			if ( isset( $_POST['pagelines_settings'] ) && is_array( $all_options) && isset( $all_options['pagelines_settings'] ) ) {
+			if ( isset( $_POST['pagelines_settings'] ) && is_array( $all_options) && isset( $all_options['pagelines_settings'] )  && is_array( $all_options['pagelines_settings'] ) ) {
 				update_option( PAGELINES_SETTINGS, array_merge( get_option( PAGELINES_SETTINGS ), $all_options['pagelines_settings'] ) );
 				$done = 1;
 			}
 			
-			if ( isset( $_POST['pagelines_special'] ) && is_array( $all_options) && isset( $all_options['pagelines_special'] ) ) {
+			if ( isset( $_POST['pagelines_special'] ) && is_array( $all_options) && isset( $all_options['pagelines_special'] ) && is_array( $all_options['pagelines_special'] ) ) {
 				$special = get_option( PAGELINES_SPECIAL, array() );
 				update_option( PAGELINES_SPECIAL, array_merge( $special, $all_options['pagelines_special'] ) );
 				$done = 1;
 			}
 			
-			if ( isset( $_POST['pagelines_template'] ) && is_array( $all_options) && isset( $all_options['pagelines_template'] ) ) {
-				$template = get_option( PAGELINES_TEMPLATE_MAP, array() );
-				update_option( PAGELINES_TEMPLATE_MAP, array_merge( $template, $all_options['pagelines_template'] ) );
+			if ( isset( $_POST['pagelines_templates'] ) && is_array( $all_options) && isset( $all_options['pagelines_template_map'] ) && is_array( $all_options['pagelines_template_map'] ) ) {
+				$template_map = get_option( PAGELINES_TEMPLATE_MAP, array() );
+				$template_settings = ( isset( $all_options['pagelines_templates'] ) && is_array( $all_options['pagelines_templates'] ) ) ? $all_options['pagelines_templates'] : array();
+				update_option( PAGELINES_TEMPLATE_MAP, array_merge( $template_map, $all_options['pagelines_template_map'] ) );
+				update_option( PAGELINES_TEMPLATES, array_merge( $template_settings, $all_options['pagelines_templates'] ) );
 				$done = 1;
 			}					
 				if (function_exists('wp_cache_clean_cache')) { 

@@ -1271,8 +1271,8 @@ class OptEngine {
 						<input type="hidden" name="form_submitted" value="import_settings_form" />
 				<?php 
 
-						$input = $this->input_checkbox('pagelines_template', 'pagelines_template', 'checked');
-						echo $this->input_label_inline('pagelines_template', $input, __( 'Import Template Setup', 'pagelines' ));
+						$input = $this->input_checkbox('pagelines_templates', 'pagelines_templates', 'checked');
+						echo $this->input_label_inline('pagelines_templates', $input, __( 'Import Template Settings', 'pagelines' ));
 
 						$input = $this->input_checkbox('pagelines_settings', 'pagelines_settings', 'checked');
 						echo $this->input_label_inline('pagelines_settings', $input, __( 'Import Primary Settings', 'pagelines' ));
