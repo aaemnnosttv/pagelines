@@ -55,7 +55,7 @@ function pagelines_post_date_shortcode($atts) {
 	);
 	$atts = shortcode_atts( $defaults, $atts );
 	
-	$output = sprintf( '<time class="date time published updated sc" datetime="%5$s" pubdate="pubdate">%1$s%3$s%4$s%2$s</time> ', $atts['before'], $atts['after'], $atts['label'], get_the_time($atts['format']), get_the_time('Y-m-d\TH:i:sO') );
+	$output = sprintf( '<time class="date time published updated sc" datetime="%5$s">%1$s%3$s%4$s%2$s</time> ', $atts['before'], $atts['after'], $atts['label'], get_the_time($atts['format']), get_the_time('Y-m-d\TH:i:s.uP') );
 	
 	return apply_filters('pagelines_post_date_shortcode', $output, $atts);
 	

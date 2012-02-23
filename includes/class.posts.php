@@ -170,7 +170,7 @@ class PageLinesPosts {
 			$classes .= (!$this->pagelines_show_thumb( $id )) ? 'post-nothumb ' : '';
 			$classes .= (!$this->pagelines_show_content( $id )) ? 'post-nocontent ' : '';
 				
-			$title = sprintf('<section class="bd post-title-section fix"><hgroup class="post-title fix">%s%s</hgroup></section>', $this->pagelines_get_post_title($format), $this->pagelines_get_post_metabar( $format ));
+			$title = sprintf('<section class="bd post-title-section fix"><hgroup class="post-title fix">%s</hgroup>%s</section>', $this->pagelines_get_post_title($format), $this->pagelines_get_post_metabar( $format ));
 			
 			
 			if($excerpt_mode == 'left-excerpt' || $excerpt_mode == 'right-excerpt')
