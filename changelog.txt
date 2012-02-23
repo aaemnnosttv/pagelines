@@ -16,6 +16,18 @@ Version 2.1.2
 	- New - Facebook Like Image uses 'Featured Image' (if available)
 	- New - Advanced option - Current Install <body> class
 	- New - Boxes options - More link & individual class
+	- New - Add Open Graph options
+	- New - Show active templates in page list
+	- New - Show featured image in post/page list
+	- New - Carousel gets auto scrolling
+	- New - Special body class option
+	- New - Developer libs added	
+	- CORE - Widget areas always loaded
+	- CORE - Store items loaded by date
+	- Bugs - Change action time for sidebar loading
+	- Bugs - Fix HTML5 validation
+	- Bugs - Re-add youtube link
+	- Bugs - Escape JS in feature titles 
 
 Version 2.1.1
 	- Bugs - IE8 <img> css
