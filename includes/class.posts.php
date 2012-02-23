@@ -37,11 +37,14 @@ class PageLinesPosts {
 		add_filter('pagelines_post_metabar', 'do_shortcode', 20);
 		
 		if(has_action('add_social_under_meta'))
-			add_filter('pagelines_post_metabar', array( @$this,'add_social_under_meta'));
+			add_filter('pagelines_post_metabar', array( &$this,'add_social_under_meta'));
 
 	}
 	
 	function add_social_under_meta($metabar){
+		
+		if ( ! class_exists( 'PageLinesShareBar' ) )
+			return $metabar;
 		global $post;
 		
 		$args = array('permalink' => get_permalink($post->ID), 'width'=>'50', 'title' => get_the_title($post->ID));
@@ -281,25 +284,26 @@ class PageLinesPosts {
 	function pagelines_get_post_metabar( $format = '' ) {
 
 		$metabar = '';
-
+		$before = '<em>';
+		$after = '</em>';
 		if ( is_page() )
 			return; // don't do post-info on pages
 
 		if( $format == 'clip'){
 			
 			$metabar = ( pagelines_option( 'metabar_clip' ) ) 
-				? pagelines_option( 'metabar_clip' ) 
-				: sprintf( '%s [post_date] %s [post_author_posts_link] [post_edit]', __('On','pagelines'), __('By','pagelines'));
+				? $before . pagelines_option( 'metabar_clip' ) . $after
+				: sprintf( '%s%s [post_date] %s [post_author_posts_link] [post_edit]%s', $before, __('On','pagelines'), __('By','pagelines'), $after );
 
 		} else {
 
 			$metabar = ( pagelines_option( 'metabar_standard' ) ) 
-				? pagelines_option( 'metabar_standard' ) 
-				: sprintf( '%s [post_author_posts_link] %s [post_date] &middot; [post_comments] &middot; %s [post_categories] [post_edit]', __('By','pagelines'), __('On','pagelines'), __('In','pagelines'));
+				? $before . pagelines_option( 'metabar_standard' ) . $after
+				: sprintf( '%s%s [post_author_posts_link] %s [post_date] &middot; [post_comments] &middot; %s [post_categories] [post_edit]%s', $before, __('By','pagelines'), __('On','pagelines'), __('In','pagelines'), $after);
 
 		}
 
-		return sprintf( '<div class="metabar"><div class="metabar-pad"><em>%s</em></div></div>', apply_filters('pagelines_post_metabar', $metabar, $format) );
+		return sprintf( '<div class="metabar"><div class="metabar-pad">%s</div></div>', apply_filters('pagelines_post_metabar', $metabar, $format) );
 
 	}
 
