@@ -218,18 +218,26 @@ class PageLinesPosts {
 	 * @return string the excerpt markup
 	 */
 	function post_excerpt_markup( $mode = '', $thumbnail = '' ) {
-	
+		
+		ob_start();
+		
+		pagelines_register_hook( 'pagelines_loop_before_excerpt', 'theloop' ); // Hook
+		
 		if($mode == 'left-excerpt' || $mode == 'right-excerpt')
-			$pagelines_excerpt = sprintf( '<aside class="post-excerpt">%s %s</aside>', $thumbnail, get_the_excerpt() );
+			printf( '<aside class="post-excerpt">%s %s</aside>', $thumbnail, get_the_excerpt() );
 		else
-			$pagelines_excerpt = sprintf( '<aside class="post-excerpt">%s</aside>', get_the_excerpt() );
+			printf( '<aside class="post-excerpt">%s</aside>', get_the_excerpt() );
 		
 	
 		if(pagelines_is_posts_page() && !$this->pagelines_show_content( get_the_ID() )) // 'Continue Reading' link
-			$pagelines_excerpt .= $this->get_continue_reading_link( get_the_ID() );
+			echo $this->get_continue_reading_link( get_the_ID() );
 		
 //		if (is_home() && ploption('content_comments'))
 //			$pagelines_excerpt .= do_shortcode('<div class="cnt-comments">[post_comments]</div>');
+		
+		pagelines_register_hook( 'pagelines_loop_after_excerpt', 'theloop' ); // Hook 
+			
+		$pagelines_excerpt = ob_get_clean();
 		
 		return apply_filters('pagelines_excerpt', $pagelines_excerpt);
 		

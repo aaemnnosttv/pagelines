@@ -25,6 +25,8 @@ Version 2.1.2
 	- New - Sharebar under post titles	
 	- CORE - Widget areas always loaded
 	- CORE - Store items loaded by date
+	- CORE - New action pagelines_loop_before_excerpt
+	- CORE - New action pagelines_loop_after_excerpt
 	- Bugs - Change action time for sidebar loading
 	- Bugs - Fix HTML5 validation
 	- Bugs - Re-add youtube link
