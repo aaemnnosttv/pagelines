@@ -21,7 +21,8 @@ Version 2.1.2
 	- New - Show featured image in post/page list
 	- New - Carousel gets auto scrolling
 	- New - Special body class option
-	- New - Developer libs added	
+	- New - Developer libs added
+	- New - Sharebar under post titles	
 	- CORE - Widget areas always loaded
 	- CORE - Store items loaded by date
 	- Bugs - Change action time for sidebar loading
