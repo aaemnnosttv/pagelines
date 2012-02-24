@@ -55,6 +55,12 @@ class ExtensionSections extends PageLinesExtensions {
 		return $this->ui->extension_list( array( 'list' => $list, 'tab' => $tab, 'type' => 'sections' ) );
  	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function merge_sections( $sections ) {
 		
 		$out = array();
@@ -67,6 +73,12 @@ class ExtensionSections extends PageLinesExtensions {
 		return $out;
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function sort_status( $section, $disabled, $available, $upgradable) {
 		
 		if (! is_array( $section ) )
@@ -80,6 +92,12 @@ class ExtensionSections extends PageLinesExtensions {
 		return pagelines_array_sort( $section, 'name' ); // Sort Alphabetically
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function check_version( $ext, $upgradable ) {
 		
 		if ( isset( $ext['base_dir'] ) ) {

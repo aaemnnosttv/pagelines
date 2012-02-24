@@ -32,6 +32,12 @@ class PageLinesOptionsArray {
 		$this->last_options['custom_code'] = $this->custom_code();
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function website_setup(){
 		$a = array(
 			'icon'			=> PL_ADMIN_ICONS.'/compass.png',

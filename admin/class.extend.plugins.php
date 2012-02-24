@@ -2,6 +2,12 @@
 
 class ExtensionPlugins extends PageLinesExtensions {
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function __contruct() {
 		
 		add_filter( 'http_request_args', array( &$this, 'pagelines_plugins_remove' ), 10, 2 );
@@ -24,6 +30,12 @@ class ExtensionPlugins extends PageLinesExtensions {
 	// = Helper functions =
 	// ====================
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function load_plugins(){
 	
 		$plugins = $this->get_latest_cached( 'plugins' );

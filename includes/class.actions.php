@@ -13,10 +13,22 @@
  */
 class PageLinesActions(){
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function __contruct(){
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_hooks_array(){
 		
 		
@@ -81,6 +93,12 @@ class PageLinesActions(){
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function actions_template(){
 
 			$action_hooks = get_hooks(); // Get hooks array
@@ -155,6 +173,12 @@ class PageLinesActions(){
 		<?php
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function _do_hook_field($hook){ 
 
 		$opt_text = actions_option($hook);	
@@ -178,6 +202,11 @@ class PageLinesActions(){
 // for the action plugin to see it.
 // Child themes can use the pagelines_hooks filter and have their functions stored locally
 
+/**
+*
+* @TODO do
+*
+*/
 function pagelines_get_hooks() {
 	
 	global $pl_section_factory;
@@ -239,170 +268,380 @@ function pagelines_get_hooks() {
 	return apply_filters('pagelines_hooks', $hooks);
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_pagelines_morefoot() {
 	pl_do_hook( 'pagelines_morefoot' );
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_pagelines_after_morefoot() {
 	pl_do_hook( 'pagelines_after_morefoot' );
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_pagelines_before_header() {
 	pl_do_hook( 'pagelines_before_header' );
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_pagelines_before_main() {
 	pl_do_hook( 'pagelines_before_main' );
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_pagelines_header() {
 	pl_do_hook( 'pagelines_header' );
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_pagelines_before_page() {
 	pl_do_hook( 'pagelines_before_page' );
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_pagelines_before_site() {
 	pl_do_hook( 'pagelines_before_site' );
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_pagelines_before_html() {
 	pl_do_hook( 'pagelines_before_html' );
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_brandnav_after_brand() {
 	pl_do_hook( 'brandnav_after_brand' );
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_brandnav_after_nav() {
 	pl_do_hook( 'brandnav_after_nav' );
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_pagelines_after_excerpt() {
 	pl_do_hook( 'pagelines_after_excerpt' );
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_pagelines_loop_post_start() {
 	pl_do_hook( 'pagelines_loop_post_start' );
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_pagelines_loop_page_title_after() {
 	pl_do_hook( 'pagelines_loop_page_title_after' );
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_pagelines_loop_post_header_start() {
 	pl_do_hook( 'pagelines_loop_post_header_start' );
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_pagelines_loop_before_post_content() {
 	pl_do_hook( 'pagelines_loop_before_post_content' );
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_pagelines_loop_after_post_content() {
 	pl_do_hook( 'pagelines_loop_after_post_content' );
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_pagelines_loop_post_end() {
 	pl_do_hook( 'pagelines_loop_post_end' );
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_pagelines_loop_clipbox_start() {
 	pl_do_hook( 'pagelines_loop_clipbox_start' );
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_pagelines_loop_clip_start() {
 	pl_do_hook( 'pagelines_loop_clip_start' );
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_pagelines_loop_clip_excerpt_end() {
 	pl_do_hook( 'pagelines_loop_clip_excerpt_end' );
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_pagelines_loop_clip_end() {
 	pl_do_hook( 'pagelines_loop_clip_end' );
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_pagelines_loop_clipbox_end() {
 	pl_do_hook( 'pagelines_loop_clipbox_end' );
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_pagelines_soapbox_links() {
 	pl_do_hook( 'pagelines_soapbox_links' );
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_pagelines_soapbox_inside_bottom() {
 	pl_do_hook( 'pagelines_soapbox_inside_bottom' );
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_pagelines_box_inside_bottom() {
 	pl_do_hook( 'pagelines_box_inside_bottom' );
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_pagelines_feature_before() {
 	pl_do_hook( 'pagelines_feature_before' );
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_pagelines_fcontent_before() {
 	pl_do_hook( 'pagelines_fcontent_before' );
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_pagelines_feature_text_top() {
 	pl_do_hook( 'pagelines_feature_text_top' );
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_pagelines_feature_text_bottom() {
 	pl_do_hook( 'pagelines_feature_text_bottom' );
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_pagelines_fcontent_after() {
 	pl_do_hook( 'pagelines_fcontent_after' );
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_pagelines_feature_media_top() {
 	pl_do_hook( 'pagelines_feature_media_top' );
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_pagelines_feature_after() {
 	pl_do_hook( 'pagelines_feature_after' );
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_pagelines_feature_nav_before() {
 	pl_do_hook( 'pagelines_feature_nav_before' );
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_pagelines_before_twitterbar_text() {
 	pl_do_hook( 'pagelines_before_twitterbar_text' );
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_pagelines_before_branding_icons() {
 	pl_do_hook( 'pagelines_before_branding_icons' );
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_pagelines_branding_icons_start() {
 	pl_do_hook( 'pagelines_branding_icons_start' );
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_pagelines_branding_icons_end() {
 	pl_do_hook( 'pagelines_branding_icons_end' );
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_pagelines_after_branding_wrap() {
 	pl_do_hook( 'pagelines_after_branding_wrap' );
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_pagelines_content_before_columns() {
 	pl_do_hook( 'pagelines_content_before_columns' );
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_pagelines_content_before_maincolumn() {
 	pl_do_hook( 'pagelines_content_before_maincolumn' );
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_pagelines_content_before_sidebar1() {
 	pl_do_hook( 'pagelines_content_before_sidebar1' );
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_pagelines_content_after_sidebar1() {
 	pl_do_hook( 'pagelines_content_after_sidebar1' );
 }

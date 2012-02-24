@@ -52,6 +52,12 @@ class PageLinesNav extends PageLinesSection {
 		echo '</div>';
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function section_styles(){
 		if(ploption('enable_drop_down')){
 			
@@ -61,6 +67,12 @@ class PageLinesNav extends PageLinesSection {
 		}
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function section_head(){
 		
 		$arrows = (ploption('drop_down_arrows') == 'on') ? 1 : 0;
@@ -74,6 +86,12 @@ class PageLinesNav extends PageLinesSection {
 		endif;
 }
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function section_scripts() {  
 		
 		return array(

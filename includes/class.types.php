@@ -64,6 +64,12 @@ class PageLinesPostType {
 		add_action( 'init', array(&$this,'init_register_post_type') );
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function init_register_post_type(){
 		
 		$capability = (ploption('hide_controls_cpt')) ? ploption('hide_controls_cpt') : 'moderate_comments';
@@ -110,6 +116,12 @@ class PageLinesPostType {
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function register_taxonomies(){
 		
 		if( !empty($this->taxonomies) ){
@@ -132,6 +144,12 @@ class PageLinesPostType {
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function register_columns(){
 		
 		add_filter("manage_edit-{$this->id}_columns", array(&$this, 'set_columns'));
@@ -139,17 +157,35 @@ class PageLinesPostType {
 		add_action('manage_posts_custom_column',  array(&$this, 'set_column_values'));
 	}
 		
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function set_columns( $columns ){ 
 		
 		return $this->columns; 
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function set_column_values( $wp_column ){
 		
 		call_user_func( $this->columns_display_function, $wp_column );
 						
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function set_default_posts( $callback, $object = false){
 	
 		if(!get_posts('post_type='.$this->id)){
@@ -164,6 +200,12 @@ class PageLinesPostType {
 	
 	
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function section_loading(){
 		
 		if( !$this->settings['dragdrop'] )
@@ -174,6 +216,12 @@ class PageLinesPostType {
 		
 	}
 		
+
+		/**
+		*
+		* @TODO document
+		*
+		*/
 		function load_sections_for_type( $sections, $template_type, $hook ){
 			
 			if( $template_type == $this->id || $template_type == get_post_type_plural( $this->id ) )
@@ -183,6 +231,12 @@ class PageLinesPostType {
 			
 		}
 		
+
+		/**
+		*
+		* @TODO document
+		*
+		*/
 		function remove_dragdrop( $bool, $post_type ){
 			if( $post_type == $this->id )
 				return false;
@@ -201,6 +255,12 @@ class PageLinesPostType {
 
 	}
 	
+
+		/**
+		*
+		* @TODO document
+		*
+		*/
 		function add_featured_image( $support_array ){
 		
 			$support_array[] = $this->id;
@@ -228,6 +288,11 @@ function pl_is_cpt( $type = 'single' ){
 
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function get_post_type_plural( $id = null ){
 	
 	if(isset($id))

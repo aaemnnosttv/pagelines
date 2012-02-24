@@ -23,6 +23,12 @@ class PageLinesFootCols extends PageLinesSection {
 	/**
 	* PHP that always loads no matter if section is added or not.
 	*/	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function section_persistent(){
 		
 		$per_row = (ploption('footer_num_columns')) ? ploption('footer_num_columns') : 5;
@@ -50,6 +56,12 @@ class PageLinesFootCols extends PageLinesSection {
 	/**
 	* Section template.
 	*/	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function section_template() { 
 		
 		$default = array();
@@ -95,6 +107,12 @@ class PageLinesFootCols extends PageLinesSection {
 		
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function recent_post(){
 		$out = '';
 		foreach( get_posts('numberposts=1&offset=0') as $key => $p ){

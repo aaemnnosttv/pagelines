@@ -20,6 +20,12 @@ class PageLinesHighlight extends PageLinesSection {
 	
 	var $tabID = 'highlight_meta';
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function section_optionator( $settings ){
 		
 		$settings = wp_parse_args($settings, $this->optionator_default);
@@ -71,6 +77,12 @@ class PageLinesHighlight extends PageLinesSection {
 		register_metatab($metatab_settings, $metatab_array);
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function section_template( $clone_id ) { 
 
 		$h_head = ploption('_highlight_head', $this->oset);

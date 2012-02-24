@@ -20,6 +20,12 @@ class PageLinesBrandNav extends PageLinesNav {
 	/**
 	* PHP that always loads no matter if section is added or not.
 	*/	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function section_persistent(){
 			register_nav_menus( array( 'brandnav' => __( 'BrandNav Section Navigation', 'pagelines' ) ) );
 	}
@@ -51,6 +57,12 @@ class PageLinesBrandNav extends PageLinesNav {
 <?php 	}
 	}
 
+
+		/**
+		*
+		* @TODO document
+		*
+		*/
 		function section_head(){
 
 			$arrows = (ploption('drop_down_arrows') == 'on') ? 1 : 0;
@@ -64,6 +76,12 @@ class PageLinesBrandNav extends PageLinesNav {
 			endif;
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function section_styles(){
 		
 		if(ploption('enable_drop_down')){

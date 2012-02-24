@@ -295,6 +295,12 @@ class lessc {
 		return false; // got nothing, throw error
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function fixTags($tags) {
 		// move @ tags out of variable namespace
 		foreach ($tags as &$tag) {
@@ -304,6 +310,12 @@ class lessc {
 	}
 
 	// attempts to find the path of an import url, returns null for css files
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function findImport($url) {
 		foreach ((array)$this->importDir as $dir) {
 			$full = $dir.(substr($dir, -1) != '/' ? '/' : '').$url;
@@ -315,12 +327,24 @@ class lessc {
 		return null;
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function fileExists($name) {
 		// sym link workaround
 		return file_exists($name) || file_exists(realpath(preg_replace('/\w+\/\.\.\//', '', $name)));
 	}
 
 	// a list of expressions
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function expressionList(&$exps) {
 		$values = array();	
 
@@ -411,6 +435,12 @@ class lessc {
 	}
 
 	// consume a list of values for a property
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function propertyValue(&$value) {
 		$values = array();	
 		
@@ -430,6 +460,12 @@ class lessc {
 	}
 
 	// a single value
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function value(&$value) {
 		// try a unit
 		if ($this->unit($value)) return true;	
@@ -497,6 +533,12 @@ class lessc {
 	}
 
 	// an import statement
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function import(&$url, &$media) {
 		$s = $this->seek();
 		if (!$this->literal('@import')) return false;
@@ -526,6 +568,12 @@ class lessc {
 	}
 
 	// a list of media types, very lenient
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function mediaTypes(&$types) {
 		if ($this->to('{', $rest, true, true)) {
 			$types = trim($rest);
@@ -537,6 +585,12 @@ class lessc {
 
 	// a scoped value accessor
 	// .hello > @scope1 > @scope2['value'];
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function accessor(&$var) {
 		$s = $this->seek();
 
@@ -566,6 +620,12 @@ class lessc {
 	}
 
 	// a string 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function string(&$string, &$d = null) {
 		$s = $this->seek();
 		if ($this->literal('"', false)) {
@@ -617,6 +677,12 @@ class lessc {
 	}
 
 	// a # color
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function color(&$out) {
 		$color = array('color');
 
@@ -645,6 +711,12 @@ class lessc {
 	}
 
 	// consume a list of property values delimited by ; and wrapped in ()
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function argumentValues(&$args, $delim = ',') {
 		$s = $this->seek();
 		if (!$this->literal('(')) return false;
@@ -670,6 +742,12 @@ class lessc {
 
 	// consume an argument definition list surrounded by ()
 	// each argument is a variable name with optional value
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function argumentDef(&$args, $delim = ',') {
 		$s = $this->seek();
 		if (!$this->literal('(')) return false;
@@ -697,6 +775,12 @@ class lessc {
 
 	// consume a list of tags
 	// this accepts a hanging delimiter
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function tags(&$tags, $simple = false, $delim = ',') {
 		$tags = array();
 		while ($this->tag($tt, $simple)) {
@@ -710,6 +794,12 @@ class lessc {
 
 	// list of tags of specifying mixin path
 	// optionally separated by > (lazy, accepts extra >)
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function mixinTags(&$tags) {
 		$s = $this->seek();
 		$tags = array();
@@ -724,6 +814,12 @@ class lessc {
 	}
 
 	// a bracketed value (contained within in a tag definition)
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function tagBracket(&$value) {
 		$s = $this->seek();
 		if ($this->literal('[') && $this->to(']', $c, true) && $this->literal(']', false)) {
@@ -741,6 +837,12 @@ class lessc {
 	}
 
 	// a single tag
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function tag(&$tag, $simple = false) {
 		if ($simple)
 			$chars = '^,:;{}\][>\(\) "\'';
@@ -762,6 +864,12 @@ class lessc {
 	}
 
 	// a css function
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function func(&$func) {
 		$s = $this->seek();
 
@@ -799,6 +907,12 @@ class lessc {
 	}
 
 	// consume a less variable
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function variable(&$name) {
 		$s = $this->seek();
 		if ($this->literal($this->vPrefix, false) && $this->keyword($name)) {
@@ -818,6 +932,12 @@ class lessc {
 	}
 
 	// consume a keyword
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function keyword(&$word) {
 		if ($this->match('([\w_\-\*!"][\w\-_"]*)', $m)) {
 			$word = $m[1];
@@ -827,6 +947,12 @@ class lessc {
 	}
 
 	// consume an end of statement delimiter
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function end() {
 		if ($this->literal(';'))
 			return true;
@@ -837,12 +963,24 @@ class lessc {
 		return false;
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function compressList($items, $delim) {
 		if (count($items) == 1) return $items[0];	
 		else return array('list', $delim, $items);
 	}
 
 	// just do a shallow propety merge, seems to be what lessjs does
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function mergeBlock($target, $from) {
 		$target = clone $target;
 		$target->props = array_merge($target->props, $from->props);
@@ -941,6 +1079,12 @@ class lessc {
 
 
 	// find the fully qualified tags for a block and its parent's tags
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function multiplyTags($parents, $current) {
 		if ($parents == null) return $current;
 
@@ -970,6 +1114,12 @@ class lessc {
 	}
 
 	// attempt to find block pointed at by path within search_in or its parent
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function findBlock($search_in, $path, $seen=array()) {
 		if ($search_in == null) return null;
 		if (isset($seen[$search_in->id])) return null;
@@ -992,6 +1142,12 @@ class lessc {
 
 	// sets all argument names in $args to either the default value
 	// or the one passed in through $values
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function zipSetArgs($args, $values) {
 		$i = 0;
 		$assigned_values = array();
@@ -1017,6 +1173,12 @@ class lessc {
 	}
 
 	// compile a prop and update $lines or $blocks appropriately
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function compileProp($prop, $block, $tags, &$_lines, &$_blocks) {
 		switch ($prop[0]) {
 		case 'assign':
@@ -1152,6 +1314,12 @@ class lessc {
 		}
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function lib_rgbahex($color) {
 		if ($color[0] != 'color')
 			throw new exception("color expected for rgbahex");
@@ -1162,6 +1330,12 @@ class lessc {
 	}
 
 	// utility func to unquote a string
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function lib_e($arg) {
 		switch ($arg[0]) {
 			case "list":
@@ -1178,6 +1352,12 @@ class lessc {
 		}
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function lib__sprintf($args) {
 		if ($args[0] != "list") return $args;
 		$values = $args[2];
@@ -1208,15 +1388,33 @@ class lessc {
 		return array('string', $str);
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function lib_floor($arg) {
 		return floor($arg[1]);
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function lib_round($arg) {
 		return round($arg[1]);
 	}
 
 	// is a string surrounded in quotes? returns the quoting char if true
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function quoted($s) {
 		if (preg_match('/^("|\').*?\1$/', $s, $m))
 			return $m[1];
@@ -1241,6 +1439,12 @@ class lessc {
 		return array($color, $delta);
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function lib_darken($args) {
 		list($color, $delta) = $this->colorArgs($args);
 
@@ -1249,6 +1453,12 @@ class lessc {
 		return $this->toRGB($hsl);
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function lib_lighten($args) {
 		list($color, $delta) = $this->colorArgs($args);
 
@@ -1257,6 +1467,12 @@ class lessc {
 		return $this->toRGB($hsl);
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function lib_saturate($args) {
 		list($color, $delta) = $this->colorArgs($args);
 
@@ -1265,6 +1481,12 @@ class lessc {
 		return $this->toRGB($hsl);
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function lib_desaturate($args) {
 		list($color, $delta) = $this->colorArgs($args);
 
@@ -1273,6 +1495,12 @@ class lessc {
 		return $this->toRGB($hsl);
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function lib_spin($args) {
 		list($color, $delta) = $this->colorArgs($args);
 
@@ -1281,30 +1509,60 @@ class lessc {
 		return $this->toRGB($hsl);
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function lib_fadeout($args) {
 		list($color, $delta) = $this->colorArgs($args);
 		$color[4] = $this->clamp((isset($color[4]) ? $color[4] : 1) - $delta/100);
 		return $color;
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function lib_fadein($args) {
 		list($color, $delta) = $this->colorArgs($args);
 		$color[4] = $this->clamp((isset($color[4]) ? $color[4] : 1) + $delta/100);
 		return $color;
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function lib_hue($color) {
 		if ($color[0] != 'color') return 0;
 		$hsl = $this->toHSL($color);
 		return round($hsl[1]);
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function lib_saturation($color) {
 		if ($color[0] != 'color') return 0;
 		$hsl = $this->toHSL($color);
 		return round($hsl[2]);
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function lib_lightness($color) {
 		if ($color[0] != 'color') return 0;
 		$hsl = $this->toHSL($color);
@@ -1313,18 +1571,36 @@ class lessc {
 
 	// get the alpha of a color
 	// defaults to 1 for non-colors or colors without an alpha
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function lib_alpha($color) {
 		if ($color[0] != 'color') return 1;
 		return isset($color[4]) ? $color[4] : 1;
 	}
 
 	// set the alpha of the color
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function lib_fade($args) {
 		list($color, $alpha) = $this->colorArgs($args);
 		$color[4] = $this->clamp($alpha / 100.0);
 		return $color;
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function lib_percentage($number) {
 		return array('%', $number[1]*100);
 	}
@@ -1332,6 +1608,12 @@ class lessc {
 	// mixes two colors by weight
 	// mix(@color1, @color2, @weight);
 	// http://sass-lang.com/docs/yardoc/Sass/Script/Functions.html#mix-instance_method
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function lib_mix($args) {
 		if ($args[0] != "list")
 			throw new exception("mix expects (color1, color2, weight)");
@@ -1363,12 +1645,24 @@ class lessc {
 		return $this->fixColor($new);
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function assertColor($value, $error = "expected color value") {
 		$color = $this->coerceColor($value);
 		if (is_null($color)) throw new exception($error);
 		return $color;
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function toHSL($color) {
 		if ($color[0] == 'hsl') return $color;
 
@@ -1404,6 +1698,12 @@ class lessc {
 		return $out;
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function toRGB_helper($comp, $temp1, $temp2) {
 		if ($comp < 0) $comp += 1.0;
 		elseif ($comp > 1) $comp -= 1.0;
@@ -1445,6 +1745,12 @@ class lessc {
 		return $out;
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function clamp($v, $max = 1, $min = 0) {
 		return min($max, max($min, $v));
 	}
@@ -1501,6 +1807,12 @@ class lessc {
 
 	// reduce a delayed type to its final value
 	// dereference variables and solve equations
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function reduce($var, $defaultValue = array('number', 0)) {
 		while (in_array($var[0], self::$dtypes)) {
 			if ($var[0] == 'list') {
@@ -1549,6 +1861,12 @@ class lessc {
 		return $var;
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function coerceColor($value) {
 		switch($value[0]) {
 			case 'color': return $value;
@@ -1563,6 +1881,12 @@ class lessc {
 	}
 
 	// evaluate an expression
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function evaluate($op, $left, $right) {
 		$left = $this->reduce($left);
 		$right = $this->reduce($right);
@@ -1613,6 +1937,12 @@ class lessc {
 	}
 
 	// make sure a color's components don't go out of bounds
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function fixColor($c) {
 		foreach (range(1, 3) as $i) {
 			if ($c[$i] < 0) $c[$i] = 0;
@@ -1623,12 +1953,24 @@ class lessc {
 		return $c;
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function op_number_color($op, $lft, $rgt) {
 		if ($op == '+' || $op = '*') {
 			return $this->op_color_number($op, $rgt, $lft);
 		}
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function op_color_number($op, $lft, $rgt) {
 		if ($rgt[0] == '%') $rgt[1] /= 100;
 
@@ -1636,6 +1978,12 @@ class lessc {
 			array_fill(1, count($lft) - 1, $rgt[1]));
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function op_color_color($op, $left, $right) {
 		$out = array('color');
 		$max = count($left) > count($right) ? count($left) : count($right);
@@ -1667,6 +2015,12 @@ class lessc {
 	}
 
 	// operator on two numbers
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function op_number_number($op, $left, $right) {
 		if ($right[0] == '%') $right[1] /= 100;
 
@@ -1703,6 +2057,12 @@ class lessc {
 	/* environment functions */
 
 	// push a new block on the stack, used for parsing
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function pushBlock($tags) {
 		$b = new stdclass;
 		$b->parent = $this->env;
@@ -1717,6 +2077,12 @@ class lessc {
 	}
 	
 	// push a block that doesn't multiply tags
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function pushSpecialBlock($name) {
 		$b = $this->pushBlock(array($name));
 		$b->no_multiply = true;
@@ -1724,6 +2090,12 @@ class lessc {
 	}
 
 	// used for compiliation variable state
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function pushEnv() {
 		$e = new stdclass;
 		$e->parent = $this->env;
@@ -1735,6 +2107,12 @@ class lessc {
 	}
 
 	// pop something off the stack
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function pop() {
 		$old = $this->env;
 		$this->env = $this->env->parent;
@@ -1742,16 +2120,34 @@ class lessc {
 	}
 
 	// set something in the current env
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function set($name, $value) {
 		$this->env->store[$name] = $value;
 	}
 
 	// append an property
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function append($prop) {
 		$this->env->props[] = $prop;
 	}
 
 	// get the highest occurrence entry for a name
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get($name) {
 		$current = $this->env;
 
@@ -1772,6 +2168,12 @@ class lessc {
 	
 	/* raw parsing functions */
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function literal($what, $eatWhitespace = true) {
 		// this is here mainly prevent notice from { } string accessor 
 		if ($this->count >= strlen($this->buffer)) return false;
@@ -1788,12 +2190,24 @@ class lessc {
 		return $this->match($this->preg_quote($what), $m, $eatWhitespace);
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function preg_quote($what) {
 		return preg_quote($what, '/');
 	}
 
 	// advance counter to next occurrence of $what
 	// $until - don't include $what in advance
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function to($what, &$out, $until = false, $allowNewline = false) {
 		$validChars = $allowNewline ? "." : "[^\n]";
 		if (!$this->match('('.$validChars.'*?)'.$this->preg_quote($what), $m, !$until)) return false;
@@ -1803,6 +2217,12 @@ class lessc {
 	}
 	
 	// try to match something on head of buffer
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function match($regex, &$out, $eatWhitespace = true) {
 		$r = '/'.$regex.($eatWhitespace ? '\s*' : '').'/Ais';
 		if (preg_match($r, $this->buffer, $out, null, $this->count)) {
@@ -1813,6 +2233,12 @@ class lessc {
 	}
 
 	// match something without consuming it
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function peek($regex, &$out = null) {
 		$r = '/'.$regex.'/Ais';
 		$result =  preg_match($r, $this->buffer, $out, null, $this->count);
@@ -1821,6 +2247,12 @@ class lessc {
 	}
 
 	// seek to a spot in the buffer or return where we are on no argument
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function seek($where = null) {
 		if ($where === null) return $this->count;
 		else $this->count = $where;
@@ -1889,6 +2321,12 @@ class lessc {
 	}
 	
 	// parse and compile buffer
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function parse($str = null, $initial_variables = null) {
 		$locale = setlocale(LC_NUMERIC, 0);
 		setlocale(LC_NUMERIC, "C");
@@ -1900,6 +2338,12 @@ class lessc {
 		return $out;
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function throwParseError($msg = 'parse error') {
 		$line = $this->line + substr_count(substr($this->buffer, 0, $this->count), "\n");
 		if (isset($this->fileName)) {
@@ -1946,6 +2390,12 @@ class lessc {
 
 	// remove comments from $text
 	// todo: make it work for all functions, not just url
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function removeComments($text) {
 		$look = array(
 			'url(', '//', '/*', '"', "'"

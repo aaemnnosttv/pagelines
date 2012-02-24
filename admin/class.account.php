@@ -11,6 +11,12 @@
 
 class PageLinesAccount {
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function __construct(){
 		
 		add_action( 'admin_init', array(&$this, 'update_lpinfo' ) );
@@ -21,6 +27,12 @@ class PageLinesAccount {
 	 * Save our credentials
 	 * 
 	 */	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function update_lpinfo() {
 
 		if ( isset( $_POST['form_submitted'] ) && $_POST['form_submitted'] === 'plinfo' ) {

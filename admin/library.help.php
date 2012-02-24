@@ -10,6 +10,12 @@
 
 class PageLines_Inline_Help {
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function __construct() {
 		
 		global $wp_version;
@@ -17,6 +23,12 @@ class PageLines_Inline_Help {
 			add_filter( 'contextual_help_list', array( &$this, 'get_help' ) ,9999);
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_help() {
 		
 		global $current_screen;		
@@ -77,6 +89,12 @@ class PageLines_Inline_Help {
 
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function extend_help( $helps ) {
 		
 		foreach( $helps as $id => $help ) {
@@ -94,6 +112,12 @@ class PageLines_Inline_Help {
 		}	
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function help_markup( $help ) {
 		
 		$markup = array(

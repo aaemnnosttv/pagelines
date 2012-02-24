@@ -69,6 +69,12 @@ class PageLinesTemplate {
 	
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function adjust_template_type($type){
 		$this->template_type = $type; 
 		$this->load_sections_on_hook_names();
@@ -117,6 +123,12 @@ class PageLinesTemplate {
 	}
 	
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function page_type_name(){
 		
 		if(isset($this->map['templates']['templates'][$this->template_type]['name']))
@@ -285,6 +297,12 @@ class PageLinesTemplate {
 
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_template_slug( $hook_id ){
 		
 		// Get template slug
@@ -599,10 +617,22 @@ class PageLinesTemplate {
 		
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function run_before_page(){
 
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function print_template_section_headers(){
 
 		global $lesscode;
@@ -763,6 +793,12 @@ class PageLinesTemplate {
 	}
 	
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function print_template_section_scripts(){
 
 
@@ -883,6 +919,11 @@ function pagelines_ob_section_template($section){
 	
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function reset_templates_to_default(){	
 	PageLinesTemplate::reset_templates_to_default();
 }
@@ -978,6 +1019,11 @@ function the_template_map() {
 }
 
 
+/**
+*
+* @TODO do
+*
+*/
 function the_sub_templates( $t = 'templates' ){
 	
 	$map = array(

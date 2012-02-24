@@ -59,6 +59,12 @@ class PageLinesMorefoot extends PageLinesSection {
 	
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function morefoot_sidebar($sidebar, $args){
 		
 		ob_start();
@@ -69,6 +75,12 @@ class PageLinesMorefoot extends PageLinesSection {
 			
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function master_array(){
 		
 			$left = sprintf(

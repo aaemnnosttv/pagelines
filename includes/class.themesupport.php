@@ -9,6 +9,12 @@ class PageLinesThemeSupport {
 	
 	private $base_color = null;
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function __construct() {}
 	
 	public function Integration( $args ) {}
@@ -54,6 +60,11 @@ class PageLinesThemeSupport {
 	
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_is_disabled( $what ){
 	
 	global $disabled_settings;

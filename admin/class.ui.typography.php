@@ -75,6 +75,12 @@ class PageLinesTypeUI {
 	
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function fonts_option($oid, $o){
 	
 	
@@ -84,6 +90,12 @@ class PageLinesTypeUI {
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_opts($oid, $o, $val){
 		
 		$opts = '';
@@ -108,6 +120,12 @@ class PageLinesTypeUI {
 		
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_type_styles($oid, $o){
 
 		// Set Letter Spacing (em)
@@ -126,6 +144,12 @@ class PageLinesTypeUI {
 		$this->_get_type_select($oid, array('id' => 'style', 'inputlabel' => 'Style', 'prop' => 'font-style',  'selectvalues' => array('normal' => 'Normal', 'italic' => 'Italic'), 'default' => 'normal'));
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_type_advanced($oid, $o){ ?>
 		<div class="type_advanced">
 			<?php echo OptEngine::input_label( get_pagelines_option_id($oid, 'selectors'), __('Additional Selectors', 'pagelines')); ?>
@@ -133,6 +157,12 @@ class PageLinesTypeUI {
 		</div>
 	<?php }
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function _get_type_em_select($oid, $o){ 
 
 		$option_value = ( pagelines_sub_option($oid, 'kern') ) ? pagelines_sub_option($oid, 'kern') : '0.00em';
@@ -154,6 +184,12 @@ class PageLinesTypeUI {
 		</div>
 	<?php }
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function _get_type_select($oid, $o){ 
 
 		$option_value = ( pagelines_sub_option($oid, $o['id']) ) ? pagelines_sub_option($oid, $o['id']) : $o['default'];

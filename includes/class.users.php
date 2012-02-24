@@ -11,8 +11,20 @@
  */
 class UserEngine {
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function __construct( array $settings = array() ) {}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_users( $args ){
 		$additional_defaults = array(
 
@@ -31,6 +43,12 @@ class UserEngine {
 		return $users;
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function order($a, $b){
 
 		$ap = (pl_um($this->args['order_field'], $a->ID)) ? pl_um($this->args['order_field'], $a->ID) : 10;
@@ -47,6 +65,11 @@ class UserEngine {
 }
 
 
+/**
+*
+* @TODO do
+*
+*/
 function pagelines_get_users( $args ){
 	
 	$users = new UserEngine();

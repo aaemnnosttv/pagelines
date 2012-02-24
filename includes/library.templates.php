@@ -15,6 +15,11 @@
  *
  */
 
+/**
+*
+* @TODO do
+*
+*/
 function pagelines_draw_sidebar($id, $name, $default = null, $element = 'ul'){
 	
 	printf('<%s id="%s" class="sidebar_widgets fix">', $element, 'list_'.$id);
@@ -189,6 +194,11 @@ function pagelines_head_common(){
 		add_action( 'pagelines_head_last', create_function( '',  'echo ploption("asynch_analytics");' ), 25 );
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pagelines_facebook_header() {
 
 	if( is_home() || is_archive() )
@@ -207,6 +217,11 @@ function pagelines_facebook_header() {
 
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pagelines_supersize_bg(){
 	
 	global $pagelines_ID;
@@ -221,6 +236,11 @@ function pagelines_supersize_bg(){
 	}	
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pagelines_runtime_supersize(){
 	
 	global $pagelines_ID;
@@ -238,6 +258,11 @@ function pagelines_runtime_supersize(){
 }
 
 	
+/**
+*
+* @TODO do
+*
+*/
 function pagelines_title_tag(){
 	/*
 		Title Metatag
@@ -271,6 +296,11 @@ function pagelines_title_tag(){
  *  Do dynamic CSS, hooked in head; should go last.
  *
  */	
+/**
+*
+* @TODO do
+*
+*/
 function do_dynamic_css(){
 	
 	if(!apply_filters('disable_dynamic_css', ''))
@@ -332,6 +362,12 @@ function pagelines_font_replacement( $default_font = ''){
 		// = Hook JS Libraries to Footer =
 		// ===============================
 		add_action('wp_footer', 'font_replacement_scripts');
+
+		/**
+		*
+		* @TODO document
+		*
+		*/
 		function font_replacement_scripts(){
 			
 			global $cufon_font_path;
@@ -347,6 +383,12 @@ function pagelines_font_replacement( $default_font = ''){
 		}
 		
 		add_action('wp_head', 'cufon_inline_script');
+
+		/**
+		*
+		* @TODO document
+		*
+		*/
 		function cufon_inline_script(){
 			?><script type="text/javascript"><?php 
 			if(pagelines('replace_font')): 
@@ -517,6 +559,11 @@ function pagelines_settings_menu_link(  ){
 	}
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_special_url( $t ){
 	
 	$t = strtolower( trim($t) );
@@ -576,6 +623,11 @@ function pagelines_cred(){
 
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pagelines_get_childcss() {
 	if ( ! is_admin() )
 		pagelines_load_css(  get_bloginfo('stylesheet_url'), 'pagelines-stylesheet', pagelines_get_style_ver());

@@ -26,6 +26,12 @@ class PageLinesDebug {
 	// Array of debugging information
 	var $debug_info = array();
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function __construct( ) {
 	
 		$this->wp_debug_info();

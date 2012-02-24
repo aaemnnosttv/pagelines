@@ -45,6 +45,12 @@
 	}
 	
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function setEmpty( sortablelist ){
 		
 		if( !jQuery(sortablelist).has('.section-bar').length ){
@@ -55,6 +61,12 @@
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function handlePlace( selected_builder, sectionID ){
 		
 		var prefix = '.selected_builder #';
@@ -114,6 +126,12 @@
 	}
 	
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function cloneSection( sectionId ){
 		
 		var selected_builder = jQuery( '.selected_builder .template-slug' ).attr('id');
@@ -155,6 +173,12 @@
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function deleteSection( clicked ){
 		
 		var selected_builder = jQuery( '.selected_builder .template-slug' ).attr('id');
@@ -168,6 +192,12 @@
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function saveSectionOrder( selected_builder ){
 		var saveText = jQuery( '.selected_builder .confirm_save_pad' );
 		
@@ -291,11 +321,21 @@ jQuery(document).ready(function(){
 	});
 });
 
+/**
+*
+* @TODO do
+*
+*/
 function doAreaSelect( stemplate_id ){
 	var stemplate = stemplate_id.replace('ta-', '');
 	viewAndSort(stemplate);
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function doTemplatesSelect( stemplate, panel ){
 	jQuery('.sss-selected').removeClass('sss-selected');
 	jQuery('.sub-template-selector #'+stemplate).addClass('sss-selected');
@@ -304,6 +344,11 @@ function doTemplatesSelect( stemplate, panel ){
 	viewAndSort(stemplate);
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function viewAndSort( stemplate ){
 	jQuery('.selected_builder').removeClass('selected_builder');
 	jQuery('.'+stemplate).addClass('selected_builder');
@@ -311,6 +356,11 @@ function viewAndSort( stemplate ){
 	setSortable(stemplate);
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function toggleControls(button){
 	jQuery(button).parent().parent().next('.section-controls').slideToggle('fast');
 	
@@ -322,12 +372,24 @@ function toggleControls(button){
  * ###########################
  */
 
+
+		/**
+		*
+		* @TODO document
+		*
+		*/
 		function LayoutSelectControl (ClickedLayout){
 			jQuery(ClickedLayout).parent().parent().find('.layout-image-border').removeClass('selectedlayout');
 			jQuery(ClickedLayout).addClass('selectedlayout');
 			jQuery(ClickedLayout).parent().find('.layoutinput').attr("checked", "checked");
 		}
 
+
+		/**
+		*
+		* @TODO document
+		*
+		*/
 		function deactivateCurrentBuilder() {
 			// Deactivate old builder
 			jQuery('.layout_controls').find('.layouteditor').removeClass('selectededitor');
@@ -335,6 +397,12 @@ function toggleControls(button){
 			if ( window['InnerLayout'] ) window['InnerLayout'].destroy();
 		}
 
+
+		/**
+		*
+		* @TODO document
+		*
+		*/
 		function updateDimensions( LayoutMode, Source ) {
 			var contentwidth = jQuery("."+LayoutMode+"  #contentwidth").width() * 2 - 24;
 			var builderwidth = jQuery(".layout-main-content").width() * 2;

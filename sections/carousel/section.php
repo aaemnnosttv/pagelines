@@ -18,11 +18,23 @@
  */
 class PageLinesCarousel extends PageLinesSection {
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function section_styles(){
 		wp_enqueue_script('jcarousel', $this->base_url.'/jcarousel.js');
 	}
 	
 	
+
+		/**
+		*
+		* @TODO document
+		*
+		*/
 		function section_head( $clone_id = null ) {   
 
 			$carousel_class = ( isset( $clone_id ) && $clone_id != 1 ) ? 'crsl' . $clone_id : 'crsl';
@@ -39,6 +51,12 @@ class PageLinesCarousel extends PageLinesSection {
 	<script type="text/javascript">
 	/* <![CDATA[ */
 	<?php if ( 0 != ploption('carousel_scroll_time', $this->oset) ) : ?>
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function mycarousel_initCallback(carousel)
 	{
 	    // Disable autoscrolling if the user clicks the prev or next button.
@@ -71,6 +89,12 @@ class PageLinesCarousel extends PageLinesSection {
 	</script>
 	<?php }
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function section_optionator( $settings ){
 		$settings = wp_parse_args($settings, $this->optionator_default);
 		
@@ -236,6 +260,12 @@ class PageLinesCarousel extends PageLinesSection {
 		}
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function carousel_item( $args ){
 		
 		$d = array(

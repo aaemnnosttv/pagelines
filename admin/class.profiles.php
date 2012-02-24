@@ -15,6 +15,12 @@ class ProfileEngine {
 	public $current_tabs = array( );
 	public $admin_options = array( );
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function __construct( array $settings = array() ) { 
 		
 		// Template Actions
@@ -38,6 +44,12 @@ class ProfileEngine {
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function save_profile_admin( $user_ID ){
 
 		if(!isset($this->tabs) || empty($this->tabs))
@@ -80,6 +92,12 @@ class ProfileEngine {
 	
 	
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function do_panel( $user ){
 	
 		if( empty($this->tabs) )
@@ -102,6 +120,12 @@ class ProfileEngine {
 	}
 
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function admin_settings_tab( $user ){
 		
 		if( empty($this->admin_options) )
@@ -125,12 +149,24 @@ class ProfileEngine {
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function user_opts(  ){
 		
 		$this->current_tabs = array_merge($this->current_tabs, $this->get_tabs('user'));
 
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_tabs($role = 'user'){
 	 
 		$rtabs = array();
@@ -186,6 +222,11 @@ class ProfileEngine {
 
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function register_profile_tab( $set, $location = 'bottom' ){
 
 	global $profile_panel_options;
@@ -194,6 +235,11 @@ function register_profile_tab( $set, $location = 'bottom' ){
 
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function register_profile_admin_opts( $opts ){
 
 	global $profile_panel_options;
@@ -204,6 +250,11 @@ function register_profile_admin_opts( $opts ){
 
 
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_user_id(){
 	
 	

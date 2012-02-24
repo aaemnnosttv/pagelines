@@ -38,6 +38,12 @@ class SimpleNav extends PageLinesSection {
 }
 
 if(!function_exists('simple_nav_fallback')){
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function simple_nav_fallback() {
 		printf('<ul id="simple_nav_fallback" class="inline-list simplenav font-sub">%s</ul>', wp_list_pages( 'title_li=&sort_column=menu_order&depth=1&echo=0') );
 	}

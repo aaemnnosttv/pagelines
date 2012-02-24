@@ -165,6 +165,12 @@ class PageLinesLayoutControl {
 	</div>
 	<?php }
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_layout_selector( $oid, $o ){ ?>
 		<div id="layout_selector" class="template-edit-panel">
 
@@ -197,6 +203,12 @@ class PageLinesLayoutControl {
 		<div class="clear"></div>
 	<?php }
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function layout_control_javascript(){ ?>
 <script type="text/javascript">/*<![CDATA[*/
 jQuery(document).ready(function(){

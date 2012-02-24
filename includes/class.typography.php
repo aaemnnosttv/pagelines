@@ -20,6 +20,12 @@ class PageLinesFoundry {
 
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_type_foundry(){
 		
 		$thefoundry = array(
@@ -459,6 +465,12 @@ class PageLinesFoundry {
 		return $this->gfont_import;
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_the_import( $font ){
 		
 		$family[] = urlencode($this->foundry[$font]['name']) . (is_array($this->foundry[$font]['google']) ? ':' . implode(',', $this->foundry[$font]['google']) : '');
@@ -471,6 +483,12 @@ class PageLinesFoundry {
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function gfont_key($font_id){
 		if(isset($this->foundry[$font_id]['name'])){
 			$gfont_key_array[] = urlencode($this->foundry[$font_id]['name']) . (is_array($this->foundry[$font_id]['google']) ? ':' . implode(',', $this->foundry[$font_id]['google']) : '');
@@ -481,6 +499,12 @@ class PageLinesFoundry {
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function setup_google_loaders(){
 			foreach (get_option_array() as $menuitem):
 				foreach($menuitem as $oid => $o):
@@ -493,10 +517,22 @@ class PageLinesFoundry {
 			endforeach;
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_stack($font_id){
 		return $this->foundry[$font_id]['family'];
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_type_css($typesettings){
 		$defaults = array(
 			'font' 		=> null, 
@@ -534,6 +570,12 @@ class PageLinesFoundry {
 		return ( isset( $type_css ) ) ? $type_css : '';
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function render_css(){
 		$css = '';
 		foreach (get_option_array() as $mid){
@@ -587,6 +629,11 @@ class PageLinesFoundry {
 	}
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function load_custom_font($font, $selectors){
 	
 	
@@ -605,6 +652,11 @@ function load_custom_font($font, $selectors){
 	
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function page_line_height($fontsize, $line_width){
 	
 	$golden = 1.618;

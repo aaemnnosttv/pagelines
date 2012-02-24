@@ -9,14 +9,38 @@
  */
 class PageLines_Upgrader_Skin extends WP_Upgrader_Skin {
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function __construct( $args = array() ) {
 		parent::__construct($args);
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function header() { }
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function footer(){ }
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function feedback($string) {
 		
 		$string = str_replace( 'downloading_package', '', $string );
@@ -43,17 +67,41 @@ class PageLines_Upgrader_Skin extends WP_Upgrader_Skin {
 		}
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function after() {}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function before() {}
 }
 
 class PageLines_Section_Installer extends Plugin_Upgrader {
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function __construct( $args = array() ) {
 		parent::__construct($args);
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function install($package) {
 
 		$this->init();

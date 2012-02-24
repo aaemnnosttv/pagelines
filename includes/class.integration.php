@@ -9,6 +9,12 @@ class PageLinesIntegration {
 	
 	public $lesscode = '';
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function __construct( $integration = ''){  
 		
 		
@@ -28,6 +34,12 @@ class PageLinesIntegration {
 
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function load_less( $lesscode ){
 		
 		return $lesscode . $this->lesscode;

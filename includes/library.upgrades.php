@@ -4,12 +4,24 @@ $up = new PageLinesUpgradePaths;
 
 class PageLinesUpgradePaths {
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function __construct() {
 		
 		if ( !is_array( $a = get_option( PAGELINES_SETTINGS ) ) )
 			$this->upgrade();
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function upgrade() {
 
 		if ( is_array( $settings = get_option( PAGELINES_SETTINGS_LEGACY ) ) ) {
@@ -22,6 +34,12 @@ class PageLinesUpgradePaths {
 		}
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function full_upgrade( $settings ) {
 		
 		// here we go, 1st were gonna set the defaults
@@ -44,6 +62,12 @@ class PageLinesUpgradePaths {
 		}
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function beta_upgrade( $settings ) {
 		
 		update_option( PAGELINES_SETTINGS, $settings );

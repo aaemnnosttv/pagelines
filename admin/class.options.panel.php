@@ -9,8 +9,20 @@
  */
 class PLPanel {
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function __construct( $settings = array() ) { }
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function the_panel( $s = array() ){ 
 		global $post_ID;  
 		global $pagelines_template;
@@ -60,6 +72,12 @@ class PLPanel {
 	}
 	
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function tabs_setup( $handle = 'plpanel' ){
 	
 		if(!$this->s['hidetabs']):
@@ -75,6 +93,12 @@ class PLPanel {
 
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function head( $title, $tag, $stext ){ 
 		
 		global $post_ID;
@@ -104,6 +128,12 @@ class PLPanel {
 		
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function tabn( $tabs ){ ?> 
 		
 		<ul id="tabsnav" class="mp_tabs">
@@ -127,6 +157,12 @@ class PLPanel {
 	
 	<?php }
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function load_tabs( $type, $tabs, $hide_tabs = false, $post_ID = null, $user = null){ ?>
 		<div class="mp_panel fix <?php if( $hide_tabs ) echo 'hide_tabs';?>">
 			<div class="mp_panel_pad fix">
@@ -153,6 +189,12 @@ class PLPanel {
 		</div>
 	<?php }
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function load_engine( $type, $opts, $post_ID = null, $user = null ){
 		
 		$option_engine = new OptEngine( $type );
@@ -164,6 +206,12 @@ class PLPanel {
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function panel_foot( $save_text, $post_type){
 		?> 
 		

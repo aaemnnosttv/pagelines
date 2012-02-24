@@ -21,6 +21,12 @@ $layout_control_js = new PageLinesLayoutControl();
 add_action( 'pagelines_admin_head', array(&$layout_control_js, 'layout_control_javascript' ) );
 
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pagelines_admin_body_class( $class ){
 	
 	$class = $class.'pagelines_ui';
@@ -37,6 +43,12 @@ function pagelines_admin_body_class( $class ){
  *
  */
 add_action( 'pagelines_before_optionUI', 'pagelines_check_php' );
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pagelines_check_php(){
 	if( floatval( phpversion() ) < 5.0 ){
 		printf( __( "<div class='config-error'><h2>PHP Version Problem</h2>Looks like you are using PHP version: <strong>%s</strong>. To run this framework you will need PHP <strong>5.0</strong> or better...<br/><br/> Don't worry though! Just check with your host about a quick upgrade.</div>", 'pagelines' ), phpversion() );
@@ -50,6 +62,12 @@ function pagelines_check_php(){
  * @since 1.2.0
  */
 add_action( 'wp_ajax_pagelines_ajax_post_action', 'pagelines_ajax_callback' );
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pagelines_ajax_callback() {
 	global $wpdb; // this is how you get access to the database
 
@@ -123,6 +141,12 @@ function pagelines_ajax_callback() {
 
 	add_action( 'wp_ajax_pagelines_save_sortable', 'ajax_save_template_map' );
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function ajax_save_template_map() {
 		global $wpdb; // this is how you get access to the database
 		
@@ -157,6 +181,12 @@ function pagelines_ajax_callback() {
 	}
 	
 add_action( 'wp_ajax_pagelines_ajax_save_option', 'pagelines_ajax_save_option_callback' );
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pagelines_ajax_save_option_callback() {
 	global $wpdb; // this is how you get access to the database
 	$option_name = $_POST['option_name'];
@@ -171,6 +201,12 @@ function pagelines_ajax_save_option_callback() {
 // Check Framework version with API
 
 add_action( 'admin_init', 'pagelines_check_version' );
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pagelines_check_version() {
 		global $pl_update;
 		$pl_update = new PageLinesUpdateCheck( CORE_VERSION );
@@ -180,6 +216,12 @@ function pagelines_check_version() {
 // Load Inline help system.
 
 add_action( 'admin_init', 'pagelines_inline_help' );
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pagelines_inline_help() {
 	
 	$pl_help = new PageLines_Inline_Help;
@@ -191,6 +233,12 @@ function pagelines_inline_help() {
  *
  */
 add_filter('manage_edit-page_columns', 'pl_page_columns');
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pl_page_columns($columns) {
 
 	if ( ploption( 'enable_template_view_page' ) )
@@ -202,6 +250,12 @@ function pl_page_columns($columns) {
 }
 
 add_filter('manage_edit-post_columns', 'pl_post_columns');
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pl_post_columns($columns) {
 
 	if ( ploption( 'enable_feature_view_post' ) )
@@ -210,6 +264,12 @@ function pl_post_columns($columns) {
 }
 
 add_action('manage_posts_custom_column',  'pl_posts_show_columns');
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pl_posts_show_columns($name) {
     global $post;
     switch ($name) {
@@ -224,6 +284,12 @@ function pl_posts_show_columns($name) {
 }
 
 add_action('manage_pages_custom_column',  'pl_page_show_columns');
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pl_page_show_columns($name) {
     global $post;
     switch ($name) {

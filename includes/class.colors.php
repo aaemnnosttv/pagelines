@@ -30,6 +30,12 @@ class PageLinesColor {
 	
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_hsl( $hex, $type ){
 		
 		$hex = str_replace('#', '', $hex);
@@ -41,6 +47,12 @@ class PageLinesColor {
 		return $hsl[$type];
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_color( $mode = null, $difference = '10%', $alt = null, $id = null){
 	
 		$alt = str_replace('#', '', $alt);
@@ -96,6 +108,12 @@ class PageLinesColor {
 		return $color;	
 	} 
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function darkadjust( $diff ){
 		if($this->base_hsl['lightness'] < .05)
 			$diff = 4*$diff;
@@ -107,6 +125,12 @@ class PageLinesColor {
 		return $diff;
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function loadcolor( $base, $type, $difference ){
 		
 		$base = str_replace('#', '', $base);
@@ -119,6 +143,12 @@ class PageLinesColor {
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function adjust( $adjustment, $mode = 'lightness', $hex = null){
 		
 		
@@ -177,6 +207,12 @@ class PageLinesColor {
 		return $this->hsl_to_hex( $new_hsl );
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function hex_to_rgb( $hexcode ){
 		
 		$redhex  = substr( $hexcode, 0, 2 );
@@ -193,6 +229,12 @@ class PageLinesColor {
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function rgb_to_hsl( $rgb ){
 	
 	
@@ -231,6 +273,12 @@ class PageLinesColor {
 		return array( 'hugh' => $H, 'saturation' => $S, 'lightness' => $L );
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function hsl_to_hex( $hsl ){
 		
 		$rgb = $this->hsl_to_rgb($hsl);
@@ -240,6 +288,12 @@ class PageLinesColor {
 		return $hex;
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function hsl_to_rgb( $hsl ){
 		
 		// Input is HSL value of complementary colour, held in $h2, $s, $l as fractions of 1
@@ -271,6 +325,12 @@ class PageLinesColor {
 		
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function _hue_to_rgb( $v1, $v2, $vh ) {
 		
 		if ($vh < 0) {
@@ -296,6 +356,12 @@ class PageLinesColor {
 		return ($v1);
 	}
 		
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function rgb_to_hex($rgb){
 		
 		$r = $rgb['red'];
@@ -312,6 +378,12 @@ class PageLinesColor {
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function mix_colors($c1, $c2, $ratio = .5){
 		
 		$r1 = $ratio * 2;
@@ -331,6 +403,12 @@ class PageLinesColor {
 	
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function c($mode = 'null', $difference = '10%', $alt = null, $id = null ){
 		
 		$color = $this->get_color($mode, $difference, $alt, $id );
@@ -339,12 +417,24 @@ class PageLinesColor {
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function ce($mode = 'null', $difference = '10%', $alt = null, $id = null ){
 		
 		echo $this->c($mode, $difference, $alt, $id );
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function shadow( $mix, $type = 'text', $diff = null, $echo = true ){
 
 		if( $type == 'text'){
@@ -375,6 +465,12 @@ class PageLinesColor {
 			return $rule;
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function gradient( $mode = null, $diff = '10%', $direction = 'top', $echo = true ){
 
 		$hex = (isset($mode)) ? $this->c( $mode, $diff ) : $this->c(); 
@@ -418,6 +514,11 @@ class PageLinesColor {
 //-------- END OF CLASS --------//
 
 
+/**
+*
+* @TODO do
+*
+*/
 function do_color_math($oid, $o, $val, $format = 'css'){
 
 	$default = (isset($o['default'])) ? $o['default'] : $val;
@@ -540,6 +641,11 @@ function do_color_math($oid, $o, $val, $format = 'css'){
 	return $output;
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function store_set_color($id, $color){
 	
 	global $set_colors;
@@ -550,6 +656,11 @@ function store_set_color($id, $color){
 	
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function get_set_color( $id ){
 	
 	global $set_colors;
@@ -562,12 +673,22 @@ function get_set_color( $id ){
 }
 
 
+/**
+*
+* @TODO do
+*
+*/
 function loadmath( $color ){
 	
 	return new PageLinesColor( $color );
 	
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function setmath($type, $option = null, $oset = array()){
 	
 	if( $type == 'txt' )

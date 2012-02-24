@@ -52,6 +52,12 @@ class PageLinesMetaPanel {
 			
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function register_actions(){
 
 		$privelidge = (ploption('hide_controls_meta')) ? ploption('hide_controls_meta') : 'publish_posts';
@@ -68,6 +74,12 @@ class PageLinesMetaPanel {
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function add_metapanel_box(){
 	
 		
@@ -89,6 +101,12 @@ class PageLinesMetaPanel {
 	}
 	
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_the_post_types(){
 		
 		// if not in this array, then show the 
@@ -106,6 +124,12 @@ class PageLinesMetaPanel {
 	
 	
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_edit_type(){
 		global $post;
 		
@@ -146,6 +170,12 @@ class PageLinesMetaPanel {
 		return ( isset( $slug ) ) ? $slug : '';
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_the_title(){
 			global $post;
 			$this->base_name = __( 'PageLines Meta Settings', 'pagelines' );
@@ -247,6 +277,12 @@ class PageLinesMetaPanel {
 	}
 
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function draw_panel(){ 
 		global $post_ID;  
 		global $pagelines_template;
@@ -274,6 +310,12 @@ class PageLinesMetaPanel {
 		$panel->the_panel($set);
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function posts_metapanel( $type, $mode = 'meta' ){
 		
 		
@@ -360,6 +402,12 @@ class PageLinesMetaPanel {
 		return ob_get_clean();
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function non_meta_template(){?>
 		<div class="metapanel_banner">
 			<p>
@@ -465,6 +513,12 @@ class PageLinesMetaPanel {
 		}
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_save_template_type( $post_type = null, $template = 'default'){
 		
 		if( $post_type == 'post' ){
@@ -480,6 +534,12 @@ class PageLinesMetaPanel {
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function save_bg ( $oid, $postID ) {
 		$bg = OptEngine::_background_image_array();
 		
@@ -493,6 +553,12 @@ class PageLinesMetaPanel {
 		}
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function save_sc( $postID ){
 		global $pagelines_template;
 
@@ -525,6 +591,12 @@ class PageLinesMetaPanel {
 	
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function save_section_control($postID,  $sid, $template_slug ){
 		
 		
@@ -538,6 +610,12 @@ class PageLinesMetaPanel {
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function save_meta($postID, $name){
 		
 		$option_value =  isset($_POST[ $name ]) ? $_POST[ $name ] : null;
@@ -553,6 +631,11 @@ class PageLinesMetaPanel {
 /////// END OF MetaOptions CLASS ////////
 
 
+/**
+*
+* @TODO do
+*
+*/
 function pagelines_metapanel_callback($post, $object){
 
 	$object['args'][0]->draw_panel();
@@ -560,6 +643,11 @@ function pagelines_metapanel_callback($post, $object){
 }
 
 
+/**
+*
+* @TODO do
+*
+*/
 function register_metatab($settings, $option_array, $section = '', $location = 'bottom'){
 	
 	global $metapanel_options;
@@ -572,6 +660,11 @@ function register_metatab($settings, $option_array, $section = '', $location = '
 }
 
 
+/**
+*
+* @TODO do
+*
+*/
 function add_global_meta_options( $meta_array = array(), $location = 'bottom'){
 	global $global_meta_options;
 
@@ -582,6 +675,11 @@ function add_global_meta_options( $meta_array = array(), $location = 'bottom'){
 	
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function do_global_meta_options( $mode = '' ){
 	
 	global $global_meta_options;
@@ -660,6 +758,11 @@ function special_page_settings_array(  ){
 	return apply_filters('postsmeta_settings_array', $d); 
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function get_global_meta_options(){
 	$opts = array(
 		

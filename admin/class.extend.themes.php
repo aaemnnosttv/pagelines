@@ -26,6 +26,12 @@ class ExtensionThemes extends PageLinesExtensions {
 	 * Scan for themes and combine api with installed.
 	 * 
 	 */	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function extension_scan_themes( $themes ) {
 		
 		$default_headers = array(

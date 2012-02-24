@@ -78,6 +78,12 @@ function plmeta( $key, $args ){
 	
 }
 
+
+/**
+*
+* @TODO do
+*
+*/
 function plspecial($key, $args){
 
 	global $pagelines_special_meta;
@@ -147,6 +153,12 @@ function plnewkey( $key ) {
 }
 
 
+
+/**
+*
+* @TODO do
+*
+*/
 function plupop($key, $val, $oset = array()){
 	
 	$d = array(
@@ -189,6 +201,12 @@ function plupop($key, $val, $oset = array()){
 
 
 
+
+/**
+*
+* @TODO do
+*
+*/
 function get_ploption( $key, $args = array() ){
 	
 	$d = array(
@@ -236,6 +254,12 @@ function get_ploption( $key, $args = array() ){
 	
 }
 
+
+/**
+*
+* @TODO do
+*
+*/
 function plname($key, $a = array()){
 	
 	$set = (!isset($a['setting']) || empty($a['setting']) || $a['setting'] == PAGELINES_SETTINGS) ? PAGELINES_SETTINGS : $a['setting'];
@@ -255,6 +279,12 @@ function plname($key, $a = array()){
 	
 }
 
+
+/**
+*
+* @TODO do
+*
+*/
 function plid($key, $a){
 	
 	$set = (!isset($a['setting']) || empty($a['setting']) || $a['setting'] == PAGELINES_SETTINGS) ? PAGELINES_SETTINGS : $a['setting'];
@@ -275,6 +305,12 @@ function plid($key, $a){
 	return join('_', $output) . $clone_id;
 }
 
+
+/**
+*
+* @TODO do
+*
+*/
 function pl_um($key, $args = null){
 	
 	if(is_array($args)){
@@ -321,6 +357,12 @@ function pagelines_option_name( $oid, $sub_oid = null, $grand_oid = null, $setti
 	echo get_pagelines_option_name( $oid, $sub_oid, $grand_oid, $setting );
 }
 
+
+/**
+*
+* @TODO do
+*
+*/
 function get_pagelines_option_name( $oid, $sub_oid = null, $grand_oid = null, $setting = PAGELINES_SETTINGS ){
 	
 	$set = (!isset($setting) || $setting == PAGELINES_SETTINGS) ? PAGELINES_SETTINGS : $setting;
@@ -335,6 +377,12 @@ function get_pagelines_option_name( $oid, $sub_oid = null, $grand_oid = null, $s
 	return $name;
 }
 
+
+/**
+*
+* @TODO do
+*
+*/
 function meta_option_name( $array, $hidden = true ){
 	
 	$prefix = ($hidden) ? '_' : '';
@@ -343,10 +391,22 @@ function meta_option_name( $array, $hidden = true ){
 	
 }
 
+
+/**
+*
+* @TODO do
+*
+*/
 function pagelines_option_id( $oid, $sub_oid = null, $grand_oid = null, $namespace = 'pagelines'){
 	echo get_pagelines_option_id($oid, $sub_oid, $grand_oid, $namespace);
 }
 
+
+/**
+*
+* @TODO do
+*
+*/
 function get_pagelines_option_id( $oid, $sub_oid = null, $grand_oid = null, $namespace = 'pagelines'){
 
 	$nm = (!isset($namespace) || $namespace == 'pagelines') ? 'pagelines' : $namespace;
@@ -411,6 +471,12 @@ function get_pagelines_option($key, $setting = null, $default = null) {
 
 
 
+
+/**
+*
+* @TODO do
+*
+*/
 function pagelines_option( $key, $post_id = null, $setting = null){
 	
 	if(isset($post_id) && get_post_meta($post_id, $key, true))
@@ -424,6 +490,12 @@ function pagelines_option( $key, $post_id = null, $setting = null){
 	
 }
 
+
+/**
+*
+* @TODO do
+*
+*/
 function pagelines_sub_option( $key, $subkey, $post_id = '', $setting = null){
 	
 	$primary_option = pagelines_option($key, $post_id, $setting);
@@ -436,15 +508,33 @@ function pagelines_sub_option( $key, $subkey, $post_id = '', $setting = null){
 }
 
 // Need to keep until the forums are redone, or don't check for it.
+
+/**
+*
+* @TODO do
+*
+*/
 function pagelines( $key, $post_id = null, $setting = null ){ 
 	return pagelines_option($key, $post_id, $setting);
 }
 
+
+/**
+*
+* @TODO do
+*
+*/
 function e_pagelines($key, $alt = null, $post_id = null, $setting = null){
 	print_pagelines_option( $key, $alt, $post_id, $setting);
 }
 
 
+
+/**
+*
+* @TODO do
+*
+*/
 function pagelines_pro($key, $post_id = null, $setting = null){
 
 	if(VPRO) 
@@ -453,12 +543,24 @@ function pagelines_pro($key, $post_id = null, $setting = null){
 		return false;
 }
 
+
+/**
+*
+* @TODO do
+*
+*/
 function print_pagelines_option($key, $alt = null, $post_id = null, $setting = null) {
 	
 	echo load_pagelines_option($key, $alt, $post_id, $setting);
 	
 }
 
+
+/**
+*
+* @TODO do
+*
+*/
 function load_pagelines_option($key, $alt = null, $post_id = null, $setting = null) {
 	
 		if($post_id && get_post_meta($post_id, $key, true) && !is_home()){
@@ -476,6 +578,12 @@ function load_pagelines_option($key, $alt = null, $post_id = null, $setting = nu
 	
 }
 
+
+/**
+*
+* @TODO do
+*
+*/
 function pagelines_update_option($optionid, $optionval){
 	
 		$theme_options = get_option(PAGELINES_SETTINGS);
@@ -488,6 +596,12 @@ function pagelines_update_option($optionid, $optionval){
 }
 
 
+
+/**
+*
+* @TODO do
+*
+*/
 function get_pagelines_meta($option, $post){
 	$meta = get_post_meta($post, $option, true);
 	if(isset($meta))
@@ -502,6 +616,12 @@ function get_pagelines_meta($option, $post){
 	}
 
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function em_pagelines($option, $post, $alt = ''){
 		$post_meta = m_pagelines($option, $post);
 	
@@ -602,6 +722,12 @@ function pagelines_settings_defaults() {
 
 
 
+
+/**
+*
+* @TODO do
+*
+*/
 function pagelines_process_reset_options( $option_array = null ) {
 
 	if(isset($_POST['pl_reset_settings']) && current_user_can('edit_themes')){
@@ -636,6 +762,12 @@ function pagelines_process_reset_options( $option_array = null ) {
 
 }
 
+
+/**
+*
+* @TODO do
+*
+*/
 function pagelines_is_multi_option( $oid, $o ){
 	
 	if(
@@ -650,6 +782,12 @@ function pagelines_is_multi_option( $oid, $o ){
 	
 }
 
+
+/**
+*
+* @TODO do
+*
+*/
 function pagelines_is_boolean_option($oid, $o){
 	
 	if(
@@ -664,6 +802,12 @@ function pagelines_is_boolean_option($oid, $o){
 
 
 
+
+/**
+*
+* @TODO do
+*
+*/
 function pagelines_import_export(){
 
 		if ( isset( $_POST['form_submitted']) && $_POST['form_submitted'] == 'export_settings_form' ) {

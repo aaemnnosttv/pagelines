@@ -12,8 +12,20 @@
  */
 class PLObject {
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function __contruct(){}
 		
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function button( $text = '&nbsp;', $type = 'button', $color = 'grey', $args ){
 		
 		$defaults = array(
@@ -70,10 +82,20 @@ class PLObject {
 
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function blink($text = '&nbsp;', $type = 'button', $color = 'grey', $args){
 	return PLObject::button($text, $type, $color, $args);
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function blink_edit( $post_id = '', $color = 'grey', $args = array()){
 	
 	if($post_id == ''){
@@ -87,6 +109,11 @@ function blink_edit( $post_id = '', $color = 'grey', $args = array()){
 	return PLObject::button(__('Edit', 'pagelines'), 'edit_post', $color, $args);
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function pledit( $id = '', $type = 'post' ){
 	
 	if($type == 'user'){

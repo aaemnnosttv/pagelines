@@ -32,6 +32,12 @@ class PageLinesBoxes extends PageLinesSection {
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function post_type_setup(){
 			$args = array(
 					'label' 			=> __('Boxes', 'pagelines'),  
@@ -58,6 +64,12 @@ class PageLinesBoxes extends PageLinesSection {
 			$this->post_type->set_default_posts( 'pagelines_default_boxes', $this); // Default 
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function post_meta_setup(){
 		
 			$type_meta_array = array(
@@ -117,6 +129,12 @@ class PageLinesBoxes extends PageLinesSection {
 		
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function section_optionator( $settings ){
 		
 		$settings = wp_parse_args($settings, $this->optionator_default);
@@ -278,6 +296,12 @@ class PageLinesBoxes extends PageLinesSection {
 		
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function draw_boxes($p, $args){ 
 
 		setup_postdata($p); 
@@ -314,6 +338,12 @@ class PageLinesBoxes extends PageLinesSection {
 	}
 
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function _get_box_image( $bpost, $box_icon, $box_link = false, $box_thumb_size = 65, $thumb_type){
 			global $pagelines_ID;
 			
@@ -340,6 +370,12 @@ class PageLinesBoxes extends PageLinesSection {
 	}
 
 	
+
+		/**
+		*
+		* @TODO document
+		*
+		*/
 		function pagelines_default_boxes($post_type){
 
 			$d = array_reverse( $this->get_default_fboxes() );
@@ -367,6 +403,12 @@ class PageLinesBoxes extends PageLinesSection {
 			}
 		}
 
+
+		/**
+		*
+		* @TODO document
+		*
+		*/
 		function get_default_fboxes(){
 			$default_boxes[] = array(
 			        				'title' => 'Drag&amp;Drop Control',
@@ -389,6 +431,12 @@ class PageLinesBoxes extends PageLinesSection {
 			return apply_filters('pagelines_default_boxes', $default_boxes);
 		}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function column_display($column){
 		global $post;
 

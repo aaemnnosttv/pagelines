@@ -19,6 +19,12 @@ class PageLinesCallout extends PageLinesSection {
 
 	var $tabID = 'callout_meta';
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function section_optionator( $settings ){
 		$settings = wp_parse_args($settings, $this->optionator_default);
 		

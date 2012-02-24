@@ -13,6 +13,12 @@
 class PageLinesLayout {
 
 	// BUILD THE PAGELINES OBJECT
+
+		/**
+		*
+		* @TODO document
+		*
+		*/
 		function __construct($layout_mode = null) {
 			
 			$this->builder->width = 1400;
@@ -38,6 +44,12 @@ class PageLinesLayout {
 			
 		}
 		
+
+		/**
+		*
+		* @TODO document
+		*
+		*/
 		function build_layout($layout_mode){
 			
 			/*
@@ -68,6 +80,12 @@ class PageLinesLayout {
 			
 		}
 		
+
+		/**
+		*
+		* @TODO document
+		*
+		*/
 		function set_columns(){
 			if($this->layout_mode == 'two-sidebar-center' || $this->layout_mode == 'two-sidebar-left' || $this->layout_mode == 'two-sidebar-right')
 				$this->num_columns = 3;
@@ -78,6 +96,12 @@ class PageLinesLayout {
 		}
 		
 
+
+		/**
+		*
+		* @TODO document
+		*
+		*/
 		function get_layout_map(){
 			
 			$db_layout_map = ploption('layout');
@@ -90,6 +114,12 @@ class PageLinesLayout {
 		
 
 		
+
+		/**
+		*
+		* @TODO document
+		*
+		*/
 		function default_layout_setup(){
 		
 			$this->content->width = 1100;
@@ -150,11 +180,23 @@ class PageLinesLayout {
 			return $default_map;
 		}
 
+
+		/**
+		*
+		* @TODO document
+		*
+		*/
 		function get_content_percent( $content_width ){
 			return ( $content_width / $this->builder->width ) * 100;
 		}
 
 		
+
+		/**
+		*
+		* @TODO document
+		*
+		*/
 		function set_layout_data(){
 			
 			// Text & IDs
@@ -209,6 +251,12 @@ class PageLinesLayout {
 		}
 		
 		
+
+		/**
+		*
+		* @TODO document
+		*
+		*/
 		function set_wrap_dimensions(){
 			if($this->layout_mode == 'two-sidebar-center'){
 				$this->column_wrap->width = $this->main_content->width + $this->sidebar1->width;
@@ -234,6 +282,12 @@ class PageLinesLayout {
 			}
 		}
 		
+
+		/**
+		*
+		* @TODO document
+		*
+		*/
 		function set_builder_dimensions(){
 			
 			$this->builder->bwidth 		= $this->downscale($this->builder->width);
@@ -252,6 +306,12 @@ class PageLinesLayout {
 			$this->builder_inner_directions();
 		}
 
+
+		/**
+		*
+		* @TODO document
+		*
+		*/
 		function builder_inner_directions(){
 			if($this->layout_mode == 'two-sidebar-right'){
 				
@@ -286,11 +346,23 @@ class PageLinesLayout {
 			}
 		}
 		
+
+		/**
+		*
+		* @TODO document
+		*
+		*/
 		function downscale($actual_pixels, $ratio = 2){
 			return floor($actual_pixels / $ratio);
 		}
 
 
+
+		/**
+		*
+		* @TODO document
+		*
+		*/
 		function get_layout_inline(){
 			
 			$l = $this->calculate_dimensions($this->layout_mode);
@@ -348,6 +420,12 @@ class PageLinesLayout {
 			return $css;
 		}
 		
+
+		/**
+		*
+		* @TODO document
+		*
+		*/
 		function calculate_dimensions( $layout_mode ){
 			
 			$l = array();
@@ -370,6 +448,12 @@ class PageLinesLayout {
 			return $l;
 		}
 		
+
+		/**
+		*
+		* @TODO document
+		*
+		*/
 		function get_width($target, $context){
 			return sprintf( 'width:%s%%;', ($context != 0 ) ? ( $target / $context ) * 100 : 0 );
 		}
@@ -439,6 +523,11 @@ function pagelines_layout_mode() {
 	 
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function get_layout_mode(){
 	$load_layout = new PageLinesLayout();
 	$layoutmap = $load_layout->get_layout_map();
@@ -461,6 +550,11 @@ function get_the_layouts(){
 	);
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function reset_layout_to_default(){
 
 	$dlayout = new PageLinesLayout;

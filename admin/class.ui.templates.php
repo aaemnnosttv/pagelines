@@ -37,6 +37,12 @@ class PageLinesTemplateBuilder {
 		
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function sc_name( $ta, $sid, $field, $sub = null){
 		
 		
@@ -47,6 +53,12 @@ class PageLinesTemplateBuilder {
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function sc_value( $ta, $sid, $field, $sub = null){
  
 		if(isset($sub))
@@ -82,6 +94,12 @@ class PageLinesTemplateBuilder {
 			echo '</div>';
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function do_confirms_and_hidden_fields(){ 
 		$dtoggle = (get_option('pl_section_desc_toggle')) ? get_option('pl_section_desc_toggle') : 'show'; 
 	?>
@@ -176,6 +194,12 @@ class PageLinesTemplateBuilder {
 		
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function _sub_selector($type = 'templates', $class, $title = '', $subtitle = ''){
 		global $pagelines_template;
 		
@@ -202,6 +226,12 @@ class PageLinesTemplateBuilder {
 		
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function do_template_builder(){
 		
 		global $pagelines_template;
@@ -290,6 +320,12 @@ class PageLinesTemplateBuilder {
 	</div>
 <?php  }
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function active_bank( $tid, $t, $ta, $ts ){
 		 
 		$this->avail = $this->factory; 
@@ -333,6 +369,12 @@ class PageLinesTemplateBuilder {
 		}
 	} 
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function passive_bank( $template, $t, $hook, $h, $template_slug ){
 		 
 		// Remove the sections that aren't compatible
@@ -404,6 +446,12 @@ class PageLinesTemplateBuilder {
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function draw_section( $args ){ 
 		
 		$defaults = array(
@@ -441,6 +489,12 @@ class PageLinesTemplateBuilder {
  	
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function inline_section_control($a){
 
 		
@@ -501,6 +555,12 @@ class PageLinesTemplateBuilder {
 	}
 
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function section_setup_controls(){
 		
 		$onclick = "PageLinesSlideToggle('.s-description', '.describe_toggle', '.setup_control_text','Hide Section Descriptions', 'Show Section Descriptions', 'pl_section_desc_toggle');";
@@ -617,6 +677,12 @@ class PageLinesTemplateBuilder {
 	<?php }
 
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function sc_inputs( $template_slug, $sections, $o){
 		global $post; 
 		
@@ -673,11 +739,23 @@ class PageLinesTemplateBuilder {
 	}
 
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function help_control(){
 		if(!$this->help()) 
 			return 'style="display:none"';
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function help(){
 		if(  get_option('pl_section_desc_toggle') == 'hide' || get_option('pl_section_desc_toggle') == false || !get_option('pl_section_desc_toggle') )
 			return false;

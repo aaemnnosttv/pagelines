@@ -88,6 +88,12 @@ class PageLinesShareBar extends PageLinesSection {
 <?php	}
 
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function twitter( $args ){
 		
 		$defaults = array(
@@ -120,6 +126,12 @@ class PageLinesShareBar extends PageLinesSection {
 		
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function google( $args ){
 		
 		$defaults = array(
@@ -150,6 +162,12 @@ class PageLinesShareBar extends PageLinesSection {
 		
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function facebook( $args ){
 		
 		$defaults = array(

@@ -17,6 +17,12 @@
  */
 class PageLinesComments extends PageLinesSection {
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function section_styles() {  
 		wp_enqueue_script( 'comment-reply' );
 	}

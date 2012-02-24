@@ -53,6 +53,12 @@ class PageLinesSection {
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function set_section_info(){
 		
 		global $load_sections;
@@ -95,6 +101,12 @@ class PageLinesSection {
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function section_install_type( $available ){
 		
 		if ( isset( $available['custom'][$this->class_name] ) )
@@ -148,6 +160,12 @@ class PageLinesSection {
 		
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function before_section( $markup = 'content', $clone_id = null, $conjugation = ''){
 		
 		$classes = $conjugation;
@@ -177,6 +195,12 @@ class PageLinesSection {
 		pagelines_register_hook('pagelines_inside_top_'.$this->id, $this->id);
  	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function after_section( $markup = 'content' ){
 		if(isset($this->settings['markup']))
 			$set_markup = $this->settings['markup'];
@@ -193,24 +217,84 @@ class PageLinesSection {
 		pagelines_register_hook('pagelines_after_'.$this->id, $this->id);
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function section_persistent(){}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function section_init(){}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function section_admin(){}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function section_head(){}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function section_styles(){}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function section_options(){}
 		
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function section_optionator( $settings ){}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function section_scripts(){}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function getting_started(){}
 		
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function add_guide( $options ){
 		
 		
@@ -283,16 +367,34 @@ class PageLinesSection {
 	}	
 	
 	// Deprecated
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function add_getting_started( $tab_array ){
 		
 		return $this->add_guide($tab_array);
 		
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function hook_get_view(){
 
 		add_action('wp_head', array(&$this, 'get_view'), 10);
 	}
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_view(){
 		
 		if(is_single())
@@ -307,11 +409,23 @@ class PageLinesSection {
 		$this->view = $view;
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function hook_get_post_type(){
 		
 		add_action('wp_head', array(&$this, 'get_post_type'), 10);
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_post_type(){
 		global $pagelines_template;
 	
@@ -353,8 +467,20 @@ class PageLinesSectionFactory {
 	var $sections  = array();
 	var $unavailable_sections  = array();
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function __contruct() { }
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function register($section_class, $args) {
 		
 		if(class_exists($section_class))
@@ -369,6 +495,12 @@ class PageLinesSectionFactory {
 		}
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function unregister($section_class) {
 		if ( isset($this->sections[$section_class]) )
 			unset($this->sections[$section_class]);
@@ -407,6 +539,11 @@ function load_section_admin(){
 
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function get_unavailable_section_areas(){
 	
 	$unavailable_section_areas = array();
@@ -427,6 +564,11 @@ function get_unavailable_section_areas(){
 	
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function setup_section_notify( $section, $text, $url = null, $ltext = null, $tab = null){
 	
 	
@@ -447,6 +589,11 @@ function setup_section_notify( $section, $text, $url = null, $ltext = null, $tab
 	
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function splice_section_slug( $slug ){
 	
 	$pieces = explode('ID', $slug);		

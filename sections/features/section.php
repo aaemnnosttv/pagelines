@@ -33,6 +33,12 @@ class PageLinesFeatures extends PageLinesSection {
 
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function section_head( $clone_id ) {   
 		
 		global $pagelines_ID;
@@ -85,6 +91,12 @@ class PageLinesFeatures extends PageLinesSection {
 /* ]]> */ </script>
 <?php }
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function _feature_css( $clone_id, $oset){
 
 		$height = (ploption('feature_stage_height', $oset)) ? ploption('feature_stage_height', $oset).'px' : '380px';	
@@ -101,6 +113,12 @@ class PageLinesFeatures extends PageLinesSection {
 		inline_css_markup('feature-css', $css);
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function _js_feature_loop($fmode, $fposts = array(), $clone_class){
 	
 		$count = 1;
@@ -142,12 +160,24 @@ class PageLinesFeatures extends PageLinesSection {
 		printf('jQuery("div#featurenav.%s").children("a").each(function() { %s });', $clone_class, $link_js);
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function section_template( $clone_id ) {    
 
 		// $this->set set in pagelines_feature_set, better way to do this?
 		$this->draw_features($this->post_set[ $clone_id ], $this->set, $clone_id);
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function pagelines_features_set( $clone_id ){
 	
 		if( ploption('feature_set', $this->oset) )
@@ -175,6 +205,12 @@ class PageLinesFeatures extends PageLinesSection {
 		return $f;		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function load_pagelines_features( $args ) {
 		$defaults = array(
 			
@@ -219,6 +255,12 @@ class PageLinesFeatures extends PageLinesSection {
 			return array();
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function draw_features($f, $class, $clone_id = null) {     
 	
 	// Setup 
@@ -389,6 +431,12 @@ class PageLinesFeatures extends PageLinesSection {
 <?php
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function section_scripts() {  
 	
 		return array(
@@ -401,6 +449,12 @@ class PageLinesFeatures extends PageLinesSection {
 			);
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function post_meta_setup(){
 		
 			$pt_tab_options = array(
@@ -499,6 +553,12 @@ class PageLinesFeatures extends PageLinesSection {
 		
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function post_type_setup(){
 		
 			$args = array(
@@ -529,6 +589,12 @@ class PageLinesFeatures extends PageLinesSection {
 			
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function section_optionator( $settings ){
 		$settings = wp_parse_args($settings, $this->optionator_default);
 		
@@ -694,6 +760,12 @@ class PageLinesFeatures extends PageLinesSection {
 
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function update_default_posts(){
 
 		$posts = array_reverse( $this->default_posts() );
@@ -721,6 +793,12 @@ class PageLinesFeatures extends PageLinesSection {
 		}
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function default_posts( ){
 
 		$posts = array(
@@ -784,6 +862,12 @@ class PageLinesFeatures extends PageLinesSection {
 		return apply_filters('pagelines_default_features', array_reverse($posts));
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_cats() {
 	
 		$cats = get_categories();
@@ -793,6 +877,12 @@ class PageLinesFeatures extends PageLinesSection {
 		return ( isset( $categories) ) ? $categories : array();
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function column_display($column){
 
 		global $post;

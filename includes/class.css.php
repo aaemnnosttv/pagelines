@@ -12,6 +12,12 @@
  */
 class PageLinesCSS {
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function create( $format = 'inline') {
 		
 		$this->typography();
@@ -20,17 +26,35 @@ class PageLinesCSS {
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function typography(){
 		
 		$foundry = new PageLinesFoundry;
 		$this->css .= $foundry->render_css();
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function layout(){
 		global $pagelines_layout;
 		$this->css .= $pagelines_layout->get_layout_inline();
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function options(){
 		
 		$this->css .= $this->render_css();
@@ -113,6 +137,12 @@ class PageLinesCSS {
 
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function render_css_colors( $oid, $o, $cssgroup = null, $css_prop = null ){
 		
 		$v = $o['val'];
@@ -129,6 +159,12 @@ class PageLinesCSS {
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function load_the_props( $props, $val ){
 		
 		$output = '';
@@ -145,6 +181,12 @@ class PageLinesCSS {
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_the_rule( $prop, $val ){
 
 		if( $prop == 'text-shadow' )	
@@ -157,6 +199,12 @@ class PageLinesCSS {
 		return $rule;
 	} 
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function set_factory_key($cssgroup, $props){
 		
 		global $css_factory;
@@ -168,6 +216,12 @@ class PageLinesCSS {
 		
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function parse_css_factory(){
 		
 		global $css_factory;
@@ -210,6 +264,11 @@ function get_dynamic_css(){
 
 
 
+/**
+*
+* @TODO do
+*
+*/
 function inline_css_markup($id, $css, $echo = true){
 	$mark = sprintf('%2$s<style type="text/css" id="%3$s">%2$s %1$s %2$s</style>%2$s', $css, "\n", $id);
 	

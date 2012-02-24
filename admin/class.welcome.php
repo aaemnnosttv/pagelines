@@ -7,8 +7,20 @@
 class PageLinesWelcome {
 	
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function __contruct(){ }
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_welcome(){
 		
 		 
@@ -27,6 +39,12 @@ class PageLinesWelcome {
 	}
 	
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_intro() {
 		
 		if ( file_exists( get_stylesheet_directory() . '/welcome.php' ) ) {
@@ -42,6 +60,12 @@ class PageLinesWelcome {
 			}
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function default_headers() {
 	
 		$intro = $this->get_welcome_billboard();
@@ -65,6 +89,12 @@ class PageLinesWelcome {
 		return $intro;
 
 }	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_welcome_billboard(){
 		
 		$bill = '<div class="admin_billboard fix"><div class="admin_billboard_pad fix">';
@@ -80,6 +110,12 @@ class PageLinesWelcome {
 		return apply_filters('pagelines_welcome_billboard', $bill);
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_welcome_features(){
 		$f = array(
 			'1strule'	=> array(
@@ -123,6 +159,12 @@ class PageLinesWelcome {
 		return apply_filters('pagelines_welcome_features', $f);
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function supported_element_ui( $elements ){
 	
 		$out = '<div class="plpanes"><div class="plpanes-pad">';
@@ -167,6 +209,12 @@ class PageLinesWelcome {
 	
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_plugins_billboard(){
 	
 		$plugins = $this->show_supported_elements( 'plugins' );
@@ -193,6 +241,12 @@ class PageLinesWelcome {
 		return apply_filters( 'pagelines_welcome_plugins_billboard', $billboard );
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_supported_elements( $type ) {
 	
 		global $supported_elements;
@@ -228,6 +282,12 @@ class PageLinesWelcome {
 			return false;	
 		}
 
+
+		/**
+		*
+		* @TODO document
+		*
+		*/
 		function show_supported_elements( $type ) {
 
 			if ( false != ( is_child_theme() && $a = $this->get_supported_elements( $type ) ) ) {
@@ -244,6 +304,12 @@ class PageLinesWelcome {
 
 	
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_welcome_plugins(){
 		$plugins = array(
 			'postorder'	=> array(

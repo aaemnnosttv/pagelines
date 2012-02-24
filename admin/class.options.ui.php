@@ -96,6 +96,12 @@ class PageLinesOptionsUI {
 						</div>
 <?php }
 		
+
+		/**
+		*
+		* @TODO document
+		*
+		*/
 		function fullform_head(){ ?>
 			<form id="pagelines-settings-form" method="post" action="options.php" class="main_settings_form">
 			<?php 
@@ -105,6 +111,12 @@ class PageLinesOptionsUI {
 
 		}
 		
+
+		/**
+		*
+		* @TODO document
+		*
+		*/
 		function fullform_foot(){ ?>
 			<?php if($this->set['show_reset']):?>
 			<div class="optionrestore fix">
@@ -116,6 +128,12 @@ class PageLinesOptionsUI {
 			</form><!-- close entire form -->
 		<?php  }
 		
+
+		/**
+		*
+		* @TODO document
+		*
+		*/
 		function _get_confirmations_and_system_checking(){
 			
 				// Load Ajax confirmation
@@ -173,6 +191,12 @@ class PageLinesOptionsUI {
 			</div>
 		<?php }
 		
+
+		/**
+		*
+		* @TODO document
+		*
+		*/
 		function basic_reset(){ ?>
 			<form method="post">
 				<div class="optionrestore fix">
@@ -289,6 +313,12 @@ class PageLinesOptionsUI {
 			</div>
 <?php 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function show_banner( $text, $click = '', $button_text = 'Add Some &rarr;' ){
 		
 		if($click != ''){
@@ -314,6 +344,12 @@ class PageLinesOptionsUI {
 	<?php }
 	
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_pro_call(){
 		global $pl_section_factory; 
 		

@@ -24,6 +24,12 @@ class PageLinesCSSGroups{
 
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function extend_selectors($sel, $group){
 		
 		global $add_selectors;
@@ -41,6 +47,12 @@ class PageLinesCSSGroups{
 			
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_groups(){
 		
 		$s = array();
@@ -152,6 +164,12 @@ class PageLinesCSSGroups{
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function return_group( $g ){
 		
 		if( isset( $this->s[ $g ] ) )
@@ -163,6 +181,11 @@ class PageLinesCSSGroups{
 	
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function cssgroup( $group ){
 	
 	global $css_groups;
@@ -176,6 +199,11 @@ function cssgroup( $group ){
 }
 
 
+/**
+*
+* @TODO do
+*
+*/
 function pl_add_selectors( $group, $selectors ){
 
 	global $add_selectors;

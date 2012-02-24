@@ -15,6 +15,11 @@
  * @example <code>[button format="edit_post" before="<b>" after="</b>"]</code>
  */
 add_shortcode('button', 'pagelines_button_shortcode');
+/**
+*
+* @TODO do
+*
+*/
 function pagelines_button_shortcode($atts) {
 	
 	$defaults = array(
@@ -45,6 +50,11 @@ function pagelines_button_shortcode($atts) {
  * @example <code>[post_date format="F j, Y" before="<b>" after="</b>"]</code>
  */
 add_shortcode('post_date', 'pagelines_post_date_shortcode');
+/**
+*
+* @TODO do
+*
+*/
 function pagelines_post_date_shortcode($atts) {
 	
 	$defaults = array(
@@ -68,6 +78,11 @@ function pagelines_post_date_shortcode($atts) {
  * @example <code>[post_time format="g:i a" before="<b>" after="</b>"]</code>
  */
 add_shortcode('post_time', 'pagelines_post_time_shortcode');
+/**
+*
+* @TODO do
+*
+*/
 function pagelines_post_time_shortcode($atts) {
 	
 	$defaults = array( 
@@ -91,6 +106,11 @@ function pagelines_post_time_shortcode($atts) {
  * @example <code>[post_author before="<b>" after="</b>"]</code>
  */
 add_shortcode('post_author', 'pagelines_post_author_shortcode');
+/**
+*
+* @TODO do
+*
+*/
 function pagelines_post_author_shortcode($atts) {
 	
 	$defaults = array(
@@ -112,6 +132,11 @@ function pagelines_post_author_shortcode($atts) {
  * @example <code>[post_author_link before="<b>" after="</b>"]</code>
  */
 add_shortcode('post_author_link', 'pagelines_post_author_link_shortcode');
+/**
+*
+* @TODO do
+*
+*/
 function pagelines_post_author_link_shortcode($atts) {
 	
 	$defaults = array(
@@ -144,6 +169,11 @@ function pagelines_post_author_link_shortcode($atts) {
  * @example <code>[post_author_posts_link before="<b>" after="</b>"]</code>
  */
 add_shortcode('post_author_posts_link', 'pagelines_post_author_posts_link_shortcode');
+/**
+*
+* @TODO do
+*
+*/
 function pagelines_post_author_posts_link_shortcode($atts) {
 	
 	$defaults = array(
@@ -170,6 +200,11 @@ function pagelines_post_author_posts_link_shortcode($atts) {
  * @example <code>[post_comments zero="No Comments" one="1 Comment" more="% Comments"]</code>
  */
 add_shortcode('post_comments', 'pagelines_post_comments_shortcode');
+/**
+*
+* @TODO do
+*
+*/
 function pagelines_post_comments_shortcode($atts) {
 	
 	$defaults = array(
@@ -205,6 +240,11 @@ function pagelines_post_comments_shortcode($atts) {
  * @example <code>[post_tags sep=", " before="Tags: " after="bar"]</code>
  */
 add_shortcode('post_tags', 'pagelines_post_tags_shortcode');
+/**
+*
+* @TODO do
+*
+*/
 function pagelines_post_tags_shortcode($atts) {
 	
 	$defaults = array(
@@ -231,6 +271,11 @@ function pagelines_post_tags_shortcode($atts) {
  * @example <code>[post_categories sep=", "]</code>
  */
 add_shortcode('post_categories', 'pagelines_post_categories_shortcode');
+/**
+*
+* @TODO do
+*
+*/
 function pagelines_post_categories_shortcode($atts) {
 	
 	$defaults = array(
@@ -255,6 +300,11 @@ function pagelines_post_categories_shortcode($atts) {
  * @example <code>[post_edit link="Edit", before="<b>" after="</b>"]</code>
  */
 add_shortcode('post_edit', 'pagelines_post_edit_shortcode');
+/**
+*
+* @TODO do
+*
+*/
 function pagelines_post_edit_shortcode($atts) {
 	
 	$defaults = array(
@@ -285,6 +335,12 @@ add_filter('widget_text', 'do_shortcode');
 	//Created a container for dynamic html layout
 	// USAGE: [container id="mycontainer" class="myclass"] 'cboxes' see shortcode below [/container]
 	
+
+		/**
+		*
+		* @TODO document
+		*
+		*/
 		function dynamic_container($atts, $content = null ) {
 
 		 	//extract page name from the shortcode attributes
@@ -301,6 +357,12 @@ add_filter('widget_text', 'do_shortcode');
 	//Created a container for dynamic html layout
 	// USAGE: [cbox width="50%" leftgutter="15px" rightgutter="0px"] html box content[/cbox]
 	
+
+		/**
+		*
+		* @TODO document
+		*
+		*/
 		function dynamic_box($atts, $content = null ) {
 
 		 	//extract page name from the shortcode attributes
@@ -346,6 +408,12 @@ add_filter('widget_text', 'do_shortcode');
 	//		[chart data="0,12,24,26,32,64,54,24,22,20,8,2,0,0,3" bg="F7F9FA" size="200x100" type="sparkline"]
 	//		[chart data="41.52,37.79,20.67,0.03" bg="F7F9FA" labels="Reffering+sites|Search+Engines|Direct+traffic|Other" colors="058DC7,50B432,ED561B,EDEF00" size="488x200" title="Traffic Sources" type="pie"]
 
+
+		/**
+		*
+		* @TODO document
+		*
+		*/
 		function chart_shortcode( $atts ) {
 			extract(shortcode_atts(array(
 			    'data' => '',
@@ -416,6 +484,12 @@ add_filter('widget_text', 'do_shortcode');
 	//Function for getting template path
 	// USAGE: [themeurl]
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_themeurl($atts){ return get_template_directory_uri();	 }
 	add_shortcode('themeurl', 'get_themeurl');	
 	
@@ -424,6 +498,12 @@ add_filter('widget_text', 'do_shortcode');
 	// Function for creating a link from a page name
 	// USAGE : [link pagename="My Example Page" linktext="Link Text"]
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function create_pagelink($atts) {
 
 	 	//extract page name from the shortcode attributes
@@ -446,6 +526,12 @@ add_filter('widget_text', 'do_shortcode');
 	// Return link in page based on Bookmark
 	// USAGE : [bookmark id="21" text="Link Text"]
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function bookmark_link($atts) {
 
 	 	//extract page name from the shortcode attributes

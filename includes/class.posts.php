@@ -41,6 +41,12 @@ class PageLinesPosts {
 
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function add_social_under_meta($metabar){
 		
 		if ( ! class_exists( 'PageLinesShareBar' ) )
@@ -71,6 +77,12 @@ class PageLinesPosts {
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_article(){
 		global $wp_query;
 		
@@ -111,6 +123,12 @@ class PageLinesPosts {
 		$this->count++;
 	 }
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function post_entry(){ 
 		
 		if( $this->pagelines_show_content( get_the_ID() ) ){
@@ -123,6 +141,12 @@ class PageLinesPosts {
 			return '';
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function post_content(){
 	
 		ob_start();
@@ -155,6 +179,12 @@ class PageLinesPosts {
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function post_header( $format = '' ){ 
 		
 		if( $this->show_post_header() ){
@@ -289,6 +319,12 @@ class PageLinesPosts {
 	 * @since 1.1.0
 	 */
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function pagelines_get_post_metabar( $format = '' ) {
 
 		$metabar = '';
@@ -370,6 +406,12 @@ class PageLinesPosts {
 		return apply_filters('continue_reading_link', $link);
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function pagelines_show_thumb($post = null, $location = null){
 
 		 if( function_exists('the_post_thumbnail') && has_post_thumbnail($post) ){
@@ -401,6 +443,12 @@ class PageLinesPosts {
 
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function pagelines_show_excerpt( $post = null ){
 
 			if( is_page() )
@@ -429,6 +477,12 @@ class PageLinesPosts {
 				return false;
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function pagelines_show_content($post = null){
 			// For Hook Parsing
 			if( is_admin() ) 
@@ -481,6 +535,12 @@ class PageLinesPosts {
 	}
 	
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function posts_404(){
 		
 		$head = ( is_search() ) ? sprintf(__('No results for &quot;%s&quot;', 'pagelines'), get_search_query()) : __('Nothing Found', 'pagelines');

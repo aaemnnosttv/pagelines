@@ -30,7 +30,7 @@
 	 * Cache cleaner.
 	 * Flush all our transients ( Makes this save button a sort of reset button. )
 	 *
-	 */	
+	 */
 	 function flush_caches() {
 	
 		delete_transient( EXTEND_UPDATE );
@@ -41,6 +41,12 @@
 		delete_transient( 'pagelines_sections_cache' );
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function extension_engine( $type, $set = ''){
 		
 			switch ( $type ){
@@ -64,6 +70,12 @@
 			return $out;
 	}
 
+
+	 /**
+	 *
+	 * @TODO document
+	 *
+	 */
 	 function master_array( $type, $key, $ext, $tab ){
 		
 		$a = array( 
@@ -198,6 +210,12 @@
 // = Main button logic. =
 // ======================
 
+
+	 /**
+	 *
+	 * @TODO document
+	 *
+	 */
 	 function show_in_tab( $type, $key, $ext, $tab ){
 
 		$a = array( 
@@ -281,10 +299,22 @@
 		return true;
 	}
 
+
+	 /**
+	 *
+	 * @TODO document
+	 *
+	 */
 	 function version_check( $version ){
 		return ( version_compare( CORE_VERSION, $version ) >= 0 ) ? true : false;
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function depends_check( $type, $key, $ext, $tab ) {
 		
 		if ( $type == 'plugin' ) {
@@ -299,6 +329,12 @@
 		return false;
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function show_upgrade_available($type, $key, $ext, $tab){
 		
 		if ( EXTEND_NETWORK )
@@ -323,6 +359,12 @@
 		
 	}
 	
+
+	 /**
+	 *
+	 * @TODO document
+	 *
+	 */
 	 function upgrade_available( $api_version, $installed_version ){
 
 		if ( $api_version > $installed_version )
@@ -331,6 +373,12 @@
 			return false;
 	}
 	
+
+	 /**
+	 *
+	 * @TODO document
+	 *
+	 */
 	 function show_download_button( $type, $key, $ext, $tab ){
 
 		if( $type == 'integration' && $this->updates_configured() && VDEV && !EXTEND_NETWORK)
@@ -339,6 +387,12 @@
 			return false;
 	}
 		
+
+	 /**
+	 *
+	 * @TODO document
+	 *
+	 */
 	 function show_login_button( $type, $key, $ext, $tab ){
 
 		if ( $type == 'integration' && !$this->updates_configured() && !EXTEND_NETWORK )
@@ -356,6 +410,12 @@
 			return false;
 	}
 	
+
+	 /**
+	 *
+	 * @TODO document
+	 *
+	 */
 	 function show_install_button( $type, $key, $ext, $tab){
 
 		if ( $type == 'integration' )
@@ -374,6 +434,12 @@
 			return false;
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function is_pro_only( $type, $key, $ext, $tab ) {
 		
 		if ( isset( $ext['edition']) && 'pro' == $ext['edition'] && ! VPRO 
@@ -383,6 +449,12 @@
 			return false;	
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function show_installed_button( $type, $key, $ext, $tab ){
 		
 		if( $this->is_installed( $type, $key, $ext )
@@ -394,6 +466,12 @@
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function show_delete_button( $type, $key, $ext, $tab ){
 
 		if ( $type == 'section' && ( $tab == 'child' || $tab == 'internal' ) )
@@ -410,6 +488,12 @@
 		
 	}
 
+
+	 /**
+	 *
+	 * @TODO document
+	 *
+	 */
 	 function is_installed( $type, $key, $ext, $tab = '' ){
 
 		if( $type == 'section' ){
@@ -448,6 +532,12 @@
 
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function show_purchase_button( $type, $key, $ext, $tab ){
 		
 		if( !EXTEND_NETWORK 
@@ -463,6 +553,12 @@
 			return false;
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function is_premium( $type, $key, $ext ){
 		$ext = (array) $ext;
 		if( isset( $ext['price'] ) 
@@ -474,6 +570,12 @@
 			return false;
 	}
 
+
+	 /**
+	 *
+	 * @TODO document
+	 *
+	 */
 	 function is_purchased( $type, $key, $info ){
 
 		if($type == 'section'){
@@ -489,6 +591,12 @@
 		}
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function show_activate_button( $type, $key, $ext, $tab ){
 		
 		if ( $type == 'integration' && VDEV && is_integration_active($key) == false )
@@ -505,6 +613,12 @@
 			return false;
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function show_deactivate_button( $type, $key, $ext, $tab ){
 		
 		if ( $type == 'integration' && VDEV ) 
@@ -519,6 +633,12 @@
 			return false;
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function is_persistant( $type, $key, $ext, $tab ) {
 		
 		if ( isset( $ext['persistant'] ) && true == $ext['persistant'] )
@@ -527,6 +647,12 @@
 			return false;
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function is_active( $type, $key, $ext ){
 
 		if ( $type == 'integration' )
@@ -555,6 +681,12 @@
 		
 	}
 
+
+	 /**
+	 *
+	 * @TODO document
+	 *
+	 */
 	 function in_the_store( $type, $key, $ext, $tab ){
 
 		if ( $type == 'integration' )
@@ -567,22 +699,52 @@
 		
 	}
 
+
+	 /**
+	 *
+	 * @TODO document
+	 *
+	 */
 	 function purchase_button( $purchased = false, $store = true ){
 		return ( $store && !EXTEND_NETWORK && !$purchased && !$this->login_button( $purchased ) ) ? true : false;
 	}
 	
+
+	 /**
+	 *
+	 * @TODO document
+	 *
+	 */
 	 function install_button( $installed = false, $purchased = false, $version = 0 ){
 		return ( $this->version_check( $version ) && !EXTEND_NETWORK && $purchased && ! $installed) ? true : false;
 	}
 	
+
+	 /**
+	 *
+	 * @TODO document
+	 *
+	 */
 	 function version_fail( $version ){
 		return ( ! $this->version_check( $version ) ) ? true : false;
 	}
 	
+
+	 /**
+	 *
+	 * @TODO document
+	 *
+	 */
 	 function updates_configured( ){
 		return ( pagelines_check_credentials() ) ? true : false;
 	}
 	
+
+	 /**
+	 *
+	 * @TODO document
+	 *
+	 */
 	 function do_redirect( $type, $key, $ext, $tab ){
 		if ( $tab == 'installed' || $tab == 'user' || $type == 'integration' || $type = 'internal' )
 			return false;
@@ -594,6 +756,12 @@
 // ===================================
 // = Images, files, links and paths. =
 // ===================================
+
+	 /**
+	 *
+	 * @TODO document
+	 *
+	 */
 	 function image_path( $type, $key, $ext, $tab ) {
 		
 		if( $type == 'integration' ) {
@@ -664,6 +832,12 @@
 		
 	}
 	
+
+	 /**
+	 *
+	 * @TODO document
+	 *
+	 */
 	 function get_the_file( $button, $type, $key, $ext, $tab ){
 
 		if ( $button == 'delete' || $button == 'upgrade' ) {
@@ -696,10 +870,22 @@
 		
 	}
 		
+
+	 /**
+	 *
+	 * @TODO document
+	 *
+	 */
 	 function paypal_link( $type, $key, $ext, $tab ){
 		return ( isset( $ext['productid'] ) ) ? sprintf( '%s,%s|%s|%s', $ext['productid'], $ext['uid'], $ext['price'], $ext['name'] ) : '';		
 	}
 
+
+	 /**
+	 *
+	 * @TODO document
+	 *
+	 */
 	 function purchase_text( $type, $key, $ext, $tab ){
 		
 		$ext = (array) $ext;
@@ -709,6 +895,12 @@
 		return sprintf( '%s%s', __( 'Purchase', 'pagelines' ), $price ); 
 	}
 	
+
+	 /**
+	 *
+	 * @TODO document
+	 *
+	 */
 	 function get_the_version($type, $key, $ext){
 	
 		// has to be the installed version.
@@ -721,6 +913,12 @@
 			return $ext['version'];
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_api_version( $type, $key, $ext ) {
 		
 		if ( isset( $ext['apiversion'] ) )
@@ -729,6 +927,12 @@
 		return false;
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function parse_buttons( $actions, $core_actions ){
 		
 		$actions = wp_parse_args( $actions, $core_actions );
@@ -796,6 +1000,12 @@
 	 * Check if we have the extend plugin.
 	 * 
 	 */	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function has_extend_plugin( $status = false ){
 		
 		if($status){
@@ -831,6 +1041,12 @@
 			return array( 'status' => 'notactive', 'version' => $data['Version'], 'data' => $data );
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_the_tags( $type, $key, $ext, $tab ) {
 		
 		if ( isset( $ext['tags'] ) && ! empty( $ext['tags'] ) )
@@ -839,6 +1055,12 @@
 			return '';
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_the_author( $type, $key, $ext, $tab ) {
 		
 		if ( isset( $ext['author'] ) && ! empty( $ext['author'] ) )
@@ -847,6 +1069,12 @@
 			return '';
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_the_author_uri( $type, $key, $ext, $tab ) {
 		
 		if ( isset( $ext['external'] ) && ! empty( $ext['external'] ) )
@@ -858,6 +1086,12 @@
 			return admin_url();
 	}	
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_the_name( $type, $key, $ext, $tab ) {
 		
 		if ( isset( $ext['name'] ) && ! empty( $ext['name'] ) )
@@ -866,6 +1100,12 @@
 			return '';
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_the_desc( $type, $key, $ext, $tab ) {
 		
 		if ( isset( $ext['text'] ) && ! empty( $ext['text'] ) )
@@ -877,6 +1117,12 @@
 		return '';
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_the_count( $type, $key, $ext, $tab ) {
 		
 		if ( isset( $ext['count'] ) && ! empty( $ext['count'] ) )
@@ -885,6 +1131,12 @@
 			return '0';
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_the_screen( $type, $key, $ext, $tab ) {
 		
 		if ( isset( $ext['screen'] ) && ! empty( $ext['screen'] ) )
@@ -893,6 +1145,12 @@
 			return false;
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_the_object( $type, $key, $ext, $tab ) {
 		
 		if ( isset( $ext['class'] ) && ! empty( $ext['class'] ) )
@@ -901,18 +1159,36 @@
 			return false;
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_info_url( $type, $key, $ext, $tab ) {
 		
 		$slug = ( isset( $ext['slug'] ) ) ? $ext['slug'] : $key;
 		return sprintf( '%s/%ss/%s/?product_ref=true', PL_STORE_URL, $type, $slug );
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_demo_url( $type, $key, $ext, $tab ) {
 		
 		return ( isset( $ext['demo'] ) ) ? $ext['demo'] : '';
 
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_external_url( $type, $key, $ext, $tab ) {
 	
 	if ( isset( $ext['external'] ) )
@@ -923,6 +1199,12 @@
 
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function depends_nice_name( $type, $key, $ext, $tab ) {
 
 		if ( isset( $ext['depends'] ) ) {
@@ -937,6 +1219,12 @@
 		}
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_master_list( $extension, $type, $tab, $mode = '') {
 
 		$list = array();
@@ -957,12 +1245,24 @@
 		return ( !empty( $list ) ) ? $list : '';
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_the_tab( $type, $key, $ext, $tab ) {
 		
 		return $tab;
 		
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function master_list( $type, $key, $ext, $tab ) {
 		
 		$ext['apiversion'] = ( isset( $ext['apiversion'] ) ) ? $ext['apiversion'] : $ext['version'];

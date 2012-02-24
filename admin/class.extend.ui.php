@@ -123,6 +123,12 @@ class PageLinesExtendUI {
 			return $output;
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function graphic_pane( $e, $style = '', $count = ''){
 	
 		$e = wp_parse_args( $e, $this->defaultpane);
@@ -159,6 +165,12 @@ class PageLinesExtendUI {
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function pane_template( $e, $count ){
 		
 		$demo = '';
@@ -205,6 +217,12 @@ class PageLinesExtendUI {
 		
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function grab_details( $args ){
 		
 		$target = 'target="_blank"';
@@ -227,6 +245,12 @@ class PageLinesExtendUI {
 	}
 
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_extend_buttons( $e, $style = 'small'){
 		
 		/* 
@@ -249,6 +273,12 @@ class PageLinesExtendUI {
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function extend_button( $key, $a, $style = 'small'){
 		
 		$d = array(
@@ -283,6 +313,12 @@ class PageLinesExtendUI {
 	}
 	
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function install_button( $e ){
 		
 		
@@ -348,6 +384,12 @@ class PageLinesExtendUI {
 		return sprintf('<div class="install-control fix"><span class="banner-text">%s</span>%s</div>', $text, $button);
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function upload_form( $type, $disabled = false ){
 		
 			$file = $type;
@@ -376,6 +418,12 @@ class PageLinesExtendUI {
 		return ob_get_clean();
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function search_extend( $type ){
 		
 		return $this->extension_banner( __( 'Search functionality is currently disabled. Check back soon!', 'pagelines' ) );
@@ -536,6 +584,11 @@ function extension_array(  ){
 	return apply_filters('extension_array', $d); 
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function store_subtabs( $type ){
 	global $extension_control;
 	

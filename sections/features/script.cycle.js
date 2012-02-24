@@ -18,9 +18,19 @@ if ($.support == undefined) {
 	};
 }
 
+/**
+*
+* @TODO do
+*
+*/
 function debug(s) {
 	$.fn.cycle.debug && log(s);
 }		
+/**
+*
+* @TODO do
+*
+*/
 function log() {
 	window.console && console.log && console.log('[cycle] ' + Array.prototype.join.call(arguments,' '));
 }
@@ -95,6 +105,11 @@ $.fn.cycle = function(options, arg2) {
 	});
 };
 
+/**
+*
+* @TODO do
+*
+*/
 function triggerPause(cont, byHover, onPager) {
 	var opts = $(cont).data('cycle.opts');
 	var paused = !!cont.cyclePause;
@@ -105,6 +120,11 @@ function triggerPause(cont, byHover, onPager) {
 }
 
 // process the args that were passed to the plugin fn
+/**
+*
+* @TODO do
+*
+*/
 function handleArguments(cont, options, arg2) {
 	if (cont.cycleStop == undefined)
 		cont.cycleStop = 0;
@@ -178,6 +198,12 @@ function handleArguments(cont, options, arg2) {
 	}
 	return options;
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function checkInstantResume(isPaused, arg2, cont) {
 		if (!isPaused && arg2 === true) { // resume now!
 			var options = $(cont).data('cycle.opts');
@@ -194,6 +220,11 @@ function handleArguments(cont, options, arg2) {
 	}
 };
 
+/**
+*
+* @TODO do
+*
+*/
 function removeFilter(el, opts) {
 	if (!$.support.opacity && opts.cleartype && el.style.filter) {
 		try { el.style.removeAttribute('filter'); }
@@ -202,6 +233,11 @@ function removeFilter(el, opts) {
 };
 
 // unbind event handlers
+/**
+*
+* @TODO do
+*
+*/
 function destroy(opts) {
 	if (opts.next)
 		$(opts.next).unbind(opts.prevNextEvent);
@@ -218,6 +254,11 @@ function destroy(opts) {
 };
 
 // one-time initialization
+/**
+*
+* @TODO do
+*
+*/
 function buildOptions($cont, $slides, els, options, o) {
 	// support metadata plugin (v1.0 and v2.0)
 	var opts = $.extend({}, $.fn.cycle.defaults, options || {}, $.metadata ? $cont.metadata() : $.meta ? $cont.data() : {});
@@ -477,6 +518,11 @@ function buildOptions($cont, $slides, els, options, o) {
 };
 
 // save off original opts so we can restore after clearing state
+/**
+*
+* @TODO do
+*
+*/
 function saveOriginalOpts(opts) {
 	opts.original = { before: [], after: [] };
 	opts.original.cssBefore = $.extend({}, opts.cssBefore);
@@ -487,6 +533,11 @@ function saveOriginalOpts(opts) {
 	$.each(opts.after,  function() { opts.original.after.push(this); });
 };
 
+/**
+*
+* @TODO do
+*
+*/
 function supportMultiTransitions(opts) {
 	var i, tx, txs = $.fn.cycle.transitions;
 	// look for multiple effects
@@ -531,6 +582,11 @@ function supportMultiTransitions(opts) {
 };
 
 // provide a mechanism for adding slides after the slideshow has started
+/**
+*
+* @TODO do
+*
+*/
 function exposeAddSlide(opts, els) {
 	opts.addSlide = function(newSlide, prepend) {
 		var $s = $(newSlide), s = $s[0];
@@ -590,6 +646,11 @@ $.fn.cycle.resetState = function(opts, fx) {
 };
 
 // this is the main engine fn, it handles the timeouts, callbacks and slide index mgmt
+/**
+*
+* @TODO do
+*
+*/
 function go(els, opts, manual, fwd) {
 	// opts.busy is true if we're in the middle of an animation
 	if (manual && opts.busy && opts.manualTrump) {
@@ -732,6 +793,11 @@ $.fn.cycle.updateActivePagerLink = function(pager, currSlide, clsName) {
 };
 
 // calculate timeout value for current transition
+/**
+*
+* @TODO do
+*
+*/
 function getTimeout(curr, next, opts, fwd) {
 	if (opts.timeoutFn) {
 		// call user provided calc fn
@@ -750,6 +816,11 @@ $.fn.cycle.next = function(opts) { advance(opts,1); };
 $.fn.cycle.prev = function(opts) { advance(opts,0);};
 
 // advance slide forward or back
+/**
+*
+* @TODO do
+*
+*/
 function advance(opts, moveForward) {
 	var val = moveForward ? 1 : -1;
 	var els = opts.elements;
@@ -789,6 +860,11 @@ function advance(opts, moveForward) {
 	return false;
 };
 
+/**
+*
+* @TODO do
+*
+*/
 function buildPager(els, opts) {
 	var $p = $(opts.pager);
 	$.each(els, function(i,o) {
@@ -873,12 +949,29 @@ $.fn.cycle.hopsFromLast = function(opts, fwd) {
 
 // fix clearType problems in ie6 by setting an explicit bg color
 // (otherwise text slides look horrible during a fade transition)
+/**
+*
+* @TODO do
+*
+*/
 function clearTypeFix($slides) {
 	debug('applying clearType background-color hack');
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function hex(s) {
 		s = parseInt(s,10).toString(16);
 		return s.length < 2 ? '0'+s : s;
 	};
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function getBg(e) {
 		for ( ; e && e.nodeName.toLowerCase() != 'html'; e = e.parentNode) {
 			var v = $.css(e,'background-color');

@@ -56,6 +56,12 @@ class PageLinesBanners extends PageLinesSection {
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function type_meta_options(){
 		/* Meta Options */
 			$type_meta_array = array(
@@ -118,6 +124,12 @@ class PageLinesBanners extends PageLinesSection {
 	}
 
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function section_optionator( $settings ){
 		$settings = wp_parse_args($settings, $this->optionator_default);
 		
@@ -179,6 +191,12 @@ class PageLinesBanners extends PageLinesSection {
 			$this->draw_banners($b, 'banners ' . $set);
 	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function draw_banners($b, $class = ""){ ?>		
 		<div class="banner_container fix <?php echo $class;?>">
 	<?php 
@@ -215,6 +233,12 @@ class PageLinesBanners extends PageLinesSection {
 <?php }
 
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function _get_banner_media( $oset ){
 		
 			
@@ -230,6 +254,12 @@ class PageLinesBanners extends PageLinesSection {
 	}
 	
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function load_pagelines_banners($set = null, $limit = null){
 	
 		$query = array( 'post_type' => $this->ptID, 'orderby' => 'ID' ); 
@@ -250,6 +280,12 @@ class PageLinesBanners extends PageLinesSection {
 
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function banner_column_display($column){
 		global $post;
 

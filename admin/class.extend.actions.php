@@ -10,6 +10,12 @@
  class PageLinesExtendActions {
 	
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function __construct() {
 
 		$this->ui = new PageLinesExtendUI;
@@ -224,6 +230,12 @@
 	 * See if we have filesystem permissions.
 	 * 
 	 */	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function check_creds( $extend = null, $context = WP_PLUGIN_DIR ) {
 		
 		if ( get_filesystem_method() == 'direct' ) {
@@ -245,6 +257,12 @@
 	
 	
 	// return true if were NOT using direct fs.
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function get_fs_method(){
 		
 		global $wp_filesystem;
@@ -312,6 +330,12 @@
 		printf( '<script type="text/javascript">setTimeout(function(){ window.location.href = \'%s\';}, %s);</script>', $admin, 700 );
  	}
 
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function sandbox( $file, $type ) {
 
 		register_shutdown_function( array(&$this, 'error_handler'), $type );
@@ -357,24 +381,48 @@
 	 * Activate Integration Options
 	 */
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function version_fail( $type, $file, $path, $uploader, $checked ) {
 		
 		printf( __( 'You need to have version %s of the framework for this %s', 'pagelines' ), $file, $path );
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function depends_fail( $type, $file, $path, $uploader, $checked ) {
 		
 		printf( __( 'You need to install %s first.', 'pagelines' ), $file );
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function pro_fail( $type, $file, $path, $uploader, $checked ) {
 		
 		printf( __( 'This %s is free with a Pro license.', 'pagelines' ), $path );
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function plugin_install( $type, $file, $path, $uploader, $checked ) {
 		
 
@@ -397,6 +445,12 @@
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function plugin_delete( $type, $file, $path, $uploader, $checked ) {
 		
 		$this->wp_libs();
@@ -411,6 +465,12 @@
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function plugin_upgrade( $type, $file, $path, $uploader, $checked ) {
 		
 		$this->wp_libs();
@@ -438,6 +498,12 @@
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function plugin_activate( $type, $file, $path, $uploader, $checked ) {
 		
 		$this->sandbox( WP_PLUGIN_DIR . $file, 'plugin' );
@@ -447,6 +513,12 @@
 	
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function plugin_deactivate( $type, $file, $path, $uploader, $checked ) {
 		
 		deactivate_plugins( array( $file ) );
@@ -456,6 +528,12 @@
 
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function section_install( $type, $file, $path, $uploader, $checked ) {
 
 		$this->wp_libs();
@@ -481,6 +559,12 @@
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function section_delete( $type, $file, $path, $uploader, $checked ) {
 
 		$this->wp_libs();
@@ -499,6 +583,12 @@
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function section_upgrade( $type, $file, $path, $uploader, $checked ) {
 
 		$this->wp_libs();
@@ -522,6 +612,12 @@
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function section_activate( $type, $file, $path, $uploader, $checked ) {
 
 		$this->sandbox( $path, 'section' );
@@ -534,6 +630,12 @@
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function section_deactivate( $type, $file, $path, $uploader, $checked ) {
 		
 		$disabled = get_option( 'pagelines_sections_disabled', array( 'child' => array(), 'parent' => array() ) );
@@ -546,6 +648,12 @@
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function theme_install( $type, $file, $path, $uploader, $checked ) {
 
 		$this->wp_libs();
@@ -565,6 +673,12 @@
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function theme_delete( $type, $file, $path, $uploader, $checked ) {
 
 		$this->wp_libs();
@@ -581,6 +695,12 @@
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function theme_upgrade( $type, $file, $path, $uploader, $checked ) {
 
 		$this->wp_libs();
@@ -610,6 +730,12 @@
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function theme_activate( $type, $file, $path, $uploader, $checked ) {
 		
 		switch_theme( basename( get_template_directory() ), $file );
@@ -620,6 +746,12 @@
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function theme_deactivate( $type, $file, $path, $uploader, $checked ) {
 		
 		switch_theme( basename( get_template_directory() ), basename( get_template_directory() ) );
@@ -630,12 +762,24 @@
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function redirect( $type, $file, $path, $uploader, $checked ) {
 		
 		echo sprintf( __( 'Sorry only network admins can install %ss.', 'pagelines' ), $type );		
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function purchase( $type, $file, $path, $uploader, $checked ) {
 		
 		_e( 'Taking you to PayPal.com', 'pagelines' );
@@ -643,6 +787,12 @@
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function login( $type, $file, $path, $uploader, $checked ) {
 		
 		_e( 'Moving to account setup..', 'pagelines' );
@@ -650,6 +800,12 @@
 		
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function wp_libs() {
 		
 		include_once( ABSPATH . 'wp-admin/includes/class-wp-upgrader.php' );
@@ -657,6 +813,12 @@
 		
 	}	
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
 	function sections_reset() {
 		
 		global $load_sections;
