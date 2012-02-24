@@ -5,6 +5,12 @@
  **/
 
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function grid( $data, $args = array() ){
 	
 	$defaults = array(

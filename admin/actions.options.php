@@ -9,6 +9,12 @@ add_action( 'admin_menu', 'pagelines_add_admin_menu' );
 
 add_action('admin_menu', 'pagelines_add_admin_menus');
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pagelines_add_admin_menus() {
 	global $_pagelines_options_page_hook;
 	global $_pagelines_ext_hook;
@@ -47,6 +53,12 @@ function pagelines_insert_menu( $page_title, $menu_title, $capability, $menu_slu
 
 
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pagelines_insert_menu_full( $page_title, $menu_title, $capability, $menu_slug, $function ) {
 	
 	return add_submenu_page( 'pagelines', $page_title, $menu_title, $capability, $menu_slug, $function );
@@ -69,6 +81,12 @@ function pagelines_add_admin_menu() {
 
 
 // Build option interface
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pagelines_build_option_interface(){ 
 	pagelines_register_hook( 'pagelines_before_optionUI' );
 	delete_transient( 'pagelines_sections_cache' );
@@ -159,6 +177,12 @@ function pagelines_build_special(){
  * on the theme settings page only, and not the rest of the admin
  */
 add_action( 'admin_menu', 'pagelines_theme_settings_init' );
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pagelines_theme_settings_init() {
 	global $_pagelines_options_page_hook;
 	global $_pagelines_ext_hook;
@@ -181,6 +205,12 @@ function pagelines_theme_settings_init() {
 }
 
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pagelines_theme_settings_scripts() {
 	
 	// Add Body Class
@@ -217,6 +247,12 @@ function pagelines_theme_settings_scripts() {
 }
 
 add_action( 'admin_head', 'load_head' );
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function load_head(){
 
 	// CSS Objects
@@ -238,6 +274,12 @@ function load_head(){
 
 
 add_action( 'admin_init', 'pagelines_register_settings', 5 );
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pagelines_register_settings() {
 	
 	
@@ -294,6 +336,12 @@ function pagelines_register_settings() {
 
 // Add Debug tab to main menu.
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pagelines_enable_debug( $option_array ) {
  
 	$debug = new PageLinesDebug;
@@ -306,6 +354,12 @@ function pagelines_enable_debug( $option_array ) {
  	return array_merge( $option_array, $debug_option_array );
 }
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pagelines_admin_confirms(){
 	
 	$confirms = array();
@@ -395,6 +449,12 @@ function pagelines_admin_confirms(){
  }
 
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pagelines_draw_confirms(){ 
 	
 	$confirms = pagelines_admin_confirms();
@@ -412,6 +472,12 @@ function pagelines_draw_confirms(){
 
 } 
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pagelines_admin_errors(){
 	
 	$errors = array();
@@ -450,6 +516,12 @@ function pagelines_admin_errors(){
 	
 }
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pagelines_error_messages(){ 
 	
 	$errors = pagelines_admin_errors();

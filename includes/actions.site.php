@@ -90,6 +90,12 @@ add_action('pagelines_head', 'pagelines_head_common');
 add_action('wp_head', 'do_dynamic_css', 8);
 
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pagelines_add_google_profile( $contactmethods ) {
 	// Add Google Profiles
 	$contactmethods['google_profile'] = __( 'Google Profile URL', 'pageines' );
@@ -106,6 +112,12 @@ add_filter( 'user_contactmethods', 'pagelines_add_google_profile', 10, 1);
 
 add_filter( 'ngg_render_template', 'gallery_filter' , 10, 2);
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function gallery_filter( $a, $template_name) {
 
 	if ( $template_name == 'gallery-plcarousel')
@@ -116,6 +128,12 @@ function gallery_filter( $a, $template_name) {
 
 add_action( 'init', 'pagelines_add_sidebars', 1 );
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pagelines_add_sidebars() {
 	
 	if ( ! ploption( 'enable_sidebar_reorder') )

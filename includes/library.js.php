@@ -7,6 +7,12 @@ function pl_js_ready_start(){
 	return '<script type="text/javascript">/* <![CDATA[ */ jQuery(document).ready(function () {';
 }
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pl_js_end(){
 	return '/* ]]> */ </script>';
 }

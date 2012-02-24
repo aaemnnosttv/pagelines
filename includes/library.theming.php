@@ -16,6 +16,12 @@
  * 
  **/
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pagelines_disable_settings( $args ){
 
 	global $disabled_settings;
@@ -83,6 +89,12 @@ function pl_support_plugin( $args ){
 }
 
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pl_default_setting( $args ){
 	
 	if(pagelines_activate_or_reset()){
@@ -106,6 +118,12 @@ function pl_default_setting( $args ){
 	
 }
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pagelines_activate_or_reset(){
 	
 	$activated 	= ( isset($_GET['activated']) && $_GET['activated'] ) ? true : false;
@@ -122,6 +140,12 @@ function pagelines_activate_or_reset(){
 		return false;
 }
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pl_welcome_plugins( $args ){
 	
 	global $pl_welcome_plugins;

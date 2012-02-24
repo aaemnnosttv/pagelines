@@ -9,6 +9,12 @@
  * Load 'child' styles, functions and templates.
  */	
 add_action( 'wp_head', 'load_child_style', 20 );
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function load_child_style() {
 
 	if ( !defined( 'PL_CUSTOMIZE' ) )
@@ -34,6 +40,12 @@ function load_child_style() {
 }
 
 add_action( 'init', 'load_child_functions' );
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function load_child_functions() {
 	if ( !defined( 'PL_CUSTOMIZE' ) )
 		return;
@@ -54,6 +66,12 @@ function load_child_functions() {
 
 add_action( 'init', 'base_check_templates' );
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function base_check_templates() {
 
 	if ( is_child_theme() ) {
@@ -85,6 +103,12 @@ function base_check_templates() {
 	}
 }
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pagelines_try_api( $url, $options ) {
 		
 	$prot = array( 'https://', 'http://' );
@@ -101,6 +125,12 @@ function pagelines_try_api( $url, $options ) {
 	return false;
 }
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pagelines_store_object_sort( $object ) {
 
     $array = json_decode( json_encode( $object ), true );

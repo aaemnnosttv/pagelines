@@ -32,6 +32,12 @@ class ExtensionIntegrations extends PageLinesExtensions {
 	
 }
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function is_integration_active( $key ){
 	
 	$ints = get_option( PAGELINES_INTEGRATIONS );
@@ -46,6 +52,12 @@ function is_integration_active( $key ){
 		
 }
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function integration_activate( $type, $slug, $name, $uploader, $checked ) {
 	
 	toggle_integration($slug, $name, true);
@@ -56,6 +68,12 @@ function integration_activate( $type, $slug, $name, $uploader, $checked ) {
 	
 }
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function integration_deactivate( $type, $slug, $name, $uploader, $checked ) {
 
 	
@@ -67,6 +85,12 @@ function integration_deactivate( $type, $slug, $name, $uploader, $checked ) {
 	
 }
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function integration_reload( $location ){
 	
 	$r = rand( 1,100 );
@@ -82,6 +106,12 @@ function integration_reload( $location ){
 	
 }
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function toggle_integration( $slug, $name, $activated = false){
 	
 	
@@ -102,6 +132,12 @@ function toggle_integration( $slug, $name, $activated = false){
 }
 
 // Returns the name
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function get_integration_path($ext){	
 	
 	$name = (isset($ext['name'])) ? $ext['name'] : 'No Name';
@@ -112,6 +148,12 @@ function get_integration_path($ext){
 	
 }
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function handle_integrations_meta(){
 	
 	global $metapanel_options;

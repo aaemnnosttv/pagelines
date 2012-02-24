@@ -21,6 +21,12 @@ function pl_the_thumbnail_url( $post_id ){
  * Support optional WordPress functionality 'add_theme_support'
  */
 add_action('after_setup_theme', 'pl_theme_support');
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pl_theme_support(  ){	
 	
 	add_theme_support( 'post-thumbnails' );
@@ -33,6 +39,12 @@ function pl_theme_support(  ){
  *  Fix The WordPress Login Image URL
  */
 add_filter('login_headerurl', 'fix_wp_login_imageurl');
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function fix_wp_login_imageurl( $url ){	
 	return home_url();
 }
@@ -41,6 +53,12 @@ function fix_wp_login_imageurl( $url ){
  *  Fix The WordPress Login Image Title
  */
 add_filter('login_headertitle', 'fix_wp_login_imagetitle');
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function fix_wp_login_imagetitle( $url ){	
 	return get_bloginfo('name');
 }
@@ -49,6 +67,12 @@ function fix_wp_login_imagetitle( $url ){
  *  Fix The WordPress Login Image Title
  */
 add_action('login_head', 'pl_fix_login_image');
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pl_fix_login_image( ){	
 	
 	$image_url = (ploption('pl_login_image')) ? ploption('pl_login_image') : PL_ADMIN_IMAGES . '/login-pl.png';
@@ -62,6 +86,12 @@ function pl_fix_login_image( ){
  *  Fix The WordPress Favicon by Site Title
  */
 add_action('admin_head', 'pl_fix_admin_favicon');
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pl_fix_admin_favicon( ){	
 	
 	$image_url = (ploption('pagelines_favicon')) ? ploption('pagelines_favicon') : PL_ADMIN_IMAGES . '/favicon-pagelines.png';

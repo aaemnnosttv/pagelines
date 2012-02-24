@@ -161,6 +161,12 @@ function TemplateSetupStartSave(){
 	jQuery('.selected_builder .confirm_save_pad').html('&nbsp;');
 }
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function TemplateSetupDoneSaving( text ){
 	jQuery('.selected_builder .ttitle').effect("highlight", {color: "#ddd"}, 2000); 
 	jQuery('.selected_builder .confirm_save').removeClass('ajax-saving');
@@ -269,6 +275,12 @@ function setColorPicker(optionid, color){
 	
 }
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function PageLinesSimpleToggle(showElement, hideElement){
 	
 	jQuery(hideElement).hide();
@@ -285,11 +297,23 @@ function PageLinesSimpleToggle(showElement, hideElement){
 	
 }
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function animate_pl_button(){
 	jQuery('.superlink-pagelines .slpl').fadeIn().delay(4000).fadeOut();
 }
 
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function PageLinesSlideToggle(toggle_element, toggle_input, text_element, show_text, hide_text, option){
 	var opt_value; 
 	var input_flag;
@@ -333,6 +357,12 @@ function PageLinesSlideToggle(toggle_element, toggle_input, text_element, show_t
  * ###########################
  */
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function sendEmailToMothership( email, input_id ){
 	// validate that shit
 	

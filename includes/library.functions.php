@@ -36,11 +36,23 @@ function pagelines_is_posts_page(){
 	else return false;
 }
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pagelines_non_meta_data_page(){
 	if(pagelines_is_posts_page() || is_404()) return true; 
 	else return false;
 }
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function is_pagelines_special(){
 	if(is_404() || is_home() || is_author() || is_search() || is_archive() || is_category() || is_tag() ) 
 		return true; 
@@ -51,10 +63,22 @@ function is_pagelines_special(){
 }
 
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pagelines_special_pages(){
 	return array('posts', 'search', 'archive', 'tag', 'category', '404');
 }
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pl_meta_set_url( $tab = null ){
 	
 	global $post; 
@@ -105,6 +129,12 @@ function pagelines_body_classes(){
 	return $body_classes;
 }
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pagelines_add_bodyclass( $class ) {
 	
 	global $pagelines_addclasses;
@@ -255,6 +285,12 @@ function pagelines_shorturl( $url, $timeout = 86400 ) {
 	return pagelines_format_tweet( get_the_title(), $out->shorturl );
 }
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pagelines_format_tweet( $title, $url ) {
 
 	return sprintf( '%1$s - %2$s', $title, $url );
@@ -342,6 +378,12 @@ function show_query_analysis(){
 	}
 }
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function custom_trim_excerpt($text, $length) {
 	
 	$text = strip_shortcodes( $text ); // optional
@@ -358,6 +400,12 @@ function custom_trim_excerpt($text, $length) {
 
 
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pagelines_add_page($file, $name){
 	global $pagelines_user_pages;
 	
@@ -413,6 +461,12 @@ function pagelines_add_page_callback( $page_array, $template_area ){
  */
 remove_filter('get_the_excerpt', 'wp_trim_excerpt');
 add_filter('get_the_excerpt', 'improved_trim_excerpt');
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function improved_trim_excerpt($text) {
 	
 	// Group options at top :)
@@ -654,6 +708,12 @@ function plprint( $data, $title = false, $echo = false){
  * @return true if successful
  **/
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pagelines_make_uploads($txt = 'Load'){
 add_filter('request_filesystem_credentials', '__return_true' );
 
@@ -823,6 +883,12 @@ function pagelines_get_tweets( $username, $latest = null) {
 		}	
 }
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pagelines_tweet_clickable( $tweet ) {
 
 	$regex = '/http([s]?):\/\/([^\ \)$]*)/';
@@ -839,6 +905,12 @@ function pagelines_tweet_clickable( $tweet ) {
 	
 }
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pl_admin_is_page(){
 	global $post;
 	
@@ -849,6 +921,12 @@ function pl_admin_is_page(){
 
 }
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pl_file_get_contents( $filename ) {
 
 	if ( is_file( $filename ) ) {
@@ -866,6 +944,12 @@ function pl_file_get_contents( $filename ) {
 	}
 }
 
+
+/**
+ *
+ * @TODO document
+ *
+ */
 function pl_detect_ie( $version = false ) {
 	
 	global $is_IE;
