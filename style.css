@@ -686,6 +686,7 @@ table {width: 100%;}
 .hentry table, #comments table {margin-bottom: 1em;}
 .hentry table th, #comments table th { font-weight: normal; text-align: center; padding: .3em;}
 .hentry table td, #comments table td {padding: .35em .6em; text-align: center;}
+.hentry form table td, #comments form table td { text-align: inherit; }
 .hentry table .label, #comments table .label{text-align:left;}
 		
 	.iconlist li{margin-bottom: .5em;}
