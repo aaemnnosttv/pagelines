@@ -49,12 +49,17 @@ class PageLinesCallout extends PageLinesSection {
 					'exp' => 'This URL will be used as the link for the callout section of the theme.'
 
 				),
+				'pagelines_callout_target' => array(
+					'type'			=> 'check',
+					'default'		=> false,
+					'inputlabel'	=> 'Open link in new window.',
+				),
 				'pagelines_callout_action_text' => array(
 					'type' 			=> 'text',
 					'inputlabel' 	=> 'Enter Button Text',
 					'title' 		=> 'Callout Action Text',						
 					'shortexp' 		=> 'Enter text for the callout button',
-					'exp' 			=> 'If you are not using an image as the action, CSS and a button with *this text* will be used.'
+					'exp' 			=> 'If you are not using an image as the action, CSS and a button with *Start Here* will be used.'
 				),
 								
 				'pagelines_callout_image' => array(
@@ -98,6 +103,7 @@ class PageLinesCallout extends PageLinesSection {
 		$call_sub = ploption('pagelines_callout_subheader', $this->oset);
 		$call_img = ploption('pagelines_callout_image', $this->oset);
 		$call_link = ploption('pagelines_callout_link', $this->oset);
+		$target = ( ploption( 'pagelines_callout_target', $this->oset ) ) ? 'target="_blank"' : '';
 		
 		$call_align = (ploption('pagelines_callout_align', $this->oset) == 'left') ? '' : 'rtimg';
 		
@@ -112,9 +118,9 @@ class PageLinesCallout extends PageLinesSection {
 			
 			
 				if( $call_img ){
-					printf('<div class="callout_image"><a href="%s" ><img src="%s" /></a></div>', $call_link, $call_img);
+					printf('<div class="callout_image"><a %s href="%s" ><img src="%s" /></a></div>', $target, $call_link, $call_img);
 				} else {
-					printf('<a class="button callout_button" href="%s">%s</a>', $call_link, $call_action_text);
+					printf('<a %s class="button callout_button" href="%s">%s</a>', $target, $call_link, $call_action_text);
 				}
 				
 				
