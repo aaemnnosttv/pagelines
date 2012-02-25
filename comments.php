@@ -1,11 +1,21 @@
 <?php
 /**
+ * COMMENTS
+ *
  * The template for displaying Comments.
  *
+ * @package     PageLines Framework
+ * @since       1.0
  *
- * @package PageLines Framework
+ * @link        http://www.pagelines.com/
+ * @link        http://www.pagelines.com/tour
+ *
+ * @author      PageLines   http://www.pagelines.com/
+ * @copyright   Copyright (c) 2012, PageLines   hello@pagelines.com
+ *
+ * Last revised February 23, 2012
+ * @version     2.1.1
  */
-
 
 if(!have_comments() && !comments_open())
 	return;

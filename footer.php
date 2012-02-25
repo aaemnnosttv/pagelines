@@ -1,15 +1,25 @@
 <?php 
-/*
-	
-	FOOTER
-	
-	This file controls the ending HTML </body></html> and common graphical elements in your site footer.
-	You can control what shows up where using WordPress and PageLines PHP conditionals
-	
-	This theme copyright (C) 2008-2010 PageLines
-	
-*/
-
+/**
+ * FOOTER
+ *
+ * This file controls the ending HTML </body></html> and common graphical
+ * elements in your site footer. You can control what shows up where using
+ * WordPress and PageLines PHP conditionals
+ *
+ * @package     PageLines Framework
+ * @since       1.0
+ *
+ * @link        http://www.pagelines.com/
+ * @link        http://www.pagelines.com/tour
+ *
+ * @author      PageLines   http://www.pagelines.com/
+ * @copyright   Copyright (c) 2008-2012, PageLines  hello@pagelines.com
+ *
+ * Last revised February November 21, 2011
+ * @version     ...
+ *
+ * @todo Define version
+ */
 
 if(!has_action('override_pagelines_body_output')): ?>
 			</div>

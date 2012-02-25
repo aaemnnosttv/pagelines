@@ -1,15 +1,27 @@
 <?php 
-/*
-	
-	HEADER
-	
-	This file controls the HTML <head> and top graphical markup (including Navigation) for each page in your theme.
-	You can control what shows up where using WordPress and PageLines PHP conditionals
-	
-	This theme copyright (C) 2008-2010 PageLines
-	
-*/ 	
-	pagelines_register_hook('pagelines_before_html'); // Hook 
+/**
+ * HEADER
+ *
+ * This file controls the HTML <head> and top graphical markup (including
+ * Navigation) for each page in your theme. You can control what shows up where
+ * using WordPress and PageLines PHP conditionals.
+ *
+ * @package     PageLines Framework
+ * @since       1.0
+ *
+ * @link        http://www.pagelines.com/
+ * @link        http://www.pagelines.com/tour
+ *
+ * @author      PageLines   http://www.pagelines.com/
+ * @copyright   Copyright (c) 2008-2012, PageLines  hello@pagelines.com
+ *
+ * Last revised January 23, 2012
+ * @version     ...
+ *
+ * @todo Define version
+ */
+
+pagelines_register_hook('pagelines_before_html'); // Hook
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>

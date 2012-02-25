@@ -1,16 +1,33 @@
-/*  
-	PageLines Framework RTL Style
-	
-	Description: Starter creating RTL support for Platform.  Note, we don't speak or write in RTL languages so there will be issues. You can use this as a starter and override in a child theme.
-	
-	** If you have improvements or modifications to this stylesheet, please submit them to hello@pagelines.com
-	** Special Thanks to Sourena from Alefba.us. He created this file and specializes in RTL language support.
-	
-	Version: 1.0.0
-	Author: Alefba
-	Author URI: http://alefba.us/
-
+/*
+PageLines Framework RTL Style
+Description: Starter creating RTL support for Platform.  Note, we don't speak or write in RTL languages so there will be issues. You can use this as a starter and override in a child theme.
 */
+
+/**
+ * PageLines Framework RTL Style
+ *
+ * Base file creating RTL support for Platform.
+ * Please note, we don't speak or write in RTL languages so there may be issues.
+ * You can use this as a starter and override in a child theme.
+ *
+ * If you have improvements or modifications to this stylesheet, please submit
+ * them to hello@pagelines.com
+ *
+ * @package     PageLines Framework
+ * @since       1.0
+ *
+ * Special Thanks to Sourena from Alefba.us. He created this file and
+ * specializes in RTL language support.
+ * @author      Sourena
+ * @link        http://alefba.us/
+ * @version     1.0.0
+ *
+ * Last revised February 25, 2012
+ * @version     2.1.1
+ * Remove `px` from zero values as not necessary; fix comment list missing `px`
+ *
+ * @todo Fix graphics - 'arrow-ffffff.png', 'shadow.png', and 'more-left.png'
+ */
 
 body { 
 	font-smooth: always;
@@ -22,7 +39,7 @@ body {
 
 div#item-header div#item-header-avatar {
 	float:right;
-	margin-right:0px;
+	margin-right:0;
 	margin-left:15px;
 }
 
@@ -44,7 +61,7 @@ div#item-header div#item-header-avatar {
 
 ul.activity-list li img.avatar { float: right; }
 
-ul.activity-list li div.activity-content { margin-left:0px;	margin-right:75px; }
+ul.activity-list li div.activity-content { margin-left:0;	margin-right:75px; }
 
 body #primary-nav ul.sf-menu li { float:right; }
 
@@ -54,14 +71,14 @@ body #primary-nav ul.sf-menu li { float:right; }
 }
 
 a.blink, a.soapbox_link, #feature_slider .fcontent a.post-edit-link, .button, input[type="submit"], input[type="button"], .submit {
-    letter-spacing: 0px;
+    letter-spacing: 0;
     text-transform: none;
 }
 
 .widget-title {
-  letter-spacing:0px;
+  letter-spacing:0;
   padding-left:8px;
-  padding-right:0px;
+  padding-right:0;
   text-align: right;
   text-transform:none;
 }
@@ -75,7 +92,7 @@ ul.item-list div.item-avatar { clear: right; }
 
 .inline_thumbs .fboxgraphic {
 	float:right;
-	padding-right:0px;	
+	padding-right:0;
 	padding-left:15px;
 }
 
@@ -93,12 +110,12 @@ ul.item-list div.item-avatar { clear: right; }
 
 .fcontent .ftitle {
 	font-size:2.2em;
-	letter-spacing:0px;
+	letter-spacing:0;
 }
 
 .fcontent .ftitle small {
 	font-size:16px;
-	letter-spacing:0px;
+	letter-spacing:0;
 	line-height:25px;
 	margin-bottom: 10px;
 }
@@ -133,7 +150,7 @@ ul.item-list div.item-avatar { clear: right; }
 }
 
 #feature_slider .fcontent a.flink, #feature_slider .fcontent a.post-edit-link {
-	letter-spacing:0px;
+	letter-spacing:0;
 	left: 10px;
 	right: auto;
 	position: absolute;
@@ -164,7 +181,7 @@ form#whats-new-form #whats-new-avatar {
 form#whats-new-form h5 {
   clear:none;
   margin-right:76px;
-  margin-left:0px;
+  margin-left:0;
 	vertical-align: top;
 	line-height: 1.4;
 	font-size: 1.1em;
@@ -174,8 +191,8 @@ form#whats-new-form h5 {
 form#whats-new-form #whats-new-content {
   margin-right:54px;
   padding-right:22px;
-  margin-left:0px;
-  padding-left:0px;
+  margin-left:0;
+  padding-left:0;
 }
 
 ul.item-list div.item-avatar {
@@ -214,13 +231,13 @@ form#whats-new-form #whats-new-submit {
 
 #highlight .highlight-subhead {
 	font-size: 1.2em;
-	letter-spacing:0px;
+	letter-spacing:0;
 	text-transform: none;
 }
 
 #callout .callout_copy {
 font-size:1.1em;
-letter-spacing:0px;
+letter-spacing:0;
 text-transform: none;
 }
 
@@ -245,7 +262,7 @@ padding: 0 0 0 10px;
 }
 		#callout .callout_copy{
 text-transform: none;
-letter-spacing:0px;
+letter-spacing:0;
 }
 
 #callout .callout_image {float: left;}
@@ -274,7 +291,7 @@ padding: 8px 15px 0 20px;
 
 /* BLOG COMMENTS */
 
-.commentlist { margin:10px 18 10px 0px; padding-right:55px; }
+.commentlist { margin:10px 18px 10px 0; padding-right:55px; }
 
 .commentlist img.avatar {
 	float: right;
@@ -286,7 +303,7 @@ padding: 8px 15px 0 20px;
 .icons a {
 	float:left;
 	margin-right:7px;
-	margin-left:0px;
+	margin-left:0;
 	text-align:left;
 }
 
@@ -333,7 +350,7 @@ span.sf-sub-indicator {
 	border: medium none;
 	color: #FFFFFF;
 	padding-left: 9px;
-	padding-right: 0px;
+	padding-right: 0;
 }
 div#invite-list {
     overflow: auto;
