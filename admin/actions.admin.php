@@ -21,11 +21,14 @@ $layout_control_js = new PageLinesLayoutControl();
 add_action( 'pagelines_admin_head', array(&$layout_control_js, 'layout_control_javascript' ) );
 
 
-
 /**
+ * Admin Body Class
  *
- * @TODO document
+ * @package PageLines Framework
  *
+ * @param   $class
+ *
+ * @return  string
  */
 function pagelines_admin_body_class( $class ){
 	
