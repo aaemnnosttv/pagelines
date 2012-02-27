@@ -13,7 +13,7 @@
  * @author      PageLines   http://www.pagelines.com/
  * @copyright   Copyright (c) 2008-2012, PageLines  hello@pagelines.com
  *
- * Last revised January 20, 2012
+ * @internal    last revised January 20, 2012
  * @version     ...
  *
  * @todo Define version

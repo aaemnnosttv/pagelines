@@ -1,4 +1,7 @@
 <?php
+/**
+ * actions.admin.php
+ */
 
 /**
  * Show Options Panel after theme activation
@@ -24,7 +27,10 @@ add_action( 'pagelines_admin_head', array(&$layout_control_js, 'layout_control_j
 /**
  * Admin Body Class
  *
+ * Adds the 'pagelines_ui' class
+ *
  * @package PageLines Framework
+ * @since   ...
  *
  * @param   $class
  *
@@ -37,21 +43,15 @@ function pagelines_admin_body_class( $class ){
 	return $class;
 }
 /**
- * 
  * Checks if PHP5
+ *
+ * Tests for installed version of PHP higher than 5.0 and prints message if version is found to be lower.
  *
  * @package PageLines Framework
  * @subpackage Functions Library
  * @since 4.0.0
- *
  */
 add_action( 'pagelines_before_optionUI', 'pagelines_check_php' );
-
-/**
- *
- * @TODO document
- *
- */
 function pagelines_check_php(){
 	if( floatval( phpversion() ) < 5.0 ){
 		printf( __( "<div class='config-error'><h2>PHP Version Problem</h2>Looks like you are using PHP version: <strong>%s</strong>. To run this framework you will need PHP <strong>5.0</strong> or better...<br/><br/> Don't worry though! Just check with your host about a quick upgrade.</div>", 'pagelines' ), phpversion() );
@@ -59,21 +59,18 @@ function pagelines_check_php(){
 }
 
 /**
- * AJAX OPTION SAVING - Used to save via AJAX theme options and image uploads
+ * Ajax Callback
+ *
+ * AJAX OPTION SAVING
+ * Used to save via AJAX theme options and image uploads
  * 
  * @package PageLines Framework
  * @since 1.2.0
  */
 add_action( 'wp_ajax_pagelines_ajax_post_action', 'pagelines_ajax_callback' );
-
-/**
- *
- * @TODO document
- *
- */
 function pagelines_ajax_callback() {
-	global $wpdb; // this is how you get access to the database
-
+    /** This is how you get access to the database */
+	global $wpdb;
 
 	$save_type = ( $_POST['type'] ) ? $_POST['type'] : null;
 
@@ -84,7 +81,7 @@ function pagelines_ajax_callback() {
 	$oid = $pieces[0];
 	$parent_oid = ( isset($pieces[1]) ) ? $pieces[1] : null;
 
-	//Uploads
+	// Uploads
 	if( $save_type == 'upload' ) {
 	
 		$arr_file_type = wp_check_filetype( basename( $_FILES[$button_id]['name'] ) );
@@ -138,60 +135,60 @@ function pagelines_ajax_callback() {
 	die();
 }
 	
-// ====================================================================================
-// = AJAX TEMPLATE MAP SAVING - Used to save via AJAX theme options and image uploads =
-// ====================================================================================
-
-	add_action( 'wp_ajax_pagelines_save_sortable', 'ajax_save_template_map' );
-
-
-	/**
-	*
-	* @TODO document
-	*
-	*/
-	function ajax_save_template_map() {
-		global $wpdb; // this is how you get access to the database
-		
-		
-		/* Full Template Map */
-		
-		$templatemap = get_option( PAGELINES_TEMPLATE_MAP );
-		
-		/* Order of the sections */
-		$section_order =  $_GET['orderdata'];
-		
-		/* Get array / variable format */
-		parse_str( $section_order );
-		
-		/* Selected Template */
-		$selected_template = esc_attr( $_GET['template'] );
-		
-			/* Explode by slash to get heirarchy */
-			$template_heirarchy = explode( '-', $selected_template );
-			
-			if( isset($template_heirarchy[1]) )
-				$templatemap[$template_heirarchy[0]]['templates'][$template_heirarchy[1]]['sections'] = urlencode_deep( $section );
-			else
-				$templatemap[$selected_template]['sections'] = $section;
-			
-		
-		save_template_map( $templatemap );
-		
-		echo true;
-		
-		die();
-	}
-	
-add_action( 'wp_ajax_pagelines_ajax_save_option', 'pagelines_ajax_save_option_callback' );
-
 /**
+ * (AJAX) Save Template Map
  *
- * @TODO document
+ * Used to save via AJAX theme options and image uploads
+ *
+ * @package PageLines Framework
+ * @since   ...
+ *
+ * @uses save_tempalte_map
+ */
+add_action( 'wp_ajax_pagelines_save_sortable', 'ajax_save_template_map' );
+function ajax_save_template_map() {
+    /** This is how you get access to the database */
+    global $wpdb;
+
+    /** Full Template Map */
+    $templatemap = get_option( PAGELINES_TEMPLATE_MAP );
+
+    /** Order of the sections */
+    $section_order =  $_GET['orderdata'];
+
+    /** Get array / variable format */
+    parse_str( $section_order );
+
+    /** Selected Template */
+    $selected_template = esc_attr( $_GET['template'] );
+
+    /** Explode by hyphen to get heirarchy */
+    $template_heirarchy = explode( '-', $selected_template );
+
+    if( isset($template_heirarchy[1]) )
+        $templatemap[$template_heirarchy[0]]['templates'][$template_heirarchy[1]]['sections'] = urlencode_deep( $section );
+    else
+        $templatemap[$selected_template]['sections'] = $section;
+
+    save_template_map( $templatemap );
+
+    echo true;
+
+    die();
+}
+	
+/**
+ * Ajax Save Options Callback
+ *
+ * @package PageLines Framework
+ * @since   ...
  *
  */
+add_action( 'wp_ajax_pagelines_ajax_save_option', 'pagelines_ajax_save_option_callback' );
 function pagelines_ajax_save_option_callback() {
-	global $wpdb; // this is how you get access to the database
+    /** This is how you get access to the database */
+	global $wpdb;
+
 	$option_name = $_POST['option_name'];
 	$option_value = $_POST['option_value'];
 
@@ -200,48 +197,54 @@ function pagelines_ajax_save_option_callback() {
 	die();
 }
 
-
-// Check Framework version with API
-
-add_action( 'admin_init', 'pagelines_check_version' );
-
 /**
+ * Check Version
  *
- * @TODO document
+ * Check Framework version with API
  *
+ * @package PageLines Framework
+ * @since   ...
+ *
+ * @uses    PageLinesUpdateCheck
  */
+add_action( 'admin_init', 'pagelines_check_version' );
 function pagelines_check_version() {
 		global $pl_update;
 		$pl_update = new PageLinesUpdateCheck( CORE_VERSION );
 		$pl_update->pagelines_theme_check_version();
 }
 
-// Load Inline help system.
-
-add_action( 'admin_init', 'pagelines_inline_help' );
-
 /**
+ * Inline Help
  *
- * @TODO document
+ * Load Inline help system.
  *
+ * @package PageLines Framework
+ * @since   ...
+ *
+ * @uses    PageLines_Inline_Help
  */
+add_action( 'admin_init', 'pagelines_inline_help' );
 function pagelines_inline_help() {
 	
 	$pl_help = new PageLines_Inline_Help;
 }
 
-
 /**
+ * Page Columns
+ *
  * Add custom columns to page/post views.
  *
+ * @package PageLines Framework
+ * @since   ...
+ *
+ * @param   $columns
+ *
+ * @uses    ploption
+ *
+ * @return  array
  */
 add_filter('manage_edit-page_columns', 'pl_page_columns');
-
-/**
- *
- * @TODO document
- *
- */
 function pl_page_columns($columns) {
 
 	if ( ploption( 'enable_template_view_page' ) )
@@ -252,13 +255,19 @@ function pl_page_columns($columns) {
 	return $columns;
 }
 
-add_filter('manage_edit-post_columns', 'pl_post_columns');
-
 /**
+ * Post Columns
  *
- * @TODO document
+ * @package PageLines Framework
+ * @since   ...
  *
+ * @param   $columns
+ *
+ * @uses    ploption
+ *
+ * @return  array
  */
+add_filter('manage_edit-post_columns', 'pl_post_columns');
 function pl_post_columns($columns) {
 
 	if ( ploption( 'enable_feature_view_post' ) )
@@ -266,13 +275,16 @@ function pl_post_columns($columns) {
 	return $columns;
 }
 
-add_action('manage_posts_custom_column',  'pl_posts_show_columns');
-
 /**
+ * Posts Show Columns
  *
- * @TODO document
+ * @package PageLines Framework
+ * @since   ...
+ *
+ * @param   $name
  *
  */
+add_action('manage_posts_custom_column',  'pl_posts_show_columns');
 function pl_posts_show_columns($name) {
     global $post;
     switch ($name) {
@@ -286,13 +298,17 @@ function pl_posts_show_columns($name) {
     }
 }
 
-add_action('manage_pages_custom_column',  'pl_page_show_columns');
-
 /**
+ * Page Show Columns
  *
- * @TODO document
+ * @package PageLines Framework
+ * @since   ...
  *
+ * @param   $name
+ *
+ * @uses    pl_file_get_contents
  */
+add_action( 'manage_pages_custom_column', 'pl_page_show_columns' );
 function pl_page_show_columns($name) {
     global $post;
     switch ($name) {
