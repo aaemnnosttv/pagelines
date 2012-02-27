@@ -645,7 +645,7 @@ class PageLinesFeatures extends PageLinesSection {
 							),
 							'inputlabel' 	=> 'Enter the height (In Pixels) of the Feature Stage Area',
 							'title' 		=> 'Feature Height Mode',
-							'shortexp' 		=> 'Control the way feature height is handled. Either statically or responsive.',
+							'shortexp' 		=> 'Control the way feature height is handled. Either statically or by aspect-ratio (responsive)',
 							'exp' 			=> "Use the aspect ratio to have your feature scale proportionally based on browser width. Enter the aspect ratio below.",
 					),
 					'feature_stage_height' => array(
