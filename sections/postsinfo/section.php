@@ -49,12 +49,16 @@ class PageLinesPostsInfo extends PageLinesSection {
 						<?php _e('From the yearly archives:', 'pagelines'); ?>
 						<strong><?php the_time('Y'); ?></strong>
 					<?php } else {?> 
-						<?php _e('Viewing archives for ', 'pagelines');?>
-						<strong>"<?php the_date();?>"</strong>
+						<?php _e('Viewing archives for ', 'pagelines');
+						if ( is_post_type_archive() )
+							$title =  post_type_archive_title( null,false );
+						else
+							$title = the_date();
+						?>
+						<strong>"<?php echo $title;?>"</strong>
 					<?php } ?>
 				<?php endif;?>
 			</div>
 		<?php endif;
 	}
-
 }
