@@ -1,14 +1,12 @@
 <?php
 /**
- * 
+ * PageLinesSection
  *
- *  API for creating and using PageLines sections
+ * API for creating and using PageLines sections
  *
- *
- *  @package PageLines Framework
- *  @subpackage Sections
- *  @since 4.0
- *
+ * @package PageLines Framework
+ * @subpackage Sections
+ * @since 4.0
  */
 class PageLinesSection {
 
@@ -18,15 +16,18 @@ class PageLinesSection {
 	var $base_dir;  // Directory for section
 	var $base_url;  // Directory for section
 	var $builder;  	// Show in section builder
-	
-	/**
-	 * PHP5 constructor
-	 *
-	 */
+
+    /**
+     * PHP5 constructor
+     * @param   array $settings
+     */
 	function __construct( $settings = array() ) {
 	
 
-		
+		/**
+         * Assign default values for the section
+         * @var $defaults string
+         */
 		$defaults = array(
 				'markup'			=> null,
 				'workswith'		 	=> array('content'),
@@ -55,10 +56,15 @@ class PageLinesSection {
 	
 
 	/**
-	*
-	* @TODO document
-	*
-	*/
+     * Set Section Info
+     *
+     * Read information from the section header; assigns values found, or sets general default values if not
+     *
+     * @uses    pageliens_register_sections
+     * @uses    section_install_type
+     * @uses    PL_ADMIN_ICONS
+     * @uses    PL_ADMIN_IMAGES
+     */
 	function set_section_info(){
 		
 		global $load_sections;
@@ -100,13 +106,15 @@ class PageLinesSection {
 		);
 		
 	}
-	
 
-	/**
-	*
-	* @TODO document
-	*
-	*/
+
+    /**
+     * Section Install Type
+     *
+     * @param $available string
+     *
+     * @return string
+     */
 	function section_install_type( $available ){
 		
 		if ( isset( $available['custom'][$this->class_name] ) )
@@ -127,27 +135,35 @@ class PageLinesSection {
 			
 	}
 
-	/** 
-	 * Echo the section content.
-	 * Subclasses should over-ride this function to generate their section code.
-	 */
+    /**
+     * Section Template
+     *
+     * The 'section_template()' function is the most important section function.
+     * Use this function to output all the HTML for the section on pages/locations where it's placed.
+     *
+     * Subclasses should over-ride this function to generate their section code.
+     */
 	function section_template() {
 		die('function PageLinesSection::section_template() must be over-ridden in a sub-class.');
 	}
-	
-	/** 
-	 * For template code that should show before the standard section markup
-	 */
+
+    /**
+     * For template code that should show before the standard section markup
+     * @param   null $clone_id
+     */
 	function before_section_template( $clone_id = null ){}
-	
-	/** 
-	 * For template code that should show after the standard section markup
-	 */
+
+    /**
+     * For template code that should show after the standard section markup
+     * @param   null $clone_id
+     */
 	function after_section_template( $clone_id = null ){}
-	
-	/** 
-	 * Checks for overrides and loads section template function
-	 */
+
+    /**
+     * Checks for overrides and loads section template function
+     * @param   $clone_id
+     * @uses    section_template
+     */
 	function section_template_load( $clone_id ) {
 		// Variables for override
 		$override_template = 'template.' . $this->id .'.php';
@@ -161,11 +177,17 @@ class PageLinesSection {
 	}
 
 
-	/**
-	*
-	* @TODO document
-	*
-	*/
+    /**
+     * Before Section
+     *
+     * Starts general section wrapper classes content and content-pad; adds class to uniquely identify clones
+     * Dynamically creates unique hooks for section: pagelines_before_, pagelines_outer_, and pagelines_inside_top_
+     *
+     * @param   string $markup
+     * @param   null $clone_id
+     * @param   string $conjugation
+     * @uses    pagelines_register_hook
+     */
 	function before_section( $markup = 'content', $clone_id = null, $conjugation = ''){
 		
 		$classes = $conjugation;
@@ -196,11 +218,15 @@ class PageLinesSection {
  	}
 
 
-	/**
-	*
-	* @TODO document
-	*
-	*/
+    /**
+     * After Section
+     *
+     * Closes CSS containers opened by before_section()
+     * Dynamically creates unique hooks: pagelines_inside_bottom_, and pagelines_after_ with matching ids to the dynamically created hooks made in before_section()
+     *
+     * @param   string $markup
+     * @uses    pagelines_register_hook
+     */
 	function after_section( $markup = 'content' ){
 		if(isset($this->settings['markup']))
 			$set_markup = $this->settings['markup'];
@@ -218,11 +244,12 @@ class PageLinesSection {
 	}
 
 
-	/**
-	*
-	* @TODO document
-	*
-	*/
+    /**
+    * Persistent Section Code
+    *
+    * Use the 'section_persistent()' function to add code that will run on every page in your site & admin
+    * Code here will run ALL the time, and is useful for adding post types, options etc..
+    */
 	function section_persistent(){}
 	
 
@@ -242,11 +269,13 @@ class PageLinesSection {
 	function section_admin(){}
 	
 
-	/**
-	*
-	* @TODO document
-	*
-	*/
+    /**
+    * Site Head Section Code
+    *
+    * Code added in the 'section_head()' function will be run during the <head> element of your site's
+    * 'front-end' pages. You can use this to add custom Javascript, or manually add scripts & meta information
+    * It will *only* be loaded if the section is present on the page template.
+    */
 	function section_head(){}
 	
 
@@ -433,14 +462,16 @@ class PageLinesSection {
 		
 	}
 
-	
-	/**
-	 * Runs before any html loads, but in the page.
-	 *
-	 * @package PageLines Framework
-	 * @subpackage Sections
-	 * @since 1.0.0
-	 */
+
+    /**
+     * Runs before any html loads, but in the page.
+     *
+     * @package PageLines Framework
+     * @subpackage Sections
+     * @since 1.0.0
+     *
+     * @param $clone_id
+     */
 	function setup_oset( $clone_id ){
 		
 		global $pagelines_ID;
