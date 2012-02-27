@@ -22,7 +22,8 @@ Version 2.1.2
 	- New - Carousel gets auto scrolling
 	- New - Special body class option
 	- New - Developer libs added
-	- New - Sharebar under post titles	
+	- New - Sharebar under post titles
+	- New - Features are now responsive
 	- CORE - Widget areas always loaded
 	- CORE - Store items loaded by date
 	- CORE - New action pagelines_loop_before_excerpt
