@@ -14,3 +14,6 @@
 	padding: 10px 22px;
 	float: right;
 }
+#callout .callout_image img {
+    width: 100%;
+}
