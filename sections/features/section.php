@@ -130,7 +130,7 @@ class PageLinesFeatures extends PageLinesSection {
 		
 		$selectors = $this->selectors($clone_id);
 	
-		$css = sprintf( '%s{height: 100%; max-height:%s;}', $selectors, $height);	
+		$css = sprintf( '%s{height: 100%%; max-height:%s;}', $selectors, $height);	
 		inline_css_markup('feature-css', $css);
 	}
 
