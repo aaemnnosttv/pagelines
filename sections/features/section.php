@@ -65,8 +65,33 @@ class PageLinesFeatures extends PageLinesSection {
 		
 		$this->_feature_css($clone_id, $oset);
 		
+		$wrap_class = '.'.$clone_class."_wrap";
+		
 ?><script type="text/javascript">/* <![CDATA[ */ jQuery(document).ready(function () {
+	
+<?php if(ploption('feature_height_mode', $oset) == 'aspect'): 
+		
+		printf('$aspect%s = %s;', $clone_id,(ploption('feature_aspect', $oset)) ? ploption('feature_aspect', $oset) : 2.5);
+		
+		printf('$width_area%s = "%s #feature-area";', $clone_id, $wrap_class);
+		
+		printf('$height_selectors%s = "%s";', $clone_id, $this->selectors('', $wrap_class.' '));
+	?>
+	
+	$the_width<?php echo $clone_id;?> = jQuery($width_area<?php echo $clone_id;?>).width();
+		
+	$new_height<?php echo $clone_id;?> = $the_width<?php echo $clone_id;?> / $aspect<?php echo $clone_id;?>;
+	jQuery($height_selectors<?php echo $clone_id;?>).height($new_height<?php echo $clone_id;?>);
+	
+	jQuery(window).resize(function() {
+		$response_width<?php echo $clone_id;?> = jQuery($width_area<?php echo $clone_id;?>).width();
+		$new_height<?php echo $clone_id;?> = $response_width<?php echo $clone_id;?> / $aspect<?php echo $clone_id;?>;
+		jQuery($height_selectors<?php echo $clone_id;?>).height($new_height<?php echo $clone_id;?>);
+		
+	});
 <?php 
+
+	endif;
 	//Feature Cycle Setup
 	printf( "jQuery('%s').cycle({ %s });", $selector, $args);
 	
@@ -86,6 +111,8 @@ class PageLinesFeatures extends PageLinesSection {
 			}
 		});
 	<?php endif;?>
+	
+	
 });
 
 /* ]]> */ </script>
@@ -100,19 +127,28 @@ class PageLinesFeatures extends PageLinesSection {
 	function _feature_css( $clone_id, $oset){
 
 		$height = (ploption('feature_stage_height', $oset)) ? ploption('feature_stage_height', $oset).'px' : '380px';	
-		$feature_height_selectors = array('#feature-area', '.feature-wrap', '#feature_slider .fmedia, #feature_slider .fcontent', '#feature_slider .text-bottom .fmedia .dcol-pad', '#feature_slider .text-bottom .feature-pad', '#feature_slider .text-none .fmedia .dcol-pad');
-		$selectors = array();
-		foreach($feature_height_selectors as $sel){
-			if( isset($clone_id) && $clone_id != 1)
-				$selectors[] = sprintf('.clone_%s %s', $clone_id, $sel);
-			else 
-				$selectors[] = $sel;
-		}
+		
+		$selectors = $this->selectors($clone_id);
 	
-		$css = sprintf( '%s{height:%s;}', join(',', $selectors), $height);	
+		$css = sprintf( '%s{height: 100%; max-height:%s;}', $selectors, $height);	
 		inline_css_markup('feature-css', $css);
 	}
 
+	function selectors( $clone_id, $prepend = ''){
+		
+		$base = array( '.fset_height', '#feature_slider .text-bottom .fmedia .dcol-pad', '#feature_slider .text-bottom .feature-pad', '#feature_slider .text-none .fmedia .dcol-pad');
+		
+		$selectors = array();
+		
+		foreach($base as $sel){
+			if( isset($clone_id) && $clone_id != 1 && $clone_id != '')
+				$selectors[] = sprintf('%s.clone_%s %s', $prepend, $clone_id, $sel);
+			else 
+				$selectors[] = $prepend.$sel;
+		}
+		
+		return join(',', $selectors);
+	}
 
 	/**
 	*
@@ -288,8 +324,8 @@ class PageLinesFeatures extends PageLinesSection {
 		$footer_nav_class = $class. ' '. $feature_nav_type . $no_nav;
 		$cycle_selector = "fclone".$clone_id;
 ?>		
-	<div id="feature_slider" class="<?php echo $class;?> fix">
-		<div id="feature-area">
+	<div id="feature_slider" class="<?php echo $cycle_selector.'_wrap '. $class;?> fix">
+		<div id="feature-area" class="fset_height">
 			<div id="cycle" class="<?php echo $cycle_selector;?>">
 			<?php
 			
@@ -350,13 +386,13 @@ class PageLinesFeatures extends PageLinesSection {
 
 						printf( '<div id="%s" class="fcontainer %s %s fix" >', 'feature_'.$post->ID, $feature_style, $feature_design ); 
 						
-						printf('<%s class="feature-wrap %s" %s %s >', $feature_wrap_markup, $background_class, $feature_wrap_link, $background_css); 
+						printf('<%s class="feature-wrap fset_height %s" %s %s >', $feature_wrap_markup, $background_class, $feature_wrap_link, $background_css); 
 						
 						if($feature_wrap_markup != 'a'):
 						?>
 							
-								<div class="feature-pad fix">
-									<div class="fcontent scale_text <?php echo $fcontent_class;?>">
+								<div class="feature-pad fset_height fix">
+									<div class="fcontent scale_text fset_height <?php echo $fcontent_class;?>">
 										<div class="dcol-pad fix">
 												<?php
 												
@@ -381,7 +417,7 @@ class PageLinesFeatures extends PageLinesSection {
 										</div>
 									</div>
 						
-									<div class="fmedia" style="">
+									<div class="fmedia fset_height" style="">
 										<div class="dcol-pad">
 											<?php 
 											
@@ -599,15 +635,36 @@ class PageLinesFeatures extends PageLinesSection {
 		$settings = wp_parse_args($settings, $this->optionator_default);
 		
 			$page_metatab_array = array(
-					
+					'feature_height_mode' => array(
+							'default' 		=> 'aspect',
+							'version'		=> 'pro',
+							'type' 			=> 'radio',
+							'selectvalues' => array(
+								'static' 		=> array('name' => 'Use Static Height'),
+								'aspect' 		=> array('name' => 'Use Aspect Ratio'),						
+							),
+							'inputlabel' 	=> 'Enter the height (In Pixels) of the Feature Stage Area',
+							'title' 		=> 'Feature Height Mode',
+							'shortexp' 		=> 'Control the way feature height is handled. Either statically or responsive.',
+							'exp' 			=> "Use the aspect ratio to have your feature scale proportionally based on browser width. Enter the aspect ratio below.",
+					),
 					'feature_stage_height' => array(
 							'default' 		=> '380',
 							'version'		=> 'pro',
 							'type' 			=> 'text_small',
-							'inputlabel' 	=> 'Enter the height (In Pixels) of the Feature Stage Area',
-							'title' 		=> 'Feature Area Height',
+							'inputlabel' 	=> 'Static Height (In Pixels)',
+							'title' 		=> 'Feature Area Height (Static Height Mode)',
 							'shortexp' 		=> 'Use this feature to change the height of your feature area',
 							'exp' 			=> "To change the height of your feature area, just enter a number in pixels here.",
+					),
+					'feature_aspect' => array(
+							'default' 		=> '1.77',
+							'version'		=> 'pro',
+							'type' 			=> 'text_small',
+							'inputlabel' 	=> 'Feature Aspect Ratio (Width/Height)',
+							'title' 		=> 'Feature Aspect Ratio (Responsive/Aspect Ratio Height Mode)',
+							'shortexp' 		=> 'Enter the aspect ratio for the feature slider (Aspect Height Mode)',
+							'exp' 			=> "Enter a number that represents the ratio of width to height (width/height).<br/> For example, 3/2 would be 1.5; 16/9 would be 1.777.",
 					),
 					'feature_items' 	=> array(
 						'version' 		=> 'pro',
@@ -623,11 +680,11 @@ class PageLinesFeatures extends PageLinesSection {
 							'version'	=> 'pro',
 							'type' => 'select',
 							'selectvalues' => array(
-								'ID' 		=> array('name' => 'Post ID (default)'),
+								'ID' 			=> array('name' => 'Post ID (default)'),
 								'title' 		=> array('name' => 'Title'),
-								'date' 		=> array('name' => 'Date'),
+								'date' 			=> array('name' => 'Date'),
 								'modified' 		=> array('name' => 'Last Modified'),
-								'rand' 		=> array('name' => 'Random'),							
+								'rand' 			=> array('name' => 'Random'),							
 							),
 							'inputlabel' => 'Select sort order',
 							'title' => 'Feature Post sort order',
