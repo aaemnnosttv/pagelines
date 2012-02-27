@@ -16,7 +16,7 @@
  *
  * @internal    This is used by BuddyPress as well and should play nice with child themes.
  *
- * Last revised January 30, 2012
+ * @internal    last revised January 30, 2012
  * @version     ...
  *
  * @todo Define version

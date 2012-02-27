@@ -13,7 +13,7 @@
  * @author      PageLines   http://www.pagelines.com/
  * @copyright   Copyright (c) 2012, PageLines   hello@pagelines.com
  *
- * Last revised February 23, 2012
+ * @internal    last revised February 23, 2012
  * @version     2.1.1
  */
 

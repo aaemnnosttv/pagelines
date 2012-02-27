@@ -16,7 +16,7 @@
  * @usedby get_search_form
  * @internal $echo is passed from that function
  *
- * Last revised January 20, 2012
+ * @internal    last revised January 20, 2012
  * @version     ...
  *
  * @todo Define version
