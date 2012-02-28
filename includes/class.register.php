@@ -113,7 +113,7 @@ class PageLinesRegister {
 						'base_dir'  => $section['base_dir'],
 						'base_url'  => $section['base_url'],
 						'base_file' => $section['base_file'],
-						'name'		=> $section['name']	
+						'name'		=> $section['name']
 					);
 					if ( isset( $dep ) ) { // do we have a dependency?
 						if ( !class_exists( $dep ) && file_exists( $dep_data['base_file'] ) ) {
@@ -190,7 +190,7 @@ class PageLinesRegister {
 				if ( !$headers['classname'] )
 					continue;
 				
-				preg_match( '/[\/|\-]sections[\/|\\\]([^\/|\\\]+)/', $fullFileName, $out );
+				preg_match( '#[\/|\-]sections[\/|\\\]([^\/|\\\]+)#', $fullFileName, $out );
 				
  				$version = ( '' != $headers['version'] ) ? $headers['version'] : CORE_VERSION;
 				

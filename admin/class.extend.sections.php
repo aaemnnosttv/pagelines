@@ -87,6 +87,10 @@ class ExtensionSections extends PageLinesExtensions {
 			$section[$key]['status'] = ( isset( $disabled[ $ext['type'] ][ $ext['class'] ] ) ) ? 'disabled' : 'enabled';
 			$section[$key] = self::check_version( $section[$key], $upgradable );
 			$section[$key]['class_exists'] = ( isset( $available['child'][ $ext['class'] ] ) || isset( $available['custom'][ $ext['class'] ] ) ) ? true : false;
+			
+			$slug = basename( $ext['base_dir'] );
+			$section[$key]['subscribed'] = ( isset( $upgradable->$slug->subscribed ) ) ? $upgradable->$slug->subscribed : null;
+			$section[$key]['pid'] = ( isset( $upgradable->$slug->productid ) ) ? $upgradable->$slug->productid : null;
 		}
 
 		return pagelines_array_sort( $section, 'name' ); // Sort Alphabetically
