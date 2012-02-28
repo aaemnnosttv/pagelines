@@ -490,6 +490,7 @@
 		if( $this->is_installed( $type, $key, $ext )
 			&& ! $this->in_the_store( $type, $key, $ext, $tab )
 			&& ! $this->is_subscribed( $type, $key, $ext, $tab )
+			&& $this->get_product_id( $ext )
 		){
 			return true;
 		} else 
@@ -997,6 +998,9 @@
 	*
 	*/
 	function get_product_id( $ext ) {
+		
+		if ( isset( $ext['pid'] ) )
+			return $ext['pid'];
 		
 		if ( isset( $ext['productid'] ) )
 			return $ext['productid'];

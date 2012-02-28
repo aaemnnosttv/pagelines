@@ -392,7 +392,7 @@
 	*/
 	function subscribe( $type, $file, $path, $uploader, $checked ) {
 		
-		printf( __( 'Subscribing...') );
+		print __( 'Subscribing...', 'pagelines' );
 
 		$data = explode ( '|', $path );
 
@@ -421,10 +421,6 @@
 		
 	}	
 
-
-
-
-
 	/**
 	*
 	* @TODO document
@@ -432,7 +428,7 @@
 	*/
 	function unsubscribe( $type, $file, $path, $uploader, $checked ) {
 		
-			printf( __( 'Unsubscribing...') );
+			print __( 'Unsubscribing...', 'pagelines');
 
 			$data = explode ( '|', $path );
 			

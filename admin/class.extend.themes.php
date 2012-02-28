@@ -67,6 +67,8 @@ class ExtensionThemes extends PageLinesExtensions {
 			else
 				$up = '';
 			
+			$pid = ( isset( $themes[ $theme_data['Stylesheet'] ]['productid'] ) ) ? $themes[ $theme_data['Stylesheet'] ]['productid'] : '';
+			$subscribed = ( isset( $themes[ $theme_data['Stylesheet'] ]['subscribed'] ) ) ? $themes[ $theme_data['Stylesheet'] ]['subscribed'] : null;
 			if ( in_array( $theme, $themes ) )
 				continue;
 			// If we got this far, theme is a pagelines child theme not handled by the API
@@ -85,7 +87,8 @@ class ExtensionThemes extends PageLinesExtensions {
 			$new_theme['tags']			= $theme_data['Tags'];
 			$new_theme['featured']		= ( isset( $themes[$theme_data['Stylesheet']]['featured'] ) ) ? $themes[$theme_data['Stylesheet']]['featured'] : null;
 			$new_theme['price']			= ( isset( $themes[$theme_data['Stylesheet']]['price'] ) ) ? $themes[$theme_data['Stylesheet']]['price'] : null;
-			$new_theme['productid']		= null;
+			$new_theme['pid']			= $pid;
+			$new_theme['subscribed']	= $subscribed;
 			$new_theme['count']			= null;
 			$themes[$theme_data['Stylesheet']] = $new_theme;		
 		}
