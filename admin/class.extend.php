@@ -201,7 +201,25 @@
 				'file'		=> $key,
 				'text'		=> __( 'Download <strong>&darr;</strong>', 'pagelines' ),
 				'dtext'		=> __( 'Downloading', 'pagelines' )
-				)		
+				),
+				'unsubscribe'	=>	array(
+					'mode'		=> 'unsubscribe',
+					'case'		=> 'unsubscribe',
+					'path'		=> sprintf( '%s|%s|%s', $this->username, $this->get_product_id( $ext ), $this->get_the_version($type, $key, $ext) ),
+					'type'		=> $type,
+					'condition'	=> $this->show_unsubscribe_button( $type, $key, $ext, $tab ),
+					'text'		=> __( 'Unsubscribe', 'pagelines' ),
+				),
+				'subscribe'	=>	array(
+					'mode'		=> 'subscribe',
+					'case'		=> 'subscribe',
+					'type'		=> $type,
+					'path'		=> sprintf( '%s|%s|%s', $this->username, $this->get_product_id( $ext ), $this->get_the_version($type, $key, $ext) ),
+					'condition'	=> $this->show_subscribe_button( $type, $key, $ext, $tab ),
+					'text'		=> __( 'Subscribe', 'pagelines' ),
+				),
+				
+					
 		);	
 		return $actions;	
 	}
@@ -449,6 +467,52 @@
 			return false;	
 	}
 	
+	/**
+	*
+	* @TODO document
+	*
+	*/
+	function is_subscribed( $type, $key, $ext, $tab ) {
+		
+		if ( isset( $ext['subscribed'] ) )
+			return true;
+		else 
+			return false;	
+	}
+	
+	/**
+	*
+	* @TODO document
+	*
+	*/
+	function show_subscribe_button( $type, $key, $ext, $tab ){
+		
+		if( $this->is_installed( $type, $key, $ext )
+			&& ! $this->in_the_store( $type, $key, $ext, $tab )
+			&& ! $this->is_subscribed( $type, $key, $ext, $tab )
+		){
+			return true;
+		} else 
+			return false;
+	}
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
+	function show_unsubscribe_button( $type, $key, $ext, $tab ){
+		
+		if( $this->is_installed( $type, $key, $ext )
+			&& $this->is_subscribed( $type, $key, $ext, $tab )
+			&& ! $this->in_the_store( $type, $key, $ext, $tab )
+		){
+			return true;
+		} else 
+			return false;
+	}
+
+
 
 	/**
 	*
@@ -927,7 +991,19 @@
 		return false;
 	}
 	
-
+	/**
+	*
+	* @TODO document
+	*
+	*/
+	function get_product_id( $ext ) {
+		
+		if ( isset( $ext['productid'] ) )
+			return $ext['productid'];
+		
+		return false;
+	}
+	
 	/**
 	*
 	* @TODO document

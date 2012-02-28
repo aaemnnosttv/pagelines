@@ -187,7 +187,17 @@
 
 			break;
 			
+			case 'subscribe':
 			
+				$this->subscribe( $type, $file, $path, $uploader, $checked );
+
+			break;
+			
+			case 'unsubscribe':
+			
+				$this->unsubscribe( $type, $file, $path, $uploader, $checked );
+
+			break;
 		}
 		die(); // needed at the end of ajax callbacks
 	}
@@ -375,12 +385,81 @@
 		$this->int_download( $url );
 		
 	}
-	
-	
 	/**
-	 * Activate Integration Options
-	 */
-	
+	*
+	* @TODO document
+	*
+	*/
+	function subscribe( $type, $file, $path, $uploader, $checked ) {
+		
+		printf( __( 'Subscribing...') );
+
+		$data = explode ( '|', $path );
+
+		$options = array(
+			'sslverify'	=>	false,
+			'timeout'	=>	5,
+			'body' => array(
+				'email'		=>	get_bloginfo( 'admin_email'),
+				'version'	=>	$data[2],
+				'username'	=>	$data[0]
+			)
+		);
+		
+		$url = 'api.pagelines.com/subscribe/' . $data[1];
+		
+		$result = pagelines_try_api($url, $options);
+
+		if ( $result['response']['code'] == 200 && $result['body'] == $data[1] )
+			{
+
+				delete_transient( sprintf( 'pagelines_extend_%ss', $type ) );				
+				$message = __( 'Done.', 'pagelines' );		
+				$text = sprintf( '&extend_text=%s_install#added', $type );
+				$this->page_reload( 'pagelines_extend' . $text, null, $message );
+			}
+		
+	}	
+
+
+
+
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
+	function unsubscribe( $type, $file, $path, $uploader, $checked ) {
+		
+			printf( __( 'Unsubscribing...') );
+
+			$data = explode ( '|', $path );
+			
+			$options = array(
+				'sslverify'	=>	false,
+				'timeout'	=>	5,
+				'body' => array(
+					'email'		=>	get_bloginfo( 'admin_email'),
+					'version'	=>	$data[2],
+					'username'	=>	$data[0]
+				)
+			);
+
+			$url = 'api.pagelines.com/unsubscribe/' . $data[1];
+
+			$result = pagelines_try_api($url, $options);
+
+			if ( $result['response']['code'] == 200 && $result['body'] == $data[1] )
+				{
+
+					delete_transient( sprintf( 'pagelines_extend_%ss', $type ) );				
+					$message = __( 'Done.', 'pagelines' );		
+					$text = sprintf( '&extend_text=%s_install#added', $type );
+					$this->page_reload( 'pagelines_extend' . $text, null, $message );
+				}
+		
+	}
 
 	/**
 	*
