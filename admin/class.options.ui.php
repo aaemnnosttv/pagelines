@@ -81,7 +81,20 @@ class PageLinesOptionsUI {
 										</a>
 									</div>
 									<div class="ohead-title">
-										<?php echo apply_filters( 'pagelines_settings_main_title', $this->set['title'] ); ?> 
+										<?php 
+										
+											if(VDEV)
+												$title_tag = 'Developer Edition';
+											elseif(VPRO)
+												$title_tag = 'Professional Edition';
+											else
+												$title_tag = 'Lite Edition';
+										
+											$panel_title = sprintf('%s <span class="btag grdnt">%s</span>', $this->set['title'], $title_tag );
+											
+											echo apply_filters( 'pagelines_settings_main_title', $panel_title ); 
+											
+										?> 
 										<a class='btag grey viewsitetag' href="<?php echo home_url();?>" target="_blank" style="display: none;">View Your Site &rarr;</a>
 									</div>
 									<div class="ohead-title-right">
@@ -168,7 +181,7 @@ class PageLinesOptionsUI {
 								</div>
 								<?php else: ?>
 								<div class="superlink-wrap">
-									<a class="superlink" href="http://www.pagelines.com/"><span class="superlink-pad"><?php _e('Visit PageLines Site &rarr;','pagelines');?></span></a>
+									<a class="superlink" href="http://www.pagelines.com?tag=admin-foot"><span class="superlink-pad"><?php _e('Visit PageLines Site &rarr;','pagelines');?></span></a>
 								</div>
 							<?php endif;?>
 						</div>
@@ -360,11 +373,11 @@ class PageLinesOptionsUI {
 		<div id="vpro_billboard" class="vpro-billboard">
 			<div class="vpro-billboard-pad">
 				<div class="vpro_billboard_height fix">
-					<a class="vpro_thumb" href="<?php echo VPRO_TOUR;?>"><img src="<?php echo PL_IMAGES;?>/pro-thumb.png" alt="<?php echo VPRO_NAME;?>" /></a>
+					<a class="vpro_thumb" href="<?php echo VPRO_TOUR.'?tag=le-admin';?>"><img src="<?php echo PL_IMAGES;?>/pro-thumb.png" alt="<?php echo VPRO_NAME;?>" /></a>
 					<div class="vpro_desc">
-						<strong style="font-size: 1.2em">Upgrade Your Site To Pro</strong><br/>
-						You're using the <strong>free version</strong> of <?php echo VPRO_NAME;?>, which is a premium product by <a href="http://www.pagelines.com" target="_blank">PageLines</a>.<br/> 
-						Buy <?php echo VPRO_NAME;?> for tons more templates, options, drag &amp; drop sections, and dedicated support.<br/> 	
+						<strong style="font-size: 1.2em">You Are Using PageLines Lite Edition</strong><br/>
+						<strong>PageLines Lite</strong> is the <strong>free version</strong> of <?php echo VPRO_NAME;?>.<br/> 
+						Upgrade to the Pro edition for more sections &amp; options, no credit link, enhanced social &amp; SEO, support and <a href="http://www.pagelines.com/tour?tag=le-admin">more...</a><br/> 	
 				
 						<?php
 					
@@ -373,9 +386,9 @@ class PageLinesOptionsUI {
 						$pro_buttons = OptEngine::superlink(__( 'Why Upgrade? &darr;', 'pagelines' ), 'grey', 'left', '#', $features_js);
 					
 						$target = 'target="_blank"';
-						$pro_buttons .= OptEngine::superlink(__( 'Overview', 'pagelines' ), 'grey', 'left', VPRO_TOUR, $target);
+						$pro_buttons .= OptEngine::superlink(__( 'PageLines Tour', 'pagelines' ), 'grey', 'left', VPRO_TOUR.'?tag=le-admin', $target);
 					
-						$pro_buttons .= OptEngine::superlink(__( 'Get It Now &rarr;', 'pagelines' ), 'blue', 'left', VPRO_PRICING, $target);
+						$pro_buttons .= OptEngine::superlink(__( 'Upgrade Now &rarr;', 'pagelines' ), 'blue', 'left', VPRO_PRICING.'?tag=le-admin', $target);
 					
 						printf('<div class="pro_buttons fix">%s</div>', $pro_buttons);
 					
@@ -385,14 +398,14 @@ class PageLinesOptionsUI {
 				</div>
 				<div class="whatsmissing">
 					 <h3>
-						Why You'll Love PageLines Pro...
+						Why You'll Love the Professional or Developer edition...
 					</h3>
 					
 					<p>
-						When you upgrade you get the functionality that gives you a professional (and marketing) edge. This includes over 10 additional drag &amp; drop sections, more areas for sections, better handling &amp; control capability, and a bunch of new options.
+						When you upgrade you get 30+ pro drag &amp; drop sections, 200+ CMS options, SEO and social enhancements and way, way more.
 					</p>
 					<p>
-						The pro version has the ability to control 'special' pages and 'clone' (or duplicate) sections. For advanced users, there is also a Developer version that supports "integrations" and WP "multisite"... To learn more see the <a href="http://www.pagelines.com/pricing">pricing page</a> or <a href="http://www.pagelines.com/tour/">PageLines tour</a>...
+						The pro version way more control options. For advanced users, there is also a Developer version that supports "integrations" and WP "multisite"... To learn more see the <a href="http://www.pagelines.com/pricing?tag=le-admin">pricing page</a> or <a href="http://www.pagelines.com/tour?tag=le-admin">PageLines tour</a>...
 					</p>
 					<p>
 						<strong>Some specifics:</strong>

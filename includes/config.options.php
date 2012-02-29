@@ -41,14 +41,13 @@ class PageLinesOptionsArray {
 	function website_setup(){
 		$a = array(
 			'icon'			=> PL_ADMIN_ICONS.'/compass.png',
-			'email_capture'	=> array(
+			'account_signup'	=> array(
 				'default'		=> '',
-				'version'		=> 'free',
-				'type' 			=> 'email_capture',
-				'inputlabel' 	=> __( 'Email Address', 'pagelines' ),
-				'title'			=> __( 'Email Updates', 'pagelines' ),						
-				'shortexp' 		=> __( 'Optionally sign up for email updates and notifications', 'pagelines' ),
-				'exp' 			=> __( 'Adding your email here will allow us to send you email notifications about updates and new software from PageLines.', 'pagelines' )
+				'type' 			=> 'account_signup',
+				'inputlabel' 	=> __( 'Account Login', 'pagelines' ),
+				'title'			=> __( 'PageLines Account Sign In', 'pagelines' ),						
+				'shortexp' 		=> __( 'Login or Register for a Free PageLines Account', 'pagelines' ),
+				'exp' 			=> __( 'Logging in with your PageLines account will allow you to use the PageLines Store and deliver features from the PageLines API.', 'pagelines' )
 			),
 			'pagelines_custom_logo' => array(
 				'default' 		=> PL_IMAGES.'/logo.png',
@@ -133,6 +132,9 @@ class PageLinesOptionsArray {
 		
 		if ( get_option( 'pagelines_email_sent') ) 
 			unset($a['email_capture']);
+			
+		if ( pagelines_check_credentials() ) 
+			unset($a['account_signup']);
 		
 		return apply_filters('pagelines_options_website_setup', $a);
 	}
@@ -924,9 +926,9 @@ class PageLinesOptionsArray {
 					'default'	=> '',
 					'type'		=> 'text',
 					'inputlabel'=> __( 'Enter Partner Link', 'pagelines' ),
-					'title'		=> __( 'PageLines Partner Link', 'pagelines' ),
-					'shortexp'	=> __( 'Change your PageLines footer link to a partner link', 'pagelines' ),
-					'exp'		=> __( "If you are a <a target='_blank' href='http://www.pagelines.com/partners'>PageLines Partner</a> enter your link here and the footer link will become a partner or affiliate link.", 'pagelines' )
+					'title'		=> __( 'PageLines Affiliate/Partner Link', 'pagelines' ),
+					'shortexp'	=> __( 'Change a your PageLines footer link to a PageLines affiliate link', 'pagelines' ),
+					'exp'		=> __( "If you are a <a target='_blank' href='http://www.pagelines.com'>PageLines Partner</a> enter your link here and the footer link will become a partner or affiliate link.", 'pagelines' )
 			),
 
 			'disable_ajax_save' => array(
@@ -1069,6 +1071,16 @@ class PageLinesOptionsArray {
 		);
 		
 		return apply_filters('pagelines_options_custom_code', $a);
+		
+	}
+	
+	function account_signup(){
+		
+		ob_start(); 
+		?>
+		whoop
+		<?php 
+		return ob_get_clean();
 		
 	}
 	

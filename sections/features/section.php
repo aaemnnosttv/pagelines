@@ -176,7 +176,7 @@ class PageLinesFeatures extends PageLinesSection {
 			} 
 			
 			if( $fmode == 'names' || $fmode == 'thumbs' ){
-				echo "\n".' // '.$fmode.'!!!'."\n";
+				//echo "\n".' // '.$fmode.'!!!'."\n";
 				if( $fmode == 'names' )
 					$replace_value = esc_js( $feature_name );
 			

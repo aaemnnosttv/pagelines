@@ -438,6 +438,9 @@ class OptEngine {
 			case 'email_capture' :
 				$this->_get_email_capture($oid, $o, $val);
 				break;
+			case 'account_signup' :
+				$this->_account_signup($oid, $o, $val);
+				break;
 			case 'horizontal_tabs' :
 				$this->get_horizontal_nav($oid, $o);
 				break;
@@ -1257,6 +1260,27 @@ class OptEngine {
 			<div class="the_email_response"></div>
 		</div>
 <?php }
+
+	/**
+	 *  Creates an email capture field that sends emails to PageLines.com
+	 */
+	function _account_signup($oid, $o){ ?>
+		<div class="account_signup fix">
+			<h3>PageLines Account</h3>
+			<?php 
+			
+			$log = admin_url('admin.php?page=pagelines_account');
+			
+			echo $this->superlink(__( 'Login', 'pagelines' ), 'grey', '', $log);
+			echo '<span class="divor">or</span>';
+		
+			$reg = 'http://www.pagelines.com/launchpad/signup.php?price_group=-1000&hide_paysys=paypal_r';
+			
+			echo $this->superlink(__( 'Register', 'pagelines' ), 'blue', '', $reg);
+			?>
+		</div>
+<?php }
+
 
 
 	/**

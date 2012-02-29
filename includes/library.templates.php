@@ -602,16 +602,11 @@ function pl_special_url( $t ){
  */
 function pagelines_cred(){ 
 	
-	if(ploption('no_credit') || !VDEV || (VDEV && has_action('add_leaf'))){
-		
-		
+	if(ploption('no_credit') || !VPRO || (VPRO && has_action('add_leaf'))){
+			
 		$img 	= sprintf('<img src="%s" alt="%s by PageLines" />', apply_filters('pagelines_leaf_image', PL_IMAGES.'/pagelines.png'), THEMENAME);
 		
-		if(get_edit_post_link()){
-			$url = get_edit_post_link();
-		} else {
-			$url = load_pagelines_option('partner_link', 'http://www.pagelines.com/');
-		}
+		$url = load_pagelines_option('partner_link', 'http://www.pagelines.com');
 		
 		$link = (!apply_filters('no_leaf_link', '')) ? sprintf('<a class="plimage" target="_blank" href="%s" title="%s">%s</a>', $url, 'PageLines', $img ) : $img;
 		

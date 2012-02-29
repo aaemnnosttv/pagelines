@@ -196,6 +196,22 @@ body #page .blink-wrap	.blink{
 }
 	a.btag.grey:hover, .boxtags a:hover{ background: #ccc; color: #000; }
 	
+	.btag.grdnt{
+		box-shadow: inset 1px 1px 0 rgba(255,255,255,.5), 1px 1px 0 rgba(255,255,255,.5);
+		border:1px solid #ccc;
+		border-right: 1px solid #b1b1b1;
+		border-bottom: 1px solid #b1b1b1;
+		text-shadow: 0 1px 0 rgba(255,255,255, .7);
+		color:#AAA;
+		background:#ddd;
+		background:-moz-linear-gradient(top, #eee 0%, #ccc 100%); 
+		background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#eee),color-stop(100%,#ccc)); 
+		background:-webkit-linear-gradient(top,#eee 0%,#ccc 100%); 
+		background:-o-linear-gradient(top,#eee 0%,#ccc 100%); 
+		background:-ms-linear-gradient(top,#eee 0%,#ccc 100%); 
+		background:linear-gradient(top,#eee 0%,#ccc 100%);
+	}
+	
 /* @ Grid */ 
 .grid-element, .media_overview{ margin-bottom: 12px; }
 	.grid-img-frame{
