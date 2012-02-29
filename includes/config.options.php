@@ -47,7 +47,7 @@ class PageLinesOptionsArray {
 				'inputlabel' 	=> __( 'Account Login', 'pagelines' ),
 				'title'			=> __( 'PageLines Account Sign In', 'pagelines' ),						
 				'shortexp' 		=> __( 'Login or Register for a Free PageLines Account', 'pagelines' ),
-				'exp' 			=> __( 'Logging in with your PageLines account will allow you to use the PageLines Store and deliver features from the PageLines API.', 'pagelines' )
+				'exp' 			=> __( 'Logging in with your PageLines account will enable updates, allow you to add items from the PageLines Store, and more.', 'pagelines' )
 			),
 			'pagelines_custom_logo' => array(
 				'default' 		=> PL_IMAGES.'/logo.png',
