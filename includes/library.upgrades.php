@@ -12,10 +12,18 @@ class PageLinesUpgradePaths {
 	*/
 	function __construct() {
 		
+		/**
+		* Upgrade from Platform(pro) to PageLines and import settings.
+		*/
 		if ( !is_array( $a = get_option( PAGELINES_SETTINGS ) ) )
 			$this->upgrade();
+			
+		/**
+		* Insure the correct default logo is being displayed after import.
+		*/			
+		if ( ! VPRO && 'logo-platform.png' == basename( $a['pagelines_custom_logo'] ) )
+			plupop( 'pagelines_custom_logo',  PL_IMAGES . '/logo.png' );
 	}
-	
 
 	/**
 	*
