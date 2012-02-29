@@ -486,7 +486,7 @@
 	*
 	*/
 	function show_subscribe_button( $type, $key, $ext, $tab ){
-		
+		return false;
 		if( $this->is_installed( $type, $key, $ext )
 			&& ! $this->in_the_store( $type, $key, $ext, $tab )
 			&& ! $this->is_subscribed( $type, $key, $ext, $tab )
@@ -504,7 +504,7 @@
 	*
 	*/
 	function show_unsubscribe_button( $type, $key, $ext, $tab ){
-		
+		return false;
 		if( $this->is_installed( $type, $key, $ext )
 			&& $this->is_subscribed( $type, $key, $ext, $tab )
 			&& ! $this->in_the_store( $type, $key, $ext, $tab )
