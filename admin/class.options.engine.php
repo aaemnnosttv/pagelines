@@ -1264,19 +1264,16 @@ class OptEngine {
 	/**
 	 *  Creates an email capture field that sends emails to PageLines.com
 	 */
-	function _account_signup($oid, $o){ ?>
+	function _account_signup( $oid, $o ){ ?>
 		<div class="account_signup fix">
 			<h3>PageLines Account</h3>
 			<?php 
 			
-			$log = admin_url('admin.php?page=pagelines_account');
+			$log = admin_url( 'admin.php?page=pagelines_account' );
 			
-			echo $this->superlink(__( 'Login', 'pagelines' ), 'grey', '', $log);
-			echo '<span class="divor">or</span>';
-		
-			$reg = 'http://www.pagelines.com/launchpad/signup.php?price_group=-1000&hide_paysys=paypal_r';
-			
-			echo $this->superlink(__( 'Register', 'pagelines' ), 'blue', '', $reg);
+			echo $this->superlink( __( 'Login', 'pagelines' ), 'grey', '', $log );
+			echo '<span class="divor">or</span>';			
+			echo $this->superlink( __( 'Register', 'pagelines' ), 'blue', '', PL_SIGNUP );
 			?>
 		</div>
 <?php }

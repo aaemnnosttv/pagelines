@@ -130,3 +130,4 @@ $GLOBALS['pagelines_user_pages'] = array();
 define('VPRO_NAME','PageLines Framework');
 define('VPRO_TOUR','http://www.pagelines.com/tour/');
 define('VPRO_PRICING','http://www.pagelines.com/pricing/');
+define( 'PL_SIGNUP', 'http://www.pagelines.com/launchpad/signup.php?price_group=-1000&hide_paysys=paypal_r' );
