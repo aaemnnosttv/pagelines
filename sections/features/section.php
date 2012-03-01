@@ -78,6 +78,8 @@ class PageLinesFeatures extends PageLinesSection {
 		printf( '$height_selectors%s = "%s";', $clone_id, $this->selectors( '', $wrap_class.' ' ) );
 	?>
 	
+	jQuery('.feature-wrap').fixChromeBg();
+	
 	$the_width<?php echo $clone_id;?> = jQuery($width_area<?php echo $clone_id;?>).width();
 		
 	$new_height<?php echo $clone_id;?> = $the_width<?php echo $clone_id;?> / $aspect<?php echo $clone_id;?>;
