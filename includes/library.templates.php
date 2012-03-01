@@ -142,8 +142,6 @@ function pagelines_head_common(){
 	// Removes viewport scaling on Phones, Tablets, etc.
 	if(!ploption('disable_mobile_view', $oset) && !apply_filters( 'disable_mobile_view', '' ))
 		echo '<meta name="viewport" content="width=device-width, initial-scale=1.0" />';
-
-	
 		
 	// Allow for extension deactivation of all css
 	if(!has_action('override_pagelines_css_output')){	
@@ -166,10 +164,9 @@ function pagelines_head_common(){
 
 	}
 
-	
-		// Queue Common Javascript Libraries
-		wp_enqueue_script( 'jquery'); 
-		wp_enqueue_script( 'blocks', PL_JS . '/script.blocks.js', array('jquery'));
+	// Queue Common Javascript Libraries
+	wp_enqueue_script( 'jquery'); 
+	wp_enqueue_script( 'blocks', PL_JS . '/script.blocks.js', array('jquery'), '1.0.1');
 	
 	if ( ploption( 'facebook_headers' ) )
 		pagelines_facebook_header();
@@ -192,6 +189,8 @@ function pagelines_head_common(){
 	
 	if( ploption('asynch_analytics'))
 		add_action( 'pagelines_head_last', create_function( '',  'echo ploption("asynch_analytics");' ), 25 );
+		
+		
 }
 
 /**
