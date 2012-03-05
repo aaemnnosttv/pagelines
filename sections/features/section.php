@@ -726,7 +726,7 @@ class PageLinesFeatures extends PageLinesSection {
 						'inputlabel'	=> __( 'Feature navigation type?', 'pagelines' ),
 						'title'			=> __( 'Feature Navigation Mode', 'pagelines' ),
 						'shortexp'		=> __( 'Select the mode for your feature navigation', 'pagelines' ),
-						'exp'			=> __( "Select from the three modes. Using feature names will use the names of the features, using the numbers will use incremental numbers, thumbnails will use feature thumbnails if provided.", 'pagelines' ), 
+						'exp'			=> __( "Select from the five modes. Using feature names will use the names of the features, using the numbers will use incremental numbers, thumbnails will use feature thumbnails if provided.", 'pagelines' ), 
 						'docslink'		=> 'http://www.pagelines.com/docs/feature-slider', 
 						'vidtitle'		=> __( 'View Feature Documentation', 'pagelines' )
 					),
