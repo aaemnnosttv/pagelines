@@ -759,34 +759,34 @@ table {width: 100%;}
 			.srp-widget-thmblink img{display: block;}
 		
 		/* @ WP125 Advertising Widget */
-				.wp125_write_ads_widget .wp125_write_ads_widget.widget{
+				.widget_wp125.widget{
 					border:none;
 					padding:0;
 					margin:0 0 1em 0;
 				}
-				.wp125_write_ads_widget .wp125_write_ads_widget.widget .wtitle{display: none;}
-				.wp125_write_ads_widget.widget .winner {
+				.widget_wp125.widget .wtitle{display: none;}
+				.widget_wp125.widget .winner {
 					padding:0;
 					line-height: 1px;
 				}
 
-				#page .wp125_write_ads_widget { padding: 0; }
-				#page .wp125_write_ads_widget  .winner  { width:100%;  }
-				#page .wp125_write_ads_widget .wp125ad{
+				#page .widget_wp125 { padding: 0; }
+				#page .widget_wp125  .winner  { width:100%;  }
+				#page .widget_wp125 .wp125ad{
 					padding: 0;
 					width: auto;
 					float: left;
 					max-width: 50%;
 				}
 				
-				#page .wp125_write_ads_widget .wp125ad a{ 
+				#page .widget_wp125 .wp125ad a{ 
 					margin: 6px;
 					padding: 5px;
 					margin: 2px 5px 5px 5px;
 					display: inline-block;
 					border: 1px solid transparent;
 				}	
-					#page .wp125_write_ads_widget .wp125ad a img{
+					#page .widget_wp125 .wp125ad a img{
 						width: 125px;
 						height: auto;
 						display: block;

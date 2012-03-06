@@ -18,6 +18,7 @@
  */
 class PageLinesContent extends PageLinesSection {
 
+
 	/**
 	* Section template.
 	*/

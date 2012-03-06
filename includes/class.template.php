@@ -369,7 +369,6 @@ class PageLinesTemplate {
 	function print_section_html( $hook ){
 	
 		global $plbuffer; 
-		
 		/**
 		 * Sections assigned to array already in get_loaded_sections
 		 */
@@ -385,31 +384,30 @@ class PageLinesTemplate {
 				/**
 				 * Check for buffered version, use if that exists; then unset.
 				 */
-				// if(isset($plbuffer[$sid])){
-				// 					
-				// 				$render = $plbuffer[$sid];
-				// 				unset($plbuffer[$sid]);
-				// 			}else
-				// 				$render = $this->buffer_template($sid);
-				// 			
-					
-				$render = $this->buffer_template($sid);
+				if(isset($plbuffer[$sid])){						
+					$render = $plbuffer[$sid];
+					unset($plbuffer[$sid]);
+				}else
+					$render = $this->buffer_template($sid);
+							
+				
 		
 				// RENDER //
 				if($render){
 				
-					$this->render_template($render, $sid, $markup_type);
-					// // PREVIOUS // 
-					// $last_sid = $this->get_last_rendered($hook);
-					// 
-					//  // NEXT //
-					// $next_sid = $this->buffer_next_section($hook, $key, $sid);
-					// 
-					// // DRAW APPROPRIATE SECTION //
-					// $this->render_template($render, $sid, $markup_type, $this->conc($sid, $next_sid), $this->conc($sid, $last_sid, 'previous'));
-					// 
-					// // SET AS LAST RENDERED //
-					// $this->last_rendered = array('sid' => $sid, 'hook' => $hook);
+					//$this->render_template($render, $sid, $markup_type);
+					
+					// PREVIOUS // 
+					$last_sid = $this->get_last_rendered($hook);
+					
+					 // NEXT //
+					$next_sid = $this->buffer_next_section($hook, $key, $sid);
+					
+					// DRAW APPROPRIATE SECTION //
+					$this->render_template($render, $sid, $markup_type, $this->conc($sid, $next_sid), $this->conc($sid, $last_sid, 'previous'));
+					
+					// SET AS LAST RENDERED //
+					$this->last_rendered = array('sid' => $sid, 'hook' => $hook);
 
 				}
 			
@@ -587,10 +585,10 @@ class PageLinesTemplate {
 			);
 		} else {
 			
-			$data = $this->area_next_section($hook, 'next');
-		
+			$data = $this->area_next_section($hook);
 		}
-			
+		
+	
 		
 	
 		return $data;
@@ -600,7 +598,7 @@ class PageLinesTemplate {
 	/**
 	 * Used if section is at the end of the template area
 	 */
-	function area_next_section($hook, $relation = 'next'){
+	function area_next_section($hook){
 			
 			$order = array(
 					'header', 
@@ -611,8 +609,9 @@ class PageLinesTemplate {
 
 			// Current Area
 			$k = array_search($hook, $order);
-			
-			if(!isset($k)){
+		
+			if(!isset($k) || $k === false){
+				
 					// probl
 				return array('sid'=>'end', 'hook' => false, 'key' => false);
 			}
