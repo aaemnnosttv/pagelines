@@ -16,7 +16,7 @@
  *
  * @internal    This is used by BuddyPress as well and should play nice with child themes.
  *
- * @internal    last revised January 30, 2012
+ * @internal    last revised February 2, 2012
  * @version     ...
  *
  * @todo Define version
@@ -32,9 +32,9 @@ else:
 	global $pagelines_layout;
 	if($pagelines_layout->layout_mode != 'fullwidth'):?>
 
-		<div id="sidebar-wrap">
+		<div id="sidebar-wrap" class="blocks">
 	<?php 
-				if(pagelines_option('sidebar_wrap_widgets') == 'top' || !pagelines_option('sidebar_wrap_widgets')){
+				if(ploption('sidebar_wrap_widgets') == 'top' || !ploption('sidebar_wrap_widgets')){
 					pagelines_template_area('pagelines_sidebar_wrap', 'sidebar_wrap'); // Hook
 				}
 		
@@ -54,7 +54,7 @@ else:
 				</div>
 	<?php 	endif;
 
-				if(pagelines_option('sidebar_wrap_widgets') == 'bottom'){
+				if(ploption('sidebar_wrap_widgets') == 'bottom'){
 					pagelines_template_area('pagelines_sidebar_wrap', 'sidebar_wrap'); // Hook
 				}
 			

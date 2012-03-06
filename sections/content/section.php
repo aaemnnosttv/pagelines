@@ -31,7 +31,7 @@ class PageLinesContent extends PageLinesSection {
 			<div id="column-wrap" class="fix">
 
 				<?php pagelines_register_hook( 'pagelines_content_before_maincolumn', 'maincontent' ); // Hook ?>
-				<div id="column-main" class="mcolumn fix">
+				<div id="column-main" class="mcolumn blocks fix">
 					<div class="mcolumn-pad" >
 						<?php pagelines_template_area('pagelines_main', 'main'); ?>
 					</div>

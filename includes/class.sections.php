@@ -188,9 +188,7 @@ class PageLinesSection {
      * @param   string $conjugation
      * @uses    pagelines_register_hook
      */
-	function before_section( $markup = 'content', $clone_id = null, $conjugation = ''){
-		
-		$classes = $conjugation;
+	function before_section( $markup = 'content', $clone_id = null, $classes = ''){
 		
 		$classes .= (isset($clone_id)) ? ' clone_'.$clone_id : '';
 		

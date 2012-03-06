@@ -100,6 +100,7 @@ $.equalizerDefaults = {
 // Initialize Blocks
 jQuery(window).load(function() {
 	jQuery('.blocks').equalizer();
+	
 });
 
 // Fix Chrome bug 

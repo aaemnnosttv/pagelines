@@ -45,4 +45,11 @@ $GLOBALS['pl_section_factory'] = new PageLinesSectionFactory();
  */
 $GLOBALS['css_factory'] = array( );
 
+/**
+ * Template Buffer
+ * @global arrayt $tmpl
+ * @since 2.1.4
+ */
+$GLOBALS['plbuffer'] = array( );
+
 $GLOBALS['lesscode'] = '';

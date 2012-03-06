@@ -23,6 +23,7 @@ class PageLinesTemplate {
 	var $allsections = array();
 	var $default_allsections = array();
 	var $non_template_sections = array();
+	var $tbuffer = array();
 	
 	
 	/**
@@ -367,14 +368,6 @@ class PageLinesTemplate {
 	 */
 	function print_section_html( $hook ){
 	
-		global $post;
-		global $wp_query;
-		global $pagelines_post;	
-		
-		// Save Handling Globals
-		// Prevents sections from screwing them up.
-		$save_query = $wp_query;
-		$save_post = $post;
 		
 		/**
 		 * Sections assigned to array already in get_loaded_sections
@@ -382,145 +375,265 @@ class PageLinesTemplate {
 		if( is_array( $this->$hook ) ){
 
 			$markup_type = $this->map[$hook]['markup'];
-
+			
 			/**
 			 * Parse through sections assigned to this hook
 			 */
-			foreach( $this->$hook as $key => $sid ){	
-				
-				/**
-				 * If this is a cloned element, remove the clone flag before instantiation here.
-				 */
-				$p = splice_section_slug($sid);
-				$section = $p['section'];
-				$clone_id = $p['clone_id'];
-				
-				if( $this->in_factory( $section ) ){
-					
-					$s = $this->factory[ $section ];
-					
-					$s->setup_oset( $clone_id );
-					
-					$in_area = $this->$hook;
-					
-					$conjugation = $this->conjugation($hook, $key, $sid, $s);
-				
-		
-					/**
-					 * Load Template
-					 * Get Template in Buffer 
-					 */
-					ob_start();
-				
-					// If in child theme get that, if not load the class template function
-					$s->section_template_load( $clone_id );
+			foreach( $this->$hook as $key => $sid ){
 			
-					$template_output =  ob_get_clean();
-					
-					if($template_output != ''){
-				
-						$s->before_section_template( $clone_id );
-					
-						$s->before_section( $markup_type, $clone_id, $conjugation);
-				
-						echo $template_output;
-					
-						$s->after_section( $markup_type );
-					
-						$s->after_section_template( $clone_id );
-					
-						
-					}
+				/**
+				 * Check for buffered version, use if that exists; then unset.
+				 */
+				if(isset($this->tbuffer[$sid])){
+					$render = $this->tbuffer[$sid];
+					unset($this->tbuffer[$sid]);
+				}else
+					$render = $this->buffer_template($sid);
+		
+					// RENDER //
+						if($render){
+		
+							// PREVIOUS // 
+							$last_sid = $this->get_last_rendered($hook);
+		
+							 // NEXT //
+							$next_sid = $this->buffer_next_section($hook, $key, $sid);
+		
+							// DRAW APPROPRIATE SECTION //
+							$this->render_template($render, $sid, $markup_type, $this->conc($sid, $next_sid), $this->conc($sid, $last_sid, 'previous'));
+		
+							// SET AS LAST RENDERED //
+							$this->last_rendered = array('sid' => $sid, 'hook' => $hook);
+		
 				}
 			
-				$wp_query = $save_query;
-				$post = $save_post;
-	
 			}
+			
 		}
 	}
 	
-	
-	/**
-	 * Load in the next and previous area as classes
-	 * Useful for styling based on relationships between sections
-	 */
-	function conjugation( $hook, $key, $sid, $current_section ){
-		/**
-		 * Conjugation
-		 */
-		$in_area = $this->$hook;
-		
-		
-		$pre = (isset($in_area[$key-1])) ? $in_area[$key-1] : $this->conjugation_adjacent_area($hook, 'prev');
-		$next = (isset($in_area[$key+1])) ? $in_area[$key+1] : $this->conjugation_adjacent_area($hook, 'next');
-
-		$pieces = explode('ID', $pre);		
-		$pre_section = $pieces[0];
-
-		if($pre == 'top') 
-			$pre_class = 'top';
-		elseif($pre && $this->in_factory( $pre_section ) )
-			$pre_class = $this->factory[ $pre_section ]->id;
-		else 
-			$pre_class = 'top';
-			
-		$pieces = explode('ID', $next);		
-		$post_section = $pieces[0];	
-			
-		if($next == 'bottom') 
-			$post_class = 'bottom';
-		elseif($next && $this->in_factory( $post_section ))
-			$post_class = $this->factory[ $post_section ]->id;
-		else
-			$post_class = 'bottom';
-			
-
-		$conj = sprintf('%s-%s %s-%s', $pre_class, $current_section->id, $current_section->id, $post_class);
-		
-		return $conj;
-	}
-	
-	/**
-	 * Return sections from different areas
-	 */
-	function conjugation_adjacent_area( $hook, $relation = 'next' ){
+	function get_last_rendered($hook){
 		
 		$order = array('header', 'templates', 'morefoot', 'footer');
 		
-		foreach($order as $key => $area){
-			
-			if( $hook == $area ){
-				
-				for($i = 1; $i <= 4; $i++) {
-				    
-					$adjust = ($relation == 'prev') ? $key-$i : $key+$i;
-
-					$area = (isset($order[ $adjust ])) ? $order[ $adjust ] : false;
-
-					if( $area && is_array($this->$area) && !empty($this->$area) ){
-
-						$rel = ($relation == 'next') ? reset($this->$area) : end($this->$area);
-						break;
-						
-					}
-					
-				}
-
-				if(isset($rel))
-					return $rel;
-				elseif($relation == 'prev')
-					return 'top';
-				else
-					return 'bottom';
-				
-			}
+		$k = array_search($hook, $order);
+		
+		
+		if($k && isset($this->last_rendered)){
+			return $this->last_rendered['sid'];
+		} elseif(isset($this->last_rendered) && ($hook == $this->last_rendered['hook'])){
+			return $this->last_rendered['sid'];
+		} else {
+			return 'top';
 		}
 		
-		return ($relation == 'prev') ? 'top' : 'bottom';
-	
 	}
 	
+
+	
+	/**
+	 * Renders the HTML template and adds surrounding 'standardized' markup and hooks
+	 */
+	function render_template($template, $sid, $markup, $next = '', $prev = ''){
+				
+		$classes = $prev.' '.$next;
+
+		$p = splice_section_slug($sid);
+		$section = $p['section'];
+		$clone_id = $p['clone_id'];
+		
+		$s = $this->factory[ $section ];
+		
+		$s->before_section_template( $clone_id );
+	
+		$s->before_section( $markup, $clone_id, $classes);
+
+		echo $template;
+	
+		$s->after_section( $markup );
+	
+		$s->after_section_template( $clone_id );
+		
+	}
+	
+	/**
+	 * Runs template in an output buffer and returns the output
+	 */
+	function buffer_template( $sid ){
+		global $post;
+		global $wp_query;
+		$save_query = $wp_query;
+		$save_post = $post;
+		
+		/**
+		 * If this is a cloned element, remove the clone flag before instantiation here.
+		 */
+		$p = splice_section_slug($sid);
+		$section = $p['section'];
+		$clone_id = $p['clone_id'];
+		
+		if( $this->in_factory( $section ) ){
+			
+			$s = $this->factory[ $section ];
+			
+			$s->setup_oset( $clone_id );
+			
+			/**
+			 * Load Template
+			 * Get Template in Buffer 
+			 *****************************/
+			
+				ob_start();
+		
+					// If in child theme get that, if not load the class template function
+					$s->section_template_load( $clone_id );
+	
+				$template_output =  ob_get_clean();
+			
+			/** END BUFFER *****************************/
+		}
+		
+		// RESET //
+			$wp_query = $save_query;
+			$post = $save_post;
+			
+		return (isset($template_output) && $template_output != '') ? $template_output : false;
+		
+	}
+	
+	/**
+	 * Concatenation used in classes
+	 */
+	function conc($sid, $adjacent_sid, $mode = 'next'){
+		
+		if($mode == 'previous'){
+			
+			$adjacent_slug = ($adjacent_sid == 'top') ? 'top' : $this->get_section_slug($adjacent_sid);
+			
+			$conc = sprintf('%s-%s', $adjacent_slug, $this->get_section_slug($sid));
+			
+		}else{
+			$adjacent_slug = ($adjacent_sid == 'bottom') ? 'bottom' : $this->get_section_slug($adjacent_sid);
+			
+			$conc = sprintf('%s-%s', $this->get_section_slug($sid), $adjacent_slug);
+		}
+			
+		return $conc;
+		
+	}
+	
+	/**
+	 * Get the section slug from the unique section ID
+	 */
+	function get_section_slug($sid){
+		$p = splice_section_slug($sid);
+		$section = $p['section'];
+		$clone_id = $p['clone_id'];
+		
+		if(isset($this->factory[ $section ]))
+			return $this->factory[ $section ]->id;
+		else
+			return false;
+	}
+	
+	/**
+	 * Recursive function for buffering following sections.
+	 * Needed for use in concatenating sections so themers can 
+	 * design based on user configuration of sections
+	 */
+	function buffer_next_section($hook, $key, $sid = ''){
+		
+		
+		$next = $this->next_section($hook, $key);
+		
+		if($next['sid'] == 'end')
+			return 'bottom';
+		else
+			$this->tbuffer[$next['sid']] = $this->buffer_template($next['sid']);
+		
+		if(!$this->tbuffer[$next['sid']]){
+		
+			// Recursion
+			return $this->buffer_next_section($next['hook'], $next['key'], $next['sid']);
+	
+		}else
+			return $next['sid'];
+		
+	}
+	
+	/**
+	 * Finds the next section that is output by the framework
+	 */
+	function next_section($hook, $key){
+		
+		if(property_exists($this, $hook)){
+			$in_area = $this->$hook;
+		
+		}
+		
+		if(isset($in_area[$key+1])){
+			$data = array(
+				'sid' 	=> $in_area[$key+1], 
+				'hook'	=> $hook, 
+				'key'	=> $key+1
+			);
+		} else {
+			
+			$data = $this->area_next_section($hook, 'next');
+		
+		}
+			
+		
+	
+		return $data;
+
+	}
+	
+	/**
+	 * Used if section is at the end of the template area
+	 */
+	function area_next_section($hook, $relation = 'next'){
+			
+			$order = array(
+					'header', 
+					'templates', 
+					'morefoot', 
+					'footer'
+				);
+
+			// Current Area
+			$k = array_search($hook, $order);
+			
+			if(!isset($k)){
+					// probl
+				return array('sid'=>'end', 'hook' => false, 'key' => false);
+			}
+			$i = 1;
+			foreach($order as $a) {
+				
+				$area = (isset($order[ $k+$i ])) ? $order[ $k+$i ] : false;
+
+				if( $area && is_array($this->$area) && !empty($this->$area) ){
+					
+					$karr = $this->$area;
+					
+					$data = array(
+						'sid' 	=> $karr[0], 
+						'hook'	=> $area, 
+						'key'	=> 0
+					);
+					
+					return $data; 
+					
+				} 	
+					
+				$i++;
+			}
+
+			return array('sid'=>'end', 'hook' => false, 'key' => false);
+	
+
+	}	
 	
 	
 	/**
