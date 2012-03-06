@@ -368,6 +368,7 @@ class PageLinesTemplate {
 	 */
 	function print_section_html( $hook ){
 	
+		global $plbuffer; 
 		
 		/**
 		 * Sections assigned to array already in get_loaded_sections
@@ -375,7 +376,7 @@ class PageLinesTemplate {
 		if( is_array( $this->$hook ) ){
 
 			$markup_type = $this->map[$hook]['markup'];
-			
+
 			/**
 			 * Parse through sections assigned to this hook
 			 */
@@ -384,9 +385,10 @@ class PageLinesTemplate {
 				/**
 				 * Check for buffered version, use if that exists; then unset.
 				 */
-				if(isset($this->tbuffer[$sid])){
-					$render = $this->tbuffer[$sid];
-					unset($this->tbuffer[$sid]);
+				if(isset($plbuffer[$sid])){
+						
+					$render = $plbuffer[$sid];
+					unset($plbuffer[$sid]);
 				}else
 					$render = $this->buffer_template($sid);
 		
@@ -408,6 +410,7 @@ class PageLinesTemplate {
 				}
 			
 			}
+			
 			
 		}
 	}
@@ -543,15 +546,16 @@ class PageLinesTemplate {
 	 */
 	function buffer_next_section($hook, $key, $sid = ''){
 		
+		global $plbuffer;
 		
 		$next = $this->next_section($hook, $key);
 		
 		if($next['sid'] == 'end')
 			return 'bottom';
 		else
-			$this->tbuffer[$next['sid']] = $this->buffer_template($next['sid']);
+			$plbuffer[$next['sid']] = $this->buffer_template($next['sid']);
 		
-		if(!$this->tbuffer[$next['sid']]){
+		if(!$plbuffer[$next['sid']]){
 		
 			// Recursion
 			return $this->buffer_next_section($next['hook'], $next['key'], $next['sid']);
