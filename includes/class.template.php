@@ -385,31 +385,35 @@ class PageLinesTemplate {
 				/**
 				 * Check for buffered version, use if that exists; then unset.
 				 */
-				if(isset($plbuffer[$sid])){
-						
-					$render = $plbuffer[$sid];
-					unset($plbuffer[$sid]);
-				}else
-					$render = $this->buffer_template($sid);
+				// if(isset($plbuffer[$sid])){
+				// 					
+				// 				$render = $plbuffer[$sid];
+				// 				unset($plbuffer[$sid]);
+				// 			}else
+				// 				$render = $this->buffer_template($sid);
+				// 			
+					
+				$render = $this->buffer_template($sid);
 		
-					// RENDER //
-						if($render){
-		
-							// PREVIOUS // 
-							$last_sid = $this->get_last_rendered($hook);
-		
-							 // NEXT //
-							$next_sid = $this->buffer_next_section($hook, $key, $sid);
-		
-							// DRAW APPROPRIATE SECTION //
-							$this->render_template($render, $sid, $markup_type, $this->conc($sid, $next_sid), $this->conc($sid, $last_sid, 'previous'));
-		
-							// SET AS LAST RENDERED //
-							$this->last_rendered = array('sid' => $sid, 'hook' => $hook);
-		
+				// RENDER //
+				if($render){
+				
+					$this->render_template($render, $sid, $markup_type);
+					// // PREVIOUS // 
+					// $last_sid = $this->get_last_rendered($hook);
+					// 
+					//  // NEXT //
+					// $next_sid = $this->buffer_next_section($hook, $key, $sid);
+					// 
+					// // DRAW APPROPRIATE SECTION //
+					// $this->render_template($render, $sid, $markup_type, $this->conc($sid, $next_sid), $this->conc($sid, $last_sid, 'previous'));
+					// 
+					// // SET AS LAST RENDERED //
+					// $this->last_rendered = array('sid' => $sid, 'hook' => $hook);
+
 				}
 			
-			}
+			}	
 			
 			
 		}
