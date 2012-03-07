@@ -100,15 +100,15 @@ function pagelines_layout_library_data() {
  * @since 2.2
  *
  * @param $args Array as input.
- * @param $name string Name of page.
- * @param $title string Title of page.
- * @param $path string Function use to get page contents.
- * @param $array array Array containing page page of settings.
- * @param $type string Type of page.
- * @param $raw string Send raw HTML straight to the page.
- * @param $layout string Layout type.
- * @param $icon string URI for page icon.
- * @param $postion int Position to insert into main menu.
+ * @param str $name Name of page.
+ * @param str $title Title of page.
+ * @param str $path Function use to get page contents.
+ * @param array $array Array containing page page of settings.
+ * @param str $type Type of page.
+ * @param str $raw Send raw HTML straight to the page.
+ * @param str $layout Layout type.
+ * @param str $icon URI for page icon.
+ * @param int $postion Position to insert into main menu.
  * @return array $optionarray 
  */
 function pl_add_options_page( $args ) {
@@ -183,7 +183,17 @@ return $optionarray;
 }
 
 
+/**
+ * Add global options.
+ *
+ * @since 2.2
+ *
+ * @param str $menu Menu slug.
+ * @param array $options The options to insert.
+ * @param str $location before|after|top|bottom where to insert.
+ * @param str $option string If before or after, where?
 
+ */
 function pl_global_option( $menu, $options, $location = 'bottom', $option = false ) {
 	
 	global $pagelines_add_global_option;
