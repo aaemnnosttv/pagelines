@@ -168,7 +168,7 @@ function pagelines_head_common(){
 	wp_enqueue_script( 'jquery'); 
 	wp_enqueue_script( 'blocks', PL_JS . '/script.blocks.js', array('jquery'), '1.0.1');
 	
-	if ( ploption( 'facebook_headers' ) )
+	if ( !ploption( 'facebook_headers' ) && VPRO)
 		pagelines_facebook_header();
 	
 	pagelines_supersize_bg();
@@ -205,14 +205,14 @@ function pagelines_facebook_header() {
 	global $pagelines_ID;
 	$fb_img = apply_filters('pl_opengraph_image', pl_the_thumbnail_url($pagelines_ID));
 	if($fb_img)
-		printf( "<meta property='og:image' content='%s' />", $fb_img);
+		printf( "\n\n<!-- Facebook Open Graph | PageLines -->\n<meta property='og:image' content='%s' />\n", $fb_img);
 		
-	printf( "<meta property='og:title' content='%s' />", get_the_title($pagelines_ID));
-	printf( "<meta property='og:url' content='%s' />", get_permalink($pagelines_ID));
-	printf( "<meta property='og:site_name' content='%s' />", get_bloginfo( 'name' ));
+	printf( "<meta property='og:title' content='%s' />\n", get_the_title($pagelines_ID));
+	printf( "<meta property='og:url' content='%s' />\n", get_permalink($pagelines_ID));
+	printf( "<meta property='og:site_name' content='%s' />\n", get_bloginfo( 'name' ));
 	$fb_content = get_post( $pagelines_ID );
-	printf( "<meta property='og:description' content='%s' />", pl_short_excerpt( $fb_content, 15 ) );
-	printf( "<meta property='og:type' content='%s' />", (is_home()) ? 'website' : 'article');
+	printf( "<meta property='og:description' content='%s' />\n", pl_short_excerpt( $fb_content, 15 ) );
+	printf( "<meta property='og:type' content='%s' />\n", (is_home()) ? 'website' : 'article');
 
 }
 

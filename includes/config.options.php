@@ -101,7 +101,7 @@ class PageLinesOptionsArray {
 				'inputlabel'	=> 'Upload Icon (57px by 57px)',
 				'type' 			=> 	'image_upload',
 				'imagepreview' 	=> 	'60',
-				'title' 		=> __( 'Apple Touch Image', 'pagelines' ),						
+				'title' 		=> __( 'Mobile Touch Image', 'pagelines' ),						
 				'shortexp' 		=> __( 'Input Full URL to Apple touch image (.jpg, .gif, .png)', 'pagelines' ),
 				'exp'			=> __( 'Enter the full URL location of your Apple Touch Icon which is visible when your users set your site as a <strong>webclip</strong> in Apple Iphone and Touch Products. It is an image approximately 57px by 57px in either .jpg, .gif or .png format.', 'pagelines' )
 			),

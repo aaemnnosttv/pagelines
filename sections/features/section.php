@@ -26,7 +26,6 @@ class PageLinesFeatures extends PageLinesSection {
 	* PHP that always loads no matter if section is added or not.
 	*/
 	function section_persistent(){
-		
 		$this->post_type_setup();
 		
 		$this->post_meta_setup();	 
@@ -562,8 +561,10 @@ class PageLinesFeatures extends PageLinesSection {
 		
 			);
 			
+			$posts_mode = ( ploption('posts_feature_control') ) ? true : false;
+			
 			// Add options for correct post type.
-			$post_types = ( ploption( 'feature_source' ) == 'posts' ) ? array( $this->ptID, 'post' ) : array( $this->ptID );
+			$post_types = ( $posts_mode ) ? array( $this->ptID, 'post' ) : array( $this->ptID );
 			
 			$pt_panel = array(
 					'id' 		=> 'feature-metapanel',
