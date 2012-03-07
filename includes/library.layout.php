@@ -100,14 +100,14 @@ function pagelines_layout_library_data() {
  * @since 2.2
  *
  * @param $args Array as input.
- * @param str $name Name of page.
- * @param str $title Title of page.
- * @param str $path Function use to get page contents.
+ * @param string $name Name of page.
+ * @param string $title Title of page.
+ * @param string $path Function use to get page contents.
  * @param array $array Array containing page page of settings.
- * @param str $type Type of page.
- * @param str $raw Send raw HTML straight to the page.
- * @param str $layout Layout type.
- * @param str $icon URI for page icon.
+ * @param string $type Type of page.
+ * @param string $raw Send raw HTML straight to the page.
+ * @param string $layout Layout type.
+ * @param string $icon URI for page icon.
  * @param int $postion Position to insert into main menu.
  * @return array $optionarray 
  */
@@ -188,23 +188,34 @@ return $optionarray;
  *
  * @since 2.2
  *
- * @param str $menu Menu slug.
+ * @param string $menu Menu slug.
  * @param array $options The options to insert.
- * @param str $location before|after|top|bottom where to insert.
- * @param str $option string If before or after, where?
+ * @param string $location before|after|top|bottom where to insert.
+ * @param string $option string If before or after, where?
 
  */
-function pl_global_option( $menu, $options, $location = 'bottom', $option = false ) {
+function pl_global_option( $args ) {
+	
+	$defaults = array(
+	
+		'menu'		=>	'custom_options',
+		'options'	=>	null,
+		'location'	=>	'bottom',
+		'option'	=>	false
+	);
+	
+	$args = wp_parse_args( $args, $defaults );
+	
 	
 	global $pagelines_add_global_option;
 
-	if ( isset( $menu )  && isset( $options ) && is_array( $options ) )
+	if ( isset( $args['menu'] )  && isset( $args['options'] ) && is_array( $args['options'] ) )
 		$pagelines_add_global_option[] = array(
 			
-			'menu'		=>	$menu,
-			'options'	=>	$options,
-			'location'	=>	$location,
-			'option'	=>	$option
+			'menu'		=>	$args['menu'],
+			'options'	=>	$args['options'],
+			'location'	=>	$args['location'],
+			'option'	=>	$args['option']
 		);
 }
 add_filter( 'pagelines_options_array', 'pl_add_global_options_filter' );
@@ -221,6 +232,9 @@ function pl_add_global_options_filter( $optionarray ){
 			
 			if ( ! $data['menu'] )
 				return $optionarray;
+			
+			if ( $data['menu'] == 'custom_options' && !isset( $optionarray[$data['menu']] ) )
+				$optionarray[$data['menu']] = array();
 			
 			if ( $data['location'] == 'before' || $data['location'] == 'after' && $data['option'] ) {
 				
