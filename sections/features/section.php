@@ -683,8 +683,8 @@ class PageLinesFeatures extends PageLinesSection {
 								'modified' 		=> array('name' => __( 'Last Modified', 'pagelines' ) ),
 								'rand' 			=> array('name' => __( 'Random', 'pagelines' ) ),							
 							),
-							'inputlabel'	=> __( 'Select sort order', 'pagelines' ),
-							'title'			=> __( 'Feature Post sort order', 'pagelines' ),
+							'inputlabel'	=> __( 'Select sort method', 'pagelines' ),
+							'title'			=> __( 'Feature Post sorting', 'pagelines' ),
 							'shortexp'		=> __( 'How will the features be sorted.', 'pagelines' ),
 							'exp'			=> __( 'By default the feature section will sort by post ID.', 'pagelines' )
 						),
@@ -699,7 +699,6 @@ class PageLinesFeatures extends PageLinesSection {
 							),
 							'inputlabel'	=> __( 'Select sort order', 'pagelines' ),
 							'title'			=> __( 'Feature Post sort order', 'pagelines' ),
-							'shortexp'		=> __( 'How will the features be sorted.', 'pagelines' ),
 							'exp'			=> __( 'By default the features will be in descending order.', 'pagelines' )
 						),
 

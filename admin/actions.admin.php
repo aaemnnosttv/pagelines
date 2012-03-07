@@ -236,22 +236,16 @@ function pagelines_inline_help() {
  * Add custom columns to page/post views.
  *
  * @package PageLines Framework
- * @since   ...
+ * @since   2.1.3
  *
  * @param   $columns
- *
- * @uses    ploption
- *
  * @return  array
  */
 add_filter('manage_edit-page_columns', 'pl_page_columns');
 function pl_page_columns($columns) {
 
-	if ( ploption( 'enable_template_view_page' ) )
     	$columns['template'] = 'PageLines Template';
 
-	if ( ploption( 'enable_feature_view_page' ) )
-    	$columns['feature'] = 'Featured Image';
 	return $columns;
 }
 
@@ -259,18 +253,14 @@ function pl_page_columns($columns) {
  * Post Columns
  *
  * @package PageLines Framework
- * @since   ...
+ * @since   2.1.3
  *
  * @param   $columns
- *
- * @uses    ploption
- *
  * @return  array
  */
 add_filter('manage_edit-post_columns', 'pl_post_columns');
 function pl_post_columns($columns) {
 
-	if ( ploption( 'enable_feature_view_post' ) )
     	$columns['feature'] = 'Featured Image';
 	return $columns;
 }
@@ -302,7 +292,7 @@ function pl_posts_show_columns($name) {
  * Page Show Columns
  *
  * @package PageLines Framework
- * @since   ...
+ * @since   2.1.3
  *
  * @param   $name
  *

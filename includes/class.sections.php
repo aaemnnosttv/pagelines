@@ -4,9 +4,9 @@
  *
  * API for creating and using PageLines sections
  *
- * @package PageLines Framework
- * @subpackage Sections
- * @since 4.0
+ * @package     PageLines Framework
+ * @subpackage  Sections
+ * @since       4.0
  */
 class PageLinesSection {
 
@@ -60,6 +60,8 @@ class PageLinesSection {
      *
      * Read information from the section header; assigns values found, or sets general default values if not
      *
+     * @since   ...
+     *
      * @uses    pageliens_register_sections
      * @uses    section_install_type
      * @uses    PL_ADMIN_ICONS
@@ -111,9 +113,11 @@ class PageLinesSection {
     /**
      * Section Install Type
      *
-     * @param $available string
+     * @since   ...
      *
-     * @return string
+     * @param   $available string
+     *
+     * @return  string
      */
 	function section_install_type( $available ){
 		
@@ -142,26 +146,44 @@ class PageLinesSection {
      * Use this function to output all the HTML for the section on pages/locations where it's placed.
      *
      * Subclasses should over-ride this function to generate their section code.
+     *
+     * @since   ...
      */
 	function section_template() {
 		die('function PageLinesSection::section_template() must be over-ridden in a sub-class.');
 	}
 
     /**
+     * Before Section Template
+     *
      * For template code that should show before the standard section markup
+     *
+     * @since   ...
+     *
      * @param   null $clone_id
      */
 	function before_section_template( $clone_id = null ){}
 
     /**
+     * After Section Template
+     *
      * For template code that should show after the standard section markup
+     *
+     * @since   ...
+     *
      * @param   null $clone_id
      */
 	function after_section_template( $clone_id = null ){}
 
     /**
+     * Section Template Load
+     *
      * Checks for overrides and loads section template function
+     *
+     * @since   ...
+     *
      * @param   $clone_id
+     *
      * @uses    section_template
      */
 	function section_template_load( $clone_id ) {
@@ -183,10 +205,15 @@ class PageLinesSection {
      * Starts general section wrapper classes content and content-pad; adds class to uniquely identify clones
      * Dynamically creates unique hooks for section: pagelines_before_, pagelines_outer_, and pagelines_inside_top_
      *
-     * @param   string $markup
-     * @param   null $clone_id
-     * @param   string $conjugation
-     * @uses    pagelines_register_hook
+     * @since       ...
+     *
+     * @param       string $markup
+     * @param       null $clone_id
+     * @param       string $classes
+     *
+     * @internal    param string $conjugation
+     *
+     * @uses        pagelines_register_hook
      */
 	function before_section( $markup = 'content', $clone_id = null, $classes = ''){
 		
@@ -222,7 +249,10 @@ class PageLinesSection {
      * Closes CSS containers opened by before_section()
      * Dynamically creates unique hooks: pagelines_inside_bottom_, and pagelines_after_ with matching ids to the dynamically created hooks made in before_section()
      *
+     * @since   ...
+     *
      * @param   string $markup
+     *
      * @uses    pagelines_register_hook
      */
 	function after_section( $markup = 'content' ){
@@ -243,85 +273,111 @@ class PageLinesSection {
 
 
     /**
-    * Persistent Section Code
-    *
-    * Use the 'section_persistent()' function to add code that will run on every page in your site & admin
-    * Code here will run ALL the time, and is useful for adding post types, options etc..
-    */
+     * Section Persistent
+     *
+     * Use this function to add code that will run on every page in your site & admin
+     * Code here will run ALL the time, and is useful for adding post types, options etc.
+     *
+     * @since   ...
+     */
 	function section_persistent(){}
 	
 
-	/**
-	*
-	* @TODO document
-	*
-	*/
+    /**
+     * Section Init
+     *
+     * @since   ...
+     *
+     * @TODO document
+     */
 	function section_init(){}
 	
 
-	/**
-	*
-	* @TODO document
-	*
-	*/
+    /**
+     * Section Admin
+     *
+     * @since   ...
+     * @TODO document
+     */
 	function section_admin(){}
 	
 
     /**
-    * Site Head Section Code
-    *
-    * Code added in the 'section_head()' function will be run during the <head> element of your site's
-    * 'front-end' pages. You can use this to add custom Javascript, or manually add scripts & meta information
-    * It will *only* be loaded if the section is present on the page template.
-    */
+     * Section Head
+     *
+     * Code added in this function will be run during the <head> element of the
+     * site's 'front-end' pages. Use this to add custom Javascript, or manually
+     * add scripts and meta information. It will *only* be loaded if the section
+     * is present on the page template.
+     *
+     * @since   ...
+     */
 	function section_head(){}
 	
 
-	/**
-	*
-	* @TODO document
-	*
-	*/
+    /**
+     * Section Styles
+     *
+     * @since   ...
+     * @TODO document
+     */
 	function section_styles(){}
 	
 
-	/**
-	*
-	* @TODO document
-	*
-	*/
+    /**
+     * Section Options
+     *
+     * @since   ...
+     * @TODO document
+     */
 	function section_options(){}
-		
 
-	/**
-	*
-	* @TODO document
-	*
-	*/
+    /**
+     * Section Optionator
+     *
+     * Handles section options
+     *
+     * @since   ...
+     *
+     * @param   $settings
+     */
 	function section_optionator( $settings ){}
 	
 
-	/**
-	*
-	* @TODO document
-	*
-	*/
-	function section_scripts(){}
+    /**
+     * Section Scripts
+     *
+     * @since   ...
+     * @TODO document
+     */
+    function section_scripts(){}
 
 
-	/**
-	*
-	* @TODO document
-	*
-	*/
+    /**
+     * Getting Started
+     *
+     * @since   ...
+     * @TODO document
+     */
 	function getting_started(){}
-		
 
-	/**
-	*
-	* @TODO document
-	*
-	*/
+
+    /**
+     * Add Guide
+     *
+     * Use to add a user's guide for the section
+     *
+     * @since   ...
+     *
+     * @param   $options
+     *
+     * @uses    ploption
+     * @uses    plupop
+     * @uses    PAGELINES_SPECIAL
+     *
+     * @return  array
+     * @TODO document
+     */
 	function add_guide( $options ){
 		
 		
@@ -395,11 +451,16 @@ class PageLinesSection {
 	
 	// Deprecated
 
-	/**
-	*
-	* @TODO document
-	*
-	*/
+    /**
+     * Add Getting Started
+     *
+     * @since   ...
+     *
+     * @param   $tab_array
+     *
+     * @return  array
+     * @TODO document
+     */
 	function add_getting_started( $tab_array ){
 		
 		return $this->add_guide($tab_array);
@@ -407,21 +468,24 @@ class PageLinesSection {
 	}
 
 
-	/**
-	*
-	* @TODO document
-	*
-	*/
+    /**
+     * Hook Get View
+     *
+     * @since   ...
+     *
+     * @TODO document
+     */
 	function hook_get_view(){
 
 		add_action('wp_head', array(&$this, 'get_view'), 10);
 	}
 
 	/**
-	*
-	* @TODO document
-	*
-	*/
+     * Get View
+     *
+     * @since   ...
+     * @TODO document
+     */
 	function get_view(){
 		
 		if(is_single())
@@ -437,22 +501,24 @@ class PageLinesSection {
 	}
 	
 
-	/**
-	*
-	* @TODO document
-	*
-	*/
+    /**
+     * Hook Get Post Type
+     *
+     * @since   ...
+     * @TODO document
+     */
 	function hook_get_post_type(){
 		
 		add_action('wp_head', array(&$this, 'get_post_type'), 10);
 	}
 	
 
-	/**
-	*
-	* @TODO document
-	*
-	*/
+    /**
+     * Get Post Type
+     *
+     * @since   ...
+     * @TODO document
+     */
 	function get_post_type(){
 		global $pagelines_template;
 	
@@ -464,11 +530,11 @@ class PageLinesSection {
     /**
      * Runs before any html loads, but in the page.
      *
-     * @package PageLines Framework
-     * @subpackage Sections
-     * @since 1.0.0
+     * @package     PageLines Framework
+     * @subpackage  Sections
+     * @since       1.0.0
      *
-     * @param $clone_id
+     * @param       $clone_id
      */
 	function setup_oset( $clone_id ){
 		
@@ -486,11 +552,13 @@ class PageLinesSection {
 /********** END OF SECTION CLASS  **********/
 
 /**
+ * PageLines Section Factory (class)
+ *
  * Singleton that registers and instantiates PageLinesSection classes.
  *
- * @package PageLines Framework
- * @subpackage Sections
- * @since 1.0.0
+ * @package     PageLines Framework
+ * @subpackage  Sections
+ * @since       1.0.0
  */
 class PageLinesSectionFactory {
 	var $sections  = array();
@@ -498,26 +566,29 @@ class PageLinesSectionFactory {
 
 
 	/**
-	*
-	* @TODO document
-	*
-	*/
+     * Constructor
+     *
+     * @TODO document
+     */
 	function __contruct() { }
 
 
-	/**
-	*
-	* @TODO document
-	*
-	*/
+    /**
+     * Register
+     *
+     * @since   ...
+     *
+     * @param   $section_class
+     * @param   $args
+     *
+     * @TODO document
+     */
 	function register($section_class, $args) {
 		
 		if(class_exists($section_class))
 			$this->sections[$section_class] = new $section_class( $args );
 		
-		/*
-			Unregisters version-controlled sections
-		*/
+		/** Unregisters version-controlled sections */
 		if(!VPRO && $this->sections[$section_class]->settings['version'] == 'pro') {
 			$this->unavailable_sections[] = $this->sections[$section_class];	
 			$this->unregister($section_class);	
@@ -525,11 +596,14 @@ class PageLinesSectionFactory {
 	}
 
 
-	/**
-	*
-	* @TODO document
-	*
-	*/
+    /**
+     * Unregister
+     *
+     * @since   ...
+     *
+     * @param   $section_class
+     * @TODO document
+     */
 	function unregister($section_class) {
 		if ( isset($this->sections[$section_class]) )
 			unset($this->sections[$section_class]);
@@ -538,11 +612,15 @@ class PageLinesSectionFactory {
 }
 
 /**
+ * Load Section Persistent
+ *
  * Runs the persistent PHP for sections.
  *
- * @package PageLines Framework
- * @subpackage Sections
- * @since 1.0.0
+ * @package     PageLines Framework
+ * @subpackage  Sections
+ * @since       1.0.0
+ *
+ * @uses        section_persistent
  */
 function load_section_persistent(){
 	global $pl_section_factory;
@@ -554,11 +632,15 @@ function load_section_persistent(){
 }
 
 /**
+ * Load Section Admin
+ *
  * Runs the admin PHP for sections.
  *
- * @package PageLines Framework
- * @subpackage Sections
- * @since 1.0.0
+ * @package     PageLines Framework
+ * @subpackage  Sections
+ * @since       1.0.0
+ *
+ * @uses        section_admin
  */
 function load_section_admin(){
 	global $pl_section_factory;
@@ -569,10 +651,13 @@ function load_section_admin(){
 }
 
 /**
-*
-* @TODO do
-*
-*/
+ * Get Unavailable Section Areas
+ *
+ * @since   ...
+ *
+ * @return array
+ * @TODO document
+ */
 function get_unavailable_section_areas(){
 	
 	$unavailable_section_areas = array();
@@ -594,10 +679,18 @@ function get_unavailable_section_areas(){
 }
 
 /**
-*
-* @TODO do
-*
-*/
+ * Setup Section Notify
+ *
+ * @since   ...
+ *
+ * @param   $section
+ * @param   $text
+ * @param   null $url
+ * @param   null $ltext
+ * @param   null $tab
+ *
+ * @return  string
+ */
 function setup_section_notify( $section, $text, $url = null, $ltext = null, $tab = null){
 	
 	
@@ -619,10 +712,13 @@ function setup_section_notify( $section, $text, $url = null, $ltext = null, $tab
 }
 
 /**
-*
-* @TODO do
-*
-*/
+ * Splice Section Slug
+ *
+ * @param   $slug
+ *
+ * @return  array
+ * @TODO document
+ */
 function splice_section_slug( $slug ){
 	
 	$pieces = explode('ID', $slug);		

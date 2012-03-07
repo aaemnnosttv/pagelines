@@ -1011,3 +1011,36 @@ function pl_insert_into_array( $orig, $new, $offset ) {
 	            array_slice($orig, $offset, NULL, true);
 	return $newArray;
 }
+
+
+/** 
+ * Insert into array before or after a key.
+ *
+ * @param $array array Original array.
+ * @param $key str Key to find.
+ * @param $insert_array array The array data to insert.
+ * @param $before bool Insert before or after.
+ * @return array
+ */
+function pl_array_insert( $array, $key, $insert_array, $before = FALSE ) {
+	$done = FALSE;
+	foreach ($array as $array_key => $array_val) {
+		if (!$before) {
+			$new_array[$array_key] = $array_val;
+		}
+		if ($array_key == $key && !$done) {
+			foreach ($insert_array as $insert_array_key => $insert_array_val) {
+				$new_array[$insert_array_key] = $insert_array_val;
+			}
+			$done = TRUE;
+		}
+		if ($before) {
+			$new_array[$array_key] = $array_val;
+		}
+	}
+	if (!$done) {
+		$new_array = array_merge($array, $insert_array);
+	}
+	// Put the new array in the place of the original.
+	return $new_array;
+}

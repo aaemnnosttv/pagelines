@@ -23,7 +23,21 @@ class PageLinesUpgradePaths {
 		*/			
 		if ( ! VPRO && 'logo-platform.png' == basename( $a['pagelines_custom_logo'] ) )
 			plupop( 'pagelines_custom_logo',  PL_IMAGES . '/logo.png' );
+
+
+		/**
+		* Fix broken repeated excerpt problem on pagelines.com
+		*/			
+		if ( ! VPRO && 'pagelines' == basename( get_bloginfo('url') ) ) {
+			
+			if ( true != $a['content_blog'] )
+				plupop( 'content_blog', true );
+			
+			if ( true == $a['excerpt_blog'] )
+				plupop( 'excerpt_blog', false );
+		}	
 	}
+
 
 	/**
 	*
