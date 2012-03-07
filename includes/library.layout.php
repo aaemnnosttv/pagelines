@@ -135,7 +135,7 @@ function pl_add_options_page( $args ) {
 	
 }
 
-add_action( 'pagelines_options_array', 'pl_add_options_page_filter' );
+add_filter( 'pagelines_options_array', 'pl_add_options_page_filter' );
 
 /**
  * Filter to add custom pages to main settings area.
@@ -177,6 +177,60 @@ function pl_add_options_page_filter( $optionarray ){
 			$optionarray = pl_insert_into_array( $optionarray, $out, $data['position']);
 		else
 			$optionarray[$page] = $out[$page];
+		}
+
+return $optionarray;
+}
+
+
+
+function pl_global_option( $menu, $options, $location = 'bottom', $option = false ) {
+	
+	global $pagelines_add_global_option;
+
+	if ( isset( $menu )  && isset( $options ) && is_array( $options ) )
+		$pagelines_add_global_option[] = array(
+			
+			'menu'		=>	$menu,
+			'options'	=>	$options,
+			'location'	=>	$location,
+			'option'	=>	$option
+		);
+}
+add_filter( 'pagelines_options_array', 'pl_add_global_options_filter' );
+
+function pl_add_global_options_filter( $optionarray ){
+
+		global $pagelines_add_global_option;
+		
+		if ( ! isset( $pagelines_add_global_option ) || !is_array( $pagelines_add_global_option ) )
+			return $optionarray;
+		
+	
+		foreach( $pagelines_add_global_option as $key => $data ) {
+			
+			if ( ! $data['menu'] )
+				return $optionarray;
+			
+			if ( $data['location'] == 'before' || $data['location'] == 'after' && $data['option'] ) {
+				
+				$optionarray[$data['menu']] = pl_array_insert( $optionarray[$data['menu']], $data['option'], $data['options'], ( $data['location'] == 'before' ) ? true : false );
+				return $optionarray;
+			}
+			
+			if ( $data['location'] == 'top' ) {
+				
+				$optionarray[$data['menu']] = pl_insert_into_array( $optionarray[$data['menu']], $data['options'], 0);
+				return $optionarray;
+
+			}
+			
+			if ( $data['location'] == 'bottom' ) {
+				
+				$optionarray[$data['menu']] = pl_insert_into_array( $optionarray[$data['menu']], $data['options'], 9999);
+				return $optionarray;
+
+			}
 		}
 
 return $optionarray;

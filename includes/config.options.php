@@ -420,7 +420,7 @@ class PageLinesOptionsArray {
 
 		);
 		
-		return apply_filters('pl_options_color_control', $a);
+		return apply_filters('pagelines_options_color_control', $a);
 		
 	}
 	
