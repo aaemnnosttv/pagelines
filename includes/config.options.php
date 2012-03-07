@@ -883,36 +883,6 @@ class PageLinesOptionsArray {
 
 		$a = array(
 			'icon'			=> PL_ADMIN_ICONS.'/settings.png',
-			
-			'page_list_options' => array(
-				'default' => '',
-				'version' => 'pro',
-				'type' => 'check_multi',
-				'selectvalues'=> array(
-		
-					'enable_template_view_page'	=> array(
-						'default'		=> false,
-						'type'			=> 'check',
-						'scope'			=> '',
-						'inputlabel'	=> __( 'Show enabled page template.', 'pagelines' ),
-						),
-					'enable_feature_view_post'	=> array(
-						'default'		=> false,
-						'type'			=> 'check',
-						'scope'			=> '',
-						'inputlabel'	=> __( 'Show featured image (posts).', 'pagelines' ),
-						),
-					'enable_feature_view_page'	=> array(
-						'default'		=> false,
-						'type'			=> 'check',
-						'scope'			=> '',
-						'inputlabel'	=> __( 'Show featured image (pages).', 'pagelines' ),
-						)
-						),
-				'title'					=> __( 'Add Custom Page List Columns.', 'pagelines' ),						
-				'shortexp'				=> __( 'Select Which Columns To Show', 'pagelines' ),
-				'exp'					=> __( 'These options will add extra columns to the main page and post listings.', 'pagelines' ) 
-			),
 
 			'google_ie' => array(
 					'default'	=> false,
