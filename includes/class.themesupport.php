@@ -42,6 +42,12 @@ class PageLinesThemeSupport {
 		
 	}
 	
+	public function DisableCoreType(){
+		
+		$this->Disable( array( 'panel' => 'typography', 'keep' => false ) );
+		
+	}
+	
 	public function Disable( $args ){
 		
 		global $disabled_settings;
