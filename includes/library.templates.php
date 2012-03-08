@@ -601,7 +601,7 @@ function pl_special_url( $t ){
  */
 function pagelines_cred(){ 
 	
-	if( !VPRO || ( VPRO && ploption( 'partner_link' ) ) ) {
+	if( !VPRO || ploption( 'partner_link' ) || ploption( 'show_credit' ) || has_action('show_pagelines_leaf') ) {
 			
 		$img 	= sprintf('<img src="%s" alt="%s by PageLines" />', apply_filters('pagelines_leaf_image', PL_IMAGES.'/pagelines.png'), THEMENAME);
 		
