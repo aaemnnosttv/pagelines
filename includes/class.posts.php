@@ -37,7 +37,10 @@ class PageLinesPosts {
 		add_filter('pagelines_post_metabar', 'do_shortcode', 20);
 		
 		if(has_action('add_social_under_meta'))
-			add_filter('pagelines_post_metabar', array( &$this,'add_social_under_meta'));
+			add_filter('pagelines_post_metabar', array( &$this,'add_social'));
+			
+		if(has_action('add_social_under_excerpt'))
+			add_filter('pagelines_excerpt', array( &$this,'add_social'));
 
 	}
 	
@@ -47,10 +50,10 @@ class PageLinesPosts {
 	* @TODO document
 	*
 	*/
-	function add_social_under_meta($metabar){
+	function add_social($input){
 		
 		if ( ! class_exists( 'PageLinesShareBar' ) )
-			return $metabar;
+			return $input;
 		global $post;
 		
 		$args = array('permalink' => get_permalink($post->ID), 'width'=>'50', 'title' => get_the_title($post->ID));
@@ -58,7 +61,7 @@ class PageLinesPosts {
 		$share .= PageLinesShareBar::twitter($args);
 		$meta_share = sprintf('<div class="meta-share">%s</div>', $share);
 		
-		return $metabar.$meta_share;
+		return $input.$meta_share;
 	}
 	
 	
@@ -318,13 +321,6 @@ class PageLinesPosts {
 	 *
 	 * @since 1.1.0
 	 */
-
-
-	/**
-	*
-	* @TODO document
-	*
-	*/
 	function pagelines_get_post_metabar( $format = '' ) {
 
 		$metabar = '';
