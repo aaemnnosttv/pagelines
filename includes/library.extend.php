@@ -90,8 +90,7 @@ function base_check_templates() {
 	foreach ( glob( EXTEND_CHILD_DIR . '/*.php') as $file) {
 
 		if ( preg_match( '/page\.([a-z-0-9]+)\.php/', $file, $match ) ) {
-
-			if ( !file_exists( trailingslashit( get_stylesheet_directory() ) . $file ) && is_writable( get_stylesheet_directory() ) ) 
+			if ( !file_exists( trailingslashit( get_stylesheet_directory() ) . basename( $file ) ) && is_writable( get_stylesheet_directory() ) ) 
 				copy( $file, trailingslashit( get_stylesheet_directory() ) . basename( $file ) );
 
 			if ( file_exists( trailingslashit( get_stylesheet_directory() ) . basename( $file ) ) ) {
