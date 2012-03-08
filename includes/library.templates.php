@@ -168,7 +168,7 @@ function pagelines_head_common(){
 	wp_enqueue_script( 'jquery'); 
 	wp_enqueue_script( 'blocks', PL_JS . '/script.blocks.js', array('jquery'), '1.0.1');
 	
-	if ( !ploption( 'facebook_headers' ) && VPRO)
+	if ( ploption( 'facebook_headers' ) && VPRO)
 		pagelines_facebook_header();
 	
 	pagelines_supersize_bg();
@@ -203,6 +203,9 @@ function pagelines_facebook_header() {
 	if( is_home() || is_archive() )
 		return;
 	global $pagelines_ID;
+	
+	if ( ! $pagelines_ID )
+		return;
 	$fb_img = apply_filters('pl_opengraph_image', pl_the_thumbnail_url($pagelines_ID));
 	if($fb_img)
 		printf( "\n\n<!-- Facebook Open Graph | PageLines -->\n<meta property='og:image' content='%s' />\n", $fb_img);
