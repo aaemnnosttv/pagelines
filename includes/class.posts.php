@@ -40,7 +40,7 @@ class PageLinesPosts {
 			add_filter('pagelines_post_metabar', array( &$this,'add_social'));
 			
 		if(has_action('add_social_under_excerpt'))
-			add_filter('pagelines_excerpt', array( &$this,'add_social'));
+			add_filter('pagelines_post_header', array( &$this,'add_social'));
 
 	}
 	
