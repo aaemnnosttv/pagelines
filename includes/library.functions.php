@@ -173,39 +173,47 @@ function pagelines_id_setup(){
 }
 
 /**
- * 
- *  Registered PageLines Hooks. Stores for reference or use elsewhere.
+ * PageLines Register Hook
  *
- *  @package PageLines Framework
- *  @subpackage Functions Library
- *  @since 1.3.3
+ * Stores for reference or use elsewhere.
  *
+ * @package     PageLines Framework
+ * @subpackage  Functions Library
+ *
+ * @since       1.3.3
+ *
+ * @link        http://www.pagelines.com/wiki/Pagelines_register_hook
+ *
+ * @param       $hook_name
+ * @param       null $hook_area_id
  */
 function pagelines_register_hook( $hook_name, $hook_area_id = null){
 
-	/*
-		Do The Hook
-	*/
+	/** Do The Hook	*/
 	do_action( $hook_name, $hook_name, $hook_area_id);
 		
 }
 
 /**
- * 
- *  Does hooks for template areas
+ * PageLines Template Area
  *
- *  @package PageLines Framework
- *  @subpackage Functions Library
- *  @since 1.3.3
+ * Does hooks for template areas
  *
+ * @package     PageLines Framework
+ * @subpackage  Functions Library
+ *
+ * @since       1.3.3
+ *
+ * @link        http://www.pagelines.com/wiki/Pagelines_template_area
+ *
+ * @param       $hook_name
+ * @param       null $hook_area_id
  */
 function pagelines_template_area( $hook_name, $hook_area_id = null){
 
-	/*
-		Do The Hook
-	*/
+	/** Do The Hook	*/
 	do_action( $hook_name, $hook_area_id);
-		
+
 }
 
 /**
@@ -423,9 +431,15 @@ function pagelines_setup_menu() {
 }
 
 /**
+ * Setup PageLines Template
+ *
  * Includes the loading template that sets up all PageLines templates
  * 
- * @since 1.1.0
+ * @since   1.1.0
+ *
+ * @link    http://www.pagelines.com/wiki/Setup_pagelines_template
+ *
+ * @uses    pagelines_template_area
  */
 function setup_pagelines_template() {
 	get_header();
@@ -438,9 +452,16 @@ function setup_pagelines_template() {
 
 
 /**
+ * PageLines Add Page Callback
+ *
  * Adds pages from the child theme.
- * 
- * @since 1.1.0
+ *
+ * @since   1.1.0
+ *
+ * @param   $page_array
+ * @param   $template_area
+ *
+ * @return  array
  */
 function pagelines_add_page_callback( $page_array, $template_area ){
 	global $pagelines_user_pages;
