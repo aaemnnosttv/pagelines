@@ -224,22 +224,24 @@ class PageLinesSection {
 		else 
 			$set_markup = $markup;	
 		
-		pagelines_register_hook('pagelines_before_'.$this->id, $this->id);
+		pagelines_register_hook('pagelines_before_'.$this->id, $this->id); // hook
 		
 		if ( 'comments' == $this->id )
 			$section_id = 'wp-comments';
+		if ( 'content' == $this->id )
+			$section_id = 'content-area';
 		else
 			$section_id = $this->id;
 		
 		if( $set_markup == 'copy' ) 
-			printf('<section id="%s" class="copy %s"><div class="copy-pad">', $section_id, $classes);
+			printf('<section id="%s" class="copy %s %s"><div class="copy-pad">', $section_id, $section_id, $classes);
 		elseif( $set_markup == 'content' ){
-			printf('<section id="%s" class="container fix %s"><div class="texture">', $this->id, $classes);
-			pagelines_register_hook('pagelines_outer_'.$this->id, $this->id);
+			printf('<section id="%s" class="container %s %s fix"><div class="texture">', $this->id, $section_id, $classes);
+			pagelines_register_hook('pagelines_outer_'.$this->id, $this->id); // hook
 			printf('<div class="content"><div class="content-pad">');
 		}
 		
-		pagelines_register_hook('pagelines_inside_top_'.$this->id, $this->id);
+		pagelines_register_hook('pagelines_inside_top_'.$this->id, $this->id); // hook 
  	}
 
 

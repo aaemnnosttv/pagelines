@@ -905,6 +905,15 @@ table {width: 100%;}
 			padding:0;
 			border:0;
 		}
+		.navigation_wrap .searchfield{
+			display:inline-block;
+			float: none;
+		}
+		#page .main_nav ul, #brandnav .brandnav-nav{margin-top: 10px; width: 100%; float: none;}
+		#page .main_nav ul li {
+			text-align: left;
+			width: 50%;
+		}
 		
 		#page .media .post-thumb {
 			float: none;
