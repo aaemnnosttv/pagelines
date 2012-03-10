@@ -528,19 +528,20 @@ function extension_array(  ){
 		'Sections' => array(
 			'icon'		=> PL_ADMIN_ICONS.'/dragdrop.png',
 			'htabs' 	=> array(
-					'added'	=> array(
-						'title'		=> __( 'Sections Added Via Store', 'pagelines' ),
+					'get_new_sections'	=> store_subtabs('section'),
+					'your_added_sections'	=> array(
+						'title'		=> __( 'Your Sections Added Via Store', 'pagelines' ),
 						'callback'	=> $extension_control->extension_engine( 'section_added', 'user' )
 						),
-					'core'	=> array(
-						'title'		=> __( 'Sections From PageLines Framework', 'pagelines' ),
+					'core_framework'	=> array(
+						'title'		=> __( 'Your Sections From PageLines Framework', 'pagelines' ),
 						'callback'	=> $extension_control->extension_engine( 'section_added', 'internal' )
 						),
-					'child'	=> array(
-						'title'		=> __( 'Sections From Your Child Theme', 'pagelines' ),
+					'child_theme'	=> array(
+						'title'		=> __( 'Your Sections From Your Child Theme', 'pagelines' ),
 						'callback'	=> $extension_control->extension_engine( 'section_added', 'child' )
 						),
-					'add_sections'	=> store_subtabs('section')
+					
 					
 			)
 
@@ -548,23 +549,23 @@ function extension_array(  ){
 		'Themes' => array(
 			'icon'		=> PL_ADMIN_ICONS.'/extend-themes.png',
 			'htabs' 	=> array(
-				
-				'added'	=> array(
-					'title'		=> __( 'Installed PageLines Themes', 'pagelines' ),
+				'get_new_themes'	=> store_subtabs('theme'),
+				'your_themes'	=> array(
+					'title'		=> __( 'Your Installed PageLines Themes', 'pagelines' ),
 					'callback'	=> $extension_control->extension_engine( 'theme', 'installed' )
 					),
-				'add_themes'	=> store_subtabs('theme')
+				
 				)
 		),
 		'Plugins' => array(
 			'icon'		=> PL_ADMIN_ICONS.'/extend-plugins.png',
 			'htabs' 	=> array(
-				
-				'added'	=> array(
-					'title'		=> __( 'Installed PageLines Plugins', 'pagelines' ),
+				'get_new_plugins'	=> store_subtabs('plugin'),
+				'your_plugins'	=> array(
+					'title'		=> __( 'Your Installed PageLines Plugins', 'pagelines' ),
 					'callback'	=> $extension_control->extension_engine( 'plugin', 'installed' )
 					),
-				'add_plugins'	=> store_subtabs('plugin')
+				
 			)
 
 		),
@@ -573,8 +574,8 @@ function extension_array(  ){
 			'icon'		=> PL_ADMIN_ICONS.'/puzzle.png',
 			'htabs' 	=> array(
 				
-				'added'	=> array(
-					'title'		=> __( 'PageLines Integrations', 'pagelines' ),
+				'available_integrations'	=> array(
+					'title'		=> __( 'Available PageLines Integrations', 'pagelines' ),
 					'callback'	=> $extension_control->extension_engine( 'integration' )
 					)
 				)		
@@ -614,14 +615,14 @@ function store_subtabs( $type ){
 		
 		if($type == 'theme'){
 			
-			$s['title']				= __( 'Add Themes', 'pagelines' );
+			$s['title']				= __( 'Add New Themes', 'pagelines' );
 			
 			if($key == 'featured' || $key == 'premium' || $key == 'free')
 				$s[$key]['callback'] 	= $extension_control->extension_engine( $type, $key );
 			
 		} elseif ($type == 'section'){
 			
-			$s['title']				= __( 'Add Sections', 'pagelines' );
+			$s['title']				= __( 'Add New Sections', 'pagelines' );
 			
 			if($key == 'featured' || $key == 'premium' || $key == 'free')
 				$s[$key]['callback'] 	= $extension_control->extension_engine( 'section_extend', $key );
@@ -633,7 +634,7 @@ function store_subtabs( $type ){
 			
 		} elseif ($type == 'plugin' ){
 			
-			$s['title']				= __( 'Add Plugins', 'pagelines' );
+			$s['title']				= __( 'Add New Plugins', 'pagelines' );
 			
 			if($key == 'featured' || $key == 'premium' || $key == 'free')
 				$s[$key]['callback'] 	= $extension_control->extension_engine( $type, $key );

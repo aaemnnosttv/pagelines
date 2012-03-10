@@ -415,7 +415,7 @@
 
 				delete_transient( sprintf( 'pagelines_extend_%ss', $type ) );				
 				$message = __( 'Done.', 'pagelines' );		
-				$text = sprintf( '&extend_text=%s_install#added', $type );
+				$text = sprintf( '&extend_text=%s_install', $type );
 				$this->page_reload( 'pagelines_extend' . $text, null, $message );
 			}
 		
@@ -515,7 +515,7 @@
 		activate_plugin( $path );
 		
 		$message = __( 'Plugin Installed.', 'pagelines' );		
-		$text = '&extend_text=plugin_install#added';
+		$text = '&extend_text=plugin_install#your_plugins';
 		$this->page_reload( 'pagelines_extend' . $text, null, $message );
 		
 	}
@@ -535,7 +535,7 @@
 		global $wp_filesystem;
 		delete_plugins( array( ltrim( $file, '/' ) ) );
 		$message = __( 'Plugin Deleted.', 'pagelines' );		
-		$text = '&extend_text=plugin_delete#added';
+		$text = '&extend_text=plugin_delete#your_plugins';
 		$this->page_reload( 'pagelines_extend' . $text, null, $message );
 		
 	}
@@ -568,7 +568,7 @@
 			activate_plugin( ltrim( $file, '/' ) );
 		// Output
 		$message = __( 'Plugin Upgraded.', 'pagelines' );
-		$text = '&extend_text=plugin_upgrade#added';
+		$text = '&extend_text=plugin_upgrade#your_plugins';
 		$this->page_reload( 'pagelines_extend' . $text, null, $message );
 		
 	}
@@ -626,7 +626,7 @@
 		$wp_filesystem->move( trailingslashit( $wp_filesystem->wp_plugins_dir() ) . $path, sprintf( '%s/pagelines-sections/%s', trailingslashit( $wp_filesystem->wp_plugins_dir() ), $path ) );
 		
 		$this->sections_reset();
-		$text = '&extend_text=section_install#added';
+		$text = '&extend_text=section_install#your_added_sections';
 		if ( $uploader && is_wp_error( $out ) )
 			$this->page_reload( sprintf( 'pagelines_extend&extend_error=%s', $out->get_error_code() ) , null, 0 );
 		else
@@ -653,7 +653,7 @@
 		
 		$this->sections_reset();
 		$message = __( 'Section Deleted.', 'pagelines' );
-		$text = '&extend_text=section_delete#added';
+		$text = '&extend_text=section_delete#your_added_sections';
 			$this->page_reload( 'pagelines_extend' . $text, null, $message );
 		
 	}
@@ -682,7 +682,7 @@
 		
 		$this->sections_reset();
 		// Output
-		$text = '&extend_text=section_upgrade#added';
+		$text = '&extend_text=section_upgrade#your_added_sections';
 		$this->page_reload( 'pagelines_extend' . $text, null, __( 'Section Upgraded', 'pagelines' ) );
 		
 	}
@@ -742,7 +742,7 @@
 		@$upgrader->install( $this->make_url( $type, $file ) );
 
 		// Output
-		$text = '&extend_text=theme_install#added';
+		$text = '&extend_text=theme_install#your_themes';
 		$message = __( 'Theme Installed.', 'pagelines' );
 		$this->page_reload( 'pagelines_extend' . $text, null, $message );
 		
@@ -764,7 +764,7 @@
 		global $wp_filesystem;
 		$wp_filesystem->delete( trailingslashit( PL_EXTEND_THEMES_DIR ) . $file, true, false );
 
-		$text = '&extend_text=theme_delete#added';
+		$text = '&extend_text=theme_delete#your_themes';
 		$message = __( 'Theme Deleted.', 'pagelines' );
 		$this->page_reload( 'pagelines_extend' . $text, null, $message );
 		
@@ -799,7 +799,7 @@
 		if ( $active )
 			switch_theme( basename( get_template_directory() ), $file );
 		// Output
-		$text = '&extend_text=theme_upgrade#added';
+		$text = '&extend_text=theme_upgrade#your_themes';
 		$message = __( 'Theme Upgraded.', 'pagelines' );
 		$this->page_reload( 'pagelines_extend' . $text, null, $message );
 		
