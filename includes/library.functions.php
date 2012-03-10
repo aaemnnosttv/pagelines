@@ -91,13 +91,21 @@ function pl_meta_set_url( $tab = null ){
 }
 
 /**
+ * PageLines Body Classes
  * 
- *  Sets up classes for controlling design and layout and is used on the body tag
+ * Sets up classes for controlling design and layout and is used on the body tag
  *
- *  @package PageLines Framework
- *  @subpackage Functions Library
- *  @since 1.1.0
+ * @package     PageLines Framework
+ * @subpackage  Functions Library
  *
+ * @since       1.1.0
+ *
+ * @link        http://www.pagelines.com/wiki/Pagelines_body_classes
+ *
+ * @uses        ploption
+ * @uses        CHILDTHEMENAME (constant)
+ *
+ * @return      string $body_classes - PageLines default body classes
  */
 function pagelines_body_classes(){
 	
