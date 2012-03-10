@@ -11,7 +11,7 @@
 /**
  * Get current page mode
  *
- * @return str
+ * @return string
  */
 function pl_layout_mode() {
 	
@@ -184,15 +184,19 @@ return $optionarray;
 
 
 /**
+ * PL Global Option
+ *
  * Add global options.
  *
- * @since 2.2
+ * @since       2.2
  *
- * @param string $menu Menu slug.
- * @param array $options The options to insert.
- * @param string $location before|after|top|bottom where to insert.
- * @param string $option string If before or after, where?
-
+ * @link        http://www.pagelines.com/wiki/Pl_global_option
+ *
+ * @param       $args
+ * @internal    param string $menu Menu slug.
+ * @internal    param array $options The options to insert.
+ * @internal    param string $location before|after|top|bottom where to insert.
+ * @internal    param string $option string If before or after, where?
  */
 function pl_global_option( $args ) {
 	
