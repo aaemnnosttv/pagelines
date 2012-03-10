@@ -1,14 +1,13 @@
 <?php
 /**
- * 
+ * PageLinesLayout
  *
- *  Class for managing content layout
+ * Class for managing content layout
  *
+ * @package     PageLines Framework
+ * @subpackage  Layout
  *
- *  @package PageLines Framework
- *  @subpackage Layout
- *  @since 4.0
- *
+ * @since       1.0
  */
 class PageLinesLayout {
 
@@ -508,13 +507,16 @@ function pagelines_current_page_content_width() {
 }
 
 /**
- * 
- *  Returns Current Layout Mode
+ * PageLines Layout Mode
  *
- *  @package PageLines Framework
- *  @subpackage Functions Library
- *  @since 1.0.0
+ * Returns Current Layout Mode
  *
+ * @package     PageLines Framework
+ * @subpackage  Functions Library
+ *
+ * @since       1.0.0
+ *
+ * @return      mixed
  */
 function pagelines_layout_mode() {
 
