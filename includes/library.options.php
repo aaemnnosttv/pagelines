@@ -1,11 +1,28 @@
 <?php
 
 /**
+ * PageLines Option
+ *
  * Uses controls to find and retrieve the appropriate option value
- * 
- * @param 'key' the id of the option
- * 
- **/
+ *
+ * @package PageLines Framework
+ *
+ * @since   ...
+ *
+ * @link    http://www.pagelines.com/wiki/Ploption
+ *
+ * @param   'key' the id of the option
+ * @param   array $args
+ *
+ * @uses    is_pagelines_special
+ * @uses    plspecial
+ * @uses    plmeta
+ * @uses    pldefault
+ * @uses    get_ploption
+ * @uses    plnewkey
+ *
+ * @return  bool|mixed
+ */
 function ploption( $key, $args = array() ){
 
 	$d = array(
