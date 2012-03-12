@@ -8,10 +8,12 @@ global $pagelines_template;
 
 /**
  * Build PageLines Template Global (Singleton)
+ *
  * Must be built inside the page (wp_head) so conditionals can be used to identify the template
- * In the admin, the template doesn't need to be identified so its loaded in the init action
- * @global object $pagelines_template
- * @since 1.0.0
+ * in the admin; the template does not need to be identified so it is loaded in the init action
+ *
+ * @global  object $pagelines_template
+ * @since   1.0.0
  */
 add_action('pagelines_before_html', 'build_pagelines_template');
 
@@ -130,9 +132,14 @@ add_action( 'init', 'pagelines_add_sidebars', 1 );
 
 
 /**
+ * PageLines Add Sidebars
  *
- * @TODO document
+ * Registers sidebars
  *
+ * @since   ...
+ *
+ * @uses    ploption
+ * @uses    (global) $pagelines_sidebars
  */
 function pagelines_add_sidebars() {
 	

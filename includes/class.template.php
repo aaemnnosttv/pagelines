@@ -24,12 +24,12 @@ class PageLinesTemplate {
 	var $default_allsections = array();
 	var $non_template_sections = array();
 	var $tbuffer = array();
-	
-	
-	/**
-	 * PHP5 constructor
-	 *
-	 */
+
+
+    /**
+     * PHP5 constructor
+     * @param   bool $template_type
+     */
 	function __construct( $template_type = false ) {
 		global $post;
 		global $pl_section_factory;
@@ -82,8 +82,12 @@ class PageLinesTemplate {
 	}
 
 	/**
+     * Page Type Breaker
+     *
 	 * Returns template type based on WordPress conditionals
-	 */
+     *
+     * @return mixed|void
+     */
 	function page_type_breaker(){
 		global $post;
 		global $pl_integration;
@@ -109,9 +113,7 @@ class PageLinesTemplate {
 		elseif(is_home() || (!VPRO && is_pagelines_special()))
 			$type = 'posts';
 		elseif(is_page_template()){
-			/*
-				Strip the page. and .php from page.[template-name].php
-			*/
+			/** Strip the page. and .php from page.[template-name].php */
 			$page_filename = str_replace('.php', '', get_post_meta($post->ID,'_wp_page_template',true));
 			$template_name = str_replace('page.', '', $page_filename);
 			$type = $template_name;
@@ -126,10 +128,11 @@ class PageLinesTemplate {
 	
 
 	/**
-	*
-	* @TODO document
-	*
-	*/
+     * Page Type Name
+     *
+     * @return String
+     * @todo Finish documentation
+     */
 	function page_type_name(){
 		
 		if(isset($this->map['templates']['templates'][$this->template_type]['name']))
@@ -222,11 +225,20 @@ class PageLinesTemplate {
 		}
 		
 	}
-	
-	
-	/**
-	 * For a given hook, see which sections are placed there and return them
-	 */
+
+
+    /**
+     * Sections At Hook
+     *
+     * For a given hook, see which sections are placed there and return them
+     *
+     * @since   ...
+     *
+     * @param   $hook
+     * @param   $h
+     *
+     * @return  array|mixed|void
+     */
 	function sections_at_hook( $hook, $h ){
 		
 		/* Load in sections at hook in map, for this template type, allow for overriding */
@@ -1050,10 +1062,12 @@ function reset_templates_to_default(){
 
 
 /**
- *  Workaround for warning on WP login page when pagelines_template variable doesn't exist
- * Due to there being no "pagelines_before_html" hook present. Not ideal; but best solution for now.
+ * Workaround PageLines Template Styles
  *
- * @since 4.0.0
+ * Workaround for warning on WordPress login page when pagelines_template variable doesn't exist
+ * due to there being no "pagelines_before_html" hook present. Not ideal; but best solution for now.
+ *
+ * @since 1.0.0
  */
 function workaround_pagelines_template_styles(){	
 	global $pagelines_template; 
