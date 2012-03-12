@@ -793,7 +793,7 @@ class PageLinesFeatures extends PageLinesSection {
 							'inputlabel'	=> __( 'Select source', 'pagelines' ),
 							'title'			=> __( 'Feature Post Source', 'pagelines' ),
 							'shortexp'		=> __( 'Use feature posts or a post category', 'pagelines' ),
-							'exp'			=> __( 'By default the feature section will use feature posts, you can also set the source for features to a blog post category. Set the category ID in its option below. <br/> <strong>NOTE: If set to posts, excerpts will be used as content (control length through them). Also a new option panel will be added on post creation and editing pages.</strong>', 'pagelines' )
+							'exp'			=> __( 'By default the feature section will use the feature "post type", you can also set the source for features to a blog post category. Set the category ID in its option below. <br/> <strong>NOTES: If set to posts, excerpts will be used as content (control length through them).<br/><br/> Also, to control the appearance of blog posts in the feature, you need to activate the Post Feature MetaPanel under <em>Advanced Settings</em></strong>', 'pagelines' )
 						),
 					'feature_category'		=> array(
 							'default'		=> 1,
