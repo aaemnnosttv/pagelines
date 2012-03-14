@@ -11,15 +11,20 @@
 // ======================================
 
 /**
- * Sidebar - Call & Markup
+ * PageLines Draw Sidebar
  *
+ * Writes sidebar markup.
+ * If no dynamic sidebar (widget) exists it calls the default widget
+ *
+ * @since   ...
+ *
+ * @param   $id - Sidebar ID
+ * @param   $name - Sidebar name
+ * @param   null $default
+ * @param   string $element - CSS wrapper element, default is `ul`
+ *
+ * @uses    pagelines_default_widget
  */
-
-/**
-*
-* @TODO do
-*
-*/
 function pagelines_draw_sidebar($id, $name, $default = null, $element = 'ul'){
 	
 	printf('<%s id="%s" class="sidebar_widgets fix">', $element, 'list_'.$id);
@@ -32,8 +37,18 @@ function pagelines_draw_sidebar($id, $name, $default = null, $element = 'ul'){
 }
 
 /**
- * Sidebar - Default Widget
+ * PageLines Default Widget
  *
+ * Calls default sidebar widget, or allows user with 'edit_themes' capability to adds widgets
+ *
+ * @since   ...
+ *
+ * @param   $id - widget area ID
+ * @param   $name - name of sidebar widget area
+ * @param   $default - ...
+ *
+ * @uses    pagelines
+ * @todo Finish paramater definitions
  */
 function pagelines_default_widget($id, $name, $default){
 	if(isset($default) && !pagelines('sidebar_no_default')):
@@ -56,8 +71,21 @@ function pagelines_default_widget($id, $name, $default){
 	}
 
 /**
- * Sidebar - Standard Sidebar Setup
+ * PageLines Standard Sidebar
  *
+ * Defines standard sidebar parameters
+ *
+ * @since   ...
+ *
+ * @param   string $name - Name of sidebar area
+ * @param   string $description - Description of sidebar area
+ *
+ * @internal    @param  before_widget - markup that wraps the widget area
+ * @internal    @param  after_widget - closing tags of markup added in `before_widget`
+ * @internal    @param  before_title - markup that wraps the widget title text
+ * @internal    @param  after_title - closing tags of markup added in `before_title`
+ *
+ * @return  array - all sidebar parameters
  */
 function pagelines_standard_sidebar($name, $description){
 	return array(
@@ -92,7 +120,14 @@ function pl_action_confirm($name, $text){
 /**
  * PageLines Search Form
  *
- * @param bool $echo 
+ * Writes the default "Search" text to the search form's input field.
+ * Allows the $searchform to be filtered via the pagelines_search_form hook
+ *
+ * @since   ...
+ *
+ * @param   bool $echo - defaults to true, outputs $searchform
+ *
+ * @return  mixed|void - if $echo is false, returns $searchform
  */
 function pagelines_search_form( $echo = true ){ 
 

@@ -573,13 +573,18 @@ function pl_short_excerpt($post_or_id, $words = 10, $excerpt_more = ' [...]') {
 
 
 /**
+ * PageLines Nav Classes
  * 
- *  Returns nav menu classes
+ * Returns nav menu class `sf-menu` which will allow the "superfish" JavaScript to work
  *
- *  @package PageLines Framework
- *  @subpackage Functions Library
- *  @since 1.1.0
+ * @package     PageLines Framework
+ * @subpackage  Functions Library
+ * @since       1.1.0
  *
+ * @internal    see ..\sections\nav\script.superfish.js
+ * @internal    see ..\sections\nav\style.superfish.css
+ *
+ * @return      string - CSS classes
  */
 function pagelines_nav_classes(){ 
 	
