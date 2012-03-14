@@ -257,6 +257,8 @@ class PageLinesMetaPanel {
 		
 		if($location == 'top'){
 			
+			$top[ $tab_id ] = new stdClass;
+			
 			$top[ $tab_id ]->options = $option_array;
 			$top[ $tab_id ]->icon = $o['icon'];
 			$top[ $tab_id ]->active = $o['active'];
@@ -267,6 +269,9 @@ class PageLinesMetaPanel {
 			$this->tabs = array_merge($top, $this->tabs);
 			
 		} else {
+			
+			$this->tabs[ $tab_id ] = new stdClass;
+			
 			$this->tabs[ $tab_id ]->options = $option_array;
 			$this->tabs[ $tab_id ]->icon = $o['icon'];
 			$this->tabs[ $tab_id ]->active = $o['active'];
