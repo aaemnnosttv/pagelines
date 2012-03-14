@@ -78,6 +78,8 @@ class PageLinesCSS {
 
 			foreach($menu as $oid => $o){ 
 				
+				if ( ! is_array( $o ) )
+					$o = array();
 				$oset = array( 'post_id' => $pagelines_ID );
 				$o['val'] = ploption($oid, $oset);
 				
@@ -103,10 +105,10 @@ class PageLinesCSS {
 					
 				}	
 				
-				elseif( $o['type'] == 'colorpicker')
+				elseif( isset( $o['type'] ) && $o['type'] == 'colorpicker')
 					$this->render_css_colors($oid, $o['cssgroup'], $o['css_prop']);
 				
-				elseif( $o['type'] == 'color_multi'){
+				elseif( isset( $o['type'] ) && $o['type'] == 'color_multi'){
 					
 					foreach($o['selectvalues'] as $mid => $m){			
 						
