@@ -208,7 +208,7 @@ add_shortcode('post_comments', 'pagelines_post_comments_shortcode');
 function pagelines_post_comments_shortcode($atts) {
 	
 	$defaults = array(
-		'zero' => __('Leave a Comment', 'pagelines'),
+		'zero' => __('Add Comment', 'pagelines'),
 		'one' => __("<span class='num'>1</span> Comment", 'pagelines'),
 		'more' => __("<span class='num'>%</span> Comments", 'pagelines'),
 		'hide_if_off' => 'disabled',
