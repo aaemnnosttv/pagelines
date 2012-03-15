@@ -51,8 +51,9 @@ class PageLinesUpdateCheck {
 			if ( $pagelines_update && isset( $pagelines_update['package'] ) && $pagelines_update['package'] !== 'bad' ) {
 				$value->response['pagelines'] = $pagelines_update;
 								
-				$this->site_tran->response['pagelines'] = $pagelines_update;
+				$this->site_tran->response['pagelines'] = $pagelines_update;				
 				set_site_transient( 'update_themes', $this->site_tran );
+				return $this->site_tran;
 			}
 			return $value;
 		}
