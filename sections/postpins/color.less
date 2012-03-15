@@ -1,10 +1,13 @@
-.pin-meta a, .pin-meta{
+.pin-meta a, .pin-meta, .fetchpins a, .fetchpins a:hover{
 	color: fadeout(@pl-text, 60%);
 }
 .pin-meta .divider{
 	color: fadeout(@pl-text, 85%);
 }
 
-.postpin{
+.postpin, .fetchpins a{
 	background: lighten(@pl-base, 5);
 }
+	.fetchpins a:hover{
+		background:lighten(@pl-base, 10);
+	}

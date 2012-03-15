@@ -24,7 +24,11 @@ class PostPins extends PageLinesSection {
 		wp_enqueue_script('infinitescroll', $this->base_url.'/script.infinitescroll.js');
 	}
 	
-	function section_head(){?>
+	function section_head(){
+		
+		$width = (ploption('pins_width', $this->oset)) ? ploption('pins_width', $this->oset) : 237;
+		?>
+		<style>.postpin-wrap{width: <?php echo $width;?>px; }</style>
 		<script>
 		
 		jQuery(document).ready(function () {
@@ -34,7 +38,7 @@ class PostPins extends PageLinesSection {
 			
 			theContainer.masonry({
 				itemSelector : '.postpin-wrap',
-				columnWidth: 237,
+				columnWidth: <?php echo $width;?>,
 				isFitWidth: true
 			});
 			
@@ -57,6 +61,30 @@ class PostPins extends PageLinesSection {
 	
 		});
 		
+			jQuery('.fetchpins a').live('click', function(e) {
+				e.preventDefault();
+				jQuery(this).addClass('loading').text('<?php _e('Loading...', 'pagelines');?>');
+				jQuery.ajax({
+					type: "GET",
+					url: jQuery(this).attr('href') + '#pinboard',
+					dataType: "html",
+					success: function(out) {
+						result = jQuery(out).find('.pinboard .postpin-wrap');
+						nextlink = jQuery(out).find('.fetchpins a').attr('href');
+						
+						jQuery('.postpin-list').append(result).masonry('appended', result);
+						
+						jQuery('.fetchpins a').removeClass('loading').text('<?php _e('Load More Posts', 'pagelines');?>');
+						
+						if (nextlink != undefined) {
+							jQuery('.fetchpins a').attr('href', nextlink);
+						} else {
+							jQuery('.fetchpins').remove();
+						}
+					}
+				});
+			});
+		
 			
 		</script>
 	<?php }
@@ -68,18 +96,15 @@ class PostPins extends PageLinesSection {
 		global $wp_query;
 		global $post; 
 		
+		$number_of_pins = (ploption('pins_number', $this->oset)) ? ploption('pins_number', $this->oset) : 15;
 	
 		$current_url = get_permalink($post->ID);
 		
-		if(isset($_GET['pins']) && $_GET['pins'] != 1)
-			$page = $_GET['pins'];
-		else{
-			$page = 1;
-		}
+		$page = (isset($_GET['pins']) && $_GET['pins'] != 1) ? $_GET['pins'] : 1;
 		
 		$out = '';
 		
-		foreach( $this->load_posts(8, $page) as $key => $p ){
+		foreach( $this->load_posts($number_of_pins, $page) as $key => $p ){
 			
 			if(has_post_thumbnail($p->ID) && get_the_post_thumbnail($p->ID) != ''){
 				$thumb = get_the_post_thumbnail($p->ID); 
@@ -118,9 +143,18 @@ class PostPins extends PageLinesSection {
 		}
 		$pg = $page+1;
 		$u = $current_url.'?pins='.$pg;
-		$next = sprintf('<div class="iscroll"><a href="%s">More Posts</a></div>', $u);
 		
-		printf('<div class="postpin-list fix">%s</div>%s', $out, $next);
+		$next_posts = $this->load_posts($number_of_pins, $pg);
+		if( !empty($next_posts) ){
+			
+			$class = ( ploption('pins_loading', $this->oset) == 'infinite' ) ? 'iscroll' : 'fetchpins';
+				
+			$next_url = sprintf('<div class="%s"><a href="%s">%s</a></div>', $class, $u, __('Load More Posts', 'pagelines'));
+		
+		} else
+			$next_url = '';
+			
+		printf('<div class="pinboard"><div class="postpin-list fix">%s</div>%s</div>', $out, $next_url);
 	}
 
 	function load_posts( $number = 20, $page){
@@ -133,6 +167,66 @@ class PostPins extends PageLinesSection {
 		$q = new WP_Query($query);
 		
 		return $q->posts;
+	}
+
+	/**
+	 *
+	 * Page-by-page options for PostPins
+	 *
+	 */
+	function section_optionator( $settings ){
+		$settings = wp_parse_args( $settings, $this->optionator_default );
+		
+			$page_metatab_array = array(
+					'pins_width' => array(
+							'version'		=> 'pro',
+							'type' 			=> 'text_small',
+							'inputlabel' 	=> __( 'Pin Width in Pixels', 'pagelines' ),
+							'title' 		=> __( 'Pin Width', 'pagelines' ),
+							'shortexp' 		=> __( 'The width of post pins in pixels. Default is <strong>237px</strong>.', 'pagelines' )
+					),
+					'pins_number' => array(
+						'version'		=> 'pro',
+						'type' 			=> 'text_small',
+						'inputlabel' 	=> __( 'Number of Pins To Load', 'pagelines' ),
+						'title' 		=> __( 'Number of Pins to Load', 'pagelines' ),
+						'shortexp' 		=> __( 'Use this feature to change the height of your feature area', 'pagelines' ),
+						'exp' 			=> __( "To change the height of your feature area, just enter a number in pixels here.", 'pagelines' ),
+					), 
+					'pins_loading' => array(
+						'version'		=> 'pro',
+						'type' 			=> 'select',
+						'selectvalues' => array(
+							'infinite' 		=> array('name' => __( 'Use Infinite Scrolling', 'pagelines' ) ),
+							'ajax' 			=> array('name' => __( 'Use Load Posts Link (AJAX)', 'pagelines' ) ),						
+						),
+						'inputlabel' 	=> __( 'Pin Loading Method', 'pagelines' ),
+						'title' 		=> __( 'Post Pin Loading', 'pagelines' ),
+						'shortexp' 		=> __( 'Select the mode for loading new pins on the page', 'pagelines' ),
+						'exp' 			=> __( "Use infinite scroll loading to automatically load new pins when users get to the bottom of the page. Alternatively, you can use a link that users can click to 'load new pins' into the page.", 'pagelines' ),
+					),
+					'pins_category' => array(
+						'default' 		=> '380',
+						'version'		=> 'pro',
+						'taxonomy_id'	=> 'category',
+						'type' 			=> 'select_taxonomy',
+						'inputlabel' 	=> __( 'Pin Post Category', 'pagelines' ),
+						'title' 		=> __( 'Pins Category/Posts Mode', 'pagelines' ),
+						'shortexp' 		=> __( 'Select a post category to use with post pins, leave default for all posts.', 'pagelines' ),
+						'exp' 			=> __( "You can select to use only posts from a specific category, leave blank to use all posts.", 'pagelines' ),
+					)
+				);
+
+			$metatab_settings = array(
+					'id' 		=> 'postpins_options',
+					'name' 		=> __( 'PostPins', 'pagelines' ),
+					'icon' 		=> $this->icon, 
+					'clone_id'	=> $settings['clone_id'], 
+					'active'	=> $settings['active']
+				);
+
+			register_metatab( $metatab_settings, $page_metatab_array );
+
 	}
 
 }
