@@ -20,8 +20,20 @@ class PageLinesLayout {
 		*/
 		function __construct($layout_mode = null) {
 			
+			$this->builder = new stdClass;			
+			$this->clip = new stdClass;
+			$this->sidebar_wrap = new stdClass;
+			$this->column_wrap = new stdClass;
+			$this->dynamic_grid = new stdClass;
+			$this->margin = new stdClass;
+			$this->content = new stdClass;
+			$this->gutter = new stdClass;
+			$this->sidebar1 = new stdClass;
+			$this->sidebar2 = new stdClass;
+			$this->main_content = new stdClass;
+			$this->hidden = new stdClass;			
+
 			$this->builder->width = 1400;
-			
 			/*
 				Get the layout map from DB, or use default
 			*/
@@ -38,9 +50,6 @@ class PageLinesLayout {
 				$layout_mode = ( ploption( 'layout_default' ) ) ? ploption( 'layout_default' ) : 'one-sidebar-right';
 		
 			$this->build_layout($layout_mode);
-			
-			
-			
 		}
 		
 

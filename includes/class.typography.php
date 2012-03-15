@@ -508,7 +508,7 @@ class PageLinesFoundry {
 	function setup_google_loaders(){
 			foreach (get_option_array() as $menuitem):
 				foreach($menuitem as $oid => $o):
-					if( $o['type'] == 'typography' ):
+					if( isset( $o['type'] ) && $o['type'] == 'typography' ):
 						$style_id = get_pagelines_option_id($oid, 'font_style');
 						$initial_style = $this->gfont_base_uri. $this->gfont_key(pagelines_sub_option($oid, 'font'));
 						echo '<link id="'.$style_id.'" rel="stylesheet" media="screen" type="text/css" href="'.$initial_style.'" />';
@@ -582,7 +582,7 @@ class PageLinesFoundry {
 			
 			foreach($mid as $oid => $o){ 
 				
-				if($o['type'] == 'typography'){
+				if( isset( $o['type'] ) && $o['type'] == 'typography'){
 					
 					$type = ploption($oid);
 					
