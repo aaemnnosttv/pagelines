@@ -10,6 +10,8 @@ class PageLinesUpdateCheck {
 		$this->username = get_pagelines_credentials( 'user' );
 		$this->password = get_pagelines_credentials( 'pass' );
 
+		$this->site_tran = get_site_transient('update_themes');
+
 		get_currentuserinfo();
 		$bad_users = apply_filters( 'pagelines_updates_badusernames', array( 'admin', 'root', 'test', 'testing', '' ) );
 		if ( in_array( strtolower( $this->username ),  $bad_users ) ) {
@@ -39,6 +41,22 @@ class PageLinesUpdateCheck {
 		}
 	}
 	
+		/**
+		 * TODO Document!
+		 */
+		function pagelines_theme_update_push($value) {
+
+			$pagelines_update = ( array ) maybe_unserialize( $this->pagelines_theme_update_check() );
+
+			if ( $pagelines_update && isset( $pagelines_update['package'] ) && $pagelines_update['package'] !== 'bad' ) {
+				$value->response['pagelines'] = $pagelines_update;
+								
+				$this->site_tran->response['pagelines'] = $pagelines_update;
+				set_site_transient( 'update_themes', $this->site_tran );
+			}
+			return $value;
+		}
+	
 	/**
 	 * TODO Document!
 	 */
@@ -59,18 +77,7 @@ class PageLinesUpdateCheck {
 
 	}
 
-	/**
-	 * TODO Document!
-	 */
-	function pagelines_theme_update_push($value) {
 
-		$pagelines_update = $this->pagelines_theme_update_check();
-
-		if ( $pagelines_update && $pagelines_update['package'] !== 'bad' ) {
-			$value->response[strtolower($this->theme)] = $pagelines_update;
-		}
-		return $value;
-	}
 	
 	/**
 	 * TODO Document!
@@ -133,8 +140,8 @@ class PageLinesUpdateCheck {
 			$pagelines_update = wp_remote_retrieve_body($response);
 
 			// If an error occurred, return FALSE, store for 1 hour
-			if ( $pagelines_update == 'error' || is_wp_error($pagelines_update) || !is_serialized( $pagelines_update ) || $pagelines_update['package'] == 'bad' ) {
-				set_transient( EXTEND_UPDATE, array('new_version' => $this->version), 60*60); // store for 1 hour
+			if ( $pagelines_update == 'error' || is_wp_error($pagelines_update) || !is_serialized( $pagelines_update ) || isset( $pagelines_update['package'] ) && $pagelines_update['package'] == 'bad' ) {
+				$this->set_transients( array('new_version' => $this->version), 60*60);
 				return FALSE;
 			}
 
@@ -142,7 +149,7 @@ class PageLinesUpdateCheck {
 			$pagelines_update = maybe_unserialize($pagelines_update);
 
 			// And store in transient
-			set_transient( EXTEND_UPDATE, $pagelines_update, 60*60*24); // store for 24 hours
+			$this->set_transients( $pagelines_update, 60*60*24 );
 			if ( isset( $pagelines_update['licence'] ) )
 				update_pagelines_licence( $pagelines_update['licence'] );
 		}
@@ -153,4 +160,11 @@ class PageLinesUpdateCheck {
 
 		return $pagelines_update;
 	}
+	
+	
+	function set_transients( $pagelines_update, $time ) {
+		
+		set_transient( EXTEND_UPDATE, $pagelines_update, $time ); 	
+	}
+	
 } // end class
