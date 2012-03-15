@@ -201,6 +201,8 @@ class ProfileEngine {
 		
 		if($location == 'top'){
 			
+			$top[ $tab_id ] = new stdClass;
+			
 			$top[$tab_id]->options = $s['opts'];
 			$top[$tab_id]->icon = $s['icon'];
 			$top[$tab_id]->active = $s['active'];
@@ -210,6 +212,9 @@ class ProfileEngine {
 			$this->tabs = array_merge($top, $this->tabs);
 			
 		} else {
+			
+			$this->tabs[ $tab_id ] = new stdClass;
+			
 			$this->tabs[ $tab_id ]->options = $s['opts'];
 			$this->tabs[ $tab_id ]->icon = $s['icon'];
 			$this->tabs[ $tab_id ]->active = $s['active'];

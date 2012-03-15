@@ -762,7 +762,7 @@ function pagelines_process_reset_options( $option_array = null ) {
 
 	foreach($option_array as $menuitem => $options ){
 		foreach($options as $oid => $o ){
-			if( $o['type']=='reset' && ploption($oid) ){
+			if( isset( $o['type'] ) && $o['type'] == 'reset' && ploption($oid) ){
 
 					call_user_func($o['callback']);
 				
