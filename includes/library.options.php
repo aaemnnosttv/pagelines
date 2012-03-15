@@ -33,6 +33,9 @@ function ploption( $key, $args = array() ){
 	);
 	
 	$o = wp_parse_args($args, $d);
+
+	if ( has_filter( "ploption_{$key}" ) )
+		return apply_filters( "ploption_{$key}", $key, $args );
 	
 	if(is_pagelines_special() && plspecial($key, $args))
 		return plspecial($key, $args);
