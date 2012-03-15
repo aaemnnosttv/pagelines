@@ -53,7 +53,6 @@ class PageLinesSection {
 		$this->set_section_info();
 		
 	}
-	
 
 	/**
      * Set Section Info
@@ -106,7 +105,7 @@ class PageLinesSection {
 			'clone_id'	=> 1,
 			'active'	=> true
 		);
-		
+		load_plugin_textdomain($this->id, false, sprintf( 'pagelines-sections/%s/lang', $this->id ) );	
 	}
 
 
@@ -187,6 +186,7 @@ class PageLinesSection {
      * @uses    section_template
      */
 	function section_template_load( $clone_id ) {
+		
 		// Variables for override
 		$override_template = 'template.' . $this->id .'.php';
 		$override = ( '' != locate_template(array( $override_template), false, false)) ? locate_template(array( $override_template )) : false;
@@ -645,6 +645,7 @@ function load_section_persistent(){
  * @uses        section_admin
  */
 function load_section_admin(){
+
 	global $pl_section_factory;
 	
 	foreach($pl_section_factory->sections as $section)
