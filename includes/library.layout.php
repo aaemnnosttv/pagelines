@@ -230,8 +230,6 @@ function pl_add_global_options_filter( $optionarray ){
 		
 		if ( ! isset( $pagelines_add_global_option ) || !is_array( $pagelines_add_global_option ) )
 			return $optionarray;
-		
-		plprint( $pagelines_add_global_option );
 	
 		foreach( $pagelines_add_global_option as $key => $data ) {
 			
