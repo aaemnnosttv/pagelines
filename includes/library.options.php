@@ -33,6 +33,9 @@ function ploption( $key, $args = array() ){
 	);
 	
 	$o = wp_parse_args($args, $d);
+
+	if ( has_filter( "ploption_{$key}" ) )
+		return apply_filters( "ploption_{$key}", $key, $args );
 	
 	if(is_pagelines_special() && plspecial($key, $args))
 		return plspecial($key, $args);
@@ -762,7 +765,7 @@ function pagelines_process_reset_options( $option_array = null ) {
 
 	foreach($option_array as $menuitem => $options ){
 		foreach($options as $oid => $o ){
-			if( $o['type']=='reset' && ploption($oid) ){
+			if( isset( $o['type'] ) && $o['type'] == 'reset' && ploption($oid) ){
 
 					call_user_func($o['callback']);
 				
