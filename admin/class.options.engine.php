@@ -1086,6 +1086,10 @@ class OptEngine {
 			echo $this->input_label($o['input_id'], $o['inputlabel']);
 			
 			$opts = '';
+			
+			if($o['taxonomy_id'] == 'category')
+				$opts .= $this->input_option('', selected('', $o['val'], false), '*Show All*');
+			
 			foreach($terms_array as $term)
 				$opts .= $this->input_option($term->slug, selected($term->slug, $o['val'], false), $term->name);
 			

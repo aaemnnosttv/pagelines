@@ -125,10 +125,12 @@ class PostPins extends PageLinesSection {
 				do_shortcode('[post_comments]')
 			);
 			
-			$meta_top = sprintf(
-				'<div class="pin-meta pin-top subtext">%s</div>', 
-				get_the_category_list( ', ', '', $p->ID)
-			);
+			if(!isset($category)){
+				$meta_top = sprintf(
+					'<div class="pin-meta pin-top subtext">%s</div>', 
+					get_the_category_list( ', ', '', $p->ID)
+				);
+			}
 			
 			$content = sprintf(
 				'%s<h4 class="headline pin-title"><a href="%s">%s</a></h4><div class="pin-excerpt summary">%s %s</div>%s', 
