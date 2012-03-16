@@ -42,25 +42,29 @@ class PostPins extends PageLinesSection {
 				isFitWidth: true
 			});
 			
-			theContainer.infinitescroll({
-				navSelector : '.iscroll',
-				nextSelector : '.iscroll a',
-				itemSelector : '.postpin-list .postpin-wrap',
-				loadingText : 'Loading...',
-				loadingImg :  '<?php echo $this->base_url."/load.gif";?>',
-				donetext : 'No more pages to load.',
-				debug : true,
-				loading: {
-					finishedMsg: 'No more pages to load.'
-				}
-			}, function(arrayOfNewElems) {
-				theContainer.masonry('appended', jQuery(arrayOfNewElems));
-				
-			});
+			<?php if(ploption('pins_loading', $this->oset) == 'infinite'): ?>
 			
-	
+				theContainer.infinitescroll({
+					navSelector : '.iscroll',
+					nextSelector : '.iscroll a',
+					itemSelector : '.postpin-list .postpin-wrap',
+					loadingText : 'Loading...',
+					loadingImg :  '<?php echo $this->base_url."/load.gif";?>',
+					donetext : 'No more pages to load.',
+					debug : true,
+					loading: {
+						finishedMsg: 'No more pages to load.'
+					}
+				}, function(arrayOfNewElems) {
+					theContainer.masonry('appended', jQuery(arrayOfNewElems));
+				
+				});
+			
+			<?php endif;?>
+		
 		});
 		
+			<?php if(ploption('pins_loading', $this->oset) != 'infinite'): ?>
 			jQuery('.fetchpins a').live('click', function(e) {
 				e.preventDefault();
 				jQuery(this).addClass('loading').text('<?php _e('Loading...', 'pagelines');?>');
@@ -84,6 +88,7 @@ class PostPins extends PageLinesSection {
 					}
 				});
 			});
+			<?php endif;?>
 		
 			
 		</script>
@@ -96,6 +101,8 @@ class PostPins extends PageLinesSection {
 		global $wp_query;
 		global $post; 
 		
+		$category = (ploption('pins_category', $this->oset)) ? ploption('pins_category', $this->oset) : null;
+		
 		$number_of_pins = (ploption('pins_number', $this->oset)) ? ploption('pins_number', $this->oset) : 15;
 	
 		$current_url = get_permalink($post->ID);
@@ -104,7 +111,7 @@ class PostPins extends PageLinesSection {
 		
 		$out = '';
 		
-		foreach( $this->load_posts($number_of_pins, $page) as $key => $p ){
+		foreach( $this->load_posts($number_of_pins, $page, $category) as $key => $p ){
 			
 			if(has_post_thumbnail($p->ID) && get_the_post_thumbnail($p->ID) != ''){
 				$thumb = get_the_post_thumbnail($p->ID); 
@@ -144,7 +151,8 @@ class PostPins extends PageLinesSection {
 		$pg = $page+1;
 		$u = $current_url.'?pins='.$pg;
 		
-		$next_posts = $this->load_posts($number_of_pins, $pg);
+		$next_posts = $this->load_posts($number_of_pins, $pg, $category);
+		
 		if( !empty($next_posts) ){
 			
 			$class = ( ploption('pins_loading', $this->oset) == 'infinite' ) ? 'iscroll' : 'fetchpins';
@@ -157,8 +165,11 @@ class PostPins extends PageLinesSection {
 		printf('<div class="pinboard"><div class="postpin-list fix">%s</div>%s</div>', $out, $next_url);
 	}
 
-	function load_posts( $number = 20, $page){
+	function load_posts( $number = 20, $page = 1, $category = null){
 		$query = array();
+		
+		if(isset($category))
+			$query['category_name'] = $category;
 	
 		$query['paged'] = $page;
 	
@@ -190,8 +201,8 @@ class PostPins extends PageLinesSection {
 						'type' 			=> 'text_small',
 						'inputlabel' 	=> __( 'Number of Pins To Load', 'pagelines' ),
 						'title' 		=> __( 'Number of Pins to Load', 'pagelines' ),
-						'shortexp' 		=> __( 'Use this feature to change the height of your feature area', 'pagelines' ),
-						'exp' 			=> __( "To change the height of your feature area, just enter a number in pixels here.", 'pagelines' ),
+						'shortexp' 		=> __( 'The number of posts to pull at a time in the section. Default is <strong>15 posts</strong>.', 'pagelines' ),
+						'exp' 			=> __( "Control the amount of posts that are pulled for use in the Pins section at a time.", 'pagelines' ),
 					), 
 					'pins_loading' => array(
 						'version'		=> 'pro',
@@ -202,18 +213,17 @@ class PostPins extends PageLinesSection {
 						),
 						'inputlabel' 	=> __( 'Pin Loading Method', 'pagelines' ),
 						'title' 		=> __( 'Post Pin Loading', 'pagelines' ),
-						'shortexp' 		=> __( 'Select the mode for loading new pins on the page', 'pagelines' ),
+						'shortexp' 		=> __( 'Select the mode for loading new pins on the page. Default is to use <strong>Load Posts Link</strong>.', 'pagelines' ),
 						'exp' 			=> __( "Use infinite scroll loading to automatically load new pins when users get to the bottom of the page. Alternatively, you can use a link that users can click to 'load new pins' into the page.", 'pagelines' ),
 					),
 					'pins_category' => array(
-						'default' 		=> '380',
 						'version'		=> 'pro',
 						'taxonomy_id'	=> 'category',
 						'type' 			=> 'select_taxonomy',
 						'inputlabel' 	=> __( 'Pin Post Category', 'pagelines' ),
 						'title' 		=> __( 'Pins Category/Posts Mode', 'pagelines' ),
 						'shortexp' 		=> __( 'Select a post category to use with post pins, leave default for all posts.', 'pagelines' ),
-						'exp' 			=> __( "You can select to use only posts from a specific category, leave blank to use all posts.", 'pagelines' ),
+						'exp' 			=> __( "You can select to use only posts from a specific category, leave blank to use all posts. Default is to show all posts.", 'pagelines' ),
 					)
 				);
 
