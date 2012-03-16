@@ -61,8 +61,9 @@ class PostPins extends PageLinesSection {
 						finishedMsg: 'No more pages to load.'
 					}
 				}, function(arrayOfNewElems) {
-					theContainer.masonry('appended', jQuery(arrayOfNewElems));
-				
+					theContainer.imagesLoaded(function(){
+						theContainer.masonry('appended', jQuery(arrayOfNewElems));
+					});
 				});
 			
 			<?php endif;?>
