@@ -231,6 +231,7 @@ function pl_add_global_options_filter( $optionarray ){
 		if ( ! isset( $pagelines_add_global_option ) || !is_array( $pagelines_add_global_option ) )
 			return $optionarray;
 		
+		plprint( $pagelines_add_global_option );
 	
 		foreach( $pagelines_add_global_option as $key => $data ) {
 			
@@ -243,21 +244,14 @@ function pl_add_global_options_filter( $optionarray ){
 			if ( $data['location'] == 'before' || $data['location'] == 'after' && $data['option'] ) {
 				
 				$optionarray[$data['menu']] = pl_array_insert( $optionarray[$data['menu']], $data['option'], $data['options'], ( $data['location'] == 'before' ) ? true : false );
-				return $optionarray;
 			}
 			
 			if ( $data['location'] == 'top' ) {
-				
 				$optionarray[$data['menu']] = pl_insert_into_array( $optionarray[$data['menu']], $data['options'], 0);
-				return $optionarray;
-
 			}
 			
-			if ( $data['location'] == 'bottom' ) {
-				
+			if ( $data['location'] == 'bottom' ) {				
 				$optionarray[$data['menu']] = pl_insert_into_array( $optionarray[$data['menu']], $data['options'], 9999);
-				return $optionarray;
-
 			}
 		}
 
