@@ -19,7 +19,7 @@
 }*/
 
 
-	.postpin, .fetchpins a{
+	.postpin, .fetchlink a{
 		margin: 8px;
 		box-shadow: 0 1px 4px rgba(0,0,0,.3);
 	}
@@ -66,8 +66,8 @@
 	/*
 	 * @ Loading & Links 
 	 ************/
-	.fetchpins {text-align: center; margin: 1em 0; }
-	.fetchpins a{
+	.fetchlink {text-align: center; margin: 1em 0; }
+	.fetchlink a{
 		font-size: 1.2em;
 		display: inline-block;
 		padding: 10px 40px;

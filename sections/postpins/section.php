@@ -36,10 +36,15 @@ class PostPins extends PageLinesSection {
 			var theContainer = jQuery('.postpin-list');
 			var containerWidth = theContainer.width();
 			
-			theContainer.masonry({
-				itemSelector : '.postpin-wrap',
-				columnWidth: <?php echo $width;?>,
-				isFitWidth: true
+			
+			theContainer.imagesLoaded(function(){
+				
+				theContainer.masonry({
+					itemSelector : '.postpin-wrap',
+					columnWidth: <?php echo $width;?>,
+					isFitWidth: true
+				});
+			
 			});
 			
 			<?php if(ploption('pins_loading', $this->oset) == 'infinite'): ?>
@@ -159,12 +164,12 @@ class PostPins extends PageLinesSection {
 			
 			$class = ( ploption('pins_loading', $this->oset) == 'infinite' ) ? 'iscroll' : 'fetchpins';
 				
-			$next_url = sprintf('<div class="%s"><a href="%s">%s</a></div>', $class, $u, __('Load More Posts', 'pagelines'));
+			$next_url = sprintf('<div class="%s fetchlink"><a href="%s">%s</a></div>', $class, $u, __('Load More Posts', 'pagelines'));
 		
 		} else
 			$next_url = '';
 			
-		printf('<div class="pinboard"><div class="postpin-list fix">%s</div>%s</div>', $out, $next_url);
+		printf('<div class="pinboard fix"><div class="postpin-list fix">%s</div>%s<div class="clear"></div></div>', $out, $next_url);
 	}
 
 	function load_posts( $number = 20, $page = 1, $category = null){
