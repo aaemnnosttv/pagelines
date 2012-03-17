@@ -546,10 +546,13 @@ body{
 
 /* @ Sidebar */
 		#sidebar-wrap #sidebar_universal{ padding: 2em 1em 0 1em; }
+		
 		ul.sidebar_widgets{ list-style-type: none; }
 		
 		/* @ Sidebar Widgets */
-			.widget{ overflow: hidden; }
+
+		/*	.widget{ overflow: hidden; }  Breaks sidebar-wrap bottom */
+
 			.widget-title{
 				text-align:left;
 				padding:3px 8px 3px 0px;
