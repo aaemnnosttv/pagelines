@@ -299,11 +299,17 @@ class PageLinesExtendUI {
 		$js_call = ( $a['mode'] == 'installed' ) ? '' : sprintf( $this->exprint, $a['case'], $a['key'], $a['type'], $a['file'], $a['path'], $a['product'], $a['dtext']);
 		
 		
-		if($a['mode'] == 'deactivate' || $a['mode'] == 'delete' || $a['mode'] == 'installed' )
+		if( $a['mode'] == 'deactivate' || $a['mode'] == 'delete' || $a['mode'] == 'installed' )
 			$class = 'discrete';
 		else 
 			$class = '';
 		
+		if ( $a['mode'] == 'subscribe' )
+			$class = 'discrete subscribe';
+
+		if ( $a['mode'] == 'unsubscribe' )
+			$class = 'discrete unsubscribe';	
+			
 		if($style == 'superlink')
 			$button = OptEngine::superlink( $a['text'], $a['mode'], '', '', $js_call);
 		else

@@ -488,6 +488,7 @@
 	function show_subscribe_button( $type, $key, $ext, $tab ){
 
 		if( $this->is_installed( $type, $key, $ext )
+			&& $this->subscription_enabled()
 			&& ! $this->in_the_store( $type, $key, $ext, $tab )
 			&& ! $this->is_subscribed( $type, $key, $ext, $tab )
 			&& $this->get_product_id( $ext )
@@ -506,6 +507,7 @@
 	function show_unsubscribe_button( $type, $key, $ext, $tab ){
 
 		if( $this->is_installed( $type, $key, $ext )
+			&& $this->subscription_enabled()
 			&& $this->is_subscribed( $type, $key, $ext, $tab )
 			&& ! $this->in_the_store( $type, $key, $ext, $tab )
 			&& $this->updates_configured()
@@ -529,10 +531,22 @@
 		){
 			return true;
 		} else 
-			return false;
-		
+			return false;	
 	}
 	
+
+	/**
+	*
+	* @TODO document
+	*
+	*/
+	function subscription_enabled(){
+		
+		if( ploption( 'store_subscribe' ) )
+			return true;
+		else 
+			return false;	
+	}
 
 	/**
 	*

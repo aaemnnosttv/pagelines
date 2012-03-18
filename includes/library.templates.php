@@ -512,12 +512,20 @@ function pagelines_page_subnav(){
 }
 
 /**
- * 
- *  The main site logo template
+ * PageLines Main Logo
  *
- *  @package PageLines Framework
- *  @subpackage Functions Library
- *  @since 1.1.0
+ * The main site logo template
+ *
+ * @package     PageLines Framework
+ * @subpackage  Functions Library
+ *
+ * @since       1.1.0
+ *
+ * @param       null $location
+ *
+ * @uses        (global) $pagelines_ID
+ * @uses        ploption - pagelines_custom_logo, pagelines_custom_logo_url
+ * @uses        (filters) pagelines_logo_url, pagelines_site_logo, pagelines_custom_logo_url, pagelines_site_title
  *
  */
 function pagelines_main_logo( $location = null ){ 
