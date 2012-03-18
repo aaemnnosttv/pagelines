@@ -15,10 +15,11 @@ class PageLinesLess {
 	
 
 	/**
-	*
-	* @TODO document
-	*
-	*/
+     * Establish the default LESS constants and provides a filter to over-write them
+     *
+     * @uses    pl_hashify - adds # symbol to CSS color hex values
+     * @uses    page_line_height - calculates a line height relevant to font-size and content width
+     */
 	function __construct() {
 		
 		global $less_vars;
@@ -62,10 +63,14 @@ class PageLinesLess {
 			);
 	
 	}
-	
-	/*
-	 * Parse PLESS Input & return CSS 
-	 */
+
+    /**
+     * Parse PLESS Input & return CSS
+     *
+     * @param $pless
+     *
+     * @return string
+     */
 	public function parse( $pless ) {
 		
 		$pless = $this->add_constants( $pless );
@@ -134,10 +139,12 @@ class PageLinesLess {
 	
 
 	/**
-	*
-	* @TODO document
-	*
-	*/
+     * Color Detect
+     *
+     * Takes the base color hex string and assigns a value to determine what "shade" the color is
+     *
+     * @return bool|int - a numeric value used in invert()
+     */
 	function color_detect(){
 		
 		$hex = str_replace('#', '', $this->base_color); 
@@ -224,10 +231,12 @@ function pl_base_color( $mode = '', $difference = '10%'){
 
 
 /**
-*
-* @TODO do
-*
-*/
+ * PageLines BackGround Color
+ *
+ * Use to set the background color, if set; if not set the background color is returned as #FFFFFF (White)
+ *
+ * @return bool|string - background color value
+ */
 function pl_bg_color(){
 	
 	if(get_set_color( 'the_bg' ))
@@ -238,10 +247,12 @@ function pl_bg_color(){
 }
 
 /**
-*
-* @TODO do
-*
-*/
+ * PageLines Text Color
+ *
+ * Used to set the text color; if not set the default color #000000 is set
+ *
+ * @return mixed|string - text color value
+ */
 function pl_text_color(){
 		
 	$color = ( ploption( 'text_primary' ) ) ? pl_hash_strip( ploption( 'text_primary' ) ) : '000000';
@@ -250,10 +261,12 @@ function pl_text_color(){
 }
 
 /**
-*
-* @TODO do
-*
-*/
+ * PageLines Link Color
+ *
+ * Used to set the link; if not set the default color is set to #225E9B
+ *
+ * @return mixed|string - link color
+ */
 function pl_link_color(){
 	
 	$color = ( ploption( 'linkcolor' ) ) ? pl_hash_strip( ploption( 'linkcolor' ) ) : '225E9B';
@@ -263,10 +276,12 @@ function pl_link_color(){
 }
 
 /**
-*
-* @TODO do
-*
-*/
+ * PageLines Header Color
+ *
+ * Used to set the header color; if not set the default color #000000 is set
+ *
+ * @return mixed|string - header color
+ */
 function pl_header_color(){
 	
 	$color = ( ploption( 'headercolor' ) ) ? pl_hash_strip( ploption( 'headercolor' ) ) : '000000';
@@ -276,10 +291,12 @@ function pl_header_color(){
 }
 
 /**
-*
-* @TODO do
-*
-*/
+ * PageLines Footer Color
+ *
+ * Used to set the footer text color; if not set the default color #999999 is set
+ *
+ * @return mixed|string
+ */
 function pl_footer_color(){
 	
 	$color = ( ploption( 'footer_text' ) ) ? pl_hash_strip( ploption( 'footer_text' ) ) : '999999';
@@ -298,10 +315,14 @@ function pl_hash_strip( $color ){
 }
 
 /**
-*
-* @TODO do
-*
-*/
+ * PageLines Hashify
+ *
+ * Adds the # symbol to the hex value of the color being used
+ *
+ * @param $color
+ *
+ * @return string
+ */
 function pl_hashify( $color ){
 	
 	$clean_hex = str_replace('#', '', $color);
