@@ -689,6 +689,10 @@
 			
 		}
 			
+		.wideinputs .multi_option .oinputs-pad{
+			padding: 0;
+			margin:0;
+		}
 		
 		
 	/* Different Layout Modes */

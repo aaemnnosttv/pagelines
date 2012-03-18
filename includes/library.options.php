@@ -795,6 +795,7 @@ function pagelines_is_multi_option( $oid, $o ){
 		|| $o['type'] == 'check_multi' 
 		|| $o['type'] == 'color_multi'
 		|| $o['type'] == 'image_upload_multi'
+		|| $o['type'] == 'multi_option'
 	){
 		return true;
 	} else

@@ -28,6 +28,7 @@ class OptEngine {
 		$this->defaults = array(
 			'section'				=> '',
 			'scontrol'				=> '',
+			'options'				=> array(),
 			'post_id'				=> '', 
 			'pid'					=> '', 
 			'setting'				=> '',
@@ -78,11 +79,11 @@ class OptEngine {
 	*/
 	function make_adjustments($o){
 		
-		if($o['type'] == 'color_multi' || $o['type'] == 'text_content' || $o['inputsize'] == 'big'){
+		if($o['type'] == 'color_multi' || $o['type'] == 'text_content' || $o['inputsize'] == 'big' || $o['type'] == 'multi_option'){
 			$o['layout'] = 'full';
 		}
 
-		if($o['type'] == 'text_content_reverse'){
+		if($o['type'] == 'text_content_reverse' ){
 			$o['layout'] = 'interface';
 		}
 			
@@ -348,6 +349,9 @@ class OptEngine {
 
 		switch ( $o['type'] ){
 
+			case 'multi_option' :
+				$this->_get_multi_option($oid, $o);
+				break;
 			case 'select' :
 				$this->_get_select_option($oid, $o);
 				break;
@@ -463,7 +467,32 @@ class OptEngine {
 	
 	
 
-
+	/**
+	 * 
+	 * Multiple Options Rendering.. 
+	 * 
+	 * @since 1.0.0
+	 * @author Andrew Powers
+	 * 
+	 */
+	function _get_multi_option($oid, $o){
+		
+		global $post_ID;
+		
+		$sub_option_engine = new OptEngine( $this->settings_field );
+		
+		$flag = ($this->settings_field == 'meta') ? $post_ID : null;
+		
+		echo '<div class="multi_option">';
+		foreach($o['selectvalues'] as $mid => $m){
+			
+			$sub_option_engine->option_engine($mid, $m, $flag);
+			
+		}
+		echo '</div>';
+	}
+	
+	
 	/**
 	 * 
 	 * Gets a menu selector for WP menus. Can be used in navigation, etc...
