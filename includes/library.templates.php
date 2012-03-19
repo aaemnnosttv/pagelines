@@ -298,7 +298,7 @@ function pagelines_runtime_supersize(){
 /**
  * PageLines Title Tag
  *
- * Checks for AIO or WPSEO functionality, if they both do not exist then this will generate appropriate text for the installation site's <Title> meta tag.
+ * Checks for AIO or WPSEO functionality, if they both do not exist then this will define the HTML <title> tag for the theme.
  *
  * @since   ...
  *
