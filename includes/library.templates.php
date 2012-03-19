@@ -296,14 +296,15 @@ function pagelines_runtime_supersize(){
 
 	
 /**
-*
-* @TODO do
-*
-*/
+ * PageLines Title Tag
+ *
+ * Checks for AIO or WPSEO functionality, if they both do not exist then this will generate appropriate text for the installation site's <Title> meta tag.
+ *
+ * @since   ...
+ *
+ * @internal filter pagelines_meta_title provided for over-writing the default title text.
+ */
 function pagelines_title_tag(){
-	/*
-		Title Metatag
-	*/
 	echo "\n<title>";
 
 	if ( !function_exists( 'aiosp_meta' ) && !function_exists( 'wpseo_get_value' ) ) {
