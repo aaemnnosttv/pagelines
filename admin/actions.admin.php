@@ -323,3 +323,5 @@ function pl_page_show_columns($name) {
 		break;		
     }
 }
+
+new Store_RSS;
