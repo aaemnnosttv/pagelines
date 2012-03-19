@@ -198,23 +198,6 @@ function pagelines_ajax_save_option_callback() {
 }
 
 /**
- * Check Version
- *
- * Check Framework version with API
- *
- * @package PageLines Framework
- * @since   ...
- *
- * @uses    PageLinesUpdateCheck
- */
-add_action( 'admin_init', 'pagelines_check_version' );
-function pagelines_check_version() {
-		global $pl_update;
-		$pl_update = new PageLinesUpdateCheck( CORE_VERSION );
-		$pl_update->pagelines_theme_check_version();
-}
-
-/**
  * Inline Help
  *
  * Load Inline help system.

@@ -51,11 +51,6 @@ require_once( PL_ADMIN . '/class.options.engine.php' );
 require_once( PL_ADMIN . '/class.options.panel.php' );
 
 /**
- * Load updater class
- */
-require_once (PL_ADMIN.'/class.updates.php');
-
-/**
  * Load inline help
  */
 require_once (PL_ADMIN . '/library.help.php' );

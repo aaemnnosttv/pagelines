@@ -19,6 +19,7 @@ class PageLinesUpdateCheck {
 			$this->username = '';
 			$this->password = '';
 		}
+		$this->pagelines_theme_check_version();
     }
 
 	/**
