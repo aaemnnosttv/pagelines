@@ -653,10 +653,15 @@ function load_custom_font($font, $selectors){
 }
 
 /**
-*
-* @TODO do
-*
-*/
+ * Page Line Height
+ *
+ * Follows the golder rectangle rule to create an aesthetic and dynamic line height.
+ *
+ * @param   $fontsize - default: 15px
+ * @param   $line_width - default: 600px ($content_width)
+ *
+ * @return  float - calculated value; default: 24px
+ */
 function page_line_height($fontsize, $line_width){
 	
 	$golden = 1.618;
