@@ -251,3 +251,10 @@ pagelines_register_hook('pagelines_hook_init'); // Hook
 
 if ( is_admin() )
 	include( PL_ADMIN . '/init.admin.php' );
+	
+/**
+ * Load updater class
+ */
+require_once (PL_ADMIN.'/class.updates.php');
+
+new PageLinesUpdateCheck( CORE_VERSION );

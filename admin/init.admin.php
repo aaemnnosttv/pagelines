@@ -51,11 +51,6 @@ require_once( PL_ADMIN . '/class.options.engine.php' );
 require_once( PL_ADMIN . '/class.options.panel.php' );
 
 /**
- * Load updater class
- */
-require_once (PL_ADMIN.'/class.updates.php');
-
-/**
  * Load inline help
  */
 require_once (PL_ADMIN . '/library.help.php' );
@@ -78,6 +73,8 @@ require_once ( PL_ADMIN . '/class.extend.themes.php' );
 require_once ( PL_ADMIN . '/class.extend.plugins.php' );
 require_once ( PL_ADMIN . '/class.extend.sections.php' );
 $extension_control = new PagelinesExtensions;
+
+require_once( PL_ADMIN . '/class.rss.php' );
 
 /**
  * Load admin actions
