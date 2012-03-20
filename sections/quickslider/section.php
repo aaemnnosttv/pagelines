@@ -17,6 +17,8 @@
  */
 class PageLinesQuickSlider extends PageLinesSection {
 
+	var $default_limit = 2;
+
 	/**
 	 * Load styles and scripts
 	 */
@@ -33,8 +35,8 @@ class PageLinesQuickSlider extends PageLinesSection {
 		
 		$clone_class = 'pl-clone'.$clone_id;
 		
-		$control_nav = (ploption('quick_nav', $this->oset) == 'both' || ploption('quick_nav', $this->oset) == 'control_only') ? 'true' : 'false';
-		$direction_nav = (ploption('quick_nav', $this->oset) == 'both' || ploption('quick_nav', $this->oset) == 'arrow_only') ? 'true' : 'false';
+		$control_nav = (!ploption('quick_nav', $this->oset) || ploption('quick_nav', $this->oset) == 'both' || ploption('quick_nav', $this->oset) == 'control_only') ? 'true' : 'false';
+		$direction_nav = (!ploption('quick_nav', $this->oset) || ploption('quick_nav', $this->oset) == 'both' || ploption('quick_nav', $this->oset) == 'arrow_only') ? 'true' : 'false';
 		?>
 		
 		<script>
@@ -71,26 +73,30 @@ class PageLinesQuickSlider extends PageLinesSection {
 			
 			<?php
 			
-			$slides = (ploption('quick_slides', $this->oset)) ? ploption('quick_slides', $this->oset) : 3;
+			$slides = (ploption('quick_slides', $this->oset)) ? ploption('quick_slides', $this->oset) : $this->default_limit;
 			
-			$out = '';
+			$output = '';
 			for($i = 1; $i <= $slides; $i++){
 			
 				if(ploption('quick_image_'.$i, $this->oset)){
 					
 					$text = (ploption('quick_text_'.$i, $this->oset)) ? sprintf('<p class="flex-caption">%s</p>', ploption('quick_text_'.$i, $this->oset)) : '';
 					$img = sprintf('<img src="%s" />', ploption('quick_image_'.$i, $this->oset) );
-					$slide = (ploption('quick_link_'.$i, $this->oset)) ? sprintf('<a href="%s">%s</a>', ploption('quick_link_'.$i, $this->oset), $img ) : $img;
+					$slide = (ploption('quick_link_'.$i, $this->oset)) ? sprintf('<a href="%s">%s</a>', ploption('quick_link_'.$i, $this->oset), $img ) : $img;	
 					
-					$out .= printf('<li>%s %s</li>', $slide, $text);
+					
+					$output .= sprintf('<li>%s %s</li>', $slide, $text);
+					
 				}
 			}
 			
-			if($out == ''){
+			if($output == ''){
 				$this->do_defaults();
 			} else {
-				echo $out;
+				echo $output;
+				
 			}
+			
 			
 			?>
 		  </ul>
@@ -98,6 +104,7 @@ class PageLinesQuickSlider extends PageLinesSection {
 		</div>
 		<div class="fs-nav-container"></div>
 	</div>
+	
 		<?php 
 	}
 
@@ -117,7 +124,9 @@ class PageLinesQuickSlider extends PageLinesSection {
 			$array = array(); 
 			
 			$array['quick_slides'] = array(
-				'type' 			=> 'text_small',
+				'type' 			=> 'count_select',
+				'count_start'	=> 1, 
+				'count_end'		=> 10,
 				'default'		=> '3',
 				'inputlabel' 	=> __( 'Number of Slides to Configure', 'pagelines' ),
 				'title' 		=> __( 'Number of Slides', 'pagelines' ),
@@ -166,9 +175,9 @@ class PageLinesQuickSlider extends PageLinesSection {
 			
 			global $post_ID;
 			
-			$oset = array('post_id' => $post_ID, 'clone_id' => $settings['clone_id']);
+			$oset = array('post_id' => $post_ID, 'clone_id' => $settings['clone_id'], 'type' => $settings['type']);
 			
-			$slides = (ploption('quick_slides', $oset)) ? ploption('quick_slides', $oset) : 3;
+			$slides = (ploption('quick_slides', $oset)) ? ploption('quick_slides', $oset) : $this->default_limit;
 			
 			for($i = 1; $i <= $slides; $i++){
 				

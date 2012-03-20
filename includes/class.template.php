@@ -831,7 +831,7 @@ class PageLinesTemplate {
 	 * @subpackage Sections
 	 * @since 2.0.b3
 	 */
-	function load_section_optionator( $mode = 'meta' ){
+	function load_section_optionator( $mode = 'meta', $type = '' ){
 	
 		// Which sections to load and parse
 		if($mode == 'integration')
@@ -863,7 +863,7 @@ class PageLinesTemplate {
 				
 				$s->setup_oset( $clone_id );
 				
-				$s->section_optionator( array( 'clone_id' => $clone_id ) );
+				$s->section_optionator( array( 'clone_id' => $clone_id, 'type' => $type ) );
 				
 			}
 		
@@ -878,7 +878,7 @@ class PageLinesTemplate {
 				$inactive = ( !in_array( $key, $this->default_allsections) ) ? true : false;
 		
 				if($inactive)
-					$section->section_optionator( array('clone_id' => $clone_id, 'active' => false) );
+					$section->section_optionator( array('clone_id' => $clone_id, 'active' => false, 'type' => $type) );
 			}
 			
 		}

@@ -26,10 +26,11 @@
 function ploption( $key, $args = array() ){
 
 	$d = array(
-		'subkey'	=> null, 
-		'post_id'	=> null, 
-		'setting'	=> null, 
+		'subkey'	=> null, 	// Used as option key in special handling 
+		'post_id'	=> null, 	// Used for page/page/panel control
+		'setting'	=> null, 	// Different types of serialized settings
 		'clone_id'	=> null,
+		'type'		=> '', 		// used for special meta tabs
 	);
 	
 	$o = wp_parse_args($args, $d);
@@ -37,7 +38,7 @@ function ploption( $key, $args = array() ){
 	if ( has_filter( "ploption_{$key}" ) )
 		return apply_filters( "ploption_{$key}", $key, $args );
 	
-	if(is_pagelines_special() && plspecial($key, $args))
+	if(is_pagelines_special($args) && plspecial($key, $args))
 		return plspecial($key, $args);
 
 	elseif( isset( $o['post_id'] ) && plmeta( $key, $args ) )
@@ -108,7 +109,13 @@ function plspecial($key, $args){
 
 	global $pagelines_special_meta;
 	
-	$type = PageLinesTemplate::page_type_breaker();
+	// Type of page is needed for special handling
+	// Use the argument 'type' if available because of settings panels, etc. 
+	if(isset($args['type']) && $args['type'] != '')
+		$type = $args['type'];
+	else
+		$type = PageLinesTemplate::page_type_breaker();
+		
 	
 	if( isset($args['clone_id']) && $args['clone_id'] != 1 )
 		$id_key = $key.'_'.$args['clone_id'];

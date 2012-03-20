@@ -53,9 +53,19 @@ function pagelines_non_meta_data_page(){
  * @TODO document
  *
  */
-function is_pagelines_special(){
+function is_pagelines_special($args = array()){
 	if(is_404() || is_home() || is_author() || is_search() || is_archive() || is_category() || is_tag() ) 
 		return true; 
+	elseif( isset($args['type']) && (
+				$args['type'] == 'posts'
+				|| $args['type'] == 'archive'
+				|| $args['type'] == 'category'
+				|| $args['type'] == 'search'
+				|| $args['type'] == 'tag'
+				|| $args['type'] == 'author'
+				|| $args['type'] == '404_page'
+			))
+		return true;
 	elseif(pl_is_integration())
 		return true;
 	else 

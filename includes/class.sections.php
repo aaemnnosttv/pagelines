@@ -103,7 +103,8 @@ class PageLinesSection {
 
 		$this->optionator_default = array(
 			'clone_id'	=> 1,
-			'active'	=> true
+			'active'	=> true, 
+			'mode'		=> null
 		);
 		load_plugin_textdomain($this->id, false, sprintf( 'pagelines-sections/%s/lang', $this->id ) );	
 	}

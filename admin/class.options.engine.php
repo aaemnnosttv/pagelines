@@ -106,6 +106,7 @@ class OptEngine {
 	/**
 	 * Option generation engine
 	 *
+	 * Flag needed for post id/profile id -- settings for special handling.
 	 */
 	function option_engine($oid, $o, $flag = null, $setting = null){
 		
@@ -482,11 +483,16 @@ class OptEngine {
 		$sub_option_engine = new OptEngine( $this->settings_field );
 		
 		$flag = ($this->settings_field == 'meta') ? $post_ID : null;
-		
+	
 		echo '<div class="multi_option">';
 		foreach($o['selectvalues'] as $mid => $m){
 			
-			$sub_option_engine->option_engine($mid, $m, $flag);
+			// Needed for saving on special pages
+			if(isset($o['special']))
+				$m['special'] = $o['special'];
+				
+			// Flag needed for post id/profile id -- settings for special handling.
+			$sub_option_engine->option_engine($mid, $m, $flag, $this->settings_field);
 			
 		}
 		echo '</div>';

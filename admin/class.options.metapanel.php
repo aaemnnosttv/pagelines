@@ -335,9 +335,7 @@ class PageLinesMetaPanel {
 		
 	 	$special_template = new PageLinesTemplate( $type );	
 		
-		$special_template->load_section_optionator( $mode );
-
-		
+		$special_template->load_section_optionator( $mode, $type );
 
 		ob_start(); ?>
 
