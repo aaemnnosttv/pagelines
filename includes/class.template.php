@@ -1198,7 +1198,7 @@ function the_sub_templates( $t = 'templates' ){
 			),
 		'posts' => array(
 				'name'			=> __( 'Blog', 'pagelines' ),
-				'sections' 		=> ($t == 'main') ? array('PageLinesPostsInfo','PageLinesPostLoop', 'PageLinesPagination') : array('PageLinesContent'),
+				'sections' 		=> ($t == 'main') ? array('PageLinesQuickSlider', 'PageLinesPostsInfo','PageLinesPostLoop', 'PageLinesPagination') : array('PageLinesContent'),
 				'page_type'		=> 'special'
 			),
 		'tag' => array(

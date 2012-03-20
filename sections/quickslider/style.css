@@ -10,7 +10,7 @@
 
 /* PL STYLES */ 
 
-.flexwrap{
+.flexwrap, .fslider{
 	position: relative;
 }
 
@@ -68,9 +68,9 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#4C000000,endCol
 /* Direction Nav */
 .flex-direction-nav { height: 0; }
 .flex-direction-nav li a {
-	width: 52px; height: 52px; margin: -13px 0 0; display: block; 
+	width: 52px; height: 52px; display: block; 
 	position: absolute; 
-	top: 45%; 
+	top: 43%; 
 	cursor: pointer; 
 	text-indent: -999em;
 	box-shadow: inset 1px 1px 0px rgba(255,255,255,.2);
@@ -103,8 +103,8 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#4C000000,endCol
 		background-image:url(images/bg_direction_nav.png), linear-gradient(top,rgba(0,0,0,.9) 0%,rgba(0,0,0,.6) 100%);
 	}
 
-.flex-direction-nav li .next {background-position: -52px 0; right: -21px;}
-.flex-direction-nav li .prev {left: -20px;}
+.flex-direction-nav li .next {background-position: -52px 0; right: 15px;}
+.flex-direction-nav li .prev {left: 15px;}
 .flex-direction-nav li .disabled {opacity: .3; filter:alpha(opacity=30); cursor: default;}
 
 /* Control Nav */
