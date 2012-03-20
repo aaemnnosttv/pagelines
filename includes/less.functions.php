@@ -54,7 +54,16 @@ class PageLinesLess {
 		
 	}
 	
-	public function draw_less( $lesscode ){
+	/**
+     * Draw LESS
+     *
+     * Creates meta tag for LESS code
+     *
+     * @uses    plstrip
+     *
+     * @param   $lesscode
+     */
+    public function draw_less( $lesscode ){
 			
 			printf(
 				'%1$s<style type="text/css" id="pagelines-less-css" >%2$s</style>%1$s', 
@@ -67,9 +76,11 @@ class PageLinesLess {
     /**
      * Parse PLESS Input & return CSS
      *
-     * @param $pless
+     * @param   $pless
      *
-     * @return string
+     * @uses    plprint
+     *
+     * @return  string
      */
 	public function parse( $pless ) {
 		

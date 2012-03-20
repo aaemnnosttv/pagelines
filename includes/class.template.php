@@ -971,7 +971,7 @@ class PageLinesTemplate {
 	 * This was taken from core WP because the function hasn't loaded yet, and isn't accessible.
 	 */
 	function get_page_templates() {
-		$themes = get_themes();
+		$themes = wp_get_themes();
 		$theme = get_current_theme();
 		$templates = $themes[$theme]['Template Files'];
 		$page_templates = array();
