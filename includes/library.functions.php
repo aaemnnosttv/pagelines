@@ -225,13 +225,13 @@ function pagelines_template_area( $hook_name, $hook_area_id = null){
 }
 
 /**
- * 
- *  Check the authentication level for administrator status (security)
+ * Check Authority
  *
- *  @package PageLines Framework
- *  @subpackage Functions Library
- *  @since 1.x.x
+ * Check the authentication level for administrator status (security)
  *
+ * @package     PageLines Framework
+ * @subpackage  Functions Library
+ * @since       1.x.x
  */
 function checkauthority(){
 	if (!current_user_can('edit_themes'))
@@ -239,13 +239,15 @@ function checkauthority(){
 }
 
 /**
- * 
- *  Checks for IE and Returns Version
+ * IE Version
  *
- *  @package PageLines Framework
- *  @subpackage Functions Library
- *  @since 4.0.0
+ * Checks for IE and Returns Version
  *
+ * @package     PageLines Framework
+ * @subpackage  Functions Library
+ * @since       1.0.0
+ *
+ * @return      bool|float
  */
 function ie_version() {
   $match=preg_match('/MSIE ([0-9]\.[0-9])/',$_SERVER['HTTP_USER_AGENT'],$reg);
@@ -256,15 +258,24 @@ function ie_version() {
 }
 
 /**
- * 
- *  Gets a 'tiny' url. Returns URL if response is not 200
+ * PageLines ShortURL
  *
- *  @package PageLines Framework
- *  @subpackage Functions Library
- *  @since 1.5.0
- *  
- *  Uses filter 'pagelines_shorturl_provider'
- *  Uses filter 'pagelines_shorturl_cachetimeout' 
+ * Gets a 'tiny' url. Returns URL if response is not 200
+ *
+ * @package     PageLines Framework
+ * @subpackage  Functions Library
+ * @since       1.5.0
+ *
+ * @uses        pagelines_option
+ * @uses        pagelines_format_tweet
+ *
+ * @internal    uses filter 'pagelines_shorturl_provider'
+ * @internal    uses filter 'pagelines_shorturl_cachetimeout'
+ *
+ * @param       $url
+ * @param       int $timeout
+ *
+ * @return      string
  */
 function pagelines_shorturl( $url, $timeout = 86400 ) {
 
@@ -303,9 +314,12 @@ function pagelines_shorturl( $url, $timeout = 86400 ) {
 
 
 /**
+ * PageLines Format Tweet
  *
- * @TODO document
+ * @param   $title
+ * @param   $url
  *
+ * @return  string
  */
 function pagelines_format_tweet( $title, $url ) {
 
@@ -313,11 +327,16 @@ function pagelines_format_tweet( $title, $url ) {
 }
 
 /**
- * 
- *  Sets background cascade for use in color mixing.
+ * PageLines Background Cascade
  *
- *  @since 2.0.b6
+ * Sets background cascade for use in color mixing - default: White
  *
+ * @since       2.0.b6
+ *
+ * @uses        ploption
+ * @internal    uses filter background_cascade
+ *
+ * @return      mixed|void
  */
 function pl_background_cascade(){
 	
@@ -332,11 +351,16 @@ function pl_background_cascade(){
 }
 
 /**
+ * PageLines Body Background
  * 
- *  Body BG
+ * Body Background - default: White
  *
- *  @since 2.0.b6
+ * @uses        ploption
+ * @internal    uses filter body_bg
  *
+ * @since       2.0.b6
+ *
+ * @return      mixed|void
  */
 function pl_body_bg(){
 	
@@ -346,11 +370,15 @@ function pl_body_bg(){
 }
 
 
-
 /**
- *  Strips White Space
+ * PageLines Strip
  *
- * @since 2.0.b13
+ * Strips White Space
+ *
+ * @since   2.0.b13
+ *
+ * @param   string $t - input string
+ * @return  mixed
  */
 function plstrip( $t ){	
 	return preg_replace( '/\s+/', ' ', $t );
@@ -358,10 +386,14 @@ function plstrip( $t ){
 
 
 /**
+ * Show Posts Nave
+ *
  * Checks to see if there is more than one page for nav.
- * TODO does this add a query?
- * 
- * @since 4.0.0
+ *
+ * @since 1.0.0
+ *
+ * @return bool
+ * @TODO does this add a query?
  */
 function show_posts_nav() {
 	global $wp_query;
@@ -370,8 +402,13 @@ function show_posts_nav() {
 
 
 /**
- * Pulls a global identifier from a bbPress forum installation
+ * PageLines bbPress Forum
+ *
+ * Checks for a bbPress installation by pulling a global identifier from bbPress
+ *
  * @since 3.x.x
+ *
+ * @return bool
  */
 function pagelines_bbpress_forum(){
 	global $bbpress_forum;
@@ -396,9 +433,14 @@ function show_query_analysis(){
 
 
 /**
+ * Custom Trim Excerpt
  *
- * @TODO document
+ * Returns the excerpt at a user-defined length
  *
+ * @param   $text - input text
+ * @param   $length - number of words
+ *
+ * @return  string - concatenated with an ellipsis
  */
 function custom_trim_excerpt($text, $length) {
 	
