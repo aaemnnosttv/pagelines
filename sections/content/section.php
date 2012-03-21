@@ -24,7 +24,6 @@ class PageLinesContent extends PageLinesSection {
 	*/
    function section_template() {  
 	 	global $pagelines_layout;
-
 ?>
 		<div id="pagelines_content" class="<?php echo $pagelines_layout->layout_mode;?> fix">
 

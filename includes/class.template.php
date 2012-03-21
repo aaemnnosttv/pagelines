@@ -394,59 +394,57 @@ class PageLinesTemplate {
 			foreach( $this->$hook as $key => $sid ){
 			
 				/**
-				 * Check for buffered version, use if that exists; then unset.
+				 * This goes through and buffers sections so we can add classes to sections that 'tell the future'
+				 * proved to be extremely hard to implement, and harder to work w/ all wp plugins (get_sidebars conflict)
+				 * Leaving here for now, enabled by action. 
+			 	 * Original idea was for themers to use classes based on adjacent sections to style, instead, recommend using section hooks + options
+				 * 
 				 */
-				if(isset($plbuffer[$sid])){						
-					$render = $plbuffer[$sid];
-					unset($plbuffer[$sid]);
-				}else
-					$render = $this->buffer_template($sid);
-							
-				
-		
-				// RENDER //
-				if($render){
-				
-					//$this->render_template($render, $sid, $markup_type);
+				if( has_action('buffer_sections') ){
 					
-					// PREVIOUS // 
-					$last_sid = $this->get_last_rendered($hook);
-					
-					 // NEXT //
-					$next_sid = $this->buffer_next_section($hook, $key, $sid);
-					
-					// DRAW APPROPRIATE SECTION //
-					$this->render_template($render, $sid, $markup_type, $this->conc($sid, $next_sid), $this->conc($sid, $last_sid, 'previous'));
-					
-					// SET AS LAST RENDERED //
-					$this->last_rendered = array('sid' => $sid, 'hook' => $hook);
+					/**
+					 * Check for buffered version, use if that exists; then unset.
+					 */
+					if(isset($plbuffer[$sid])){						
+						$render = $plbuffer[$sid];
+						unset($plbuffer[$sid]);
+					}else
+						$render = $this->buffer_template($sid);
 
+					// RENDER //
+					if($render){
+
+						//$this->render_template($render, $sid, $markup_type);
+
+						// PREVIOUS // 
+						$last_sid = $this->get_last_rendered($hook);
+
+						 // NEXT //
+						$next_sid = $this->buffer_next_section($hook, $key, $sid);
+
+						// DRAW APPROPRIATE SECTION //
+						$this->render_template($render, $sid, $markup_type, $this->conc($sid, $next_sid), $this->conc($sid, $last_sid, 'previous'));
+
+						// SET AS LAST RENDERED //
+						$this->last_rendered = array('sid' => $sid, 'hook' => $hook);
+
+					}
+					
+					
+				} else {
+					
+					$render = $this->buffer_template( $sid );
+					
+					if($render)
+						$this->render_template($render, $sid, $markup_type);
+					
 				}
-			
+
 			}	
 			
 			
 		}
 	}
-	
-	function get_last_rendered($hook){
-		
-		$order = array('header', 'templates', 'morefoot', 'footer');
-		
-		$k = array_search($hook, $order);
-		
-		
-		if($k && isset($this->last_rendered)){
-			return $this->last_rendered['sid'];
-		} elseif(isset($this->last_rendered) && ($hook == $this->last_rendered['hook'])){
-			return $this->last_rendered['sid'];
-		} else {
-			return 'top';
-		}
-		
-	}
-	
-
 	
 	/**
 	 * Renders the HTML template and adds surrounding 'standardized' markup and hooks
@@ -518,6 +516,22 @@ class PageLinesTemplate {
 		
 	}
 	
+	function get_last_rendered($hook){
+		
+		$order = array('header', 'templates', 'morefoot', 'footer');
+		
+		$k = array_search($hook, $order);
+		
+		
+		if($k && isset($this->last_rendered)){
+			return $this->last_rendered['sid'];
+		} elseif(isset($this->last_rendered) && ($hook == $this->last_rendered['hook'])){
+			return $this->last_rendered['sid'];
+		} else {
+			return 'top';
+		}
+		
+	}
 	/**
 	 * Concatenation used in classes
 	 */
@@ -599,8 +613,6 @@ class PageLinesTemplate {
 			
 			$data = $this->area_next_section($hook);
 		}
-		
-	
 		
 	
 		return $data;

@@ -46,6 +46,5 @@
  * @todo Update inline documentation
  * @todo Define dates of releases; add to changelog?
  */
-?>
 
-<?php setup_pagelines_template();
+setup_pagelines_template();
