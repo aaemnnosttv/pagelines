@@ -542,10 +542,10 @@
 	*/
 	function subscription_enabled(){
 		
-		if( ploption( 'store_subscribe' ) )
-			return true;
+		if( defined( 'STORE_SUBSRIPTIONS_DISABLE' ) || ! VPRO )
+			return false;
 		else 
-			return false;	
+			return true;	
 	}
 
 	/**
