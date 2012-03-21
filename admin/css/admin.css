@@ -591,6 +591,18 @@
 		.optiontitle small {
 			font-size: 11px;
 		}
+		
+		.optiontitle .protag{
+			vertical-align: top;
+			padding: 2px 5px;
+			font-size: .85em;
+			line-height: 1.3em;
+			margin-top: -1px;
+			display: inline-block;
+			background:rgba(0,0,0,.03);
+			color:rgba(0,0,0,.3);
+			border-radius:3px;
+		}
 	
 	.vidlink{float: right; background:#fff; box-shadow: 0 1px 3px #aaa;}
 	.vidlink:hover{box-shadow: 0 1px 5px #888;}

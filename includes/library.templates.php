@@ -653,15 +653,19 @@ function pl_special_url( $t ){
  */
 function pagelines_cred(){ 
 	
-	if( !VPRO || ploption( 'partner_link' ) || ploption( 'show_credit' ) || has_action('show_pagelines_leaf') ) {
+	if( !VPRO || (VPRO && !ploption('watermark_hide')) || has_action('show_pagelines_leaf') ) {
+						
+		$image = (VPRO && ploption('watermark_image')) ? ploption('watermark_image') : PL_IMAGES.'/pagelines.png';
+		
+		$alt = (VPRO) ? get_bloginfo('name') : 'Build a website with PageLines';
+		
+		$url = (VPRO && ploption('watermark_link')) ? ploption('watermark_link') : 'http://www.pagelines.com';
 			
-		$img 	= sprintf('<img src="%s" alt="%s by PageLines" />', apply_filters('pagelines_leaf_image', PL_IMAGES.'/pagelines.png'), THEMENAME);
+		$img 	= sprintf('<img src="%s" alt="%s" />', $image, $alt);
 		
-		$url = load_pagelines_option('partner_link', 'http://www.pagelines.com');
+		$link = (!apply_filters('no_leaf_link', '')) ? sprintf('<a class="plimage" target="_blank" href="%s" title="%s">%s</a>', $url, $alt, $img ) : $img;
 		
-		$link = (!apply_filters('no_leaf_link', '')) ? sprintf('<a class="plimage" target="_blank" href="%s" title="%s">%s</a>', $url, 'PageLines', $img ) : $img;
-		
-		$cred = sprintf('<div id="cred" class="pagelines">%s</div><div class="clear"></div>', $link);
+		$cred = sprintf('<div id="cred" class="pagelines" style="display: block; visibility: visible;">%s</div><div class="clear"></div>', $link);
 	
 		echo apply_filters('pagelines_leaf', $cred);
 		

@@ -105,6 +105,18 @@ class PageLinesOptionsArray {
 				'shortexp' 		=> __( 'Input Full URL to Apple touch image (.jpg, .gif, .png)', 'pagelines' ),
 				'exp'			=> __( 'Enter the full URL location of your Apple Touch Icon which is visible when your users set your site as a <strong>webclip</strong> in Apple Iphone and Touch Products. It is an image approximately 57px by 57px in either .jpg, .gif or .png format.', 'pagelines' )
 			),
+			'pl_watermark'	=> array(
+				'version' 		=> 'pro',
+				'type' 			=> 	'multi_option',
+				'selectvalues'	=> array(
+					'watermark_image'	=> array('type' =>'image_upload', 'inputlabel' => 'Watermark Image', 'default' => PL_IMAGES.'/pagelines.png'), 
+					'watermark_link'	=> array('type' => 'text', 'inputlabel' => 'Watermark Link (Blank for None)', 'default' => 'http://www.pagelines.com'), 
+					'watermark_hide'	=> array('type' => 'check', 'inputlabel' => "Hide Watermark")
+				),
+				'title' 		=> __( 'Website Watermark', 'pagelines' ),						
+				'shortexp' 		=> __( 'Configure your website watermark (in footer)', 'pagelines' ),
+				'exp'			=> __( '', 'pagelines' )
+			),
 		
 			'sidebar_no_default' => array(
 					'default'	=> '',

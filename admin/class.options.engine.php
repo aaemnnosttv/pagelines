@@ -320,7 +320,9 @@ class OptEngine {
 				if( isset($o['docslink']) )
 					printf('<a class="vidlink" title="%s" href="%s" target="_blank"><img src="%s" class="docslink-video" alt="Video Tutorial" /></a>', ($o['vidtitle'] ? $o['vidtitle'] : ''), $o['docslink'], PL_ADMIN_IMAGES . '/link-docs.jpg' ); 
 				
-				printf('<strong>%s</strong><br/><small>%s</small><br/>', $o['title'], $o['shortexp']);
+				$protag = ($o['version'] == 'pro') ? '<span class="protag">Pro</span>' : '';
+				
+				printf('<strong>%s %s</strong><br/><small>%s</small><br/>', $o['title'], $protag, $o['shortexp']);
 				
 				?>
 			</div>
