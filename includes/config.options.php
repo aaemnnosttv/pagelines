@@ -898,15 +898,6 @@ class PageLinesOptionsArray {
 		$a = array(
 			'icon'			=> PL_ADMIN_ICONS.'/settings.png',
 
-		'store_subscribe' => array(
-				'default'	=> false,
-				'type'		=> 'check',
-				'version'	=> 'pro',
-				'inputlabel'=> __( 'Enable Store Product Subscriptions?', 'pagelines' ),
-				'title'		=> __( 'Subcribe To Store Products.', 'pagelines' ),
-				'shortexp'	=> __( 'Get instant emails when products are updated.', 'pagelines' ),
-				'exp'		=> __( 'You will get a simple email sent to your admin email address whenever a product you are subscribed to is updated.', 'pagelines' )
-		),
 			'google_ie' => array(
 					'default'	=> false,
 					'type'		=> 'check',
