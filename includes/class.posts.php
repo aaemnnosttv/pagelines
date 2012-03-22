@@ -36,8 +36,8 @@ class PageLinesPosts {
 		
 		add_filter('pagelines_post_metabar', 'do_shortcode', 20);
 		
-		if(has_action('add_social_under_meta'))
-			add_filter('pagelines_post_metabar', array( &$this,'add_social'));
+		if(has_action('add_social_under_meta') || ploption('share_under_meta'))
+			add_filter('pagelines_post_metabar', array( &$this,'add_social_share'), 10, 2);
 			
 		if(has_action('add_social_under_excerpt'))
 			add_filter('pagelines_post_header', array( &$this,'add_social'));
@@ -50,9 +50,27 @@ class PageLinesPosts {
 	* @TODO document
 	*
 	*/
-	function add_social($input){
+	function add_social_share($input, $format){
 		
-		if ( ! class_exists( 'PageLinesShareBar' ) )
+		if ( ! class_exists( 'PageLinesShareBar' ) || $format == 'clip')
+			return $input;
+		global $post;
+		
+		$share = PageLinesShareBar::get_shares();
+		$meta_share = sprintf('<div class="meta-share">%s</div>', $share);
+		
+		return $input.$meta_share;
+	}
+	
+	
+	/**
+	*
+	* @TODO document
+	*
+	*/
+	function add_social($input, $format){
+		
+		if ( ! class_exists( 'PageLinesShareBar' ) || $format == 'clip')
 			return $input;
 		global $post;
 		

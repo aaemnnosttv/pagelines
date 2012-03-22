@@ -826,11 +826,13 @@ class PageLinesOptionsArray {
 						'share_google'		=> array('inputlabel'=> __( 'Google+', 'pagelines' ), 'default'=> true, 'version' => 'pro'),
 						'share_buffer'		=> array('inputlabel'=> __( 'Buffer', 'pagelines' ), 'default'=> false, 'version' => 'pro'),
 						'share_linkedin'	=> array('inputlabel'=> __( 'LinkedIn', 'pagelines' ), 'default'=> false, 'version' => 'pro'),
+						'share_pinterest'	=> array('inputlabel'=> __( 'Pinterest', 'pagelines' ), 'default'=> true, 'version' => 'pro'),
+						'share_under_meta'	=> array('inputlabel'=> __( 'Add Shares Under Metabar', 'pagelines' ), 'default'=> true, 'version' => 'pro'),
 					),
 					'inputlabel'=> __( 'Select Which Share Buttons To Show', 'pagelines' ),
 					'title'		=> __( 'Sharebar Social Sharing Buttons', 'pagelines' ),						
-					'shortexp'	=> __( 'Select Which To Show', 'pagelines' ),
-					'exp'		=> __( "Select which social sharing buttons you would like to use in your Sharebar.", 'pagelines' )
+					'shortexp'	=> __( 'Select Which To Show and configure appearance.', 'pagelines' ),
+					'exp'		=> __( "Select which social sharing buttons you would like to use in your Sharebar.<br/><br/> <strong>Note:</strong> that since these use iFrames and javascript (provided by the companies themselves) they may be hard to style and control.", 'pagelines' )
 		    ),
 			'continue_reading_text' => array(
 					'version'	=> 'pro',
