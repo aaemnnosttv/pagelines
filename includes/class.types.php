@@ -213,7 +213,7 @@ class PageLinesPostType {
 		if( ! $this->settings['dragdrop'] )
 			add_filter('pl_cpt_dragdrop', array(&$this, 'remove_dragdrop'), 10, 2);
 			
-		if ( false === $this->settings['dragdrop'] && true === $this->settings['load_sections'] )
+		if ( true === $this->settings['load_sections'] )
 			add_filter('pl_template_sections', array(&$this, 'load_sections_for_type'), 10, 3);
 		
 	}
