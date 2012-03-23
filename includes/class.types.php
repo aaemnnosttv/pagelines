@@ -44,7 +44,7 @@ class PageLinesPostType {
 				'has_archive'		=> false, 
 				'map_meta_cap'		=> false,
 				'dragdrop'			=> true, 
-				'load_sections'		=> false,
+				'load_sections'		=> true,
 				'query_var'			=> true
 			);
 		
