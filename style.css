@@ -284,6 +284,10 @@ body{
 		body, .font1, .font-primary, .commentlist, input{ 
 			font-family:Georgia, 'Times New Roman', Times, serif; 
 		}
+		
+		input[type="submit"], input[type="button"]{
+			font-family: 'Lucida Grande', helvetica, arial, sans-serif;
+		}
 	
 	
 /*
