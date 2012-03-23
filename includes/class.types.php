@@ -44,7 +44,7 @@ class PageLinesPostType {
 				'has_archive'		=> false, 
 				'map_meta_cap'		=> false,
 				'dragdrop'			=> true, 
-				'load_sections'		=> true,
+				'load_sections'		=> false,
 				'query_var'			=> true
 			);
 		
@@ -210,10 +210,9 @@ class PageLinesPostType {
 	*/
 	function section_loading(){
 	
-		if( !$this->settings['dragdrop'] )
+		if( ! $this->settings['dragdrop'] )
 			add_filter('pl_cpt_dragdrop', array(&$this, 'remove_dragdrop'), 10, 2);
 			
-
 		if ( false === $this->settings['dragdrop'] && true === $this->settings['load_sections'] )
 			add_filter('pl_template_sections', array(&$this, 'load_sections_for_type'), 10, 3);
 		
