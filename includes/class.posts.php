@@ -347,20 +347,31 @@ class PageLinesPosts {
 
 	}
 
-	/**
-	 * 
-	 *  Gets the Post Title for Blog Posts
-	 *
-	 *  @package PageLines Framework
-	 *  @subpackage Functions Library
-	 *  @since 1.1.0
-	 *
-	 */
+    /**
+     * PageLines Get Post Title
+     *
+     * Gets the post title for all posts
+     *
+     * @package     PageLines Framework
+     * @subpackage  Functions Library
+     * @since       1.1.0
+     *
+     * @param       string $format
+     *
+     * @uses        pagelines_option( 'pagetitles' )
+     * @uses        get_the_title - default WordPress post title text
+     *
+     * @internal    adds filter 'pagelines_post_title_text'
+     * @internal    adds filter 'pagelines_post_title_output'
+     *
+     * @return      string - (new) Post $title
+     */
 	function pagelines_get_post_title( $format = '' ){ 
 		
 		global $post;
 
-		if(is_page() && pagelines_option('pagetitles')){
+		/** Check if page and show page title option is set to true */
+        if(is_page() && pagelines_option('pagetitles')){
 			$title = sprintf( '<h1 class="entry-title pagetitle">%s</h1>', apply_filters( 'pagelines_post_title_text', get_the_title() ) );	
 		} elseif(!is_page()) {
 
