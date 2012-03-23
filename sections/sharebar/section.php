@@ -23,11 +23,10 @@ class PageLinesShareBar extends PageLinesSection {
 	*/		
    function section_template() { 
 	
-	global $post; 
 	
-	$perm = get_permalink($post->ID);
-	$title = get_the_title($post->ID);
 	$text = __('Share &rarr;', 'pagelines');
+	
+
 	
 	?>
 	<div class="pl-sharebar">
@@ -41,41 +40,11 @@ class PageLinesShareBar extends PageLinesSection {
 			<div class="bd fix">
 				<?php 
 				
-				if(ploption('share_facebook'))
-					echo self::facebook(array('permalink' => $perm));
+				
+					echo $this->get_shares();
 			
-				if(ploption('share_google'))
-					echo self::google(array('permalink' => $perm));
-				
-				
-				if(ploption('share_twitter'))
-					echo self::twitter(array('permalink' => $perm, 'title' => $title));
-				
-				if(ploption('share_buffer')):
-					// Buffer
-					printf('<a href="http://bufferapp.com/add" class="buffer-add-button" data-text="hello" data-url="%s" data-count="horizontal" data-via="%s">Buffer</a><script type="text/javascript" src="http://static.bufferapp.com/js/button.js"></script>', $perm, $title, ploption('twittername'));
-			
-				endif;
-				
-				if(ploption('share_stumble')):
+					
 				?>
-			
-				<su:badge layout="2" ></su:badge>
-
-				 <script type="text/javascript"> 
-				 (function() { 
-				     var li = document.createElement('script'); li.type = 'text/javascript'; li.async = true; 
-				      li.src = 'https://platform.stumbleupon.com/1/widgets.js'; 
-				      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(li, s); 
-				 })(); 
-				 </script>
-				<?php endif;
-				
-				if(ploption('share_linkedin')): ?>
-				<script src="http://platform.linkedin.com/in.js" type="text/javascript"></script>
-				<script width="100" type="IN/Share" data-url="<?php echo $perm;?>" data-width="80" data-counter="right"></script>
-				
-				<?php endif;?>
 		
 			</div>
 			
@@ -87,7 +56,165 @@ class PageLinesShareBar extends PageLinesSection {
 	
 <?php	}
 
+	function get_shares(){
+		
+		global $post; 
+
+		$perm = get_permalink($post->ID);
+		$title = get_the_title($post->ID);
+		$thumb = (has_post_thumbnail($post->ID)) ? pl_the_thumbnail_url( $post->ID ) : '';
+
+		$desc = pl_short_excerpt($post->ID, 10, '');
+		
+		$out = '';
+		
+		if(ploption('share_facebook'))
+			$out .= self::facebook(array('permalink' => $perm));
 	
+		if(ploption('share_google'))
+			$out .= self::google(array('permalink' => $perm));
+		
+		if(ploption('share_twitter'))
+			$out .= self::twitter(array('permalink' => $perm, 'title' => $title));
+			
+		if(ploption('share_pinterest'))
+			$out .= self::pinterest(array('permalink' => $perm, 'image' => $thumb, 'desc' => $desc));
+			
+		if(ploption('share_buffer'))
+			$out .= self::buffer(array('permalink' => $perm, 'title' => $title));
+		
+		if(ploption('share_stumble'))
+			$out .= self::stumbleupon(array('permalink' => $perm, 'title' => $title));
+		
+		if(ploption('share_linkedin'))	
+			$out .= self::linkedin(array('permalink' => $perm, 'title' => $title));
+	
+		return $out;
+	}
+
+	/**
+	 *
+	 * Pinterest Button
+	 *
+	 */
+	function pinterest( $args ){
+		
+		$defaults = array(
+			'permalink'	=> '', 
+			'width'		=> '80',
+			'hash'		=> ploption('site-hashtag'), 
+			'handle'	=> ploption('twittername'), 
+			'title'		=> '',
+			'image'		=> '', 
+			'desc'		=> ''
+		); 	
+		
+		$a = wp_parse_args($args, $defaults);
+		ob_start();
+		?>
+		
+		<a href="http://pinterest.com/pin/create/button/?url=<?php echo $a['permalink'];?>&media=<?php echo urlencode($a['image']);?>&description=<?php echo urlencode($a['desc']);?>" class="pin-it-button" count-layout="none"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a>
+		<script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
+		<?php 
+
+		return ob_get_clean();
+		
+		
+	}
+
+	
+	/**
+	 *
+	 * LinkedIn Button
+	 *
+	 */
+	function linkedin( $args ){
+		
+		$defaults = array(
+			'permalink'	=> '', 
+			'width'		=> '80',
+			'hash'		=> ploption('site-hashtag'), 
+			'handle'	=> ploption('twittername'), 
+			'title'		=> '',
+		); 	
+		
+		$a = wp_parse_args($args, $defaults);
+		ob_start();
+		?>
+			<script src="http://platform.linkedin.com/in.js" type="text/javascript"></script>
+			<script width="100" type="IN/Share" data-url="<?php echo $a['perm'];?>" data-width="<?php echo $a['width'];?>" data-counter="right"></script>
+
+		<?php 
+
+		return ob_get_clean();
+		
+		
+	}
+
+
+	/**
+	 *
+	 * StumbleUpon Button
+	 *
+	 */
+	function stumbleupon( $args ){
+		
+		$defaults = array(
+			'permalink'	=> '', 
+			'width'		=> '80',
+			'hash'		=> ploption('site-hashtag'), 
+			'handle'	=> ploption('twittername'), 
+			'title'		=> '',
+		); 	
+		
+		$a = wp_parse_args($args, $defaults);
+		ob_start();
+		?>
+			<su:badge layout="2" ></su:badge>
+
+			 <script type="text/javascript"> 
+			 (function() { 
+			     var li = document.createElement('script'); li.type = 'text/javascript'; li.async = true; 
+			      li.src = 'https://platform.stumbleupon.com/1/widgets.js'; 
+			      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(li, s); 
+			 })(); 
+			 </script>
+
+		<?php 
+
+		return ob_get_clean();
+		
+		
+	}
+	
+	
+	/**
+	*
+	* Buffer Social Button
+	*
+	*/
+	function buffer( $args ){
+		
+		$defaults = array(
+			'permalink'	=> '', 
+			'width'		=> '80',
+			'hash'		=> ploption('site-hashtag'), 
+			'handle'	=> ploption('twittername'), 
+			'title'		=> '',
+		); 	
+		
+		$a = wp_parse_args($args, $defaults);
+		
+		
+		return sprintf(
+			'<a href="http://bufferapp.com/add" class="buffer-add-button" data-text="%s" data-url="%s" data-count="horizontal" data-via="%s">Buffer</a><script type="text/javascript" src="http://static.bufferapp.com/js/button.js"></script>', 
+			$a['title'], 
+			$a['permalink'], 
+			$a['handle']
+		);
+		
+		
+	}
 
 	/**
 	*
