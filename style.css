@@ -948,7 +948,7 @@ table {width: 100%;}
  * @ Forms and Inputs 
  ****************************************/
 	input{
-		font-size:110%;
+		font-size:1em;
 		font-size-adjust:none;
 		font-stretch:normal;
 		font-style:normal;
