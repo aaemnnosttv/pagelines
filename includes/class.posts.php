@@ -36,11 +36,11 @@ class PageLinesPosts {
 		
 		add_filter('pagelines_post_metabar', 'do_shortcode', 20);
 		
-		if(has_action('add_social_under_meta') || ploption('share_under_meta'))
-			add_filter('pagelines_post_metabar', array( &$this,'add_social_share'), 10, 2);
+		if( has_action( 'add_social_under_meta' ) || ploption( 'share_under_meta' ) )
+			add_filter( 'pagelines_post_metabar', array( &$this,'add_social_share' ), 10, 2 );
 			
-		if(has_action('add_social_under_excerpt'))
-			add_filter('pagelines_post_header', array( &$this,'add_social'));
+		if( has_action( 'add_social_under_excerpt' ) )
+			add_filter( 'pagelines_post_header', array( &$this,'add_social' ), 10, 2 );
 
 	}
 	
@@ -235,7 +235,7 @@ class PageLinesPosts {
 				$post_header = sprintf('<section class="%s media">%s<section class="bd post-header fix" >%s %s</section></section>', $classes, $thumb, $title, $excerpt);
 			
 			
-			return apply_filters( 'pagelines_post_header', $post_header );
+			return apply_filters( 'pagelines_post_header', $post_header, $format );
 			
 		} else 
 			return '';
