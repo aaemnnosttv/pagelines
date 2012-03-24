@@ -293,44 +293,53 @@ class PageLinesPosts {
 		return apply_filters('pagelines_excerpt', $pagelines_excerpt);
 		
 	}
-	
-	
-	/**
-	 * Get post thumbnail and markup
-	 *
-	 * @since 2.0.0
-	 *
-	 * @return string the thumbnail markup
-	 */
-	function post_thumbnail_markup( $mode = '', $format = '', $frame = '') {
+
+
+    /**
+     * Post Thumbnail Markup
+     *
+     * Get post thumbnail and markup
+     *
+     * @since   2.0.0
+     *
+     * @param   string $mode - right, left, or top
+     * @param   string $format - ...
+     * @param   string $frame - not used
+     *
+     * @return  string - the thumbnail markup
+     *
+     * @version 2.2 - fixed image size when thumbnail is displayed on top of excerpt
+     * @todo review if top displayed image should be centered above post, or remain left aligned
+     */
+	function post_thumbnail_markup( $mode = '', $format = '', $frame = '' ) {
 		
-		$thumb_width = get_option('thumbnail_size_w');
+		$thumb_width = get_option( 'thumbnail_size_w' );
 		
 		$classes = 'post-thumb img fix';
 		
-		$percent_width  = ($mode == 'top') ? 100 : 25;
+		$percent_width  = ( $mode == 'top' ) ? 100 : 25;
 		
-		$style = sprintf('width: %s%%; max-width: %spx', $percent_width, $thumb_width);
+        $style = ( 'top' == $mode ) ? 'width: 100%' : sprintf( 'width: %s%%; max-width: %spx', $percent_width, $thumb_width );
 		
-		if($mode == 'left-excerpt')
+		if ( $mode == 'left-excerpt' )
 			$classes .= ' alignleft';
-		elseif($mode == 'right-excerpt')
+		elseif ( $mode == 'right-excerpt' )
 			$classes .= ' alignright';
-		elseif($mode == 'top'){
-			$classes .= ' left';
-		}
+        /** By default image will left align, explicitly adding this class for 'top' == $mode is not needed at this time.
+         * elseif ( $mode == 'top' ) $classes .= ' left';
+         */
 		
 		global $post;
 		
-		$img = ($mode == 'top') ? get_the_post_thumbnail(null, 'large') : get_the_post_thumbnail(null, 'thumbnail');
+		$img = ( $mode == 'top' ) ? get_the_post_thumbnail( null, 'large' ) : get_the_post_thumbnail( null, 'thumbnail' );
 		
-		$the_image = sprintf('<span class="c_img">%s</span>', $img);
+		$the_image = sprintf( '<span class="c_img">%s</span>', $img );
 		
-		$thumb_link = sprintf('<a class="%s" href="%s" rel="bookmark" title="%s %s" style="%s">%s</a>', $classes, get_permalink( $post ), __('Link To', 'pagelines'), the_title_attribute( array('echo' => false) ), $style, $the_image );
+		$thumb_link = sprintf( '<a class="%s" href="%s" rel="bookmark" title="%s %s" style="%s">%s</a>', $classes, get_permalink( $post ), __( 'Link To', 'pagelines' ), the_title_attribute( array( 'echo' => false ) ), $style, $the_image );
+
+        $output = ( 'top' == $mode ) ? sprintf( '<div class="full_img fix">%s</div>', $thumb_link ) : $thumb_link;
 		
-		$output = ($mode == 'top') ? sprintf('<div class="full_img fix">%s</div>', $thumb_link) : $thumb_link;
-		
-		return apply_filters('pagelines_thumb_markup', $output, $mode, $format);
+		return apply_filters( 'pagelines_thumb_markup', $output, $mode, $format );
 		
 	}
 	
