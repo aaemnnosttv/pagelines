@@ -13,11 +13,13 @@
 class PageLinesColor {
 
 	var $tabs = array();	// Controller for drawing meta options
-	
-	/**
-	 * PHP5 constructor
-	 *
-	 */
+
+    /**
+     * PHP5 constructor
+     *
+     * @param $hex
+     * @param string $id
+     */
 	function __construct( $hex, $id = '' ) {
 	
 		$this->id = $id;
@@ -29,13 +31,21 @@ class PageLinesColor {
 		$this->base_hsl = $this->rgb_to_hsl( $this->base_rgb  );
 	
 	}
-	
 
-	/**
-	*
-	* @TODO document
-	*
-	*/
+
+    /**
+     * Get HSL
+     *
+     * Takes hex color value, converts to RGB, then convers to HSL and returns value
+     *
+     * @param   $hex - color value
+     * @param   $type
+     *
+     * @uses    hex_to_rgb
+     * @uses    rgb_to_hsl
+     *
+     * @return  string - returns HSL value
+     */
 	function get_hsl( $hex, $type ){
 		
 		$hex = str_replace('#', '', $hex);
@@ -46,13 +56,22 @@ class PageLinesColor {
 		
 		return $hsl[$type];
 	}
-	
 
-	/**
-	*
-	* @TODO document
-	*
-	*/
+
+    /**
+     * Get Color
+     *
+     * @param   null $mode
+     * @param   string $difference
+     * @param   null $alt
+     * @param   null $id
+     *
+     * @uses    adjust
+     * @uses    darkadjust
+     * @uses    mix_colors
+     *
+     * @return  mixed|string
+     */
 	function get_color( $mode = null, $difference = '10%', $alt = null, $id = null){
 	
 		$alt = str_replace('#', '', $alt);
@@ -82,7 +101,7 @@ class PageLinesColor {
 				
 		} elseif($mode == 'contrast'){
 			
-			if( $this->base_hsl['lightness'] < .4 || ($this->base_hsl['lightness'] < .7 && $this->base_hsl['hugh'] > .6) || ($this->base_hsl['saturation'] > .8 && $this->base_hsl['lightness'] < .4)){
+			if( $this->base_hsl['lightness'] < .4 || ($this->base_hsl['lightness'] < .7 && $this->base_hsl['hue'] > .6) || ($this->base_hsl['saturation'] > .8 && $this->base_hsl['lightness'] < .4)){
 				
 				$diff = $this->darkadjust($diff);
 			
@@ -106,14 +125,16 @@ class PageLinesColor {
 			
 			
 		return $color;	
-	} 
-	
+	}
 
-	/**
-	*
-	* @TODO document
-	*
-	*/
+
+    /**
+     * Dark Adjust
+     *
+     * @param   $diff
+     *
+     * @return  float|int
+     */
 	function darkadjust( $diff ){
 		if($this->base_hsl['lightness'] < .05)
 			$diff = 4*$diff;
@@ -124,13 +145,15 @@ class PageLinesColor {
 			
 		return $diff;
 	}
-	
 
-	/**
-	*
-	* @TODO document
-	*
-	*/
+
+    /**
+     * Load Color
+     *
+     * @param   $base
+     * @param   $type
+     * @param   $difference
+     */
 	function loadcolor( $base, $type, $difference ){
 		
 		$base = str_replace('#', '', $base);
@@ -142,17 +165,26 @@ class PageLinesColor {
 			$diff = $difference;
 		
 	}
-	
 
-	/**
-	*
-	* @TODO document
-	*
-	*/
+
+    /**
+     * Adjust
+     *
+     * @param   $adjustment
+     * @param   string $mode
+     * @param   null $hex
+     *
+     * @uses    base_hsl
+     * @uses    hex_to_rgb
+     * @uses    rgb_to_hsl
+     * @uses    hsl_to_hex
+     *
+     * @return  string
+     *
+     * @version 2.2 - corrected typo hugh -> hue
+     */
 	function adjust( $adjustment, $mode = 'lightness', $hex = null){
-		
-		
-		
+
 		if(isset($hex)){
 			
 			$althex = str_replace('#', '', $hex);
@@ -161,12 +193,12 @@ class PageLinesColor {
 
 			$althsl = $this->rgb_to_hsl( $altrgb  );
 			
-			$h = $althsl['hugh'];
+			$h = $althsl['hue'];
 			$s = $althsl['saturation'];
 			$l = $althsl['lightness'];
 			
 		}else{
-			$h = $this->base_hsl['hugh'];
+			$h = $this->base_hsl['hue'];
 			$s = $this->base_hsl['saturation'];
 			$l = $this->base_hsl['lightness'];
 		}
@@ -175,14 +207,14 @@ class PageLinesColor {
 			
 			$l = $l + $adjustment['lightness']; 
 			
-			$h = $h + $adjustment['hugh']; 
+			$h = $h + $adjustment['hue'];
 			
 			$s = $s + $adjustment['saturation']; 
 			
 			
 		} else {
 			
-			if($mode == 'hugh')
+			if($mode == 'hue')
 				$h = $h + $adjustment; 
 			elseif($mode == 'saturation')
 				$s = $s + $adjustment; 
@@ -202,17 +234,20 @@ class PageLinesColor {
 		if ($l < 0) $l = 0;
 		
 		
-		$new_hsl = array( 'hugh' => $h, 'saturation' => $s, 'lightness' => $l );
+		$new_hsl = array( 'hue' => $h, 'saturation' => $s, 'lightness' => $l );
 		
 		return $this->hsl_to_hex( $new_hsl );
 	}
 
 
-	/**
-	*
-	* @TODO document
-	*
-	*/
+    /**
+     * HEX to RGB
+     *
+     * Coverts HEX color value to RGB color value
+     *
+     * @param   $hexcode
+     * @return  array - individual Red, Greeb, and Blue values
+     */
 	function hex_to_rgb( $hexcode ){
 		
 		$redhex  = substr( $hexcode, 0, 2 );
@@ -228,13 +263,16 @@ class PageLinesColor {
 		return array( 'red' => $r, 'green' => $g, 'blue' => $b );
 		
 	}
-	
 
-	/**
-	*
-	* @TODO document
-	*
-	*/
+
+    /**
+     * RGB to HSL
+     *
+     * Converts RGB color value to HSL color value
+     *
+     * @param   $rgb
+     * @return  array - individual Hue, Saturation, and Lightness values
+     */
 	function rgb_to_hsl( $rgb ){
 	
 	
@@ -270,15 +308,22 @@ class PageLinesColor {
 		}
 		
 		
-		return array( 'hugh' => $H, 'saturation' => $S, 'lightness' => $L );
+		return array( 'hue' => $H, 'saturation' => $S, 'lightness' => $L );
 	}
-	
 
-	/**
-	*
-	* @TODO document
-	*
-	*/
+
+    /**
+     * HSL to HEX
+     *
+     * Converts HSL color value (to RGB) to HEX color value
+     *
+     * @param   $hsl
+     *
+     * @uses    hsl_to_rgb
+     * @uses    rgb_to_hex
+     *
+     * @return  string - hex color value
+     */
 	function hsl_to_hex( $hsl ){
 		
 		$rgb = $this->hsl_to_rgb($hsl);
@@ -287,20 +332,23 @@ class PageLinesColor {
 			
 		return $hex;
 	}
-	
 
-	/**
-	*
-	* @TODO document
-	*
-	*/
+
+    /**
+     * HSL to RGB
+     *
+     * Converts HSL color value to RGB color value (as an array)
+     * Input is HSL; output is RGB
+     *
+     * @param   $hsl - value of complementary colour, held in $h2, $s, $l as fractions of 1
+     *
+     * @uses    _hue_to_rgb
+     *
+     * @return  array - in normal 255 255 255 format, held in $r, $g, $b
+     */
 	function hsl_to_rgb( $hsl ){
-		
-		// Input is HSL value of complementary colour, held in $h2, $s, $l as fractions of 1
-		// Output is RGB in normal 255 255 255 format, held in $r, $g, $b
-		// Hue is converted using function hue_2_rgb, shown at the end of this code
 
-		$h = $hsl['hugh'];
+		$h = $hsl['hue'];
 		$s = $hsl['saturation'];
 		$l = $hsl['lightness'];
 
@@ -326,11 +374,15 @@ class PageLinesColor {
 	}
 
 
-	/**
-	*
-	* @TODO document
-	*
-	*/
+    /**
+     * HUE to RGB
+     *
+     * @param   $v1
+     * @param   $v2
+     * @param   $vh
+     *
+     * @return
+     */
 	function _hue_to_rgb( $v1, $v2, $vh ) {
 		
 		if ($vh < 0) {
@@ -355,13 +407,17 @@ class PageLinesColor {
 
 		return ($v1);
 	}
-		
 
-	/**
-	*
-	* @TODO document
-	*
-	*/
+
+    /**
+     * RGB to HEX
+     *
+     * Converts RGB (array) color values to HEX color value
+     *
+     * @param   $rgb
+     *
+     * @return  string
+     */
 	function rgb_to_hex($rgb){
 		
 		$r = $rgb['red'];
@@ -377,13 +433,22 @@ class PageLinesColor {
 		return $hex;
 		
 	}
-	
 
-	/**
-	*
-	* @TODO document
-	*
-	*/
+
+    /**
+     * Mix Colors
+     *
+     * Mixes two HEX color values at a specified ratio (default being equal parts of each)
+     *
+     * @param   $c1
+     * @param   $c2
+     * @param   float $ratio
+     *
+     * @uses    hex_to_rgb
+     * @uses    rgb_to_hex
+     *
+     * @return  string
+     */
 	function mix_colors($c1, $c2, $ratio = .5){
 		
 		$r1 = $ratio * 2;
@@ -402,13 +467,22 @@ class PageLinesColor {
 	 	return $this->rgb_to_hex( $new_rgb );
 	
 	}
-	
 
-	/**
-	*
-	* @TODO document
-	*
-	*/
+
+    /**
+     * C(olor)
+     *
+     * Returns the color value as a hashed (HEX) value
+     *
+     * @param   string $mode
+     * @param   string $difference
+     * @param   null $alt
+     * @param   null $id
+     *
+     * @uses    get_color
+     *
+     * @return  string - HEX color value
+     */
 	function c($mode = 'null', $difference = '10%', $alt = null, $id = null ){
 		
 		$color = $this->get_color($mode, $difference, $alt, $id );
@@ -416,25 +490,43 @@ class PageLinesColor {
 		return '#'.$color;
 		
 	}
-	
 
-	/**
-	*
-	* @TODO document
-	*
-	*/
+
+    /**
+     * C(olor) E(cho)
+     *
+     * Displays the color value
+     *
+     * @param   string $mode
+     * @param   string $difference
+     * @param   null $alt
+     * @param   null $id
+     *
+     * @uses    c
+     */
 	function ce($mode = 'null', $difference = '10%', $alt = null, $id = null ){
 		
 		echo $this->c($mode, $difference, $alt, $id );
 		
 	}
-	
 
-	/**
-	*
-	* @TODO document
-	*
-	*/
+
+    /**
+     * Shadow
+     *
+     * Applies a shadow to text, enabled by default
+     *
+     * @param   $mix
+     * @param   string $type
+     * @param   null $diff
+     * @param   bool $echo
+     *
+     * @uses    c
+     * @uses    get_hsl
+     * @uses    ploption( 'disable_text_shadow' )
+     *
+     * @return  string
+     */
 	function shadow( $mix, $type = 'text', $diff = null, $echo = true ){
 
 		if( $type == 'text'){
@@ -464,23 +556,31 @@ class PageLinesColor {
 		else
 			return $rule;
 	}
-	
 
-	/**
-	*
-	* @TODO document
-	*
-	*/
+
+    /**
+     * Gradient
+     *
+     * Applies a gradient to the color of a specified range as determined by a percentage difference
+     *
+     * @param   null $mode
+     * @param   string $diff
+     * @param   string $direction
+     * @param   bool $echo
+     *
+     * @uses    adjust
+     * @uses    c
+     *
+     * @return  string
+     */
 	function gradient( $mode = null, $diff = '10%', $direction = 'top', $echo = true ){
 
 		$hex = (isset($mode)) ? $this->c( $mode, $diff ) : $this->c(); 
-	
-	
+
 		$hex = str_replace('#', '', $hex);
 		
 		$lighter = '#'.$this->adjust( .03, 'lightness', $hex);
 		$darker  = '#'.$this->adjust( -.03, 'lightness', $hex);
-
 
 		if($direction == 'bottom'){
 			$dir = 'bottom';
@@ -509,16 +609,31 @@ class PageLinesColor {
 			return $rule;
 	}
 	
-
 }
 //-------- END OF CLASS --------//
 
 
 /**
-*
-* @TODO do
-*
-*/
+ * Do Color Math
+ *
+ * @param   $oid
+ * @param   $o
+ * @param   $val
+ * @param   string $format
+ *
+ * @uses    base_hsl
+ * @uses    get_color
+ * @uses    get_hsl
+ * @uses    load_the_props
+ * @uses    set_factory_key
+ * @uses    store_set_color
+ *
+ * @internal uses class PageLinesCSS
+ * @internal uses filter 'pl_math_array'
+ *
+ * @return  string
+ * @todo confirm if removing the return after "if( ploption('disable_text_shadow') )" is correct
+ */
 function do_color_math($oid, $o, $val, $format = 'css'){
 
 	$default = (isset($o['default'])) ? $o['default'] : $val;
@@ -590,8 +705,8 @@ function do_color_math($oid, $o, $val, $format = 'css'){
 				if($k['mode'] == 'shadow'){
 					
 					//if( ploption('disable_text_shadow') )
-					
-					return;
+					/** commented out return as part of if statement */
+					// return;
 					
 					$difference =  ($math->get_hsl($mix_color, 'lightness') - $math->base_hsl['lightness']);
 			
@@ -642,10 +757,13 @@ function do_color_math($oid, $o, $val, $format = 'css'){
 }
 
 /**
-*
-* @TODO do
-*
-*/
+ * Store Set Color
+ *
+ * Changes HEX color value to string without hash character and saves it to the Set Colors array
+ *
+ * @param   $id
+ * @param   $color
+ */
 function store_set_color($id, $color){
 	
 	global $set_colors;
@@ -657,10 +775,12 @@ function store_set_color($id, $color){
 }
 
 /**
-*
-* @TODO do
-*
-*/
+ * Get Set Color
+ *
+ * @param $id
+ *
+ * @return string|bool - value of set_color[id] or false when no value has been established
+ */
 function get_set_color( $id ){
 	
 	global $set_colors;
@@ -674,10 +794,12 @@ function get_set_color( $id ){
 
 
 /**
-*
-* @TODO do
-*
-*/
+ * Load Math
+ *
+ * @param   $color
+ *
+ * @return  \PageLinesColor (class)
+ */
 function loadmath( $color ){
 	
 	return new PageLinesColor( $color );
@@ -685,10 +807,20 @@ function loadmath( $color ){
 }
 
 /**
-*
-* @TODO do
-*
-*/
+ * Set Math
+ *
+ * @param   $type
+ * @param   null $option
+ * @param   array $oset
+ *
+ * @uses    loadmath
+ * @uses    pl_base_color
+ * @uses    pl_link_color
+ * @uses    pl_text_color
+ * @uses    ploption
+ *
+ * @return  \PageLinesColor (class)
+ */
 function setmath($type, $option = null, $oset = array()){
 	
 	if( $type == 'txt' )
