@@ -844,14 +844,6 @@ class PageLinesOptionsArray {
 					'shortexp'	=> __( 'The link at the end of your excerpt', 'pagelines' ),
 					'exp' 		=> __( "This text will be used as the link to your full article when viewing articles on your posts page (when excerpts are turned on).", 'pagelines' )
 			),
-			'content_comments' => array(
-					'default'	=> true,
-					'type'		=> 'check',
-					'inputlabel'=> __( 'Show Comments Link?', 'pagelines' ),
-					'title'		=> __( 'Show Comments Link After Teasers/Excerpt?', 'pagelines' ),						
-					'shortexp'	=> __( 'Shows the number of comments after a teaser or excerpt on your blog page', 'pagelines' ),
-			),
-			
 			'content_handling' => array(
 					'type'		=> 'check_multi',
 					'selectvalues'=> array(
