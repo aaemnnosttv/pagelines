@@ -60,6 +60,7 @@ class PageLinesOptionsArray {
 						    		'with an image.', 'pagelines' )
 			),
 			'pagelines_favicon'		=> array(
+				'version' 		=> 'pro',
 				'default' 		=> 	PL_ADMIN_IMAGES . "/favicon-pagelines.ico",
 				'inputlabel'	=> 'Upload Favicon (16px by 16px)',
 				'type' 			=> 	'image_upload',

@@ -154,7 +154,7 @@ function pagelines_head_common(){
 
 	printf('<meta http-equiv="Content-Type" content="%s; charset=%s" />',  get_bloginfo('html_type'),  get_bloginfo('charset'));
 
-	if(ploption('pagelines_favicon'))
+	if(ploption('pagelines_favicon') && VPRO)
 		printf('<link rel="shortcut icon" href="%s" type="image/x-icon" />%s', ploption('pagelines_favicon'), "\n");
 
 	// Draw Page <title> Tag
