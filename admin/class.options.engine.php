@@ -608,6 +608,9 @@ class OptEngine {
 		
 		foreach($o['selectvalues'] as $mid => $m){
 		
+			if(!VPRO && isset($m['version']) && $m['version'] == 'pro')
+				continue;
+		
 			$value = checked((bool) $m['val'], true, false);
 			
 		
