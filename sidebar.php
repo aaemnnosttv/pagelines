@@ -32,7 +32,7 @@ else:
 	global $pagelines_layout;
 	if($pagelines_layout->layout_mode != 'fullwidth'):?>
 
-		<div id="sidebar-wrap" class="blocks">
+		<div id="sidebar-wrap" class="">
 	<?php 
 				if(ploption('sidebar_wrap_widgets') == 'top' || !ploption('sidebar_wrap_widgets')){
 					pagelines_template_area('pagelines_sidebar_wrap', 'sidebar_wrap'); // Hook

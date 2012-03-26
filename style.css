@@ -284,6 +284,10 @@ body{
 		body, .font1, .font-primary, .commentlist, input{ 
 			font-family:Georgia, 'Times New Roman', Times, serif; 
 		}
+		
+		input[type="submit"], input[type="button"]{
+			font-family: 'Lucida Grande', helvetica, arial, sans-serif;
+		}
 	
 	
 /*
@@ -944,7 +948,7 @@ table {width: 100%;}
  * @ Forms and Inputs 
  ****************************************/
 	input{
-		font-size:110%;
+		font-size:1em;
 		font-size-adjust:none;
 		font-stretch:normal;
 		font-style:normal;

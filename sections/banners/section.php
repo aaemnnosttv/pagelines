@@ -98,7 +98,7 @@ class PageLinesBanners extends PageLinesSection {
 					'type' 		=> 'text',
 					'size'		=> 'small',					
 					'title' 	=> 'Banner Text Padding',
-					'shortexp' 		=> '(optional) Set the padding for the text area. Use CSS shorthand, for example:<strong> 25px 30px 25px 35px</strong>; for top, right, bottom, then left padding.'
+					'shortexp' 		=> '(optional) Set the padding for the text area. Use CSS shorthand, for example:<strong> 25px 30px 25px 35px</strong> for top, right, bottom, then left padding.'
 
 				),
 			);

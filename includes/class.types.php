@@ -44,7 +44,8 @@ class PageLinesPostType {
 				'has_archive'		=> false, 
 				'map_meta_cap'		=> false,
 				'dragdrop'			=> true, 
-				'load_sections'		=> false
+				'load_sections'		=> false,
+				'query_var'			=> true
 			);
 		
 		$this->settings = wp_parse_args($settings, $defaults); // settings for post type
@@ -100,6 +101,7 @@ class PageLinesPostType {
 				'menu_position'		=> $this->settings['menu_position'],
 				'has_archive'		=> $this->settings['has_archive'],
 				'map_meta_cap'		=> $this->settings['map_meta_cap'],
+				'query_var'			=> $this->settings['query_var'],
 				'capabilities' => array(
 			        'publish_posts' 		=> $capability,
 			        'edit_posts' 			=> $capability,
@@ -207,11 +209,11 @@ class PageLinesPostType {
 	*
 	*/
 	function section_loading(){
-		
-		if( !$this->settings['dragdrop'] )
+	
+		if( ! $this->settings['dragdrop'] )
 			add_filter('pl_cpt_dragdrop', array(&$this, 'remove_dragdrop'), 10, 2);
 			
-		if( !$this->settings['dragdrop'] && $this->settings['load_sections'] );
+		if ( true === $this->settings['load_sections'] || is_array( $this->settings['load_sections'] ) )
 			add_filter('pl_template_sections', array(&$this, 'load_sections_for_type'), 10, 3);
 		
 	}
