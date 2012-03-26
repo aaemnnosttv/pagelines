@@ -12,31 +12,31 @@
 ********************************************************
 
 Version 2.1.4
+	- NEW - PInterest added to sharebar.
+	- NEW - Section QuickSlider.
+	- NEW - Footer Image/Watermark fully configurable.
+	- CORE - Subscriptions added to store.
+	- CORE - Add compatibility for wp 3.4
 	- Bugs - Shortcodes work in features.
 	- Bugs - CPT handling.
 	- Bugs - bbpress/og conflict.
-	- New - PInterest added to sharebar.
-	- New - Section QuickSlider.
-	- New - Footer Image/Watermark fully configurable.
-	- CORE - Subscriptions added to store.
-	- CORE - Add compatibility for wp 3.4
 
 Version 2.1.3
 	- HotFix - Static Height Mode - Feature Slider
 
 Version 2.1.2
-	- New - Callout Options (alignment, CSS button)
-	- New - Facebook Like Image uses 'Featured Image' (if available)
-	- New - Advanced option - Current Install <body> class
-	- New - Boxes options - More link & individual class
-	- New - Add Open Graph options
-	- New - Show active templates in page list
-	- New - Show featured image in post/page list
-	- New - Carousel gets auto scrolling
-	- New - Special body class option
-	- New - Developer libs added
-	- New - Sharebar under post titles
-	- New - Features are now responsive
+	- NEW - Callout Options (alignment, CSS button)
+	- NEW - Facebook Like Image uses 'Featured Image' (if available)
+	- NEW - Advanced option - Current Install <body> class
+	- NEW - Boxes options - More link & individual class
+	- NEW - Add Open Graph options
+	- NEW - Show active templates in page list
+	- NEW - Show featured image in post/page list
+	- NEW - Carousel gets auto scrolling
+	- NEW - Special body class option
+	- NEW - Developer libs added
+	- NEW - Sharebar under post titles
+	- NEW - Features are now responsive
 	- CORE - Widget areas always loaded
 	- CORE - Store items loaded by date
 	- CORE - New action pagelines_loop_before_excerpt
