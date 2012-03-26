@@ -11,6 +11,16 @@
 
 ********************************************************
 
+Version 2.1.4
+	- Bugs - Shortcodes work in features.
+	- Bugs - CPT handling.
+	- Bugs - bbpress/og conflict.
+	- New - PInterest added to sharebar.
+	- New - Section QuickSlider.
+	- New - Footer Image/Watermark fully configurable.
+	- CORE - Subscriptions added to store.
+	- CORE - Add compatibility for wp 3.4
+
 Version 2.1.3
 	- HotFix - Static Height Mode - Feature Slider
 
