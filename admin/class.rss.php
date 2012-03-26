@@ -4,16 +4,15 @@
 	
 		function __construct( $url = 'http://api.pagelines.com/rss/rss.php', $items = 5) {
 			
-			$this->items = $items;
-			$this->feed_url = $url;
-			
-				add_action( 'wp_dashboard_setup', array( &$this, 'store_dashboard_widget' ) );
+				$this->items = $items;
+				$this->feed_url = $url;
+				if ( VPRO )
+					add_action( 'wp_dashboard_setup', array( &$this, 'store_dashboard_widget' ) );
 		 	}
 
 			function store_dashboard_widget() {
-				if ( ploption( 'store_subscribe' ) )
-				 	wp_add_dashboard_widget('store_rss_dashboard_widget', 'PageLines Store Updates', array( &$this, 'store_dashboard_widget_init' ) );
 
+				 	wp_add_dashboard_widget('store_rss_dashboard_widget', 'PageLines Store Updates', array( &$this, 'store_dashboard_widget_init' ) );
 			}
 
 			function store_dashboard_widget_init() {
