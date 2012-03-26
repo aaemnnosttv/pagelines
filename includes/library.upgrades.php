@@ -30,14 +30,23 @@ class PageLinesUpgradePaths {
 		*/			
 		if ( ! VPRO && 'pagelines' == basename( get_bloginfo('url') ) ) {
 			
-			if ( true != $a['content_blog'] )
+			if ( ! isset( $a['content_blog'] ) || true != $a['content_blog'] )
 				plupop( 'content_blog', true );
 			
-			if ( true == $a['excerpt_blog'] )
+			if ( ! isset( $a['content_blog'] ) || true == $a['excerpt_blog'] )
 				plupop( 'excerpt_blog', false );
+			
+			/**
+			* Fix broken templates
+			*/		
+			$t = ( array ) get_option( PAGELINES_TEMPLATE_MAP );
+
+			if ( 'PageLinesQuickSlider' != $t['main']['templates']['posts']['sections'][0] ) {
+				array_unshift( $t['main']['templates']['posts']['sections'], 'PageLinesQuickSlider' );
+				update_option( PAGELINES_TEMPLATE_MAP, $t );
+			}
 		}	
 	}
-
 
 	/**
 	*

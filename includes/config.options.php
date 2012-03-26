@@ -828,7 +828,7 @@ class PageLinesOptionsArray {
 						'share_buffer'		=> array('inputlabel'=> __( 'Buffer', 'pagelines' ), 'default'=> false, 'version' => 'pro'),
 						'share_linkedin'	=> array('inputlabel'=> __( 'LinkedIn', 'pagelines' ), 'default'=> false, 'version' => 'pro'),
 						'share_pinterest'	=> array('inputlabel'=> __( 'Pinterest', 'pagelines' ), 'default'=> true, 'version' => 'pro'),
-						'share_under_meta'	=> array('inputlabel'=> __( 'Add Shares Under Metabar', 'pagelines' ), 'default'=> true, 'version' => 'pro'),
+						'share_under_meta'	=> array('inputlabel'=> __( 'Add Shares Under Metabar', 'pagelines' ), 'default'=> false, 'version' => 'pro'),
 					),
 					'inputlabel'=> __( 'Select Which Share Buttons To Show', 'pagelines' ),
 					'title'		=> __( 'Sharebar Social Sharing Buttons', 'pagelines' ),						
