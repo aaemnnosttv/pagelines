@@ -6,7 +6,7 @@
 /**
  * PageLines JavaScript Ready Start
  *
- * Creates the Character Data wrapper so JavaScript contained within will not be parsed incorrectly
+ * Create Character Data wrapper so JavaScript contained within will not be parsed incorrectly
  * @internal Should be used with pl_js_end
  * @internal NOTE the opening bracket is returned so a closing bracket should be included in the proceeding code.
  *
