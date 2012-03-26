@@ -234,10 +234,12 @@ class PageLinesSection {
 		else
 			$section_id = $this->id;
 		
+		$classes .= ' section-'.$section_id;
+		
 		if( $set_markup == 'copy' ) 
-			printf('<section id="%s" class="copy %s %s"><div class="copy-pad">', $section_id, 's-'.$section_id, $classes);
+			printf('<section id="%s" class="copy %s"><div class="copy-pad">', $section_id, trim($classes));
 		elseif( $set_markup == 'content' ){
-			printf('<section id="%s" class="container %s %s fix"><div class="texture">', $this->id, 's-'.$section_id, $classes);
+			printf('<section id="%s" class="container %s fix"><div class="texture">', $this->id, trim($classes));
 			pagelines_register_hook('pagelines_outer_'.$this->id, $this->id); // hook
 			printf('<div class="content"><div class="content-pad">');
 		}
