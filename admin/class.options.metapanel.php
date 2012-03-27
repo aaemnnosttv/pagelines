@@ -321,18 +321,11 @@ class PageLinesMetaPanel {
 	* @TODO document
 	*
 	*/
-	function posts_metapanel( $args ){
+	function posts_metapanel( $type, $mode = 'meta' ){
 		
-		$defaults = array( 
-			
-			'type'	=>	'default',
-			'mode'	=>	'default',
-			'option_engine'	=>	''			
-			);
 		
-		$args = wp_parse_args( $args, $defaults );
-		extract( $args, EXTR_SKIP );
-				
+		$option_engine = new OptEngine( PAGELINES_SPECIAL );
+		
 		$handle = 'postsTabs'.$type;
 		
 		// Zero Out Tabs
@@ -719,45 +712,43 @@ function special_page_settings_array(  ){
 
 	global $metapanel_options;
 	
-	$option_engine = new OptEngine( PAGELINES_SPECIAL );
-	
 	$d = array(
 		
 		'site_defaults' => array(
-			'metapanel' => $metapanel_options->posts_metapanel( array( 'type' => 'default', 'mode' => 'default', 'option_engine' => $option_engine ) ),
+			'metapanel' => $metapanel_options->posts_metapanel( 'default', 'default' ),
 			'icon'		=> PL_ADMIN_ICONS.'/equalizer.png'
 		),
 		'blog_page' => array(
-			'metapanel' => $metapanel_options->posts_metapanel( array( 'type' => 'posts', 'option_engine' => $option_engine ) ),
+			'metapanel' => $metapanel_options->posts_metapanel( 'posts' ),
 			'icon'		=> PL_ADMIN_ICONS.'/blog.png'
 		),		
 		'archive_page' => array(
-			'metapanel' => $metapanel_options->posts_metapanel( array( 'type' => 'archive', 'option_engine' => $option_engine ) ),
+			'metapanel' => $metapanel_options->posts_metapanel( 'archive' ),
 			'icon'		=> PL_ADMIN_ICONS.'/archives.png', 
 			'version'	=> 'pro'
 		),
 		'category_page' => array(
-			'metapanel' => $metapanel_options->posts_metapanel( array( 'type' => 'category', 'option_engine' => $option_engine ) ),
+			'metapanel' => $metapanel_options->posts_metapanel( 'category' ),
 			'icon'		=> PL_ADMIN_ICONS.'/category.png', 
 			'version'	=> 'pro'
 		),
 		'search_results' => array(
-			'metapanel' => $metapanel_options->posts_metapanel( array( 'type' => 'search', 'option_engine' => $option_engine ) ),
+			'metapanel' => $metapanel_options->posts_metapanel('search'),
 			'icon'		=> PL_ADMIN_ICONS.'/search.png',
 			'version'	=> 'pro'
 		),
 		'tag_listing' => array(
-			'metapanel' => $metapanel_options->posts_metapanel( array( 'type' => 'tag', 'option_engine' => $option_engine ) ),
+			'metapanel' => $metapanel_options->posts_metapanel('tag'),
 			'icon'		=> PL_ADMIN_ICONS.'/tag.png', 
 			'version'	=> 'pro'
 		),
 		'author_posts' => array(
-			'metapanel' => $metapanel_options->posts_metapanel( array( 'type' => 'author', 'option_engine' => $option_engine ) ),
+			'metapanel' => $metapanel_options->posts_metapanel('author'),
 			'icon'		=> PL_ADMIN_ICONS.'/author.png', 
 			'version'	=> 'pro'
 		),
 		'404_page' => array(
-			'metapanel' => $metapanel_options->posts_metapanel( array( 'type' => '404_page', 'option_engine' => $option_engine ) ),
+			'metapanel' => $metapanel_options->posts_metapanel('404_page'),
 			'icon'		=> PL_ADMIN_ICONS.'/404.png', 
 			'version'	=> 'pro'
 		),
