@@ -218,7 +218,7 @@ class PageLinesShareBar extends PageLinesSection {
 
 	/**
 	*
-	* @TODO document
+	* Twitter Button
 	*
 	*/
 	function twitter( $args ){
@@ -256,7 +256,7 @@ class PageLinesShareBar extends PageLinesSection {
 
 	/**
 	*
-	* @TODO document
+	* Google Plus Button
 	*
 	*/
 	function google( $args ){
