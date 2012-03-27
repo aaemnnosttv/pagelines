@@ -40,7 +40,7 @@ class PageLinesAccount {
 			if ( isset( $_POST['creds_reset'] ) )
 				update_option( 'pagelines_extend_creds', array( 'user' => '', 'pass' => '' ) );
 			else
-				set_pagelines_credentials( sanitize_text_field( $_POST['lp_username'] ),  sanitize_text_field( $_POST['lp_password'] ) );
+				set_pagelines_credentials( $_POST['lp_username'], $_POST['lp_password'] );
 
 			PagelinesExtensions::flush_caches();		
 
