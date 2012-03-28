@@ -41,7 +41,9 @@ class PageLinesSection {
 				'posttype'			=> '',
 				'failswith'			=> array(), 
 				'cloning'			=> false,
-				'tax_id'			=> ''
+				'tax_id'			=> '',
+				'format'			=> 'textured',
+				'classes'			=> ''
 			);
 
 		$this->settings = wp_parse_args( $settings, $defaults );
@@ -54,7 +56,7 @@ class PageLinesSection {
 	
 		$this->set_section_info();
 		
-		$this->section_init();
+//		$this->section_init();
 		
 	}
 
@@ -99,6 +101,8 @@ class PageLinesSection {
 		$this->settings['version'] = ( !empty( $this->sinfo['edition'] ) ) ? $this->sinfo['edition'] : $this->settings['version'];
 		$this->settings['failswith'] = ( !empty( $this->sinfo['failswith'] ) ) ? $this->sinfo['failswith'] : $this->settings['failswith'];
 		$this->settings['tax_id'] = ( !empty( $this->sinfo['tax'] ) ) ? $this->sinfo['tax'] : $this->settings['tax_id'];
+		$this->settings['format'] = ( !empty( $this->sinfo['format'] ) ) ? $this->sinfo['format'] : $this->settings['format'];
+		$this->settings['classes'] = ( !empty( $this->sinfo['classes'] ) ) ? $this->format_classes( $this->sinfo['classes'] ) : $this->settings['classes'];
 		$this->settings['p_ver'] = $this->sinfo['version'];
 
 		$this->icon = $this->settings['icon'] = ( file_exists( sprintf( '%s/icon.png', $this->base_dir ) ) ) ? sprintf( '%s/icon.png', $this->base_url ) : PL_ADMIN_ICONS . '/leaf.png';
@@ -110,9 +114,17 @@ class PageLinesSection {
 			'active'	=> true, 
 			'mode'		=> null
 		);
-		load_plugin_textdomain($this->id, false, sprintf( 'pagelines-sections/%s/lang', $this->id ) );	
+		load_plugin_textdomain($this->id, false, sprintf( 'pagelines-sections/%s/lang', $this->id ) );
+		
+
 	}
 
+	function format_classes( $classes ) {
+		
+		$classes = str_replace( ',', ' ', str_replace( ' ', '', $classes ) );
+		
+		return $classes;		
+	}
 
     /**
      * Section Install Type
@@ -221,7 +233,8 @@ class PageLinesSection {
      * @uses        pagelines_register_hook
      */
 	function before_section( $markup = 'content', $clone_id = null, $classes = ''){
-
+plprint( $this->settings['format'], $this->id );
+plprint( $this->settings['classes'], $this->id );
 		$classes .= ( isset($clone_id) ) ? sprintf( ' clone_%s%s', $clone_id, $this->classes ) : $this->classes;
 		
 		if(isset($this->settings['markup']))
