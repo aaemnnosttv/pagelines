@@ -6,6 +6,8 @@
 	Description: A responsive and sticky navigation bar for your website.
 	Class Name: PLNavBar	
 	Workswith: header
+	Compatibility: 2.2
+	Format: open
 */
 
 /**
@@ -40,9 +42,9 @@ class PLNavBar extends PageLinesSection {
 	*/
    function section_template( $clone_id ) { 
 	?>
-	<div class="navbar">
+	<div class="navbar navbar-fixed-top">
 	  <div class="navbar-inner">
-	    <div class="container">
+	    <div class="container fix">
 
 	      <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
 	      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
