@@ -16,6 +16,8 @@ class PageLinesSection {
 	var $base_dir;  // Directory for section
 	var $base_url;  // Directory for section
 	var $builder;  	// Show in section builder
+	var $format;	// <section> format.
+	var $classes;	// <section> classes.
 
     /**
      * PHP5 constructor
@@ -51,6 +53,8 @@ class PageLinesSection {
 		$this->class_name = get_class($this);
 	
 		$this->set_section_info();
+		
+		$this->section_init();
 		
 	}
 
@@ -217,8 +221,8 @@ class PageLinesSection {
      * @uses        pagelines_register_hook
      */
 	function before_section( $markup = 'content', $clone_id = null, $classes = ''){
-		
-		$classes .= (isset($clone_id)) ? ' clone_'.$clone_id : '';
+
+		$classes .= ( isset($clone_id) ) ? sprintf( ' clone_%s%s', $clone_id, $this->classes ) : $this->classes;
 		
 		if(isset($this->settings['markup']))
 			$set_markup = $this->settings['markup'];
@@ -291,11 +295,15 @@ class PageLinesSection {
     /**
      * Section Init
      *
-     * @since   ...
+     * @since 2.2
      *
-     * @TODO document
+     * @TODO Add section varible defaults. Used in __consruct()
      */
-	function section_init(){}
+	function section_init() {
+		
+		$this->format	= ( $this->format ) ? $this->format : 'textured';
+		$this->classes	= ( $this->classes ) ? sprintf( ' %s', ltrim( $this->classes ) )  : '';		
+	}
 	
 
     /**
