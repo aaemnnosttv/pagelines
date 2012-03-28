@@ -1067,8 +1067,18 @@ function array_search_ext($arr, $search, $exact = true, $trav_keys = null)
   return $res_arr ? $res_arr : false;
 }
 
-/** 
- * Register Sidebars with added priority.
+/**
+ * PageLines Register Sidebar
+ *
+ * Registers sidebars with an optional priority.
+ *
+ * @param   $args
+ * @param   null $priorty - numeric value
+ *
+ * @uses    plotion( 'enable_sidebar_reorder' ) - i.e.: prioritization
+ * @uses    pagelines_sidebars class
+ *
+ * @link    http://www.pagelines.com/wiki/Pagelines_register_sidebar
  */
 function pagelines_register_sidebar( $args, $priorty = null ) {
 	
