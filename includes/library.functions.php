@@ -1067,8 +1067,18 @@ function array_search_ext($arr, $search, $exact = true, $trav_keys = null)
   return $res_arr ? $res_arr : false;
 }
 
-/** 
- * Register Sidebars with added priority.
+/**
+ * PageLines Register Sidebar
+ *
+ * Registers sidebars with an optional priority.
+ *
+ * @param   $args
+ * @param   null $priorty - numeric value
+ *
+ * @uses    plotion( 'enable_sidebar_reorder' ) - i.e.: prioritization
+ * @uses    pagelines_sidebars class
+ *
+ * @link    http://www.pagelines.com/wiki/Pagelines_register_sidebar
  */
 function pagelines_register_sidebar( $args, $priorty = null ) {
 	
@@ -1129,4 +1139,59 @@ function pl_array_insert( $array, $key, $insert_array, $before = FALSE ) {
 	}
 	// Put the new array in the place of the original.
 	return $new_array;
+}
+
+/** 
+ * Display a banner if suppoerted plugin is detected during template_redirect.
+ *
+ */
+function pl_check_integrations() {
+	
+	$integrations = array(
+		
+		'bbpress' => array(
+			
+			'function'	=> 'is_bbpress',
+			'plugin'	=> 'pagelines-bbpress',
+			'url'		=> 'http://www.pagelines.com/store/plugins/pagelines-bbpress/',
+			'name'		=> 'bbPress',
+			'class'		=> 'PageLinesBBPress'
+			
+		),
+		'jigoshop' => array(
+			
+			'function'	=> 'is_jigoshop',
+			'plugin'	=> 'pagelines-jigoshop',
+			'url'		=> 'http://www.pagelines.com/store/plugins/pagelines-jigoshop/',
+			'name'		=> 'Jigoshop',
+			'class'		=> 'PageLinesJigoShop'		
+		),		
+	);
+	
+	foreach( $integrations as $i => $data ) {
+		
+		if( function_exists( $data['function'] ) ) {
+			
+			if( $data['function']() && ! class_exists( $data['class'] ) )
+				pl_check_integrations_banner( $data );
+		}	
+	}
+}
+
+function pl_check_integrations_banner( $data ) {
+	
+	if( current_user_can('edit_themes') ){
+	
+		$banner_title = sprintf( '<h3 class="banner_title wicon">%s was detected.</h3>', $data['name'] );
+		
+		$text = 'Looks like your running a supported plugin but your not using our integrations whatsit.';
+		
+		$link_text = 'Get it from the store now!';
+		
+		$link = sprintf('<a href="%s">%s</a>', $data['url'], $link_text . ' &rarr;');
+		
+		echo sprintf('<div class="banner setup_area"><div class="banner_pad">%s <div class="banner_text subhead">%s<br/> %s</div></div></div>', $banner_title, $text, $link);
+	
+			
+	}		
 }

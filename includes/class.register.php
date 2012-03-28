@@ -164,7 +164,9 @@ class PageLinesRegister {
 			'cloning'		=> 'cloning',
 			'failswith'		=> 'failswith',
 			'tax'			=> 'tax',
-			'persistant'	=> 'Persistant'
+			'persistant'	=> 'Persistant',
+			'format'		=> 'Format',
+			'classes'		=> 'Classes'
 			);
 			
 		$sections = array();
@@ -251,6 +253,8 @@ class PageLinesRegister {
 					'demo'			=> $headers['Demo'],
 					'external'		=> $headers['External'],
 					'persistant'	=> $headers['persistant'],
+					'format'		=> $headers['format'],
+					'classes'		=> $headers['classes'],
 					'screenshot'	=> ( file_exists( $base_dir . '/thumb.png' ) ) ? $base_url . '/thumb.png' : ''
 				);	
 			}

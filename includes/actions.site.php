@@ -154,5 +154,6 @@ function pagelines_add_sidebars() {
 	
 	foreach ( $pagelines_sidebars as $key => $sidebar )
 		register_sidebar( $sidebar );
-
 }
+
+add_action( 'template_redirect', 'pl_check_integrations' );
