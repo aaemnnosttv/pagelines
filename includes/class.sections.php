@@ -233,8 +233,7 @@ class PageLinesSection {
      * @uses        pagelines_register_hook
      */
 	function before_section( $markup = 'content', $clone_id = null, $classes = ''){
-plprint( $this->settings['format'], $this->id );
-plprint( $this->settings['classes'], $this->id );
+
 		$classes .= ( isset($clone_id) ) ? sprintf( ' clone_%s%s', $clone_id, $this->classes ) : $this->classes;
 		
 		if(isset($this->settings['markup']))
