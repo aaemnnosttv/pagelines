@@ -1,72 +1,70 @@
 <?php
 /**
- * 
+ * Option Engine Class
  *
- *  Option Engine Class 
- *  Sorts and Draws options based on the 'option array'
- *  Option array is loaded in config.option.php and through filters
+ * Sorts and Draws options based on the 'option array'
+ * Option array is loaded in config.option.php and through filters
  *
- *  @package PageLines Framework
- *  @subpackage Options
- *  @since 4.0
+ * @package     PageLines Framework
+ * @subpackage  Options
+ * @since       1.0
  *
+ * @todo Review 'docslink' - implement 'docstitle' option? ... see get_option_title()
  */
 class OptEngine {
 
-
-	/**
-	*
-	* @TODO document
-	*
-	*/
+    /**
+     * PHP5 Constructor
+     *
+     * @param   null $settings_field
+     * @version 2.2 - alphabetized defaults listing
+     */
 	function __construct( $settings_field = null ) {
 		
 		$this->settings_field = $settings_field;
-		
-		
-		
+
 		$this->defaults = array(
-			'section'				=> '',
-			'scontrol'				=> '',
-			'options'				=> array(),
-			'post_id'				=> '', 
-			'pid'					=> '', 
-			'setting'				=> '',
-			'default' 				=> '',
-			'default_free'		 	=> null,
-			'inputlabel' 			=> '',
-			'type' 					=> 'check',
-			'title' 				=> '',				
-			'shortexp' 				=> '',
-			'exp'					=> '',
-			'wp_option'				=> false,
-			'version' 				=> null,
-			'version_set_default' 	=> 'free',
-			'imagepreview' 			=> 200, 
-			'selectvalues' 			=> array(),
-			'fields'				=> array(),
-			'optionicon' 			=> '', 
-			'vidlink' 				=> null, 
-			'vidtitle'				=> '',
-			'docslink' 				=> null,
-			'layout' 				=> 'normal', 
-			'count_number' 			=> 10, 
-			'selectors'				=> '', 
-			'inputsize'				=> 'regular',
-			'callback'				=> '',
-			'css_prop'				=> '',
-			'pro_note'				=> false, 
-			'htabs'					=> array(), 
-			'height'				=> '0px',
-			'width'					=> '0px',
-			'sprite'				=> '',
-			'showname'				=> false, 
-			'special'				=> null,
-			'flag'					=> '', 
-			'disabled'				=> false, 
-			'disabled_mode'			=> false,
-			'placeholder'			=> false, 
-			'clone_id'				=> 1
+            'callback'				=> '',
+            'clone_id'				=> 1,
+            'count_number' 			=> 10,
+            'css_prop'				=> '',
+            'default' 				=> '',
+            'default_free'		 	=> null,
+            'disabled'				=> false,
+            'disabled_mode'			=> false,
+            'docslink' 				=> null,
+            'exp'					=> '',
+            'fields'				=> array(),
+            'flag'					=> '',
+            'htabs'					=> array(),
+            'height'				=> '0px',
+            'imagepreview' 			=> 200,
+            'inputlabel' 			=> '',
+            'inputsize'				=> 'regular',
+            'layout' 				=> 'normal',
+            'options'				=> array(),
+            'optionicon' 			=> '',
+            'pid'					=> '',
+            'placeholder'			=> false,
+            'post_id'				=> '',
+            'pro_note'				=> false,
+            'section'				=> '',
+            'selectors'				=> '',
+            'selectvalues' 			=> array(),
+            'scontrol'				=> '',
+            'shortexp' 				=> '',
+            'setting'				=> '',
+            'showname'				=> false,
+            'special'				=> null,
+            'sprite'				=> '',
+            'type' 					=> 'check',
+            'title' 				=> '',
+            'version' 				=> null,
+            'version_set_default' 	=> 'free',
+            'vidlink' 				=> null,
+            'vidtitle'				=> '',
+            'width'					=> '0px',
+            'wp_option'				=> false
 		);
 		
 	}
@@ -300,13 +298,14 @@ class OptEngine {
 		$layout_class .= ( isset( $o['layout'] ) && $o['layout']=='interface' ) ? ' interface' : '';
 		return $layout_class;
 	}
-	
 
-	/**
-	*
-	* @TODO document
-	*
-	*/
+
+    /**
+     * Get Option Title
+     *
+     * @param   $oid - option ID (unused)
+     * @param   $o - option class
+     */
 	function get_option_title($oid, $o){ 
 		if( $o['title'] ): ?>
 		<div class="optiontitle fix">
