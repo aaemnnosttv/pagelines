@@ -215,9 +215,6 @@ class PageLinesPosts {
 		
 			if ( is_single() && get_the_tags() )
 				printf( '<div class="p tags">%s&nbsp;</div>', get_the_tag_list( __( 'Tagged with: ', 'pagelines' ), ' &bull; ', '' ) );
-		
-			//	if (is_home() && ploption('content_comments'))
-			//	echo do_shortcode('<div class="cnt-comments">[post_comments]</div>');
 	
 			pagelines_register_hook( 'pagelines_loop_after_post_content', 'theloop' ); // Hook 
 		
@@ -322,9 +319,6 @@ class PageLinesPosts {
 	
 		if(pagelines_is_posts_page() && !$this->pagelines_show_content( get_the_ID() )) // 'Continue Reading' link
 			echo $this->get_continue_reading_link( get_the_ID() );
-		
-//		if (is_home() && ploption('content_comments'))
-//			$pagelines_excerpt .= do_shortcode('<div class="cnt-comments">[post_comments]</div>');
 		
 		pagelines_register_hook( 'pagelines_loop_after_excerpt', 'theloop' ); // Hook 
 			
