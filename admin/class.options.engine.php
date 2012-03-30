@@ -9,7 +9,7 @@
  * @subpackage  Options
  * @since       1.0
  *
- * @todo Review 'docslink' - implement 'docstitle' option? ... see get_option_title()
+ * @todo Review 'docslink' - implement 'docstitle' option ... see get_option_title()?
  */
 class OptEngine {
 
