@@ -843,7 +843,7 @@ class PageLinesOptionsArray {
 					'title'		=> __( '<strong>Continue Reading</strong> Link Text (When Using Excerpts)', 'pagelines' ),						
 					'shortexp'	=> __( 'The link at the end of your excerpt', 'pagelines' ),
 					'exp' 		=> __( "This text will be used as the link to your full article when viewing articles on your posts page (when excerpts are turned on).", 'pagelines' )
-			),			
+			),
 			'content_handling' => array(
 					'type'		=> 'check_multi',
 					'selectvalues'=> array(

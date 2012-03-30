@@ -1,6 +1,30 @@
 <?php
 
 /**
+ * Gets Comments Link based on ID
+ */
+function pl_get_comments_link( $post_id ){
+	
+	$num_comments = get_comments_number($post_id);
+	 if ( comments_open() ){
+	 	  if($num_comments == 0){
+	 	  	  $comments = __('Add Comment', 'pagelines');
+	 	  }
+	 	  elseif($num_comments > 1){
+	 	  	  $comments = $num_comments.' '. __('Comments');
+	 	  }
+	 	  else{
+	 	  	   $comments ="1 Comment";
+	 	  }
+	 $write_comments = '<a href="' . get_comments_link($post_id) .'">'. $comments.'</a>';
+	 }
+	else{$write_comments =  '';}
+	
+	return $write_comments;
+
+}
+
+/**
  * Get just the WordPress thumbnail URL - False if not there.
  */
 function pl_the_thumbnail_url( $post_id ){

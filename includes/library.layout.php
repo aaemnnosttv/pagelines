@@ -162,17 +162,18 @@ function pl_add_options_page_filter( $optionarray ){
 			} else {
 
 			$out[$page] = array(
-				
+
+				'icon'		=>	$data['icon'],
+
 				$page	=>	array(
 					
 					'type'		=>	$data['type'],
 					'shortexp'	=>	$content,
 					'title'		=>	$data['title'],
-					'layout'	=>	$data['layout']
+					'layout'	=>	$data['layout']					
 					)
 			);
 			}
-
 		if ( isset( $data['position']) && is_numeric( $data['position'] ) )
 			$optionarray = pl_insert_into_array( $optionarray, $out, $data['position']);
 		else

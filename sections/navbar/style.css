@@ -1,0 +1,92 @@
+/*!
+ * Bootstrap v2.0.2
+ *
+ * Copyright 2012 Twitter, Inc
+ * Licensed under the Apache License v2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Designed and built with all the love in the world @twitter by @mdo and @fat.
+ */
+
+.section-navbar {
+
+	position: fixed;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, .3);
+	position: fixed;
+	z-index: 1000;
+	margin: 0 auto;
+	width: 100%;
+	background: -webkit-linear-gradient(top, rgba(0,0,0,.8) 0%,#000 100%);
+	color:rgba(255,255,255,.1);
+}
+	.section-navbar{
+	}
+	.section-navbar a {
+		color:#fff;
+	}
+
+	.section-navbar-spacer{
+		position: relative;
+		margin-bottom: 18px;
+	}
+
+	.section-navbar, .section-navbar-spacer{
+		line-height: 50px;
+		height: 50px;
+	}
+	
+	.navbar-content-pad{
+		padding: 0 15px;
+	}
+	
+	.navbar .brand{
+		font-size: 1.5em;
+		float: left;
+	}
+	.navbar .brand:hover{
+		
+	}
+	
+	.navbar .plbrand{
+		float:left;
+		margin: 5px 0;
+	}
+		.navbar .plbrand img{
+			max-height: 40px;
+		}
+	
+	.navbar .navline {
+		position: relative;
+		left: 0;
+		display: block;
+		float: right;
+		margin: 0 10px 0 0;
+		font-size: .9em;
+	}
+	.navbar .navline.pull-right {
+	  float: right;
+	}
+	.navbar .navline > li {
+	  display: block;
+	  float: left;
+	}
+	.navbar .navline > li > a {
+	  float: none;
+	
+	  padding: 10px 10px 11px;
+	  line-height: 19px;
+	  color:rgba(255,255,255,.5);
+	  text-decoration: none;
+	  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+	}
+	.navbar .navline > li > a:hover {
+	  background-color: transparent;
+	  color:rgba(255,255,255,.9);
+	  text-decoration: none;
+	}
+
+	.navbar .navline .active > a:hover {
+	  color:rgba(255,255,255,.9);
+	  text-decoration: none;
+	  background-color: #222222;
+	}

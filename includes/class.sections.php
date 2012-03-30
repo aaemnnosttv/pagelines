@@ -255,9 +255,20 @@ class PageLinesSection {
 		if( $set_markup == 'copy' ) 
 			printf('<section id="%s" class="copy %s"><div class="copy-pad">', $section_id, trim($classes));
 		elseif( $set_markup == 'content' ){
-			printf('<section id="%s" class="container %s fix"><div class="texture">', $this->id, trim($classes));
+			
+			// Draw wrapper unless using 'raw' format
+			if($this->settings['format'] != 'raw')
+				printf('<section id="%s" class="container %s fix">', $this->id, trim($classes));
+			
+			// Draw textured div for background texturing
+			if($this->settings['format'] == 'textured')
+				printf('<div class="texture">');
+			
 			pagelines_register_hook('pagelines_outer_'.$this->id, $this->id); // hook
-			printf('<div class="content"><div class="content-pad">');
+			
+			// Standard content width and padding divs
+			if($this->settings['format'] == 'textured' || $this->settings['format'] == 'standard')
+				printf('<div class="content"><div class="content-pad">');
 		}
 		
 		pagelines_register_hook('pagelines_inside_top_'.$this->id, $this->id); // hook 
@@ -286,8 +297,21 @@ class PageLinesSection {
 	 	
 		if( $set_markup == 'copy' )
 			printf('<div class="clear"></div></div></section>');
-		elseif( $set_markup == 'content' )
-			printf('<div class="clear"></div></div></div></div></section>');
+		elseif( $set_markup == 'content' ){
+			
+			// Standard content width and padding divs
+			if($this->settings['format'] == 'textured' || $this->settings['format'] == 'standard')
+				printf('</div></div>');
+				
+			// Draw textured div for background texturing
+			if($this->settings['format'] == 'textured')
+				printf('</div>');
+				
+			// Draw wrapper unless using 'raw' format
+			if($this->settings['format'] != 'raw')
+				printf('</section>');
+			
+		}
 			
 		pagelines_register_hook('pagelines_after_'.$this->id, $this->id);
 	}

@@ -170,8 +170,7 @@ body{
 	.fixed_width #boxes .dcol-pad {padding: 10px;}
 
 
-/* 
- * Typography
+/* Typography
  ****************************/
 
 	h1, h2, h3, h4, h5, h6{
@@ -199,8 +198,7 @@ body{
 	.hentry .entry-title{  margin:0; }
 
 
-	/* 
-	 * @ Paragraphs 
+	/* @ Paragraphs 
 	 ****************/
 		p, .p, .hentry ul, .hentry ol{margin: 1.6em 0;}
 		.entry_content :first-child, .post-excerpt > :first-child{margin-top: 0;}
@@ -208,8 +206,7 @@ body{
 		p {hyphenate: auto;hyphenate-before:2;hyphenate-after:3;hyphenate-lines: 3;orphans:4}
 		p span.pullquote{text-indent:0;}
 
-	/* 
-	 * @ Font Sizes & Line Heights 
+	/* @ Font Sizes & Line Heights 
 	 *******************************/
 	.main_nav, h6.site-description, .widget-title, #footer li h5 a, .subhead, .main_nav, #postauthor .subtext, .author-details, .post-nav, .current_posts_info, #secondnav{ 
 		font-size: 86%; 
@@ -1088,7 +1085,7 @@ input[type="submit"], .submit, input[type="button"], .button, input[type="reset"
 
 
 	/* Blue Button */
-	.button.bblue{
+	.button.bblue, .color-blue{
 		background:#4574B8; 
 		background:-moz-linear-gradient(top,#6E9ED2 0%,#4574B8 100%); 
 		background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#6E9ED2),color-stop(100%,#4574B8)); 
@@ -1127,6 +1124,9 @@ input[type="submit"], .submit, input[type="button"], .button, input[type="reset"
 			text-shadow:0 -1px 0 rgba(0,0,0,0.8); 
 			border:1px solid #34588B; 
 		}
+
+
+
 		
 /* @ Widgets Default Formatting */
 	.wp-caption {
