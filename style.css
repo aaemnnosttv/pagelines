@@ -903,24 +903,24 @@ table {width: 100%;}
 			padding:0;
 			border:0;
 		}
-		.navigation_wrap .searchfield{
+		.responsive .navigation_wrap .searchfield{
 			display:inline-block;
 			float: none;
 		}
 		
-		#page #brandnav .mainlogo-link {float: none} 
+		.responsive #page #brandnav .mainlogo-link {float: none} 
 		
-		#page .main_nav .main-nav, #brandnav .brandnav-nav{margin-top: 10px; width: 100%; float: none;}
+		.responsive #page .main_nav .main-nav, #brandnav .brandnav-nav{margin-top: 10px; width: 100%; float: none;}
 		
-		#page .main_nav ul li{
+		.responsive #page .main_nav ul li{
 			text-align: left;
 			width: 50%;
 		}
 				
-			#page .main_nav ul li ul, #page .main_nav ul li ul li{ width: 100%; }
+			.responsive #page .main_nav ul li ul, #page .main_nav ul li ul li{ width: 100%; }
 			
 		
-		#page .media .post-thumb {
+		.responsive #page .media .post-thumb {
 			float: none;
 			margin-bottom: 8px;
 		}
