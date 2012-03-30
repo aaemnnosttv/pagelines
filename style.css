@@ -1085,7 +1085,7 @@ input[type="submit"], .submit, input[type="button"], .button, input[type="reset"
 
 
 	/* Blue Button */
-	.button.bblue{
+	.button.bblue, .color-blue{
 		background:#4574B8; 
 		background:-moz-linear-gradient(top,#6E9ED2 0%,#4574B8 100%); 
 		background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#6E9ED2),color-stop(100%,#4574B8)); 
@@ -1124,6 +1124,9 @@ input[type="submit"], .submit, input[type="button"], .button, input[type="reset"
 			text-shadow:0 -1px 0 rgba(0,0,0,0.8); 
 			border:1px solid #34588B; 
 		}
+
+
+
 		
 /* @ Widgets Default Formatting */
 	.wp-caption {
