@@ -1,5 +1,10 @@
 /*!
- * Bootstrap v2.0.2
+ * PageLines Inc.
+ * Copyright 2012 
+ * 
+ * Partial fork of Twitter Bootstrap CSS
+ *
+ * Based on Bootstrap v2.0.2
  *
  * Copyright 2012 Twitter, Inc
  * Licensed under the Apache License v2.0
@@ -8,9 +13,9 @@
  * Designed and built with all the love in the world @twitter by @mdo and @fat.
  */
 
+/*  Basic formatting
+ ************************************************************/
 .section-navbar {
-	
-	
 	z-index: 1000;
 	margin: 0 auto;
 	width: 100%;
@@ -20,49 +25,62 @@
 	color:rgba(255,255,255,.1);
 }
 
-	.section-navbar.fixed-top{
-		position: fixed;
-	}
-	.section-navbar{
-	}
-	.section-navbar a {
-		color:#fff;
+.navbar-content-pad{
+	padding: 0 15px;
+}
+
+.section-navbar-spacer{
+	position: relative;
+	margin-bottom: 18px;
+}
+
+/*  Formatting controlled by settings
+ ************************************************************/
+.section-navbar.fixed-top{
+	position: fixed;
+}
+
+.section-navbar a {
+	color:#fff;
+}
+
+/*  Searchform 
+ ************************************************************/
+.navbar .searchform{
+	float: right;
+	margin-top: 8px;
+}
+
+.navbar .searchform .searchfield{
+	background-color:rgba(255,255,255,.35);
+	border: 1px solid rgba(0,0,0,.7);
+}
+
+/*  Branding 
+ ************************************************************/
+
+.navbar .brand{
+	font-size: 1.5em;
+	float: left;
+}
+	
+.navbar .plbrand{
+	float:left;
+	margin: 5px 0 0;
+}
+	.navbar .plbrand img{
+		max-height: 30px;
 	}
 
-	.section-navbar-spacer{
-		position: relative;
-		margin-bottom: 18px;
-	}
 
-	.section-navbar .content{
-		
-	}
-	
-	.navbar-content-pad{
-		padding: 0 15px;
-	}
-	
-	.navbar .brand{
-		font-size: 1.5em;
-		float: left;
-	}
-	.navbar .brand:hover{
-		
-	}
-	
-	.navbar .plbrand{
-		float:left;
-		margin: 5px 0 0;
-	}
-		.navbar .plbrand img{
-			max-height: 30px;
-		}
-	
+/*  Navline - Inline navigation links 
+ ************************************************************/
 	.navbar .navline {
+		float: left;
 		position: relative;
 		left: 0;
 		display: block;
-		float: right;
+		
 		margin: 0 10px 0 0;
 		font-size: .9em;
 	}
@@ -95,7 +113,86 @@
 	  background-color: #222222;
 	}
 	
+	
+/*  Dropdown menu styling
+ ************************************************************/	
+	.dropdown-menu {
+	  position: absolute;
+	  top: 100%;
+	  left: 0;
+	  z-index: 1000;
+	  float: left;
+	  display: none;
+	  min-width: 160px;
+	  padding: 4px 0;
+	  margin: 0;
+	  list-style: none;
+	  background-color: #ffffff;
+	  border-color: #ccc;
+	  border-color: rgba(0, 0, 0, 0.2);
+	  border-style: solid;
+	  border-width: 1px;
+	  -webkit-border-radius: 0 0 5px 5px;
+	  -moz-border-radius: 0 0 5px 5px;
+	  border-radius: 0 0 5px 5px;
+	  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	  -webkit-background-clip: padding-box;
+	  -moz-background-clip: padding;
+	  background-clip: padding-box;
+	  *border-right-width: 2px;
+	  *border-bottom-width: 2px;
+	}
+	.dropdown-menu.pull-right {
+	  right: 0;
+	  left: auto;
+	}
+	.dropdown-menu .divider {
+	  height: 1px;
+	  margin: 8px 1px;
+	  overflow: hidden;
+	  background-color: #e5e5e5;
+	  border-bottom: 1px solid #ffffff;
+	  *width: 100%;
+	  *margin: -5px 0 5px;
+	}
+	.dropdown-menu a {
+	  display: block;
+	  padding: 3px 15px;
+	  clear: both;
+	  font-weight: normal;
+	  line-height: 18px;
+	  color: #333333;
+	  white-space: nowrap;
+	}
+	.dropdown-menu li > a:hover,
+	.dropdown-menu .active > a,
+	.dropdown-menu .active > a:hover,
+	#page .dropdown-menu .current-menu-item > a {
+	  color: #ffffff;
+	  text-decoration: none;
+	  background-color: #0088cc;
+	}
+
+
+	.dropdown.open {
+	  *z-index: 1000;
+	}
+	.dropdown.open .dropdown-toggle {
+	  color: #ffffff;
+	  background: #ccc;
+	  background: rgba(0, 0, 0, 0.3);
+	}
+	.dropdown.open .dropdown-menu {
+	  display: block;
+	}
+	.pull-right .dropdown-menu {
+	  left: auto;
+	  right: 0;
+	}
 	.pldrop ul{display: none;}
+	
 	.navbar .dropdown-menu {
 	  margin-top: 1px;
 	  -webkit-border-radius: 4px;
@@ -166,6 +263,9 @@
 	.open .dropdown-toggle {
 	  outline: 0;
 	}
+	
+/* Caret
+ ************************************************************/
 	.caret {
 	  display: inline-block;
 	  width: 0;
@@ -187,79 +287,6 @@
 	  opacity: 1;
 	  filter: alpha(opacity=100);
 	}
-	.dropdown-menu {
-	  position: absolute;
-	  top: 100%;
-	  left: 0;
-	  z-index: 1000;
-	  float: left;
-	  display: none;
-	  min-width: 160px;
-	  padding: 4px 0;
-	  margin: 0;
-	  list-style: none;
-	  background-color: #ffffff;
-	  border-color: #ccc;
-	  border-color: rgba(0, 0, 0, 0.2);
-	  border-style: solid;
-	  border-width: 1px;
-	  -webkit-border-radius: 0 0 5px 5px;
-	  -moz-border-radius: 0 0 5px 5px;
-	  border-radius: 0 0 5px 5px;
-	  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-	  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-	  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-	  -webkit-background-clip: padding-box;
-	  -moz-background-clip: padding;
-	  background-clip: padding-box;
-	  *border-right-width: 2px;
-	  *border-bottom-width: 2px;
-	}
-	.dropdown-menu.pull-right {
-	  right: 0;
-	  left: auto;
-	}
-	.dropdown-menu .divider {
-	  height: 1px;
-	  margin: 8px 1px;
-	  overflow: hidden;
-	  background-color: #e5e5e5;
-	  border-bottom: 1px solid #ffffff;
-	  *width: 100%;
-	  *margin: -5px 0 5px;
-	}
-	.dropdown-menu a {
-	  display: block;
-	  padding: 3px 15px;
-	  clear: both;
-	  font-weight: normal;
-	  line-height: 18px;
-	  color: #333333;
-	  white-space: nowrap;
-	}
-	.dropdown-menu li > a:hover,
-	.dropdown-menu .active > a,
-	.dropdown-menu .active > a:hover,
-	#page .dropdown-menu .current-menu-item > a {
-	  color: #ffffff;
-	  text-decoration: none;
-	  background-color: #0088cc;
-	}
 	
 
-	.dropdown.open {
-	  *z-index: 1000;
-	}
-	.dropdown.open .dropdown-toggle {
-	  color: #ffffff;
-	  background: #ccc;
-	  background: rgba(0, 0, 0, 0.3);
-	}
-	.dropdown.open .dropdown-menu {
-	  display: block;
-	}
-	.pull-right .dropdown-menu {
-	  left: auto;
-	  right: 0;
-	}
 	

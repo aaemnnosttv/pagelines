@@ -37,12 +37,19 @@ class PLNavBar extends PageLinesSection {
 			
 			var section = 1;
 			
-			jQuery('.pldrop').find('ul').addClass('dropdown-menu').siblings('a').addClass('dropdown-toggle').attr('href', '#m' + section).attr('data-toggle', 'dropdown').append(' <b class="caret" />').parent().attr('id', 'm' + section++).addClass('dropdown');
-		
+			jQuery('.pldrop').find('ul').each(function() {
+				jQuery(this).addClass('dropdown-menu');
+				jQuery(this).siblings('a')
+					   .addClass('dropdown-toggle')
+					   .attr('href', '#m' + section)
+					   .attr('data-toggle', 'dropdown')
+					   .append(' <b class="caret" />')
+					   .parent()
+					   .attr('id', 'm' + section++)
+					   .addClass('dropdown'); 
+			});
 			
-			
-			
-		 jQuery('.dropdown-toggle').dropdown()
+			jQuery('.dropdown-toggle').dropdown()
 		});
 		</script>	
 		
@@ -60,15 +67,15 @@ class PLNavBar extends PageLinesSection {
 	<div class="navbar fix">
 	  <div class="navbar-inner content">
 	    <div class="navbar-content-pad fix">
-
-	      <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
 	      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	      </a>
 
-			<a class="plbrand"><img src="<?php echo $this->base_url.'/logo.png';?>" /></a>
+			<a class="plbrand" href="">
+				<img src="<?php echo $this->base_url.'/logo.png';?>" />
+			</a>
 			<?php // pagelines_main_logo( $this->id ); 
 			
 			?>
@@ -77,7 +84,11 @@ class PLNavBar extends PageLinesSection {
 	      <div class="nav-collapse">
 	       <?php wp_nav_menu( array('menu_class'  => 'font-sub navline pldrop '.pagelines_nav_classes(), 'container' => null, 'container_class' => '', 'depth' => 2, 'theme_location'=>'primary', 'fallback_cb'=>'pagelines_nav_fallback') );
 	
+	
+				if(!ploption('hidesearch'))
+					get_search_form();
 	?>
+				
 	      </div>
 
 	    </div>
