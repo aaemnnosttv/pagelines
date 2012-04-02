@@ -311,7 +311,7 @@ class PageLinesWelcome {
      * Creates the $plugin array which can be filtered with 'pagelines_welcome_plugins'
      *
      * @internal    $plugins (array) for holding list of plugins with name, URL, and description
-     * @internal    returns 'pagelines_welcome_plugins' filter
+     * @internal    return 'pagelines_welcome_plugins' filter
      *
      * @return      mixed|void
      */
