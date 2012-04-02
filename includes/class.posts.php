@@ -175,9 +175,19 @@ class PageLinesPosts {
      */
 	function post_entry(){ 
 		
-		if( $this->pagelines_show_content( get_the_ID() ) ){
+		$id = get_the_ID();
+		
+		if( $this->pagelines_show_content( $id ) ){
 				
-			$post_entry = sprintf( '<div class="entry_wrap fix"><div class="entry_content">%s</div></div>', $this->post_content() );
+			$excerpt_mode = ploption( 'excerpt_mode_full' );	
+				
+				
+			if( ( $excerpt_mode == 'left-excerpt' || $excerpt_mode == 'right-excerpt' ) && is_single() && $this->pagelines_show_thumb( $id ) )
+				$thumb = $this->post_thumbnail_markup( $excerpt_mode );
+			else 
+				$thumb = '';
+					
+			$post_entry = sprintf( '<div class="entry_wrap fix"><div class="entry_content">%s%s</div></div>', $thumb, $this->post_content() );
 		
 			return apply_filters( 'pagelines_post_entry', $post_entry );
 		
@@ -268,13 +278,13 @@ class PageLinesPosts {
 		
 			if( ( $excerpt_mode == 'left-excerpt' || $excerpt_mode == 'right-excerpt' ) && ! is_single() )
 				$post_header = sprintf( '<section class="%s"><section class="bd post-header fix" >%s %s%s</section></section>', $classes, $title, $thumb, $excerpt );
-			elseif( ( $excerpt_mode == 'left-excerpt' || $excerpt_mode == 'right-excerpt' ) && is_single() )
-				$post_header = sprintf( '<section class="%s"><section class="bd post-header fix" >%s %s</section></section>%s', $classes, $title, $excerpt, $thumb );
 			elseif( $excerpt_mode == 'top' )
 				$post_header = sprintf( '<section class="%s">%s<section class="bd post-header fix" >%s %s</section></section>',$classes, $thumb, $title, $excerpt );
-			else
+			elseif( $excerpt_mode == 'left' )
 				$post_header = sprintf( '<section class="%s media">%s<section class="bd post-header fix" >%s %s</section></section>', $classes, $thumb, $title, $excerpt );
-		
+			else
+				$post_header = sprintf( '<section class="%s">%s<section class="bd post-header fix" >%s %s</section></section>',$classes, '', $title, $excerpt );
+				
 			return apply_filters( 'pagelines_post_header', $post_header, $format );
 			
 		} else 
