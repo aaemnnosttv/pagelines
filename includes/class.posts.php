@@ -256,23 +256,25 @@ class PageLinesPosts {
 			$excerpt_mode = ( $format == 'clip' ) ? ploption( 'excerpt_mode_clip' ) : ploption( 'excerpt_mode_full' );
 			$thumb = ( $this->pagelines_show_thumb( $id ) ) ? $this->post_thumbnail_markup( $excerpt_mode, $format ) : '';
 			
-			$excerpt = ( $this->pagelines_show_excerpt( $id ) ) ? $this->post_excerpt_markup( $excerpt_mode, $thumb ) : '';
+			$excerpt_thumb = ( $thumb && ( $excerpt_mode == 'left-excerpt' || $excerpt_mode == 'right-excerpt' ) ) ? '' : $thumb;
+			
+			$excerpt = ( $this->pagelines_show_excerpt( $id ) ) ? $this->post_excerpt_markup( $excerpt_mode, $excerpt_thumb ) : '';
 			
 			$classes = 'post-meta fix ';
 			$classes .= ( ! $this->pagelines_show_thumb( $id ) ) ? 'post-nothumb ' : '';
 			$classes .= ( ! $this->pagelines_show_content( $id ) ) ? 'post-nocontent ' : '';
 				
 			$title = sprintf( '<section class="bd post-title-section fix"><hgroup class="post-title fix">%s</hgroup>%s</section>', $this->pagelines_get_post_title( $format ), $this->pagelines_get_post_metabar( $format ) );
-			
-			
-			if( $excerpt_mode == 'left-excerpt' || $excerpt_mode == 'right-excerpt' )
-				$post_header = sprintf( '<section class="%s"><section class="bd post-header fix " >%s %s</section></section>', $classes, $title, $excerpt );
+		
+			if( ( $excerpt_mode == 'left-excerpt' || $excerpt_mode == 'right-excerpt' ) && ! is_single() )
+				$post_header = sprintf( '<section class="%s"><section class="bd post-header fix" >%s %s%s</section></section>', $classes, $title, $thumb, $excerpt );
+			elseif( ( $excerpt_mode == 'left-excerpt' || $excerpt_mode == 'right-excerpt' ) && is_single() )
+				$post_header = sprintf( '<section class="%s"><section class="bd post-header fix" >%s %s</section></section>%s', $classes, $title, $excerpt, $thumb );
 			elseif( $excerpt_mode == 'top' )
 				$post_header = sprintf( '<section class="%s">%s<section class="bd post-header fix" >%s %s</section></section>',$classes, $thumb, $title, $excerpt );
 			else
 				$post_header = sprintf( '<section class="%s media">%s<section class="bd post-header fix" >%s %s</section></section>', $classes, $thumb, $title, $excerpt );
-			
-			
+		
 			return apply_filters( 'pagelines_post_header', $post_header, $format );
 			
 		} else 

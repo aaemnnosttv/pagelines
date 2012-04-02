@@ -306,10 +306,15 @@ class PageLinesWelcome {
 
 
 	/**
-	*
-	* @TODO document
-	*
-	*/
+     * Get Welcome Plugins
+     *
+     * Creates the $plugin array which can be filtered with 'pagelines_welcome_plugins'
+     *
+     * @internal    $plugins (array) for holding list of plugins with name, URL, and description
+     * @internal    return 'pagelines_welcome_plugins' filter
+     *
+     * @return      mixed|void
+     */
 	function get_welcome_plugins(){
 		$plugins = array(
 			'postorder'	=> array(
