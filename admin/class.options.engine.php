@@ -9,7 +9,7 @@
  * @subpackage  Options
  * @since       1.0
  *
- * @todo Review 'docslink' - implement 'docstitle' option ... see get_option_title()?
+ * @version     2.2 - implement 'docstitle' setting ... see get_option_title()
  */
 class OptEngine {
 
@@ -17,7 +17,7 @@ class OptEngine {
      * PHP5 Constructor
      *
      * @param   null $settings_field
-     * @version 2.2 - alphabetized defaults listing
+     * @version 2.2 - alphabetized defaults listing; add 'docstitle' setting
      */
 	function __construct( $settings_field = null ) {
 		
@@ -33,6 +33,7 @@ class OptEngine {
             'disabled'				=> false,
             'disabled_mode'			=> false,
             'docslink' 				=> null,
+            'docstitle'             => '',
             'exp'					=> '',
             'fields'				=> array(),
             'flag'					=> '',
@@ -306,22 +307,22 @@ class OptEngine {
      * @param   $oid - option ID (unused)
      * @param   $o - option class
      */
-	function get_option_title($oid, $o){ 
-		if( $o['title'] ): ?>
+	function get_option_title( $oid, $o ){
+		if( $o['title'] ) : ?>
 		<div class="optiontitle fix">
 			<div class="optiontitle-pad fix">
-				<?php if( isset($o['vidlink']) ):?>
-					<a class="vidlink thickbox" title="<?php if($o['vidtitle']) echo $o['vidtitle']; ?>" href="<?php echo $o['vidlink']; ?>?hd=1&KeepThis=true&height=450&width=700&TB_iframe=true">
-						<img src="<?php echo PL_ADMIN_IMAGES . '/link-video.jpg';?>" class="docslink-video" alt="Video Tutorial" />
+				<?php if( isset( $o['vidlink'] ) ) :?>
+					<a class="vidlink thickbox" title="<?php if( $o['vidtitle'] ) echo $o['vidtitle']; ?>" href="<?php echo $o['vidlink']; ?>?hd=1&KeepThis=true&height=450&width=700&TB_iframe=true">
+						<img src="<?php echo PL_ADMIN_IMAGES . '/link-video.jpg'; ?>" class="docslink-video" alt="Video Tutorial" />
 					</a>
 				<?php endif;
 				
-				if( isset($o['docslink']) )
-					printf('<a class="vidlink" title="%s" href="%s" target="_blank"><img src="%s" class="docslink-video" alt="Video Tutorial" /></a>', ($o['vidtitle'] ? $o['vidtitle'] : ''), $o['docslink'], PL_ADMIN_IMAGES . '/link-docs.jpg' ); 
+				if( isset( $o['docslink'] ) )
+                    printf( '<a class="vidlink" title="%1$s" href="%2$s" target="_blank"><img src="%3$s" class="docslink-video" alt="%1$s" /></a>', ( $o['docstitle'] ? $o['docstitle'] : '' ), $o['docslink'], PL_ADMIN_IMAGES . '/link-docs.jpg' );
 				
-				$protag = ($o['version'] == 'pro') ? '<span class="protag">Pro</span>' : '';
+				$protag = ( $o['version'] == 'pro' ) ? '<span class="protag">Pro</span>' : '';
 				
-				printf('<strong>%s %s</strong><br/><small>%s</small><br/>', $o['title'], $protag, $o['shortexp']);
+				printf( '<strong>%s %s</strong><br/><small>%s</small><br/>', $o['title'], $protag, $o['shortexp'] );
 				
 				?>
 			</div>
