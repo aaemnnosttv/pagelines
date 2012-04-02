@@ -54,7 +54,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
  ****************************/
 body{
 	font-size: 14px; 
-	line-height: 164%; 
+	line-height: 155%; 
 /*	min-height:100%; 
 	overflow-x: hidden;*/
 }
@@ -220,7 +220,7 @@ body{
 
 	/* Posts Meta & Excerpts */
 	
-	.hentry, .fpost .post-excerpt {font-size: 1.03em; line-height: 1.67em;}
+	.hentry, .fpost .post-excerpt {font-size: 1.03em; line-height: 1.55em;}
 	.clip .post-excerpt{ font-size: 90%; line-height: 1.6em}
 	.clip .metabar{font-size: 75%; line-height: 1.6em}
 	/* Sidebars */
