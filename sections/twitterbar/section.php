@@ -7,8 +7,6 @@
 	Class Name: PageLinesTwitterBar
 	Workswith: morefoot
 	Edition: Pro
-	Format: raw
-	Classes: one,two,three
 */
 
 /**
