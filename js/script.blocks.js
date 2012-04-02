@@ -103,19 +103,3 @@ jQuery(window).load(function() {
 	
 });
 
-// Fix Chrome bug 
-// $('.myElementsWithBackgrounds').fixChromeBg();
-
-jQuery.fn.fixChromeBg = function() {
-  if (! /chrome/i.test(navigator.userAgent) )
-	  return this;
-
-  return this.each(function() {
-      var el = jQuery(this), bi = el.css( 'background-image' );
-      if (bi) {
-        setTimeout(function() {
-          el.css( 'background-image', bi);
-        }, 1);
-      }
-  });
-}
