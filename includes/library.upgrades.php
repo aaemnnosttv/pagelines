@@ -61,9 +61,6 @@ class PageLinesUpgradePaths {
 	*
 	*/
 	function upgrade() {
-		
-		if ( 'pagelines' == basename( get_bloginfo('url') )
-			return;
 
 		if ( is_array( $settings = get_option( PAGELINES_SETTINGS_LEGACY ) ) ) {
 		
