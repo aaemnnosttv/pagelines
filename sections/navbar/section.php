@@ -24,6 +24,7 @@ class PLNavBar extends PageLinesSection {
 	 * Load styles and scripts
 	 */
 	function section_styles(){
+		wp_enqueue_script('bootstrap-dropdown', $this->base_url.'/bootstrap-dropdown.js');
 	}
 	
 	function section_head($clone_id){
@@ -32,7 +33,17 @@ class PLNavBar extends PageLinesSection {
 		?>
 		
 		<script>
-		 
+		jQuery(document).ready(function() {
+			
+			var section = 1;
+			
+			jQuery('.pldrop').find('ul').addClass('dropdown-menu').siblings('a').addClass('dropdown-toggle').attr('href', '#m' + section).attr('data-toggle', 'dropdown').append(' <b class="caret" />').parent().attr('id', 'm' + section++).addClass('dropdown');
+		
+			
+			
+			
+		 jQuery('.dropdown-toggle').dropdown()
+		});
 		</script>	
 		
 	<?php }
@@ -57,14 +68,14 @@ class PLNavBar extends PageLinesSection {
 	        <span class="icon-bar"></span>
 	      </a>
 
+			<a class="plbrand"><img src="<?php echo $this->base_url.'/logo.png';?>" /></a>
+			<?php // pagelines_main_logo( $this->id ); 
+			
+			?>
+	      <!-- <a class="brand" href="#">Project name</a> -->
 
-			<?php // pagelines_main_logo( $this->id ); ?>
-	      <!-- Be sure to leave the brand out there if you want it shown -->
-	      <a class="brand" href="#">Project name</a>
-
-	      <!-- Everything you want hidden at 940px or less, place within here -->
 	      <div class="nav-collapse">
-	       <?php wp_nav_menu( array('menu_class'  => 'font-sub navline '.pagelines_nav_classes(), 'container' => null, 'container_class' => '', 'depth' => 2, 'theme_location'=>'primary', 'fallback_cb'=>'pagelines_nav_fallback') );
+	       <?php wp_nav_menu( array('menu_class'  => 'font-sub navline pldrop '.pagelines_nav_classes(), 'container' => null, 'container_class' => '', 'depth' => 2, 'theme_location'=>'primary', 'fallback_cb'=>'pagelines_nav_fallback') );
 	
 	?>
 	      </div>
