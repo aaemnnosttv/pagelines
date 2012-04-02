@@ -447,7 +447,7 @@ class PageLinesOptionsArray {
 		$a = array(
 			'icon'			=> PL_ADMIN_ICONS.'/typography.png',
 			'type_headers' => array(
-					'default' 	=> array( 'font' => 'georgia' ),
+					'default' 	=> array( 'font' => 'helvetica', 'weight' => 'bold' ),
 					'type' 		=> 'typography',
 					'layout'	=> 'full',
 					'selectors'	=> cssgroup('type_headers'),
@@ -459,7 +459,7 @@ class PageLinesOptionsArray {
 			),
 
 			'type_primary' => array(
-					'default' 	=> array( 'font' => 'georgia' ),
+					'default' 	=> array( 'font' => 'helvetica' ),
 					'type'		=> 'typography',
 					'layout'	=> 'full',
 					'selectors'	=> cssgroup('type_primary'),
@@ -485,7 +485,7 @@ class PageLinesOptionsArray {
 
 			'type_inputs' => array(
 					'version' 	=> 'pro',
-					'default' 	=> array( 'font' => 'courier_new' ),
+					'default' 	=> array( 'font' => 'helvetica' ),
 					'type' 		=> 'typography',
 					'layout'	=> 'full',
 					'selectors'	=> cssgroup('type_inputs'),
