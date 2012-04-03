@@ -1117,7 +1117,7 @@ function the_template_map() {
 		'hook' 			=> 'pagelines_header', 
 		'name'			=> __( 'Site Header', 'pagelines' ),
 		'markup'		=> 'content', 
-		'sections' 		=> array( 'PageLinesBranding' , 'PageLinesNav', 'PageLinesSecondNav' )
+		'sections' 		=> array( 'PageLinesSecondNav' )
 	);
 	
 	$template_map['footer'] = array(
