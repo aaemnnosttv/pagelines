@@ -31,7 +31,7 @@ class PageLinesSection {
          * @var $defaults string
          */
 		$defaults = array(
-				'markup'			=> 'content',
+				'markup'			=> null, // needs to be null for overriding
 				'workswith'		 	=> array('content'),
 				'description' 		=> null, 
 				'required'			=> null,
@@ -178,15 +178,19 @@ class PageLinesSection {
  	 * 
      * @since   2.1.6
      */
-	function passive_section_template($markup = 'content'){
+	function passive_section_template( $hook_name = false ){
+		
+		$this->passive_hook = $hook_name;
+		
+		$markup = (isset($this->settings['markup'])) ? $this->settings['markup'] : 'content';
 		
 		$this->before_section_template( );
 	
-		$this->before_section( $this->settings['markup'] );
+		$this->before_section( $markup );
 
 		$this->section_template();
 	
-		$this->after_section( $this->settings['markup'] );
+		$this->after_section( $markup );
 	
 		$this->after_section_template(  );
 		
@@ -266,9 +270,10 @@ class PageLinesSection {
 		
 		pagelines_register_hook('pagelines_before_'.$this->id, $this->id); // hook
 		
+		// Rename to prevent conflicts
 		if ( 'comments' == $this->id )
 			$section_id = 'wp-comments';
-		if ( 'content' == $this->id )
+		elseif ( 'content' == $this->id )
 			$section_id = 'content-area';
 		else
 			$section_id = $this->id;
