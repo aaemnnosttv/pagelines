@@ -43,7 +43,7 @@ class PageLinesSecondNav extends PageLinesSection {
 		$second_menu = (ploption('_second_nav_menu', $this->oset)) ? ploption('_second_nav_menu', $this->oset) : null;
 		
 		if(isset($second_menu))
-			wp_nav_menu( array('menu_class'  => 'secondnav_menu lcolor3', 'menu' => $second_menu, 'container' => null, 'container_class' => '', 'depth' => 1, 'fallback_cb'=>'pagelines_page_subnav') );
+			wp_nav_menu( array('menu_class'  => 'secondnav_menu fix lcolor3', 'menu' => $second_menu, 'container' => null, 'container_class' => '', 'depth' => 1, 'fallback_cb'=>'pagelines_page_subnav') );
 					
 		elseif(ploption('nav_use_hierarchy', $this->oset))
 			pagelines_page_subnav();
