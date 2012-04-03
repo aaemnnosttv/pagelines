@@ -25,9 +25,9 @@ function pagelines_add_admin_menus() {
 		
 	$_pagelines_options_page_hook = pagelines_insert_menu( 'pagelines', __( 'Settings', 'pagelines' ), 'edit_theme_options', 'pagelines', 'pagelines_build_option_interface' );
 
-	$_pagelines_special_hook = pagelines_insert_menu( 'pagelines', __( 'Meta', 'pagelines' ), 'edit_theme_options', 'pagelines_special', 'pagelines_build_special' );
+	$_pagelines_special_hook = pagelines_insert_menu( 'pagelines', __( 'Meta Setup', 'pagelines' ), 'edit_theme_options', 'pagelines_special', 'pagelines_build_special' );
 	
-	$_pagelines_templates_hook = pagelines_insert_menu( 'pagelines', __( 'Templates', 'pagelines' ), 'edit_theme_options', 'pagelines_templates', 'pagelines_build_templates_interface' );
+	$_pagelines_templates_hook = pagelines_insert_menu( 'pagelines', __( 'Drag &amp; Drop', 'pagelines' ), 'edit_theme_options', 'pagelines_templates', 'pagelines_build_templates_interface' );
 	
 	$_pagelines_ext_hook = pagelines_insert_menu( 'pagelines', __( 'Store', 'pagelines' ), 'edit_theme_options', 'pagelines_extend', 'pagelines_build_extension_interface' );
 	
@@ -103,7 +103,7 @@ function pagelines_build_option_interface(){
 function pagelines_build_templates_interface(){ 
 	
 	$args = array(
-		'title'			=> __( 'Template Setup', 'pagelines' ), 
+		'title'			=> __( 'Drag &amp; Drop Template Setup', 'pagelines' ), 
 		'settings' 		=> PAGELINES_TEMPLATES,
 		'callback'		=> 'templates_array',
 		'basic_reset'	=> true,
@@ -161,7 +161,7 @@ function pagelines_build_account_interface(){
 function pagelines_build_special(){ 
 	
 	$args = array(
-		'title'			=> __( 'Meta Settings', 'pagelines' ), 
+		'title'			=> __( 'Page By Page Meta Settings', 'pagelines' ), 
 		'settings' 		=> PAGELINES_SPECIAL,
 		'callback'		=> 'special_page_settings_array',
 		'show_reset'	=> false, 
