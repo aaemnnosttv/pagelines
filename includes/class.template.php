@@ -31,9 +31,11 @@ class PageLinesTemplate {
      * @param   bool $template_type
      */
 	function __construct( $template_type = false ) {
+		
 		global $post;
 		global $pl_section_factory;
-	
+		global $passive_sections; // passive sections for loading
+		
 		$post = (!isset($post) && isset($_GET['post'])) ? get_post($_GET['post'], 'object') : $post;
 		
 		$this->factory = $pl_section_factory->sections;
@@ -47,6 +49,9 @@ class PageLinesTemplate {
 		$this->sc_default = ploption('section-control', array('setting' => PAGELINES_TEMPLATES));
 		
 		$this->map = $this->get_map();
+		
+		// Add passive sections
+		$this->passive_sections = $passive_sections;
 		
 		/**
 		 * Template Type
@@ -204,6 +209,7 @@ class PageLinesTemplate {
 			$tsections = $this->sections_at_hook( $hook, $h );
 			
 			// Set All Sections As Defined By the Map
+			// This is before removal by section control
 			if( is_array($tsections) ) 
 				$this->default_allsections = array_merge($this->default_allsections, $tsections);
 			
@@ -223,6 +229,10 @@ class PageLinesTemplate {
 				
 			
 		}
+		
+		// add passive sections (not in drag drop but added through options/hooks)
+		if(is_array($this->passive_sections) && !empty($this->passive_sections))
+			$this->allsections = array_merge($this->allsections, $this->passive_sections);
 		
 	}
 
@@ -1262,6 +1272,27 @@ function the_sub_templates( $t = 'templates' ){
 	
 }
 
+/**
+ * Builds a sections for use outside of drag drop setup
+ */
+function build_passive_section( $args = array() ){
+	
+	global $passive_sections;
+	
+	if(!isset($passive_sections))	
+		$passive_sections = array();
+	
+	$defaults = array(
+		'sid'	=> ''
+	);
+	
+	$s = wp_parse_args($args, $defaults);
+	
+	$new = array($s['sid']);
+	
+	$passive_sections = array_merge($new, $passive_sections);
+
+}
 
 /**
  * Handles custom post types, and adds panel if applicable
