@@ -412,6 +412,17 @@ body{
 		-o-transition: .7s;
 		transition: .7s;
 	}	
+	
+		::-webkit-input-placeholder {
+		   color: rgba(0,0,0,.4);
+		}
+
+		:-moz-placeholder {
+		   color: rgba(0,0,0,.4);
+		}
+		:-ms-input-placeholder {
+		    color: rgba(0,0,0,.4);
+		}
 		.searchform .searchfield:focus{
 			width: 150px;
 		}
