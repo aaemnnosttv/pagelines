@@ -68,7 +68,7 @@ class PageLinesCSSGroups{
 		 */
 		$s['bodybg'] = 'body, body.fixed_width';
 
-		$s['pagebg'] = 'body #page';
+		$s['pagebg'] = 'body #page .page-canvas';
 
 		$s['contentbg'] = '.canvas .page-canvas, .thepage .content, .sf-menu li, #primary-nav ul.sf-menu a:focus, .sf-menu a:hover, .sf-menu a:active, .commentlist ul.children .even';
 		
