@@ -155,7 +155,7 @@ body{
 
 /* @ Fixed Width Design Mode*/
 .fixed_width #page{
-	margin: 12px auto 0;
+	padding-top: 12px;
 }
 	.content-shadow.fixed_width .page-canvas{
 		-moz-box-shadow: 0 1px 5px rgba(0,0,0, .8);
