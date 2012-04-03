@@ -808,7 +808,7 @@ class PageLinesOptionsArray {
 					'exp'		=> __( 'This option helps you control where post excerpts are displayed.<br/><br/> <strong>About:</strong> Excerpts are small summaries of articles filled out when creating a post.', 'pagelines' )
 			),
 			'pagetitles' => array(
-					'default'	=> '',
+					'default'	=> true,
 					'type'		=> 'check',
 					'inputlabel'=> __( 'Automatically show Page titles?', 'pagelines' ),
 					'title'		=> __( 'Page Titles', 'pagelines' ),						
