@@ -31,7 +31,7 @@ class PageLinesSection {
          * @var $defaults string
          */
 		$defaults = array(
-				'markup'			=> null,
+				'markup'			=> 'content',
 				'workswith'		 	=> array('content'),
 				'description' 		=> null, 
 				'required'			=> null,
@@ -105,6 +105,8 @@ class PageLinesSection {
 		$this->settings['classes'] = ( !empty( $this->sinfo['classes'] ) ) ? $this->format_classes( $this->sinfo['classes'] ) : $this->settings['classes'];
 		$this->settings['p_ver'] = $this->sinfo['version'];
 
+		$this->special_classes = ''; // special classes for wrapper
+
 		$this->icon = $this->settings['icon'] = ( file_exists( sprintf( '%s/icon.png', $this->base_dir ) ) ) ? sprintf( '%s/icon.png', $this->base_url ) : PL_ADMIN_ICONS . '/leaf.png';
 	
 		$this->screenshot = $this->settings['screenshot'] = ( file_exists( sprintf( '%s/thumb.png', $this->base_dir ) ) ) ? sprintf( '%s/thumb.png', $this->base_url ) : PL_ADMIN_IMAGES . '/thumb-default.png';
@@ -167,6 +169,27 @@ class PageLinesSection {
      */
 	function section_template() {
 		die('function PageLinesSection::section_template() must be over-ridden in a sub-class.');
+	}
+	
+	/**
+     * Passive Section Load Template
+  	 * If a section is loaded through a hook use this builder instead of the one
+     * inside of the template class.
+ 	 * 
+     * @since   2.1.6
+     */
+	function passive_section_template($markup = 'content'){
+		
+		$this->before_section_template( );
+	
+		$this->before_section( $this->settings['markup'] );
+
+		$this->section_template();
+	
+		$this->after_section( $this->settings['markup'] );
+	
+		$this->after_section_template(  );
+		
 	}
 
     /**
@@ -250,7 +273,8 @@ class PageLinesSection {
 		else
 			$section_id = $this->id;
 		
-		$classes .= ' section-'.$section_id;
+		$classes .= sprintf(" section-%s %s", $section_id, $this->special_classes);
+		
 		
 		if( $set_markup == 'copy' ) 
 			printf('<section id="%s" class="copy %s"><div class="copy-pad">', $section_id, trim($classes));
