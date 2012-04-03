@@ -20,6 +20,79 @@ class PLNavBar extends PageLinesSection {
 
 	var $default_limit = 2;
 
+	function section_persistent(){
+	
+		$website_setup_options = array(
+			'navbar_fixed' => array(
+					'default'	=> true,
+					'version'	=> 'pro',
+					'type'		=> 'check',
+					'inputlabel'=> __( 'Enable Fixed Navigation Bar', 'pagelines' ),
+					'title'		=> __( 'Add Fixed Navigation Bar', 'pagelines' ),
+					'shortexp'	=> __( 'Applies a fixed navigation bar to the top of your site', 'pagelines' ),
+					'exp'		=> __( 'Use this feature to add the NavBar section as a fixed navigation bar on the top of your site.', 'pagelines' )
+				),
+			'navbar_logo' => array(
+					'default'	=> $this->base_url.'/logo.png',
+					'version'	=> 'pro',
+					'type'		=> 'image_upload',
+					'inputlabel'=> __( 'Fixed NavBar Logo', 'pagelines' ),
+					'title'		=> __( 'Fixed NavBar Logo', 'pagelines' ),
+					'shortexp'	=> __( 'Applies a fixed navigation bar to the top of your site', 'pagelines' ),
+					'exp'		=> __( 'Use this feature to add the NavBar section as a fixed navigation bar on the top of your site.', 'pagelines' )
+				),
+			
+		);
+		
+		$header_options = array(
+			'navbar_alignment' => array(
+					'default'		=> 'left',
+					'type' 			=> 'select',
+					'inputlabel' 	=> 'Select Alignment',
+					'title' 		=> 'Navigation Alignment',			
+					'shortexp' 		=> 'Aligns the nav left or right (defaults left)',
+					'exp' 			=> 'Set the NavBar navigation to display on the right or left', 
+					'selectvalues'	=> array(
+						'right'		=> array('name'	=>'Align Right'),
+						'left'		=> array('name'	=>'Align Left'),
+					),
+				),
+			'navbar_theme' => array(
+					'default'		=> 'black-trans',
+					'type' 			=> 'select',
+					'inputlabel' 	=> 'Select NavBar Theme',
+					'title' 		=> 'NavBar Theme',			
+					'shortexp' 		=> 'Select the color and theme of the NavBar',
+					'exp' 			=> 'The NavBar comes with several color options. Select one to automatically configure.', 
+					'selectvalues'	=> array(
+						'black-trans'	=> array('name'	=>'Black Transparent (Default)'),
+						'blue'			=> array('name'	=>'Blue'),
+						'grey'			=> array('name'	=>'Light Grey'),
+						'orange'		=> array('name'	=>'Orange'),
+						'red'			=> array('name'	=>'Red'),
+					),
+				),
+			
+		);
+
+		pl_global_option( array( 'menu' => 'website_setup', 'options' => $website_setup_options, 'location' => 'top' ) );
+		pl_global_option( array( 'menu' => 'header_and_footer', 'options' => $header_options, 'location' => 'top' ) );
+		
+		
+		if(ploption('navbar_fixed')){
+			
+			build_passive_section(array('sid' => $this->class_name));
+		
+			add_action('pagelines_before_page', array(&$this,'passive_section_template'), 10, 2);
+				
+			$this->special_classes .= 'fixed-top';
+			
+		}
+		
+		$this->special_classes .= (ploption('navbar_theme')) ? sprintf(' pl-color-%s', ploption('navbar_theme')) : ' pl-color-black-trans';
+		
+	}
+
 	/**
 	 * Load styles and scripts
 	 */
@@ -53,40 +126,66 @@ class PLNavBar extends PageLinesSection {
 		});
 		</script>	
 		
+		<?php if(ploption('navbar_fixed')): ?>
+		<style id="navbar-css" type="text/css">
+			#site #page {padding-top: 40px}
+			.fixed_width #site #page {padding-top: 52px;}
+		</style>
+		<?php endif;?>
 	<?php }
 
-
-	function after_section_template(){
-		echo '<div class="section-navbar-spacer"></div>';
-	}
 	/**
 	* Section template.
 	*/
-   function section_template( $clone_id ) { 
+   function section_template( ) { 
+	
+	$fixed = (isset($this->passive_hook)) ? true : false;
+		
+	$align = (ploption('navbar_alignment')) ? ploption('navbar_alignment') : 'left';
+		
+	$align_class = sprintf('pull-%s', $align);	
 	?>
 	<div class="navbar fix">
 	  <div class="navbar-inner content">
 	    <div class="navbar-content-pad fix">
+		
 	      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	      </a>
 
-			<a class="plbrand" href="">
-				<img src="<?php echo $this->base_url.'/logo.png';?>" />
-			</a>
-			<?php // pagelines_main_logo( $this->id ); 
-			
-			?>
-	      <!-- <a class="brand" href="#">Project name</a> -->
+			<?php if($fixed): ?>
+				<a class="plbrand" href="<?php echo esc_url(home_url());?>">
+					
+					<?php 
+					
+						if(ploption('navbar_logo') || ploption('navbar_logo') != '')
+							printf('<img src="%s" />', ploption('navbar_logo'));
+						else
+							printf('<h2 class="plbrand-text">%s</h2>', get_bloginfo('name'));
+						
+						?>
+				</a>
+			<?php endif; ?>
 
 	      <div class="nav-collapse">
-	       <?php wp_nav_menu( array('menu_class'  => 'font-sub navline pldrop '.pagelines_nav_classes(), 'container' => null, 'container_class' => '', 'depth' => 2, 'theme_location'=>'primary', 'fallback_cb'=>'pagelines_nav_fallback') );
+	       <?php 	if(!ploption('hidesearch'))
+						get_search_form();
+				
+					wp_nav_menu( 
+						array(
+							'menu_class'  => 'font-sub navline pldrop '.$align_class, 
+							'container' => null, 
+							'container_class' => '', 
+							'depth' => 2, 
+							'theme_location'=>'primary', 
+							'fallback_cb'=>'pagelines_nav_fallback'
+						) 
+					);
 	
 	
-				if(!ploption('hidesearch'))
-					get_search_form();
+				
 	?>
 				
 	      </div>
