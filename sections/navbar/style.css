@@ -19,20 +19,14 @@
 	z-index: 1000;
 	margin: 0 auto;
 	width: 100%;
-	border-top: 1px solid #555;
-	background: -webkit-linear-gradient(top, rgba(0,0,0,.8) 0%,#000 100%);
-	box-shadow: 0 2px 4px rgba(0, 0, 0, .3);
-	color:rgba(255,255,255,.1);
+	box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 2px 4px rgba(0, 0, 0, .3);
+	color:rgba(255,255,255,.5);
 }
 
 .navbar-content-pad{
 	padding: 0 15px;
 }
 
-.section-navbar-spacer{
-	position: relative;
-	margin-bottom: 18px;
-}
 
 /*  Formatting controlled by settings
  ************************************************************/
@@ -44,32 +38,120 @@
 	color:#fff;
 }
 
+/*  Themes
+ ************************************************************/
+
+/* Default */
+	.navbar .navline > li > a {
+		color:rgba(255,255,255,.6);
+		text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+	}
+	.navbar .navline > li > a:hover, .navbar li.current-menu-item > a {
+	  color:rgba(255,255,255,.9);
+	}
+	
+	.navbar .navline .active > a:hover {
+		color:rgba(255,255,255,.9);
+		background-color: #222222;
+	}
+
+/* Black */
+.section-navbar.pl-trans-black{
+	border-top: 1px solid rgba(0,0,0,.6);
+}
+
+/* Red */
+.section-navbar.pl-color-red{
+	border-top: 1px solid #bd362f;
+}
+	.section-navbar.pl-color-red .navbar .searchform .searchfield{
+		border: 1px solid #bd362f;
+	}
+
+/* Black */	
+.section-navbar.pl-color-blue{
+	border-top: 1px solid #4574B8;
+}
+	.section-navbar.pl-color-blue .navbar .searchform .searchfield{
+		border: 1px solid #4574B8;
+	}
+
+/* Orange */
+.section-navbar.pl-color-orange{
+	border-top: 1px solid #f89406;
+}
+	.section-navbar.pl-color-orange .navbar .searchform .searchfield{
+		border: 1px solid #f89406;
+	}
+
+/* Grey */
+.section-navbar.pl-color-grey{
+	border-top: 1px solid #dcdcdc;
+	color: rgba(0,0,0,.5);
+}
+	.section-navbar.pl-color-grey .navbar .searchform .searchfield{
+		border: 1px solid #ccc;
+	}
+	.section-navbar.pl-color-grey .navbar .navline > li > a {
+		color:rgba(0,0,0,.6);
+		text-shadow: 0 1px 0 rgba(255,255,255,1);
+	}
+	.section-navbar.pl-color-grey .navbar .navline > li > a:hover, 
+	.section-navbar.pl-color-grey .navbar li.current-menu-item > a {
+	  color:rgba(0,0,0,1);
+	}
+	
+	.section-navbar.pl-color-grey .navbar .navline .active > a:hover {
+		color:rgba(0,0,0,.8);
+		background-color: #ddd;
+	}
+	#site .section-navbar.pl-color-grey .caret{
+		border-top-color:  rgba(0,0,0,.5);
+	}
+
 /*  Searchform 
  ************************************************************/
 .navbar .searchform{
 	float: right;
 	margin-top: 8px;
+	width: auto;
+	max-width: 190px;
 }
 
 .navbar .searchform .searchfield{
 	background-color:rgba(255,255,255,.35);
 	border: 1px solid rgba(0,0,0,.7);
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 0px rgba(255, 255, 255, 0.15);
 }
+	.navbar .searchform .searchfield:focus{
+		background-color:#fff;
+		color:#000;
+	}
+	
+
 
 /*  Branding 
  ************************************************************/
-
-.navbar .brand{
-	font-size: 1.5em;
-	float: left;
-}
 	
 .navbar .plbrand{
 	float:left;
-	margin: 5px 0 0;
+	
+	margin: 5px 2% 0 0;
+	padding: 0 1%;
 }
+	.navbar .plbrand-text{
+		color:#ffffff;
+		font-size: 1.4em;
+		line-height: 27px;
+	}
+		.navbar .plbrand:hover .plbrand-text{
+			color:#EEE;
+		}
+		.navbar .plbrand:active .plbrand-text{
+			color:#DDD;
+		}
 	.navbar .plbrand img{
-		max-height: 30px;
+		max-height: 29px;
 	}
 
 
@@ -96,7 +178,7 @@
 		display: block;
 		padding: 10px 12px 11px;
 		line-height: 19px;
-		color:rgba(255,255,255,.5);
+		color:rgba(255,255,255,.6);
 		text-decoration: none;
 		text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 	}
@@ -169,7 +251,7 @@
 	.dropdown-menu li > a:hover,
 	.dropdown-menu .active > a,
 	.dropdown-menu .active > a:hover,
-	#page .dropdown-menu .current-menu-item > a {
+	#site .dropdown-menu .current-menu-item > a {
 	  color: #ffffff;
 	  text-decoration: none;
 	  background-color: #0088cc;
@@ -179,10 +261,10 @@
 	.dropdown.open {
 	  *z-index: 1000;
 	}
-	.dropdown.open .dropdown-toggle {
+	.dropdown.open .dropdown-toggle, .dropdown.open .dropdown-toggle:hover {
 	  color: #ffffff;
 	  background: #ccc;
-	  background: rgba(0, 0, 0, 0.3);
+	  background: rgba(0, 0, 0, 0.1);
 	}
 	.dropdown.open .dropdown-menu {
 	  display: block;
