@@ -43,6 +43,7 @@ else:  ?>
 <div id="site" class="<?php echo pagelines_layout_mode();?>">
 <?php pagelines_register_hook('pagelines_before_page'); // Hook ?>
 	<div id="page" class="thepage">
+		<?php pagelines_register_hook('pagelines_page'); // Hook ?>
 		<div class="page-canvas">
 			<?php pagelines_register_hook('pagelines_before_header');?>
 			<header id="header" class="container-group">
