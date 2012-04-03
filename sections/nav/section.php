@@ -1,9 +1,9 @@
 <?php
 /*
-	Section: Navigation
+	Section: Nav Classic
 	Author: PageLines
 	Author URI: http://www.pagelines.com/
-	Description: Creates site navigation, with optional superfish dropdowns.
+	Description: Creates site navigation, with optional superfish dropdowns on hover.
 	Class Name: PageLinesNav
 	Workswith: header
 	Cloning: false
