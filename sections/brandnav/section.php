@@ -53,7 +53,7 @@ class PageLinesBrandNav extends PageLinesNav {
 				pagelines_register_hook( 'brandnav_after_nav', 'brandnav' ); // Hook
 ?>
 			</div>
-	
+		<div class="clear"></div>
 <?php 	}
 	}
 
