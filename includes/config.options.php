@@ -118,7 +118,14 @@ class PageLinesOptionsArray {
 				'shortexp' 		=> __( 'Configure your website watermark (in footer)', 'pagelines' ),
 				'exp'			=> __( '', 'pagelines' )
 			),
-		
+			'pagetitles' => array(
+					'default'	=> true,
+					'type'		=> 'check',
+					'inputlabel'=> __( 'Automatically show Page titles?', 'pagelines' ),
+					'title'		=> __( 'Page Titles', 'pagelines' ),						
+					'shortexp'	=> __( 'Show the title of pages above the page content.', 'pagelines' ),
+					'exp'		=> __( 'This option will automatically place page titles on all pages.', 'pagelines' )
+			),
 			'sidebar_no_default' => array(
 					'default'	=> '',
 					'type'		=> 'check',
@@ -731,7 +738,7 @@ class PageLinesOptionsArray {
 				'exp'		=> __( 'Use this option to configure how thumbs will be shown in full-width posts on your blog page.', 'pagelines' )
 			),
 			'metabar_standard' => array(
-				'default'		=> 'By [post_author_posts_link] On [post_date] &middot; [post_comments] &middot; In [post_categories] [post_edit]',
+				'default'		=> 'By [post_author_posts_link] On [post_date] &middot; [post_comments] [post_edit]',
 				'type'			=> 'text',
 				'inputlabel'	=> __( 'Configure Full Width Post Metabar', 'pagelines' ),
 				'title'			=> __( 'Full Width Post Meta', 'pagelines' ),				
@@ -806,14 +813,6 @@ class PageLinesOptionsArray {
 					'title'		=> __( 'Post Excerpt or Summary Handling', 'pagelines' ),
 					'shortexp'	=> __( 'Where should the theme use post excerpts when showing full column posts?', 'pagelines' ),
 					'exp'		=> __( 'This option helps you control where post excerpts are displayed.<br/><br/> <strong>About:</strong> Excerpts are small summaries of articles filled out when creating a post.', 'pagelines' )
-			),
-			'pagetitles' => array(
-					'default'	=> true,
-					'type'		=> 'check',
-					'inputlabel'=> __( 'Automatically show Page titles?', 'pagelines' ),
-					'title'		=> __( 'Page Titles', 'pagelines' ),						
-					'shortexp'	=> __( 'Show the title of pages above the page content.', 'pagelines' ),
-					'exp'		=> __( 'This option will automatically place page titles on all pages.', 'pagelines' )
 			),
 			
 			'social_shares' => array(
