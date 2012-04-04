@@ -1,30 +1,32 @@
 <?php 
 /**
- * 
- *  Returns Welcome
+ * PageLines Welcome (class)
  *
+ * This generates and returns the Welcome Page of the theme's Global Settings
+ * 
  */
 class PageLinesWelcome {
 	
-	
-
 	/**
-	*
-	* @TODO document
-	*
-	*/
+     * PHP5 Constructor
+     */
 	function __contruct(){ }
 	
 
 	/**
-	*
-	* @TODO document
-	*
-	*/
+     * Get Welcome
+     *
+     * Pull all of the components together and returns them via the 'pagelines_welcome_intro' filter
+     *
+     * @uses        get_intro
+     * @uses        get_plugins_billboard
+     *
+     * @internal    uses 'pagelines_welcome_finally' filter - text at the end of the welcome page
+     *
+     * @return      mixed|void
+     */
 	function get_welcome(){
-		
-		 
-		
+
 		$intro = '<div class="theme_intro"><div class="theme_intro_pad">';
 		
 		$intro .= $this->get_intro();
@@ -41,10 +43,14 @@ class PageLinesWelcome {
 	
 
 	/**
-	*
-	* @TODO document
-	*
-	*/
+     * Get Intro
+     *
+     * Includes the 'welcome.php' file from Child-Theme's root folder if it exists; else, the PageLines default 'welcome.php' file is returned.
+     *
+     * @uses    default_headers
+     *
+     * @return  string
+     */
 	function get_intro() {
 		
 		if ( file_exists( get_stylesheet_directory() . '/welcome.php' ) ) {
@@ -62,10 +68,15 @@ class PageLinesWelcome {
 	
 
 	/**
-	*
-	* @TODO document
-	*
-	*/
+     * Default Headers
+     *
+     * Builds and returns the default Welcome header area (not the actual web page header)
+     *
+     * @uses    get_welcome_billboard
+     * @uses    get_welcome_features
+     *
+     * @return mixed|string|void
+     */
 	function default_headers() {
 	
 		$intro = $this->get_welcome_billboard();
@@ -91,10 +102,13 @@ class PageLinesWelcome {
 }	
 
 	/**
-	*
-	* @TODO document
-	*
-	*/
+     * Get Welcome Billboard
+     *
+     * @uses        CHILD_URL (constant)
+     * @internal    uses 'pagelines_welcome_billboard' filter
+     *
+     * @return      mixed|void
+     */
 	function get_welcome_billboard(){
 		
 		$bill = '<div class="admin_billboard fix"><div class="admin_billboard_pad fix">';
@@ -112,10 +126,14 @@ class PageLinesWelcome {
 	
 
 	/**
-	*
-	* @TODO document
-	*
-	*/
+     * Get Welcome Features
+     *
+     * Uses an array to create and return the theme features on the Welcome page via the 'pagelines_welcome_features' filter
+     *
+     * @internal    uses 'pagelines_welcome_features' filter
+     *
+     * @return      mixed|void
+     */
 	function get_welcome_features(){
 		$f = array(
 			'1strule'	=> array(
@@ -158,13 +176,17 @@ class PageLinesWelcome {
 		
 		return apply_filters('pagelines_welcome_features', $f);
 	}
-	
 
-	/**
-	*
-	* @TODO document
-	*
-	*/
+
+    /**
+     * Supported Elements UI
+     *
+     * Formats and wraps listed the array of name, URL, and description elements
+     *
+     * @param   $elements - array items
+     *
+     * @return  string - formatted items
+     */
 	function supported_element_ui( $elements ){
 	
 		$out = '<div class="plpanes"><div class="plpanes-pad">';
@@ -211,10 +233,17 @@ class PageLinesWelcome {
 	
 
 	/**
-	*
-	* @TODO document
-	*
-	*/
+     * Get Plugins Billboard
+     *
+     * Used to display the plugins and their title section
+     *
+     * @uses    show_supported_elements
+     * @uses    supported_elements_ui
+     * @uses    get_welcome_plugins
+     * @uses    constant NICECHILDTHEMENAME
+     *
+     * @return  mixed|void
+     */
 	function get_plugins_billboard(){
 	
 		$plugins = $this->show_supported_elements( 'plugins' );
@@ -240,13 +269,16 @@ class PageLinesWelcome {
 			
 		return apply_filters( 'pagelines_welcome_plugins_billboard', $billboard );
 	}
-	
 
-	/**
-	*
-	* @TODO document
-	*
-	*/
+
+    /**
+     * Get Supported Elements
+     *
+     * @param   $type - plugin|section
+     *
+     * @return  array|bool
+     * @todo add appropriate description
+     */
 	function get_supported_elements( $type ) {
 	
 		global $supported_elements;
@@ -255,16 +287,13 @@ class PageLinesWelcome {
 		if ( isset( $supported_elements[$type] ) && is_array( $supported_elements[$type] ) ) {
 			$out = array();
 				foreach( $supported_elements[$type] as $a ) {
-
 					if ( isset( $a['name'] ) && isset( $a['desc'] ) && isset( $a['url'] ) ) {
-					
 						$out[ $a['name'] ] = array(
 							'name'	=> $a['name'],
 							'url'	=> $a['url'],
 							'desc'	=> $a['desc']
 							);
 					} else {
-					
 						if ( ! $a['supported'] || ! isset( $available->$a['slug'] ) )
 							continue;
 						
@@ -272,37 +301,39 @@ class PageLinesWelcome {
 							'name'	=> $available->$a['slug']->name,
 							'url'	=> sprintf( 'http://www.pagelines.com/store/%s/%s/', $type, $a['slug'] ),
 							'desc'	=> $available->$a['slug']->text
-							);	
+							);
 					}
 				}
-				
-				return $out;
-			}
-
-			return false;	
-		}
+            return $out;
+        }
+        return false;
+    }
 
 
-		/**
-		*
-		* @TODO document
-		*
-		*/
-		function show_supported_elements( $type ) {
+    /**
+     * Show Supported Elements
+     *
+     * @param   $type
+     *
+     * @uses    get_supported_elements
+     * @uses    supported_element_ui
+     * @uses    constant NICECHILDTHEMENAME
+     *
+     * @return  string
+     */
+    function show_supported_elements( $type ) {
 
-			if ( false != ( is_child_theme() && $a = $this->get_supported_elements( $type ) ) ) {
-				$out = '';
-				$out .= sprintf( '<p>%s supports these additional %s:</p>', NICECHILDTHEMENAME, $type );
+        if ( false != ( is_child_theme() && $a = $this->get_supported_elements( $type ) ) ) {
+            $out = '';
+            $out .= sprintf( '<p>%s supports these additional %s:</p>', NICECHILDTHEMENAME, $type );
 
-				$out .= $this->supported_element_ui($a);
+            $out .= $this->supported_element_ui($a);
 
-				return $out;
-			}
-				return '';
-		}
+            return $out;
+        }
+            return '';
 
-
-	
+    }
 
 
 	/**
