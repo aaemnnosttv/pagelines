@@ -109,54 +109,51 @@ class PageLinesCarousel extends PageLinesSection {
 								'carousel_animation_speed'	=> array('inputlabel'=>__( 'Transition Speed (milliseconds)', 'pagelines' ) , 'default' => 800),
 								'carousel_scroll_time'		=> array('inputlabel'=>__( 'Autoscroll Speed (milliseconds)', 'pagelines' ) , 'default' => 0),
 							),
-							'title' 	=> 'Carousel Display and Scroll',
-							'shortexp' 	=> 'The total numbers for total, shown and scrolled images',
-							'exp' 		=> 'Use this option to control the number of carousel items, the total shown, and the number scrolled at one time.'
+							'title' 	=> __( 'Carousel Display and Scroll', 'pagelines' ),
+							'shortexp' 	=> __( 'The total numbers for total, shown and scrolled images', 'pagelines' ),
+							'exp' 		=> __( 'Use this option to control the number of carousel items, the total shown, and the number scrolled at one time.', 'pagelines' )
 					),
 					'carousel_mode' => array(
 						'version' => 'pro',
 						'type' => 'select',
 						'default'	=> 'posts',
 						'selectvalues'=> array(
-							'posts' 		=> array( 'name' => 'Post Thumbnails (posts)'),							
-							'flickr'		=> array( 'name' => 'Flickr'),
-							'ngen_gallery' 	=> array( 'name' => 'NextGen Gallery'), 
-							'hook'			=> array( 'name' => 'Hook: "pagelines_carousel_list"')
+							'posts' 		=> array( 'name' => __( 'Post Thumbnails (posts)', 'pagelines' ) ),							
+							'flickr'		=> array( 'name' => __( 'Flickr', 'pagelines' ) ),
+							'ngen_gallery' 	=> array( 'name' => __( 'NextGen Gallery', 'pagelines' ) ), 
+							'hook'			=> array( 'name' => __( 'Hook: "pagelines_carousel_list"', 'pagelines' ) )
 						),					
-						'title' 	=> 'Carousel Image/Link Mode (Carousel Page Template)',
-						'shortexp' 	=> 'Select the mode that the carousel should use for its thumbnails.',
-						'exp'		=> '<strong> Post Thumbnails (default)</strong> - Uses links and thumbnails from posts <br/><strong>Flickr</strong> - Uses thumbs from FlickrRSS plugin.<br/><strong>NextGen Gallery</strong> - Uses an image gallery from the NextGen Gallery Plugin'
+						'title' 	=> __( 'Carousel Image/Link Mode (Carousel Page Template)', 'pagelines' ),
+						'shortexp' 	=> __( 'Select the mode that the carousel should use for its thumbnails.', 'pagelines' ),
+						'exp'		=> __( '<strong> Post Thumbnails (default)</strong> - Uses links and thumbnails from posts <br/><strong>Flickr</strong> - Uses thumbs from FlickrRSS plugin.<br/><strong>NextGen Gallery</strong> - Uses an image gallery from the NextGen Gallery Plugin', 'pagelines' )
 					),
 					'carousel_image_dimensions' => array(
 							'type' 		=> 'text_multi',
 							'inputsize'	=> 'small',
 							'selectvalues'=> array(
-								'carousel_image_width'		=> array('inputlabel'=>'Max Image Width (in pixels)', 'default'	=> 64),
-								'carousel_image_height'		=> array('inputlabel'=>'Max Image Height (in pixels)', 'default' => 64),
+								'carousel_image_width'		=> array('inputlabel'=>__( 'Max Image Width (in pixels)', 'pagelines' ), 'default'	=> 64),
+								'carousel_image_height'		=> array('inputlabel'=>__( 'Max Image Height (in pixels)', 'pagelines' ), 'default' => 64),
 							),
-							'title' 	=> 'Carousel Image Dimensions (Posts Mode Only)',
-							'shortexp' 	=> 'Control the dimensions of the carousel images',
-							'exp' 		=> 'Use this option to control the max height and width of the images in the carousel. You may have to use this option in conjunction with the scroll items option.<br/><br/> For the FlickrRSS and NextGen Gallery modes, image sizes are set by Flickr thumb sizes and the NextGen Gallery plugin respectively.'
+							'title' 	=> __( 'Carousel Image Dimensions (Posts Mode Only)', 'pagelines' ),
+							'shortexp' 	=> __( 'Control the dimensions of the carousel images', 'pagelines' ),
+							'exp' 		=> __( 'Use this option to control the max height and width of the images in the carousel. You may have to use this option in conjunction with the scroll items option.<br/><br/> For the FlickrRSS and NextGen Gallery modes, image sizes are set by Flickr thumb sizes and the NextGen Gallery plugin respectively.', 'pagelines' )
 					),
 					'carousel_post_id' => array(
 						'default'		=> '', 
 						'type' 			=> 'select_taxonomy',
 						'taxonomy_id'	=> 'category',		
-						'title'			=> 'Posts Mode - Select Post Category', 
-						'shortexp'		=> 'The category slug to pull posts from',
-						'inputlabel' 	=> 'Select Category for Carousel',
-						'exp' 			=> 'Posts Mode - Select the default category for carousel post images.  If not set, the carousel will get the most recent posts.'
+						'title'			=> __( 'Posts Mode - Select Post Category', 'pagelines' ), 
+						'shortexp'		=> __( 'The category slug to pull posts from', 'pagelines' ),
+						'inputlabel' 	=> __( 'Select Category for Carousel', 'pagelines' ),
+						'exp' 			=> __( 'Posts Mode - Select the default category for carousel post images.  If not set, the carousel will get the most recent posts.', 'pagelines' )
 					),
 					'carousel_ngen_gallery' => array(
 						'version' => 'pro',
 						'type' => 'text',					
-						'title' => 'NextGen Gallery ID For Carousel (Carousel Page Template / NextGen Mode)',
-						'shortexp' => 'Enter the ID of the NextGen Image gallery for the carousel.', 
-						'exp'		=> '<strong>Note:</strong>The NextGen Gallery and carousel template must be selected.'
-					),
-					
-					
-					
+						'title' => __( 'NextGen Gallery ID For Carousel (Carousel Page Template / NextGen Mode)', 'pagelines' ),
+						'shortexp' => __( 'Enter the ID of the NextGen Image gallery for the carousel.', 'pagelines' ), 
+						'exp'		=> __( '<strong>Note:</strong>The NextGen Gallery and carousel template must be selected.', 'pagelines' )
+					)					
 				);
 			
 			$metatab_settings = array(
