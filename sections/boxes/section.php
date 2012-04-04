@@ -42,7 +42,7 @@ class PageLinesBoxes extends PageLinesSection {
 			$args = array(
 					'label' 			=> __('Boxes', 'pagelines'),  
 					'singular_label' 	=> __('Box', 'pagelines'),
-					'description' 		=> 'For creating boxes in box type layouts.',
+					'description' 		=> __( 'For creating boxes in box type layouts.', 'pagelines'),
 					'menu_icon'			=> $this->icon
 				);
 			$taxonomies = array(
@@ -76,34 +76,34 @@ class PageLinesBoxes extends PageLinesSection {
 				'the_box_icon' 		=> array(
 						'version' 	=> 'pro',
 						'type' 		=> 'image_upload',					
-						'title' 	=> 'Box Image',
-						'shortexp' 	=> 'Upload an image for the box.',
-						'exp'		=> 'Depending on your settings this image will be used as an icon, or splash image; so desired size may vary.'
+						'title' 	=> __( 'Box Image', 'pagelines'),
+						'shortexp' 	=> __( 'Upload an image for the box.', 'pagelines'),
+						'exp'		=> __( 'Depending on your settings this image will be used as an icon, or splash image; so desired size may vary.', 'pagelines')
 					), 
 				'the_box_icon_link'		=> array(
 						'version' => 'pro',
 						'type' => 'text',					
-						'title' => 'Box Link (Optional)',
-						'shortexp' => 'Make the box image and title clickable by adding a link here (optional)...'
+						'title' => __( 'Box Link (Optional)', 'pagelines'),
+						'shortexp' => __( 'Make the box image and title clickable by adding a link here (optional)...', 'pagelines')
 					), 
 				'box_class' => array(
 					'version'		=> 'pro',
 					'default'		=> '',
 					'type' 			=> 'text',
 					'size'			=> 'small',
-					'inputlabel' 	=> 'Boxes Custom Class',
-					'title' 		=> 'Custom CSS class',
-					'shortexp' 		=> 'Add a custom CSS class to this box only.',
+					'inputlabel' 	=> __( 'Boxes Custom Class', 'pagelines'),
+					'title' 		=> __( 'Custom CSS class', 'pagelines'),
+					'shortexp' 		=> __( 'Add a custom CSS class to this box only.', 'pagelines'),
 				),
 				'box_more_text' => array(
 					'version'		=> 'pro',
 					'default'		=> '',
 					'type' 			=> 'text',
 					'size'			=> 'small',
-					'inputlabel' 	=> 'More Link Text',
-					'title' 		=> 'More Link Text',
-					'shortexp' 		=> 'Enter text for this boxes "more" link.',
-					'exp'			=> 'If this option is not set here, in page meta, or meta defaults, then the more link will not show.'
+					'inputlabel' 	=> __( 'More Link Text', 'pagelines'),
+					'title' 		=> __( 'More Link Text', 'pagelines'),
+					'shortexp' 		=> __( 'Enter text for this boxes "more" link.', 'pagelines'),
+					'exp'			=> __( 'If this option is not set here, in page meta, or meta defaults, then the more link will not show.', 'pagelines')
 				),
 			);
 
@@ -145,31 +145,31 @@ class PageLinesBoxes extends PageLinesSection {
 						'default'		=> 'default-boxes',
 						'type' 			=> 'select_taxonomy',
 						'taxonomy_id'	=> $this->taxID,				
-						'title'		 	=> 'Select Box Set To Show',
-						'shortexp' 			=> 'If you are using the box section, select the box set you would like to show on this page.'
+						'title'		 	=> __( 'Select Box Set To Show', 'pagelines'),
+						'shortexp' 			=> __( 'If you are using the box section, select the box set you would like to show on this page.', 'pagelines')
 					), 
 					'box_col_number' => array(
 						'type' 			=> 'count_select',
 						'default'		=> '3',
 						'count_number'	=> '5', 
 						'count_start'	=> '1',
-						'inputlabel' 	=> 'Number of Feature Box Columns',
-						'title' 		=> 'Box Columns',
-						'inputlabel' 		=> "Select the number of columns to show boxes in.",
-						'shortexp' 			=> "The number you select here will be the number of boxes listed in a row on a page.",
-						'exp'				=> "Note: This won't work on the blog page (use the global option)."
+						'inputlabel' 	=> __( 'Number of Feature Box Columns', 'pagelines'),
+						'title' 		=> __( 'Box Columns', 'pagelines'),
+						'inputlabel' 		=> __( "Select the number of columns to show boxes in.", 'pagelines'),
+						'shortexp' 			=> __( "The number you select here will be the number of boxes listed in a row on a page.", 'pagelines'),
+						'exp'				=> __( "Note: This won't work on the blog page (use the global option).", 'pagelines')
 					), 
 					'box_thumb_type' => array(
 						'version' 	=> 'pro',
 						'type' 		=> 'radio',
 						'default'	=> 'inline_thumbs',
 						'selectvalues'	=> array(
-								'inline_thumbs'	=> array('name' => 'Image At Left'),
-								'top_thumbs'	=> array('name' => 'Image On Top'), 
-								'only_thumbs'	=> array('name' => "Only The Image, No Text")
+								'inline_thumbs'	=> array('name' => __( 'Image At Left', 'pagelines') ),
+								'top_thumbs'	=> array('name' => __( 'Image On Top', 'pagelines') ), 
+								'only_thumbs'	=> array('name' => __( "Only The Image, No Text", 'pagelines') )
 							), 
-						'title' => 'Box Thumb Style',				
-						'shortexp' => 'Choose between thumbs on left and thumbs on top of boxes.',
+						'title' => __( 'Box Thumb Style', 'pagelines'),				
+						'shortexp' => __( 'Choose between thumbs on left and thumbs on top of boxes.', 'pagelines'),
 						
 					),
 					'box_thumb_size' => array(
@@ -177,53 +177,53 @@ class PageLinesBoxes extends PageLinesSection {
 						'default'		=> '64',
 						'type' 			=> 'text_small',
 						'size'			=> 'small',
-						'title' 		=> 'Box Icon Size (in Pixels)',
-						'inputlabel' 		=> 'Enter the icon size in pixels',
-						'shortexp' 			=> "Select the default icon size in pixels, set the images when creating new boxes.",
+						'title' 		=> __( 'Box Icon Size (in Pixels)', 'pagelines'),
+						'inputlabel' 		=> __( 'Enter the icon size in pixels', 'pagelines'),
+						'shortexp' 			=> __( "Select the default icon size in pixels, set the images when creating new boxes.", 'pagelines')
 					),
 					'box_items' => array(
 						'version'		=> 'pro',
 						'default'		=> '6',
 						'type' 			=> 'text_small',
 						'size'			=> 'small',
-						'inputlabel' 	=> 'Maximum Boxes To Show On Page',
-						'title' 		=> 'Max Number of Boxes',
-						'shortexp' 			=> "Select the max number of boxes to show on this page (overrides default).",
+						'inputlabel' 	=> __( 'Maximum Boxes To Show On Page', 'pagelines'),
+						'title' 		=> __( 'Max Number of Boxes', 'pagelines'),
+						'shortexp' 		=> __( "Select the max number of boxes to show on this page (overrides default).", 'pagelines'),
 					),
 					'box_class' => array(
 						'version'		=> 'pro',
 						'default'		=> '',
 						'type' 			=> 'text',
 						'size'			=> 'small',
-						'inputlabel' 	=> 'Add custom css class to these boxes',
-						'title' 		=> 'Custom CSS class',
-						'shortexp' 		=> 'Add a custom CSS class to this set of boxes.',
+						'inputlabel' 	=> __( 'Add custom css class to these boxes', 'pagelines'),
+						'title' 		=> __( 'Custom CSS class', 'pagelines'),
+						'shortexp' 		=> __( 'Add a custom CSS class to this set of boxes.', 'pagelines'),
 					),
 					'box_more_text' => array(
 						'version'		=> 'pro',
 						'default'		=> '',
 						'type' 			=> 'text',
 						'size'			=> 'small',
-						'inputlabel' 	=> 'More Link Text',
-						'title' 		=> 'More Link Text',
-						'shortexp' 		=> 'Enter text for "more" links on linked box elements for this page.',
-						'exp'			=> 'If this option is blank (and not set in defaults), no more text will show.<br/><br/> This option can be overridden in individual box settings.'
+						'inputlabel' 	=> __( 'More Link Text', 'pagelines'),
+						'title' 		=> __( 'More Link Text', 'pagelines'),
+						'shortexp' 		=> __( 'Enter text for "more" links on linked box elements for this page.', 'pagelines'),
+						'exp'			=> __( 'If this option is blank (and not set in defaults), no more text will show.<br/><br/> This option can be overridden in individual box settings.', 'pagelines')
 					),
 					'box_orderby' => array(
 							'default' => 'ID',
 							'version'	=> 'pro',
 							'type' => 'select',
 							'selectvalues' => array(
-								'ID' 		=> array('name' => 'Post ID (default)'),
-								'title' 		=> array('name' => 'Title'),
-								'date' 		=> array('name' => 'Date'),
-								'modified' 		=> array('name' => 'Last Modified'),
-								'rand' 		=> array('name' => 'Random'),							
+								'ID' 		=> array('name' => __( 'Post ID (default)', 'pagelines') ),
+								'title' 	=> array('name' => __( 'Title', 'pagelines') ),
+								'date' 		=> array('name' => __( 'Date', 'pagelines') ),
+								'modified' 	=> array('name' => __( 'Last Modified', 'pagelines') ),
+								'rand' 		=> array('name' => __( 'Random', 'pagelines') ),							
 							),
-							'inputlabel' => 'Select sort order',
-							'title' => 'Boxes sort order',
-							'shortexp' => 'How will the boxes be sorted.',
-							'exp' => "By default the boxes section will sort by post ID."
+							'inputlabel' => __( 'Select sort order', 'pagelines'),
+							'title' => __( 'Boxes sort order', 'pagelines'),
+							'shortexp' => __( 'How will the boxes be sorted.', 'pagelines'),
+							'exp' => __( "By default the boxes section will sort by post ID.", 'pagelines')
 						),
 						
 					'box_order' => array(
@@ -231,13 +231,13 @@ class PageLinesBoxes extends PageLinesSection {
 							'version'	=> 'pro',
 							'type' => 'select',
 							'selectvalues' => array(
-								'DESC' 		=> array('name' => 'Descending'),
-								'ASC' 		=> array('name' => 'Ascending'),
+								'DESC' 		=> array('name' => __( 'Descending', 'pagelines') ),
+								'ASC' 		=> array('name' => __( 'Ascending', 'pagelines') ),
 							),
-							'inputlabel' => 'Select sort order',
-							'title' => 'Boxes sort order',
-							'shortexp' => 'How will the boxes be sorted.',
-							'exp' => "By default the boxes will be in descending order."
+							'inputlabel'=> __( 'Select sort order', 'pagelines'),
+							'title' 	=> __( 'Boxes sort order', 'pagelines'),
+							'shortexp'	=> __( 'How will the boxes be sorted.', 'pagelines'),
+							'exp'		=> __( "By default the boxes will be in descending order.", 'pagelines')
 						),
 				);
 
