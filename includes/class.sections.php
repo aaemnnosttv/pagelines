@@ -182,13 +182,15 @@ class PageLinesSection {
 		
 		$this->passive_hook = $hook_name;
 		
+		$location = 'passive';
+		
 		$markup = (isset($this->settings['markup'])) ? $this->settings['markup'] : 'content';
 		
-		$this->before_section_template( );
+		$this->before_section_template( $location );
 	
 		$this->before_section( $markup );
 
-		$this->section_template();
+		$this->section_template('', $location);
 	
 		$this->after_section( $markup );
 	
