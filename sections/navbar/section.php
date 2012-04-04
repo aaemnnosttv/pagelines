@@ -137,7 +137,7 @@ class PLNavBar extends PageLinesSection {
 	function before_section_template( $location = ''){
 		
 		$format = ($location == 'passive') ? 'open' : 'standard';
-		$this->special_classes .= ($location == 'passive') ? ' fixed-top' : '';
+		$this->special_classes = ($location == 'passive') ? ' fixed-top' : '';
 		$this->settings['format'] = $format;
 		
 	}
@@ -194,7 +194,7 @@ class PLNavBar extends PageLinesSection {
 							'container_class' => '', 
 							'depth' => 2, 
 							'theme_location'=>'primary', 
-							'fallback_cb'=>'pagelines_nav_fallback'
+							'fallback_cb'=>''
 						) 
 					);
 	

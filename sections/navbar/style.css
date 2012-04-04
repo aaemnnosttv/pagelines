@@ -125,7 +125,7 @@
  ************************************************************/
 .navbar .searchform{
 	float: right;
-	margin-top: 8px;
+	margin: 7px 0 5px;
 	width: auto;
 	max-width: 190px;
 }
