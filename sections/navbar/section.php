@@ -7,7 +7,7 @@
 	Class Name: PLNavBar	
 	Workswith: header
 	Compatibility: 2.2
-	Format: open
+	Cloning: false
 */
 
 /**
@@ -49,7 +49,7 @@ class PLNavBar extends PageLinesSection {
 					'default'		=> 'left',
 					'type' 			=> 'select',
 					'inputlabel' 	=> 'Select Alignment',
-					'title' 		=> 'Navigation Alignment',			
+					'title' 		=> 'NavBar Navigation Alignment',			
 					'shortexp' 		=> 'Aligns the nav left or right (defaults left)',
 					'exp' 			=> 'Set the NavBar navigation to display on the right or left', 
 					'selectvalues'	=> array(
@@ -85,11 +85,11 @@ class PLNavBar extends PageLinesSection {
 		
 			add_action('pagelines_before_page', array(&$this,'passive_section_template'), 10, 2);
 				
-			$this->special_classes .= 'fixed-top';
+			
 			
 		}
 		
-		$this->special_classes .= (ploption('navbar_theme')) ? sprintf(' pl-color-%s', ploption('navbar_theme')) : ' pl-color-black-trans';
+
 		
 	}
 
@@ -134,19 +134,33 @@ class PLNavBar extends PageLinesSection {
 		<?php endif;?>
 	<?php }
 
+	function before_section_template( $location = ''){
+		
+		$format = ($location == 'passive') ? 'open' : 'standard';
+		$this->special_classes .= ($location == 'passive') ? ' fixed-top' : '';
+		$this->settings['format'] = $format;
+		
+	}
+
 	/**
 	* Section template.
 	*/
-   function section_template( ) { 
+   function section_template($clone_id, $location = '') { 
 	
-	$fixed = (isset($this->passive_hook)) ? true : false;
+	$passive = ($location == 'passive') ? true : false;
+
+	$width_class = ($passive) ? 'navbar-full-width' : 'navbar-content-width';
+
+	$content_width_class = ($passive) ? 'content' : '';
 		
 	$align = (ploption('navbar_alignment')) ? ploption('navbar_alignment') : 'left';
 		
 	$align_class = sprintf('pull-%s', $align);	
+	
+	$theme_class = (ploption('navbar_theme')) ? sprintf(' pl-color-%s', ploption('navbar_theme')) : ' pl-color-black-trans';
 	?>
-	<div class="navbar fix">
-	  <div class="navbar-inner content">
+	<div class="navbar fix <?php echo $width_class.' '.$theme_class; ?>">
+	  <div class="navbar-inner <?php echo $content_width_class;?>">
 	    <div class="navbar-content-pad fix">
 		
 	      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -155,7 +169,7 @@ class PLNavBar extends PageLinesSection {
 	        <span class="icon-bar"></span>
 	      </a>
 
-			<?php if($fixed): ?>
+			<?php if($passive): ?>
 				<a class="plbrand" href="<?php echo esc_url(home_url());?>">
 					
 					<?php 
@@ -187,11 +201,9 @@ class PLNavBar extends PageLinesSection {
 	
 				
 	?>
-				
-	      </div>
-
-	    </div>
-	  </div>
+				</div>
+			</div>
+		</div>
 	</div>
 	
 		<?php 
