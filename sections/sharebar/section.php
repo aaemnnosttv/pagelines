@@ -19,42 +19,36 @@
 class PageLinesShareBar extends PageLinesSection {
 
 	/**
-	* Section template.
-	*/		
-   function section_template() { 
-	
-	
-	$text = __('Share &rarr;', 'pagelines');
-	
+     * Section template.
+     *
+     * @version 2.2 - added conditional check for no social sites being chosen.
+     */
+    function section_template() {
 
-	
-	?>
-	<div class="pl-sharebar">
-		<div class="pl-sharebar-pad media">
-			<div class="img">
-			<?php 
-				printf('<em class="pl-sharebar-text">%s</em>', $text); 
-			?>
-			
-			</div>
-			<div class="bd fix">
-				<?php 
-				
-				
-					echo $this->get_shares();
-			
-					
-				?>
-		
-			</div>
-			
+       $text = __( 'Share &rarr;', 'pagelines' );
 
+       ?>
+        <div class="pl-sharebar">
+            <div class="pl-sharebar-pad media">
+                <div class="img">
+                    <?php
+                    if( ! $this->get_shares() ) {
+                        echo setup_section_notify( $this, __( 'You have no shares setup, please look at PageLines Settings > Blog and Posts > Sharebar Social Sharing Buttons; or deactivate the Sharebar from the Blog Post Template.', 'pagelines' ), admin_url( 'admin.php?page=pagelines' ), __( 'Setup Sharebar', 'pagelines' ), false );
+                        return;
+                    }
+                    printf( '<em class="pl-sharebar-text">%s</em>', $text );
+                    ?>
+                </div>
+                <div class="bd fix">
+                    <?php
+                    echo $this->get_shares();
+                    ?>
+                </div>
 
-		<div class="clear"></div>
-		</div>
-	</div>
-	
-<?php	}
+                <div class="clear"></div>
+            </div>
+        </div>
+    <?php }
 
 	function get_shares(){
 		
