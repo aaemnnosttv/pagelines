@@ -1,7 +1,7 @@
 /*  
 Theme Name: PageLines Framework (trunk)
 
-Description: PageLines is a responsive drag-and-drop platform for professional websites based on WordPress and HTML5. It will help you do amazing things with your site, faster & easier than ever before. Designed and developed by <a href="http://pagelines.com/">PageLines</a> in San Francisco, California. Twitter @pagelines
+Description: A responsive drag-and-drop platform for professional websites based on HTML5 and CSS3. PageLines will help you do amazing things faster & easier than ever before. Designed by <a href="http://pagelines.com/">PageLines</a> in California. Twitter @pagelines
 
 Version: 2.2
 
@@ -16,7 +16,8 @@ Tags: rtl-language-support, editor-style, theme-options, one-column, two-columns
 License: GPL
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
- *Important* Don't add customizations to this file!
+ * Important
+ * Don't add customizations to this file!
 	- Customization CSS in PageLines
 	- Customize PageLines by adding CSS in the settings, child themes, or plugins
 	- Don't add it here; as it will either get overwritten by updates, and will prevent you from updating at all!
@@ -44,8 +45,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
  * http://www.gnu.org/licenses/gpl-2.0.html
  */
 
-/* 
- * Reset
+/* Reset
  *****************************/
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outline:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {  display: block; }
@@ -317,7 +317,10 @@ body{
 				display: block;
 				margin: .3em 0 .15em;
 			}
-			#branding .mainlogo-link, #branding .mainlogo-img{max-width: 100%;display: block;}
+			#branding .mainlogo-link, #branding .mainlogo-img{
+				max-width: 100%;
+				display: block;
+			}
 			
 		/* @ Header Icons */
 			.icons {text-align: right;position: absolute;bottom: 50%; right:0px;line-height: 20px;height: 24px;}
