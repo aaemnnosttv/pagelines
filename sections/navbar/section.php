@@ -22,9 +22,10 @@ class PLNavBar extends PageLinesSection {
 
 	function section_persistent(){
 	
-		$website_setup_options = array(
+		
+		$header_options = array(
 			'navbar_fixed' => array(
-					'default'	=> true,
+					'default'	=> false,
 					'version'	=> 'pro',
 					'type'		=> 'check',
 					'inputlabel'=> __( 'Enable Fixed Navigation Bar', 'pagelines' ),
@@ -39,23 +40,7 @@ class PLNavBar extends PageLinesSection {
 					'inputlabel'=> __( 'Fixed NavBar Logo', 'pagelines' ),
 					'title'		=> __( 'Fixed NavBar Logo', 'pagelines' ),
 					'shortexp'	=> __( 'Applies a fixed navigation bar to the top of your site', 'pagelines' ),
-					'exp'		=> __( 'Use this feature to add the NavBar section as a fixed navigation bar on the top of your site.', 'pagelines' )
-				),
-			
-		);
-		
-		$header_options = array(
-			'navbar_alignment' => array(
-					'default'		=> 'left',
-					'type' 			=> 'select',
-					'inputlabel' 	=> 'Select Alignment',
-					'title' 		=> 'NavBar Navigation Alignment',			
-					'shortexp' 		=> 'Aligns the nav left or right (defaults left)',
-					'exp' 			=> 'Set the NavBar navigation to display on the right or left', 
-					'selectvalues'	=> array(
-						'right'		=> array('name'	=>'Align Right'),
-						'left'		=> array('name'	=>'Align Left'),
-					),
+					'exp'		=> __( 'Use this feature to add the NavBar section as a fixed navigation bar on the top of your site.<br/><br/><strong>Notes:</strong> <br/>1. Only visible in Fixed Mode.<br/>2. Image Height is constricted to a maximum 29px.', 'pagelines' )
 				),
 			'navbar_theme' => array(
 					'default'		=> 'black-trans',
@@ -72,10 +57,22 @@ class PLNavBar extends PageLinesSection {
 						'red'			=> array('name'	=>'Red'),
 					),
 				),
+			'navbar_alignment' => array(
+					'default'		=> 'left',
+					'type' 			=> 'select',
+					'inputlabel' 	=> 'Select Alignment',
+					'title' 		=> 'NavBar Navigation Alignment',			
+					'shortexp' 		=> 'Aligns the nav left or right (defaults left)',
+					'exp' 			=> 'Set the NavBar navigation to display on the right or left', 
+					'selectvalues'	=> array(
+						'right'		=> array('name'	=>'Align Right'),
+						'left'		=> array('name'	=>'Align Left'),
+					),
+				),
+			
 			
 		);
 
-		pl_global_option( array( 'menu' => 'website_setup', 'options' => $website_setup_options, 'location' => 'top' ) );
 		pl_global_option( array( 'menu' => 'header_and_footer', 'options' => $header_options, 'location' => 'top' ) );
 		
 		

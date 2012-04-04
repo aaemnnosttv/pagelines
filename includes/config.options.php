@@ -273,7 +273,7 @@ class PageLinesOptionsArray {
 				'layout'	=> 'full',
 				'selectvalues'	=> array(
 					'bodybg'	=> array(				
-						'default' 		=> '#FFFFFF',
+						'default' 		=> '#F7F7F7',
 						'css_prop'		=> 'background-color',
 						'flag'			=> 'set_default',
 						'cssgroup'		=> 'bodybg',
