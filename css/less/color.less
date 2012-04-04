@@ -5,7 +5,7 @@
 hr, .fpost, .clip_box, .widget-title, .metabar a, #morefoot .widget-title, #site #dsq-content h3, .navigation_wrap, .setup_area, .fpost .post-thumb img, .clip .clip-thumb img, .author-thumb img, ul.sf-menu ul li{
 	border-color: @dark-base;
 }
-#page .wp-pagenavi a, #page .wp-pagenavi .current, #page .wp-pagenavi .extend, #page .wp-pagenavi span.pages,.pl-sharebar-text{
+#page .wp-pagenavi a, #page .wp-pagenavi .current, #page .wp-pagenavi .extend, #page .wp-pagenavi span.pages,.pl-sharebar-text,blockquote small{
 	color: fadeout(@pl-text, 70%);
 }
 
@@ -25,7 +25,7 @@ hr, .fpost, .clip_box, .widget-title, .metabar a, #morefoot .widget-title, #site
 		background-color: lighten(@dark-base, 1.6);
 	}
 
-	.searchform .searchfield, blockquote, input, textarea, .wp-caption, #soapbox .fboxinfo{
+	.searchform .searchfield, input, textarea, .wp-caption, #soapbox .fboxinfo, code, pre{
 		background-color: @dark-base;
 		border: 1px solid darken(@dark-base, 8); 
 	}
@@ -38,7 +38,14 @@ hr, .fpost, .clip_box, .widget-title, .metabar a, #morefoot .widget-title, #site
 	.searchform .searchfield:focus{
 		background-color: lighten(@dark-base, 3);
 	}
-	
+	blockquote {
+		border-left:5px solid darken(@dark-base, 8);
+	}
+
+	blockquote.pull-right {
+		border-right:5px solid darken(@dark-base, 8);
+	}
+
 /* 
  * Text Colors 
  ***********************************/
@@ -50,7 +57,7 @@ hr, .fpost, .clip_box, .widget-title, .metabar a, #morefoot .widget-title, #site
 		color: @pl-text;
 	}
 	
-	.cnt-comments a, .cnt-comments a:hover, .tcolor2, .lcolor2 a, .subhead, .widget-title, #branding .site-description, #callout, #commentform .required, #postauthor .subtext, .commentlist .comment-meta  a, .content-pagination span, .content-pagination a .cp-num, .comment.alt .comment-author, .tcolor3, .lcolor3 a, .main_nav a, .widget-title a, h3.widget-title a, #subnav_row li a, .metabar em, .metabar a, .tags, #commentform label, .form-allowed-tags code, .rss-date, .comment.alt, .reply a, .auxilary a, .cform .emailreqtxt,.cform .reqtxt{
+	.cnt-comments a, .cnt-comments a:hover, .tcolor2, .lcolor2 a, .subhead, .widget-title, #branding .site-description, #callout, #commentform .required, #postauthor .subtext, .commentlist .comment-meta  a, .content-pagination span, .content-pagination a .cp-num, .comment.alt .comment-author, .tcolor3, .lcolor3 a, .main_nav a, .widget-title a, h3.widget-title a, #subnav_row li a, .metabar em, .metabar a, .tags, #commentform label, .form-allowed-tags code, .rss-date, .comment.alt, .reply a, .auxilary a, .cform .emailreqtxt,.cform .reqtxt, code, pre,blockquote p{
 		color: fadeout(@pl-text, 40%);
 	}
 	
