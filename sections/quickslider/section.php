@@ -66,7 +66,7 @@ class PageLinesQuickSlider extends PageLinesSection {
 	*/
    function section_template( $clone_id ) { 
 	?>
-	<div class="flexwrap">
+	<div class="flexwrap animated fadeIn">
 		<div class="fslider">
 		<div class="flexslider <?php echo 'pl-clone'.$clone_id;?>">
 		  <ul class="slides">

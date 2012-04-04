@@ -156,7 +156,7 @@ class PLNavBar extends PageLinesSection {
 	
 	$theme_class = (ploption('navbar_theme')) ? sprintf(' pl-color-%s', ploption('navbar_theme')) : ' pl-color-black-trans';
 	?>
-	<div class="navbar fix <?php echo $width_class.' '.$theme_class; ?>">
+	<div class="navbar fix <?php echo $width_class.' '.$theme_class; ?> animated fadeIn">
 	  <div class="navbar-inner <?php echo $content_width_class;?>">
 	    <div class="navbar-content-pad fix">
 		

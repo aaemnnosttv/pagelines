@@ -176,13 +176,16 @@ function pagelines_head_common(){
 
 	// Removes viewport scaling on Phones, Tablets, etc.
 	if(!ploption('disable_mobile_view', $oset) && !apply_filters( 'disable_mobile_view', '' ))
-		echo '<meta name="viewport" content="width=device-width, initial-scale=1.0" />';
+		echo '<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />';
 		
 	// Allow for extension deactivation of all css
 	if(!has_action('override_pagelines_css_output')){	
 
 		// Get CSS Objects & Grids
 		pagelines_load_css_relative('css/objects.css', 'pagelines-objects');
+		
+		// CSS Animations
+		wp_enqueue_style('animate', PL_CSS.'/animate.css');
 		
 		// Multisite CSS
 		if(is_multisite())
@@ -191,7 +194,6 @@ function pagelines_head_common(){
 		// Allow for PHP include of Framework CSS
 		if(is_child_theme() && !apply_filters( 'disable_pl_framework_css', '' ))
 			pagelines_load_css(  PARENT_URL.'/style.css', 'pagelines-framework', pagelines_get_style_ver( true ));
-		
 	
 		// RTL Language Support
 		if(is_rtl()) 
