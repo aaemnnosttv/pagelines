@@ -28,15 +28,15 @@ class PageLinesBanners extends PageLinesSection {
 		
 		/* Create Custom Post Type */
 			$args = array(
-					'label' 			=> __('Banners', 'pagelines'),  
-					'singular_label' 	=> __('Banner', 'pagelines'),
-					'description' 		=> 'For creating banners in banner section layouts.',
+					'label' 			=> __( 'Banners', 'pagelines' ),  
+					'singular_label' 	=> __( 'Banner', 'pagelines' ),
+					'description' 		=> __( 'For creating banners in banner section layouts.', 'pagelines' ),
 					'menu_icon'			=> $this->icon
 				);
 			$taxonomies = array(
 				$this->taxID => array(	
-						'label' => __('Banner Sets', 'pagelines'), 
-						'singular_label' => __('Banner Set', 'pagelines'), 
+						'label' => __( 'Banner Sets', 'pagelines' ), 
+						'singular_label' => __( 'Banner Set', 'pagelines' ), 
 					)
 			);
 			$columns = array(
@@ -69,36 +69,36 @@ class PageLinesBanners extends PageLinesSection {
 					'version' => 'pro',
 					'type' => 'select',
 					'selectvalues'	=> array(
-							'banner_right'	=> array('name' => 'Banner Right'),
-							'banner_left'	=> array('name' => 'Banner Left')
+							'banner_right'	=> array('name' => __( 'Banner Right', 'pagelines' ) ),
+							'banner_left'	=> array('name' => __( 'Banner Left', 'pagelines' ) )
 						), 
-					'title' => 'Banner Alignment',				
-					'shortexp' => 'Put the media on the right or the left?',
+					'title' => __( 'Banner Alignment', 'pagelines' ),				
+					'shortexp' => __( 'Put the media on the right or the left?', 'pagelines' ),
 
 				),
 				'the_banner_image' 	=> array(
-						'type' => 'image_upload',					
-						'title' => 'Banner Media',
-						'shortexp' => 'Upload an image for the banner.'
+						'type'		=> 'image_upload',					
+						'title'		=> __( 'Banner Media', 'pagelines' ),
+						'shortexp'	=> __( 'Upload an image for the banner.', 'pagelines' )
 					),
 				'banner_text_width' => array(
 						'type' 			=> 'count_select',		
 						'count_start'	=> '1',
 						'count_number'	=> '100',		
-						'title'		=> 'Banner Text Width (In %)',
-						'shortexp' 		=> 'Set the width of the text area as a percentage of full content width.  The media area will fill the rest.'
+						'title'			=> __( 'Banner Text Width (In %)', 'pagelines' ),
+						'shortexp' 		=> __( 'Set the width of the text area as a percentage of full content width.  The media area will fill the rest.', 'pagelines' )
 					),
 				'the_banner_media' 		=> array(
 						'type' => 'textarea',					
-						'title' => 'Banner Media',
-						'shortexp' => 'Add HTML Media for the banner, e.g. Youtube embed code. This option is used if there is no image uploaded.'
+						'title' => __( 'Banner Media', 'pagelines' ),
+						'shortexp' => __( 'Add HTML Media for the banner, e.g. Youtube embed code. This option is used if there is no image uploaded.', 'pagelines' )
 					),
 				'banner_text_padding' => array(
 					'version' 	=> 'pro',
 					'type' 		=> 'text',
 					'size'		=> 'small',					
-					'title' 	=> 'Banner Text Padding',
-					'shortexp' 		=> '(optional) Set the padding for the text area. Use CSS shorthand, for example:<strong> 25px 30px 25px 35px</strong> for top, right, bottom, then left padding.'
+					'title' 	=> __( 'Banner Text Padding', 'pagelines' ),
+					'shortexp' 	=> __( '(optional) Set the padding for the text area. Use CSS shorthand, for example:<strong> 25px 30px 25px 35px</strong> for top, right, bottom, then left padding.', 'pagelines' )
 
 				),
 			);
@@ -107,7 +107,7 @@ class PageLinesBanners extends PageLinesSection {
 
 			$type_metapanel_settings = array(
 					'id' 		=> 'banner-metapanel',
-					'name' 		=> 'Banner Setup Options',
+					'name' 		=> __( 'Banner Setup Options', 'pagelines' ),
 					'posttype' 	=> $post_types, 
 					'hide_tabs'	=> true
 				);
@@ -116,7 +116,7 @@ class PageLinesBanners extends PageLinesSection {
 
 			$type_metatab_settings = array(
 				'id' 		=> 'banner-type-metatab',
-				'name' 		=> 'Banner Setup Options',
+				'name' 		=> __( 'Banner Setup Options', 'pagelines' ),
 				'icon' 		=> $this->icon,
 			);
 
@@ -139,21 +139,21 @@ class PageLinesBanners extends PageLinesSection {
 					'default'	=> '5',
 					'version' 	=> 'pro',
 					'type' 		=> 'text_small',		
-					'title' 	=> 'Max Number of Banners',
-					'desc' 		=> 'Select the default max number of banners.',
-					'inputlabel'=> 'Number of Banners',
-					'exp'		=> 'This number will be used as the max number of banners to use in this section.'
+					'title' 	=> __( 'Max Number of Banners', 'pagelines' ),
+					'desc' 		=> __( 'Select the default max number of banners.', 'pagelines' ),
+					'inputlabel'=> __( 'Number of Banners', 'pagelines' ),
+					'exp'		=> __( 'This number will be used as the max number of banners to use in this section.', 'pagelines' )
 				),
 				'banner_set' => array(
 						'default' 		=> null,
 						'version'		=> 'pro',
 						'type' 			=> 'select_taxonomy',
 						'taxonomy_id'	=> $this->taxID,
-						'desc'		 	=> 'Select Default Banner Set',
-						'inputlabel' 	=> 'Select Default Banner Set',
-						'title' 		=> 'Default Banner Set',
-						'shortexp' 		=> "Select the category (taxonomy) of Banner posts to show",
-						'exp' 			=> "Select the taxonomy/category of banners to show on this page.",
+						'desc'		 	=> __( 'Select Default Banner Set', 'pagelines' ),
+						'inputlabel' 	=> __( 'Select Default Banner Set', 'pagelines' ),
+						'title' 		=> __( 'Default Banner Set', 'pagelines' ),
+						'shortexp' 		=> __( "Select the category (taxonomy) of Banner posts to show", 'pagelines' ),
+						'exp' 			=> __( "Select the taxonomy/category of banners to show on this page.", 'pagelines' ),
 
 				),
 

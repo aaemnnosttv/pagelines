@@ -104,6 +104,8 @@ class PageLinesWelcome {
 	/**
      * Get Welcome Billboard
      *
+     * Used to produce the content at the top of the theme Welcome page.
+     *
      * @uses        CHILD_URL (constant)
      * @internal    uses 'pagelines_welcome_billboard' filter
      *
