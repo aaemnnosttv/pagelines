@@ -196,9 +196,8 @@ function pagelines_head_common(){
 		// RTL Language Support
 		if(is_rtl()) 
 			pagelines_load_css_relative( 'rtl.css', 'pagelines-rtl');
-
 	}
-
+	
 	// Queue Common Javascript Libraries
 	wp_enqueue_script( 'jquery'); 
 	wp_enqueue_script( 'blocks', PL_JS . '/script.blocks.js', array('jquery'), '1.0.1');
@@ -219,13 +218,11 @@ function pagelines_head_common(){
 	if ( ploption( 'headerscripts' ) )
 		add_action( 'wp_head', create_function( '',  'print_pagelines_option("headerscripts");' ), 25 );
 		
-	if( ploption('customcss') && ploption('customcss') != 'body{}' )
+	if( ploption('customcss') && ! ploption( 'less_css') && ploption('customcss') != 'body{}' )
 		add_action( 'pagelines_head_last', create_function( '',  'inline_css_markup( "pagelines-custom", plstrip(ploption("customcss")) );' ), 25 );	
 	
 	if( ploption('asynch_analytics'))
-		add_action( 'pagelines_head_last', create_function( '',  'echo ploption("asynch_analytics");' ), 25 );
-		
-		
+		add_action( 'pagelines_head_last', create_function( '',  'echo ploption("asynch_analytics");' ), 25 );		
 }
 
 /**

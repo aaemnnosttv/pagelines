@@ -252,16 +252,14 @@ class PageLinesCSS {
  */
 function get_dynamic_css(){
 	
-	
-	
-	
 	$pagelines_dynamic_css = new PageLinesCSS;
 	$pagelines_dynamic_css->create();
 	
 	$css = apply_filters('pl-dynamic-css', $pagelines_dynamic_css->css);
-	inline_css_markup('dynamic-css', $css);
-	
-
+	if( ! ploption( 'less_css' ) )
+		inline_css_markup('dynamic-css', $css);
+	else
+		return $css;
 }
 
 

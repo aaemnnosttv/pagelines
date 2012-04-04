@@ -442,7 +442,7 @@ function pagelines_admin_confirms(){
 			
 		}
 		
-		
+		pl_flush_rules();
 		
 	return apply_filters( 'pagelines_admin_confirms', $confirms );
 	
