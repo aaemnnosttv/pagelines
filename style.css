@@ -1090,10 +1090,10 @@ table {width: 100%;}
 	}
 	input:focus,
 	textarea:focus {
-	  border-color: rgba(82, 168, 236, 0.8);
-	  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(34, 94, 155, 0.6);
-	  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(34, 94, 155, 0.6);
-	  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(34, 94, 155, 0.6);
+	  border-color: rgba(0, 0, 0, 0.15);
+	  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 0, 0, 0.2);
+	  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, , 0, 0.2);
+	  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 0, 0, 0.2);
 	  outline: 0;
 	  outline: thin dotted \9;
 	  /* IE6-9 */
@@ -1610,7 +1610,7 @@ input[type="submit"], .submit, input[type="button"], .button, input[type="reset"
 		font-size: 10px;
 		line-height: 1.4em;
 		margin: .4em 0;
-		padding: 0;
+		padding: 0.2em;
 	}
 	 #respond {margin: 20px 0;}
 	 ol ul #commentform textarea {width: 90%;}
@@ -1637,6 +1637,10 @@ input[type="submit"], .submit, input[type="button"], .button, input[type="reset"
 				float: left;  
 				margin: 0 5px 5px -65px;  
 				position: relative; 
+				padding: 0.12em;
+				-moz-box-sizing: border-box;
+				-webkit-box-sizing: border-box;
+				box-sizing: border-box;
 			}
 			.commentlist .children img.avatar {  
 				float: left;  
