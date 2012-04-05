@@ -149,23 +149,20 @@ function pagelines_search_form( $echo = true ){
 function pagelines_head_common(){
 	global $pagelines_ID;
 	$oset = array('post_id' => $pagelines_ID);
+
+	pagelines_source_attribution();
 	
 	pagelines_register_hook('pagelines_code_before_head'); // Hook 
 
 	printf('<meta http-equiv="Content-Type" content="%s; charset=%s" />',  get_bloginfo('html_type'),  get_bloginfo('charset'));
 
-	if(ploption('pagelines_favicon') && VPRO)
-		printf('<link rel="shortcut icon" href="%s" type="image/x-icon" />%s', ploption('pagelines_favicon'), "\n");
 
 	// Draw Page <title> Tag
 	pagelines_title_tag();
-	
-	// Some Credit
-	if(!VDEV)
-		printf ( "<!-- PageLines Professional Drag-and-Drop Platform ( %s ) - www.PageLines.com -->\n", get_pagelines_credentials( 'licence' ) );
 		
 	// Meta Images
-
+	if(ploption('pagelines_favicon') && VPRO)
+		printf('<link rel="shortcut icon" href="%s" type="image/x-icon" />%s', ploption('pagelines_favicon'), "\n");
 	
 	if(ploption('pagelines_touchicon'))
 		printf('<link rel="apple-touch-icon" href="%s" />%s', ploption('pagelines_touchicon'), "\n");
@@ -225,6 +222,14 @@ function pagelines_head_common(){
 	
 	if( ploption('asynch_analytics'))
 		add_action( 'pagelines_head_last', create_function( '',  'echo ploption("asynch_analytics");' ), 25 );		
+}
+
+function pagelines_source_attribution() {
+	
+	echo "<!-- "; 
+	printf ( "Built With PageLines Framework ( %s ) - www.PageLines.com ", get_pagelines_credentials( 'licence' ) );
+
+	echo "-->\n";
 }
 
 /**
