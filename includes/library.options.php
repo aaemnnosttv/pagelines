@@ -448,6 +448,13 @@ function get_pagelines_option_id( $oid, $sub_oid = null, $grand_oid = null, $nam
 	return join('_', $a);
 }
 
+function pl_flush_rules() {
+	
+	flush_rewrite_rules( false );
+	plupop( 'pl_save_version', time() );
+	
+}
+
 /**
  * Sanitize user input
  * 
@@ -466,7 +473,6 @@ function pagelines_settings_callback( $input ) {
 		}
 		
 	}
-	
 	// Return our safe $input array.
 	return $input;
 }

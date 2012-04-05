@@ -63,8 +63,7 @@ class PageLinesLess {
      *
      * @param   $lesscode
      */
-    public function draw_less( $lesscode ){
-			
+    public function draw_less( $lesscode ){		
 			printf(
 				'%1$s<style type="text/css" id="pagelines-less-css" >%2$s</style>%1$s', 
 				"\n",
@@ -72,6 +71,26 @@ class PageLinesLess {
 			);
 	
 	}
+
+	/**
+     * Draw raw LESS
+     *
+     * Creates raw LESS code
+     *
+     * @uses    plstrip
+     *
+     * @param   $lesscode
+     */
+    public function raw_less( $lesscode, $strip = true ){
+
+		$custom = ploption("customcss");
+		$custom = ( 'body{}' != $custom ) ? $custom : '';
+
+		$lesscode = get_dynamic_css() . $lesscode . $custom;
+
+		echo ( $strip ) ? plstrip( $this->parse($lesscode) ) : $this->parse($lesscode);
+	}
+
 
     /**
      * Parse PLESS Input & return CSS
@@ -85,7 +104,8 @@ class PageLinesLess {
 	public function parse( $pless ) {
 		
 		$pless = $this->add_constants( $pless );
-		$pless = $this->add_core_less( $pless );
+		if( ! ploption( 'less_css' ) )
+			$pless = $this->add_core_less( $pless );
 		
 		try{
 			$css = $this->lparser->parse( $pless );
@@ -104,7 +124,7 @@ class PageLinesLess {
 		
 		$add_color = (isset($disabled_settings['color_control'])) ? false : true;
 	
-		$color = ($add_color) ? pl_file_get_contents(PARENT_DIR.'/css/color.less') : '';
+		$color = ($add_color) ? pl_file_get_contents( CORE_LESS.'/color.less') : '';
 			
 		return $pless . $color;
 		
