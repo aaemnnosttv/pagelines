@@ -125,8 +125,8 @@ class PLNavBar extends PageLinesSection {
 		
 		<?php if(ploption('navbar_fixed')): ?>
 		<style id="navbar-css" type="text/css">
-			#site #page {padding-top: 40px}
-			.fixed_width #site #page {padding-top: 52px;}
+			#site #page {padding-top: 50px}
+			.fixed_width #site #page {padding-top: 62px;}
 		</style>
 		<?php endif;?>
 	<?php }
@@ -156,7 +156,7 @@ class PLNavBar extends PageLinesSection {
 	
 	$theme_class = (ploption('navbar_theme')) ? sprintf(' pl-color-%s', ploption('navbar_theme')) : ' pl-color-black-trans';
 	?>
-	<div class="navbar fix <?php echo $width_class.' '.$theme_class; ?> animated fadeIn">
+	<div class="navbar fix <?php echo $width_class.' '.$theme_class; ?> animated fadeInDown">
 	  <div class="navbar-inner <?php echo $content_width_class;?>">
 	    <div class="navbar-content-pad fix">
 		
