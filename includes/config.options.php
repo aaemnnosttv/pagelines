@@ -258,7 +258,7 @@ class PageLinesOptionsArray {
 				'layout' 		=> 'interface',	
 				'selectvalues'	=> array(
 					'full_width'	=> array('name' => __( "Full-Width Sections", 'pagelines' ), 'offset' => '0px 0px'),
-					'fixed_width'	=> array('name' => __( "Content Width Page", 'pagelines' ), 'version' => 'pro', 'offset' => '0px -88px', 'version'	=> 'pro')
+					'fixed_width'	=> array('name' => __( "Fixed-Width Mode", 'pagelines' ), 'version' => 'pro', 'offset' => '0px -88px', 'version'	=> 'pro')
 				), 
 				'inputlabel'	=> __( 'Site Design Mode', 'pagelines' ),
 				'title'		=> __( 'Site Design Mode', 'pagelines' ),						
