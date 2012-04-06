@@ -42,6 +42,69 @@ function pagelines_button_shortcode($atts) {
 	
 }
 
+/**
+ * PageLines Bootstrap Button Shortcode
+ * 
+ * @example <code>[pl_button type="info"]My Button[/pl_button]</code> is the default usage
+ * @example <code>[pl_button type="info" url="#" target="blank"]My Button[/pl_button]</code>
+ * @example Available types include info, success, warning, danger, inverse
+ */
+function pl_button_shortcode($atts, $content = null) {
+	
+	extract(shortcode_atts(array(
+			    'type' => '',
+			    'link' =>'',
+			    'target' => 'blank'
+			), $atts));
+    
+    $target = ( $target == 'blank' ) ? ' target="_blank"' : '';
+    
+    $out = sprintf('<a href="%2$s" class="pl-btn pl-btn-%1$s" target="%3$s">%4$s</a>', $type,$link,$target,$content);
+	
+	return $out;
+}
+add_shortcode ('pl_button','pl_button_shortcode');
+
+
+/**
+ * PageLines Bootstrap Blockquote Shortcode
+ * 
+ * @example <code>[pl_blockquote type="info"]My quote[/pl_blockquote]</code> is the default usage
+ * @example <code>[pl_blockquote pull="right"]My quote pulled right[/pl_blockquote]</code>
+ */
+function pl_blockquote_shortcode($atts, $content = null) {
+	
+	extract(shortcode_atts(array(
+			    'pull' => '',
+			    'cite' =>''
+			), $atts));
+    
+    $out = sprintf('<blockquote class="pull-%1$s"><p>%3$s<small>%2$s</small></p></blockquote>',$pull,$cite,$content);
+	
+	return $out;
+}
+add_shortcode ('pl_blockquote','pl_blockquote_shortcode');
+
+
+/**
+ * PageLines Bootstrap Alertbox Shortcode
+ * 
+ * @example <code>[pl_alertbox type="info"]My alert[/pl_alertbox]</code> is the default usage
+ * @example <code>[pl_alertbox type="info"]<h4 class="pl-alert-heading">Heading</h4>My alert[/pl_alertbox]</code>
+ * @example Available types include info, success, warning, error
+ */
+function pl_alertbox_shortcode($atts, $content = null) {
+	
+	extract(shortcode_atts(array(
+			    'type' => ''
+			), $atts));
+    
+    $out = sprintf('<div class="pl-alert pl-alert-%1$s">%2$s</div>',$type,$content);
+	
+	return $out;
+}
+add_shortcode ('pl_alertbox','pl_alertbox_shortcode');
+
 
 /**
  * This function produces the date of post publication
@@ -50,6 +113,7 @@ function pagelines_button_shortcode($atts) {
  * @example <code>[post_date format="F j, Y" before="<b>" after="</b>"]</code>
  */
 add_shortcode('post_date', 'pagelines_post_date_shortcode');
+
 /**
 *
 * @TODO do
@@ -124,6 +188,27 @@ function pagelines_post_author_shortcode($atts) {
 	return apply_filters('pagelines_post_author_shortcode', $output, $atts);
 	
 }
+
+/**
+ * Shows multiple post authors
+ * 
+ * @example <code>[show_authors]</code> is the default usage
+ * @example <code>[show_authors]</code>
+ */
+function show_multiple_authors() {
+	$i = new CoAuthorsIterator();
+	$return = '';
+	$i->iterate();
+	$return .= '<a href="'.get_author_posts_url(get_the_author_meta('ID')).'">'.get_the_author_meta('display_name').'</a>';
+	while($i->iterate()){
+		$return.= $i->is_last() ? ' and ' : ', ';
+		$return .= '<a href="'.get_author_posts_url(get_the_author_meta('ID')).'">'.get_the_author_meta('display_name').'</a>';
+	}
+
+	return $return;
+}
+add_shortcode('show_authors', 'show_multiple_authors');
+
 
 /**
  * This function produces the author of the post (link to author URL)
