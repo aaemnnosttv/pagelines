@@ -263,7 +263,7 @@ class PageLinesSection {
      */
 	function before_section( $markup = 'content', $clone_id = null, $classes = ''){
 
-		$classes .= ( isset($clone_id) ) ? sprintf( ' clone_%s%s', $clone_id, $this->classes ) : $this->classes;
+		$classes .= ( isset($clone_id) ) ? sprintf( ' clone_%s%s', $clone_id, $this->classes ) : sprintf( ' no_clone%s', $this->classes );
 		
 		if(isset($this->settings['markup']))
 			$set_markup = $this->settings['markup'];
