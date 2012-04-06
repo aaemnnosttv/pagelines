@@ -189,26 +189,6 @@ function pagelines_post_author_shortcode($atts) {
 	
 }
 
-/**
- * Shows multiple post authors
- * 
- * @example <code>[show_authors]</code> is the default usage
- * @example <code>[show_authors]</code>
- */
-function show_multiple_authors() {
-	$i = new CoAuthorsIterator();
-	$return = '';
-	$i->iterate();
-	$return .= '<a href="'.get_author_posts_url(get_the_author_meta('ID')).'">'.get_the_author_meta('display_name').'</a>';
-	while($i->iterate()){
-		$return.= $i->is_last() ? ' and ' : ', ';
-		$return .= '<a href="'.get_author_posts_url(get_the_author_meta('ID')).'">'.get_the_author_meta('display_name').'</a>';
-	}
-
-	return $return;
-}
-add_shortcode('show_authors', 'show_multiple_authors');
-
 
 /**
  * This function produces the author of the post (link to author URL)
