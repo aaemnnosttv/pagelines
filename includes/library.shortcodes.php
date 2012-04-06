@@ -107,13 +107,148 @@ add_shortcode ('pl_alertbox','pl_alertbox_shortcode');
 
 
 /**
+ * This function/shortcode will show all authors on a post
+ * 
+ * @example <code>[show_authors]</code> is the default usage
+ * @example <code>[show_authors]</code>
+ */
+function show_multiple_authors() {
+
+	if( class_exists('CoAuthorsIterator') ) {
+
+		$i = new CoAuthorsIterator();
+		$return = '';
+		$i->iterate();
+		$return .= '<a href="'.get_author_posts_url(get_the_author_meta('ID')).'">'.get_the_author_meta('display_name').'</a>';
+		while($i->iterate()){
+			$return.= $i->is_last() ? ' and ' : ', ';
+			$return .= '<a href="'.get_author_posts_url(get_the_author_meta('ID')).'">'.get_the_author_meta('display_name').'</a>';
+		}
+
+		return $return;
+		
+	} else {
+		//fallback
+	}
+
+}
+add_shortcode('show_authors', 'show_multiple_authors');
+
+
+/**
+ * Shortcode to display Facebook Like button
+ * 
+ * @example <code>[like_button]</code> is the default usage
+ * @example <code>[like_button]</code>
+ */
+function pl_facebook_shortcode( $args ){
+		
+		$defaults = array(
+			'permalink'	=> '', 
+			'width'		=> '80',
+		); 
+		
+		$a = wp_parse_args($args, $defaults);
+		
+		
+		ob_start();
+			// Facebook
+			?>
+			<script>(function(d, s, id) {
+					var js, fjs = d.getElementsByTagName(s)[0];
+					if (d.getElementById(id)) return;
+					js = d.createElement(s); js.id = id;
+					js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1";
+					fjs.parentNode.insertBefore(js, fjs);
+					}(document, 'script', 'facebook-jssdk'));
+			</script>
+			<?php
+			printf(
+				'<div class="fb-like" data-href="%s" data-send="false" data-layout="button_count" data-width="%s" data-show-faces="false" data-font="arial" style="vertical-align: top"></div>', 
+				$a['permalink'], 
+				$a['width']);
+				
+		return ob_get_clean();
+		
+	}
+add_shortcode('like_button', 'pl_facebook_shortcode');
+
+
+/**
+ * Shortcode to display Tweet button
+ * 
+ * @example <code>[tweet_button]</code> is the default usage
+ * @example <code>[tweet_button]</code>
+ */
+function pl_twitter_button( $args ){
+		
+		$defaults = array(
+			'permalink'	=> '', 
+			'width'		=> '80',
+			'handle'	=> ploption('twittername'), 
+			'title'		=> ''
+		); 	
+		
+		$a = wp_parse_args($args, $defaults);
+		
+		ob_start();
+		
+			// Twitter
+			printf(
+				'<a href="https://twitter.com/share" class="twitter-share-button" data-url="%s" data-text="%s" data-via="%s">Tweet</a>', 
+				$a['permalink'], 
+				$a['title'],
+				(ploption('twitter_via')) ? $a['handle'] : ''
+			);
+		
+		?>
+		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+		
+		<?php 
+		
+		return ob_get_clean();
+		
+	}
+add_shortcode('tweet_button','pl_twitter_button');
+
+
+/**
+ * Shortcode to display Pinterest button
+ * 
+ * @example <code>[tweet_button]</code> is the default usage
+ * @example <code>[tweet_button]</code>
+ */
+function pl_pinterest_button( $args ){
+		
+		$defaults = array(
+			'permalink'	=> '', 
+			'width'		=> '80',
+			'title'		=> '',
+			'image'		=> '', 
+			'desc'		=> ''
+		); 	
+
+		$a = wp_parse_args($args, $defaults);
+		ob_start();
+		?>
+		
+		<a href="http://pinterest.com/pin/create/button/?url=<?php echo $a['permalink'];?>&media=<?php echo urlencode($a['image']);?>&description=<?php echo urlencode($a['desc']);?>" class="pin-it-button" count-layout="none"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a>
+		<script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
+		<?php 
+
+		return ob_get_clean();
+			
+	}
+add_shortcode('pinterest_button','pl_pinterest_button');
+
+
+/**
  * This function produces the date of post publication
  * 
  * @example <code>[post_date]</code> is the default usage
  * @example <code>[post_date format="F j, Y" before="<b>" after="</b>"]</code>
  */
 add_shortcode('post_date', 'pagelines_post_date_shortcode');
-
 /**
 *
 * @TODO do
