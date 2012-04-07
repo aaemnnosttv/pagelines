@@ -822,7 +822,7 @@ class PageLinesTemplate {
 			}
 
 			$lesscode = apply_filters('pagelines_lesscode', $lesscode);
-			
+		
 			$pless = new PagelinesLess();
 			$pless->draw_less( $lesscode );
 
@@ -839,10 +839,6 @@ class PageLinesTemplate {
 
 		global $lesscode;
 		
-		if ( ploption( 'less_css' ) )
-			foreach( glob( CORE_LESS . '/*.less' ) as $file )
-				$lesscode .= pl_file_get_contents( $file );
-
 		if(is_array($this->allsections)){ 
 			
 			foreach($this->allsections as $sid){
@@ -879,18 +875,14 @@ class PageLinesTemplate {
 
 					if( file_exists( $s->base_dir . '/color.less' ) )
 						$lesscode .= pl_file_get_contents( $s->base_dir.'/color.less' );				
-				}
-				
-				
+				}	
 			}
 
 			$lesscode = apply_filters('pagelines_lesscode', $lesscode);
 			
+			$lesscode = ( ploption('customcss') != 'body{}' ) ?  $lesscode . ploption('customcss') : $lesscode;		
 			$pless = new PagelinesLess();
-			if( ! ploption( 'less_css' ) )
-				$pless->draw_less( $lesscode );
-			else
-				$pless->raw_less( $lesscode );
+			return $pless->raw_less( $lesscode );
 		}	
 	}
 	

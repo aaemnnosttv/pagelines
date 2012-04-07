@@ -937,7 +937,7 @@ class PageLinesOptionsArray {
 									sprintf( '<br /><a href="%s">Click here</a> for your debug info.', site_url( '?pldebug=1' ) ) : '' ) )
 			),
 			'less_css' => array(
-					'default'	=> 'false',
+					'default'	=> '',
 					'type'		=> 'check',
 					'inputlabel'=> __( 'LESS css mode?', 'pagelines' ),
 					'title'		=> __( 'PageLines LESS css', 'pagelines' ),
