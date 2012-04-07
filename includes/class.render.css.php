@@ -17,11 +17,13 @@ class PageLinesRenderCSS {
 			add_action('wp_head', 'do_dynamic_css', 8);
 			add_action('wp_head', array(&$pagelines_template, 'print_template_section_headers_legacy'));
 		} else {
+			
 			add_filter('query_vars', array( &$this, 'pagelines_add_trigger' ) );
 			add_action('template_redirect', array( &$this, 'pagelines_less_trigger' ) );
 			add_filter( 'generate_rewrite_rules', array( &$this, 'pagelines_less_rewrite' ) );
 			add_action( 'wp_print_styles', array( &$this, 'load_less_css' ), 11 );
 			add_action( 'wp_head', array(&$pagelines_template, 'print_template_section_head' ) );
+			add_action( 'extend_flush', array( &$this, 'flush_version' ) );
 		}	
 	}
 
@@ -66,6 +68,13 @@ class PageLinesRenderCSS {
 
 		return preg_replace('@({)\s+|(\;)\s+|/\*.+?\*\/|\R@is', '$1$2 ', $css);
 	}
+	
+	function flush_version() {
+		
+		flush_rewrite_rules( false );
+		plupop( 'pl_save_version', time() );
+	}
+
 
 } //end
 

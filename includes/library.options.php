@@ -448,13 +448,6 @@ function get_pagelines_option_id( $oid, $sub_oid = null, $grand_oid = null, $nam
 	return join('_', $a);
 }
 
-function pl_flush_rules() {
-	
-	flush_rewrite_rules( false );
-	plupop( 'pl_save_version', time() );
-	
-}
-
 /**
  * Sanitize user input
  * 
@@ -763,14 +756,17 @@ function pagelines_settings_defaults() {
 */
 function pagelines_process_reset_options( $option_array = null ) {
 
+
+
 	if(isset($_POST['pl_reset_settings']) && current_user_can('edit_themes')){
-		
+
+		do_action( 'extend_flush' );
+	
 		if(isset($_POST['the_pl_setting']) && !isset($_POST['reset_callback']))
 			update_option($_POST['the_pl_setting'], array());
 		
 		if(isset($_POST['reset_callback']))
-			call_user_func( $_POST['reset_callback'] );
-			
+			call_user_func( $_POST['reset_callback'] );			
 	}
 
 	
