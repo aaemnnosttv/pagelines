@@ -441,8 +441,8 @@ function pagelines_admin_confirms(){
 			break;
 			
 		}
-		
-		pl_flush_rules();
+		if ( ! empty( $confirms ) )
+			do_action( 'extend_flush' );
 		
 	return apply_filters( 'pagelines_admin_confirms', $confirms );
 	

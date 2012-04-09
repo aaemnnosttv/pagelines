@@ -310,6 +310,8 @@
 	 */
  	function page_reload( $location, $product = null, $message = '') {
 		
+		do_action( 'extend_flush' );
+		
 		if ( $this->get_fs_method() ) {
 			
 			$time = 0;

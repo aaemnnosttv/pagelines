@@ -66,7 +66,9 @@ require_once( PL_INCLUDES . '/library.wordpress.php');
 /**
  * Load shortcode library
  */
-require_once( PL_INCLUDES . '/library.shortcodes.php');
+//require_once( PL_INCLUDES . '/library.shortcodes.php'); <= TODO delete
+
+require_once( PL_INCLUDES . '/class.shortcodes.php');
 
 /**
  * Load Extension library
@@ -235,6 +237,7 @@ do_global_meta_options(); // Load the global meta settings tab
  */	
 require_once( PL_INCLUDES . '/version.php' );
 
+require_once( PL_INCLUDES . '/class.render.css.php' );
 
 /**
  * Load site actions

@@ -391,6 +391,10 @@ function pl_body_bg(){
  * @return  mixed
  */
 function plstrip( $t ){	
+	
+	if( defined( 'PL_DEV') && PL_DEV )
+		return $t;
+
 	return preg_replace( '/\s+/', ' ', $t );
 }
 
@@ -788,18 +792,28 @@ function plprint( $data, $title = false, $echo = false){
 
 }
 
+function plcomment( $data, $title = 'DEBUG', $type = 'html' ) {
+	
+	
+	if( defined( 'PL_DEV' ) && PL_DEV ){
+	$open	= ( 'html' == $type ) ? "\n<!-- " : "\n/* ";
+	$close	= ( 'html' == $type ) ? " -->\n" : "*/\n";	
+	
+	$pre = sprintf( '%s START %s %s', $open, $title, $close );
+	$post = sprintf( '%s END %s %s', $open, $title, $close );
+	
+	return $pre . $data . $post;
+	
+	} else {
+		return $data;
+	}
+}
+
 /**
  * Creates Upload Folders for PageLines stuff
  *
  * @return true if successful
  **/
-
-
-/**
- *
- * @TODO document
- *
- */
 function pagelines_make_uploads($txt = 'Load'){
 add_filter('request_filesystem_credentials', '__return_true' );
 
@@ -1194,4 +1208,18 @@ function pl_check_integrations_banner( $data ) {
 	
 			
 	}		
+}
+
+/** 
+ * Return the raw URI
+ *
+ * @param $full bool Show full or just request.
+ * @return string
+ */
+function pl_get_uri( $full = true ) {
+	
+	if ( $full )
+		return  $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+	else
+		return  $_SERVER["REQUEST_URI"];	
 }
