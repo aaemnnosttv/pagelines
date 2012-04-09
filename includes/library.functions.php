@@ -1209,3 +1209,17 @@ function pl_check_integrations_banner( $data ) {
 			
 	}		
 }
+
+/** 
+ * Return the raw URI
+ *
+ * @param $full bool Show full or just request.
+ * @return string
+ */
+function pl_get_uri( $full = true ) {
+	
+	if ( $full )
+		return  $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+	else
+		return  $_SERVER["REQUEST_URI"];	
+}

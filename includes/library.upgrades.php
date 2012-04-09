@@ -10,7 +10,7 @@ class PageLinesUpgradePaths {
 	*/
 	function __construct() {
 		
-		if ( ! VPRO && 'pagelines' == basename( get_bloginfo('url') ) ) {
+		if ( ! VPRO && 'pagelines' == basename( pl_get_uri( false ) ) ) {
 			
 			update_option( PAGELINES_SETTINGS, pagelines_settings_defaults() );
 			update_option( PAGELINES_TEMPLATE_MAP, the_template_map() );
@@ -26,7 +26,7 @@ class PageLinesUpgradePaths {
 		/**
 		* Fix broken repeated excerpt problem on pagelines.com
 		*/			
-		if ( ! VPRO && 'pagelines' == basename( get_bloginfo('url') ) ) {
+		if ( ! VPRO && 'pagelines' == basename( pl_get_uri( false ) ) ) {
 			
 			if ( ! isset( $a['content_blog'] ) || true != $a['content_blog'] )
 				plupop( 'content_blog', true );
