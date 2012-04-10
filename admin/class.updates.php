@@ -127,14 +127,15 @@ class PageLinesUpdateCheck {
 					'sslverify'	=>	false,
 					'timeout'	=>	5,
 					'body' => array(
-						'version' => $this->version,
-						'wp_version' => $wp_version,
-						'php_version' => phpversion(),
-						'uri' => home_url(),
-						'theme' => $this->theme,
-						'user' => $this->username,
-						'password' => $this->password,
-						'user-agent' => "WordPress/$wp_version;"
+						'version'		=> $this->version,
+						'wp_version'	=> $wp_version,
+						'php_version'	=> phpversion(),
+						'uri'			=> home_url(),
+						'theme'			=> $this->theme,
+						'user'			=> $this->username,
+						'password'		=> $this->password,
+						'framework'		=> CORE_VERSION,
+						'user-agent'	=> "WordPress/$wp_version;"
 					)
 			);
 
