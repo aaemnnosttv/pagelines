@@ -113,6 +113,8 @@ define( 'PL_API', 'www.pagelines.com/api/');
 
 define( 'PL_API_FETCH', 'http://www.pagelines.com/api/' );
 
+define( 'PL_API_CDN', 'http://cdn.pagelines.com/api/' );
+
 
 /**
  * Define language constants
