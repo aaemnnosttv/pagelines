@@ -95,6 +95,7 @@ class PLNavBar extends PageLinesSection {
 	 */
 	function section_styles(){
 		wp_enqueue_script('bootstrap-dropdown', $this->base_url.'/bootstrap-dropdown.js');
+		wp_enqueue_script('bootstrap-collapse', $this->base_url.'/bootstrap-collapse.js');
 	}
 	
 	function section_head($clone_id){
@@ -110,13 +111,13 @@ class PLNavBar extends PageLinesSection {
 			jQuery('.pldrop').find('ul').each(function() {
 				jQuery(this).addClass('dropdown-menu');
 				jQuery(this).siblings('a')
-					   .addClass('dropdown-toggle')
-					   .attr('href', '#m' + section)
-					   .attr('data-toggle', 'dropdown')
-					   .append(' <b class="caret" />')
-					   .parent()
-					   .attr('id', 'm' + section++)
-					   .addClass('dropdown'); 
+					.addClass('dropdown-toggle')
+					.attr('href', '#m' + section)
+					.attr('data-toggle', 'dropdown')
+					.append(' <b class="caret" />')
+					.parent()
+					.attr('id', 'm' + section++)
+					.addClass('dropdown'); 
 			});
 			
 			jQuery('.dropdown-toggle').dropdown()
@@ -125,8 +126,8 @@ class PLNavBar extends PageLinesSection {
 		
 		<?php if(ploption('navbar_fixed')): ?>
 		<style id="navbar-css" type="text/css">
-			#site #page {padding-top: 50px}
-			.fixed_width #site #page {padding-top: 62px;}
+			#page {padding-top: 50px}
+			.fixed_width #page {padding-top: 62px;}
 		</style>
 		<?php endif;?>
 	<?php }
@@ -180,7 +181,7 @@ class PLNavBar extends PageLinesSection {
 				</a>
 			<?php endif; ?>
 
-	      <div class="nav-collapse">
+	      		<div class="nav-collapse">
 	       <?php 	if(!ploption('hidesearch'))
 						get_search_form();
 				
@@ -199,6 +200,7 @@ class PLNavBar extends PageLinesSection {
 				
 	?>
 				</div>
+				<div class="clear"></div>
 			</div>
 		</div>
 	</div>
