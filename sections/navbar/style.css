@@ -397,7 +397,7 @@
 
 /* Nav Toggle Responsive
  ************************************************************/	
-	.btn-navbar {
+	.nav-btn-navbar {
 		display: none;
 		float: right;
 		padding: 7px 10px;
@@ -418,19 +418,19 @@
 		border-top: 1px solid rgba(0,0,0,.17);
 		box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.3);
 	}
-	.btn-navbar:hover,
-	.btn-navbar:active,
-	.btn-navbar.active,
-	.btn-navbar.disabled,
-	.btn-navbar[disabled] {
+	.nav-btn-navbar:hover,
+	.nav-btn-navbar:active,
+	.nav-btn-navbar.active,
+	.nav-btn-navbar.disabled,
+	.nav-btn-navbar[disabled] {
 	  	background-color: rgba(255,255,255,.3);
 	}
-	.btn-navbar:active,
-	.btn-navbar.active {
+	.nav-btn-navbar:active,
+	.nav-btn-navbar.active {
 		box-shadow: inset 1px 1px 0 rgba(0, 0, 0, 0.3);
 	  	background-color: rgba(0,0,0,.1);;
 	}
-	.btn-navbar .icon-bar {
+	.nav-btn-navbar .icon-bar {
 	  display: block;
 	  width: 18px;
 	  height: 2px;
@@ -440,7 +440,7 @@
 	  border-radius: 1px;
 	  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 	}
-	.btn-navbar .icon-bar + .icon-bar {
+	.nav-btn-navbar .icon-bar + .icon-bar {
 	  margin-top: 3px;
 	}
 	.nav-collapse.collapse {
@@ -509,12 +509,12 @@
   }
 	.navbar .navline > li > a,
 	.navbar .dropdown-menu a {
-		 padding: 6px 15px;
+		padding: 6px 15px;
 		background:transparent;
 		color: #fff;
-		 -webkit-border-radius: 3px;
-		 -moz-border-radius: 3px;
-		 border-radius: 3px;
+		-webkit-border-radius: 3px;
+		-moz-border-radius: 3px;
+		border-radius: 3px;
 	}
 	
   	.navbar .dropdown-menu li > a:hover,
