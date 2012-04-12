@@ -144,3 +144,5 @@ function pagelines_add_sidebars() {
 }
 
 new PageLinesRenderCSS;
+
+add_action( 'template_redirect', 'pl_check_integrations' );

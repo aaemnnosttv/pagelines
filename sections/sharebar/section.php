@@ -56,11 +56,11 @@ class PageLinesShareBar extends PageLinesSection {
 		global $post; 
 
 		$perm = get_permalink($post->ID);
-		$title = get_the_title($post->ID);
+		$title = wp_strip_all_tags( get_the_title( $post->ID ) );
 		$thumb = (has_post_thumbnail($post->ID)) ? pl_the_thumbnail_url( $post->ID ) : '';
 
-		$desc = pl_short_excerpt($post->ID, 10, '');
-		
+		$desc = wp_strip_all_tags( pl_short_excerpt($post->ID, 10, '') );
+
 		$out = '';
 		
 		if(ploption('share_facebook'))
@@ -83,7 +83,7 @@ class PageLinesShareBar extends PageLinesSection {
 		
 		if(ploption('share_linkedin'))	
 			$out .= self::linkedin(array('permalink' => $perm, 'title' => $title));
-	
+
 		return $out;
 	}
 

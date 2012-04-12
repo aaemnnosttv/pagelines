@@ -83,7 +83,7 @@ class PageLinesPosts {
 			return $input;
 		global $post;
 		
-		$args = array( 'permalink' => get_permalink( $post->ID ), 'width'=>'50', 'title' => get_the_title( $post->ID ) );
+		$args = array( 'permalink' => get_permalink( $post->ID ), 'width'=>'50', 'title' => wp_strip_all_tags( get_the_title( $post->ID ) ) );
 		$share = PageLinesShareBar::facebook( $args );
 		$share .= PageLinesShareBar::twitter( $args );
 		$meta_share = sprintf( '<div class="meta-share">%s</div>', $share );

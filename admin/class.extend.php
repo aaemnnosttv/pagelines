@@ -847,7 +847,7 @@
 		
 		if( $type == 'integration' ) {
 			if( isset( $ext['screen'] ) && $ext['screen'] )
-				return sprintf( 'http://www.pagelines.com/api/files/integrations/img/%s-thumb.png', $key );
+				return sprintf( '%s/files/integrations/img/%s-thumb.png',untrailingslashit( PL_API_CDN ), $key );
 		}
 		
 		if ( $type == 'plugin' ) {
@@ -859,7 +859,7 @@
 			} else {
 				
 				if( isset( $ext['screen'] ) && $ext['screen'] )
-					return sprintf( '%s/files/%ss/img/%s-thumb.png', untrailingslashit( PL_API_FETCH ), $type, $ext['slug'] );
+					return sprintf( '%s/files/%ss/img/%s-thumb.png', untrailingslashit( PL_API_CDN ), $type, $ext['slug'] );
 			}
 		}
 		
@@ -869,7 +869,7 @@
 					return sprintf( '%s/thumb.png', $ext['base_url'] );
 
 				if( isset( $ext['screen'] ) && $ext['screen'] )
-					return sprintf( '%s/files/%ss/img/%s-thumb.png', untrailingslashit( PL_API_FETCH ), $type, $ext['slug'] );
+					return sprintf( '%s/files/%ss/img/%s-thumb.png', untrailingslashit( PL_API_CDN ), $type, $ext['slug'] );
 		}
 		
 
@@ -877,7 +877,7 @@
 
 			if ( ( $this->show_install_button( $type, $key, $ext, $tab ) || $this->show_purchase_button( $type, $key, $ext, $tab ) || $this->show_login_button( $type, $key, $ext, $tab ) || EXTEND_NETWORK ) )			
 				if ( isset( $ext['screen'] ) && $ext['screen'] )
-					return sprintf( 'http://www.pagelines.com/api/files/themes/img/%s-thumb.png', $key );		
+					return sprintf( '%s/files/themes/img/%s-thumb.png', untrailingslashit( PL_API_CDN ), $key );		
 
 			// theme installed or no screenshot...
 
