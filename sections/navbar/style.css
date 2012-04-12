@@ -31,7 +31,10 @@
 }
 
 .navbar.navbar-content-width{
+	-webkit-border-radius:4px
+	-moz-border-radius:4px;
 	border-radius: 4px;
+
 }
 
 .section-navbar .content-pad{
