@@ -780,55 +780,6 @@ class PageLinesTemplate {
 	function run_before_page(){
 
 	}
-	
-	function print_template_section_headers_legacy() {
-	
-		global $lesscode;
-		
-		if(is_array($this->allsections)){ 
-			
-			foreach($this->allsections as $sid){
-				
-				/**
-				 * If this is a cloned element, remove the clone flag before instantiation here.
-				 */
-				$p = splice_section_slug($sid);
-				$section = $p['section'];
-				$clone_id = $p['clone_id'];
-				
-				if( $this->in_factory( $section ) ){
-					
-					$s = $this->factory[$section];
-					
-					$s->setup_oset( $clone_id );
-					
-					$s->section_head( $clone_id );
-					
-					global $supported_elements;
-					global $disabled_settings;
-					
-					$support = (isset($supported_elements['sections'][ $section ])) ? $supported_elements['sections'][ $section ] : false;
-				
-					if( ($support && $support['disable_color']) || ( $s->sinfo['type'] == 'parent' && isset($disabled_settings['color_control']) ) ){
-						continue;
-					}
-										
-					/*
-					 * Less CSS
-					 */
-					if( file_exists( $s->base_dir . '/color.less' ) )
-						$lesscode .= pl_file_get_contents( $s->base_dir.'/color.less' );				
-				}				
-			}
-
-			$lesscode = apply_filters('pagelines_lesscode', $lesscode);
-		
-			$pless = new PagelinesLess();
-			$pless->draw_less( $lesscode );
-
-		}
-		
-	}
 
 	/**
 	*
@@ -879,10 +830,7 @@ class PageLinesTemplate {
 			}
 
 			$lesscode = apply_filters('pagelines_lesscode', $lesscode);
-			
-			$lesscode = ( ploption('customcss') != 'body{}' ) ?  $lesscode . ploption('customcss') : $lesscode;		
-			$pless = new PagelinesLess();
-			return $pless->raw_less( $lesscode );
+			return $lesscode;
 		}	
 	}
 	
