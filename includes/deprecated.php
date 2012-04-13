@@ -42,3 +42,16 @@ if ( ! function_exists( 'wp_get_themes' ) ) {
 		return get_themes();
 	}
 }
+
+/**
+ * get_theme_data()
+ *
+ * @since 2.2
+ * @deprecated 2.2
+ * @deprecated WordPress 3.4 introduces get_theme_data()
+ */
+if ( ! function_exists( 'wp_get_theme' ) ) {
+	function wp_get_theme( $stylesheet ) { 
+		return get_theme_data( $stylesheet );
+	}
+}

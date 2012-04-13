@@ -3,10 +3,10 @@
 /**
  * Define framework version
  */
-$theme_data = get_theme_data(get_template_directory() . '/style.css');
+$theme_data = wp_get_theme(get_template_directory() . '/style.css');
 define('CORE_VERSION', $theme_data['Version']);
 
-$child_theme_data = get_theme_data(get_stylesheet_directory() . '/style.css');
+$child_theme_data = wp_get_theme(get_stylesheet_directory() . '/style.css');
 define('CHILD_VERSION', $child_theme_data['Version']);
 
 /**
@@ -98,7 +98,7 @@ define( 'PL_EXTEND_FUNCTIONS', EXTEND_CHILD_DIR . '/functions.php' );
 define( 'PL_EXTEND_THEMES_DIR', WP_CONTENT_DIR .'/themes/' );
 define( 'PL_EXTEND_SECTIONS_PLUGIN', 'pagelines-sections.php' );
 define( 'PL_STORE_URL', 'http://www.pagelines.com/store' );
-define( 'CORE_LESS', PARENT_DIR . '/css/less' );
+define( 'CORE_LESS', PARENT_DIR . '/less' );
 
 if ( is_multisite() && ! is_super_admin() )
 	define( 'EXTEND_NETWORK', true);
