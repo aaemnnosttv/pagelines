@@ -206,7 +206,7 @@ class PageLinesRenderCSS {
 		
 		flush_rewrite_rules( false );
 		plupop( 'pl_save_version', time() );
-		plupop( 'dynamic_css', '' );
+		plupop( 'dynamic_css', false );
 	}
 
 
