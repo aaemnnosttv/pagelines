@@ -73,12 +73,13 @@ class PageLinesRenderCSS {
 
 		$a = $this->get_compiled_css();
 		
-		inline_css_markup('core-css', $this->minify( $a['core'] ) );
-
-		inline_css_markup('sections-css', $this->minify( $a['sections'] ) );
+		if( ! empty( $a['core'] ) )
+			inline_css_markup('core-css', $this->minify( $a['core'] ) );
 		
+		if ( ! empty( $a['sections'] ) )
+		inline_css_markup('sections-css', $this->minify( $a['sections'] ) );
 
-		if( ! has_filter( 'disable_dynamic_css' ) )
+		if( ! has_filter( 'disable_dynamic_css' ) && ! empty( $a['dynamic'] ) )
 			inline_css_markup('dynamic-css', $a['dynamic']);
 	}
 
