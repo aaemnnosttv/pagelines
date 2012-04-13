@@ -134,7 +134,6 @@ class PageLinesUpdateCheck {
 						'theme'			=> $this->theme,
 						'user'			=> $this->username,
 						'password'		=> $this->password,
-						'framework'		=> CORE_VERSION,
 						'user-agent'	=> "WordPress/$wp_version;"
 					)
 			);

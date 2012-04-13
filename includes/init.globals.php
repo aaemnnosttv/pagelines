@@ -3,11 +3,11 @@
 /**
  * Define framework version
  */
-$theme_data = wp_get_theme(get_template_directory() . '/style.css');
-define('CORE_VERSION', $theme_data['Version']);
+$theme_version = pl_get_theme_data( get_template_directory(), 'Version' );
+define( 'CORE_VERSION', $theme_version );
 
-$child_theme_data = wp_get_theme(get_stylesheet_directory() . '/style.css');
-define('CHILD_VERSION', $child_theme_data['Version']);
+$child_theme_version = pl_get_theme_data( get_stylesheet_directory(), 'Version' );
+define('CHILD_VERSION', $child_theme_version);
 
 /**
  * Set Theme Name
@@ -19,8 +19,8 @@ define('CORE_LIB', PL_INCLUDES); // Deprecated, but used in bbPress forum < 1.2.
 define('THEMENAME', $theme);
 define('CHILDTHEMENAME', get_option('stylesheet'));
 
-define('NICETHEMENAME', $theme_data['Name']);
-define('NICECHILDTHEMENAME', $child_theme_data['Name']);
+define('NICETHEMENAME', pl_get_theme_data( get_template_directory(), 'Name' ) );
+define('NICECHILDTHEMENAME',  pl_get_theme_data( get_stylesheet_directory(), 'Name' ) );
 
 
 define('PARENT_DIR', get_template_directory());
