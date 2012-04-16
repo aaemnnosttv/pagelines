@@ -585,7 +585,7 @@ class PageLinesOptionsArray {
 						'exp'			=> __( 'Checking this option will create arrows for the drop down menus', 'pagelines' )
 						)),
 				'inputlabel'			=> __( 'Select Which Drop Down Options To Show', 'pagelines' ),
-				'title'					=> __( 'Drop Down Navigation - Nav and BrandNav Section', 'pagelines' ),						
+				'title'					=> __( 'Drop Down Navigation - Nav Classic and BrandNav Section', 'pagelines' ),						
 				'shortexp'				=> __( 'Select Which To Show', 'pagelines' ),
 				'exp'					=> __( 'Enable drop downs and choose the options you would like to show', 'pagelines' ) 
 			 
