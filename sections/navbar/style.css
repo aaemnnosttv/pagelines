@@ -548,7 +548,7 @@
   .navbar .dropdown-menu:after {
     display: none;
   }
-  .btn-navbar {
+  .nav-btn-navbar {
     display: block;
   }
   .nav-collapse {
