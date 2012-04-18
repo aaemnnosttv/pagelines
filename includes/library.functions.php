@@ -1223,3 +1223,25 @@ function pl_get_uri( $full = true ) {
 	else
 		return  $_SERVER["REQUEST_URI"];	
 }
+
+/** 
+ * Is framework in debug mode?
+ *
+ * @return bool
+ */
+function is_pl_debug() {
+	
+	if ( defined( 'PL_DEV' ) && PL_DEV )
+		return true;
+	if ( ploption( 'enable_debug' ) )
+		return true;
+}
+
+function pl_debug( $text ) {
+	
+	if ( ! is_pl_debug() )
+		return;
+		
+	add_action( 'shutdown', create_function( '', 'echo "\n<!-- ' . $text . '-->";'), 9999 );
+
+}
