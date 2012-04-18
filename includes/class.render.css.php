@@ -25,7 +25,7 @@ class PageLinesRenderCSS {
 
 	private function init() {
 				
-		if ( ! ploption( 'less_css' ) )
+		if ( ! ploption( 'less_css' ) || '' == get_option('permalink_structure') )
 			$this->legacy_actions();
 		else
 			$this->actions();	
@@ -81,6 +81,7 @@ class PageLinesRenderCSS {
 
 		if( ! has_filter( 'disable_dynamic_css' ) && ! empty( $a['dynamic'] ) )
 			inline_css_markup('dynamic-css', $a['dynamic']);
+		pl_debug( sprintf( 'CSS was cached and compiled at %s.', date( DATE_RFC822, $a['time'] ) ) );
 	}
 
 	/**
@@ -105,7 +106,7 @@ class PageLinesRenderCSS {
 
 	function load_less_css() {
 
-		$url = ( '' != get_option('permalink_structure') ) ? sprintf( '%s/pageless-%s.css/',PARENT_URL, ploption( "pl_save_version" ) ) : sprintf( '%s/?plless=1', site_url() );
+		$url = sprintf( '%s/pagelines-dynamic-%s.css/',PARENT_URL, ploption( "pl_save_version" ) );
 		wp_register_style( 'pagelines-less',  $url, false, false, 'all' );
 		wp_enqueue_style( 'pagelines-less' );
 	}
@@ -125,7 +126,7 @@ class PageLinesRenderCSS {
 			$a = $this->get_compiled_css();
 
 			echo $this->minify( $a['core'] . $a['sections'] . $a['dynamic'] . $a['custom'] );
-			echo "\nCSS was cached at {$a['time']}.";
+			pl_debug( sprintf( 'CSS was cached at %s.', date( DATE_RFC822, $a['time'] ) ) );
 			die();
 		}
 	}
@@ -133,10 +134,11 @@ class PageLinesRenderCSS {
 
 	function get_compiled_css() {
 		
-		if ( is_array(  $a = ploption( 'dynamic_css' ) ) ) {
+		if ( is_array(  $a = get_transient( 'pagelines_dynamic_css' ) ) ) {
 			return $a;
 		} else {
 			
+			$start_time = microtime(true);
 			build_pagelines_layout();
 			$template = new PageLinesTemplate;
 
@@ -150,21 +152,22 @@ class PageLinesRenderCSS {
 
 			$pless = new PagelinesLess();
 			$core_less =  $pless->raw_less( $core_less );
-			$a = array(
-				
+			$a = array(				
 				'sections'	=> $pless->raw_less( $sections ),
 				'dynamic'	=> $dynamic,
 				'core'		=> $pless->raw_less( $core_less ),
 				'custom'	=> $pless->raw_less( $custom ),
 				'time'		=> time()		
 			);
-
-			plupop( 'dynamic_css', $a );
+			set_transient( 'pagelines_dynamic_css', $a, 604800 );
+			$end_time = microtime(true);
+			pl_debug( sprintf( 'LESS css was compiled in %s seconds.', round(($end_time - $start_time),5) ) );
 			return $a;			
 		}
 		
 	}
 
+	
 
 	function get_core_lesscode() {
 		
@@ -190,14 +193,14 @@ class PageLinesRenderCSS {
 
 	function pagelines_less_rewrite( $wp_rewrite ) {
 	    $less_rule = array(
-	        '(.*)/pageless-[0-9]+.css(.*)' => '/index.php?plless=1'
+	        '(.*)/pagelines-dynamic-[0-9]+.css(.*)' => '/index.php?plless=1'
 	    );
 
 	    $wp_rewrite->rules = $less_rule + $wp_rewrite->rules;
 	}
 
 	function minify( $css ) {
-		if( defined( 'PL_DEV' ) && PL_DEV )
+		if( is_pl_debug() )
 			return $css;
 
 		return preg_replace('@({)\s+|(\;)\s+|/\*.+?\*\/|\R@is', '$1$2 ', $css);

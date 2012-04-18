@@ -939,8 +939,8 @@ class PageLinesOptionsArray {
 			'less_css' => array(
 					'default'	=> '',
 					'type'		=> 'check',
-					'inputlabel'=> __( 'LESS css mode?', 'pagelines' ),
-					'title'		=> __( 'PageLines LESS css', 'pagelines' ),
+					'title'=> __( 'LESS css mode.', 'pagelines' ),
+					'inputlabel'		=> __( 'Use dynamic.css file. ( needs permalinks to be active )', 'pagelines' ),
 			),
 			'enable_sidebar_reorder' => array(
 					'default'	=> '',

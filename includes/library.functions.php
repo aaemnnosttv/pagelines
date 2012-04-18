@@ -392,7 +392,7 @@ function pl_body_bg(){
  */
 function plstrip( $t ){	
 	
-	if( defined( 'PL_DEV') && PL_DEV )
+	if( is_pl_debug() )
 		return $t;
 
 	return preg_replace( '/\s+/', ' ', $t );
@@ -766,7 +766,7 @@ function pagelines_get_style_ver( $tpath = false ){
  */
 function plprint( $data, $title = false, $echo = false){
 
-	if( defined( 'PL_DEV' ) && PL_DEV ){
+	if( is_pl_debug() && current_user_can('manage_options') ){
 		
 		ob_start();
 	
@@ -795,7 +795,7 @@ function plprint( $data, $title = false, $echo = false){
 function plcomment( $data, $title = 'DEBUG', $type = 'html' ) {
 	
 	
-	if( defined( 'PL_DEV' ) && PL_DEV ){
+	if( is_pl_debug() ){
 	$open	= ( 'html' == $type ) ? "\n<!-- " : "\n/* ";
 	$close	= ( 'html' == $type ) ? " -->\n" : "*/\n";	
 	
