@@ -37,7 +37,8 @@ class PageLinesRenderCSS {
 		
 		add_action('wp_head', array( &$this, 'get_inline_css' ), 8);
 		add_action('wp_head', array( &$pagelines_template, 'print_template_section_head' ) );
-		add_action( 'pagelines_head_last', array( &$this, 'get_custom_css' ) , 25 );	
+		add_action( 'pagelines_head_last', array( &$this, 'get_custom_css' ) , 25 );
+		add_action( 'extend_flush', array( &$this, 'flush_version' ) );
 	}
 
 	private function actions() {
@@ -49,8 +50,7 @@ class PageLinesRenderCSS {
 		add_filter( 'generate_rewrite_rules', array( &$this, 'pagelines_less_rewrite' ) );
 		add_action( 'wp_print_styles', array( &$this, 'load_less_css' ), 11 );
 		add_action( 'wp_head', array(&$pagelines_template, 'print_template_section_head' ) );
-		add_action( 'extend_flush', array( &$this, 'flush_version' ) );
-		
+		add_action( 'extend_flush', array( &$this, 'flush_version' ) );		
 	}
 
 	function get_custom_css( $inline = true ) {
@@ -210,7 +210,7 @@ class PageLinesRenderCSS {
 		
 		flush_rewrite_rules( false );
 		plupop( 'pl_save_version', time() );
-		plupop( 'dynamic_css', false );
+		delete_transient( 'pagelines_dynamic_css' );
 	}
 
 
