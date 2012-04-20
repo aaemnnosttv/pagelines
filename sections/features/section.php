@@ -236,19 +236,15 @@ class PageLinesFeatures extends PageLinesSection {
 			$this->set = null;
 
 		$limit = ploption( 'feature_items', $this->oset );
-		
+
 		$order = ploption( 'feature_order', $this->oset );
 		
 		$orderby = ploption( 'feature_orderby', $this->oset );
 		
 		$source = ( ploption( 'feature_source', $this->oset ) == 'posts' || ploption( 'feature_source', $this->oset ) == 'posts_all') ? ploption( 'feature_source', $this->oset ) : 'customtype';	
 	
-		$category = ( $source == 'posts' ) ? ploption( 'feature_category', $this->oset ) : '';	
-		
-		
-		
+		$category = ( $source == 'posts' ) ? ploption( 'feature_category', $this->oset ) : '';			
 		$f = $this->load_pagelines_features( array( 'set' => $this->set, 'limit' => $limit, 'orderby' => $orderby, 'order' => $order, 'source' => $source, 'category' => $category ) ); 
-		
 		
 		return $f;		
 	}
@@ -284,8 +280,7 @@ class PageLinesFeatures extends PageLinesSection {
 		
 			if( $category )
 				$query['cat'] = $category;
-		} else {
-		
+		} else {		
 			$query['post_type'] = $this->ptID; 
 		
 			if( isset( $set ) ) 
@@ -294,11 +289,12 @@ class PageLinesFeatures extends PageLinesSection {
 	
 		if( isset( $limit ) ) 
 			$query['showposts'] = $limit; 
+		elseif( $source == 'posts' || $source == 'posts_all' )
+			$query['showposts'] = get_option( 'posts_per_page' );
 
 		$q = new WP_Query( $query );
-		
 		if( is_array( $q->posts ) ) 
-			return $q->posts;
+			return array_slice( $q->posts, 0, $query['showposts'] );
 		else 
 			return array();
 	}
