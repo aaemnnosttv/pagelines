@@ -35,7 +35,9 @@ class PageLinesRenderCSS {
 		
 		global $pagelines_template;
 		
-		add_action('wp_head', array( &$this, 'get_inline_css' ), 8);
+		add_action('wp_head', array( &$this, 'draw_inline_css' ), 8);
+		add_action('wp_head', array( &$this, 'draw_inline_sections_css' ), 8);
+		
 		add_action('wp_head', array( &$pagelines_template, 'print_template_section_head' ) );
 		add_action( 'pagelines_head_last', array( &$this, 'get_custom_css' ) , 25 );
 		add_action( 'extend_flush', array( &$this, 'flush_version' ) );
@@ -49,6 +51,7 @@ class PageLinesRenderCSS {
 		add_action('template_redirect', array( &$this, 'pagelines_less_trigger' ) );
 		add_filter( 'generate_rewrite_rules', array( &$this, 'pagelines_less_rewrite' ) );
 		add_action( 'wp_print_styles', array( &$this, 'load_less_css' ), 11 );
+		add_action('wp_head', array( &$this, 'draw_inline_sections_css' ), 8);
 		add_action( 'wp_head', array(&$pagelines_template, 'print_template_section_head' ) );
 		add_action( 'extend_flush', array( &$this, 'flush_version' ) );		
 	}
@@ -69,19 +72,27 @@ class PageLinesRenderCSS {
 	 *  @since 1.2.0
 	 *
 	 */
-	function get_inline_css(){
+	function draw_inline_css(){
 
 		$a = $this->get_compiled_css();
-		
+
 		if( ! empty( $a['core'] ) )
 			inline_css_markup('core-css', $this->minify( $a['core'] ) );
-		
-		if ( ! empty( $a['sections'] ) )
-		inline_css_markup('sections-css', $this->minify( $a['sections'] ) );
 
 		if( ! has_filter( 'disable_dynamic_css' ) && ! empty( $a['dynamic'] ) )
 			inline_css_markup('dynamic-css', $a['dynamic']);
 		pl_debug( sprintf( 'CSS was cached and compiled at %s.', date( DATE_RFC822, $a['time'] ) ) );
+	}
+
+	function draw_inline_sections_css() {
+		
+		$template = new PageLinesTemplate;
+		$sections = $template->print_template_section_css();
+		
+		if( ! empty( $sections ) ) {
+			$pless = new PagelinesLess();
+			inline_css_markup('sections-css', $this->minify( $pless->raw_less( $sections ) ) );
+		}
 	}
 
 	/**
@@ -124,8 +135,7 @@ class PageLinesRenderCSS {
 			header( 'Cache-Control: max-age=604100, public' );
 			
 			$a = $this->get_compiled_css();
-
-			echo $this->minify( $a['core'] . $a['sections'] . $a['dynamic'] . $a['custom'] );
+			echo $this->minify( $a['core'] . $a['dynamic'] . $a['custom'] );
 			pl_debug( sprintf( 'CSS was cached at %s.', date( DATE_RFC822, $a['time'] ) ) );
 			die();
 		}
@@ -140,9 +150,7 @@ class PageLinesRenderCSS {
 			
 			$start_time = microtime(true);
 			build_pagelines_layout();
-			$template = new PageLinesTemplate;
 
-			$sections = $template->print_template_section_css();
 
 			$dynamic = $this->get_dynamic_css();
 
@@ -153,7 +161,6 @@ class PageLinesRenderCSS {
 			$pless = new PagelinesLess();
 			$core_less =  $pless->raw_less( $core_less );
 			$a = array(				
-				'sections'	=> $pless->raw_less( $sections ),
 				'dynamic'	=> $dynamic,
 				'core'		=> $pless->raw_less( $core_less ),
 				'custom'	=> $pless->raw_less( $custom ),
