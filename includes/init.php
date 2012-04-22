@@ -29,14 +29,14 @@ if ( file_exists( PL_INCLUDES . '/library.pagelines.php' ) )
 	require_once( PL_INCLUDES . '/library.pagelines.php');
 
 /**
- * Setup all the globals for the framework
- */
-require_once( PL_INCLUDES . '/init.globals.php');
-
-/**
  * Load deprecated functions
  */
 require_once (PL_INCLUDES.'/deprecated.php');
+
+/**
+ * Setup all the globals for the framework
+ */
+require_once( PL_INCLUDES . '/init.globals.php');
 
 /**
  * Localization - Needs to come after config_theme and before localized config files
@@ -260,4 +260,5 @@ if ( is_admin() )
  */
 require_once (PL_ADMIN.'/class.updates.php');
 
-new PageLinesUpdateCheck( CORE_VERSION );
+if ( is_admin() )
+	new PageLinesUpdateCheck( CORE_VERSION );

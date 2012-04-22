@@ -241,39 +241,3 @@ class PageLinesCSS {
 	}
 
 }
-
-/**
- * 
- *  Load Dynamic CSS inline
- *
- *  @package PageLines Framework
- *  @since 1.2.0
- *
- */
-function get_dynamic_css(){
-	
-	$pagelines_dynamic_css = new PageLinesCSS;
-	$pagelines_dynamic_css->create();
-	
-	$css = apply_filters('pl-dynamic-css', $pagelines_dynamic_css->css);
-	if( ! ploption( 'less_css' ) )
-		inline_css_markup('dynamic-css', $css);
-	else
-		return $css;
-}
-
-
-
-/**
-*
-* @TODO do
-*
-*/
-function inline_css_markup($id, $css, $echo = true){
-	$mark = sprintf('%2$s<style type="text/css" id="%3$s">%2$s %1$s %2$s</style>%2$s', $css, "\n", $id);
-	
-	if($echo) 
-		echo $mark;
-	else
-		return $mark;	
-}

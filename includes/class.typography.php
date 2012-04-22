@@ -7,7 +7,7 @@
  */
 class PageLinesFoundry {
 	
-	var $gfont_base_uri = 'http://fonts.googleapis.com/css?v2&family=';
+	var $gfont_base_uri = 'fonts.googleapis.com/css?v2&family=';
 	var $foundry;
 	
 	/**
@@ -16,11 +16,20 @@ class PageLinesFoundry {
 	 */
 	function __construct( ) {
 
+		$this->set_gfont_protocol();
 		$this->foundry = $this->get_type_foundry();
 
 	}
 	
-
+	function set_gfont_protocol() {
+		
+		if ( is_ssl() )
+			$prot = 'https://';
+		else
+			$prot = 'http://';
+		
+		$this->gfont_base_uri = $prot . $this->gfont_base_uri;
+	}
 	/**
 	*
 	* @TODO document
@@ -79,6 +88,13 @@ class PageLinesFoundry {
 				'google' => true,
 				'monospace' => false
 			),
+			'chau_philomene_one' => array(
+				'name' => '"Chau Philomene One"',
+				'family' => '"Chau Philomene One", sans-serif',
+				'web_safe' => true,
+				'google' => array('400','400italic'),
+				'monospace' => false
+			),
 			'courier_new' => array(
 				'name' => 'Courier',
 				'family' => 'Courier, Verdana, sans-serif',
@@ -106,6 +122,13 @@ class PageLinesFoundry {
 				'family' => '"Dancing Script", arial, serif',
 				'web_safe' => true,
 				'google' => array('regular', 'bold'),
+				'monospace' => false
+			),
+			'della_respira' => array(
+				'name' => 'Della Respira',
+				'family' => '"Della Respira", serif',
+				'web_safe' => true,
+				'google' => '400',
 				'monospace' => false
 			),
 			'droid_sans' => array(
@@ -138,6 +161,13 @@ class PageLinesFoundry {
 				'monospace' => false, 
 				'free'		=> true
 			),
+			'happy_monkey' => array(
+				'name' => 'Happy Monkey',
+				'family' => '"Happy Monkey", serif',
+				'web_safe' => true,
+				'google' => '400',
+				'monospace' => false, 
+			),
 			'im_fell_dw_pica' => array(
 				'name' => 'IM Fell DW Pica',
 				'family' => '"IM Fell DW Pica", "Times New Roman", serif',
@@ -150,6 +180,13 @@ class PageLinesFoundry {
 				'family' => '"IM Fell English", "Times New Roman", serif',
 				'web_safe' => true,
 				'google' => array('regular', 'italic'),
+				'monospace' => false
+			),
+			'imprima' => array(
+				'name' => 'Imprima',
+				'family' => 'Imprima, sans-serif',
+				'web_safe' => true,
+				'google' => '400',
 				'monospace' => false
 			),
 			'inconsolata' => array(

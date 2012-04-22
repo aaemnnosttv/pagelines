@@ -216,10 +216,7 @@ function pagelines_head_common(){
 	// Headerscripts option > custom code
 	if ( ploption( 'headerscripts' ) )
 		add_action( 'wp_head', create_function( '',  'print_pagelines_option("headerscripts");' ), 25 );
-		
-	if( ploption('customcss') && ! ploption( 'less_css') && ploption('customcss') != 'body{}' )
-		add_action( 'pagelines_head_last', create_function( '',  'inline_css_markup( "pagelines-custom", plstrip(ploption("customcss")) );' ), 25 );	
-	
+
 	if( ploption('asynch_analytics'))
 		add_action( 'pagelines_head_last', create_function( '',  'echo ploption("asynch_analytics");' ), 25 );		
 }
@@ -335,23 +332,6 @@ function pagelines_title_tag(){
 	echo apply_filters( 'pagelines_meta_title', $title );
 	
 	echo "</title>\n";
-}	
-	
-/**
- * 
- *  Do dynamic CSS, hooked in head; should go last.
- *
- */	
-/**
-*
-* @TODO do
-*
-*/
-function do_dynamic_css(){
-	
-	if(!apply_filters('disable_dynamic_css', ''))
-		get_dynamic_css();
-		
 }	
 	
 /**

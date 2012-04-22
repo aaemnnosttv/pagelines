@@ -392,7 +392,7 @@ function pl_body_bg(){
  */
 function plstrip( $t ){	
 	
-	if( defined( 'PL_DEV') && PL_DEV )
+	if( is_pl_debug() )
 		return $t;
 
 	return preg_replace( '/\s+/', ' ', $t );
@@ -766,7 +766,7 @@ function pagelines_get_style_ver( $tpath = false ){
  */
 function plprint( $data, $title = false, $echo = false){
 
-	if( defined( 'PL_DEV' ) && PL_DEV ){
+	if( is_pl_debug() && current_user_can('manage_options') ){
 		
 		ob_start();
 	
@@ -795,7 +795,7 @@ function plprint( $data, $title = false, $echo = false){
 function plcomment( $data, $title = 'DEBUG', $type = 'html' ) {
 	
 	
-	if( defined( 'PL_DEV' ) && PL_DEV ){
+	if( is_pl_debug() ){
 	$open	= ( 'html' == $type ) ? "\n<!-- " : "\n/* ";
 	$close	= ( 'html' == $type ) ? " -->\n" : "*/\n";	
 	
@@ -1222,4 +1222,26 @@ function pl_get_uri( $full = true ) {
 		return  $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
 	else
 		return  $_SERVER["REQUEST_URI"];	
+}
+
+/** 
+ * Is framework in debug mode?
+ *
+ * @return bool
+ */
+function is_pl_debug() {
+	
+	if ( defined( 'PL_DEV' ) && PL_DEV )
+		return true;
+	if ( ploption( 'enable_debug' ) )
+		return true;
+}
+
+function pl_debug( $text ) {
+	
+	if ( ! is_pl_debug() )
+		return;
+		
+	add_action( 'shutdown', create_function( '', 'echo "\n<!-- ' . $text . '-->";'), 9999 );
+
 }

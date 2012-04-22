@@ -42,3 +42,13 @@ if ( ! function_exists( 'wp_get_themes' ) ) {
 		return get_themes();
 	}
 }
+
+function pl_get_theme_data( $stylesheet = null, $header ) {
+	
+	if ( function_exists( 'wp_get_theme' ) ) {
+		return wp_get_theme( basename( $stylesheet ) )->get( $header );
+	} else {
+		$data = get_theme_data( $stylesheet . '/style.css' );	
+		return $data[ $header ];
+	}
+}

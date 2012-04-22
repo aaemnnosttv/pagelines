@@ -73,10 +73,25 @@ class PageLinesLess {
 	
 	}
 
-	function raw_less( $lesscode ) {		
-		
-		return $this->parse($lesscode);
+	public function raw_less( $lesscode ) {		
+
+		return $this->raw_parse($lesscode);
 	}
+
+	private function raw_parse( $pless ) {
+		
+		$pless = $this->add_constants( $pless );
+
+		try{
+			$css = $this->lparser->parse( $pless );
+		} catch ( Exception $e){
+			plprint($e->getMessage(), 'Problem Parsing Less');
+		}		 
+		return $css;	
+	}
+
+
+
 
     /**
      * Parse PLESS Input & return CSS

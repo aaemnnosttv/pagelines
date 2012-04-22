@@ -140,7 +140,7 @@ class PageLinesMetaPanel {
 			
 			$current_template = (isset($post)) ? get_post_meta($post->ID, '_wp_page_template', true) : false;
 	
-			$this->page_templates = array_flip( PageLinesTemplate::get_page_templates() );
+			$this->page_templates = array_flip( get_page_templates() );
 		
 			if(  $this->ptype == 'page' && $current_template && $current_template != 'default') {
 
