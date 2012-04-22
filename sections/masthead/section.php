@@ -44,18 +44,11 @@ class PLMasthead extends PageLinesSection {
 	    <h1>PageLines Framework</h1>
 	    <p>A Responsive, Drag &amp; Drop Platform for Beautiful Websites</p>
 	    <p class="download-info">
-	      <a href="http://www.pagelines.com/pricing/" class="btn btn-primary btn-large">Signup and Download</a>
-	     
+	      <a href="http://www.pagelines.com/pricing/" class="pl-btn pl-btn-primary pl-btn-large">Signup and Download</a>
 	    </p>
 	  </div>
 
-	  <div class="bs-links">
-	    <ul class="quick-links">
-	      <li><a href="./upgrading.html">Upgrading from 1.4</a></li>
-	      <li><a href="https://github.com/twitter/bootstrap/zipball/master">Download with docs</a></li>
-	      <li><a href="https://github.com/twitter/bootstrap/issues?state=open">Submit issues</a></li>
-	      <li><a href="https://github.com/twitter/bootstrap/wiki">Roadmap and changelog</a></li>
-	    </ul>
+	  <div class="masthead-links">
 	    <ul class="quick-links">
 	      <li>
 	        <iframe class="github-btn" src="http://markdotto.github.com/github-buttons/github-btn.html?user=twitter&repo=bootstrap&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="112px" height="20px"></iframe>
