@@ -270,6 +270,7 @@ class PageLinesFeatures extends PageLinesSection {
 		$args = wp_parse_args( $args, $defaults );
 		extract( $args, EXTR_SKIP );
 
+		$query['showposts'] = 5;
 		$query['orderby']	= $orderby;
 
 		$query['order']		= $order;
