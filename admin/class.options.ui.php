@@ -181,7 +181,7 @@ class PageLinesOptionsUI {
 								</div>
 								<?php else: ?>
 								<div class="superlink-wrap">
-									<a class="superlink" href="http://www.pagelines.com?tag=admin-foot"><span class="superlink-pad"><?php _e('Visit PageLines Site &rarr;','pagelines');?></span></a>
+									<a class="superlink" href="http://www.pagelines.com?ref=admin-foot"><span class="superlink-pad"><?php _e('Visit PageLines Site &rarr;','pagelines');?></span></a>
 								</div>
 							<?php endif;?>
 						</div>
@@ -373,11 +373,11 @@ class PageLinesOptionsUI {
 		<div id="vpro_billboard" class="vpro-billboard">
 			<div class="vpro-billboard-pad">
 				<div class="vpro_billboard_height fix">
-					<a class="vpro_thumb" href="<?php echo VPRO_TOUR.'?tag=le-admin';?>"><img src="<?php echo PL_IMAGES;?>/pro-thumb.png" alt="<?php echo VPRO_NAME;?>" /></a>
+					<a class="vpro_thumb" href="<?php echo VPRO_TOUR.'?ref=le-admin';?>"><img src="<?php echo PL_IMAGES;?>/pro-thumb.png" alt="<?php echo VPRO_NAME;?>" /></a>
 					<div class="vpro_desc">
 						<strong style="font-size: 1.2em">You Are Using PageLines Lite Edition</strong><br/>
 						<strong>PageLines Lite</strong> is the <strong>free version</strong> of <?php echo VPRO_NAME;?>.<br/> 
-						Upgrade to the Pro edition for more sections &amp; options, no credit link, enhanced social &amp; SEO, support and <a href="http://www.pagelines.com/tour?tag=le-admin">more...</a><br/> 	
+						Upgrade to the Pro edition for more sections &amp; options, no credit link, enhanced social &amp; SEO, support and <a href="http://www.pagelines.com/tour?ref=le-admin">more...</a><br/> 	
 				
 						<?php
 					
@@ -386,9 +386,9 @@ class PageLinesOptionsUI {
 						$pro_buttons = OptEngine::superlink(__( 'Why Upgrade? &darr;', 'pagelines' ), 'grey', 'left', '#', $features_js);
 					
 						$target = 'target="_blank"';
-						$pro_buttons .= OptEngine::superlink(__( 'PageLines Tour', 'pagelines' ), 'grey', 'left', VPRO_TOUR.'?tag=le-admin', $target);
+						$pro_buttons .= OptEngine::superlink(__( 'PageLines Tour', 'pagelines' ), 'grey', 'left', VPRO_TOUR.'?ref=le-admin', $target);
 					
-						$pro_buttons .= OptEngine::superlink(__( 'Upgrade Now &rarr;', 'pagelines' ), 'blue', 'left', VPRO_PRICING.'?tag=le-admin', $target);
+						$pro_buttons .= OptEngine::superlink(__( 'Upgrade Now &rarr;', 'pagelines' ), 'blue', 'left', VPRO_PRICING.'?ref=le-admin', $target);
 					
 						printf('<div class="pro_buttons fix">%s</div>', $pro_buttons);
 					
@@ -405,7 +405,7 @@ class PageLinesOptionsUI {
 						When you upgrade you get 30+ pro drag &amp; drop sections, 200+ CMS options, SEO and social enhancements and way, way more.
 					</p>
 					<p>
-						The pro version way more control options. For advanced users, there is also a Developer version that supports "integrations" and WP "multisite"... To learn more see the <a href="http://www.pagelines.com/pricing?tag=le-admin">pricing page</a> or <a href="http://www.pagelines.com/tour?tag=le-admin">PageLines tour</a>...
+						The pro version way more control options. For advanced users, there is also a Developer version that supports "integrations" and WP "multisite"... To learn more see the <a href="http://www.pagelines.com/pricing?ref=le-admin">pricing page</a> or <a href="http://www.pagelines.com/tour?ref=le-admin">PageLines tour</a>...
 					</p>
 					<p>
 						<strong>Some specifics:</strong>
