@@ -275,6 +275,7 @@ class PageLinesBoxes extends PageLinesSection {
 				$params = array( 'orderby'	=> $orderby, 'order' => $order, 'post_type'	=> $this->ptID );
 				$params[ 'showposts' ] = ( ploption('box_items', $this->oset) ) ? ploption('box_items', $this->oset) : $per_row;
 				$params[ $this->taxID ] = ( ploption( 'box_set', $this->oset ) ) ? ploption( 'box_set', $this->oset ) : null;
+				$params[ 'no_found_rows' ] = 1;
 
 				$q = new WP_Query( $params );
 				
