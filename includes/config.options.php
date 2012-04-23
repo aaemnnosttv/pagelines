@@ -263,7 +263,7 @@ class PageLinesOptionsArray {
 				'inputlabel'	=> __( 'Site Design Mode', 'pagelines' ),
 				'title'		=> __( 'Site Design Mode', 'pagelines' ),						
 				'shortexp'	=> __( 'The basic HTML layout structure for color and background effects', 'pagelines' ),
-				'exp'		=> __( 'This option controls how the basic HTML layout is built. Different layout structures change the way background colors and images behave.<ul><li><strong>Full-Width Mode</strong> Full width design mode allows you to have aspects of your site that are the full-width of your screen; while others are the width of the content area.</li><li><strong>Fixed-Width Mode</strong> Fixed width design mode creates a fixed with <strong>page</strong> that can be used as the area for your design.  You can set a background to the page; and the content will have a seperate <strong>fixed-width</strong> background area (i.e. the width of the content).</li></ul>', 'pagelines' ),
+				'exp'		=> __( 'This option controls how the basic HTML layout is built. Different layout structures change the way background colors and images behave.<ul><li><strong>Full-Width Mode</strong> Full width design mode allows you to have aspects of your site that are the full-width of your screen; while others are the width of the content area.</li><li><strong>Fixed-Width Mode</strong> Fixed width design mode creates a fixed width <strong>page</strong> that can be used as the area for your design.  You can set a background to the page; and the content will have a seperate <strong>fixed-width</strong> background area (i.e. the width of the content).</li></ul>', 'pagelines' ),
 			),	
 			'page_colors'		=> array(
 				'title' 	=> __( 'Basic Layout Colors', 'pagelines' ),						
