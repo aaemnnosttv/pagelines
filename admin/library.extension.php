@@ -48,6 +48,8 @@ class PageLines_Upgrader_Skin extends WP_Upgrader_Skin {
 		$string = str_replace( 'installing_package', '', $string );
 		$string = str_replace( 'process_failed', '', $string );	
 		$string = str_replace( 'process_success', '', $string );
+		$string = str_replace( 'parent_theme_search', '', $string );
+		$string = str_replace( 'parent_theme_currently_installed', '', $string );
 		
 		// if anything left, must be a fatal error!
 		

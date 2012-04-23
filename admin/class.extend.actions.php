@@ -38,6 +38,9 @@
 			$file =  $_POST['extend_file'];
 			$path =  $_POST['extend_path'];
 			$product = $_POST['extend_product'];
+			
+		if ( $uploader = 'pagelines_ajax_extend_it_callback' )
+			$uploader = false;
 
 		// 3. Do our thing...
 
@@ -623,7 +626,7 @@
 		$upgrader = new PageLines_Section_Installer( $skin );
 		$time = 0;
 		
-		$url = ( $uploader ) ? $file : $this->make_url( 'section', $path );
+		$url = ( $uploader ) ? $file : $this->make_url( $type, $path );
 		$out = @$upgrader->install( $url );		
 		$wp_filesystem->move( trailingslashit( $wp_filesystem->wp_plugins_dir() ) . $path, sprintf( '%s/pagelines-sections/%s', trailingslashit( $wp_filesystem->wp_plugins_dir() ), $path ) );
 		
