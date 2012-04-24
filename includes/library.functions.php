@@ -1237,11 +1237,12 @@ function is_pl_debug() {
 		return true;
 }
 
-function pl_debug( $text ) {
+function pl_debug( $text = '', $before = "\n/*", $after = '*/' ) {
 	
 	if ( ! is_pl_debug() )
 		return;
 		
-	add_action( 'shutdown', create_function( '', 'echo "\n<!-- ' . $text . '-->";'), 9999 );
+	$out = sprintf( 'echo "%s %s %s";', $before, $text, $after );	
+	add_action( 'shutdown', create_function( '', $out ), 9999 );
 
 }
