@@ -100,10 +100,10 @@ class PageLinesCallout extends PageLinesSection {
 	*/
  	function section_template() {
 
-		$call_title = ploption( 'pagelines_callout_header', $this->oset, true );
-		$call_sub = ploption( 'pagelines_callout_subheader', $this->oset, true );
-		$call_img = ploption( 'pagelines_callout_image', $this->oset, true );
-		$call_link = ploption( 'pagelines_callout_link', $this->oset, true );
+		$call_title = ploption( 'pagelines_callout_header', $this->tset );
+		$call_sub = ploption( 'pagelines_callout_subheader', $this->tset );
+		$call_img = ploption( 'pagelines_callout_image', $this->tset );
+		$call_link = ploption( 'pagelines_callout_link', $this->tset );
 		$target = ( ploption( 'pagelines_callout_target', $this->oset ) ) ? 'target="_blank"' : '';
 		$call_action_text = (ploption('pagelines_callout_action_text', $this->oset)) ? ploption('pagelines_callout_action_text', $this->oset) : __('Start Here', 'pagelines');
 

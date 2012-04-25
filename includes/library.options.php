@@ -23,7 +23,7 @@
  *
  * @return  bool|mixed
  */
-function ploption( $key, $args = array(), $translatable = false ){
+function ploption( $key, $args = array() ){
 
 	$d = array(
 		'subkey'	=> null, 	// Used as option key in special handling 
@@ -31,7 +31,7 @@ function ploption( $key, $args = array(), $translatable = false ){
 		'setting'	=> null, 	// Different types of serialized settings
 		'clone_id'	=> null,
 		'type'		=> '', 		// used for special meta tabs
-		'translate'	=> $translatable,
+		'translate'	=> false,
 		'key'		=> $key
 	);
 	

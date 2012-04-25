@@ -84,9 +84,9 @@ class PageLinesHighlight extends PageLinesSection {
 	*/
 	function section_template( $clone_id ) { 
 
-		$h_head = ploption('_highlight_head', $this->oset, true);
-		$h_subhead = ploption('_highlight_subhead', $this->oset, true);
-		$h_splash = ploption('_highlight_splash', $this->oset, true);
+		$h_head = ploption('_highlight_head', $this->tset);
+		$h_subhead = ploption('_highlight_subhead', $this->tset);
+		$h_splash = ploption('_highlight_splash', $this->tset);
 		$h_splash_position = ploption('_highlight_splash_position', $this->oset);
 	
 	if($h_head || $h_subhead || $h_splash){?>

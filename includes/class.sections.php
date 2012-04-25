@@ -627,6 +627,8 @@ class PageLinesSection {
 			'clone_id'		=> $clone_id,
 			'group'			=> $this->id
 			);
+		$this->tset = $this->oset;
+		$this->tset['translate'] = true;
 	}
 
 }
