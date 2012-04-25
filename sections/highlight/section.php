@@ -77,7 +77,6 @@ class PageLinesHighlight extends PageLinesSection {
 		register_metatab($metatab_settings, $metatab_array);
 	}
 
-
 	/**
 	*
 	* @TODO document
@@ -85,11 +84,10 @@ class PageLinesHighlight extends PageLinesSection {
 	*/
 	function section_template( $clone_id ) { 
 
-		$h_head = ploption('_highlight_head', $this->oset);
-		$h_subhead = ploption('_highlight_subhead', $this->oset);
-		$h_splash = ploption('_highlight_splash', $this->oset);
+		$h_head = pagelines_wpml( $this->id, 'head', ploption('_highlight_head', $this->oset), $this->oset );
+		$h_subhead = pagelines_wpml( $this->id, 'subhead', ploption('_highlight_subhead', $this->oset), $this->oset );
+		$h_splash = pagelines_wpml( $this->id, 'splash', ploption('_highlight_splash', $this->oset), $this->oset );
 		$h_splash_position = ploption('_highlight_splash_position', $this->oset);
-		
 	
 	if($h_head || $h_subhead || $h_splash){?>
 		<div class="highlight-area">
@@ -111,7 +109,5 @@ class PageLinesHighlight extends PageLinesSection {
 	<?php 
 		} else
 			echo setup_section_notify($this, __('Set highlight meta fields to activate.', 'pagelines') );
- 
 	}
-
 }

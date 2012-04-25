@@ -264,6 +264,8 @@ class PageLinesBanners extends PageLinesSection {
 	
 		$query = array( 'post_type' => $this->ptID, 'orderby' => 'ID' ); 
 		
+		$query['no_found_rows'] = 1;
+
 		if(isset($set)) 
 			$query[$this->taxID] = $set; 
 			

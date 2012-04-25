@@ -1237,11 +1237,37 @@ function is_pl_debug() {
 		return true;
 }
 
-function pl_debug( $text ) {
+/** 
+ * Show debug info in footer ( wrapped in tags )
+ *
+ */
+function pl_debug( $text = '', $before = "\n/*", $after = '*/' ) {
 	
 	if ( ! is_pl_debug() )
 		return;
 		
-	add_action( 'shutdown', create_function( '', 'echo "\n<!-- ' . $text . '-->";'), 9999 );
+	$out = sprintf( 'echo "%s %s %s";', $before, $text, $after );	
+	add_action( 'shutdown', create_function( '', $out ), 9999 );
 
+}
+
+/** 
+ * WPML wrapper
+ * 
+ * @param $group string WPML Translation set
+ * @param $handle string WPML string handle
+ * @param $string string Text to translate, usually a ploption()
+ * @param $oset array|numeric ID for posts/pages/clones
+ * @return string
+ */
+function pagelines_wpml( $group, $handle, $string, $oset = '' ) {
+	
+	if( ! function_exists('icl_register_string') )
+		return $string;
+	
+	if ( is_array( $oset ) )
+		$oset = sprintf( '_%s_%s', $oset['post_id'], $oset['clone_id'] );
+		
+	icl_register_string( 'pagelines_' . $group, $handle . $oset, $string);
+	return icl_t( 'pagelines_' . $group, $handle . $oset, $string );
 }

@@ -99,16 +99,19 @@ class PageLinesCallout extends PageLinesSection {
 	* Section template.
 	*/
  	function section_template() {
-		$call_title = ploption('pagelines_callout_header', $this->oset);
-		$call_sub = ploption('pagelines_callout_subheader', $this->oset);
-		$call_img = ploption('pagelines_callout_image', $this->oset);
-		$call_link = ploption('pagelines_callout_link', $this->oset);
+
+		$call_title = pagelines_wpml( $this->id, 'header', ploption('pagelines_callout_header', $this->oset), $this->oset );
+		$call_sub = pagelines_wpml( $this->id, 'subheader', ploption('pagelines_callout_subheader', $this->oset), $this->oset );
+		$call_img = pagelines_wpml( $this->id, 'image', ploption('pagelines_callout_image', $this->oset), $this->oset );
+		$call_link = pagelines_wpml( $this->id, 'link', ploption('pagelines_callout_link', $this->oset), $this->oset );
 		$target = ( ploption( 'pagelines_callout_target', $this->oset ) ) ? 'target="_blank"' : '';
 		
-		$call_align = (ploption('pagelines_callout_align', $this->oset) == 'left') ? '' : 'rtimg';
+		if ( ! ploption('pagelines_callout_action_text', $this->oset) )
+			$action_text = __('Start Here', 'pagelines');
 		
-		$call_action_text = (ploption('pagelines_callout_action_text', $this->oset)) ? ploption('pagelines_callout_action_text', $this->oset) : __('Start Here', 'pagelines');
-		
+		$call_action_text = pagelines_wpml( $this->id, 'action_text', $action_text, $this->oset );
+
+		$call_align = (ploption('pagelines_callout_align', $this->oset) == 'left') ? '' : 'rtimg';	
 		
 		if($call_title || $call_img){ ?>
 	<div class="callout-area media fix">

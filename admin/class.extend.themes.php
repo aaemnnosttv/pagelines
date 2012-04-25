@@ -45,7 +45,7 @@ class ExtensionThemes extends PageLinesExtensions {
 
 		$themes = json_decode(json_encode($themes), true);
 		
-		$get_themes = apply_filters( 'store_get_themes', wp_get_themes() );
+		$get_themes = apply_filters( 'store_get_themes', pl_get_themes() );
 
 		foreach( $get_themes as $theme => $theme_data ) {
 

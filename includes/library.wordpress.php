@@ -102,7 +102,7 @@ function pl_fix_login_image( ){
 	
 	$image_url = (ploption('pl_login_image')) ? ploption('pl_login_image') : PL_ADMIN_IMAGES . '/login-pl.png';
 	
-	$css = sprintf('body #login h1 a{background: url(%s) no-repeat top center;height: 80px;}', $image_url);
+	$css = sprintf('body #login h1 a{background: url(%s) no-repeat top center;height: 80px;background-size:auto;}', $image_url);
 	
 	inline_css_markup('pagelines-login-css', $css);
 }

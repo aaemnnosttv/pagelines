@@ -30,19 +30,6 @@ function cmath( $color ) {
 	return new PageLinesColor( $color );
 }
 
-/**
- * get_themes()
- *
- * @since 2.2
- * @deprecated 2.2
- * @deprecated WordPress 3.4 introduces wp_get_themes()
- */
-if ( ! function_exists( 'wp_get_themes' ) ) {
-	function wp_get_themes() { 
-		return get_themes();
-	}
-}
-
 function pl_get_theme_data( $stylesheet = null, $header ) {
 	
 	if ( function_exists( 'wp_get_theme' ) ) {
@@ -51,4 +38,35 @@ function pl_get_theme_data( $stylesheet = null, $header ) {
 		$data = get_theme_data( $stylesheet . '/style.css' );	
 		return $data[ $header ];
 	}
+}
+
+function pl_get_themes() {
+	
+	if ( ! class_exists( 'WP_Theme' ) )
+		return get_themes();
+
+	$themes = wp_get_themes();
+
+	foreach ( $themes as $key => $theme ) {
+		$theme_data[$key] = array(
+			'Name'			=> $theme->get('Name'),
+			'URI'			=> $theme->display('ThemeURI', true, false),
+			'Description'	=> $theme->display('Description', true, false),
+			'Author'		=> $theme->display('Author', true, false),
+			'Author Name'	=> $theme->display('Author', false),
+			'Author URI'	=> $theme->display('AuthorURI', true, false),
+			'Version'		=> $theme->get('Version'),
+			'Template'		=> $theme->get('Template'),
+			'Status'		=> $theme->get('Status'),
+			'Tags'			=> $theme->get('Tags'),
+			'Title'			=> $theme->get('Name'),
+			'Template'		=> ( '' != $theme->display('Template', false, false) ) ? $theme->display('Template', false, false) : $key,
+			'Stylesheet'	=> $key,
+			'Stylesheet Files'	=> array(
+				0 => sprintf( '%s/style.css' , $theme->get_stylesheet_directory() )
+			)
+		);
+	}
+
+	return $theme_data;	
 }

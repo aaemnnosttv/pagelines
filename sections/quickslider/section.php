@@ -81,12 +81,10 @@ class PageLinesQuickSlider extends PageLinesSection {
 				if(ploption('quick_image_'.$i, $this->oset)){
 					
 					$text = (ploption('quick_text_'.$i, $this->oset)) ? sprintf('<p class="flex-caption">%s</p>', ploption('quick_text_'.$i, $this->oset)) : '';
-					$img = sprintf('<img src="%s" />', ploption('quick_image_'.$i, $this->oset) );
-					$slide = (ploption('quick_link_'.$i, $this->oset)) ? sprintf('<a href="%s">%s</a>', ploption('quick_link_'.$i, $this->oset), $img ) : $img;	
-					
-					
-					$output .= sprintf('<li>%s %s</li>', $slide, $text);
-					
+					$text = pagelines_wpml( $this->id, 'text_' . $i, $text, $this->oset );
+					$img = sprintf('<img src="%s" />', pagelines_wpml( $this->id, 'image_' . $i, ploption('quick_image_'.$i, $this->oset), $this->oset ) );
+					$slide = (ploption('quick_link_'.$i, $this->oset)) ? sprintf('<a href="%s">%s</a>', ploption('quick_link_'.$i, $this->oset), $img ) : $img;						
+					$output .= sprintf('<li>%s %s</li>',$slide, $text);
 				}
 			}
 			
