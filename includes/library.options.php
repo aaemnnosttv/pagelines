@@ -31,26 +31,28 @@ function ploption( $key, $args = array() ){
 		'setting'	=> null, 	// Different types of serialized settings
 		'clone_id'	=> null,
 		'type'		=> '', 		// used for special meta tabs
+		'translate'	=> false,
+		'key'		=> $key
 	);
 	
 	$o = wp_parse_args($args, $d);
 
 	if ( has_filter( "ploption_{$key}" ) )
-		return apply_filters( "ploption_{$key}", $key, $args );
+		return apply_filters( "ploption_{$key}", $key, $o );
 	
-	if(is_pagelines_special($args) && plspecial($key, $args))
-		return plspecial($key, $args);
+	if(is_pagelines_special($o) && plspecial($key, $o))
+		return pagelines_wpml_parse( plspecial($key, $o), $o );
 
 	elseif( isset( $o['post_id'] ) && plmeta( $key, $args ) )
-		return plmeta( $key, $args );
+		return pagelines_wpml_parse( plmeta( $key, $o ), $o );
 
-	elseif( pldefault( $key, $args ) )	
-		return pldefault( $key, $args );
+	elseif( pldefault( $key, $o ) )	
+		return pldefault( $key, $o );
 
-	elseif( get_ploption($key, $args) )
-		return get_ploption( $key, $args );	
+	elseif( get_ploption($key, $o) )
+		return pagelines_wpml_parse( get_ploption( $key, $o ), $o );	
 		
-	elseif( get_ploption($key, $args) === null )
+	elseif( get_ploption($key, $o) === null )
 		if ( $newkey = plnewkey( $key ) )
 			return $newkey;			
 		
@@ -220,15 +222,6 @@ function plupop($key, $val, $oset = array()){
 
 }
 
-
-
-
-
-
-
-
-
-
 /**
 *
 * @TODO do
@@ -281,6 +274,24 @@ function get_ploption( $key, $args = array() ){
 	
 }
 
+/**
+ * Return a translated user text if found.
+ */
+function pagelines_wpml_parse( $string, $o ) {
+
+	if ( true == $o['translate'] ) {
+		
+		if( ! function_exists('icl_register_string') )
+			return $string;
+
+		$key = sprintf( '%s_%s_%s_%s', $o['group'], $o['key'], $o['post_id'], $o['clone_id'] );
+		$group = sprintf( 'pagelines_%s', $o['group'] );
+		icl_register_string( $group, $key, $string);
+
+		return icl_t( $group, $key, $string );		
+	}		
+	return $string;
+}
 
 /**
 *

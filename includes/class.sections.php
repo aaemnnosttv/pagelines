@@ -622,11 +622,14 @@ class PageLinesSection {
 		
 		
 		// Setup common option configuration, considering clones and page ids
-		$this->oset = array('post_id' => $pagelines_ID, 'clone_id' => $clone_id);
-
+		$this->oset = array(
+			'post_id'		=> $pagelines_ID,
+			'clone_id'		=> $clone_id,
+			'group'			=> $this->id
+			);
+		$this->tset = $this->oset;
+		$this->tset['translate'] = true;
 	}
-
-
 
 }
 /********** END OF SECTION CLASS  **********/
