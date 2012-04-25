@@ -80,7 +80,7 @@ class PageLinesRenderCSS {
 		if( ! empty( $a['core'] ) )
 			inline_css_markup('core-css', $this->minify( $a['core'] ) );
 
-		pl_debug( sprintf( 'CSS was cached and compiled at %s.', date( DATE_RFC822, $a['time'] ) ) );
+		pl_debug( sprintf( 'CSS was compiled at %s and took %s seconds.', date( DATE_RFC822, $a['time'] ), $a['c_time'] ), "\n<!--", '-->' );		
 	}
 
 	function draw_inline_dynamic_css() {
@@ -140,7 +140,7 @@ class PageLinesRenderCSS {
 			
 			$a = $this->get_compiled_css();
 			echo $this->minify( $a['core'] . $a['custom'] );
-			pl_debug( sprintf( 'CSS was cached at %s.', date( DATE_RFC822, $a['time'] ) ) );
+			pl_debug( sprintf( 'CSS was compiled at %s and took %s seconds.', date( DATE_RFC822, $a['time'] ), $a['c_time'] ) );		
 			die();
 		}
 	}
@@ -164,15 +164,15 @@ class PageLinesRenderCSS {
 
 			$pless = new PagelinesLess();
 			$core_less =  $pless->raw_less( $core_less );
+			$end_time = microtime(true);			
 			$a = array(				
 				'dynamic'	=> $dynamic,
 				'core'		=> $pless->raw_less( $core_less ),
 				'custom'	=> $pless->raw_less( $custom ),
+				'c_time'	=> round(($end_time - $start_time),5),
 				'time'		=> time()		
 			);
 			set_transient( 'pagelines_dynamic_css', $a, 604800 );
-			$end_time = microtime(true);
-			pl_debug( sprintf( 'LESS css was compiled in %s seconds.', round(($end_time - $start_time),5) ) );
 			return $a;			
 		}
 		
