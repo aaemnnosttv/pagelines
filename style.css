@@ -1135,7 +1135,7 @@ table {width: 100%;}
 
 	/* FORMS/CONTACT ETC */
 		.cform input {padding: 5px;font-size: 1.1em;}
-		.cform fieldset{background: #f7f7f7;border:none;}
+		.cform fieldset{border:none;}
 		input[type="text"].cf_error:focus {border: 1px solid #000;}
 		 .cform label {
 			display:block;
