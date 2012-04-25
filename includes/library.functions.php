@@ -1237,6 +1237,10 @@ function is_pl_debug() {
 		return true;
 }
 
+/** 
+ * Show debug info in footer ( wrapped in tags )
+ *
+ */
 function pl_debug( $text = '', $before = "\n/*", $after = '*/' ) {
 	
 	if ( ! is_pl_debug() )
