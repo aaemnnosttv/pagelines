@@ -328,6 +328,15 @@
 	  left: 10px;
 	}
 
+	.navbar .pull-right .dropdown-menu:before{
+		right: 9px;
+		left: auto;
+	}
+	.navbar .pull-right .dropdown-menu:after{
+		right: 10px;
+		left: auto;
+	}
+
 	.navbar .nav .dropdown-toggle .caret,
 	.navbar .nav .open.dropdown .caret {
 	  border-top-color: #ffffff;
@@ -449,7 +458,7 @@
 
 /* Responsive Handling
  ************************************************************/
-@media (max-width: 979px) {
+@media (max-width: 779px) {
 
   #site #page {
     padding-top: 0;
@@ -572,7 +581,7 @@
 	}
 }	
 
-@media (min-width: 980px) {
+@media (min-width: 780px) {
   .nav-collapse.in {
     height: auto !important;
     overflow: visible !important;

@@ -110,11 +110,17 @@ class PLNavBar extends PageLinesSection {
 			
 			jQuery('.pldrop').find('ul').each(function() {
 				jQuery(this).addClass('dropdown-menu');
+				
+				var caretAppend = '';
+				if(jQuery(this).siblings('a').children('.caret').length == 0) {
+					var caretAppend = ' <b class="caret" />'; 
+				}
+					
 				jQuery(this).siblings('a')
 					.addClass('dropdown-toggle')
 					.attr('href', '#m' + section)
 					.attr('data-toggle', 'dropdown')
-					.append(' <b class="caret" />')
+					.append(caretAppend)
 					.parent()
 					.attr('id', 'm' + section++)
 					.addClass('dropdown'); 
