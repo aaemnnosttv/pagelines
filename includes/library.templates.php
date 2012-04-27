@@ -645,7 +645,7 @@ function pagelines_cred(){
 						
 		$image = (VPRO && ploption('watermark_image')) ? ploption('watermark_image') : PL_IMAGES.'/pagelines.png';
 		
-		$alt = (VPRO) ? get_bloginfo('name') : 'Build a website with PageLines';
+		$alt = (VPRO) ? ploption( 'watermark_alt' ) : 'Build a website with PageLines';
 		
 		$url = (VPRO && ploption('watermark_link')) ? ploption('watermark_link') : 'http://www.pagelines.com';
 			

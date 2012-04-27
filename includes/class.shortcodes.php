@@ -41,6 +41,7 @@ class PageLines_ShortCodes {
 			'post_comments'				=>	'pagelines_post_comments_shortcode',
 			'post_tags'					=>	'pagelines_post_tags_shortcode',
 			'post_categories'			=>	'pagelines_post_categories_shortcode',
+			'post_type'					=>	'pagelines_post_type_shortcode',
 			'post_edit'					=>	'pagelines_post_edit_shortcode',
 			'container'					=>	'dynamic_container',
 			'cbox'						=>	'dynamic_box',
@@ -284,6 +285,36 @@ class PageLines_ShortCodes {
 
 		return apply_filters('pagelines_post_tags_shortcode', $output, $atts);
 
+	}
+	
+	/**
+	 * This function produces a post type link.
+	 * 
+	 * @example <code>[post_type]</code> is the default usage
+	 * @example <code>[post_type before="Type: " after="bar"]</code>
+	 */
+	function pagelines_post_type_shortcode($atts) {
+
+		$defaults = array(
+			'before' => __('Type: ', 'pagelines'),
+			'after' => ''
+		);
+		$atts = shortcode_atts( $defaults, $atts );
+		
+		global $post;
+		
+		if ( $post->post_type == 'post' )
+			return;
+		
+		$t = get_post_type_object( $post->post_type );
+				
+		$name = $t->labels->name;
+
+		$type = sprintf( '%s%s%s', $atts['before'], $name, $atts['after'] );
+
+		$output = sprintf( '<span class="type sc"><a href="%s">%s</a></span> ', get_post_type_archive_link( $t->slug ), $type );
+
+		return apply_filters( 'pagelines_post_type_shortcode', $output, $atts );
 	}
 	
 	/**
