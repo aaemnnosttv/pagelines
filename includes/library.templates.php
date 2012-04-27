@@ -63,7 +63,10 @@ function pagelines_default_widget($id, $name, $default){
 			<h3 class="widget-title">Add Widgets (<?php echo $name;?>)</h3>
 			<p class="fix">This is your <?php echo $name;?> but it needs some widgets!<br/> Easy! Just add some content to it in your <a href="<?php echo admin_url('widgets.php');?>">widgets panel</a>.	
 			</p>
-			<?php echo blink('Add Widgets &rarr;', 'link', 'black', array('action' => admin_url('widgets.php'), 'clear' => true)); ?>
+			<p>
+				<a href="<?php echo admin_url('widgets.php');?>" class="button"><?php _e('Add Widgets &rarr;', 'pagelines');?></a>
+			</p>
+		
 		</div>
 	</li>
 
