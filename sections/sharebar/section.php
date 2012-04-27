@@ -5,7 +5,7 @@
 	Author URI: http://www.pagelines.com
 	Description: Adds ways to share content on pages/single posts
 	Class Name: PageLinesShareBar
-	Workswith: main
+	Workswith: main-single
 	Failswith: pagelines_special_pages() 
 	Cloning: true
 */

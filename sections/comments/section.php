@@ -5,7 +5,7 @@
 	Author URI: http://www.pagelines.com
 	Description: Adds comments to main on pages/single posts
 	Class Name: PageLinesComments
-	Workswith: main
+	Workswith: main-single
 	Failswith: pagelines_special_pages()
 */
 
