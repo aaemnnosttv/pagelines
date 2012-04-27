@@ -483,7 +483,7 @@
   .navbar .nav-collapse {
     clear: left;
   }
-  .navbar .navline {
+  .navbar .navline, .navbar .navline.pull-right {
     float: none;
     margin: 0 0 9px;
   }
@@ -535,6 +535,7 @@
 	color: rgba(255,255,255,1);
     background-color: rgba(0,0,0,.15);
   }
+
   .navbar .dropdown-menu {
     position: static;
     top: auto;
