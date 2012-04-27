@@ -111,12 +111,13 @@ class PageLinesOptionsArray {
 				'type' 			=> 	'multi_option',
 				'selectvalues'	=> array(
 					'watermark_image'	=> array('type' =>'image_upload', 'inputlabel' => 'Watermark Image', 'default' => PL_IMAGES.'/pagelines.png'), 
-					'watermark_link'	=> array('type' => 'text', 'inputlabel' => 'Watermark Link (Blank for None)', 'default' => 'http://www.pagelines.com'), 
+					'watermark_link'	=> array('type' => 'text', 'inputlabel' => 'Watermark Link (Blank for None)', 'default' => 'http://www.pagelines.com'),
+					'watermark_alt'		=> array('type' => 'text', 'inputlabel' => 'Watermark Link alt text', 'default' => 'Build a website with PageLines' ),
 					'watermark_hide'	=> array('type' => 'check', 'inputlabel' => "Hide Watermark")
 				),
 				'title' 		=> __( 'Website Watermark', 'pagelines' ),						
 				'shortexp' 		=> __( 'Configure your website watermark (in footer)', 'pagelines' ),
-				'exp'			=> __( '', 'pagelines' )
+				'exp'			=> ''
 			),
 			'pagetitles' => array(
 					'default'	=> true,
