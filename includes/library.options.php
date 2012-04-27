@@ -41,16 +41,16 @@ function ploption( $key, $args = array() ){
 		return apply_filters( "ploption_{$key}", $key, $o );
 	
 	if(is_pagelines_special($o) && plspecial($key, $o))
-		return pagelines_wpml_parse( plspecial($key, $o), $o );
+		return pagelines_magic_parse( plspecial($key, $o), $o );
 
 	elseif( isset( $o['post_id'] ) && plmeta( $key, $args ) )
-		return pagelines_wpml_parse( plmeta( $key, $o ), $o );
+		return pagelines_magic_parse( plmeta( $key, $o ), $o );
 
 	elseif( pldefault( $key, $o ) )	
 		return pldefault( $key, $o );
 
 	elseif( get_ploption($key, $o) )
-		return pagelines_wpml_parse( get_ploption( $key, $o ), $o );	
+		return pagelines_magic_parse( get_ploption( $key, $o ), $o );	
 		
 	elseif( get_ploption($key, $o) === null )
 		if ( $newkey = plnewkey( $key ) )
@@ -275,10 +275,13 @@ function get_ploption( $key, $args = array() ){
 }
 
 /**
- * Return a translated user text if found.
+ * Parse the ploption strings.
  */
-function pagelines_wpml_parse( $string, $o ) {
+function pagelines_magic_parse( $string, $o ) {
 
+	/**
+	 * wpml check.
+	 */
 	if ( true == $o['translate'] ) {
 		
 		if( ! function_exists('icl_register_string') )
@@ -289,7 +292,11 @@ function pagelines_wpml_parse( $string, $o ) {
 		icl_register_string( $group, $key, $string);
 
 		return icl_t( $group, $key, $string );		
-	}		
+	}
+	
+	/**
+	 * Always return original string if all else fails.
+	 */	
 	return $string;
 }
 
