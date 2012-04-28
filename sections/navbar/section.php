@@ -94,8 +94,10 @@ class PLNavBar extends PageLinesSection {
 	 * Load styles and scripts
 	 */
 	function section_styles(){
-		wp_enqueue_script('bootstrap-dropdown', $this->base_url.'/bootstrap-dropdown.js');
-		wp_enqueue_script('bootstrap-collapse', $this->base_url.'/bootstrap-collapse.js');
+		// wp_enqueue_script('bootstrap-dropdown', $this->base_url.'/bootstrap-dropdown.js');
+		// 	wp_enqueue_script('bootstrap-collapse', $this->base_url.'/bootstrap-collapse.js');
+		
+		wp_enqueue_script('bootstrap-all', $this->base_url.'/bootstrap.all.js');
 	}
 	
 	function section_head($clone_id){ ?>
