@@ -409,6 +409,8 @@
 	.nav-btn-navbar {
 		display: none;
 		float: right;
+		position: relative;
+		z-index: 50;
 		padding: 7px 10px;
 		margin: 5px;
 		-moz-border-radius: 5px;
