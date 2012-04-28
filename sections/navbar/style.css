@@ -423,7 +423,6 @@
 		background-image: -webkit-linear-gradient(top, rgba(255,255,255,.1), rgba(0,0,0, .08));
 		background-image: -o-linear-gradient(top, rgba(255,255,255,.1), rgba(0,0,0, .08));
 		background-image: linear-gradient(top, rgba(255,255,255,.1), rgba(0,0,0, .08));
-		background-repeat: repeat-x;
 		border: 1px solid rgba(0,0,0,.25);
 		border-left: 1px solid rgba(0,0,0,.17);
 		border-top: 1px solid rgba(0,0,0,.17);
@@ -493,9 +492,7 @@
     padding-right: 10px;
     margin: 0 0 0 -5px;
   }
-  .navbar .nav-collapse {
-    clear: left;
-  }
+
   .navbar .navline, .navbar .navline.pull-right {
     float: none;
     margin: 0 0 9px;
@@ -574,9 +571,10 @@
   .nav-btn-navbar {
     display: block;
   }
-  .nav-collapse {
+  .navbar .nav-collapse {
     overflow: hidden;
     height: 0;
+	clear: both;
   }
 
 	.navbar.pl-color-grey .navline > li > a,
