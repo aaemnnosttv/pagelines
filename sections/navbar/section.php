@@ -166,7 +166,7 @@ class PLNavBar extends PageLinesSection {
 	  <div class="navbar-inner <?php echo $content_width_class;?>">
 	    <div class="navbar-content-pad fix">
 		
-	      <a href="#" class="nav-btn nav-btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+	      <a class="btn nav-btn nav-btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
