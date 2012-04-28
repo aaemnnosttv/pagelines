@@ -569,7 +569,7 @@
     display: none;
   }
   .nav-btn-navbar {
-    display: block;
+    display: inline-block;
   }
   .navbar .nav-collapse {
     overflow: hidden;
