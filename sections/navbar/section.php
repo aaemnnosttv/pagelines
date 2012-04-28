@@ -94,10 +94,10 @@ class PLNavBar extends PageLinesSection {
 	 * Load styles and scripts
 	 */
 	function section_styles(){
-		// wp_enqueue_script('bootstrap-dropdown', $this->base_url.'/bootstrap-dropdown.js');
-		// 	wp_enqueue_script('bootstrap-collapse', $this->base_url.'/bootstrap-collapse.js');
+		wp_enqueue_script('bootstrap-dropdown', $this->base_url.'/bootstrap-dropdown.js');
+		wp_enqueue_script('bootstrap-collapse', $this->base_url.'/bootstrap-collapse.js');
 		
-		wp_enqueue_script('bootstrap-all', $this->base_url.'/bootstrap.all.js');
+		//wp_enqueue_script('bootstrap-all', $this->base_url.'/bootstrap.all.js');
 	}
 	
 	function section_head($clone_id){ ?>
@@ -166,7 +166,7 @@ class PLNavBar extends PageLinesSection {
 	  <div class="navbar-inner <?php echo $content_width_class;?>">
 	    <div class="navbar-content-pad fix">
 		
-	      <a href="#" class="nav-btn nav-btn-navbar" data-toggle="collapse" data-target=".nav-collapse" onclick="return false;">
+	      <a href="javascript:void(0)" class="nav-btn nav-btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
