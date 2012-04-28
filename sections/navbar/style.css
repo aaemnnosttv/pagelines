@@ -454,7 +454,18 @@
 	.nav-btn-navbar .icon-bar + .icon-bar {
 	  margin-top: 3px;
 	}
-	.nav-collapse.collapse {
+	.collapse {
+	  position: relative;
+	  height: 0;
+	  overflow: hidden;
+	  -webkit-transition: height 0.35s ease;
+	     -moz-transition: height 0.35s ease;
+	      -ms-transition: height 0.35s ease;
+	       -o-transition: height 0.35s ease;
+	          transition: height 0.35s ease;
+	}
+
+	.collapse.in  {
 	  height: auto;
 	}
 
@@ -585,7 +596,7 @@
 }	
 
 @media (min-width: 780px) {
-  .nav-collapse.in {
+  .nav-collapse.collapse {
     height: auto !important;
     overflow: visible !important;
   }

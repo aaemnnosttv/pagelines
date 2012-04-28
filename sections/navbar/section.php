@@ -186,7 +186,7 @@ class PLNavBar extends PageLinesSection {
 				</a>
 			<?php endif; ?>
 
-	      		<div class="nav-collapse">
+	      		<div class="nav-collapse collapse">
 	       <?php 	if(!ploption('hidesearch'))
 						get_search_form();
 				
