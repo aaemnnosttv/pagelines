@@ -98,10 +98,7 @@ class PLNavBar extends PageLinesSection {
 		wp_enqueue_script('bootstrap-collapse', $this->base_url.'/bootstrap-collapse.js');
 	}
 	
-	function section_head($clone_id){
-		
-		
-		?>
+	function section_head($clone_id){ ?>
 		
 		<script>
 		jQuery(document).ready(function() {
@@ -211,8 +208,7 @@ class PLNavBar extends PageLinesSection {
 		</div>
 	</div>
 	
-		<?php 
-	}
+<?php }
 
 
 }
