@@ -584,6 +584,9 @@ body{
 				.meta-share iframe, .meta-share object{
 					width: auto;
 				}
+			.fb-like{
+				margin-right: 10px;
+			}
 		.tags {font-style: italic;}
 
 /* @ Sidebar */
