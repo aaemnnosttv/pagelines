@@ -437,8 +437,7 @@ class PageLinesFeatures extends PageLinesSection {
 												printf( '<div class="media-frame"><img src="%s" /></div>', $media_image );
 											
 											elseif( $feature_media )
-												echo do_shortcode( $feature_media ); 
-												
+												echo apply_filters( 'the_content', $feature_media );	
 												?>
 										</div>
 									</div>
