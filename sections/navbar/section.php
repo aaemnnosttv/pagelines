@@ -170,8 +170,9 @@ class PLNavBar extends PageLinesSection {
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
+	
 	      </a>
-
+		<a href="#">test</a>
 			<?php if($passive): ?>
 				<a class="plbrand" href="<?php echo esc_url(home_url());?>">
 					

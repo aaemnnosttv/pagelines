@@ -572,7 +572,6 @@
     display: block;
   }
   .navbar .nav-collapse {
-		display: none !important;
     overflow: hidden;
     height: 0;
 	clear: both;
