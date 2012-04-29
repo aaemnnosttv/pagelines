@@ -1250,3 +1250,17 @@ function pl_debug( $text = '', $before = "\n/*", $after = '*/' ) {
 	add_action( 'shutdown', create_function( '', $out ), 9999 );
 
 }
+
+/**
+*
+* @TODO do
+*
+*/
+function inline_css_markup($id, $css, $echo = true){
+	$mark = sprintf('%2$s<style type="text/css" id="%3$s">%2$s %1$s %2$s</style>%2$s', $css, "\n", $id);
+	
+	if($echo) 
+		echo $mark;
+	else
+		return $mark;	
+}

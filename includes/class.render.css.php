@@ -11,6 +11,13 @@ class PageLinesRenderCSS {
 		self::init();		
 	}
 	
+	/**
+	 * 
+	 *  Load LESS files
+	 *
+	 *  @package PageLines Framework
+	 *  @since 2.2
+	 */
 	function get_core_lessfiles(){
 		
 		$files = array(
@@ -31,11 +38,18 @@ class PageLinesRenderCSS {
 			$this->actions();	
 	}
 
+	/**
+	 * 
+	 *  Leagacy mode, loads CSS inline.
+	 *
+	 *  @package PageLines Framework
+	 *  @since 2.2
+	 */
 	private function legacy_actions() {
 		
 		global $pagelines_template;
 		
-		add_action('wp_head', array( &$this, 'draw_inline_css' ), 8);
+		add_action('wp_head', array( &$this, 'draw_inline_core_css' ), 8);
 		add_action('wp_head', array( &$this, 'draw_inline_sections_css' ), 8);
 		add_action('wp_head', array( &$this, 'draw_inline_dynamic_css' ), 8);		
 		add_action('wp_head', array( &$pagelines_template, 'print_template_section_head' ) );
@@ -43,6 +57,13 @@ class PageLinesRenderCSS {
 		add_action( 'extend_flush', array( &$this, 'flush_version' ) );
 	}
 
+	/**
+	 * 
+	 *  Dynamic mode, CSS is loaded to a file using wp_rewrite
+	 *
+	 *  @package PageLines Framework
+	 *  @since 2.2
+	 */
 	private function actions() {
 
 		global $pagelines_template;
@@ -57,6 +78,13 @@ class PageLinesRenderCSS {
 		add_action( 'extend_flush', array( &$this, 'flush_version' ) );		
 	}
 
+	/**
+	 * 
+	 * Get custom CSS
+	 *
+	 *  @package PageLines Framework
+	 *  @since 2.2
+	 */
 	function get_custom_css( $inline = true ) {
 		
 		if ( $inline )
@@ -67,13 +95,12 @@ class PageLinesRenderCSS {
 
 	/**
 	 * 
-	 *  Load Dynamic CSS inline
+	 *  Draw Core CSS inline.
 	 *
 	 *  @package PageLines Framework
-	 *  @since 1.2.0
-	 *
+	 *  @since 2.2
 	 */
-	function draw_inline_css(){
+	function draw_inline_core_css(){
 
 		$a = $this->get_compiled_css();
 
@@ -83,11 +110,26 @@ class PageLinesRenderCSS {
 		pl_debug( sprintf( 'CSS was compiled at %s and took %s seconds.', date( DATE_RFC822, $a['time'] ), $a['c_time'] ), "\n<!--", '-->' );		
 	}
 
+	/**
+	 * 
+	 *  Draw dynamic CSS inline.
+	 *
+	 *  @package PageLines Framework
+	 *  @since 2.2
+	 */
 	function draw_inline_dynamic_css() {
-
-		inline_css_markup('dynamic-css', $this->get_dynamic_css() );
+		
+		$css = $this->get_dynamic_css();
+		inline_css_markup('dynamic-css', $css['dynamic'] );
 	}
 
+	/**
+	 * 
+	 *  Draw sections CSS inline.
+	 *
+	 *  @package PageLines Framework
+	 *  @since 2.2
+	 */
 	function draw_inline_sections_css() {
 		
 		$template = new PageLinesTemplate;
@@ -101,10 +143,10 @@ class PageLinesRenderCSS {
 
 	/**
 	 * 
-	 *  Load Dynamic CSS
+	 *  Get Dynamic CSS
 	 *
 	 *  @package PageLines Framework
-	 *  @since 1.2.0
+	 *  @since 2.2
 	 *
 	 */
 	function get_dynamic_css(){
@@ -113,12 +155,29 @@ class PageLinesRenderCSS {
 			return;
 		
 		$pagelines_dynamic_css = new PageLinesCSS;
-		$pagelines_dynamic_css->create();
 
-		$css = apply_filters('pl-dynamic-css', $pagelines_dynamic_css->css);
-		return $css;
+		$pagelines_dynamic_css->typography();
+
+		$typography = $pagelines_dynamic_css->css;
+
+		unset( $pagelines_dynamic_css->css );
+		$pagelines_dynamic_css->layout();
+		$pagelines_dynamic_css->options();
+
+		$out = array(
+			'type'		=>	$typography,
+			'dynamic'	=>	apply_filters('pl-dynamic-css', $pagelines_dynamic_css->css)	
+		);
+		return $out;
 	}
 
+	/**
+	 * 
+	 *  Enqueue the dynamic css file.
+	 *
+	 *  @package PageLines Framework
+	 *  @since 2.2
+	 */
 	function load_less_css() {
 
 		$url = sprintf( '%s/pagelines-dynamic-%s.css/',PARENT_URL, ploption( "pl_save_version" ) );
@@ -130,7 +189,6 @@ class PageLinesRenderCSS {
 	    $vars[] = 'plless';
 	    return $vars;
 	}
-
 	
 	function pagelines_less_trigger() {
 		if( intval( get_query_var( 'plless' ) ) == 1) {
@@ -145,7 +203,13 @@ class PageLinesRenderCSS {
 		}
 	}
 
-
+	/**
+	 * 
+	 *  Get compiled/cached CSS
+	 *
+	 *  @package PageLines Framework
+	 *  @since 2.2
+	 */
 	function get_compiled_css() {
 		
 		if ( is_array(  $a = get_transient( 'pagelines_dynamic_css' ) ) ) {
@@ -154,7 +218,6 @@ class PageLinesRenderCSS {
 			
 			$start_time = microtime(true);
 			build_pagelines_layout();
-
 
 			$dynamic = $this->get_dynamic_css();
 
@@ -166,8 +229,8 @@ class PageLinesRenderCSS {
 			$core_less =  $pless->raw_less( $core_less );
 			$end_time = microtime(true);			
 			$a = array(				
-				'dynamic'	=> $dynamic,
-				'core'		=> $pless->raw_less( $core_less ),
+				'dynamic'	=> $dynamic['dynamic'],
+				'core'		=> $pless->raw_less( $core_less . $dynamic['type']),
 				'custom'	=> $pless->raw_less( $custom ),
 				'c_time'	=> round(($end_time - $start_time),5),
 				'time'		=> time()		
@@ -177,9 +240,14 @@ class PageLinesRenderCSS {
 		}
 		
 	}
-
 	
-
+	/**
+	 * 
+	 *  Get Core LESS code
+	 *
+	 *  @package PageLines Framework
+	 *  @since 2.2
+	 */
 	function get_core_lesscode() {
 		
 			global $disabled_settings;
@@ -189,7 +257,13 @@ class PageLinesRenderCSS {
 			return $color;	
 	}
 
-
+	/**
+	 * 
+	 *  Helper for get_core_less_code()
+	 *
+	 *  @package PageLines Framework
+	 *  @since 2.2
+	 */
 	function load_core_cssfiles() {
 	
 		$code = '';
@@ -201,7 +275,13 @@ class PageLinesRenderCSS {
 		return $code;
 	}
 
-
+	/**
+	 * 
+	 *  Add rewrite.
+	 *
+	 *  @package PageLines Framework
+	 *  @since 2.2
+	 */
 	function pagelines_less_rewrite( $wp_rewrite ) {
 	    $less_rule = array(
 	        '(.*)/pagelines-dynamic-[0-9]+.css(.*)' => '/index.php?plless=1'
@@ -210,39 +290,40 @@ class PageLinesRenderCSS {
 	    $wp_rewrite->rules = $less_rule + $wp_rewrite->rules;
 	}
 
+	/**
+	 * 
+	 *  Minify
+	 *
+	 *  @package PageLines Framework
+	 *  @since 2.2
+	 */
 	function minify( $css ) {
 		if( is_pl_debug() )
 			return $css;
 
 		return preg_replace('@({)\s+|(\;)\s+|/\*.+?\*\/|\R@is', '$1$2 ', $css);
 	}
-	
+
+	/**
+	 * 
+	 *  Flush rewrites/cached css
+	 *
+	 *  @package PageLines Framework
+	 *  @since 2.2
+	 */
 	function flush_version() {
 		
 		flush_rewrite_rules( false );
 		plupop( 'pl_save_version', time() );
 		delete_transient( 'pagelines_dynamic_css' );
 	}
-
-
-} //end
-
-/**
-*
-* @TODO do
-*
-*/
-function inline_css_markup($id, $css, $echo = true){
-	$mark = sprintf('%2$s<style type="text/css" id="%3$s">%2$s %1$s %2$s</style>%2$s', $css, "\n", $id);
 	
-	if($echo) 
-		echo $mark;
-	else
-		return $mark;	
-}
+} //end of PageLinesRenderCSS
+
+
 
 // LEGACY
-function pl_get_core_less() {
+function sspl_get_core_less() {
 	
 	$less = '';
 		foreach( glob( CORE_LESS . '/*.less' ) as $file )
