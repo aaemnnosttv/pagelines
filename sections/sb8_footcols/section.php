@@ -44,7 +44,7 @@ class PageLinesFootCols extends PageLinesSection {
 		    'after_widget' 	=> $this->markup_end,
 		    'before_title' 	=> '<h3 class="widget-title">',
 		    'after_title' 	=> '</h3>'
-		), 10);
+		) );
 		
 		register_nav_menus( array(
 			'footer_nav' => __( 'Page Navigation in Footer Columns', 'pagelines' )

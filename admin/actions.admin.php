@@ -325,3 +325,10 @@ function pl_page_show_columns($name) {
 }
 
 new Store_RSS;
+
+add_action( 'admin_init', 'pagelines_set_versions' );
+function pagelines_set_versions() {
+	
+	set_theme_mod( 'pagelines_version', pl_get_theme_data( get_template_directory(), 'Version' ) );
+	set_theme_mod( 'pagelines_child_version', pl_get_theme_data( get_stylesheet_directory(), 'Version' ) );
+}

@@ -55,8 +55,10 @@ class PageLinesUpgradePaths {
 		
 		if ( is_array( $pagelines ) ) {
 			
-			if ( ! isset( $settings['pagelines_version'] ) )
-				plupop( 'pagelines_version', CORE_VERSION );
+			if ( '' == get_theme_mod( 'pagelines_version' ) )
+				set_theme_mod( 'pagelines_version', CORE_VERSION );
+			
+			$this->rebuild_sidebars( $pagelines );
 			
 			// were done.
 			return;
@@ -67,6 +69,40 @@ class PageLinesUpgradePaths {
 			$this->upgrade( $platform );			
 		}
 	}
+
+	function rebuild_sidebars( $pagelines ) {
+		
+		$check = get_theme_mod( 'sidebars_fixed', false );
+		
+		if( $check )
+			return;
+		
+		if ( isset( $pagelines['enable_sidebar_reorder'] ) && $pagelines['enable_sidebar_reorder'] ) {
+			set_theme_mod( 'sidebars_fixed', 'true' );
+		}
+		$sidebars = get_option( 'sidebars_widgets' );
+		
+		$new_sidebars = array(
+			
+			'wp_inactive_widgets'	=> $sidebars['wp_inactive_widgets'],
+			'sidebar-1'	=>	$sidebars['sidebar-7'],
+			'sidebar-2'	=>	$sidebars['sidebar-8'],
+			'sidebar-3'	=>	$sidebars['sidebar-9'],
+			'sidebar-4'	=>	$sidebars['sidebar-10'],
+			'sidebar-5'	=>	$sidebars['sidebar-6'],
+			'sidebar-6'	=>	$sidebars['sidebar-5'],
+			'sidebar-7'	=>	$sidebars['sidebar-2'],
+			'sidebar-8'	=>	$sidebars['sidebar-3'],
+			'sidebar-9'	=>	$sidebars['sidebar-4'],
+			'sidebar-10'=>	$sidebars['sidebar-1'],
+			'array_version'	=> $sidebars['array_version']
+			
+		);
+		update_option( 'sidebars_widgets', $new_sidebars );
+		set_theme_mod( 'sidebars_fixed', 'true' );
+		return;	
+	}
+
 
 	/**
 	*

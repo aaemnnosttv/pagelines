@@ -1,28 +1,28 @@
 <?php
 /*
-	Section: Secondary Sidebar
+	Section: Tertiary Sidebar
 	Author: PageLines
 	Author URI: http://www.pagelines.com
-	Description: The secondary widgetized sidebar for the theme.
-	Class Name: SecondarySidebar	
+	Description: A 3rd widgetized sidebar for the theme that can be used in standard sidebar templates.
+	Class Name: TertiarySidebar
 	Workswith: sidebar1, sidebar2, sidebar_wrap
 	Persistant: true
 */
 
 /**
- * Secondary Sidebar Section
+ * Tertiary Sidebar Section
  *
  * @package PageLines Framework
  * @author PageLines
  */
-class SecondarySidebar extends PageLinesSection {
+class TertiarySidebar extends PageLinesSection {
 
 	/**
 	* PHP that always loads no matter if section is added or not.
 	*/
    function section_persistent() { 
 		$setup = pagelines_standard_sidebar($this->name, $this->settings['description']);
-		pagelines_register_sidebar($setup, 2);
+		pagelines_register_sidebar($setup);
 	}
 
 	/**
@@ -31,5 +31,4 @@ class SecondarySidebar extends PageLinesSection {
    function section_template() { 
 	 	 pagelines_draw_sidebar($this->id, $this->name);
 	}
-
 }

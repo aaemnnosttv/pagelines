@@ -1095,9 +1095,10 @@ function array_search_ext($arr, $search, $exact = true, $trav_keys = null)
  * @link    http://www.pagelines.com/wiki/Pagelines_register_sidebar
  */
 function pagelines_register_sidebar( $args, $priorty = null ) {
-	
-	if ( ! ploption( 'enable_sidebar_reorder' ) )
-		register_sidebar( $args );
+
+	register_sidebar( $args );
+
+	return;
 	global $pagelines_sidebars;
 
 	if ( isset( $priorty ) && ! isset( $pagelines_sidebars[ $priorty ] ) )

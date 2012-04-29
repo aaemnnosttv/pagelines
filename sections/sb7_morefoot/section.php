@@ -37,7 +37,7 @@ class PageLinesMorefoot extends PageLinesSection {
 				    'after_widget' => '</div></div>',
 				    'before_title' => '<h3 class="widget-title">',
 				    'after_title' => '</h3>'
-				), $i['priorty']
+				)
 			);	
 		}
 	}
@@ -110,20 +110,17 @@ class PageLinesMorefoot extends PageLinesSection {
 				'left'	=> array(
 					'name'			=> 'MoreFoot Left', 
 					'description' 	=> __('Left sidebar in <strong>morefoot</strong> section.', 'pagelines'),
-					'default'		=> $left,
-					'priorty'		=> 7
+					'default'		=> $left
 				),
 				'middle'	=> array(
 					'name'			=> 'MoreFoot Middle', 
 					'description' 	=> __('Middle sidebar in <strong>morefoot</strong> section.', 'pagelines'),
-					'default'		=> $middle,
-					'priorty'		=> 8
+					'default'		=> $middle
 				),
 				'right'	=> array(
 					'name'			=> 'MoreFoot Right', 
 					'description' 	=> __('Right sidebar in <strong>morefoot</strong> section.', 'pagelines'),
-					'default'		=> $right,
-					'priorty'		=> 9
+					'default'		=> $right
 				),
 			);		
 	}

@@ -3,11 +3,8 @@
 /**
  * Define framework version
  */
-$theme_version = pl_get_theme_data( get_template_directory(), 'Version' );
-define( 'CORE_VERSION', $theme_version );
-
-$child_theme_version = pl_get_theme_data( get_stylesheet_directory(), 'Version' );
-define('CHILD_VERSION', $child_theme_version);
+define( 'CORE_VERSION', get_theme_mod( 'pagelines_version', pl_get_theme_data( get_template_directory(), 'Version' ) ) );
+define( 'CHILD_VERSION', get_theme_mod( 'pagelines_child_version', pl_get_theme_data( get_stylesheet_directory(), 'Version' ) ) );
 
 /**
  * Set Theme Name
@@ -110,9 +107,7 @@ else
  * Define API Constants
  */
 define( 'PL_API', 'www.pagelines.com/api/');
-
 define( 'PL_API_FETCH', 'http://www.pagelines.com/api/' );
-
 define( 'PL_API_CDN', 'http://cdn.pagelines.com/api/' );
 
 

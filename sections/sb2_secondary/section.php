@@ -1,35 +1,35 @@
 <?php
 /*
-	Section: Content Sidebar
+	Section: Secondary Sidebar
 	Author: PageLines
 	Author URI: http://www.pagelines.com
-	Description: Displays a widgetized sidebar inside the main content area. Set it up in the widgets panel.
-	Class Name: ContentSidebar	
-	Workswith: main-default, main-posts, main-single, main-404
+	Description: The secondary widgetized sidebar for the theme.
+	Class Name: SecondarySidebar	
+	Workswith: sidebar1, sidebar2, sidebar_wrap
 	Persistant: true
 */
 
 /**
- * Content Sidebar Section
+ * Secondary Sidebar Section
  *
  * @package PageLines Framework
  * @author PageLines
  */
-class ContentSidebar extends PageLinesSection {
+class SecondarySidebar extends PageLinesSection {
 
 	/**
 	* PHP that always loads no matter if section is added or not.
 	*/
    function section_persistent() { 
 		$setup = pagelines_standard_sidebar($this->name, $this->settings['description']);
-		pagelines_register_sidebar($setup, 6);
+		pagelines_register_sidebar($setup);
 	}
 
 	/**
 	* Section template.
 	*/
    function section_template() { 
-	 	pagelines_draw_sidebar($this->id, $this->name);
+	 	 pagelines_draw_sidebar($this->id, $this->name);
 	}
 
 }

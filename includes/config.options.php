@@ -943,15 +943,6 @@ class PageLinesOptionsArray {
 					'title'=> __( 'LESS css mode.', 'pagelines' ),
 					'inputlabel'		=> __( 'Use dynamic.css file. ( needs permalinks to be active )', 'pagelines' ),
 			),
-			'enable_sidebar_reorder' => array(
-					'default'	=> '',
-					'version'	=> 'pro',
-					'type'		=> 'check',
-					'inputlabel'=> __( 'Enable sidebar priorities?', 'pagelines' ),
-					'title'		=> __( 'Sidebar Priority', 'pagelines' ),
-					'shortexp'	=> __( 'Enable sidebar priorities.', 'pagelines' ),
-					'exp'		=> __( 'Enable new sidebar loading system<br />With this enabled sidebars will be loaded: Primary, Secondary, Tertiary etc.', 'pagelines' )
-			),
 
 			'hide_pagelines_introduction' => array(
 					'default'	=> '',

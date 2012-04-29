@@ -1,36 +1,36 @@
 <?php
 /*
-	Section: Universal Sidebar
+	Section: Full Width Sidebar
 	Author: PageLines
 	Author URI: http://www.pagelines.com
-	Description: A universal widgetized sidebar
-	Class Name: UniversalSidebar
-	Workswith: sidebar1, sidebar2, sidebar_wrap, templates, main, header, morefoot
+	Description: Shows full width widgetized sidebar.
+	Class Name: FullWidthSidebar
 	Edition: pro
+	Workswith: templates, footer, morefoot
 	Persistant: true
 */
 
 /**
- * Universal Sidebar Section
+ * Full Width Sidebar Section
  *
  * @package PageLines Framework
  * @author PageLines
  */
-class UniversalSidebar extends PageLinesSection {
+class FullWidthSidebar extends PageLinesSection {
 
 	/**
 	* PHP that always loads no matter if section is added or not.
 	*/
    function section_persistent() { 
 		$setup = pagelines_standard_sidebar($this->name, $this->settings['description']);
-		pagelines_register_sidebar($setup, 4);
+		pagelines_register_sidebar($setup);
+	
 	}
 
 	/**
 	* Section template.
 	*/
    function section_template() { 
-	 	 pagelines_draw_sidebar($this->id, $this->name);
+		 pagelines_draw_sidebar($this->id, $this->name);
 	}
-
 }
