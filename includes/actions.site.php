@@ -115,34 +115,6 @@ function gallery_filter( $a, $template_name) {
 		return false;
 }
 
-add_action( 'init', 'pagelines_add_sidebars', 1 );
-
-
-/**
- * PageLines Add Sidebars
- *
- * Registers sidebars
- *
- * @since   ...
- *
- * @uses    ploption
- * @uses    (global) $pagelines_sidebars
- */
-function pagelines_add_sidebars() {
-	
-	if ( ! ploption( 'enable_sidebar_reorder') )
-		return;
-	global $pagelines_sidebars;
-
-	if ( !is_array( $pagelines_sidebars ) )
-		return;
-
-	ksort( $pagelines_sidebars );
-	
-	foreach ( $pagelines_sidebars as $key => $sidebar )
-		register_sidebar( $sidebar );
-}
-
 new PageLinesRenderCSS;
 
 add_action( 'template_redirect', 'pl_check_integrations' );

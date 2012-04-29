@@ -1097,14 +1097,6 @@ function array_search_ext($arr, $search, $exact = true, $trav_keys = null)
 function pagelines_register_sidebar( $args, $priorty = null ) {
 
 	register_sidebar( $args );
-
-	return;
-	global $pagelines_sidebars;
-
-	if ( isset( $priorty ) && ! isset( $pagelines_sidebars[ $priorty ] ) )
-		$pagelines_sidebars[ $priorty ] = $args;
-	else
-		$pagelines_sidebars[] = $args;
 }
 
 /** 
