@@ -118,7 +118,10 @@ class PageLinesRenderCSS {
 	 *  @since 2.2
 	 */
 	function draw_inline_dynamic_css() {
-		
+
+		if( has_filter( 'disable_dynamic_css' ) )
+			return;
+
 		$css = $this->get_dynamic_css();
 		inline_css_markup('dynamic-css', $css['dynamic'] );
 	}
@@ -150,9 +153,6 @@ class PageLinesRenderCSS {
 	 *
 	 */
 	function get_dynamic_css(){
-
-		if( has_filter( 'disable_dynamic_css' ) )
-			return;
 		
 		$pagelines_dynamic_css = new PageLinesCSS;
 
