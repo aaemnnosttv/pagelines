@@ -24,6 +24,7 @@ class PageLinesRenderCSS {
 
 			'variables',
 			'mixins',
+			'alerts',
 			'buttons',
 			'color',		
 		);

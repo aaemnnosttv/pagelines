@@ -584,7 +584,7 @@ class PageLines_ShortCodes {
 				    'type' => ''
 				), $atts));
 
-	    $out = sprintf('<div class="pl-alert pl-alert-%1$s">%2$s</div>',$type,$content);
+	    $out = sprintf('<div class="alert alert-%1$s">%2$s</div>',$type,$content);
 
 		return $out;
 	}
@@ -624,7 +624,7 @@ class PageLines_ShortCodes {
 
 	    $target = ( $target == 'blank' ) ? ' target="_blank"' : '';
 
-	    $out = sprintf('<a href="%2$s" class="pl-btn pl-btn-%1$s" target="%3$s">%4$s</a>', $type,$link,$target,$content);
+	    $out = sprintf('<a href="%2$s" class="btn btn-%1$s" target="%3$s">%4$s</a>', $type,$link,$target,$content);
 
 		return $out;
 	}
