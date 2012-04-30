@@ -43,7 +43,8 @@ class PageLinesSection {
 				'cloning'			=> false,
 				'tax_id'			=> '',
 				'format'			=> 'textured',
-				'classes'			=> ''
+				'classes'			=> '',
+				'less'				=> false
 			);
 
 		$this->settings = wp_parse_args( $settings, $defaults );

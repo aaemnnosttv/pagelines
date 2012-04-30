@@ -821,11 +821,8 @@ class PageLinesTemplate {
 					 * TODO we need to include all style.css through compiler and not break urls?
 					 */
 					
-				//	if( file_exists( $s->base_dir . '/style.css' ) )
-				//		$lesscode .= pl_file_get_contents( $s->base_dir.'/style.css' );
-
-					if( file_exists( $s->base_dir . '/color.less' ) )
-						$lesscode .= pl_file_get_contents( $s->base_dir.'/color.less' );				
+					if ( isset( $s->sinfo['less'] ) && $s->sinfo['less'] )
+						$lesscode .= pl_file_get_contents( $s->base_dir.'/color.less' );			
 				}	
 			}
 

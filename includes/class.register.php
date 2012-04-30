@@ -255,7 +255,8 @@ class PageLinesRegister {
 					'persistant'	=> $headers['persistant'],
 					'format'		=> $headers['format'],
 					'classes'		=> $headers['classes'],
-					'screenshot'	=> ( file_exists( $base_dir . '/thumb.png' ) ) ? $base_url . '/thumb.png' : ''
+					'screenshot'	=> ( file_exists( $base_dir . '/thumb.png' ) ) ? $base_url . '/thumb.png' : '',
+					'less'			=> ( file_exists( $base_dir . '/color.less' ) ) ? true : false,
 				);	
 			}
 		}
