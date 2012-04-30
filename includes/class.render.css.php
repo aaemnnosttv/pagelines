@@ -23,7 +23,7 @@ class PageLinesRenderCSS {
 		$files = array(
 
 			'variables',
-//			'mixins',
+			'mixins',
 			'buttons',
 			'color',		
 		);
@@ -73,7 +73,8 @@ class PageLinesRenderCSS {
 		add_filter( 'generate_rewrite_rules', array( &$this, 'pagelines_less_rewrite' ) );
 		add_action( 'wp_print_styles', array( &$this, 'load_less_css' ), 11 );
 		add_action('wp_head', array( &$this, 'draw_inline_sections_css' ), 8);
-		add_action('wp_head', array( &$this, 'draw_inline_dynamic_css' ), 8);		
+		add_action('wp_head', array( &$this, 'draw_inline_dynamic_css' ), 8);
+		add_action( 'pagelines_head_last', array( &$this, 'get_custom_css' ) , 25 );		
 		add_action( 'wp_head', array(&$pagelines_template, 'print_template_section_head' ) );
 		add_action( 'extend_flush', array( &$this, 'flush_version' ) );		
 	}
@@ -87,10 +88,13 @@ class PageLinesRenderCSS {
 	 */
 	function get_custom_css( $inline = true ) {
 		
-		if ( $inline )
-			return inline_css_markup( 'pagelines-custom', $this->minify( ploption( 'customcss' ) ) );
-		else
-			return plstrip( ploption( 'customcss' ) );
+		if ( $inline ) {
+			$a = $this->get_compiled_css();
+			if ( '' != $a['custom'] )
+				return inline_css_markup( 'pagelines-custom', $this->minify( $a['custom'] ) );
+		} else {
+			return ploption( 'customcss' );
+		}
 	}
 
 	/**
@@ -197,7 +201,7 @@ class PageLinesRenderCSS {
 			header( 'Cache-Control: max-age=604100, public' );
 			
 			$a = $this->get_compiled_css();
-			echo $this->minify( $a['core'] . $a['custom'] );
+			echo $this->minify( $a['core'] );
 			pl_debug( sprintf( 'CSS was compiled at %s and took %s seconds.', date( DATE_RFC822, $a['time'] ), $a['c_time'] ) );		
 			die();
 		}
@@ -230,7 +234,7 @@ class PageLinesRenderCSS {
 			$end_time = microtime(true);			
 			$a = array(				
 				'dynamic'	=> $dynamic['dynamic'],
-				'core'		=> $pless->raw_less( $core_less . $dynamic['type']),
+				'core'		=> $pless->raw_less( $core_less . $dynamic['type'] ),
 				'custom'	=> $pless->raw_less( $custom ),
 				'c_time'	=> round(($end_time - $start_time),5),
 				'time'		=> time()		
