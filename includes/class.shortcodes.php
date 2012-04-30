@@ -10,7 +10,23 @@ class PageLines_ShortCodes {
 		self::register_shortcodes( $this->shortcodes_core() );
 		
 		// Make widgets process shortcodes
-		add_filter('widget_text', 'do_shortcode');				
+		add_filter('widget_text', 'do_shortcode');		
+		
+		/**
+		*	Remove the pesky br's and p's from b0rking the columns
+		*/
+    	function shortcode_empty_paragraph_fix($content) {   
+        	$array = array (
+            	'<p>[' => '[', 
+            	']</p>' => ']', 
+            	']<br />' => ']'
+        	);
+
+        	$content = strtr($content, $array);
+
+			return $content;
+    	}
+    	add_filter('the_content', 'shortcode_empty_paragraph_fix');		
 	}
 	
 	private function register_shortcodes( $shortcodes ) {
@@ -584,7 +600,7 @@ class PageLines_ShortCodes {
 				    'type' => ''
 				), $atts));
 
-	    $out = sprintf('<div class="alert alert-%1$s">%2$s</div>',$type,$content);
+	    $out = sprintf('<div class="alert alert-%1$s alert-block">%2$s</div>',$type,$content);
 
 		return $out;
 	}
