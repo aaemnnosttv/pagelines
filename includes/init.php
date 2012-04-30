@@ -221,6 +221,7 @@ require_once( PL_INCLUDES . '/library.plugins.php' );
  */
 $load_sections = new PageLinesRegister();
 $load_sections->pagelines_register_sections();
+$load_sections->register_sidebars();
 
 pagelines_register_hook('pagelines_setup'); // Hook
 

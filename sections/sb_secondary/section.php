@@ -1,29 +1,28 @@
 <?php
 /*
-	Section: Universal Sidebar
+	Section: Secondary Sidebar
 	Author: PageLines
 	Author URI: http://www.pagelines.com
-	Description: A universal widgetized sidebar
-	Class Name: UniversalSidebar
-	Workswith: sidebar1, sidebar2, sidebar_wrap, templates, main, header, morefoot
-	Edition: pro
+	Description: The secondary widgetized sidebar for the theme.
+	Class Name: SecondarySidebar	
+	Workswith: sidebar1, sidebar2, sidebar_wrap
 	Persistant: true
 */
 
 /**
- * Universal Sidebar Section
+ * Secondary Sidebar Section
  *
  * @package PageLines Framework
  * @author PageLines
  */
-class UniversalSidebar extends PageLinesSection {
+class SecondarySidebar extends PageLinesSection {
 
 	/**
 	* PHP that always loads no matter if section is added or not.
 	*/
    function section_persistent() { 
 		$setup = pagelines_standard_sidebar($this->name, $this->settings['description']);
-		pagelines_register_sidebar($setup);
+	//	pagelines_register_sidebar($setup);
 	}
 
 	/**

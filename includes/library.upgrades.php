@@ -55,9 +55,6 @@ class PageLinesUpgradePaths {
 		
 		if ( is_array( $pagelines ) ) {
 			
-			if ( '' == get_theme_mod( 'pagelines_version' ) )
-				set_theme_mod( 'pagelines_version', CORE_VERSION );
-			
 			$this->rebuild_sidebars( $pagelines );
 			
 			// were done.
@@ -72,13 +69,26 @@ class PageLinesUpgradePaths {
 
 	function rebuild_sidebars( $pagelines ) {
 		
-		$check = get_theme_mod( 'sidebars_fixed', false );
+		if ( ! VPRO )
+			return;
+
+		$version = ( isset( $pagelines['pagelines_version'] ) ) ? $pagelines['pagelines_version'] : '';
 		
-		if( $check )
+		// possible 'reset options'
+		if ( ! $version ) {
+			plupop( 'pagelines_version', CORE_VERSION );
+			return;
+		}
+		
+		// if on version 2.2 in settings
+		if ( version_compare( $version, '2.2' ) >= 0 ) 
 			return;
 		
 		if ( isset( $pagelines['enable_sidebar_reorder'] ) && $pagelines['enable_sidebar_reorder'] ) {
-			set_theme_mod( 'sidebars_fixed', 'true' );
+			
+			// no need to do this...
+			plupop( 'pagelines_version', CORE_VERSION );
+			return;
 		}
 		$sidebars = get_option( 'sidebars_widgets' );
 		
@@ -99,7 +109,7 @@ class PageLinesUpgradePaths {
 			
 		);
 		update_option( 'sidebars_widgets', $new_sidebars );
-		set_theme_mod( 'sidebars_fixed', 'true' );
+		plupop( 'pagelines_version', CORE_VERSION );
 		return;	
 	}
 
