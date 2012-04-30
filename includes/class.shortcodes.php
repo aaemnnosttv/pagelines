@@ -15,7 +15,7 @@ class PageLines_ShortCodes {
 		/**
 		*	Remove the pesky br's and p's from b0rking the columns
 		*/
-    	function shortcode_empty_paragraph_fix($content) {   
+    	function pl_shortcode_empty_paragraph_fix($content) {   
         	$array = array (
             	'<p>[' => '[', 
             	']</p>' => ']', 
@@ -26,7 +26,7 @@ class PageLines_ShortCodes {
 
 			return $content;
     	}
-    	add_filter('the_content', 'shortcode_empty_paragraph_fix');		
+    	add_filter('the_content', 'pl_shortcode_empty_paragraph_fix');		
 	}
 	
 	private function register_shortcodes( $shortcodes ) {
