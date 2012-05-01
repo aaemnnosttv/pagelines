@@ -50,9 +50,14 @@ class PageLines_ShortCodes {
 			'pl_button'					=>	'pl_button_shortcode',
 			'pl_buttongroup'            =>  'pl_buttongroup_shortcode',
 			'pl_buttondropdown'         =>  'pl_buttondropdown_shortcode',
+			'pl_splitbuttondropdown'    =>  'pl_splitbuttondropdown_shortcode',
+			'pl_accordion'              =>  'pl_accordion_shortcode',
+			'pl_accordioncontent'       =>  'pl_accordioncontent_shortcode',
 			'pl_blockquote'				=>	'pl_blockquote_shortcode',
 			'pl_alertbox'				=>	'pl_alertbox_shortcode',
 			'show_authors'				=>	'show_multiple_authors',
+			'pl_label'				    =>	'pl_label_shortcode',
+			'pl_badge'			        =>	'pl_badge_shortcode',
 			'like_button'				=>	'pl_facebook_shortcode',
 			'tweet_button'				=>	'pl_twitter_button',
 			'pinterest_button'			=>	'pl_pinterest_button',
@@ -589,10 +594,46 @@ class PageLines_ShortCodes {
 			//fallback
 		}
 	}
-	
+
+	/**
+	 * Bootstrap Labels Shortcode
+	 * 
+	 * @example <code>[pl_label type=""]My Label[/pl_label]</code> is the default usage
+	 * @example <code>[pl_label type="info"]label[/pl_label]</code>
+	 * @example Available types include info, success, warning, error
+	 */
+	function pl_label_shortcode( $atts, $content = null ) {
+	    
+	    $defaults = array(
+	    	'type' => 'info',
+	    );
+
+	    $out = sprintf('<span class="label label-%s">' .do_shortcode($content). '</span>',$atts['type']);
+
+	    return $out;
+	}
+
+	/**
+	 * Bootstrap Badges Shortcode
+	 * 
+	 * @example <code>[pl_badge type="info"]My badge[/pl_badge]</code> is the default usage
+	 * @example <code>[pl_badge type="info"]badge[/pl_badge]</code>
+	 * @example Available types include info, success, warning, error
+	 */
+	function pl_badge_shortcode( $atts, $content = null ) {
+	    
+	    $defaults = array(
+	    	'type' => 'info',
+	    );
+
+	    $out = sprintf('<span class="badge badge-%s">' .do_shortcode($content). '</span>',$atts['type']);
+
+	    return $out;
+	}
+
 	
 	/**
-	 * PageLines Bootstrap Alertbox Shortcode
+	 * Bootstrap Alertbox Shortcode
 	 * 
 	 * @example <code>[pl_alertbox type="info"]My alert[/pl_alertbox]</code> is the default usage
 	 * @example <code>[pl_alertbox type="info"]<h4 class="pl-alert-heading">Heading</h4>My alert[/pl_alertbox]</code>
@@ -625,7 +666,7 @@ class PageLines_ShortCodes {
 	}
 	
 	/**
-	 * PageLines Bootstrap Blockquote Shortcode
+	 * Bootstrap Blockquote Shortcode
 	 * 
 	 * @example <code>[pl_blockquote]My quote[/pl_blockquote]</code> is the default usage
 	 * @example <code>[pl_blockquote pull="right" site="Someone Famous"]My quote pulled right with source[/pl_blockquote]</code>
@@ -634,7 +675,7 @@ class PageLines_ShortCodes {
 
 		$defaults = array(
 			'pull'	=> 'left', 
-			'cite'		=> ''
+			'cite'		=> 'Someone Famous'
 		); 
 
 		$atts = shortcode_atts( $defaults, $atts );
@@ -649,27 +690,28 @@ class PageLines_ShortCodes {
 	 * PageLines Bootstrap Button Shortcode
 	 * 
 	 * @example <code>[pl_button type="info"]My Button[/pl_button]</code> is the default usage
-	 * @example <code>[pl_button type="info" url="#" target="blank"]My Button[/pl_button]</code>
+	 * @example <code>[pl_button type="info" link="#" target="blank"]My Button[/pl_button]</code>
 	 * @example Available types include info, success, warning, danger, inverse
 	 */
-	function pl_button_shortcode($atts, $content = null) {
+	function pl_button_shortcode($atts, $content = null, $target = null) {
 
-		extract(shortcode_atts(array(
-				    'type' => '',
-				    'link' =>'',
-				    'target' => 'blank'
-				), $atts));
+		$defaults = array(
+			'type' => 'info',
+			'link' =>'#',
+			'target' => 'blank'
+		);
 
+		$atts = shortcode_atts( $defaults, $atts );
 	    $target = ( $target == 'blank' ) ? ' target="_blank"' : '';
 
-	    $out = sprintf('<a href="%2$s" class="btn btn-%1$s" target="%3$s">%4$s</a>', $type,$link,$target,$content);
+	    $out = sprintf('<a href="%2$s" target="%3$s" class="btn btn-%1$s" >'.do_shortcode($content).'</a>', $atts['type'],$atts['link'],$atts['target']);
 
 		return $out;
 	}
 
 
 	/**
-	 * PageLines Bootstrap Button Group Shortcode - Builds a group of buttons as a menu
+	 * Bootstrap Button Group Shortcode - Builds a group of buttons as a menu
 	 * 
 	 * @example <code>[pl_buttongroup]<a href="#" class="btn btn-info">...[/pl_buttongroup]</code> is the default usage
 	 * @example <code>[pl_buttongroup]<a href="#" class="btn btn-info"><a href="#" class="btn btn-info"><a href="#" class="btn btn-info">[/pl_button]</code>
@@ -684,14 +726,17 @@ class PageLines_ShortCodes {
 
 	
 	/**
-	 * PageLines Bootstrap Dropdown Button Shortcode - Builds a button with contained dropdown menu
+	 * Bootstrap Dropdown Button Shortcode - Builds a button with contained dropdown menu
 	 * 
 	 * @example <code>[pl_buttondropdown size="" type="" label=""]<li><a href="#">...</a></li>[/pl_buttondropdown]</code> is the default usage
-	 * @example <code>[pl_buttongroup]<a href="#" class="btn btn-info"><a href="#" class="btn btn-info"><a href="#" class="btn btn-info">[/pl_button]</code>
+	 * @example <code>[pl_buttondropdown size="large" type="info" label="button"]<li><a href="#"></li><li><a href="#"></li><li><a href="#"></li>[/pl_buttondropdown]</code>
 	 * @example Available types include info, success, warning, danger, inverse
 	 */
 	function pl_buttondropdown_shortcode( $atts, $content = null  ) {
 	    
+	    // Pull in Bootstrap JS
+	    wp_enqueue_script( 'bootstrap-all' );
+
 	    $defaults = array(
 		    'size' => '',
 		    'type' => '',
@@ -700,11 +745,9 @@ class PageLines_ShortCodes {
 
 		$atts = shortcode_atts($defaults, $atts);
 
-		wp_enqueue_script( 'bootstrap-all' );
-
 	    $out = sprintf('
 	        <div class="btn-group">
-	            <a class="btn btn-%s btn-%s dropdown-toggle" data-toggle="dropdown" href="#">%s<span class="caret"></span></a>
+	            <button class="btn btn-%s btn-%s dropdown-toggle" data-toggle="dropdown" href="#">%s<span class="caret"></span></button>
 	            <ul class="dropdown-menu">
 	                '.do_shortcode($content).'
 	            </ul>
@@ -716,6 +759,97 @@ class PageLines_ShortCodes {
 	        
 	    return $out;
 	}
+
+
+	/**
+	 * Bootstrap Split Button Dropdown - Builds a button with split button dropdown caret
+	 * 
+	 * @example <code>[pl_splitbuttondropdown size="" type="" label=""]<li><a href="#">...</a></li>[/pl_splitbuttondropdown]</code> is the default usage
+	 * @example <code>[pl_splitbuttondropdown size="large" type="info" label="button"]<li><a href="#"></li><li><a href="#"></li><li><a href="#"></li>[/pl_splitbuttondropdown]</code>
+	 * @example Available types include info, success, warning, danger, inverse
+	 */
+	function pl_splitbuttondropdown_shortcode( $atts, $content = null ) {
+
+		// Pull in Bootstrap JS
+	    wp_enqueue_script( 'bootstrap-all' );
+	    
+	    $defaults = array(
+		    'size' => '',
+		    'type' => '',
+		    'label' => ''
+	    );
+
+		$atts = shortcode_atts($defaults, $atts);
+
+	    $out = sprintf('
+	        <div class="btn-group">
+	        <a class="btn btn-%1$s btn-%2$s" >%3$s</a><a class="btn btn-%1$s btn-%2$s dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+	            <ul class="dropdown-menu">
+	                '.do_shortcode($content).'
+	            </ul>
+	        </div>',
+	      	$atts['size'],
+	        $atts['type'],
+	        $atts['label']
+	    );
+	        
+	    return $out;
+	}
+
+	/**
+	 * Bootstrap Accordion - Collapsable Content
+	 * 
+	 * @example <code>[pl_accordion name="accordion"] [accordioncontent name="accordion" number="1" heading="Tile 1"]Content 1 [/accordioncontent] [accordioncontent name="accordion" number="2" heading="Title 2"]Content 2 [/accordioncontent] [/pl_accordion]</code> is the default usage
+	 */
+	function pl_accordion_shortcode( $atts, $content = null ) {
+
+		$defaults = array(
+			'name' => '',
+	    );
+         
+        $atts = shortcode_atts($defaults, $atts);
+
+	    $out = sprintf('<div id="%s" class="accordion">'.do_shortcode($content).'</div>',$atts['name']);
+	        
+	    return $out;
+	}
+	//Accordion Content
+	function pl_accordioncontent_shortcode( $atts, $content = null, $open = null ) {
+
+		// Pull in Bootstrap JS
+	    wp_enqueue_script( 'bootstrap-all' );
+	    
+	    $defaults = array(
+		    'name' => '',
+		    'heading' => '',
+		    'number' => '',
+		    'open' => ''
+	    );
+
+        $open = ($open == 'yes') ? 'in' : '';
+        $atts = shortcode_atts($defaults, $atts);
+
+	    $out = sprintf('    
+		    <div class="accordion-group">
+		            <div class="accordion-heading">
+		                <a class="accordion-toggle" data-toggle="collapse" data-parent="#%1$s" href="#collapse%3$s">%2$s</a>
+		            </div>
+		        <div id="collapse%3$s" class="accordion-body collapse %4$s">
+		            <div class="accordion-inner"> 
+		            '.do_shortcode($content).'
+		            </div>
+		        </div>
+		    </div>',
+	      	$atts['name'],
+	        $atts['heading'],
+	        $atts['number'],
+	        $atts['open']
+
+	    );
+	        
+	    return $out;
+	}
+
 	
 	/**
 	 * This function produces the time of post publication

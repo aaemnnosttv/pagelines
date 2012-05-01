@@ -25,8 +25,11 @@ class PageLinesRenderCSS {
 			'variables',
 			'mixins',
 			'alerts',
+			'badges',
+			'labels',
 			'buttons',
 			'button-groups',
+			'accordion',
 			'color',		
 		);
 		return $files;
