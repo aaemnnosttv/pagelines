@@ -25,6 +25,7 @@ class PageLinesRenderCSS {
 			'variables',
 			'mixins',
 			'alerts',
+			'close',
 			'badges',
 			'labels',
 			'tooltip',
