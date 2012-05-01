@@ -638,10 +638,11 @@ class PageLines_ShortCodes {
 	 * Bootstrap Alertbox Shortcode
 	 * 
 	 * @example <code>[pl_alertbox type="info"]My alert[/pl_alertbox]</code> is the default usage
+	 * @example <code>[pl_alertbox type="info" closable="yes"]My alert[/pl_alertbox]</code> makes an alert that can be toggled away with a close button
 	 * @example <code>[pl_alertbox type="info"]<h4 class="pl-alert-heading">Heading</h4>My alert[/pl_alertbox]</code>
 	 * @example Available types include info, success, warning, error
 	 */
-	function pl_alertbox_shortcode($atts) {
+	function pl_alertbox_shortcode($atts, $content = null) {
 
 		$defaults = array(
 				    'type' => 'info',
@@ -650,8 +651,8 @@ class PageLines_ShortCodes {
 
         $atts = shortcode_atts( $defaults, $atts );
 
-	    $out = sprintf('<div class="alert alert-%1$s alert-block">%s</div>',$atts['type']);
-	    $closed = sprintf('<div class="alert alert-%1$s"><a class="close" data-dismiss="alert" href="#">×</a>%s</div>',$atts['type']);
+	    $out = sprintf('<div class="alert alert-%1$s alert-block">' .do_shortcode($content). '</div>',$atts['type']);
+	    $closed = sprintf('<div class="alert alert-%1$s"><a class="close" data-dismiss="alert" href="#">×</a>' .do_shortcode($content). '</div>',$atts['type']);
 
 		if ( $atts['closable'] === 'yes' ) {	
 			
