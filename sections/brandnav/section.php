@@ -20,16 +20,26 @@ class PageLinesBrandNav extends PageLinesNav {
 	/**
 	* PHP that always loads no matter if section is added or not.
 	*/	
-
+	function section_persistent(){
+			register_nav_menus( array( 'brandnav' => __( 'BrandNav Section Navigation', 'pagelines' ) ) );
+	}
+	
 	/**
 	*
 	* @TODO document
 	*
 	*/
-	function section_persistent(){
-			register_nav_menus( array( 'brandnav' => __( 'BrandNav Section Navigation', 'pagelines' ) ) );
+	function section_styles(){
+		if(ploption('enable_drop_down')){
+			
+			wp_register_style('superfish', self::$nav_url . '/style.superfish.css', array(), CORE_VERSION, 'screen');
+		 	wp_enqueue_style( 'superfish' );
+		
+			wp_enqueue_script( 'superfish', self::$nav_url . '/script.superfish.js', array('jquery'), '1.4.8', true );
+			wp_enqueue_script( 'bgiframe', self::$nav_url . '/script.bgiframe.js', array('jquery'), '2.1', true );	
+		}
 	}
-	
+
 	/**
 	* Section template.
 	*/
@@ -74,19 +84,5 @@ class PageLinesBrandNav extends PageLinesNav {
 
 	<?php 
 			endif;
-	}
-
-
-	/**
-	*
-	* @TODO document
-	*
-	*/
-	function section_styles(){
-		
-		if(ploption('enable_drop_down')){
-			wp_register_style('superfish', self::$nav_url . '/style.superfish.css', array(), CORE_VERSION, 'screen');
-		 	wp_enqueue_style( 'superfish' );
-		}
 	}
 }
