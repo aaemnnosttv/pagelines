@@ -26,6 +26,7 @@ class PageLinesRenderCSS {
 			'mixins',
 			'alerts',
 			'buttons',
+			'button-groups',
 			'color',		
 		);
 		return $files;

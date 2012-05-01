@@ -12,9 +12,8 @@ class PageLines_ShortCodes {
 		// Make widgets process shortcodes
 		add_filter('widget_text', 'do_shortcode');		
 		
-		/**
-		*	Remove the pesky br's and p's from b0rking the columns
-		*/
+		
+		//Remove the extra p's and br's
     	function pl_shortcode_empty_paragraph_fix($content) {   
         	$array = array (
             	'<p>[' => '[', 
@@ -26,7 +25,12 @@ class PageLines_ShortCodes {
 
 			return $content;
     	}
-    	add_filter('the_content', 'pl_shortcode_empty_paragraph_fix');		
+    	add_filter('the_content', 'pl_shortcode_empty_paragraph_fix');	
+    		
+    	
+		//Remove Wordpress Formatters (breaks button groups and others)
+		remove_filter('the_content', 'wpautop');
+		remove_filter('the_content', 'wptexturize');
 	}
 	
 	private function register_shortcodes( $shortcodes ) {
@@ -44,6 +48,8 @@ class PageLines_ShortCodes {
 			'button'					=>	'pagelines_button_shortcode',
 			'post_time'					=>	'pagelines_post_time_shortcode',
 			'pl_button'					=>	'pl_button_shortcode',
+			'pl_buttongroup'            =>  'pl_buttongroup_shortcode',
+			'pl_buttondropdown'         =>  'pl_buttondropdown_shortcode',
 			'pl_blockquote'				=>	'pl_blockquote_shortcode',
 			'pl_alertbox'				=>	'pl_alertbox_shortcode',
 			'show_authors'				=>	'show_multiple_authors',
@@ -71,8 +77,6 @@ class PageLines_ShortCodes {
 		
 		return $core;
 	}
-
-
 
 
 	// Return link in page based on Bookmark
@@ -594,33 +598,51 @@ class PageLines_ShortCodes {
 	 * @example <code>[pl_alertbox type="info"]<h4 class="pl-alert-heading">Heading</h4>My alert[/pl_alertbox]</code>
 	 * @example Available types include info, success, warning, error
 	 */
-	function pl_alertbox_shortcode($atts, $content = null) {
+	function pl_alertbox_shortcode($atts) {
 
-		extract(shortcode_atts(array(
-				    'type' => ''
-				), $atts));
+		$defaults = array(
+				    'type' => 'info',
+				    'closable' =>'no',
+		);
 
-	    $out = sprintf('<div class="alert alert-%1$s alert-block">%2$s</div>',$type,$content);
+        $atts = shortcode_atts( $defaults, $atts );
 
-		return $out;
+	    $out = sprintf('<div class="alert alert-%1$s alert-block">%s</div>',$atts['type']);
+	    $closed = sprintf('<div class="alert alert-%1$s"><a class="close" data-dismiss="alert" href="#">×</a>%s</div>',$atts['type']);
+
+		if ( $atts['closable'] === 'yes' ) {	
+			
+			wp_enqueue_script( 'bootstrap-all' );
+			
+			return $closed;
+        
+        } else {
+        	
+        	return $out;
+        
+    	}
+
 	}
 	
 	/**
 	 * PageLines Bootstrap Blockquote Shortcode
 	 * 
-	 * @example <code>[pl_blockquote type="info"]My quote[/pl_blockquote]</code> is the default usage
-	 * @example <code>[pl_blockquote pull="right"]My quote pulled right[/pl_blockquote]</code>
+	 * @example <code>[pl_blockquote]My quote[/pl_blockquote]</code> is the default usage
+	 * @example <code>[pl_blockquote pull="right" site="Someone Famous"]My quote pulled right with source[/pl_blockquote]</code>
 	 */
-	function pl_blockquote_shortcode($atts, $content = null) {
+	function pl_blockquote_shortcode($atts) {
 
-		extract(shortcode_atts(array(
-				    'pull' => '',
-				    'cite' =>''
-				), $atts));
+		$defaults = array(
+			'pull'	=> 'left', 
+			'cite'		=> ''
+		); 
 
-	    $out = sprintf('<blockquote class="pull-%1$s"><p>%3$s<small>%2$s</small></p></blockquote>',$pull,$cite,$content);
+		$atts = shortcode_atts( $defaults, $atts );
+
+		$out = sprintf('<blockquote class="pull-%1$s"><p>%s<small>%2$s</small></p></blockquote>',$atts['pull'],$atts['cite']);
 
 		return $out;
+
 	}
 	
 	/**
@@ -643,6 +665,56 @@ class PageLines_ShortCodes {
 	    $out = sprintf('<a href="%2$s" class="btn btn-%1$s" target="%3$s">%4$s</a>', $type,$link,$target,$content);
 
 		return $out;
+	}
+
+
+	/**
+	 * PageLines Bootstrap Button Group Shortcode - Builds a group of buttons as a menu
+	 * 
+	 * @example <code>[pl_buttongroup]<a href="#" class="btn btn-info">...[/pl_buttongroup]</code> is the default usage
+	 * @example <code>[pl_buttongroup]<a href="#" class="btn btn-info"><a href="#" class="btn btn-info"><a href="#" class="btn btn-info">[/pl_button]</code>
+	 * @example Available types include info, success, warning, danger, inverse
+	 */
+	function pl_buttongroup_shortcode( $atts, $content = null ) {
+
+    	$out = sprintf('<div class="btn-group">'.do_shortcode($content).'</div>');
+        
+    	return $out;
+	}
+
+	
+	/**
+	 * PageLines Bootstrap Dropdown Button Shortcode - Builds a button with contained dropdown menu
+	 * 
+	 * @example <code>[pl_buttondropdown size="" type="" label=""]<li><a href="#">...</a></li>[/pl_buttondropdown]</code> is the default usage
+	 * @example <code>[pl_buttongroup]<a href="#" class="btn btn-info"><a href="#" class="btn btn-info"><a href="#" class="btn btn-info">[/pl_button]</code>
+	 * @example Available types include info, success, warning, danger, inverse
+	 */
+	function pl_buttondropdown_shortcode( $atts, $content = null  ) {
+	    
+	    $defaults = array(
+		    'size' => '',
+		    'type' => '',
+		    'label' => ''
+		);
+
+		$atts = shortcode_atts($defaults, $atts);
+
+		wp_enqueue_script( 'bootstrap-all' );
+
+	    $out = sprintf('
+	        <div class="btn-group">
+	            <a class="btn btn-%s btn-%s dropdown-toggle" data-toggle="dropdown" href="#">%s<span class="caret"></span></a>
+	            <ul class="dropdown-menu">
+	                '.do_shortcode($content).'
+	            </ul>
+	        </div>',
+	        $atts['size'],
+	      	$atts['type'],
+	        $atts['label']
+	    );
+	        
+	    return $out;
 	}
 	
 	/**
