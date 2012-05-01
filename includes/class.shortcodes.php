@@ -653,7 +653,7 @@ class PageLines_ShortCodes {
 
 		if ( $atts['closable'] === 'yes' ) {	
 			
-			wp_enqueue_script( 'bootstrap-all' );
+			wp_enqueue_script( 'pagelines-bootstrap-all' );
 			
 			return $closed;
         
@@ -735,7 +735,7 @@ class PageLines_ShortCodes {
 	function pl_buttondropdown_shortcode( $atts, $content = null  ) {
 	    
 	    // Pull in Bootstrap JS
-	    wp_enqueue_script( 'bootstrap-all' );
+	    wp_enqueue_script( 'pagelines-bootstrap-all' );
 
 	    $defaults = array(
 		    'size' => '',
@@ -771,7 +771,7 @@ class PageLines_ShortCodes {
 	function pl_splitbuttondropdown_shortcode( $atts, $content = null ) {
 
 		// Pull in Bootstrap JS
-	    wp_enqueue_script( 'bootstrap-all' );
+	    wp_enqueue_script( 'pagelines-bootstrap-all' );
 	    
 	    $defaults = array(
 		    'size' => '',
@@ -817,7 +817,7 @@ class PageLines_ShortCodes {
 	function pl_accordioncontent_shortcode( $atts, $content = null, $open = null ) {
 
 		// Pull in Bootstrap JS
-	    wp_enqueue_script( 'bootstrap-all' );
+	    wp_enqueue_script( 'pagelines-bootstrap-all' );
 	    
 	    $defaults = array(
 		    'name' => '',

@@ -199,16 +199,10 @@ function pagelines_head_common(){
 		if(is_rtl()) 
 			pagelines_load_css_relative( 'rtl.css', 'pagelines-rtl');
 	}
-	
-	// Queue Common Javascript Libraries
-	wp_enqueue_script( 'jquery'); 
-	wp_enqueue_script( 'blocks', PL_JS . '/script.blocks.js', array('jquery'), '1.0.1');
-	
+		
 	if ( ploption( 'facebook_headers' ) && VPRO )
 		pagelines_facebook_header();
-	
-	pagelines_supersize_bg();
-	
+		
 	// Fix IE and special handling
 	if ( pl_detect_ie() )
 		pagelines_fix_ie();
@@ -274,9 +268,8 @@ function pagelines_supersize_bg(){
 	$url = ploption('page_background_image_url', $oset);
 
 	if(ploption('supersize_bg') && $url && !pl_is_disabled('color_control')){ 
-		
-		wp_enqueue_script('supersize', PL_JS.'/script.supersize.js', 'jquery' );
-		
+	
+		wp_enqueue_script('pagelines-supersize' );			
 		add_action('wp_head', 'pagelines_runtime_supersize', 20);
 	}	
 }

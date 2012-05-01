@@ -21,14 +21,15 @@ class PageLinesFootCols extends PageLinesSection {
 	public $markup_end;
 
 	/**
+	* Load js
+	*/
+	function section_styles(){
+		wp_enqueue_script( 'pagelines-blocks' );
+	}
+	
+	/**
 	* PHP that always loads no matter if section is added or not.
 	*/	
-
-	/**
-	*
-	* @TODO document
-	*
-	*/
 	function section_persistent(){
 		
 		$per_row = (ploption('footer_num_columns')) ? ploption('footer_num_columns') : 5;
@@ -55,12 +56,6 @@ class PageLinesFootCols extends PageLinesSection {
 
 	/**
 	* Section template.
-	*/	
-
-	/**
-	*
-	* @TODO document
-	*
 	*/
 	function section_template() { 
 		

@@ -121,5 +121,9 @@ add_action( 'template_redirect', 'pl_check_integrations' );
 
 add_action( 'wp_enqueue_scripts', 'pagelines_register_js' );
 function pagelines_register_js() {
-	wp_register_script( 'bootstrap-all', PL_JS . '/script.bootstrap.min.js', false, '2.0.3', true );
+	wp_register_script( 'pagelines-bootstrap-all', PL_JS . '/script.bootstrap.min.js', false, '2.0.3', true );
+	wp_register_script( 'pagelines-blocks', PL_JS . '/script.blocks.js', array('jquery'), '1.0.1', true );
+	wp_register_script( 'pagelines-supersize', PL_JS.'/script.supersize.js', array( 'jquery' ), '3.1.3', false );
 }
+
+add_action( 'wp_enqueue_scripts', 'pagelines_supersize_bg' );

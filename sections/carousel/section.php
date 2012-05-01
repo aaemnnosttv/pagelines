@@ -20,12 +20,10 @@ class PageLinesCarousel extends PageLinesSection {
 	
 
 	/**
-	*
-	* @TODO document
-	*
+	* Load js
 	*/
 	function section_styles(){
-		wp_enqueue_script('jcarousel', $this->base_url.'/jcarousel.js');
+		wp_enqueue_script( 'jcarousel', $this->base_url.'/jcarousel.js', array( 'jquery'), null, true);
 	}
 	
 	

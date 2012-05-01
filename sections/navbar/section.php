@@ -95,7 +95,7 @@ class PLNavBar extends PageLinesSection {
 	 */
 	function section_styles(){
 		
-		wp_enqueue_script( 'bootstrap-all' );
+		wp_enqueue_script( 'pagelines-bootstrap-all' );
 	}
 	
 	function section_head($clone_id){ ?>

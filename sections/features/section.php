@@ -46,7 +46,13 @@ class PageLinesFeatures extends PageLinesSection {
 
 	}
 
-
+	/**
+	* Load js
+	*/
+	function section_styles(){
+		wp_enqueue_script( 'jcarousel', $this->base_url . '/script.cycle.js', array( 'jquery'), '2.9994', true);
+	}
+	
 	/**
 	*
 	* @TODO document
@@ -470,25 +476,6 @@ class PageLinesFeatures extends PageLinesSection {
 	<div class="clear"></div>
 <?php
 	}
-
-
-	/**
-	*
-	* @TODO document
-	*
-	*/
-	function section_scripts() {  
-	
-		return array(
-				'cycle' => array(
-						'file' => $this->base_url . '/script.cycle.js',
-						'dependancy' => array('jquery'), 
-						'location' => 'footer', 
-						'version' => '2.9994'
-					)	
-			);
-	}
-	
 
 	/**
 	*

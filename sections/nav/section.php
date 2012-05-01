@@ -64,6 +64,8 @@ class PageLinesNav extends PageLinesSection {
 			wp_register_style('superfish', self::$nav_url . '/style.superfish.css', array(), CORE_VERSION, 'screen');
 		 	wp_enqueue_style( 'superfish' );
 		
+			wp_enqueue_script( 'superfish', self::$nav_url . '/script.superfish.js', array('jquery'), '1.4.8', true );
+			wp_enqueue_script( 'bgiframe', self::$nav_url . '/script.bgiframe.js', array('jquery'), '2.1', true );	
 		}
 	}
 	
@@ -84,28 +86,6 @@ class PageLinesNav extends PageLinesSection {
 
 <?php 
 		endif;
-}
-
-
-	/**
-	*
-	* @TODO document
-	*
-	*/
-	function section_scripts() {  
-		
-		return array(
-				'superfish' => array(
-						'file' => self::$nav_url . '/script.superfish.js',
-						'dependancy' => array('jquery'), 
-						'location' => 'footer'
-					), 
-				'bgiframe' => array(
-					'file' => self::$nav_url . '/script.bgiframe.js',
-					'dependancy' => array('jquery', 'superfish'), 
-					'location' => 'footer'
-					),
-					
-			);	
 	}
+
 }
