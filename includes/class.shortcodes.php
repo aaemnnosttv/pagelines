@@ -51,6 +51,8 @@ class PageLines_ShortCodes {
 			'pl_buttongroup'            =>  'pl_buttongroup_shortcode',
 			'pl_buttondropdown'         =>  'pl_buttondropdown_shortcode',
 			'pl_splitbuttondropdown'    =>  'pl_splitbuttondropdown_shortcode',
+			'pl_tooltip'                =>  'pl_tooltip_shortcode',
+			'pl_popover'                =>  'pl_popover_shortcode',
 			'pl_accordion'              =>  'pl_accordion_shortcode',
 			'pl_accordioncontent'       =>  'pl_accordioncontent_shortcode',
 			'pl_blockquote'				=>	'pl_blockquote_shortcode',
@@ -687,7 +689,7 @@ class PageLines_ShortCodes {
 	}
 	
 	/**
-	 * PageLines Bootstrap Button Shortcode
+	 * Bootstrap Button Shortcode
 	 * 
 	 * @example <code>[pl_button type="info"]My Button[/pl_button]</code> is the default usage
 	 * @example <code>[pl_button type="info" link="#" target="blank"]My Button[/pl_button]</code>
@@ -795,6 +797,72 @@ class PageLines_ShortCodes {
 	        
 	    return $out;
 	}
+
+	 /**
+	 * Bootstrap Tooltips
+	 * 
+	 * @example <code>[pl_tooltip tip=""]...[/pl_tooltip]</code> is the default usage
+	 * @example <code>This is a [pl_tooltip tip="Cool"]tooltip[/pl_tooltip] example.</code>
+	 */
+	function pl_tooltip_shortcode( $atts, $content = null) {
+
+	    $defaults = array(
+	    	'tip' => 'Tip',
+	    );
+
+        $atts = shortcode_atts( $defaults, $atts );
+
+			ob_start();
+				
+				?>
+				<script>
+                	jQuery(function(){
+						jQuery("a[rel=tooltip]").tooltip();
+					});
+				</script>
+				<?php
+
+			printf('<a href="#" rel="tooltip" title="%s">' .do_shortcode($content). '</a>', $atts['tip']);
+
+			return ob_get_clean();
+
+	}
+
+	/**
+	 * Bootstrap Popovers
+	 * 
+	 * @example <code>[pl_popover title="" content=""]...[/pl_popover]</code> is the default usage
+	 * @example <code>This is a [pl_popover title="Popover Title" content="Some content that you can have inside the Popover"]popover[/pl_popover] example.</code>
+	 */
+    function pl_popover_shortcode( $atts, $content = null ) {
+	    
+	    $defaults = array(
+	    	'title' => 'Popover Title',
+	    	'content' => 'Content'
+	    );
+
+	    $atts = shortcode_atts( $defaults, $atts );
+
+	    ob_start();
+
+	    	?>
+	    	<script>
+                	jQuery(function(){
+						 jQuery("a[rel=popover]")
+      					.popover()
+      					.click(function(e) {
+        					e.preventDefault()
+      					});
+					});
+	    	</script>
+	        <?php
+
+    	printf('<a href="#" rel="popover" title="%s" data-content="%s">' .do_shortcode($content). '</a>',$atts['title'],$atts['content']);
+
+    	return ob_get_clean();
+
+	}
+
 
 	/**
 	 * Bootstrap Accordion - Collapsable Content

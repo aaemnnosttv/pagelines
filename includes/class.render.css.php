@@ -27,6 +27,8 @@ class PageLinesRenderCSS {
 			'alerts',
 			'badges',
 			'labels',
+			'tooltip',
+			'popovers',
 			'buttons',
 			'button-groups',
 			'accordion',
