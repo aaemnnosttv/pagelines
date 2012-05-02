@@ -25,9 +25,8 @@ class OpenGrid extends PageLinesSection {
 	function section_template() {  
 	
 		global $post;
-		
-		
-		printf('<div class="fluid">%s</div>', $post->post_content);
+			
+		printf('<div class="fluid-grid">%s%s</div>', do_shortcode($post->post_content), pledit($post->ID));
 	 
 	}
 

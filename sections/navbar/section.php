@@ -130,8 +130,8 @@ class PLNavBar extends PageLinesSection {
 		
 		<?php if(ploption('navbar_fixed')): ?>
 		<style id="navbar-css" type="text/css">
-			#page {padding-top: 50px}
-			.fixed_width #page {padding-top: 62px;}
+			.page-canvas {padding-top: 50px;}
+			.fixed_width #page .page-canvas{margin-top: 42px; padding-top: 0}
 		</style>
 		<?php endif;?>
 	<?php }
