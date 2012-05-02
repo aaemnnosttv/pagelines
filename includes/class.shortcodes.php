@@ -29,7 +29,6 @@ class PageLines_ShortCodes {
     		
     	
 		//Remove Wordpress Formatters (breaks button groups and others)
-		remove_filter('the_content', 'wpautop');
 		remove_filter('the_content', 'wptexturize');
 	}
 	
@@ -721,6 +720,8 @@ class PageLines_ShortCodes {
 	 * @example Available types include info, success, warning, danger, inverse
 	 */
 	function pl_buttongroup_shortcode( $atts, $content = null ) {
+
+		$content = preg_replace('#<br \/>#', '', $content);
 
     	$out = sprintf('<div class="btn-group">'.do_shortcode($content).'</div>');
         
