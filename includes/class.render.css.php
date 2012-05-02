@@ -34,6 +34,7 @@ class PageLinesRenderCSS {
 			'button-groups',
 			'accordion',
 			'carousel',
+			'tabs-pills',
 			'color',		
 		);
 		return $files;

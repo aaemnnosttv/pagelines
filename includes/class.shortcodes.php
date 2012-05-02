@@ -52,10 +52,19 @@ class PageLines_ShortCodes {
 			'pl_splitbuttondropdown'    =>  'pl_splitbuttondropdown_shortcode',
 			'pl_tooltip'                =>  'pl_tooltip_shortcode',
 			'pl_popover'                =>  'pl_popover_shortcode',
+			
 			'pl_accordion'              =>  'pl_accordion_shortcode',
 			'pl_accordioncontent'       =>  'pl_accordioncontent_shortcode',
+			
 			'pl_carousel'               =>  'pl_carousel_shortcode',
 			'pl_carouselimage'          =>  'pl_carouselimage_shortcode',
+			
+			'pl_tabs'                   =>  'pl_tabs_shortcode',
+			'pl_tabtitlesection'        =>  'pl_tabtitlesection_shortcode',
+			'pl_tabtitle'               =>  'pl_tabtitle_shortcode',
+			'pl_tabcontentsection'      =>  'pl_tabcontentsection_shortcode',
+			'pl_tabcontent'             =>  'pl_tabcontent_shortcode',
+
 			'pl_blockquote'				=>	'pl_blockquote_shortcode',
 			'pl_alertbox'				=>	'pl_alertbox_shortcode',
 			'show_authors'				=>	'show_multiple_authors',
@@ -983,7 +992,88 @@ class PageLines_ShortCodes {
 	    return $out;
 	}
 
-	
+	/**
+	 * Bootstrap Tabs
+	 * 
+	 * @example <code>[pl_tabs][pl_tabtitlesection type=""][pl_tabtitle active="" number="1"]...[/pl_tabtitle][pl_tabtitle number="2"]...[/pl_tabtitle][/pl_tabtitlesection][pl_tabcontentsection][pl_tabcontent active="" number="1"]...[/pl_tabcontent][pl_tabcontent number=""]...[/pl_tabcontent][/pl_tabcontentsection][/pl_tabs]</code> is the default usage
+	 * @example <code>[pl_tabs][pl_tabtitlesection type="tabs"][pl_tabtitle active="yes" number="1"]Title 1[/pl_tabtitle][pl_tabtitle number="2"]Title 2[/pl_tabtitle][/pl_tabtitlesection][pl_tabcontentsection][pl_tabcontent active="yes" number="1"]Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac mi enim, at consectetur justo.[/pl_tabcontent][pl_tabcontent number="2"]Second content there.[/pl_tabcontent][/pl_tabcontentsection][/pl_tabs]</code>
+	 * @example Available types include tabs, pills
+	 */
+
+    function pl_tabs_shortcode( $atts, $content = null ) {
+
+    	$out = sprintf('<div class="tabs">'.do_shortcode($content).'</div>');
+        
+    return $out;
+
+	}
+
+	//Tab Titles Section
+		function pl_tabtitlesection_shortcode( $atts, $content = null ) {
+
+		// Pull in Bootstrap JS
+	    wp_enqueue_script( 'pagelines-bootstrap-all' );
+		        
+			extract(shortcode_atts(array(
+		    	'type' => '',
+		    ), $atts));
+
+		    ob_start();
+
+		    	?>
+		    		<script>
+			    		jQuery(function(){
+							 jQuery('a[data-toggle="tab"]').on('shown', function (e) {
+							  e.target // activated tab
+							  e.relatedTarget // previous tab
+							})
+						});
+		    		</script>
+		    	<?php
+
+		    printf('<ul class="nav nav-'.$type.'">'.do_shortcode($content).'</ul>');
+		        
+		    return ob_get_clean();
+		}
+
+	//Tab Titles
+		function pl_tabtitle_shortcode( $atts, $content = null ) {
+		         
+		    extract(shortcode_atts(array(
+				'active' => '',
+				'number' => ''
+			), $atts));
+
+		    $active = ($active == 'yes') ? "class='active'" : '';
+		    
+		    $out = sprintf('<li '.$active.'><a href="#'.$number.'" data-toggle="tab">'.do_shortcode($content).'</a></li>');
+		        
+		    return $out;
+		}
+
+	//Tab Content Section
+		function pl_tabcontentsection_shortcode( $atts, $content = null ) {
+
+		    $out = sprintf('<div class="tab-content">'.do_shortcode($content).'</div>');
+		        
+		    return $out;
+		}
+
+	//Tab Content
+		function pl_tabcontent_shortcode( $atts, $content = null ) {
+
+		    extract(shortcode_atts(array(
+			    'active' => '',
+			    'number' => ''
+		    ), $atts));
+ 	        
+		    $active = ($active == 'yes') ? "active" : '';
+
+		    $out = sprintf('<div class="tab-pane '.$active.'" id="'.$number.'"><p>'.do_shortcode($content).'</p></div>');
+		        
+		    return $out;
+		}
+		
 	/**
 	 * This function produces the time of post publication
 	 * 
