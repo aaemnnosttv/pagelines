@@ -31,6 +31,7 @@ class PageLinesRenderCSS {
 			'tooltip',
 			'popovers',
 			'buttons',
+			'dropdowns',
 			'button-groups',
 			'accordion',
 			'carousel',
