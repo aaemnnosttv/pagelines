@@ -639,7 +639,7 @@
 			&& !$this->is_installed( $type, $key, $ext )
 			&& $this->is_premium( $type, $key, $ext )
 			&& ! $this->version_fail( $ext['plversion'] )
-			&& ! $this->is_plus_product( $type, $key, $ext, $tab )
+			&& !($this->is_user_plus() && $this->is_plus_product( $type, $key, $ext, $tab ))
 		){
 			return true;
 		} else 
@@ -660,6 +660,7 @@
 			&& !$this->is_installed( $type, $key, $ext )
 			&& $this->is_premium( $type, $key, $ext )
 			&& ! $this->version_fail( $ext['plversion'] )
+			&& $this->is_user_plus()
 			&& $this->is_plus_product( $type, $key, $ext, $tab )
 		){
 			return true;
@@ -825,6 +826,19 @@
 		
 		return false;
 	}
+	
+	 /**
+	 *
+	 * @TODO document
+	 *
+	 */
+	 function is_user_plus() {
+		if(VPLUS) {
+			return true;
+		}
+		
+		return false;
+	 }
 
 	 /**
 	 *
