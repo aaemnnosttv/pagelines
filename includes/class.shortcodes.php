@@ -54,6 +54,8 @@ class PageLines_ShortCodes {
 			'pl_popover'                =>  'pl_popover_shortcode',
 			'pl_accordion'              =>  'pl_accordion_shortcode',
 			'pl_accordioncontent'       =>  'pl_accordioncontent_shortcode',
+			'pl_carousel'               =>  'pl_carousel_shortcode',
+			'pl_carouselimage'          =>  'pl_carouselimage_shortcode',
 			'pl_blockquote'				=>	'pl_blockquote_shortcode',
 			'pl_alertbox'				=>	'pl_alertbox_shortcode',
 			'show_authors'				=>	'show_multiple_authors',
@@ -643,6 +645,8 @@ class PageLines_ShortCodes {
 	 */
 	function pl_alertbox_shortcode($atts, $content = null) {
 
+		$content = str_replace( '<br />', '', str_replace( '<br>', '', $content ) );
+
 		$defaults = array(
 				    'type' => 'info',
 				    'closable' =>'no',
@@ -917,6 +921,65 @@ class PageLines_ShortCodes {
 
 	    );
 	        
+	    return $out;
+	}
+
+	/**
+	 * Bootstrap Carousel
+	 * 
+	 * @example <code>[pl_carousel name=""][pl_carouselimage first="yes" title="" imageurl="" ]Caption[/pl_carouselimage][pl_carouselimage title="" imageurl="" ]Caption[/pl_carouselimage][/pl_carousel]</code> is the default usage
+	 * @example <code>[pl_carousel name="PageLinesCarousel"][pl_carouselimage first="yes" title="Feature 1" imageurl="" ]Image 1 Caption[/pl_carouselimage][pl_carouselimage title="Feature 2" imageurl=""]Image 2 Caption[/pl_carouselimage][pl_carouselimage title="Feature 3" imageurl=""]Image 3 Caption[/pl_carouselimage][/pl_carousel]</code>
+	 */
+    function pl_carousel_shortcode( $atts, $content = null ) {
+
+    	// Pull in Bootstrap JS
+	    wp_enqueue_script( 'pagelines-bootstrap-all' );
+	    
+	    $defaults = array(
+	    	'name' => 'PageLines Carousel',
+	    );
+
+	    $atts = shortcode_atts($defaults, $atts);
+
+	    	ob_start();
+				
+				?>
+				<script>
+	            	jQuery(function(){
+						jQuery('.carousel').carousel();
+					});
+				</script>
+				<?php
+
+		   		printf('
+			        <div id="%1$s" class="carousel slide">
+			            <div class="carousel-inner">
+			            '.do_shortcode($content).'
+			            </div>
+			            <a class="carousel-control left" href="#%1$s" data-slide="prev">&lsaquo;</a>
+			            <a class="carousel-control right" href="#%1$s" data-slide="next">&rsaquo;</a>
+			        </div>',
+			        $atts['name']
+		        );
+        
+        	return ob_get_clean();
+
+	}
+	//Carousel Images
+	function pl_carouselimage_shortcode( $atts, $content = null) {
+	    
+	    extract(shortcode_atts(array(
+		    'first' => '',
+		    'title' => '',
+		    'imageurl' => '',
+		    'caption' => '',
+	    ), $atts));
+
+	    $first = ($first == 'yes') ? 'active' : '';
+	    $content = ($content <> '') ? "<div class='carousel-caption'><h4>$title</h4><p>$content</p></div></div>" : '';
+
+	    $out = sprintf('<div class="item '.$first.'"><img src="'.$imageurl.'">' .do_shortcode($content).'');
+
 	    return $out;
 	}
 

@@ -33,6 +33,7 @@ class PageLinesRenderCSS {
 			'buttons',
 			'button-groups',
 			'accordion',
+			'carousel',
 			'color',		
 		);
 		return $files;
