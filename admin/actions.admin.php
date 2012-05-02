@@ -333,3 +333,6 @@ function pagelines_set_versions() {
 	set_theme_mod( 'pagelines_version', pl_get_theme_data( get_template_directory(), 'Version' ) );
 	set_theme_mod( 'pagelines_child_version', pl_get_theme_data( get_stylesheet_directory(), 'Version' ) );
 }
+
+if ( defined( 'PL_LESS_DEV' ) )
+	do_action( 'extend_flush' );
