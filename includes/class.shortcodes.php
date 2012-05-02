@@ -65,6 +65,7 @@ class PageLines_ShortCodes {
 			'pl_tabcontentsection'      =>  'pl_tabcontentsection_shortcode',
 			'pl_tabcontent'             =>  'pl_tabcontent_shortcode',
 
+            'pl_modal'				    =>	'pl_modal_shortcode',
 			'pl_blockquote'				=>	'pl_blockquote_shortcode',
 			'pl_alertbox'				=>	'pl_alertbox_shortcode',
 			'show_authors'				=>	'show_multiple_authors',
@@ -1073,11 +1074,64 @@ class PageLines_ShortCodes {
 		        
 		    return $out;
 		}
+
+	/**
+	 * Bootstrap Modal
+	 * 
+	 * @example <code></code>
+	 * @example <code></code>
+	 */	
+	 function pl_modal_shortcode( $atts, $content = null ) {
+
+    	// Pull in Bootstrap JS
+	    wp_enqueue_script( 'pagelines-bootstrap-all' );
+	    
+	     extract(shortcode_atts(array(
+	    	'title' => '',
+	    	'buttontype' => '',
+	    	'buttonsize' => '',
+	    	'buttonlabel' => ''
+	     ), $atts));
+
+	    	ob_start();
+
+	    		?>
+				<script>
+	            	jQuery(function(){
+						jQuery('#modal').modal({
+							keyboard: true;
+						});
+					});
+				</script>
+				<?php
+				
+		   		printf(' 
+			        <div id="modal" class="modal hide fade">
+			            <div class="modal-header">
+			            	<a class="close" data-dismiss="modal">×</a>
+			            	<h3>'.$title.'</h3>
+			            </div>
+			            
+			            <div class="modal-body">
+			            	<p>'.do_shortcode($content).'</p>
+			            </div>
+			            
+			            <div class="modal-footer">
+			            	<a href="#" class="btn btn-'.$buttontype.'" data-dismiss="modal" >Close</a>
+			            </div>
+
+			        </div>
+			        <a data-toggle="modal" href="#modal" class="btn btn-'.$buttontype.' btn-'.$buttonsize.'">'.$buttonlabel.'</a>'
+		        );
+        
+        	return ob_get_clean();
+
+	}
 		
 	/**
 	 * This function produces the time of post publication
 	 * 
-	 * @example <code>[post_time]</code> is the default usage
+	 * @example <code>[post_time]</code> is the default usage</code>
 	 * @example <code>[post_time format="g:i a" before="<b>" after="</b>"]</code>
 	 */	
 	function pagelines_post_time_shortcode($atts) {
