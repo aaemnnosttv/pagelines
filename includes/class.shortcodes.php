@@ -69,6 +69,7 @@ class PageLines_ShortCodes {
 			'pl_blockquote'				=>	'pl_blockquote_shortcode',
 			'pl_alertbox'				=>	'pl_alertbox_shortcode',
 			'show_authors'				=>	'show_multiple_authors',
+			'pl_codebox'			    =>	'pl_codebox_shortcode',
 			'pl_label'				    =>	'pl_label_shortcode',
 			'pl_badge'			        =>	'pl_badge_shortcode',
 			'like_button'				=>	'pl_facebook_shortcode',
@@ -609,6 +610,26 @@ class PageLines_ShortCodes {
 	}
 
 	/**
+	 * Bootstrap Code Shortcode
+	 * 
+	 * @example <code>[pl_codebox]...[/pl_codebox]</code> is the default usage
+	 * @example <code>[pl_codebox scrollable="yes"].box{margin:0 auto;}[/pl_codebox]</code> for lots of code
+	 */
+
+	function pl_codebox_shortcode ($atts, $content = null) {
+		
+	    extract(shortcode_atts(array(
+			'scrollable' => 'no'
+		), $atts));
+
+        $scrollable = ($scrollable == 'yes') ? 'pre-scrollable' : '';
+
+		$out = sprintf('<pre class="'.$scrollable.'">'.do_shortcode($content). '</pre>');
+
+		return $out;
+	}
+
+	/**
 	 * Bootstrap Labels Shortcode
 	 * 
 	 * @example <code>[pl_label type=""]My Label[/pl_label]</code> is the default usage
@@ -713,14 +734,22 @@ class PageLines_ShortCodes {
 
 		$defaults = array(
 			'type' => 'info',
-			'link' =>'#',
+			'size' => 'small',
+			'link' => '#',
 			'target' => 'blank'
 		);
 
 		$atts = shortcode_atts( $defaults, $atts );
+
 	    $target = ( $target == 'blank' ) ? ' target="_blank"' : '';
 
-	    $out = sprintf('<a href="%2$s" target="%3$s" class="btn btn-%1$s" >'.do_shortcode($content).'</a>', $atts['type'],$atts['link'],$atts['target']);
+	    $out = sprintf(
+		    	'<a href="%3$s" target="%4$s" class="btn btn-%1$s btn-%2$s" >'.do_shortcode($content).'</a>', 
+		    	$atts['type'],
+		    	$atts['size'],
+		    	$atts['link'],
+		    	$atts['target']
+		);
 
 		return $out;
 	}
@@ -1076,22 +1105,24 @@ class PageLines_ShortCodes {
 		}
 
 	/**
-	 * Bootstrap Modal
+	 * Bootstrap Modal Popkup Window
 	 * 
-	 * @example <code></code>
-	 * @example <code></code>
+	 * @example <code>[pl_modal title="" buttontype="" buttonsize="" buttonlabel=""]...[/pl_modal]</code>
+	 * @example <code>[pl_modal title="Modal Title" buttontype="info" buttonsize="large" buttonlabel="Modal Button"]Some content here for the cool modal pop up. You can have all kinds of cool stuff in here.[/pl_modal]</code>
+	 * @example available button types include info, success, warning, danger, and inverse
+	 * @example available button sizes include medium, and large
 	 */	
-	 function pl_modal_shortcode( $atts, $content = null ) {
+	function pl_modal_shortcode( $atts, $content = null ) {
 
     	// Pull in Bootstrap JS
-	    wp_enqueue_script( 'pagelines-bootstrap-all' );
+		wp_enqueue_script( 'pagelines-bootstrap-all' );
 	    
-	     extract(shortcode_atts(array(
-	    	'title' => '',
-	    	'buttontype' => '',
-	    	'buttonsize' => '',
-	    	'buttonlabel' => ''
-	     ), $atts));
+	    extract(shortcode_atts(array(
+		    'title' => '',
+		    'buttontype' => '',
+		    'buttonsize' => '',
+		    'buttonlabel' => ''
+	    ), $atts));
 
 	    	ob_start();
 
