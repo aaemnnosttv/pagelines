@@ -721,7 +721,7 @@ class PageLines_ShortCodes {
 	 */
 	function pl_buttongroup_shortcode( $atts, $content = null ) {
 
-		$content = preg_replace('#<br \/>#', '', $content);
+		$content = str_replace( '<br />', '', str_replace( '<br>', '', $content ) );
 
     	$out = sprintf('<div class="btn-group">'.do_shortcode($content).'</div>');
         
