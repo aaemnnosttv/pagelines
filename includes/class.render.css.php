@@ -36,6 +36,7 @@ class PageLinesRenderCSS {
 			'button-groups',
 			'accordion',
 			'carousel',
+			'responsive',
 			'tabs-pills',
 			'modals',
 			'component-animations',
