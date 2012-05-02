@@ -361,6 +361,7 @@
 		if ( $type == 'plugin' ) {
 			
 			if( $this->is_installed($type, $key, $ext)
+				&& ! $this->in_the_store( $type, $key, $ext, $tab )
 				&& $this->upgrade_available( $this->get_api_version($type, $key, $ext), $this->get_the_version($type, $key, $ext) )
 			){
 				return true;
