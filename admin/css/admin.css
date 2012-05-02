@@ -2951,3 +2951,12 @@ font-weight: bold;
 	}	
 	
 	.button{white-space: nowrap;}
+	
+	.pl-store-rss ul {
+		list-style-type:disc;
+		padding: 5px 15px 0;
+	}
+	.pl-store-rss ul li {
+		line-height: 0.5em;
+		
+	}

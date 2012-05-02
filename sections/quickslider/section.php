@@ -65,6 +65,10 @@ class PageLinesQuickSlider extends PageLinesSection {
 	* Section template.
 	*/
    function section_template( $clone_id ) { 
+	
+	$control_nav = (!ploption('quick_nav', $this->oset) || ploption('quick_nav', $this->oset) == 'both' || ploption('quick_nav', $this->oset) == 'control_only') ? 'true' : 'false';
+	
+	$nav_class = ($control_nav) ? '' : 'no-control-nav';
 	?>
 	<div class="flexwrap animated fadeIn">
 		<div class="fslider">
@@ -99,7 +103,7 @@ class PageLinesQuickSlider extends PageLinesSection {
 		  </ul>
 		</div>
 		</div>
-		<div class="fs-nav-container"></div>
+		<div class="fs-nav-container <?php echo $nav_class;?>"></div>
 	</div>
 	
 		<?php 
@@ -107,7 +111,12 @@ class PageLinesQuickSlider extends PageLinesSection {
 
 	function do_defaults(){
 		
-		printf('<li><img src="%s" /></li><li><img src="%s" /></li>', $this->images.'/image1.jpg', $this->images.'/image2.jpg');
+		printf(
+			'<li><img src="%s" /></li><li><img src="%s" /></li><li><img src="%s" /></li>', 
+			$this->images.'/image1.jpg', 
+			$this->images.'/image2.jpg',
+			$this->images.'/image3.jpg'
+		);
 	}
 
 	/**

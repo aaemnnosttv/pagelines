@@ -110,7 +110,10 @@ class PageLinesExtendUI {
 			
 			$count = 1;
 			foreach( $list['list'] as $eid => $e ){
-				$list['ext'] .= $this->pane_template( $e, $count );
+				if(isset($e['active']) && $e['active'])
+					$list['active'] .= $this->pane_template( $e, 'active', $count);
+				else
+					$list['ext'] .= $this->pane_template( $e, '', $count);
 				$count++;
 			}
 			$output = sprintf(
@@ -165,57 +168,91 @@ class PageLinesExtendUI {
 		
 	}
 	
+	function pane_template( $e, $style = '', $count = ''){
+	
+		$e = wp_parse_args( $e, $this->defaultpane);
 
+		$image = sprintf( '<img class="" src="%s" alt="Thumb" />', $e['image'] );
+		
+		$title = sprintf('<h2>%s</h2>', $e['name']);
+		
+		$text = sprintf('<p>%s</p>', $e['desc']);
+		
+		$details = $this->grab_details( $e );
+		
+		$link =  $this->get_extend_buttons( $e, $style ) ;
+		
+		$dtitle = ($style == 'active') ? __('<h4>Activated</h4>', 'pagelines') : '';
+					
+		$alt = ($count % 2 == 0) ? 'alt_row' : '';			
+					
+		$out = sprintf(
+			'<div class="%s %s plpane graphic_pane media fix">%s<div class="theme-screen img">%s</div><div class="theme-desc bd">%s%s<div class="pane-buttons">%s</div><div class="pane-dets">%s</div></div></div>', 
+			$style, 
+			$alt,
+			$dtitle, 
+			$image, 
+			$title, 
+			$text, 
+			$link,
+			join($details, ' <span class="pipe">|</span> ')
+			
+		);
+		
+	
+		return $out;
+		
+	}
 	/**
 	*
 	* @TODO document
 	*
 	*/
-	function pane_template( $e, $count ){
-		
-		$demo = '';
-		$external = '';
-		$info = '';
-		$auth = '';
-
-		$s = wp_parse_args( $e, $this->defaultpane);
-		
-		// if we are 'core' tab or 'child' tab we dont want to see store urls or versions, they are pointless...
-		$int = ( isset( $s['section']['type'] ) && ( $s['section']['type'] == 'parent' || $s['section']['type'] == 'custom') ) ? true : false;
-
+function pane_template_old( $e, $count ){
 	
-		$alt = ($count % 2 == 0) ? 'alt_row' : '';
-		
-		$details = $this->grab_details( $s );
-		
+	$demo = '';
+	$external = '';
+	$info = '';
+	$auth = '';
+
+	$s = wp_parse_args( $e, $this->defaultpane);
 	
-		// Thumb
-		$thumb = sprintf( '<div class="pane-img-col"><div class="img paneimg"><img src="%s" alt="thumb" /></div></div>', $s['image'] );
+	// if we are 'core' tab or 'child' tab we dont want to see store urls or versions, they are pointless...
+	$int = ( isset( $s['section']['type'] ) && ( $s['section']['type'] == 'parent' || $s['section']['type'] == 'custom') ) ? true : false;
 
-		$title = sprintf(
-			'<div class="pane-head"><div class="pane-head-pad"><h3 class="pane-title">%s</h3><div class="pane-buttons">%s</div></div></div>', 
-			$s['name'], 
-			$this->get_extend_buttons( $e )
-		);
 
-		$body = sprintf(
-			'<div class="pane-desc"><div class="pane-desc-pad"><div class="pane-text">%s</div><div class="pane-dets"><div class="pane-dets-pad">%s</div></div></div></div>', 
-			$s['desc'], 
-			join($details, ' <span class="pipe">|</span> ')
-		);
+	$alt = ($count % 2 == 0) ? 'alt_row' : '';
+	
+	$details = $this->grab_details( $s );
 	
 
-		$out = sprintf(
-			'<div class="plpane %s"><div class="plpane-pad fix"><div class="plpane-box"><div class="plpane-box-pad fix">%s %s %s<div class="clear"></div></div> </div></div></div>', 
-			$alt,
-			$thumb, 
-			$title, 
-			$body
-		);
+	// Thumb
+	$thumb = sprintf( '<div class="pane-img-col"><div class="img paneimg"><img src="%s" alt="thumb" /></div></div>', $s['image'] );
 
-		return $out;
-		
-	}
+	$title = sprintf(
+		'<div class="pane-head"><div class="pane-head-pad"><h3 class="pane-title">%s</h3><div class="pane-buttons">%s</div></div></div>', 
+		$s['name'], 
+		$this->get_extend_buttons( $e )
+	);
+
+	$body = sprintf(
+		'<div class="pane-desc"><div class="pane-desc-pad"><div class="pane-text">%s</div><div class="pane-dets"><div class="pane-dets-pad">%s</div></div></div></div>', 
+		$s['desc'], 
+		join($details, ' <span class="pipe">|</span> ')
+	);
+
+
+	$out = sprintf(
+		'<div class="plpane %s"><div class="plpane-pad fix"><div class="plpane-box"><div class="plpane-box-pad fix">%s %s %s<div class="clear"></div></div> </div></div></div>', 
+		$alt,
+		$thumb, 
+		$title, 
+		$body
+	);
+
+	return $out;
+	
+}
 
 
 	/**

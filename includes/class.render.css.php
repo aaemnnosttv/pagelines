@@ -31,8 +31,15 @@ class PageLinesRenderCSS {
 			'tooltip',
 			'popovers',
 			'buttons',
+			'grid',
+			'dropdowns',
 			'button-groups',
 			'accordion',
+			'carousel',
+			'responsive',
+			'tabs-pills',
+			'modals',
+			'component-animations',
 			'color',		
 		);
 		return $files;

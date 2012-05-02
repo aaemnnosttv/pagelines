@@ -51,22 +51,20 @@
 
 		$items = $args['items'];
 
-		     foreach ( $rss->get_items(0, $items) as $item ) {
-		          $publisher = '';
-		          $site_link = '';
-		          $link = '';
-		          $content = '';
-		          $date = $item->get_date();
-		          $link = esc_url( strip_tags( $item->get_link() ) );
-				  $raw = explode( '|', strip_tags( $item->get_title() ) );
-				$title = $raw[0];
-				$version = $raw[1];
-		          $content = $item->get_content();
-		          $content = wp_html_excerpt($content, 250) . ' ...';
-
-				$out .= sprintf( '<li><a class="rsswidget" href="%s">%s - %s</a>', $link, $title, $version );
-				$out .= sprintf( '<span class="rss-date">%s</span>', $date );
-				$out .= sprintf( '<div class="rssSummary">%s</div></li>', $content );
+		foreach ( $rss->get_items(0, $items) as $item ) {
+			$publisher = '';
+			$site_link = '';
+			$link = '';
+			$content = '';
+			$date = $item->get_date();
+			$link = esc_url( strip_tags( $item->get_link() ) );
+			$raw = explode( '|', strip_tags( $item->get_title() ) );
+			$title = $raw[0];
+			$version = $raw[1];
+			$content = $item->get_content();
+			$out .= sprintf( '<li><a class="rsswidget" href="%s">%s - %s</a>', $link, $title, $version );
+			$out .= sprintf( '<span class="rss-date">%s</span>', $date );
+			$out .= sprintf( '<div class="pl-store-rss">%s</div></li>', $content );
 		}
 
 		$out .= "</ul></div>";

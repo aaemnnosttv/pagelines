@@ -980,6 +980,7 @@ function get_pagelines_credentials( $t ) {
 		case 'licence':
 			return ( isset( $creds['licence'] ) ) ? $creds['licence'] : 'not logged in';
 		break;
+
 	}
 }
 
@@ -1017,6 +1018,11 @@ function pagelines_check_credentials( $type = 'setup' ) {
 			return get_transient( EXTEND_UPDATE );
 		break;
 		
+		case 'plus':
+			if ( is_array( $a = get_transient( EXTEND_UPDATE ) ) && isset($a['plus']) )
+				return $a['plus'];
+		break;
+
 		case 'message':
 		if ( is_array( $a = get_transient( EXTEND_UPDATE ) ) && isset($a['message']) )
 			return $a['message'];
@@ -1030,5 +1036,7 @@ function pagelines_check_credentials( $type = 'setup' ) {
 if ( !defined( 'VDEV') )
 	define( 'VDEV', ( get_pagelines_credentials( 'licence' ) === 'dev' ) ? true : false );
 
-if( !defined('VPRO' ) )
+if( !defined( 'VPRO' ) )
 	define( 'VPRO', ( get_pagelines_credentials( 'licence' ) === 'pro' || get_pagelines_credentials( 'licence' ) === 'dev' ) ? true : false );
+if ( !defined( 'VPLUS' ) )
+	define( 'VPLUS', ( pagelines_check_credentials( 'plus' ) === 'true' ) ? true : false );

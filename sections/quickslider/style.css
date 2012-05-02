@@ -67,10 +67,18 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#4C000000,endCol
 
 /* Direction Nav */
 .flex-direction-nav { height: 0; }
+.flex-direction-nav li a{
+	margin-top: -42px; /* 16 (half height of control nav) + 26 (half of height) */
+}
+.no-control-nav .flex-direction-nav li a{
+	margin-top: -26px;
+}
 .flex-direction-nav li a {
-	width: 52px; height: 52px; display: block; 
+	width: 52px; 
+	height: 52px; 
+	display: block; 
 	position: absolute; 
-	top: 43%; 
+	top: 50%; 
 	cursor: pointer; 
 	text-indent: -999em;
 	box-shadow: inset 1px 1px 0px rgba(255,255,255,.2);

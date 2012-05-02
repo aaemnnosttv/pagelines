@@ -29,7 +29,6 @@ class PageLines_ShortCodes {
     		
     	
 		//Remove Wordpress Formatters (breaks button groups and others)
-		remove_filter('the_content', 'wpautop');
 		remove_filter('the_content', 'wptexturize');
 	}
 	
@@ -53,11 +52,24 @@ class PageLines_ShortCodes {
 			'pl_splitbuttondropdown'    =>  'pl_splitbuttondropdown_shortcode',
 			'pl_tooltip'                =>  'pl_tooltip_shortcode',
 			'pl_popover'                =>  'pl_popover_shortcode',
+			
 			'pl_accordion'              =>  'pl_accordion_shortcode',
 			'pl_accordioncontent'       =>  'pl_accordioncontent_shortcode',
+			
+			'pl_carousel'               =>  'pl_carousel_shortcode',
+			'pl_carouselimage'          =>  'pl_carouselimage_shortcode',
+			
+			'pl_tabs'                   =>  'pl_tabs_shortcode',
+			'pl_tabtitlesection'        =>  'pl_tabtitlesection_shortcode',
+			'pl_tabtitle'               =>  'pl_tabtitle_shortcode',
+			'pl_tabcontentsection'      =>  'pl_tabcontentsection_shortcode',
+			'pl_tabcontent'             =>  'pl_tabcontent_shortcode',
+
+            'pl_modal'				    =>	'pl_modal_shortcode',
 			'pl_blockquote'				=>	'pl_blockquote_shortcode',
 			'pl_alertbox'				=>	'pl_alertbox_shortcode',
 			'show_authors'				=>	'show_multiple_authors',
+			'pl_codebox'			    =>	'pl_codebox_shortcode',
 			'pl_label'				    =>	'pl_label_shortcode',
 			'pl_badge'			        =>	'pl_badge_shortcode',
 			'like_button'				=>	'pl_facebook_shortcode',
@@ -598,6 +610,26 @@ class PageLines_ShortCodes {
 	}
 
 	/**
+	 * Bootstrap Code Shortcode
+	 * 
+	 * @example <code>[pl_codebox]...[/pl_codebox]</code> is the default usage
+	 * @example <code>[pl_codebox scrollable="yes"].box{margin:0 auto;}[/pl_codebox]</code> for lots of code
+	 */
+
+	function pl_codebox_shortcode ($atts, $content = null) {
+		
+	    extract(shortcode_atts(array(
+			'scrollable' => 'no'
+		), $atts));
+
+        $scrollable = ($scrollable == 'yes') ? 'pre-scrollable' : '';
+
+		$out = sprintf('<pre class="'.$scrollable.'">'.do_shortcode($content). '</pre>');
+
+		return $out;
+	}
+
+	/**
 	 * Bootstrap Labels Shortcode
 	 * 
 	 * @example <code>[pl_label type=""]My Label[/pl_label]</code> is the default usage
@@ -643,6 +675,8 @@ class PageLines_ShortCodes {
 	 * @example Available types include info, success, warning, error
 	 */
 	function pl_alertbox_shortcode($atts, $content = null) {
+
+		$content = str_replace( '<br />', '', str_replace( '<br>', '', $content ) );
 
 		$defaults = array(
 				    'type' => 'info',
@@ -700,14 +734,22 @@ class PageLines_ShortCodes {
 
 		$defaults = array(
 			'type' => 'info',
-			'link' =>'#',
+			'size' => 'small',
+			'link' => '#',
 			'target' => 'blank'
 		);
 
 		$atts = shortcode_atts( $defaults, $atts );
+
 	    $target = ( $target == 'blank' ) ? ' target="_blank"' : '';
 
-	    $out = sprintf('<a href="%2$s" target="%3$s" class="btn btn-%1$s" >'.do_shortcode($content).'</a>', $atts['type'],$atts['link'],$atts['target']);
+	    $out = sprintf(
+		    	'<a href="%3$s" target="%4$s" class="btn btn-%1$s btn-%2$s" >'.do_shortcode($content).'</a>', 
+		    	$atts['type'],
+		    	$atts['size'],
+		    	$atts['link'],
+		    	$atts['target']
+		);
 
 		return $out;
 	}
@@ -721,6 +763,8 @@ class PageLines_ShortCodes {
 	 * @example Available types include info, success, warning, danger, inverse
 	 */
 	function pl_buttongroup_shortcode( $atts, $content = null ) {
+
+		$content = str_replace( '<br />', '', str_replace( '<br>', '', $content ) );
 
     	$out = sprintf('<div class="btn-group">'.do_shortcode($content).'</div>');
         
@@ -919,11 +963,207 @@ class PageLines_ShortCodes {
 	    return $out;
 	}
 
-	
+	/**
+	 * Bootstrap Carousel
+	 * 
+	 * @example <code>[pl_carousel name=""][pl_carouselimage first="yes" title="" imageurl="" ]Caption[/pl_carouselimage][pl_carouselimage title="" imageurl="" ]Caption[/pl_carouselimage][/pl_carousel]</code> is the default usage
+	 * @example <code>[pl_carousel name="PageLinesCarousel"][pl_carouselimage first="yes" title="Feature 1" imageurl="" ]Image 1 Caption[/pl_carouselimage][pl_carouselimage title="Feature 2" imageurl=""]Image 2 Caption[/pl_carouselimage][pl_carouselimage title="Feature 3" imageurl=""]Image 3 Caption[/pl_carouselimage][/pl_carousel]</code>
+	 */
+    function pl_carousel_shortcode( $atts, $content = null ) {
+
+    	// Pull in Bootstrap JS
+	    wp_enqueue_script( 'pagelines-bootstrap-all' );
+	    
+	    $defaults = array(
+	    	'name' => 'PageLines Carousel',
+	    );
+
+	    $atts = shortcode_atts($defaults, $atts);
+
+	    	ob_start();
+				
+				?>
+				<script>
+	            	jQuery(function(){
+						jQuery('.carousel').carousel();
+					});
+				</script>
+				<?php
+
+		   		printf('
+			        <div id="%1$s" class="carousel slide">
+			            <div class="carousel-inner">
+			            '.do_shortcode($content).'
+			            </div>
+			            <a class="carousel-control left" href="#%1$s" data-slide="prev">&lsaquo;</a>
+			            <a class="carousel-control right" href="#%1$s" data-slide="next">&rsaquo;</a>
+			        </div>',
+			        $atts['name']
+		        );
+        
+        	return ob_get_clean();
+
+	}
+	//Carousel Images
+	function pl_carouselimage_shortcode( $atts, $content = null) {
+	    
+	    extract(shortcode_atts(array(
+		    'first' => '',
+		    'title' => '',
+		    'imageurl' => '',
+		    'caption' => '',
+	    ), $atts));
+
+	    $first = ($first == 'yes') ? 'active' : '';
+	    $content = ($content <> '') ? "<div class='carousel-caption'><h4>$title</h4><p>$content</p></div></div>" : '';
+
+	    $out = sprintf('<div class="item '.$first.'"><img src="'.$imageurl.'">' .do_shortcode($content).'');
+
+	    return $out;
+	}
+
+	/**
+	 * Bootstrap Tabs
+	 * 
+	 * @example <code>[pl_tabs][pl_tabtitlesection type=""][pl_tabtitle active="" number="1"]...[/pl_tabtitle][pl_tabtitle number="2"]...[/pl_tabtitle][/pl_tabtitlesection][pl_tabcontentsection][pl_tabcontent active="" number="1"]...[/pl_tabcontent][pl_tabcontent number=""]...[/pl_tabcontent][/pl_tabcontentsection][/pl_tabs]</code> is the default usage
+	 * @example <code>[pl_tabs][pl_tabtitlesection type="tabs"][pl_tabtitle active="yes" number="1"]Title 1[/pl_tabtitle][pl_tabtitle number="2"]Title 2[/pl_tabtitle][/pl_tabtitlesection][pl_tabcontentsection][pl_tabcontent active="yes" number="1"]Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac mi enim, at consectetur justo.[/pl_tabcontent][pl_tabcontent number="2"]Second content there.[/pl_tabcontent][/pl_tabcontentsection][/pl_tabs]</code>
+	 * @example Available types include tabs, pills
+	 */
+
+    function pl_tabs_shortcode( $atts, $content = null ) {
+
+    	$out = sprintf('<div class="tabs">'.do_shortcode($content).'</div>');
+        
+    return $out;
+
+	}
+
+	//Tab Titles Section
+		function pl_tabtitlesection_shortcode( $atts, $content = null ) {
+
+		// Pull in Bootstrap JS
+	    wp_enqueue_script( 'pagelines-bootstrap-all' );
+		        
+			extract(shortcode_atts(array(
+		    	'type' => '',
+		    ), $atts));
+
+		    ob_start();
+
+		    	?>
+		    		<script>
+			    		jQuery(function(){
+							 jQuery('a[data-toggle="tab"]').on('shown', function (e) {
+							  e.target // activated tab
+							  e.relatedTarget // previous tab
+							})
+						});
+		    		</script>
+		    	<?php
+
+		    printf('<ul class="nav nav-'.$type.'">'.do_shortcode($content).'</ul>');
+		        
+		    return ob_get_clean();
+		}
+
+	//Tab Titles
+		function pl_tabtitle_shortcode( $atts, $content = null ) {
+		         
+		    extract(shortcode_atts(array(
+				'active' => '',
+				'number' => ''
+			), $atts));
+
+		    $active = ($active == 'yes') ? "class='active'" : '';
+		    
+		    $out = sprintf('<li '.$active.'><a href="#'.$number.'" data-toggle="tab">'.do_shortcode($content).'</a></li>');
+		        
+		    return $out;
+		}
+
+	//Tab Content Section
+		function pl_tabcontentsection_shortcode( $atts, $content = null ) {
+
+		    $out = sprintf('<div class="tab-content">'.do_shortcode($content).'</div>');
+		        
+		    return $out;
+		}
+
+	//Tab Content
+		function pl_tabcontent_shortcode( $atts, $content = null ) {
+
+		    extract(shortcode_atts(array(
+			    'active' => '',
+			    'number' => ''
+		    ), $atts));
+ 	        
+		    $active = ($active == 'yes') ? "active" : '';
+
+		    $out = sprintf('<div class="tab-pane '.$active.'" id="'.$number.'"><p>'.do_shortcode($content).'</p></div>');
+		        
+		    return $out;
+		}
+
+	/**
+	 * Bootstrap Modal Popkup Window
+	 * 
+	 * @example <code>[pl_modal title="" buttontype="" buttonsize="" buttonlabel=""]...[/pl_modal]</code>
+	 * @example <code>[pl_modal title="Modal Title" buttontype="info" buttonsize="large" buttonlabel="Modal Button"]Some content here for the cool modal pop up. You can have all kinds of cool stuff in here.[/pl_modal]</code>
+	 * @example available button types include info, success, warning, danger, and inverse
+	 * @example available button sizes include medium, and large
+	 */	
+	function pl_modal_shortcode( $atts, $content = null ) {
+
+    	// Pull in Bootstrap JS
+		wp_enqueue_script( 'pagelines-bootstrap-all' );
+	    
+	    extract(shortcode_atts(array(
+		    'title' => '',
+		    'buttontype' => '',
+		    'buttonsize' => '',
+		    'buttonlabel' => ''
+	    ), $atts));
+
+	    	ob_start();
+
+	    		?>
+				<script>
+	            	jQuery(function(){
+						jQuery('#modal').modal({
+							keyboard: true
+							, show: false
+						});
+					});
+				</script>
+				<?php
+				
+		   		printf(' 
+			        <div id="modal" class="modal hide fade" style="display:none;">
+			            <div class="modal-header">
+			            	<a class="close" data-dismiss="modal">×</a>
+			            	<h3>'.$title.'</h3>
+			            </div>
+			            
+			            <div class="modal-body">
+			            	<p>'.do_shortcode($content).'</p>
+			            </div>
+			            
+			            <div class="modal-footer">
+			            	<a href="#" class="btn btn-'.$buttontype.'" data-dismiss="modal" >Close</a>
+			            </div>
+
+			        </div>
+			        <a data-toggle="modal" href="#modal" class="btn btn-'.$buttontype.' btn-'.$buttonsize.'">'.$buttonlabel.'</a>'
+		        );
+        
+        	return ob_get_clean();
+
+	}
+		
 	/**
 	 * This function produces the time of post publication
 	 * 
-	 * @example <code>[post_time]</code> is the default usage
+	 * @example <code>[post_time]</code> is the default usage</code>
 	 * @example <code>[post_time format="g:i a" before="<b>" after="</b>"]</code>
 	 */	
 	function pagelines_post_time_shortcode($atts) {

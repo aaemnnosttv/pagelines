@@ -65,13 +65,14 @@
 // Left/right controls for nav
 // ---------------------------
 
-.carousel-control {
+.carousel-control, .hentry .carousel-control {
   position: absolute;
   top: 40%;
   left: 15px;
   width: 40px;
   height: 40px;
   margin-top: -20px;
+  font-family: @baseFontFamily;
   font-size: 60px;
   font-weight: 100;
   line-height: 30px;
@@ -115,7 +116,10 @@
   background: @grayDark;
   background: rgba(0,0,0,.75);
 }
-.carousel-caption h4,
-.carousel-caption p {
-  color: @white;
-}
+  .carousel-caption p {
+    margin:0 0 0.8em 0;
+    color: @white;
+  }
+  .carousel-caption h4{
+    color: @white;
+  }
