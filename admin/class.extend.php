@@ -126,6 +126,16 @@
 				'condition'	=> $this->show_purchase_button( $type, $key, $ext, $tab ),
 				'file'		=> $this->paypal_link( $type, $key, $ext, $tab ), 			
 			),
+			'plus'	=> array(
+				'mode'		=> 'install',
+				'case'		=> $type.'_install',
+				'text'		=> $this->plus_text( $type, $key, $ext, $tab ),
+				'dtext'		=> __( 'Installing', 'pagelines' ),
+				'type'		=> $type,
+				'file'		=> $this->get_the_file( 'install', $type, $key, $ext, $tab ),
+				'condition'	=> $this->show_plus_button( $type, $key, $ext, $tab ),
+				'path'		=> $this->get_the_path( 'install', $type, $key, $ext, $tab ),		
+			),
 			'activate'	=> array(
 				'mode'		=> 'activate',
 				'condition'	=> $this->show_activate_button( $type, $key, $ext, $tab ),
@@ -202,7 +212,7 @@
 				'text'		=> __( 'Download <strong>&darr;</strong>', 'pagelines' ),
 				'dtext'		=> __( 'Downloading', 'pagelines' )
 				),
-				'unsubscribe'	=>	array(
+			'unsubscribe'	=>	array(
 					'mode'		=> 'unsubscribe',
 					'case'		=> 'unsubscribe',
 					'path'		=> sprintf( '%s|%s|%s', $this->username, $this->get_product_id( $ext ), $this->get_the_version($type, $key, $ext) ),
@@ -210,7 +220,7 @@
 					'condition'	=> $this->show_unsubscribe_button( $type, $key, $ext, $tab ),
 					'text'		=> __( 'Unsubscribe', 'pagelines' ),
 				),
-				'subscribe'	=>	array(
+			'subscribe'	=>	array(
 					'mode'		=> 'subscribe',
 					'case'		=> 'subscribe',
 					'type'		=> $type,
@@ -628,6 +638,28 @@
 			&& !$this->is_installed( $type, $key, $ext )
 			&& $this->is_premium( $type, $key, $ext )
 			&& ! $this->version_fail( $ext['plversion'] )
+			&& ! $this->is_plus_product( $type, $key, $ext, $tab )
+		){
+			return true;
+		} else 
+			return false;
+	}
+	
+	/**
+	*
+	* @TODO document
+	*
+	*/
+	function show_plus_button( $type, $key, $ext, $tab ){
+		
+		if( !EXTEND_NETWORK 
+			&& $this->updates_configured() 
+			&& $this->in_the_store( $type, $key, $ext, $tab )
+			&& !$this->is_purchased( $type, $key, $ext ) 
+			&& !$this->is_installed( $type, $key, $ext )
+			&& $this->is_premium( $type, $key, $ext )
+			&& ! $this->version_fail( $ext['plversion'] )
+			&& $this->is_plus_product( $type, $key, $ext, $tab )
 		){
 			return true;
 		} else 
@@ -779,7 +811,19 @@
 			return false;
 		
 	}
-
+	
+	 /**
+	 *
+	 * @TODO document
+	 *
+	 */
+	 function is_plus_product( $type, $key, $ext, $tab ) {
+		if(isset($ext['plus_product']) && $ext['plus_product']) {
+			return true;
+		}
+		
+		return false;
+	}
 
 	 /**
 	 *
@@ -974,6 +1018,21 @@
 		$price = ( isset( $ext['price'] ) ) ? sprintf( ' <span class="prc">($%s)</span>', $ext['price'] ) : '';
 
 		return sprintf( '%s%s', __( 'Purchase', 'pagelines' ), $price ); 
+	}
+	
+	
+	/**
+	 *
+	 * @TODO document
+	 *
+	 */
+	 function plus_text( $type, $key, $ext, $tab ){
+		
+		$ext = (array) $ext;
+		
+		$price = ( isset( $ext['price'] ) ) ? sprintf( ' <span class="prc">($%s)</span>', $ext['price'] ) : '';
+
+		return sprintf( '%s%s', __( 'Free PageLines Plus', 'pagelines' ), '<del>' . $price . '</del>' ); 
 	}
 	
 
