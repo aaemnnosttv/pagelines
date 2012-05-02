@@ -1099,14 +1099,15 @@ class PageLines_ShortCodes {
 				<script>
 	            	jQuery(function(){
 						jQuery('#modal').modal({
-							keyboard: true;
+							keyboard: true
+							show: false
 						});
 					});
 				</script>
 				<?php
 				
 		   		printf(' 
-			        <div id="modal" class="modal hide fade">
+			        <div id="modal" class="modal hide fade" style="display:none;">
 			            <div class="modal-header">
 			            	<a class="close" data-dismiss="modal">×</a>
 			            	<h3>'.$title.'</h3>
