@@ -1100,7 +1100,7 @@ class PageLines_ShortCodes {
 	            	jQuery(function(){
 						jQuery('#modal').modal({
 							keyboard: true
-							show: false
+							, show: false
 						});
 					});
 				</script>
