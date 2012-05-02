@@ -1337,7 +1337,7 @@ class OptEngine {
 			$updates_exp = sprintf( __( 'Successfully logged in as &quot;%s&quot; to PageLines%s.', 'pagelines' ), get_pagelines_credentials( 'user'), ( pagelines_check_credentials( 'ssl' ) ) ? ' with a secured connection' : '' );
 		else 
 			$updates_exp = sprintf( __( 'Could not connect to PageLines as user &quot;%s&quot;.', 'pagelines' ), get_pagelines_credentials( 'user') ); 
-			
+					
 		if ( pagelines_check_credentials( 'error' ) === 'creds' ) 
 				$updates_exp = sprintf( __( 'ERROR: %1$s<br />There was a problem logging in to PageLines.', 'pagelines' ), pagelines_check_credentials( 'message' ) );
 		
@@ -1350,7 +1350,8 @@ class OptEngine {
 		if ( pagelines_check_credentials( 'error' ) === 'licence' ) {
 			$updates_exp .= sprintf( '<br /><br />%s', pagelines_check_credentials( 'message' ) );
 		}
-
+		if ( VPLUS )
+			$updates_exp .= sprintf( '<br /><br />%s', __( 'Active Plus account.', 'pagelines') );
 		if ( EXTEND_NETWORK ){
 			$updates_exp = __( 'Updates are disabled for non Network Admins</div>', 'pagelines' );
 		}
