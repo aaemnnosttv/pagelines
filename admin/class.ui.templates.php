@@ -377,30 +377,29 @@ class PageLinesTemplateBuilder {
 	*/
 	function passive_bank( $template, $t, $hook, $h, $template_slug ){
 		 
+		$special_pages = array( 'posts','tag','archive','category','search','author','404_page' );
+
 		// Remove the sections that aren't compatible
 		$draw = array();
 		foreach( $this->avail as $sid => $s){
-
 			
 			/* Flip values and keys */
 			$works_with = (is_array($s->settings['workswith'])) ? array_flip( $s->settings['workswith'] ) : array();
 			$fails_with = (is_array($s->settings['failswith'])) ? array_flip( $s->settings['failswith'] ) : array();
 			$markup_type = (!empty($h)) ? $h['markup'] : $t['markup'];
-
 			if(!isset( $works_with[ $template ] ) 
 				&& !isset( $works_with[ $hook ]) 
 				&& !isset( $works_with[ $hook.'-'.$template ] ) 
 				&& !isset($works_with[$markup_type])
 				|| ( 
-					isset($fails_with[ $template ])
-					|| isset($fails_with[ $hook ])
+					isset( $fails_with[ $template ] )
+					|| isset($fails_with[ $hook ] )
+					|| ( isset( $fails_with['pagelines_special_pages()'] ) && in_array( $template, $special_pages) )
 				)
 			)
 				continue;
 				
-				
-			$draw[ $sid ] = $s;
-			
+			$draw[ $sid ] = $s;			
 		}
 		
 		// Draw in Column format

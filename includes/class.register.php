@@ -248,7 +248,7 @@ class PageLinesRegister {
 					'workswith'		=> ( $headers['workswith'] ) ? array_map( 'trim', explode( ',', $headers['workswith'] ) ) : '',
 					'edition'		=> $headers['edition'],
 					'cloning'		=> ( 'true' === $headers['cloning'] ) ? true : '',
-					'failswith'		=> $headers['failswith'],
+					'failswith'		=> ( $headers['failswith'] ) ? array_map( 'trim', explode( ',', $headers['failswith'] ) ) : '',
 					'tax'			=> $headers['tax'],
 					'demo'			=> $headers['Demo'],
 					'external'		=> $headers['External'],
