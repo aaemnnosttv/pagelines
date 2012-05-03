@@ -64,8 +64,6 @@ class PageLinesRenderCSS {
 		add_action( 'pagelines_head_last', array( &$this, 'get_custom_css' ) , 25 );		
 		add_action( 'wp_head', array(&$pagelines_template, 'print_template_section_head' ) );
 		add_action( 'extend_flush', array( &$this, 'flush_version' ) );
-		
-		add_filter('redirect_canonical', array( &$this, 'cancel_redirect_canonical' ) );
 	}
 
 	/**
@@ -163,7 +161,7 @@ class PageLinesRenderCSS {
 	function get_dynamic_url() {
 		
 		if ( '' != get_option('permalink_structure') )
-			return sprintf( '%s/pagelines-dynamic-%s.css',PARENT_URL, ploption( "pl_save_version" ) );
+			return sprintf( '%s/pagelines-dynamic-%s.css/',PARENT_URL, ploption( "pl_save_version" ) );
 		else
 			return sprintf( '%s?plless=%s',site_url(), ploption( "pl_save_version" ) );
 		
@@ -251,16 +249,10 @@ class PageLinesRenderCSS {
 	function pagelines_less_rewrite( $wp_rewrite ) {
 
 	    $less_rule = array(
-	        '(.*)/pagelines-dynamic-[0-9]+.css(.*)' => '/?plless=1'
+	        '(.*)/pagelines-dynamic-[0-9]+\.css(.*)' => '/?plless=1'
 	    );
 
 	    $wp_rewrite->rules = $less_rule + $wp_rewrite->rules;
-	}
-
-	function cancel_redirect_canonical($redirect_url) {
-		$fake_page = get_query_var('plless');
-		if (!empty($fake_page))
-			return false;
 	}
 
 	function pagelines_add_trigger( $vars ) {
