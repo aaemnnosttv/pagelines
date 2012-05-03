@@ -8,7 +8,7 @@ class PageLinesRenderCSS {
 	function __construct() {
 		
 		$this->lessfiles = $this->get_core_lessfiles();
-		self::init();		
+		self::actions();		
 	}
 	
 	/**
@@ -45,33 +45,6 @@ class PageLinesRenderCSS {
 		return $files;
 	}
 
-	private function init() {
-				
-		if ( ! ploption( 'less_css' ) || '' == get_option('permalink_structure') )
-			$this->legacy_actions();
-		else
-			$this->actions();	
-	}
-
-	/**
-	 * 
-	 *  Leagacy mode, loads CSS inline.
-	 *
-	 *  @package PageLines Framework
-	 *  @since 2.2
-	 */
-	private function legacy_actions() {
-		
-		global $pagelines_template;
-		
-		add_action('wp_head', array( &$this, 'draw_inline_core_css' ), 8);
-		add_action('wp_head', array( &$this, 'draw_inline_sections_css' ), 8);
-		add_action('wp_head', array( &$this, 'draw_inline_dynamic_css' ), 8);		
-		add_action('wp_head', array( &$pagelines_template, 'print_template_section_head' ) );
-		add_action( 'pagelines_head_last', array( &$this, 'get_custom_css' ) , 25 );
-		add_action( 'extend_flush', array( &$this, 'flush_version' ) );
-	}
-
 	/**
 	 * 
 	 *  Dynamic mode, CSS is loaded to a file using wp_rewrite
@@ -85,13 +58,12 @@ class PageLinesRenderCSS {
 				
 		add_filter('query_vars', array( &$this, 'pagelines_add_trigger' ) );
 		add_action('template_redirect', array( &$this, 'pagelines_less_trigger' ) );
-		add_filter( 'generate_rewrite_rules', array( &$this, 'pagelines_less_rewrite' ) );
 		add_action( 'wp_print_styles', array( &$this, 'load_less_css' ), 11 );
 		add_action('wp_head', array( &$this, 'draw_inline_sections_css' ), 8);
 		add_action('wp_head', array( &$this, 'draw_inline_dynamic_css' ), 8);
 		add_action( 'pagelines_head_last', array( &$this, 'get_custom_css' ) , 25 );		
 		add_action( 'wp_head', array(&$pagelines_template, 'print_template_section_head' ) );
-		add_action( 'extend_flush', array( &$this, 'flush_version' ) );		
+		add_action( 'extend_flush', array( &$this, 'flush_version' ) );
 	}
 
 	/**
@@ -110,23 +82,6 @@ class PageLinesRenderCSS {
 		} else {
 			return ploption( 'customcss' );
 		}
-	}
-
-	/**
-	 * 
-	 *  Draw Core CSS inline.
-	 *
-	 *  @package PageLines Framework
-	 *  @since 2.2
-	 */
-	function draw_inline_core_css(){
-
-		$a = $this->get_compiled_css();
-
-		if( ! empty( $a['core'] ) )
-			inline_css_markup('core-css', $this->minify( $a['core'] ) );
-
-		pl_debug( sprintf( 'CSS was compiled at %s and took %s seconds.', date( DATE_RFC822, $a['time'] ), $a['c_time'] ), "\n<!--", '-->' );		
 	}
 
 	/**
@@ -199,10 +154,19 @@ class PageLinesRenderCSS {
 	 */
 	function load_less_css() {
 
-		$url = sprintf( '%s/pagelines-dynamic-%s.css/',PARENT_URL, ploption( "pl_save_version" ) );
-		wp_register_style( 'pagelines-less',  $url, false, false, 'all' );
+		wp_register_style( 'pagelines-less',  $this->get_dynamic_url(), false, ploption( "pl_save_version" ), 'all' );
 		wp_enqueue_style( 'pagelines-less' );
 	}
+
+	function get_dynamic_url() {
+		
+		if ( '' != get_option('permalink_structure') )
+			return sprintf( '%s/pagelines-dynamic-%s.css/',PARENT_URL, ploption( "pl_save_version" ) );
+		else
+			return sprintf( '%s/?plless=1',site_url() );
+		
+	}
+
 
 	function pagelines_add_trigger( $vars ) {
 	    $vars[] = 'plless';
@@ -302,8 +266,9 @@ class PageLinesRenderCSS {
 	 *  @since 2.2
 	 */
 	function pagelines_less_rewrite( $wp_rewrite ) {
+
 	    $less_rule = array(
-	        '(.*)/pagelines-dynamic-[0-9]+.css(.*)' => '/index.php?plless=1'
+	        '(.*)/pagelines-dynamic-[0-9]+.css(.*)' => '/?plless=1'
 	    );
 
 	    $wp_rewrite->rules = $less_rule + $wp_rewrite->rules;
@@ -332,7 +297,7 @@ class PageLinesRenderCSS {
 	 */
 	function flush_version() {
 		
-		flush_rewrite_rules( false );
+		flush_rewrite_rules( true );
 		plupop( 'pl_save_version', time() );
 		delete_transient( 'pagelines_dynamic_css' );
 	}

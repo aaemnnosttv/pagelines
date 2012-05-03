@@ -937,13 +937,6 @@ class PageLinesOptionsArray {
 									sprintf( '%s', ( ploption( 'enable_debug' ) ) ? 
 									sprintf( '<br /><a href="%s">Click here</a> for your debug info.', site_url( '?pldebug=1' ) ) : '' ) )
 			),
-			'less_css' => array(
-					'default'	=> '',
-					'type'		=> 'check',
-					'title'=> __( 'LESS css mode.', 'pagelines' ),
-					'inputlabel'		=> __( 'Use dynamic.css file. ( needs permalinks to be active )', 'pagelines' ),
-			),
-
 			'hide_pagelines_introduction' => array(
 					'default'	=> '',
 					'version'	=> 'pro',
