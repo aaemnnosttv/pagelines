@@ -64,6 +64,8 @@ class PageLinesRenderCSS {
 		add_action( 'pagelines_head_last', array( &$this, 'get_custom_css' ) , 25 );		
 		add_action( 'wp_head', array(&$pagelines_template, 'print_template_section_head' ) );
 		add_action( 'extend_flush', array( &$this, 'flush_version' ) );
+		
+		add_filter('redirect_canonical', array( &$this, 'cancel_redirect_canonical' ) );
 	}
 
 	/**
@@ -153,37 +155,18 @@ class PageLinesRenderCSS {
 	 *  @since 2.2
 	 */
 	function load_less_css() {
-
-		wp_register_style( 'pagelines-less',  $this->get_dynamic_url(), false, ploption( "pl_save_version" ), 'all' );
+		
+		wp_register_style( 'pagelines-less',  $this->get_dynamic_url(), false, null, 'all' );
 		wp_enqueue_style( 'pagelines-less' );
 	}
 
 	function get_dynamic_url() {
 		
 		if ( '' != get_option('permalink_structure') )
-			return sprintf( '%s/pagelines-dynamic-%s.css/',PARENT_URL, ploption( "pl_save_version" ) );
+			return sprintf( '%s/pagelines-dynamic-%s.css',PARENT_URL, ploption( "pl_save_version" ) );
 		else
-			return sprintf( '%s/?plless=1',site_url() );
+			return sprintf( '%s?plless=%s',site_url(), ploption( "pl_save_version" ) );
 		
-	}
-
-
-	function pagelines_add_trigger( $vars ) {
-	    $vars[] = 'plless';
-	    return $vars;
-	}
-	
-	function pagelines_less_trigger() {
-		if( intval( get_query_var( 'plless' ) ) == 1) {
-			header( 'Content-type: text/css' );
-			header( 'Expires: ' );
-			header( 'Cache-Control: max-age=604100, public' );
-			
-			$a = $this->get_compiled_css();
-			echo $this->minify( $a['core'] );
-			pl_debug( sprintf( 'CSS was compiled at %s and took %s seconds.', date( DATE_RFC822, $a['time'] ), $a['c_time'] ) );		
-			die();
-		}
 	}
 
 	/**
@@ -272,6 +255,30 @@ class PageLinesRenderCSS {
 	    );
 
 	    $wp_rewrite->rules = $less_rule + $wp_rewrite->rules;
+	}
+
+	function cancel_redirect_canonical($redirect_url) {
+		$fake_page = get_query_var('plless');
+		if (!empty($fake_page))
+			return false;
+	}
+
+	function pagelines_add_trigger( $vars ) {
+	    $vars[] = 'plless';
+	    return $vars;
+	}
+	
+	function pagelines_less_trigger() {
+		if( intval( get_query_var( 'plless' ) ) ) {
+			header( 'Content-type: text/css' );
+			header( 'Expires: ' );
+			header( 'Cache-Control: max-age=604100, public' );
+			
+			$a = $this->get_compiled_css();
+			echo $this->minify( $a['core'] );
+			pl_debug( sprintf( 'CSS was compiled at %s and took %s seconds.', date( DATE_RFC822, $a['time'] ), $a['c_time'] ) );		
+			die();
+		}
 	}
 
 	/**
