@@ -161,7 +161,7 @@ class PageLinesRenderCSS {
 	function get_dynamic_url() {
 		
 		if ( '' != get_option('permalink_structure') )
-			return sprintf( '%s/pagelines-dynamic-%s.css/',site_url(), ploption( "pl_save_version" ) );
+			return sprintf( '%s/pagelines_dynamic_css-%s/',site_url(), ploption( "pl_save_version" ) );
 		else
 			return sprintf( '%s?plless=%s',site_url(), ploption( "pl_save_version" ) );
 		
@@ -252,7 +252,7 @@ class PageLinesRenderCSS {
 	function pagelines_less_rewrite( $wp_rewrite ) {
 
 	    $less_rule = array(
-	        'pagelines-dynamic-[0-9]+\.css(.*)' => '/?plless=1'
+	        'pagelines_dynamic_css' => '/?plless=1'
 	    );
 
 	    $wp_rewrite->rules = $less_rule + $wp_rewrite->rules;
