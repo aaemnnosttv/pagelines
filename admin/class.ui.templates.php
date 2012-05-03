@@ -376,8 +376,6 @@ class PageLinesTemplateBuilder {
 	*
 	*/
 	function passive_bank( $template, $t, $hook, $h, $template_slug ){
-		 
-		$special_pages = array( 'posts','tag','archive','category','search','author','404_page' );
 
 		// Remove the sections that aren't compatible
 		$draw = array();
@@ -394,7 +392,7 @@ class PageLinesTemplateBuilder {
 				|| ( 
 					isset( $fails_with[ $template ] )
 					|| isset($fails_with[ $hook ] )
-					|| ( isset( $fails_with['pagelines_special_pages()'] ) && in_array( $template, $special_pages) )
+					|| ( isset( $fails_with['pagelines_special_pages()'] ) && is_pagelines_special ( array( 'type' => $template ) ) )
 				)
 			)
 				continue;
