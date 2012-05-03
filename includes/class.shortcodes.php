@@ -485,28 +485,26 @@ class PageLines_ShortCodes {
 	/**
 	 * Shortcode to display Pinterest button
 	 * 
-	 * @example <code>[tweet_button]</code> is the default usage
-	 * @example <code>[tweet_button]</code>
+	 * @example <code>[pinterest_button img=""]</code> is the default usage
+	 * @example <code>[pinterest_button img=""]</code>
 	 */
-	function pl_pinterest_button( $args ){
+	function pl_pinterest_button( $atts ){
 
 			$defaults = array(
-				'permalink'	=> '', 
-				'width'		=> '80',
-				'title'		=> '',
-				'image'		=> '', 
-				'desc'		=> ''
+				'url' => get_permalink(),
+				'img' => '',
+				'title' => get_the_title(),
 			); 	
 
-			$a = wp_parse_args($args, $defaults);
-			ob_start();
-			?>
+			$atts = shortcode_atts($defaults, $atts);
+			
+			$out = sprintf('<a href="http://pinterest.com/pin/create/button/?url=%s&media=%s&description=%s" class="pin-it-button" count-layout="vertical"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a><script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>',
+			$atts['url'],
+			$atts['img'],
+			$atts['title']
+			);
 
-			<a href="http://pinterest.com/pin/create/button/?url=<?php echo $a['permalink'];?>&media=<?php echo urlencode($a['image']);?>&description=<?php echo urlencode($a['desc']);?>" class="pin-it-button" count-layout="none"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a>
-			<script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
-			<?php 
-
-			return ob_get_clean();
+			return $out;
 
 		}
 		
