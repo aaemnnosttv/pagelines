@@ -6,7 +6,7 @@
 	Description: Adds post author to page/single post.
 	Class Name: PageLinesPostAuthor	
 	Workswith: main-single, author
-	Failswith: pagelines_special_pages()
+	Failswith: archive, category, posts, tags, search, 404_page
 */
 
 /**
