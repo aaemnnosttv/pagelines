@@ -139,7 +139,7 @@ class PageLinesExtendUI {
 		$image = sprintf( '<img class="" src="%s" alt="Thumb" />', $e['image'] );
 		
 		if ( 'integration' != $e['type'] )
-			$title = sprintf('<h2><a href="%s">%s</a></h2>', $this->make_url( $e ), $e['name'] );
+			$title = sprintf('<h2><a href="%s">%s</a></h2>', $e['infourl'], $e['name'] );
 		else
 			$title = sprintf('<h2>%s</h2>', $e['name'] );
 		
@@ -180,7 +180,7 @@ class PageLinesExtendUI {
 		$image = sprintf( '<img class="" src="%s" alt="Thumb" />', $e['image'] );
 	
 		if ( 'internal' != $e['tab'] && 'child' != $e['tab'] )
-			$title = sprintf('<h2><a href="%s">%s</a></h2>', $this->make_url( $e ), $e['name'] );
+			$title = sprintf('<h2><a href="%s">%s</a></h2>', $e['infourl'], $e['name'] );
 		else
 			$title = sprintf('<h2>%s</h2>', $e['name'] );
 		
@@ -210,12 +210,6 @@ class PageLinesExtendUI {
 	
 		return $out;
 		
-	}
-	
-	function make_url( $e ) {
-				
-		if ( isset( $e[ $e['type'] ] ) && isset( $e[ $e['type'] ]['slug'] ) )	
-			return sprintf( 'http://www.pagelines.com/%ss/%s/', $e['type'], $e[ $e['type'] ]['slug'] );		
 	}
 	
 	/**
