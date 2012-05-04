@@ -1,10 +1,10 @@
 <?php
 /*
-	Section: OpenGrid Content
+	Section: Grid Content
 	Author: PageLines
 	Author URI: http://www.pagelines.com
-	Description: (Needs Description)
-	Class Name: OpenGrid
+	Description: A special container section that styles and handles HTML grid oriented content. Fully documented at PageLines.com.
+	Class Name: HTMLGrid
 	Workswith: templates
 	Cloning: false
 	Failswith: pagelines_special_pages()
@@ -16,7 +16,7 @@
  * @package PageLines Framework
  * @author PageLines
  */
-class OpenGrid extends PageLinesSection {
+class HTMLGrid extends PageLinesSection {
 
 
 	/**
@@ -26,7 +26,7 @@ class OpenGrid extends PageLinesSection {
 	
 		global $post;
 			
-		printf('<div class="fluid-grid">%s%s</div>', do_shortcode($post->post_content), pledit($post->ID));
+		printf('<div class="pagelines-grid">%s%s</div>', do_shortcode($post->post_content), pledit($post->ID));
 	 
 	}
 
