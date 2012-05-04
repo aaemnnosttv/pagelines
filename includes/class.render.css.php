@@ -163,7 +163,7 @@ class PageLinesRenderCSS {
 		if ( '' != get_option('permalink_structure') )
 			return sprintf( '%s/pagelines-compiled-css-%s/',PARENT_URL, ploption( "pl_save_version" ) );
 		else
-			return sprintf( '%s?plless=%s',site_url(), ploption( "pl_save_version" ) );
+			return sprintf( '%s?pageless=%s',site_url(), ploption( "pl_save_version" ) );
 		
 	}
 
@@ -252,19 +252,19 @@ class PageLinesRenderCSS {
 	function pagelines_less_rewrite( $wp_rewrite ) {
 
 	    $less_rule = array(
-	        '(.*)pagelines-compiled-css' => '/?plless=1'
+	        '(.*)pagelines-compiled-css' => '/?pageless=1'
 	    );
 
 	    $wp_rewrite->rules = $less_rule + $wp_rewrite->rules;
 	}
 
 	function pagelines_add_trigger( $vars ) {
-	    $vars[] = 'plless';
+	    $vars[] = 'pageless';
 	    return $vars;
 	}
 	
 	function pagelines_less_trigger() {
-		if( intval( get_query_var( 'plless' ) ) ) {
+		if( intval( get_query_var( 'pageless' ) ) ) {
 			header( 'Content-type: text/css' );
 			header( 'Expires: ' );
 			header( 'Cache-Control: max-age=604100, public' );
