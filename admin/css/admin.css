@@ -2702,6 +2702,15 @@ font-weight: bold;
 		.plpane.alt_row{
 			background: #efefef;
 		}
+
+		.plpane h2 a {
+	    	color:#333;
+	    	text-decoration:none;
+	    }
+	    .plpane h2 a:hover {
+	    	color:#21759B;
+	    }
+
 	.pane-head{
 		padding-bottom: .1em;
 		float:left;
@@ -2716,6 +2725,7 @@ font-weight: bold;
 		padding-top: .2em;
 		
 	}
+
 		.pane-text{
 			padding: 0 0 .5em 0;
 		}
