@@ -323,6 +323,7 @@ class PageLinesRenderCSS {
 			}
 			return $code . $out;
 		}
+		return $code;
 	}
 } //end of PageLinesRenderCSS
 
