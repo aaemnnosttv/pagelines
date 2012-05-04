@@ -39,7 +39,7 @@ class PageLinesRenderCSS {
 			'accordion',
 			'carousel',
 			'responsive',
-			'tabs-pills',
+			'navs',
 			'modals',
 			'component-animations',
 			'color', // HAS TO BE LAST	
