@@ -1005,6 +1005,21 @@ class PageLinesOptionsArray {
 					'vidtitle'	=> __( 'View Customization Documentation', 'pagelines' )
 				),
 
+			'custom_lesscode' => array(
+					'default' 	=> '',
+					'type' 		=> 'code',
+					'height'	=> '300px',
+					'layout' 	=> 'full',
+					'inputlabel'=> __( 'LESS Code', 'pagelines' ),
+					'title' 	=> __( 'LESS Code', 'pagelines' ),
+					'shortexp' 	=> __( 'Insert custom CSS styling here. It will be stored in the DB and not overwritten. <br/>Note: The professional way to customize your site is using a child theme, or customization plugin', 'pagelines' ),
+					'exp' 		=> __( "<div class='theexample'>Example:<br/> <strong>body{<br/> &nbsp;&nbsp;color:  #3399CC;<br/>&nbsp;&nbsp;line-height: 20px;<br/>&nbsp;&nbsp;font-size: 11px<br/>}</strong></div>Enter CSS Rules to change the style of your site.<br/><br/> A lot can be accomplished by simply changing the default styles of the <strong>body</strong> tag such as <strong>line-height</strong>, <strong>font-size</strong>, or <strong>color</strong> (as in text color).", 'pagelines' ), 
+					'docslink'	=> 'http://www.pagelines.com/wiki/index.php?title=How_to_Use_the_Custom_Code_Settings', 
+					'vidtitle'	=> __( 'View Customization Documentation', 'pagelines' )
+				),
+
+
+
 			'headerscripts' => array(
 					'version'	=> 'pro',
 					'default'	=> '',
