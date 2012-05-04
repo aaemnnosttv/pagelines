@@ -73,25 +73,40 @@ class PageLinesLess {
 	
 	}
 
-	public function raw_less( $lesscode ) {		
+	public function raw_less( $lesscode, $type = 'core' ) {		
 
-		return $this->raw_parse($lesscode);
+		return $this->raw_parse($lesscode, $type);
 	}
 
-	private function raw_parse( $pless ) {
-		
+	private function raw_parse( $pless, $type ) {
+
+		$css = '';
 		$pless = $this->add_constants( $pless );
+
+		$pless = $this->add_bootstrap( $pless );
 
 		try{
 			$css = $this->lparser->parse( $pless );
 		} catch ( Exception $e){
-			plprint($e->getMessage(), 'Problem Parsing Less');
+			if ( 'core' != $type )
+				return sprintf( '/* LESS PARSE ERROR in your Custom CSS: %s */', $e->getMessage() );
+			else
+				return sprintf( '/* LESS PARSE ERROR in core files!: %s */', $e->getMessage() );
 		}		 
 		return $css;	
 	}
 
 
 
+
+
+	private function add_bootstrap( $pless ) {
+		
+		$vars = pl_file_get_contents( sprintf( '%s/variables.less', CORE_LESS ) );
+		$mixins = pl_file_get_contents( sprintf( '%s/mixins.less', CORE_LESS ) );
+		
+		return $vars . $mixins . $pless;
+	}
 
     /**
      * Parse PLESS Input & return CSS
