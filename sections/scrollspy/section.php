@@ -35,7 +35,7 @@ class ScrollSpy extends PageLinesSection {
 			
 			var section = 1;
 			
-			jQuery('#pagelines-scrollspy').scrollspy()
+			jQuery('.pagelines-scrollspy').scrollspy()
 
 		});
 		</script>	
@@ -51,7 +51,7 @@ class ScrollSpy extends PageLinesSection {
 		global $post;
 			
 		printf('
-			<div id="spynav" class="subnav">
+			<div id="spynav" class="spynav">
 	          <ul class="nav nav-pills">
 	            <li class=""><a href="#label1">Label1</a></li>
 	            <li class=""><a href="#label2">Label2</a></li>
