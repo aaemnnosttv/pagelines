@@ -188,8 +188,6 @@ class PageLinesRenderCSS {
 			build_pagelines_layout();
 
 			$dynamic = $this->get_dynamic_css();
-			
-			$custom_less = ploption( 'custom_lesscode' );
 
 			$custom = $this->get_custom_css( false );
 
@@ -200,7 +198,7 @@ class PageLinesRenderCSS {
 			$end_time = microtime(true);			
 			$a = array(				
 				'dynamic'	=> $dynamic['dynamic'],
-				'core'		=> $pless->raw_less( $core_less . $dynamic['type'] . $custom_less ),
+				'core'		=> $pless->raw_less( $core_less . $dynamic['type'] ),
 				'custom'	=> $pless->raw_less( $custom ),
 				'c_time'	=> round(($end_time - $start_time),5),
 				'time'		=> time()		
@@ -227,7 +225,7 @@ class PageLinesRenderCSS {
 			if ( ! $add_color ) {
 				array_pop( $this->lessfiles );
 			}
-			return $this->load_core_cssfiles( $this->lessfiles );	
+			return $this->load_core_cssfiles( $this->lessfiles ) . ploption( 'custom_lesscode' );	
 	}
 
 	/**
