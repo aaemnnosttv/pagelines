@@ -138,7 +138,10 @@ class PageLinesExtendUI {
 
 		$image = sprintf( '<img class="" src="%s" alt="Thumb" />', $e['image'] );
 		
-		$title = sprintf('<h2>%s</h2>', $e['name']);
+		if ( 'integration' != $e['type'] )
+			$title = sprintf('<h2><a href="%s">%s</a></h2>', $this->make_url( $e ), $e['name'] );
+		else
+			$title = sprintf('<h2>%s</h2>', $e['name'] );
 		
 		$text = sprintf('<p>%s</p>', $e['desc']);
 		
@@ -169,12 +172,17 @@ class PageLinesExtendUI {
 	}
 	
 	function pane_template( $e, $style = '', $count = ''){
+
+
 	
 		$e = wp_parse_args( $e, $this->defaultpane);
 
 		$image = sprintf( '<img class="" src="%s" alt="Thumb" />', $e['image'] );
-		
-		$title = sprintf('<h2>%s</h2>', $e['name']);
+	
+		if ( 'internal' != $e['tab'] && 'child' != $e['tab'] )
+			$title = sprintf('<h2><a href="%s">%s</a></h2>', $this->make_url( $e ), $e['name'] );
+		else
+			$title = sprintf('<h2>%s</h2>', $e['name'] );
 		
 		$text = sprintf('<p>%s</p>', $e['desc']);
 		
@@ -203,6 +211,13 @@ class PageLinesExtendUI {
 		return $out;
 		
 	}
+	
+	function make_url( $e ) {
+				
+		if ( isset( $e[ $e['type'] ] ) && isset( $e[ $e['type'] ]['slug'] ) )	
+			return sprintf( 'http://www.pagelines.com/%ss/%s/', $e['type'], $e[ $e['type'] ]['slug'] );		
+	}
+	
 	/**
 	*
 	* @TODO document

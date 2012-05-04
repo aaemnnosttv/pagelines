@@ -90,6 +90,7 @@ class ExtensionThemes extends PageLinesExtensions {
 			$new_theme['pid']			= $pid;
 			$new_theme['subscribed']	= $subscribed;
 			$new_theme['count']			= null;
+			$new_theme['slug']			= ( isset( $themes[$theme_data['Stylesheet']]['slug'] ) ) ? $themes[$theme_data['Stylesheet']]['slug'] : null;
 			$themes[$theme_data['Stylesheet']] = $new_theme;		
 		}
 		return $themes;
