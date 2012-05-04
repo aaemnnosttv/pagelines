@@ -66,6 +66,8 @@ class PageLinesRenderCSS {
 		add_action( 'pagelines_head_last', array( &$this, 'get_custom_css' ) , 25 );		
 		add_action( 'wp_head', array(&$pagelines_template, 'print_template_section_head' ) );
 		add_action( 'extend_flush', array( &$this, 'flush_version' ) );
+		
+		add_filter( 'pagelines_insert_core_less', array( &$this, 'pagelines_insert_core_less_callback' ) );
 	}
 
 	/**
@@ -241,7 +243,7 @@ class PageLinesRenderCSS {
 			$file = sprintf( '%s/%s.less', CORE_LESS, $less );
 			$code .= pl_file_get_contents( $file );
 		}
-		return $code;
+		return apply_filters( 'pagelines_insert_core_less', $code );
 	}
 
 	/**
@@ -306,15 +308,28 @@ class PageLinesRenderCSS {
 		delete_transient( 'pagelines_dynamic_css' );
 	}
 	
+	function pagelines_insert_core_less_callback( $code ) {
+
+		global $pagelines_raw_lesscode_external;	
+		$out = '';
+		if ( is_array( $pagelines_raw_lesscode_external ) && ! empty( $pagelines_raw_lesscode_external ) ) {
+
+			foreach( $pagelines_raw_lesscode_external as $file ) {
+				
+				if( file_exists( $file ) )
+					$out .= pl_file_get_contents( $file );
+			}
+			return $code . $out;
+		}
+	}
 } //end of PageLinesRenderCSS
 
-
-
-// LEGACY
-function sspl_get_core_less() {
+function pagelines_insert_core_less( $file ) {
 	
-	$less = '';
-		foreach( glob( CORE_LESS . '/*.less' ) as $file )
-			$less .= pl_file_get_contents( $file );
-	return $less;
+	global $pagelines_raw_lesscode_external;
+	
+	if( !is_array( $pagelines_raw_lesscode_external ) )
+		$pagelines_raw_lesscode_external = array();
+	
+	$pagelines_raw_lesscode_external[] = $file;
 }
