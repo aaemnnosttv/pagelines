@@ -58,7 +58,7 @@ class PageLinesRenderCSS {
 				
 		add_filter('query_vars', array( &$this, 'pagelines_add_trigger' ) );
 		add_action('template_redirect', array( &$this, 'pagelines_less_trigger' ) );
-		add_action( 'wp_print_styles', array( &$this, 'load_less_css' ), 1 );
+		add_action( 'wp_print_styles', array( &$this, 'load_less_css' ), 11 );
 		add_action('wp_head', array( &$this, 'draw_inline_sections_css' ), 8);
 		add_action('wp_head', array( &$this, 'draw_inline_dynamic_css' ), 8);
 		add_action( 'pagelines_head_last', array( &$this, 'get_custom_css' ) , 25 );		
@@ -161,7 +161,7 @@ class PageLinesRenderCSS {
 	function get_dynamic_url() {
 		
 		if ( '' != get_option('permalink_structure') )
-			return sprintf( '%s/pagelines_dynamic_css-%s/',site_url(), ploption( "pl_save_version" ) );
+			return sprintf( '%s/pagelines-compiled-css-%s/',PARENT_URL, ploption( "pl_save_version" ) );
 		else
 			return sprintf( '%s?plless=%s',site_url(), ploption( "pl_save_version" ) );
 		
@@ -252,7 +252,7 @@ class PageLinesRenderCSS {
 	function pagelines_less_rewrite( $wp_rewrite ) {
 
 	    $less_rule = array(
-	        'pagelines_dynamic_css' => '/?plless=1'
+	        '(.*)pagelines-compiled-css' => '/?plless=1'
 	    );
 
 	    $wp_rewrite->rules = $less_rule + $wp_rewrite->rules;
