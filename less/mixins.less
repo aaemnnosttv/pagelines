@@ -518,6 +518,7 @@
 
   .fluid (@fluidGridColumnWidth, @fluidGridGutterWidth) {
 
+	
     .spanX (@index) when (@index > 0) {
       (~"> .span@{index}") { .span(@index); }
       .spanX(@index - 1);
