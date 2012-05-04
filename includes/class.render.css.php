@@ -24,6 +24,7 @@ class PageLinesRenderCSS {
 
 			'variables',
 			'mixins',
+			'grid',
 			'alerts',
 			'close',
 			'badges',
@@ -31,7 +32,8 @@ class PageLinesRenderCSS {
 			'tooltip',
 			'popovers',
 			'buttons',
-			'grid',
+			
+			'type',
 			'dropdowns',
 			'button-groups',
 			'accordion',

@@ -6,7 +6,7 @@
 // BODY TEXT
 // ---------
 
-p {
+/*p {
   margin: 0 0 @baseLineHeight / 2;
   font-family: @baseFontFamily;
   font-size: @baseFontSize;
@@ -15,7 +15,7 @@ p {
     font-size: @baseFontSize - 2;
     color: @grayLight;
   }
-}
+}*/
 .lead {
   margin-bottom: @baseLineHeight;
   font-size: 20px;
@@ -28,9 +28,9 @@ p {
 
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
-  font-family: @headingsFontFamily;
-  font-weight: @headingsFontWeight;
-  color: @headingsColor;
+  /*font-family: @headingsFontFamily;
+    font-weight: @headingsFontWeight;
+    color: @headingsColor;*/
   text-rendering: optimizelegibility; // Fix the character spacing for headings
   small {
     font-weight: normal;
@@ -38,40 +38,40 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 h1 {
-  font-size: 30px;
+  font-size: @h1Size;
   line-height: @baseLineHeight * 2;
   small {
-    font-size: 18px;
+    font-size: @h3Size;
   }
 }
 h2 {
-  font-size: 24px;
+  font-size: @h2Size;
   line-height: @baseLineHeight * 2;
   small {
-    font-size: 18px;
+    font-size: @h3Size;
   }
 }
 h3 {
   line-height: @baseLineHeight * 1.5;
-  font-size: 18px;
+  font-size: @h3Size;
   small {
-    font-size: 14px;
+    font-size: @h4Size;
   }
 }
 h4, h5, h6 {
   line-height: @baseLineHeight;
 }
 h4 {
-  font-size: 14px;
+  font-size: @h4Size;
   small {
-    font-size: 12px;
+    font-size: @h5Size;
   }
 }
 h5 {
-  font-size: 12px;
+  font-size: @h5Size;
 }
 h6 {
-  font-size: 11px;
+  font-size: @h6Size;
   color: @grayLight;
   text-transform: uppercase;
 }
