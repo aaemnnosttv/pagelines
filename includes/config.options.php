@@ -1004,7 +1004,6 @@ class PageLinesOptionsArray {
 					'docslink'	=> 'http://www.pagelines.com/wiki/index.php?title=How_to_Use_the_Custom_Code_Settings', 
 					'vidtitle'	=> __( 'View Customization Documentation', 'pagelines' )
 				),
-
 			'headerscripts' => array(
 					'version'	=> 'pro',
 					'default'	=> '',
