@@ -41,7 +41,7 @@ class PLMasthead extends PageLinesSection {
 		
 		$settings = wp_parse_args($settings, $this->optionator_default);
 		
-		$metatab_array = array(
+		$option_array = array(
 
 				'pagelines_masthead_text' => array(
 						'type' 				=> 'text_multi',
@@ -60,15 +60,16 @@ class PLMasthead extends PageLinesSection {
 					'title'		=> __('Masthead Action Button 1', 'pagelines'), 
 					'shortexp'	=> __('Enter the options for the masthead button', 'pagelines'),
 					'selectvalues'	=> array(
+						'masthead_button_link_1' => array(
+							'type' => 'text',
+							'inputlabel' => 'Enter the link destination (URL - Required)',
+
+						),
 						'masthead_button_text_1' => array(
 							'type' 			=> 'text',
 							'inputlabel' 	=> 'Masthead Button Text',					
 						 ),
-						'masthead_button_link_1' => array(
-							'type' => 'text',
-							'inputlabel' => 'Enter the link destination (URL)',
-
-						),
+						
 						'masthead_button_target_1' => array(
 							'type'			=> 'check',
 							'default'		=> false,
@@ -94,15 +95,16 @@ class PLMasthead extends PageLinesSection {
 					'title'		=> __('Masthead Action Button 2', 'pagelines'), 
 					'shortexp'	=> __('Enter the options for the masthead button', 'pagelines'),
 					'selectvalues'	=> array(
+						'masthead_button_link_2' => array(
+							'type' => 'text',
+							'inputlabel' => 'Enter the link destination (URL - Required)',
+
+						),
 						'masthead_button_text_2' => array(
 							'type' 			=> 'text',
 							'inputlabel' 	=> 'Masthead Button Text',					
 						 ),
-						'masthead_button_link_2' => array(
-							'type' => 'text',
-							'inputlabel' => 'Enter the link destination (URL)',
-
-						),
+						
 						'masthead_button_target_2' => array(
 							'type'			=> 'check',
 							'default'		=> false,
@@ -144,7 +146,7 @@ class PLMasthead extends PageLinesSection {
 				'active'	=> $settings['active']
 			);
 		
-		register_metatab($metatab_settings, $metatab_array);
+		register_metatab($metatab_settings, $option_array);
 	}
 
 	/**
@@ -179,12 +181,15 @@ class PLMasthead extends PageLinesSection {
 
 	    <?php
 			for ($i = 1; $i <= 2; $i++){
+				$butt_link = ploption('masthead_button_link_'.$i, $this->oset); // Flag
+				
 				$butt_text = (ploption('masthead_button_text_'.$i, $this->oset)) ? ploption('masthead_button_text_'.$i, $this->oset) : __('Start Here', 'pagelines');
-				$butt_link = ploption('masthead_button_link_'.$i, $this->oset);
+				
 				$target = ( ploption( 'masthead_button_target_'.$i, $this->oset ) ) ? 'target="_blank"' : '';
 				$btheme = ( ploption( 'masthead_button_theme_'.$i, $this->oset ) ) ? ploption( 'masthead_button_theme_'.$i, $this->oset ) : 'primary';
 
-				printf('<a %s class="btn btn-%s btn-large" href="%s">%s</a> ', $target, $btheme, $butt_link, $butt_text);
+				if($butt_link)
+					printf('<a %s class="btn btn-%s btn-large" href="%s">%s</a> ', $target, $btheme, $butt_link, $butt_text);
 			}
 			
 	    ?> 

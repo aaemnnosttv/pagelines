@@ -78,3 +78,42 @@
   display: inline;
   margin: 0 8px;
 }
+
+/* Responsive
+ ************************/
+
+@media screen and (max-width: 980px){
+	.jumbotron h1 {
+		font-size: 72px;
+	}
+}
+@media screen and (max-width: 768px){
+	.jumbotron h1 {
+		font-size: 54px;
+	}
+	.jumbotron p {
+		margin-right: 0;
+		margin-left: 0;
+	}
+	.jumbotron .btn {
+		margin-bottom: 10px;
+	}
+}
+@media screen and (max-width:480px) {
+	.jumbotron h1 {
+		font-size: 45px;
+		margin-right: 0;
+	}
+	.jumbotron p {
+		margin-right: 0;
+		margin-left: 0;
+		font-size: 18px;
+		line-height: 24px;
+	}
+	.jumbotron .btn {
+		display: block;
+		font-size: 18px;
+		padding: 10px 14px;
+		margin: 0 auto 10px;
+	}
+}
