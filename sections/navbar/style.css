@@ -13,6 +13,11 @@
  * Designed and built with all the love in the world @twitter by @mdo and @fat.
  */
 
+/*  Based on Body Class
+ ************************************************************/
+body.navbar_fixed .page-canvas {padding-top: 50px;}
+body.navbar_fixed .fixed_width #page .page-canvas{margin-top: 42px; padding-top: 0}
+
 /*  Basic formatting
  ************************************************************/
 .section-navbar {
@@ -476,9 +481,13 @@
  ************************************************************/
 @media (max-width: 779px) {
 
-  #site #page {
-    padding-top: 0;
-  }
+
+	body.navbar_fixed .page-canvas  {
+	  padding-top: 0;
+	}
+	body.navbar_fixed .fixed_width #page .page-canvas{
+		margin-top: 0;
+	}
   .section-navbar.fixed-top {
     position: static;
     margin-bottom: 18px;

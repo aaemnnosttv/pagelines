@@ -148,7 +148,7 @@ class PLNavBar extends PageLinesSection {
 			add_action('pagelines_before_page', array(&$this,'passive_section_template'), 10, 2);
 				
 			
-			
+			pagelines_add_bodyclass('navbar_fixed');
 		}
 		
 
@@ -193,13 +193,8 @@ class PLNavBar extends PageLinesSection {
 		});
 		</script>	
 		
-		<?php if(ploption('navbar_fixed')): ?>
-		<style id="navbar-css" type="text/css">
-			.page-canvas {padding-top: 50px;}
-			.fixed_width #page .page-canvas{margin-top: 42px; padding-top: 0}
-		</style>
-		<?php endif;?>
-	<?php }
+	<?php 
+	}
 
 	function before_section_template( $location = ''){
 		
