@@ -66,11 +66,6 @@ class PageLinesRenderCSS {
 		add_filter( 'pagelines_insert_core_less', array( &$this, 'pagelines_insert_core_less_callback' ) );
 	}
 
-
-
-
-
-
 	/**
 	 * 
 	 * Get custom CSS
@@ -80,9 +75,9 @@ class PageLinesRenderCSS {
 	 */
 	function draw_inline_custom_css() {
 
-			$a = $this->get_compiled_css();
+			$a = $this->get_compiled_custom();
 			if ( '' != $a['custom'] )
-				return inline_css_markup( 'pagelines-custom', $this->minify( $a['custom'] ) );
+				return inline_css_markup( 'pagelines-custom', rtrim( $this->minify( $a['custom'] ) ) );
 	}
 
 	/**
@@ -175,9 +170,9 @@ class PageLinesRenderCSS {
 	 *  @package PageLines Framework
 	 *  @since 2.2
 	 */
-	function get_compiled_css() {
+	function get_compiled_core() {
 		
-		if ( is_array(  $a = get_transient( 'pagelines_dynamic_css' ) ) ) {
+		if ( is_array(  $a = get_transient( 'pagelines_core_css' ) ) ) {
 			return $a;
 		} else {
 			
@@ -185,24 +180,54 @@ class PageLinesRenderCSS {
 			build_pagelines_layout();
 
 			$dynamic = $this->get_dynamic_css();
-			$custom = ploption( 'customcss' );
-			$core_less = $this->get_core_lesscode();
 
-			$pless = new PagelinesLess();
-			$core_less =  $pless->raw_less( $core_less );
+			$core_less = $this->get_core_lesscode();
+			$pless = new PagelinesLess();			
+			$core_less = $pless->raw_less( $core_less . $dynamic['type'] );
+
 			$end_time = microtime(true);			
 			$a = array(				
 				'dynamic'	=> $dynamic['dynamic'],
-				'core'		=> $pless->raw_less( $core_less . $dynamic['type'] ),
-				'custom'	=> $pless->raw_less( $custom, 'custom'),
+				'core'		=> $core_less,
 				'c_time'	=> round(($end_time - $start_time),5),
 				'time'		=> time()		
 			);
-			set_transient( 'pagelines_dynamic_css', $a, 604800 );
+			set_transient( 'pagelines_core_css', $a, 604800 );
 			return $a;			
 		}		
 	}
 	
+	/**
+	 * 
+	 *  Get compiled/cached CSS
+	 *
+	 *  @package PageLines Framework
+	 *  @since 2.2
+	 */
+	function get_compiled_custom() {
+		
+		if ( is_array(  $a = get_transient( 'pagelines_custom_css' ) ) ) {
+			return $a;
+		} else {
+			
+			$start_time = microtime(true);
+			build_pagelines_layout();
+
+			$custom = ploption( 'customcss' );
+
+			$pless = new PagelinesLess();
+			$custom =  $pless->raw_less( $custom, 'custom' );
+			$end_time = microtime(true);			
+			$a = array(				
+				'custom'	=> $custom,
+				'c_time'	=> round(($end_time - $start_time),5),
+				'time'		=> time()		
+			);
+			set_transient( 'pagelines_custom_css', $a, 604800 );
+			return $a;			
+		}		
+	}
+
 	/**
 	 * 
 	 *  Get Core LESS code
@@ -267,7 +292,7 @@ class PageLinesRenderCSS {
 			header( 'Expires: ' );
 			header( 'Cache-Control: max-age=604100, public' );
 			
-			$a = $this->get_compiled_css();
+			$a = $this->get_compiled_core();
 			echo $this->minify( $a['core'] );
 			pl_debug( sprintf( 'CSS was compiled at %s and took %s seconds.', date( DATE_RFC822, $a['time'] ), $a['c_time'] ) );		
 			die();
