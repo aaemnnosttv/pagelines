@@ -88,17 +88,16 @@ class PageLinesLess {
 		try{
 			$css = $this->lparser->parse( $pless );
 		} catch ( Exception $e){
-			if ( 'core' != $type )
+			if ( 'core' != $type ) {
+				plupop( 'pl_less_error_custom', $e->getMessage() );
 				return sprintf( '/* LESS PARSE ERROR in your Custom CSS: %s */', $e->getMessage() );
-			else
+			} else {
+				plupop( 'pl_less_error_core', $e->getMessage() );				
 				return sprintf( '/* LESS PARSE ERROR in core files!: %s */', $e->getMessage() );
+			}
 		}		 
 		return $css;	
 	}
-
-
-
-
 
 	private function add_bootstrap( $pless ) {
 		

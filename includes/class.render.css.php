@@ -63,7 +63,20 @@ class PageLinesRenderCSS {
 		add_action( 'wp_head', array(&$pagelines_template, 'print_template_section_head' ) );
 		add_action( 'extend_flush', array( &$this, 'flush_version' ) );	
 		add_filter( 'pagelines_insert_core_less', array( &$this, 'pagelines_insert_core_less_callback' ) );
+		add_action('admin_notices', array(&$this,'less_error_report') );
 	}
+
+	function less_error_report() {
+		
+		$default = '<div class="updated fade update-nag"><div style="text-align:left"><h4>PageLines %s LESS/CSS error.</h4>%s</div></div>';
+		
+		if ( ploption( 'pl_less_error_custom' ) )
+			printf( $default, 'Custom', ploption( 'pl_less_error_custom' ) );
+			
+		if ( ploption( 'pl_less_error_core' ) )
+			printf( $default, 'Core', ploption( 'pl_less_error_core' ) );				
+	}
+
 
 	/**
 	 * 
@@ -319,12 +332,15 @@ class PageLinesRenderCSS {
 	 *  @package PageLines Framework
 	 *  @since 2.2
 	 */
-	function flush_version() {
+	function flush_version( $rules = true ) {
 		
-		flush_rewrite_rules( true );
+		if( $rules )
+			flush_rewrite_rules( true );
 		plupop( 'pl_save_version', time() );
-		delete_transient( 'pagelines_dynamic_css' );
+		delete_transient( 'pagelines_custom_css' );
 		delete_transient( 'pagelines_core_css' );
+		plupop( 'pl_less_error_custom', false );
+		plupop( 'pl_less_error_core', false );		
 	}
 	
 	function pagelines_insert_core_less_callback( $code ) {
