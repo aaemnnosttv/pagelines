@@ -123,6 +123,16 @@ class PLMasthead extends PageLinesSection {
 						),
 					)
 				),
+				'masthead_menu' => array(
+						'type' 			=> 'select_menu',
+						'title'			=> 'Masthead Menu',
+						'inputlabel' 	=> 'Select Masthead Menu',
+					),
+				'masthead_meta' => array(
+						'type' 			=> 'text',
+						'title'			=> 'Masthead Meta',
+						'inputlabel' 	=> 'Enter Masthead Meta Text',
+					),
 				
 			);
 		
@@ -143,6 +153,8 @@ class PLMasthead extends PageLinesSection {
    function section_template( $clone_id ) { 
    		$mast_title = ploption('pagelines_masthead_title', $this->oset);
 		$mast_tag = ploption('pagelines_masthead_tagline', $this->oset);
+		$mast_menu = (ploption('masthead_menu', $this->oset)) ? ploption('masthead_menu', $this->oset) : null;
+		$masthead_meta = ploption('masthead_meta', $this->oset);
 		
 		
 		// A Responsive, Drag &amp; Drop Platform for Beautiful Websites
@@ -179,6 +191,29 @@ class PLMasthead extends PageLinesSection {
 	
 	    </p>
 	  </div>
+		<div class="mastlinks">
+			<?php
+			
+			if($mast_menu)
+				wp_nav_menu( 
+					array(
+						'menu_class'  => 'quick-links', 
+						'menu' => $mast_menu,
+						'container' => null, 
+						'container_class' => '', 
+						'depth' => 1, 
+						'fallback_cb'=>''
+					) 
+				);
+			
+			
+			if($masthead_meta)
+				printf( '<div class="quick-links mastmeta">%s</div>', do_shortcode($masthead_meta) );
+			
+			?>
+			
+			
+		</div>
 	</header>
 
 		<?php 
