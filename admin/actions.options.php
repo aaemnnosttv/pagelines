@@ -191,11 +191,11 @@ function pagelines_theme_settings_init() {
 	global $_pagelines_account_hook;
 	
 	// Call only on PL pages
-	add_action( 'load-'.$_pagelines_options_page_hook, 'pagelines_theme_settings_scripts' );
-	add_action( 'load-'.$_pagelines_ext_hook, 'pagelines_theme_settings_scripts' );
-	add_action( 'load-'.$_pagelines_special_hook, 'pagelines_theme_settings_scripts' );
-	add_action( 'load-'.$_pagelines_templates_hook, 'pagelines_theme_settings_scripts' );
-	add_action( 'load-'.$_pagelines_account_hook, 'pagelines_theme_settings_scripts' );
+	add_action( "admin_print_scripts-{$_pagelines_options_page_hook}", 'pagelines_theme_settings_scripts' );
+	add_action( "admin_print_scripts-{$_pagelines_ext_hook}", 'pagelines_theme_settings_scripts' );
+	add_action( "admin_print_scripts-{$_pagelines_special_hook}", 'pagelines_theme_settings_scripts' );
+	add_action( "admin_print_scripts-{$_pagelines_templates_hook}", 'pagelines_theme_settings_scripts' );
+	add_action( "admin_print_scripts-{$_pagelines_account_hook}", 'pagelines_theme_settings_scripts' );
 	
 	// WordPress Page types
 	add_action( 'load-post.php',  'pagelines_theme_settings_scripts' );
