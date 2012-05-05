@@ -131,5 +131,6 @@ add_action( 'wp_enqueue_scripts', 'pagelines_supersize_bg' );
 if ( defined( 'PL_LESS_DEV' ) ) {
 	plupop( 'pl_save_version', time() );
 	delete_transient( 'pagelines_dynamic_css' );
+	delete_transient( 'pagelines_core_css' );
 }
 add_filter( 'generate_rewrite_rules', array( 'PageLinesRenderCSS', 'pagelines_less_rewrite' ) );

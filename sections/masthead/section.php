@@ -220,6 +220,7 @@ class PLMasthead extends PageLinesSection {
 			
 		</div>
 	</header>
+	<hr class="soften" />
 
 		<?php 
 
