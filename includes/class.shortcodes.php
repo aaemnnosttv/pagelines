@@ -622,7 +622,7 @@ class PageLines_ShortCodes {
 
         $scrollable = ($scrollable == 'yes') ? 'pre-scrollable' : '';
 
-		$out = sprintf('<pre class="'.$scrollable.'">'.do_shortcode($content). '</pre>');
+		$out = sprintf('<pre class="%s">%s</pre>',$scrollable,$content);
 
 		return $out;
 	}
@@ -764,9 +764,8 @@ class PageLines_ShortCodes {
 
 		$content = str_replace( '<br />', '', str_replace( '<br>', '', $content ) );
 
-    	$out = sprintf('<div class="btn-group">'.do_shortcode($content).'</div>');
-        
-    	return $out;
+    	return '<div class="btn-group">'.do_shortcode($content).'</div>';
+
 	}
 
 	
@@ -1015,9 +1014,8 @@ class PageLines_ShortCodes {
 	    $first = ($first == 'yes') ? 'active' : '';
 	    $content = ($content <> '') ? "<div class='carousel-caption'><h4>$title</h4><p>$content</p></div></div>" : '';
 
-	    $out = sprintf('<div class="item '.$first.'"><img src="'.$imageurl.'">' .do_shortcode($content).'');
+	    return '<div class="item '.$first.'"><img src="'.$imageurl.'">' .do_shortcode($content).'';
 
-	    return $out;
 	}
 
 	/**
@@ -1030,9 +1028,7 @@ class PageLines_ShortCodes {
 
     function pl_tabs_shortcode( $atts, $content = null ) {
 
-    	$out = sprintf('<div class="tabs">'.do_shortcode($content).'</div>');
-        
-    return $out;
+    	return '<div class="tabs">'.do_shortcode($content).'</div>';
 
 	}
 
@@ -1082,9 +1078,8 @@ class PageLines_ShortCodes {
 	//Tab Content Section
 		function pl_tabcontentsection_shortcode( $atts, $content = null ) {
 
-		    $out = sprintf('<div class="tab-content">'.do_shortcode($content).'</div>');
-		        
-		    return $out;
+		    return '<div class="tab-content">'.do_shortcode($content).'</div>';
+
 		}
 
 	//Tab Content
@@ -1097,9 +1092,8 @@ class PageLines_ShortCodes {
  	        
 		    $active = ($active == 'yes') ? "active" : '';
 
-		    $out = sprintf('<div class="tab-pane '.$active.'" id="'.$number.'"><p>'.do_shortcode($content).'</p></div>');
+		    return '<div class="tab-pane '.$active.'" id="'.$number.'"><p>'.do_shortcode($content).'</p></div>';
 		        
-		    return $out;
 		}
 
 	/**
