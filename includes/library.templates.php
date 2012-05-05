@@ -200,7 +200,7 @@ function pagelines_head_common(){
 			pagelines_load_css_relative( 'rtl.css', 'pagelines-rtl');
 	}
 		
-	if ( VPRO )
+	if ( !has_action('disable_facebook_headers') && VPRO )
 		pagelines_facebook_header();
 		
 	// Fix IE and special handling
