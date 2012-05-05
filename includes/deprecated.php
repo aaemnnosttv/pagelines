@@ -30,12 +30,12 @@ function cmath( $color ) {
 	return new PageLinesColor( $color );
 }
 
-function pl_get_theme_data( $stylesheet = null, $header ) {
+function pl_get_theme_data( $stylesheet = null, $header = 'Version') {
 	
 	if ( function_exists( 'wp_get_theme' ) ) {
 		return wp_get_theme( basename( $stylesheet ) )->get( $header );
 	} else {
-		$data = get_theme_data( $stylesheet . '/style.css' );	
+		$data = get_theme_data( sprintf( '%s/themes/%s/style.css', WP_CONTENT_DIR, basename( $stylesheet ) ) );	
 		return $data[ $header ];
 	}
 }

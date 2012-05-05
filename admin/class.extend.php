@@ -616,7 +616,7 @@
 			if ( file_exists( $check_file ) )
 				$exists = true;
 				
-			if( isset( $exists ) && $data = get_theme_data( $check_file ) )
+			if( isset( $exists ) && $data = pl_get_theme_data( $key ) )
 				return true;
 			else
 				return false;

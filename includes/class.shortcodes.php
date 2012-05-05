@@ -1,7 +1,13 @@
 <?php
-
-
-
+/**
+ * PageLines_ShortCodes
+ *
+ * This file defines return functions to be used as shortcodes by users and developers
+ *
+ * @package     PageLines Framework
+ * @subpackage  Sections
+ * @since       2.2
+ */
 class PageLines_ShortCodes {
 	
 	
@@ -10,26 +16,26 @@ class PageLines_ShortCodes {
 		self::register_shortcodes( $this->shortcodes_core() );
 		
 		// Make widgets process shortcodes
-		add_filter('widget_text', 'do_shortcode');		
+		add_filter( 'widget_text', 'do_shortcode' );		
 		
 		
 		//Remove the extra p's and br's
-    	function pl_shortcode_empty_paragraph_fix($content) {   
+    	function pl_shortcode_empty_paragraph_fix( $content ) {   
         	$array = array (
             	'<p>[' => '[', 
             	']</p>' => ']', 
             	']<br />' => ']'
         	);
 
-        	$content = strtr($content, $array);
+        	$content = strtr( $content, $array );
 
 			return $content;
     	}
-    	add_filter('the_content', 'pl_shortcode_empty_paragraph_fix');	
+    	add_filter( 'the_content', 'pl_shortcode_empty_paragraph_fix' );	
     		
     	
 		//Remove Wordpress Formatters (breaks button groups and others)
-		remove_filter('the_content', 'wptexturize');
+		remove_filter( 'the_content', 'wptexturize' );
 	}
 	
 	private function register_shortcodes( $shortcodes ) {
@@ -100,15 +106,15 @@ class PageLines_ShortCodes {
 
 	// Return link in page based on Bookmark
 	// USAGE : [bookmark id="21" text="Link Text"]
-	function bookmark_link($atts) {
+	function bookmark_link( $atts ) {
 
 	 	//extract page name from the shortcode attributes
-	 	extract(shortcode_atts(array( 'id' => '0', 'text' => ''), $atts));
+	 	extract( shortcode_atts( array( 'id' => '0', 'text' => '' ), $atts ) );
 
 	 	//convert the page name to a page ID
-	 	$bookmark = get_bookmark($id);
+	 	$bookmark = get_bookmark( $id );
 	
-		if(isset($text)) $ltext = $text;
+		if( isset( $text ) ) $ltext = $text;
 		else $ltext = $bookmark->link_name;; 
 
 
@@ -118,16 +124,16 @@ class PageLines_ShortCodes {
 
 	// Function for creating a link from a page name
 	// USAGE : [link pagename="My Example Page" linktext="Link Text"]
-	function create_pagelink($atts) {
+	function create_pagelink( $atts ) {
 
 	 	//extract page name from the shortcode attributes
-	 	extract(shortcode_atts(array( 'pagename' => 'home', 'linktext' => ''), $atts));
+	 	extract( shortcode_atts( array( 'pagename' => 'home', 'linktext' => '' ), $atts ) );
 
 	 	//convert the page name to a page ID
-	 	$page = get_page_by_title($pagename);
+	 	$page = get_page_by_title( $pagename );
 
 	 	//use page ID to get the permalink for the page
-	 	$link = get_permalink($page);
+	 	$link = get_permalink( $page );
 
 	 	//create the link and output
 	 	$pagelink = "<a href=\"".$link."\">".$linktext."</a>";
@@ -137,7 +143,7 @@ class PageLines_ShortCodes {
 
 	//Function for getting template path
 	// USAGE: [themeurl]
-	function get_themeurl($atts){ return get_template_directory_uri();	 }
+	function get_themeurl( $atts ){ return get_template_directory_uri();	 }
 	
 	// GOOGLE MAPS //////////////////////////////////////////////////
 
@@ -148,12 +154,12 @@ class PageLines_ShortCodes {
 	    // or with options
 	    // [googlemap width="200" height="200" address="San Francisco, CA 92109"]
 
-	function googleMaps($atts, $content = null) {
-	       extract(shortcode_atts(array(
+	function googleMaps( $atts, $content = null ) {
+	       extract( shortcode_atts( array(
 	          "width"       =>  '480',
 	          "height"      =>  '480',
 	          "address"   =>   ''
-	       ), $atts));
+	       ), $atts ) );
 	       $src = "http://maps.google.com/maps?f=q&source=s_q&hl=en&q=".$address;
 	       return '<iframe width="'.$width.'" height="'.$height.'" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="'.$src.'&amp;output=embed"></iframe>';
 	}
@@ -166,7 +172,7 @@ class PageLines_ShortCodes {
 		//		[chart data="41.52,37.79,20.67,0.03" bg="F7F9FA" labels="Reffering+sites|Search+Engines|Direct+traffic|Other" colors="058DC7,50B432,ED561B,EDEF00" size="488x200" title="Traffic Sources" type="pie"]
 
 	function chart_shortcode( $atts ) {
-		extract(shortcode_atts(array(
+		extract( shortcode_atts( array(
 		    'data' => '',
 		    'colors' => '',
 		    'size' => '400x200',
@@ -175,9 +181,9 @@ class PageLines_ShortCodes {
 		    'labels' => '',
 		    'advanced' => '',
 		    'type' => 'pie'
-		), $atts));
+		), $atts ) );
 
-				switch ($type) {
+				switch ( $type ) {
 					case 'line' :
 						$charttype = 'lc'; break;
 					case 'xyline' :
@@ -199,9 +205,9 @@ class PageLines_ShortCodes {
 					break;
 				}
 				$string = '';
-				if ($title) $string .= '&chtt='.$title.'';
-				if ($labels) $string .= '&chl='.$labels.'';
-				if ($colors) $string .= '&chco='.$colors.'';
+				if ( $title ) $string .= '&chtt='.$title.'';
+				if ( $labels ) $string .= '&chl='.$labels.'';
+				if ( $colors ) $string .= '&chco='.$colors.'';
 				$string .= '&chs='.$size.'';
 				$string .= '&chd=t:'.$data.'';
 				$string .= '&chf='.$bg.'';
@@ -212,16 +218,16 @@ class PageLines_ShortCodes {
 	// GET POST FIELD BY OFFSET //////////////////////////////////////////////////
 	// Get a post based on offset from the last post published (0 for last post)
 	// USAGE: [postfeed field="post_title"  offset="0" customfield="true" ]
-	function get_postfeed($atts) {
+	function get_postfeed( $atts ) {
 
 		//extract page name from the shortcode attributes
-		extract(shortcode_atts(array( 'field' => 'post_title', 'offset' => '0', 'customfield' => ""), $atts));
+		extract( shortcode_atts( array( 'field' => 'post_title', 'offset' => '0', 'customfield' => "" ), $atts ) );
 
 		//returns an array of objects
-		$thepost = get_posts('numberposts=1&offset='.$offset);
+		$thepost = get_posts( 'numberposts=1&offset='.$offset );
 
-		if($customfield == 'true'){
-			$postfield = get_post_meta($thepost[0]->ID, $field, true);
+		if( $customfield == 'true' ){
+			$postfield = get_post_meta( $thepost[0]->ID, $field, true );
 		}else{
 			$postfield = $thepost[0]->$field;
 		}
@@ -230,24 +236,24 @@ class PageLines_ShortCodes {
 	
 	//Created a container for dynamic html layout
 	// USAGE: [cbox width="50%" leftgutter="15px" rightgutter="0px"] html box content[/cbox]
-	function dynamic_box($atts, $content = null ) {
+	function dynamic_box( $atts, $content = null ) {
 
 	 	//extract page name from the shortcode attributes
-	 	extract(shortcode_atts(array( 'width' => '30%', 'leftgutter' => '10px', 'rightgutter' => '0px'), $atts));
+	 	extract( shortcode_atts( array( 'width' => '30%', 'leftgutter' => '10px', 'rightgutter' => '0px' ), $atts ) );
 
-	 	$cbox = '<div class="cbox" style="float:left;width:'.$width.';"><div class="cbox_pad" style="margin: 0px '.$rightgutter.' 0px '.$leftgutter.'">'.do_shortcode($content).'</div></div>';
+	 	$cbox = '<div class="cbox" style="float:left;width:'.$width.';"><div class="cbox_pad" style="margin: 0px '.$rightgutter.' 0px '.$leftgutter.'">'.do_shortcode( $content ).'</div></div>';
  	
 	return $cbox;
 	}
 
 	//Created a container for dynamic html layout
 	// USAGE: [container id="mycontainer" class="myclass"] 'cboxes' see shortcode below [/container]
-	function dynamic_container($atts, $content = null ) {
+	function dynamic_container( $atts, $content = null ) {
 
 	 	//extract page name from the shortcode attributes
-	 	extract(shortcode_atts(array( 'id' => 'container', 'class' => ''), $atts));
+	 	extract( shortcode_atts( array( 'id' => 'container', 'class' => '' ), $atts ) );
 	
- 		$container = '<div style="width: 100%;" class="container">'.do_shortcode($content).'<div class="clear"></div></div>';
+ 		$container = '<div style="width: 100%;" class="container">'.do_shortcode( $content ).'<div class="clear"></div></div>';
 
 	 	return $container;
 	}
@@ -258,10 +264,10 @@ class PageLines_ShortCodes {
 	 * @example <code>[post_edit]</code> is the default usage
 	 * @example <code>[post_edit link="Edit", before="<b>" after="</b>"]</code>
 	 */
-	function pagelines_post_edit_shortcode($atts) {
+	function pagelines_post_edit_shortcode( $atts ) {
 
 		$defaults = array(
-			'link' => __("<span class='editpage sc'>Edit</span>", 'pagelines'),
+			'link' => __( "<span class='editpage sc'>Edit</span>", 'pagelines' ),
 			'before' => '[',
 			'after' => ']'
 		);
@@ -269,12 +275,12 @@ class PageLines_ShortCodes {
 
 		// Prevent automatic WP Output
 		ob_start();
-		edit_post_link($atts['link'], $atts['before'], $atts['after']); // if logged in
+		edit_post_link( $atts['link'], $atts['before'], $atts['after'] ); // if logged in
 		$edit = ob_get_clean();
 
 		$output = $edit;
 
-		return apply_filters('pagelines_post_edit_shortcode', $output, $atts);
+		return apply_filters( 'pagelines_post_edit_shortcode', $output, $atts );
 
 	}
 	
@@ -284,7 +290,7 @@ class PageLines_ShortCodes {
 	 * @example <code>[post_categories]</code> is the default usage
 	 * @example <code>[post_categories sep=", "]</code>
 	 */
-	function pagelines_post_categories_shortcode($atts) {
+	function pagelines_post_categories_shortcode( $atts ) {
 
 		$defaults = array(
 			'sep' => ', ',
@@ -293,11 +299,11 @@ class PageLines_ShortCodes {
 		);
 		$atts = shortcode_atts( $defaults, $atts );
 
-		$cats = get_the_category_list( trim($atts['sep']) . ' ' );
+		$cats = get_the_category_list( trim( $atts['sep'] ) . ' ' );
 
-		$output = sprintf('<span class="categories sc">%2$s%1$s%3$s</span> ', $cats, $atts['before'], $atts['after']);
+		$output = sprintf( '<span class="categories sc">%2$s%1$s%3$s</span> ', $cats, $atts['before'], $atts['after'] );
 
-		return apply_filters('pagelines_post_categories_shortcode', $output, $atts);
+		return apply_filters( 'pagelines_post_categories_shortcode', $output, $atts );
 
 	}
 	
@@ -307,22 +313,22 @@ class PageLines_ShortCodes {
 	 * @example <code>[post_tags]</code> is the default usage
 	 * @example <code>[post_tags sep=", " before="Tags: " after="bar"]</code>
 	 */
-	function pagelines_post_tags_shortcode($atts) {
+	function pagelines_post_tags_shortcode( $atts ) {
 
 		$defaults = array(
 			'sep' => ', ',
-			'before' => __('Tagged With: ', 'pagelines'),
+			'before' => __( 'Tagged With: ', 'pagelines' ),
 			'after' => ''
 		);
 		$atts = shortcode_atts( $defaults, $atts );
 
-		$tags = get_the_tag_list( $atts['before'], trim($atts['sep']) . ' ', $atts['after'] );
+		$tags = get_the_tag_list( $atts['before'], trim( $atts['sep'] ) . ' ', $atts['after'] );
 
 		if ( !$tags ) return;
 
-		$output = sprintf('<span class="tags sc">%s</span> ', $tags);
+		$output = sprintf( '<span class="tags sc">%s</span> ', $tags );
 
-		return apply_filters('pagelines_post_tags_shortcode', $output, $atts);
+		return apply_filters( 'pagelines_post_tags_shortcode', $output, $atts );
 
 	}
 	
@@ -332,10 +338,10 @@ class PageLines_ShortCodes {
 	 * @example <code>[post_type]</code> is the default usage
 	 * @example <code>[post_type before="Type: " after="bar"]</code>
 	 */
-	function pagelines_post_type_shortcode($atts) {
+	function pagelines_post_type_shortcode( $atts ) {
 
 		$defaults = array(
-			'before' => __('Type: ', 'pagelines'),
+			'before' => __( 'Type: ', 'pagelines' ),
 			'after' => ''
 		);
 		$atts = shortcode_atts( $defaults, $atts );
@@ -362,12 +368,12 @@ class PageLines_ShortCodes {
 	 * @example <code>[post_comments]</code> is the default usage
 	 * @example <code>[post_comments zero="No Comments" one="1 Comment" more="% Comments"]</code>
 	 */
-	function pagelines_post_comments_shortcode($atts) {
+	function pagelines_post_comments_shortcode( $atts ) {
 
 		$defaults = array(
-			'zero' => __('Add Comment', 'pagelines'),
-			'one' => __("<span class='num'>1</span> Comment", 'pagelines'),
-			'more' => __("<span class='num'>%</span> Comments", 'pagelines'),
+			'zero' => __( 'Add Comment', 'pagelines' ),
+			'one' => __( "<span class='num'>1</span> Comment", 'pagelines' ),
+			'more' => __( "<span class='num'>%</span> Comments", 'pagelines' ),
 			'hide_if_off' => 'disabled',
 			'before' => '',
 			'after' => ''
@@ -379,14 +385,14 @@ class PageLines_ShortCodes {
 
 		// Prevent automatic WP Output
 		ob_start();
-		comments_number($atts['zero'], $atts['one'], $atts['more']);
+		comments_number( $atts['zero'], $atts['one'], $atts['more'] );
 		$comments = ob_get_clean();
 
-		$comments = sprintf('<a href="%s">%s</a>', get_comments_link(), $comments);
+		$comments = sprintf( '<a href="%s">%s</a>', get_comments_link(), $comments );
 
-		$output = sprintf('<span class="post-comments sc">%2$s%1$s%3$s</span>', $comments, $atts['before'], $atts['after']);
+		$output = sprintf( '<span class="post-comments sc">%2$s%1$s%3$s</span>', $comments, $atts['before'], $atts['after'] );
 
-		return apply_filters('pagelines_post_comments_shortcode', $output, $atts);
+		return apply_filters( 'pagelines_post_comments_shortcode', $output, $atts );
 
 	}
 	
@@ -396,7 +402,7 @@ class PageLines_ShortCodes {
 	 * @example <code>[post_author_posts_link]</code> is the default usage
 	 * @example <code>[post_author_posts_link before="<b>" after="</b>"]</code>
 	 */
-	function pagelines_post_author_posts_link_shortcode($atts) {
+	function pagelines_post_author_posts_link_shortcode( $atts ) {
 
 		$defaults = array(
 			'before' => '',
@@ -409,9 +415,9 @@ class PageLines_ShortCodes {
 		the_author_posts_link();
 		$author = ob_get_clean();
 
-		$output = sprintf('<span class="author vcard sc">%2$s<span class="fn">%1$s</span>%3$s</span>', $author, $atts['before'], $atts['after']);
+		$output = sprintf( '<span class="author vcard sc">%2$s<span class="fn">%1$s</span>%3$s</span>', $author, $atts['before'], $atts['after'] );
 
-		return apply_filters('pagelines_post_author_shortcode', $output, $atts);
+		return apply_filters( 'pagelines_post_author_shortcode', $output, $atts );
 	}
 	
 	/**
@@ -420,7 +426,7 @@ class PageLines_ShortCodes {
 	 * @example <code>[post_author_link]</code> is the default usage
 	 * @example <code>[post_author_link before="<b>" after="</b>"]</code>
 	 */
-	function pagelines_post_author_link_shortcode($atts) {
+	function pagelines_post_author_link_shortcode( $atts ) {
 
 		$defaults = array(
 			'nofollow' => FALSE,
@@ -432,16 +438,16 @@ class PageLines_ShortCodes {
 		$author = get_the_author();
 
 		//	Link?
-		if ( get_the_author_meta('url') ) {
+		if ( get_the_author_meta( 'url' ) ) {
 
 			//	Build the link
-			$author = '<a href="' . get_the_author_meta('url') . '" title="' . esc_attr( sprintf(__('Visit %s&#8217;s website', 'pagelines'), $author) ) . '" rel="external">' . $author . '</a>';
+			$author = '<a href="' . get_the_author_meta( 'url' ) . '" title="' . esc_attr( sprintf( __( 'Visit %s&#8217;s website', 'pagelines' ), $author ) ) . '" rel="external">' . $author . '</a>';
 
 		}
 
-		$output = sprintf('<span class="author vcard sc">%2$s<span class="fn">%1$s</span>%3$s</span>', $author, $atts['before'], $atts['after']);
+		$output = sprintf( '<span class="author vcard sc">%2$s<span class="fn">%1$s</span>%3$s</span>', $author, $atts['before'], $atts['after'] );
 
-		return apply_filters('pagelines_post_author_link_shortcode', $output, $atts);
+		return apply_filters( 'pagelines_post_author_link_shortcode', $output, $atts );
 
 	}
 	
@@ -451,7 +457,7 @@ class PageLines_ShortCodes {
 	 * @example <code>[post_author]</code> is the default usage
 	 * @example <code>[post_author before="<b>" after="</b>"]</code>
 	 */	
-	function pagelines_post_author_shortcode($atts) {
+	function pagelines_post_author_shortcode( $atts ) {
 
 		$defaults = array(
 			'before' => '',
@@ -459,25 +465,35 @@ class PageLines_ShortCodes {
 		);
 		$atts = shortcode_atts( $defaults, $atts );
 
-		$output = sprintf('<span class="author vcard sc">%2$s<span class="fn">%1$s</span>%3$s</span>', esc_html( get_the_author() ), $atts['before'], $atts['after']);
+		$output = sprintf( '<span class="author vcard sc">%2$s<span class="fn">%1$s</span>%3$s</span>',
+						esc_html( get_the_author() ),
+						$atts['before'],
+						$atts['after']
+					);
 
-		return apply_filters('pagelines_post_author_shortcode', $output, $atts);
+		return apply_filters( 'pagelines_post_author_shortcode', $output, $atts );
 
 	}
 	
-	function pagelines_post_date_shortcode($atts) {
+	function pagelines_post_date_shortcode( $atts ) {
 
 		$defaults = array(
-			'format' => get_option('date_format'),
+			'format' => get_option( 'date_format' ),
 			'before' => '',
 			'after' => '',
 			'label' => ''
 		);
 		$atts = shortcode_atts( $defaults, $atts );
 
-		$output = sprintf( '<time class="date time published updated sc" datetime="%5$s">%1$s%3$s%4$s%2$s</time> ', $atts['before'], $atts['after'], $atts['label'], get_the_time($atts['format']), get_the_time('c') );
+		$output = sprintf( '<time class="date time published updated sc" datetime="%5$s">%1$s%3$s%4$s%2$s</time> ',
+						$atts['before'],
+						$atts['after'],
+						$atts['label'],
+						get_the_time( $atts['format'] ),
+						get_the_time( 'c' )
+					);
 
-		return apply_filters('pagelines_post_date_shortcode', $output, $atts);
+		return apply_filters( 'pagelines_post_date_shortcode', $output, $atts );
 
 	}
 	
@@ -496,9 +512,9 @@ class PageLines_ShortCodes {
 				'title' => get_the_title(),
 			); 	
 
-			$atts = shortcode_atts($defaults, $atts);
+			$atts = shortcode_atts( $defaults, $atts );
 			
-			$out = sprintf('<a href="http://pinterest.com/pin/create/button/?url=%s&media=%s&description=%s" class="pin-it-button" count-layout="vertical"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a><script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>',
+			$out = sprintf( '<a href="http://pinterest.com/pin/create/button/?url=%s&media=%s&description=%s" class="pin-it-button" count-layout="vertical"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a><script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>',
 			$atts['url'],
 			$atts['img'],
 			$atts['title']
@@ -519,20 +535,19 @@ class PageLines_ShortCodes {
 			$defaults = array(
 				'permalink'	=> '', 
 				'width'		=> '80',
-				'handle'	=> ploption('twittername'), 
+				'handle'	=> ploption( 'twittername' ), 
 				'title'		=> ''
 			); 	
 
-			$a = wp_parse_args($args, $defaults);
+			$a = wp_parse_args( $args, $defaults );
 
 			ob_start();
 
 				// Twitter
-				printf(
-					'<a href="https://twitter.com/share" class="twitter-share-button" data-url="%s" data-text="%s" data-via="%s">Tweet</a>', 
+				printf( '<a href="https://twitter.com/share" class="twitter-share-button" data-url="%s" data-text="%s" data-via="%s">Tweet</a>', 
 					$a['permalink'], 
 					$a['title'],
-					(ploption('twitter_via')) ? $a['handle'] : ''
+					( ploption( 'twitter_via' ) ) ? $a['handle'] : ''
 				);
 
 			?>
@@ -557,7 +572,7 @@ class PageLines_ShortCodes {
 				'width'		=> '80',
 			); 
 
-			$a = wp_parse_args($args, $defaults);
+			$a = wp_parse_args( $args, $defaults );
 
 
 			ob_start();
@@ -572,10 +587,10 @@ class PageLines_ShortCodes {
 						}(document, 'script', 'facebook-jssdk'));
 				</script>
 				<?php
-				printf(
-					'<div class="fb-like" data-href="%s" data-send="false" data-layout="button_count" data-width="%s" data-show-faces="false" data-font="arial" style="vertical-align: top"></div>', 
+				printf( '<div class="fb-like" data-href="%s" data-send="false" data-layout="button_count" data-width="%s" data-show-faces="false" data-font="arial" style="vertical-align: top"></div>',
 					$a['permalink'], 
-					$a['width']);
+					$a['width']
+				);
 
 			return ob_get_clean();
 
@@ -589,15 +604,15 @@ class PageLines_ShortCodes {
 	 */
 	function show_multiple_authors() {
 
-		if( class_exists('CoAuthorsIterator') ) {
+		if( class_exists( 'CoAuthorsIterator' ) ) {
 
 			$i = new CoAuthorsIterator();
 			$return = '';
 			$i->iterate();
-			$return .= '<a href="'.get_author_posts_url(get_the_author_meta('ID')).'">'.get_the_author_meta('display_name').'</a>';
-			while($i->iterate()){
+			$return .= '<a href="'.get_author_posts_url( get_the_author_meta( 'ID' ) ).'">'.get_the_author_meta( 'display_name' ).'</a>';
+			while( $i->iterate() ){
 				$return.= $i->is_last() ? ' and ' : ', ';
-				$return .= '<a href="'.get_author_posts_url(get_the_author_meta('ID')).'">'.get_the_author_meta('display_name').'</a>';
+				$return .= '<a href="'.get_author_posts_url( get_the_author_meta( 'ID' ) ).'">'.get_the_author_meta( 'display_name' ).'</a>';
 			}
 
 			return $return;
@@ -614,15 +629,18 @@ class PageLines_ShortCodes {
 	 * @example <code>[pl_codebox scrollable="yes"].box{margin:0 auto;}[/pl_codebox]</code> for lots of code
 	 */
 
-	function pl_codebox_shortcode ($atts, $content = null) {
+	function pl_codebox_shortcode ( $atts, $content = null ) {
 		
-	    extract(shortcode_atts(array(
+	    extract( shortcode_atts( array(
 			'scrollable' => 'no'
-		), $atts));
+		), $atts ) );
 
-        $scrollable = ($scrollable == 'yes') ? 'pre-scrollable' : '';
+        $scrollable = ( $scrollable == 'yes' ) ? 'pre-scrollable' : '';
 
-		$out = sprintf('<pre class="%s">%s</pre>',$scrollable,$content);
+		$out = sprintf( '<pre class="%s">%s</pre>',
+					$scrollable,
+					$content
+				);
 
 		return $out;
 	}
@@ -640,7 +658,10 @@ class PageLines_ShortCodes {
 	    	'type' => 'info',
 	    );
 
-	    $out = sprintf('<span class="label label-%s">' .do_shortcode($content). '</span>',$atts['type']);
+	    $out = sprintf( '<span class="label label-%s">%s</span>',
+					$atts['type'],
+					do_shortcode( $content )
+				);
 
 	    return $out;
 	}
@@ -658,7 +679,10 @@ class PageLines_ShortCodes {
 	    	'type' => 'info',
 	    );
 
-	    $out = sprintf('<span class="badge badge-%s">' .do_shortcode($content). '</span>',$atts['type']);
+	    $out = sprintf( '<span class="badge badge-%s">%s</span>',
+					$atts['type'],
+					do_shortcode( $content )
+				);
 
 	    return $out;
 	}
@@ -672,19 +696,25 @@ class PageLines_ShortCodes {
 	 * @example <code>[pl_alertbox type="info"]<h4 class="pl-alert-heading">Heading</h4>My alert[/pl_alertbox]</code>
 	 * @example Available types include info, success, warning, error
 	 */
-	function pl_alertbox_shortcode($atts, $content = null) {
+	function pl_alertbox_shortcode( $atts, $content = null ) {
 
 		$content = str_replace( '<br />', '', str_replace( '<br>', '', $content ) );
 
 		$defaults = array(
 				    'type' => 'info',
 				    'closable' =>'no',
-		);
+					);
 
         $atts = shortcode_atts( $defaults, $atts );
 
-	    $out = sprintf('<div class="alert alert-%1$s alert-block">' .do_shortcode($content). '</div>',$atts['type']);
-	    $closed = sprintf('<div class="alert alert-%1$s"><a class="close" data-dismiss="alert" href="#">×</a>' .do_shortcode($content). '</div>',$atts['type']);
+	    $out = sprintf( '<div class="alert alert-%1$s alert-block">%s</div>',
+					$atts['type'],
+					do_shortcode( $content )
+				);
+	    $closed = sprintf( '<div class="alert alert-%s"><a class="close" data-dismiss="alert" href="#">×</a>%s</div>',
+						$atts['type'],
+						do_shortcode( $content )
+					);
 
 		if ( $atts['closable'] === 'yes' ) {	
 			
@@ -706,7 +736,7 @@ class PageLines_ShortCodes {
 	 * @example <code>[pl_blockquote]My quote[/pl_blockquote]</code> is the default usage
 	 * @example <code>[pl_blockquote pull="right" site="Someone Famous"]My quote pulled right with source[/pl_blockquote]</code>
 	 */
-	function pl_blockquote_shortcode($atts) {
+	function pl_blockquote_shortcode( $atts ) {
 
 		$defaults = array(
 			'pull'	=> 'left', 
@@ -714,8 +744,11 @@ class PageLines_ShortCodes {
 		); 
 
 		$atts = shortcode_atts( $defaults, $atts );
-
-		$out = sprintf('<blockquote class="pull-%1$s"><p>%s<small>%2$s</small></p></blockquote>',$atts['pull'],$atts['cite']);
+		
+		$out = sprintf( '<blockquote class="pull-%1$s"><p>%1$s<small>%2$s</small></p></blockquote>',
+					$atts['pull'],
+					$atts['cite']
+				);
 
 		return $out;
 
@@ -728,7 +761,7 @@ class PageLines_ShortCodes {
 	 * @example <code>[pl_button type="info" link="#" target="blank"]My Button[/pl_button]</code>
 	 * @example Available types include info, success, warning, danger, inverse
 	 */
-	function pl_button_shortcode($atts, $content = null, $target = null) {
+	function pl_button_shortcode( $atts, $content = null, $target = null ) {
 
 		$defaults = array(
 			'type' => 'info',
@@ -741,13 +774,13 @@ class PageLines_ShortCodes {
 
 	    $target = ( $target == 'blank' ) ? ' target="_blank"' : '';
 
-	    $out = sprintf(
-		    	'<a href="%3$s" target="%4$s" class="btn btn-%1$s btn-%2$s" >'.do_shortcode($content).'</a>', 
-		    	$atts['type'],
-		    	$atts['size'],
-		    	$atts['link'],
-		    	$atts['target']
-		);
+	    $out = sprintf( '<a href="%1$s" target="%2$s" class="btn btn-%3$s btn-%2$s">%5$s</a>', 
+					$atts['link'],
+					$atts['target'],
+					$atts['type'],
+					$atts['size'],
+					do_shortcode( $content )
+					);
 
 		return $out;
 	}
@@ -764,7 +797,7 @@ class PageLines_ShortCodes {
 
 		$content = str_replace( '<br />', '', str_replace( '<br>', '', $content ) );
 
-    	return '<div class="btn-group">'.do_shortcode($content).'</div>';
+    	return sprintf( '<div class="btn-group">%s</div>', do_shortcode( $content ) );
 
 	}
 
@@ -787,18 +820,17 @@ class PageLines_ShortCodes {
 		    'label' => ''
 		);
 
-		$atts = shortcode_atts($defaults, $atts);
+		$atts = shortcode_atts( $defaults, $atts );
 
-	    $out = sprintf('
-	        <div class="btn-group">
-	            <button class="btn btn-%s btn-%s dropdown-toggle" data-toggle="dropdown" href="#">%s<span class="caret"></span></button>
-	            <ul class="dropdown-menu">
-	                '.do_shortcode($content).'
-	            </ul>
-	        </div>',
+	    $out = sprintf( '
+<div class="btn-group">
+	<button class="btn btn-%s btn-%s dropdown-toggle" data-toggle="dropdown" href="#">%s<span class="caret"></span></button>
+		<ul class="dropdown-menu">%s</ul>
+</div>',
 	        $atts['size'],
 	      	$atts['type'],
-	        $atts['label']
+	        $atts['label'],
+			do_shortcode( $content )
 	    );
 	        
 	    return $out;
@@ -823,18 +855,17 @@ class PageLines_ShortCodes {
 		    'label' => ''
 	    );
 
-		$atts = shortcode_atts($defaults, $atts);
+		$atts = shortcode_atts( $defaults, $atts );
 
-	    $out = sprintf('
-	        <div class="btn-group">
-	        <a class="btn btn-%1$s btn-%2$s" >%3$s</a><a class="btn btn-%1$s btn-%2$s dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
-	            <ul class="dropdown-menu">
-	                '.do_shortcode($content).'
-	            </ul>
-	        </div>',
+	    $out = sprintf( '
+<div class="btn-group">
+	<a class="btn btn-%1$s btn-%2$s" >%3$s</a><a class="btn btn-%1$s btn-%2$s dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+	<ul class="dropdown-menu">%s</ul>
+</div>',
 	      	$atts['size'],
 	        $atts['type'],
-	        $atts['label']
+	        $atts['label'],
+			do_shortcode( $content )
 	    );
 	        
 	    return $out;
@@ -846,7 +877,7 @@ class PageLines_ShortCodes {
 	 * @example <code>[pl_tooltip tip=""]...[/pl_tooltip]</code> is the default usage
 	 * @example <code>This is a [pl_tooltip tip="Cool"]tooltip[/pl_tooltip] example.</code>
 	 */
-	function pl_tooltip_shortcode( $atts, $content = null) {
+	function pl_tooltip_shortcode( $atts, $content = null ) {
 
 	    $defaults = array(
 	    	'tip' => 'Tip',
@@ -864,7 +895,10 @@ class PageLines_ShortCodes {
 				</script>
 				<?php
 
-			printf('<a href="#" rel="tooltip" title="%s">' .do_shortcode($content). '</a>', $atts['tip']);
+			printf( '<a href="#" rel="tooltip" title="%s">%s</a>',
+				$atts['tip'],
+				do_shortcode( $content )
+			);
 
 			return ob_get_clean();
 
@@ -899,7 +933,11 @@ class PageLines_ShortCodes {
 	    	</script>
 	        <?php
 
-    	printf('<a href="#" rel="popover" title="%s" data-content="%s">' .do_shortcode($content). '</a>',$atts['title'],$atts['content']);
+    	printf( '<a href="#" rel="popover" title="%s" data-content="%s">%s</a>',
+			$atts['title'],
+			$atts['content'],
+			do_shortcode( $content )
+		);
 
     	return ob_get_clean();
 
@@ -917,9 +955,9 @@ class PageLines_ShortCodes {
 			'name' => '',
 	    );
          
-        $atts = shortcode_atts($defaults, $atts);
+        $atts = shortcode_atts( $defaults, $atts );
 
-	    $out = sprintf('<div id="%s" class="accordion">'.do_shortcode($content).'</div>',$atts['name']);
+	    $out = sprintf( '<div id="%s" class="accordion">'.do_shortcode( $content ).'</div>',$atts['name'] );
 	        
 	    return $out;
 	}
@@ -936,24 +974,23 @@ class PageLines_ShortCodes {
 		    'open' => ''
 	    );
 
-        $open = ($open == 'yes') ? 'in' : '';
-        $atts = shortcode_atts($defaults, $atts);
+        $open = ( $open == 'yes' ) ? 'in' : '';
+        $atts = shortcode_atts( $defaults, $atts );
 
-	    $out = sprintf('    
-		    <div class="accordion-group">
-		            <div class="accordion-heading">
-		                <a class="accordion-toggle" data-toggle="collapse" data-parent="#%1$s" href="#collapse%3$s">%2$s</a>
-		            </div>
-		        <div id="collapse%3$s" class="accordion-body collapse %4$s">
-		            <div class="accordion-inner"> 
-		            '.do_shortcode($content).'
-		            </div>
-		        </div>
-		    </div>',
+	    $out = sprintf( '
+<div class="accordion-group">
+	<div class="accordion-heading">
+		<a class="accordion-toggle" data-toggle="collapse" data-parent="#%1$s" href="#collapse%3$s">%2$s</a>
+	</div>
+	<div id="collapse%3$s" class="accordion-body collapse %4$s">
+		<div class="accordion-inner">%5$s</div>
+	</div>
+</div>',
 	      	$atts['name'],
 	        $atts['heading'],
 	        $atts['number'],
-	        $atts['open']
+	        $atts['open'],
+			do_shortcode( $content )
 
 	    );
 	        
@@ -975,7 +1012,7 @@ class PageLines_ShortCodes {
 	    	'name' => 'PageLines Carousel',
 	    );
 
-	    $atts = shortcode_atts($defaults, $atts);
+	    $atts = shortcode_atts( $defaults, $atts );
 
 	    	ob_start();
 				
@@ -987,14 +1024,13 @@ class PageLines_ShortCodes {
 				</script>
 				<?php
 
-		   		printf('
-			        <div id="%1$s" class="carousel slide">
-			            <div class="carousel-inner">
-			            '.do_shortcode($content).'
-			            </div>
-			            <a class="carousel-control left" href="#%1$s" data-slide="prev">&lsaquo;</a>
-			            <a class="carousel-control right" href="#%1$s" data-slide="next">&rsaquo;</a>
-			        </div>',
+		   		printf( '
+<div id="%2$s" class="carousel slide">
+	<div class="carousel-inner">%1$s</div>
+	<a class="carousel-control left" href="#%2$s" data-slide="prev">&lsaquo;</a>
+	<a class="carousel-control right" href="#%2$s" data-slide="next">&rsaquo;</a>
+</div>',
+					do_shortcode( $content ),
 			        $atts['name']
 		        );
         
@@ -1002,19 +1038,23 @@ class PageLines_ShortCodes {
 
 	}
 	//Carousel Images
-	function pl_carouselimage_shortcode( $atts, $content = null) {
+	function pl_carouselimage_shortcode( $atts, $content = null ) {
 	    
-	    extract(shortcode_atts(array(
+	    extract( shortcode_atts( array(
 		    'first' => '',
 		    'title' => '',
 		    'imageurl' => '',
 		    'caption' => '',
-	    ), $atts));
+	    ), $atts ) );
 
-	    $first = ($first == 'yes') ? 'active' : '';
-	    $content = ($content <> '') ? "<div class='carousel-caption'><h4>$title</h4><p>$content</p></div></div>" : '';
+	    $first = ( $first == 'yes' ) ? 'active' : '';
+	    $content = ( $content <> '' ) ? "<div class='carousel-caption'><h4>$title</h4><p>$content</p></div></div>" : '';
 
-	    return '<div class="item '.$first.'"><img src="'.$imageurl.'">' .do_shortcode($content).'';
+		return sprintf( '<div class="item %s"><img src="%s">%s',
+				$first,
+				$imageurl,
+				do_shortcode( $content )
+				);
 
 	}
 
@@ -1028,7 +1068,7 @@ class PageLines_ShortCodes {
 
     function pl_tabs_shortcode( $atts, $content = null ) {
 
-    	return '<div class="tabs">'.do_shortcode($content).'</div>';
+    	return sprintf( '<div class="tabs">%s</div>', do_shortcode( $content ) );
 
 	}
 
@@ -1038,9 +1078,9 @@ class PageLines_ShortCodes {
 		// Pull in Bootstrap JS
 	    wp_enqueue_script( 'pagelines-bootstrap-all' );
 		        
-			extract(shortcode_atts(array(
+			extract( shortcode_atts( array(
 		    	'type' => '',
-		    ), $atts));
+		    ), $atts ) );
 
 		    ob_start();
 
@@ -1055,7 +1095,10 @@ class PageLines_ShortCodes {
 		    		</script>
 		    	<?php
 
-		    printf('<ul class="nav nav-'.$type.'">'.do_shortcode($content).'</ul>');
+		    printf( '<ul class="nav nav-%s">%s</ul>',
+			$type,
+			do_shortcode( $content )
+			);
 		        
 		    return ob_get_clean();
 		}
@@ -1063,14 +1106,18 @@ class PageLines_ShortCodes {
 	//Tab Titles
 		function pl_tabtitle_shortcode( $atts, $content = null ) {
 		         
-		    extract(shortcode_atts(array(
+		    extract( shortcode_atts( array(
 				'active' => '',
 				'number' => ''
-			), $atts));
+			), $atts ) );
 
-		    $active = ($active == 'yes') ? "class='active'" : '';
+		    $active = ( $active == 'yes' ) ? "class='active'" : '';
 		    
-		    $out = sprintf('<li '.$active.'><a href="#'.$number.'" data-toggle="tab">'.do_shortcode($content).'</a></li>');
+		    $out = sprintf( '<li %s><a href="#%s" data-toggle="tab">%s</a></li>',
+					$active,
+					$number,
+					do_shortcode( $content )
+					);
 		        
 		    return $out;
 		}
@@ -1078,21 +1125,25 @@ class PageLines_ShortCodes {
 	//Tab Content Section
 		function pl_tabcontentsection_shortcode( $atts, $content = null ) {
 
-		    return '<div class="tab-content">'.do_shortcode($content).'</div>';
+		    return '<div class="tab-content">'.do_shortcode( $content ).'</div>';
 
 		}
 
 	//Tab Content
 		function pl_tabcontent_shortcode( $atts, $content = null ) {
 
-		    extract(shortcode_atts(array(
+		    extract( shortcode_atts( array(
 			    'active' => '',
 			    'number' => ''
-		    ), $atts));
+		    ), $atts ) );
  	        
-		    $active = ($active == 'yes') ? "active" : '';
+		    $active = ( $active == 'yes' ) ? "active" : '';
 
-		    return '<div class="tab-pane '.$active.'" id="'.$number.'"><p>'.do_shortcode($content).'</p></div>';
+		    return sprintf( '<div class="tab-pane %s" id="%s"><p>%s</p></div>',
+					$active,
+					$number,
+					do_shortcode( $content )
+					);
 		        
 		}
 
@@ -1109,12 +1160,12 @@ class PageLines_ShortCodes {
     	// Pull in Bootstrap JS
 		wp_enqueue_script( 'pagelines-bootstrap-all' );
 	    
-	    extract(shortcode_atts(array(
+	    extract( shortcode_atts( array(
 		    'title' => '',
 		    'buttontype' => '',
 		    'buttonsize' => '',
 		    'buttonlabel' => ''
-	    ), $atts));
+	    ), $atts ) );
 
 	    	ob_start();
 
@@ -1129,23 +1180,25 @@ class PageLines_ShortCodes {
 				</script>
 				<?php
 				
-		   		printf(' 
-			        <div id="modal" class="modal hide fade" style="display:none;">
-			            <div class="modal-header">
-			            	<a class="close" data-dismiss="modal">×</a>
-			            	<h3>'.$title.'</h3>
-			            </div>
-			            
-			            <div class="modal-body">
-			            	<p>'.do_shortcode($content).'</p>
-			            </div>
-			            
-			            <div class="modal-footer">
-			            	<a href="#" class="btn btn-'.$buttontype.'" data-dismiss="modal" >Close</a>
-			            </div>
-
-			        </div>
-			        <a data-toggle="modal" href="#modal" class="btn btn-'.$buttontype.' btn-'.$buttonsize.'">'.$buttonlabel.'</a>'
+		   		printf( '
+<div id="modal" class="modal hide fade" style="display:none;">
+	<div class="modal-header">
+		<a class="close" data-dismiss="modal">×</a>
+		<h3>%1$s</h3>
+	</div>
+	<div class="modal-body">
+		<p>%2$s</p>
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="btn btn-%3$s" data-dismiss="modal">Close</a>
+	</div>
+</div>
+<a data-toggle="modal" href="#modal" class="btn btn-%3$s btn-%4$s">%5$s</a>',
+				$title,
+				do_shortcode( $content ),
+				$buttontype,
+				$buttonsize,
+				$buttonlabel
 		        );
         
         	return ob_get_clean();
@@ -1158,19 +1211,25 @@ class PageLines_ShortCodes {
 	 * @example <code>[post_time]</code> is the default usage</code>
 	 * @example <code>[post_time format="g:i a" before="<b>" after="</b>"]</code>
 	 */	
-	function pagelines_post_time_shortcode($atts) {
+	function pagelines_post_time_shortcode( $atts ) {
 
 		$defaults = array( 
-			'format' => get_option('time_format'),
+			'format' => get_option( 'time_format' ),
 			'before' => '',
 			'after' => '',
 			'label' => ''
 		);
 		$atts = shortcode_atts( $defaults, $atts );
 
-		$output = sprintf( '<span class="time published sc" title="%5$s">%1$s%3$s%4$s%2$s</span> ', $atts['before'], $atts['after'], $atts['label'], get_the_time($atts['format']), get_the_time('Y-m-d\TH:i:sO') );
+		$output = sprintf( '<span class="time published sc" title="%5$s">%1$s%3$s%4$s%2$s</span> ',
+						$atts['before'],
+						$atts['after'],
+						$atts['label'],
+						get_the_time( $atts['format'] ),
+						get_the_time( 'Y-m-d\TH:i:sO' )
+						);
 
-		return apply_filters('pagelines_post_time_shortcode', $output, $atts);
+		return apply_filters( 'pagelines_post_time_shortcode', $output, $atts );
 
 	}
 	
@@ -1180,7 +1239,7 @@ class PageLines_ShortCodes {
 	 * @example <code>[button]</code> is the default usage
 	 * @example <code>[button format="edit_post" before="<b>" after="</b>"]</code>
 	 */
-	function pagelines_button_shortcode($atts) {
+	function pagelines_button_shortcode( $atts ) {
 
 		$defaults = array(
 			'color'	=> 'grey', 
@@ -1194,11 +1253,11 @@ class PageLines_ShortCodes {
 		);
 		$atts = shortcode_atts( $defaults, $atts );
 
-		$button = sprintf( '<div class="blink"><div class="blink-pad">%s</div></div>', $text);
+		$button = sprintf( '<div class="blink"><div class="blink-pad">%s</div></div>', $text );
 
-		$output = sprintf('<div class="%s %s %s blink-wrap">%s</div>', $special, $size, $color, $button);
+		$output = sprintf( '<div class="%s %s %s blink-wrap">%s</div>', $special, $size, $color, $button );
 
-		return apply_filters('pagelines_button_shortcode', $output, $atts);
+		return apply_filters( 'pagelines_button_shortcode', $output, $atts );
 
 	}
 	

@@ -66,8 +66,6 @@ require_once( PL_INCLUDES . '/library.wordpress.php');
 /**
  * Load shortcode library
  */
-//require_once( PL_INCLUDES . '/library.shortcodes.php'); <= TODO delete
-
 require_once( PL_INCLUDES . '/class.shortcodes.php');
 
 /**
