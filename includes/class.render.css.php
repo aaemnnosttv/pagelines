@@ -325,6 +325,7 @@ class PageLinesRenderCSS {
 		flush_rewrite_rules( true );
 		plupop( 'pl_save_version', time() );
 		delete_transient( 'pagelines_dynamic_css' );
+		delete_transient( 'pagelines_core_css' );
 	}
 	
 	function pagelines_insert_core_less_callback( $code ) {
