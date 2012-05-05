@@ -55,27 +55,75 @@ class PLMasthead extends PageLinesSection {
 						'exp' 				=> 'This text will be used as the title/text for the masthead section of the theme.'
 
 				),
-				'pagelines_masthead_button_text' => array(
-					'type' 			=> 'text',
-					'inputlabel' 	=> 'Enter Button Text',
-					'title' 		=> 'Masthead Button Text',						
-					'shortexp' 		=> 'Enter text for the masthead button',
-					'exp' 			=> 'CSS and a button with *Start Here* will be used.'
-				 ),
-				'pagelines_masthead_link' => array(
-					'type' => 'text',
-					'inputlabel' => 'Enter the link destination (URL)',
-					'title' => $this->name.' Button Link',						
-					'shortexp' => 'The link destination of masthead banner section',
-					'exp' => 'This URL will be used as the link for the button in the masthead.'
+				'masthead_button_multi_1' => array(
+					'type'		=> 'multi_option', 
+					'title'		=> __('Masthead Action Button 1', 'pagelines'), 
+					'shortexp'	=> __('Enter the options for the masthead button', 'pagelines'),
+					'selectvalues'	=> array(
+						'masthead_button_text_1' => array(
+							'type' 			=> 'text',
+							'inputlabel' 	=> 'Masthead Button Text',					
+						 ),
+						'masthead_button_link_1' => array(
+							'type' => 'text',
+							'inputlabel' => 'Enter the link destination (URL)',
 
+						),
+						'masthead_button_target_1' => array(
+							'type'			=> 'check',
+							'default'		=> false,
+							'inputlabel'	=> 'Open link in new window.',
+						),
+						'masthead_button_theme_1' => array(
+							'type'			=> 'select',
+							'default'		=> false,
+							'inputlabel'	=> 'Select Button Color',
+							'selectvalues'	=> array(
+								'primary'	=> array('name' => 'Blue'), 
+								'warning'	=> array('name' => 'Orange'), 
+								'danger'	=> array('name' => 'Red'), 
+								'success'	=> array('name' => 'Green'), 
+								'info'		=> array('name' => 'Light Blue'), 
+								'reverse'	=> array('name' => 'Grey'), 
+							),
+						),
+					)
 				),
-				'pagelines_masthead_target' => array(
-					'type'			=> 'check',
-					'default'		=> false,
-					'inputlabel'	=> 'Open link in new window.',
-				),
+				'masthead_button_multi_2' => array(
+					'type'		=> 'multi_option', 
+					'title'		=> __('Masthead Action Button 2', 'pagelines'), 
+					'shortexp'	=> __('Enter the options for the masthead button', 'pagelines'),
+					'selectvalues'	=> array(
+						'masthead_button_text_2' => array(
+							'type' 			=> 'text',
+							'inputlabel' 	=> 'Masthead Button Text',					
+						 ),
+						'masthead_button_link_2' => array(
+							'type' => 'text',
+							'inputlabel' => 'Enter the link destination (URL)',
 
+						),
+						'masthead_button_target_2' => array(
+							'type'			=> 'check',
+							'default'		=> false,
+							'inputlabel'	=> 'Open link in new window.',
+						),
+						'masthead_button_theme_2' => array(
+							'type'			=> 'select',
+							'default'		=> false,
+							'inputlabel'	=> 'Select Button Color',
+							'selectvalues'	=> array(
+								'primary'	=> array('name' => 'Blue'), 
+								'warning'	=> array('name' => 'Orange'), 
+								'danger'	=> array('name' => 'Red'), 
+								'success'	=> array('name' => 'Green'), 
+								'info'		=> array('name' => 'Light Blue'), 
+								'reverse'	=> array('name' => 'Grey'), 
+							),
+						),
+					)
+				),
+				
 			);
 		
 		$metatab_settings = array(
@@ -95,27 +143,40 @@ class PLMasthead extends PageLinesSection {
    function section_template( $clone_id ) { 
    		$mast_title = ploption('pagelines_masthead_title', $this->oset);
 		$mast_tag = ploption('pagelines_masthead_tagline', $this->oset);
-		$butt_link = ploption('pagelines_masthead_link', $this->oset);
-		$target = ( ploption( 'pagelines_masthead_target', $this->oset ) ) ? 'target="_blank"' : '';
 		
-		$butt_text = (ploption('pagelines_masthead_button_text', $this->oset)) ? ploption('pagelines_masthead_button_text', $this->oset) : __('Start Here', 'pagelines');
+		
+		// A Responsive, Drag &amp; Drop Platform for Beautiful Websites
+		
+		
 
 	if($mast_title){ ?>
 	
 	<header class="jumbotron masthead">
 	  <div class="inner">
 	  	<?php
-	  		
-	  		printf('<h1 class="masthead-title">%s</h1>',$mast_title);
-	  		printf('<p class="masthead-tag">A Responsive, Drag &amp; Drop Platform for Beautiful Websites</p>',$mast_tag);
+	
+	  		if($mast_title)
+	  			printf('<h1 class="masthead-title">%s</h1>',$mast_title);
+	
+			if($mast_tag)
+	  			printf('<p class="masthead-tag">%s</p>',$mast_tag);
 
 	  	?>
 	    
 	    <p class="download-info">
 
 	    <?php
-	    	printf('<a %s class="btn btn-primary btn-large" href="%s">%s</a>', $target, $butt_link, $butt_text);
+			for ($i = 1; $i <= 2; $i++){
+				$butt_text = (ploption('masthead_button_text_'.$i, $this->oset)) ? ploption('masthead_button_text_'.$i, $this->oset) : __('Start Here', 'pagelines');
+				$butt_link = ploption('masthead_button_link_'.$i, $this->oset);
+				$target = ( ploption( 'masthead_button_target_'.$i, $this->oset ) ) ? 'target="_blank"' : '';
+				$btheme = ( ploption( 'masthead_button_theme_'.$i, $this->oset ) ) ? ploption( 'masthead_button_theme_'.$i, $this->oset ) : 'primary';
+
+				printf('<a %s class="btn btn-%s btn-large" href="%s">%s</a> ', $target, $btheme, $butt_link, $butt_text);
+			}
+			
 	    ?> 
+	
 	    </p>
 	  </div>
 	</header>
