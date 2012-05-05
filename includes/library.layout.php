@@ -113,6 +113,7 @@ function pagelines_layout_library_data() {
  */
 function pl_add_options_page( $args ) {
 	
+
 	$defaults = array(
 	
 		'name'		=>	null,
@@ -151,36 +152,40 @@ function pl_add_options_page_filter( $optionarray ){
 		
 		if ( ! isset( $pagelines_add_options_page ) || !is_array( $pagelines_add_options_page ) )
 			return $optionarray;
+			
 		foreach( $pagelines_add_options_page as $page => $data ) {
 			
 			$content = ( $data['path'] ) ? $data['path']() : $data['raw'];
 
 			if( is_array( $data['array'])) {
 				
-				$out[$page] = $data['array'];
+				// Merge in icon to option array
+				$data_array = array_merge(array('icon'=>$data['icon']), $data['array']);
+				
+				$out[$page] = $data_array;
 	
 			} else {
 
-			$out[$page] = array(
+				$out[$page] = array(
 
-				'icon'		=>	$data['icon'],
+					'icon'		=>	$data['icon'],
 
-				$page	=>	array(
+					$page	=>	array(
 					
-					'type'		=>	$data['type'],
-					'shortexp'	=>	$content,
-					'title'		=>	$data['title'],
-					'layout'	=>	$data['layout']					
+						'type'		=>	$data['type'],
+						'shortexp'	=>	$content,
+						'title'		=>	$data['title'],
+						'layout'	=>	$data['layout']					
 					)
-			);
+				);
 			}
-		if ( isset( $data['position']) && is_numeric( $data['position'] ) )
-			$optionarray = pl_insert_into_array( $optionarray, $out, $data['position']);
-		else
-			$optionarray[$page] = $out[$page];
+			if ( isset( $data['position']) && is_numeric( $data['position'] ) )
+				$optionarray = pl_insert_into_array( $optionarray, $out, $data['position']);
+			else
+				$optionarray[$page] = $out[$page];
 		}
 
-return $optionarray;
+		return $optionarray;
 }
 
 
