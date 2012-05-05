@@ -29,7 +29,6 @@ class PageLinesRenderCSS {
 			'tooltip',
 			'popovers',
 			'buttons',
-			
 			'type',
 			'dropdowns',
 			'button-groups',
