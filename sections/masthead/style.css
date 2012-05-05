@@ -100,6 +100,9 @@
 	}
 }
 @media screen and (max-width:480px) {
+	.masthead {
+		padding-top: 0;
+	}
 	.jumbotron h1 {
 		font-size: 45px;
 		margin-right: 0;

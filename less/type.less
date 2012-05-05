@@ -158,6 +158,15 @@ hr {
   border-bottom: 1px solid @white;
 }
 
+hr.soften {
+	height: 1px;
+	background-image: -webkit-linear-gradient(left, transparent, rgba(0, 0, 0, .1), transparent);
+	background-image: -moz-linear-gradient(left, transparent, rgba(0, 0, 0, .1), transparent);
+	background-image: -ms-linear-gradient(left, transparent, rgba(0, 0, 0, .1), transparent);
+	background-image: -o-linear-gradient(left, transparent, rgba(0, 0, 0, .1), transparent);
+	border: 0;
+}
+
 // Emphasis
 strong {
   font-weight: bold;
