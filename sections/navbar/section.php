@@ -29,7 +29,7 @@ class PLNavBar extends PageLinesSection {
 					'version'	=> 'pro',
 					'type'		=> 'check',
 					'inputlabel'=> __( 'Enable Fixed Navigation Bar', 'pagelines' ),
-					'title'		=> __( 'Add Fixed Navigation Bar', 'pagelines' ),
+					'title'		=> __( 'Enable Fixed Navigation Bar', 'pagelines' ),
 					'shortexp'	=> __( 'Applies a fixed navigation bar to the top of your site', 'pagelines' ),
 					'exp'		=> __( 'Use this feature to add the NavBar section as a fixed navigation bar on the top of your site.', 'pagelines' )
 				),
@@ -38,42 +38,107 @@ class PLNavBar extends PageLinesSection {
 					'version'	=> 'pro',
 					'type'		=> 'image_upload',
 					'inputlabel'=> __( 'Fixed NavBar Logo', 'pagelines' ),
-					'title'		=> __( 'Fixed NavBar Logo', 'pagelines' ),
+					'title'		=> __( 'Fixed NavBar - NavBar Logo', 'pagelines' ),
 					'shortexp'	=> __( 'Applies a fixed navigation bar to the top of your site', 'pagelines' ),
 					'exp'		=> __( 'Use this feature to add the NavBar section as a fixed navigation bar on the top of your site.<br/><br/><strong>Notes:</strong> <br/>1. Only visible in Fixed Mode.<br/>2. Image Height is constricted to a maximum 29px.', 'pagelines' )
 				),
-			'navbar_theme' => array(
-					'default'		=> 'black-trans',
-					'type' 			=> 'select',
-					'inputlabel' 	=> 'Select NavBar Theme',
-					'title' 		=> 'NavBar Theme',			
-					'shortexp' 		=> 'Select the color and theme of the NavBar',
-					'exp' 			=> 'The NavBar comes with several color options. Select one to automatically configure.', 
-					'selectvalues'	=> array(
-						'black-trans'	=> array('name'	=>'Black Transparent (Default)'),
-						'blue'			=> array('name'	=>'Blue'),
-						'grey'			=> array('name'	=>'Light Grey'),
-						'orange'		=> array('name'	=>'Orange'),
-						'red'			=> array('name'	=>'Red'),
-					),
+				
+			'navbar_multi_option_theme' => array(
+				'default' => '',
+				'type' => 'multi_option',
+				'selectvalues'=> array(
+		
+					'fixed_navbar_theme' => array(
+							'default'		=> 'black-trans',
+							'type' 			=> 'select',
+							'inputlabel' 	=> 'Fixed NavBar - Select Theme',
+							'selectvalues'	=> array(
+								'black-trans'	=> array('name'	=>'Black Transparent (Default)'),
+								'blue'			=> array('name'	=>'Blue'),
+								'grey'			=> array('name'	=>'Light Grey'),
+								'orange'		=> array('name'	=>'Orange'),
+								'red'			=> array('name'	=>'Red'),
+							),
+						),
+					'navbar_theme' => array(
+							'default'		=> 'black-trans',
+							'type' 			=> 'select',
+							'inputlabel' 	=> 'Standard NavBar - Select Theme',
+							'selectvalues'	=> array(
+								'black-trans'	=> array('name'	=>'Black Transparent (Default)'),
+								'blue'			=> array('name'	=>'Blue'),
+								'grey'			=> array('name'	=>'Light Grey'),
+								'orange'		=> array('name'	=>'Orange'),
+								'red'			=> array('name'	=>'Red'),
+							),
+						),
 				),
-			'navbar_alignment' => array(
-					'default'		=> 'left',
-					'type' 			=> 'select',
-					'inputlabel' 	=> 'Select Alignment',
-					'title' 		=> 'NavBar Navigation Alignment',			
-					'shortexp' 		=> 'Aligns the nav left or right (defaults left)',
-					'exp' 			=> 'Set the NavBar navigation to display on the right or left', 
-					'selectvalues'	=> array(
-						'right'		=> array('name'	=>'Align Right'),
-						'left'		=> array('name'	=>'Align Left'),
-					),
+				'title'					=> __( 'NavBar and Fixed NavBar Theme', 'pagelines' ),						
+				'shortexp'				=> __( 'Select the color and theme of the NavBar', 'pagelines' ),
+				'exp'					=> __( 'The NavBar comes with several color options. Select one to automatically configure.', 'pagelines' ) 
+			 
+			),
+			'navbar_multi_option_menu' => array(
+				'default' => '',
+				'type' => 'multi_option',
+				'selectvalues'=> array(
+		
+					'fixed_navbar_menu' => array(
+							'default'		=> 'black-trans',
+							'type' 			=> 'select_menu',
+							'inputlabel' 	=> 'Fixed NavBar - Select Menu',
+						),
+					'navbar_menu' => array(
+							'default'		=> 'black-trans',
+							'type' 			=> 'select_menu',
+							'inputlabel' 	=> 'Standard NavBar - Select Menu',
+						),
 				),
+				'title'					=> __( 'NavBar and Fixed NavBar Menu', 'pagelines' ),						
+				'shortexp'				=> __( 'Select the WordPress Menu for the NavBar(s)', 'pagelines' ),
+				'exp'					=> __( 'The NavBar uses WordPress menus. Select one for use.', 'pagelines' ) 
+			 
+			),
+		
+			'navbar_multi_check' => array(
+				'default' => '',
+				'type' => 'check_multi',
+				'selectvalues'=> array(
+		
+					'fixed_navbar_alignment' => array(
+							'inputlabel' 	=> 'Fixed NavBar - Align Menu Right? (Defaults Left)',
+						),
+					'fixed_navbar_hidesearch' => array(
+							'inputlabel' 	=> 'Fixed NavBar - Hide Searchform?',
+						),
+					'navbar_alignment' => array(
+							'inputlabel' 	=> 'Standard NavBar - Align Menu Right? (Defaults Left)',
+						),
+					'navbar_hidesearch' => array(
+							'inputlabel' 	=> 'Standard NavBar - Hide Searchform?',
+						),
+				),
+				'inputlabel'			=> __( 'Configure Options for NavBars', 'pagelines' ),
+				'title'					=> __( 'NavBar and Fixed NavBar Configuration Options', 'pagelines' ),						
+				'shortexp'				=> __( 'Control various appearance options for the NavBars', 'pagelines' ),
+				'exp'					=> __( '', 'pagelines' ) 
+			 
+			),
 			
 			
 		);
 
-		pl_global_option( array( 'menu' => 'header_and_footer', 'options' => $header_options, 'location' => 'top' ) );
+		$option_args = array(
+
+			'name'		=> 'NavBar',
+			'array'		=> $header_options,
+			'icon'		=> $this->icon,
+			'position'	=> 6
+		);
+		
+		pl_add_options_page( $option_args );
+
+		//pl_global_option( array( 'menu' => 'header_and_footer', 'options' => $header_options, 'location' => 'top' ) );
 		
 		
 		if(ploption('navbar_fixed')){
@@ -151,15 +216,39 @@ class PLNavBar extends PageLinesSection {
 	
 	$passive = ($location == 'passive') ? true : false;
 
-	$width_class = ($passive) ? 'navbar-full-width' : 'navbar-content-width';
+	// if fixed mode
+	if($passive){
+		
+		$width_class = 'navbar-full-width';
+		$content_width_class = 'content';
+		$theme = (ploption('fixed_navbar_theme')) ? ploption('fixed_navbar_theme') : false;
+		
+		$align = (ploption('fixed_navbar_alignment')) ? ploption('fixed_navbar_alignment') : false;
+		
+		$hidesearch = (ploption('fixed_navbar_hidesearch')) ? ploption('fixed_navbar_hidesearch') : false;
+		
+		$menu = (ploption('fixed_navbar_menu')) ? ploption('fixed_navbar_menu') : null;
+		
+	} else {
+		
+		$width_class = 'navbar-content-width';
+		$content_width_class = '';
+		
+		$theme = (ploption('navbar_theme')) ? ploption('navbar_theme') : false;
+		
+		$align = (ploption('navbar_alignment')) ? ploption('navbar_alignment') : false;
+		
+		$hidesearch = (ploption('navbar_hidesearch')) ? ploption('navbar_hidesearch') : false;
+		
+		$menu = (ploption('navbar_menu')) ? ploption('navbar_menu') : null;
+	}
 
-	$content_width_class = ($passive) ? 'content' : '';
+	$pull = ($align) ? 'right' : 'left';
 		
-	$align = (ploption('navbar_alignment')) ? ploption('navbar_alignment') : 'left';
-		
-	$align_class = sprintf('pull-%s', $align);	
+	$align_class = sprintf('pull-%s', $pull);	
 	
-	$theme_class = (ploption('navbar_theme')) ? sprintf(' pl-color-%s', ploption('navbar_theme')) : ' pl-color-black-trans';
+	$theme_class = ($theme) ? sprintf(' pl-color-%s', $theme) : ' pl-color-black-trans';
+	
 	?>
 	<div class="navbar fix <?php echo $width_class.' '.$theme_class; ?>">
 	  <div class="navbar-inner <?php echo $content_width_class;?>">
@@ -185,16 +274,16 @@ class PLNavBar extends PageLinesSection {
 			<?php endif; ?>
 
 	      		<div class="nav-collapse collapse">
-	       <?php 	if(!ploption('hidesearch'))
+	       <?php 	if(!$hidesearch)
 						get_search_form();
 				
 					wp_nav_menu( 
 						array(
 							'menu_class'  => 'font-sub navline pldrop '.$align_class, 
+							'menu' => $menu,
 							'container' => null, 
 							'container_class' => '', 
 							'depth' => 2, 
-							'theme_location'=>'primary', 
 							'fallback_cb'=>''
 						) 
 					);
