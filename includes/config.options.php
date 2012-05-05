@@ -586,7 +586,7 @@ class PageLinesOptionsArray {
 						'exp'			=> __( 'Checking this option will create arrows for the drop down menus', 'pagelines' )
 						)),
 				'inputlabel'			=> __( 'Select Which Drop Down Options To Show', 'pagelines' ),
-				'title'					=> __( 'Drop Down Navigation - Nav Classic and BrandNav Section', 'pagelines' ),						
+				'title'					=> __( 'Nav Classic &amp; BrandNav Section - Drop Down Handling', 'pagelines' ),						
 				'shortexp'				=> __( 'Select Which To Show', 'pagelines' ),
 				'exp'					=> __( 'Enable drop downs and choose the options you would like to show', 'pagelines' ) 
 			 
@@ -596,7 +596,7 @@ class PageLinesOptionsArray {
 					'default'			=> false,
 					'type'				=> 'check',
 					'inputlabel'		=> __( 'Hide search field?', 'pagelines' ),
-					'title'				=> __( 'Hide Search - Nav Section', 'pagelines' ),						
+					'title'				=> __( 'Nav Classic - Hide Search', 'pagelines' ),						
 					'shortexp'			=> __( 'Remove the search field from the nav section', 'pagelines' ),
 					'exp'				=> __( 'Removes the search field from the PageLines Navigation Section.', 'pagelines' )
 				), 
@@ -608,7 +608,7 @@ class PageLinesOptionsArray {
 						'icon_pos_bottom'	=> array('inputlabel'=> __( 'Distance From Bottom (in pixels)', 'pagelines' ), 'default'=> 12),
 						'icon_pos_right'	=> array('inputlabel'=> __( 'Distance From Right (in pixels)', 'pagelines' ), 'default'=> 1),
 					),
-					'title'		=> __( 'Social Icon Position', 'pagelines' ),
+					'title'		=> __( 'Branding Section - Social Icon Position', 'pagelines' ),
 					'shortexp'	=> __( 'Control the location of the social icons in the branding section', 'pagelines' ),
 					'exp'		=> __( 'Set the position of your header icons with these options. They will be relative to the <strong>branding</strong> section of your site.', 'pagelines' )
 			),
@@ -619,14 +619,6 @@ class PageLinesOptionsArray {
 					'title'		=> __( 'News/Blog RSS Icon', 'pagelines' ),
 					'shortexp'	=> __( 'Places News/Blog RSS icon in your header', 'pagelines' ),
 					'exp'		=> ''
-				),
-			'facebook_headers' => array(
-					'default'	=> false,
-					'version'	=> 'pro',
-					'type'		=> 'check',
-					'inputlabel'=> __( 'Enable Facebook Open Graph data?', 'pagelines' ),
-					'title'		=> __( 'Facebook Open Graph', 'pagelines' ),
-					'exp'	=> __( 'Places Facebook Open Graph data in the page headers.', 'pagelines' ),
 				),
 			'icon_social' => array(
 					'version'	=> 'pro',
@@ -647,7 +639,7 @@ class PageLinesOptionsArray {
 					'default'	=> false,
 					'type'		=> 'check',
 					'inputlabel'=> __( 'Use Child Pages For Secondary Nav?', 'pagelines' ),
-					'title'		=> __( 'Use Child Pages for Secondary Nav', 'pagelines' ),
+					'title'		=> __( 'Secondary Nav - Use Child Pages', 'pagelines' ),
 					'shortexp'	=> __( 'Use this options if you want child pages in secondary nav, instead of WP menus', 'pagelines' ),
 					'exp'		=> ''
 				),
@@ -655,9 +647,9 @@ class PageLinesOptionsArray {
 				'type' 			=> 'count_select',		
 				'count_start'	=> '1',
 				'count_number'	=> '6', 
-				'title' 		=> 'Number of Footer Columns (FootCols)',
-				'shortexp' 		=> 'Control the number of columns per row in your footer columns section.', 
-				'inputlabel'	=> 'Select Number of Footer Columns'
+				'title' 		=> __( 'FootCols Section - Column Number', 'pagelines' ),
+				'shortexp' 		=> __( 'Control the number of columns per row in your footer columns section.', 'pagelines' ),
+				'inputlabel'	=> __( 'Select Number of Footer Columns', 'pagelines' )
 			),
 			'footer_logo' => array(
 					'version'	=> 'pro',
@@ -665,15 +657,15 @@ class PageLinesOptionsArray {
 					'type'		=> 'image_upload',
 					'imagepreview'	=> '100',
 					'inputlabel'	=> __( 'Add Footer logo', 'pagelines' ),
-					'title'		=> __( 'Footer Logo (FootCols)', 'pagelines' ),
+					'title'		=> __( 'FootCols Section - Logo', 'pagelines' ),
 					'shortexp'	=> __( 'Show a logo in the footer', 'pagelines' ),
 					'exp'		=> __( 'Add the full url of an image for use in the footer. Recommended size: 140px wide.', 'pagelines' )
 			),
 			'footer_more' => array(
-					'defalut'	=> sprintf( __( "Thanks for dropping by! Feel free to join the discussion by leaving comments, and stay updated by subscribing to the <a href='%s'>RSS feed</a>.", 'pagelines' ), get_bloginfo('rss2_url') ),
+					'default'	=> sprintf( __( "Thanks for dropping by! Feel free to join the discussion by leaving comments, and stay updated by subscribing to the <a href='%s'>RSS feed</a>.", 'pagelines' ), get_bloginfo('rss2_url') ),
 					'type'		=> 'textarea',
 					'inputlabel'=> __( 'More Statement In Footer', 'pagelines' ),
-					'title'		=> __( 'More Statement (FootCols)', 'pagelines' ),
+					'title'		=> __( 'FootCols Section - More Statement', 'pagelines' ),
 					'shortexp'	=> __( 'Add a quick statement for users who want to know more...', 'pagelines' ),
 					'exp'		=> __( "This statement will show in the footer columns under the word more. It is for users who may want to know more about your company or service.", 'pagelines' )
 			),
@@ -681,7 +673,7 @@ class PageLinesOptionsArray {
 					'default' 	=> '&copy; '.date('Y').' '.get_bloginfo('name'),
 					'type' 		=> 'textarea',
 					'inputlabel'=> __( 'Terms line in footer:', 'pagelines' ),
-					'title' 	=> __( 'Site Terms Statement (FootCols)', 'pagelines' ),
+					'title' 	=> __( 'FootCols Section - Site Terms Statement', 'pagelines' ),
 					'shortexp' 	=> __( 'A line in your footer for <strong>terms and conditions</strong> text or similar', 'pagelines' ),
 					'exp' 		=> __( "It's sometimes a good idea to give your users a terms and conditions statement so they know how they should use your service or content.", 'pagelines' )
 			)
