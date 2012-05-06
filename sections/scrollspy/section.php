@@ -33,11 +33,85 @@ class ScrollSpy extends PageLinesSection {
 		<script>
 		jQuery(document).ready(function() {
 			
-			var section = 1;
+			var spyCounter = 1
+			, mainOffset = jQuery('.spynav').offset().top
 			
-			jQuery('.pagelines-scrollspy').scrollspy()
+			jQuery('body').find('.page-header').each(function() {
+				
+				var headerID = 'spyID'+spyCounter++;
+				var headerText;
+				
+				// Set ID of page header
+				jQuery(this).attr('id', headerID)
+				
+				// Get text for nav link
+				if (jQuery(this).attr('title')) {
+					headerText = jQuery(this).attr('title');
+				} else {
+					headerText = 'Set Title Attr.';
+				}
+				
+			
+			
+				
+				jQuery('.spynav .nav').append('<li><a class="spyanchor" href="#'+headerID+'">'+headerText+'</a></li>');
+				
+			});
+			
+			jQuery('body').attr('data-spy', 'scroll');
+			jQuery('body').scrollspy({offset: 100-mainOffset});
+		
+			
+			jQuery(".spyanchor").click( function(event){		
+					event.preventDefault();
+					var offTop = jQuery(this.hash).offset().top - 140;
+					jQuery('html,body').animate({scrollTop:offTop}, 500);
+				});
+		
+		var $win = jQuery(window)
+					, $nav = jQuery('.spynav')
+					, navbarHeight = jQuery('.navbar-full-width').length && jQuery('.navbar-full-width').outerHeight()
+					, navbarOffset = jQuery('.navbar-full-width').length && jQuery('.navbar-full-width').offset().top
+					, navOffset = navbarHeight + navbarOffset
+					, navTop = jQuery('.spynav').length && jQuery('.spynav').offset().top - navOffset
+					, isFixed = 0
+					
+				
+		
+		jQuery('[data-spy="scroll"]').each(function () {
+				  var $spy = jQuery(this).scrollspy('refresh')
+				});
+							
+		
+	
+	    	processScroll()
+	    		    
+  		    // hack sad times - holdover until rewrite for 2.1
+  		    $nav.on('click', function () {
+  		      if (!isFixed) setTimeout(function () {  $win.scrollTop($win.scrollTop() - 47) }, 10)
+  		    })
+  
+  		    $win.on('scroll', processScroll)
+  		
+  				   
+  			function processScroll() {
+  				var i, scrollTop = $win.scrollTop()
+  		
+  				if (scrollTop >= navTop && !isFixed) {
+					var contWidth = jQuery('.content-pad').width();
+					jQuery('.spynav .nav').width(contWidth);
+  					isFixed = 1
+  					$nav.css('top', navOffset).addClass('spynav-fixed')
+  				} else if (scrollTop <= navTop && isFixed) {
+  					isFixed = 0
+					jQuery('.spynav .nav').width('auto');
+  					$nav.removeClass('spynav-fixed')
+  				}
+  			}
 
 		});
+		
+		 
 		</script>	
 
 	<?php }	
@@ -53,15 +127,8 @@ class ScrollSpy extends PageLinesSection {
 		printf('
 			<div id="spynav" class="spynav">
 	          <ul class="nav nav-pills">
-	            <li class=""><a href="#label1">Label1</a></li>
-	            <li class=""><a href="#label2">Label2</a></li>
-	            <li class=""><a href="#label3">Label3</a></li>
-	            <li class=""><a href="#label4">Label4</a></li>
 	          </ul>
-	        </div>
-			<div class="pagelines-scrollspy" data-target="#spynav" data-spy="scroll" >%s%s</div>', 
-			do_shortcode($post->post_content), 
-			pledit($post->ID));
+	        </div>');
 	 
 	}
 
