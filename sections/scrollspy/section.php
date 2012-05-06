@@ -59,7 +59,7 @@ class ScrollSpy extends PageLinesSection {
 			});
 			
 			jQuery('body').attr('data-spy', 'scroll');
-			jQuery('body').scrollspy({offset: 100-mainOffset});
+			jQuery('body').scrollspy({offset: 50-mainOffset});
 		
 			
 			jQuery(".spyanchor").click( function(event){		
