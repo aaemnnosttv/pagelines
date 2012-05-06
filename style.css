@@ -403,9 +403,9 @@ body{
 				float: left;
 				text-align: right;
 			}
-			.main_nav li a{		
-				line-height:1em;
-				padding: 4px 10px;
+			.main_nav li a{	
+				line-height: 1em;
+				padding: 10px 15px;
 				text-decoration: none;
 				display: block;
 				border: 1px solid transparent;
