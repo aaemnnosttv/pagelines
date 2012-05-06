@@ -7,7 +7,6 @@
 	Class Name: PageLinesBoxes
 	Workswith: templates, main, header, morefoot
 	Cloning: true
-	Edition: pro
 */
 
 /**
