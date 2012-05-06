@@ -68,20 +68,13 @@ class ScrollSpy extends PageLinesSection {
 					jQuery('html,body').animate({scrollTop:offTop}, 500);
 				});
 		
-		var $win = jQuery(window)
+			var $win = jQuery(window)
 					, $nav = jQuery('.spynav')
 					, navbarHeight = jQuery('.navbar-full-width').length && jQuery('.navbar-full-width').outerHeight()
 					, navbarOffset = jQuery('.navbar-full-width').length && jQuery('.navbar-full-width').offset().top
 					, navOffset = navbarHeight + navbarOffset
-					, navTop = jQuery('.spynav').length && jQuery('.spynav').offset().top - navOffset
-					, isFixed = 0
-					
-				
-		
-		jQuery('[data-spy="scroll"]').each(function () {
-				  var $spy = jQuery(this).scrollspy('refresh')
-				});
-							
+					, navTop = jQuery('.spynav').length && jQuery('.spynav').offset().top - navbarOffset
+					, isFixed = 0				
 		
 	
 	    	processScroll()
@@ -98,7 +91,7 @@ class ScrollSpy extends PageLinesSection {
   				var i, scrollTop = $win.scrollTop()
   		
   				if (scrollTop >= navTop && !isFixed) {
-					var contWidth = jQuery('.content-pad').width();
+					var contWidth = jQuery('.section-scrollspy .content-pad').width();
 					jQuery('.spynav .nav').width(contWidth);
   					isFixed = 1
   					$nav.css('top', navOffset).addClass('spynav-fixed')
