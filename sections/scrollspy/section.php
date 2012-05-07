@@ -76,7 +76,7 @@ class ScrollSpy extends PageLinesSection {
 			var $win = jQuery(window)
 					, $nav = jQuery('.spynav')
 					, navbarHeight = jQuery('.navbar-full-width').length && jQuery('.navbar-full-width').outerHeight()
-					, navbarOffset = jQuery('.navbar-full-width').length && jQuery('.navbar-full-width').offset().top
+					, navbarOffset = jQuery('#wpadminbar').length && jQuery('#wpadminbar').outerHeight()
 					, navOffset = navbarHeight + navbarOffset
 					, navTop = jQuery('.spynav').length && jQuery('.spynav').offset().top - navbarOffset
 					, isFixed = 0				
