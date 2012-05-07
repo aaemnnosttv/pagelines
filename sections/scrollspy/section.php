@@ -34,9 +34,10 @@ class ScrollSpy extends PageLinesSection {
 		jQuery(document).ready(function() {
 			
 			var spyCounter = 1
-			, mainOffset = jQuery('.spynav').offset().top
+			, mainOffset = jQuery('.hentry').offset().top
+			, scrollArea = jQuery('body')
 			
-			jQuery('body').find('.page-header').each(function() {
+			scrollArea.find('.page-header').each(function() {
 				
 				if(spyCounter == 1){
 					contentOffTop = jQuery(this).offset().top
@@ -52,21 +53,23 @@ class ScrollSpy extends PageLinesSection {
 				if (jQuery(this).attr('title')) {
 					headerText = jQuery(this).attr('title');
 				} else {
-					headerText = '(Set Title)';
+					headerText = '(Set Header Title)';
 				}
 			
-				
 				jQuery('.spynav .nav').append('<li><a class="spyanchor" href="#'+headerID+'">'+headerText+'</a></li>');
 				
 			});
 			
-			jQuery('body').attr('data-spy', 'scroll');
-			jQuery('body').scrollspy({offset: 30 - (contentOffTop - mainOffset) });
+			jQuery('.spynav .nav:empty').html('<li><a>Add page headers to document. None detected.</a></li>');
+			
+			
+			scrollArea.attr('data-spy', 'scroll');
+			scrollArea.scrollspy({offset: 180-mainOffset});
 		
 			
 			jQuery(".spyanchor").click( function(event){		
 					event.preventDefault();
-					var offTop = jQuery(this.hash).offset().top - 140;
+					var offTop = jQuery(this.hash).offset().top - 120;
 					jQuery('html,body').animate({scrollTop:offTop}, 500);
 				});
 		
@@ -121,8 +124,7 @@ class ScrollSpy extends PageLinesSection {
 			
 		printf('
 			<div id="spynav" class="spynav">
-	          <ul class="nav nav-pills">
-	          </ul>
+	          <ul class="nav nav-pills"></ul>
 	        </div>');
 	 
 	}

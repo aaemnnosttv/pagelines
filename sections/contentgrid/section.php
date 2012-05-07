@@ -26,7 +26,7 @@ class HTMLGrid extends PageLinesSection {
 	
 		global $post;
 			
-		printf('<div class="pagelines-grid">%s%s</div>', do_shortcode($post->post_content), pledit($post->ID));
+		printf('<div class="pagelines-grid hentry">%s%s</div>', do_shortcode($post->post_content), pledit($post->ID));
 	 
 	}
 
