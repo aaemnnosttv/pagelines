@@ -68,6 +68,8 @@ class PageLines_ShortCodes {
 	
 	function check_shortcode() {
 		global $post;
+		if ( ! is_object( $post ) )
+			return;
 		ob_start();
 		do_shortcode( $post->post_content );
 		$e = ob_end_clean();
