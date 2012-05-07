@@ -58,26 +58,32 @@ class PageLines_ShortCodes {
 		self::register_shortcodes( $this->shortcodes_core() );
 		
 		// Make widgets process shortcodes
-		add_filter( 'widget_text', 'do_shortcode' );		
-		
-		
-		//Remove the extra p's and br's
-    	function pl_shortcode_empty_paragraph_fix( $content ) {   
-        	$array = array (
-            	'<p>[' => '[', 
-            	']</p>' => ']', 
-            	']<br />' => ']'
-        	);
-
-        	$content = strtr( $content, $array );
-
-			return $content;
-    	}
-    	add_filter( 'the_content', 'pl_shortcode_empty_paragraph_fix' );	
-    		
-    	
+		add_filter( 'widget_text', 'do_shortcode' );				
+		add_action( 'template_redirect', array( &$this, 'check_shortcode' ) );
+    	add_filter( 'the_content', array( &$this, 'pl_shortcode_empty_paragraph_fix' ) );	
+	
 		//Remove Wordpress Formatters (breaks button groups and others)
 		remove_filter( 'the_content', 'wptexturize' );
+	}
+	
+	function check_shortcode() {
+		global $post;
+		ob_start();
+		do_shortcode( $post->post_content );
+		$e = ob_end_clean();
+	}
+	
+	//Remove the extra p's and br's
+	function pl_shortcode_empty_paragraph_fix( $content ) {   
+    	$array = array (
+        	'<p>[' => '[', 
+        	']</p>' => ']', 
+        	']<br />' => ']'
+    	);
+
+    	$content = strtr( $content, $array );
+
+		return $content;
 	}
 	
 	private function register_shortcodes( $shortcodes ) {
