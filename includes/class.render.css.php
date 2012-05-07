@@ -38,6 +38,7 @@ class PageLinesRenderCSS {
 			'navs',
 			'modals',
 			'component-animations',
+			'pagelines-special',
 			'color', // HAS TO BE LAST	
 		);
 		return $files;
