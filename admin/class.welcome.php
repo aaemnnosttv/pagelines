@@ -53,7 +53,7 @@ class PageLinesWelcome {
      */
 	function get_intro() {
 		
-		if ( file_exists( get_stylesheet_directory() . '/welcome.php' ) ) {
+		if ( is_file( get_stylesheet_directory() . '/welcome.php' ) ) {
 			
 			ob_start();
 				include( get_stylesheet_directory() . '/welcome.php' );

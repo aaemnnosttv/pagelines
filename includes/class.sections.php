@@ -108,9 +108,9 @@ class PageLinesSection {
 
 		$this->special_classes = ''; // special classes for wrapper
 
-		$this->icon = $this->settings['icon'] = ( file_exists( sprintf( '%s/icon.png', $this->base_dir ) ) ) ? sprintf( '%s/icon.png', $this->base_url ) : PL_ADMIN_ICONS . '/leaf.png';
+		$this->icon = $this->settings['icon'] = ( is_file( sprintf( '%s/icon.png', $this->base_dir ) ) ) ? sprintf( '%s/icon.png', $this->base_url ) : PL_ADMIN_ICONS . '/leaf.png';
 	
-		$this->screenshot = $this->settings['screenshot'] = ( file_exists( sprintf( '%s/thumb.png', $this->base_dir ) ) ) ? sprintf( '%s/thumb.png', $this->base_url ) : PL_ADMIN_IMAGES . '/thumb-default.png';
+		$this->screenshot = $this->settings['screenshot'] = ( is_file( sprintf( '%s/thumb.png', $this->base_dir ) ) ) ? sprintf( '%s/thumb.png', $this->base_url ) : PL_ADMIN_IMAGES . '/thumb-default.png';
 
 		$this->optionator_default = array(
 			'clone_id'	=> 1,
@@ -462,7 +462,7 @@ class PageLinesSection {
 	function add_guide( $options ){
 		
 		
-		if( file_exists( $this->base_dir . '/guide.php' ) ){
+		if( is_file( $this->base_dir . '/guide.php' ) ){
 			
 			ob_start();
 				include( $this->base_dir . '/guide.php' );

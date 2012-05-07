@@ -29,7 +29,7 @@ class PageLinesIntegration {
 	
 	public function add_less( $path){
 	
-		if(file_exists($path))
+		if(is_file($path))
 			$this->lesscode .= pl_file_get_contents($path);	
 
 	}

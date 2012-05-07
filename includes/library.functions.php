@@ -699,13 +699,13 @@ function pagelines_load_css_relative( $relative_style_url, $id){
 	
 	$rurl = '/' . $relative_style_url;
 	
-	if( file_exists(get_stylesheet_directory() . $rurl ) ){
+	if( is_file(get_stylesheet_directory() . $rurl ) ){
 		
 		$cache_ver = pl_cache_version( get_stylesheet_directory() . $rurl );
 		
 		pagelines_load_css( CHILD_URL . $rurl , $id, $cache_ver);
 		 
-	} elseif(file_exists(get_template_directory() . $rurl) ){
+	} elseif(is_file(get_template_directory() . $rurl) ){
 		
 		$cache_ver = pl_cache_version( get_template_directory() . $rurl ); 
 		
@@ -740,13 +740,13 @@ function pl_cache_version( $path, $version = CORE_VERSION ){
 function pagelines_get_style_ver( $tpath = false ){
 	
 	// Get cache number that accounts for edits to base.css or style.css
-	if( file_exists(get_stylesheet_directory() .'/base.css') && !$tpath ){
+	if( is_file(get_stylesheet_directory() .'/base.css') && !$tpath ){
 		$date_modified = filemtime( get_stylesheet_directory() .'/base.css' );
 		$cache_ver = str_replace('.', '', CHILD_VERSION) . '-' . date('mdGis', $date_modified); 
-	} elseif(file_exists(get_stylesheet_directory() .'/style.css') && !$tpath ){
+	} elseif(is_file(get_stylesheet_directory() .'/style.css') && !$tpath ){
 		$date_modified = filemtime( get_stylesheet_directory() .'/style.css' );
 		$cache_ver = str_replace('.', '', CORE_VERSION) .'-'.date('mdGis', $date_modified);
-	} elseif(file_exists(get_template_directory() .'/style.css')){
+	} elseif(is_file(get_template_directory() .'/style.css')){
 		$date_modified = filemtime( get_template_directory() .'/style.css' );
 		$cache_ver = str_replace('.', '', CORE_VERSION) .'-'.date('mdGis', $date_modified);
 	} else {

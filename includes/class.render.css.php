@@ -38,6 +38,7 @@ class PageLinesRenderCSS {
 			'navs',
 			'modals',
 			'component-animations',
+			'pagelines-special',
 			'color', // HAS TO BE LAST	
 		);
 		return $files;
@@ -351,7 +352,7 @@ class PageLinesRenderCSS {
 
 			foreach( $pagelines_raw_lesscode_external as $file ) {
 				
-				if( file_exists( $file ) )
+				if( is_file( $file ) )
 					$out .= pl_file_get_contents( $file );
 			}
 			return $code . $out;
