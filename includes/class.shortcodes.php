@@ -857,7 +857,7 @@ class PageLines_ShortCodes {
 	 */
 	function pl_buttondropdown_shortcode( $atts, $content = null  ) {
 	    
-    	// Pull in JS
+	    wp_enqueue_style( 'pagelines-shortcodes' );
     	wp_enqueue_script( 'jquery' );
 		wp_enqueue_script( 'pagelines-bootstrap-all' );
 
@@ -893,7 +893,7 @@ class PageLines_ShortCodes {
 	 */
 	function pl_splitbuttondropdown_shortcode( $atts, $content = null ) {
 
-    	// Pull in JS
+    	wp_enqueue_style( 'pagelines-shortcodes' );
     	wp_enqueue_script( 'jquery' );
 		wp_enqueue_script( 'pagelines-bootstrap-all' );
 	    
@@ -908,7 +908,7 @@ class PageLines_ShortCodes {
 	    $out = sprintf( '
 <div class="btn-group">
 	<a class="btn btn-%1$s btn-%2$s" >%3$s</a><a class="btn btn-%1$s btn-%2$s dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
-	<ul class="dropdown-menu">%s</ul>
+	<ul class="dropdown-menu">%4$s</ul>
 </div>',
 	      	$atts['size'],
 	        $atts['type'],
@@ -926,6 +926,9 @@ class PageLines_ShortCodes {
 	 * @example <code>This is a [pl_tooltip tip="Cool"]tooltip[/pl_tooltip] example.</code>
 	 */
 	function pl_tooltip_shortcode( $atts, $content = null ) {
+
+		wp_enqueue_script( 'jquery' );
+		wp_enqueue_script( 'pagelines-bootstrap-all' );
 
 	    $defaults = array(
 	    	'tip' => 'Tip',
@@ -960,6 +963,9 @@ class PageLines_ShortCodes {
 	 */
     function pl_popover_shortcode( $atts, $content = null ) {
 	    
+	    wp_enqueue_script( 'jquery' );
+		wp_enqueue_script( 'pagelines-bootstrap-all' );
+
 	    $defaults = array(
 	    	'title' => 'Popover Title',
 	    	'content' => 'Content'
