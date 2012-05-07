@@ -7,7 +7,49 @@
  * @package     PageLines Framework
  * @subpackage  Sections
  * @since       2.2
+ *
+ *  SHORTCODE TABLE OF CONTENTS
+ *  1.  Bookmark
+ *  2.  Pagename
+ *  3.  Theme URL
+ *  4.  Google Maps
+ *  5.  Google Charts
+ *  6.  Post Feed
+ *  7.  Dynamic Box
+ *  8.  Container
+ *  9.  Post Edit
+ *  10. Post Categories
+ *  11. Post Tags
+ *  12. Post Type
+ *  13. Post Comments
+ *  14. Post Authors Archive
+ *  15. Post Author URL
+ *  16. Post Author Display Name
+ *  17. Post Date
+ *  18. Pinterest Button
+ *  19. Tweet Button
+ *  20. Like Button
+ *  21. Show Authors
+ *  22. Codebox
+ *  23. Labels
+ *  24. Badgets
+ *  25. Alertbox
+ *  26. Blockquote
+ *  27. Button
+ *  28. Button Group
+ *  29. Button Dropdown
+ *  30. Split Button Dropdown
+ *  31. Tooltip
+ *  32. Popover
+ *  32. Accordion
+ *  34. Carousel
+ *  35. Tabs
+ *  36. Modal Popup
+ *  37. Post Time
+ *  38. PageLines Buttons (orig)
+ *
  */
+
 class PageLines_ShortCodes {
 	
 	
@@ -104,7 +146,7 @@ class PageLines_ShortCodes {
 	}
 
 
-	// Return link in page based on Bookmark
+	// 1. Return link in page based on Bookmark
 	// USAGE : [bookmark id="21" text="Link Text"]
 	function bookmark_link( $atts ) {
 
@@ -122,7 +164,7 @@ class PageLines_ShortCodes {
 	 	return $pagelink;
 	}
 
-	// Function for creating a link from a page name
+	// 2. Function for creating a link from a page name
 	// USAGE : [link pagename="My Example Page" linktext="Link Text"]
 	function create_pagelink( $atts ) {
 
@@ -141,19 +183,18 @@ class PageLines_ShortCodes {
 	 	return $pagelink;
 	}
 
-	//Function for getting template path
+	// 3. Function for getting template path
 	// USAGE: [themeurl]
 	function get_themeurl( $atts ){ return get_template_directory_uri();	 }
 	
-	// GOOGLE MAPS //////////////////////////////////////////////////
+	// 4. GOOGLE MAPS //////////////////////////////////////////////////
 
 	    // you can use the default width and height
 	    // The only requirement is to add the address of the map
 	    // Example:
 	    // [googlemap address="san diego, ca"]
 	    // or with options
-	    // [googlemap width="200" height="200" address="San Francisco, CA 92109"]
-
+	    // [googlemap width="200" height="200" address="San Francisco, CA 92109"] 
 	function googleMaps( $atts, $content = null ) {
 	       extract( shortcode_atts( array(
 	          "width"       =>  '480',
@@ -164,7 +205,7 @@ class PageLines_ShortCodes {
 	       return '<iframe width="'.$width.'" height="'.$height.'" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="'.$src.'&amp;output=embed"></iframe>';
 	}
 
-	// GOOGLE CHARTS  //////////////////////////////////////////////////
+	// 5. GOOGLE CHARTS  //////////////////////////////////////////////////
 
 		// Gets Google charts
 		// USAGE 
@@ -215,7 +256,7 @@ class PageLines_ShortCodes {
 		return '<img title="'.$title.'" src="http://chart.apis.google.com/chart?cht='.$charttype.''.$string.$advanced.'" alt="'.$title.'" />';
 	}	
 	
-	// GET POST FIELD BY OFFSET //////////////////////////////////////////////////
+	// 6. GET POST FIELD BY OFFSET //////////////////////////////////////////////////
 	// Get a post based on offset from the last post published (0 for last post)
 	// USAGE: [postfeed field="post_title"  offset="0" customfield="true" ]
 	function get_postfeed( $atts ) {
@@ -234,7 +275,7 @@ class PageLines_ShortCodes {
 		return $postfield;
 	}
 	
-	//Created a container for dynamic html layout
+	// 7. Created a container for dynamic html layout
 	// USAGE: [cbox width="50%" leftgutter="15px" rightgutter="0px"] html box content[/cbox]
 	function dynamic_box( $atts, $content = null ) {
 
@@ -246,7 +287,7 @@ class PageLines_ShortCodes {
 	return $cbox;
 	}
 
-	//Created a container for dynamic html layout
+	// 8. Created a container for dynamic html layout
 	// USAGE: [container id="mycontainer" class="myclass"] 'cboxes' see shortcode below [/container]
 	function dynamic_container( $atts, $content = null ) {
 
@@ -259,7 +300,7 @@ class PageLines_ShortCodes {
 	}
 	
 	/**
-	 * This function produces the edit post link for logged in users
+	 * 9. This function produces the edit post link for logged in users
 	 * 
 	 * @example <code>[post_edit]</code> is the default usage
 	 * @example <code>[post_edit link="Edit", before="<b>" after="</b>"]</code>
@@ -285,7 +326,7 @@ class PageLines_ShortCodes {
 	}
 	
 	/**
-	 * This function produces the category link list
+	 * 10. This function produces the category link list
 	 * 
 	 * @example <code>[post_categories]</code> is the default usage
 	 * @example <code>[post_categories sep=", "]</code>
@@ -308,7 +349,7 @@ class PageLines_ShortCodes {
 	}
 	
 	/**
-	 * This function produces the tag link list
+	 * 11. This function produces the tag link list
 	 * 
 	 * @example <code>[post_tags]</code> is the default usage
 	 * @example <code>[post_tags sep=", " before="Tags: " after="bar"]</code>
@@ -333,7 +374,7 @@ class PageLines_ShortCodes {
 	}
 	
 	/**
-	 * This function produces a post type link.
+	 * 12. This function produces a post type link.
 	 * 
 	 * @example <code>[post_type]</code> is the default usage
 	 * @example <code>[post_type before="Type: " after="bar"]</code>
@@ -363,7 +404,7 @@ class PageLines_ShortCodes {
 	}
 	
 	/**
-	 * This function produces the comment link
+	 * 13. This function produces the comment link
 	 * 
 	 * @example <code>[post_comments]</code> is the default usage
 	 * @example <code>[post_comments zero="No Comments" one="1 Comment" more="% Comments"]</code>
@@ -397,7 +438,7 @@ class PageLines_ShortCodes {
 	}
 	
 	/**
-	 * This function produces the author of the post (link to author archive)
+	 * 14. This function produces the author of the post (link to author archive)
 	 * 
 	 * @example <code>[post_author_posts_link]</code> is the default usage
 	 * @example <code>[post_author_posts_link before="<b>" after="</b>"]</code>
@@ -421,7 +462,7 @@ class PageLines_ShortCodes {
 	}
 	
 	/**
-	 * This function produces the author of the post (link to author URL)
+	 * 15. This function produces the author of the post (link to author URL)
 	 * 
 	 * @example <code>[post_author_link]</code> is the default usage
 	 * @example <code>[post_author_link before="<b>" after="</b>"]</code>
@@ -452,7 +493,7 @@ class PageLines_ShortCodes {
 	}
 	
 	/**
-	 * This function produces the author of the post (display name)
+	 * 16. This function produces the author of the post (display name)
 	 * 
 	 * @example <code>[post_author]</code> is the default usage
 	 * @example <code>[post_author before="<b>" after="</b>"]</code>
@@ -474,7 +515,11 @@ class PageLines_ShortCodes {
 		return apply_filters( 'pagelines_post_author_shortcode', $output, $atts );
 
 	}
-	
+
+	/**
+	 * 17. Post Date
+	 * 
+	 */	
 	function pagelines_post_date_shortcode( $atts ) {
 
 		$defaults = array(
@@ -499,7 +544,7 @@ class PageLines_ShortCodes {
 	
 	
 	/**
-	 * Shortcode to display Pinterest button
+	 * 18.Shortcode to display Pinterest button
 	 * 
 	 * @example <code>[pinterest_button img=""]</code> is the default usage
 	 * @example <code>[pinterest_button img=""]</code>
@@ -525,7 +570,7 @@ class PageLines_ShortCodes {
 		}
 		
 	/**
-	 * Shortcode to display Tweet button
+	 * 19. Shortcode to display Tweet button
 	 * 
 	 * @example <code>[tweet_button]</code> is the default usage
 	 * @example <code>[tweet_button]</code>
@@ -560,7 +605,7 @@ class PageLines_ShortCodes {
 		}
 		
 	/**
-	 * Shortcode to display Facebook Like button
+	 * 20. Shortcode to display Facebook Like button
 	 * 
 	 * @example <code>[like_button]</code> is the default usage
 	 * @example <code>[like_button]</code>
@@ -597,7 +642,7 @@ class PageLines_ShortCodes {
 		}
 			
 	/**
-	 * This function/shortcode will show all authors on a post
+	 * 21. This function/shortcode will show all authors on a post
 	 * 
 	 * @example <code>[show_authors]</code> is the default usage
 	 * @example <code>[show_authors]</code>
@@ -623,7 +668,7 @@ class PageLines_ShortCodes {
 	}
 
 	/**
-	 * Bootstrap Code Shortcode
+	 * 22.Bootstrap Code Shortcode
 	 * 
 	 * @example <code>[pl_codebox]...[/pl_codebox]</code> is the default usage
 	 * @example <code>[pl_codebox scrollable="yes"].box{margin:0 auto;}[/pl_codebox]</code> for lots of code
@@ -646,7 +691,7 @@ class PageLines_ShortCodes {
 	}
 
 	/**
-	 * Bootstrap Labels Shortcode
+	 * 23. Bootstrap Labels Shortcode
 	 * 
 	 * @example <code>[pl_label type=""]My Label[/pl_label]</code> is the default usage
 	 * @example <code>[pl_label type="info"]label[/pl_label]</code>
@@ -667,7 +712,7 @@ class PageLines_ShortCodes {
 	}
 
 	/**
-	 * Bootstrap Badges Shortcode
+	 * 24. Bootstrap Badges Shortcode
 	 * 
 	 * @example <code>[pl_badge type="info"]My badge[/pl_badge]</code> is the default usage
 	 * @example <code>[pl_badge type="info"]badge[/pl_badge]</code>
@@ -689,7 +734,7 @@ class PageLines_ShortCodes {
 
 	
 	/**
-	 * Bootstrap Alertbox Shortcode
+	 * 25. Bootstrap Alertbox Shortcode
 	 * 
 	 * @example <code>[pl_alertbox type="info"]My alert[/pl_alertbox]</code> is the default usage
 	 * @example <code>[pl_alertbox type="info" closable="yes"]My alert[/pl_alertbox]</code> makes an alert that can be toggled away with a close button
@@ -731,10 +776,10 @@ class PageLines_ShortCodes {
 	}
 	
 	/**
-	 * Bootstrap Blockquote Shortcode
+	 * 26. Bootstrap Blockquote Shortcode
 	 * 
-	 * @example <code>[pl_blockquote]My quote[/pl_blockquote]</code> is the default usage
-	 * @example <code>[pl_blockquote pull="right" site="Someone Famous"]My quote pulled right with source[/pl_blockquote]</code>
+	 * @example <code>[pl_blockquote pull="" cite=""]My quote[/pl_blockquote]</code> is the default usage
+	 * @example <code>[pl_blockquote pull="right" cite="Someone Famous"]My quote pulled right with source[/pl_blockquote]</code>
 	 */
 	function pl_blockquote_shortcode( $atts ) {
 
@@ -755,7 +800,7 @@ class PageLines_ShortCodes {
 	}
 	
 	/**
-	 * Bootstrap Button Shortcode
+	 * 27. Bootstrap Button Shortcode
 	 * 
 	 * @example <code>[pl_button type="info"]My Button[/pl_button]</code> is the default usage
 	 * @example <code>[pl_button type="info" link="#" target="blank"]My Button[/pl_button]</code>
@@ -787,7 +832,7 @@ class PageLines_ShortCodes {
 
 
 	/**
-	 * Bootstrap Button Group Shortcode - Builds a group of buttons as a menu
+	 * 28. Bootstrap Button Group Shortcode - Builds a group of buttons as a menu
 	 * 
 	 * @example <code>[pl_buttongroup]<a href="#" class="btn btn-info">...[/pl_buttongroup]</code> is the default usage
 	 * @example <code>[pl_buttongroup]<a href="#" class="btn btn-info"><a href="#" class="btn btn-info"><a href="#" class="btn btn-info">[/pl_button]</code>
@@ -803,7 +848,7 @@ class PageLines_ShortCodes {
 
 	
 	/**
-	 * Bootstrap Dropdown Button Shortcode - Builds a button with contained dropdown menu
+	 * 29. Bootstrap Dropdown Button Shortcode - Builds a button with contained dropdown menu
 	 * 
 	 * @example <code>[pl_buttondropdown size="" type="" label=""]<li><a href="#">...</a></li>[/pl_buttondropdown]</code> is the default usage
 	 * @example <code>[pl_buttondropdown size="large" type="info" label="button"]<li><a href="#"></li><li><a href="#"></li><li><a href="#"></li>[/pl_buttondropdown]</code>
@@ -838,7 +883,7 @@ class PageLines_ShortCodes {
 
 
 	/**
-	 * Bootstrap Split Button Dropdown - Builds a button with split button dropdown caret
+	 * 30. Bootstrap Split Button Dropdown - Builds a button with split button dropdown caret
 	 * 
 	 * @example <code>[pl_splitbuttondropdown size="" type="" label=""]<li><a href="#">...</a></li>[/pl_splitbuttondropdown]</code> is the default usage
 	 * @example <code>[pl_splitbuttondropdown size="large" type="info" label="button"]<li><a href="#"></li><li><a href="#"></li><li><a href="#"></li>[/pl_splitbuttondropdown]</code>
@@ -872,7 +917,7 @@ class PageLines_ShortCodes {
 	}
 
 	 /**
-	 * Bootstrap Tooltips
+	 * 31. Bootstrap Tooltips
 	 * 
 	 * @example <code>[pl_tooltip tip=""]...[/pl_tooltip]</code> is the default usage
 	 * @example <code>This is a [pl_tooltip tip="Cool"]tooltip[/pl_tooltip] example.</code>
@@ -905,7 +950,7 @@ class PageLines_ShortCodes {
 	}
 
 	/**
-	 * Bootstrap Popovers
+	 * 32. Bootstrap Popovers
 	 * 
 	 * @example <code>[pl_popover title="" content=""]...[/pl_popover]</code> is the default usage
 	 * @example <code>This is a [pl_popover title="Popover Title" content="Some content that you can have inside the Popover"]popover[/pl_popover] example.</code>
@@ -945,7 +990,7 @@ class PageLines_ShortCodes {
 
 
 	/**
-	 * Bootstrap Accordion - Collapsable Content
+	 * 33. Bootstrap Accordion - Collapsable Content
 	 * 
 	 * @example <code>[pl_accordion name="accordion"] [accordioncontent name="accordion" number="1" heading="Tile 1"]Content 1 [/accordioncontent] [accordioncontent name="accordion" number="2" heading="Title 2"]Content 2 [/accordioncontent] [/pl_accordion]</code> is the default usage
 	 */
@@ -998,7 +1043,7 @@ class PageLines_ShortCodes {
 	}
 
 	/**
-	 * Bootstrap Carousel
+	 * 34. Bootstrap Carousel
 	 * 
 	 * @example <code>[pl_carousel name=""][pl_carouselimage first="yes" title="" imageurl="" ]Caption[/pl_carouselimage][pl_carouselimage title="" imageurl="" ]Caption[/pl_carouselimage][/pl_carousel]</code> is the default usage
 	 * @example <code>[pl_carousel name="PageLinesCarousel"][pl_carouselimage first="yes" title="Feature 1" imageurl="" ]Image 1 Caption[/pl_carouselimage][pl_carouselimage title="Feature 2" imageurl=""]Image 2 Caption[/pl_carouselimage][pl_carouselimage title="Feature 3" imageurl=""]Image 3 Caption[/pl_carouselimage][/pl_carousel]</code>
@@ -1059,7 +1104,7 @@ class PageLines_ShortCodes {
 	}
 
 	/**
-	 * Bootstrap Tabs
+	 * 35. Bootstrap Tabs
 	 * 
 	 * @example <code>[pl_tabs][pl_tabtitlesection type=""][pl_tabtitle active="" number="1"]...[/pl_tabtitle][pl_tabtitle number="2"]...[/pl_tabtitle][/pl_tabtitlesection][pl_tabcontentsection][pl_tabcontent active="" number="1"]...[/pl_tabcontent][pl_tabcontent number=""]...[/pl_tabcontent][/pl_tabcontentsection][/pl_tabs]</code> is the default usage
 	 * @example <code>[pl_tabs][pl_tabtitlesection type="tabs"][pl_tabtitle active="yes" number="1"]Title 1[/pl_tabtitle][pl_tabtitle number="2"]Title 2[/pl_tabtitle][/pl_tabtitlesection][pl_tabcontentsection][pl_tabcontent active="yes" number="1"]Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac mi enim, at consectetur justo.[/pl_tabcontent][pl_tabcontent number="2"]Second content there.[/pl_tabcontent][/pl_tabcontentsection][/pl_tabs]</code>
@@ -1148,7 +1193,7 @@ class PageLines_ShortCodes {
 		}
 
 	/**
-	 * Bootstrap Modal Popkup Window
+	 * 36. Bootstrap Modal Popup Window
 	 * 
 	 * @example <code>[pl_modal title="" buttontype="" buttonsize="" buttonlabel=""]...[/pl_modal]</code>
 	 * @example <code>[pl_modal title="Modal Title" buttontype="info" buttonsize="large" buttonlabel="Modal Button"]Some content here for the cool modal pop up. You can have all kinds of cool stuff in here.[/pl_modal]</code>
@@ -1206,7 +1251,7 @@ class PageLines_ShortCodes {
 	}
 		
 	/**
-	 * This function produces the time of post publication
+	 * 37. This function produces the time of post publication
 	 * 
 	 * @example <code>[post_time]</code> is the default usage</code>
 	 * @example <code>[post_time format="g:i a" before="<b>" after="</b>"]</code>
@@ -1234,7 +1279,7 @@ class PageLines_ShortCodes {
 	}
 	
 	/**
-	 * Used to create general buttons and button links
+	 * 38. Used to create general buttons and button links
 	 * 
 	 * @example <code>[button]</code> is the default usage
 	 * @example <code>[button format="edit_post" before="<b>" after="</b>"]</code>

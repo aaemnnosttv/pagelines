@@ -161,39 +161,7 @@ class PLNavBar extends PageLinesSection {
 	function section_styles(){
 		
 		wp_enqueue_script( 'pagelines-bootstrap-all' );
-		wp_enqueue_script( 'jquery' );
-	}
-	
-	function section_head($clone_id){ ?>
-		
-		<script>
-		jQuery(document).ready(function() {
-			
-			var section = 1;
-			
-			jQuery('.pldrop').find('ul').each(function() {
-				jQuery(this).addClass('dropdown-menu');
-				
-				var caretAppend = '';
-				if(jQuery(this).siblings('a').children('.caret').length == 0) {
-					var caretAppend = ' <b class="caret" />'; 
-				}
-					
-				jQuery(this).siblings('a')
-					.addClass('dropdown-toggle')
-					.attr('href', '#m' + section)
-					.attr('data-toggle', 'dropdown')
-					.append(caretAppend)
-					.parent()
-					.attr('id', 'm' + section++)
-					.addClass('dropdown'); 
-			});
-			
-			jQuery('.dropdown-toggle').dropdown()
-		});
-		</script>	
-		
-	<?php 
+		wp_enqueue_script( 'navbar', $this->base_url.'/navbar.js', array( 'jquery' ) );
 	}
 
 	function before_section_template( $location = ''){
@@ -248,7 +216,6 @@ class PLNavBar extends PageLinesSection {
 	<div class="navbar fix <?php echo $width_class.' '.$theme_class; ?>">
 	  <div class="navbar-inner <?php echo $content_width_class;?>">
 	    <div class="navbar-content-pad fix">
-		
 	      <a href="javascript:void(0)" class="nav-btn nav-btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
@@ -256,43 +223,43 @@ class PLNavBar extends PageLinesSection {
 	      </a>
 			<?php if($passive): ?>
 				<a class="plbrand" href="<?php echo esc_url(home_url());?>">
-					
-					<?php 
-					
+					<?php 		
 						if(ploption('navbar_logo') || ploption('navbar_logo') != '')
 							printf('<img src="%s" />', ploption('navbar_logo'));
 						else
-							printf('<h2 class="plbrand-text">%s</h2>', get_bloginfo('name'));
-						
+							printf('<h2 class="plbrand-text">%s</h2>', get_bloginfo('name'));					
 						?>
 				</a>
 			<?php endif; ?>
 
 	      		<div class="nav-collapse collapse">
 	       <?php 	if(!$hidesearch)
-						get_search_form();
-				
+						get_search_form();						
+					if ( is_array( wp_get_nav_menu_items( $menu ) ) || has_nav_menu( 'primary' ) ) {
 					wp_nav_menu( 
 						array(
-							'menu_class'  => 'font-sub navline pldrop '.$align_class, 
-							'menu' => $menu,
-							'container' => null, 
-							'container_class' => '', 
-							'depth' => 2, 
-							'fallback_cb'=>''
+							'menu_class'		=> 'font-sub navline pldrop ' . $align_class, 
+							'menu'				=> $menu,
+							'container'			=> null, 
+							'container_class'	=> '', 
+							'depth'				=> 2, 
+							'fallback_cb'		=> ''
 						) 
 					);
-	
-	
-				
+					} else {
+						$this->nav_fallback( $align_class );
+					}		
 	?>
 				</div>
 				<div class="clear"></div>
 			</div>
 		</div>
 	</div>
-	
 <?php }
+	function nav_fallback( $align_class ) {
 
-
+		printf( '<ul id="menu-main" class="font-sub navline pldrop %s">', $align_class );
+		wp_list_pages( 'title_li=&sort_column=menu_order&depth=2');
+		echo '</ul>';
+	}
 }
