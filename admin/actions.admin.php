@@ -295,10 +295,10 @@ function pl_page_show_columns($name) {
 
 			$file = sprintf( '%s/%s', PARENT_DIR, $template );
 			
-			if ( !file_exists( $file ) )
+			if ( !is_file( $file ) )
 				$file = sprintf( '%s/%s', CHILD_DIR, $template );
 			
-			if ( !file_exists( $file ) ) {
+			if ( !is_file( $file ) ) {
 				_e( 'Error', 'pagelines' );
 				break;
 			}

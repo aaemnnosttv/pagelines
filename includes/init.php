@@ -25,7 +25,7 @@ do_action('pagelines_hook_pre', 'core'); // Hook
 
 define('PL_INCLUDES', get_template_directory() . '/includes');
 
-if ( file_exists( PL_INCLUDES . '/library.pagelines.php' ) )
+if ( is_file( PL_INCLUDES . '/library.pagelines.php' ) )
 	require_once( PL_INCLUDES . '/library.pagelines.php');
 
 /**

@@ -116,17 +116,17 @@ class PageLinesRegister {
 						'name'		=> $section['name']
 					);
 					if ( isset( $dep ) ) { // do we have a dependency?
-						if ( !class_exists( $dep ) && file_exists( $dep_data['base_file'] ) ) {
+						if ( !class_exists( $dep ) && is_file( $dep_data['base_file'] ) ) {
 							include( $dep_data['base_file'] );
 							$pl_section_factory->register( $dep, $dep_data );
 						}
 						// dep loaded...
-						if ( !class_exists( $section['class'] ) && file_exists( $section['base_file'] ) ) {
+						if ( !class_exists( $section['class'] ) && is_file( $section['base_file'] ) ) {
 							include( $section['base_file'] );
 							$pl_section_factory->register( $section['class'], $section_data );
 						}	
 					} else {
-							if ( !class_exists( $section['class'] ) && file_exists( $section['base_file'] ) && ! isset( $disabled['parent'][$section['depends']] ) ) {
+							if ( !class_exists( $section['class'] ) && is_file( $section['base_file'] ) && ! isset( $disabled['parent'][$section['depends']] ) ) {
 								include( $section['base_file'] );
 								$pl_section_factory->register( $section['class'], $section_data );
 							}
@@ -255,8 +255,8 @@ class PageLinesRegister {
 					'persistant'	=> $headers['persistant'],
 					'format'		=> $headers['format'],
 					'classes'		=> $headers['classes'],
-					'screenshot'	=> ( file_exists( $base_dir . '/thumb.png' ) ) ? $base_url . '/thumb.png' : '',
-					'less'			=> ( file_exists( $base_dir . '/color.less' ) ) ? true : false,
+					'screenshot'	=> ( is_file( $base_dir . '/thumb.png' ) ) ? $base_url . '/thumb.png' : '',
+					'less'			=> ( is_file( $base_dir . '/color.less' ) ) ? true : false,
 				);	
 			}
 		}

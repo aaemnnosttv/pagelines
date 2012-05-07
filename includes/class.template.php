@@ -933,7 +933,7 @@ class PageLinesTemplate {
 					
 					$s->section_styles();
 					// Auto load style.css for simplicity if its there.
-					if( file_exists( $s->base_dir . '/style.css' ) ){
+					if( is_file( $s->base_dir . '/style.css' ) ){
 						
 						wp_register_style( $s->id, $s->base_url . '/style.css', array(), $s->settings['p_ver'], 'screen');
 				 		wp_enqueue_style( $s->id );
