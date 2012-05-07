@@ -763,7 +763,8 @@ class PageLines_ShortCodes {
 
 		if ( $atts['closable'] === 'yes' ) {	
 			
-			wp_enqueue_script( 'pagelines-bootstrap-all' );
+    				wp_enqueue_script( 'jquery' );
+					wp_enqueue_script( 'pagelines-bootstrap-all' );
 			
 			return $closed;
         
@@ -856,8 +857,9 @@ class PageLines_ShortCodes {
 	 */
 	function pl_buttondropdown_shortcode( $atts, $content = null  ) {
 	    
-	    // Pull in Bootstrap JS
-	    wp_enqueue_script( 'pagelines-bootstrap-all' );
+    	// Pull in JS
+    	wp_enqueue_script( 'jquery' );
+		wp_enqueue_script( 'pagelines-bootstrap-all' );
 
 	    $defaults = array(
 		    'size' => '',
@@ -891,8 +893,9 @@ class PageLines_ShortCodes {
 	 */
 	function pl_splitbuttondropdown_shortcode( $atts, $content = null ) {
 
-		// Pull in Bootstrap JS
-	    wp_enqueue_script( 'pagelines-bootstrap-all' );
+    	// Pull in JS
+    	wp_enqueue_script( 'jquery' );
+		wp_enqueue_script( 'pagelines-bootstrap-all' );
 	    
 	    $defaults = array(
 		    'size' => '',
@@ -1009,8 +1012,9 @@ class PageLines_ShortCodes {
 	//Accordion Content
 	function pl_accordioncontent_shortcode( $atts, $content = null, $open = null ) {
 
-		// Pull in Bootstrap JS
-	    wp_enqueue_script( 'pagelines-bootstrap-all' );
+    	// Pull in JS
+    	wp_enqueue_script( 'jquery' );
+		wp_enqueue_script( 'pagelines-bootstrap-all' );
 	    
 	    $defaults = array(
 		    'name' => '',
@@ -1050,8 +1054,9 @@ class PageLines_ShortCodes {
 	 */
     function pl_carousel_shortcode( $atts, $content = null ) {
 
-    	// Pull in Bootstrap JS
-	    wp_enqueue_script( 'pagelines-bootstrap-all' );
+    	// Pull in JS
+    	wp_enqueue_script( 'jquery' );
+		wp_enqueue_script( 'pagelines-bootstrap-all' );
 	    
 	    $defaults = array(
 	    	'name' => 'PageLines Carousel',
@@ -1120,8 +1125,9 @@ class PageLines_ShortCodes {
 	//Tab Titles Section
 		function pl_tabtitlesection_shortcode( $atts, $content = null ) {
 
-		// Pull in Bootstrap JS
-	    wp_enqueue_script( 'pagelines-bootstrap-all' );
+    	// Pull in JS
+    	wp_enqueue_script( 'jquery' );
+		wp_enqueue_script( 'pagelines-bootstrap-all' );
 		        
 			extract( shortcode_atts( array(
 		    	'type' => '',
@@ -1202,7 +1208,8 @@ class PageLines_ShortCodes {
 	 */	
 	function pl_modal_shortcode( $atts, $content = null ) {
 
-    	// Pull in Bootstrap JS
+    	// Pull in JS
+    	wp_enqueue_script( 'jquery' );
 		wp_enqueue_script( 'pagelines-bootstrap-all' );
 	    
 	    extract( shortcode_atts( array(
