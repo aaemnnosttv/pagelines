@@ -25,13 +25,13 @@ function load_child_style() {
 
 		global $blog_id;
 		$mu_style = sprintf( '%s/blogs/%s/style.css', EXTEND_CHILD_DIR, $blog_id );
-		if ( file_exists( $mu_style ) ) {
+		if ( is_file( $mu_style ) ) {
 			$mu_style_url = sprintf( '%s/blogs/%s/style.css', EXTEND_CHILD_URL, $blog_id );
 			$cache_ver = '?ver=' . pl_cache_version( $mu_style );
 			pagelines_draw_css( $mu_style_url . $cache_ver, 'pl-extend-style' );
 		}
 	} else {	
-		if ( file_exists( PL_EXTEND_STYLE_PATH ) ){
+		if ( is_file( PL_EXTEND_STYLE_PATH ) ){
 
 			$cache_ver = '?ver=' . pl_cache_version( PL_EXTEND_STYLE_PATH ); 	
 			pagelines_draw_css( PL_EXTEND_STYLE . $cache_ver, 'pl-extend-style' );
@@ -55,11 +55,11 @@ function load_child_functions() {
 		
 		global $blog_id;
 		$mu_functions = sprintf( '%s/blogs/%s/functions.php', EXTEND_CHILD_DIR, $blog_id );
-		if ( file_exists( $mu_functions ) )
+		if ( is_file( $mu_functions ) )
 			require_once( $mu_functions );
 	} else {
 
-		if ( file_exists( PL_EXTEND_FUNCTIONS ) )
+		if ( is_file( PL_EXTEND_FUNCTIONS ) )
 			require_once( PL_EXTEND_FUNCTIONS );
 	}
 }
@@ -90,10 +90,10 @@ function base_check_templates() {
 	foreach ( glob( EXTEND_CHILD_DIR . '/*.php') as $file) {
 
 		if ( preg_match( '/page\.([a-z-0-9]+)\.php/', $file, $match ) ) {
-			if ( !file_exists( trailingslashit( get_stylesheet_directory() ) . basename( $file ) ) && is_writable( get_stylesheet_directory() ) ) 
+			if ( !is_file( trailingslashit( get_stylesheet_directory() ) . basename( $file ) ) && is_writable( get_stylesheet_directory() ) ) 
 				copy( $file, trailingslashit( get_stylesheet_directory() ) . basename( $file ) );
 
-			if ( file_exists( trailingslashit( get_stylesheet_directory() ) . basename( $file ) ) ) {
+			if ( is_file( trailingslashit( get_stylesheet_directory() ) . basename( $file ) ) ) {
 				$data = get_file_data( trailingslashit( get_stylesheet_directory() ) . basename( $file ), array( 'name' => 'Template Name' ) );
 				if ( is_array( $data ) )
 					pagelines_add_page( $match[1], $data['name'] );

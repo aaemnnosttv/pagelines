@@ -304,7 +304,7 @@
 			$featured 	= ( isset( $ext['featured'] ) ) ? (bool) $ext['featured'] : false; 
 			$ext['exists'] = $this->is_installed('theme', $key, $ext);
 			
-			if ( file_exists( sprintf( '%s/themes/%s/style.css', WP_CONTENT_DIR, $key ) ) )
+			if ( is_file( sprintf( '%s/themes/%s/style.css', WP_CONTENT_DIR, $key ) ) )
 				$exists = true;
 			
 			if ( $tab === 'featured' && $ext['featured'] === 'true' ) 
@@ -349,7 +349,7 @@
 						
 			if (  !empty( $ext['depends']) ) {		
 				$file = sprintf( '%s/%s/%s.php', WP_PLUGIN_DIR, $ext['depends'], $ext['depends'] );
-				if ( !file_exists( $file ) )
+				if ( !is_file( $file ) )
 					return true;
 			}
 		return false;
@@ -597,7 +597,7 @@
 			else
 				$path = sprintf( '%s/%s/section.php', PL_EXTEND_DIR, $ext['slug'] );
 		
-			if( file_exists( $path ) )
+			if( is_file( $path ) )
 				return true;
 			else 
 				return false;
@@ -613,7 +613,7 @@
 			
 			$check_file = sprintf( '%s/themes/%s/style.css', WP_CONTENT_DIR, $key );
 
-			if ( file_exists( $check_file ) )
+			if ( is_file( $check_file ) )
 				$exists = true;
 				
 			if( isset( $exists ) && $data = pl_get_theme_data( $key ) )
@@ -913,7 +913,7 @@
 			
 			if ( $this->is_installed( $type, $key, $ext, $tab ) ) {
 				
-				if ( file_exists( sprintf( '%s/%s/thumb.png', WP_PLUGIN_DIR, $ext['slug'] ) ) )
+				if ( is_file( sprintf( '%s/%s/thumb.png', WP_PLUGIN_DIR, $ext['slug'] ) ) )
 					return sprintf( '%s/thumb.png', plugins_url( $ext['slug'] ) );
 			} else {
 				
@@ -924,7 +924,7 @@
 		
 		if ( $type == 'section' ) {
 
-				if ( isset( $ext['base_dir'] ) && file_exists( sprintf( '%s/thumb.png', $ext['base_dir'] ) ) )
+				if ( isset( $ext['base_dir'] ) && is_file( sprintf( '%s/thumb.png', $ext['base_dir'] ) ) )
 					return sprintf( '%s/thumb.png', $ext['base_url'] );
 
 				if( isset( $ext['screen'] ) && $ext['screen'] )
@@ -940,10 +940,10 @@
 
 			// theme installed or no screenshot...
 
-			if ( file_exists( sprintf( '%s/%s/thumb.png', get_theme_root(), $key ) ) )
+			if ( is_file( sprintf( '%s/%s/thumb.png', get_theme_root(), $key ) ) )
 				return sprintf( '%s/%s/thumb.png', get_theme_root_uri(), $key );
 			
-			if ( file_exists( sprintf( '%s/%s/screenshot.png', get_theme_root(), $key ) ) )
+			if ( is_file( sprintf( '%s/%s/screenshot.png', get_theme_root(), $key ) ) )
 				return sprintf( '%s/%s/screenshot.png', get_theme_root_uri(), $key );
 
 		}
@@ -1180,15 +1180,15 @@
 		
 		if($status){
 			
-			if( file_exists( PL_EXTEND_INIT ) && current( $this->plugin_check_status( PL_EXTEND_INIT ) ) == 'notactive' )
+			if( is_file( PL_EXTEND_INIT ) && current( $this->plugin_check_status( PL_EXTEND_INIT ) ) == 'notactive' )
 				return 'notactive';
-			elseif( !is_dir( PL_EXTEND_DIR ) || !file_exists( PL_EXTEND_INIT ) )
+			elseif( !is_dir( PL_EXTEND_DIR ) || !is_file( PL_EXTEND_INIT ) )
 				return 'notinstalled';
 			else
 				return 'active';
 			
 		} else {
-			if ( !is_dir( PL_EXTEND_DIR ) || ( file_exists( PL_EXTEND_INIT ) && current( $this->plugin_check_status( PL_EXTEND_INIT ) ) == 'notactive' ) )
+			if ( !is_dir( PL_EXTEND_DIR ) || ( is_file( PL_EXTEND_INIT ) && current( $this->plugin_check_status( PL_EXTEND_INIT ) ) == 'notactive' ) )
 				return false;
 			else 
 				return true;
@@ -1201,7 +1201,7 @@
 	 */
 	function plugin_check_status( $file ) {
 		
-		if ( !file_exists( $file ) )
+		if ( !is_file( $file ) )
 			return ;
 		$data = get_plugin_data( $file );
 
