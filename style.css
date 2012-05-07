@@ -274,11 +274,16 @@ body{
 	blockquote small:before {
 	  content: '\2014 \00A0';
 	}
+	blockquote.pull-left {
+		float:left;
+		margin-right:25px;
+	}
 	blockquote.pull-right {
 	  float: right;
 	  padding-left: 0;
 	  padding-right: 15px;
 	  border-left: 0;
+	  margin-left:20px;
 	}
 	blockquote.pull-right p,
 	blockquote.pull-right small {

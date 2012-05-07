@@ -38,6 +38,10 @@ class ScrollSpy extends PageLinesSection {
 			
 			jQuery('body').find('.page-header').each(function() {
 				
+				if(spyCounter == 1){
+					contentOffTop = jQuery(this).offset().top
+				}
+				
 				var headerID = 'spyID'+spyCounter++;
 				var headerText;
 				
@@ -48,10 +52,8 @@ class ScrollSpy extends PageLinesSection {
 				if (jQuery(this).attr('title')) {
 					headerText = jQuery(this).attr('title');
 				} else {
-					headerText = 'Set Title Attr.';
+					headerText = '(Set Title)';
 				}
-				
-			
 			
 				
 				jQuery('.spynav .nav').append('<li><a class="spyanchor" href="#'+headerID+'">'+headerText+'</a></li>');
@@ -59,7 +61,7 @@ class ScrollSpy extends PageLinesSection {
 			});
 			
 			jQuery('body').attr('data-spy', 'scroll');
-			jQuery('body').scrollspy({offset: 50-mainOffset});
+			jQuery('body').scrollspy({offset: 30 - (contentOffTop - mainOffset) });
 		
 			
 			jQuery(".spyanchor").click( function(event){		
