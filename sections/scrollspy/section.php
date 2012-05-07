@@ -34,7 +34,7 @@ class ScrollSpy extends PageLinesSection {
 		jQuery(document).ready(function() {
 			
 			var spyCounter = 1
-			, mainOffset = jQuery('.hentry').offset().top
+			, mainOffset = jQuery('.hentry').length && jQuery('.hentry').offset().top
 			, scrollArea = jQuery('body')
 			
 			scrollArea.find('.page-header').each(function() {
@@ -93,16 +93,19 @@ class ScrollSpy extends PageLinesSection {
   		
   				   
   			function processScroll() {
-  				var i, scrollTop = $win.scrollTop()
+  				var i
+					, scrollTop = $win.scrollTop()
   		
   				if (scrollTop >= navTop && !isFixed) {
 					var contWidth = jQuery('.section-scrollspy .content-pad').width();
 					jQuery('.spynav .nav').width(contWidth);
+					jQuery('.spynav-space').show();
   					isFixed = 1
   					$nav.css('top', navOffset).addClass('spynav-fixed')
   				} else if (scrollTop <= navTop && isFixed) {
   					isFixed = 0
 					jQuery('.spynav .nav').width('auto');
+					jQuery('.spynav-space').hide();
   					$nav.removeClass('spynav-fixed')
   				}
   			}
@@ -125,7 +128,7 @@ class ScrollSpy extends PageLinesSection {
 		printf('
 			<div id="spynav" class="spynav">
 	          <ul class="nav nav-pills"></ul>
-	        </div>');
+	        </div><div class="spynav-space"></div>');
 	 
 	}
 
