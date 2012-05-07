@@ -690,7 +690,7 @@ class PageLines_ShortCodes {
 
 		$out = sprintf( '<pre class="%s">%s</pre>',
 					$scrollable,
-					$content
+					esc_html( $content )
 				);
 
 		return $out;
