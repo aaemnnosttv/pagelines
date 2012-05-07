@@ -992,8 +992,7 @@ class PageLinesOptionsArray {
 					'inputlabel'=> __( 'CSS Rules', 'pagelines' ),
 					'title' 	=> __( 'Custom CSS', 'pagelines' ),
 					'shortexp' 	=> __( 'Insert custom CSS styling here. It will be stored in the DB and not overwritten. <br/>Note: The professional way to customize your site is using a child theme, or customization plugin', 'pagelines' ),
-					'exp' 		=> __( "<div class='theexample'>Example:<br/> <strong>body{<br/> &nbsp;&nbsp;color:  #3399CC;<br/>&nbsp;&nbsp;line-height: 20px;<br/>&nbsp;&nbsp;font-size: 11px<br/>}</strong></div>Enter CSS Rules to change the style of your site.<br/><br/> A lot can be accomplished by simply changing the default styles of the <strong>body</strong> tag such as <strong>line-height</strong>, <strong>font-size</strong>, or <strong>color</strong> (as in text color).", 'pagelines' ), 
-					'docslink'	=> 'http://www.pagelines.com/wiki/index.php?title=How_to_Use_the_Custom_Code_Settings', 
+					'exp' 		=> $this->css_examples(),
 					'vidtitle'	=> __( 'View Customization Documentation', 'pagelines' )
 				),
 			'headerscripts' => array(
@@ -1028,8 +1027,21 @@ class PageLinesOptionsArray {
 		);
 		
 		return apply_filters('pagelines_options_custom_code', $a);
+	}
+	
+	function css_examples() {
+		
+		$example_body = ".fpost .post-excerpt{<br/>&nbsp;&nbsp;&nbsp;background-color: lighten(@dark-base, 50);<br/>&nbsp;&nbsp;&nbsp;border-radius( 10px );<br/>&nbsp;&nbsp;&nbsp;padding: 5px;<br />}";
+		
+		$example = sprintf( "<div class='theexample'><strong>Example:</strong><br/>%s</div>", $example_body );
+		
+		$docs = __("Enter CSS Rules to change the style of your site.<br/><br/> A lot can be accomplished by simply changing the default styles of the <strong>body</strong> tag such as <strong>line-height</strong>, <strong>font-size</strong>, or <strong>color</strong> (as in text color).", 'pagelines' );
+		
+		return $example . $docs;
+		
 		
 	}
+	
 	
 	function account_signup(){
 		
