@@ -236,7 +236,9 @@ class PLNavBar extends PageLinesSection {
 	       <?php 	if(!$hidesearch)
 						get_search_form();
 						
-					if ( has_nav_menu( $menu ) ) {
+					plprint( $menu, 'primary' );	
+						
+					if ( has_nav_menu( 'primary' ) ) {
 					wp_nav_menu( 
 						array(
 							'menu_class'		=> 'font-sub navline pldrop ' . $align_class, 
