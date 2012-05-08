@@ -11,6 +11,48 @@
 
 ********************************************************
 
+Version 2.2
+
+- NEW - Bootstrap shortcode system.
+- NEW - Custom CSS uses LESS compiler.
+- NEW - CSS cached and enqueued, no more inline core styles.
+- NEW - Quickslider text placement.
+- NEW - Fixed navigation bar with four color schemes.
+- NEW - New section: ScrollSpy.
+- NEW - New section: Masthead.
+- NEW - New section: Navbar.
+- NEW - New section: OpenGrid.
+- CORE - Added [post_type] shortcode for metabar.
+- CORE - Added title/alt to watermark.
+- CORE - Store layout tweaks.
+- CORE - Add support for WordPress 3.4.
+- Bugs - Javascript only loaded when needed.
+
+Version 2.1.7
+
+	- NEW - WPML Added config xml file.
+	- NEW - WPML Added pagelines_wpml() wrapper.
+	- NEW - Callout/Highlight/Qquickslider all translatable with WPML.
+	- Bugs - Features use posts per page if no limit set.
+	- Bugs - Only check for updates on admin screens.
+	- Bugs - Fix typo under layout options.
+	- Bugs - Fix links to pagelines.com in admin.
+	- Bugs - Google API use SSL if blog is SSL.
+	- CORE - Add three new google fonts to typography.
+
+Version 2.1.6
+	
+	- CORE - Responsive fixes.
+	- CORE - Page titles default to ON.
+	- CORE - Fix untranslated strings banners/carousel/boxes.
+	- CORE - Default font changed to helvetica.
+	- Bugs - Fix featured thumb in posts.
+	- Bugs - Various CSS fixes.
+	- Bugs - Strip HTML from shares.
+
+Version 2.1.5
+	- HotFix - Metapanel integrations error.
+
 Version 2.1.4
 	- NEW - PInterest added to sharebar.
 	- NEW - Section QuickSlider.
