@@ -105,10 +105,9 @@ class PageLinesLess {
 	private function raw_parse( $pless, $type ) {
 
 		$css = '';
-		$constants = $this->add_constants( $pless );
+		$constants = $this->add_constants( $css );
 	
-		$pless = $this->add_bootstrap( ) . $constants;
-	
+		$pless = $constants . $this->add_bootstrap() . $pless;	
 		try{
 			$css = $this->lparser->parse( $pless );
 		} catch ( Exception $e){
@@ -119,7 +118,7 @@ class PageLinesLess {
 				plupop( 'pl_less_error_core', $e->getMessage() );				
 				return sprintf( '/* LESS PARSE ERROR in core files!: %s */', $e->getMessage() );
 			}
-		}		 
+		}
 		return $css;	
 	}
 
