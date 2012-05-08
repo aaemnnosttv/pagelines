@@ -193,9 +193,7 @@ body.navbar_fixed .fixed_width #page .page-canvas{margin-top: 42px; padding-top:
 		margin: 0 10px 0 0;
 		font-size: .9em;
 	}
-	.navbar .navline.pull-right {
-	  float: right;
-	}
+
 	.navbar .navline > li {
 	  display: block;
 	  float: left;
@@ -255,10 +253,7 @@ body.navbar_fixed .fixed_width #page .page-canvas{margin-top: 42px; padding-top:
 	  *border-right-width: 2px;
 	  *border-bottom-width: 2px;
 	}
-	.dropdown-menu.pull-right {
-	  right: 0;
-	  left: auto;
-	}
+	
 	.dropdown-menu .divider {
 	  height: 1px;
 	  margin: 8px 1px;
@@ -303,10 +298,8 @@ body.navbar_fixed .fixed_width #page .page-canvas{margin-top: 42px; padding-top:
 	.dropdown.open .dropdown-menu {
 	  display: block;
 	}
-	.pull-right .dropdown-menu {
-	  left: auto;
-	  right: 0;
-	}
+	
+	
 	.pldrop ul{display: none;}
 	
 	.navbar .dropdown-menu {
@@ -337,14 +330,7 @@ body.navbar_fixed .fixed_width #page .page-canvas{margin-top: 42px; padding-top:
 	  left: 10px;
 	}
 
-	.navbar .pull-right .dropdown-menu:before{
-		right: 9px;
-		left: auto;
-	}
-	.navbar .pull-right .dropdown-menu:after{
-		right: 10px;
-		left: auto;
-	}
+
 
 	.navbar .nav .dropdown-toggle .caret,
 	.navbar .nav .open.dropdown .caret {
@@ -363,6 +349,27 @@ body.navbar_fixed .fixed_width #page .page-canvas{margin-top: 42px; padding-top:
 	.navbar .nav .active > .dropdown-toggle:hover {
 	  color: #ffffff;
 	}
+	
+	.dropdown {
+	  position: relative;
+	}
+	.dropdown-toggle {
+	  *margin-bottom: -3px;
+	}
+	.dropdown-toggle:active,
+	.open .dropdown-toggle {
+	  outline: 0;
+	}
+	
+	/* Pull Right Stuff
+	 ************************************************************/
+	.navbar .navline.pull-right {
+	  float: right;
+	}
+/*	.pull-right .dropdown-menu {
+	  left: auto;
+	  right: 0;
+	}
 	.navbar .nav.pull-right .dropdown-menu,
 	.navbar .nav .dropdown-menu.pull-right {
 	  left: auto;
@@ -378,16 +385,16 @@ body.navbar_fixed .fixed_width #page .page-canvas{margin-top: 42px; padding-top:
 	  left: auto;
 	  right: 13px;
 	}
-	.dropdown {
-	  position: relative;
+	.navbar .pull-right .dropdown-menu:before{
+		right: 9px;
+		left: auto;
 	}
-	.dropdown-toggle {
-	  *margin-bottom: -3px;
-	}
-	.dropdown-toggle:active,
-	.open .dropdown-toggle {
-	  outline: 0;
-	}
+	.navbar .pull-right .dropdown-menu:after{
+		right: 10px;
+		left: auto;
+	}*/
+	
+
 	
 /* Caret
  ************************************************************/
