@@ -38,28 +38,9 @@ class PageLinesQuickSlider extends PageLinesSection {
 		$control_nav = (!ploption('quick_nav', $this->oset) || ploption('quick_nav', $this->oset) == 'both' || ploption('quick_nav', $this->oset) == 'control_only') ? 'true' : 'false';
 		$direction_nav = (!ploption('quick_nav', $this->oset) || ploption('quick_nav', $this->oset) == 'both' || ploption('quick_nav', $this->oset) == 'arrow_only') ? 'true' : 'false';
 		?>
-		
-		<script>
-		  jQuery(window).load(function() {
-			
-			var theSlider = jQuery('.flexslider.<?php echo $clone_class;?>');
-			
-		    theSlider.flexslider({
-				controlsContainer: '.fs-nav-container',
-				animation: '<?php echo $animation;?>', 
-				slideDirection: '<?php echo $transfer;?>',
-				slideshow: <?php echo $slideshow;?>, 
-				directionNav: <?php echo $direction_nav;?>, 
-				controlNav: <?php echo $control_nav;?>, 
-
-			});
-			
-			
-			
-		  });
-		</script>	
-		
-	<?php }
+<script>
+jQuery(window).load(function() {var theSlider = jQuery('.flexslider.<?php echo $clone_class;?>');theSlider.flexslider({ controlsContainer: '.fs-nav-container',animation: '<?php echo $animation;?>', slideDirection: '<?php echo $transfer;?>', slideshow: <?php echo $slideshow;?>, directionNav: <?php echo $direction_nav;?>, controlNav: <?php echo $control_nav;?>}); });</script>	
+<?php }
 
 	/**
 	* Section template.

@@ -39,6 +39,7 @@ class PageLinesRenderCSS {
 			'modals',
 			'component-animations',
 			'pagelines-special',
+//			'pl-objects',
 			'color', // HAS TO BE LAST	
 		);
 		return $files;
@@ -176,7 +177,7 @@ class PageLinesRenderCSS {
 			$dynamic = $this->get_dynamic_css();
 
 			$core_less = $this->get_core_lesscode();
-			
+	
 			$sections = $this->get_all_active_sections();
 			$pless = new PagelinesLess();			
 			$core_less = $pless->raw_less( $core_less . $sections . $dynamic['type'] );

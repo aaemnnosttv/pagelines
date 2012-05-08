@@ -185,7 +185,7 @@ function pagelines_head_common(){
 		pagelines_load_css_relative('css/objects.css', 'pagelines-objects');
 		
 		// CSS Animations
-		wp_enqueue_style('animate', PL_CSS.'/animate.css');
+//		wp_enqueue_style('animate', PL_CSS.'/animate.css'); TODO do we need this?
 		
 		// Multisite CSS
 		if(is_multisite())
