@@ -119,6 +119,11 @@ new PageLinesRenderCSS;
 
 add_action( 'template_redirect', 'pl_check_integrations' );
 
+add_action( 'comment_form_before', 'pl_comment_form_js' );
+function pl_comment_form_js() {
+	if ( get_option( 'thread_comments' ) )
+		wp_enqueue_script( 'comment-reply' );
+}
 add_action( 'wp_enqueue_scripts', 'pagelines_register_js' );
 function pagelines_register_js() {
 	wp_register_script( 'pagelines-bootstrap-all', PL_JS . '/script.bootstrap.min.js', false, '2.0.3', true );

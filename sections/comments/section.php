@@ -5,7 +5,7 @@
 	Author URI: http://www.pagelines.com
 	Description: Adds comments to main on pages/single posts
 	Class Name: PageLinesComments
-	Workswith: main-single
+	Workswith: main-single, main
 	Failswith: pagelines_special_pages()
 */
 
@@ -16,17 +16,6 @@
  * @author PageLines
  */
 class PageLinesComments extends PageLinesSection {
-
-
-	/**
-	*
-	* @TODO document
-	*
-	*/
-	function section_styles() {
-		if ( is_singular() && comments_open() && get_option('thread_comments') )
-			wp_enqueue_script( 'comment-reply' );
-	}
 
 	/**
 	* Section template.
