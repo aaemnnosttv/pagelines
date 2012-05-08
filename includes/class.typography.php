@@ -666,6 +666,57 @@ class PageLinesFoundry {
 	}
 }
 
+
+function pl_type_el($type_key, $element){
+	
+	$type = ploption($type_key);
+	
+	if(!$type)
+		$type = array();
+	
+	$defaults = array(
+		'font' 		=> 'helvetica', 
+		'kern'		=> '0.00em',
+		'transform'	=> 'none', 
+		'weight'	=> 'normal', 
+		'variant'	=> 'normal',
+		'style'		=> 'normal'
+	);
+
+	$t = wp_parse_args($type, $defaults);
+		
+	if( $element == 'stack' )
+		$value = get_font_stack($type['font']);
+	else
+		$value = $t[$element];
+		
+	return $value;
+		
+}
+
+/**
+*
+* @TODO do
+*
+*/
+function get_font_stack($font_slug){
+	
+	
+	if( $font_slug ){
+		
+		$foundry = new PageLinesFoundry;
+		
+		if ( ! isset($foundry->foundry[$font_slug]) )
+			return '';
+		
+		return $foundry->foundry[$font_slug]['family'];
+		
+		
+	}else 
+		return '';
+	
+}
+
 /**
 *
 * @TODO do
@@ -678,10 +729,11 @@ function load_custom_font($font, $selectors){
 		
 		$foundry = new PageLinesFoundry;
 		
-		$rule = sprintf('%s{font-family: %s;}', $selectors, $foundry->foundry[$font]['family']);
-		
 		if ( ! isset($foundry->foundry[$font]) )
 			return '';
+		
+		$rule = sprintf('%s{font-family: %s;}', $selectors, $foundry->foundry[$font]['family']);
+		
 		return sprintf('<style type="text/css">%s%s</style>', $foundry->get_the_import($font), $rule);
 		
 	}else 

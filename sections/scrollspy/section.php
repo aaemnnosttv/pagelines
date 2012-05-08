@@ -27,6 +27,7 @@ class ScrollSpy extends PageLinesSection {
 		wp_enqueue_script( 'scrollspy', $this->base_url.'/scrollspy.js', array( 'jquery' ) , false, true);
 		
 	}
+	
 	/**
 	* Section template.
 	*/

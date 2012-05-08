@@ -46,12 +46,19 @@
 // Typography
 // -------------------------
 @baseFontSize:          14px;
-@baseFontFamily:        "Helvetica Neue", Helvetica, Arial, sans-serif;
 @baseLineHeight:        21px;
-@altFontFamily:         Georgia, "Times New Roman", Times, serif;
 
-@headingsFontFamily:    inherit; // empty to use BS default, @baseFontFamily
-@headingsFontWeight:    bold;    // instead of browser default, bold
+@baseFontFamily:        @plBaseFont;
+@baseFontWeight:        @plBaseWeight;
+
+@altFontFamily:         @plAltFont;
+@altFontWeight:    		@plAltWeight; 
+
+@headingsFontFamily:    @plHeaderFont; // empty to use BS default, @baseFontFamily
+@headingsFontWeight:    @plHeaderWeight;    // instead of browser default, bold
+
+
+
 @headingsColor:         inherit; // empty to use BS default, @textColor
 
 @h1Size:          		@baseFontSize * 2;

@@ -84,8 +84,24 @@ class PageLinesQuickSlider extends PageLinesSection {
 			
 				if(ploption('quick_image_'.$i, $this->oset)){
 					
-					$text = (ploption('quick_text_'.$i, $this->oset)) ? sprintf('<p class="flex-caption">%s</p>', ploption( 'quick_text_'.$i, $this->tset ) ) : '';
+					$the_text = ploption('quick_text_'.$i, $this->tset);
+					
+					$tlocation = ploption('quick_text_location_'.$i, $this->oset);
+					
+					if($tlocation == 'right_top')
+						$caption_style = 'right:0; top:0;';	
+					elseif($tlocation == 'left_bottom')
+						$caption_style = 'left:0; bottom:0; top: auto;';
+					elseif($tlocation == 'left_top')
+						$caption_style = 'left:0; bottom:auto; top: 0;';	
+					else
+						$caption_style = 'right:0; bottom:0; top: auto;';
+						
+							
+					$text = ($the_text) ? sprintf('<p class="flex-caption" style="%s">%s</p>', $caption_style, $the_text) : '';
+					
 					$img = sprintf('<img src="%s" />', ploption( 'quick_image_'.$i, $this->tset ) );
+					
 					$slide = (ploption('quick_link_'.$i, $this->oset)) ? sprintf('<a href="%s">%s</a>', ploption('quick_link_'.$i, $this->oset), $img ) : $img;						
 					$output .= sprintf('<li>%s %s</li>',$slide, $text);
 				}
@@ -197,12 +213,22 @@ class PageLinesQuickSlider extends PageLinesSection {
 						),
 						'quick_text_'.$i 	=> array(
 							'inputlabel'	=> __( 'Slide Text', 'pagelines' ), 
-							'type'			=> 'text'
+							'type'			=> 'textarea'
 						),	
 						'quick_link_'.$i 	=> array(
 							'inputlabel'	=> __( 'Slide Link URL', 'pagelines' ), 
 							'type'			=> 'text'
-						),					
+						),	
+						'quick_text_location_'.$i 	=> array(
+							'inputlabel'	=> __( 'Slide Text Location', 'pagelines' ), 
+							'type'			=> 'select', 
+							'selectvalues'	=> array(
+								'right_bottom'	=> array('name'=> 'Right/Bottom'),
+								'right_top'		=> array('name'=> 'Right/Top'),
+								'left_bottom'	=> array('name'=> 'Left/Bottom'),
+								'left_top'		=> array('name'=> 'Left/Top')
+							)
+						),
 					),
 					'title' 		=> __( 'QuickSlider Slide ', 'pagelines' ) . $i,
 					'shortexp' 		=> __( 'Setup options for slide number ', 'pagelines' ) . $i,
