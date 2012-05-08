@@ -13,21 +13,22 @@
 
 Version 2.2
 
-- NEW - Bootstrap shortcode system.
-- NEW - Custom CSS uses LESS compiler.
-- NEW - CSS cached and enqueued, no more inline core styles.
-- NEW - Quickslider text placement.
-- NEW - Fixed navigation bar with four color schemes.
-- NEW - New section: ScrollSpy.
-- NEW - New section: Masthead.
-- NEW - New section: Navbar.
-- NEW - New section: ContentGrid.
-- NEW - New section: IntroUnit.
-- CORE - Added [post_authors] shortcode for metabar.
-- CORE - Added title/alt to watermark.
-- CORE - Store layout tweaks.
-- CORE - Add support for WordPress 3.4.
-- Bugs - Javascript only loaded when needed.
+	- NEW - Bootstrap shortcode system.
+	- NEW - Custom CSS uses LESS compiler.
+	- NEW - CSS cached and enqueued, no more inline core styles.
+	- NEW - Quickslider text placement.
+	- NEW - Fixed navigation bar with four color schemes.
+	- NEW - New section: ScrollSpy.
+	- NEW - New section: Masthead.
+	- NEW - New section: Navbar.
+	- NEW - New section: ContentGrid.
+	- NEW - New section: IntroUnit.
+	- CORE - Added [post_authors] shortcode for metabar.
+	- CORE - Added [post_type] shortcode for metabar.
+	- CORE - Added title/alt to watermark.
+	- CORE - Store layout tweaks.
+	- CORE - Add support for WordPress 3.4.
+	- Bugs - Javascript only loaded when needed.
 
 Version 2.1.7
 
