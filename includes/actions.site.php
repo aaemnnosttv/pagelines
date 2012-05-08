@@ -41,7 +41,7 @@ add_action('pagelines_before_html', array(&$pagelines_template, 'run_before_page
 
 add_action('wp_print_styles', 'workaround_pagelines_template_styles'); // Used as workaround on WP login page (and other pages with wp_print_styles and no wp_head/pagelines_before_html)
 
-add_action( 'wp_print_styles', 'pagelines_get_childcss' );
+add_action( 'wp_print_styles', 'pagelines_get_childcss', 99);
 
 add_action('pagelines_head', array(&$pagelines_template, 'hook_and_print_sections'));
 
