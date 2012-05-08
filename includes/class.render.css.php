@@ -358,7 +358,10 @@ class PageLinesRenderCSS {
 		foreach( $available as $t ) {		
 			foreach( $t as $key => $data ) {
 				if ( $data['less'] ) {
-					$out .= pl_file_get_contents( $data['base_dir'] . '/color.less' );
+					if ( is_file( $data['base_dir'] . '/style.less' ) )
+						$out .= pl_file_get_contents( $data['base_dir'] . '/style.less' );
+					elseif( is_file( $data['base_dir'] . '/color.less' ))
+						$out .= pl_file_get_contents( $data['base_dir'] . '/color.less' );	
 				}
 			}	
 		}

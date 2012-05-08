@@ -780,56 +780,6 @@ class PageLinesTemplate {
 	function run_before_page(){
 
 	}
-
-	/**
-	*
-	* @TODO document
-	*
-	*/
-	function print_template_section_css(){
-
-		global $lesscode;
-		
-		if(is_array($this->allsections)){ 
-			
-			foreach($this->allsections as $sid){
-				
-				/**
-				 * If this is a cloned element, remove the clone flag before instantiation here.
-				 */
-				$p = splice_section_slug($sid);
-				$section = $p['section'];
-				$clone_id = $p['clone_id'];
-				
-				if( $this->in_factory( $section ) ){
-					
-					$s = $this->factory[$section];
-					
-					$s->setup_oset( $clone_id );
-					
-					global $supported_elements;
-					global $disabled_settings;
-					
-					$support = (isset($supported_elements['sections'][ $section ])) ? $supported_elements['sections'][ $section ] : false;
-				
-					if( ($support && $support['disable_color']) || ( $s->sinfo['type'] == 'parent' && isset($disabled_settings['color_control']) ) ){
-						continue;
-					}
-										
-					/*
-					 * Less and style CSS
-					 * TODO we need to include all style.css through compiler and not break urls?
-					 */
-					
-					if ( isset( $s->sinfo['less'] ) && $s->sinfo['less'] )
-						$lesscode .= pl_file_get_contents( $s->base_dir.'/color.less' );			
-				}	
-			}
-
-			$lesscode = apply_filters('pagelines_lesscode', $lesscode);
-			return $lesscode;
-		}	
-	}
 	
 	function print_template_section_head() {
 		

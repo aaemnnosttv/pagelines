@@ -256,7 +256,7 @@ class PageLinesRegister {
 					'format'		=> $headers['format'],
 					'classes'		=> $headers['classes'],
 					'screenshot'	=> ( is_file( $base_dir . '/thumb.png' ) ) ? $base_url . '/thumb.png' : '',
-					'less'			=> ( is_file( $base_dir . '/color.less' ) ) ? true : false,
+					'less'			=> ( is_file( $base_dir . '/color.less' ) || is_file( $base_dir . '/style.less' ) ) ? true : false,
 				);	
 			}
 		}
