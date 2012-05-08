@@ -2,7 +2,7 @@ jQuery(document).ready(function() {
 	
 	var spyCounter = 1, mainOffset = jQuery('.hentry').length && jQuery('.hentry').offset().top, scrollArea = jQuery('body');
 	
-	scrollArea.find('.page-header').each(function () {
+	scrollArea.find('.scroll-header').each(function () {
 		
 		if (spyCounter === 1) {
 			contentOffTop = jQuery(this).offset().top;
