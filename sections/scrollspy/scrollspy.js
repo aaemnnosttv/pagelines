@@ -18,14 +18,14 @@ jQuery(document).ready(function() {
 		if (jQuery(this).attr('title')) {
 			headerText = jQuery(this).attr('title');
 		} else {
-			headerText = '(Set Header Title)';
+			headerText = '(HTML Title Attribute Needed)';
 		}
 	
 		jQuery('.spynav .nav').append('<li><a class="spyanchor" href="#' + headerID + '">' + headerText + '</a></li>');
 		
 	});
 	
-	jQuery('.spynav .nav:empty').html('<li><a>Add page headers to document. None detected.</a></li>');
+	jQuery('.spynav .nav:empty').html('<li><a>Add HTML elements with a "scroll-header" class and "title" attribute to document. None detected.</a></li>');
 	
 	
 	scrollArea.attr('data-spy', 'scroll');
