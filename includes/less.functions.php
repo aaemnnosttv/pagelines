@@ -49,10 +49,7 @@ class PageLinesLess {
 			'pl-responsive-width'	=> round( pl_responsive_width(), 2 ) . '%',
 			'pl-sidebar-width'		=> pl_sidebar_width() . 'px',
 			'pl-secondary-width'	=> pl_secondary_sidebar_width() . 'px'
-		);
-		
-		
-		
+		);	
 		if(is_array($less_vars))
 			$constants = array_merge($less_vars, $constants);
 			
@@ -60,7 +57,6 @@ class PageLinesLess {
 		
 		// Make Filterable
 		$this->constants = apply_filters('pless_vars', $constants);
-		
 	}
 	
 	/**
@@ -79,10 +75,7 @@ class PageLinesLess {
 			'plHeaderFont'		=> pl_type_el('type_headers', 'stack'), 
 			'plHeaderWeight'	=> pl_type_el('type_headers', 'weight'),
 		);
-		
 		return $vars;
-		
-	
 	}
 	
 	/**
@@ -114,7 +107,7 @@ class PageLinesLess {
 		$css = '';
 		$constants = $this->add_constants( $pless );
 	
-		$pless = $this->add_bootstrap( ) . $constants  ;
+		$pless = $this->add_bootstrap( ) . $constants;
 	
 		try{
 			$css = $this->lparser->parse( $pless );
@@ -204,11 +197,7 @@ class PageLinesLess {
 				return $delta;
 
 		}
-		
-		
 	}
-	
-	
 
 	/**
      * Color Detect
@@ -248,8 +237,6 @@ class PageLinesLess {
 		
 		}
 	}
-	
-	
 }
 
 /* 
@@ -298,7 +285,6 @@ function pl_base_color( $mode = '', $difference = '10%'){
 		
 	} else
 		return $base;
-	
 }
 
 
@@ -314,8 +300,7 @@ function pl_bg_color(){
 	if(get_set_color( 'the_bg' ))
 		return get_set_color( 'the_bg' );
 	else 
-		return 'FFFFFF';
-		
+		return 'FFFFFF';	
 }
 
 /**
@@ -343,8 +328,7 @@ function pl_link_color(){
 	
 	$color = ( ploption( 'linkcolor' ) ) ? pl_hash_strip( ploption( 'linkcolor' ) ) : '225E9B';
 	
-	return $color;
-	
+	return $color;	
 }
 
 /**
@@ -358,8 +342,7 @@ function pl_header_color(){
 	
 	$color = ( ploption( 'headercolor' ) ) ? pl_hash_strip( ploption( 'headercolor' ) ) : '000000';
 	
-	return $color;
-	
+	return $color;	
 }
 
 /**
@@ -374,7 +357,6 @@ function pl_footer_color(){
 	$color = ( ploption( 'footer_text' ) ) ? pl_hash_strip( ploption( 'footer_text' ) ) : '999999';
 	
 	return $color;
-	
 }
 
 /* 
@@ -383,7 +365,6 @@ function pl_footer_color(){
 function pl_hash_strip( $color ){
 	
 	return str_replace('#', '', $color);
-	
 }
 
 /**
