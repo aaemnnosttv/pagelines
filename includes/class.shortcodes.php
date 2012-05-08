@@ -58,26 +58,34 @@ class PageLines_ShortCodes {
 		self::register_shortcodes( $this->shortcodes_core() );
 		
 		// Make widgets process shortcodes
-		add_filter( 'widget_text', 'do_shortcode' );		
-		
-		
-		//Remove the extra p's and br's
-    	function pl_shortcode_empty_paragraph_fix( $content ) {   
-        	$array = array (
-            	'<p>[' => '[', 
-            	']</p>' => ']', 
-            	']<br />' => ']'
-        	);
-
-        	$content = strtr( $content, $array );
-
-			return $content;
-    	}
-    	add_filter( 'the_content', 'pl_shortcode_empty_paragraph_fix' );	
-    		
-    	
+		add_filter( 'widget_text', 'do_shortcode' );				
+		add_action( 'template_redirect', array( &$this, 'check_shortcode' ) );
+    	add_filter( 'the_content', array( &$this, 'pl_shortcode_empty_paragraph_fix' ) );	
+	
 		//Remove Wordpress Formatters (breaks button groups and others)
 		remove_filter( 'the_content', 'wptexturize' );
+	}
+	
+	function check_shortcode() {
+		global $post;
+		if ( ! is_object( $post ) )
+			return;
+		ob_start();
+		do_shortcode( $post->post_content );
+		$e = ob_end_clean();
+	}
+	
+	//Remove the extra p's and br's
+	function pl_shortcode_empty_paragraph_fix( $content ) {   
+    	$array = array (
+        	'<p>[' => '[', 
+        	']</p>' => ']', 
+        	']<br />' => ']'
+    	);
+
+    	$content = strtr( $content, $array );
+
+		return $content;
 	}
 	
 	private function register_shortcodes( $shortcodes ) {
@@ -684,7 +692,7 @@ class PageLines_ShortCodes {
 
 		$out = sprintf( '<pre class="%s">%s</pre>',
 					$scrollable,
-					$content
+					esc_html( $content )
 				);
 
 		return $out;
@@ -763,7 +771,8 @@ class PageLines_ShortCodes {
 
 		if ( $atts['closable'] === 'yes' ) {	
 			
-			wp_enqueue_script( 'pagelines-bootstrap-all' );
+    				wp_enqueue_script( 'jquery' );
+					wp_enqueue_script( 'pagelines-bootstrap-all' );
 			
 			return $closed;
         
@@ -856,8 +865,9 @@ class PageLines_ShortCodes {
 	 */
 	function pl_buttondropdown_shortcode( $atts, $content = null  ) {
 	    
-	    // Pull in Bootstrap JS
-	    wp_enqueue_script( 'pagelines-bootstrap-all' );
+	    wp_enqueue_style( 'pagelines-shortcodes' );
+    	wp_enqueue_script( 'jquery' );
+		wp_enqueue_script( 'pagelines-bootstrap-all' );
 
 	    $defaults = array(
 		    'size' => '',
@@ -891,8 +901,9 @@ class PageLines_ShortCodes {
 	 */
 	function pl_splitbuttondropdown_shortcode( $atts, $content = null ) {
 
-		// Pull in Bootstrap JS
-	    wp_enqueue_script( 'pagelines-bootstrap-all' );
+    	wp_enqueue_style( 'pagelines-shortcodes' );
+    	wp_enqueue_script( 'jquery' );
+		wp_enqueue_script( 'pagelines-bootstrap-all' );
 	    
 	    $defaults = array(
 		    'size' => '',
@@ -905,7 +916,7 @@ class PageLines_ShortCodes {
 	    $out = sprintf( '
 <div class="btn-group">
 	<a class="btn btn-%1$s btn-%2$s" >%3$s</a><a class="btn btn-%1$s btn-%2$s dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
-	<ul class="dropdown-menu">%s</ul>
+	<ul class="dropdown-menu">%4$s</ul>
 </div>',
 	      	$atts['size'],
 	        $atts['type'],
@@ -923,6 +934,9 @@ class PageLines_ShortCodes {
 	 * @example <code>This is a [pl_tooltip tip="Cool"]tooltip[/pl_tooltip] example.</code>
 	 */
 	function pl_tooltip_shortcode( $atts, $content = null ) {
+
+		wp_enqueue_script( 'jquery' );
+		wp_enqueue_script( 'pagelines-bootstrap-all' );
 
 	    $defaults = array(
 	    	'tip' => 'Tip',
@@ -957,6 +971,9 @@ class PageLines_ShortCodes {
 	 */
     function pl_popover_shortcode( $atts, $content = null ) {
 	    
+	    wp_enqueue_script( 'jquery' );
+		wp_enqueue_script( 'pagelines-bootstrap-all' );
+
 	    $defaults = array(
 	    	'title' => 'Popover Title',
 	    	'content' => 'Content'
@@ -1009,8 +1026,9 @@ class PageLines_ShortCodes {
 	//Accordion Content
 	function pl_accordioncontent_shortcode( $atts, $content = null, $open = null ) {
 
-		// Pull in Bootstrap JS
-	    wp_enqueue_script( 'pagelines-bootstrap-all' );
+    	// Pull in JS
+    	wp_enqueue_script( 'jquery' );
+		wp_enqueue_script( 'pagelines-bootstrap-all' );
 	    
 	    $defaults = array(
 		    'name' => '',
@@ -1050,8 +1068,9 @@ class PageLines_ShortCodes {
 	 */
     function pl_carousel_shortcode( $atts, $content = null ) {
 
-    	// Pull in Bootstrap JS
-	    wp_enqueue_script( 'pagelines-bootstrap-all' );
+    	// Pull in JS
+    	wp_enqueue_script( 'jquery' );
+		wp_enqueue_script( 'pagelines-bootstrap-all' );
 	    
 	    $defaults = array(
 	    	'name' => 'PageLines Carousel',
@@ -1120,8 +1139,9 @@ class PageLines_ShortCodes {
 	//Tab Titles Section
 		function pl_tabtitlesection_shortcode( $atts, $content = null ) {
 
-		// Pull in Bootstrap JS
-	    wp_enqueue_script( 'pagelines-bootstrap-all' );
+    	// Pull in JS
+    	wp_enqueue_script( 'jquery' );
+		wp_enqueue_script( 'pagelines-bootstrap-all' );
 		        
 			extract( shortcode_atts( array(
 		    	'type' => '',
@@ -1202,7 +1222,8 @@ class PageLines_ShortCodes {
 	 */	
 	function pl_modal_shortcode( $atts, $content = null ) {
 
-    	// Pull in Bootstrap JS
+    	// Pull in JS
+    	wp_enqueue_script( 'jquery' );
 		wp_enqueue_script( 'pagelines-bootstrap-all' );
 	    
 	    extract( shortcode_atts( array(
