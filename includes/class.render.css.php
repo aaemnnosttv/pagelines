@@ -58,7 +58,6 @@ class PageLinesRenderCSS {
 		add_filter('query_vars', array( &$this, 'pagelines_add_trigger' ) );
 		add_action('template_redirect', array( &$this, 'pagelines_less_trigger' ) );
 		add_action( 'wp_print_styles', array( &$this, 'load_less_css' ), 11 );
-		add_action('wp_head', array( &$this, 'draw_inline_sections_css' ), 8);
 		add_action('wp_head', array( &$this, 'draw_inline_dynamic_css' ), 8);
 		add_action( 'pagelines_head_last', array( &$this, 'draw_inline_custom_css' ) , 25 );
 		add_action( 'wp_head', array(&$pagelines_template, 'print_template_section_head' ) );
@@ -107,24 +106,6 @@ class PageLinesRenderCSS {
 
 		$css = $this->get_dynamic_css();
 		inline_css_markup('dynamic-css', $css['dynamic'] );
-	}
-
-	/**
-	 * 
-	 *  Draw sections CSS inline.
-	 *
-	 *  @package PageLines Framework
-	 *  @since 2.2
-	 */
-	function draw_inline_sections_css() {
-		
-		$template = new PageLinesTemplate;
-		$sections = $template->print_template_section_css();
-		
-		if( ! empty( $sections ) ) {
-			$pless = new PagelinesLess();
-			inline_css_markup('sections-css', $this->minify( $pless->raw_less( $sections ) ) );
-		}
 	}
 
 	/**
@@ -195,8 +176,10 @@ class PageLinesRenderCSS {
 			$dynamic = $this->get_dynamic_css();
 
 			$core_less = $this->get_core_lesscode();
+			
+			$sections = $this->get_all_active_sections();
 			$pless = new PagelinesLess();			
-			$core_less = $pless->raw_less( $core_less . $dynamic['type'] );
+			$core_less = $pless->raw_less( $core_less . $sections . $dynamic['type'] );
 
 			$end_time = microtime(true);			
 			$a = array(				
@@ -359,6 +342,29 @@ class PageLinesRenderCSS {
 		}
 		return $code;
 	}
+	
+	function get_all_active_sections() {
+		
+		$out = '';
+		global $load_sections;
+		$available = $load_sections->pagelines_register_sections( true, true );
+
+		$disabled = get_option( 'pagelines_sections_disabled', array() );
+		foreach( $disabled as $type ) {
+			foreach( $type as $disable )
+				if( isset( $avaliable[$type][$disable] ) )
+					unset( $avalable[$type][$disable] );
+			}	
+		foreach( $available as $t ) {		
+			foreach( $t as $key => $data ) {
+				if ( $data['less'] ) {
+					$out .= pl_file_get_contents( $data['base_dir'] . '/color.less' );
+				}
+			}	
+		}
+		return $out;
+	}
+	
 } //end of PageLinesRenderCSS
 
 function pagelines_insert_core_less( $file ) {
