@@ -67,12 +67,18 @@ class PageLinesLess {
      */
     public function type_vars( ){
 		
+		global $disabled_settings;
+		$alt = false;
+		if ( is_array( $disabled_settings ) )
+			if( !empty( $disabled_settings['typography'] ) )
+				$alt = true;
+		
 		$vars = array(
-			'plBaseFont'		=> pl_type_el('type_primary', 'stack'), 
+			'plBaseFont'		=> ($alt) ? '"Helvetica" Arial, serif' : pl_type_el('type_primary', 'stack'), 
 			'plBaseWeight'		=> pl_type_el('type_primary', 'weight'), 
-			'plAltFont'			=> pl_type_el('type_secondary', 'stack'), 
+			'plAltFont'			=> ($alt) ? '"Helvetica" Arial, serif' : pl_type_el('type_secondary', 'stack'), 
 			'plAltWeight'		=> pl_type_el('type_secondary', 'weight'), 
-			'plHeaderFont'		=> pl_type_el('type_headers', 'stack'), 
+			'plHeaderFont'		=> ($alt) ? '"Helvetica" Arial, serif' : pl_type_el('type_headers', 'stack'), 
 			'plHeaderWeight'	=> pl_type_el('type_headers', 'weight'),
 		);
 		return $vars;
@@ -105,6 +111,7 @@ class PageLinesLess {
 	private function raw_parse( $pless, $type ) {
 	
 		$pless = $this->add_constants( '' ) . $this->add_bootstrap() . $pless;
+
 		try{
 			$css = $this->lparser->parse( $pless );
 		} catch ( Exception $e){

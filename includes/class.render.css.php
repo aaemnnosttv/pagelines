@@ -39,7 +39,7 @@ class PageLinesRenderCSS {
 			'modals',
 			'component-animations',
 			'pagelines-special',
-//			'pl-objects',
+			'pl-objects',
 			'color', // HAS TO BE LAST	
 		);
 		return $files;
@@ -59,7 +59,6 @@ class PageLinesRenderCSS {
 		add_filter('query_vars', array( &$this, 'pagelines_add_trigger' ) );
 		add_action('template_redirect', array( &$this, 'pagelines_less_trigger' ) );
 		add_action( 'wp_print_styles', array( &$this, 'load_less_css' ), 11 );
-		add_action('wp_head', array( &$this, 'draw_inline_dynamic_css' ), 8);
 		add_action( 'pagelines_head_last', array( &$this, 'draw_inline_custom_css' ) , 25 );
 		add_action( 'wp_head', array(&$pagelines_template, 'print_template_section_head' ) );
 		add_action( 'extend_flush', array( &$this, 'flush_version' ) );	
@@ -180,7 +179,7 @@ class PageLinesRenderCSS {
 	
 			$sections = $this->get_all_active_sections();
 			$pless = new PagelinesLess();			
-			$core_less = $pless->raw_less( $core_less . $sections . $dynamic['type'] );
+			$core_less = $pless->raw_less( $core_less . $sections . $dynamic['type'] . $dynamic['dynamic'] );
 
 			$end_time = microtime(true);			
 			$a = array(				
