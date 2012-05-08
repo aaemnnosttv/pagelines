@@ -51,12 +51,38 @@ class PageLinesLess {
 			'pl-secondary-width'	=> pl_secondary_sidebar_width() . 'px'
 		);
 		
+		
+		
 		if(is_array($less_vars))
 			$constants = array_merge($less_vars, $constants);
+			
+		$constants = array_merge($this->type_vars(), $constants);
 		
 		// Make Filterable
 		$this->constants = apply_filters('pless_vars', $constants);
 		
+	}
+	
+	/**
+     * Grabs and Adds Typography Variables
+     *
+     *
+     * @param   $lesscode
+     */
+    public function type_vars( ){
+			
+		$vars = array(
+			'plBaseFont'		=> pl_type_el('type_primary', 'stack'), 
+			'plBaseWeight'		=> pl_type_el('type_primary', 'weight'), 
+			'plAltFont'			=> pl_type_el('type_secondary', 'stack'), 
+			'plAltWeight'		=> pl_type_el('type_secondary', 'weight'), 
+			'plHeaderFont'		=> pl_type_el('type_headers', 'stack'), 
+			'plHeaderWeight'	=> pl_type_el('type_headers', 'weight'),
+		);
+		
+		return $vars;
+		
+	
 	}
 	
 	/**
@@ -86,10 +112,10 @@ class PageLinesLess {
 	private function raw_parse( $pless, $type ) {
 
 		$css = '';
-		$pless = $this->add_constants( $pless );
-
-		$pless = $this->add_bootstrap( $pless );
-
+		$constants = $this->add_constants( $pless );
+	
+		$pless = $this->add_bootstrap( ) . $constants  ;
+	
 		try{
 			$css = $this->lparser->parse( $pless );
 		} catch ( Exception $e){
@@ -104,12 +130,12 @@ class PageLinesLess {
 		return $css;	
 	}
 
-	private function add_bootstrap( $pless ) {
+	private function add_bootstrap( ) {
 		
 		$vars = pl_file_get_contents( sprintf( '%s/variables.less', CORE_LESS ) );
 		$mixins = pl_file_get_contents( sprintf( '%s/mixins.less', CORE_LESS ) );
-		
-		return $vars . $mixins . $pless;
+	
+		return $vars . $mixins;
 	}
 
     /**
