@@ -23,7 +23,6 @@ Version 2.2
 - NEW - New section: Navbar.
 - NEW - New section: OpenGrid.
 - NEW - New section: Intro Unit.
-- CORE - Added [post_type] shortcode for metabar.
 - CORE - Added [post_authors] shortcode for metabar.
 - CORE - Added [time_ago] shortcode for metabar
 - CORE - Added title/alt to watermark.
