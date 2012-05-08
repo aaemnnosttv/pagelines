@@ -362,7 +362,7 @@ class PageLinesRenderCSS {
 				}
 			}	
 		}
-		return $out;
+		return apply_filters('pagelines_lesscode', $out);
 	}
 	
 } //end of PageLinesRenderCSS
