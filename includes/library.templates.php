@@ -182,7 +182,7 @@ function pagelines_head_common(){
 	if(!has_action('override_pagelines_css_output')){	
 
 		// Get CSS Objects & Grids
-		pagelines_load_css_relative('css/objects.css', 'pagelines-objects');
+//		pagelines_load_css_relative('css/objects.css', 'pagelines-objects');
 		
 		// CSS Animations
 //		wp_enqueue_style('animate', PL_CSS.'/animate.css'); TODO do we need this?
