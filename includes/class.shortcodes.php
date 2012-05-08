@@ -59,19 +59,32 @@ class PageLines_ShortCodes {
 		
 		// Make widgets process shortcodes
 		add_filter( 'widget_text', 'do_shortcode' );				
-		add_action( 'template_redirect', array( &$this, 'check_shortcode' ) );
     	add_filter( 'the_content', array( &$this, 'pl_shortcode_empty_paragraph_fix' ) );	
+		add_action( 'wp', array( &$this, 'detect_shortcode' ) );
 	
 		//Remove Wordpress Formatters (breaks button groups and others)
 		remove_filter( 'the_content', 'wptexturize' );
+
 	}
 	
-	function check_shortcode() {
+	function detect_shortcode() {
 		global $post;
-		if ( ! is_object( $post ) )
-			return;
+		$pattern = get_shortcode_regex();
+		$core = $this->shortcodes_core();
+
+		if (   preg_match_all( '/'. $pattern .'/s', $post->post_content, $matches ) && array_key_exists( 2, $matches ) ) {
+			foreach ( $core as $key => $d ) {
+				if( in_array( $key, $matches[2] ) )
+					$this->early_run_shortcode( $key );
+			}
+		}
+	}
+	
+	function early_run_shortcode( $key ) {
+		
+		$code = "[$key]";
 		ob_start();
-		do_shortcode( $post->post_content );
+		do_shortcode( $code );
 		$e = ob_end_clean();
 	}
 	
