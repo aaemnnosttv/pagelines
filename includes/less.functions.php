@@ -66,7 +66,7 @@ class PageLinesLess {
      * @param   $lesscode
      */
     public function type_vars( ){
-			
+		
 		$vars = array(
 			'plBaseFont'		=> pl_type_el('type_primary', 'stack'), 
 			'plBaseWeight'		=> pl_type_el('type_primary', 'weight'), 
@@ -103,11 +103,8 @@ class PageLinesLess {
 	}
 
 	private function raw_parse( $pless, $type ) {
-
-		$css = '';
-		$constants = $this->add_constants( $css );
 	
-		$pless = $constants . $this->add_bootstrap() . $pless;	
+		$pless = $this->add_constants( '' ) . $this->add_bootstrap() . $pless;
 		try{
 			$css = $this->lparser->parse( $pless );
 		} catch ( Exception $e){
