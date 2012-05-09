@@ -245,8 +245,8 @@ class PageLinesRenderCSS {
 			
 			if ( ! $add_color ) {
 				array_pop( $this->lessfiles );
-			}
-			return $this->load_core_cssfiles( $this->lessfiles );	
+			}			
+			return $this->load_core_cssfiles( apply_filters( 'pagelines_core_less_files', $this->lessfiles ) );	
 	}
 
 	/**
