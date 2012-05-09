@@ -185,7 +185,9 @@ class PageLinesFeatures extends PageLinesSection {
 			
 			if ( ( ploption( 'feature_source', $this->oset ) == 'posts' || ploption( 'feature_source', $this->oset ) == 'posts_all' ) ) {
 				
-				if( has_post_thumbnail( $f->ID ) ) {
+				if ( plmeta( 'feature-thumb', $oset ) )
+					$feature_thumb = plmeta( 'feature-thumb', $oset );
+				elseif( has_post_thumbnail( $f->ID ) ) {
 					$feature_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $f->ID ) );
 					$feature_thumb = $feature_thumb[0];
 				} else {					
@@ -360,7 +362,11 @@ class PageLinesFeatures extends PageLinesSection {
 						
 						if ( $feature_source == 'posts' || $feature_source == 'posts_all' ) {
 							
-							if ( has_post_thumbnail( $post->ID ) ) {
+							$feature_background_image = '';
+							
+							if( plmeta( 'feature-background-image', $oset ) )
+								$feature_background_image = plmeta( 'feature-background-image', $oset );
+							elseif ( has_post_thumbnail( $post->ID ) ) {
 								$feature_background_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'single-post-thumbnail'  );
 								$feature_background_image = $feature_background_image[0];
 							} else {
@@ -385,7 +391,15 @@ class PageLinesFeatures extends PageLinesSection {
 						if ( $feature_source == 'posts' || $feature_source == 'posts_all' )
 							setup_postdata( $post );
 						
-						$action = ( $feature_source == 'posts' || $feature_source == 'posts_all' ) ? get_permalink() : ploption( 'feature-link-url', $oset );
+						if( $feature_source == 'posts' || $feature_source == 'posts_all' ) {
+							
+							if( plmeta( 'feature-link-url', $oset ) )
+								$action = plmeta( 'feature-link-url', $oset );
+							elseif( ploption( 'feature-link-url', $oset ) )
+								$action = ploption( 'feature-link-url', $oset );
+							else
+								$action = get_permalink();
+						}
 						
 						$fcontent_class = ( ploption( 'fcontent-bg', $oset ) ) ? ploption( 'feature-bg', $oset ) : '';
 						
