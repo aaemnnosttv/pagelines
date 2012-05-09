@@ -469,6 +469,8 @@ class PageLinesTemplate {
 		
 		$s = $this->factory[ $section ];
 		
+		echo pl_source_comment($s->name . ' | Section Template', 2);
+		
 		$s->before_section_template( $clone_id );
 	
 		$s->before_section( $markup, $clone_id, $classes);
@@ -804,7 +806,7 @@ class PageLinesTemplate {
 				$section_head = ob_get_clean();
 				
 				if($section_head != ''){
-					echo pl_source_comment($this->factory[$section]->name.' | Section');
+					echo pl_source_comment($this->factory[$section]->name.' | Section Head');
 					echo $section_head;
 				}
 						

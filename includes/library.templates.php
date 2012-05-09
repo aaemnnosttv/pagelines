@@ -206,6 +206,10 @@ function pagelines_head_common(){
 	
 	add_action( 'wp_print_scripts', create_function( '',  'echo pl_source_comment("Scripts");' ), 0 );
 	
+	add_action( 'wp_print_footer_scripts', create_function( '',  'echo pl_source_comment("Footer Scripts");' ), 0 );
+	
+	add_action( 'admin_bar_menu', create_function( '',  'echo pl_source_comment("WordPress Admin Bar");' ), 0 );
+	
 	add_action( 'wp_head', create_function( '',  'echo pl_source_comment("Meta Tags and Inline Scripts");' ), 9 );
 	
 	add_action( 'wp_head', 'pagelines_meta_tags', 9 );
@@ -365,7 +369,7 @@ function pagelines_title_tag(){
 	// Print the title.
 	echo apply_filters( 'pagelines_meta_title', $title );
 	
-	echo "</title>\n";
+	echo "</title>";
 }	
 	
 /**
