@@ -419,12 +419,20 @@ class PageLinesLayout {
 			
 				$main_col_id = apply_filters('pl_main_id', '#column-main');
 			
-				$css .= sprintf('%1$s %3$s %4$s{ %2$s }', $mode, $l['main'], $content_id, $main_col_id);
-				$css .= sprintf('%1$s %3$s #sidebar1{ %2$s }', $mode, $l['sb1'], $content_id);
-				$css .= sprintf('%1$s %3$s #sidebar2{ %2$s }', $mode, $l['sb2'], $content_id);
-				$css .= sprintf('%1$s %3$s #column-wrap{ %2$s }', $mode, $l['colwrap'], $content_id);
-				$css .= sprintf('%1$s %3$s #sidebar-wrap{ %2$s }', $mode, $l['sbwrap'], $content_id);
-
+			foreach(get_the_layouts() as $mode){
+			
+				$l = $this->calculate_dimensions($mode);
+				
+				$mode_selector = '.'.$mode;
+			
+				$css .= sprintf('%1$s %3$s %4$s{ %2$s }', $mode_selector, $l['main'], $content_id, $main_col_id);
+				$css .= sprintf('%1$s %3$s #sidebar1{ %2$s }', $mode_selector, $l['sb1'], $content_id);
+				$css .= sprintf('%1$s %3$s #sidebar2{ %2$s }', $mode_selector, $l['sb2'], $content_id);
+				$css .= sprintf('%1$s %3$s #column-wrap{ %2$s }', $mode_selector, $l['colwrap'], $content_id);
+				$css .= sprintf('%1$s %3$s #sidebar-wrap{ %2$s }', $mode_selector, $l['sbwrap'], $content_id);
+				
+			}
+			
 			return $css;
 		}
 		
@@ -435,6 +443,10 @@ class PageLinesLayout {
 		*
 		*/
 		function calculate_dimensions( $layout_mode ){
+			
+			$save_mode = $this->layout_mode;
+			
+			$this->build_layout($layout_mode);
 			
 			$l = array();
 
@@ -447,11 +459,14 @@ class PageLinesLayout {
 
 			$l['sb2'] = $this->get_width( $this->sidebar2->width, $this->sidebar_wrap->width );
 
-			if($this->layout_mode == 'two-sidebar-center')
+			if($layout_mode == 'two-sidebar-center')
 				$l['sb1'] = $this->get_width( $this->sidebar1->width, $this->column_wrap->width ); 
 			else
 				$l['sb1'] = $this->get_width( $this->sidebar1->width, $this->sidebar_wrap->width );
 
+
+			$this->layout_mode = $save_mode; 
+			$this->build_layout($save_mode);
 
 			return $l;
 		}
