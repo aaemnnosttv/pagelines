@@ -40,6 +40,7 @@ class PageLinesRenderCSS {
 			'component-animations',
 			'pagelines-special',
 			'pl-objects',
+			'pl-tables',
 			'color', // HAS TO BE LAST	
 		);
 		return $files;
