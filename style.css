@@ -145,6 +145,7 @@ body{
 		.two-sidebar-left #column-main, .one-sidebar-left #column-main{  float: right;  }
 		.two-sidebar-center #column-main { float: right;}
 		#column-main { float: left; display: inline; width: 630px; }
+		.full_width #column-main { float: none; }
 		#sidebar1, #sidebar2{ float: left; overflow:hidden; }
 		.clip.hentry { float: left; clear: none; }
 		.clip-right.hentry { float: right; clear: none;}
