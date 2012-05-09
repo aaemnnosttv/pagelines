@@ -725,23 +725,27 @@ class PageLines_ShortCodes {
 
     $scrollable = ( $scrollable == 'yes' ) ? 'pre-scrollable' : '';
 
+	$content = esc_html( $content );
+
 	$pattern = array(
 		
 		'#(^.*$)#m',
-		'#([a-z]+\=[\'|"][^\'|"]*[\'|"])#m',
 		'#(\[[^]]*])#m',
-
+		'#(sc_code">\[[a-z_]+\s)([^\]]*)#',
 	);
+
 	$replace = array(
 		'<li>$1</li>',
-		'<span class="sc_var">$1</span>',
-		'<div class="sc_code">$1</div>'
+		'<div class="sc_code">$1</div>',
+		'$1<span class="sc_var">$2</span>',
 	);
 
 	$text = preg_replace( $pattern, $replace, $content );
 
+	$text = str_replace( '&lt;br /&gt;', '', $text );
+
 	$text = str_replace( '<li></li>', '', $text );
-	
+
 	$out = sprintf( '<pre class="plcb %s"><ol>%s</ol></pre>',
 					$scrollable,
 					$text );
