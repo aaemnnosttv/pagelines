@@ -1031,7 +1031,7 @@ class PageLinesOptionsArray {
 	
 	function css_examples() {
 		
-		$example_body = ".fpost .post-excerpt{<br/>&nbsp;&nbsp;&nbsp;background-color: lighten(@dark-base, 50);<br/>&nbsp;&nbsp;&nbsp;border-radius( 10px );<br/>&nbsp;&nbsp;&nbsp;padding: 5px;<br />}";
+		$example_body = ".post-excerpt{<br/>&nbsp;&nbsp;&nbsp;background-color: lighten(@dark-base, 50);<br/>&nbsp;&nbsp;&nbsp;.border-radius( 10px );<br/>&nbsp;&nbsp;&nbsp;padding: 5px;<br />}";
 		
 		$example = sprintf( "<div class='theexample'><strong>Example:</strong><br/>%s</div>", $example_body );
 		
