@@ -575,12 +575,12 @@ class PageLines_ShortCodes {
 			$defaults = array(
 				'url' => get_permalink(),
 				'img' => '',
-				'title' => get_the_title(),
+				'title' => the_title_attribute(),
 			); 	
 
 			$atts = shortcode_atts( $defaults, $atts );
 			
-			$out = sprintf( '<a href="http://pinterest.com/pin/create/button/?url=%s&media=%s&description=%s" class="pin-it-button" count-layout="horizontal"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a><script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>',
+			$out = sprintf( '<a href="http://pinterest.com/pin/create/button/?url=%s&amp;media=%s&amp;description=%s" class="pin-it-button" count-layout="horizontal"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a><script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>',
 			$atts['url'],
 			$atts['img'],
 			$atts['title']

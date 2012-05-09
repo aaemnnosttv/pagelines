@@ -182,7 +182,7 @@ function pagelines_head_common(){
 			pagelines_load_css_relative('css/multisite.css', 'pagelines-multisite');
 		
 		// Allow for PHP include of Framework CSS
-		if(is_child_theme() && !apply_filters( 'disable_pl_framework_css', '' ))
+		if( !apply_filters( 'disable_pl_framework_css', '' ) )
 			pagelines_load_css(  PARENT_URL.'/style.css', 'pagelines-framework', pagelines_get_style_ver( true ));
 	
 		// RTL Language Support
@@ -701,6 +701,6 @@ function pagelines_cred(){
 *
 */
 function pagelines_get_childcss() {
-	if ( ! is_admin() )
-		pagelines_load_css(  get_bloginfo('stylesheet_url'), 'pagelines-stylesheet', pagelines_get_style_ver());
+	if ( ! is_admin() && is_child_theme() )
+		pagelines_load_css(  get_bloginfo('stylesheet_url'), 'pagelines-child-stylesheet', pagelines_get_style_ver());
 }
