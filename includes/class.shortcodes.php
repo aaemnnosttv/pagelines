@@ -139,6 +139,7 @@ class PageLines_ShortCodes {
 			'pl_alertbox'				=>	'pl_alertbox_shortcode',
 			'show_authors'				=>	'show_multiple_authors',
 			'pl_codebox'			    =>	'pl_codebox_shortcode',
+			'pl_codebox_st'				=>	'pl_codebox_shortcode_syntaxed',
 			'pl_label'				    =>	'pl_label_shortcode',
 			'pl_badge'			        =>	'pl_badge_shortcode',
 			'like_button'				=>	'pl_facebook_shortcode',
@@ -710,6 +711,44 @@ class PageLines_ShortCodes {
 
 		return $out;
 	}
+	/**
+	 * 22.PageLines Code Shortcode
+	 * 
+	 * @example <code>[pl_codebox_st]...[/pl_codebox_st]</code> is the default usage
+	 * @example <code>[pl_codebox_st scrollable="yes"].box{margin:0 auto;}[/pl_codebox_st]</code> for lots of code
+	 */	
+	function pl_codebox_shortcode_syntaxed ( $atts, $content = null ) {
+		
+	    extract( shortcode_atts( array(
+			'scrollable' => 'no'
+		), $atts ) );
+
+    $scrollable = ( $scrollable == 'yes' ) ? 'pre-scrollable' : '';
+
+	$pattern = array(
+		
+		'#(^.*$)#m',
+		'#([a-z]+\=[\'|"][^\'|"]*[\'|"])#m',
+		'#(\[[^]]*])#m',
+
+	);
+	$replace = array(
+		'<li>$1</li>',
+		'<span class="sc_var">$1</span>',
+		'<div class="sc_code">$1</div>'
+	);
+
+	$text = preg_replace( $pattern, $replace, $content );
+
+	$text = str_replace( '<li></li>', '', $text );
+	
+	$out = sprintf( '<pre class="%s"><ol>%s</ol></pre>',
+					$scrollable,
+					$text );
+
+		return $out;
+	}
+	
 
 	/**
 	 * 23. Bootstrap Labels Shortcode
