@@ -255,8 +255,6 @@ body{
 	
 	/* @ Long form content */ 
 	.hentry ul, .hentry ol { margin: 1.7em 0 1.7em 1.7em;}
- 	.hentry table th, #comments table th {font-size: 1.1em;}
-	.hentry table td, #comments table td {padding: .35em .6em;}
 	.wp-caption-text {font-size: 11px; line-height: 16px;}
 	.wp-caption-dd {font-size: 11px;line-height: 17px;	}
 	.wp-caption-dd { font-size: 11px; line-height: 17px;  }
@@ -760,14 +758,8 @@ body{
 		padding: 3px 7px 6px;
 	}
 
-/* Default Entry Table */
-table {width: 100%;}
-.hentry table, #comments table {margin-bottom: 1em;}
-.hentry table th, #comments table th { font-weight: normal; text-align: center; padding: .3em;}
-.hentry table td, #comments table td {padding: .35em .6em; text-align: center;}
-.hentry form table td, #comments form table td { text-align: inherit; }
-.hentry table .label, #comments table .label{text-align:left;}
-		
+/* Default Entry Table (moved to less) */
+	
 	.iconlist li{margin-bottom: .5em;}
 	.ui-img-big{margin-right: 15px;}
 	.styled-list{list-style-type: none;}
