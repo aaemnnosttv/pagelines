@@ -4,6 +4,22 @@
  * have the classnames "jcarousel-next" and "jcarousel-prev".
  */
 
+
+/* Colors */ 
+
+@contrast = darken(@pl-base, @invert-dark);
+
+.thecarousel{
+	background: @contrast;
+}
+
+ #carousel .content ul li a img, #carousel .content ul li a:hover img{
+	
+	background: lighten(@contrast, 15 );
+	box-shadow: 0 1px 4px darken(@contrast, 25 );
+}
+
+
 .jcarousel-clip-horizontal { width: 100%; }
 #carousel .jcarousel-next, #carousel .jcarousel-prev {
 	z-index: 3;
@@ -19,13 +35,13 @@
 #carousel .jcarousel-next { 
     right: 15px;
     cursor: pointer;
-    background: transparent url(images/carousel_navright.png) no-repeat 0 0;
+    background: transparent url(@{plSectionsRoot}/carousel/images/carousel_navright.png) no-repeat 0 0;
 }
 
 #carousel .jcarousel-prev {
     left: 15px;
     cursor: pointer;    
-    background: transparent url(images/carousel_navleft.png) no-repeat 0 0;
+    background: transparent url(@{plSectionsRoot}/carousel/images/carousel_navleft.png) no-repeat 0 0;
 }
 #carousel .thecarousel{
 	position: relative;

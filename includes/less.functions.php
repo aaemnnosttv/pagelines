@@ -35,6 +35,8 @@ class PageLinesLess {
 		
 		// PageLines Variables
 		$constants = array(
+			'plRoot'				=> sprintf("\"%s\"", PARENT_URL),
+			'plSectionsRoot'		=> sprintf("\"%s\"", SECTION_ROOT),
 			'pl-base'				=> $this->base_color, 
 			'pl-text'				=> pl_hashify( pl_text_color() ), 
 			'pl-link'				=> pl_hashify( pl_link_color() ),
