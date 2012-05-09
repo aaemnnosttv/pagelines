@@ -742,7 +742,7 @@ class PageLines_ShortCodes {
 
 	$text = str_replace( '<li></li>', '', $text );
 	
-	$out = sprintf( '<pre class="%s"><ol>%s</ol></pre>',
+	$out = sprintf( '<pre class="plcb %s"><ol>%s</ol></pre>',
 					$scrollable,
 					$text );
 
