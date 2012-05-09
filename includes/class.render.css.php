@@ -178,13 +178,19 @@ class PageLinesRenderCSS {
 			$core_less = $this->get_core_lesscode();
 	
 			$sections = $this->get_all_active_sections();
+			
 			$pless = new PagelinesLess();			
-			$core_less = $pless->raw_less( $core_less . $sections . $dynamic['type'] . $dynamic['dynamic'] );
+
+			$sections = $pless->raw_less( $sections, 'sections' );
+
+			$core_less = $pless->raw_less( $core_less  );
 
 			$end_time = microtime(true);			
 			$a = array(				
 				'dynamic'	=> $dynamic['dynamic'],
+				'type'		=> $dynamic['type'],
 				'core'		=> $core_less,
+				'sections'	=> $sections,
 				'c_time'	=> round(($end_time - $start_time),5),
 				'time'		=> time()		
 			);
@@ -289,7 +295,16 @@ class PageLinesRenderCSS {
 			header( 'Cache-Control: max-age=604100, public' );
 			
 			$a = $this->get_compiled_core();
+			
+			$gfonts = preg_match( '#(@import[^;]*;)#', $a['type'], $g ); 
+			
+			if ( $gfonts )
+				echo $g[1];
+	
 			echo $this->minify( $a['core'] );
+			echo $this->minify( $a['sections'] );
+			echo $this->minify( $a['type'] );
+			echo $this->minify( $a['dynamic'] );
 			pl_debug( sprintf( 'CSS was compiled at %s and took %s seconds.', date( DATE_RFC822, $a['time'] ), $a['c_time'] ) );		
 			die();
 		}

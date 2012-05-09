@@ -113,10 +113,14 @@ class PageLinesLess {
 	private function raw_parse( $pless, $type ) {
 	
 		$pless = $this->add_constants( '' ) . $this->add_bootstrap() . $pless;
-
 		try{
 			$css = $this->lparser->parse( $pless );
 		} catch ( Exception $e){
+			
+			if ( 'sections' != $type ) {
+				plupop( 'pl_less_error_custom', $e->getMessage() );
+				return sprintf( '/* LESS PARSE ERROR in your Custom CSS: %s */', $e->getMessage() );
+			}	
 			if ( 'core' != $type ) {
 				plupop( 'pl_less_error_custom', $e->getMessage() );
 				return sprintf( '/* LESS PARSE ERROR in your Custom CSS: %s */', $e->getMessage() );
