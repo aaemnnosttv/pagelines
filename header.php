@@ -33,6 +33,9 @@ pagelines_register_hook('pagelines_before_html'); // Hook
 		pagelines_register_hook('pagelines_head_last'); // Hook ?>
 
 </head>
+<?php 
+
+echo pl_source_comment('Start >> HTML Body', 1); ?>
 <body <?php body_class( pagelines_body_classes() ); ?>>
 <?php 
 pagelines_register_hook('pagelines_before_site'); // Hook

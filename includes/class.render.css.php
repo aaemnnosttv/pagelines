@@ -60,7 +60,7 @@ class PageLinesRenderCSS {
 		add_action('template_redirect', array( &$this, 'pagelines_less_trigger' ) );
 		add_action( 'wp_print_styles', array( &$this, 'load_less_css' ), 11 );
 		add_action( 'pagelines_head_last', array( &$this, 'draw_inline_custom_css' ) , 25 );
-		add_action( 'wp_head', array(&$pagelines_template, 'print_template_section_head' ), 11 );
+		add_action( 'wp_head', array(&$pagelines_template, 'print_template_section_head' ), 12 );
 		add_action( 'extend_flush', array( &$this, 'flush_version' ) );	
 		add_filter( 'pagelines_insert_core_less', array( &$this, 'pagelines_insert_core_less_callback' ) );
 		add_action('admin_notices', array(&$this,'less_error_report') );

@@ -200,7 +200,7 @@ function pagelines_head_common(){
 	// Cufon replacement 
 	pagelines_font_replacement();
 	
-	add_action( 'wp_head', create_function( '',  'echo pl_source_comment("Feeds", 2);' ), 0 );
+	add_action( 'wp_head', create_function( '',  'echo pl_source_comment("Start >> Meta Tags and Inline Scripts", 2);' ), 0 );
 	
 	add_action( 'wp_print_styles', create_function( '',  'echo pl_source_comment("Styles");' ), 0 );
 	
@@ -209,8 +209,6 @@ function pagelines_head_common(){
 	add_action( 'wp_print_footer_scripts', create_function( '',  'echo pl_source_comment("Footer Scripts");' ), 0 );
 	
 	add_action( 'admin_bar_menu', create_function( '',  'echo pl_source_comment("WordPress Admin Bar");' ), 0 );
-	
-	add_action( 'wp_head', create_function( '',  'echo pl_source_comment("Meta Tags and Inline Scripts");' ), 9 );
 	
 	add_action( 'wp_head', 'pagelines_meta_tags', 9 );
 	
@@ -248,7 +246,7 @@ function pagelines_meta_tags(){
 function pagelines_source_attribution() {
 	
 	echo "\n\n<!-- "; 
-	printf ( "Built With PageLines Framework ( %s ) - www.PageLines.com ", get_pagelines_credentials( 'licence' ) );
+	printf ( "Site Crafted Using PageLines - WordPress - HTML5 ( %s ) - www.PageLines.com ", get_pagelines_credentials( 'licence' ) );
 
 	echo "-->\n";
 }
@@ -258,7 +256,6 @@ function pl_source_comment( $text, $spacing = 1 ) {
 	$newline = ($spacing) ? "\n" : '';
 
 	$double = ($spacing == 2) ? "\n\n" : $newline;
-	
 	
 	return sprintf( '%s<!-- %s -->%s', $double, $text, $newline);
 
