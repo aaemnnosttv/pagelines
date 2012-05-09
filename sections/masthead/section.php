@@ -17,14 +17,6 @@
 class PLMasthead extends PageLinesSection {
     
     var $tabID = 'masthead_meta';
-    
-	/**
-	 * Load styles and scripts
-	 */
-	function section_styles(){
-		wp_register_style('jumbotron',$this->base_url.'/style.css',false);
-		wp_enqueue_style('jumbotron');
-	}
 	
 	function section_optionator( $settings ){
 		
