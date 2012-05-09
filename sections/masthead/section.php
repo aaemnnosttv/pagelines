@@ -26,17 +26,6 @@ class PLMasthead extends PageLinesSection {
 		wp_enqueue_style('jumbotron');
 	}
 	
-	function section_head($clone_id){
-		
-		
-		?>
-		
-		<script>
-		 
-		</script>	
-		
-	<?php }
-
 	function section_optionator( $settings ){
 		
 		$settings = wp_parse_args($settings, $this->optionator_default);

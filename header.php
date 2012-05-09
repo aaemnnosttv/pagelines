@@ -30,8 +30,9 @@ pagelines_register_hook('pagelines_before_html'); // Hook
 		
 		wp_head(); // Hook (WordPress) 
 			
-		pagelines_register_hook('pagelines_head_last'); // Hook
-?></head>
+		pagelines_register_hook('pagelines_head_last'); // Hook ?>
+
+</head>
 <body <?php body_class( pagelines_body_classes() ); ?>>
 <?php 
 pagelines_register_hook('pagelines_before_site'); // Hook

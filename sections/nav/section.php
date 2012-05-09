@@ -80,9 +80,7 @@ class PageLinesNav extends PageLinesSection {
 		$arrows = (ploption('drop_down_arrows') == 'on') ? 1 : 0;
 		$shadows = (ploption('drop_down_shadow') == 'on') ? 1 : 0;
 		
-		if(ploption('enable_drop_down')): ?>
-		
-<script type="text/javascript"> /* <![CDATA[ */ jQuery(document).ready(function() {  jQuery('div.main_nav_container ul.sf-menu').superfish({ delay: 100, speed: 'fast', autoArrows:  <?php echo $arrows;?>, dropShadows: <?php echo $shadows;?> });  }); /* ]]> */ </script>			
+		if(ploption('enable_drop_down')): ?><script type="text/javascript"> /* <![CDATA[ */ jQuery(document).ready(function() {  jQuery('div.main_nav_container ul.sf-menu').superfish({ delay: 100, speed: 'fast', autoArrows:  <?php echo $arrows;?>, dropShadows: <?php echo $shadows;?> });  }); /* ]]> */ </script>			
 
 <?php 
 		endif;

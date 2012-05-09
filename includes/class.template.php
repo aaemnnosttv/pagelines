@@ -793,9 +793,21 @@ class PageLinesTemplate {
 			$clone_id = $p['clone_id'];
 			
 			if( $this->in_factory( $section ) ){
+				
 				$s = $this->factory[$section];
 				$s->setup_oset( $clone_id );
-				$s->section_head( $clone_id );			
+				
+				ob_start();
+					
+					$s->section_head( $clone_id );	
+					
+				$section_head = ob_get_clean();
+				
+				if($section_head != ''){
+					echo pl_source_comment($this->factory[$section]->name.' | Section');
+					echo $section_head;
+				}
+						
 			}	
 		}
 	}

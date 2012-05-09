@@ -153,30 +153,20 @@ function pagelines_head_common(){
 	global $pagelines_ID;
 	$oset = array('post_id' => $pagelines_ID);
 
-	pagelines_source_attribution();
+	
 	
 	pagelines_register_hook('pagelines_code_before_head'); // Hook 
 
 	printf('<meta http-equiv="Content-Type" content="%s; charset=%s" />',  get_bloginfo('html_type'),  get_bloginfo('charset'));
 
+	pagelines_source_attribution();
+
+	echo pl_source_comment('Title');
 
 	// Draw Page <title> Tag
 	pagelines_title_tag();
 		
-	// Meta Images
-	if(ploption('pagelines_favicon') && VPRO)
-		printf('<link rel="shortcut icon" href="%s" type="image/x-icon" />%s', ploption('pagelines_favicon'), "\n");
-	
-	if(ploption('pagelines_touchicon'))
-		printf('<link rel="apple-touch-icon" href="%s" />%s', ploption('pagelines_touchicon'), "\n");
 
-	// Meta Data Profiles
-	if(!apply_filters( 'pagelines_xfn', '' ))
-		echo '<link rel="profile" href="http://gmpg.org/xfn/11" />'."\n";
-
-	// Removes viewport scaling on Phones, Tablets, etc.
-	if(!ploption('disable_mobile_view', $oset) && !apply_filters( 'disable_mobile_view', '' ))
-		echo '<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />';
 		
 	// Allow for extension deactivation of all css
 	if(!has_action('override_pagelines_css_output')){	
@@ -210,6 +200,16 @@ function pagelines_head_common(){
 	// Cufon replacement 
 	pagelines_font_replacement();
 	
+	add_action( 'wp_head', create_function( '',  'echo pl_source_comment("Feeds", 2);' ), 0 );
+	
+	add_action( 'wp_print_styles', create_function( '',  'echo pl_source_comment("Styles");' ), 0 );
+	
+	add_action( 'wp_print_scripts', create_function( '',  'echo pl_source_comment("Scripts");' ), 0 );
+	
+	add_action( 'wp_head', create_function( '',  'echo pl_source_comment("Meta Tags and Inline Scripts");' ), 9 );
+	
+	add_action( 'wp_head', 'pagelines_meta_tags', 9 );
+	
 	// Headerscripts option > custom code
 	if ( ploption( 'headerscripts' ) )
 		add_action( 'wp_head', create_function( '',  'print_pagelines_option("headerscripts");' ), 25 );
@@ -218,13 +218,48 @@ function pagelines_head_common(){
 		add_action( 'pagelines_head_last', create_function( '',  'echo ploption("asynch_analytics");' ), 25 );		
 }
 
+
+function pagelines_meta_tags(){
+	
+	global $pagelines_ID;
+	$oset = array('post_id' => $pagelines_ID);
+	
+	// Meta Images
+	if(ploption('pagelines_favicon') && VPRO)
+		printf('<link rel="shortcut icon" href="%s" type="image/x-icon" />%s', ploption('pagelines_favicon'), "\n");
+	
+	if(ploption('pagelines_touchicon'))
+		printf('<link rel="apple-touch-icon" href="%s" />%s', ploption('pagelines_touchicon'), "\n");
+
+	// Meta Data Profiles
+	if(!apply_filters( 'pagelines_xfn', '' ))
+		echo '<link rel="profile" href="http://gmpg.org/xfn/11" />'."\n";
+
+	// Removes viewport scaling on Phones, Tablets, etc.
+	if(!ploption('disable_mobile_view', $oset) && !apply_filters( 'disable_mobile_view', '' ))
+		echo '<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />';
+		
+}
+
 function pagelines_source_attribution() {
 	
-	echo "<!-- "; 
+	echo "\n\n<!-- "; 
 	printf ( "Built With PageLines Framework ( %s ) - www.PageLines.com ", get_pagelines_credentials( 'licence' ) );
 
 	echo "-->\n";
 }
+
+function pl_source_comment( $text, $spacing = 1 ) {
+
+	$newline = ($spacing) ? "\n" : '';
+
+	$double = ($spacing == 2) ? "\n\n" : $newline;
+	
+	
+	return sprintf( '%s<!-- %s -->%s', $double, $text, $newline);
+
+}
+
 
 /**
 *
@@ -246,14 +281,16 @@ function pagelines_facebook_header() {
 
 	$fb_img = apply_filters('pl_opengraph_image', pl_the_thumbnail_url($pagelines_ID));
 		
-	printf( "\n<!-- Facebook Open Graph | PageLines -->\n<meta property='og:title' content='%s' />\n", get_the_title($pagelines_ID));
+	echo pl_source_comment('Facebook Open Graph');	
+		
+	printf( "<meta property='og:title' content='%s' />\n", get_the_title($pagelines_ID));
 	printf( "<meta property='og:url' content='%s' />\n", get_permalink($pagelines_ID));
 	printf( "<meta property='og:site_name' content='%s' />\n", get_bloginfo( 'name' ));
 	$fb_content = get_post( $pagelines_ID );
 	printf( "<meta property='og:description' content='%s' />\n", pl_short_excerpt( $fb_content, 15 ) );
-	printf( "<meta property='og:type' content='%s' />\n", (is_home()) ? 'website' : 'article');
+	printf( "<meta property='og:type' content='%s' />", (is_home()) ? 'website' : 'article');
 	if($fb_img)
-		printf( "\n<meta property='og:image' content='%s' />\n", $fb_img);
+		printf( "\n<meta property='og:image' content='%s' />", $fb_img);
 }
 
 /**
@@ -295,6 +332,7 @@ function pagelines_runtime_supersize(){
 <?php
 }
 
+
 	
 /**
  * PageLines Title Tag
@@ -306,7 +344,7 @@ function pagelines_runtime_supersize(){
  * @internal filter pagelines_meta_title provided for over-writing the default title text.
  */
 function pagelines_title_tag(){
-	echo "\n<title>";
+	echo "<title>";
 
 	if ( !function_exists( 'aiosp_meta' ) && !function_exists( 'wpseo_get_value' ) ) {
 	// Pagelines seo titles.
