@@ -20,6 +20,17 @@
   cursor: pointer;
 }
 
+// When Linked
+.badge a {
+  text-decoration:none;
+  color:@white;
+}
+.badge a:hover {
+  text-decoration:none;
+  color:darken (@white,10%);
+}
+
+
 // Colors
 .badge-error            { background-color: @errorText; }
 .badge-error:hover      { background-color: darken(@errorText, 10%); }
