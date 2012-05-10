@@ -212,7 +212,7 @@ body{
 	/* @ Paragraphs 
 	 ****************/
 		p, .p, .hentry ul, .hentry ol{margin: 1.6em 0;}
-		.entry_content :first-child, .post-excerpt > :first-child{margin-top: 0;}
+		.entry_content p:first-child, .post-excerpt > p:first-child{margin-top: 0;}
 		.post-excerpt > :last-child, .entry_content > :last-child {margin-bottom: 0;}
 		p {hyphenate: auto;hyphenate-before:2;hyphenate-after:3;hyphenate-lines: 3;orphans:4}
 		p span.pullquote{text-indent:0;}
