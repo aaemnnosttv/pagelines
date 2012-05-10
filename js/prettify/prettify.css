@@ -8,7 +8,7 @@
 .typ, .atn, .dec, .var { color: teal; }
 .pln { color: #48484c; }
 
-.sc_code .pln { color: #298ef4; }
+.sc_code .pln { color: #0b55cc; }
 
 .prettyprint {
   padding: 8px;
