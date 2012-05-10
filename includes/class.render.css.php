@@ -39,6 +39,7 @@ class PageLinesRenderCSS {
 			'modals',
 			'component-animations',
 			'pagelines-special',
+			'code',
 			'pl-objects',
 			'pl-tables',
 			'color', // HAS TO BE LAST	

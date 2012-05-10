@@ -200,6 +200,9 @@ function pagelines_head_common(){
 	// Cufon replacement 
 	pagelines_font_replacement();
 	
+	if(ploption('load_prettify_libs'))
+		load_prettify();
+	
 	add_action( 'wp_head', create_function( '',  'echo pl_source_comment("Start >> Meta Tags and Inline Scripts", 2);' ), 0 );
 	
 	add_action( 'wp_print_styles', create_function( '',  'echo pl_source_comment("Styles");' ), 0 );
@@ -218,6 +221,16 @@ function pagelines_head_common(){
 
 	if( ploption('asynch_analytics'))
 		add_action( 'pagelines_head_last', create_function( '',  'echo ploption("asynch_analytics");' ), 25 );		
+}
+
+function load_prettify(){
+	//add_action( 'pl_body_attributes', create_function( '',  'echo "onload="prettyprint();"' ) );
+	
+	wp_enqueue_script( 'prettify', PL_JS . '/prettify/prettify.js' );
+	wp_enqueue_style( 'prettify', PL_JS . '/prettify/prettify.css' );
+	add_action( 'wp_head', create_function( '',  'echo pl_js_wrap("prettyPrint()");' ), 14 );
+	
+
 }
 
 

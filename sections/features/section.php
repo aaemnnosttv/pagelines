@@ -36,7 +36,7 @@ class PageLinesFeatures extends PageLinesSection {
 					'version'	=> 'pro',
 					'type'		=> 'check',
 					'inputlabel'=> __( 'Enable Feature Metapanel on Posts?', 'pagelines' ),
-					'title'		=> __( '(Feature Section) Enable "Post-As-Feature" Control Metapanel', 'pagelines' ),
+					'title'		=> __( 'Feature Section - Enable "Post-As-Feature" Control Metapanel', 'pagelines' ),
 					'shortexp'	=> __( 'Shows as metapanel for controlling the appearance of posts inside the feature slider.', 'pagelines' ),
 					'exp'		=> __( 'If you are using the feature slider in posts or post category mode, you may want to control the appearance of the posts inside the feature. Enable this option to show the posts metapanel.', 'pagelines' )
 				),

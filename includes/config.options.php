@@ -891,6 +891,14 @@ class PageLinesOptionsArray {
 					'shortexp'	=> __( 'Include a Google JS script that fixes problems with IE', 'pagelines' ),
 					'exp'		=> __( "More info on this can be found <a target='_blank' href='http://code.google.com/p/ie7-js/'>here</a>.", 'pagelines' )
 			),
+			'load_prettify_libs' => array(
+					'default'	=> false,
+					'type'		=> 'check',
+					'inputlabel'=> __( 'Enable Code Prettify?', 'pagelines' ),
+					'title'		=> __( 'Google Prettify Code', 'pagelines' ),
+					'shortexp'	=> __( 'Adds syntax highlighting for code. Includes necessary code to make it work.', 'pagelines' ),
+					'exp'		=> __( "To use this feature you will need to add a class of 'prettyprint' to code or pre tags. Optionally you can include a 'linenums' class as well. Finally you can use the [pl_codebox] shortcode.", 'pagelines' )
+			),
 			'partner_link' 	=> array(
 					'default'	=> '',
 					'type'		=> 'text',
