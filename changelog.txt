@@ -60,7 +60,7 @@ Version 2.1.4
 	- Bugs - bbpress/og conflict.
 
 Version 2.1.3
-	- HotFix - Static Height Mode - Feature Slider
+	- Bugs - HotFix - Static Height Mode - Feature Slider
 
 Version 2.1.2
 	- NEW - Callout Options (alignment, CSS button)
@@ -86,7 +86,7 @@ Version 2.1.2
 
 Version 2.1.1
 	- Bugs - IE8 <img> css
-	- Section Tweaks - Highlight
+	- CORE - Section Tweaks - Highlight
 
 Version 2.1
 	- NEW - Global default meta options
@@ -96,27 +96,29 @@ Version 2.1
 	- NEW - Dynamic search field (CSS3 Search Field)
 	- NEW - Sidebar load priority
 	- NEW - Widget - Special Recent Posts
+	- NEW - Twitter Section - @ and # links made clickable
+	- NEW - PostNav Section - Allow cloning
+	- NEW - Feature Section - New sort functions + all posts
+	- NEW - Boxes Section - New sort functions
 	- CORE - Color handling system
 	- CORE - Meta defaults
 	- CORE - Updates LESS system
 	- CORE - Custom CSS now loaded last
 	- CORE - New debug system
 	- CORE - New template naming
+	- CORE - Store - Better filesystem handling 100% WP functionality
 	- Bugs - Better license handling
 	- Bugs - Fix importer trying to set a null array
 	- Bugs - Category is not an archive
 	- Bugs - Use main layout for posts/pages
 	- Bugs - JS not loading for a clone.
-	- Store - Better filesystem handling 100% WP functionality
-	- Twitter Section - @ and # links made clickable
-	- PostNav Section - Allow cloning
-	- Feature Section - New sort functions + all posts
-	- Boxes Section	  - New sort functions
+
+
 -------------------------------------
 
 Version 2.0.2
-	- Template Name Convention Change
-	- Modifications for free version
+	- CORE - Template Name Convention Change
+	- CORE - Modifications for free version
 ------------------------------------- 
 
 Version 2.0.1
