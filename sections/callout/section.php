@@ -41,27 +41,39 @@ class PageLinesCallout extends PageLinesSection {
 						'exp' 				=> 'This text will be used as the title/text for the callout section of the theme.'
 
 				),
-				'pagelines_callout_link' => array(
-					'type' => 'text',
-					'inputlabel' => 'Enter the link destination (URL)',
-					'title' => $this->name.' Image Link',						
-					'shortexp' => 'The link destination of callout banner section',
-					'exp' => 'This URL will be used as the link for the callout section of the theme.'
-
-				),
-				'pagelines_callout_target' => array(
-					'type'			=> 'check',
-					'default'		=> false,
-					'inputlabel'	=> 'Open link in new window.',
-				),
-				'pagelines_callout_action_text' => array(
-					'type' 			=> 'text',
-					'inputlabel' 	=> 'Enter Button Text',
-					'title' 		=> 'Callout Action Text',						
-					'shortexp' 		=> 'Enter text for the callout button',
-					'exp' 			=> 'If you are not using an image as the action, CSS and a button with *Start Here* will be used.'
-				),
-								
+				'pagelines_callout_cta' => array(
+					'type'		=> 'multi_option', 
+					'title'		=> __('Callout Action Button', 'pagelines'), 
+					'shortexp'	=> __('Enter the options for the Callout button', 'pagelines'),
+					'selectvalues'	=> array(
+						'pagelines_callout_button_link' => array(
+							'type' => 'text',
+							'inputlabel' => 'Button link destination (URL - Required)',
+						),
+						'pagelines_callout_button_text' => array(
+							'type' 			=> 'text',
+							'inputlabel' 	=> 'Callout Button Text',					
+						),		
+						'pagelines_callout_button_target' => array(
+							'type'			=> 'check',
+							'default'		=> false,
+							'inputlabel'	=> 'Open link in new window.',
+						),
+						'pagelines_callout_button_theme' => array(
+							'type'			=> 'select',
+							'default'		=> false,
+							'inputlabel'	=> 'Select Button Color',
+							'selectvalues'	=> array(
+								'primary'	=> array('name' => 'Blue'), 
+								'warning'	=> array('name' => 'Orange'), 
+								'danger'	=> array('name' => 'Red'), 
+								'success'	=> array('name' => 'Green'), 
+								'info'		=> array('name' => 'Light Blue'), 
+								'reverse'	=> array('name' => 'Grey'), 
+							),
+						),
+					),
+				),						
 				'pagelines_callout_image' => array(
 					'type' 			=> 'image_upload',
 					'imagepreview' 	=> '270',
@@ -103,8 +115,10 @@ class PageLinesCallout extends PageLinesSection {
 		$call_title = ploption( 'pagelines_callout_header', $this->tset );
 		$call_sub = ploption( 'pagelines_callout_subheader', $this->tset );
 		$call_img = ploption( 'pagelines_callout_image', $this->tset );
-		$call_link = ploption( 'pagelines_callout_link', $this->tset );
-		$target = ( ploption( 'pagelines_callout_target', $this->oset ) ) ? 'target="_blank"' : '';
+		$call_link = ploption( 'pagelines_callout_button_link', $this->tset );
+		$call_btext = ploption( 'pagelines_callout_button_text', $this->tset );
+		$call_btheme = ploption( 'pagelines_callout_button_theme', $this->tset );
+		$target = ( ploption( 'pagelines_callout_button_target', $this->oset ) ) ? 'target="_blank"' : '';
 		$call_action_text = (ploption('pagelines_callout_action_text', $this->oset)) ? ploption('pagelines_callout_action_text', $this->oset) : __('Start Here', 'pagelines');
 
 
@@ -120,7 +134,7 @@ class PageLinesCallout extends PageLinesSection {
 				if( $call_img ){
 					printf('<div class="callout_image"><a %s href="%s" ><img src="%s" /></a></div>', $target, $call_link, $call_img);
 				} else {
-					printf('<a %s class="button callout_button" href="%s">%s</a>', $target, $call_link, $call_action_text);
+					printf('<a %s class="btn btn-%s btn-large" href="%s">%s</a> ', $target, $call_btheme, $call_link, $call_btext);
 				}
 				
 				

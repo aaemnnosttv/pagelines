@@ -66,8 +66,7 @@ class PageLines_ShortCodes {
 		
 		add_action( 'wp', array( &$this, 'detect_shortcode' ) );
 	
-		//Remove Wordpress Formatters (breaks button groups and others)
-		remove_filter( 'the_content', 'wptexturize' );
+
 
 	}
 	
@@ -85,8 +84,25 @@ class PageLines_ShortCodes {
 		}
 	}
 	
+	function filters() {
+		
+		//Remove Wordpress Formatters (breaks button groups and others)
+		remove_filter( 'the_content', 'wptexturize' );
+		
+		/**
+		 *  Prevent AUTOP inside of shortcodes (breaking shortcodes - removed)
+		 */
+		 remove_filter( 'the_content', 'wpautop' );
+		 add_filter( 'the_content', 'wpautop' , 12);
+		 remove_filter( 'the_content', 'wptexturize' );
+		 add_filter( 'the_content', 'wptexturize' , 12);
+		
+	}
+	
 	// Supports detect shortcode
 	function early_run_shortcode( $key ) {
+		
+		add_action( 'template_redirect', array( &$this, 'filters' ) );
 		
 		$code = "[$key]";
 		ob_start();
