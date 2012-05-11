@@ -1,6 +1,6 @@
 <?php
 /*
-	Section: Intro Unit
+	Section: Hero
 	Author: PageLines
 	Author URI: http://www.pagelines.com
 	Description: A responsive full width image and text area with button.
@@ -18,21 +18,6 @@ class PLintroUnit extends PageLinesSection {
     
     var $tabID = 'introunit_meta';
     
-
-	function section_styles(){
-
-	}
-	
-	function section_head($clone_id){
-		
-		
-		?>
-		
-		<script>
-		 
-		</script>	
-		
-	<?php }
 
 	function section_optionator( $settings ){
 		
@@ -127,7 +112,7 @@ class PLintroUnit extends PageLinesSection {
 				<?php
 
 					if($intro_title)
-						printf('<h1>%s</h1>',$intro_title);
+						printf('<h1 class="m-bottom">%s</h1>',$intro_title);
 					
 					if($intro_tag)
 		  				printf('<p>%s</p>',$intro_tag);

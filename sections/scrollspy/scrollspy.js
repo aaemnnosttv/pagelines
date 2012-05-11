@@ -1,4 +1,4 @@
-jQuery(document).ready(function() {
+jQuery(window).load(function() {
 	
 	var spyCounter = 1, mainOffset = jQuery('.hentry').length && jQuery('.hentry').offset().top, scrollArea = jQuery('body');
 	
