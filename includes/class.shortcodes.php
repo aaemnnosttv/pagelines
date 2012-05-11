@@ -58,8 +58,12 @@ class PageLines_ShortCodes {
 		self::register_shortcodes( $this->shortcodes_core() );
 		
 		// Make widgets process shortcodes
-		add_filter( 'widget_text', 'do_shortcode' );				
-    	add_filter( 'the_content', array( &$this, 'pl_shortcode_empty_paragraph_fix' ) );	
+		add_filter( 'widget_text', 'do_shortcode' );	
+		
+					
+    	//add_filter( 'the_content', array( &$this, 'pl_shortcode_empty_paragraph_fix' ) );	
+
+		
 		add_action( 'wp', array( &$this, 'detect_shortcode' ) );
 	
 		//Remove Wordpress Formatters (breaks button groups and others)
@@ -67,6 +71,7 @@ class PageLines_ShortCodes {
 
 	}
 	
+	// Used 
 	function detect_shortcode() {
 		global $post;
 		$pattern = get_shortcode_regex();
@@ -80,6 +85,7 @@ class PageLines_ShortCodes {
 		}
 	}
 	
+	// Supports detect shortcode
 	function early_run_shortcode( $key ) {
 		
 		$code = "[$key]";
