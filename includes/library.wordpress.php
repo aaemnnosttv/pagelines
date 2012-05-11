@@ -60,14 +60,6 @@ function pl_theme_support(  ){
 }
 
 /**
- *  Prevent AUTOP inside of shortcodes (breaking shortcodes - removed)
- */
- remove_filter( 'the_content', 'wpautop' );
- add_filter( 'the_content', 'wpautop' , 12);
- remove_filter( 'the_content', 'wptexturize' );
- add_filter( 'the_content', 'wptexturize' , 12);
-
-/**
  *  Fix The WordPress Login Image URL
  */
 add_filter('login_headerurl', 'fix_wp_login_imageurl');
