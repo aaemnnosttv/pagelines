@@ -307,7 +307,8 @@ class PageLinesRenderCSS {
 			echo $this->minify( $a['sections'] );
 			echo $this->minify( $a['type'] );
 			echo $this->minify( $a['dynamic'] );
-			pl_debug( sprintf( 'CSS was compiled at %s and took %s seconds.', date( DATE_RFC822, $a['time'] ), $a['c_time'] ) );		
+			$mem = round( bcdiv( memory_get_peak_usage(), 1048576, 3 ), 2 );
+			pl_debug( sprintf( 'CSS was compiled at %s and took %s seconds using %sMB of ground unicorns.', date( DATE_RFC822, $a['time'] ), $a['c_time'],  $mem ) );		
 			die();
 		}
 	}
