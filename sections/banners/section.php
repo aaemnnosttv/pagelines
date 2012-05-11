@@ -213,7 +213,9 @@ class PageLinesBanners extends PageLinesSection {
 ?>		<div class="banner-area pprand-pad <?php echo $banner_align;?>">
 				<div class="banner-text pprand" style="width:<?php echo $banner_text_width; ?>%;">
 					<div class="banner-text-pad pprand-pad" style="<?php echo $banner_text_padding;?>">
-							<div class="banner-title"><h2><?php echo do_shortcode($bpost->post_title); ?></h2></div>
+							<div class="banner-title">
+								<h2><?php echo do_shortcode($bpost->post_title); ?></h2>
+							</div>
 							<div class="banner-content">	
 								<?php 
 									echo apply_filters( 'the_content', do_shortcode($bpost->post_content).pledit($bpost->ID) ); 
@@ -223,7 +225,7 @@ class PageLinesBanners extends PageLinesSection {
 				</div>
 				<div class="banner-media pprand" style="width:<?php echo $banner_media_width; ?>%;" >
 					<div class="banner-media-pad pprand-pad">
-						<?php echo apply_filters( 'the_content', self::_get_banner_media( $oset ) );?>
+						<?php echo do_shortcode(self::_get_banner_media( $oset ) );?>
 					</div>
 				</div>
 				<div class="clear"></div>
