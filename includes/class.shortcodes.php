@@ -919,7 +919,7 @@ class PageLines_ShortCodes {
 
 	    $out = sprintf( '
 <div class="btn-group">
-	<button class="btn btn-%s btn-%s dropdown-toggle" data-toggle="dropdown" href="#">%s<span class="caret"></span></button>
+	<button class="btn btn-%s btn-%s dropdown-toggle" data-toggle="dropdown" href="#">%s <span class="caret"></span></button>
 		<ul class="dropdown-menu">%s</ul>
 </div>',
 	        $atts['size'],
