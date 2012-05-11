@@ -28,6 +28,7 @@ Version 2.2
 	- CORE - Added title/alt to watermark.
 	- CORE - Store layout tweaks.
 	- CORE - Add support for WordPress 3.4.
+	- CORE - Improved Callout section
 	- Bugs - Javascript only loaded when needed.
 
 Version 2.1.7

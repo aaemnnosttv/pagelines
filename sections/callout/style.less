@@ -1,19 +1,59 @@
-.callout_head{ margin-top: 5px; font-size:2.4em; line-height: 1.4em; display: inline}
-.callout_sub{ font-size:1.1em; margin: 0 }
-.callout_image a{line-height: 1em; }
+#callout {
 
-#callout .callout-area{	padding:20px; }
-#callout .callout_text-pad{ padding: 4px 10px 0; }
-#callout .callout_text.noimage { width:100%; }
+	.callout-area {
+		padding:20px; 
+	}
 
-#callout .callout_image a{ display: block;line-height: 1em;}
-#callout .callout_image { text-align: center; vertical-align: center; }
+	.callout_text-pad { 
+		padding: 4px 10px 0; 
+	}
 
-#callout .callout_button{
-	font-size: 1.7em;
-	padding: 10px 22px;
-	float: right;
+	.callout_head { 
+		margin-top: 5px; 
+		font-size:2.4em; 
+		line-height: 1.4em; 
+		display: inline;
+	}
+
+	.callout_sub { 
+		font-size:1.1em; 
+		margin: 0; 
+	}
+
+	.callout_text.noimage { 
+		width:100%; 
+	}
+
+	.callout_image a { 
+		display: block;
+		line-height: 1em;
+	}
+
+	.callout_image { 
+		text-align: center; 
+		vertical-align: center; 
+	}
+
+	.callout_image img {
+    	width: 100%;
+	}
+
+	.callout_action {
+		margin-top:10px;
+	}
+
+	// Legacy Button
+	.callout_button {
+		font-size: 1.7em;
+		padding: 10px 22px;
+		float: right;
+	}
 }
-#callout .callout_image img {
-    width: 100%;
+
+// Media Queries
+@media (max-width: 600px) {
+	#callout .btn {display:block;}
+	.callout_action {width:100%;}
+	.callout_action.img.rtimg {margin-left:0;margin-right:0;}
+	.callout_text {text-align:center;}
 }
