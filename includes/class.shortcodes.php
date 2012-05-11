@@ -737,49 +737,6 @@ class PageLines_ShortCodes {
 
 		return $out;
 	}
-	
-	/**
-	 * 22.PageLines Code Shortcode
-	 * 
-	 * @example <code>[pl_syntax]...[/pl_syntax]</code> is the default usage
-	 * @example <code>[pl_syntax linenums="yes" scrollable="yes"].box{margin:0 auto;}[/pl_codebox_st]</code> for lots of code
-	 */	
-	function pl_codebox_shortcode_syntaxed ( $atts, $content = null ) {
-		
-	    extract( 
-			shortcode_atts( 
-				array(
-					'scrollable' => 'no', 
-					'linenums'		=> 'yes'
-				), $atts ) 
-		);
-
-	    $scrollable = ( $scrollable == 'yes' ) ? 'pre-scrollable' : '';
-		$linenums = ( $scrollable == 'yes' ) ? 'linenums' : '';
-
-		// Grab Shortcodes
-		$pattern = array(
-		
-			'#([a-z]+\=[\'|"][^\'|"]*[\'|"])#m',
-			'#(\[[^]]*])#m',
-
-		);
-		$replace = array(
-			'<span class="sc_var">$1</span>',
-			'<div class="sc_code">$1</div>'
-		);
-
-		$code = preg_replace( $pattern, $replace, $content );
-	
-		$out = sprintf( '<pre class="%s prettyprint %s">%s</pre>',
-						$scrollable,
-						$linenums,
-						$code 
-					);
-
-		return $out;
-	}
-	
 
 	/**
 	 * 23. Bootstrap Labels Shortcode
