@@ -65,8 +65,6 @@ class PageLines_ShortCodes {
 
 		
 		add_action( 'wp', array( &$this, 'detect_shortcode' ) );
-	
-
 
 	}
 	
@@ -85,15 +83,12 @@ class PageLines_ShortCodes {
 	}
 	
 	function filters() {
-		
-		//Remove Wordpress Formatters (breaks button groups and others)
-		remove_filter( 'the_content', 'wptexturize' );
-		
+
 		/**
 		 *  Prevent AUTOP inside of shortcodes (breaking shortcodes - removed)
 		 */
 		 remove_filter( 'the_content', 'wpautop' );
-		 add_filter( 'the_content', 'wpautop' , 12);
+	//	 add_filter( 'the_content', 'wpautop' , 12);
 		 remove_filter( 'the_content', 'wptexturize' );
 		 add_filter( 'the_content', 'wptexturize' , 12);
 		
@@ -662,8 +657,7 @@ class PageLines_ShortCodes {
 			); 
 
 			$a = wp_parse_args( $args, $defaults );
-
-
+			
 			ob_start();
 				// Facebook
 				?>
