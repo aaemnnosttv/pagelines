@@ -22,6 +22,7 @@ Version 2.2
 	- CORE - Store layout tweaks.
 	- CORE - Add support for WordPress 3.4.
 	- CORE - Improved Callout section
+	- CORE - Improved Highlight section
 	- Bugs - Javascript only loaded when needed.
 
 Version 2.1.7

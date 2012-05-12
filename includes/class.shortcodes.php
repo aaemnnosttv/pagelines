@@ -1284,9 +1284,9 @@ class PageLines_ShortCodes {
 	    
 	    extract( shortcode_atts( array(
 		    'title' => '',
-		    'buttontype' => '',
-		    'buttonsize' => '',
-		    'buttonlabel' => ''
+		    'type' =>'',
+		    'colortype' => '',
+		    'label' => ''
 	    ), $atts ) );
 
 	    	ob_start();
@@ -1303,24 +1303,24 @@ class PageLines_ShortCodes {
 				<?php
 				
 		   		printf( '
-<div id="modal" class="modal hide fade" style="display:none;">
-	<div class="modal-header">
-		<a class="close" data-dismiss="modal">×</a>
-		<h3>%1$s</h3>
-	</div>
-	<div class="modal-body">
-		<p>%2$s</p>
-	</div>
-	<div class="modal-footer">
-		<a href="#" class="btn btn-%3$s" data-dismiss="modal">Close</a>
-	</div>
-</div>
-<a data-toggle="modal" href="#modal" class="btn btn-%3$s btn-%4$s">%5$s</a>',
+				<div id="modal" class="modal hide fade" style="display:none;">
+					<div class="modal-header">
+						<a class="close" data-dismiss="modal">×</a>
+						<h3>%s</h3>
+					</div>
+					<div class="modal-body">
+						<p>%4$s</p>
+					</div>
+					<div class="modal-footer">
+						<a href="#" class="btn btn-%3$s" data-dismiss="modal">Close</a>
+					</div>
+				</div>
+				<a data-toggle="modal" href="#modal" class="%2$s %2$s-%3$s">%5$s</a>',
 				$title,
+				$type,
+				$colortype,
 				do_shortcode( $content ),
-				$buttontype,
-				$buttonsize,
-				$buttonlabel
+				$label
 		        );
         
         	return ob_get_clean();
