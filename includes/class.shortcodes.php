@@ -592,7 +592,7 @@ class PageLines_ShortCodes {
 			$defaults = array(
 				'url' => get_permalink(),
 				'img' => '',
-				'title' => the_title_attribute( array( 'echo' => false ) ),
+				'title' => urlencode( the_title_attribute( array( 'echo' => false ) ) ),
 			); 	
 
 			$atts = shortcode_atts( $defaults, $atts );
