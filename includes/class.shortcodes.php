@@ -1265,10 +1265,10 @@ class PageLines_ShortCodes {
 	/**
 	 * 36. Bootstrap Modal Popup Window
 	 * 
-	 * @example <code>[pl_modal title="" buttontype="" buttonsize="" buttonlabel=""]...[/pl_modal]</code>
-	 * @example <code>[pl_modal title="Modal Title" buttontype="info" buttonsize="large" buttonlabel="Modal Button"]Some content here for the cool modal pop up. You can have all kinds of cool stuff in here.[/pl_modal]</code>
-	 * @example available button types include info, success, warning, danger, and inverse
-	 * @example available button sizes include medium, and large
+	 * @example <code>[pl_modal title="" type="" colortype="" label=""]...[/pl_modal]</code>
+	 * @example <code>[pl_modal title="Title" type="label" colortype="info" label="Click Me!"]Some content here for the cool modal pop up. You can have all kinds of cool stuff in here.[/pl_modal]</code>
+	 * @example available types include button, label, and badge
+	 * @example available color types include default, success, warning, important, info, and inverse
 	 */	
 	function pl_modal_shortcode( $atts, $content = null ) {
 
@@ -1282,6 +1282,8 @@ class PageLines_ShortCodes {
 		    'colortype' => '',
 		    'label' => ''
 	    ), $atts ) );
+         
+	    if(($type == 'button' ) ? 'btn' : '');
 
 	    	ob_start();
 
