@@ -329,9 +329,10 @@ class PageLinesRenderCSS {
 			$b = $this->get_compiled_sections();
 			$gfonts = preg_match( '#(@import[^;]*;)#', $a['type'], $g ); 
 			
-			if ( $gfonts )
+			if ( $gfonts ) {
 				echo $g[1];
-	
+				$a['type'] = str_replace( $g[1], '', $a['type'] );
+			}
 			echo $this->minify( $a['core'] );
 			echo $this->minify( $b['sections'] );
 			echo $this->minify( $a['type'] );
