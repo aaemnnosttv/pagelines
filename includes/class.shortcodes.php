@@ -156,7 +156,6 @@ class PageLines_ShortCodes {
 			'pl_alertbox'				=>	'pl_alertbox_shortcode',
 			'show_authors'				=>	'show_multiple_authors',
 			'pl_codebox'			    =>	'pl_codebox_shortcode',
-			'pl_syntax'					=>	'pl_codebox_shortcode_syntaxed',
 			'pl_label'				    =>	'pl_label_shortcode',
 			'pl_badge'			        =>	'pl_badge_shortcode',
 			'like_button'				=>	'pl_facebook_shortcode',
@@ -593,12 +592,12 @@ class PageLines_ShortCodes {
 			$defaults = array(
 				'url' => get_permalink(),
 				'img' => '',
-				'title' => the_title_attribute( array( 'echo' => false ) ),
+				'title' => urlencode( the_title_attribute( array( 'echo' => false ) ) ),
 			); 	
 
 			$atts = shortcode_atts( $defaults, $atts );
 			
-			$out = sprintf( '<a href="http://pinterest.com/pin/create/button/?url=%s&amp;media=%s&amp;description=%s" class="pin-it-button" count-layout="horizontal"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a><script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>',
+			$out = sprintf( '<a href="http://pinterest.com/pin/create/button/?url=%s&amp;media=%s&amp;description=%s" class="pin-it-button" count-layout="horizontal"><img style="border:0px;" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a><script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>',
 			$atts['url'],
 			$atts['img'],
 			$atts['title']
@@ -761,6 +760,8 @@ class PageLines_ShortCodes {
 	    	'type' => 'info',
 	    );
 
+    	$atts = shortcode_atts( $defaults, $atts );
+
 	    $out = sprintf( '<span class="label label-%s">%s</span>',
 					$atts['type'],
 					do_shortcode( $content )
@@ -781,6 +782,8 @@ class PageLines_ShortCodes {
 	    $defaults = array(
 	    	'type' => 'info',
 	    );
+		
+		$atts = shortcode_atts( $defaults, $atts );
 
 	    $out = sprintf( '<span class="badge badge-%s">%s</span>',
 					$atts['type'],
