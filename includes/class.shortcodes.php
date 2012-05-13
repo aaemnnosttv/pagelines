@@ -861,9 +861,10 @@ class PageLines_ShortCodes {
 	/**
 	 * 27. Bootstrap Button Shortcode
 	 * 
-	 * @example <code>[pl_button type="info"]My Button[/pl_button]</code> is the default usage
-	 * @example <code>[pl_button type="info" link="#" target="blank"]My Button[/pl_button]</code>
+	 * @example <code>[pl_button type="" size="" link="" target=""]...[/pl_button]</code> is the default usage
+	 * @example <code>[pl_button type="info" size="small" link="#" target="blank"]My Button[/pl_button]</code>
 	 * @example Available types include info, success, warning, danger, inverse
+	 * @example Available sizes include large, medium, and mini
 	 */
 	function pl_button_shortcode( $atts, $content = null, $target = null ) {
 
@@ -878,7 +879,7 @@ class PageLines_ShortCodes {
 
 	    $target = ( $target == 'blank' ) ? ' target="_blank"' : '';
 
-	    $out = sprintf( '<a href="%1$s" target="%2$s" class="btn btn-%3$s btn-%2$s">%5$s</a>', 
+	    $out = sprintf( '<a href="%1$s" target="%2$s" class="btn btn-%3$s btn-%4$s">%5$s</a>', 
 					$atts['link'],
 					$atts['target'],
 					$atts['type'],
