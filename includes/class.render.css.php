@@ -71,14 +71,13 @@ class PageLinesRenderCSS {
 	function less_error_report() {
 		
 		$default = '<div class="updated fade update-nag"><div style="text-align:left"><h4>PageLines %s LESS/CSS error.</h4>%s</div></div>';
-		
-		if ( ploption( 'pl_less_error_custom' ) )
-			printf( $default, 'Custom', ploption( 'pl_less_error_custom' ) );
-			
-		if ( ploption( 'pl_less_error_core' ) )
-			printf( $default, 'Core', ploption( 'pl_less_error_core' ) );				
-	}
 
+		$type = array( 'sections', 'core', 'custom' );
+		foreach ( $type as $t ) {		
+			if ( ploption( "pl_less_error_{$t}" ) ) 
+				printf( $default, ucfirst( $t ), ploption( "pl_less_error_{$t}" ) );
+		}					
+	}
 
 	/**
 	 * 
@@ -178,12 +177,8 @@ class PageLinesRenderCSS {
 			$dynamic = $this->get_dynamic_css();
 
 			$core_less = $this->get_core_lesscode();
-	
-			$sections = $this->get_all_active_sections();
-			
+				
 			$pless = new PagelinesLess();			
-
-			$sections = $pless->raw_less( $sections, 'sections' );
 
 			$core_less = $pless->raw_less( $core_less  );
 
@@ -192,15 +187,48 @@ class PageLinesRenderCSS {
 				'dynamic'	=> $dynamic['dynamic'],
 				'type'		=> $dynamic['type'],
 				'core'		=> $core_less,
+				'c_time'	=> round(($end_time - $start_time),5),
+				'time'		=> time()		
+			);
+			if ( ! ploption( 'pl_less_error_core' ) )
+				set_transient( 'pagelines_core_css', $a, 604800 );
+			return $a;			
+		}		
+	}
+
+	/**
+	 * 
+	 *  Get compiled/cached CSS
+	 *
+	 *  @package PageLines Framework
+	 *  @since 2.2
+	 */
+	function get_compiled_sections() {
+		
+		if ( is_array(  $a = get_transient( 'pagelines_sections_css' ) ) ) {
+			return $a;
+		} else {
+			
+			$start_time = microtime(true);
+			build_pagelines_layout();
+
+			$sections = $this->get_all_active_sections();
+
+			$pless = new PagelinesLess();
+			$sections =  $pless->raw_less( $sections, 'sections' );
+			$end_time = microtime(true);			
+			$a = array(				
 				'sections'	=> $sections,
 				'c_time'	=> round(($end_time - $start_time),5),
 				'time'		=> time()		
 			);
-			set_transient( 'pagelines_core_css', $a, 604800 );
+			if ( ! ploption( 'pl_less_error_sections' ) )
+				set_transient( 'pagelines_sections_css', $a, 604800 );
 			return $a;			
 		}		
 	}
 	
+		
 	/**
 	 * 
 	 *  Get compiled/cached CSS
@@ -227,7 +255,8 @@ class PageLinesRenderCSS {
 				'c_time'	=> round(($end_time - $start_time),5),
 				'time'		=> time()		
 			);
-			set_transient( 'pagelines_custom_css', $a, 604800 );
+			if ( ! ploption( 'pl_less_error_custom' ) )
+				set_transient( 'pagelines_custom_css', $a, 604800 );
 			return $a;			
 		}		
 	}
@@ -297,14 +326,14 @@ class PageLinesRenderCSS {
 			header( 'Cache-Control: max-age=604100, public' );
 			
 			$a = $this->get_compiled_core();
-			
+			$b = $this->get_compiled_sections();
 			$gfonts = preg_match( '#(@import[^;]*;)#', $a['type'], $g ); 
 			
 			if ( $gfonts )
 				echo $g[1];
 	
 			echo $this->minify( $a['core'] );
-			echo $this->minify( $a['sections'] );
+			echo $this->minify( $b['sections'] );
 			echo $this->minify( $a['type'] );
 			echo $this->minify( $a['dynamic'] );
 			$mem = round( bcdiv( memory_get_peak_usage(), 1048576, 3 ), 2 );
@@ -341,8 +370,7 @@ class PageLinesRenderCSS {
 		plupop( 'pl_save_version', time() );
 		delete_transient( 'pagelines_custom_css' );
 		delete_transient( 'pagelines_core_css' );
-		plupop( 'pl_less_error_custom', false );
-		plupop( 'pl_less_error_core', false );		
+		delete_transient( 'pagelines_sections_css' );		
 	}
 	
 	function pagelines_insert_core_less_callback( $code ) {
