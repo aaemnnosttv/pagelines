@@ -86,25 +86,6 @@ class PageLinesLess {
 		return $vars;
 	}
 	
-	/**
-     * Draw LESS
-     *
-     * Creates meta tag for LESS code
-     *
-     * @uses    plstrip
-     *
-     * @param   $lesscode
-     */
-    public function draw_less( $lesscode ){
-			
-			printf(
-				'%1$s<style type="text/css" id="pagelines-less-css" >%2$s</style>%1$s', 
-				"\n",
-				plstrip( $this->parse($lesscode) )
-			);
-	
-	}
-
 	public function raw_less( $lesscode, $type = 'core' ) {		
 
 		return $this->raw_parse($lesscode, $type);
@@ -113,22 +94,16 @@ class PageLinesLess {
 	private function raw_parse( $pless, $type ) {
 	
 		$pless = $this->add_constants( '' ) . $this->add_bootstrap() . $pless;
-		try{
+		try {
 			$css = $this->lparser->parse( $pless );
-		} catch ( Exception $e){
-			
-			if ( 'sections' != $type ) {
-				plupop( 'pl_less_error_custom', $e->getMessage() );
-				return sprintf( '/* LESS PARSE ERROR in your Custom CSS: %s */', $e->getMessage() );
-			}	
-			if ( 'core' != $type ) {
-				plupop( 'pl_less_error_custom', $e->getMessage() );
-				return sprintf( '/* LESS PARSE ERROR in your Custom CSS: %s */', $e->getMessage() );
-			} else {
-				plupop( 'pl_less_error_core', $e->getMessage() );				
-				return sprintf( '/* LESS PARSE ERROR in core files!: %s */', $e->getMessage() );
+		} 
+			catch ( Exception $e) {		
+				plupop( "pl_less_error_{$type}", $e->getMessage() );
+				return sprintf( "/* LESS PARSE ERROR in your %s CSS: %s */\r\n", ucfirst( $type ), $e->getMessage() );
 			}
-		}
+			
+		// were good!
+		plupop( "pl_less_error_{$type}", false );
 		return $css;	
 	}
 
@@ -140,28 +115,6 @@ class PageLinesLess {
 		return $vars . $mixins;
 	}
 
-    /**
-     * Parse PLESS Input & return CSS
-     *
-     * @param   $pless
-     *
-     * @uses    plprint
-     *
-     * @return  string
-     */
-	public function parse( $pless ) {
-		
-		$pless = $this->add_constants( $pless );
-		$pless = $this->add_core_less( $pless );
-		try{
-			$css = $this->lparser->parse( $pless );
-		} catch ( Exception $e){
-			plprint($e->getMessage(), 'Problem Parsing Less');
-		}		 
-		return $css;	
-	}
-	
-
 	private function add_core_less($pless){
 	
 		global $disabled_settings;
@@ -172,7 +125,6 @@ class PageLinesLess {
 		
 	}
 
-	
 	private function add_constants( $pless ) {
 		
 		$prepend = '';
