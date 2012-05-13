@@ -156,7 +156,6 @@ class PageLines_ShortCodes {
 			'pl_alertbox'				=>	'pl_alertbox_shortcode',
 			'show_authors'				=>	'show_multiple_authors',
 			'pl_codebox'			    =>	'pl_codebox_shortcode',
-			'pl_syntax'					=>	'pl_codebox_shortcode_syntaxed',
 			'pl_label'				    =>	'pl_label_shortcode',
 			'pl_badge'			        =>	'pl_badge_shortcode',
 			'like_button'				=>	'pl_facebook_shortcode',
@@ -761,6 +760,8 @@ class PageLines_ShortCodes {
 	    	'type' => 'info',
 	    );
 
+    	$atts = shortcode_atts( $defaults, $atts );
+
 	    $out = sprintf( '<span class="label label-%s">%s</span>',
 					$atts['type'],
 					do_shortcode( $content )
@@ -781,6 +782,8 @@ class PageLines_ShortCodes {
 	    $defaults = array(
 	    	'type' => 'info',
 	    );
+		
+		$atts = shortcode_atts( $defaults, $atts );
 
 	    $out = sprintf( '<span class="badge badge-%s">%s</span>',
 					$atts['type'],
