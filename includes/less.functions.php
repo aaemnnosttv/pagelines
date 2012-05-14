@@ -35,17 +35,18 @@ class PageLinesLess {
 		
 		// PageLines Variables
 		$constants = array(
-			'plRoot'				=> sprintf("\"%s\"", PARENT_URL),
-			'plSectionsRoot'		=> sprintf("\"%s\"", SECTION_ROOT),
+			'plRoot'				=> sprintf( "\"%s\"", PARENT_URL ),
+			'plSectionsRoot'		=> sprintf( "\"%s\"", SECTION_ROOT ),
+			'plChildRoot'			=> sprintf( "\"%s\"", CHILD_URL ),
 			'pl-base'				=> $this->base_color, 
 			'pl-text'				=> pl_hashify( pl_text_color() ), 
 			'pl-link'				=> pl_hashify( pl_link_color() ),
 			'pl-header'   			=> pl_hashify( pl_header_color() ),
 			'pl-footer'  		 	=> pl_hashify( pl_footer_color() ),
 			'invert-dark'			=> $this->invert(),
-			'invert-light'			=> $this->invert('light'),
-			'font-size'				=> $fontsize.'px', 
-			'line-height'			=> page_line_height($fontsize, $content_width).'px',
+			'invert-light'			=> $this->invert( 'light' ),
+			'font-size'				=> $fontsize . 'px', 
+			'line-height'			=> page_line_height( $fontsize, $content_width ) . 'px',
 			'pl-page-width'			=> pl_page_width() . 'px',
 			'pl-content-width'		=> pl_content_width() . 'px',
 			'pl-responsive-width'	=> round( pl_responsive_width(), 2 ) . '%',
