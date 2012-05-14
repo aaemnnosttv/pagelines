@@ -72,8 +72,32 @@ class PageLinesRenderCSS {
 		add_action( 'extend_flush', array( &$this, 'flush_version' ) );	
 		add_filter( 'pagelines_insert_core_less', array( &$this, 'pagelines_insert_core_less_callback' ) );
 		add_action('admin_notices', array(&$this,'less_error_report') );
+		add_action( 'wp_before_admin_bar_render', array( &$this, 'less_css_bar' ) );
 	}
 
+	function less_css_bar() {
+		foreach ( $this->types as $t ) {		
+			if ( ploption( "pl_less_error_{$t}" ) ) {
+				
+				global $wp_admin_bar;
+				$wp_admin_bar->add_menu( array(
+					'parent' => false, 
+					'id' => 'less_error',
+					'title' => __( 'LESS Compile error!', 'pagelines' ),
+					'href' => admin_url( 'admin.php?page=pagelines' ),
+					'meta' => false
+				));
+				$wp_admin_bar->add_menu( array(
+					'parent' => 'less_error',
+					'id' => 'less_message',
+					'title' => sprintf( __( 'Error in %s Less code: %s', 'pagelines' ), $t, ploption( "pl_less_error_{$t}" ) ),
+					'href' => admin_url( 'admin.php?page=pagelines' ),
+					'meta' => false
+				));
+			}
+		}
+	}
+	
 	function less_error_report() {
 		
 		$default = '<div class="updated fade update-nag"><div style="text-align:left"><h4>PageLines %s LESS/CSS error.</h4>%s</div></div>';
@@ -355,7 +379,7 @@ class PageLinesRenderCSS {
 			echo $this->minify( $a['type'] );
 			echo $this->minify( $a['dynamic'] );
 			$mem = round( bcdiv( memory_get_peak_usage(), 1048576, 3 ), 2 );
-			pl_debug( sprintf( 'CSS was compiled at %s and took %s seconds using %sMB of unicorn dust.', date( DATE_RFC822, $a['time'] ), $a['c_time'],  $mem ) );		
+			pl_debug( sprintf( __( 'CSS was compiled at %s and took %s seconds using %sMB of unicorn dust.', 'pagelines' ), date( DATE_RFC822, $a['time'] ), $a['c_time'],  $mem ) );		
 			die();
 		}
 	}
