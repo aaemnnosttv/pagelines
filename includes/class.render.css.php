@@ -4,9 +4,15 @@
 class PageLinesRenderCSS {
 	
 	var $lessfiles;
-		
+	var $types;
+	var $ctimeout;
+	var $btimeout;
+	
 	function __construct() {
 		
+		$this->ctimout = 86400;
+		$this->btimeout = 604800;
+		$this->types = array( 'sections', 'core', 'custom' );
 		$this->lessfiles = $this->get_core_lessfiles();
 		self::actions();		
 	}
@@ -72,8 +78,7 @@ class PageLinesRenderCSS {
 		
 		$default = '<div class="updated fade update-nag"><div style="text-align:left"><h4>PageLines %s LESS/CSS error.</h4>%s</div></div>';
 
-		$type = array( 'sections', 'core', 'custom' );
-		foreach ( $type as $t ) {		
+		foreach ( $this->types as $t ) {		
 			if ( ploption( "pl_less_error_{$t}" ) ) 
 				printf( $default, ucfirst( $t ), ploption( "pl_less_error_{$t}" ) );
 		}					
@@ -190,9 +195,13 @@ class PageLinesRenderCSS {
 				'c_time'	=> round(($end_time - $start_time),5),
 				'time'		=> time()		
 			);
-			if ( ! ploption( 'pl_less_error_core' ) )
-				set_transient( 'pagelines_core_css', $a, 604800 );
-			return $a;			
+			if ( strpos( $core_less, 'PARSE ERROR' ) === false ) {
+				set_transient( 'pagelines_core_css', $a, $this->ctimeout );
+				set_transient( 'pagelines_core_css_backup', $a, $this->btimeout );
+				return $a;
+			} else {
+				return get_transient( 'pagelines_core_css_backup' );
+			}			
 		}		
 	}
 
@@ -222,9 +231,13 @@ class PageLinesRenderCSS {
 				'c_time'	=> round(($end_time - $start_time),5),
 				'time'		=> time()		
 			);
-			if ( ! ploption( 'pl_less_error_sections' ) )
-				set_transient( 'pagelines_sections_css', $a, 604800 );
-			return $a;			
+			if ( strpos( $sections, 'PARSE ERROR' ) === false ) {
+				set_transient( 'pagelines_sections_css', $a, $this->ctimeout );
+				set_transient( 'pagelines_sections_css_backup', $a, $this->btimeout );
+				return $a;
+			} else {
+				return get_transient( 'pagelines_sections_css_backup' );
+			}		
 		}		
 	}
 	
@@ -255,9 +268,13 @@ class PageLinesRenderCSS {
 				'c_time'	=> round(($end_time - $start_time),5),
 				'time'		=> time()		
 			);
-			if ( ! ploption( 'pl_less_error_custom' ) )
-				set_transient( 'pagelines_custom_css', $a, 604800 );
-			return $a;			
+			if ( strpos( $custom, 'PARSE ERROR' ) === false ) {
+				set_transient( 'pagelines_custom_css', $a, $this->ctimeout );
+				set_transient( 'pagelines_custom_css_backup', $a, $this->btimeout );
+				return $a;
+			} else {
+				return get_transient( 'pagelines_custom_css_backup' );
+			}			
 		}		
 	}
 
@@ -366,12 +383,23 @@ class PageLinesRenderCSS {
 	 */
 	function flush_version( $rules = true ) {
 		
+		$types = array( 'sections', 'core', 'custom' );
 		if( $rules )
 			flush_rewrite_rules( true );
 		plupop( 'pl_save_version', time() );
-		delete_transient( 'pagelines_custom_css' );
-		delete_transient( 'pagelines_core_css' );
-		delete_transient( 'pagelines_sections_css' );		
+
+		$types = array( 'sections', 'core', 'custom' );
+		
+		foreach( $types as $t ) {
+			
+			$compiled = get_transient( "pagelines_{$t}_css" );
+			$backup = get_transient( "pagelines_{$t}_css_backup" );
+			
+			if ( ! is_array( $backup ) && is_array( $compiled ) && strpos( $compiled[$t], 'PARSE ERROR' ) === false )
+				set_transient( "pagelines_{$t}_css_backup", $compiled, 604800 );
+		
+			delete_transient( "pagelines_{$t}_css" );	
+		}	
 	}
 	
 	function pagelines_insert_core_less_callback( $code ) {
