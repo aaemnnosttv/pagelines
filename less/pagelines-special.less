@@ -1,5 +1,4 @@
 // PAGELINES SPECIAL CLASSES
-// -----------
 
 // Image Frame
 img.pl-imageframe {
@@ -8,4 +7,18 @@ img.pl-imageframe {
 	border: 1px solid @white;
 	.box-sizing(border-box);
 	.box-shadow(0 1px 2px rgba(0, 0, 0, 0.4));
+}
+
+
+// Zero Margin Utility Class
+// Useful classes for specifying zero margin on top, or bottom of headings and paragraph elements
+
+/* zero margin top */
+[class*="zmt"] {
+	margin-top:0 !important; // We have to declare importance becuase we're overriding the 20px margin-top with a wildcard class
+}
+
+/* zero margin bottom */
+[class*="zmb"] {
+	margin-bottom:0 !important; // We have to declare importance becuase we're overriding the 20px margin-bottom with a wildcard class
 }
