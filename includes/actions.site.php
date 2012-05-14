@@ -137,3 +137,15 @@ add_action( 'wp_enqueue_scripts', 'pagelines_supersize_bg' );
 if ( defined( 'PL_LESS_DEV' ) )
 	PageLinesRenderCSS::flush_version( false );
 add_filter( 'generate_rewrite_rules', array( 'PageLinesRenderCSS', 'pagelines_less_rewrite' ) );
+
+/**
+ * Auto load child less file.
+ */
+add_action( 'init', 'pagelines_check_child_less' );
+function pagelines_check_child_less() {
+
+	$lessfile = sprintf( '%s/style.less', get_stylesheet_directory() );
+
+	if ( is_file( $lessfile ) )
+		pagelines_insert_core_less( $lessfile );
+}
