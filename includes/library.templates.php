@@ -282,7 +282,7 @@ function pl_source_comment( $text, $spacing = 1 ) {
 */
 function pagelines_facebook_header() {
 
-	if( is_home() || is_archive() )
+	if ( is_home() || is_archive() )
 		return;
 
 	if ( function_exists( 'is_bbpress' ) && is_bbpress() )
@@ -301,7 +301,8 @@ function pagelines_facebook_header() {
 	printf( "<meta property='og:url' content='%s' />\n", get_permalink($pagelines_ID));
 	printf( "<meta property='og:site_name' content='%s' />\n", get_bloginfo( 'name' ));
 	$fb_content = get_post( $pagelines_ID );
-	printf( "<meta property='og:description' content='%s' />\n", pl_short_excerpt( $fb_content, 15 ) );
+	if ( ! function_exists( 'sharing_plugin_settings' ) )
+		printf( "<meta property='og:description' content='%s' />\n", pl_short_excerpt( $fb_content, 15 ) );
 	printf( "<meta property='og:type' content='%s' />", (is_home()) ? 'website' : 'article');
 	if($fb_img)
 		printf( "\n<meta property='og:image' content='%s' />", $fb_img);
