@@ -723,9 +723,11 @@ class PageLines_ShortCodes {
 		$linenums = ( $linenums == 'yes' ) ? 'linenums' : '';
 		$language = 'lang-'.$language;
 
-		if($linenums = 'yes') {
-			wp_enqueue_script ('jquery');
-		}
+		if ( $linenums === 'linenums' ) {	
+			
+    		wp_enqueue_script( 'jquery' );
+        
+    	}
 
 		// Grab Shortcodes
 		$pattern = array(
