@@ -15,7 +15,7 @@ Version 2.2
 	- NEW - New section: Masthead.
 	- NEW - New section: Navbar.
 	- NEW - New section: ContentGrid.
-	- NEW - New section: IntroUnit.
+	- NEW - New section: Hero.
 	- CORE - Added [post_authors] shortcode for metabar.
 	- CORE - Added [post_type] shortcode for metabar.
 	- CORE - Added title/alt to watermark.
