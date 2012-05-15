@@ -27,11 +27,11 @@ function pl_get_comments_link( $post_id ){
 /**
  * Get just the WordPress thumbnail URL - False if not there.
  */
-function pl_the_thumbnail_url( $post_id ){
+function pl_the_thumbnail_url( $post_id, $size = false ){
 	
 	if( has_post_thumbnail($post_id) ){
 		
-		$img_data = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ));
+		$img_data = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), $size, false);
 
 		$a['img'] = ($img_data[0] != '') ? $img_data[0] : '';
 
