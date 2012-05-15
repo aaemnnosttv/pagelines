@@ -17,11 +17,14 @@
     letter-spacing: -1px;
   }
   p {
-    margin:0 0 @baseLineHeight 0;
+    margin: @baseLineHeight/4 0 @baseLineHeight;
     font-size: 18px;
     font-weight: 200;
     line-height: @baseLineHeight * 1.5;
     color: @HeroLeadColor;
+  }
+  .hero_img {
+    text-align:right;
   }
 }
 
@@ -45,5 +48,8 @@
 @media (max-width:480px) {
   .pl-hero-wrap {
     padding:20px;
+  }
+  .hero_img {
+    text-align:center;
   }
 }
