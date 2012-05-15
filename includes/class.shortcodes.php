@@ -71,10 +71,14 @@ class PageLines_ShortCodes {
 	// Used 
 	function detect_shortcode() {
 		global $post;
+		
+		if ( ! is_object( $post ) )
+			return;
+
 		$pattern = get_shortcode_regex();
 		$core = $this->shortcodes_core();
 
-		if (   preg_match_all( '/'. $pattern .'/s', $post->post_content, $matches ) && array_key_exists( 2, $matches ) ) {
+		if ( preg_match_all( '/' . $pattern . '/s', $post->post_content, $matches ) && array_key_exists( 2, $matches ) ) {
 			foreach ( $core as $key => $d ) {
 				if( in_array( $key, $matches[2] ) )
 					$this->early_run_shortcode( $key );
