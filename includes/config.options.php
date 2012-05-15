@@ -1029,7 +1029,7 @@ class PageLinesOptionsArray {
 					'layout'	=> 'full',
 					'inputlabel'=> __( 'Asynchronous Analytics', 'pagelines' ),
 					'title'		=> __( 'Asynchronous Analytics', 'pagelines' ),
-					'shortexp'	=> __( 'Placeholder for Google asynchronous analytics. Goes underneath <strong>body</strong> tag', 'pagelines' ),
+					'shortexp'	=> __( 'Placeholder for Google asynchronous analytics. Goes just before <strong>&lt;/html&gt;</strong> tag', 'pagelines' ),
 					'exp'		=> ''
 			),
 		);
