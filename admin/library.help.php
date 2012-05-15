@@ -60,7 +60,7 @@ class PageLines_Inline_Help {
 			
 			case 'pagelines_page_pagelines_templates':
 				$this->extend_help( array(
-					'templates'		=> __( 'Templates', 'pagelines' ) 
+					'templates'		=> __( 'Drag & Drop', 'pagelines' ) 
 					));
 			break;
 			
@@ -72,6 +72,7 @@ class PageLines_Inline_Help {
 				'color'			=> __( 'Color Control', 'pagelines' ),
 				'typography'	=> __( 'Typography', 'pagelines' ),
 				'header-footer'	=> __( 'Header and Footer', 'pagelines' ),
+				'navbar'		=> __( 'NavBar', 'pagelines' ),
 				'blog-posts'	=> __( 'Blog and Posts', 'pagelines' ),
 				'advanced'		=> __( 'Advanced', 'pagelines' ),
 				'custom'		=> __( 'Custom Code', 'pagelines' )
@@ -81,7 +82,7 @@ class PageLines_Inline_Help {
 			case 'pagelines_page_pagelines_account':
 				$this->extend_help( array(
 					'your_account'	=> __( 'Your Account', 'pagelines' ),
-					'import'	=> __( 'Import-Export', 'pagelines' ),
+					'import'		=> __( 'Import-Export', 'pagelines' ),
 				));							
 			default:
 			break;
@@ -140,9 +141,9 @@ class PageLines_Inline_Help {
 			
 			'custom'			=>	__( "<p>The Custom Code setting is where you can insert your Custom CSS styling. If you have any Header, Footer, or Google Analytics script, all of that goes there as well. <br /><br />For more information, click on <a href='http://www.pagelines.com/wiki/How_to_Use_the_Custom_Code_Settings' target='_blank'>How to Use the Custom Code Settings</a></p>", 'pagelines' ),
 			
-			'templates'			=> __( "<p>The Template Setup is one of PageLine's most powerful features. Using drag and drop technology, you can easily place your sections wherever you want on your site. <br /><br />For more information, click on <a href='http://www.pagelines.com/wiki/How_to_Use_the_Template_Setup' target='_blank'>How to Use the Template Setup</a></p>", 'pagelines' ),
+			'templates'			=> __( "<p>The Drag & Drop Settings are one of PageLine's most powerful features. Using drag and drop technology, you can easily place your sections wherever you want on your site. <br /><br />For more information, click on <a href='http://www.pagelines.com/wiki/How_to_Use_the_Template_Setup' target='_blank'>How to Use the Template Setup</a></p>", 'pagelines' ),
 			
-			'pagelines-store'	=>	__( "<p>The PageLines Store is your one stop online market place for everything you need to truely customize your website. Built by fellow members of the PageLines community, the Store offers the following types of components:<ul><li><strong>Sections -</strong> Drag and Drop pieces of web design that you can control on page templates</li><li><strong>Themes -</strong> The overall appearance and structure of the site; its visual presentation.</li><li><strong>Plugins -</strong> Extend the functionality of your website.</li></ul>For more information, click on <a href='http://www.pagelines.com/wiki/How_to_Use_the_PageLines_Store' target='_blank'>How to Use the PageLines Store</a><br /><br />Interested in developing your own Sections/Themes/Plugins for the PageLines Store? Click on <a href='http://www.pagelines.com/wiki/Getting_Started_as_a_Developer' target='_blank'>Getting Started as a Developer</a> for more information.</p>", 'pagelines' ),
+			'pagelines-store'	=>	__( "<p>The PageLines Store is your one stop online market place for everything you need to truely customize your website. Built by fellow members of the PageLines community, the Store offers the following types of components:<ul><li><strong>Sections -</strong> Drag and Drop pieces of web design that you can control on page templates</li><li><strong>Themes -</strong> The overall appearance and structure of the site; its visual presentation.</li><li><strong>Plugins -</strong> Extend the functionality of your website.</li></ul>For more information, click on <a href='http://www.pagelines.com/wiki/How_to_Use_the_PageLines_Store' target='_blank'>How to Use the PageLines Store</a><br /><br />Interested in developing your own Sections/Themes/Plugins for the PageLines Store? Click on <a href='http://developer.pagelines.com/' target='_blank'>Getting Started as a Developer</a> for more information.</p>", 'pagelines' ),
 				
 				
 			'integrations'		=>	__( "<p>If you purchased a PageLines Developer license, you have access to PageLines Integrations.<br />This allows you to use non-WordPress software on your website such as Vanilla forums & MediaWiki, and completely integrate it with the PageLines Framework. <br /><br />For more information, click on <a href='http://www.pagelines.com/wiki/How_to_Use_Integrations' target='_blank'>How to Use Integrations</a></p>", 'pagelines' ),
@@ -162,7 +163,8 @@ class PageLines_Inline_Help {
 			'special-search'	=>	__( '<p>When a user types in a search on your website, the Search Results page will appear containing the results.</p>', 'pagelines' ),
 			'special-tags'		=>	__( '<p>You can assign tag words to a post. If a user clicks on the tag word, he will arrive at this page containing other posts with the same tag.</p>', 'pagelines' ),
 			'special-author'	=>	__( '<p>This page will show all of the posts by a certain author. Clicking on the authors name will take the user there.</p>', 'pagelines' ),
-			'special-404'		=>	__( "<p>If a user tries to go to a page on your site that doesn't exist, he will arrive at this page.</p>", 'pagelines' )	
+			'special-404'		=>	__( "<p>If a user tries to go to a page on your site that doesn't exist, he will arrive at this page.</p>", 'pagelines' ),
+			'navbar'			=>	__( "<p>The NavBar settings allow you to control the fixed navigation bar including themes, logo and menus.<br /><br />For more information, click on <a href='http://www.pagelines.com/wiki/How_to_use_NavBar' target='_blank'>How to Use the NavBar</a></p>", 'pagelines' )
 		);
 		
 		return ( isset( $markup[$help] ) ) ? $markup[ $help ] : __( 'No help for this tab yet!', 'pagelines' );		
