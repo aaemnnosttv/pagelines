@@ -88,23 +88,6 @@ function base_check_templates() {
 			}	
 		}
 	}
-	
-	if ( !defined( 'PL_CUSTOMIZE' ) )
-		return;
-
-	foreach ( glob( EXTEND_CHILD_DIR . '/*.php') as $file) {
-
-		if ( preg_match( '/page\.([a-z-0-9]+)\.php/', $file, $match ) ) {
-			if ( !is_file( trailingslashit( get_stylesheet_directory() ) . basename( $file ) ) && is_writable( get_stylesheet_directory() ) ) 
-				copy( $file, trailingslashit( get_stylesheet_directory() ) . basename( $file ) );
-
-			if ( is_file( trailingslashit( get_stylesheet_directory() ) . basename( $file ) ) ) {
-				$data = get_file_data( trailingslashit( get_stylesheet_directory() ) . basename( $file ), array( 'name' => 'Template Name' ) );
-				if ( is_array( $data ) )
-					pagelines_add_page( $match[1], $data['name'] );
-			}
-		}
-	}
 }
 
 
