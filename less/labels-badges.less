@@ -1,3 +1,55 @@
+// BADGES
+// ------
+
+// Base
+.badge {
+  padding: 1px 9px 2px;
+  font-family: @baseFontFamily;
+  font-size: @baseFontSize * .925;
+  font-weight: bold;
+  line-height: 13px; // ensure proper line-height if floated
+  white-space: nowrap;
+  color: @white;
+  background-color: @grayLight;
+  .border-radius(9px);
+}
+
+// Hover state
+.badge:hover {
+  color: @white;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+// When Linked
+.badge a {
+  text-decoration:none;
+  color:@white;
+}
+.badge a:hover, .entry_content .badge a:hover{
+  text-decoration:none;
+  color:darken (@white,10%);
+}
+
+
+// Colors
+.badge-important            { background-color: @errorText; }
+.badge-important:hover      { background-color: darken(@errorText, 10%); }
+
+.badge-warning          { background-color: @orange; }
+.badge-warning:hover    { background-color: darken(@orange, 10%); }
+
+.badge-success          { background-color: @successText; }
+.badge-success:hover    { background-color: darken(@successText, 10%); }
+
+.badge-info             { background-color: @infoText; }
+.badge-info:hover       { background-color: darken(@infoText, 10%); }
+
+.badge-inverse          { background-color: @grayDark; }
+.badge-inverse:hover    { background-color: darken(@grayDark, 10%); }
+
+
+
 // LABELS
 // ------
 

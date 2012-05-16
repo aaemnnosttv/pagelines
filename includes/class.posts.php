@@ -446,9 +446,10 @@ class PageLinesPosts {
 	function pagelines_get_post_title( $format = '' ){ 
 		
 		global $post;
+		global $pagelines_ID;
 
 		/** Check if page and show page title option is set to true */
-        if(is_page() && pagelines_option('pagetitles')){
+        if( is_page() && pagelines_option('pagetitles') && ! has_filter( "pagelines_no_page_title_{$pagelines_ID}" ) ) {
 			$title = sprintf( '<h1 class="entry-title pagetitle">%s</h1>', apply_filters( 'pagelines_post_title_text', get_the_title() ) );	
 		} elseif(!is_page()) {
 

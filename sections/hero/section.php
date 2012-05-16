@@ -5,7 +5,8 @@
 	Author URI: http://www.pagelines.com
 	Description: A responsive full width image and text area with button.
 	Class Name: PLheroUnit	
-	Workswith: templates, main, header, morefoot
+	Workswith: templates, main, header, morefoot, content
+	Cloning: true
 */
 
 /*
