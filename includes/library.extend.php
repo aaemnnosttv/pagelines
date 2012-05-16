@@ -55,12 +55,17 @@ function load_child_functions() {
 		
 		global $blog_id;
 		$mu_functions = sprintf( '%s/blogs/%s/functions.php', EXTEND_CHILD_DIR, $blog_id );
+		$mu_less = sprintf( '%s/blogs/%s/style.less', EXTEND_CHILD_DIR, $blog_id );
 		if ( is_file( $mu_functions ) )
 			require_once( $mu_functions );
+		if ( is_file( $mu_less ) )
+			pagelines_insert_core_less( $mu_less );
 	} else {
-
+		$less = sprintf( '%s/style.less', EXTEND_CHILD_DIR );
 		if ( is_file( PL_EXTEND_FUNCTIONS ) )
 			require_once( PL_EXTEND_FUNCTIONS );
+		if ( is_file( $less ) )
+			pagelines_insert_core_less( $less );
 	}
 }
 
