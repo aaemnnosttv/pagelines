@@ -293,7 +293,7 @@ function pagelines_facebook_header() {
 	if ( ! $pagelines_ID )
 		return;
 
-	$fb_img = apply_filters('pl_opengraph_image', pl_the_thumbnail_url($pagelines_ID));
+	$fb_img = apply_filters('pl_opengraph_image', pl_the_thumbnail_url( $pagelines_ID, 'full' ) );
 		
 	echo pl_source_comment('Facebook Open Graph');	
 		
