@@ -1,101 +1,55 @@
-// BADGES
-// ------
+// LABELS & BADGES
+// ---------------
 
-// Base
+// Base classes
+.label,
 .badge {
-  padding: 1px 9px 2px;
-  font-family: @baseFontFamily;
-  font-size: @baseFontSize * .925;
-  font-weight: bold;
-  line-height: 13px; // ensure proper line-height if floated
-  white-space: nowrap;
-  color: @white;
-  background-color: @grayLight;
-  .border-radius(9px);
-}
-
-// Hover state
-.badge:hover {
-  color: @white;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-// When Linked
-.badge a {
-  text-decoration:none;
-  color:@white;
-}
-.badge a:hover, .entry_content .badge a:hover{
-  text-decoration:none;
-  color:darken (@white,10%);
-}
-
-
-// Colors
-.badge-important            { background-color: @errorText; }
-.badge-important:hover      { background-color: darken(@errorText, 10%); }
-
-.badge-warning          { background-color: @orange; }
-.badge-warning:hover    { background-color: darken(@orange, 10%); }
-
-.badge-success          { background-color: @successText; }
-.badge-success:hover    { background-color: darken(@successText, 10%); }
-
-.badge-info             { background-color: @infoText; }
-.badge-info:hover       { background-color: darken(@infoText, 10%); }
-
-.badge-inverse          { background-color: @grayDark; }
-.badge-inverse:hover    { background-color: darken(@grayDark, 10%); }
-
-
-
-// LABELS
-// ------
-
-// Base
-.label {
-  padding: 1px 4px 2px;
-  font-family: @baseFontFamily;
   font-size: @baseFontSize * .846;
   font-weight: bold;
-  line-height: 13px; // ensure proper line-height if floated
+  line-height: 14px; // ensure proper line-height if floated
   color: @white;
-  vertical-align: middle;
+  vertical-align: baseline;
   white-space: nowrap;
   text-shadow: 0 -1px 0 rgba(0,0,0,.25);
   background-color: @grayLight;
+}
+// Set unique padding and border-radii
+.label {
+  padding: 1px 4px 2px;
   .border-radius(3px);
 }
-
-// Hover state
-.label:hover {
-  color: @white;
-  text-decoration: none;
+.badge {
+  padding: 1px 9px 2px;
+  .border-radius(9px);
 }
 
-// When Linked
-.label a {
-  text-decoration:none;
-  color:@white;
-}
-.label a:hover, .entry_content .label a:hover {
-  text-decoration:none;
-  color:darken (@white,10%);
+// Hover state, but only for links
+a {
+  &.label:hover,
+  &.badge:hover {
+    color: @white;
+    text-decoration: none;
+    cursor: pointer;
+  }
 }
 
 // Colors
-.label-important        { background-color: @errorText; }
-.label-important:hover  { background-color: darken(@errorText, 10%); }
-
-.label-warning          { background-color: @orange; }
-.label-warning:hover    { background-color: darken(@orange, 10%); }
-
-.label-success          { background-color: @successText; }
-.label-success:hover    { background-color: darken(@successText, 10%); }
-
-.label-info             { background-color: @infoText; }
-.label-info:hover       { background-color: darken(@infoText, 10%); }
-
-.label-inverse             { background-color: @grayDark; }
-.label-inverse:hover       { background-color: darken(@grayDark, 10%); }
+// Only give background-color difference to links (and to simplify, we don't qualifty with `a` but [href] attribute)
+.label,
+.badge {
+  // Important (red)
+  &-important         { background-color: @errorText; }
+  &-important[href]   { background-color: darken(@errorText, 10%); }
+  // Warnings (orange)
+  &-warning           { background-color: @orange; }
+  &-warning[href]     { background-color: darken(@orange, 10%); }
+  // Success (green)
+  &-success           { background-color: @successText; }
+  &-success[href]     { background-color: darken(@successText, 10%); }
+  // Info (turquoise)
+  &-info              { background-color: @infoText; }
+  &-info[href]        { background-color: darken(@infoText, 10%); }
+  // Inverse (black)
+  &-inverse           { background-color: @grayDark; }
+  &-inverse[href]     { background-color: darken(@grayDark, 10%); }
+}
