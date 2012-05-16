@@ -645,6 +645,31 @@ function pagelines_settings_menu_link(  ){
 	if( $template_name && is_pagelines_special() && $spurl){
 		$wp_admin_bar->add_menu( array( 'id' => 'special_settings', 'title' => __('Edit Meta', 'pagelines'), 'href' => $spurl ) );
 	}
+	
+	
+	if ( ! VPLUS )
+		return;
+	
+	$wp_admin_bar->add_menu( array( 'id' => 'plus_support', 'title' => __('Submit Ticket', 'pagelines'), 'href' => '#' ) );
+	
+	
+	global $wp_version;
+	
+	$data = sprintf( "Wordpress: %s\nFramework: %s\nPHP Version: %s\nURL: %s",
+		$wp_version,
+		CORE_VERSION,
+		phpversion(),
+		home_url()
+	 );
+
+	$meta = '<div class="pl-support-form">';	
+	$meta .= '<form action="admin.php?page=pagelines" method="post">';
+	$meta .= '<textarea class="mceEditor" name="pl-support-form"></textarea>';
+	$meta .= "<input type='hidden' name='pl-support-data' value='{$data}' />";
+	$meta .= '<input class="superlink osave" type="submit" value="send" />';
+	$meta .= '</form></div>';
+
+	$wp_admin_bar->add_menu( array( 'id' => 'plus_support_form', 'parent' => 'plus_support', 'meta' => array( 'html' => $meta ) ) );
 }
 
 /**
