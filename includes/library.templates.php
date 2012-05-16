@@ -662,7 +662,7 @@ function pagelines_settings_menu_link(  ){
 		home_url()
 	 );
 
-	$meta = '<div class="pl-support-form">';	
+	$meta = '<div class="pl-support-form"><h2>Submit an instant ticket to PageLines.<h2>';	
 	$meta .= '<form action="admin.php?page=pagelines" method="post">';
 	$meta .= '<textarea class="mceEditor" name="pl-support-form"></textarea>';
 	$meta .= "<input type='hidden' name='pl-support-data' value='{$data}' />";
