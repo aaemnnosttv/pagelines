@@ -299,7 +299,7 @@ function pl_page_show_columns($name) {
 				$file = sprintf( '%s/%s', CHILD_DIR, $template );
 			
 			if ( !is_file( $file ) ) {
-				_e( 'Error', 'pagelines' );
+				printf( '<a href="%s">%s</a>', admin_url( sprintf( 'post.php?post=%s&action=edit', $post->ID ) ), __( 'No Template Assigned', 'pagelines' ) ) ;
 				break;
 			}
 				
@@ -324,8 +324,22 @@ function pl_page_show_columns($name) {
     }
 }
 
-new Store_RSS;
+/**
+ * Setup RSS 
+ *
+ * @package PageLines Framework
+ * @since   2.2
+ */
+new PageLines_RSS();
 
+new PageLines_RSS( array( 'feed' => 'http://www.pagelines.com/blog/feed/', 'slug' => 'pl-rss', 'title' => __( 'News from the PageLines Blog', 'pagelines' ) ) );
+
+/**
+ * Setup Versions and flush caches.
+ *
+ * @package PageLines Framework
+ * @since   2.2
+ */
 add_action( 'admin_init', 'pagelines_set_versions' );
 function pagelines_set_versions() {
 	if ( current_user_can( 'edit_themes' ) ) {
@@ -334,4 +348,18 @@ function pagelines_set_versions() {
 	}
 	set_theme_mod( 'pagelines_version', pl_get_theme_data( get_template_directory(), 'Version' ) );
 	set_theme_mod( 'pagelines_child_version', pl_get_theme_data( get_stylesheet_directory(), 'Version' ) );
+}
+
+add_action( 'admin_init', 'pagelines_plus_support' );
+function pagelines_plus_support() {
+	
+	if ( VPLUS && isset( $_POST['pl-support-form'] ) ) {
+		
+		$data = sprintf( "%s\n\n%s", $_POST['pl-support-data'], $_POST['pl-support-form'] );
+		
+		$from = get_option('admin_email');
+		
+		$headers = "From: Plus User <{$from}>\r\n";
+		wp_mail('simon@pagelines.com', 'Plus Support Ticket', $data, $headers);
+	}	
 }

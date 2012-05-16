@@ -21,8 +21,12 @@ Version 2.2
 	- CORE - Added title/alt to watermark.
 	- CORE - Store layout tweaks.
 	- CORE - Add support for WordPress 3.4.
-	- CORE - Improved Callout section
-	- CORE - Improved Highlight section
+	- CORE - Improved Callout section.
+	- CORE - Improved Highlight section.
+	- CORE - Child theme style.less auto parsed.
+	- CORE - Customize plugin style.less auto parsed.
+	- Bugs - Fix undefined template name after theme change.
+	- Bugs - Remove Custom plugin attempting to copy page templates on every pageload.
 	- Bugs - Javascript only loaded when needed.
 
 Version 2.1.7
