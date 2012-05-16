@@ -47,7 +47,8 @@
  *  36. Modal Popup
  *  37. Post Time
  *  38. PageLines Buttons (orig)
- *
+ *  39. Enqueue jQuery
+ *  40. Enqueue Bootstrap JS
  */
 
 class PageLines_ShortCodes {
@@ -132,6 +133,10 @@ class PageLines_ShortCodes {
 			
 			'button'					=>	'pagelines_button_shortcode',
 			'post_time'					=>	'pagelines_post_time_shortcode',
+
+			'pl_jquery'                 =>  'pagelines_runjquery_shortcode',
+			'pl_bootstrap'              =>  'pagelines_runbootstrap_shortcode',
+
 			'pl_button'					=>	'pl_button_shortcode',
 			'pl_buttongroup'            =>  'pl_buttongroup_shortcode',
 			'pl_buttondropdown'         =>  'pl_buttondropdown_shortcode',
@@ -1387,6 +1392,26 @@ class PageLines_ShortCodes {
 
 		return apply_filters( 'pagelines_button_shortcode', $output, $atts );
 
+	}
+
+	/**
+	 * 39. Used to enqueue jQuery when using manual Bootstrap markup
+	 * 
+	 * @example <code>[pl_jquery]</code> is the default usage
+	 */
+	function pagelines_runjquery_shortcode() {
+		
+		wp_enqueue_script('jquery');
+	}
+
+	/**
+	 * 40. Used to enqueue jQuery when using manual Bootstrap markup
+	 * 
+	 * @example <code>[pl_bootstrap]</code> is the default usage
+	 */
+	function pagelines_runbootstrap_shortcode(){
+		
+		wp_enqueue_script( 'pagelines-bootstrap-all' );
 	}
 	
 //		
