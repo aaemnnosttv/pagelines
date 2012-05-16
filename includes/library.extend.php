@@ -80,7 +80,7 @@ add_action( 'init', 'base_check_templates' );
 function base_check_templates() {
 
 	if ( is_child_theme() ) {
-		foreach ( glob( get_stylesheet_directory() . '/*.php') as $file) {
+		foreach ( glob( get_stylesheet_directory() . '/*.php', GLOB_NOSORT) as $file) {
 			if ( preg_match( '/page\.([a-z-0-9]+)\.php/', $file, $match ) ) {
 				$data = get_file_data( trailingslashit( get_stylesheet_directory() ) . basename( $file ), array( 'name' => 'Template Name' ) );
 				if ( is_array( $data ) )
