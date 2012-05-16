@@ -70,7 +70,7 @@ jQuery(window).load(function() {var theSlider = jQuery('.flexslider.<?php echo $
 					$tlocation = ploption('quick_text_location_'.$i, $this->oset);
 					
 					if($tlocation == 'right_top')
-						$caption_style = 'right:0; top:0;';	
+						$caption_style = 'right:0; bottom: auto; top:0;';	
 					elseif($tlocation == 'left_bottom')
 						$caption_style = 'left:0; bottom:0; top: auto;';
 					elseif($tlocation == 'left_top')
