@@ -2330,6 +2330,7 @@ class lessc {
 	
 	// parse and compile buffer
 	function parse($str = null, $initial_variables = null) {
+		@ini_set('memory_limit', '48M' );
 		$locale = setlocale(LC_NUMERIC, 0);
 		setlocale(LC_NUMERIC, "C");
 		$root = $this->parseTree($str);
