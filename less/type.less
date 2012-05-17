@@ -40,28 +40,23 @@ h1, h2, h3, h4, h5, h6 {
 }
 h1 {
   font-size: @h1Size;
-  line-height: @baseLineHeight * 2;
   small {
     font-size: @h3Size;
   }
 }
 h2 {
   font-size: @h2Size;
-  line-height: @baseLineHeight * 2;
   small {
     font-size: @h3Size;
   }
 }
 h3 {
-  line-height: @baseLineHeight * 1.5;
   font-size: @h3Size;
   small {
     font-size: @h4Size;
   }
 }
-h4, h5, h6 {
-  line-height: @baseLineHeight;
-}
+
 h4 {
   font-size: @h4Size;
   small {
@@ -76,7 +71,9 @@ h6 {
   color: @grayLight;
   text-transform: uppercase;
 }
-
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.3em;
+}
 // Page header
 .page-header {
   padding-bottom: @baseLineHeight - 1;
@@ -183,6 +180,13 @@ em {
 // Special Ampersand
 .spamp{
 	font-family: 'Baskerville', Palatino, georgia; 
+	font-style: italic;
+	font-weight: normal;
+}
+
+// Serif Style
+.serifize{
+	font-family: georgia, times, serif; 
 	font-style: italic;
 	font-weight: normal;
 }
