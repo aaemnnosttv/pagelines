@@ -25,6 +25,7 @@ Version 2.2
 	- CORE - Improved Highlight section.
 	- CORE - Child theme style.less auto parsed.
 	- CORE - Customize plugin style.less auto parsed.
+	- CORE - CSS class change - .section-comments to .section-wp-comments
 	- Bugs - Fix undefined template name after theme change.
 	- Bugs - Remove Custom plugin attempting to copy page templates on every pageload.
 	- Bugs - Javascript only loaded when needed.
