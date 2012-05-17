@@ -2,7 +2,12 @@
 
 #banners {
 
-	.banner-area {margin: @baseLineHeight 0;}
+	.banner-area {
+		margin: @baseLineHeight 0;
+		&:first-child{
+			margin-top: 0;
+		}
+	}
 
 	.banner-media {text-align: center;}
 
