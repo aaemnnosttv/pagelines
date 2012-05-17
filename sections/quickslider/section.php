@@ -49,9 +49,9 @@ jQuery(window).load(function() {var theSlider = jQuery('.flexslider.<?php echo $
 	
 	$control_nav = (!ploption('quick_nav', $this->oset) || ploption('quick_nav', $this->oset) == 'both' || ploption('quick_nav', $this->oset) == 'control_only') ? 'true' : 'false';
 	
-	$nav_class = ($control_nav) ? '' : 'no-control-nav';
+	$nav_class = ($control_nav) ? 'control-nav' : 'no-control-nav';
 	?>
-	<div class="flexwrap animated fadeIn">
+	<div class="flexwrap animated fadeIn <?php echo 'wrap-'.$nav_class;?>">
 		<div class="fslider">
 		<div class="flexslider <?php echo 'pl-clone'.$clone_id;?>">
 		  <ul class="slides">
