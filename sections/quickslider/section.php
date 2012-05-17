@@ -109,10 +109,9 @@ jQuery(window).load(function() {var theSlider = jQuery('.flexslider.<?php echo $
 	function do_defaults(){
 		
 		printf(
-			'<li><img src="%s" /></li><li><img src="%s" /></li><li><img src="%s" /></li>', 
+			'<li><img src="%s" /></li><li><img src="%s" /></li>', 
 			$this->images.'/image1.jpg', 
-			$this->images.'/image2.jpg',
-			$this->images.'/image3.jpg'
+			$this->images.'/image2.jpg'
 		);
 	}
 
