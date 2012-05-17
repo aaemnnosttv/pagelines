@@ -5,6 +5,7 @@
 	Author URI: http://www.pagelines.com
 	Description: Creates banners, great for product tours.
 	Class Name: PageLinesBanners
+	Workswith: templates, main, header, morefoot
 	Edition: pro
 	Cloning: true 
 */
