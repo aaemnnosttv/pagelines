@@ -948,17 +948,18 @@ class PageLines_ShortCodes {
 				do_shortcode( $content )
 		);
 
-
         if ( $atts['closable'] === 'yes' ) {	
 			
 			return $closed;
         
     	}
 
-	    $out = sprintf( '<div class="alert alert-%1$s alert-block">%1$s</div>',
+	    $out = sprintf( '<div class="alert alert-%s alert-block">%2$s</div>',
 					$atts['type'],
 					do_shortcode( $content )
 				);
+
+		return $out;
 	}
 	
 	/**
