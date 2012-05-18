@@ -5,7 +5,7 @@
 	Author URI: http://www.pagelines.com
 	Description: Loads twitter feed into the site footer
 	Class Name: PageLinesTwitterBar
-	Workswith: morefoot
+	Workswith: morefoot, footer
 	Edition: Pro
 */
 
