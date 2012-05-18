@@ -63,6 +63,7 @@ class PageLines_ShortCodes {
 		
 		add_action( 'wp_print_scripts', array( &$this, 'detect_shortcode_js' ) );
 		add_action( 'wp_print_styles', array( &$this, 'detect_shortcode_css' ) );
+		add_action( 'template_redirect', array( &$this, 'filters' ) );
 	}
 
 	function detect_shortcode_js() {
