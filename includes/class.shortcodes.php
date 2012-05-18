@@ -27,6 +27,8 @@
  *  16. Post Author Display Name
  *  17. Post Date
  *  18. Pinterest Button
+ *      Google Plus
+ *      Linkedin Share
  *  19. Tweet Button
  *  20. Like Button
  *  21. Show Authors
@@ -145,9 +147,11 @@ class PageLines_ShortCodes {
 				),
 			'pl_label'				    =>	array( 'function' => 'pl_label_shortcode' ),
 			'pl_badge'			        =>	array( 'function' => 'pl_badge_shortcode' ),
+			'googleplus'				=>	array( 'function' => 'pl_googleplus_button' ),
+			'linkedin'			    	=>	array( 'function' => 'pl_linkedinshare_button' ),
 			'like_button'				=>	array( 'function' => 'pl_facebook_shortcode' ),
-			'tweet_button'				=>	array( 'function' => 'pl_twitter_button' ),
-			'pinterest_button'			=>	array( 'function' => 'pl_pinterest_button' ),
+			'twitter_button'				=>	array( 'function' => 'pl_twitter_button' ),
+			'pinterest'		        	=>	array( 'function' => 'pl_pinterest_button' ),
 			'post_date'					=>	array( 'function' => 'pagelines_post_date_shortcode' ),
 			'post_author'				=>	array( 'function' => 'pagelines_post_author_shortcode' ),
 			'post_author_link'			=>	array( 'function' => 'pagelines_post_author_link_shortcode' ),
@@ -593,39 +597,107 @@ class PageLines_ShortCodes {
 			return $out;
 
 		}
+
+	/**
+	 * 1X.Shortcode to display Google Plus 1 Button
+	 * 
+	 * @example <code>[google_plus]</code> is the default usage
+	 * @example <code>[google_plus size="" count=""]</code>
+	 * @example available attributes for size include small, medium, and tall
+	 * @example avialable counts include inline, and bubble
+	 */
+    function pl_googleplus_button ( $atts ) {
+
+    	$defaults = array(
+    		'size' => 'medium',
+    		'count' => 'inline',
+    		'url' => get_permalink()
+    	
+	    );
+    	
+    	$atts = shortcode_atts($defaults, $atts);
+
+    	ob_start();
+
+        ?>
+			<script type="text/javascript">
+			  (function() { var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true; po.src = 'https://apis.google.com/js/plusone.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+			  })();
+			</script>
+		<?php
+
+		 printf('
+			<div class="g-plusone" data-size="%s" data-annotation="%s" data-href="%s"></div>',
+			$atts['size'],
+			$atts['count'],
+			$atts['url']
+		);
+
+		return ob_get_clean();
+    }
+
+	/**
+	 * . Shortcode to display Linkedin Share Button
+	 * 
+	 * @example <code>[linkedin]</code> is the default usage
+	 * @example <code>[linkedin count="vertical"]</code>
+	 */
+    function pl_linkedinshare_button ($atts) {
+    	
+			$defaults = array(
+				'url'	=> get_permalink(), 
+				'count'	=> 'horizontal'
+			); 	
+
+			$atts = wp_parse_args( $atts, $defaults );
+
+
+            $out = sprintf( '<script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
+<script type="IN/Share" data-url="%s" data-counter="%s"></script>',   
+					$atts['url'],
+					$atts['count']
+				);
+           
+           return $out;
+
+    }
 		
 	/**
 	 * 19. Shortcode to display Tweet button
 	 * 
-	 * @example <code>[tweet_button]</code> is the default usage
-	 * @example <code>[tweet_button]</code>
+	 * @example <code>[twitter_button type=""]</code> is the default usage
+	 * @example <code>[twitter_button type="follow"]</code>
 	 */
 	function pl_twitter_button( $args ){
 
 			$defaults = array(
-				'permalink'	=> '', 
-				'width'		=> '80',
+				'type'      => '',
+				'permalink'	=> get_permalink(), 
 				'handle'	=> ploption( 'twittername' ), 
 				'title'		=> ''
 			); 	
 
 			$a = wp_parse_args( $args, $defaults );
 
-			ob_start();
+			if ($a['type'] == 'follow') {
 
-				// Twitter
-				printf( '<a href="https://twitter.com/share" class="twitter-share-button" data-url="%s" data-text="%s" data-via="%s">Tweet</a>', 
+				printf( '
+				<a href="https://twitter.com/%2$s" class="twitter-follow-button" data-show-count="true">Follow @%1$s</a>', 
+	                    $a['type'],
+						$a['handle']
+					);
+
+			} 
+
+            $out = sprintf( '<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+            <a href="https://twitter.com/share" class="twitter-share-button" data-url="%s" data-text="%s" data-via="%s">Tweet</a>',   
+                    $a['type'],
 					$a['permalink'], 
 					$a['title'],
 					( ploption( 'twitter_via' ) ) ? $a['handle'] : ''
 				);
-
-			?>
-			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-
-			<?php 
-
-			return ob_get_clean();
+           
+           return $out;
 
 		}
 		
@@ -800,25 +872,23 @@ class PageLines_ShortCodes {
 
         $atts = shortcode_atts( $defaults, $atts );
 
-	    $out = sprintf( '<div class="alert alert-%1$s alert-block">%s</div>',
-					$atts['type'],
-					do_shortcode( $content )
-				);
-	    $closed = sprintf( '<div class="alert alert-%s"><a class="close" data-dismiss="alert" href="#">×</a>%s</div>',
-						$atts['type'],
-						do_shortcode( $content )
-					);
+        $closed = sprintf( '<div class="alert alert-%s"><a class="close" data-dismiss="alert" href="#">×</a>%s</div>',
+				$atts['type'],
+				do_shortcode( $content )
+		);
 
-		if ( $atts['closable'] === 'yes' ) {	
+        if ( $atts['closable'] === 'yes' ) {	
 			
 			return $closed;
         
-        } else {
-        	
-        	return $out;
-        
     	}
 
+	    $out = sprintf( '<div class="alert alert-%s alert-block">%2$s</div>',
+					$atts['type'],
+					do_shortcode( $content )
+				);
+
+		return $out;
 	}
 	
 	/**
