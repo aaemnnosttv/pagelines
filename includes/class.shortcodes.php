@@ -55,7 +55,7 @@ class PageLines_ShortCodes {
 	
 	
 	function __construct() {
-				
+						
 		self::register_shortcodes( $this->shortcodes_core() );
 		
 		// Make widgets process shortcodes
@@ -63,78 +63,7 @@ class PageLines_ShortCodes {
 		
 		add_action( 'wp_print_scripts', array( &$this, 'detect_shortcode_js' ) );
 		add_action( 'wp_print_styles', array( &$this, 'detect_shortcode_css' ) );
-		add_action( 'template_redirect', array( &$this, 'filters' ) );
-	}
-
-	function detect_shortcode_js() {
-		global $post;
-		
-		if ( ! is_object( $post ) )
-			return;
-
-		$pattern = get_shortcode_regex();
-		$core = $this->shortcodes_core();
-
-		if ( preg_match_all( '/' . $pattern . '/s', $post->post_content, $matches ) && array_key_exists( 2, $matches ) ) {
-			foreach ( $core as $key => $d ) {
-				if( in_array( $key, $matches[2] ) )
-					$this->register_js( $key, $core);
-			}
-		}
-	}
-	
-	function detect_shortcode_css() {
-		global $post;
-		
-		if ( ! is_object( $post ) )
-			return;
-
-		$pattern = get_shortcode_regex();
-		$core = $this->shortcodes_core();
-
-		if ( preg_match_all( '/' . $pattern . '/s', $post->post_content, $matches ) && array_key_exists( 2, $matches ) ) {
-			foreach ( $core as $key => $d ) {
-				if( in_array( $key, $matches[2] ) )
-					$this->register_css( $key, $core);
-			}
-		}
-	}
-	
-	function filters() {
-
-		/**
-		 *  Prevent AUTOP inside of shortcodes (breaking shortcodes - removed)
-		 */
-		 remove_filter( 'the_content', 'wpautop' );
-	//	 add_filter( 'the_content', 'wpautop' , 12);
-		 remove_filter( 'the_content', 'wptexturize' );
-		 add_filter( 'the_content', 'wptexturize' , 12);
-		
-	}
-	
-	function register_js( $key, $core ) {
-	
-			if ( isset( $core[$key]['js'] ) && is_array( $core[$key]['js'] ) ) {
-				foreach( $core[$key]['js'] as $js ) {
-					wp_enqueue_script( $js );
-				}
-			}
-	}
-		
-	function register_css( $key, $core ) {
-	
-			if ( isset( $core[$key]['css'] ) && is_array( $core[$key]['css'] ) ) {
-				foreach( $core[$key]['css'] as $css ) {
-					wp_enqueue_style( $css );
-				}
-			}
-	}
-	
-	private function register_shortcodes( $shortcodes ) {
-		
-		foreach ( $shortcodes as $shortcode => $data ) {
-			add_shortcode( $shortcode, array( &$this, $data['function']) );
-		}	
+		add_action( 'init', array( &$this, 'do_filters' ) );
 	}
 
 	private function shortcodes_core() {
@@ -1422,6 +1351,83 @@ class PageLines_ShortCodes {
 	 */
 	function pagelines_runbootstrap_shortcode() {}
 	
+	
+	
+	
+	
+	/**
+	* Shortcode functions
+	* 
+	*/
+	function do_filters() {
+
+		if ( false === ( $a = $this->detect_shortcode() ) )
+			return;
+		add_action( 'template_redirect', array( &$this, 'filters' ) );
+	}
+
+	function detect_shortcode_js() {
+
+		if ( false === ( $a = $this->detect_shortcode() ) )
+			return;
+
+		$core = $this->shortcodes_core();	
+		foreach( $a as $key ) {		
+			if ( isset( $core[$key]['js'] ) && is_array( $core[$key]['js'] ) )
+				foreach( $core[$key]['js'] as $js )
+					wp_enqueue_script( $js );
+		}	
+	}
+
+	function detect_shortcode_css() {
+
+		if ( false === ( $a = $this->detect_shortcode() ) )
+			return;
+
+		$core = $this->shortcodes_core();	
+		foreach( $a as $key ) {		
+			if ( isset( $core[$key]['css'] ) && is_array( $core[$key]['css'] ) )
+				foreach( $core[$key]['css'] as $css )
+					wp_enqueue_style( $css );
+		}	
+	}
+
+	function detect_shortcode() {
+		global $post;
+
+		if ( ! is_object( $post ) )
+			return;
+
+		$pattern = get_shortcode_regex();
+		$core = $this->shortcodes_core();
+		$out = array();
+
+		if ( preg_match_all( '/' . $pattern . '/s', $post->post_content, $matches ) && array_key_exists( 2, $matches ) ) {
+			foreach ( $core as $key => $d ) {
+				if( in_array( $key, $matches[2] ) )
+					$out[] = $key;
+			}
+			return $out;
+		}
+		return false;
+	}
+
+	function filters() {
+
+		/**
+		 *  Prevent AUTOP inside of shortcodes (breaking shortcodes - removed)
+		 */
+		remove_filter( 'the_content', 'wpautop' );
+		remove_filter( 'the_content', 'wptexturize' );
+		add_filter( 'the_content', 'wptexturize' , 12);
+	}
+
+	private function register_shortcodes( $shortcodes ) {
+
+		foreach ( $shortcodes as $shortcode => $data ) {
+			add_shortcode( $shortcode, array( &$this, $data['function']) );
+		}	
+	}
 //		
 } // end of class
 //
