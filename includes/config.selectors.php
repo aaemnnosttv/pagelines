@@ -74,7 +74,7 @@ class PageLinesCSSGroups{
 		
 		$s['cascade'] = '.commentlist ul.children .even';
 
-		$s['page_background_image'] = '.canvas #page, .full_width #page, body.fixed_width';
+		$s['page_background_image'] = '.full_width #page .page-canvas, body.fixed_width';
 
 		/**
 		 * Box & Element Colors
