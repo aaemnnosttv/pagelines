@@ -346,8 +346,16 @@ class PageLinesRenderCSS {
 	    $less_rule = array(
 	        '(.*)pagelines-compiled-css' => '/?pageless=1'
 	    );
-
 	    $wp_rewrite->rules = $less_rule + $wp_rewrite->rules;
+	}
+
+	// flush_rules() if our rules are not yet included
+	function check_rules(){
+		$rules = get_option( 'rewrite_rules' );
+		if ( ! isset( $rules['(.*)pagelines-compiled-css'] ) ) {
+			global $wp_rewrite;
+		   	$wp_rewrite->flush_rules();
+		}
 	}
 
 	function pagelines_add_trigger( $vars ) {
