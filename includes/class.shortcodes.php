@@ -1431,18 +1431,18 @@ class PageLines_ShortCodes {
 	*/
 	function do_filters() {
 
-		if ( false === ( $a = $this->detect_shortcode() ) )
+		if ( ! $this->detect_shortcode() )
 			return;
 		add_action( 'template_redirect', array( &$this, 'filters' ) );
 	}
 
 	function detect_shortcode_js() {
 
-		if ( false === ( $a = $this->detect_shortcode() ) )
+		if ( ! $this->detect_shortcode() )
 			return;
 
 		$core = $this->shortcodes_core();	
-		foreach( $a as $key ) {		
+		foreach( $this->detect_shortcode() as $key ) {		
 			if ( isset( $core[$key]['js'] ) && is_array( $core[$key]['js'] ) )
 				foreach( $core[$key]['js'] as $js )
 					wp_enqueue_script( $js );
@@ -1451,11 +1451,11 @@ class PageLines_ShortCodes {
 
 	function detect_shortcode_css() {
 
-		if ( false === ( $a = $this->detect_shortcode() ) )
+		if ( ! $this->detect_shortcode() )
 			return;
 
 		$core = $this->shortcodes_core();	
-		foreach( $a as $key ) {		
+		foreach( $this->detect_shortcode() as $key ) {		
 			if ( isset( $core[$key]['css'] ) && is_array( $core[$key]['css'] ) )
 				foreach( $core[$key]['css'] as $css )
 					wp_enqueue_style( $css );
