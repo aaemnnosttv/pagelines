@@ -61,16 +61,11 @@ class PageLines_ShortCodes {
 		// Make widgets process shortcodes
 		add_filter( 'widget_text', 'do_shortcode' );	
 		
-					
-    	//add_filter( 'the_content', array( &$this, 'pl_shortcode_empty_paragraph_fix' ) );	
-
-		
-		add_action( 'wp', array( &$this, 'detect_shortcode' ) );
-
+		add_action( 'wp_print_scripts', array( &$this, 'detect_shortcode_js' ) );
+		add_action( 'wp_print_styles', array( &$this, 'detect_shortcode_css' ) );
 	}
-	
-	// Used 
-	function detect_shortcode() {
+
+	function detect_shortcode_js() {
 		global $post;
 		
 		if ( ! is_object( $post ) )
@@ -82,7 +77,24 @@ class PageLines_ShortCodes {
 		if ( preg_match_all( '/' . $pattern . '/s', $post->post_content, $matches ) && array_key_exists( 2, $matches ) ) {
 			foreach ( $core as $key => $d ) {
 				if( in_array( $key, $matches[2] ) )
-					$this->early_run_shortcode( $key );
+					$this->register_js( $key, $core);
+			}
+		}
+	}
+	
+	function detect_shortcode_css() {
+		global $post;
+		
+		if ( ! is_object( $post ) )
+			return;
+
+		$pattern = get_shortcode_regex();
+		$core = $this->shortcodes_core();
+
+		if ( preg_match_all( '/' . $pattern . '/s', $post->post_content, $matches ) && array_key_exists( 2, $matches ) ) {
+			foreach ( $core as $key => $d ) {
+				if( in_array( $key, $matches[2] ) )
+					$this->register_css( $key, $core);
 			}
 		}
 	}
@@ -99,35 +111,28 @@ class PageLines_ShortCodes {
 		
 	}
 	
-	// Supports detect shortcode
-	function early_run_shortcode( $key ) {
-		
-		add_action( 'template_redirect', array( &$this, 'filters' ) );
-		
-		$code = "[$key]";
-		ob_start();
-		do_shortcode( $code );
-		$e = ob_end_clean();
-	}
+	function register_js( $key, $core ) {
 	
-	//Remove the extra p's and br's
-	function pl_shortcode_empty_paragraph_fix( $content ) {   
-    	$array = array (
-        	'<p>[' => '[', 
-        	']</p>' => ']', 
-        	']<br />' => ']'
-    	);
-
-    	$content = strtr( $content, $array );
-
-		return $content;
+			if ( isset( $core[$key]['js'] ) && is_array( $core[$key]['js'] ) ) {
+				foreach( $core[$key]['js'] as $js ) {
+					wp_enqueue_script( $js );
+				}
+			}
+	}
+		
+	function register_css( $key, $core ) {
+	
+			if ( isset( $core[$key]['css'] ) && is_array( $core[$key]['css'] ) ) {
+				foreach( $core[$key]['css'] as $css ) {
+					wp_enqueue_style( $css );
+				}
+			}
 	}
 	
 	private function register_shortcodes( $shortcodes ) {
 		
-		foreach ( $shortcodes as $shortcode => $function ) {
-			
-			add_shortcode( $shortcode, array( &$this, $function ) );
+		foreach ( $shortcodes as $shortcode => $data ) {
+			add_shortcode( $shortcode, array( &$this, $data['function']) );
 		}	
 	}
 
@@ -135,58 +140,101 @@ class PageLines_ShortCodes {
 		
 		$core = array( 
 			
-			'button'					=>	'pagelines_button_shortcode',
-			'post_time'					=>	'pagelines_post_time_shortcode',
+			'button'					=>	array( 'function' => 'pagelines_button_shortcode' ),
+			'post_time'					=>	array( 'function' => 'pagelines_post_time_shortcode' ),
 
-			'pl_jquery'                 =>  'pagelines_runjquery_shortcode',
-			'pl_bootstrap'              =>  'pagelines_runbootstrap_shortcode',
+			'pl_jquery'                 =>  array(
+				'function'	=>	'pagelines_runjquery_shortcode',
+				'js'	=> array( 'jquery' )
+				),
+			'pl_bootstrap'              =>	array(
+				'function' => 'pagelines_runbootstrap_shortcode',
+				'js' => array( 'pagelines-bootstrap-all' )
+				),
 
-			'pl_button'					=>	'pl_button_shortcode',
-			'pl_buttongroup'            =>  'pl_buttongroup_shortcode',
-			'pl_buttondropdown'         =>  'pl_buttondropdown_shortcode',
-			'pl_splitbuttondropdown'    =>  'pl_splitbuttondropdown_shortcode',
-			'pl_tooltip'                =>  'pl_tooltip_shortcode',
-			'pl_popover'                =>  'pl_popover_shortcode',
+			'pl_button'					=>	array( 'function' => 'pl_button_shortcode' ),
+			'pl_buttongroup'            =>  array( 
+				'function'	=> 'pl_buttongroup_shortcode',
+				'js' => array( 'jquery', 'pagelines-bootstrap-all' )
+			),
+			'pl_buttondropdown'         =>	array(
+				'function' => 'pl_buttondropdown_shortcode',
+				'css' => array( 'pagelines-shortcodes' )
+				),
+			'pl_splitbuttondropdown'    =>  array( 
+				'function'	=> 'pl_splitbuttondropdown_shortcode',
+				'css'		=> array( 'pagelines-shortcodes' ),
+				'js' => array( 'jquery', 'pagelines-bootstrap-all' )
+			),
+			'pl_tooltip'                =>  array( 
+				'function'	=> 'pl_tooltip_shortcode',
+				'js' => array( 'jquery', 'pagelines-bootstrap-all' )
+			),
+			'pl_popover'                =>	array(
+				'function'	=> 'pl_popover_shortcode',
+				'js' => array( 'jquery', 'pagelines-bootstrap-all' )
+			),
 			
-			'pl_accordion'              =>  'pl_accordion_shortcode',
-			'pl_accordioncontent'       =>  'pl_accordioncontent_shortcode',
+			'pl_accordion'              => array( 
+				'function' => 'pl_accordion_shortcode',
+				 'js' => array( 'jquery', 'pagelines-bootstrap-all' )
+				),
+			'pl_accordioncontent'       =>  array(
+				'function'	=> 'pl_accordioncontent_shortcode',
+				'js' => array( 'jquery', 'pagelines-bootstrap-all' )
+			),
 			
-			'pl_carousel'               =>  'pl_carousel_shortcode',
-			'pl_carouselimage'          =>  'pl_carouselimage_shortcode',
+			'pl_carousel'               =>	array(
+				'function' => 'pl_carousel_shortcode',
+				'js' => array( 'jquery', 'pagelines-bootstrap-all' )
+				),
+			'pl_carouselimage'          =>	array( 'function' => 'pl_carouselimage_shortcode' ),
 			
-			'pl_tabs'                   =>  'pl_tabs_shortcode',
-			'pl_tabtitlesection'        =>  'pl_tabtitlesection_shortcode',
-			'pl_tabtitle'               =>  'pl_tabtitle_shortcode',
-			'pl_tabcontentsection'      =>  'pl_tabcontentsection_shortcode',
-			'pl_tabcontent'             =>  'pl_tabcontent_shortcode',
+			'pl_tabs'                   =>	array( 'function' => 'pl_tabs_shortcode' ),
+			'pl_tabtitlesection'        =>	array(
+				'function' => 'pl_tabtitlesection_shortcode',
+				'js' => array( 'jquery', 'pagelines-bootstrap-all' )
+				),
+			'pl_tabtitle'               =>	array( 'function' => 'pl_tabtitle_shortcode' ),
+			'pl_tabcontentsection'      =>	array( 'function' => 'pl_tabcontentsection_shortcode' ),
+			'pl_tabcontent'             =>	array( 'function' => 'pl_tabcontent_shortcode' ),
 
-            'pl_modal'				    =>	'pl_modal_shortcode',
-			'pl_blockquote'				=>	'pl_blockquote_shortcode',
-			'pl_alertbox'				=>	'pl_alertbox_shortcode',
-			'show_authors'				=>	'show_multiple_authors',
-			'pl_codebox'			    =>	'pl_codebox_shortcode',
-			'pl_label'				    =>	'pl_label_shortcode',
-			'pl_badge'			        =>	'pl_badge_shortcode',
-			'like_button'				=>	'pl_facebook_shortcode',
-			'tweet_button'				=>	'pl_twitter_button',
-			'pinterest_button'			=>	'pl_pinterest_button',
-			'post_date'					=>	'pagelines_post_date_shortcode',
-			'post_author'				=>	'pagelines_post_author_shortcode',
-			'post_author_link'			=>	'pagelines_post_author_link_shortcode',
-			'post_author_posts_link'	=>	'pagelines_post_author_posts_link_shortcode',
-			'post_comments'				=>	'pagelines_post_comments_shortcode',
-			'post_tags'					=>	'pagelines_post_tags_shortcode',
-			'post_categories'			=>	'pagelines_post_categories_shortcode',
-			'post_type'					=>	'pagelines_post_type_shortcode',
-			'post_edit'					=>	'pagelines_post_edit_shortcode',
-			'container'					=>	'dynamic_container',
-			'cbox'						=>	'dynamic_box',
-			'post_feed'					=>	'get_postfeed',
-			'chart'						=>	'chart_shortcode',
-			'googlemap'					=>	'googleMaps',
-			'themeurl'					=>	'get_themeurl',
-			'link'						=>	'create_pagelink',
-			'bookmark'					=>	'bookmark_link'
+            'pl_modal'				    =>	array(
+				'function' => 'pl_modal_shortcode',
+				'js' => array( 'jquery', 'pagelines-bootstrap-all' )
+				),
+			'pl_blockquote'				=>	array( 'function' => 'pl_blockquote_shortcode' ),
+			'pl_alertbox'				=>	array(
+				'function'	=> 'pl_alertbox_shortcode',
+				'js' => array( 'jquery', 'pagelines-bootstrap-all' )
+			),
+			'show_authors'				=>	array( 'function' => 'show_multiple_authors' ),
+			'pl_codebox'			    =>	array(
+				'function'	=>	'pl_codebox_shortcode',
+				'js'		=>	array( 'jquery' )
+				),
+			'pl_label'				    =>	array( 'function' => 'pl_label_shortcode' ),
+			'pl_badge'			        =>	array( 'function' => 'pl_badge_shortcode' ),
+			'like_button'				=>	array( 'function' => 'pl_facebook_shortcode' ),
+			'tweet_button'				=>	array( 'function' => 'pl_twitter_button' ),
+			'pinterest_button'			=>	array( 'function' => 'pl_pinterest_button' ),
+			'post_date'					=>	array( 'function' => 'pagelines_post_date_shortcode' ),
+			'post_author'				=>	array( 'function' => 'pagelines_post_author_shortcode' ),
+			'post_author_link'			=>	array( 'function' => 'pagelines_post_author_link_shortcode' ),
+			'post_author_posts_link'	=>	array( 'function' => 'pagelines_post_author_posts_link_shortcode' ),
+			'post_comments'				=>	array( 'function' => 'pagelines_post_comments_shortcode' ),
+			'post_tags'					=>	array( 'function' => 'pagelines_post_tags_shortcode' ),
+			'post_categories'			=>	array( 'function' => 'pagelines_post_categories_shortcode' ),
+			'post_type'					=>	array( 'function' => 'pagelines_post_type_shortcode' ),
+			'post_edit'					=>	array( 'function' => 'pagelines_post_edit_shortcode' ),
+			'container'					=>	array( 'function' => 'dynamic_container' ),
+			'cbox'						=>	array( 'function' => 'dynamic_box' ),
+			'post_feed'					=>	array( 'function' => 'get_postfeed' ),
+			'chart'						=>	array( 'function' => 'chart_shortcode' ),
+			'googlemap'					=>	array( 'function' => 'googleMaps' ),
+			'themeurl'					=>	array( 'function' => 'get_themeurl' ),
+			'link'						=>	array( 'function' => 'create_pagelink' ),
+			'bookmark'					=>	array( 'function' => 'bookmark_link' )
 			);
 		
 		return $core;
@@ -732,12 +780,6 @@ class PageLines_ShortCodes {
 		$linenums = ( $linenums == 'yes' ) ? 'linenums' : '';
 		$language = 'lang-'.$language;
 
-		if ( $linenums === 'linenums' ) {	
-			
-    		wp_enqueue_script( 'jquery' );
-        
-    	}
-
 		// Grab Shortcodes
 		$pattern = array(
 		
@@ -839,9 +881,6 @@ class PageLines_ShortCodes {
 
 		if ( $atts['closable'] === 'yes' ) {	
 			
-    				wp_enqueue_script( 'jquery' );
-					wp_enqueue_script( 'pagelines-bootstrap-all' );
-			
 			return $closed;
         
         } else {
@@ -933,10 +972,6 @@ class PageLines_ShortCodes {
 	 * @example Available types include info, success, warning, danger, inverse
 	 */
 	function pl_buttondropdown_shortcode( $atts, $content = null  ) {
-	    
-	    wp_enqueue_style( 'pagelines-shortcodes' );
-    	wp_enqueue_script( 'jquery' );
-		wp_enqueue_script( 'pagelines-bootstrap-all' );
 
 	    $defaults = array(
 		    'size' => '',
@@ -969,10 +1004,6 @@ class PageLines_ShortCodes {
 	 * @example Available types include info, success, warning, danger, inverse
 	 */
 	function pl_splitbuttondropdown_shortcode( $atts, $content = null ) {
-
-    	wp_enqueue_style( 'pagelines-shortcodes' );
-    	wp_enqueue_script( 'jquery' );
-		wp_enqueue_script( 'pagelines-bootstrap-all' );
 	    
 	    $defaults = array(
 		    'size' => '',
@@ -1003,9 +1034,6 @@ class PageLines_ShortCodes {
 	 * @example <code>This is a [pl_tooltip tip="Cool"]tooltip[/pl_tooltip] example.</code>
 	 */
 	function pl_tooltip_shortcode( $atts, $content = null ) {
-
-		wp_enqueue_script( 'jquery' );
-		wp_enqueue_script( 'pagelines-bootstrap-all' );
 
 	    $defaults = array(
 	    	'tip' => 'Tip',
@@ -1039,9 +1067,6 @@ class PageLines_ShortCodes {
 	 * @example <code>This is a [pl_popover title="Popover Title" content="Some content that you can have inside the Popover"]popover[/pl_popover] example.</code>
 	 */
     function pl_popover_shortcode( $atts, $content = null ) {
-	    
-	    wp_enqueue_script( 'jquery' );
-		wp_enqueue_script( 'pagelines-bootstrap-all' );
 
 	    $defaults = array(
 	    	'title' => 'Popover Title',
@@ -1094,10 +1119,6 @@ class PageLines_ShortCodes {
 	}
 	//Accordion Content
 	function pl_accordioncontent_shortcode( $atts, $content = null, $open = null ) {
-
-    	// Pull in JS
-    	wp_enqueue_script( 'jquery' );
-		wp_enqueue_script( 'pagelines-bootstrap-all' );
 	    
 	    $defaults = array(
 		    'name' => '',
@@ -1136,10 +1157,6 @@ class PageLines_ShortCodes {
 	 * @example <code>[pl_carousel name="PageLinesCarousel"][pl_carouselimage first="yes" title="Feature 1" imageurl="" ]Image 1 Caption[/pl_carouselimage][pl_carouselimage title="Feature 2" imageurl=""]Image 2 Caption[/pl_carouselimage][pl_carouselimage title="Feature 3" imageurl=""]Image 3 Caption[/pl_carouselimage][/pl_carousel]</code>
 	 */
     function pl_carousel_shortcode( $atts, $content = null ) {
-
-    	// Pull in JS
-    	wp_enqueue_script( 'jquery' );
-		wp_enqueue_script( 'pagelines-bootstrap-all' );
 	    
 	    $defaults = array(
 	    	'name' => 'PageLines Carousel',
@@ -1207,10 +1224,6 @@ class PageLines_ShortCodes {
 
 	//Tab Titles Section
 		function pl_tabtitlesection_shortcode( $atts, $content = null ) {
-
-    	// Pull in JS
-    	wp_enqueue_script( 'jquery' );
-		wp_enqueue_script( 'pagelines-bootstrap-all' );
 		        
 			extract( shortcode_atts( array(
 		    	'type' => '',
@@ -1290,10 +1303,6 @@ class PageLines_ShortCodes {
 	 * @example available color types include default, success, warning, important, info, and inverse
 	 */	
 	function pl_modal_shortcode( $atts, $content = null ) {
-
-    	// Pull in JS
-    	wp_enqueue_script( 'jquery' );
-		wp_enqueue_script( 'pagelines-bootstrap-all' );
 	    
 	    extract( shortcode_atts( array(
 		    'title' => '',
@@ -1403,20 +1412,14 @@ class PageLines_ShortCodes {
 	 * 
 	 * @example <code>[pl_jquery]</code> is the default usage
 	 */
-	function pagelines_runjquery_shortcode() {
-		
-		wp_enqueue_script('jquery');
-	}
+	function pagelines_runjquery_shortcode() {}
 
 	/**
 	 * 40. Used to enqueue jQuery when using manual Bootstrap markup
 	 * 
 	 * @example <code>[pl_bootstrap]</code> is the default usage
 	 */
-	function pagelines_runbootstrap_shortcode(){
-		
-		wp_enqueue_script( 'pagelines-bootstrap-all' );
-	}
+	function pagelines_runbootstrap_shortcode() {}
 	
 //		
 } // end of class
