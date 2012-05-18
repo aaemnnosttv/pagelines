@@ -411,19 +411,19 @@ class PageLinesBoxes extends PageLinesSection {
 		*/
 		function get_default_fboxes(){
 			$default_boxes[] = array(
-			        				'title' => 'Drag&amp;Drop Control',
-					        		'text' 	=> 'Control the structure of your site using drag and drop functionality. Pro web design has never been easier.',
+			        				'title' => 'Drag <span class="spamp">&amp;</span> Drop',
+					        		'text' 	=> 'PageLines is a drag &amp; drop framework that allows you to completely customize your website with drag &amp; drop.',
 									'media' => $this->base_url.'/images/fbox3.png'
 			    				);
 
 			$default_boxes[] = array(
-			        				'title' => 'PageLines Framework',
-					        		'text' 	=> "The world's first ever drag-and-drop framework designed for professional websites. Build beautiful sites faster.",
+			        				'title' => 'Responsive <span class="spamp">&amp;</span> Mobile',
+					        		'text' 	=> "Built from the ground up to look great on mobile devices. PageLines utilizes an advanced responsive framework.",
 									'media' => $this->base_url.'/images/fbox2.png'
 			    				);
 
 			$default_boxes[] = array(
-			        				'title'	=> 'Add-On Marketplace',
+			        				'title'	=> 'Tons of Addons',
 			        				'text' 	=> "Load up your own sections, themes and plugins using PageLines' one of a kind extension marketplace.", 
 									'media' => $this->base_url.'/images/fbox1.png'
 			    				);

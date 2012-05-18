@@ -114,7 +114,7 @@ class PageLinesCallout extends PageLinesSection {
 
 		$call_title = ploption( 'pagelines_callout_header', $this->tset );
 		$call_sub = ploption( 'pagelines_callout_subheader', $this->tset );
-		$call_img = ploption( 'pagelines_callout_image', $this->tset );
+		$call_img = ploption( 'pagelines_callout_image', $this->oset );
 		$call_link = ploption( 'pagelines_callout_button_link', $this->tset );
 		$call_btext = ploption( 'pagelines_callout_button_text', $this->tset );
 		$call_btheme = ploption( 'pagelines_callout_button_theme', $this->tset );
@@ -123,10 +123,9 @@ class PageLinesCallout extends PageLinesSection {
 
 
 		$call_align = (ploption('pagelines_callout_align', $this->oset) == 'left') ? '' : 'rtimg';	
-		
+
 		if($call_title || $call_img){ ?>
 	<div class="callout-area media fix">
-		<?php if($call_link){ ?>
 		<div class="callout_action img <?php echo $call_align;?>">
 			<?php 
 			
@@ -140,7 +139,6 @@ class PageLinesCallout extends PageLinesSection {
 				
 			?>
 		</div>
-		<?php } ?>
 		<div class="callout_text bd">
 			<div class="callout_text-pad">
 				<?php 
