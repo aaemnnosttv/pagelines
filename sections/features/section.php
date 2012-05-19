@@ -187,6 +187,8 @@ class PageLinesFeatures extends PageLinesSection {
 				
 				if ( plmeta( 'feature-thumb', $oset ) )
 					$feature_thumb = plmeta( 'feature-thumb', $oset );
+				elseif( plmeta( 'feature-background-image', $oset ) )
+					$feature_thumb = plmeta( 'feature-background-image', $oset );
 				elseif( has_post_thumbnail( $f->ID ) ) {
 					$feature_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $f->ID ) );
 					$feature_thumb = $feature_thumb[0];
@@ -407,8 +409,8 @@ class PageLinesFeatures extends PageLinesSection {
 
 						$feature_media = ploption( 'feature-media', $oset ); 
 						
-						$feature_wrap_markup = ( $feature_style == 'text-none' && $action ) ? 'a' : 'div';
-						$feature_wrap_link = ( $feature_style == 'text-none' && $action ) ? sprintf( 'href="%s"', $action ) : '';
+						$feature_wrap_markup = ( $feature_style == 'text-none' && isset( $action ) ) ? 'a' : 'div';
+						$feature_wrap_link = ( $feature_style == 'text-none' && isset( $action ) ) ? sprintf( 'href="%s"', $action ) : '';
 						
 						$more_link = ( $feature_style != 'text-none' && $action ) ? sprintf( ' <a class="plmore" href="%s" >%s</a>', $action, $flink_text ) : '';
 						
