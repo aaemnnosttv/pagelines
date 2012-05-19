@@ -181,7 +181,11 @@ class PageLinesFeatures extends PageLinesSection {
 		foreach( $fposts as $fid => $f ){
 			$oset = array( 'post_id' => $f->ID );
 			$feature_name = ( ploption( 'feature-name', $oset ) ) ? ploption( 'feature-name', $oset ) : $f->post_title;
+			
 			$feature_thumb = ploption( 'feature-thumb', $oset );
+			
+			if ( ! $feature_thumb )
+				$feature_thumb = ploption( 'feature-background-image', $oset );
 			
 			if ( ( ploption( 'feature_source', $this->oset ) == 'posts' || ploption( 'feature_source', $this->oset ) == 'posts_all' ) ) {
 				
@@ -192,10 +196,13 @@ class PageLinesFeatures extends PageLinesSection {
 				elseif( has_post_thumbnail( $f->ID ) ) {
 					$feature_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $f->ID ) );
 					$feature_thumb = $feature_thumb[0];
-				} else {					
+				} else {				
 					$feature_thumb = apply_filters( 'pagelines-feature-cat-default-thumb', $this->base_url . '/images/fthumb3.png', $f );
 				}
 			} 
+			
+			if ( ! $feature_thumb )
+					$feature_thumb = $this->base_url . '/images/fthumb3.png' ;
 			
 			if( $fmode == 'names' || $fmode == 'thumbs' ){
 				//echo "\n".' // '.$fmode.'!!!'."\n";
