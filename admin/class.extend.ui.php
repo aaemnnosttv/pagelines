@@ -273,10 +273,10 @@ function pane_template_old( $e, $count ){
 		
 		$target = 'target="_blank"';
 		$details = array();	
-		if( 'internal' != $args['tab'] )
-			$details['version']  = sprintf('<strong>v%s</strong>', $args['version']);
+		if( 'internal' != $args['tab'] && $args['version'] )
+			$details['version']  = sprintf( '<strong>v%s</strong>', $args['version'] );
 
-		$details['cred'] = sprintf('by <a %s href="%s">%s</a>', $target, $args['auth_url'], $args['auth']);
+		$details['cred'] = sprintf( 'by <a %s href="%s">%s</a>', $target, $args['auth_url'], $args['auth'] );
 
 		if( 'internal' != $args['tab'] && 'integration' != $args['type'] )
 			$details['overview'] = sprintf( '<a %s href="%s">Overview</a>', $target, $args['infourl'] );
