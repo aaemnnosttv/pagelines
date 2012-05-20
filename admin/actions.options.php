@@ -21,7 +21,7 @@ function pagelines_add_admin_menus() {
 	global $_pagelines_special_hook;
 	global $_pagelines_templates_hook;
 	global $_pagelines_account_hook;
-		
+	global $_pagelines_plus_hook;	
 		
 	$_pagelines_options_page_hook = pagelines_insert_menu( 'pagelines', __( 'Settings', 'pagelines' ), 'edit_theme_options', 'pagelines', 'pagelines_build_option_interface' );
 
@@ -31,7 +31,10 @@ function pagelines_add_admin_menus() {
 	
 	$_pagelines_ext_hook = pagelines_insert_menu( 'pagelines', __( 'Store', 'pagelines' ), 'edit_theme_options', 'pagelines_extend', 'pagelines_build_extension_interface' );
 	
-	$_pagelines_account_hook = pagelines_insert_menu( 'pagelines', __( 'Account', 'pagelines' ), 'edit_theme_options', 'pagelines_account', 'pagelines_build_account_interface' );	
+	$_pagelines_account_hook = pagelines_insert_menu( 'pagelines', __( 'Account', 'pagelines' ), 'edit_theme_options', 'pagelines_account', 'pagelines_build_account_interface' );
+	
+	if( VPLUS && class_exists( 'PageLines_Plus' ) )
+		$_pagelines_plus_hook = pagelines_insert_menu( 'pagelines', __( 'Plus', 'pagelines' ), 'edit_theme_options', 'pagelines_plus', 'pagelines_build_plus_interface' );
 
 }
 
@@ -89,7 +92,6 @@ function pagelines_add_admin_menu() {
  */
 function pagelines_build_option_interface(){ 
 	pagelines_register_hook( 'pagelines_before_optionUI' );
-	delete_transient( 'pagelines_sections_cache' );
 	$args = array(
 		'sanitize' 		=> 'pagelines_settings_callback',
 	);
@@ -170,6 +172,21 @@ function pagelines_build_special(){
 	$optionUI = new PageLinesOptionsUI( $args );
 }
 
+/**
+ * Build Plus Interface
+ * 
+ */
+function pagelines_build_plus_interface(){ 
+	$args = array(
+		'title'			=> __( 'PageLines Plus', 'pagelines' ),
+		'settings' 		=> PAGELINES_SETTINGS,
+		'callback'		=> 'pagelines_plus_array',
+		'show_save'		=> false, 
+		'show_reset'	=> false, 
+		'fullform'		=> false,
+	);
+	$optionUI = new PageLinesOptionsUI( $args );
+}
 
 
 /**
@@ -189,6 +206,7 @@ function pagelines_theme_settings_init() {
 	global $_pagelines_special_hook;
 	global $_pagelines_templates_hook;
 	global $_pagelines_account_hook;
+	global $_pagelines_plus_hook;
 	
 	// Call only on PL pages
 	add_action( "admin_print_scripts-{$_pagelines_options_page_hook}", 'pagelines_theme_settings_scripts' );
@@ -196,6 +214,7 @@ function pagelines_theme_settings_init() {
 	add_action( "admin_print_scripts-{$_pagelines_special_hook}", 'pagelines_theme_settings_scripts' );
 	add_action( "admin_print_scripts-{$_pagelines_templates_hook}", 'pagelines_theme_settings_scripts' );
 	add_action( "admin_print_scripts-{$_pagelines_account_hook}", 'pagelines_theme_settings_scripts' );
+	add_action( "admin_print_scripts-{$_pagelines_plus_hook}", 'pagelines_theme_settings_scripts' );
 	
 	// WordPress Page types
 	add_action( 'load-post.php',  'pagelines_theme_settings_scripts' );

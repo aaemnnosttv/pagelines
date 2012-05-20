@@ -59,7 +59,6 @@ class PageLinesAccount {
 function pagelines_account_array(  ){
 
 	$d = array(
-	
 		'Your_Account'		=> array(
 			'icon'			=> PL_ADMIN_ICONS.'/rocket-fly.png',
 			'credentials' 	=> array(
@@ -80,6 +79,31 @@ function pagelines_account_array(  ){
 			)
 		)
 	);
-
 	return apply_filters( 'pagelines_account_array', $d ); 
+}
+
+function pagelines_plus_array(  ){
+
+	$d = array(
+		'PageLines_Plus'		=> array(
+			'icon'			=> PL_ADMIN_ICONS.'/rocket-fly.png',
+			'plus_welcome' 	=> array(
+				'type'		=> 'plus_welcome',
+//				'title'		=> __( 'Sup bitches! You have the Plus!', 'pagelines' ),
+//				'shortexp'	=> __( 'All this is FREE!.', 'pagelines' ),
+				'layout'	=> 'full',
+			)
+		),
+		'Support'		=> array(
+			'icon'			=> PL_ADMIN_ICONS.'/extend-inout.png',
+			'plus_support'	=> array(
+				'default'	=> '',
+				'type'		=> 'plus_support',
+				'layout'	=> 'full',
+				'title'		=> __( 'Support stuff', 'pagelines' ),						
+				'shortexp'	=> __( 'Blah blah...', 'pagelines' ),
+			)
+		)
+	);
+	return apply_filters( 'pagelines_plus_array', $d ); 
 }
