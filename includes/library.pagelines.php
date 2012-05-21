@@ -15,9 +15,7 @@ class PageLines_Plus {
 	function ajax_plus_chat() {
 
 		?>
-		<p>
-			<h2>This is the support iframe....</h2>
-		</p>
+		<iframe height="100%" width="100%" src="https://pagelines.campfirenow.com/6cd04">
 		<?php
 		exit();
 	}
@@ -89,7 +87,7 @@ class PageLines_Plus {
 			<div class="wrap">
 			  <h2>Live Support</h2>
 			  <p>
-			    <a class="thickbox button" href="/wp-admin/admin-ajax.php?action=plus_chat&width=600&height=450" title="Chat">
+			    <a class="thickbox button" href="/wp-admin/admin-ajax.php?action=plus_chat&width=800&height=650" title="Support Chat">
 			      Chat with someone who cares.
 			    </a>
 			  </p>
