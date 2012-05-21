@@ -82,23 +82,23 @@ class PageLines_Plus {
 	
 	function plus_support_page() {
 		
+		$ajax = admin_url( 'admin-ajax.php' );
 		ob_start();
 			?>
 			<div class="wrap">
 			  <h2>Live Support</h2>
 			  <p>
-			    <a class="thickbox button" href="/wp-admin/admin-ajax.php?action=plus_chat&width=800&height=650" title="Support Chat">
+			    <a class="thickbox button" href="<?php echo $ajax ?>?action=plus_chat&width=800&height=650" title="Support Chat">
 			      Chat with someone who cares.
 			    </a>
 			  </p>
 
 			  <h2>Submit a ticket</h2>
 			  <p>
-			    <a class="thickbox button" href="/wp-admin/admin-ajax.php?action=plus_ticket&width=350&height=300" title="Ticket">
+			    <a class="thickbox button" href="<?php echo $ajax ?>?action=plus_ticket&width=350&height=300" title="Ticket">
 			      Send a ticket.
 			    </a>
 			  </p>	
-
 			</div>
 
 		<?php
