@@ -19,13 +19,6 @@ class PageLinesFootCols extends PageLinesSection {
 
 	public $markup_start;
 	public $markup_end;
-
-	/**
-	* Load js
-	*/
-	function section_styles(){
-		wp_enqueue_script( 'pagelines-blocks' );
-	}
 	
 	/**
 	* PHP that always loads no matter if section is added or not.
