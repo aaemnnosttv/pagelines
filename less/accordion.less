@@ -7,6 +7,7 @@
   margin-bottom: @baseLineHeight;
 }
 
+
 // Group == heading + body
 .accordion-group {
   margin-bottom: 2px;
@@ -15,6 +16,14 @@
 }
 .accordion-heading {
   border-bottom: 0;
+
+   &:hover {
+	background: @dark-base;
+	}
+   a:hover {
+		text-decoration:none;
+	}
+
 }
 .accordion-heading .accordion-toggle {
   display: block;
