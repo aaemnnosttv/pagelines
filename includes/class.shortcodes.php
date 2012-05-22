@@ -1363,8 +1363,6 @@ class PageLines_ShortCodes {
 	*/
 	function do_filters() {
 
-		if ( ! $this->detect_shortcode() )
-			return;
 		add_action( 'template_redirect', array( &$this, 'filters' ) );
 	}
 
