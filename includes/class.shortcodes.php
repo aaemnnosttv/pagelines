@@ -65,7 +65,7 @@ class PageLines_ShortCodes {
 		
 		add_action( 'wp_print_scripts', array( &$this, 'shortcode_js' ) );
 		add_action( 'wp_print_styles', array( &$this, 'shortcode_css' ) );
-		add_action( 'wp', array( &$this, 'do_filters' ) );
+		add_action( 'template_redirect', array( &$this, 'filters' ) );
 	}
 
 	private function shortcodes_core() {
@@ -1356,15 +1356,6 @@ class PageLines_ShortCodes {
 		return apply_filters( 'pagelines_button_shortcode', $output, $atts );
 
 	}
-	
-	/**
-	* Shortcode functions
-	* 
-	*/
-	function do_filters() {
-
-		add_action( 'template_redirect', array( &$this, 'filters' ) );
-	}
 
 	function shortcode_js() {
 
@@ -1382,6 +1373,7 @@ class PageLines_ShortCodes {
 		 *  Prevent AUTOP inside of shortcodes (breaking shortcodes - removed)
 		 */
 		remove_filter( 'the_content', 'wpautop' );
+		add_filter( 'the_content', 'wpautop' , 12);		
 		remove_filter( 'the_content', 'wptexturize' );
 		add_filter( 'the_content', 'wptexturize' , 12);
 	}
