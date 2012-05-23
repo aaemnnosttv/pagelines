@@ -415,6 +415,7 @@ class PageLinesFeatures extends PageLinesSection {
 						$media_image = ploption( 'feature-media-image', $oset );
 
 						$feature_media = ploption( 'feature-media', $oset ); 
+						$feature_media_full = ploption( 'feature-media-full', $oset ); 
 						
 						$feature_wrap_markup = ( $feature_style == 'text-none' && isset( $action ) ) ? 'a' : 'div';
 						$feature_wrap_link = ( $feature_style == 'text-none' && isset( $action ) ) ? sprintf( 'href="%s"', $action ) : '';
@@ -428,6 +429,11 @@ class PageLinesFeatures extends PageLinesSection {
 						printf( '<%s class="feature-wrap fset_height %s" %s %s >', $feature_wrap_markup, $background_class, $feature_wrap_link, $background_css ); 
 						
 						if( $feature_wrap_markup != 'a' ) :
+						
+							if($feature_media && $feature_media_full): 
+								echo $feature_media;	
+							else: 
+						
 						?>
 							
 								<div class="feature-pad fset_height fix">
@@ -466,7 +472,7 @@ class PageLinesFeatures extends PageLinesSection {
 												printf( '<div class="media-frame"><img src="%s" /></div>', $media_image );
 											
 											elseif( $feature_media )
-												echo apply_filters( 'the_content', $feature_media );	
+												echo do_shortcode( $feature_media );	
 												?>
 										</div>
 									</div>
@@ -475,6 +481,7 @@ class PageLinesFeatures extends PageLinesSection {
 								</div>
 							
 							<?php 
+							endif;
 							endif;
 							
 						printf( '</%s>', $feature_wrap_markup ); 
@@ -508,53 +515,71 @@ class PageLinesFeatures extends PageLinesSection {
 	function post_meta_setup(){
 		
 			$pt_tab_options = array(
-					'feature-style' => array(
-							'type' 	=> 'select',					
-							'title' => __( 'Feature Text Position', 'pagelines' ),
-							'shortexp' 	=> __( 'Select the type of feature style you would like to be shown. E.g. show text on left, right, bottom or not at all (full width)...', 'pagelines' ),
-							'selectvalues' => array(
-								'text-left'		=> array( 'name' => __( 'Text On Left', 'pagelines' ) ),
-								'text-right' 	=> array( 'name' => __( 'Text On Right', 'pagelines' ) ),
-								'text-bottom' 	=> array( 'name' => __( 'Text On Bottom', 'pagelines' ) ),
-								'text-none' 	=> array( 'name' => __( 'Full Width Background Image - No Text - Links Entire BG', 'pagelines' ) )
-							),
+					'feature_styling' => array(
+						'type'		=> 'multi_option', 
+						'title'		=> __('Feature Design Style', 'pagelines'), 
+						'shortexp'	=> __('The basic styling of the feature', 'pagelines'),
+						'selectvalues'	=> array(
+							'feature-style' => array(
+									'type' 	=> 'select',					
+									'inputlabel' => __( 'Feature Text Position', 'pagelines' ),
+									'selectvalues' => array(
+										'text-left'		=> array( 'name' => __( 'Text On Left', 'pagelines' ) ),
+										'text-right' 	=> array( 'name' => __( 'Text On Right', 'pagelines' ) ),
+										'text-bottom' 	=> array( 'name' => __( 'Text On Bottom', 'pagelines' ) ),
+										'text-none' 	=> array( 'name' => __( 'Full Width Background Image - No Text - Links Entire BG', 'pagelines' ) )
+									),
+								),
+							'feature-design' => array(
+									'type'			=> 'select',
+									'inputlabel' 		=> __( 'Feature Design Style', 'pagelines' ),
+									'selectvalues'	=> array(
+										'fstyle-darkbg-overlay' => array( 'name' => __( 'White Text - Dark Feature Background - Transparent Text Overlay (Default)', 'pagelines' ) ),
+										'fstyle-lightbg'		=> array( 'name' => __( 'Black Text - Light Feature Background with Border - No Overlay', 'pagelines' ) ),
+										'fstyle-darkbg'			=> array( 'name' => __( 'White Text - Dark Feature Background - No Overlay', 'pagelines' ) ),
+										'fstyle-nobg'			=> array( 'name' => __( 'Black Text - No Feature Background - No Overlay', 'pagelines' ) ),
+									),
+								),
 						),
-					'feature-background-image' => array(
-							'shortexp'		=> __( 'Upload an image for the feature background.', 'pagelines' ),
-							'title' 		=> __( 'Feature Background Image', 'pagelines' ),
-							'type' 			=> 'image_upload'
+					),
+					'feature_media_stuff' => array(
+						'type'		=> 'multi_option', 
+						'title'		=> __('Feature Media', 'pagelines'), 
+						'shortexp'	=> __('The media that the feature will use', 'pagelines'),
+						'selectvalues'	=> array(
+							'feature-background-image' => array(
+									'inputlabel' 		=> __( 'Full Size - Feature Background Image', 'pagelines' ),
+									'type' 			=> 'image_upload'
+								),
+
+							'feature-media-image' => array(
+									'version' 		=> 'pro',
+									'type' 			=> 'image_upload',					
+									'inputlabel' 		=> __( 'Media Area - Image (optional)', 'pagelines' ),
+								),
+							'feature-media' => array(
+									'version' 		=> 'pro',
+									'type' 			=> 'textarea',					
+									'inputlabel' 	=> __( 'Feature HTML (video embeds etc, In Media Area)', 'pagelines' ),
+								),
+							'feature-media-full' => array(
+									'version' 		=> 'pro',
+									'type' 			=> 'check',					
+									'inputlabel' 	=> __( 'Make Feature HTML Full Width', 'pagelines' ),
+								),
+							'feature-thumb' => array(
+									'inputlabel'	=> __( 'Thumb Navigation - Upload Feature Thumbnail (50px by 30px)', 'pagelines' ),
+									'type' 			=> 'image_upload'
+								),
+							'feature-name' => array(
+									'default'		=> '',
+									'inputlabel'	=> __( 'Names Navigation - Enter Text', 'pagelines' ),
+									'type' 			=> 'text'
+								),
 						),
-					'feature-design' => array(
-							'type'			=> 'select',
-							'shortexp' 		=> __( 'Select the design style you would like this feature to have (e.g. default background color, text color, overlay? etc...).', 'pagelines' ),
-							'title' 		=> __( 'Feature Design Style', 'pagelines' ),
-							'selectvalues'	=> array(
-								'fstyle-darkbg-overlay' => array( 'name' => __( 'White Text - Dark Feature Background - Transparent Text Overlay (Default)', 'pagelines' ) ),
-								'fstyle-lightbg'		=> array( 'name' => __( 'Black Text - Light Feature Background with Border - No Overlay', 'pagelines' ) ),
-								'fstyle-darkbg'			=> array( 'name' => __( 'White Text - Dark Feature Background - No Overlay', 'pagelines' ) ),
-								'fstyle-nobg'			=> array( 'name' => __( 'Black Text - No Feature Background - No Overlay', 'pagelines' ) ),
-							),
-						),						
-					'feature-media-image' => array(
-							'version' 		=> 'pro',
-							'type' 			=> 'image_upload',					
-							'title' 		=> __( 'Feature Media Image', 'pagelines' ),
-							'label'			=> __( 'Upload An Image For The Feature Media Area', 'pagelines' ),
-							'shortexp' 		=> __( 'Upload an image of the appropriate size for the feature media area.', 'pagelines' )
-						),
-					'feature-media' => array(
-							'version' 		=> 'pro',
-							'type' 			=> 'textarea',					
-							'title' 		=> __( 'Feature Media HTML (Youtube, Flash etc...)', 'pagelines' ),
-							'label'			=> __( 'Enter HTML For Feature Media Area', 'pagelines' ),
-							'shortexp'	 	=> __( 'Feature Page Media HTML or Embed Code.', 'pagelines' )
-						),
-					'feature-thumb' => array(
-							'shortexp' 		=> __( 'Add thumbnails to your post for use in thumb navigation. Create an image 50px wide by 30px tall and upload here.', 'pagelines' ),
-							'title' 		=> __( 'Feature Thumb (50px by 30px)', 'pagelines' ),
-							'label'			=> __( 'Upload Feature Thumbnail (Thumbs Mode)', 'pagelines' ),
-							'type' 			=> 'image_upload'
-						),
+					),
+					
+					
 					'feature-link-url' => array(
 							'shortexp' 			=> __( 'Adding a URL here will add a link to your feature slide', 'pagelines' ),
 							'title' 			=> __( 'Feature Link URL', 'pagelines' ),
@@ -570,13 +595,7 @@ class PageLinesFeatures extends PageLinesSection {
 							'type' 			=> 'text', 
 							'size'			=> 'small'
 						),
-					'feature-name' => array(
-							'default'		=> '',
-							'shortexp' 		=> __( 'Enter the title you would like to appear when the feature nav mode is set to feature names', 'pagelines' ),
-							'title' 		=> __( 'Navigation Label', 'pagelines' ),
-							'label'			=> __( 'Enter Feature Navigation Text (Names Nav Mode)', 'pagelines' ),
-							'type' 			=> 'text'
-						),
+					
 		
 			);
 			
@@ -651,173 +670,161 @@ class PageLinesFeatures extends PageLinesSection {
 		$settings = wp_parse_args( $settings, $this->optionator_default );
 		
 			$page_metatab_array = array(
-					'feature_height_mode' => array(
-							'default' 		=> 'aspect',
-							'version'		=> 'pro',
-							'type' 			=> 'radio',
-							'selectvalues' => array(
-								'static' 		=> array('name' => __( 'Use Static Height', 'pagelines' ) ),
-								'aspect' 		=> array('name' => __( 'Use Aspect Ratio', 'pagelines' ) ),						
-							),
-							'inputlabel' 	=> __( 'Enter the height (In Pixels) of the Feature Stage Area', 'pagelines' ),
-							'title' 		=> __( 'Feature Height Mode', 'pagelines' ),
-							'shortexp' 		=> __( 'Control the way feature height is handled. Either statically or by aspect-ratio (responsive)', 'pagelines' ),
-							'exp' 			=> __( "Use the aspect ratio to have your feature scale proportionally based on browser width. Enter the aspect ratio below.", 'pagelines' ),
-					),
-					'feature_stage_height' => array(
-							'default' 		=> '380',
-							'version'		=> 'pro',
-							'type' 			=> 'text_small',
-							'inputlabel' 	=> __( 'Static Height (In Pixels)', 'pagelines' ),
-							'title' 		=> __( 'Feature Area Height (Static Height Mode)', 'pagelines' ),
-							'shortexp' 		=> __( 'Use this feature to change the height of your feature area', 'pagelines' ),
-							'exp' 			=> __( "To change the height of your feature area, just enter a number in pixels here.", 'pagelines' ),
-					),
-					'feature_aspect' => array(
-							'default' 		=> '1.77',
-							'version'		=> 'pro',
-							'type' 			=> 'text_small',
-							'inputlabel' 	=> __( 'Feature Aspect Ratio (Width/Height)', 'pagelines' ),
-							'title' 		=> __( 'Feature Aspect Ratio (Responsive/Aspect Ratio Height Mode)', 'pagelines' ),
-							'shortexp' 		=> __( 'Enter the aspect ratio for the feature slider (Aspect Height Mode)', 'pagelines' ),
-							'exp' 			=> __( "Enter a number that represents the ratio of width to height (width/height).<br/> For example, 3/2 would be 1.5; 16/9 would be 1.777.", 'pagelines' ),
-					),
-					'feature_items' 	=> array(
-						'version' 		=> 'pro',
-						'default'		=> 5,
-						'type' 			=> 'text_small',
-						'inputlabel'	=> __( 'Number of features to show', 'pagelines' ),
-						'title' 		=> __( 'Number of Feature Slides', 'pagelines' ),
-						'shortexp'		=> __( 'The amount of slides to show on this page', 'pagelines' ),
-						'exp' 			=> __( 'Enter the max number of feature slides to show on this page. Note: If left blank, the number of posts selected under reading settings in the admin will be used.', 'pagelines' )
-					),			
-					'feature_orderby' => array(
-							'default' => 'ID',
-							'version'	=> 'pro',
-							'type' => 'select',
-							'selectvalues' => array(
-								'ID' 			=> array('name' => __( 'Post ID (default)', 'pagelines' ) ),
-								'title' 		=> array('name' => __( 'Title', 'pagelines' ) ),
-								'date' 			=> array('name' => __( 'Date', 'pagelines' ) ),
-								'modified' 		=> array('name' => __( 'Last Modified', 'pagelines' ) ),
-								'rand' 			=> array('name' => __( 'Random', 'pagelines' ) ),							
-							),
-							'inputlabel'	=> __( 'Select sort method', 'pagelines' ),
-							'title'			=> __( 'Feature Post sorting', 'pagelines' ),
-							'shortexp'		=> __( 'How will the features be sorted.', 'pagelines' ),
-							'exp'			=> __( 'By default the feature section will sort by post ID.', 'pagelines' )
-						),
+					'feature_setup' => array(
+						'type'		=> 'multi_option', 
+						'title'		=> __('Feature Section Setup', 'pagelines'), 
+						'shortexp'	=> __('Basic section setup for features', 'pagelines'),
 						
-					'feature_order' => array(
-							'default'	=> 'DESC',
-							'version'	=> 'pro',
-							'type'		=> 'select',
-							'selectvalues'	=> array(
-								'DESC' 		=> array('name' => __( 'Descending', 'pagelines' ) ),
-								'ASC' 		=> array('name' => __( 'Ascending', 'pagelines' ) ),
-							),
-							'inputlabel'	=> __( 'Select sort order', 'pagelines' ),
-							'title'			=> __( 'Feature Post sort order', 'pagelines' ),
-							'exp'			=> __( 'By default the features will be in descending order.', 'pagelines' )
-						),
-
-					'feature_set' => array(
-						'version' 		=> 'pro',
-						'default'		=> 'default-features',
-						'type' 			=> 'select_taxonomy',
-						'taxonomy_id'	=> $this->taxID,				
-						'title' 		=> __( 'Select Feature Set To Show', 'pagelines' ),
-						'shortexp'		=> __( 'The "set" or category of feature posts', 'pagelines' ),
-						'inputlabel'	=> __( 'Select Feature Set', 'pagelines' ),
-						'exp' 			=> __( 'If you are using the feature section, select the feature set you would like to show on this page.', 'pagelines' )
-					), 
-					'feature_nav_type' => array(
-						'default'	=> 'thumbs',
-						'version'	=> 'pro',
-						'type'		=> 'radio',
-						'selectvalues' => array(
-							'nonav' 		=> array( 'name' => __( 'No Navigation', 'pagelines' ) ),
-							'dots' 			=> array( 'name' => __( 'Squares or Dots', 'pagelines' ) ),
-							'names' 		=> array( 'name' => __( 'Feature Names', 'pagelines' ) ),
-							'thumbs' 		=> array( 'name' => __( 'Feature Thumbs (50px by 30px)', 'pagelines' ) ),								
-							'numbers'		=> array( 'name' => __( 'Numbers', 'pagelines' ) ),
-						),
-						'inputlabel'	=> __( 'Feature navigation type?', 'pagelines' ),
-						'title'			=> __( 'Feature Navigation Mode', 'pagelines' ),
-						'shortexp'		=> __( 'Select the mode for your feature navigation', 'pagelines' ),
-						'exp'			=> __( "Select from the five modes. Using feature names will use the names of the features, using the numbers will use incremental numbers, thumbnails will use feature thumbnails if provided.", 'pagelines' ), 
 						'docslink'		=> 'http://www.pagelines.com/docs/feature-slider', 
-						'vidtitle'		=> __( 'View Feature Documentation', 'pagelines' )
-					),
-					'timeout' => array(
-							'default'	=> '0',
-							'version'	=> 'pro',
-							'type'		=> 'text_small',
-							'inputlabel'=> __( 'Timeout (ms)', 'pagelines' ),
-							'title'		=> __( 'Feature Viewing Time (Timeout)', 'pagelines' ),
-							'shortexp'	=> __( 'The amount of time a feature is set before it transitions in milliseconds', 'pagelines' ),
-							'exp'		=> __( 'Set this to 0 to only transition on manual navigation. Use milliseconds, for example 10000 equals 10 seconds of timeout.', 'pagelines' )
-						),
-					'fspeed' => array(
-							'default'	=> 1500,
-							'version'	=> 'pro',
-							'type'		=> 'text_small',
-							'inputlabel'=> __( 'Transition Speed (ms)', 'pagelines' ),
-							'title'		=> __( 'Feature Transition Time (Timeout)', 'pagelines' ),
-							'shortexp'	=> __( 'The time it takes for your features to transition in milliseconds', 'pagelines' ),
-							'exp'		=> __( 'Use milliseconds, for example 1500 equals 1.5 seconds of transition time.', 'pagelines' )
-						),
-					'feffect' => array(
-							'default'	=> 'fade',
-							'version'	=> 'pro',
-							'type'		=> 'select_same',
-							'selectvalues' => array('blindX', 'blindY', 'blindZ', 'cover', 'curtainX', 'curtainY', 'fade', 'fadeZoom', 'growX', 'growY', 'none', 'scrollUp', 'scrollDown', 'scrollLeft', 'scrollRight', 'scrollHorz', 'scrollVert','shuffle','slideX','slideY','toss','turnUp','turnDown','turnLeft','turnRight','uncover','wipe','zoom'),
-							'inputlabel'=> __( 'Select Transition Effect', 'pagelines' ),
-							'title'		=> __( 'Transition Effect', 'pagelines' ),
-							'shortexp'	=> __( 'How the features transition', 'pagelines' ),
-							'exp'		=> __( 'This controls the mode with which the features transition to one another.', 'pagelines' )
-						),
-					'feature_playpause' => array(
-							'default'	=> false,
-							'version'	=> 'pro',
-							'type'		=> 'check',
-							'inputlabel'=> __( 'Show play pause button?', 'pagelines' ),
-							'title'		=> __( 'Show Play/Pause Button (when timeout is greater than 0 (auto-transition))', 'pagelines' ),
-							'shortexp'	=> __( 'Show a play/pause button for auto-scrolling features', 'pagelines' ),
-							'exp'		=> __( 'Selecting this option will add a play/pause button for auto-scrolling features, that users can use to pause and watch a video, read a feature, etc..', 'pagelines' )
-						),  
-					'feature_source'	=> array(
-							'default'	=> 'featureposts',
-							'version'	=> 'pro',
-							'type'		=> 'select',
-							'selectvalues' 		=> array(
-								'featureposts' 	=> array('name' => __( 'Feature Posts (custom post type)', 'pagelines' ) ),
-								'posts' 		=> array('name' => __( 'Use Post Category', 'pagelines' ) ),
-								'posts_all' 	=> array('name' => __( 'Use all Posts', 'pagelines' ) ),
+						'vidtitle'		=> __( 'View Feature Documentation', 'pagelines' ),
+						'selectvalues'	=> array(
+
+							'feature_set' => array(
+								'version' 		=> 'pro',
+								'default'		=> 'default-features',
+								'type' 			=> 'select_taxonomy',
+								'taxonomy_id'	=> $this->taxID,				
+								'inputlabel'	=> __( 'Select Feature Set', 'pagelines' ),
 							),
-							'inputlabel'	=> __( 'Select source', 'pagelines' ),
-							'title'			=> __( 'Feature Post Source', 'pagelines' ),
-							'shortexp'		=> __( 'Use feature posts or a post category', 'pagelines' ),
-							'exp'			=> __( 'By default the feature section will use the feature "post type", you can also set the source for features to a blog post category. Set the category ID in its option below. <br/> <strong>NOTES: If set to posts, excerpts will be used as content (control length through them).<br/><br/> Also, to control the appearance of blog posts in the feature, you need to activate the Post Feature MetaPanel under <em>Advanced Settings</em></strong>', 'pagelines' )
+							'feature_nav_type' => array(
+								'default'	=> 'thumbs',
+								'version'	=> 'pro',
+								'type'		=> 'select',
+								'selectvalues' => array(
+									'nonav' 		=> array( 'name' => __( 'No Navigation', 'pagelines' ) ),
+									'dots' 			=> array( 'name' => __( 'Squares or Dots', 'pagelines' ) ),
+									'names' 		=> array( 'name' => __( 'Feature Names', 'pagelines' ) ),
+									'thumbs' 		=> array( 'name' => __( 'Feature Thumbs (50px by 30px)', 'pagelines' ) ),								
+									'numbers'		=> array( 'name' => __( 'Numbers', 'pagelines' ) ),
+								),
+								'inputlabel'	=> __( 'Feature Navigation Mode', 'pagelines' ),
+							),
+							'feature_items' 	=> array(
+								'version' 		=> 'pro',
+								'default'		=> 5,
+								'type' 			=> 'text_small',
+								'inputlabel'	=> __( 'Max number of features to show', 'pagelines' ),
+							),
+							
 						),
-					'feature_category'		=> array(
-							'default'		=> 1,
-							'version'		=> 'pro',
-							'type'			=> 'select',
-							'selectvalues'	=> $this->get_cats(),
-							'title'			=> __( 'Post Category (Blog Post Mode Only)', 'pagelines' ),
-							'shortexp'		=> '',
-							'exp'			=> __( 'Select a category to use if sourcing features from blog posts', 'pagelines' )
+					),
+					'feature_handling' => array(
+						'type'		=> 'multi_option', 
+						'title'		=> __('Feature Section Height and Responsive Control', 'pagelines'), 
+						'shortexp'	=> __('Dimensions and Responsive Handling', 'pagelines'),
+						'selectvalues'	=> array(
+
+							'feature_height_mode' => array(
+									'default' 		=> 'aspect',
+									'version'		=> 'pro',
+									'type' 			=> 'select',
+									'selectvalues' => array(
+										'static' 		=> array('name' => __( 'Static Height (Height is always the same)', 'pagelines' ) ),
+										'aspect' 		=> array('name' => __( 'Aspect Height (Height based on width)', 'pagelines' ) ),						
+									),
+									'inputlabel' 	=> __( 'Select Height Mode (The way feature height is managed)', 'pagelines' )
+							),
+							'feature_stage_height' => array(
+									'default' 		=> '380',
+									'version'		=> 'pro',
+									'type' 			=> 'text_small',
+									'inputlabel' 	=> __( 'Static Mode - Height (In Pixels)', 'pagelines' ),
+							),
+							'feature_aspect' => array(
+									'default' 		=> '1.77',
+									'version'		=> 'pro',
+									'type' 			=> 'text_small',
+									'inputlabel' 	=> __( 'Aspect Mode - Ratio (Width/Height - 16:9 would be 1.777)', 'pagelines' ),
+							),
 						),
-					'fremovesync'		=> array(
-							'default'	=> false,
-							'type'		=> 'check',
-							'version'	=> 'pro',
-							'inputlabel'=> __( 'Remove Transition Syncing', 'pagelines' ),
-							'title'		=> __( 'Remove Feature Transition Syncing', 'pagelines' ),
-							'shortexp'	=> __( 'Make features wait to move on until after the previous one has cleared the screen', 'pagelines' ),
-							'exp'		=> __( 'This controls whether features can move on to the screen while another is transitioning off. If removed features will have to leave the screen before the next can transition on to it.', 'pagelines' )
-						)
+					),
+					'feature_transitions' => array(
+						'type'		=> 'multi_option', 
+						'title'		=> __('Feature Transitions and Effects', 'pagelines'), 
+						'shortexp'	=> __('Options for managing feature transitions', 'pagelines'),
+						'selectvalues'	=> array(
+							'feffect' => array(
+									'default'	=> 'fade',
+									'version'	=> 'pro',
+									'type'		=> 'select_same',
+									'selectvalues' => array('blindX', 'blindY', 'blindZ', 'cover', 'curtainX', 'curtainY', 'fade', 'fadeZoom', 'growX', 'growY', 'none', 'scrollUp', 'scrollDown', 'scrollLeft', 'scrollRight', 'scrollHorz', 'scrollVert','shuffle','slideX','slideY','toss','turnUp','turnDown','turnLeft','turnRight','uncover','wipe','zoom'),
+									'inputlabel'=> __( 'Select Transition Effect', 'pagelines' ),
+								),
+							'timeout' => array(
+									'default'	=> '0',
+									'version'	=> 'pro',
+									'type'		=> 'text_small',
+									'inputlabel'=> __( 'Timeout (ms - 0 means manual transition, 5000 = 5 seconds)', 'pagelines' ),
+								),
+							'fspeed' => array(
+									'default'	=> 1500,
+									'version'	=> 'pro',
+									'type'		=> 'text_small',
+									'inputlabel'=> __( 'Transition Speed (ms - e.g. 1500 = 1.5 seconds)', 'pagelines' ),
+								),
+							
+							'feature_playpause' => array(
+									'default'	=> false,
+									'version'	=> 'pro',
+									'type'		=> 'check',
+									'inputlabel'=> __( 'Show play pause button? (Auto Scrolling Only)', 'pagelines' ),
+								),
+						),
+					),
+					'feature_source' => array(
+						'type'		=> 'multi_option', 
+						'title'		=> __('Feature Source and Order (Advanced)', 'pagelines'), 
+						'shortexp'	=> __('Advanced options for feature sources and their order. Important: Enable feature panel under settings > advanced for use with posts.', 'pagelines'),
+						'selectvalues'	=> array(
+							'feature_source'	=> array(
+									'default'	=> 'featureposts',
+									'version'	=> 'pro',
+									'type'		=> 'select',
+									'selectvalues' 		=> array(
+										'featureposts' 	=> array('name' => __( 'Feature Posts (custom post type)', 'pagelines' ) ),
+										'posts' 		=> array('name' => __( 'Use Post Category', 'pagelines' ) ),
+										'posts_all' 	=> array('name' => __( 'Use all Posts', 'pagelines' ) ),
+									),
+									'inputlabel'	=> __( 'Select Feature Post Source (Optional - Defaults to Custom Post Type)', 'pagelines' ),
+								),
+							'feature_category'		=> array(
+									'default'		=> 1,
+									'version'		=> 'pro',
+									'type'			=> 'select',
+									'selectvalues'	=> $this->get_cats(),
+									'inputlabel'	=> __( 'Select Post Category (Post category source only)', 'pagelines' ),
+								),
+							
+							'feature_orderby' => array(
+									'default' => 'ID',
+									'version'	=> 'pro',
+									'type' => 'select',
+									'selectvalues' => array(
+										'ID' 			=> array('name' => __( 'Post ID (default)', 'pagelines' ) ),
+										'title' 		=> array('name' => __( 'Title', 'pagelines' ) ),
+										'date' 			=> array('name' => __( 'Date', 'pagelines' ) ),
+										'modified' 		=> array('name' => __( 'Last Modified', 'pagelines' ) ),
+										'rand' 			=> array('name' => __( 'Random', 'pagelines' ) ),							
+									),
+									'inputlabel'	=> __( 'Select sort method (If not using Post Type Order plugin)', 'pagelines' ),
+								),
+
+							'feature_order' => array(
+									'default'	=> 'DESC',
+									'version'	=> 'pro',
+									'type'		=> 'select',
+									'selectvalues'	=> array(
+										'DESC' 		=> array('name' => __( 'Descending', 'pagelines' ) ),
+										'ASC' 		=> array('name' => __( 'Ascending', 'pagelines' ) ),
+									),
+									'inputlabel'	=> __( 'Select sort order (If not using Post Type Order plugin)', 'pagelines' ),
+								),
+						),
+					),
+					
+					 
+					
+					
 				);
 
 			$metatab_settings = array(

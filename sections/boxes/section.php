@@ -92,7 +92,7 @@ class PageLinesBoxes extends PageLinesSection {
 						'the_box_icon_target'		=> array(
 								'version' => 'pro',
 								'type' => 'check',					
-								'inputlabel' => __( 'Open in New Window?', 'pagelines'),
+								'inputlabel' => __( 'Open link in New Window?', 'pagelines'),
 							),
 						'box_class' => array(
 							'version'		=> 'pro',
@@ -106,7 +106,7 @@ class PageLinesBoxes extends PageLinesSection {
 							'default'		=> '',
 							'type' 			=> 'text',
 							'size'			=> 'small',
-							'inputlabel' 	=> __( 'More Button Text', 'pagelines'),
+							'inputlabel' 	=> __( 'More Link Text (Shows if link and text is set)', 'pagelines'),
 						),
 					),
 				),
