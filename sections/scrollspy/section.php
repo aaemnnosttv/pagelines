@@ -22,10 +22,8 @@ class ScrollSpy extends PageLinesSection {
 	 * Load styles and scripts
 	 */
 	function section_styles(){
-		
-		wp_enqueue_script( 'pagelines-bootstrap-all' );
-		wp_enqueue_script( 'scrollspy', $this->base_url.'/scrollspy.js', array( 'jquery' ) , false, true);
-		
+	
+		wp_enqueue_script( 'scrollspy', $this->base_url.'/scrollspy.js', array( 'jquery' ) , false, true);		
 	}
 	
 	/**

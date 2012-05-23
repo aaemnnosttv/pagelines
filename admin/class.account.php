@@ -56,11 +56,34 @@ class PageLinesAccount {
  *  Returns Extension Array Config
  *
  */
-function pagelines_account_array(  ){
-
-	$d = array(
+function pagelines_account_array(){
 	
-		'Your_Account'		=> array(
+	$d = array();
+
+	if ( VPLUS ) {
+
+				$d['PageLines_Plus'] = array(
+					'icon'			=> PL_ADMIN_ICONS.'/rocket-fly.png',
+					'plus_welcome' 	=> array(
+						'type'		=> 'plus_welcome',
+		//				'title'		=> __( 'Sup bitches! You have the Plus!', 'pagelines' ),
+		//				'shortexp'	=> __( 'All this is FREE!.', 'pagelines' ),
+						'layout'	=> 'full',
+					)
+				);
+				$d['Plus_Support']		= array(
+					'icon'			=> PL_ADMIN_ICONS.'/extend-inout.png',
+					'plus_support'	=> array(
+						'default'	=> '',
+						'type'		=> 'plus_support',
+						'layout'	=> 'full',
+						'title'		=> __( 'Support stuff', 'pagelines' ),						
+						'shortexp'	=> __( 'Blah blah...', 'pagelines' ),
+					)
+				);
+		}
+
+		$d['Your_Account']	= array(
 			'icon'			=> PL_ADMIN_ICONS.'/rocket-fly.png',
 			'credentials' 	=> array(
 				'type'		=> 'updates_setup',
@@ -68,8 +91,8 @@ function pagelines_account_array(  ){
 				'shortexp'	=> __( 'Get your latest updates automatically, direct from PageLines.', 'pagelines' ),
 				'layout'	=> 'full',
 			)
-		),
-		'Import-Export'		=> array(
+		);
+		$d['Import-Export']	= array(
 			'icon'			=> PL_ADMIN_ICONS.'/extend-inout.png',
 			'import_set'	=> array(
 				'default'	=> '',
@@ -78,8 +101,33 @@ function pagelines_account_array(  ){
 				'title'		=> __( 'Import/Export PageLines Settings', 'pagelines' ),						
 				'shortexp'	=> __( 'Use this form to upload PageLines settings from another install.', 'pagelines' ),
 			)
+		);
+	
+	return apply_filters( 'pagelines_account_array', $d ); 
+}
+
+function pagelines_plus_array(  ){
+
+	$d = array(
+		'PageLines_Plus'		=> array(
+			'icon'			=> PL_ADMIN_ICONS.'/rocket-fly.png',
+			'plus_welcome' 	=> array(
+				'type'		=> 'plus_welcome',
+//				'title'		=> __( 'Sup bitches! You have the Plus!', 'pagelines' ),
+//				'shortexp'	=> __( 'All this is FREE!.', 'pagelines' ),
+				'layout'	=> 'full',
+			)
+		),
+		'Support'		=> array(
+			'icon'			=> PL_ADMIN_ICONS.'/extend-inout.png',
+			'plus_support'	=> array(
+				'default'	=> '',
+				'type'		=> 'plus_support',
+				'layout'	=> 'full',
+				'title'		=> __( 'Support stuff', 'pagelines' ),						
+				'shortexp'	=> __( 'Blah blah...', 'pagelines' ),
+			)
 		)
 	);
-
-	return apply_filters( 'pagelines_account_array', $d ); 
+	return apply_filters( 'pagelines_plus_array', $d ); 
 }

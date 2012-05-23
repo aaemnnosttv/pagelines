@@ -18,7 +18,7 @@ table {width: 100%;}
 		line-height: @baseLineHeight;
     	text-align: left;
     	vertical-align: top;
-		border-top: 1px solid @tableBorder;
+		border-top: 1px solid darken(@dark-base,8);
 	}
 }
 
@@ -31,14 +31,14 @@ table {width: 100%;}
   }
   // Account for multiple tbody instances
   tbody + tbody {
-    border-top: 2px solid @tableBorder;
+    border-top: 2px solid darken(@dark-base,8);
   }
 
 
 // CONDENSED TABLE W/ HALF PADDING
 // -------------------------------
 
-.table-condensed {
+.table-condensed,.hentry .table-condensed {
   th,
   td {
     padding: 4px 5px;
@@ -50,14 +50,14 @@ table {width: 100%;}
 // ----------------
 
 .table-bordered {
-  border: 1px solid @tableBorder;
+  border: 1px solid darken(@dark-base,8);
   border-left: 0;
   border-collapse: separate; // Done so we can round those corners!
   *border-collapse: collapsed; // IE7 can't round corners anyway
   .border-radius(4px);
   th,
   td {
-    border-left: 1px solid @tableBorder;
+    border-left: 1px solid darken(@dark-base,8);
   }
   // Prevent a double border
   thead:first-child tr:first-child th,
@@ -94,7 +94,7 @@ table {width: 100%;}
   tbody {
     tr:nth-child(odd) td,
     tr:nth-child(odd) th {
-      background-color: @tableBackgroundAccent;
+      background-color: darken(@pl-base,4);
     }
   }
 }
@@ -106,7 +106,7 @@ table {width: 100%;}
 .table {
   tbody tr:hover td,
   tbody tr:hover th {
-    background-color: @tableBackgroundHover;
+    background-color: darken(@pl-base,4);
   }
 }
 

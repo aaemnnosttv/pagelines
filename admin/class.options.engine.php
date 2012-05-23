@@ -460,6 +460,12 @@ class OptEngine {
 			case 'updates_setup' :
 				$this->updates_setup($oid, $o);
 				break;
+			case 'plus_welcome' :
+				$this->plus_welcome($oid, $o);
+				break;
+			case 'plus_support' :
+				$this->plus_support($oid, $o);
+				break;
 			default :
 				do_action( 'pagelines_options_' . $o['type'] , $oid, $o);
 				break;
@@ -1330,9 +1336,7 @@ class OptEngine {
 	*
 	*/
 	function updates_setup($oid, $o){
-		
-		
-		
+	
 		if ( pagelines_check_credentials() )
 			$updates_exp = sprintf( __( 'Successfully logged in as &quot;%s&quot; to PageLines%s.', 'pagelines' ), get_pagelines_credentials( 'user'), ( pagelines_check_credentials( 'ssl' ) ) ? ' with a secured connection' : '' );
 		else 
@@ -1460,6 +1464,18 @@ class OptEngine {
 	<?php
 	}
 
+
+	function plus_welcome( $oid, $o ) {
+		
+		echo PageLines_Plus::plus_welcome();
+	}
+
+	function plus_support( $oid, $o ) {
+
+		echo PageLines_Plus::plus_support_page();
+	}
+	
+	
 	/**
 	 *  Layout Builder (Layout Drag & Drop)
 	 */
