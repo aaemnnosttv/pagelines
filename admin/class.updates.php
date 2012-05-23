@@ -124,8 +124,6 @@ class PageLinesUpdateCheck {
 		if ( !$pagelines_update ) {
 			$url = $this->url_theme;
 			$options = array(
-					'sslverify'	=>	false,
-					'timeout'	=>	5,
 					'body' => array(
 						'version'		=> $this->version,
 						'wp_version'	=> $wp_version,

@@ -402,8 +402,6 @@
 		$data = explode ( '|', $path );
 
 		$options = array(
-			'sslverify'	=>	false,
-			'timeout'	=>	5,
 			'body' => array(
 				'email'		=>	get_bloginfo( 'admin_email'),
 				'version'	=>	$data[2],
@@ -438,8 +436,6 @@
 			$data = explode ( '|', $path );
 			
 			$options = array(
-				'sslverify'	=>	false,
-				'timeout'	=>	5,
 				'body' => array(
 					'email'		=>	get_bloginfo( 'admin_email'),
 					'version'	=>	$data[2],

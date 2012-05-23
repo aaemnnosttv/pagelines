@@ -96,18 +96,25 @@ function base_check_templates() {
  * @TODO document
  *
  */
-function pagelines_try_api( $url, $options ) {
-		
+function pagelines_try_api( $url, $args ) {
+	
+	$defaults = array(	
+		'sslverify'	=>	false,
+		'timeout'	=>	5,
+		'body'		=> array()
+	);
+	
+	$options = wp_parse_args( $args, $defaults );	
 	$prot = array( 'https://', 'http://' );
 		
 	foreach( $prot as $type ) {	
 		// sometimes wamp does not have curl!
 		if ( $type === 'https://' && !function_exists( 'curl_init' ) )
-			continue;	
+			continue;
 		$r = wp_remote_post( $type . $url, $options );
-			if ( !is_wp_error($r) && is_array( $r ) ) {
-				return $r;				
-			}
+		if ( !is_wp_error($r) && is_array( $r ) ) {
+			return $r;				
+		}
 	}
 	return false;
 }
