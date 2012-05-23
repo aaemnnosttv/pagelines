@@ -50,7 +50,7 @@ class PageLinesFeatures extends PageLinesSection {
 	* Load js
 	*/
 	function section_styles(){
-		wp_enqueue_script( 'jcarousel', $this->base_url . '/script.cycle.js', array( 'jquery'), '2.9994', true);
+		wp_enqueue_script( 'cycle', $this->base_url . '/script.cycle.js', array( 'jquery'), '2.9994', true);
 	}
 	
 	/**
