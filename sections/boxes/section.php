@@ -374,7 +374,7 @@ class PageLinesBoxes extends PageLinesSection {
 			} else {
 				$max_width = ($box_thumb_size) ? $box_thumb_size.'px' : '100%';
 				$image_style = sprintf('max-width:%s', $max_width);
-				$wrapper_style = '';
+				$wrapper_style = sprintf('max-width:%s', $max_width);
 				$wrapper_class = sprintf('fboxgraphic %s', $frame);
 			}
 			
