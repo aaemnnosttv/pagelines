@@ -16,7 +16,17 @@ p {
     color: @grayLight;
     line-height: @baseLineHeight / 2;
   }
+	// fix for minimum paragraph widths
+	&:before{
+		content: "";
+		width: 8em;
+		display: block;
+		overflow: hidden;
+	}
 }
+
+
+
 .lead {
   margin-bottom: @baseLineHeight;
   font-size: 20px;
