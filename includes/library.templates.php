@@ -631,9 +631,9 @@ function pagelines_settings_menu_link(  ){
 	$wp_admin_bar->add_menu( array( 'id' => 'pl_templates', 'parent' => 'pl_settings', 'title' => __('Drag &amp; Drop', 'pagelines'), 'href' => admin_url( 'admin.php?page=pagelines_templates' ) ) );
 	$wp_admin_bar->add_menu( array( 'id' => 'pl_special', 'parent' => 'pl_settings', 'title' => __('Meta Setup', 'pagelines'), 'href' => admin_url( 'admin.php?page=pagelines_special' ) ) );
 	$wp_admin_bar->add_menu( array( 'id' => 'pl_extend', 'parent' => 'pl_settings', 'title' => __('Store', 'pagelines'), 'href' => admin_url( 'admin.php?page=pagelines_extend' ) ) );
-	$wp_admin_bar->add_menu( array( 'id' => 'pl_account', 'parent' => 'pl_settings', 'title' => __('Account', 'pagelines'), 'href' => admin_url( 'admin.php?page=pagelines_account' ) ) );
-	if( VPLUS )
-		$wp_admin_bar->add_menu( array( 'id' => 'pl_plus', 'parent' => 'pl_settings', 'title' => __('Plus', 'pagelines'), 'href' => admin_url( 'admin.php?page=pagelines_plus' ) ) );
+	
+	$v = ( VPLUS ) ? __( '- Plus', 'pagelines' ) : '';
+	$wp_admin_bar->add_menu( array( 'id' => 'pl_account', 'parent' => 'pl_settings', 'title' => sprintf( '%s %s', __('Account', 'pagelines'), $v ), 'href' => admin_url( 'admin.php?page=pagelines_account' ) ) );
 
 	$template_name = (isset($pagelines_template->template_name)) ? $pagelines_template->template_name : false;
 
