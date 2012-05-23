@@ -1,6 +1,6 @@
 jQuery(window).load(function() {
 	
-	var spyCounter = 1, mainOffset = jQuery('.hentry').length && jQuery('.hentry').offset().top, scrollArea = jQuery('body');
+	var spyCounter = 1, mainOffset = jQuery('.hentry').length && jQuery('.hentry').first().offset().top, scrollArea = jQuery('body');
 	
 	scrollArea.find('.scroll-header').each(function () {
 		
