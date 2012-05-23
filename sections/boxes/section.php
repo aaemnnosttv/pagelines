@@ -72,38 +72,45 @@ class PageLinesBoxes extends PageLinesSection {
 	function post_meta_setup(){
 		
 			$type_meta_array = array(
-				'the_box_icon' 		=> array(
-						'version' 	=> 'pro',
-						'type' 		=> 'image_upload',					
-						'title' 	=> __( 'Box Image', 'pagelines'),
-						'shortexp' 	=> __( 'Upload an image for the box.', 'pagelines'),
-						'exp'		=> __( 'Depending on your settings this image will be used as an icon, or splash image; so desired size may vary.', 'pagelines')
-					), 
-				'the_box_icon_link'		=> array(
-						'version' => 'pro',
-						'type' => 'text',					
-						'title' => __( 'Box Link (Optional)', 'pagelines'),
-						'shortexp' => __( 'Make the box image and title clickable by adding a link here (optional)...', 'pagelines')
-					), 
-				'box_class' => array(
-					'version'		=> 'pro',
-					'default'		=> '',
-					'type' 			=> 'text',
-					'size'			=> 'small',
-					'inputlabel' 	=> __( 'Boxes Custom Class', 'pagelines'),
-					'title' 		=> __( 'Custom CSS class', 'pagelines'),
-					'shortexp' 		=> __( 'Add a custom CSS class to this box only.', 'pagelines'),
+				
+				'box_setup' => array(
+					'type'		=> 'multi_option', 
+					'title'		=> __('Individual Box Options', 'pagelines'), 
+					'shortexp'	=> __('Basic setup options for handling of this box', 'pagelines'),
+					'selectvalues'	=> array(
+						
+						'the_box_icon' 		=> array(
+								'version' 	=> 'pro',
+								'type' 		=> 'image_upload',					
+								'inputlabel' 	=> __( 'Box Image', 'pagelines'),
+							), 
+						'the_box_icon_link'		=> array(
+								'version' => 'pro',
+								'type' => 'text',					
+								'inputlabel' => __( 'Box Link (Optional)', 'pagelines'),
+							), 
+						'the_box_icon_target'		=> array(
+								'version' => 'pro',
+								'type' => 'check',					
+								'inputlabel' => __( 'Open in New Window?', 'pagelines'),
+							),
+						'box_class' => array(
+							'version'		=> 'pro',
+							'default'		=> '',
+							'type' 			=> 'text',
+							'size'			=> 'small',
+							'inputlabel' 	=> __( 'Boxes Custom Class', 'pagelines'),
+						),
+						'box_more_text' => array(
+							'version'		=> 'pro',
+							'default'		=> '',
+							'type' 			=> 'text',
+							'size'			=> 'small',
+							'inputlabel' 	=> __( 'More Button Text', 'pagelines'),
+						),
+					),
 				),
-				'box_more_text' => array(
-					'version'		=> 'pro',
-					'default'		=> '',
-					'type' 			=> 'text',
-					'size'			=> 'small',
-					'inputlabel' 	=> __( 'More Link Text', 'pagelines'),
-					'title' 		=> __( 'More Link Text', 'pagelines'),
-					'shortexp' 		=> __( 'Enter text for this boxes "more" link.', 'pagelines'),
-					'exp'			=> __( 'If this option is not set here, in page meta, or meta defaults, then the more link will not show.', 'pagelines')
-				),
+			
 			);
 
 			$post_types = array($this->id); 
@@ -287,6 +294,7 @@ class PageLinesBoxes extends PageLinesSection {
 			$this->thumb_size = ploption('box_thumb_size', $this->oset);
 			$this->framed = ploption('box_thumb_frame', $this->oset);
 			
+			
 			$class = ( ploption( 'box_class', $this->oset ) ) ? ploption( 'box_class', $this->oset ) : null;
 			
 		// Actions	
@@ -326,10 +334,11 @@ class PageLinesBoxes extends PageLinesSection {
 		$oset = array('post_id' => $p->ID);
 	 	$box_link = plmeta('the_box_icon_link', $oset);
 		$box_icon = plmeta('the_box_icon', $oset);
+		$box_target = (plmeta('the_box_icon_target', $oset)) ? 'target="_blank"' : '';
 		
 		$class = ( plmeta( 'box_class', $oset ) ) ? plmeta( 'box_class', $oset ) : null;
 		
-		$image = ($box_icon) ? self::_get_box_image( $p, $box_icon, $box_link, $this->thumb_size, $this->thumb_type) : '';
+		$image = ($box_icon) ? self::_get_box_image( $p, $box_icon, $box_link, $this->thumb_size, $box_target) : '';
 	
 		$title_text = ($box_link) ? sprintf('<a href="%s">%s</a>', $box_link, $p->post_title ) : $p->post_title; 
 	
@@ -342,7 +351,7 @@ class PageLinesBoxes extends PageLinesSection {
 		}else 
 			$more_text = false;
 		
-		$more_link = ($box_link && $more_text) ? sprintf('<span class="fboxmore-wrap"><a class="fboxmore" href="%s">%s</a></span>', $box_link, $more_text) : '';
+		$more_link = ($box_link && $more_text) ? sprintf('<span class="fboxmore-wrap"><a class="fboxmore" href="%s" %s>%s</a></span>', $box_link, $box_target, $more_text) : '';
 		
 		$more_link = apply_filters('box_more_link', $more_link);
 		
@@ -350,7 +359,14 @@ class PageLinesBoxes extends PageLinesSection {
 			
 		$info = ($this->thumb_type != 'only_thumbs') ? sprintf('<div class="fboxinfo fix bd">%s%s</div>', $title, $content) : '';				
 				
-		return sprintf('<div id="%s" class="fbox %s"><div class="media box-media %s"><div class="blocks box-media-pad">%s%s</div></div></div>', 'fbox_'.$p->ID, $class, $this->thumb_type, $image, $info);
+		return sprintf(
+			'<div id="%s" class="fbox %s"><div class="media box-media %s"><div class="blocks box-media-pad">%s%s</div></div></div>', 
+			'fbox_'.$p->ID, 
+			$class, 
+			$this->thumb_type, 
+			$image, 
+			$info
+		);
 	
 	}
 
@@ -361,7 +377,7 @@ class PageLinesBoxes extends PageLinesSection {
 	* @TODO document
 	*
 	*/
-	function _get_box_image( $bpost, $box_icon, $box_link = false, $box_thumb_size = false, $thumb_type){
+	function _get_box_image( $bpost, $box_icon, $box_link = false, $box_thumb_size = false, $box_target){
 			global $pagelines_ID;
 			
 			$frame = ($this->framed) ? 'pl-imageframe' : '';
@@ -373,7 +389,7 @@ class PageLinesBoxes extends PageLinesSection {
 				$wrapper_class = sprintf('fboxgraphic img %s', $frame);
 			} else {
 				$max_width = ($box_thumb_size) ? $box_thumb_size.'px' : '100%';
-				$image_style = 'width: 100%';
+				$image_style = 'max-width: 100%';
 				$wrapper_style = sprintf('max-width:%s', $max_width);
 				$wrapper_class = sprintf('fboxgraphic %s', $frame);
 			}
@@ -382,7 +398,7 @@ class PageLinesBoxes extends PageLinesSection {
 			$image_tag = sprintf('<img src="%s" alt="%s" style="%s" />', $box_icon, esc_html($bpost->post_title), $image_style);
 			
 			// If link for box is set, add it
-			$image_output = ( $box_link ) ? sprintf('<a href="%s" title="%s">%s</a>', $box_link, esc_html($bpost->post_title), $image_tag ) : $image_tag;
+			$image_output = ( $box_link ) ? sprintf('<a href="%s" title="%s" %s>%s</a>', $box_link, esc_html($bpost->post_title), $box_target, $image_tag ) : $image_tag;
 			
 			$wrapper = sprintf('<div class="%s" style="%s">%s</div>', $wrapper_class, $wrapper_style, $image_output );
 			
