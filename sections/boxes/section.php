@@ -139,65 +139,106 @@ class PageLinesBoxes extends PageLinesSection {
 		$settings = wp_parse_args($settings, $this->optionator_default);
 		
 			$tab = array(
-					'box_set' => array(
-						'version' 		=> 'pro',
-						'default'		=> 'default-boxes',
-						'type' 			=> 'select_taxonomy',
-						'taxonomy_id'	=> $this->taxID,				
-						'title'		 	=> __( 'Select Box Set To Show', 'pagelines'),
-						'shortexp' 			=> __( 'If you are using the box section, select the box set you would like to show on this page.', 'pagelines')
-					), 
-					'box_col_number' => array(
-						'type' 			=> 'count_select',
-						'default'		=> '3',
-						'count_number'	=> '5', 
-						'count_start'	=> '1',
-						'inputlabel' 	=> __( 'Number of Feature Box Columns', 'pagelines'),
-						'title' 		=> __( 'Box Columns', 'pagelines'),
-						'inputlabel' 		=> __( "Select the number of columns to show boxes in.", 'pagelines'),
-						'shortexp' 			=> __( "The number you select here will be the number of boxes listed in a row on a page.", 'pagelines'),
-						'exp'				=> __( "Note: This won't work on the blog page (use the global option).", 'pagelines')
-					), 
-					'box_thumb_type' => array(
-						'version' 	=> 'pro',
-						'type' 		=> 'radio',
-						'default'	=> 'inline_thumbs',
-						'selectvalues'	=> array(
-								'inline_thumbs'	=> array('name' => __( 'Image At Left', 'pagelines') ),
-								'top_thumbs'	=> array('name' => __( 'Image On Top', 'pagelines') ), 
-								'only_thumbs'	=> array('name' => __( "Only The Image, No Text", 'pagelines') )
-							), 
-						'title' => __( 'Box Thumb Style', 'pagelines'),				
-						'shortexp' => __( 'Choose between thumbs on left and thumbs on top of boxes.', 'pagelines'),
+				'box_setup' => array(
+					'type'		=> 'multi_option', 
+					'title'		=> __('Box Setup Options', 'pagelines'), 
+					'shortexp'	=> __('Basic setup options for handling of boxes.', 'pagelines'),
+					'selectvalues'	=> array(
 						
+						'box_set' => array(
+							'version' 		=> 'pro',
+							'default'		=> 'default-boxes',
+							'type' 			=> 'select_taxonomy',
+							'taxonomy_id'	=> $this->taxID,				
+							'inputlabel'	=> __( 'Box Set To Show', 'pagelines'),
+						), 
+						'box_col_number' => array(
+							'type' 			=> 'count_select',
+							'default'		=> '3',
+							'count_number'	=> '5', 
+							'count_start'	=> '1',
+							'inputlabel' 		=> __( "Boxes Per Row", 'pagelines'),
+						), 
+						'box_items' => array(
+							'version'		=> 'pro',
+							'default'		=> '6',
+							'type' 			=> 'text_small',
+							'size'			=> 'small',
+							'inputlabel' 	=> __( 'Maximum Boxes To Show', 'pagelines'),
+						),
 					),
-					'box_thumb_size' => array(
-						'version'		=> 'pro',
-						'default'		=> '64',
-						'type' 			=> 'text_small',
-						'size'			=> 'small',
-						'title' 		=> __( 'Box Icon Size (in Pixels)', 'pagelines'),
-						'inputlabel' 		=> __( 'Enter the icon size in pixels', 'pagelines'),
-						'shortexp' 			=> __( "Select the default icon size in pixels, set the images when creating new boxes.", 'pagelines')
+				),
+					
+					'box_image_formatting' => array(
+						'type'		=> 'multi_option', 
+						'title'		=> __('Box Image Options', 'pagelines'), 
+						'shortexp'	=> __('Options for formatting box images.', 'pagelines'),
+						'exp'		=> __('', 'pagelines'),
+						'selectvalues'	=> array(
+							
+							'box_thumb_type' => array(
+								'version' 	=> 'pro',
+								'type' 		=> 'select',
+								'default'	=> 'inline_thumbs',
+								'selectvalues'	=> array(
+										'inline_thumbs'	=> array('name' => __( 'Image At Left', 'pagelines') ),
+										'top_thumbs'	=> array('name' => __( 'Image On Top', 'pagelines') ), 
+										'only_thumbs'	=> array('name' => __( "Only The Image, No Text", 'pagelines') )
+									), 
+								'inputlabel' => __( 'Box Thumb Style', 'pagelines'),				
+
+							),
+							'box_thumb_size' => array(
+								'version'		=> 'pro',
+								'default'		=> '64',
+								'type' 			=> 'text_small',
+								'size'			=> 'small',
+								'inputlabel' 		=> __( 'Enter the icon size in pixels', 'pagelines'),
+							),
+							'box_thumb_frame' => array(
+								'version'		=> 'pro',
+								'default'		=> '64',
+								'type' 			=> 'check',
+								'size'			=> 'small',
+								'inputlabel' 		=> __( 'Add A Frame To Images', 'pagelines'),
+							),
+						),
 					),
-					'box_items' => array(
-						'version'		=> 'pro',
-						'default'		=> '6',
-						'type' 			=> 'text_small',
-						'size'			=> 'small',
-						'inputlabel' 	=> __( 'Maximum Boxes To Show On Page', 'pagelines'),
-						'title' 		=> __( 'Max Number of Boxes', 'pagelines'),
-						'shortexp' 		=> __( "Select the max number of boxes to show on this page (overrides default).", 'pagelines'),
+					
+					
+					'box_ordering' => array(
+						'type'		=> 'multi_option', 
+						'title'		=> __('Box Ordering Options', 'pagelines'), 
+						'shortexp'	=> __('Optionally control the ordering of the boxes', 'pagelines'),
+						'exp'		=> __('The easiest way to order boxes is using a post type order plugin for WordPress. However, if you would like to do it algorithmically, we have provided these options for you.', 'pagelines'),
+						'selectvalues'	=> array(
+							
+							'box_orderby' => array(
+								'type'			=> 'select',
+								'default'		=> 'ID',
+								'version'		=> 'pro',
+								'inputlabel'	=> 'Order Boxes By (If Not With Post Type Order Plugin)',
+								'selectvalues' => array(
+									'ID' 		=> array('name' => __( 'Post ID (default)', 'pagelines') ),
+									'title' 	=> array('name' => __( 'Title', 'pagelines') ),
+									'date' 		=> array('name' => __( 'Date', 'pagelines') ),
+									'modified' 	=> array('name' => __( 'Last Modified', 'pagelines') ),
+									'rand' 		=> array('name' => __( 'Random', 'pagelines') ),							
+								)
+							),
+							'box_order' => array(
+									'default' => 'DESC',
+									'version'	=> 'pro',
+									'type' => 'select',
+									'selectvalues' => array(
+										'DESC' 		=> array('name' => __( 'Descending', 'pagelines') ),
+										'ASC' 		=> array('name' => __( 'Ascending', 'pagelines') ),
+									),
+									'inputlabel'=> __( 'Select sort order', 'pagelines'),
+							),
+						),
 					),
-					'box_class' => array(
-						'version'		=> 'pro',
-						'default'		=> '',
-						'type' 			=> 'text',
-						'size'			=> 'small',
-						'inputlabel' 	=> __( 'Add custom css class to these boxes', 'pagelines'),
-						'title' 		=> __( 'Custom CSS class', 'pagelines'),
-						'shortexp' 		=> __( 'Add a custom CSS class to this set of boxes.', 'pagelines'),
-					),
+					
 					'box_more_text' => array(
 						'version'		=> 'pro',
 						'default'		=> '',
@@ -208,38 +249,17 @@ class PageLinesBoxes extends PageLinesSection {
 						'shortexp' 		=> __( 'Enter text for "more" links on linked box elements for this page.', 'pagelines'),
 						'exp'			=> __( 'If this option is blank (and not set in defaults), no more text will show.<br/><br/> This option can be overridden in individual box settings.', 'pagelines')
 					),
-					'box_orderby' => array(
-							'default' => 'ID',
-							'version'	=> 'pro',
-							'type' => 'select',
-							'selectvalues' => array(
-								'ID' 		=> array('name' => __( 'Post ID (default)', 'pagelines') ),
-								'title' 	=> array('name' => __( 'Title', 'pagelines') ),
-								'date' 		=> array('name' => __( 'Date', 'pagelines') ),
-								'modified' 	=> array('name' => __( 'Last Modified', 'pagelines') ),
-								'rand' 		=> array('name' => __( 'Random', 'pagelines') ),							
-							),
-							'inputlabel' => __( 'Select sort order', 'pagelines'),
-							'title' => __( 'Boxes sort order', 'pagelines'),
-							'shortexp' => __( 'How will the boxes be sorted.', 'pagelines'),
-							'exp' => __( "By default the boxes section will sort by post ID.", 'pagelines')
-						),
-						
-					'box_order' => array(
-							'default' => 'DESC',
-							'version'	=> 'pro',
-							'type' => 'select',
-							'selectvalues' => array(
-								'DESC' 		=> array('name' => __( 'Descending', 'pagelines') ),
-								'ASC' 		=> array('name' => __( 'Ascending', 'pagelines') ),
-							),
-							'inputlabel'=> __( 'Select sort order', 'pagelines'),
-							'title' 	=> __( 'Boxes sort order', 'pagelines'),
-							'shortexp'	=> __( 'How will the boxes be sorted.', 'pagelines'),
-							'exp'		=> __( "By default the boxes will be in descending order.", 'pagelines')
-						),
-				);
-
+					'box_class' => array(
+						'version'		=> 'pro',
+						'default'		=> '',
+						'type' 			=> 'text',
+						'size'			=> 'small',
+						'inputlabel' 	=> __( 'Add custom css class to these boxes', 'pagelines'),
+						'title' 		=> __( 'Custom CSS class', 'pagelines'),
+						'shortexp' 		=> __( 'Add a custom CSS class to this set of boxes.', 'pagelines'),
+					),
+			);
+		
 			$tab_settings = array(
 					'id' 		=> 'fboxes_meta',
 					'name' 		=> 'Boxes',
@@ -264,7 +284,9 @@ class PageLinesBoxes extends PageLinesSection {
 			$box_set = ( ploption( 'box_set', $this->oset ) ) ? ploption( 'box_set', $this->oset ) : null;
 			$box_limit = ploption( 'box_items', $this->oset );
 			$this->thumb_type = ( ploption( 'box_thumb_type', $this->oset) ) ? ploption( 'box_thumb_type', $this->oset) : 'inline_thumbs';	
-			$this->thumb_size = ( ploption('box_thumb_size', $this->oset) ) ? ploption('box_thumb_size', $this->oset) : 64;
+			$this->thumb_size = ploption('box_thumb_size', $this->oset);
+			$this->framed = ploption('box_thumb_frame', $this->oset);
+			
 			$class = ( ploption( 'box_class', $this->oset ) ) ? ploption( 'box_class', $this->oset ) : null;
 			
 		// Actions	
@@ -282,11 +304,6 @@ class PageLinesBoxes extends PageLinesSection {
 					echo setup_section_notify( $this, 'Add Box Posts To Activate.', admin_url('edit.php?post_type='.$this->ptID), 'Add Posts' );
 					return;
 				}
-			
-			// Script 
-				//printf('<script type="text/javascript">jQuery(document).ready(function(){ blocks(".box-media-pad", "maxheight");});</script>');
-			
-			
 			
 			// Grid Args
 				$args = array( 'per_row' => $per_row, 'callback' => array(&$this, 'draw_boxes'), 'class' => $class );
@@ -344,17 +361,21 @@ class PageLinesBoxes extends PageLinesSection {
 	* @TODO document
 	*
 	*/
-	function _get_box_image( $bpost, $box_icon, $box_link = false, $box_thumb_size = 65, $thumb_type){
+	function _get_box_image( $bpost, $box_icon, $box_link = false, $box_thumb_size = false, $thumb_type){
 			global $pagelines_ID;
 			
+			$frame = ($this->framed) ? 'pl-imageframe' : '';
+			
 			if($this->thumb_type == 'inline_thumbs'){
+				$max_width = ($box_thumb_size) ? $box_thumb_size : 65;
 				$image_style = 'width: 100%';
-				$wrapper_style = sprintf('width: 22%%; max-width:%dpx', $box_thumb_size);
-				$wrapper_class = 'fboxgraphic img';
+				$wrapper_style = sprintf('width: 22%%; max-width:%dpx', $max_width);
+				$wrapper_class = sprintf('fboxgraphic img %s', $frame);
 			} else {
-				$image_style = sprintf('width: 100%%; max-width:%dpx', $box_thumb_size);
+				$max_width = ($box_thumb_size) ? $box_thumb_size.'px' : '100%';
+				$image_style = sprintf('max-width:%s', $max_width);
 				$wrapper_style = '';
-				$wrapper_class = 'fboxgraphic';
+				$wrapper_class = sprintf('fboxgraphic %s', $frame);
 			}
 			
 			// Make the image's tag with url
