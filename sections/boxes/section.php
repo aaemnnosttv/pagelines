@@ -185,7 +185,7 @@ class PageLinesBoxes extends PageLinesSection {
 										'top_thumbs'	=> array('name' => __( 'Image On Top', 'pagelines') ), 
 										'only_thumbs'	=> array('name' => __( "Only The Image, No Text", 'pagelines') )
 									), 
-								'inputlabel' => __( 'Box Thumb Style', 'pagelines'),				
+								'inputlabel' => __( 'Box Thumb Style (optional - defaults to "At Left")', 'pagelines'),				
 
 							),
 							'box_thumb_size' => array(
@@ -193,7 +193,7 @@ class PageLinesBoxes extends PageLinesSection {
 								'default'		=> '64',
 								'type' 			=> 'text_small',
 								'size'			=> 'small',
-								'inputlabel' 		=> __( 'Enter the icon size in pixels', 'pagelines'),
+								'inputlabel' 		=> __( 'Enter the max image size in pixels (optional)', 'pagelines'),
 							),
 							'box_thumb_frame' => array(
 								'version'		=> 'pro',
