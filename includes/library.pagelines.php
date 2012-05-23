@@ -43,28 +43,23 @@ class PageLines_Plus {
 
 	function plus_welcome() {
 
-		// get plus welcome as rss object.
-		$rss = fetch_feed( 'http://demo.pagelin.co.in/framework/?s=pagelines_plus_page&feed=rss2' );
+		$url = 'api.pagelines.com/plus_latest';
+		if( $welcome = get_transient( 'pagelines_plus' ) )
+			return json_decode( $welcome );
 
-		 if ( is_wp_error($rss) ) {
-			$rss = false;
+		$response = pagelines_try_api( $url, false );
+
+		if ( $response !== false ) {
+			if( ! is_array( $response ) || ( is_array( $response ) && $response['response']['code'] != 200 ) ) {
+				$out = 'error....';
+			} else {
+				
+			$welcome = wp_remote_retrieve_body( $response );
+			set_transient( 'pagelines_plus', $welcome, 86400 );
+			$out = json_decode( $welcome );
+			}
 		}
-
-		if ( !$rss->get_item_quantity() ) {
-		     $rss->__destruct();
-			$rss = false;
-		}
-
-		if ( is_object( $rss ) ) {
-		$rss = $rss->get_items();
-
-		$out = $rss[0]->get_content();
-		$rss[0]->__destruct();
-		} else {
-			$out = 'Failed to fetch Plus Welcome Page, will try again later.';
-		}
-
-		return $out;	
+	return $out;
 	}	
 	
 	function plus_support_email() {

@@ -21,9 +21,9 @@ function pagelines_add_admin_menus() {
 	global $_pagelines_special_hook;
 	global $_pagelines_templates_hook;
 	global $_pagelines_account_hook;
-	
+
 	$_pagelines_account_hook = pagelines_insert_menu( 'pagelines', __( 'Dashboard', 'pagelines' ), 'edit_theme_options', 'pagelines_account', 'pagelines_build_account_interface' );
-	
+
 	$_pagelines_options_page_hook = pagelines_insert_menu( 'pagelines', __( 'Settings', 'pagelines' ), 'edit_theme_options', 'pagelines', 'pagelines_build_option_interface' );
 
 	$_pagelines_special_hook = pagelines_insert_menu( 'pagelines', __( 'Meta Setup', 'pagelines' ), 'edit_theme_options', 'pagelines_special', 'pagelines_build_special' );
@@ -31,8 +31,8 @@ function pagelines_add_admin_menus() {
 	$_pagelines_templates_hook = pagelines_insert_menu( 'pagelines', __( 'Drag &amp; Drop', 'pagelines' ), 'edit_theme_options', 'pagelines_templates', 'pagelines_build_templates_interface' );
 	
 	$_pagelines_ext_hook = pagelines_insert_menu( 'pagelines', __( 'Store', 'pagelines' ), 'edit_theme_options', 'pagelines_extend', 'pagelines_build_extension_interface' );
-		
-	
+
+
 
 }
 
@@ -51,9 +51,6 @@ function pagelines_insert_menu( $page_title, $menu_title, $capability, $menu_slu
 		return add_theme_page( $page_title, sprintf( 'PageLines %s', $menu_title ), $capability, $menu_slug, $function );	
 	}
 }
-
-
-
 
 /**
  *

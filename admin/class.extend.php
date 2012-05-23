@@ -1123,8 +1123,6 @@
 		
 		$url = trailingslashit( PL_API . $type );
 		$options = array(
-			'sslverify'	=>	false,
-			'timeout'	=>	5,
 			'body' => array(
 				'username'	=>	( $this->username != '' ) ? $this->username : false,
 				'password'	=>	( $this->password != '' ) ? $this->password : false,
