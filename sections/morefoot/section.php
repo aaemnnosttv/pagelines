@@ -43,13 +43,6 @@ class PageLinesMorefoot extends PageLinesSection {
 	}
 
 	/**
-	* Load js
-	*/
-	function section_styles(){
-		wp_enqueue_script( 'pagelines-blocks' );
-	}
-
-	/**
 	* Section template.
 	*/
    function section_template() { 

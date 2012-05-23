@@ -160,8 +160,7 @@ class PLNavBar extends PageLinesSection {
 	 * Load styles and scripts
 	 */
 	function section_styles(){
-		
-		wp_enqueue_script( 'pagelines-bootstrap-all' );
+
 		wp_enqueue_script( 'navbar', $this->base_url.'/navbar.js', array( 'jquery' ) );
 	}
 

@@ -62,9 +62,6 @@ class PageLines_ShortCodes {
 		
 		// Make widgets process shortcodes
 		add_filter( 'widget_text', 'do_shortcode' );	
-		
-		add_action( 'wp_print_scripts', array( &$this, 'shortcode_js' ) );
-		add_action( 'wp_print_styles', array( &$this, 'shortcode_css' ) );
 		add_action( 'template_redirect', array( &$this, 'filters' ) );
 	}
 
@@ -1355,16 +1352,6 @@ class PageLines_ShortCodes {
 
 		return apply_filters( 'pagelines_button_shortcode', $output, $atts );
 
-	}
-
-	function shortcode_js() {
-
-		wp_enqueue_script( 'pagelines-bootstrap-all' );
-	}
-
-	function shortcode_css() {
-
-		wp_enqueue_style( 'pagelines-shortcodes' );
 	}
 
 	function filters() {

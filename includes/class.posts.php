@@ -130,9 +130,6 @@ class PageLinesPosts {
 		/* clip handling */
 		$clip = ( $this->pagelines_show_clip( $this->count, $this->paged ) ) ? true : false;
 		
-		if ( $clip )
-			wp_enqueue_script( 'pagelines-blocks' );
-		
 		$format = ( $clip ) ? 'clip' : 'feature';
 		$clip_row_start = ( $this->clipcount % 2 == 0 ) ? true : false;
 		$clip_right = ( ( $this->clipcount+1 ) % 2 == 0 ) ? true : false;
