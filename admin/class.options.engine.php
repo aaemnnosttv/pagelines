@@ -1354,7 +1354,7 @@ class OptEngine {
 		if ( pagelines_check_credentials( 'error' ) === 'licence' ) {
 			$updates_exp .= sprintf( '<br /><br />%s', pagelines_check_credentials( 'message' ) );
 		}
-		if ( VPLUS )
+		if ( 'true' === pagelines_check_credentials( 'plus' ) )
 			$updates_exp .= sprintf( '<br /><br />%s', __( 'Active Plus account.', 'pagelines') );
 		if ( EXTEND_NETWORK ){
 			$updates_exp = __( 'Updates are disabled for non Network Admins</div>', 'pagelines' );
