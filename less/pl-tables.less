@@ -1,6 +1,13 @@
 // PageLines Core
 
-table {width: 100%;}
+table {
+	width: 100%;
+	.prettyprint{
+		margin-bottom: 0;
+	}
+}
+
+
 .hentry table, #comments table {margin-bottom: 1em;}
 .hentry table th, #comments table th {padding: .3em;}
 .hentry table td, #comments table td {padding: .35em .6em;}
@@ -16,12 +23,15 @@ table {width: 100%;}
   }
 	
 	td {
-    color: lighten(@pl-text,10);
+		color: lighten(@pl-text,10);
 		line-height: @baseLineHeight - 3;
-    font-size: @baseFontSize - 1;
-    text-align: left;
-    vertical-align: top;
+		font-size: @baseFontSize - 1;
+		text-align: left;
+		vertical-align: top;
 		border-top: 1px solid darken(@dark-base,8);
+	}
+	&.mid td{
+		vertical-align: middle;
 	}
 }
 
