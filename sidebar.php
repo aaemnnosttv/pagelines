@@ -30,6 +30,9 @@ else:
 	pagelines_register_hook('pagelines_before_sidebar_wrap'); // Hook
 
 	global $pagelines_layout;
+	
+	$GLOBALS['sidebar_was_run'] = true;
+	
 	if($pagelines_layout->layout_mode != 'fullwidth'):?>
 
 		<div id="sidebar-wrap" class="">

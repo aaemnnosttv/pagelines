@@ -6,6 +6,112 @@
  *
  **/
 
+
+/**
+ * Special content wrap is for plugins that operate outside of pagelines
+ * We started doing things manually, so there are legacy extensions still using manual methodology
+ * 
+ * @uses $pagelines_render // this is set in the main pagelines setup_pagelines_template(); function
+ **/
+function do_special_content_wrap(){
+	global $pagelines_render;
+	if(
+		$pagelines_render
+		|| has_action('jigoshop_before_main_content')
+		|| class_exists('SkinPageLinesWiki')
+		|| function_exists('vanilla_dcss')
+	)
+		return false; 
+	else 
+		return true;
+}
+
+function pagelines_special_content_wrap_top(){
+
+	if(do_special_content_wrap()):
+		add_action('pagelines_after_sidebar_wrap', 'pagelines_special_content_wrap_finish_after_sidebar');
+		add_action('pagelines_before_sidebar_wrap', 'pagelines_special_content_wrap_finish_before_sidebar');
+		add_action('pagelines_start_footer', 'pagelines_special_content_wrap_finish_after_content');
+	?>	
+		<!-- PageLines jigoshop before -->
+			<section id="content" class="container fix">
+					<div class="content">
+						<div class="content-pad">
+							<div id="pagelines_content" class="fix">
+								
+								<div id="column-wrap" class="fix">
+									<div id="column-main" class="mcolumn fix">
+										<div class="mcolumn-pad">
+											<section id="postloop" class="copy top-postloop postloop-bottom">
+												<div class="copy-pad">
+													<article class="page type-page hentry fpost">
+														<div class="hentry-pad ">
+															<div class="entry_wrap fix">
+																<div class="entry_content">
+	<?php endif;
+	
+	
+}
+
+/**
+ * If the extension runs the sidebar, close down some markup before
+ * 
+ **/
+function pagelines_special_content_wrap_finish_before_sidebar(){
+
+	?>	
+																</div>
+															</div>
+														</div>
+													</article>
+												</div>
+											</section>
+										</div>
+									</div>
+								</div>
+						
+	<?php 
+}
+
+/**
+ * If the extension runs the sidebar, close down some markup after
+ * 
+ **/
+function pagelines_special_content_wrap_finish_after_sidebar(){
+	?>
+				</div>
+			</div>
+		</div>
+	</section>
+	<?php
+}
+/**
+ * If the sidebar wasn't run, then finish the markup
+ *
+ */
+function pagelines_special_content_wrap_finish_after_content(){
+	global $sidebar_was_run;
+	
+	if(!isset($sidebar_was_run)):?>
+												</div>
+											</div>
+										</div>
+									</article>
+								</div>
+							</section>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+	<?php endif;
+}
+
+
+
+
 // ======================================
 // = Sidebar Setup & Template Functions =
 // ======================================

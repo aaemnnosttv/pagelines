@@ -138,7 +138,7 @@ body{
 		
 		
 	/* @ Layout Floating */
-		#column-wrap, #container{float: left;}
+		#column-wrap {float: left;}
 		#sidebar-wrap{float:right;}
 		.two-sidebar-left #column-wrap, .one-sidebar-left #column-wrap{  float: right;  }
 		.two-sidebar-left #sidebar-wrap, .one-sidebar-left #sidebar-wrap{ float: left; }

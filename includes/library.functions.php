@@ -506,6 +506,11 @@ function pagelines_setup_menu() {
  * @uses    pagelines_template_area
  */
 function setup_pagelines_template() {
+	
+	
+	// if not true, then a non pagelines template is being rendered (wrap with .content)
+	$GLOBALS['pagelines_render'] = true;
+	
 	get_header();
 
 	if(!has_action('override_pagelines_body_output'))
