@@ -573,8 +573,7 @@ class PageLines_ShortCodes {
 			</script>
 		<?php
 
-		 printf('
-			<div class="g-plusone" data-size="%s" data-annotation="%s" data-href="%s"></div>',
+		 printf( '<div class="g-plusone" data-size="%s" data-annotation="%s" data-href="%s"></div>',
 			$atts['size'],
 			$atts['count'],
 			$atts['url']
@@ -599,8 +598,7 @@ class PageLines_ShortCodes {
 			$atts = wp_parse_args( $atts, $defaults );
 
 
-            $out = sprintf( '<script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
-<script type="IN/Share" data-url="%s" data-counter="%s"></script>',   
+            $out = sprintf( '<script src="//platform.linkedin.com/in.js" type="text/javascript"></script><script type="IN/Share" data-url="%s" data-counter="%s"></script>',   
 					$atts['url'],
 					$atts['count']
 				);
@@ -636,8 +634,7 @@ class PageLines_ShortCodes {
 
 			} 
 
-            $out = sprintf( '<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-            <a href="https://twitter.com/share" class="twitter-share-button" data-url="%s" data-text="%s" data-via="%s">Tweet</a>',   
+            $out = sprintf( '<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script><a href="https://twitter.com/share" class="twitter-share-button" data-url="%s" data-text="%s" data-via="%s">Tweet</a>',   
                     $a['type'],
 					$a['permalink'], 
 					$a['title'],
@@ -928,11 +925,7 @@ class PageLines_ShortCodes {
 
 		$atts = shortcode_atts( $defaults, $atts );
 
-	    $out = sprintf( '
-<div class="btn-group">
-	<button class="btn btn-%s btn-%s dropdown-toggle" data-toggle="dropdown" href="#">%s <span class="caret"></span></button>
-		<ul class="dropdown-menu">%s</ul>
-</div>',
+	    $out = sprintf( '<div class="btn-group"><button class="btn btn-%s btn-%s dropdown-toggle" data-toggle="dropdown" href="#">%s <span class="caret"></span></button><ul  class="dropdown-menu">%s</ul></div>',
 	        $atts['size'],
 	      	$atts['type'],
 	        $atts['label'],
@@ -960,11 +953,7 @@ class PageLines_ShortCodes {
 
 		$atts = shortcode_atts( $defaults, $atts );
 
-	    $out = sprintf( '
-<div class="btn-group">
-	<a class="btn btn-%1$s btn-%2$s" >%3$s</a><a class="btn btn-%1$s btn-%2$s dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
-	<ul class="dropdown-menu">%4$s</ul>
-</div>',
+	    $out = sprintf( '<div class="btn-group"><a class="btn btn-%1$s btn-%2$s" >%3$s</a><a class="btn btn-%1$s btn-%2$s dropdown-toggle" data-toggle="dropdown"><span  class="caret"></span></a><ul class="dropdown-menu">%4$s</ul></div>',
 	      	$atts['size'],
 	        $atts['type'],
 	        $atts['label'],
@@ -1077,15 +1066,7 @@ class PageLines_ShortCodes {
         $open = ( $open == 'yes' ) ? 'in' : '';
         $atts = shortcode_atts( $defaults, $atts );
 
-	    $out = sprintf( '
-<div class="accordion-group">
-	<div class="accordion-heading">
-		<a class="accordion-toggle" data-toggle="collapse" data-parent="#%1$s" href="#collapse%3$s">%2$s</a>
-	</div>
-	<div id="collapse%3$s" class="accordion-body collapse %4$s">
-		<div class="accordion-inner">%5$s</div>
-	</div>
-</div>',
+	    $out = sprintf( '<div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#%1$s" href="#collapse%3$s">%2$s</a></div><div id="collapse%3$s" class="accordion-body collapse %4$s"><div class="accordion-inner">%5$s</div></div></div>',
 	      	$atts['name'],
 	        $atts['heading'],
 	        $atts['number'],
@@ -1121,12 +1102,7 @@ class PageLines_ShortCodes {
 				</script>
 				<?php
 
-		   		printf( '
-<div id="%2$s" class="carousel slide">
-	<div class="carousel-inner">%1$s</div>
-	<a class="carousel-control left" href="#%2$s" data-slide="prev">&lsaquo;</a>
-	<a class="carousel-control right" href="#%2$s" data-slide="next">&rsaquo;</a>
-</div>',
+		   		printf( '<div id="%2$s" class="carousel slide"><div class="carousel-inner">%1$s</div><a class="carousel-control left" href="#%2$s" data-slide="prev">&lsaquo;</a><a class="carousel-control right" href="#%2$s" data-slide="next">&rsaquo;</a></div>',
 					do_shortcode( $content ),
 			        $atts['name']
 		        );
@@ -1273,20 +1249,7 @@ class PageLines_ShortCodes {
 				</script>
 				<?php
 				
-		   		printf( '
-				<div id="modal" class="modal hide fade" style="display:none;">
-					<div class="modal-header">
-						<a class="close" data-dismiss="modal">×</a>
-						<h3>%s</h3>
-					</div>
-					<div class="modal-body">
-						<p>%4$s</p>
-					</div>
-					<div class="modal-footer">
-						<a href="#" class="btn btn-%3$s" data-dismiss="modal">Close</a>
-					</div>
-				</div>
-				<a data-toggle="modal" href="#modal" class="%2$s %2$s-%3$s">%5$s</a>',
+		   		printf( '<div id="modal" class="modal hide fade" style="display:none;"><div class="modal-header"><a class="close" data-dismiss="modal">×</a><h3>%s</h3></div><div class="modal-body"><p>%4$s</p></div><div class="modal-footer"><a href="#" class="btn btn-%3$s" data-dismiss="modal">Close</a></div></div><a data-toggle="modal" href="#modal" class="%2$s %2$s-%3$s">%5$s</a>',
 				$title,
 				$type,
 				$colortype,
