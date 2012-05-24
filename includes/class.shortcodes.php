@@ -873,7 +873,7 @@ class PageLines_ShortCodes {
 			'type' => 'info',
 			'size' => 'small',
 			'link' => '#',
-			'target' => 'blank'
+			'target' => '_self'
 		);
 
 		$atts = shortcode_atts( $defaults, $atts );
