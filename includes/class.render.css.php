@@ -175,10 +175,13 @@ class PageLinesRenderCSS {
 
 	function get_dynamic_url() {
 		
+		$version = ploption( "pl_save_version" );
+		if ( ! $version )
+			$version = '1';
 		if ( '' != get_option('permalink_structure') )
-			return sprintf( '%s/pagelines-compiled-css-%s/',PARENT_URL, ploption( "pl_save_version" ) );
+			return sprintf( '%s/pagelines-compiled-css-%s/',PARENT_URL, $version );
 		else
-			return sprintf( '%s?pageless=%s',site_url(), ploption( "pl_save_version" ) );
+			return sprintf( '%s?pageless=%s',site_url(), $version );
 		
 	}
 
