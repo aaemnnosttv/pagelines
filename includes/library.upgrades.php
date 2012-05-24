@@ -81,7 +81,7 @@ class PageLinesUpgradePaths {
 		}
 		
 		// if on version 2.2 in settings
-		if ( version_compare( $version, '2.2' ) >= 0 ) 
+		if ( version_compare( $version, '2.2-b1' ) >= 0 || version_compare( get_theme_mod( 'pagelines_version' ), '2.2-b1' ) >= 0 ) 
 			return;
 		
 		if ( isset( $pagelines['enable_sidebar_reorder'] ) && $pagelines['enable_sidebar_reorder'] ) {

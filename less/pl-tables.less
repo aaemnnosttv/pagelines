@@ -1,23 +1,26 @@
 // PageLines Core
-.hentry table th, #comments table th {font-size: 1.1em;}
-.hentry table td, #comments table td {padding: .35em .6em;}
 
 table {width: 100%;}
 .hentry table, #comments table {margin-bottom: 1em;}
-.hentry table th, #comments table th { font-weight: normal; text-align: center; padding: .3em;}
-.hentry table td, #comments table td {padding: .35em .6em; text-align: center;}
+.hentry table th, #comments table th {padding: .3em;}
+.hentry table td, #comments table td {padding: .35em .6em;}
 .hentry form table td, #comments form table td { text-align: inherit; }
 .hentry table .label, #comments table .label{text-align:left;}
 
 // Bootstrap
 .table {
+
+  th {
+    font-size:@baseFontSize;
+    font-weight:bold;
+  }
 	
 	td {
-
-		// This may cause a stir
-		line-height: @baseLineHeight;
-    	text-align: left;
-    	vertical-align: top;
+    color: lighten(@pl-text,10);
+		line-height: @baseLineHeight - 3;
+    font-size: @baseFontSize - 1;
+    text-align: left;
+    vertical-align: top;
 		border-top: 1px solid darken(@dark-base,8);
 	}
 }
@@ -45,6 +48,14 @@ table {width: 100%;}
   }
 }
 
+
+// CENTERED
+.table-centered {
+  th,
+  td {
+    text-align:center;
+  }
+}
 
 // BORDERED VERSION
 // ----------------
