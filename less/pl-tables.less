@@ -2,13 +2,18 @@
 
 table {width: 100%;}
 .hentry table, #comments table {margin-bottom: 1em;}
-.hentry table th, #comments table th {font-size:1.1em;font-weight: normal;padding: .3em;}
+.hentry table th, #comments table th {padding: .3em;}
 .hentry table td, #comments table td {padding: .35em .6em;}
 .hentry form table td, #comments form table td { text-align: inherit; }
 .hentry table .label, #comments table .label{text-align:left;}
 
 // Bootstrap
 .table {
+
+  th {
+    font-size:@baseFontSize;
+    font-weight:bold;
+  }
 	
 	td {
     color: lighten(@pl-text,10);
