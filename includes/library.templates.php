@@ -19,7 +19,7 @@ function do_special_content_wrap(){
 		isset($pagelines_render)
 		|| class_exists('SkinPageLinesWiki')
 		|| function_exists('vanilla_dcss')
-		|| (is_jigoshop() && class_exists('PageLinesJigoShop'))
+		|| (function_exists('is_jigoshop') && is_jigoshop() && class_exists('PageLinesJigoShop'))
 	)
 		return false; 
 	else 
@@ -33,21 +33,20 @@ function pagelines_special_content_wrap_top(){
 		add_action('pagelines_before_sidebar_wrap', 'pagelines_special_content_wrap_finish_before_sidebar');
 		add_action('pagelines_start_footer', 'pagelines_special_content_wrap_finish_after_content');
 	?>	
-		<!-- PageLines jigoshop before -->
-			<section id="content" class="container fix">
-					<div class="content">
-						<div class="content-pad">
-							<div id="pagelines_content" class="fix">
-								
-								<div id="column-wrap" class="fix">
-									<div id="column-main" class="mcolumn fix">
-										<div class="mcolumn-pad">
-											<section id="postloop" class="copy top-postloop postloop-bottom">
-												<div class="copy-pad">
-													<article class="page type-page hentry fpost">
-														<div class="hentry-pad ">
-															<div class="entry_wrap fix">
-																<div class="entry_content">
+		<section id="content" class="container fix">
+				<div class="content">
+					<div class="content-pad">
+						<div id="pagelines_content" class="fix">
+							
+							<div id="column-wrap" class="fix">
+								<div id="column-main" class="mcolumn fix">
+									<div class="mcolumn-pad">
+										<section id="postloop" class="copy top-postloop postloop-bottom">
+											<div class="copy-pad">
+												<article class="page type-page hentry fpost">
+													<div class="hentry-pad ">
+														<div class="entry_wrap fix">
+															<div class="entry_content">
 	<?php endif;
 	
 	
@@ -60,16 +59,15 @@ function pagelines_special_content_wrap_top(){
 function pagelines_special_content_wrap_finish_before_sidebar(){
 
 	?>	
-																</div>
-															</div>
 														</div>
-													</article>
+													</div>
 												</div>
-											</section>
+											</article>
 										</div>
-									</div>
+									</section>
 								</div>
-						
+							</div>
+						</div>		
 	<?php 
 }
 
@@ -732,20 +730,20 @@ function pagelines_settings_menu_link(  ){
 		return;
 
 
-	$wp_admin_bar->add_menu( array( 'id' => 'pl_settings', 'title' => __('PageLines', 'pagelines'), 'href' => admin_url( 'admin.php?page=pagelines' ) ) );
-	$wp_admin_bar->add_menu( array( 'id' => 'pl_main_settings', 'parent' => 'pl_settings', 'title' => __('Settings', 'pagelines'), 'href' => admin_url( 'admin.php?page=pagelines' ) ) );
-	$wp_admin_bar->add_menu( array( 'id' => 'pl_templates', 'parent' => 'pl_settings', 'title' => __('Drag &amp; Drop', 'pagelines'), 'href' => admin_url( 'admin.php?page=pagelines_templates' ) ) );
-	$wp_admin_bar->add_menu( array( 'id' => 'pl_special', 'parent' => 'pl_settings', 'title' => __('Meta Setup', 'pagelines'), 'href' => admin_url( 'admin.php?page=pagelines_special' ) ) );
-	$wp_admin_bar->add_menu( array( 'id' => 'pl_extend', 'parent' => 'pl_settings', 'title' => __('Store', 'pagelines'), 'href' => admin_url( 'admin.php?page=pagelines_extend' ) ) );
+	$wp_admin_bar->add_menu( array( 'id' => 'pl_settings', 'title' => __('PageLines', 'pagelines'), 'href' => admin_url( PL_DASH_URL ) ) );
+	$wp_admin_bar->add_menu( array( 'id' => 'pl_main_settings', 'parent' => 'pl_settings', 'title' => __('Settings', 'pagelines'), 'href' => admin_url( PL_DASH_URL ) ) );
+	$wp_admin_bar->add_menu( array( 'id' => 'pl_templates', 'parent' => 'pl_settings', 'title' => __('Drag &amp; Drop', 'pagelines'), 'href' => admin_url( PL_TEMPLATE_SETUP_URL ) ) );
+	$wp_admin_bar->add_menu( array( 'id' => 'pl_special', 'parent' => 'pl_settings', 'title' => __('Meta Setup', 'pagelines'), 'href' => admin_url( PL_SPECIAL_OPTS_URL ) ) );
+	$wp_admin_bar->add_menu( array( 'id' => 'pl_extend', 'parent' => 'pl_settings', 'title' => __('Store', 'pagelines'), 'href' => admin_url( PL_ADMIN_STORE_URL ) ) );
 	
 	$v = ( VPLUS ) ? __( '- Plus', 'pagelines' ) : '';
-	$wp_admin_bar->add_menu( array( 'id' => 'pl_account', 'parent' => 'pl_settings', 'title' => sprintf( '%s %s', __('Account', 'pagelines'), $v ), 'href' => admin_url( 'admin.php?page=pagelines_account' ) ) );
+	$wp_admin_bar->add_menu( array( 'id' => 'pl_account', 'parent' => 'pl_settings', 'title' => sprintf( '%s %s', __('Account', 'pagelines'), $v ), 'href' => admin_url( PL_ACCOUNT_URL ) ) );
 
 	$template_name = (isset($pagelines_template->template_name)) ? $pagelines_template->template_name : false;
 
 	if( $template_name ){
 		$page_type = __('Template: ', 'pagelines') . ucfirst($template_name );
-		$wp_admin_bar->add_menu( array( 'id' => 'template_type', 'title' => $page_type, 'href' => admin_url( 'admin.php?page=pagelines_templates' ) ) );
+		$wp_admin_bar->add_menu( array( 'id' => 'template_type', 'title' => $page_type, 'href' => admin_url( PL_TEMPLATE_SETUP_URL ) ) );
 	}
 	
 	$spurl = pl_special_url( $template_name );
@@ -781,7 +779,7 @@ function pl_special_url( $t ){
 	else 
 		return false;
 
-	$rurl = sprintf('admin.php?page=pagelines_special%s', '#'.$slug);
+	$rurl = sprintf(PL_SPECIAL_OPTS_URL.'%s', '#'.$slug);
 
 	return admin_url( $rurl );
 
