@@ -62,7 +62,7 @@ class PageLines_ShortCodes {
 		
 		// Make widgets process shortcodes
 		add_filter( 'widget_text', 'do_shortcode' );	
-		add_action( 'template_redirect', array( &$this, 'filters' ) );
+//		add_action( 'template_redirect', array( &$this, 'filters' ) );
 	}
 
 	private function shortcodes_core() {
@@ -115,10 +115,29 @@ class PageLines_ShortCodes {
 			'googlemap'					=>	array( 'function' => 'googleMaps' ),
 			'themeurl'					=>	array( 'function' => 'get_themeurl' ),
 			'link'						=>	array( 'function' => 'create_pagelink' ),
-			'bookmark'					=>	array( 'function' => 'bookmark_link' )
+			'bookmark'					=>	array( 'function' => 'bookmark_link' ),
+			'pl_raw'					=>	array( 'function' => 'do_raw' )
 			);
 		
 		return $core;
+	}
+
+	function do_raw() {
+		
+		global $post;
+		$str = $post->post_content;
+		
+		$start = '[pl_raw]';
+		$end = '[/pl_raw]';
+		$stpos = strpos( $str, $start );
+		if ( $stpos === FALSE )
+			return '';
+		$stpos += strlen( $start );
+		$endpos = strpos( $str, $end, $stpos );
+		if ( $endpos === FALSE )
+			return '';
+		$len = $endpos - $stpos;
+		return do_shortcode( substr( $str, $stpos, $len ) );
 	}
 
 
