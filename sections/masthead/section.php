@@ -39,7 +39,7 @@ class PLMasthead extends PageLinesSection {
 				'masthead_button_multi_1' => array(
 					'type'		=> 'multi_option', 
 					'title'		=> __('Masthead Action Button 1', 'pagelines'), 
-					'shortexp'	=> __('Enter the options for the masthead button', 'pagelines'),
+					'shortexp'	=> __('Enter the options for the masthead button. If no options are specified, no button will be shown.', 'pagelines'),
 					'selectvalues'	=> array(
 						'masthead_button_link_1' => array(
 							'type' => 'text',
@@ -74,7 +74,7 @@ class PLMasthead extends PageLinesSection {
 				'masthead_button_multi_2' => array(
 					'type'		=> 'multi_option', 
 					'title'		=> __('Masthead Action Button 2', 'pagelines'), 
-					'shortexp'	=> __('Enter the options for the masthead button', 'pagelines'),
+					'shortexp'	=> __('Enter the options for the masthead button. If no options are specified, no button will be shown.', 'pagelines'),
 					'selectvalues'	=> array(
 						'masthead_button_link_2' => array(
 							'type' => 'text',
@@ -107,12 +107,14 @@ class PLMasthead extends PageLinesSection {
 					)
 				),
 				'masthead_menu' => array(
+					'shortexp'	=> __('Choose a Wordpress menu to display (optional)', 'pagelines'),
 						'type' 			=> 'select_menu',
 						'title'			=> 'Masthead Menu',
 						'inputlabel' 	=> 'Select Masthead Menu',
 					),
 				'masthead_meta' => array(
-						'type' 			=> 'text',
+					'shortexp'	=> __('Enter text to be shown on Masthead (optional)', 'pagelines'),
+						'type' 			=> 'textarea',
 						'title'			=> 'Masthead Meta',
 						'inputlabel' 	=> 'Enter Masthead Meta Text',
 					),
