@@ -642,24 +642,25 @@ class PageLines_ShortCodes {
 
 			$a = wp_parse_args( $args, $defaults );
 
-			if ($a['type'] == 'follow') {
 
-				printf( '
-				<a href="https://twitter.com/%2$s" class="twitter-follow-button" data-show-count="true">Follow @%1$s</a>', 
+           	if ($a['type'] == 'follow') {
+
+				sprintf( '<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script><a href="https://twitter.com/%2$s" class="twitter-follow-button" data-show-count="true">Follow @%1$s</a>', 
 	                    $a['type'],
 						$a['handle']
 					);
 
 			} 
 
+
             $out = sprintf( '<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script><a href="https://twitter.com/share" class="twitter-share-button" data-url="%s" data-text="%s" data-via="%s">Tweet</a>',   
                     $a['type'],
 					$a['permalink'], 
 					$a['title'],
-					( ploption( 'twitter_via' ) ) ? $a['handle'] : ''
+					$a['handle']
 				);
-           
-           return $out;
+       
+           	return $out;
 
 		}
 		
