@@ -669,7 +669,7 @@ class PageLines_ShortCodes {
 	function pl_facebook_shortcode( $args ){
 
 			$defaults = array(
-				'permalink'	=> '', 
+				'url'	=> get_permalink(), 
 				'width'		=> '80',
 			); 
 
@@ -687,7 +687,7 @@ class PageLines_ShortCodes {
 						}(document, 'script', 'facebook-jssdk'));
 				</script><?php
 				printf( '<div class="fb-like" data-href="%s" data-send="false" data-layout="button_count" data-width="%s" data-show-faces="false" data-font="arial" style="vertical-align: top"></div>',
-					$a['permalink'], 
+					$a['url'], 
 					$a['width']
 				);
 
