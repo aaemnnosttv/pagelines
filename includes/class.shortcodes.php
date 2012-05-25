@@ -570,8 +570,7 @@ class PageLines_ShortCodes {
 			<script type="text/javascript">
 			  (function() { var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true; po.src = 'https://apis.google.com/js/plusone.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
 			  })();
-			</script>
-		<?php
+			</script><?php
 
 		 printf( '<div class="g-plusone" data-size="%s" data-annotation="%s" data-href="%s"></div>',
 			$atts['size'],
@@ -670,8 +669,7 @@ class PageLines_ShortCodes {
 						js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1";
 						fjs.parentNode.insertBefore(js, fjs);
 						}(document, 'script', 'facebook-jssdk'));
-				</script>
-				<?php
+				</script><?php
 				printf( '<div class="fb-like" data-href="%s" data-send="false" data-layout="button_count" data-width="%s" data-show-faces="false" data-font="arial" style="vertical-align: top"></div>',
 					$a['permalink'], 
 					$a['width']
@@ -984,8 +982,7 @@ class PageLines_ShortCodes {
                 	jQuery(function(){
 						jQuery("a[rel=tooltip]").tooltip();
 					});
-				</script>
-				<?php
+				</script><?php
 
 			printf( '<a href="#" rel="tooltip" title="%s">%s</a>',
 				$atts['tip'],
@@ -1022,8 +1019,7 @@ class PageLines_ShortCodes {
         					e.preventDefault()
       					});
 					});
-	    	</script>
-	        <?php
+	    	</script><?php
 
     	printf( '<a href="#" rel="popover" title="%s" data-content="%s">%s</a>',
 			$atts['title'],
@@ -1099,8 +1095,7 @@ class PageLines_ShortCodes {
 	            	jQuery(function(){
 						jQuery('.carousel').carousel();
 					});
-				</script>
-				<?php
+				</script><?php
 
 		   		printf( '<div id="%2$s" class="carousel slide"><div class="carousel-inner">%1$s</div><a class="carousel-control left" href="#%2$s" data-slide="prev">&lsaquo;</a><a class="carousel-control right" href="#%2$s" data-slide="next">&rsaquo;</a></div>',
 					do_shortcode( $content ),
@@ -1162,8 +1157,7 @@ class PageLines_ShortCodes {
 							  e.relatedTarget // previous tab
 							})
 						});
-		    		</script>
-		    	<?php
+		    		</script><?php
 
 		    printf( '<ul class="nav nav-%s">%s</ul>',
 			$type,
@@ -1246,8 +1240,7 @@ class PageLines_ShortCodes {
 							, show: false
 						});
 					});
-				</script>
-				<?php
+				</script><?php
 				
 		   		printf( '<div id="modal" class="modal hide fade" style="display:none;"><div class="modal-header"><a class="close" data-dismiss="modal">×</a><h3>%s</h3></div><div class="modal-body"><p>%4$s</p></div><div class="modal-footer"><a href="#" class="btn btn-%3$s" data-dismiss="modal">Close</a></div></div><a data-toggle="modal" href="#modal" class="%2$s %2$s-%3$s">%5$s</a>',
 				$title,
