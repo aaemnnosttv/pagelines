@@ -591,7 +591,7 @@ class PageLines_ShortCodes {
 			  })();
 			</script><?php
 
-		 printf( '<div class="g-plusone" data-size="%s" data-annotation="%s" data-href="%s"></div>',
+		 printf( '<div class="g-plusone" style="width:190px;" data-size="%s" data-annotation="%s" data-href="%s"></div>',
 			$atts['size'],
 			$atts['count'],
 			$atts['url']
