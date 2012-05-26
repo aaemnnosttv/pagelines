@@ -1,20 +1,15 @@
 
-/* Colors */
-#featurenav a{
-	background: darken(@pl-base, @invert-dark);
-}
 
-#featurenav a.activeSlide{
-	background: darken(@pl-base, @invert-dark+7);
+#featurenav {
+	a{
+		background: darken(@pl-base, @invert-dark);
+		color: fadeout(@pl-text, 60%);
+		&.activeSlide{
+			background: darken(@pl-base, @invert-dark+7);
+			color: fadeout(@pl-text, 30%);
+		}
+	}
 }
-
-#featurenav a{
-	color: fadeout(@pl-text, 60%);
-}
-#featurenav a.activeSlide{
-	color: fadeout(@pl-text, 30%);
-}
-
 
 @media screen and (max-width:600px) {
 
@@ -43,27 +38,29 @@
 		width: 100%;
 	}
 	#cycle {width: 100% !important;}
-	#feature-area{
-		background: rgba(0,0,0,.5)
-	}
-	#feature-area .fcontainer{	
-		width: 100%;
-	}
-	#feature-area object, #feature-area iframe{	
-		width: 100%;
-		height: 100%;
+	
+	#feature-area {
+		background: rgba(0,0,0,.5);
+		box-shadow: 0 2px 5px rgba(0,0,0,.3);
+		overflow: visible;
+		.fcontainer{	
+			width: 100%;
+			.fstyle-nobg { background: none; }
+			.fstyle-lightbg { 
+				background: #fff; 
+				.fcontent, .fcontent a{
+					background: rgba(255,255,255,.7); 
+					text-shadow: 0 0 2px #fff;
+				}
+			}
+		}
+		object, iframe{
+			width: 100%;
+			height: 100%;
+		}
 	}
 
-	#feature-area .fcontainer.fstyle-nobg {	 background: none; }
-	#feature-area .fcontainer.fstyle-lightbg { background: #fff; }
-	#feature-area .fcontainer.fstyle-lightbg .fcontent, #feature-area .fcontainer.fstyle-lightbg .fcontent a{ 
-		background: rgba(255,255,255,.7); 
-		text-shadow: 0 0 2px #fff;
-	}
-		#feature-area{
-			box-shadow: 0 2px 5px rgba(0,0,0,.3);
-			overflow: visible;
-		}
+
 		.fset_height, #feature_slider .text-bottom .fmedia .dcol-pad,#feature_slider .text-bottom .feature-pad,#feature_slider .text-none .fmedia .dcol-pad{
 			height: 380px;
 			overflow:hidden;
@@ -199,6 +196,8 @@
 				color: #fff;
 				text-shadow: #000 0 -1px 0 ;
 			}
+			
+			
 			
 			.feature-wrap a{
 				color:#fff;

@@ -13,6 +13,8 @@
 // -------------------------
 @baseContrast: lighten(@pl-base, @invert-light);
 @baseContrastMore: lighten(@pl-base, @invert-light);
+@baseContrastDark: darken(@pl-base, @invert-dark);
+@baseContrastDarkMore: darken(@baseContrastDark, @invert-dark);
 @baseLighter: lighten(@pl-base, 5%);
 @baseLighterMore: lighten(@pl-base, 10%);
 @baseLighterMost: lighten(@pl-base, 15%);
@@ -154,7 +156,7 @@
 
 // Hr border color
 // -------------------------
-@hrBorder:                @baseContrastMore;
+@hrBorder:                @baseContrastDark;
 
 
 // Navbar

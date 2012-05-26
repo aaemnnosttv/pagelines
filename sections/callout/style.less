@@ -5,13 +5,10 @@
 	}
 
 	.callout_text-pad { 
-		padding: 4px 10px 0; 
+		padding: 0px 10px 0; 
 	}
 
 	.callout_head { 
-		margin-top: 5px; 
-		font-size:2.4em; 
-		line-height: 1.4em; 
 		display: inline;
 	}
 
@@ -38,8 +35,8 @@
     	width: 100%;
 	}
 
-	.callout_action {
-		margin-top:10px;
+	.with-callsub .callout_action{
+		margin-top: 7px;
 	}
 
 	// Legacy Button
@@ -51,9 +48,12 @@
 }
 
 // Media Queries
-@media (max-width: 600px) {
+@media (max-width: 480px) {
 	#callout .btn {display:block;}
-	.callout_action {width:100%;}
+	.callout_action {
+		width:100%; 
+		margin-bottom: .5*@baseLineHeight; 
+	}
 	.callout_action.img.rtimg {margin-left:0;margin-right:0;}
 	.callout_text {text-align:center;}
 }
