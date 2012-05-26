@@ -62,7 +62,7 @@ class PageLines_ShortCodes {
 		
 		// Make widgets process shortcodes
 		add_filter( 'widget_text', 'do_shortcode' );	
-		add_action( 'template_redirect', array( &$this, 'filters' ) );
+//		add_action( 'template_redirect', array( &$this, 'filters' ) );
 	}
 
 	private function shortcodes_core() {
@@ -115,10 +115,29 @@ class PageLines_ShortCodes {
 			'googlemap'					=>	array( 'function' => 'googleMaps' ),
 			'themeurl'					=>	array( 'function' => 'get_themeurl' ),
 			'link'						=>	array( 'function' => 'create_pagelink' ),
-			'bookmark'					=>	array( 'function' => 'bookmark_link' )
+			'bookmark'					=>	array( 'function' => 'bookmark_link' ),
+			'pl_raw'					=>	array( 'function' => 'do_raw' )
 			);
 		
 		return $core;
+	}
+
+	function do_raw() {
+		
+		global $post;
+		$str = $post->post_content;
+		
+		$start = '[pl_raw]';
+		$end = '[/pl_raw]';
+		$stpos = strpos( $str, $start );
+		if ( $stpos === FALSE )
+			return '';
+		$stpos += strlen( $start );
+		$endpos = strpos( $str, $end, $stpos );
+		if ( $endpos === FALSE )
+			return '';
+		$len = $endpos - $stpos;
+		return do_shortcode( substr( $str, $stpos, $len ) );
 	}
 
 
@@ -572,7 +591,7 @@ class PageLines_ShortCodes {
 			  })();
 			</script><?php
 
-		 printf( '<div class="g-plusone" data-size="%s" data-annotation="%s" data-href="%s"></div>',
+		 printf( '<div class="g-plusone" style="width:190px;" data-size="%s" data-annotation="%s" data-href="%s"></div>',
 			$atts['size'],
 			$atts['count'],
 			$atts['url']
@@ -614,35 +633,32 @@ class PageLines_ShortCodes {
 	 */
 	function pl_twitter_button( $args ){
 
-			$defaults = array(
-				'type'      => '',
-				'permalink'	=> get_permalink(), 
-				'handle'	=> ploption( 'twittername' ), 
-				'title'		=> ''
+		$defaults = array(
+			'type'      => '',
+			'permalink'	=> get_permalink(), 
+			'handle'	=> ( ploption( 'twittername' ) ) ? ploption( 'twittername' ) : 'PageLines' , 
+			'title'		=> ''
 			); 	
 
 			$a = wp_parse_args( $args, $defaults );
 
 			if ($a['type'] == 'follow') {
 
-				printf( '
-				<a href="https://twitter.com/%2$s" class="twitter-follow-button" data-show-count="true">Follow @%1$s</a>', 
-	                    $a['type'],
-						$a['handle']
-					);
+				$out = sprintf( '<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script><a href="https://twitter.com/%1$s" class="twitter-follow-button" data-show-count="true">Follow @%1$s</a>', 
+					$a['handle']
+						);
 
-			} 
+			} else {
 
-            $out = sprintf( '<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script><a href="https://twitter.com/share" class="twitter-share-button" data-url="%s" data-text="%s" data-via="%s">Tweet</a>',   
-                    $a['type'],
+				$out = sprintf( '<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script><a href="https://twitter.com/share" class="twitter-share-button" data-url="%s" data-text="%s" data-via="%s">Tweet</a>',   
+					$a['type'],
 					$a['permalink'], 
 					$a['title'],
-					( ploption( 'twitter_via' ) ) ? $a['handle'] : ''
-				);
-           
-           return $out;
-
-		}
+					$a['handle']
+					);
+			}
+			return $out;
+	}
 		
 	/**
 	 * 20. Shortcode to display Facebook Like button
@@ -653,7 +669,7 @@ class PageLines_ShortCodes {
 	function pl_facebook_shortcode( $args ){
 
 			$defaults = array(
-				'permalink'	=> '', 
+				'url'	=> get_permalink(), 
 				'width'		=> '80',
 			); 
 
@@ -671,7 +687,7 @@ class PageLines_ShortCodes {
 						}(document, 'script', 'facebook-jssdk'));
 				</script><?php
 				printf( '<div class="fb-like" data-href="%s" data-send="false" data-layout="button_count" data-width="%s" data-show-faces="false" data-font="arial" style="vertical-align: top"></div>',
-					$a['permalink'], 
+					$a['url'], 
 					$a['width']
 				);
 
