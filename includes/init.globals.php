@@ -61,6 +61,22 @@ define( 'PL_ADMIN_JS', PL_ADMIN_URI . '/js' );
 define( 'PL_ADMIN_IMAGES', PL_ADMIN_URI . '/images' );
 define( 'PL_ADMIN_ICONS', PL_ADMIN_IMAGES . '/icons' );
 
+define('PL_MAIN_DASH', 'pagelines-admin');
+define('PL_ADMIN_STORE_SLUG', 'pagelines_extend');
+define('PL_SPECIAL_OPTS_SLUG', 'pagelines_special');
+
+
+define('PL_SETTINGS_SLUG', 'pagelines');
+define('PL_SETTINGS_URL', 'admin.php?page='.PL_SETTINGS_SLUG);
+define('PL_IMPORT_EXPORT_URL', 'admin.php?page='.PL_MAIN_DASH);
+define('PL_DASH_URL', 'admin.php?page='.PL_MAIN_DASH);
+define('PL_ACCOUNT_URL', 'admin.php?page='.PL_MAIN_DASH);
+define('PL_ADMIN_STORE_URL', 'admin.php?page='.PL_ADMIN_STORE_SLUG);
+define('PL_TEMPLATE_SETUP_URL', 'admin.php?page=pagelines_templates');
+define('PL_SPECIAL_OPTS_URL', 'admin.php?page=pagelines_special');
+
+
+
 /**
  * Define theme path constants
  */

@@ -41,12 +41,6 @@ function pagelines_special_content_wrap_top(){
 							<div id="column-wrap" class="fix">
 								<div id="column-main" class="mcolumn fix">
 									<div class="mcolumn-pad">
-										<section id="postloop" class="copy top-postloop postloop-bottom">
-											<div class="copy-pad">
-												<article class="page type-page hentry fpost">
-													<div class="hentry-pad ">
-														<div class="entry_wrap fix">
-															<div class="entry_content">
 	<?php endif;
 	
 	
@@ -59,12 +53,6 @@ function pagelines_special_content_wrap_top(){
 function pagelines_special_content_wrap_finish_before_sidebar(){
 
 	?>	
-														</div>
-													</div>
-												</div>
-											</article>
-										</div>
-									</section>
 								</div>
 							</div>
 						</div>		
@@ -91,12 +79,6 @@ function pagelines_special_content_wrap_finish_after_content(){
 	global $sidebar_was_run;
 	
 	if(!isset($sidebar_was_run)):?>
-												</div>
-											</div>
-										</div>
-									</article>
-								</div>
-							</section>
 						</div>
 					</div>
 				</div>
