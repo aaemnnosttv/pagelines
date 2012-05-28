@@ -51,7 +51,9 @@ class ExtensionSections extends PageLinesExtensions {
 			$list = $this->get_master_list( $sections, $type, $tab, 'installed' );	
 	
 		} // end installed mode
-
+		
+		$this->updates_list( array( 'list' => $list, 'type' => 'section' ) );
+		
 		return $this->ui->extension_list( array( 'list' => $list, 'tab' => $tab, 'type' => 'sections' ) );
  	}
 

@@ -1462,5 +1462,32 @@
 		
 		return $list;
 	}
+	
+	function updates_list( $args ) {
+		
+		$updates = ( array ) get_theme_mod( 'available_updates' );
+		
+		$defaults = array( 
+			'list'	=>	array(),
+			'type'	=>	'plugin',
+			'pid'	=> 'productid'
+			);
+		$o = wp_parse_args( $args, $defaults );
+
+		if ( 'theme' === $o['type'] )
+			$o['pid'] = 'pid';
+
+		foreach( $o['list'] as $key => $d ) {
+				
+			$ext = $d[ $o['type'] ];
+			if ( $this->is_installed( $o['type'], $key, $ext ) && isset( $ext[ $o['pid'] ] ) && $ext[ $o['pid'] ] > 0 ) {
+				$id = $ext[ $o['pid'] ];
+				$version = $this->get_the_version( $o['type'], $key, $ext );
+				if ( $id && $version )
+					$updates[$id] = $this->get_the_version( $o['type'], $key, $ext );
+			}
+		}	
+	set_theme_mod( 'available_updates', $updates );
+	}
 
 } // [END]
