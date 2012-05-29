@@ -18,6 +18,8 @@ class ExtensionThemes extends PageLinesExtensions {
 		$themes = self::extension_scan_themes( $themes );
 
 		$list = $this->get_master_list( $themes, $type, $tab );
+
+		$this->updates_list( array( 'list' => $list, 'type' => 'theme' ) );		
 		
 		return $this->ui->extension_list( array( 'list' => $list, 'tab' => $tab, 'type' => 'themes', 'mode' => 'graphic' ) );
 	}

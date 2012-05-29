@@ -74,9 +74,9 @@ class PageLinesUpdateCheck {
 	function pagelines_theme_clear_update_transient() {
 
 		delete_transient( EXTEND_UPDATE );
-		remove_action('admin_notices', array(&$this,'pagelines_theme_update_nag') );
+		remove_action( 'admin_notices', array( &$this,'pagelines_theme_update_nag' ) );
 		delete_transient( 'pagelines_sections_cache' );
-
+		remove_theme_mod( 'pending_updates' );
 	}
 
 
@@ -152,6 +152,9 @@ class PageLinesUpdateCheck {
 			$this->set_transients( $pagelines_update, 60*60*24 );
 			if ( isset( $pagelines_update['licence'] ) )
 				update_pagelines_licence( $pagelines_update['licence'] );
+				
+			$this->pagelines_get_user_updates();
+			
 		}
 
 		// If we're already using the latest version, return FALSE
@@ -167,4 +170,17 @@ class PageLinesUpdateCheck {
 		set_transient( EXTEND_UPDATE, $pagelines_update, $time ); 	
 	}
 	
+	function pagelines_get_user_updates() {
+
+		$options = array(
+			'body'	=> array(
+				'updates'	=> json_encode( get_theme_mod( 'available_updates' ) )
+			) );
+
+		$url = PL_API . '?get_updates';
+		$response = pagelines_try_api($url, $options);
+
+		$pagelines_update = wp_remote_retrieve_body($response);
+		set_theme_mod( 'pending_updates', $pagelines_update );
+	}
 } // end class
