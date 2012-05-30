@@ -85,3 +85,8 @@ require_once (PL_ADMIN.'/actions.admin.php');
  * Load option actions
  */
 require_once (PL_ADMIN.'/actions.options.php');
+
+/**
+ * Load Dashboard Template
+ */
+require_once (PL_ADMIN.'/t.dashboard.php');

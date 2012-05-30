@@ -64,7 +64,7 @@ function integration_activate( $type, $slug, $name, $uploader, $checked ) {
 	
 	echo __( 'Options Activated', 'pagelines' );
 	
- 	integration_reload( 'pagelines_extend' );
+ 	integration_reload( PL_ADMIN_STORE_SLUG );
 	
 }
 
@@ -81,7 +81,7 @@ function integration_deactivate( $type, $slug, $name, $uploader, $checked ) {
 	
 	echo __( 'Options Deactivated', 'pagelines' );
 	
-	integration_reload( 'pagelines_extend' );
+	integration_reload( PL_ADMIN_STORE_SLUG );
 	
 }
 

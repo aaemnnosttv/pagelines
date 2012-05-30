@@ -1043,6 +1043,7 @@
 			height: 75px;
 		}
 
+
 /* @ Text Content*/
 
 
@@ -1051,16 +1052,17 @@
 	}
 		.admin_billboard_content{
 			padding: 1em 0;
+			text-align: center;
 		}
 
 			h3.admin_header_main {
-				margin:.8em 0;
+				
 				font-size: 2.9em;
 				line-height: 1.6em;
 				text-shadow: 0px 2px 0 #fff;
 			}
 			.admin_billboard_text{
-				margin-top: 1em;
+				color: rgba(0,0,0,.4);
 				font-size: 1.1em;
 				font-weight: bold;
 				line-height: 1.5em;
@@ -1182,6 +1184,82 @@
 			margin-bottom: 1em;
 		}
 	
+/* @ PageLines Dashboard
+ ******************************/ 
+	.pl-dashboards .pl-dashboard-story .img-frame{
+		max-width: 50px;
+		background:#fff;
+		padding: 2px;
+		box-shadow: 0 1px 3px rgba(0,0,0,.2);
+	}
+	
+	.pl-dash{
+		margin: 0 0 1.5em;
+		background: #fefefe;
+		
+		position: relative;
+		z-index: 5;
+	}
+	
+		.pl-dash-half{
+			width: 49%;
+			float:left;
+		}
+		.pl-dash-space {
+			margin-right: 2%;
+		}
+		.pl-dash-pad{
+			border: 1px solid #fff;
+			border-top: none;
+			background: transparent;
+		}
+				.pl-vignette {
+				  position: relative;
+				}
+				.pl-vignette:after {
+					box-shadow: inset 0 0 8px rgba(0,0,0,.2);
+					position: absolute;
+					top: 0;
+					left: 0;
+					width: 100%;
+					height: 100%;
+					z-index: 2;
+					content: "";
+				}
+		
+		.pl-dash .dash-title{
+			margin: 0;
+			background:-webkit-linear-gradient(top,#fff 0%,#f7f7f7 100%); 
+			border: 1px solid #ddd;
+			box-shadow: inset 1px 1px 0 rgba(255,255,255,.8);
+			padding: 7px 10px;
+			color:#666;
+			font-size: 13px;
+			position: relative;
+			z-index: 3;
+		}
+			.pl-dash .dash-title img{vertical-align: top}
+		
+		.pl-dash h3 {margin-bottom: 0}
+		.pl-dash p {margin-top: 0}
+
+	.pl-dashboard-story{
+		border-bottom: 1px solid #eee	;
+	}
+		.pl-dashboard-story.alt-story{
+			background:#fcfcfc;
+			border-top: 1px solid #fff;
+		
+		}
+			.pl-dashboard-story .dashpane-pad{
+				position: relative;
+				z-index: 100;
+			}
+	
+		.dashpane-pad{
+			padding: 10px 18px;
+		}
+	
 /* @ doc icon links */
 
 	.doc_icon_links, .toggle_option_info{
@@ -1216,11 +1294,8 @@
 	
 /* @ Text Content Options */
 	.pl_help{
-		margin: .5em 0 0;
-		background:#eee;
-		padding: 20px;
 		font-size: 12px;
-		line-height: 1.7em;
+		line-height: 1.6em;
 	}
 		.pl_help p, .pl_help li{ line-height: 1.6em}
 		.pl_help ol, .pl_help ul{
@@ -1237,8 +1312,7 @@
 			background:#e2e2e2;
 		}
 		
-	.just_checkbox_option{
-		
+	.just_checkbox_option{	
 		padding: 0;
 	}
 		.just_checkbox_option .lbl.inln{

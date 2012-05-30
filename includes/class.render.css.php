@@ -79,14 +79,14 @@ class PageLinesRenderCSS {
 					'parent' => false, 
 					'id' => 'less_error',
 					'title' => __( 'LESS Compile error!', 'pagelines' ),
-					'href' => admin_url( 'admin.php?page=pagelines' ),
+					'href' => admin_url( PL_SETTINGS_URL ),
 					'meta' => false
 				));
 				$wp_admin_bar->add_menu( array(
 					'parent' => 'less_error',
 					'id' => 'less_message',
 					'title' => sprintf( __( 'Error in %s Less code: %s', 'pagelines' ), $t, ploption( "pl_less_error_{$t}" ) ),
-					'href' => admin_url( 'admin.php?page=pagelines' ),
+					'href' => admin_url( PL_SETTINGS_URL ),
 					'meta' => false
 				));
 			}

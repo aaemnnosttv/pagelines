@@ -457,7 +457,7 @@ function pane_template_old( $e, $count ){
 		<div class="pagelines_upload_form">
 			<h4><?php _e( 'Install a section in .zip format', 'pagelines' ) ?></h4>
 			<p class="install-help"><?php _e( 'If you have a section in a .zip format, you may install it by uploading it here.', 'pagelines' ) ?></p>
-			<?php printf( '<form method="post" enctype="multipart/form-data" action="%s">', admin_url( 'admin.php?page=pagelines_extend' ) ) ?>
+			<?php printf( '<form method="post" enctype="multipart/form-data" action="%s">', admin_url( PL_ADMIN_STORE_URL ) ) ?>
 				<?php wp_nonce_field( 'pagelines_extend_upload', 'upload_check' ) ?>
 				<label class="screen-reader-text" for="<?php echo $file;?>"><?php _e( 'Section zip file', 'pagelines' ); ?></label>
 				<input type="file" id="<?php echo $file;?>" name="<?php echo $file;?>" />
@@ -488,7 +488,7 @@ function pane_template_old( $e, $count ){
 	 */
 	function extension_js(){ 
 	
-		if ( !isset( $_GET['page'] ) || strpos( $_GET['page'], 'pagelines_extend' ) === false )
+		if ( !isset( $_GET['page'] ) || strpos( $_GET['page'], PL_ADMIN_STORE_SLUG ) === false )
 			return;
 		?>
 		<script type="text/javascript">/*<![CDATA[*/

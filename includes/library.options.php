@@ -799,7 +799,7 @@ function pagelines_process_reset_options( $option_array = null ) {
 					// Set the 'reset' option back to not set !important 
 					pagelines_update_option($oid, null);
 				
-					wp_redirect( admin_url( 'admin.php?page=pagelines&reset=true&opt_id='.$oid ) );
+					wp_redirect( admin_url( PL_SETTINGS_URL.'&reset=true&opt_id='.$oid ) );
 					exit;
 
 			}
@@ -885,10 +885,10 @@ function pagelines_import_export(){
 
 	if ( isset($_POST['form_submitted']) && $_POST['form_submitted'] == 'import_settings_form') {	
 		if (strpos($_FILES['file']['name'], 'Settings') === false && strpos($_FILES['file']['name'], 'settings') === false){
-			wp_redirect( admin_url('admin.php?page=pagelines_account&pageaction=import&error=wrongfile') ); 
+			wp_redirect( admin_url(PL_IMPORT_EXPORT_URL.'&pageaction=import&error=wrongfile') ); 
 		} elseif ($_FILES['file']['error'] > 0){
 			$error_type = $_FILES['file']['error'];
-			wp_redirect( admin_url('admin.php?page=pagelines_account&pageaction=import&error=file&'.$error_type) );
+			wp_redirect( admin_url(PL_IMPORT_EXPORT_URL.'&pageaction=import&error=file&'.$error_type) );
 		} else {
 			ob_start();
 			include($_FILES['file']['tmp_name']);
@@ -927,9 +927,9 @@ function pagelines_import_export(){
 					wp_cache_clean_cache($file_prefix); 
 				}
 				if ( isset($done) ) {
-				wp_redirect( admin_url( 'admin.php?page=pagelines_account&pageaction=import&imported=true' ) ); 
+				wp_redirect( admin_url( PL_IMPORT_EXPORT_URL.'&pageaction=import&imported=true' ) ); 
 			} else {
-				wp_redirect( admin_url('admin.php?page=pagelines_account&pageaction=import&error=wrongfile') );
+				wp_redirect( admin_url( PL_IMPORT_EXPORT_URL.'&pageaction=import&error=wrongfile') );
 			}
 		}		
 	}

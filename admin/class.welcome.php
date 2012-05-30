@@ -27,19 +27,66 @@ class PageLinesWelcome {
      */
 	function get_welcome(){
 
-		$intro = '<div class="theme_intro"><div class="theme_intro_pad">';
+		$dash = new PageLinesDashboard;
 		
-		$intro .= $this->get_intro();
+		// PageLines Plus
+		$args = array(
+			'title'			=> 'Some Tips To Get You Started', 
+			'data'			=> $this->test_array(), 
+			'icon'			=> PL_ADMIN_ICONS . '/light-bulb.png', 
+			'excerpt-trim'	=> false
+		); 
+		
+		
+
+		$intro = $this->get_welcome_billboard();
+		
+		$intro .= $dash->wrap_dashboard_pane('tips', $args);
 		
 		$intro .= $this->get_plugins_billboard();
 		
-		$intro .= apply_filters( 'pagelines_welcome_finally' , sprintf( '<div class="finally"><h3>%s</h3></div>', __( "That's it for now! Have fun and good luck.", 'pagelines' ) ) );
-		
-		$intro .= '</div></div>';
 
 		return apply_filters('pagelines_welcome_intro', $intro);
 	}
 	
+	function test_array(){
+		
+		$data = array(
+			'story1'	=> array(
+				'title'	=> 'The First Rule', 
+				'text'	=> "It's time we introduce you to the first rule.  The first rule of PageLines is that you come first. We truly appreciate your business and support.", 
+				'img'	=> PL_ADMIN_ICONS . '/first-rule.png'
+			), 
+			'story3'	=> array(
+				'title'	=> 'Drag &amp; Drop Template Setup', 
+				'text'	=> "Check out the Template Setup panel! Using drag and drop you can completely control the appearance of your templates. Learn more in the <a href='http://www.pagelines.com/wiki/'>docs</a>.", 
+				'img'	=> PL_ADMIN_ICONS . '/dash-drag-drop.png'
+			),
+			'story4'	=> array(
+				'title'	=> 'Set Up Your Extensions', 
+				'text'	=> "In order to maximize PageLines your gonna need to get some extensions. Head over to the extensions page to get supported plugins and learn about extensions in the Store and Plus.", 
+				'img'	=> PL_ADMIN_ICONS . '/dash-plug.png'
+			),
+			'spprt'	=> array(
+				'title'	=> 'Get Fast Support', 
+				'text'	=> "For help getting started, we offer our customers tons of support including comprehensive <a href='http://www.pagelines.com/wiki/' target='_blank'>docs</a>, and an active, moderated <a href='http://www.pagelines.com/forum/' target='_blank'>forum</a>.", 
+				'img'	=> PL_ADMIN_ICONS . '/dash-light-bulb.png'
+			),
+			'opts'	=> array(
+				'title'	=> 'Site-Wide and Page-by-Page Options', 
+				'text'	=> "PageLines is completely set up using a combination of site-wide and page-by-page options. Configure your site wide settings in the 'site options' panel, and setup your page by page options on individual pages, and in the 'page options' panel, which is used to set defaults and manage multiple post pages (like your blog).", 
+				'img'	=> PL_ADMIN_ICONS . '/dash-opts.png'
+			),
+			'widgets'	=> array(
+				'title'	=> 'Menus and Widgets', 
+				'text'	=> "PageLines makes use of WordPress functionality to help you manage your site faster and better. Specifically, you'll be using WP menus and widgets so you may want to familiarize yourself with those interfaces as well. ", 
+				'img'	=> PL_ADMIN_ICONS . '/dash-setting.png'
+			),
+		);
+		
+		return $data;
+		
+	}
 	
 
 	/**
@@ -58,12 +105,15 @@ class PageLinesWelcome {
 			ob_start();
 				include( get_stylesheet_directory() . '/welcome.php' );
 			return ob_get_clean();	
+			
 		} else {
+			
 			ob_start();
-			include( PL_ADMIN . '/welcome.php' );
+			include( PL_ADMIN . '/t.welcome.php' );
 			$intro = ob_get_clean();
+			
 			return $this->default_headers() . $intro;
-			}
+		}
 	}
 	
 
@@ -114,12 +164,10 @@ class PageLinesWelcome {
 	function get_welcome_billboard(){
 		
 		$bill = '<div class="admin_billboard fix"><div class="admin_billboard_pad fix">';
-		$bill .= '<div class="admin_theme_screenshot"><img class="" src="'.CHILD_URL.'/screenshot.png" alt="Screenshot" /></div>';
-		$bill .= sprintf( '<div class="admin_billboard_content"><div class="admin_header"><h3 class="admin_header_main">%s</h3></div>' , __( 'Congratulations!', 'pagelines' ) );
-		$bill .= sprintf( "<div class='admin_billboard_text'>%s<br/>%s<br/><small>(%s)</small></div>", 	
-		__( 'Welcome to your <strong>professional</strong> website platform.', 'pagelines' ),
-		__( 'Here are a few tips to get you started with PageLines...', 'pagelines' ),
-		__( 'Note: This intro can be removed below.', 'pagelines' )
+		$bill .= sprintf( '<div class="admin_billboard_content"><div class="admin_header"><h3 class="admin_header_main">%s</h3></div>' , __( 'PageLines Getting Started', 'pagelines' ) );
+		$bill .= sprintf( "<div class='admin_billboard_text'>%s<br/>%s</div>", 	
+			__( 'Congratulations! Welcome to your <strong>professional</strong> website platform.', 'pagelines' ),
+			__( 'Here are a few tips to get you started with PageLines...', 'pagelines' )
 		);
 		$bill .= '<div class="clear"></div></div></div></div>';
 		

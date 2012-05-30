@@ -1476,6 +1476,9 @@
 
 		if ( 'theme' === $o['type'] )
 			$o['pid'] = 'pid';
+		
+		if ( ! is_array( $o['list'] ) )
+			return;
 
 		foreach( $o['list'] as $key => $d ) {
 				
