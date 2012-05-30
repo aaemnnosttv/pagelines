@@ -22,6 +22,8 @@ class ExtensionPlugins extends PageLinesExtensions {
 		$plugins = self::load_plugins();
 		
 		$list = $this->get_master_list( $plugins, $type, $tab );
+
+		$this->updates_list( array( 'list' => $list, 'type' => 'plugin' ) );
 		
 		return $this->ui->extension_list( array( 'list' => $list, 'tab' => $tab, 'type' => 'plugins' ) );
 	}

@@ -2330,7 +2330,7 @@ class lessc {
 	
 	// parse and compile buffer
 	function parse($str = null, $initial_variables = null) {
-		@ini_set('memory_limit', '64M' );
+		@ini_set('memory_limit', WP_MAX_MEMORY_LIMIT );
 		$locale = setlocale(LC_NUMERIC, 0);
 		setlocale(LC_NUMERIC, "C");
 		$root = $this->parseTree($str);

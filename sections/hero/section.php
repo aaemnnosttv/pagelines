@@ -78,7 +78,40 @@ class PLheroUnit extends PageLinesSection {
 							),
 						),
 					),
-				),			
+				),
+				'pagelines_herounit_widths' => array(
+					'type'		=> 'multi_option', 
+					'title'		=> __('Content Widths', 'pagelines'), 
+					'shortexp'	=> __('Select the width of the image and text areas', 'pagelines'),
+					'selectvalues'	=> array(
+						'herounit_left_width' => array(
+							'type'			=> 'select',
+							'default'		=> 'span6',
+							'inputlabel'	=> 'Text Area Width',
+							'selectvalues'	=> array(
+								'span3'	 => array('name' => '25%'), 
+								'span4'	 => array('name' => '33%'), 
+								'span6'	 => array('name' => '50%'), 
+								'span8'	 => array('name' => '66%'), 
+								'span9'	 => array('name' => '75%'), 
+								'span7'	 => array('name' => '90%'), 
+							),
+						),
+						'herounit_right_width' => array(
+							'type'			=> 'select',
+							'default'		=> 'span6',
+							'inputlabel'	=> 'Image Area Width',
+							'selectvalues'	=> array(
+								'span3'	 => array('name' => '25%'), 
+								'span4'	 => array('name' => '33%'), 
+								'span6'	 => array('name' => '50%'), 
+								'span8'	 => array('name' => '66%'), 
+								'span9'	 => array('name' => '75%'), 
+								'span7'	 => array('name' => '90%'), 
+							),
+						),
+					),
+				),						
 		);
 		
 		$metatab_settings = array(
@@ -97,6 +130,8 @@ class PLheroUnit extends PageLinesSection {
 	*/
    function section_template( $clone_id ) { 
 
+		$hero_lt_width = ploption( 'herounit_left_width', $this->oset );
+		$hero_rt_width = ploption( 'herounit_right_width', $this->oset );
    		$hero_title = ploption( 'pagelines_herounit_title', $this->tset );
 		$hero_tag = ploption( 'pagelines_herounit_tagline', $this->tset );
 		$hero_img = ploption( 'pagelines_herounit_image', $this->tset );
@@ -105,11 +140,14 @@ class PLheroUnit extends PageLinesSection {
 		$hero_butt_target = ploption( 'herounit_button_target', $this->oset );
 		$hero_butt_theme = ploption( 'herounit_button_theme', $this->oset );
 
-   		if($hero_title){ ?>
+   		if($hero_title)	{ ?>
 
 	   	<div class="pl-hero-wrap row">
 
-			<div class="pl-hero span6">
+	   	<?php
+	   	if($hero_lt_width)
+			printf('<div class="pl-hero %s">',$hero_lt_width);
+			?>
 				<?php
 
 					if($hero_title)
@@ -123,7 +161,10 @@ class PLheroUnit extends PageLinesSection {
 	  			?>
 			</div>
 
-			<div class="pl-hero-image span6">
+	   	<?php
+	   	if($hero_rt_width)
+			printf('<div class="pl-hero-image %s">',$hero_rt_width);
+			?>
 				<?php 
 				    
 					if($hero_img)
