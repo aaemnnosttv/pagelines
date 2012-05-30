@@ -214,7 +214,7 @@
 		if ( !empty($_POST['upload_check'] ) && check_admin_referer( 'pagelines_extend_upload', 'upload_check') ) {
 
 			if ( $_FILES[ $_POST['type']]['size'] == 0 ) {
-				$this->page_reload( 'pagelines_extend&extend_error=blank', null, 0 );
+				$this->page_reload( PL_ADMIN_STORE_SLUG.'&extend_error=blank', null, 0 );
 				exit();
 			}
 
@@ -224,7 +224,7 @@
 			$payload = $_FILES[ $type ][ 'tmp_name' ];
 				
 			if ( !preg_match( '/section-([^\.]*)\.zip/i', $filename, $out ) ) {
-				$this->page_reload( 'pagelines_extend&extend_error=filename', null, 0 );
+				$this->page_reload( PL_ADMIN_STORE_SLUG.'&extend_error=filename', null, 0 );
 				exit();
 			}
 
@@ -263,7 +263,7 @@
 		if ( !$extend )
 			return;			
 
-		if ( false === ( $creds = @request_filesystem_credentials( admin_url( 'admin.php?page=pagelines_extend&creds=yes' ), $type = '', $error = false, $context, $extra_fields = array( 'extend_mode', 'extend_type', 'extend_file', 'extend_path', 'extend_product' ) ) ) ) {
+		if ( false === ( $creds = @request_filesystem_credentials( admin_url( PL_ADMIN_STORE_URL.'&creds=yes' ), $type = '', $error = false, $context, $extra_fields = array( 'extend_mode', 'extend_type', 'extend_file', 'extend_path', 'extend_product' ) ) ) ) {
 			exit; 
 		}	
 	}
@@ -340,7 +340,7 @@
  	function int_download( $location, $time = 300 ) {
 	
 		$r = rand( 1,100 );
-		$admin = admin_url( sprintf( 'admin.php?r=%1$s&page=%2$s', $r, 'pagelines_extend#integrations' ) );
+		$admin = admin_url( sprintf( 'admin.php?r=%1$s&page=%2$s', $r, PL_ADMIN_STORE_SLUG.'#integrations' ) );
 		printf( '<script type="text/javascript">setTimeout(function(){ window.location.href = \'%s\';}, %s);</script>', $location, $time );	
 		printf( '<script type="text/javascript">setTimeout(function(){ window.location.href = \'%s\';}, %s);</script>', $admin, 700 );
  	}
@@ -416,10 +416,10 @@
 		if ( $result['response']['code'] == 200 && $result['body'] == $data[1] )
 			{
 
-				delete_transient( sprintf( 'pagelines_extend_%ss', $type ) );				
+				delete_transient( sprintf( PL_ADMIN_STORE_SLUG.'_%ss', $type ) );				
 				$message = __( 'Done.', 'pagelines' );		
 				$text = sprintf( '&extend_text=%s_install', $type );
-				$this->page_reload( 'pagelines_extend' . $text, null, $message );
+				$this->page_reload( PL_ADMIN_STORE_SLUG . $text, null, $message );
 			}
 		
 	}	
@@ -450,10 +450,10 @@
 			if ( $result['response']['code'] == 200 && $result['body'] == $data[1] )
 				{
 
-					delete_transient( sprintf( 'pagelines_extend_%ss', $type ) );				
+					delete_transient( sprintf( PL_ADMIN_STORE_SLUG.'_%ss', $type ) );				
 					$message = __( 'Done.', 'pagelines' );		
 					$text = sprintf( '&extend_text=%s_install#added', $type );
-					$this->page_reload( 'pagelines_extend' . $text, null, $message );
+					$this->page_reload( PL_ADMIN_STORE_SLUG . $text, null, $message );
 				}
 		
 	}
@@ -517,7 +517,7 @@
 		
 		$message = __( 'Plugin Installed.', 'pagelines' );		
 		$text = '&extend_text=plugin_install#your_plugins';
-		$this->page_reload( 'pagelines_extend' . $text, null, $message );
+		$this->page_reload( PL_ADMIN_STORE_SLUG . $text, null, $message );
 		
 	}
 	
@@ -537,7 +537,7 @@
 		delete_plugins( array( ltrim( $file, '/' ) ) );
 		$message = __( 'Plugin Deleted.', 'pagelines' );		
 		$text = '&extend_text=plugin_delete#your_plugins';
-		$this->page_reload( 'pagelines_extend' . $text, null, $message );
+		$this->page_reload( PL_ADMIN_STORE_SLUG . $text, null, $message );
 		
 	}
 	
@@ -570,7 +570,7 @@
 		// Output
 		$message = __( 'Plugin Upgraded.', 'pagelines' );
 		$text = '&extend_text=plugin_upgrade#your_plugins';
-		$this->page_reload( 'pagelines_extend' . $text, null, $message );
+		$this->page_reload( PL_ADMIN_STORE_SLUG . $text, null, $message );
 		
 	}
 	
@@ -585,7 +585,7 @@
 		$this->sandbox( WP_PLUGIN_DIR . $file, 'plugin' );
 	 	activate_plugin( $file );
 	 	$message = __( 'Plugin Activated.', 'pagelines' );
-	 	$this->page_reload( 'pagelines_extend', null, $message );
+	 	$this->page_reload( PL_ADMIN_STORE_SLUG, null, $message );
 	
 	}
 	
@@ -600,7 +600,7 @@
 		deactivate_plugins( array( $file ) );
 		// Output
  		$message = __( 'Plugin Deactivated.', 'pagelines' );
-	 	$this->page_reload( 'pagelines_extend', null, $message );
+	 	$this->page_reload( PL_ADMIN_STORE_SLUG, null, $message );
 
 	}
 	
@@ -629,9 +629,9 @@
 		$this->sections_reset();
 		$text = '&extend_text=section_install#your_added_sections';
 		if ( $uploader && is_wp_error( $out ) )
-			$this->page_reload( sprintf( 'pagelines_extend&extend_error=%s', $out->get_error_code() ) , null, 0 );
+			$this->page_reload( sprintf( PL_ADMIN_STORE_SLUG.'&extend_error=%s', $out->get_error_code() ) , null, 0 );
 		else
-			$this->page_reload( 'pagelines_extend' . $text, null, __( 'Section Installed.', 'pagelines' ) );
+			$this->page_reload( PL_ADMIN_STORE_SLUG . $text, null, __( 'Section Installed.', 'pagelines' ) );
 		
 	}
 	
@@ -655,7 +655,7 @@
 		$this->sections_reset();
 		$message = __( 'Section Deleted.', 'pagelines' );
 		$text = '&extend_text=section_delete#your_added_sections';
-			$this->page_reload( 'pagelines_extend' . $text, null, $message );
+			$this->page_reload( PL_ADMIN_STORE_SLUG . $text, null, $message );
 		
 	}
 	
@@ -684,7 +684,7 @@
 		$this->sections_reset();
 		// Output
 		$text = '&extend_text=section_upgrade#your_added_sections';
-		$this->page_reload( 'pagelines_extend' . $text, null, __( 'Section Upgraded', 'pagelines' ) );
+		$this->page_reload( PL_ADMIN_STORE_SLUG . $text, null, __( 'Section Upgraded', 'pagelines' ) );
 		
 	}
 	
@@ -702,7 +702,7 @@
 		update_option( 'pagelines_sections_disabled', $available );
 		// Output
 	 	$message = __( 'Section Activated.', 'pagelines' );
-	 	$this->page_reload( 'pagelines_extend', null, $message );
+	 	$this->page_reload( PL_ADMIN_STORE_SLUG, null, $message );
 		
 	}
 	
@@ -720,7 +720,7 @@
 		$this->sections_reset();
 		// Output
 	 	$message = __( 'Section Deactivated.', 'pagelines' );
-	 	$this->page_reload( 'pagelines_extend', null, $message );
+	 	$this->page_reload( PL_ADMIN_STORE_SLUG, null, $message );
 		
 	}
 	
@@ -745,7 +745,7 @@
 		// Output
 		$text = '&extend_text=theme_install#your_themes';
 		$message = __( 'Theme Installed.', 'pagelines' );
-		$this->page_reload( 'pagelines_extend' . $text, null, $message );
+		$this->page_reload( PL_ADMIN_STORE_SLUG . $text, null, $message );
 		
 	}
 	
@@ -767,7 +767,7 @@
 
 		$text = '&extend_text=theme_delete#your_themes';
 		$message = __( 'Theme Deleted.', 'pagelines' );
-		$this->page_reload( 'pagelines_extend' . $text, null, $message );
+		$this->page_reload( PL_ADMIN_STORE_SLUG . $text, null, $message );
 		
 	}
 	
@@ -802,7 +802,7 @@
 		// Output
 		$text = '&extend_text=theme_upgrade#your_themes';
 		$message = __( 'Theme Upgraded.', 'pagelines' );
-		$this->page_reload( 'pagelines_extend' . $text, null, $message );
+		$this->page_reload( PL_ADMIN_STORE_SLUG . $text, null, $message );
 		
 	}
 	
@@ -818,7 +818,7 @@
 		delete_transient( 'pagelines_sections_cache' );
 
 		$message = __( 'Theme Activated.', 'pagelines' );
-		$this->page_reload( 'pagelines_extend', null, $message );
+		$this->page_reload( PL_ADMIN_STORE_SLUG, null, $message );
 		
 	}
 	
@@ -834,7 +834,7 @@
 		delete_transient( 'pagelines_sections_cache' );
 		
 		$message = __( 'Theme Deactivated.', 'pagelines' );
-		$this->page_reload( 'pagelines_extend', null, $message );
+		$this->page_reload( PL_ADMIN_STORE_SLUG, null, $message );
 		
 	}
 	
@@ -859,7 +859,7 @@
 	function purchase( $type, $file, $path, $uploader, $checked ) {
 		
 		_e( 'Taking you to PayPal.com', 'pagelines' );
-		$this->page_reload( 'pagelines_extend', $file );
+		$this->page_reload( PL_ADMIN_STORE_SLUG, $file );
 		
 	}
 	
@@ -872,7 +872,7 @@
 	function login( $type, $file, $path, $uploader, $checked ) {
 		
 		_e( 'Moving to account setup..', 'pagelines' );
-		$this->page_reload( 'pagelines_account#Your_Account' );
+		$this->page_reload( PL_ACCOUNT_URL.'#Your_Account' );
 		
 	}
 	

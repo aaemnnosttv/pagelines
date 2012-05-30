@@ -731,7 +731,7 @@ class OptEngine {
 		
 		$label = ($o['inputlabel'] != '') ? $o['inputlabel'] : __('Hide This Overview', 'pagelines');
 		
-		$hide_checkbox = $this->input_label_inline($o['input_id'], $input, $o['inputlabel']);
+		$hide_checkbox = ($o['flag'] != 'hide_option') ? $this->input_label_inline($o['input_id'], $input, $o['inputlabel']) : '';
 	
 		printf('<div class="pl_help text_content fix">%s %s</div>', $o['exp'], $hide_checkbox);
 
@@ -1319,7 +1319,7 @@ class OptEngine {
 			<h3>PageLines Account</h3>
 			<?php 
 			
-			$log = admin_url( 'admin.php?page=pagelines_account' );
+			$log = admin_url( 'admin.php?page='.PL_MAIN_DASH );
 			
 			echo $this->superlink( __( 'Login', 'pagelines' ), 'grey', '', $log );
 			echo '<span class="divor">or</span>';			
@@ -1413,7 +1413,6 @@ class OptEngine {
 		
 		?>
 		<div class="pl_form">
-
 			<form method="post" class="pl_account_info fix"> 
 				<div class="pl_account_info_pad">
 					<div class="pl_account_form fix">
@@ -1428,6 +1427,7 @@ class OptEngine {
 				</div>
 			</form>
 			<form method="post" enctype="multipart/form-data" class="pl_account_info fix">
+				
 				<div class="pl_account_info_pad">
 	
 					<div class="pl_account_form">

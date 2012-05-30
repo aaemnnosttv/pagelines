@@ -95,7 +95,7 @@ function pl_meta_set_url( $tab = null ){
 	
 	$tab = (isset($tab)) ? '#'.$tab : '';
 	
-	$url = (is_pagelines_special()) ? admin_url('admin.php?page=pagelines_special') : get_edit_post_link( $post->ID );
+	$url = (is_pagelines_special()) ? admin_url(PL_SPECIAL_OPTS_URL) : get_edit_post_link( $post->ID );
 		
 	return $url.$tab;
 }

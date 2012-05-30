@@ -10,6 +10,9 @@ add_action( 'admin_menu', 'pagelines_add_admin_menu' );
 add_action('admin_menu', 'pagelines_add_admin_menus');
 
 
+
+
+
 /**
  *
  * @TODO document
@@ -23,15 +26,15 @@ function pagelines_add_admin_menus() {
 	global $_pagelines_account_hook;
 
 
-	$_pagelines_account_hook = pagelines_insert_menu( 'pagelines', __( 'Dashboard', 'pagelines' ), 'edit_theme_options', 'pagelines_account', 'pagelines_build_account_interface' );
+	$_pagelines_account_hook = pagelines_insert_menu( PL_MAIN_DASH, __( 'Dashboard', 'pagelines' ), 'edit_theme_options', PL_MAIN_DASH, 'pagelines_build_account_interface' );
 
-	$_pagelines_options_page_hook = pagelines_insert_menu( 'pagelines', __( 'Settings', 'pagelines' ), 'edit_theme_options', 'pagelines', 'pagelines_build_option_interface' );
+	$_pagelines_options_page_hook = pagelines_insert_menu( PL_MAIN_DASH, __( 'Site Options', 'pagelines' ), 'edit_theme_options', 'pagelines', 'pagelines_build_option_interface' );
 
-	$_pagelines_special_hook = pagelines_insert_menu( 'pagelines', __( 'Meta Setup', 'pagelines' ), 'edit_theme_options', 'pagelines_special', 'pagelines_build_special' );
+	$_pagelines_special_hook = pagelines_insert_menu( PL_MAIN_DASH, __( 'Page Options', 'pagelines' ), 'edit_theme_options', 'pagelines_special', 'pagelines_build_special' );
 	
-	$_pagelines_templates_hook = pagelines_insert_menu( 'pagelines', __( 'Drag &amp; Drop', 'pagelines' ), 'edit_theme_options', 'pagelines_templates', 'pagelines_build_templates_interface' );
+	$_pagelines_templates_hook = pagelines_insert_menu( PL_MAIN_DASH, __( 'Templates', 'pagelines' ), 'edit_theme_options', 'pagelines_templates', 'pagelines_build_templates_interface' );
 	
-	$_pagelines_ext_hook = pagelines_insert_menu( 'pagelines', __( 'Store', 'pagelines' ), 'edit_theme_options', 'pagelines_extend', 'pagelines_build_extension_interface' );
+	$_pagelines_ext_hook = pagelines_insert_menu( PL_MAIN_DASH, __( 'Store', 'pagelines' ), 'edit_theme_options', PL_ADMIN_STORE_SLUG, 'pagelines_build_extension_interface' );
 
 }
 
@@ -41,26 +44,10 @@ function pagelines_add_admin_menus() {
  */
 function pagelines_insert_menu( $page_title, $menu_title, $capability, $menu_slug, $function ) {
 
-	if ( function_exists( 'pagelines_insert_menu_full' ) ) {
-		
-		return pagelines_insert_menu_full( $page_title, $menu_title, $capability, $menu_slug, $function );
+	return add_submenu_page( PL_MAIN_DASH, $page_title, $menu_title, $capability, $menu_slug, $function );
 
-	} else {
-		
-		return add_theme_page( $page_title, sprintf( 'PageLines %s', $menu_title ), $capability, $menu_slug, $function );	
-	}
 }
 
-/**
- *
- * @TODO document
- *
- */
-function pagelines_insert_menu_full( $page_title, $menu_title, $capability, $menu_slug, $function ) {
-	
-	return add_submenu_page( 'pagelines', $page_title, $menu_title, $capability, $menu_slug, $function );
-	
-}
 
 /**
  * Full version menu wrapper.
@@ -73,7 +60,7 @@ function pagelines_add_admin_menu() {
 		$menu['2.995'] = array( '', 'edit_theme_options', 'separator-pagelines', '', 'wp-menu-separator' );
 
 		// Create the new top-level Menu
-		add_menu_page( 'Page Title', 'PageLines', 'edit_theme_options','pagelines', 'pagelines_build_option_interface', PL_ADMIN_IMAGES. '/favicon-pagelines.png', '2.996' );
+		add_menu_page( 'Page Title', 'PageLines', 'edit_theme_options', PL_MAIN_DASH, 'pagelines_build_account_interface', PL_ADMIN_IMAGES. '/favicon-pagelines.png', '2.996' );
 }
 
 
@@ -157,7 +144,7 @@ function pagelines_build_account_interface(){
 function pagelines_build_special(){ 
 	
 	$args = array(
-		'title'			=> __( 'Page By Page Meta Settings', 'pagelines' ), 
+		'title'			=> __( 'Page Option Setup', 'pagelines' ), 
 		'settings' 		=> PAGELINES_SPECIAL,
 		'callback'		=> 'special_page_settings_array',
 		'show_reset'	=> false, 
@@ -306,7 +293,7 @@ function pagelines_register_settings() {
 		foreach( $new_default_settings as $key => $set )
 			plupop( $set['key'], $set['value'], array( 'parent' => $set['parent'], 'subkey' => $set['subkey'], 'setting' => $set['setting'] ) );
 		
-		wp_redirect( admin_url( 'admin.php?page=pagelines&newoptions=true'.$type ) );
+		wp_redirect( admin_url( PL_SETTINGS_URL.'&newoptions=true'.$type ) );
 	}
 	
 	/*
@@ -320,7 +307,7 @@ function pagelines_register_settings() {
 		
 		$extension_control->flush_caches();
 		
-		wp_redirect( admin_url( 'admin.php?page=pagelines&reset=true' ) );
+		wp_redirect( admin_url( PL_SETTINGS_URL.'&reset=true' ) );
 		
 		exit;
 		

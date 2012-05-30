@@ -32,7 +32,7 @@ class PageLines_Plus {
 		 );
 
 		$meta = '<div class="pl-support-form"><h2>Submit an instant ticket to PageLines.</h2>';	
-		$meta .= '<form action="admin.php?page=pagelines" method="post">';
+		$meta .= '<form action="'.PL_DASH_URL.'" method="post">';
 		$meta .= '<textarea class="mceEditor" name="pl-support-form"></textarea>';
 		$meta .= "<input type='hidden' name='pl-support-data' value='{$data}' />";
 		$meta .= '<input class="superlink osave" type="submit" value="send" />';

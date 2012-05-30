@@ -60,31 +60,29 @@ function pagelines_account_array(){
 	
 	$d = array();
 
-	if ( VPLUS ) {
-
-				$d['PageLines_Plus'] = array(
-					'icon'			=> PL_ADMIN_ICONS.'/rocket-fly.png',
-					'plus_welcome' 	=> array(
-						'type'		=> 'plus_welcome',
-		//				'title'		=> __( 'Sup bitches! You have the Plus!', 'pagelines' ),
-		//				'shortexp'	=> __( 'All this is FREE!.', 'pagelines' ),
-						'layout'	=> 'full',
-					)
-				);
-				$d['Plus_Support']		= array(
-					'icon'			=> PL_ADMIN_ICONS.'/extend-inout.png',
-					'plus_support'	=> array(
-						'default'	=> '',
-						'type'		=> 'plus_support',
-						'layout'	=> 'full',
-						'title'		=> __( 'Support stuff', 'pagelines' ),						
-						'shortexp'	=> __( 'Blah blah...', 'pagelines' ),
-					)
-				);
-		}
-
+				
+		$d['dashboard']	= pl_add_dashboard();
+		
+		$d['_getting_started'] = pl_add_welcome();
+		
+		$d['Extensions'] = array(
+			'icon'			=> PL_ADMIN_ICONS.'/plusbtn.png',
+			'plus_welcome' 	=> array(
+				'type'		=> 'plus_welcome',
+				'layout'	=> 'full',
+			)
+		);
+		
+		$d['Support'] = array(
+			'icon'			=> PL_ADMIN_ICONS.'/balloon-white.png',
+			'plus_welcome' 	=> array(
+				'type'		=> 'plus_welcome',
+				'layout'	=> 'full',
+			)
+		);
+		
 		$d['Your_Account']	= array(
-			'icon'			=> PL_ADMIN_ICONS.'/rocket-fly.png',
+			'icon'			=> PL_ADMIN_ICONS.'/user.png',
 			'credentials' 	=> array(
 				'type'		=> 'updates_setup',
 				'title'		=> __( 'Configure PageLines Account &amp; Auto Updates', 'pagelines' ),
@@ -104,6 +102,53 @@ function pagelines_account_array(){
 		);
 	
 	return apply_filters( 'pagelines_account_array', $d ); 
+}
+
+/**
+ * Welcome Message
+ *
+ * @since 2.0.0
+ */
+function pl_add_dashboard(){
+	
+	
+	$dash = new PageLinesDashboard();
+
+	
+	
+	$a = array(
+		'icon'			=> PL_ADMIN_ICONS.'/dashboard.png',
+		'pagelines_dashboard'	=> array(
+			'type'			=> 'text_content',
+			'flag'			=> 'hide_option',
+			'exp'			=> $dash->draw()
+		),
+	);
+	
+	return apply_filters('pagelines_options_dashboard', $a);
+	
+}
+
+/**
+ * Welcome Message
+ *
+ * @since 2.0.0
+ */
+function pl_add_welcome(){
+	
+	$welcome = new PageLinesWelcome();
+	
+	$a = array(
+		'icon'			=> PL_ADMIN_ICONS.'/book.png',
+		'hide_pagelines_introduction'	=> array(
+			'type'			=> 'text_content',
+			'inputlabel'	=> 'Hide Introduction',
+			'exp'			=> $welcome->get_welcome()
+		),
+	);
+	
+	return apply_filters('pagelines_options_welcome', $a);
+	
 }
 
 function pagelines_plus_array(  ){

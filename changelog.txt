@@ -5,17 +5,16 @@
 ********************************************************
 
 Version 2.2
-
-	- NEW - Bootstrap shortcode system.
-	- NEW - Custom CSS uses LESS compiler.
-	- NEW - CSS cached and enqueued, no more inline core styles.
-	- NEW - Quickslider text placement.
-	- NEW - Fixed navigation bar with four color schemes.
 	- NEW - New section: ScrollSpy.
 	- NEW - New section: Masthead.
 	- NEW - New section: Navbar.
 	- NEW - New section: ContentGrid.
 	- NEW - New section: Hero.
+	- NEW - New shortcode system.
+	- NEW - Custom CSS uses dynamic LESS.
+	- NEW - Performance enhancements & cleaner source markup.
+	- NEW - Quickslider text placement.
+	- NEW - Fixed navigation bar with four color schemes.
 	- CORE - Added [post_authors] shortcode for metabar.
 	- CORE - Added [post_type] shortcode for metabar.
 	- CORE - Added title/alt to watermark.

@@ -19,17 +19,15 @@ class PageLinesOptionsArray {
 	 */
 	function __construct() {
 		
-		if(!ploption('hide_pagelines_introduction') && VPRO)
-			$this->options['_welcome'] = $this->welcome();
-		
-		$this->options['website_setup'] = $this->website_setup();
-		$this->options['layout_editor'] = $this->layout_editor();
-		$this->options['color_control'] = $this->color_control();
-		$this->options['typography'] = $this->typography();
-		$this->options['header_and_footer'] = $this->header_footer();
-		$this->options['blog_and_posts'] = $this->blog_posts();
-		$this->last_options['advanced'] 	= $this->advanced();
-		$this->last_options['custom_code'] = $this->custom_code();
+
+		$this->options['website_setup'] 		= $this->website_setup();
+		$this->options['layout_editor'] 		= $this->layout_editor();
+		$this->options['color_control'] 		= $this->color_control();
+		$this->options['typography'] 			= $this->typography();
+		$this->options['header_and_footer'] 	= $this->header_footer();
+		$this->options['blog_and_posts'] 		= $this->blog_posts();
+		$this->last_options['advanced'] 		= $this->advanced();
+		$this->last_options['custom_code'] 		= $this->custom_code();
 	}
 
 
@@ -1037,6 +1035,7 @@ class PageLinesOptionsArray {
 		return apply_filters('pagelines_options_custom_code', $a);
 	}
 	
+	
 	function css_examples() {
 		
 		$example_body = ".post-excerpt{<br/>&nbsp;&nbsp;&nbsp;background-color: lighten(@dark-base, 50);<br/>&nbsp;&nbsp;&nbsp;.border-radius( 10px );<br/>&nbsp;&nbsp;&nbsp;padding: 5px;<br />}";
@@ -1061,27 +1060,7 @@ class PageLinesOptionsArray {
 		
 	}
 	
-	/**
-	 * Welcome Message
-	 *
-	 * @since 2.0.0
-	 */
-	function welcome(){
-		
-		$welcome = new PageLinesWelcome();
-		
-		$a = array(
-			'icon'			=> PL_ADMIN_ICONS.'/book.png',
-			'hide_pagelines_introduction'	=> array(
-				'type'			=> 'text_content',
-				'inputlabel'	=> 'Hide Introduction',
-				'exp'			=> $welcome->get_welcome()
-			),
-		);
-		
-		return apply_filters('pagelines_options_welcome', $a);
-		
-	}
+
 
 	
 	/**

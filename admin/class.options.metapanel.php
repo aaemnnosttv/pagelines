@@ -159,7 +159,7 @@ class PageLinesMetaPanel {
 			
 		} elseif( $this->ptype )
 			$slug = $this->ptype;
-		elseif(isset($_GET['page']) && $_GET['page'] == 'pagelines_special')
+		elseif(isset($_GET['page']) && $_GET['page'] == PL_SPECIAL_OPTS_SLUG)
 			$slug = 'Special Meta';
 		else
 			$slug = 'Default';

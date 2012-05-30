@@ -11,7 +11,7 @@
  * @since 1.0.0
  */
 if( is_admin() && isset($_GET['activated'] ) && $pagenow == "themes.php" )
-	wp_redirect( admin_url( 'admin.php?page=pagelines&activated=true&pageaction=activated' ) );
+	wp_redirect( admin_url( PL_DASH_URL.'&activated=true&pageaction=activated' ) );
 
 /**
  * Add Javascript for Layout Controls from the Layout UI class

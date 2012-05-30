@@ -58,12 +58,15 @@ class PageLinesWelcome {
 			ob_start();
 				include( get_stylesheet_directory() . '/welcome.php' );
 			return ob_get_clean();	
+			
 		} else {
+			
 			ob_start();
-			include( PL_ADMIN . '/welcome.php' );
+			include( PL_ADMIN . '/t.welcome.php' );
 			$intro = ob_get_clean();
+			
 			return $this->default_headers() . $intro;
-			}
+		}
 	}
 	
 
@@ -114,12 +117,10 @@ class PageLinesWelcome {
 	function get_welcome_billboard(){
 		
 		$bill = '<div class="admin_billboard fix"><div class="admin_billboard_pad fix">';
-		$bill .= '<div class="admin_theme_screenshot"><img class="" src="'.CHILD_URL.'/screenshot.png" alt="Screenshot" /></div>';
-		$bill .= sprintf( '<div class="admin_billboard_content"><div class="admin_header"><h3 class="admin_header_main">%s</h3></div>' , __( 'Congratulations!', 'pagelines' ) );
-		$bill .= sprintf( "<div class='admin_billboard_text'>%s<br/>%s<br/><small>(%s)</small></div>", 	
-		__( 'Welcome to your <strong>professional</strong> website platform.', 'pagelines' ),
-		__( 'Here are a few tips to get you started with PageLines...', 'pagelines' ),
-		__( 'Note: This intro can be removed below.', 'pagelines' )
+		$bill .= sprintf( '<div class="admin_billboard_content"><div class="admin_header"><h3 class="admin_header_main">%s</h3></div>' , __( 'PageLines Getting Started', 'pagelines' ) );
+		$bill .= sprintf( "<div class='admin_billboard_text'>%s<br/>%s</div>", 	
+			__( 'Congratulations! Welcome to your <strong>professional</strong> website platform.', 'pagelines' ),
+			__( 'Here are a few tips to get you started with PageLines...', 'pagelines' )
 		);
 		$bill .= '<div class="clear"></div></div></div></div>';
 		
