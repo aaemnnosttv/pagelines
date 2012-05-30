@@ -77,6 +77,10 @@ class PageLinesDashboard {
 		
 	}
 	
+	function wrap_dashboard_pane($id, $args = array()){
+		return sprintf('<div class="pl-dashboards fix">%s</div>', $this->dashboard_pane( $id, $args ));
+	}
+	
 	
 	function dashboard_pane( $id, $args = array() ){
 		
@@ -86,7 +90,7 @@ class PageLinesDashboard {
 			'classes'		=> '', 
 			'data'			=> array(), 
 			'data-format'	=> 'array', 
-			
+			'excerpt-trim'	=> 18
 		);
 		
 		$a = wp_parse_args($args, $defaults); 
@@ -95,8 +99,10 @@ class PageLinesDashboard {
 		?>
 		<div id="<?php echo 'pl-dash-'.$id;?>" class="pl-dash <?php echo $a['classes'];?>">
 			<div class="pl-dash-pad">
-				<h2 class="dash-title"><?php printf('<img src="%s"/> %s', $a['icon'], $a['title']); ?></h2>
-				<?php echo $this->dashboard_stories( $a ); ?>
+				<div class="pl-vignette">
+					<h2 class="dash-title"><?php printf('<img src="%s"/> %s', $a['icon'], $a['title']); ?></h2>
+					<?php echo $this->dashboard_stories( $a ); ?>
+				</div>
 			</div>
 		</div>
 		<?php 
@@ -129,6 +135,8 @@ class PageLinesDashboard {
 			$tag_class = (isset($story['tag-class'])) ? $story['tag-class'] : ''; 
 			
 			$alt = ($count % 2 == 0) ? 'alt-story' : '';
+			
+			$excerpt = (!$args['excerpt-trim']) ? $story['text'] : custom_trim_excerpt($story['text'], $args['excerpt-trim']);
 		?>
 		<div class="pl-dashboard-story media <?php echo $alt;?> dashpane">
 			<div class="dashpane-pad fix">
@@ -141,7 +149,7 @@ class PageLinesDashboard {
 				?>
 				<div class="bd">
 					<h3><?php echo $story['title'];?></h3>
-					<p><?php echo custom_trim_excerpt($story['text'], 18);?></p>
+					<p><?php echo $excerpt; ?></p>
 				</div>
 			</div>
 		</div>

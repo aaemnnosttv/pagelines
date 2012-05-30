@@ -73,7 +73,7 @@ function pagelines_account_array(){
 			)
 		);
 		
-		$d['Support'] = array(
+		$d['Support_and_Chat'] = array(
 			'icon'			=> PL_ADMIN_ICONS.'/balloon-white.png',
 			'plus_welcome' 	=> array(
 				'type'		=> 'plus_welcome',
