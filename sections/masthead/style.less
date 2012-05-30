@@ -1,81 +1,97 @@
 /* Jumbotrons
 -------------------------------------------------- */
 .jumbotron {
-  position: relative;
-}
-.jumbotron h1 {
-  margin-bottom: 9px;
-  font-size: 81px;
-  font-weight: bold;
-  letter-spacing: -1px;
-  line-height: 1;
-}
-.jumbotron p {
-	margin: 0;
-	margin-bottom: 18px;
-	font-weight: 300;
-}
-.jumbotron .btn-large {
-  font-size: 20px;
-  font-weight: normal;
-  padding: 14px 24px;
-  margin-right: 10px;
-  -webkit-border-radius: 6px;
-     -moz-border-radius: 6px;
-          border-radius: 6px;
-}
-.jumbotron .btn-large small {
-  font-size: 14px;
+  
+    position: relative;
+
+	h1 {
+	  margin-bottom: 9px;
+	  font-size: 81px;
+	  font-weight: bold;
+	  letter-spacing: -1px;
+	  line-height: 1;
+	}
+
+	p {
+		margin: 0;
+		margin-bottom: 18px;
+		font-weight: 300;
+	}
+
+	.btn-large {
+	  font-size: 20px;
+	  font-weight: normal;
+	  padding: 14px 24px;
+	  margin-right: 10px;
+	  .border-radius(6px);
+	}
+
+	.btn-large small {
+	  font-size: 14px;
+	}
 }
 
 .masthead {
-  padding-top: @baseLineHeight * 2;
-  margin-bottom: @baseLineHeight * 3;
-}
-.masthead h1,
-.masthead p {
-  text-align: center;
-}
-.masthead h1 {
-  margin-bottom: 18px;
-}
-.masthead p {
-  margin-left: 5%;
-  margin-right: 5%;
-  font-size: 30px;
-  line-height: 36px;
+  
+    padding-top: @baseLineHeight * 2;
+    margin-bottom: @baseLineHeight * 3;
+
+	h1,
+	p {
+	  text-align: center;
+	}
+
+	h1 {
+	  margin-bottom: 18px;
+	}
+
+	p {
+	  margin-left: 5%;
+	  margin-right: 5%;
+	  font-size: 30px;
+	  line-height: 36px;
+	}
+
 }
 
-
-/* Specific jumbotrons
-------------------------- */
-/* supporting docs pages */
 .subhead {
-  padding-bottom: 0;
-  margin-bottom: 9px;
+  
+    padding-bottom: 0;
+    margin-bottom: 9px;
+	
+	h1 {
+  		font-size: 54px;
+	}
 }
-.subhead h1 {
-  font-size: 54px;
-}
-
 
 .mastlinks {
-  margin: 36px 0;
+    margin: 36px 0;
 }
+
 .quick-links {
-  min-height: 30px;
-  margin: 0;
-  padding: 5px 20px;
-  list-style: none;
-  text-align: center;
-  overflow: hidden;
+	
+	min-height: 30px;
+    margin: 0;
+    padding: 5px 20px;
+    list-style: none;
+    text-align: center;
+    overflow: hidden;
+
+	&:first-child {
+	  min-height: 0;
+	}
+	li {
+	  display: inline;
+	  margin: 0 8px;
+	}
 }
-.quick-links:first-child {
-  min-height: 0;
-}
-.quick-links li {
-  display: inline;
-  margin: 0 8px;
+
+.splash {
+
+	img {
+		display:block;
+		margin:0 auto;
+	}
 }
 
 /* Responsive
