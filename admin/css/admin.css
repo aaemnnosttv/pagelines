@@ -1052,25 +1052,25 @@
 	}
 		.admin_billboard_content{
 			padding: 1em 0;
-			text-align: center;
 		}
 
 			h3.admin_header_main {
-				
-				font-size: 2.9em;
-				line-height: 1.6em;
+				margin-top: .5em;
+				font-size: 2.6em;
+				line-height: 1.3em;
 				text-shadow: 0px 2px 0 #fff;
 			}
 			.admin_billboard_text{
 				color: rgba(0,0,0,.4);
-				font-size: 1.1em;
+				font-size: 1.3em;
 				font-weight: bold;
 				line-height: 1.5em;
+				margin-bottom: 1em;
 			}
 				.admin_billboard_text small{
 					font-weight: normal;
 					color:#AAA;
-					font-size: 11px;
+					font-size: 13px;
 				}
 			
 		.admin_theme_screenshot{

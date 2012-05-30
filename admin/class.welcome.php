@@ -73,7 +73,7 @@ class PageLinesWelcome {
 				'img'	=> PL_ADMIN_ICONS . '/dash-light-bulb.png'
 			),
 			'opts'	=> array(
-				'title'	=> 'Site-Wide and Page-by-Page Options', 
+				'title'	=> 'Site-Wide Vs. Page-by-Page Options', 
 				'text'	=> "PageLines is completely set up using a combination of site-wide and page-by-page options. Configure your site wide settings in the 'site options' panel, and setup your page by page options on individual pages, and in the 'page options' panel, which is used to set defaults and manage multiple post pages (like your blog).", 
 				'img'	=> PL_ADMIN_ICONS . '/dash-opts.png'
 			),
@@ -163,13 +163,23 @@ class PageLinesWelcome {
      */
 	function get_welcome_billboard(){
 		
-		$bill = '<div class="admin_billboard fix"><div class="admin_billboard_pad fix">';
-		$bill .= sprintf( '<div class="admin_billboard_content"><div class="admin_header"><h3 class="admin_header_main">%s</h3></div>' , __( 'PageLines Getting Started', 'pagelines' ) );
-		$bill .= sprintf( "<div class='admin_billboard_text'>%s<br/>%s</div>", 	
-			__( 'Congratulations! Welcome to your <strong>professional</strong> website platform.', 'pagelines' ),
-			__( 'Here are a few tips to get you started with PageLines...', 'pagelines' )
-		);
-		$bill .= '<div class="clear"></div></div></div></div>';
+		ob_start();
+		?>
+		
+		<div class="admin_billboard">
+			<div class="admin_billboard_pad fix">
+					<h3 class="admin_header_main">
+						Getting Started with PageLines
+					</h3>
+					<div class='admin_billboard_text'>
+						Congratulations and Welcome! Here are a few tips to get you started...
+					</div>
+			</div>
+		</div>
+		<?php 
+		
+		$bill = ob_get_clean();
+		
 		
 		return apply_filters('pagelines_welcome_billboard', $bill);
 	}

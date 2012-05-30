@@ -65,7 +65,7 @@ function pagelines_account_array(){
 		
 		$d['_getting_started'] = pl_add_welcome();
 		
-		$d['Extensions'] = array(
+		$d['Plus_Extensions'] = array(
 			'icon'			=> PL_ADMIN_ICONS.'/plusbtn.png',
 			'plus_welcome' 	=> array(
 				'type'		=> 'plus_welcome',
