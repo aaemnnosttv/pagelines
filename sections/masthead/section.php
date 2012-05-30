@@ -23,7 +23,22 @@ class PLMasthead extends PageLinesSection {
 		$settings = wp_parse_args($settings, $this->optionator_default);
 		
 		$option_array = array(
-
+				'pagelines_masthead_splash_multi' => array(
+					'type' 				=> 'multi_option',
+					'title' 			=> __('Masthead Splash Options','pagelines'),	
+					'shortexp'	=> __('Enter the options for the masthead splash image. If no options are specified, no image will be shown.', 'pagelines'),
+					'selectvalues'	=> array(
+						'pagelines_masthead_img' => array(
+							'type' 			=> 'image_upload',
+							'imagepreview' 	=> '270',
+							'inputlabel' 	=> 'Upload custom image',
+						),
+						'pagelines_masthead_imgalt' => array(
+							'type' 			=> 'text',
+							'inputlabel' 	=> 'Masthead Image Alt',	
+						),
+					)			
+				),
 				'pagelines_masthead_text' => array(
 						'type' 				=> 'text_multi',
 						'inputlabel' 		=> 'Enter text for your masthead banner section',
@@ -137,6 +152,8 @@ class PLMasthead extends PageLinesSection {
 	*/
    function section_template( $clone_id ) { 
    		$mast_title = ploption('pagelines_masthead_title', $this->oset);
+   		$mast_img = ploption('pagelines_masthead_img', $this->oset);
+		$mast_imgalt = ploption('pagelines_masthead_imgalt', $this->oset);
 		$mast_tag = ploption('pagelines_masthead_tagline', $this->oset);
 		$mast_menu = (ploption('masthead_menu', $this->oset)) ? ploption('masthead_menu', $this->oset) : null;
 		$masthead_meta = ploption('masthead_meta', $this->oset);
@@ -149,6 +166,15 @@ class PLMasthead extends PageLinesSection {
 	if($mast_title){ ?>
 	
 	<header class="jumbotron masthead">
+	  <div class="splash">
+	  	<?php
+
+	  		if($mast_img)
+	  			printf('<img class="masthead-img" src="%s" alt="%s"/>',$mast_img, $mast_imgalt);
+
+	  	?>
+	  </div>
+
 	  <div class="inner">
 	  	<?php
 	
