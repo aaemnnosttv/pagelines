@@ -103,7 +103,7 @@
 
 			case 'section_upgrade':
 
-				$this->section_upgrade( $type, $file, $path, $uploader, $checked );
+				$this->section_upgrade( $type, $file, $path, $uploader, $checked, $dash );
 				
 			break;
 
@@ -133,7 +133,7 @@
 
 			case 'theme_upgrade':
 
-				$this->theme_upgrade( $type, $file, $path, $uploader, $checked );
+				$this->theme_upgrade( $type, $file, $path, $uploader, $checked, $dash );
 
 			break;					
 
@@ -572,7 +572,7 @@
 		$message = __( 'Plugin Upgraded.', 'pagelines' );
 		$text = '&extend_text=plugin_upgrade#your_plugins';
 
-		$url = PL_ADMIN_STORE_SLUG . $text;
+		$url = PL_ADMIN_STORE_SLUG;
 		
 		if ( $dash ) {
 			$url = PL_MAIN_DASH;
@@ -673,7 +673,7 @@
 		$this->sections_reset();
 		$message = __( 'Section Deleted.', 'pagelines' );
 		$text = '&extend_text=section_delete#your_added_sections';
-			$this->page_reload( PL_ADMIN_STORE_SLUG . $text, null, $message );
+		$this->page_reload( PL_ADMIN_STORE_SLUG . $text, null, $message );
 		
 	}
 	
@@ -683,7 +683,7 @@
 	* @TODO document
 	*
 	*/
-	function section_upgrade( $type, $file, $path, $uploader, $checked ) {
+	function section_upgrade( $type, $file, $path, $uploader, $checked, $dash ) {
 
 		$this->wp_libs();
 				
@@ -694,7 +694,10 @@
 		$skin = new PageLines_Upgrader_Skin();
 		$upgrader = new PageLines_Section_Installer($skin);
 
-		$wp_filesystem->delete( sprintf( '%s/pagelines-sections/%s', trailingslashit( $wp_filesystem->wp_plugins_dir() ), $file ), true, false  );
+
+		$folder = sprintf( '%s/pagelines-sections/%s', trailingslashit( $wp_filesystem->wp_plugins_dir() ), $file );
+
+		$wp_filesystem->delete( $folder, true, false  );
 				
 		@$upgrader->install( $this->make_url( 'section', $file ) );			
 		$wp_filesystem->move( trailingslashit( $wp_filesystem->wp_plugins_dir() ) . $file, sprintf( '%s/pagelines-sections/%s', trailingslashit( $wp_filesystem->wp_plugins_dir() ), $file ) );
@@ -702,8 +705,13 @@
 		$this->sections_reset();
 		// Output
 		$text = '&extend_text=section_upgrade#your_added_sections';
-		$this->page_reload( PL_ADMIN_STORE_SLUG . $text, null, __( 'Section Upgraded', 'pagelines' ) );
+		$message = __( 'Section Upgraded', 'pagelines' );
 		
+		if ( $dash ) {
+			$url = PL_MAIN_DASH;
+			$this->remove_update( $file );
+		}
+		$this->page_reload( $url, null, $message );
 	}
 	
 
@@ -795,7 +803,7 @@
 	* @TODO document
 	*
 	*/
-	function theme_upgrade( $type, $file, $path, $uploader, $checked ) {
+	function theme_upgrade( $type, $file, $path, $uploader, $checked, $dash) {
 
 		$this->wp_libs();
 			
@@ -820,7 +828,14 @@
 		// Output
 		$text = '&extend_text=theme_upgrade#your_themes';
 		$message = __( 'Theme Upgraded.', 'pagelines' );
-		$this->page_reload( PL_ADMIN_STORE_SLUG . $text, null, $message );
+	
+		$url = PL_ADMIN_STORE_SLUG;
+		
+		if ( $dash ) {
+			$url = PL_MAIN_DASH;
+			$this->remove_update( $path );
+		}
+		$this->page_reload( $url, null, $message );
 		
 	}
 	

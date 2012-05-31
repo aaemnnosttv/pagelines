@@ -48,11 +48,13 @@ class ExtensionSections extends PageLinesExtensions {
 			
 			$sections = self::merge_sections( $available );			
 
+			$this->updates_list( array( 'list' => $sections, 'type' => 'section' ) );
+
 			$list = $this->get_master_list( $sections, $type, $tab, 'installed' );	
 	
 		} // end installed mode
 		
-		$this->updates_list( array( 'list' => $list, 'type' => 'section' ) );
+		
 		
 		return $this->ui->extension_list( array( 'list' => $list, 'tab' => $tab, 'type' => 'sections' ) );
  	}
