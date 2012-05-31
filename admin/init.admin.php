@@ -72,6 +72,8 @@ require_once ( PL_ADMIN . '/class.extend.integrations.php' );
 require_once ( PL_ADMIN . '/class.extend.themes.php' );
 require_once ( PL_ADMIN . '/class.extend.plugins.php' );
 require_once ( PL_ADMIN . '/class.extend.sections.php' );
+
+global $extension_control;
 $extension_control = new PagelinesExtensions;
 
 require_once( PL_ADMIN . '/class.rss.php' );

@@ -39,6 +39,8 @@
 		delete_transient( 'pagelines_extend_plugins' );
 		delete_transient( 'pagelines_extend_integrations' );		
 		delete_transient( 'pagelines_sections_cache' );
+		remove_theme_mod( 'available_updates' );
+		remove_theme_mod( 'pending_updates' );
 	}
 
 

@@ -18,7 +18,7 @@ class PageLinesExtendUI {
 	 */
 	function __construct() {
 		
-		$this->exprint = 'onClick="extendIt(\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\')"';
+		$this->exprint = 'onClick="extendIt(\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\')"';
 		
 		$this->defaultpane = array(
 				'name' 		=> 'Unnamed', 
@@ -328,22 +328,22 @@ function pane_template_old( $e, $count ){
 	function extend_button( $key, $a, $style = 'small'){
 		
 		$d = array(
-			'mode'	=> '',
-			'case'	=> '', 
-			'file'	=> '', 
-			'text'	=> 'Extend',
-			'dtext'	=> '',
-			'key'	=> $key, 
-			'type'	=> '',
-			'path'	=> '',
-			'product' => 0,
-			'confirm'	=> false
+			'mode'		=> '',
+			'case'		=> '', 
+			'file'		=> '', 
+			'text'		=> 'Extend',
+			'dtext'		=> '',
+			'key'		=> $key, 
+			'type'		=> '',
+			'path'		=> '',
+			'product' 	=> 0,
+			'confirm'	=> false,
+			'dashboard'	=> false
 		);
 		
 		$a = wp_parse_args($a, $d);
 		
-		$js_call = ( $a['mode'] == 'installed' ) ? '' : sprintf( $this->exprint, $a['case'], $a['key'], $a['type'], $a['file'], $a['path'], $a['product'], $a['dtext']);
-		
+		$js_call = ( $a['mode'] == 'installed' ) ? '' : sprintf( $this->exprint, $a['case'], $a['key'], $a['type'], $a['file'], $a['path'], $a['product'], $a['dtext'], $a['dashboard']);
 		
 		if( $a['mode'] == 'deactivate' || $a['mode'] == 'delete' || $a['mode'] == 'installed' )
 			$class = 'discrete';
@@ -407,7 +407,8 @@ function pane_template_old( $e, $count ){
 				'pagelines-sections', 
 				'/pagelines-sections/pagelines-sections.php',
 				'', 
-				__( 'Installing', 'pagelines' ) 
+				__( 'Installing', 'pagelines' ),
+				0
 			);
 		}
 			
@@ -488,7 +489,7 @@ function pane_template_old( $e, $count ){
 	 */
 	function extension_js(){ 
 	
-		if ( !isset( $_GET['page'] ) || strpos( $_GET['page'], PL_ADMIN_STORE_SLUG ) === false )
+		if ( !isset( $_GET['page'] ) || ( strpos( $_GET['page'], PL_ADMIN_STORE_SLUG ) === false && strpos( $_GET['page'], PL_MAIN_DASH ) === false) )
 			return;
 		?>
 		<script type="text/javascript">/*<![CDATA[*/
@@ -498,7 +499,7 @@ function pane_template_old( $e, $count ){
 			jQuery('a.pane-info').colorbox({iframe:true, width:"50%", height:"60%"});
 		});
 		*/
-		function extendIt( mode, key, type, file, path, product, duringText ){
+		function extendIt( mode, key, type, file, path, product, duringText, dash ){
 
 				/* 
 					'Mode' 	= the type of extension
@@ -514,7 +515,8 @@ function pane_template_old( $e, $count ){
 					extend_type: type,
 					extend_file: file,
 					extend_path: path,
-					extend_product: product
+					extend_product: product,
+					extend_dash: dash
 				};
 
 				var responseElement = jQuery('#dialog');

@@ -14,15 +14,19 @@ class PageLinesDashboard {
 		
 		// Updates Dashboard
 		
-		// --> $this->get_updates(); 
+		$dashboards = '';
+		
+		$updates = $this->get_updates(); 
 		
 		$args = array(
 			'title'	=> 'Your Available Updates', 
-			'data'	=> $this->updates_test_array(), 
-			'icon'	=> PL_ADMIN_ICONS . '/download.png'
+			'data'	=> $updates, 
+			'icon'	=> PL_ADMIN_ICONS . '/download.png',
+			'excerpt-trim'	=> 0
 		); 
-		
-		$dashboards = $this->dashboard_pane('updates', $args); 
+
+		if ( $updates ) 
+			$dashboards = $this->dashboard_pane('updates', $args); 
 		
 		// PageLines Blog Dashboard
 		
@@ -141,9 +145,15 @@ class PageLinesDashboard {
 		<div class="pl-dashboard-story media <?php echo $alt;?> dashpane">
 			<div class="dashpane-pad fix">
 				<?php
-					if($tag)
-						printf('<div class="img"><div class="extend_button %s">%s</div></div>', $tag_class, 'Update'); 
-					elseif($image)
+					if($tag) {
+						
+						$button = $this->get_upgrade_button( $story['data'] );
+
+						printf('<div class="img">%s</div>', $button );
+						
+						
+						
+					} elseif($image)
 						printf('<div class="img img-frame"><img src="%s" /></div>', $image);
 				
 				?>
@@ -159,6 +169,39 @@ class PageLinesDashboard {
 		}
 		
 		return ob_get_clean();
+	}
+	
+	
+	function get_upgrade_button( $data ) {
+		
+		global $extension_control;
+						
+		$type = rtrim( $data->type, 's' );
+
+						
+		if ( 'plugin' === $type ) {
+							
+
+			$o = array(
+				'mode'	=> 'upgrade',
+				'case'	=> sprintf( '%s_upgrade', $type ),
+				'text'	=> 'Upgrade Now',
+				'type'	=> $type,
+				'file'	=> $data->slug,
+				'path'	=> $data->slug,
+				'dtext'	=> sprintf( 'Upgrading to version %s', $data->version ),
+				'condition'	=> 1,
+				'dashboard'	=> true
+			);
+
+			$button = $extension_control->ui->extend_button( $data->slug, $o);	
+			
+							
+	}
+						
+					
+	return $button;
+		
 	}
 	
 	function stories_remote_url_format(){
@@ -190,32 +233,31 @@ class PageLinesDashboard {
 		
 	}
 	
-	function updates_test_array(){
-		
-		$data = array(
-			'story1'	=> array(
-				'title'	=> 'Cool Plugin - Version 2.1', 
-				'text'	=> 'Changelog...', 
-				'tag'	=> 'update'
-			), 
-			'story2'	=> array(
-				'title'	=> 'Cool Theme - Version 1.1', 
-				'text'	=> 'Changelog...', 
-				'tag'	=> 'section'
-			),
-			'story3'	=> array(
-				'title'	=> 'Rockin Section - Version 1.3', 
-				'text'	=> 'Changelog...', 
-				'tag'	=> 'section'
-			),
-		);
-		
-		return $data;
-		
-	}
-		
 	
 	
+	function get_updates() {
+		
+		$updates = json_decode( get_theme_mod( 'pending_updates' ) );
+		
+		if( !is_object( $updates ) )
+			return false;
+		
+		$data = array();
+		$a = 0;
+		foreach( $updates as $key => $update ) {
+			
+			$data["story$a"] = array(
+				
+				'title'		=>	$update->name,
+				'text'		=>	$update->changelog,
+				'tag'		=>	$update->type,
+				'data'		=>	$update
+				
+			);		
+			$a++;	
+		}
+	if( empty( $data ) )
+		return false;
+	return $data;
+	}	
 }
-
-
