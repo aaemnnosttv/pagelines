@@ -51,19 +51,26 @@ class PageLinesDashboard {
 		// PageLines Store Latest Dash
 		
 		$args = array(
-			'title'	=> 'Latest on PageLines Store', 
+			'title'	=> 'Updates on PageLines Store', 
 			'data'	=> PageLines_RSS::get_dash_rss(), 
 			'classes'	=> 'news-dash pl-dash-half pl-dash-space', 
 			'icon'	=> PL_ADMIN_ICONS . '/store.png'
 		); 
 		
 		$dashboards .= $this->dashboard_pane('store', $args);
-		
+
+		// Latest from the Community
+		$args = array(
+			'title'	=> 'From the Community', 
+			'data'	=> PageLines_RSS::get_dash_rss( array( 'feed' => 'http://www.pagelines.com/type/link/feed/' ) ), 
+			'classes'	=> 'pl-dash-half pl-dash-space', 
+			'icon'	=> PL_ADMIN_ICONS . '/users.png'
+		); 
 		
 		
 		// PageLines Plus
 		$args = array(
-			'title'	=> 'PageLines Extensions', 
+			'title'	=> 'Latest Extensions', 
 			'data'	=> PageLines_RSS::get_dash_rss( array( 'feed' => 'http://api.pagelines.com/rss/plus.php' ) ), 
 			'classes'	=> 'news-dash pl-dash-half', 
 			'icon'	=> PL_ADMIN_ICONS . '/plusbtn.png'
