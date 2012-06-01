@@ -52,7 +52,7 @@ class PageLinesDashboard {
 		// Latest from the Community
 		$args = array(
 			'title'	=> 'From the Community', 
-			'data'	=> $this->test_array(), 
+			'data'	=> PageLines_RSS::get_dash_rss( array( 'feed' => 'http://www.pagelines.com/type/link/feed/' ) ), 
 			'classes'	=> 'pl-dash-half pl-dash-space', 
 			'icon'	=> PL_ADMIN_ICONS . '/users.png'
 		); 

@@ -19,7 +19,7 @@ class PageLines_RSS {
 			
 			$defaults = array(
 
-				'feed'	=>	'http://api.pagelines.com/rss/rss.php',
+				'feed'	=>	'http://api.pagelines.com/rss/rss2.php',
 				'items'	=>	5,
 			);
 
