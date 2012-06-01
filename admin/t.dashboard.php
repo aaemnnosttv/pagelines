@@ -62,7 +62,7 @@ class PageLinesDashboard {
 		// PageLines Plus
 		$args = array(
 			'title'	=> 'PageLines Extensions', 
-			'data'	=> PageLines_RSS::get_dash_rss( array( 'feed' => 'http://api.pagelines.com/rss/plus.php', 'items' => 100 ) ), 
+			'data'	=> PageLines_RSS::get_dash_rss( array( 'feed' => 'http://api.pagelines.com/rss/plus.php' ) ), 
 			'classes'	=> 'pl-dash-half', 
 			'icon'	=> PL_ADMIN_ICONS . '/plusbtn.png'
 		); 
