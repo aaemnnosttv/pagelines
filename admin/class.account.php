@@ -67,13 +67,7 @@ function pagelines_account_array(){
 		
 		$d['_plus_extensions'] = pl_add_extensions_dash();
 		
-		$d['Support_and_Chat'] = array(
-			'icon'			=> PL_ADMIN_ICONS.'/balloon-white.png',
-			'plus_welcome' 	=> array(
-				'type'		=> 'plus_welcome',
-				'layout'	=> 'full',
-			)
-		);
+		$d['_Support_and_Chat'] = pl_add_support_dash();
 		
 		$d['Your_Account']	= array(
 			'icon'			=> PL_ADMIN_ICONS.'/user.png',
@@ -99,15 +93,31 @@ function pagelines_account_array(){
 }
 
 
-/**
- * Welcome Message
- *
- * @since 2.0.0
- */
+function pl_add_support_dash(){
+	
+	
+	$ext = new PageLinesSupportPanel();
+
+	
+	
+	$a = array(
+		'icon'			=> PL_ADMIN_ICONS.'/balloon-white.png',
+		'pagelines_dashboard'	=> array(
+			'type'			=> 'text_content',
+			'flag'			=> 'hide_option',
+			'exp'			=> $ext->draw()
+		),
+	);
+	
+	return $a;
+	
+}
+
+
 function pl_add_extensions_dash(){
 	
 	
-	$dash = new PageLinesCoreExtensions();
+	$ext = new PageLinesCoreExtensions();
 
 	
 	
@@ -116,7 +126,7 @@ function pl_add_extensions_dash(){
 		'pagelines_dashboard'	=> array(
 			'type'			=> 'text_content',
 			'flag'			=> 'hide_option',
-			'exp'			=> ''
+			'exp'			=> $ext->draw()
 		),
 	);
 	

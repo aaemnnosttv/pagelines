@@ -93,3 +93,4 @@ require_once (PL_ADMIN.'/actions.options.php');
  */
 require_once (PL_ADMIN.'/t.dashboard.php');
 require_once (PL_ADMIN.'/t.extensions.php');
+require_once (PL_ADMIN.'/t.support.php');

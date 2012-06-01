@@ -132,6 +132,8 @@ class PageLinesDashboard {
 		$align_class = (isset($args['align']) && $args['align'] == 'right') ? 'rtimg' : ''; 
 		$target = (isset($args['target']) && $args['target'] == 'new') ? 'target="_blank"' : ''; 
 		
+		$format = (isset($args['format']) && $args['format'] == 'plus-extensions') ? 'plus' : 'standard'; 
+		
 		ob_start();
 		
 		$count = 1;
@@ -148,6 +150,7 @@ class PageLinesDashboard {
 			$alt = ($count % 2 == 0) ? 'alt-story' : '';
 			
 			$excerpt = ( $story['text'] ) ? $story['text'] : '';
+			
 			if ( $excerpt )
 				$excerpt = (!$args['excerpt-trim']) ? $story['text'] : custom_trim_excerpt($story['text'], $args['excerpt-trim']);
 		?>
@@ -173,6 +176,11 @@ class PageLinesDashboard {
 				<div class="bd">
 					<h4 class="story-title"><?php echo $story['title'];?></h4>
 					<p><?php echo $excerpt; ?></p>
+					<?php 
+						$this->special_buttons($args, $story);
+						
+					?>
+						
 				</div>
 			</div>
 		</div>
@@ -182,6 +190,29 @@ class PageLinesDashboard {
 		}
 		
 		return ob_get_clean();
+	}
+	
+	function special_buttons($args, $story){
+		
+		if(!isset($args['format']) || $args['format'] != 'plus-extensions')
+			return;
+		
+		if(!pagelines_check_credentials() || !VPLUS):
+		?>
+		<a href="#" class="extend_button">Get PageLines Plus &rarr;</a>
+		
+		<?php 
+		endif; 
+		
+		if(!pagelines_check_credentials()):?>
+			<a href="#" class="extend_button discrete">Have Plus? Login &rarr;</a>
+		<?php endif; 
+		
+		if(VPLUS):?>
+			<a href="#" class="extend_button">Install Extension</a>
+		<?php endif;
+		
+	
 	}
 	
 	

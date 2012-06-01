@@ -47,7 +47,7 @@ class PageLinesWelcome {
 		$args = array(
 			'title'			=> 'Core WordPress Graphical/Functional Support', 
 			'data'			=> $this->get_welcome_plugins(), 
-			'icon'			=> PL_ADMIN_ICONS . '/light-bulb.png', 
+			'icon'			=> PL_ADMIN_ICONS . '/extend-plugins.png', 
 			'excerpt-trim'	=> false, 
 			'align'			=> 'right', 
 			'btn-text'		=> 'Get It', 
