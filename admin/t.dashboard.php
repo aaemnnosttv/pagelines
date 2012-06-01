@@ -31,7 +31,7 @@ class PageLinesDashboard {
 		
 		$args = array(
 			'title'	=> 'News from the PageLines Blog', 
-			'data'	=> PageLines_RSS::get_dash_rss( array( 'feed' => 'http://www.pagelines.com/feed/' ) ), 
+			'data'	=> PageLines_RSS::get_dash_rss( array( 'feed' => 'http://www.pagelines.com/feed/', 'items' => 3 ) ), 
 			'classes'	=> 'news-dash pl-dash-half pl-dash-space', 
 			'icon'	=> PL_ADMIN_ICONS . '/welcome.png'
 		); 
