@@ -65,13 +65,7 @@ function pagelines_account_array(){
 		
 		$d['_getting_started'] = pl_add_welcome();
 		
-		$d['Plus_Extensions'] = array(
-			'icon'			=> PL_ADMIN_ICONS.'/plusbtn.png',
-			'plus_welcome' 	=> array(
-				'type'		=> 'plus_welcome',
-				'layout'	=> 'full',
-			)
-		);
+		$d['_plus_extensions'] = pl_add_extensions_dash();
 		
 		$d['Support_and_Chat'] = array(
 			'icon'			=> PL_ADMIN_ICONS.'/balloon-white.png',
@@ -102,6 +96,32 @@ function pagelines_account_array(){
 		);
 	
 	return apply_filters( 'pagelines_account_array', $d ); 
+}
+
+
+/**
+ * Welcome Message
+ *
+ * @since 2.0.0
+ */
+function pl_add_extensions_dash(){
+	
+	
+	$dash = new PageLinesCoreExtensions();
+
+	
+	
+	$a = array(
+		'icon'			=> PL_ADMIN_ICONS.'/plusbtn.png',
+		'pagelines_dashboard'	=> array(
+			'type'			=> 'text_content',
+			'flag'			=> 'hide_option',
+			'exp'			=> ''
+		),
+	);
+	
+	return apply_filters('pagelines_options_dashboard', $a);
+	
 }
 
 /**
@@ -142,7 +162,7 @@ function pl_add_welcome(){
 		'icon'			=> PL_ADMIN_ICONS.'/book.png',
 		'hide_pagelines_introduction'	=> array(
 			'type'			=> 'text_content',
-			'inputlabel'	=> 'Hide Introduction',
+			'flag'			=> 'hide_option',
 			'exp'			=> $welcome->get_welcome()
 		),
 	);

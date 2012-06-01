@@ -408,7 +408,8 @@ class PageLinesFeatures extends PageLinesSection {
 								$action = ploption( 'feature-link-url', $oset );
 							else
 								$action = get_permalink();
-						}
+						} else
+							$action = '';
 						
 						$fcontent_class = ( ploption( 'fcontent-bg', $oset ) ) ? ploption( 'feature-bg', $oset ) : '';
 						

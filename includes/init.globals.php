@@ -61,7 +61,7 @@ define( 'PL_ADMIN_JS', PL_ADMIN_URI . '/js' );
 define( 'PL_ADMIN_IMAGES', PL_ADMIN_URI . '/images' );
 define( 'PL_ADMIN_ICONS', PL_ADMIN_IMAGES . '/icons' );
 
-define('PL_MAIN_DASH', 'pagelines-admin');
+define('PL_MAIN_DASH', 'PageLines-Admin');
 define('PL_ADMIN_STORE_SLUG', 'pagelines_extend');
 define('PL_SPECIAL_OPTS_SLUG', 'pagelines_special');
 

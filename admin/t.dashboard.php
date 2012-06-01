@@ -129,6 +129,10 @@ class PageLinesDashboard {
 	
 	function stories_array_format($args){
 		
+		$btn_text = (isset($args['btn-text'])) ? $args['btn-text'] : false; 
+		$align_class = (isset($args['align']) && $args['align'] == 'right') ? 'rtimg' : ''; 
+		$target = (isset($args['target']) && $args['target'] == 'new') ? 'target="_blank"' : ''; 
+		
 		ob_start();
 		
 		$count = 1;
@@ -136,6 +140,10 @@ class PageLinesDashboard {
 			
 			$image = (isset($story['img'])) ? $story['img'] : false; 
 			$tag = (isset($story['tag'])) ? $story['tag'] : false; 
+			$link = (isset($story['link'])) ? $story['link'] : false; 
+			
+			$btn_text = (isset($story['btn-text'])) ? $story['btn-text'] : $btn_text; 
+			
 			$tag_class = (isset($story['tag-class'])) ? $story['tag-class'] : ''; 
 			
 			$alt = ($count % 2 == 0) ? 'alt-story' : '';
@@ -149,16 +157,20 @@ class PageLinesDashboard {
 						
 						$button = $this->get_upgrade_button( $story['data'] );
 
-						printf('<div class="img">%s</div>', $button );
+						printf('<div class="img %s">%s</div>', $align_class, $button );
 						
 						
+						
+					} elseif($btn_text){
+						
+						printf('<div class="img %s"><a class="extend_button" href="%s" %s>%s</a></div>', $align_class, $link, $target, $btn_text);
 						
 					} elseif($image)
-						printf('<div class="img img-frame"><img src="%s" /></div>', $image);
+						printf('<div class="img %s img-frame"><img src="%s" /></div>', $align_class, $image);
 				
 				?>
 				<div class="bd">
-					<h3><?php echo $story['title'];?></h3>
+					<h4 class="story-title"><?php echo $story['title'];?></h4>
 					<p><?php echo $excerpt; ?></p>
 				</div>
 			</div>
