@@ -54,7 +54,6 @@ class PageLines_RSS {
 		}
 
 		$items = $this->items;
-
 		
 		foreach ( $rss->get_items(0, $items) as $item ) {
 
@@ -67,6 +66,7 @@ class PageLines_RSS {
 			$link = '';
 			$content = '';
 			$date = $item->get_date();
+
 			$link = esc_url( $item->get_link() );
 			$title = $item->get_title();
 
@@ -78,10 +78,8 @@ class PageLines_RSS {
 			'link'	=>	$link,
 			'img'	=>	$image
 		);
-//		plprint( $out, 'out' );
-		}
 
-	//	$out .= "</ul></div>";
+		}
 		$rss->__destruct();
 		unset($rss);
 
