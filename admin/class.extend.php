@@ -1061,13 +1061,12 @@
 	 function get_the_version($type, $key, $ext){
 	
 		// has to be the installed version.
-		
 		if ( $this->is_installed( $type, $key, $ext ) ) {
 			
 			if ( $type == 'plugin' )
 				return $ext['status']['data']['Version'];
 		}
-			return $ext['version'];
+		return $ext['version'];
 	}
 
 
@@ -1471,25 +1470,35 @@
 		
 		$defaults = array( 
 			'list'	=>	array(),
-			'type'	=>	'plugin',
-			'pid'	=> 'productid'
+			'type'	=>	'plugin'
 			);
 		$o = wp_parse_args( $args, $defaults );
-
-		if ( 'theme' === $o['type'] )
-			$o['pid'] = 'pid';
 		
 		if ( ! is_array( $o['list'] ) )
 			return;
 
+		if ( 'section' == $o['type'] ) {
+			
+			$sections = array();
+			foreach( $o['list'] as $a => $b ) {
+			
+				if( isset( $b['pid'] ) && $b['pid'] )
+					$sections[$b['class']] = array( 'section'	=>	$b );
+			}
+			$o['list'] = $sections;			
+		}
+
 		foreach( $o['list'] as $key => $d ) {
-				
+			
 			$ext = $d[ $o['type'] ];
-			if ( $this->is_installed( $o['type'], $key, $ext ) && isset( $ext[ $o['pid'] ] ) && $ext[ $o['pid'] ] > 0 ) {
-				$id = $ext[ $o['pid'] ];
+			
+			$id = ( $this->is_installed( $o['type'], $key, $ext ) ) ? $this->get_product_id( $ext ) : false;
+			
+			if( $id ) {
 				$version = $this->get_the_version( $o['type'], $key, $ext );
+				
 				if ( $id && $version )
-					$updates[$id] = $this->get_the_version( $o['type'], $key, $ext );
+					$updates[$id] = $version;
 			}
 		}	
 	set_theme_mod( 'available_updates', $updates );

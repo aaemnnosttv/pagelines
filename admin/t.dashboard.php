@@ -25,8 +25,7 @@ class PageLinesDashboard {
 			'excerpt-trim'	=> 0
 		); 
 
-		if ( $updates ) 
-			$dashboards = $this->dashboard_pane('updates', $args); 
+		$dashboards = $this->dashboard_pane('updates', $args); 
 		
 		// PageLines Blog Dashboard
 		
@@ -145,10 +144,12 @@ class PageLinesDashboard {
 			$btn_text = (isset($story['btn-text'])) ? $story['btn-text'] : $btn_text; 
 			
 			$tag_class = (isset($story['tag-class'])) ? $story['tag-class'] : ''; 
-			
+
 			$alt = ($count % 2 == 0) ? 'alt-story' : '';
 			
-			$excerpt = (!$args['excerpt-trim']) ? $story['text'] : custom_trim_excerpt($story['text'], $args['excerpt-trim']);
+			$excerpt = ( $story['text'] ) ? $story['text'] : '';
+			if ( $excerpt )
+				$excerpt = (!$args['excerpt-trim']) ? $story['text'] : custom_trim_excerpt($story['text'], $args['excerpt-trim']);
 		?>
 		<div class="pl-dashboard-story media <?php echo $alt;?> dashpane">
 			<div class="dashpane-pad fix">
@@ -191,29 +192,22 @@ class PageLinesDashboard {
 		$type = rtrim( $data->type, 's' );
 
 						
-		if ( 'plugin' === $type ) {
+		$file = ( 'section' === $type ) ? $data->class : $data->slug;
 							
-
 			$o = array(
 				'mode'	=> 'upgrade',
 				'case'	=> sprintf( '%s_upgrade', $type ),
 				'text'	=> 'Upgrade Now',
 				'type'	=> $type,
 				'file'	=> $data->slug,
-				'path'	=> $data->slug,
+				'path'	=> $file,
 				'dtext'	=> sprintf( 'Upgrading to version %s', $data->version ),
 				'condition'	=> 1,
 				'dashboard'	=> true
 			);
 
-			$button = $extension_control->ui->extend_button( $data->slug, $o);	
-			
-							
-	}
-						
-					
-	return $button;
-		
+		$button = $extension_control->ui->extend_button( $data->slug, $o);									
+		return $button;
 	}
 	
 	function stories_remote_url_format(){
@@ -241,18 +235,20 @@ class PageLinesDashboard {
 			)
 		);
 		
-		return $data;
-		
+		return $data;	
 	}
 	
-	
-	
 	function get_updates() {
+		
+		$default['story0'] = array(
+			'title'	=>	__( 'No updates at this time, sorry i wish we could do more.', 'pagelines' ),
+			'text'	=>	false
+		);
 		
 		$updates = json_decode( get_theme_mod( 'pending_updates' ) );
 		
 		if( !is_object( $updates ) )
-			return false;
+			return $default;
 		
 		$data = array();
 		$a = 0;
@@ -269,7 +265,7 @@ class PageLinesDashboard {
 			$a++;	
 		}
 	if( empty( $data ) )
-		return false;
+		return $default;
 	return $data;
 	}	
 }

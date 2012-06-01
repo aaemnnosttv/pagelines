@@ -27,15 +27,21 @@ class PLheroUnit extends PageLinesSection {
 		$option_array = array(
 
 				'pagelines_herounit_text' => array(
-						'type' 				=> 'text_multi',
+						'type' 				=> 'multi_option',
 						'inputlabel' 		=> 'Enter text for your Hero section',
 						'title' 			=> $this->name.' Text',	
 						'selectvalues'	=> array(
-							'pagelines_herounit_title'		=> array('inputlabel'=>'Title', 'default'=> ''),
-							'pagelines_herounit_tagline'	=> array('inputlabel'=>'Tagline', 'default'=> '')
+							'pagelines_herounit_title' => array(
+								'type'  => 'text',
+								'inputlabel'=>'Heading', 
+							),
+							'pagelines_herounit_tagline' => array(
+								'type'   => 'textarea',
+								'inputlabel'=>'Subtext'
+							)
 						),				
-						'shortexp' 			=> 'The text for the Hero section',
-						'exp' 				=> 'This text will be used as the title/tagline for the Hero section.'
+						'shortexp' 			=> 'The text for the Hero section Header and Subtext content.',
+						'exp' 				=> 'The title is used for the heading, and the subtext is placed directly beneath it.'
 
 				),
 				'pagelines_herounit_image' => array(
