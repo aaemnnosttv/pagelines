@@ -126,6 +126,7 @@ class PageLinesPosts {
      */
 	function get_article(){
 		global $wp_query;
+		global $post;
 		
 		/* clip handling */
 		$clip = ( $this->pagelines_show_clip( $this->count, $this->paged ) ) ? true : false;
@@ -144,18 +145,40 @@ class PageLinesPosts {
 		$wrap_start = ( $clip && $clip_row_start ) ? sprintf( '<div class="clip_box fix">' ) : '';
 		$wrap_end = ( $clip && $clip_row_end ) ? sprintf( '</div>' ) : '';
 	
-		$out = sprintf(
-			'%s<article class="%s" id="post-%s"><div class="hentry-pad %s">%s%s</div></article>%s', 
-			$wrap_start, 
-			$post_classes, 
-			get_the_ID(),
-			( $clip ) ? 'blocks' : '',
-			$this->post_header( $format ), 
-			$this->post_entry(), 
-			$wrap_end
+	
+	
+		$post_args = array(
+			'header'		=> $this->post_header( $format ), 
+			'entry'			=> $this->post_entry(), 
+			'classes'		=> $post_classes,
+			'pad-class'		=> ( $clip ) ? 'hentry-pad blocks' : 'hentry-pad',
+			'wrap-start'	=> $wrap_start, 
+			'wrap-end'		=> $wrap_end, 
+			'format'		=> $format,
+			'count'			=> $this->count
+		); 
+		
+		$post_args['markup-start'] = sprintf(
+			'%s<article class="%s" id="post-%s"><div class="%s">',
+			$post_args['wrap-start'], 
+			$post_args['classes'], 
+			$post->ID,
+			$post_args['pad-class']
 		);
 		
-		echo apply_filters( 'pagelines_get_article_output', $out );
+		$post_args['markup-end'] = sprintf(
+			'</div></article>%s',
+			$post_args['wrap-end']
+		);
+	
+		$original = join(array(
+				$post_args['markup-start'], 
+				$post_args['header'], 
+				$post_args['entry'], 
+				$post_args['markup-end']
+			));
+		
+		echo apply_filters( 'pagelines_get_article_output', $original, $post, $post_args );
 		
 		// Count the clips
 		if( $clip ) 
