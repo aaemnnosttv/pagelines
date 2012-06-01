@@ -93,7 +93,7 @@ class PageLinesDashboard {
 			'classes'		=> '', 
 			'data'			=> array(), 
 			'data-format'	=> 'array', 
-			'excerpt-trim'	=> 18
+			'excerpt-trim'	=> 10
 		);
 		
 		$a = wp_parse_args($args, $defaults); 
