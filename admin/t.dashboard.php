@@ -32,38 +32,40 @@ class PageLinesDashboard {
 		$args = array(
 			'title'	=> 'News from the PageLines Blog', 
 			'data'	=> PageLines_RSS::get_dash_rss( array( 'feed' => 'http://www.pagelines.com/feed/' ) ), 
-			'classes'	=> 'pl-dash-half pl-dash-space', 
+			'classes'	=> 'news-dash pl-dash-half pl-dash-space', 
 			'icon'	=> PL_ADMIN_ICONS . '/welcome.png'
 		); 
 		
 		$dashboards .= $this->dashboard_pane('news', $args);
+		
+		// Latest from the Community
+		$args = array(
+			'title'	=> 'From the Community', 
+			'data'	=> $this->test_array(), 
+			'classes'	=> 'news-dash pl-dash-half', 
+			'icon'	=> PL_ADMIN_ICONS . '/users.png'
+		); 
+		
+		$dashboards .= $this->dashboard_pane('community', $args);
 		
 		// PageLines Store Latest Dash
 		
 		$args = array(
 			'title'	=> 'Latest on PageLines Store', 
 			'data'	=> PageLines_RSS::get_dash_rss(), 
-			'classes'	=> 'pl-dash-half', 
+			'classes'	=> 'news-dash pl-dash-half pl-dash-space', 
 			'icon'	=> PL_ADMIN_ICONS . '/store.png'
 		); 
 		
 		$dashboards .= $this->dashboard_pane('store', $args);
 		
-		// Latest from the Community
-		$args = array(
-			'title'	=> 'From the Community', 
-			'data'	=> $this->test_array(), 
-			'classes'	=> 'pl-dash-half pl-dash-space', 
-			'icon'	=> PL_ADMIN_ICONS . '/users.png'
-		); 
 		
-		$dashboards .= $this->dashboard_pane('community', $args);
 		
 		// PageLines Plus
 		$args = array(
 			'title'	=> 'PageLines Extensions', 
 			'data'	=> PageLines_RSS::get_dash_rss( array( 'feed' => 'http://api.pagelines.com/rss/plus.php' ) ), 
-			'classes'	=> 'pl-dash-half', 
+			'classes'	=> 'news-dash pl-dash-half', 
 			'icon'	=> PL_ADMIN_ICONS . '/plusbtn.png'
 		); 
 		

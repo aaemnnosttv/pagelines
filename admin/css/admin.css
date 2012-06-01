@@ -1268,9 +1268,14 @@
 				z-index: 100;
 			}
 	
-		.dashpane-pad{
-			padding: 10px 18px;
-		}
+			.news-dash .dashpane-pad{
+				height: 80px;
+				overflow: hidden;
+			}
+			
+			.dashpane-pad{
+				padding: 10px 18px;
+			}
 		
 /* Live Iframe */ 
 

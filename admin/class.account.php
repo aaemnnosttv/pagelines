@@ -61,7 +61,7 @@ function pagelines_account_array(){
 	$d = array();
 
 				
-		$d['dashboard']	= pl_add_dashboard();
+		$d['latest_updates']	= pl_add_dashboard();
 		
 		$d['_getting_started'] = pl_add_welcome();
 		
@@ -130,7 +130,7 @@ function pl_add_extensions_dash(){
 		),
 	);
 	
-	return apply_filters('pagelines_options_dashboard', $a);
+	return $a;
 	
 }
 
@@ -147,7 +147,7 @@ function pl_add_dashboard(){
 	
 	
 	$a = array(
-		'icon'			=> PL_ADMIN_ICONS.'/dashboard.png',
+		'icon'			=> PL_ADMIN_ICONS.'/newspapers.png',
 		'pagelines_dashboard'	=> array(
 			'type'			=> 'text_content',
 			'flag'			=> 'hide_option',
@@ -155,7 +155,7 @@ function pl_add_dashboard(){
 		),
 	);
 	
-	return apply_filters('pagelines_options_dashboard', $a);
+	return $a;
 	
 }
 
