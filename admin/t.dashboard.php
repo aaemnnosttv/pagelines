@@ -272,7 +272,7 @@ class PageLinesDashboard {
 	function get_updates() {
 		
 		$default['story0'] = array(
-			'title'	=>	__( 'No updates at this time, sorry i wish we could do more.', 'pagelines' ),
+			'title'	=>	__( "No new updates available.", 'pagelines' ),
 			'text'	=>	false
 		);
 		
