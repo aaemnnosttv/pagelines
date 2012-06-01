@@ -31,7 +31,7 @@ class PageLinesDashboard {
 		
 		$args = array(
 			'title'	=> 'News from the PageLines Blog', 
-			'data'	=> $this->test_array(), 
+			'data'	=> PageLines_RSS::get_dash_rss( array( 'feed' => 'http://www.pagelines.com/feed/' ) ), 
 			'classes'	=> 'pl-dash-half pl-dash-space', 
 			'icon'	=> PL_ADMIN_ICONS . '/welcome.png'
 		); 
@@ -42,7 +42,7 @@ class PageLinesDashboard {
 		
 		$args = array(
 			'title'	=> 'Latest on PageLines Store', 
-			'data'	=> $this->test_array(), 
+			'data'	=> PageLines_RSS::get_dash_rss(), 
 			'classes'	=> 'pl-dash-half', 
 			'icon'	=> PL_ADMIN_ICONS . '/store.png'
 		); 
@@ -62,7 +62,7 @@ class PageLinesDashboard {
 		// PageLines Plus
 		$args = array(
 			'title'	=> 'PageLines Extensions', 
-			'data'	=> $this->test_array(), 
+			'data'	=> PageLines_RSS::get_dash_rss( array( 'feed' => 'http://api.pagelines.com/rss/plus.php', 'items' => 100 ) ), 
 			'classes'	=> 'pl-dash-half', 
 			'icon'	=> PL_ADMIN_ICONS . '/plusbtn.png'
 		); 
@@ -151,6 +151,9 @@ class PageLinesDashboard {
 			
 			$excerpt = ( $story['text'] ) ? $story['text'] : '';
 			
+			$title = ( isset( $story['link'] ) ) ? sprintf( '<a href="%s">%s</a>', $story['link'], $story['title'] ) : $story['title'];
+			
+			
 			if ( $excerpt )
 				$excerpt = (!$args['excerpt-trim']) ? $story['text'] : custom_trim_excerpt($story['text'], $args['excerpt-trim']);
 		?>
@@ -174,7 +177,7 @@ class PageLinesDashboard {
 				
 				?>
 				<div class="bd">
-					<h4 class="story-title"><?php echo $story['title'];?></h4>
+					<h4 class="story-title"><?php echo $title; ?></h4>
 					<p><?php echo $excerpt; ?></p>
 					<?php 
 						$this->special_buttons($args, $story);

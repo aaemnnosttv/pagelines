@@ -325,16 +325,6 @@ function pl_page_show_columns($name) {
 }
 
 /**
- * Setup RSS 
- *
- * @package PageLines Framework
- * @since   2.2
- */
-new PageLines_RSS();
-
-new PageLines_RSS( array( 'feed' => 'http://www.pagelines.com/blog/feed/', 'slug' => 'pl-rss', 'title' => __( 'News from the PageLines Blog', 'pagelines' ) ) );
-
-/**
  * Setup Versions and flush caches.
  *
  * @package PageLines Framework

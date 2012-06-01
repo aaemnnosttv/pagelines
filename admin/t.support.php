@@ -84,6 +84,10 @@ class PageLinesSupportPanel {
 	
 	function get_live_bill(){
 		
+		$url = pagelines_check_credentials( 'vchat' );
+		
+		$iframe = ( $url ) ? sprintf( '<iframe class="live_chat_iframe" src="%s"></iframe>', $url ) : '<h3>Problem getting permissions</h3>';
+		
 		ob_start();
 		?>
 		
@@ -98,7 +102,7 @@ class PageLinesSupportPanel {
 			</div>
 		</div>
 		<div class="live_chat_wrap fix">
-			<iframe class="live_chat_iframe" src="https://pagelines.campfirenow.com/6cd04"></iframe>
+			<?php echo $iframe; ?>
 		</div>
 		<?php 
 		

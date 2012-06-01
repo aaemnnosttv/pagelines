@@ -1026,6 +1026,12 @@ function pagelines_check_credentials( $type = 'setup' ) {
 		case 'message':
 		if ( is_array( $a = get_transient( EXTEND_UPDATE ) ) && isset($a['message']) )
 			return $a['message'];
+
+		case 'vchat':
+		if ( is_array( $a = get_transient( EXTEND_UPDATE ) ) && isset($a['chat_url']) )
+			return $a['chat_url'];
+		else
+			return false;
 	}
 }
 
