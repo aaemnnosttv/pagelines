@@ -61,7 +61,7 @@ function pagelines_account_array(){
 	$d = array();
 
 				
-		$d['your_updates']	= pl_add_dashboard();
+		$d['updates']	= pl_add_dashboard();
 		
 		$d['_getting_started'] = pl_add_welcome();
 		
