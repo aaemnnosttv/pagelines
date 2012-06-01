@@ -19,8 +19,9 @@ class PageLines_RSS {
 			
 			$defaults = array(
 
-				'feed'	=>	'http://api.pagelines.com/rss/rss2.php',
-				'items'	=>	5,
+				'feed'		=>	'http://api.pagelines.com/rss/rss2.php',
+				'items'		=>	5,
+				'community'	=>	false
 			);
 
 			$args = wp_parse_args( $args, $defaults );
@@ -68,6 +69,8 @@ class PageLines_RSS {
 			$date = $item->get_date();
 
 			$link = esc_url( $item->get_link() );
+			if( $args['community'] )
+				$link = esc_url( $item->get_description() );
 			$title = $item->get_title();
 
 			$content = $item->get_content();
