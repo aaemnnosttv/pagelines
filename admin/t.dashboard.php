@@ -199,7 +199,7 @@ class PageLinesDashboard {
 		
 		if(!isset($args['format']) || $args['format'] != 'plus-extensions')
 			return;
-		
+	
 		if(!pagelines_check_credentials() || !VPLUS):
 		?>
 		<a href="#" class="extend_button">Get PageLines Plus &rarr;</a>
@@ -211,20 +211,53 @@ class PageLinesDashboard {
 			<a href="#" class="extend_button discrete">Have Plus? Login &rarr;</a>
 		<?php endif; 
 		
-		if(VPLUS):?>
-			<a href="#" class="extend_button">Install Extension</a>
-		<?php endif;
+		if(VPLUS):
+		
+		
+			echo $this->get_upgrade_button( $story, 'install_rss' );
+		
+		
+			endif;
 		
 	
 	}
 	
 	
-	function get_upgrade_button( $data ) {
+	function get_upgrade_button( $data, $mode = 'upgrade' ) {
 		
 		global $extension_control;
-						
-		$type = rtrim( $data->type, 's' );
+		
+		if ( 'install_rss' === $mode ):
+		$button = '';
+			// we need to convert a rss url into hardcore API data
+			$slug = basename( $data['link'] );
+			$type = basename( str_replace( $slug, '', $data['link'] ) );
+			
+			$data = $extension_control->get_latest_cached( $type );
+			
+			$data = $data->$slug;
+			
+			$type = rtrim( $type, 's' );
+			
+			$file = ( 'section' === $type ) ? $data->class : $slug;
+			
+				$o = array(
+					'mode'	=> 'install',
+					'case'	=> sprintf( '%s_install', $type ),
+					'text'	=> 'Install Now',
+					'type'	=> $type,
+					'file'	=> $slug,
+					'path'	=> $file,
+					'dtext'	=> sprintf( 'Installing %s', $data->name ),
+					'condition'	=> 1,
+					'dashboard'	=> true
+				);
 
+			$button = $extension_control->ui->extend_button( $slug, $o);
+		endif;
+
+		if ( 'upgrade' === $mode ) :
+		$type = rtrim( $data->type, 's' );
 						
 		$file = ( 'section' === $type ) ? $data->class : $data->slug;
 							
@@ -240,7 +273,9 @@ class PageLinesDashboard {
 				'dashboard'	=> true
 			);
 
-		$button = $extension_control->ui->extend_button( $data->slug, $o);									
+		$button = $extension_control->ui->extend_button( $data->slug, $o);
+		endif;
+									
 		return $button;
 	}
 	
