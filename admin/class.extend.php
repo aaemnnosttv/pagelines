@@ -590,6 +590,12 @@
 	 */
 	 function is_installed( $type, $key, $ext, $tab = '' ){
 
+		if( 'dash_rss' == $tab && 'plugin' == $type ) {
+			
+			if ( is_dir( sprintf( '%s/%s', WP_PLUGIN_DIR, $ext['slug'] ) ) && file_exists( sprintf( '%s/%s/%s.php', WP_PLUGIN_DIR, $ext['slug'], $ext['slug'] ) ) )
+				return true;
+		}
+
 		if( $type == 'section' ){
 			
 			$status = ( isset($ext['status'] ) ) ? true : false;

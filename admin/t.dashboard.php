@@ -232,7 +232,7 @@ class PageLinesDashboard {
 			// we need to convert a rss url into hardcore API data
 			$slug = basename( $data['link'] );
 			$type = basename( str_replace( $slug, '', $data['link'] ) );
-			
+
 			$data = $extension_control->get_latest_cached( $type );
 			
 			$data = $data->$slug;
@@ -241,13 +241,26 @@ class PageLinesDashboard {
 			
 			$file = ( 'section' === $type ) ? $data->class : $slug;
 			
+			// if section or plugin, convert to array for is_installed().
+			if( 'section' === $type || 'plugin' === $type )
+				$ext = json_decode(json_encode($data), true);
+			else
+				$ext = $data;
+
+			if ( $extension_control->is_installed( $type, $slug, $ext, 'dash_rss' ) )
+				$o = array( 
+						'mode'		=> 'installed',
+						'condition'	=> true,
+						'text'		=> __( 'Installed', 'pagelines' )
+				);
+			else
 				$o = array(
 					'mode'	=> 'install',
 					'case'	=> sprintf( '%s_install', $type ),
 					'text'	=> 'Install Now',
 					'type'	=> $type,
-					'file'	=> $slug,
-					'path'	=> $file,
+					'file'	=> $file,
+					'path'	=> $slug,
 					'dtext'	=> sprintf( 'Installing %s', $data->name ),
 					'condition'	=> 1,
 					'dashboard'	=> true

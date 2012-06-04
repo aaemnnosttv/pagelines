@@ -67,7 +67,7 @@
 
 			case 'plugin_install': 
 				
-				$this->plugin_install( $type, $file, $path, $uploader, $checked );
+				$this->plugin_install( $type, $file, $path, $uploader, $checked, $dash );
 					
 			break;
 
@@ -500,7 +500,7 @@
 	* @TODO document
 	*
 	*/
-	function plugin_install( $type, $file, $path, $uploader, $checked ) {
+	function plugin_install( $type, $file, $path, $uploader, $checked, $dash) {
 		
 
 		$this->wp_libs();
@@ -518,8 +518,13 @@
 		
 		$message = __( 'Plugin Installed.', 'pagelines' );		
 		$text = '&extend_text=plugin_install#your_plugins';
-		$this->page_reload( PL_ADMIN_STORE_SLUG . $text, null, $message );
 		
+		$url = PL_ADMIN_STORE_SLUG;
+		
+		if ( $dash ) {
+			$url = PL_MAIN_DASH;
+		}
+		$this->page_reload( $url, null, $message );		
 	}
 	
 
