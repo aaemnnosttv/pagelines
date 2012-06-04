@@ -154,7 +154,7 @@ class PageLinesTemplateBuilder {
 								<div class="tg-sidebarwrap">
 									<div class="tgc">
 										<div id="ta-sidebar_wrap" class="load-build tg-format <?php if(!VPRO) echo 'pro-area'; ?>">
-											<div class="tg-pad">Wrap <?php if(!VPRO) echo '<span class="protag">(Pro)</span>'; ?></div>
+											<div class="tg-pad">Wrap<?php if(!VPRO) echo '<span class="protag"> (Pro)</span>'; ?></div>
 										</div>
 									</div>
 								</div>
@@ -170,8 +170,8 @@ class PageLinesTemplateBuilder {
 								<div class="tg-sidebar2">
 									<div class="tg-mml">
 										<div class="tgc">
-											<div id="ta-sidebar2" class="load-build tg-format">
-												<div class="tg-pad">SB2</div>
+											<div id="ta-sidebar2" class="load-build tg-format <?php if(!VPRO) echo 'pro-area'; ?>">
+												<div class="tg-pad">SB2<?php if(!VPRO) echo '<span class="protag"><br />(Pro)</span>'; ?></div>
 											</div>
 										</div>
 									</div>

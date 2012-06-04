@@ -273,7 +273,7 @@ class PageLinesRegister {
 				'description'	=>	__( 'The main widgetized sidebar.', 'pagelines')
 			),
 			'sb_secondary' => array(
-				'name'	=>	__( 'Secondary Sidebar', 'pagelines' ),
+				'name'	=>	sprintf( '%s%s', __( 'Secondary Sidebar', 'pagelines' ), ( !VPRO ) ? ' (Pro Only)' : '' ),
 				'description'	=>	__( 'The secondary widgetized sidebar for the theme.', 'pagelines')
 			),
 			'sb_tertiary' => array(
