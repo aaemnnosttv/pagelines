@@ -19,7 +19,7 @@ class PageLinesDashboard {
 		$updates = $this->get_updates(); 
 		
 		$args = array(
-			'title'	=> 'Your Available Updates', 
+			'title'	=> __( 'Your Available Updates', 'pagelines' ),
 			'data'	=> $updates, 
 			'icon'	=> PL_ADMIN_ICONS . '/download.png',
 			'excerpt-trim'	=> 0
@@ -30,7 +30,7 @@ class PageLinesDashboard {
 		// PageLines Blog Dashboard
 		
 		$args = array(
-			'title'	=> 'News from the PageLines Blog', 
+			'title'	=> __( 'News from the PageLines Blog', 'pagelines' ),
 			'data'	=> PageLines_RSS::get_dash_rss( array( 'feed' => 'http://www.pagelines.com/feed/' ) ), 
 			'classes'	=> 'news-dash pl-dash-half pl-dash-space', 
 			'icon'	=> PL_ADMIN_ICONS . '/welcome.png'
@@ -40,7 +40,7 @@ class PageLinesDashboard {
 		
 		// Latest from the Community
 		$args = array(
-			'title'	=> 'From the Community', 
+			'title'	=> __( 'From the Community', 'pagelines' ),
 			'data'	=> PageLines_RSS::get_dash_rss( array( 'feed' => 'http://www.pagelines.com/type/link/feed/', 'community' => true ) ),
 			'classes'	=> 'news-dash pl-dash-half', 
 			'icon'	=> PL_ADMIN_ICONS . '/users.png'
@@ -51,7 +51,7 @@ class PageLinesDashboard {
 		// PageLines Store Latest Dash
 		
 		$args = array(
-			'title'	=> 'Updates on PageLines Store', 
+			'title'	=> __( 'Updates on PageLines Store', 'pagelines' ),
 			'data'	=> PageLines_RSS::get_dash_rss(), 
 			'classes'	=> 'news-dash pl-dash-half pl-dash-space', 
 			'icon'	=> PL_ADMIN_ICONS . '/store.png'
@@ -61,7 +61,7 @@ class PageLinesDashboard {
 		
 		// PageLines Plus
 		$args = array(
-			'title'	=> 'Latest Extensions', 
+			'title'	=> __( 'Latest Extensions', 'pagelines' ),
 			'data'	=> PageLines_RSS::get_dash_rss( array( 'feed' => 'http://api.pagelines.com/rss/plus.php' ) ), 
 			'classes'	=> 'news-dash pl-dash-half', 
 			'icon'	=> PL_ADMIN_ICONS . '/plusbtn.png'
@@ -88,7 +88,7 @@ class PageLinesDashboard {
 	function dashboard_pane( $id, $args = array() ){
 		
 		$defaults = array(
-			'title' 		=> 'Dashboard',
+			'title' 		=> __( 'Dashboard', 'pagelines' ),
 			'icon'			=> PL_ADMIN_ICONS.'/pin.png',  
 			'classes'		=> '', 
 			'data'			=> array(), 
@@ -201,23 +201,20 @@ class PageLinesDashboard {
 			return;
 	
 		if(!pagelines_check_credentials() || !VPLUS):
-		?>
-		<a href="#" class="extend_button">Get PageLines Plus &rarr;</a>
-		
-		<?php 
+
+			printf( '<a href="%s" class="extend_button">%s &rarr;</a>', ADD_PLUS, __( 'Get PageLines Plus', 'pagelines' ) );
+
 		endif; 
 		
-		if(!pagelines_check_credentials()):?>
-			<a href="#" class="extend_button discrete">Have Plus? Login &rarr;</a>
-		<?php endif; 
+		if(!pagelines_check_credentials()):
+			printf( '<a href="%s" class="extend_button discrete">%s &rarr;</a>', admin_url( PL_ACCOUNT_URL ), __( 'Have Plus? Login', 'pagelines' ) );
+		endif; 
 		
 		if(VPLUS):
-		
-		
+
 			echo $this->get_upgrade_button( $story, 'install_rss' );
-		
-		
-			endif;
+				
+		endif;
 		
 	
 	}

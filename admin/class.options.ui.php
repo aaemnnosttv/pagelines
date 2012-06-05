@@ -220,7 +220,7 @@ class PageLinesOptionsUI {
 						if($this->set['reset_cb'])
 							echo OptEngine::input_hidden('reset_callback', 'reset_callback', $this->set['reset_cb']);
 							
-						echo OptEngine::superlink( sprintf( __('Restore %s To Default', 'pagelines'), $this->set['title'] ), 'grey', 'reset-options', 'submit', 'onClick="return ConfirmRestore();"',  'pl_reset_settings' );
+						echo OptEngine::superlink( sprintf( __('Restore %s To Default', 'pagelines'), strip_tags( $this->set['title'] ) ), 'grey', 'reset-options', 'submit', 'onClick="return ConfirmRestore();"',  'pl_reset_settings' );
 						
 						pl_action_confirm('ConfirmRestore', __( 'Are you sure? This will restore these settings to default.', 'pagelines' ) );
 						?>

@@ -141,7 +141,8 @@ $GLOBALS['pagelines_user_pages'] = array();
 /**
  * Pro/Free Version Variables
  */
-define('VPRO_NAME','PageLines Framework');
-define('VPRO_TOUR','http://www.pagelines.com/tour/');
-define('VPRO_PRICING','http://www.pagelines.com/pricing/');
-define( 'PL_SIGNUP', 'http://www.pagelines.com/launchpad/signup.php?price_group=-1000&hide_paysys=paypal_r' );
+define( 'VPRO_NAME','PageLines Framework' );
+define( 'VPRO_TOUR','http://www.pagelines.com/tour/' );
+define( 'VPRO_PRICING','http://www.pagelines.com/pricing/' );
+define( 'ADD_PLUS', 'https://www.pagelines.com/launchpad/add_plus' );
+define( 'PL_SIGNUP', 'https://www.pagelines.com/launchpad/signup.php?price_group=-1000&hide_paysys=stripe' );

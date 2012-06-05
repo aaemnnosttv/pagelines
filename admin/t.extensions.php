@@ -14,7 +14,7 @@ class PageLinesCoreExtensions {
 		
 		// PageLines Plus
 		$args = array(
-			'title'			=> 'Available Plus Extensions', 
+			'title'			=> __( 'Available Plus Extensions', 'pagelines' ),
 			'data'			=> PageLines_RSS::get_dash_rss( array( 'feed' => 'http://api.pagelines.com/rss/plus.php', 'items' => 15 ) ), 
 			'icon'			=> PL_ADMIN_ICONS . '/plusbtn.png', 
 			'excerpt-trim'	=> false, 
@@ -45,11 +45,9 @@ class PageLinesCoreExtensions {
 		
 		<div class="admin_billboard">
 			<div class="admin_billboard_pad fix">
-					<h3 class="admin_header_main">
-					 Free Extensions With Plus
-					</h3>
+					<h3 class="admin_header_main"><?php _e( 'Free Extensions With Plus', 'pagelines' ); ?></h3>
 					<div class='admin_billboard_text'>
-						With PageLines Plus, you get all PageLines-built extensions and more every month!
+						<?php _e( 'With PageLines Plus, you get all PageLines-built extensions and more every month!', 'pagelines' ); ?>
 					</div>
 			</div>
 		</div>
