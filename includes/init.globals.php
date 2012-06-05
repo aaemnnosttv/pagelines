@@ -70,7 +70,7 @@ define('PL_SETTINGS_SLUG', 'pagelines');
 define('PL_SETTINGS_URL', 'admin.php?page='.PL_SETTINGS_SLUG);
 define('PL_IMPORT_EXPORT_URL', 'admin.php?page='.PL_MAIN_DASH);
 define('PL_DASH_URL', 'admin.php?page='.PL_MAIN_DASH);
-define('PL_ACCOUNT_URL', 'admin.php?page='.PL_MAIN_DASH);
+define('PL_ACCOUNT_URL', 'admin.php?page='.PL_MAIN_DASH.'&rand='.rand().'#Your_Account'); // rand forces page reload
 define('PL_ADMIN_STORE_URL', 'admin.php?page='.PL_ADMIN_STORE_SLUG);
 define('PL_TEMPLATE_SETUP_URL', 'admin.php?page=pagelines_templates');
 define('PL_SPECIAL_OPTS_URL', 'admin.php?page=pagelines_special');
