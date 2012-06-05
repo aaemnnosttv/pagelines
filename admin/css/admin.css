@@ -3024,6 +3024,11 @@ font-weight: bold;
 
 
 /* universal stuff */
+	.spamp {
+		font-family: baskerville, palatino, georgia;
+		font-style: italic;
+		font-weight: normal;
+	}
 	#tabs textarea, #plpanel textarea{
 		font-size: 12px;
 		width: 94%;

@@ -57,12 +57,6 @@ class PageLinesSupportPanel {
 	function test_array(){
 		
 		$data = array(
-			'story1'	=> array(
-				'title'		=> 'PageLines Forum', 
-				'text'		=> "Find answers to common technical issues. Post questions and get responses from PageLines experts.", 
-				'img'		=> PL_ADMIN_ICONS . '/dash-forum.png', 
-				'link'		=> 'http://www.pagelines.com/forum/', 
-			), 
 			'story3'	=> array(
 				'title'		=> 'PageLines Live - Technical Community Chat (Plus Only)', 
 				'text'		=> "Talk to others in the PageLines community and get instant help from Live Moderators.", 
@@ -75,7 +69,18 @@ class PageLinesSupportPanel {
 				'img'		=> PL_ADMIN_ICONS . '/dash-docs.png', 
 				'link'		=> 'http://www.pagelines.com/wiki/', 
 			),
-			
+			'story1'	=> array(
+				'title'		=> 'PageLines Forum', 
+				'text'		=> "Find answers to common technical issues. Post questions and get responses from PageLines experts.", 
+				'img'		=> PL_ADMIN_ICONS . '/dash-forum.png', 
+				'link'		=> 'http://www.pagelines.com/forum/', 
+			),
+			'vids'	=> array(
+				'title'		=> 'PageLines Videos and Training', 
+				'text'		=> "Check out the latest videos on how to use PageLines fast and effectively via YouTube.", 
+				'img'		=> PL_ADMIN_ICONS . '/dash-video.png', 
+				'link'		=> 'http://www.youtube.com/user/pagelines/videos?view=1', 
+			),
 		);
 		
 		return $data;
