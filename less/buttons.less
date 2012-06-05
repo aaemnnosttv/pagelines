@@ -113,8 +113,8 @@ a.btn:hover {
 .btn-primary:hover,
 .btn-warning,
 .btn-warning:hover,
-.btn-danger,
-.btn-danger:hover,
+.btn-important,
+.btn-important:hover,
 .btn-success,
 .btn-success:hover,
 .btn-info,
@@ -127,7 +127,7 @@ a.btn:hover {
 // Provide *some* extra contrast for those who can get it
 .btn-primary.active,
 .btn-warning.active,
-.btn-danger.active,
+.btn-important.active,
 .btn-success.active,
 .btn-info.active,
 .btn-inverse.active {
@@ -144,7 +144,7 @@ a.btn:hover {
   .buttonBackground(@btnWarningBackground, @btnWarningBackgroundHighlight);
 }
 // Danger and error appear as red
-.btn-danger {
+.btn-important {
   .buttonBackground(@btnDangerBackground, @btnDangerBackgroundHighlight);
 }
 // Success appears as green
@@ -352,7 +352,7 @@ input[type="submit"].btn {
 // Account for other colors
 .btn-primary,
 .btn-warning,
-.btn-danger,
+.btn-important,
 .btn-info,
 .btn-success,
 .btn-inverse {
