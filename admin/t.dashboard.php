@@ -201,10 +201,10 @@ class PageLinesDashboard {
 			return;
 	
 		if(!pagelines_check_credentials() || !VPLUS):
-		?>
-		<a href="#" class="extend_button">Get PageLines Plus &rarr;</a>
+
+		printf( '<a href="%s" class="extend_button">%s &rarr;</a>', ADD_PLUS, __( 'Get PageLines Plus', 'pagelines' ) );
 		
-		<?php 
+
 		endif; 
 		
 		if(!pagelines_check_credentials()):?>
