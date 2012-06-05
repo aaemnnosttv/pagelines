@@ -202,22 +202,19 @@ class PageLinesDashboard {
 	
 		if(!pagelines_check_credentials() || !VPLUS):
 
-		printf( '<a href="%s" class="extend_button">%s &rarr;</a>', ADD_PLUS, __( 'Get PageLines Plus', 'pagelines' ) );
-		
+			printf( '<a href="%s" class="extend_button">%s &rarr;</a>', ADD_PLUS, __( 'Get PageLines Plus', 'pagelines' ) );
 
 		endif; 
 		
-		if(!pagelines_check_credentials()):?>
-			<a href="#" class="extend_button discrete">Have Plus? Login &rarr;</a>
-		<?php endif; 
+		if(!pagelines_check_credentials()):
+			printf( '<a href="%s" class="extend_button discrete">%s &rarr;</a>', admin_url( PL_ACCOUNT_URL ), __( 'Have Plus? Login', 'pagelines' ) );
+		endif; 
 		
 		if(VPLUS):
-		
-		
+
 			echo $this->get_upgrade_button( $story, 'install_rss' );
-		
-		
-			endif;
+				
+		endif;
 		
 	
 	}
