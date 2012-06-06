@@ -42,7 +42,7 @@ class PageLines_Upgrader_Skin extends WP_Upgrader_Skin {
 	*
 	*/
 	function feedback($string) {
-		
+	
 		$string = str_replace( 'downloading_package', '', $string );
 		$string = str_replace( 'unpack_package', '', $string );
 		$string = str_replace( 'installing_package', '', $string );
@@ -61,8 +61,11 @@ class PageLines_Upgrader_Skin extends WP_Upgrader_Skin {
 			if ( strstr( $string, 'Destination folder already exists' ) ) {
 				$string = str_replace( 'Destination folder already exists.', '', $string );
 				printf( __('Destination folder already exists %s', 'pagelines' ), $string );
-				exit;
-				
+				exit;				
+			}
+			if ( strstr( $string, 'Could not' ) ) {
+				printf( __('Permissions Error<br /> %s', 'pagelines' ), $string );
+				exit;	
 			}
 				// fatal error?
 				wp_die( sprintf( '<h1>Fatal error!</h1><strong>%s</strong>', $string ) );
