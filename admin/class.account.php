@@ -66,10 +66,10 @@ function pagelines_account_array(){
 		$d['_getting_started'] = pl_add_welcome();
 		
 		$d['_plus_extensions'] = pl_add_extensions_dash();
-		
-		$d['_Resources'] = pl_add_support_dash();
-		
 		$d['_live_chat'] = pl_add_live_chat_dash();
+		$d['_resources'] = pl_add_support_dash();
+		
+		
 		
 		$d['Your_Account']	= array(
 			'icon'			=> PL_ADMIN_ICONS.'/user.png',
