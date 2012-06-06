@@ -67,7 +67,9 @@ function pagelines_account_array(){
 		
 		$d['_plus_extensions'] = pl_add_extensions_dash();
 		
-		$d['_Support_and_Chat'] = pl_add_support_dash();
+		$d['_Resources'] = pl_add_support_dash();
+		
+		$d['_live_chat'] = pl_add_live_chat_dash();
 		
 		$d['Your_Account']	= array(
 			'icon'			=> PL_ADMIN_ICONS.'/user.png',
@@ -93,6 +95,69 @@ function pagelines_account_array(){
 }
 
 
+function pl_add_live_chat_dash(){
+	$ext = new PageLinesSupportPanel();
+
+	
+	
+	$a = array(
+		'icon'			=> PL_ADMIN_ICONS.'/balloon.png',
+		'pagelines_dashboard'	=> array(
+			'type'			=> 'text_content',
+			'flag'			=> 'hide_option',
+			'exp'			=> get_live_bill()
+		),
+	);
+	
+	return $a;
+}
+
+function get_live_bill(){
+	
+	$url = pagelines_check_credentials( 'vchat' );
+	
+	$iframe = ( $url ) ? sprintf( '<iframe class="live_chat_iframe" src="%s"></iframe>', $url ) : false;
+	$rand = 
+	ob_start();
+	?>
+	
+	<div class="admin_billboard">
+		<div class="admin_billboard_pad fix">
+				<h3 class="admin_header_main">
+				 <?php _e( 'PageLines Live Chat', 'pagelines'); ?>
+				</h3>
+				<div class='admin_billboard_text'>
+				 <?php _e( 'A moderated live community chat room for discussing technical issues. (Plus Only)', 'pagelines' ); ?>
+				</div>
+		</div>
+	</div>
+	<div class="live_chat_wrap fix">
+		
+		<?php 
+		
+		if($iframe):
+			echo $iframe; 
+		else:?>
+			
+			<div class="live_chat_up_bill">
+				<h3><?php _e( 'Live Chat Requires an active PageLines Plus account', 'pagelines' ); ?></h3>
+				<?php
+				if ( !pagelines_check_credentials() )
+					printf( '<a class="button" href="%s">Login</a>', admin_url(PL_ACCOUNT_URL) );
+					
+				else
+					if ( !VPLUS )
+						printf( '<a class="button" href="%s">%s</a>', ADD_PLUS, __( 'Upgrade to PageLines Plus', 'pagelines' ) );?>			 
+			</div>
+		<?php endif;	?>
+	</div>
+	<?php 
+	
+	$bill = ob_get_clean();
+
+	return apply_filters('pagelines_welcome_billboard', $bill);
+}
+
 function pl_add_support_dash(){
 	
 	
@@ -101,7 +166,7 @@ function pl_add_support_dash(){
 	
 	
 	$a = array(
-		'icon'			=> PL_ADMIN_ICONS.'/balloon-white.png',
+		'icon'			=> PL_ADMIN_ICONS.'/toolbox.png',
 		'pagelines_dashboard'	=> array(
 			'type'			=> 'text_content',
 			'flag'			=> 'hide_option',

@@ -12,20 +12,31 @@ class PageLinesSupportPanel {
 
 		$dash = new PageLinesDashboard;
 		
+		
+		
+		$view = $this->get_welcome_billboard();
+
 		// PageLines Plus
 		$args = array(
-			'title'			=> __( 'PageLines Professional Support', 'pagelines' ), 
+			'title'			=> __( 'PageLines Support', 'pagelines' ), 
 			'data'			=> $this->support_array(), 
 			'icon'			=> PL_ADMIN_ICONS . '/balloon-white.png', 
 			'excerpt-trim'	=> false,
 			'format'		=> 'button-links'
-		); 
+		);
 		
-		$view = $this->get_welcome_billboard();
-
 		$view .= $dash->wrap_dashboard_pane('tips', $args);
 		
-		$view .= $this->get_live_bill();
+		// PageLines Plus
+		$args = array(
+			'title'			=> __( 'Other PageLines Resources', 'pagelines' ), 
+			'data'			=> $this->resources_array(), 
+			'icon'			=> PL_ADMIN_ICONS . '/toolbox.png', 
+			'excerpt-trim'	=> false,
+			'format'		=> 'button-links'
+		);
+		
+		$view .= $dash->wrap_dashboard_pane('tips', $args);
 		
 		return $view;
 	}
@@ -38,7 +49,7 @@ class PageLinesSupportPanel {
 		<div class="admin_billboard">
 			<div class="admin_billboard_pad fix">
 					<h3 class="admin_header_main">
-					 PageLines Support
+					 PageLines Resources <span class="spamp">&amp;</span> Support
 					</h3>
 					<div class='admin_billboard_text'>
 					 Tons of options for fast and professional support.
@@ -79,56 +90,48 @@ class PageLinesSupportPanel {
 				'text'		=> __( 'Check out the latest videos on how to use PageLines fast and effectively via YouTube.', 'pagelines' ), 
 				'img'		=> PL_ADMIN_ICONS . '/dash-video.png', 
 				'link'		=> 'http://www.youtube.com/user/pagelines/videos?view=1', 
+			)
+		);
+		
+		return $data;
+		
+	}
+
+	function resources_array(){
+		
+		$data = array(
+			'aff'	=> array(
+				'title'		=> __( 'Affiliate Program', 'pagelines' ), 
+				'text'		=> __( 'Earn up to $130 (33%) on each referral to PageLines! Get started in 5 minutes.', 'pagelines' ), 
+				'img'		=> PL_ADMIN_ICONS . '/dash-aff.png', 
+				'link'		=> 'http://www.pagelines.com/partners', 
 			),
+			'pros'	=> array(
+				'title'		=> __( 'PageLines Pros', 'pagelines' ), 
+				'text'		=> __( 'The Pros are PageLines experts who you can pay to help customize your website.', 'pagelines' ), 
+				'img'		=> PL_ADMIN_ICONS . '/dash-pros.png', 
+				'link'		=> 'http://www.pagelines.com/pros', 
+			),
+			'dev'	=> array(
+				'title'		=> __( 'Developer Center', 'pagelines' ), 
+				'text'		=> __( 'Resources for professionals and developers using PageLines. Access to Beta releases and more.', 'pagelines' ), 
+				'img'		=> PL_ADMIN_ICONS . '/dash-dev.png', 
+				'link'		=> 'http://developer.pagelines.com', 
+			),
+			'trans'	=> array(
+				'title'		=> __( 'Translation Center', 'pagelines' ), 
+				'text'		=> __( 'Get PageLines in your language or collaborate on a translation.', 'pagelines' ), 
+				'img'		=> PL_ADMIN_ICONS . '/dash-trans.png', 
+				'link'		=> 'http://www.pagelines.com/translate/', 
+			),
+			
 		);
 		
 		return $data;
 		
 	}
 	
-	function get_live_bill(){
-		
-		$url = pagelines_check_credentials( 'vchat' );
-		
-		$iframe = ( $url ) ? sprintf( '<iframe class="live_chat_iframe" src="%s"></iframe>', $url ) : false;
-		$rand = 
-		ob_start();
-		?>
-		
-		<div class="admin_billboard">
-			<div class="admin_billboard_pad fix">
-					<h3 class="admin_header_main">
-					 <?php _e( 'PageLines Live Chat', 'pagelines'); ?>
-					</h3>
-					<div class='admin_billboard_text'>
-					 <?php _e( 'A moderated live community chat room for discussing technical issues. (Plus Only)', 'pagelines' ); ?>
-					</div>
-			</div>
-		</div>
-		<div class="live_chat_wrap fix">
-			
-			<?php 
-			
-			if($iframe):
-				echo $iframe; 
-			else:?>
-				
-				<div class="live_chat_up_bill">
-					<h3><?php _e( 'Live Chat Requires an active PageLines Plus account', 'pagelines' ); ?></h3>
-					<?php
-					if ( !pagelines_check_credentials() )
-						printf( '<a class="button" href="%s">Login</a>', admin_url(PL_ACCOUNT_URL) );
-						
-					else
-						if ( !VPLUS )
-							printf( '<a class="button" href="%s">%s</a>', ADD_PLUS, __( 'Upgrade to PageLines Plus', 'pagelines' ) );?>			 
-				</div>
-			<?php endif;	?>
-		</div>
-		<?php 
-		
-		$bill = ob_get_clean();
 	
-		return apply_filters('pagelines_welcome_billboard', $bill);
-	}
+	
+
 }

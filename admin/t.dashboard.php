@@ -30,10 +30,11 @@ class PageLinesDashboard {
 		// PageLines Blog Dashboard
 		
 		$args = array(
-			'title'	=> __( 'News from the PageLines Blog', 'pagelines' ),
-			'data'	=> PageLines_RSS::get_dash_rss( array( 'feed' => 'http://www.pagelines.com/feed/' ) ), 
+			'title'		=> __( 'News from the PageLines Blog', 'pagelines' ),
+			'data'		=> PageLines_RSS::get_dash_rss( array( 'feed' => 'http://www.pagelines.com/feed/' ) ), 
 			'classes'	=> 'news-dash pl-dash-half pl-dash-space', 
-			'icon'	=> PL_ADMIN_ICONS . '/welcome.png'
+			'icon'		=> PL_ADMIN_ICONS . '/welcome.png', 
+			'footer'	=> sprintf('Visit <a href="%s">PageLines Blog</a>', 'http://www.pagelines.com/blog')
 		); 
 		
 		$dashboards .= $this->dashboard_pane('news', $args);
@@ -43,7 +44,8 @@ class PageLinesDashboard {
 			'title'	=> __( 'From the Community', 'pagelines' ),
 			'data'	=> PageLines_RSS::get_dash_rss( array( 'feed' => 'http://www.pagelines.com/type/link/feed/', 'community' => true ) ),
 			'classes'	=> 'news-dash pl-dash-half', 
-			'icon'	=> PL_ADMIN_ICONS . '/users.png'
+			'icon'	=> PL_ADMIN_ICONS . '/users.png', 
+			'footer' => sprintf('<a href="%s">Submit</a> a community article', 'mailto:hello@pagelines.com')
 		); 
 		
 		$dashboards .= $this->dashboard_pane('community', $args);
@@ -51,20 +53,22 @@ class PageLinesDashboard {
 		// PageLines Store Latest Dash
 		
 		$args = array(
-			'title'	=> __( 'Updates on PageLines Store', 'pagelines' ),
-			'data'	=> PageLines_RSS::get_dash_rss(), 
+			'title'		=> __( 'Updates on PageLines Store', 'pagelines' ),
+			'data'		=> PageLines_RSS::get_dash_rss(), 
 			'classes'	=> 'news-dash pl-dash-half pl-dash-space', 
-			'icon'	=> PL_ADMIN_ICONS . '/store.png'
+			'icon'		=> PL_ADMIN_ICONS . '/store.png', 
+			'footer' 	=> sprintf('Visit <a href="%s">PageLines Store</a>', 'http://www.pagelines.com/store/')
 		); 
 		
 		$dashboards .= $this->dashboard_pane('store', $args);
 		
 		// PageLines Plus
 		$args = array(
-			'title'	=> __( 'Latest Extensions', 'pagelines' ),
-			'data'	=> PageLines_RSS::get_dash_rss( array( 'feed' => 'http://api.pagelines.com/rss/plus.php' ) ), 
+			'title'		=> __( 'Latest Extensions', 'pagelines' ),
+			'data'		=> PageLines_RSS::get_dash_rss( array( 'feed' => 'http://api.pagelines.com/rss/plus.php' ) ), 
 			'classes'	=> 'news-dash pl-dash-half', 
-			'icon'	=> PL_ADMIN_ICONS . '/plusbtn.png'
+			'icon'		=> PL_ADMIN_ICONS . '/plusbtn.png', 
+			'footer' 	=> sprintf('Visit <a href="%s">Plus Overview</a>', 'http://www.pagelines.com/plus/')
 		); 
 		
 		$dashboards .= $this->dashboard_pane('extensions', $args);
@@ -93,7 +97,8 @@ class PageLinesDashboard {
 			'classes'		=> '', 
 			'data'			=> array(), 
 			'data-format'	=> 'array', 
-			'excerpt-trim'	=> 10
+			'excerpt-trim'	=> 10, 
+			'footer'		=> false
 		);
 		
 		$a = wp_parse_args($args, $defaults); 
@@ -104,7 +109,10 @@ class PageLinesDashboard {
 			<div class="pl-dash-pad">
 				<div class="pl-vignette">
 					<h2 class="dash-title"><?php printf('<img src="%s"/> %s', $a['icon'], $a['title']); ?></h2>
-					<?php echo $this->dashboard_stories( $a ); ?>
+					<?php 
+						echo $this->dashboard_stories( $a ); 
+						echo $this->dashboard_footer( $a );
+					?>
 				</div>
 			</div>
 		</div>
@@ -122,10 +130,13 @@ class PageLinesDashboard {
 		
 	}
 	
-	function stories_rss_format(){
+	function dashboard_footer( $args = array() ){
+		
+		if($args['footer'])
+			printf('<div class="dash-foot"><div class="dash-foot-pad">%s</div></div>', $args['footer']);
 		
 	}
-	
+
 	function stories_array_format($args){
 		
 		$btn_text = (isset($args['btn-text'])) ? $args['btn-text'] : false; 

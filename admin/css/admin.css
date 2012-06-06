@@ -1206,6 +1206,8 @@
 		position: relative;
 		z-index: 5;
 	}
+		.pl-dash a{text-decoration: none;}
+		.pl-dash a:hover{text-decoration: underline;}
 	
 		.pl-dash-half{
 			width: 49%;
@@ -1245,7 +1247,14 @@
 			z-index: 3;
 		}
 			.pl-dash .dash-title img{vertical-align: top; margin-right: 3px;}
-		
+			
+			.pl-dash .dash-foot {
+				font-size:.9em;
+				text-align: center;
+				color: rgba(0,0,0,.5);
+				padding: 5px 15px;
+				background:#f7f7f7;
+			}
 		.pl-dash .story-title {
 			font-size: 1.16em;
 			margin-bottom: 0
@@ -1263,13 +1272,12 @@
 			border-top: 1px solid #fff;
 		
 		}
-			.pl-dashboard-story .dashpane-pad{
+			.pl-dashboard-story .dashpane-pad, .dash-foot .dash-foot-pad{
 				position: relative;
 				z-index: 100;
 			}
 	
 			.news-dash .dashpane-pad{
-				height: 80px;
 				overflow: hidden;
 			}
 			
