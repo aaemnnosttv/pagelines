@@ -11,12 +11,6 @@
 
 class PageLinesAccount {
 
-
-	/**
-	*
-	* @TODO document
-	*
-	*/
 	function __construct(){
 		
 		add_action( 'admin_init', array(&$this, 'update_lpinfo' ) );
@@ -27,12 +21,6 @@ class PageLinesAccount {
 	 * Save our credentials
 	 * 
 	 */	
-
-	/**
-	*
-	* @TODO document
-	*
-	*/
 	function update_lpinfo() {
 
 		if ( isset( $_POST['form_submitted'] ) && $_POST['form_submitted'] === 'plinfo' ) {
@@ -49,225 +37,209 @@ class PageLinesAccount {
 			exit;
 		}
 	}
-}
-
-/**
- *
- *  Returns Extension Array Config
- *
- */
-function pagelines_account_array(){
 	
-	$d = array();
+	/**
+	 *
+	 *  Returns Extension Array Config
+	 *
+	 */
+	function pagelines_account_array(){
 
-				
-		$d['updates']	= pl_add_dashboard();
-		
-		$d['_getting_started'] = pl_add_welcome();
-		
-		$d['_plus_extensions'] = pl_add_extensions_dash();
-		$d['_live_chat'] = pl_add_live_chat_dash();
-		$d['_resources'] = pl_add_support_dash();
-		
-		
-		
-		$d['Your_Account']	= array(
-			'icon'			=> PL_ADMIN_ICONS.'/user.png',
-			'credentials' 	=> array(
-				'type'		=> 'updates_setup',
-				'title'		=> __( 'Configure PageLines Account &amp; Auto Updates', 'pagelines' ),
-				'shortexp'	=> __( 'Get your latest updates automatically, direct from PageLines.', 'pagelines' ),
-				'layout'	=> 'full',
-			)
+		$d = array();
+
+
+			$d['updates']	= $this->pl_add_dashboard();
+
+			$d['_getting_started'] = $this->pl_add_welcome();
+
+			$d['_plus_extensions'] = $this->pl_add_extensions_dash();
+			$d['_live_chat'] = $this->pl_add_live_chat_dash();
+			$d['_resources'] = $this->pl_add_support_dash();
+
+
+
+			$d['Your_Account']	= array(
+				'icon'			=> PL_ADMIN_ICONS.'/user.png',
+				'credentials' 	=> array(
+					'type'		=> 'updates_setup',
+					'title'		=> __( 'Configure PageLines Account &amp; Auto Updates', 'pagelines' ),
+					'shortexp'	=> __( 'Get your latest updates automatically, direct from PageLines.', 'pagelines' ),
+					'layout'	=> 'full',
+				)
+			);
+			$d['Import-Export']	= array(
+				'icon'			=> PL_ADMIN_ICONS.'/extend-inout.png',
+				'import_set'	=> array(
+					'default'	=> '',
+					'type'		=> 'import_export',
+					'layout'	=> 'full',
+					'title'		=> __( 'Import/Export PageLines Settings', 'pagelines' ),						
+					'shortexp'	=> __( 'Use this form to upload PageLines settings from another install.', 'pagelines' ),
+				)
+			);
+
+		return apply_filters( 'pagelines_account_array', $d ); 
+	}
+
+
+	function pl_add_live_chat_dash(){
+		$ext = new PageLinesSupportPanel();
+
+
+
+		$a = array(
+			'icon'			=> PL_ADMIN_ICONS.'/balloon.png',
+			'pagelines_dashboard'	=> array(
+				'type'			=> 'text_content',
+				'flag'			=> 'hide_option',
+				'exp'			=> $this->get_live_bill()
+			),
 		);
-		$d['Import-Export']	= array(
-			'icon'			=> PL_ADMIN_ICONS.'/extend-inout.png',
-			'import_set'	=> array(
-				'default'	=> '',
-				'type'		=> 'import_export',
-				'layout'	=> 'full',
-				'title'		=> __( 'Import/Export PageLines Settings', 'pagelines' ),						
-				'shortexp'	=> __( 'Use this form to upload PageLines settings from another install.', 'pagelines' ),
-			)
-		);
-	
-	return apply_filters( 'pagelines_account_array', $d ); 
-}
 
+		return $a;
+	}
 
-function pl_add_live_chat_dash(){
-	$ext = new PageLinesSupportPanel();
+	function get_live_bill(){
 
-	
-	
-	$a = array(
-		'icon'			=> PL_ADMIN_ICONS.'/balloon.png',
-		'pagelines_dashboard'	=> array(
-			'type'			=> 'text_content',
-			'flag'			=> 'hide_option',
-			'exp'			=> get_live_bill()
-		),
-	);
-	
-	return $a;
-}
+		$url = pagelines_check_credentials( 'vchat' );
 
-function get_live_bill(){
-	
-	$url = pagelines_check_credentials( 'vchat' );
-	
-	$iframe = ( $url ) ? sprintf( '<iframe class="live_chat_iframe" src="%s"></iframe>', $url ) : false;
-	$rand = 
-	ob_start();
-	?>
-	
-	<div class="admin_billboard">
-		<div class="admin_billboard_pad fix">
-				<h3 class="admin_header_main">
-				 <?php _e( 'PageLines Live Chat', 'pagelines'); ?>
-				</h3>
-				<div class='admin_billboard_text'>
-				 <?php _e( 'A moderated live community chat room for discussing technical issues. (Plus Only)', 'pagelines' ); ?>
-				</div>
-		</div>
-	</div>
-	<div class="live_chat_wrap fix">
-		
-		<?php 
-		
-		if($iframe):
-			echo $iframe; 
-		else:?>
-			
-			<div class="live_chat_up_bill">
-				<h3><?php _e( 'Live Chat Requires an active PageLines Plus account', 'pagelines' ); ?></h3>
-				<?php
-				if ( !pagelines_check_credentials() )
-					printf( '<a class="button" href="%s">Login</a>', admin_url(PL_ACCOUNT_URL) );
-					
-				else
-					if ( !VPLUS )
-						printf( '<a class="button" href="%s">%s</a>', ADD_PLUS, __( 'Upgrade to PageLines Plus', 'pagelines' ) );?>			 
+		$iframe = ( $url ) ? sprintf( '<iframe class="live_chat_iframe" src="%s"></iframe>', $url ) : false;
+		$rand = 
+		ob_start();
+		?>
+
+		<div class="admin_billboard">
+			<div class="admin_billboard_pad fix">
+					<h3 class="admin_header_main">
+					 <?php _e( 'PageLines Live Chat', 'pagelines'); ?>
+					</h3>
+					<div class='admin_billboard_text'>
+					 <?php _e( 'A moderated live community chat room for discussing technical issues. (Plus Only)', 'pagelines' ); ?>
+					</div>
+					<?php if ( VPLUS ) printf( '<div class="plus_chat_header">%s</div>', $this->pagelines_livechat_rules() ); ?>
 			</div>
-		<?php endif;	?>
-	</div>
-	<?php 
-	
-	$bill = ob_get_clean();
+		</div>
+		<div class="live_chat_wrap fix">
 
-	return apply_filters('pagelines_welcome_billboard', $bill);
-}
+			<?php 
 
-function pl_add_support_dash(){
-	
-	
-	$ext = new PageLinesSupportPanel();
+			if($iframe):
+				echo $iframe; 
+			else:?>
 
-	
-	
-	$a = array(
-		'icon'			=> PL_ADMIN_ICONS.'/toolbox.png',
-		'pagelines_dashboard'	=> array(
-			'type'			=> 'text_content',
-			'flag'			=> 'hide_option',
-			'exp'			=> $ext->draw()
-		),
-	);
-	
-	return $a;
-	
-}
+				<div class="live_chat_up_bill">
+					<h3><?php _e( 'Live Chat Requires an active PageLines Plus account', 'pagelines' ); ?></h3>
+					<?php
+					if ( !pagelines_check_credentials() )
+						printf( '<a class="button" href="%s">Login</a>', admin_url(PL_ACCOUNT_URL) );
+
+					else
+						if ( !VPLUS )
+							printf( '<a class="button" href="%s">%s</a>', ADD_PLUS, __( 'Upgrade to PageLines Plus', 'pagelines' ) );?>			 
+				</div>
+			<?php endif;	?>
+		</div>
+		<?php 
+
+		$bill = ob_get_clean();
+
+		return apply_filters('pagelines_welcome_billboard', $bill);
+	}
+
+	function pagelines_livechat_rules() {
+
+		$url = 'api.pagelines.com/plus_latest';
+		if( $welcome = get_transient( 'pagelines_pluschat' ) )
+			return json_decode( $welcome );
+
+		$response = pagelines_try_api( $url, false );
+
+		if ( $response !== false ) {
+			if( ! is_array( $response ) || ( is_array( $response ) && $response['response']['code'] != 200 ) ) {
+				$out = '';
+			} else {
+
+			$welcome = wp_remote_retrieve_body( $response );
+			set_transient( 'pagelines_pluschat', $welcome, 86400 );
+			$out = json_decode( $welcome );
+			}
+		}
+	return $out;
+	}
+
+	function pl_add_support_dash(){
+
+		$ext = new PageLinesSupportPanel();
+
+		$a = array(
+			'icon'			=> PL_ADMIN_ICONS.'/toolbox.png',
+			'pagelines_dashboard'	=> array(
+				'type'			=> 'text_content',
+				'flag'			=> 'hide_option',
+				'exp'			=> $ext->draw()
+			),
+		);
+
+		return $a;
+
+	}
 
 
-function pl_add_extensions_dash(){
-	
-	
-	$ext = new PageLinesCoreExtensions();
+	function pl_add_extensions_dash(){
 
-	
-	
-	$a = array(
-		'icon'			=> PL_ADMIN_ICONS.'/plusbtn.png',
-		'pagelines_dashboard'	=> array(
-			'type'			=> 'text_content',
-			'flag'			=> 'hide_option',
-			'exp'			=> $ext->draw()
-		),
-	);
-	
-	return $a;
-	
-}
+		$ext = new PageLinesCoreExtensions();
 
-/**
- * Welcome Message
- *
- * @since 2.0.0
- */
-function pl_add_dashboard(){
-	
-	
-	$dash = new PageLinesDashboard();
+		$a = array(
+			'icon'			=> PL_ADMIN_ICONS.'/plusbtn.png',
+			'pagelines_dashboard'	=> array(
+				'type'			=> 'text_content',
+				'flag'			=> 'hide_option',
+				'exp'			=> $ext->draw()
+			),
+		);
 
-	
-	
-	$a = array(
-		'icon'			=> PL_ADMIN_ICONS.'/newspapers.png',
-		'pagelines_dashboard'	=> array(
-			'type'			=> 'text_content',
-			'flag'			=> 'hide_option',
-			'exp'			=> $dash->draw()
-		),
-	);
-	
-	return $a;
-	
-}
+		return $a;
+	}
 
-/**
- * Welcome Message
- *
- * @since 2.0.0
- */
-function pl_add_welcome(){
-	
-	$welcome = new PageLinesWelcome();
-	
-	$a = array(
-		'icon'			=> PL_ADMIN_ICONS.'/book.png',
-		'hide_pagelines_introduction'	=> array(
-			'type'			=> 'text_content',
-			'flag'			=> 'hide_option',
-			'exp'			=> $welcome->get_welcome()
-		),
-	);
-	
-	return apply_filters('pagelines_options_welcome', $a);
-	
-}
+	/**
+	 * Welcome Message
+	 *
+	 * @since 2.0.0
+	 */
+	function pl_add_dashboard(){
 
-function pagelines_plus_array(  ){
+		$dash = new PageLinesDashboard();
 
-	$d = array(
-		'PageLines_Plus'		=> array(
-			'icon'			=> PL_ADMIN_ICONS.'/rocket-fly.png',
-			'plus_welcome' 	=> array(
-				'type'		=> 'plus_welcome',
-//				'title'		=> __( 'Sup bitches! You have the Plus!', 'pagelines' ),
-//				'shortexp'	=> __( 'All this is FREE!.', 'pagelines' ),
-				'layout'	=> 'full',
-			)
-		),
-		'Support'		=> array(
-			'icon'			=> PL_ADMIN_ICONS.'/extend-inout.png',
-			'plus_support'	=> array(
-				'default'	=> '',
-				'type'		=> 'plus_support',
-				'layout'	=> 'full',
-				'title'		=> __( 'Support stuff', 'pagelines' ),						
-				'shortexp'	=> __( 'Blah blah...', 'pagelines' ),
-			)
-		)
-	);
-	return apply_filters( 'pagelines_plus_array', $d ); 
+		$a = array(
+			'icon'			=> PL_ADMIN_ICONS.'/newspapers.png',
+			'pagelines_dashboard'	=> array(
+				'type'			=> 'text_content',
+				'flag'			=> 'hide_option',
+				'exp'			=> $dash->draw()
+			),
+		);
+
+		return $a;
+	}
+
+	/**
+	 * Welcome Message
+	 *
+	 * @since 2.0.0
+	 */
+	function pl_add_welcome(){
+
+		$welcome = new PageLinesWelcome();
+
+		$a = array(
+			'icon'			=> PL_ADMIN_ICONS.'/book.png',
+			'hide_pagelines_introduction'	=> array(
+				'type'			=> 'text_content',
+				'flag'			=> 'hide_option',
+				'exp'			=> $welcome->get_welcome()
+			),
+		);
+
+		return apply_filters('pagelines_options_welcome', $a);
+	}	
 }

@@ -59,6 +59,7 @@ require_once (PL_ADMIN . '/library.help.php' );
  * Load account handling
  */
 require_once ( PL_ADMIN . '/class.account.php' );
+global $account_control;
 $account_control = new PageLinesAccount;
 
 /**
