@@ -1245,8 +1245,6 @@ class PageLines_ShortCodes {
 			'hash'		=> rand()
 	    ), $atts ) );
  
-	    if(($type == 'button' ) ? 'btn' : '');
- 
 	    	ob_start();
  
 	    		?>
