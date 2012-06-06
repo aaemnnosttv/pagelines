@@ -712,6 +712,7 @@
 		$text = '&extend_text=section_upgrade#your_added_sections';
 		$message = __( 'Section Upgraded', 'pagelines' );
 		
+		$url = PL_ADMIN_STORE_SLUG;
 		if ( $dash ) {
 			$url = PL_MAIN_DASH;
 			$this->remove_update( $file );
