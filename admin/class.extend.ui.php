@@ -393,7 +393,7 @@ function pane_template_old( $e, $count ){
 			$file = '/' . trailingslashit( $name ) . $name . '.php'; 
 			$btext = 'Activate Sections';
 			$text = sprintf( __( 'Sections plugin installed, now activate it!', 'pagelines' ) );
-			$install_js_call = sprintf( $this->exprint, 'plugin_activate', $key, 'plugins', $file, '', '', __( 'Activating', 'pagelines' ) );
+			$install_js_call = sprintf( $this->exprint, 'plugin_activate', $key, 'plugins', $file, '', '', __( 'Activating', 'pagelines' ), 0 );
 			
 		} elseif($status == 'notinstalled'){
 			$btext = __( 'Install It Now!', 'pagelines' );

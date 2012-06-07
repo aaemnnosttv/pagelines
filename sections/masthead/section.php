@@ -166,14 +166,12 @@ class PLMasthead extends PageLinesSection {
 	if($mast_title){ ?>
 	
 	<header class="jumbotron masthead">
-	  <div class="splash">
 	  	<?php
 
 	  		if($mast_img)
-	  			printf('<img class="masthead-img" src="%s" alt="%s"/>',$mast_img, $mast_imgalt);
+	  			printf('<div class="splash"><img class="masthead-img" src="%s" alt="%s"/></div>',$mast_img, $mast_imgalt);
 
 	  	?>
-	  </div>
 
 	  <div class="inner">
 	  	<?php

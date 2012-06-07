@@ -717,9 +717,6 @@ function pagelines_settings_menu_link(  ){
 	$wp_admin_bar->add_menu( array( 'id' => 'pl_special', 'parent' => 'pl_settings', 'title' => __( 'Page Options', 'pagelines' ), 'href' => admin_url( PL_TEMPLATE_SETUP_URL ) ) );
 	$wp_admin_bar->add_menu( array( 'id' => 'pl_templates', 'parent' => 'pl_settings', 'title' =>  __( 'Drag &amp; Drop', 'pagelines' ), 'href' => admin_url( PL_TEMPLATE_SETUP_URL ) ) );
 	$wp_admin_bar->add_menu( array( 'id' => 'pl_extend', 'parent' => 'pl_settings', 'title' => __('Store', 'pagelines'), 'href' => admin_url( PL_ADMIN_STORE_URL ) ) );
-	
-	$v = ( VPLUS ) ? __( '- Plus', 'pagelines' ) : '';
-	$wp_admin_bar->add_menu( array( 'id' => 'pl_account', 'parent' => 'pl_settings', 'title' => sprintf( '%s %s', __('Account', 'pagelines'), $v ), 'href' => admin_url( PL_ACCOUNT_URL ) ) );
 
 	$template_name = (isset($pagelines_template->template_name)) ? $pagelines_template->template_name : false;
 
