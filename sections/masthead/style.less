@@ -1,20 +1,35 @@
 /* Jumbotrons
 -------------------------------------------------- */
-.jumbotron {
+.masthead {
   
     position: relative;
-
-	h1 {
-	  margin-bottom: 9px;
-	  font-size: 81px;
-	  font-weight: bold;
-	  letter-spacing: -1px;
-	  line-height: 1;
+    margin-bottom: @baseLineHeight * 3;
+	
+	.inner{
+		padding-top: @baseLineHeight * 2;
+	}
+	
+	h1,
+	p {
+	  text-align: center;
 	}
 
-	p {
+	.masthead-title {
+		margin-bottom: 9px;
+		font-size: 81px;
+		letter-spacing: -1px;
+		line-height: 1;
+		margin-bottom: 18px;
+	}
+
+	.masthead-tag {
 		margin: 0;
 		margin-bottom: 18px;
+		margin-left: 5%;
+		margin-right: 5%;
+		font-size: 30px;
+		line-height: 36px;
+		font-family: @plAltFont;
 		font-weight: 300;
 	}
 
@@ -31,28 +46,6 @@
 	}
 }
 
-.masthead {
-  
-    padding-top: @baseLineHeight * 2;
-    margin-bottom: @baseLineHeight * 3;
-
-	h1,
-	p {
-	  text-align: center;
-	}
-
-	h1 {
-	  margin-bottom: 18px;
-	}
-
-	p {
-	  margin-left: 5%;
-	  margin-right: 5%;
-	  font-size: 30px;
-	  line-height: 36px;
-	}
-
-}
 
 .subhead {
   
@@ -87,9 +80,7 @@
 }
 
 .splash {
-
-	margin-bottom:40px;
-	
+	padding-top: @baseLineHeight / 2;
 	img {
 		display:block;
 		margin:0 auto;
@@ -100,46 +91,55 @@
  ************************/
 
 @media screen and (max-width: 980px){
-	.jumbotron h1 {
+	.masthead .masthead-title {
 		font-size: 72px;
 	}
 }
 @media screen and (max-width: 768px){
-	.masthead{
-		padding-top: 18px;
-		margin-bottom: 45px;
-	}
 
-	.jumbotron h1 {
-		font-size: 54px;
-	}
-	.jumbotron p {
-		margin-right: 0;
-		margin-left: 0;
-	}
-	.jumbotron .btn {
-		margin-bottom: 10px;
+	.masthead {
+		
+		.inner{
+			padding-top: @baseLineheight;
+		}
+		
+		.masthead-title {
+			font-size: 54px;
+		}
+		
+		.masthead-tag{
+			margin-right: 0;
+			margin-left: 0;
+		}
+		.btn {
+			margin-bottom: 10px;
+		}
 	}
 
 }
 @media screen and (max-width:480px) {
 	.masthead {
-		padding-top: 0;
-	}
-	.jumbotron h1 {
-		font-size: 45px;
-		margin-right: 0;
-	}
-	.jumbotron p {
-		margin-right: 0;
-		margin-left: 0;
-		font-size: 18px;
-		line-height: 24px;
-	}
-	.jumbotron .btn {
-		display: block;
-		font-size: 18px;
-		padding: 10px 14px;
-		margin: 0 auto 10px;
-	}
+		
+		.inner{
+			padding-top: 10px;
+		}
+		.masthead-title {
+			font-size: 45px;
+			margin-right: 0;
+		}
+		
+		.masthead-tag{
+			margin-right: 0;
+			margin-left: 0;
+			font-size: 18px;
+			line-height: 24px;
+		}
+		.btn {
+			display: block;
+			font-size: 18px;
+			padding: 10px 14px;
+			margin: 0 auto 10px;
+		}
+	} 
+
 }

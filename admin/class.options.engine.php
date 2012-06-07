@@ -836,7 +836,7 @@ class OptEngine {
 		
 		// Output
 		$label = $this->input_label($oid, $o['inputlabel']);
-		printf('<p>%s %s %s %s %s %s</p>',$label, $up_url, $up_button, $reset_button, $ajax_url, $preview_size);		
+		printf('<p>%s %s<br/> %s %s %s %s</p>',$label, $up_url, $up_button, $reset_button, $ajax_url, $preview_size);		
 		
 		$special_image_class = '';
 		
