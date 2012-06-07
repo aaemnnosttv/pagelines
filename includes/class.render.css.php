@@ -43,6 +43,7 @@ class PageLinesRenderCSS {
 			'utilities',
 			'pl-objects',
 			'pl-tables',
+			'wells',
 			'color', // HAS TO BE LAST	
 		);
 		return $files;
