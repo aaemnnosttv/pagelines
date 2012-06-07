@@ -116,7 +116,8 @@ class PageLines_ShortCodes {
 			'themeurl'					=>	array( 'function' => 'get_themeurl' ),
 			'link'						=>	array( 'function' => 'create_pagelink' ),
 			'bookmark'					=>	array( 'function' => 'bookmark_link' ),
-			'pl_raw'					=>	array( 'function' => 'do_raw' )
+			'pl_raw'					=>	array( 'function' => 'do_raw' ),
+			'pl_video'					=>	array( 'function' => 'pl_video_shortcode' )
 			);
 		
 		return $core;
@@ -1325,6 +1326,35 @@ class PageLines_ShortCodes {
 		return apply_filters( 'pagelines_button_shortcode', $output, $atts );
 
 	}
+
+	/**
+	 * XX. Responsive Videos
+	 * 
+	 * @example <code>[pl_video]</code> is the default usage
+	 * @example <code>[pl_video type="youtube" url="urltovideo"]</code>
+	 */
+    function pl_video_shortcode ($atts) {
+    	
+    	extract( shortcode_atts( array(
+    		'type' =>'',
+	    	'id' =>'',
+	    	'width' => '',
+	    	'height' => ''
+	    	), $atts ) );
+
+        if ($atts['type'] == 'youtube') {
+	    
+	    	$out = sprintf('<div class="pl-video"><iframe src="http://www.youtube.com/embed/%2$s?wmode=transparent" width="%3$s" height="%4$s" frameborder="0" allowfullscreen wmode="transparent"></iframe></div>',$type,$id,$width,$height);
+	    	return $out;
+
+	    } elseif ($atts['type'] == 'vimeo') {
+
+	    $out = sprintf('<div class="pl-video"><iframe src="http://player.vimeo.com/video/%2$s" width="%3$s" height="%4$s"  frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen wmode="transparent"></iframe></div>',$type,$id,$width,$height);
+	    	return $out;
+	    }
+    }
+
+
 
 	function filters() {
 
