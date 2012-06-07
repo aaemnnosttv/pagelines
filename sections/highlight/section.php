@@ -31,40 +31,44 @@ class PageLinesHighlight extends PageLinesSection {
 		$settings = wp_parse_args($settings, $this->optionator_default);
 		
 		$metatab_array = array(
-
-				'_highlight_head' => array(
-					'version' 		=> 'pro',
-					'type' 			=> 'text',
-					'size'			=> 'big',		
-					'title' 		=> 'Highlight Header Text (Optional)',
-					'shortexp' 		=> 'Add the main header text for the highlight section.'
-				),
-				'_highlight_subhead' => array(
-					'version' 		=> 'pro',
-					'type' 			=> 'text',
-					'size'			=> 'big',		
-					'title' 		=> 'Highlight Subheader Text (Optional)',
-					'shortexp' 		=> 'Add the main subheader text for the highlight section.'
-				),
-				
-				'_highlight_splash' => array(
-					'version' 		=> 'pro',
-					'type' 			=> 'image_upload',	
-					'inputlabel'	=> 'Upload Splash Image',	
-					'title' 		=> 'Highlight Splash Image (Optional)',
-					'shortexp' 		=> 'Upload an image to use in the highlight section (if activated)'
-				),
-				'_highlight_splash_position' => array(
-					'version' 		=> 'pro',
-					'type' 			=> 'select',		
-					'title' 		=> 'Highlight Image Position',
-					'shortexp' 		=> 'Select the position of the highlight image.',
-					'selectvalues'=> array(
-						'top'			=> array( 'name' => 'Top' ),
-						'bottom'	 	=> array( 'name' => 'Bottom' )
+			
+			'hl_options' => array(
+				'version' 		=> 'pro',
+				'type' 			=> 'multi_option',
+				'title' 		=> 'Highlight Header Text (Optional)',
+				'shortexp' 		=> 'Add the main header text for the highlight section.',
+				'selectvalues'	=> array(
+					'_highlight_head' => array(
+						'version' 		=> 'pro',
+						'type' 			=> 'text',
+						'size'			=> 'big',		
+						'inputlabel' 	=> 'Highlight Header Text (Optional)',
 					),
-				),
-			);
+					'_highlight_subhead' => array(
+						'version' 		=> 'pro',
+						'type' 			=> 'text',
+						'size'			=> 'big',		
+						'inputlabel' 	=> 'Highlight Subheader Text (Optional)',
+					),
+
+					'_highlight_splash' => array(
+						'version' 		=> 'pro',
+						'type' 			=> 'image_upload',	
+						'inputlabel'	=> 'Upload Splash Image'
+					),
+					'_highlight_splash_position' => array(
+						'version' 		=> 'pro',
+						'type' 			=> 'select',		
+						'inputlabel' 		=> 'Highlight Image Position',
+						'selectvalues'=> array(
+							'top'			=> array( 'name' => 'Top' ),
+							'bottom'	 	=> array( 'name' => 'Bottom' )
+						),
+					),
+				)
+			)
+				
+		);
 		
 		$metatab_settings = array(
 				'id' 		=> $this->tabID,

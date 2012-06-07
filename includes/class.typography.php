@@ -686,7 +686,7 @@ function pl_type_el($type_key, $element){
 	$t = wp_parse_args($type, $defaults);
 		
 	if( $element == 'stack' )
-		$value = get_font_stack($type['font']);
+		$value = get_font_stack($t['font']);
 	else
 		$value = $t[$element];
 		
