@@ -561,8 +561,8 @@ class PageLinesFoundry {
 	*
 	*/
 	function get_stack($font_id){
-		if( ! isset( $this->foundry[$font_id]['family'] ) )
-			return '"Helvetica" Arial, serif';
+		if( '' == $font_id )
+			$font_id = 'helvetica';
 		return $this->foundry[$font_id]['family'];
 	}
 	
@@ -708,15 +708,10 @@ function get_font_stack($font_slug){
 		
 		$foundry = new PageLinesFoundry;
 		
-		if ( ! isset($foundry->foundry[$font_slug]) )
-			return '"Helvetica" Arial, serif';
-		
 		return $foundry->foundry[$font_slug]['family'];
 		
-		
 	}else 
-		return '';
-	
+		return '';	
 }
 
 /**
