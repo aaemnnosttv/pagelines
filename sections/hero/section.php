@@ -23,6 +23,7 @@ class PLheroUnit extends PageLinesSection {
 	function section_optionator( $settings ){
 		
 		$settings = wp_parse_args($settings, $this->optionator_default);
+
 		
 		$option_array = array(
 
@@ -77,7 +78,7 @@ class PLheroUnit extends PageLinesSection {
 							'selectvalues'	=> array(
 								'primary'	=> array('name' => 'Blue'), 
 								'warning'	=> array('name' => 'Orange'), 
-								'danger'	=> array('name' => 'Red'), 
+								'important'	=> array('name' => 'Red'), 
 								'success'	=> array('name' => 'Green'), 
 								'info'		=> array('name' => 'Light Blue'), 
 								'reverse'	=> array('name' => 'Grey'), 
@@ -129,6 +130,8 @@ class PLheroUnit extends PageLinesSection {
 			);
 		
 		register_metatab($metatab_settings, $option_array);
+
+
 	}
 
 	/**
@@ -137,7 +140,9 @@ class PLheroUnit extends PageLinesSection {
    function section_template( $clone_id ) { 
 
 		$hero_lt_width = ploption( 'herounit_left_width', $this->oset );
+			 if ( ! $hero_lt_width )$hero_lt_width = 'span6';
 		$hero_rt_width = ploption( 'herounit_right_width', $this->oset );
+			if ( ! $hero_rt_width )$hero_rt_width = 'span6';
    		$hero_title = ploption( 'pagelines_herounit_title', $this->tset );
 		$hero_tag = ploption( 'pagelines_herounit_tagline', $this->tset );
 		$hero_img = ploption( 'pagelines_herounit_image', $this->tset );
@@ -174,7 +179,7 @@ class PLheroUnit extends PageLinesSection {
 				<?php 
 				    
 					if($hero_img)
-						printf('<div class="hero_image"><img class="pl-imageframe" src="%s" /></div>', $hero_img);
+						printf('<div class="hero_image"><img class="pl-imageframe" src="%s" /></div>', apply_filters( 'pl_hero_image', $hero_img ) );
 					
 				?>
 			</div>
