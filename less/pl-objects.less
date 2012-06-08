@@ -37,6 +37,27 @@
 	.media .img.rtimg{float:right; margin-left: 15px;}
 
 /*
+ *  @ Vignettes
+ ***********************************/
+	.pl-vignette {
+	  position: relative;
+		&:after{
+			box-shadow: inset 0 0 8px rgba(0,0,0,.2);
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 2;
+			content: "";
+		}
+		.pl-vignette-allow-click{
+			position: relative;
+			z-index: 100;
+		}
+	}
+
+/*
  *  @ PageLines Proto CSS Grid 
  ***********************************/
 

@@ -212,6 +212,9 @@ class PLNavBar extends PageLinesSection {
 	
 	$theme_class = ($theme) ? sprintf(' pl-color-%s', $theme) : ' pl-color-black-trans';
 	
+	$brand = (ploption('navbar_logo') || ploption('navbar_logo') != '') ? sprintf('<img src="%s" />', ploption('navbar_logo')) : sprintf('<h2 class="plbrand-text">%s</h2>', get_bloginfo('name'));
+
+	
 	?>
 	<div class="navbar fix <?php echo $width_class.' '.$theme_class; ?>">
 	  <div class="navbar-inner <?php echo $content_width_class;?>">
@@ -223,12 +226,7 @@ class PLNavBar extends PageLinesSection {
 	      </a>
 			<?php if($passive): ?>
 				<a class="plbrand" href="<?php echo esc_url(home_url());?>">
-					<?php 		
-						if(ploption('navbar_logo') || ploption('navbar_logo') != '')
-							printf('<img src="%s" />', ploption('navbar_logo'));
-						else
-							printf('<h2 class="plbrand-text">%s</h2>', get_bloginfo('name'));					
-						?>
+					<?php echo apply_filters('navbar_brand', $brand);	?>
 				</a>
 			<?php endif; ?>
 

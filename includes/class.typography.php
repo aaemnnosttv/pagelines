@@ -561,8 +561,9 @@ class PageLinesFoundry {
 	*
 	*/
 	function get_stack($font_id){
-		if( ! isset( $this->foundry[$font_id]['family'] ) )
-			return '"Helvetica" Arial, serif';
+		if( '' == $font_id || ! array_key_exists( $font_id, $this->foundry ) )
+			$font_id = 'helvetica';
+
 		return $this->foundry[$font_id]['family'];
 	}
 	
@@ -688,7 +689,7 @@ function pl_type_el($type_key, $element){
 	$t = wp_parse_args($type, $defaults);
 	
 	if( $element == 'stack' )
-		$value = get_font_stack($type['font']);
+		$value = get_font_stack($t['font']);
 	else
 		$value = $t[$element];
 		
@@ -703,20 +704,12 @@ function pl_type_el($type_key, $element){
 */
 function get_font_stack($font_slug){
 	
+	$foundry = new PageLinesFoundry;
 	
-	if( $font_slug ){
-		
-		$foundry = new PageLinesFoundry;
-		
-		if ( ! isset($foundry->foundry[$font_slug]) )
-			return '"Helvetica" Arial, serif';
-		
-		return $foundry->foundry[$font_slug]['family'];
-		
-		
-	}else 
-		return '';
-	
+	if ( '' == $font_slug || ! array_key_exists( $font_slug, $foundry->foundry ) )
+		$font_slug = 'helvetica';
+				
+	return $foundry->foundry[$font_slug]['family'];	
 }
 
 /**
