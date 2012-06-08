@@ -381,6 +381,16 @@
     background-image: -o-radial-gradient(circle, @innerColor, @outerColor);
     background-repeat: no-repeat;
   }
+	.radialAdvanced(@innerColor: #555, @outerColor: #333, @horizontal: 50%, @vertical: 50%, @innerStop: 19px, @outerStop: 170px)  {
+		background: @outerColor;
+		background-image: -webkit-radial-gradient(@horizontal @vertical, @innerColor @innerStop, @outerColor @outerStop);
+		background-image: -moz-radial-gradient(@horizontal @vertical, @innerColor @innerStop, @outerColor @outerStop);
+		background-image: -o-radial-gradient(@horizontal @vertical, @innerColor @innerStop,@outerColor @outerStop);
+		background-image: -ms-radial-gradient(@horizontal @vertical, @innerColor @innerStop, @outerColor @outerStop);
+		background-image: radial-gradient(@horizontal @vertical, @innerColor @innerStop, @outerColor @outerStop);
+		background-repeat: no-repeat;
+	}
+
   .striped(@color, @angle: -45deg) {
     background-color: @color;
     background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(.25, rgba(255,255,255,.15)), color-stop(.25, transparent), color-stop(.5, transparent), color-stop(.5, rgba(255,255,255,.15)), color-stop(.75, rgba(255,255,255,.15)), color-stop(.75, transparent), to(transparent));
