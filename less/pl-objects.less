@@ -65,7 +65,7 @@
 	.pp2, .pp3, .pp4, .pp5, .pp6 {margin: 0; padding:0; margin-right: 4%; float: left; border: none;}
 	.pp3{margin-right: 3%;}
 	.pp4, .pp5, .pp6{margin-right: 2%;}
-	.pprow.debug .pp2, .pprow.debug .pp3, .pprow.debug .pp4, .pprow.debug .pp5, .pprow.debug .pp6{outline: 1px solid blue;}
+	
 	.pp1 { width: 100%; float: left;}
 	.pp2 { width: 48%; }
 	.pp3 { width: 31.333333333%; }
@@ -73,40 +73,48 @@
 	.pp5 { width: 18.4%; }
 	.pp6 { width: 15%; }
 	.pplast { margin-right: 0; }
+
 	
-	.ppfull .pp2, .ppfull .pp3, .ppfull .pp4, .ppfull .pp5, .ppfull .pp6{
-		margin-right: 0;
+	.ppfull{
+		.pp2, .pp3, .pp4, .pp5, .pp6{
+			margin-right: 0;
+		}
+		.pp2 { width: 50%; }
+		.pp3 { width: 33.3333333%; }
+		.pp4 { width: 25%; }
+		.pp5 { width: 20%; }
+		.pp6 { width: 16.66666667%; }
 	}
-	.ppfull .pp2{ width: 50% }
-	.ppfull .pp3{ width: 33.3333333% }
-	.ppfull .pp4{ width: 25% }
-	.ppfull .pp5{ width: 20% }
-	.ppfull .pp6{ width: 16.66666667% }
 	
 	
 
 	@media screen and (max-width:650px) { 	
-		.responsive #site .pp2, .responsive #site .pp3{ 
-	       	width: 100%;
-			margin-right: 0;
-	    }
-			
-		.responsive #site .pprand{
-			width: 100% !important;
-			float: none;
-		}
-			.responsive #site .pprand-pad{
-				padding: 15px !important;
+		.responsive #site{
+			.pp2, .pp3, .ppfree{
+				width: 100%;
+				margin-right: 0;
 			}
+			
+			.pprand{
+				width: 100% !important;
+				float: none;
+				.pprand-pad{
+					padding: 15px !important;
+				}
+			}
+		}
+			
 	}
 	@media screen and (max-width:700px) { 	
-		.responsive #site .pp4, #site .pp5, #site .pp6, #site .pp4{ 
-	       	width: 100%;
-			margin-right: 0;
-	    }
+		.responsive #site{
+			.pp4, .pp5, .pp6{
+				width: 100%;
+				margin-right: 0;
+			}
+		}
 	}
 	
-	.pp2, .pp3, .pp4, .pp5, .pp6 {
+	.pp2, .pp3, .pp4, .pp5, .pp6, .ppfree {
 	 	transition:all .2s linear; 
 	    -o-transition:all .2s linear; 
 	    -moz-transition:all .2s linear; 

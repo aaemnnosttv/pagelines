@@ -179,7 +179,7 @@ class PLheroUnit extends PageLinesSection {
 				<?php 
 				    
 					if($hero_img)
-						printf('<div class="hero_image"><img class="pl-imageframe" src="%s" /></div>', $hero_img);
+						printf('<div class="hero_image"><img class="pl-imageframe" src="%s" /></div>', apply_filters( 'pl_hero_image', $hero_img ) );
 					
 				?>
 			</div>
