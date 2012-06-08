@@ -561,8 +561,9 @@ class PageLinesFoundry {
 	*
 	*/
 	function get_stack($font_id){
-		if( '' == $font_id )
+		if( '' == $font_id || ! array_key_exists( $font_id, $this->foundry ) )
 			$font_id = 'helvetica';
+
 		return $this->foundry[$font_id]['family'];
 	}
 	
@@ -703,15 +704,12 @@ function pl_type_el($type_key, $element){
 */
 function get_font_stack($font_slug){
 	
+	$foundry = new PageLinesFoundry;
 	
-	if( $font_slug ){
-		
-		$foundry = new PageLinesFoundry;
-		
-		return $foundry->foundry[$font_slug]['family'];
-		
-	}else 
-		return '';	
+	if ( '' == $font_slug || ! array_key_exists( $font_slug, $foundry->foundry ) )
+		$font_slug = 'helvetica';
+				
+	return $foundry->foundry[$font_slug]['family'];	
 }
 
 /**
