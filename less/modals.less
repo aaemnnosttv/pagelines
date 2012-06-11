@@ -62,8 +62,9 @@
 // Body (where all modal content resises)
 .modal-body {
   overflow-y: auto;
-  max-height: 400px;
+  max-height: none;
   padding: 15px;
+  -webkit-overflow-scrolling: touch; 
 }
   .modal-body p {
     margin:0;
@@ -92,5 +93,27 @@
   // but override that for button groups
   .btn-group .btn + .btn {
     margin-left: -1px;
+  }
+}
+
+
+@media (max-width:480px) {
+  // Modals
+  .modal {
+    position:fixed;
+    top:   10%;
+    left:  10%;
+    right: 10%;
+    bottom: 3%;
+    width: 80%;
+    margin: 0;
+    &.fade.in { top: auto; }
+  }
+  .modal-body {
+    height:60%;
+  }
+  .modal-header .close {
+    padding: 10px;
+    margin: -10px;
   }
 }
