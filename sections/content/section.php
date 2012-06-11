@@ -7,7 +7,6 @@
 	Class Name: PageLinesContent
 	Workswith: templates
 	Cloning: false
-	Failswith: 404_page
 */
 
 /**

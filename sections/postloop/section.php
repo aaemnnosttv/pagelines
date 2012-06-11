@@ -6,6 +6,7 @@
 	Description: The Main Posts Loop. Includes content and post information.
 	Class Name: PageLinesPostLoop	
 	Workswith: main
+	Failswith: 404_page
 */
 
 /**
