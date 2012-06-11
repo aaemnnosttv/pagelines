@@ -893,7 +893,7 @@ class PageLines_ShortCodes {
 
 		$atts = shortcode_atts( $defaults, $atts );
 
-	    $target = ( $target == 'blank' ) ? ' target="_blank"' : '';
+	    $target = ( $target == 'blank' ) ? '_blank' : '';
 
 	    $out = sprintf( '<a href="%1$s" target="%2$s" class="btn btn-%3$s btn-%4$s">%5$s</a>', 
 					$atts['link'],
