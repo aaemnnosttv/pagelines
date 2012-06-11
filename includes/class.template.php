@@ -291,7 +291,6 @@ class PageLinesTemplate {
 	function unset_hidden_sections($ta_sections, $hook_id){
 			
 		global $post;
-		
 			
 		if(is_array($ta_sections)){
 			foreach($ta_sections as $key => $sid){
@@ -304,6 +303,12 @@ class PageLinesTemplate {
 				if($this->unset_section($sid, $template_slug, $sc, $dsc))
 					unset($ta_sections[$key]);
 			
+				
+				// do not show section if post/page is passworded.
+				if( post_password_required() ) {
+					if( 'main' === $hook_id && 'PageLinesPostLoop' !== $sid )
+						unset( $ta_sections[$key]);
+				}
 			}
 		}
 		

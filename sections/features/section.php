@@ -331,9 +331,6 @@ class PageLinesFeatures extends PageLinesSection {
 		global $pagelines_ID;
 		global $pagelines_layout;
 		$current_page_post = $post;
-		
-		if ( post_password_required() )
-			return;
 
 		if( empty( $f ) ){
 			echo setup_section_notify( $this, __( "No Feature posts matched this page's criteria", 'pagelines' ) );

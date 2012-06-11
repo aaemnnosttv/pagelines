@@ -283,9 +283,6 @@ class PageLinesBoxes extends PageLinesSection {
 	*/
    function section_template( $clone_id = null ) {    
 		
-		if( post_password_required() )
-			return;		
-		
 		// Options
 			$per_row = ( ploption( 'box_col_number', $this->oset) ) ? ploption( 'box_col_number', $this->oset) : 3; 
 			$box_set = ( ploption( 'box_set', $this->oset ) ) ? ploption( 'box_set', $this->oset ) : null;
