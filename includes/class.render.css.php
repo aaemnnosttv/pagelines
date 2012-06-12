@@ -386,7 +386,7 @@ class PageLinesRenderCSS {
 			echo $this->minify( $b['sections'] );
 			echo $this->minify( $a['type'] );
 			echo $this->minify( $a['dynamic'] );
-			$mem = round( bcdiv( memory_get_peak_usage(), 1048576, 3 ), 2 );
+			$mem = ( function_exists('memory_get_usage') ) ? round( memory_get_usage() / 1024 / 1024, 2 ) : 0;
 			pl_debug( sprintf( __( 'CSS was compiled at %s and took %s seconds using %sMB of unicorn dust.', 'pagelines' ), date( DATE_RFC822, $a['time'] ), $a['c_time'],  $mem ) );		
 			die();
 		}
