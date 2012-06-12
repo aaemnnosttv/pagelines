@@ -107,7 +107,7 @@ class lessc {
 				$this->addParsedFile($realPath);
 
 				$parser = new lessc_parser($this, $realPath);
-				$root = $parser->parse(file_get_contents($realPath));
+				$root = $parser->parse(pl_file_get_contents($realPath));
 				$root->isRoot = false;
 				$root->parent = $parentBlock;
 
@@ -1339,7 +1339,7 @@ class lessc {
 				throw new exception("nothing to parse");
 
 			$name = $this->fileName;
-			$str = file_get_contents($this->fileName);
+			$str = pl_file_get_contents($this->fileName);
 		}
 
 		$this->parser = new lessc_parser($this, $name);
