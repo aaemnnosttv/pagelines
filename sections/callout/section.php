@@ -157,7 +157,7 @@ class PageLinesCallout extends PageLinesSection {
 <?php
 
 		} else
-			echo setup_section_notify($this, __('Set Callout meta fields to activate.', 'pagelines') );
+			echo setup_section_notify($this, __('Set Callout page options to activate.', 'pagelines') );
 			
 	}
 	
