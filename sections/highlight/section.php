@@ -65,6 +65,10 @@ class PageLinesHighlight extends PageLinesSection {
 							'bottom'	 	=> array( 'name' => 'Bottom' )
 						),
 					),
+					'_highlight_image_frame' => array(
+						'type' 				=> 'check',		
+						'inputlabel' 		=> 'Add frame to image?'
+					),
 				)
 			)
 				
@@ -92,13 +96,15 @@ class PageLinesHighlight extends PageLinesSection {
 		$h_subhead = ploption('_highlight_subhead', $this->tset);
 		$h_splash = ploption('_highlight_splash', $this->tset);
 		$h_splash_position = ploption('_highlight_splash_position', $this->oset);
+		
+		$frame_class = (ploption('_highlight_image_frame', $this->oset)) ? 'pl-imageframe' : '';
 	
 	if($h_head || $h_subhead || $h_splash){?>
 		<div class="highlight-area">
 			<?php 
 			
 				if( $h_splash_position == 'top' && $h_splash)
-					printf('<div class="highlight-splash hl-image-top"><img src="%s" alt="" /></div>', $h_splash);
+					printf('<div class="highlight-splash hl-image-top %s"><img src="%s" alt="" /></div>', $frame_class, $h_splash);
 					
 				if($h_head)
 					printf('<h1 class="highlight-head">%s</h1>', __( $h_head, 'pagelines' ) );
@@ -107,7 +113,7 @@ class PageLinesHighlight extends PageLinesSection {
 					printf('<h3 class="highlight-subhead subhead">%s</h3>', __( $h_subhead, 'pagelines' ) );
 					
 				if( $h_splash_position != 'top' && $h_splash)
-					printf('<div class="highlight-splash hl-image-bottom"><img src="%s" alt="" /></div>', apply_filters( 'pl_highlight_splash', $h_splash ) );
+					printf('<div class="highlight-splash hl-image-bottom %s"><img src="%s" alt="" /></div>', $frame_class, apply_filters( 'pl_highlight_splash', $h_splash ) );
 			?> 
 		</div>
 	<?php 
