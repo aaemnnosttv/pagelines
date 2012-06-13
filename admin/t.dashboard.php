@@ -160,7 +160,7 @@ class PageLinesDashboard {
 
 			$alt = ($count % 2 == 0) ? 'alt-story' : '';
 			
-			$excerpt = ( $story['text'] ) ? $story['text'] : '';
+			$excerpt = ( isset( $story['text'] ) ) ? $story['text'] : '';
 			
 			$title = ( isset( $story['link'] ) ) ? sprintf( '<a href="%s">%s</a>', $story['link'], $story['title'] ) : $story['title'];
 			

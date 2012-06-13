@@ -38,7 +38,7 @@
 			$file =  $_POST['extend_file'];
 			$path =  $_POST['extend_path'];
 			$product = $_POST['extend_product'];
-			$dash = $_POST['extend_dash'];
+			$dash = isset( $_POST['extend_dash'] ) ? $_POST['extend_dash'] : false;
 			
 		if ( $uploader = 'pagelines_ajax_extend_it_callback' )
 			$uploader = false;
