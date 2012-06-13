@@ -224,11 +224,11 @@ function pl_base_color( $mode = '', $difference = '10%'){
 
 	if( !$base_color ){
 	
-		if(ploption('contentbg'))
+		if( pl_check_color_hash( ploption('contentbg' ) ) )
 			$base = pl_hash_strip( ploption('contentbg') );
-		elseif(ploption('pagebg'))
+		elseif( pl_check_color_hash( ploption('pagebg' ) ) )
 			$base = pl_hash_strip( ploption('pagebg') );
-		elseif(ploption('bodybg'))
+		elseif( pl_check_color_hash( ploption('bodybg' ) ) )
 			$base = pl_hash_strip( ploption('bodybg') );
 		else
 			$base = 'FFFFFF';
@@ -259,7 +259,7 @@ function pl_base_color( $mode = '', $difference = '10%'){
  */
 function pl_bg_color(){
 	
-	if(get_set_color( 'the_bg' ))
+	if( pl_check_color_hash( get_set_color( 'the_bg' ) ) )
 		return get_set_color( 'the_bg' );
 	else 
 		return 'FFFFFF';	
@@ -274,7 +274,7 @@ function pl_bg_color(){
  */
 function pl_text_color(){
 		
-	$color = ( ploption( 'text_primary' ) ) ? pl_hash_strip( ploption( 'text_primary' ) ) : '000000';
+	$color = ( pl_check_color_hash( ploption( 'text_primary' ) ) ) ? pl_hash_strip( ploption( 'text_primary' ) ) : '000000';
 
 	return $color;
 }
@@ -288,7 +288,7 @@ function pl_text_color(){
  */
 function pl_link_color(){
 	
-	$color = ( ploption( 'linkcolor' ) ) ? pl_hash_strip( ploption( 'linkcolor' ) ) : '225E9B';
+	$color = ( pl_check_color_hash( ploption( 'linkcolor' ) ) ) ? pl_hash_strip( ploption( 'linkcolor' ) ) : '225E9B';
 	
 	return $color;	
 }
@@ -302,7 +302,7 @@ function pl_link_color(){
  */
 function pl_header_color(){
 	
-	$color = ( ploption( 'headercolor' ) ) ? pl_hash_strip( ploption( 'headercolor' ) ) : '000000';
+	$color = ( pl_check_color_hash( ploption( 'headercolor' ) ) ) ? pl_hash_strip( ploption( 'headercolor' ) ) : '000000';
 	
 	return $color;	
 }
@@ -316,7 +316,7 @@ function pl_header_color(){
  */
 function pl_footer_color(){
 	
-	$color = ( ploption( 'footer_text' ) ) ? pl_hash_strip( ploption( 'footer_text' ) ) : '999999';
+	$color = ( pl_check_color_hash( ploption( 'footer_text' ) ) ) ? pl_hash_strip( ploption( 'footer_text' ) ) : '999999';
 	
 	return $color;
 }
@@ -327,6 +327,14 @@ function pl_footer_color(){
 function pl_hash_strip( $color ){
 	
 	return str_replace('#', '', $color);
+}
+
+function pl_check_color_hash( $color ) {
+	
+	if ( preg_match( '/^#?([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/', $color ) ) 
+		return true;
+	else
+		return false;
 }
 
 /**
