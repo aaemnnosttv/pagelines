@@ -135,7 +135,7 @@ class PageLinesAccount {
 
 					else
 						if ( !VPLUS )
-							printf( '<a class="button" href="%s">%s</a>', ADD_PLUS, __( 'Upgrade to PageLines Plus', 'pagelines' ) );?>			 
+							printf( '<a class="button" href="%s">%s</a>', pl_get_plus_link(), __( 'Upgrade to PageLines Plus', 'pagelines' ) );?>			 
 				</div>
 			<?php endif;	?>
 		</div>

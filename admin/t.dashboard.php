@@ -211,9 +211,9 @@ class PageLinesDashboard {
 		if(!isset($args['format']) || $args['format'] != 'plus-extensions')
 			return;
 	
-		if(!pagelines_check_credentials() || !VPLUS):
+		if( pagelines_check_credentials() && !VPLUS ):
 
-			printf( '<a href="%s" class="extend_button">%s &rarr;</a>', ADD_PLUS, __( 'Get PageLines Plus', 'pagelines' ) );
+			printf( '<a href="%s" class="extend_button">%s &rarr;</a>', pl_get_plus_link(), __( 'Get PageLines Plus', 'pagelines' ) );
 
 		endif; 
 		
