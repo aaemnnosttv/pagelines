@@ -912,11 +912,13 @@ body{
 	    .responsive #page #pagelines_content #column-wrap, .responsive #page  #pagelines_content #sidebar-wrap, html .responsive.fixed_width #site .content{
 	       width: 100%;
 	    }
+	    .responsive .one-sidebar-right #column-main .mcolumn-pad, .responsive .two-sidebar-right #column-main .mcolumn-pad {padding:15px;}
 	}
 	@media screen and (max-width:600px) { 
 	    .responsive #page #pagelines_content #column-wrap #sidebar1, .responsive #page #pagelines_content #column-main { 
 	       width: 100%;
 	    }
+
 		.responsive .navigation_wrap{text-align: center;}
 		.responsive .navigation_wrap .main_nav, .responsive .navigation_wrap .main_nav_container {margin-right: 0;}
 		
