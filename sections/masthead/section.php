@@ -161,11 +161,11 @@ class PLMasthead extends PageLinesSection {
 		
 		// A Responsive, Drag &amp; Drop Platform for Beautiful Websites
 		
-		
+		$classes = ($mast_img) ? 'with-splash' : '';
 
 	if($mast_title){ ?>
 	
-	<header class="jumbotron masthead">
+	<header class="jumbotron masthead <?php echo $classes;?>">
 	  	<?php
 
 	  		if($mast_img)
