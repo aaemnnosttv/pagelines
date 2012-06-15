@@ -185,6 +185,24 @@ class PageLinesOptionsArray {
 				'shortexp'	=> __( 'Select between responsive vs. static; pixel based or percentage based layout', 'pagelines' ),
 				'exp'		=> __( "Responsive layout adjusts to the size of your user's browser window; static is fixed width. Use this option to switch between the pixel based site width and a percentage based one.", 'pagelines' )
 			),
+			'site_design_mode'	=> array(
+				
+				'default'	=> 'full_width',
+				'type'		=> 'graphic_selector',
+				'showname'	=> true,
+				'sprite'		=> PL_ADMIN_IMAGES.'/sprite-design-modes.png',
+				'height'		=> '88px', 
+				'width'			=> '130px',
+				'layout' 		=> 'interface',	
+				'selectvalues'	=> array(
+					'full_width'	=> array('name' => __( "Full-Width Sections", 'pagelines' ), 'offset' => '0px 0px'),
+					'fixed_width'	=> array('name' => __( "Fixed-Width Mode", 'pagelines' ), 'version' => 'pro', 'offset' => '0px -88px', 'version'	=> 'pro')
+				), 
+				'inputlabel'	=> __( 'Site Design Mode', 'pagelines' ),
+				'title'		=> __( 'Site Design Mode', 'pagelines' ),						
+				'shortexp'	=> __( 'The basic HTML layout structure for color and background effects', 'pagelines' ),
+				'exp'		=> __( 'This option controls how the basic HTML layout is built. Different layout structures change the way background colors and images behave.<ul><li><strong>Full-Width Mode</strong> Full width design mode allows you to have aspects of your site that are the full-width of your screen; while others are the width of the content area.</li><li><strong>Fixed-Width Mode</strong> Fixed width design mode creates a fixed width <strong>page</strong> that can be used as the area for your design.  You can set a background to the page; and the content will have a seperate <strong>fixed-width</strong> background area (i.e. the width of the content).</li></ul>', 'pagelines' ),
+			),	
 			'disable_mobile_view' => array(
 				'default' 	=> false,
 				'type' 		=> 'check',
@@ -246,24 +264,6 @@ class PageLinesOptionsArray {
 
 		$a = array(	
 			'icon'			=> PL_ADMIN_ICONS.'/color.png',
-			'site_design_mode'	=> array(
-				
-				'default'	=> 'full_width',
-				'type'		=> 'graphic_selector',
-				'showname'	=> true,
-				'sprite'		=> PL_ADMIN_IMAGES.'/sprite-design-modes.png',
-				'height'		=> '88px', 
-				'width'			=> '130px',
-				'layout' 		=> 'interface',	
-				'selectvalues'	=> array(
-					'full_width'	=> array('name' => __( "Full-Width Sections", 'pagelines' ), 'offset' => '0px 0px'),
-					'fixed_width'	=> array('name' => __( "Fixed-Width Mode", 'pagelines' ), 'version' => 'pro', 'offset' => '0px -88px', 'version'	=> 'pro')
-				), 
-				'inputlabel'	=> __( 'Site Design Mode', 'pagelines' ),
-				'title'		=> __( 'Site Design Mode', 'pagelines' ),						
-				'shortexp'	=> __( 'The basic HTML layout structure for color and background effects', 'pagelines' ),
-				'exp'		=> __( 'This option controls how the basic HTML layout is built. Different layout structures change the way background colors and images behave.<ul><li><strong>Full-Width Mode</strong> Full width design mode allows you to have aspects of your site that are the full-width of your screen; while others are the width of the content area.</li><li><strong>Fixed-Width Mode</strong> Fixed width design mode creates a fixed width <strong>page</strong> that can be used as the area for your design.  You can set a background to the page; and the content will have a seperate <strong>fixed-width</strong> background area (i.e. the width of the content).</li></ul>', 'pagelines' ),
-			),	
 			'page_colors'		=> array(
 				'title' 	=> __( 'Basic Layout Colors', 'pagelines' ),						
 				'shortexp' 	=> __( 'The Main Layout Colors For Your Site', 'pagelines' ),
