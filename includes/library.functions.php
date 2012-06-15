@@ -615,6 +615,8 @@ function pl_short_excerpt($post_or_id, $words = 10, $excerpt_more = ' [...]') {
 
 		$text = strip_shortcodes( $text );
 
+		$text = sanitize_text_field( $text );
+
 		$text = apply_filters('the_content', $text);
 		$text = str_replace(']]>', ']]&gt;', $text);
 		$text = strip_tags($text);
