@@ -189,7 +189,7 @@ class PLheroUnit extends PageLinesSection {
 		<?php
 
 		} else
-			echo setup_section_notify($this, __('Set Hero meta fields to activate.', 'pagelines') );
+			echo setup_section_notify($this, __('Set Hero page options to activate.', 'pagelines') );
 	}
 
 }

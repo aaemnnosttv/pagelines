@@ -1262,3 +1262,11 @@ function inline_css_markup($id, $css, $echo = true){
 	else
 		return $mark;	
 }
+
+function pl_get_plus_link() {
+	
+	if( VDEV )
+		return ADD_PLUS_DEV;
+	else
+		return ADD_PLUS_PRO;	
+}

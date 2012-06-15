@@ -91,6 +91,7 @@ class PageLinesCallout extends PageLinesSection {
 					'selectvalues'	=> array(
 						'right'		=> array('name'	=>'Align Right'),
 						'left'		=> array('name'	=>'Align Left'),
+						'center'	=> array('name'	=>'Align Center'),
 					),
 				),
 			);
@@ -122,43 +123,57 @@ class PageLinesCallout extends PageLinesSection {
 		$call_action_text = (ploption('pagelines_callout_action_text', $this->oset)) ? ploption('pagelines_callout_action_text', $this->oset) : __('Start Here', 'pagelines');
 
 		$styling_class = ($call_sub) ? 'with-callsub' : '';
+		
+		$alignment = ploption('pagelines_callout_align', $this->oset);
 
-		$call_align = (ploption('pagelines_callout_align', $this->oset) == 'left') ? '' : 'rtimg';	
+		$call_align = ($alignment == 'left') ? '' : 'rtimg';	
 
 		if($call_title || $call_img){ ?>
-	<div class="callout-area media fix <?php echo $styling_class;?>">
-		<div class="callout_action img <?php echo $call_align;?>">
-			<?php 
 			
-			
-				if( $call_img ){
-					printf('<div class="callout_image"><a %s href="%s" ><img src="%s" /></a></div>', $target, $call_link, $call_img);
-				} else {
-					printf('<a %s class="btn btn-%s btn-large" href="%s">%s</a> ', $target, $call_btheme, $call_link, $call_btext);
-				}
-				
-				
-			?>
+<?php if($alignment == 'center'): ?>
+<div class="callout-area fix callout-center <?php echo $styling_class;?>">
+	<div class="callout_text">
+		<div class="callout_text-pad">
+			<?php $this->draw_text($call_title, $call_sub, $call_img); ?>
 		</div>
-		<div class="callout_text bd">
-			<div class="callout_text-pad">
-				<?php 
-				
-					printf( '<h2 class="callout_head %s">%s</h2>', (!$call_img) ? 'noimage' : '', $call_title);
-					
-					if($call_sub)
-						printf( '<p class="callout_sub subhead %s">%s</p>', (!$call_img) ? 'noimage' : '', $call_sub);
-					
-				?>
-				
-			</div>
-		</div>
-		
-		
 	</div>
+	<div class="callout_action <?php echo $call_align;?>">
+		<?php $this->draw_action($call_link, $target, $call_img, $call_btheme, $call_btext); ?>
+	</div>
+	
+</div>
+<?php else: ?>
+<div class="callout-area media fix <?php echo $styling_class;?>">
+	<div class="callout_action img <?php echo $call_align;?>">
+		<?php $this->draw_action($call_link, $target, $call_img, $call_btheme, $call_btext); ?>
+	</div>
+	<div class="callout_text bd">
+		<div class="callout_text-pad">
+			<?php $this->draw_text($call_title, $call_sub, $call_img); ?>
+		</div>
+	</div>
+</div>
+<?php endif; ?>
 <?php
 
 		} else
-			echo setup_section_notify($this, __('Set Callout meta fields to activate.', 'pagelines') );
+			echo setup_section_notify($this, __('Set Callout page options to activate.', 'pagelines') );
+			
 	}
+	
+	function draw_action($call_link, $target, $call_img, $call_btheme, $call_btext){
+		if( $call_img )
+			printf('<div class="callout_image"><a %s href="%s" ><img src="%s" /></a></div>', $target, $call_link, $call_img);
+		else 
+			printf('<a %s class="btn btn-%s btn-large" href="%s">%s</a> ', $target, $call_btheme, $call_link, $call_btext);
+		
+	}
+	
+	function draw_text($call_title, $call_sub, $call_img){
+		printf( '<h2 class="callout_head %s">%s</h2>', (!$call_img) ? 'noimage' : '', $call_title);
+		
+		if($call_sub)
+			printf( '<p class="callout_sub subhead %s">%s</p>', (!$call_img) ? 'noimage' : '', $call_sub);
+	}
+	
 }

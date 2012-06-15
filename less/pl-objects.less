@@ -28,13 +28,41 @@
 /* 
  * @ Media / Image Format
  **********************************************************************/
-	.media { overflow:hidden;overflow: visible; zoom: 1; }
-	.media .bd {display:table-cell; vertical-align: top; width: 10000px; *display:block; *width:auto; zoom:1;}
-	.media .bd > :first-child{margin-top:0;}
-	.media .bd > :last-child{margin-bottom:0;}
-	.media .img{float:left;margin-right: 15px;}
-	.media .img img, .img img{display: block;  max-width: 100%; height: auto; width: auto\9; /* ie8 */}
-	.media .img.rtimg{float:right; margin-left: 15px;}
+
+.media{
+	overflow:hidden;
+	overflow: visible; 
+	zoom: 1;
+	.bd{
+		display:table-cell; 
+		vertical-align: top; 
+		width: 10000px; 
+		*display:block; 
+		*width:auto; 
+		zoom:1;
+	}
+	.bd > :first-child{margin-top:0;}
+	.bd > :last-child{margin-bottom:0;}
+	.img{
+		float:left;
+		margin-right: 15px;
+		text-align: center;
+		img{
+			display: inline-block;  
+			vertical-align: bottom;
+			max-width: 100%; 
+			height: auto; 
+			width: auto\9;
+			&.rtimg{
+				float:right; 
+				margin-left: 15px;
+			}
+		}
+	}
+}
+
+
+
 
 /*
  *  @ Vignettes

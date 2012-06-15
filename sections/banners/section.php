@@ -22,6 +22,34 @@ class PageLinesBanners extends PageLinesSection {
 	var $ptID = 'banners';
 	var $taxID = 'banner-sets'; 
 
+	function section_head(){
+		if(!ploption('banner_text_padding', $this->oset)): 
+		?>
+		
+		<script type="text/javascript"> 
+			/* <![CDATA[ */ 
+			jQuery(window).load(function() {  
+				jQuery('.banner-area').each(function(index) {
+					var bannerText = jQuery(this).find('.banner-text-pad');
+					var bannerTextWrap = bannerText.find('.banner-text-wrap');
+				    var textHeight = bannerTextWrap.innerHeight();
+					var mediaHeight = jQuery(this).find('.banner-media').height();
+					
+					if(mediaHeight > textHeight){
+						
+						var padHeight = (mediaHeight - textHeight ) / 2;
+						bannerText.css('padding-top', padHeight);
+					}
+				});
+				
+			}); 
+			/* ]]> */ 
+		</script>
+		
+		<?php 
+		endif;
+	}
+
 	/**
 	* PHP that always loads no matter if section is added or not.
 	*/
@@ -214,6 +242,7 @@ class PageLinesBanners extends PageLinesSection {
 ?>		<div class="banner-area pprand-pad <?php echo $banner_align;?>">
 				<div class="banner-text pprand" style="width:<?php echo $banner_text_width; ?>%;">
 					<div class="banner-text-pad pprand-pad" style="<?php echo $banner_text_padding;?>">
+						<div class="banner-text-wrap">
 							<div class="banner-title">
 								<h2><?php echo do_shortcode($bpost->post_title); ?></h2>
 							</div>
@@ -222,6 +251,7 @@ class PageLinesBanners extends PageLinesSection {
 									echo apply_filters( 'the_content', do_shortcode($bpost->post_content).pledit($bpost->ID) ); 
 								?>
 							</div>
+						</div>
 					</div>
 				</div>
 				<div class="banner-media pprand" style="width:<?php echo $banner_media_width; ?>%;" >
