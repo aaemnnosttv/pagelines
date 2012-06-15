@@ -53,7 +53,7 @@ class PageLinesOptionsArray {
 				'imagepreview' 	=> '270',
 				'inputlabel' 	=> __( 'Upload custom logo', 'pagelines' ),
 				'title'			=> __( 'Custom Header Image', 'pagelines' ),						
-				'shortexp' 		=> __( 'Input Full URL to your custom header or logo image', 'pagelines' ),
+				'shortexp' 		=> __( 'Input full URL to your custom header or logo image', 'pagelines' ),
 				'exp' 			=> __( 'Optional way to replace <strong>heading</strong> and <strong>description</strong> text for your website ' . 
 						    		'with an image.', 'pagelines' )
 			),
@@ -64,7 +64,7 @@ class PageLinesOptionsArray {
 				'type' 			=> 	'image_upload',
 				'imagepreview' 	=> 	'16',
 				'title' 		=> 	__( 'Favicon Image', 'pagelines' ),						
-				'shortexp' 		=> 	__( 'Input Full URL to favicon image (<strong>favicon.ico</strong> image file)', 'pagelines' ),
+				'shortexp' 		=> 	__( 'Input full URL to favicon image (<strong>favicon.ico</strong> image file)', 'pagelines' ),
 				'exp' 			=> 	__( 'Enter the full URL location of your custom <strong>favicon</strong> which is visible in browser favorites and tabs.<br/> <strong>Must be .png or .ico file - 16px by 16px</strong>.', 'pagelines' )
 			),		
 			'twittername' => array(
@@ -101,7 +101,7 @@ class PageLinesOptionsArray {
 				'type' 			=> 	'image_upload',
 				'imagepreview' 	=> 	'60',
 				'title' 		=> __( 'Mobile Touch Image', 'pagelines' ),						
-				'shortexp' 		=> __( 'Input Full URL to Apple touch image (.jpg, .gif, .png)', 'pagelines' ),
+				'shortexp' 		=> __( 'Input full URL to Apple touch image (.jpg, .gif, .png)', 'pagelines' ),
 				'exp'			=> __( 'Enter the full URL location of your Apple Touch Icon which is visible when your users set your site as a <strong>webclip</strong> in Apple Iphone and Touch Products. It is an image approximately 57px by 57px in either .jpg, .gif or .png format.', 'pagelines' )
 			),
 			'pl_watermark'	=> array(
@@ -122,7 +122,7 @@ class PageLinesOptionsArray {
 					'type'		=> 'check',
 					'inputlabel'=> __( 'Automatically show Page titles?', 'pagelines' ),
 					'title'		=> __( 'Page Titles', 'pagelines' ),						
-					'shortexp'	=> __( 'Show the title of pages above the page content.', 'pagelines' ),
+					'shortexp'	=> __( 'Show the title of pages above the page content', 'pagelines' ),
 					'exp'		=> __( 'This option will automatically place page titles on all pages.', 'pagelines' )
 			),
 			'sidebar_no_default' => array(
@@ -208,7 +208,7 @@ class PageLinesOptionsArray {
 				'type' 		=> 'check',
 				'title' 	=> __( 'Disable Mobile Optimized View', 'pagelines' ),
 				'inputlabel'	=> __( 'Disable Mobile View', 'pagelines' ),				
-				'shortexp' 	=> __( 'Make it so mobile devices will see the full site, not the mobile optimized one.', 'pagelines' ),
+				'shortexp' 	=> __( 'Forces mobile devices to see the full site', 'pagelines' ),
 				'exp' 		=> __( 'By default PageLines accommodates mobile devices resolution and shows a mobile optimized view. Check this option to make it so users see your full site.', 'pagelines' ),
 			),
 			'layout_default' => array(
@@ -237,7 +237,7 @@ class PageLinesOptionsArray {
 				'type'		=> 'layout',
 				'layout'	=> 'interface',
 				'title'		=> __( 'Layout Dimension Editor', 'pagelines' ),						
-				'shortexp'	=> __( 'Configure the default layout for your site which is initially selected in the Default Layout Mode option in Global Options. <br/>This option allows you to adjust columns and margins for the default layout', 'pagelines' ),
+				'shortexp'	=> __( 'Configure the default layout sizes for your site, which is initially selected above in the Default Layout Mode. <br/>This option allows you to adjust columns and margins for the default layout', 'pagelines' ),
 			), 
 			
 			'resetlayout' => array(
@@ -266,7 +266,7 @@ class PageLinesOptionsArray {
 			'icon'			=> PL_ADMIN_ICONS.'/color.png',
 			'page_colors'		=> array(
 				'title' 	=> __( 'Basic Layout Colors', 'pagelines' ),						
-				'shortexp' 	=> __( 'The Main Layout Colors For Your Site', 'pagelines' ),
+				'shortexp' 	=> __( 'The main layout colors for your site', 'pagelines' ),
 				'exp' 		=> __( 'Use these options to quickly setup the main layout colors for your site.  You can use these options to build custom sites very quickly, or to quickly prototype a design then refine through custom CSS.<br/><br/><strong>Notes:</strong> <ol><li>To make the background transparent, you can leave the options blank (delete text).</li>  <li>Further customize and refine colors through custom CSS or plugins</li></ol>', 'pagelines' ),
 				'type' 		=> 'color_multi',
 				'layout'	=> 'full',
@@ -362,7 +362,7 @@ class PageLinesOptionsArray {
 			),
 			'text_colors'		=> array(
 				'title' 		=> __( 'Page Text Colors', 'pagelines' ),						
-				'shortexp' 		=> __( 'Control The Color Of Text Used Throughout Your Site', 'pagelines' ),
+				'shortexp' 		=> __( 'Controls the color of text used throughout your site', 'pagelines' ),
 				'exp' 			=> __( 'These options control the colors of the text throughout the page or content area of your site.<br/><br/>Certain text types are designed to contrast with different box elements and are meant to be used with hover effects.<br/><br/>Experiment to find exactly how colors are combined with text on your site.', 'pagelines' ),
 				'type' 			=> 'color_multi',
 				'layout'		=> 'full',
@@ -412,7 +412,7 @@ class PageLinesOptionsArray {
 			),
 			'canvas_shadow' => array(
 				'title' 		=> __( 'Enable Content Shadow (Fixed Width Mode Only)', 'pagelines' ),						
-				'shortexp' 		=> __( 'Adds a shadow on the fixed width content area for a little style.', 'pagelines' ),
+				'shortexp' 		=> __( 'Adds a shadow on the fixed width content area for a little style', 'pagelines' ),
 				'exp' 			=> __( 'Check this option to enable a drop shadow on the canvas area when using fixed width mode.', 'pagelines' ),
 				'type' 			=> 'check',
 				'default'		=> false,
@@ -421,7 +421,7 @@ class PageLinesOptionsArray {
 			),
 			'page_background_image' => array(
 				'title' 	=> __( 'Site Background Image (Optional)', 'pagelines' ),						
-				'shortexp' 	=> __( 'Setup A Background Image For The Background Of Your Site', 'pagelines' ),
+				'shortexp' 	=> __( 'Setup a background image for the background of your site', 'pagelines' ),
 				'exp' 		=> __( 'Use this option to apply a background image to your site. This option will be applied to different areas depending on the design mode you have set.<br/><br/><strong>Positioning</strong> Use percentages to position the images, 0% corresponds to the <strong>top</strong> or <strong>left</strong> side, 50% to center, etc..', 'pagelines' ),
 				'type' 		=> 'background_image',
 				'selectors'	=> cssgroup('page_background_image')
@@ -459,7 +459,7 @@ class PageLinesOptionsArray {
 					'selectors'	=> cssgroup('type_headers'),
 					'inputlabel' 	=> 'Select Font',
 					'title' 	=> __( 'Typography - Text Headers', 'pagelines' ),
-					'shortexp' 	=> __( "Select and Style Your Site's Header Tags (H1, H2, H3...)", 'pagelines' ),
+					'shortexp' 	=> __( "Select and style your site's header tags (H1, H2, H3...)", 'pagelines' ),
 					'exp' 		=> __( "Set typography for your h1, h2, etc.. tags. <br/><br/><strong>*</strong> Denotes Web Safe Fonts<br/><strong>G</strong> Denotes Google Fonts<br/><br/><strong>Note:</strong> These options make use of the <a href='http://code.google.com/webfonts' target='_blank'>Google fonts API</a> to vastly increase the number of websafe fonts you can use.", 'pagelines' ),
 					'pro_note'	=> __( 'The Pro version of this framework has over 50 websafe and Google fonts.', 'pagelines' )
 			),
@@ -471,7 +471,7 @@ class PageLinesOptionsArray {
 					'selectors'	=> cssgroup('type_primary'),
 					'inputlabel'=> __( 'Select Font', 'pagelines' ),
 					'title' 	=> __( 'Typography - Primary Font', 'pagelines' ),
-					'shortexp' 	=> __( 'Select and Style The Standard Type Used In Your Site (body)', 'pagelines' ),
+					'shortexp' 	=> __( 'Select and style the standard type used in your site (body)', 'pagelines' ),
  					'exp' 		=> __( "Set typography for your primary site text. This is assigned to your site's body tag. <br/><br/> <strong>*</strong> Denotes Web Safe Fonts<br/><strong>G</strong> Denotes Google Fonts", 'pagelines' ),
 					'pro_note'	=> __( 'The Pro version of this framework has over 50 websafe and Google fonts.', 'pagelines' )
 			),
@@ -484,7 +484,7 @@ class PageLinesOptionsArray {
 					'selectors'	=> cssgroup('type_secondary'),
 					'inputlabel' 	=> __( 'Select Font', 'pagelines' ),
 					'title' 	=> __( 'Typography - Secondary Font ', 'pagelines' ),
- 					'shortexp' 	=> __( "Select and Style Your Site's Secondary or Sub Title Text (Metabar, Sub Titles, etc..)", 'pagelines' ),
+ 					'shortexp' 	=> __( "Select and style your site's secondary or sub title text (Metabar, Sub Titles, etc..)", 'pagelines' ),
 					'exp' 		=> __( 'This options sets the typography for secondary text used throughout your site. This includes your navigation, subtitles, widget titles, etc.. <br/><br/> <strong>*</strong> Denotes Web Safe Fonts<br/><strong>G</strong> Denotes Google Fonts', 'pagelines' ),
 					'pro_note'	=> __( 'The Pro version of this framework has over 50 websafe and Google fonts.', 'pagelines' )
 			),
@@ -585,7 +585,7 @@ class PageLinesOptionsArray {
 						)),
 				'inputlabel'			=> __( 'Select Which Drop Down Options To Show', 'pagelines' ),
 				'title'					=> __( 'Nav Classic &amp; BrandNav Section - Drop Down Handling', 'pagelines' ),						
-				'shortexp'				=> __( 'Select Which To Show', 'pagelines' ),
+				'shortexp'				=> __( 'Select which to show', 'pagelines' ),
 				'exp'					=> __( 'Enable drop downs and choose the options you would like to show', 'pagelines' ) 
 			 
 			),
@@ -615,7 +615,7 @@ class PageLinesOptionsArray {
 					'type'		=> 'check',
 					'inputlabel'=> __( 'Display the Blog RSS icon and link?', 'pagelines' ),
 					'title'		=> __( 'News/Blog RSS Icon', 'pagelines' ),
-					'shortexp'	=> __( 'Places News/Blog RSS icon in your header', 'pagelines' ),
+					'shortexp'	=> __( 'Places a news/blog RSS icon in your header', 'pagelines' ),
 					'exp'		=> ''
 				),
 			'icon_social' => array(
@@ -646,7 +646,7 @@ class PageLinesOptionsArray {
 				'count_start'	=> '1',
 				'count_number'	=> '6', 
 				'title' 		=> __( 'FootCols Section - Column Number', 'pagelines' ),
-				'shortexp' 		=> __( 'Control the number of columns per row in your footer columns section.', 'pagelines' ),
+				'shortexp' 		=> __( 'Control the number of columns per row in your footer columns section', 'pagelines' ),
 				'inputlabel'	=> __( 'Select Number of Footer Columns', 'pagelines' )
 			),
 			'footer_logo' => array(
@@ -822,7 +822,7 @@ class PageLinesOptionsArray {
 					),
 					'inputlabel'=> __( 'Select Which Share Buttons To Show', 'pagelines' ),
 					'title'		=> __( 'Sharebar Social Sharing Buttons', 'pagelines' ),						
-					'shortexp'	=> __( 'Select Which To Show and configure appearance.', 'pagelines' ),
+					'shortexp'	=> __( 'Select which to show and configure appearance', 'pagelines' ),
 					'exp'		=> __( "Select which social sharing buttons you would like to use in your Sharebar.<br/><br/> <strong>Note:</strong> that since these use iFrames and javascript (provided by the companies themselves) they may be hard to style and control.", 'pagelines' )
 		    ),
 			'continue_reading_text' => array(
