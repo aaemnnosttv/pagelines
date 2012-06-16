@@ -912,7 +912,9 @@ body{
 	    .responsive #page #pagelines_content #column-wrap, .responsive #page  #pagelines_content #sidebar-wrap, html .responsive.fixed_width #site .content{
 	       width: 100%;
 	    }
-	    .responsive .one-sidebar-right #column-main .mcolumn-pad, .responsive .two-sidebar-right #column-main .mcolumn-pad {padding:15px;}
+	    .responsive .one-sidebar-right #column-main .mcolumn-pad, .responsive .two-sidebar-right #column-main .mcolumn-pad {padding:15px;}'
+
+		#respond form {margin-left: 0;}
 	}
 	@media screen and (max-width:600px) { 
 	    .responsive #page #pagelines_content #column-wrap #sidebar1, .responsive #page #pagelines_content #column-main { 
