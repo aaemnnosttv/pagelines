@@ -892,11 +892,8 @@ body{
 				margin-bottom:1em;
 			}
 
-
-
-
 /* 
- * @ Responsive Design
+ * Responsive Design
  ****************************************/
 
 	body .content img {max-width: 100%; height: auto; width: auto\9; /* ie8 */}
