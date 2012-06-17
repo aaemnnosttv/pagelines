@@ -211,7 +211,7 @@ class PageLinesDashboard {
 		if(!isset($args['format']) || $args['format'] != 'plus-extensions')
 			return;
 	
-		if( pagelines_check_credentials() && !VPLUS ):
+		if( pagelines_check_credentials() && ! pagelines_check_credentials( 'plus' ) ):
 
 			printf( '<a href="%s" class="extend_button">%s &rarr;</a>', pl_get_plus_link(), __( 'Get PageLines Plus', 'pagelines' ) );
 
@@ -303,37 +303,16 @@ class PageLinesDashboard {
 	function stories_remote_url_format(){
 		
 	}
-	
-	function test_array(){
 		
-		$data = array(
-			'story1'	=> array(
-				'title'	=> 'Test Story 1', 
-				'text'	=> 'Here is a bunch of text for the first text story that will go in the admin. Simon is gonna have to work with this to get the rest figured out. That is all i have to say.', 
-				'link'	=> 'http://www.pagelines.com/about'
-			), 
-			'story2'	=> array(
-				'title'	=> 'Test Story 3', 
-				'text'	=> 'Here is a bunch of text for the first text story that will go in the admin. Simon is gonna have to work with this to get the rest figured out. That is all i have to say.', 
-				'link'	=> 'http://www.pagelines.com/about', 
-				'img'	=> PL_ADMIN_IMAGES . '/pagelines-icon.jpg'
-			),
-			'story3'	=> array(
-				'title'	=> 'Test Story 3', 
-				'text'	=> 'Here is a bunch of text for the first text story that will go in the admin. Simon is gonna have to work with this to get the rest figured out. That is all i have to say.', 
-				'link'	=> 'http://www.pagelines.com/about'
-			)
-		);
-		
-		return $data;	
-	}
-	
 	function get_updates() {
 		
 		$default['story0'] = array(
 			'title'	=>	__( "No new updates available.", 'pagelines' ),
 			'text'	=>	false
 		);
+		
+		if ( EXTEND_NETWORK )
+			return $default;
 		
 		$updates = json_decode( get_theme_mod( 'pending_updates' ) );
 		
