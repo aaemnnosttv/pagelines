@@ -1325,6 +1325,12 @@
 			margin: 0 5px;
 			color: rgba(0,0,0,.4);
 		}
+.notification-banner{
+	padding: 5px 10px;
+	margin-bottom: 10px;
+	background: #EEE;
+	text-align: center;
+}
 /* @ doc icon links */
 
 	.doc_icon_links, .toggle_option_info{

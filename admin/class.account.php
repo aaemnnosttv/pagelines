@@ -111,7 +111,7 @@ class PageLinesAccount {
 		<div class="admin_billboard">
 			<div class="admin_billboard_pad fix">
 					<h3 class="admin_header_main">
-					 <?php _e( 'PageLines Live Chat', 'pagelines'); ?>
+					 <?php _e( 'PageLines Live Chat (Beta)', 'pagelines'); ?>
 					</h3>
 					<div class='admin_billboard_text'>
 					 <?php _e( 'A moderated live community chat room for discussing technical issues. (Plus Only)', 'pagelines' ); ?>
