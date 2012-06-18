@@ -116,7 +116,7 @@ class PageLinesAccount {
 					<div class='admin_billboard_text'>
 					 <?php _e( 'A moderated live community chat room for discussing technical issues. (Plus Only)', 'pagelines' ); ?>
 					</div>
-					<?php if ( VPLUS ) printf( '<div class="plus_chat_header">%s</div>', $this->pagelines_livechat_rules() ); ?>
+					<?php if ( pagelines_check_credentials( 'plus' ) ) printf( '<div class="plus_chat_header">%s</div>', $this->pagelines_livechat_rules() ); ?>
 			</div>
 		</div>
 		<div class="live_chat_wrap fix">

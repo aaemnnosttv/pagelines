@@ -27,8 +27,6 @@ class PageLinesUpdateCheck {
 	 */
 	function pagelines_theme_check_version() {
 
-		if ( is_multisite() && ! is_super_admin() )
-			return;
 		if ( get_pagelines_option('disable_updates') == true )
 			return;
 		if ( !VPRO ) {
