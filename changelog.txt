@@ -17,7 +17,7 @@ Version 2.2
 	- NEW - LESS system reports errors using adminbar.
 	- NEW - Sections style.less file auto loaded.
 	- NEW - Child theme style.less auto loaded.
-	- NEW - All CSS combined and compiled by LESS the cached.
+	- NEW - All CSS combined and compiled by LESS then cached.
 	- NEW - New PageLines Dashboard.
 	- NEW - Upgrade notifications and One Click Upgrades in Dashboard area.
 	- NEW - All Plus extensions listed with install buttons in Dashboard.
