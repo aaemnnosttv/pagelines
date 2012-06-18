@@ -43,6 +43,7 @@ class PageLinesWelcome {
 		
 		$view .= $dash->wrap_dashboard_pane('tips', $args);
 		
+		$view .= $this->getting_started_video();
 
 		$args = array(
 			'title'			=> __( 'Core WordPress Graphical/Functional Support', 'pagelines' ),
@@ -60,6 +61,23 @@ class PageLinesWelcome {
 		
 
 		return apply_filters('pagelines_welcome_intro', $view);
+	}
+	
+	function getting_started_video(){
+		ob_start();
+		?>
+		<div class="admin_billboard">
+			<div class="admin_billboard_pad fix">
+					<h3 class="admin_header_main"><?php _e( 'Video - Build A Site in 10 Minutes', 'pagelines' ); ?></h3>
+					<div class='admin_billboard_text'>
+						<?php _e( 'In this video Nick shows you how to build a beautiful site in 10 minutes with PageLines', 'pagelines' ); ?>
+					</div>
+			</div>
+		</div>
+		<iframe src="http://player.vimeo.com/video/44265010" width="100%" height="400" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+		<?php 
+		
+		return ob_get_clean();
 	}
 	
 	function welcome_array(){
