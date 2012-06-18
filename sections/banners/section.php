@@ -23,13 +23,13 @@ class PageLinesBanners extends PageLinesSection {
 	var $taxID = 'banner-sets'; 
 
 	function section_head(){
-		if(!ploption('banner_text_padding', $this->oset)): 
+
 		?>
 		
 		<script type="text/javascript"> 
 			/* <![CDATA[ */ 
 			jQuery(window).load(function() {  
-				jQuery('.banner-area').each(function(index) {
+				jQuery('.banner-area.no-pad').each(function(index) {
 					var bannerText = jQuery(this).find('.banner-text-pad');
 					var bannerTextWrap = bannerText.find('.banner-text-wrap');
 				    var textHeight = bannerTextWrap.innerHeight();
@@ -47,7 +47,6 @@ class PageLinesBanners extends PageLinesSection {
 		</script>
 		
 		<?php 
-		endif;
 	}
 
 	/**
@@ -127,7 +126,8 @@ class PageLinesBanners extends PageLinesSection {
 					'type' 		=> 'text',
 					'size'		=> 'small',					
 					'title' 	=> __( 'Banner Text Padding', 'pagelines' ),
-					'shortexp' 	=> __( '(optional) Set the padding for the text area. Use CSS shorthand, for example:<strong> 25px 30px 25px 35px</strong> for top, right, bottom, then left padding.', 'pagelines' )
+					'shortexp'	=> __( 'Configure the padding and arrangement of banner text', 'pagelines' ),
+					'exp' 	=> __( '(optional) Set the padding for the text area. Use CSS shorthand, for example:<strong> 25px 30px 25px 35px</strong> for top, right, bottom, then left padding.<br/><br/><strong>Heads Up</strong> If you do not set this option, the banner will attempt to vertically align the text for you.', 'pagelines' )
 
 				),
 			);
@@ -236,10 +236,13 @@ class PageLinesBanners extends PageLinesSection {
 			$banner_text_width = (ploption('banner_text_width', $oset)) ? ploption('banner_text_width', $oset) : 50;
 			$banner_media_width = 100 - $banner_text_width; // Math
 			$banner_align = (ploption('banner_align', $oset)) ? ploption('banner_align', $oset) : 'banner_left';
-			$banner_text_padding = (ploption('banner_text_padding', $oset)) ? sprintf('padding:%s;', ploption('banner_text_padding', $oset)) : "padding: 20px 60px"; 
 			
+			$pad = ploption('banner_text_padding', $oset);
+			$banner_text_padding = ($pad) ? sprintf('padding:%s;', $pad) : "padding: 20px 40px"; 
 			
-?>		<div class="banner-area pprand-pad <?php echo $banner_align;?>">
+			$pad_flag = ($pad) ? 'with-pad' : 'no-pad';
+			
+?>		<div class="banner-area pprand-pad <?php echo $banner_align.' '.$pad_flag;?>">
 				<div class="banner-text pprand" style="width:<?php echo $banner_text_width; ?>%;">
 					<div class="banner-text-pad pprand-pad" style="<?php echo $banner_text_padding;?>">
 						<div class="banner-text-wrap">
