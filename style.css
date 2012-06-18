@@ -261,44 +261,6 @@ body{
 
 	.drop-cap {display:block;font-style:normal;font-size:8em;float:left;margin:.04em .1em 0 0;line-height:.67em;}
 
-	/* Blockquote */
-	blockquote {
-	  padding: 0 0 0 15px;
-	  margin: 0 0 18px;
-	}
-	blockquote small {
-	  display: block;
-	  line-height: 18px;
-	}
-	blockquote small:before {
-	  content: '\2014 \00A0';
-	}
-	blockquote.pull-left {
-		float:left;
-		margin-right:25px;
-	}
-	blockquote.pull-right {
-	  float: right;
-	  padding-left: 0;
-	  padding-right: 15px;
-	  border-left: 0;
-	  margin-left:20px;
-	}
-	blockquote.pull-right p,
-	blockquote.pull-right small {
-	  text-align: right;
-	}
-	q:before,
-	q:after,
-	blockquote:before,
-	blockquote:after {
-	  content: ""
-	}
-
-		blockquote > :last-child{margin-bottom: 0}
-		
-		.comment blockquote{border: none;padding-right: 10px;}
-		.comment blockquote blockquote{margin-bottom:0;}
 	
 	/* @ Links & Link Effects */
 	a {text-decoration:none;}

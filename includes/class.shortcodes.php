@@ -856,18 +856,19 @@ class PageLines_ShortCodes {
 	 * @example <code>[pl_blockquote pull="" cite=""]My quote[/pl_blockquote]</code> is the default usage
 	 * @example <code>[pl_blockquote pull="right" cite="Someone Famous"]My quote pulled right with source[/pl_blockquote]</code>
 	 */
-	function pl_blockquote_shortcode( $atts ) {
+	function pl_blockquote_shortcode( $atts, $content = null) {
 
 		$defaults = array(
-			'pull'	=> 'left', 
-			'cite'		=> 'Someone Famous'
+			'pull'	=> '', 
+			'cite'	=> ''
 		); 
 
 		$atts = shortcode_atts( $defaults, $atts );
 		
-		$out = sprintf( '<blockquote class="pull-%1$s"><p>%1$s<small>%2$s</small></p></blockquote>',
+		$out = sprintf( '<blockquote class="pull-%1$s"><p>%3$s<small>%2$s</small></p></blockquote>',
 					$atts['pull'],
-					$atts['cite']
+					$atts['cite'],
+					do_shortcode( $content )
 				);
 
 		return $out;
