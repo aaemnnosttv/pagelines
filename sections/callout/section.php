@@ -41,6 +41,18 @@ class PageLinesCallout extends PageLinesSection {
 						'exp' 				=> 'This text will be used as the title/text for the callout section of the theme.'
 
 				),
+				'pagelines_callout_align' => array(
+					'type' 			=> 'select',
+					'inputlabel' 	=> 'Select Alignment',
+					'title' 		=> 'Callout Alignment',			
+					'shortexp' 		=> 'Aligns the action left or right (defaults right)',
+					'exp' 			=> 'Default alignment for the callout "action" is on the right.', 
+					'selectvalues'	=> array(
+						'right'		=> array('name'	=>'Align Right'),
+						'left'		=> array('name'	=>'Align Left'),
+						'center'	=> array('name'	=>'Align Center'),
+					),
+				),
 				'pagelines_callout_cta' => array(
 					'type'		=> 'multi_option', 
 					'title'		=> __('Callout Action Button', 'pagelines'), 
@@ -82,18 +94,7 @@ class PageLinesCallout extends PageLinesSection {
 					'shortexp' 		=> 'Input Full URL to your custom header or logo image.',
 					'exp' 			=> 'Overrides the button output with a custom image.'
 				),
-				'pagelines_callout_align' => array(
-					'type' 			=> 'select',
-					'inputlabel' 	=> 'Select Alignment',
-					'title' 		=> 'Callout Alignment',			
-					'shortexp' 		=> 'Aligns the action left or right (defaults right)',
-					'exp' 			=> 'Default alignment for the callout is on the right.', 
-					'selectvalues'	=> array(
-						'right'		=> array('name'	=>'Align Right'),
-						'left'		=> array('name'	=>'Align Left'),
-						'center'	=> array('name'	=>'Align Center'),
-					),
-				),
+				
 			);
 
 			$metatab_settings = array(
