@@ -272,7 +272,7 @@ class PageLinesOptionsArray {
 				'layout'	=> 'full',
 				'selectvalues'	=> array(
 					'bodybg'	=> array(				
-						'default' 		=> '#F7F7F7',
+						'default' 		=> '#FFFFFF',
 						'css_prop'		=> 'background-color',
 						'flag'			=> 'set_default',
 						'cssgroup'		=> 'bodybg',
@@ -478,7 +478,7 @@ class PageLinesOptionsArray {
 
 
 			'type_secondary' => array(
-					'default' 	=> array( 'font' => 'lucida_grande' ),
+					'default' 	=> array( 'font' => 'helvetica' ),
 					'type' 		=> 'typography',
 					'layout'	=> 'full',
 					'selectors'	=> cssgroup('type_secondary'),
@@ -996,8 +996,8 @@ class PageLinesOptionsArray {
 					'height'	=> '300px',
 					'layout' 	=> 'full',
 					'inputlabel'=> __( 'CSS Rules', 'pagelines' ),
-					'title' 	=> __( 'Custom CSS', 'pagelines' ),
-					'shortexp' 	=> __( 'Insert custom CSS styling here. It will be stored in the DB and not overwritten. <br/>Note: The professional way to customize your site is using a child theme, or customization plugin', 'pagelines' ),
+					'title' 	=> __( 'Custom CSS / LESS', 'pagelines' ),
+					'shortexp' 	=> __( 'Insert custom CSS or LESS styling here. It will be stored in the DB and not overwritten. <br/>Note: The professional way to customize your site is using a child theme, or customization plugin', 'pagelines' ),
 					'exp' 		=> $this->css_examples(),
 					'vidtitle'	=> __( 'View Customization Documentation', 'pagelines' )
 				),
