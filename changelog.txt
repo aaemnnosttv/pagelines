@@ -8,14 +8,23 @@ Version 2.2
 	- NEW - New section: ScrollSpy.
 	- NEW - New section: Masthead.
 	- NEW - New section: Navbar.
-	- NEW - New section: ContentGrid.
 	- NEW - New section: Hero.
 	- NEW - New shortcode system.
-	- NEW - Custom CSS uses dynamic LESS.
 	- NEW - Performance enhancements & cleaner source markup.
 	- NEW - Quickslider text placement.
 	- NEW - Fixed navigation bar with four color schemes.
+	- NEW - Custom CSS uses dynamic LESS.
+	- NEW - LESS system reports errors using adminbar.
+	- NEW - Sections style.less file auto loaded.
+	- NEW - Child theme style.less auto loaded.
+	- NEW - All CSS combined and compiled by LESS then cached.
+	- NEW - New PageLines Dashboard.
+	- NEW - Upgrade notifications and One Click Upgrades in Dashboard area.
+	- NEW - All Plus extensions listed with install buttons in Dashboard.
+	- NEW - Moderated Live Chat added to Dashboard ( Plus users ).
+	- NEW - Dashboard shows latest community posts, store updates and blog RSS feeds.
 	- CORE - Added [post_authors] shortcode for metabar.
+	- CORE - New Quickslider default images. 
 	- CORE - Added [post_type] shortcode for metabar.
 	- CORE - Added title/alt to watermark.
 	- CORE - Store layout tweaks.
@@ -24,11 +33,11 @@ Version 2.2
 	- CORE - Improved Highlight section.
 	- CORE - Child theme style.less auto parsed.
 	- CORE - Customize plugin style.less auto parsed.
-	- CORE - CSS class change - .section-comments to .section-wp-comments
-	- CORE - Moved "Site Design Mode" from "Color Options" to "Layout Editor"
+	- CORE - CSS class change - .section-comments to .section-wp-comments.
+	- CORE - Moved "Site Design Mode" from "Color Options" to "Layout Editor".
+	- CORE - PL_LESS_DEV constant added to disable css caching.
 	- Bugs - Fix undefined template name after theme change.
 	- Bugs - Remove Custom plugin attempting to copy page templates on every pageload.
-	- Bugs - Javascript only loaded when needed.
 
 Version 2.1.7
 
