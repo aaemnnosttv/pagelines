@@ -5,13 +5,14 @@
 ********************************************************
 
 Version 2.2
-	- NEW - New section: ScrollSpy.
-	- NEW - New section: Masthead.
-	- NEW - New section: Navbar.
-	- NEW - New section: Hero.
-	- NEW - New shortcode system.
-	- NEW - Performance enhancements & cleaner source markup.
-	- NEW - Quickslider text placement.
+	- NEW - New section! ScrollSpy - Scrolling in-page navigation
+	- NEW - New section! Masthead - Giant text, compelling message and buttons
+	- NEW - New section! Navbar - Brand new navigation system with themes!
+	- NEW - New section! Hero - Quickly give a beautiful overview.
+	- NEW - Integration of Twitter Bootstrap (http://twitter.github.com/bootstrap/)
+	- NEW - New shortcode system - Modals, Buttons, Etc.. 
+	- NEW - Performance enhancements & cleaner source markup.. Oh! and unicorn dust.
+	- NEW - Quickslider text options
 	- NEW - Fixed navigation bar with four color schemes.
 	- NEW - Custom CSS uses dynamic LESS.
 	- NEW - LESS system reports errors using adminbar.
