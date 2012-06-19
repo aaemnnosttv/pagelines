@@ -24,6 +24,7 @@ Version 2.2
 	- NEW - All Plus extensions listed with install buttons in Dashboard.
 	- NEW - Moderated Live Chat added to Dashboard ( Plus users ).
 	- NEW - Dashboard shows latest community posts, store updates and blog RSS feeds.
+	- NEW - Special thanks to the PageLines Beta Testing group, along with Mikey Z, Nigel, Danny, Posey, and the rest of the unicorns in the Upper East side (No Unicorns were harmed in the making of this version).
 	- CORE - Added [post_authors] shortcode for metabar.
 	- CORE - New Quickslider default images. 
 	- CORE - Added [post_type] shortcode for metabar.
