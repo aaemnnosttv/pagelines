@@ -41,6 +41,7 @@ class PLMasthead extends PageLinesSection {
 				),
 				'pagelines_masthead_text' => array(
 						'type' 				=> 'text_multi',
+						'layout'			=> 'full',
 						'inputlabel' 		=> 'Enter text for your masthead banner section',
 						'title' 			=> $this->name.' Text',	
 						'selectvalues'	=> array(
@@ -48,7 +49,6 @@ class PLMasthead extends PageLinesSection {
 							'pagelines_masthead_tagline'	=> array('inputlabel'=>'Tagline', 'default'=> '')
 						),				
 						'shortexp' 			=> 'The text for the masthead section',
-						'exp' 				=> 'This text will be used as the title/text for the masthead section of the theme.'
 
 				),
 				'masthead_button_multi_1' => array(
