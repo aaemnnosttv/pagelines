@@ -618,6 +618,14 @@ class PageLinesOptionsArray {
 					'shortexp'	=> __( 'Places a news/blog RSS icon in your header', 'pagelines' ),
 					'exp'		=> ''
 				),
+			'facebook_headers'	=> array(
+				'default'	=> false,
+				'type'		=> 'check',
+				'inputlabel'=> __( 'Display facebook Opengraph data in page header?', 'pagelines' ),
+				'title'		=> __( 'Facebook Opengraph', 'pagelines' ),
+				'shortexp'	=> __( 'Places the special og: data in page <head> area.', 'pagelines' ),
+				'exp'		=> ''
+			),
 			'icon_social' => array(
 					'version'	=> 'pro',
 					'type'		=> 'text_multi',
