@@ -240,7 +240,7 @@ class OptEngine {
 			}
 		}
 		
-		
+		$o['placeholder'] = pl_html($o['placeholder']);
 		
 		if( $this->_do_the_option($oid, $o) ){
 		
@@ -647,7 +647,7 @@ class OptEngine {
 			
 			$class = $o['inputsize'].'-text';
 			
-			$placeholder = (isset($m['placeholder'])) ? $m['placeholder'] : '';
+			$placeholder = (isset($m['placeholder'])) ? pl_html($m['placeholder']) : '';
 			
 			
 			// Output
