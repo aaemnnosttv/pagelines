@@ -221,7 +221,7 @@ class PageLinesDashboard {
 			printf( '<a href="%s" class="extend_button discrete">%s &rarr;</a>', admin_url( PL_ACCOUNT_URL ), __( 'Have Plus? Login', 'pagelines' ) );
 		endif; 
 		
-		if(VPLUS):
+		if( pagelines_check_credentials( 'plus' ) ):
 
 			echo $this->get_upgrade_button( $story, 'install_rss' );
 				

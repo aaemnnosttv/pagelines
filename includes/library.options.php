@@ -1045,4 +1045,4 @@ if ( !defined( 'VDEV') )
 if( !defined( 'VPRO' ) )
 	define( 'VPRO', ( get_pagelines_credentials( 'licence' ) === 'pro' || get_pagelines_credentials( 'licence' ) === 'dev' ) ? true : false );
 if ( !defined( 'VPLUS' ) )
-	define( 'VPLUS', ( pagelines_check_credentials( 'plus' ) === 'true' ) ? true : false );
+	define( 'VPLUS', ( pagelines_check_credentials( 'plus' ) ) ? true : false );
