@@ -45,8 +45,8 @@
 		overflow: visible;
 		.fcontainer{	
 			width: 100%;
-			.fstyle-nobg { background: none; }
-			.fstyle-lightbg { 
+			&.fstyle-nobg { background: none; }
+			&.fstyle-lightbg { 
 				background: #fff; 
 				.fcontent, .fcontent a{
 					background: rgba(255,255,255,.7); 
@@ -159,6 +159,7 @@
 							border-right:none;
 						}
 			/* No Text */
+				
 				#feature_slider .text-none .fcontent{ display: none; }
 				#feature_slider .text-none .fmedia{ width: 100%; }
 				#feature_slider .text-none .fmedia .dcol-pad{
@@ -166,6 +167,19 @@
 				}
 
 	/* @ Feature Text Area "fcontent" */	
+	
+
+	#feature_slider {
+		.fcontainer{
+			.fcontent{
+				h1, h2, h3, h4, h5{
+					color: #fff;
+					text-shadow: #000 0 -1px 0 ;
+				}
+			}
+		}
+	}
+	
 	#feature_slider .fcontent, #feature_slider .fcontent a{
 		color: #fff;
 		text-shadow: #000 0 -1px 0 ;	
@@ -187,17 +201,6 @@
 				padding: 40px 30px 20px 30px;
 			
 			}
-			
-			#feature_slider .fcontainer .fcontent h1, 
-			#feature_slider .fcontainer .fcontent h2, 
-			#feature_slider .fcontainer .fcontent h3, 
-			#feature_slider .fcontainer .fcontent h4,
-			#feature_slider .fcontainer .fcontent h5{
-				color: #fff;
-				text-shadow: #000 0 -1px 0 ;
-			}
-			
-			
 			
 			.feature-wrap a{
 				color:#fff;
