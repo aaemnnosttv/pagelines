@@ -78,7 +78,7 @@ class PLMasthead extends PageLinesSection {
 							'selectvalues'	=> array(
 								'primary'	=> array('name' => 'Blue'), 
 								'warning'	=> array('name' => 'Orange'), 
-								'danger'	=> array('name' => 'Red'), 
+								'important'	=> array('name' => 'Red'), 
 								'success'	=> array('name' => 'Green'), 
 								'info'		=> array('name' => 'Light Blue'), 
 								'reverse'	=> array('name' => 'Grey'), 
@@ -113,7 +113,7 @@ class PLMasthead extends PageLinesSection {
 							'selectvalues'	=> array(
 								'primary'	=> array('name' => 'Blue'), 
 								'warning'	=> array('name' => 'Orange'), 
-								'danger'	=> array('name' => 'Red'), 
+								'important'	=> array('name' => 'Red'), 
 								'success'	=> array('name' => 'Green'), 
 								'info'		=> array('name' => 'Light Blue'), 
 								'reverse'	=> array('name' => 'Grey'), 
