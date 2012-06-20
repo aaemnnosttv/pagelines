@@ -397,17 +397,16 @@ class PageLinesFeatures extends PageLinesSection {
 						if ( $feature_source == 'posts' || $feature_source == 'posts_all' )
 							setup_postdata( $post );
 						
-						if( $feature_source == 'posts' || $feature_source == 'posts_all' ) {
-							
-							if( plmeta( 'feature-link-url', $oset ) )
-								$action = plmeta( 'feature-link-url', $oset );
-							elseif( ploption( 'feature-link-url', $oset ) )
-								$action = ploption( 'feature-link-url', $oset );
-							else
-								$action = get_permalink();
-						} else
+					
+						if( plmeta( 'feature-link-url', $oset ) )
+							$action = plmeta( 'feature-link-url', $oset );
+						elseif( ploption( 'feature-link-url', $oset ) )
+							$action = ploption( 'feature-link-url', $oset );
+						elseif($feature_source == 'posts' || $feature_source == 'posts_all')
+							$action = get_permalink();
+						else
 							$action = '';
-						
+					
 						$fcontent_class = ( ploption( 'fcontent-bg', $oset ) ) ? ploption( 'feature-bg', $oset ) : '';
 						
 						$media_image = ploption( 'feature-media-image', $oset );
