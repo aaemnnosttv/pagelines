@@ -140,7 +140,7 @@ class PageLinesCSSGroups{
 
 		$s['type_headers'] = '.thead, h1, h2, h3, h4, h5, h6, .site-title';
 		$s['type_primary'] = 'body, .font1, .font-primary, .commentlist';
-		$s['type_secondary'] = '.font-sub, ul.main-nav, #secondnav, .metabar, .subtext, .subhead, .widget-title, .reply a, .editpage, #page .wp-pagenavi, .post-edit-link, #wp-calendar caption, #wp-calendar thead th, .soapbox-links a, .fancybox, .standard-form .admin-links, .pagelines-blink, .ftitle small';
+		$s['type_secondary'] = '.font-sub, ul.main-nav, #secondnav, .metabar, .post-nav, .subtext, .subhead, .widget-title, .reply a, .editpage, #page .wp-pagenavi, .post-edit-link, #wp-calendar caption, #wp-calendar thead th, .soapbox-links a, .fancybox, .standard-form .admin-links, .pagelines-blink, .ftitle small';
 		$s['type_inputs'] = 'input[type="text"], input[type="password"], textarea, #dsq-content textarea';
 		
 		return $s;
