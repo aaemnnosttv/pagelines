@@ -76,7 +76,7 @@ function pl_htmlspecialchars($text, $stripslashes = false, $decode = false) {
  *
  */
 function pl_noscripts($text) {
-	return trim( $this->strip_only(stripslashes($text), '<script>', true ) );
+	return trim( pl_strip_only(stripslashes($text), '<script>', true ) );
 }
 
 
@@ -86,7 +86,7 @@ function pl_noscripts($text) {
  *
  */
 function pl_strip_js($text) {
-	return trim( $this->strip_only($text, '<script>', true) );
+	return trim( pl_strip_only($text, '<script>', true) );
 }
 
 
