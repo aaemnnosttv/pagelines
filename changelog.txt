@@ -5,8 +5,14 @@
 ********************************************************
 
 Version 2.2.1
-	- Bugs - Fix 'more' link and background in features section
-	
+	- CORE - Added Minification option under Advanced tab.
+	- Bugs - CSS Minification disabled by default ( fixes a Plesk issue ).
+	- Bugs - Fix 'more' link and background in features section.
+	- Bugs - Make sure server is Apache before attempting to use rewrites.
+	- Bugs - Strip all JS from the CSS/LESS box.
+	- Bugs - Do not rewrite CSS if Polylang plugin is active.
+	- Bugs - Bootstrap uses important not danger.
+
 Version 2.2
 	- NEW - New section! ScrollSpy - Scrolling in-page navigation
 	- NEW - New section! Masthead - Giant text, compelling message and buttons
