@@ -181,11 +181,36 @@ class PageLinesRenderCSS {
 		$version = ploption( "pl_save_version" );
 		if ( ! $version )
 			$version = '1';
-		if ( '' != get_option('permalink_structure') )
-			return sprintf( '%s/pagelines-compiled-css-%s/',PARENT_URL, $version );
+		if ( '' != get_option('permalink_structure') && ! $this->check_compat() )
+			return sprintf( '%s/pagelines-compiled-css-%s/', PARENT_URL, $version );
 		else
-			return sprintf( '%s?pageless=%s',site_url(), $version );
+			return sprintf( '%s/?pageless=%s', $this->get_base_url(), $version );
 		
+	}
+
+	function get_base_url() {
+		
+		if ( defined( 'PLL_INC') ) {
+			
+			global $post;
+			
+			$lang = Polylang_Base::get_post_language( $post->ID );
+						
+			return sprintf( '%s/%s/', get_home_url(), $lang->slug );
+		}
+		return get_home_url();		
+	}
+
+	function check_compat() {
+		
+		if ( defined( 'PLL_INC') )
+			return true;
+			
+		if ( defined( 'PL_NO_DYNAMIC_URL' ) )
+			return true;
+			
+		if( site_url() !== get_home_url() )
+			return true;
 	}
 
 	/**
@@ -403,8 +428,16 @@ class PageLinesRenderCSS {
 	function minify( $css ) {
 		if( is_pl_debug() )
 			return $css;
-
-		return preg_replace('@({)\s+|(\;)\s+|/\*.+?\*\/|\R@is', '$1$2 ', $css);
+		
+		if( ! ploption( 'pl_minify') )
+			return $css;
+		
+		$min = preg_replace('@({)\s+|(\;)\s+|/\*.+?\*\/|\R@is', '$1$2 ', $css);
+		
+		if ( ! preg_last_error() )
+			return $min;
+		else
+			return $css;
 	}
 
 	/**
