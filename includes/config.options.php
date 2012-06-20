@@ -943,6 +943,14 @@ class PageLinesOptionsArray {
 									sprintf( '%s', ( ploption( 'enable_debug' ) ) ? 
 									sprintf( '<br /><a href="%s">Click here</a> for your debug info.', site_url( '?pldebug=1' ) ) : '' ) )
 			),
+			'pl_minify' => array(
+					'default'	=> false,
+					'type'		=> 'check',
+					'inputlabel'=> __( 'Enable CSS minification?', 'pagelines' ),
+					'title'		=> __( 'Minification', 'pagelines' ),
+					'shortexp'	=> __( 'Strips whitespace from compiled CSS.', 'pagelines' ),
+					'exp'		=> ""
+			),
 			'hide_pagelines_introduction' => array(
 					'default'	=> '',
 					'version'	=> 'pro',
