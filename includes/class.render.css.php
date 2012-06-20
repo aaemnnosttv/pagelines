@@ -211,6 +211,10 @@ class PageLinesRenderCSS {
 			
 		if( site_url() !== get_home_url() )
 			return true;
+			
+		global $is_apache;
+		if ( ! $is_apache )
+			return true;
 	}
 
 	/**
@@ -308,7 +312,7 @@ class PageLinesRenderCSS {
 			$start_time = microtime(true);
 			build_pagelines_layout();
 
-			$custom = ploption( 'customcss' );
+			$custom = pl_strip_js( ploption( 'customcss' ) );
 
 			$pless = new PagelinesLess();
 			$custom =  $pless->raw_less( $custom, 'custom' );
