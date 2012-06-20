@@ -4,6 +4,9 @@
 
 ********************************************************
 
+Version 2.2.1
+	- Bugs - Fix 'more' link and background in features section
+	
 Version 2.2
 	- NEW - New section! ScrollSpy - Scrolling in-page navigation
 	- NEW - New section! Masthead - Giant text, compelling message and buttons
