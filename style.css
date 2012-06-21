@@ -471,7 +471,7 @@ body{
 		.fpost .post-thumb.img { margin-right: 20px;}
 		.full_img {margin-bottom: .8em;}
 		
-		.post-meta .c_img, .hentry .c_img{ display: block;  border: 1px solid transparent; float: left; padding: 4px; max-width: 98%;line-height:1em; }
+		.post-meta .c_img, .hentry .c_img{ display: block;  border: 1px solid transparent; padding: 4px; max-width: 98%;line-height:1em; }
 		.clip .post-meta .c_img { padding: 2px;}
 		.fpost .media .img img{max-width: 100%; height: auto; margin: 0 auto;}
 		
