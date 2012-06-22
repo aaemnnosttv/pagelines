@@ -1,8 +1,9 @@
 .pl-hero-wrap{
-	max-width:100%;
-	padding: 60px;
-	background-color: darken(@pl-base,5%);
+	max-width:90%;
+	padding: 5%;
+	background-color: darken(@pl-base,4%);
 	box-shadow: inset 0 0 6px rgba(0, 0, 0, .2);
+	border: 1px solid lighten(@pl-base,4%);
 	.border-radius(6px);
 	.box-sizing(border-box);
 }
@@ -14,6 +15,10 @@
     line-height: 1;
     color: @HeroHeadingColor;
     letter-spacing: -1px;
+	small{
+		font-size: @baseFontSize;
+		line-height: @baseLineHeight;
+	}
   }
   p {
     margin: @baseLineHeight/4 0 @baseLineHeight;
@@ -22,6 +27,9 @@
     line-height: @baseLineHeight * 1.5;
     color: @HeroLeadColor;
   }
+	.pl-hero-image{
+		margin-bottom: 0; 
+	}
 
 }
 
