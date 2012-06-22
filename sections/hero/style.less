@@ -1,5 +1,5 @@
 .pl-hero-wrap{
-	max-width:90%;
+	max-width:10	0%;
 	padding: 5%;
 	background-color: darken(@pl-base,4%);
 	box-shadow: inset 0 0 6px rgba(0, 0, 0, .2);
@@ -16,15 +16,16 @@
     color: @HeroHeadingColor;
     letter-spacing: -1px;
 	small{
-		font-size: @baseFontSize;
-		line-height: @baseLineHeight;
+		display: block;
+		font-family: @plAltFont;
+		color: fadeout(@HeroHeadingColor, 50%);
 	}
   }
   p {
     margin: @baseLineHeight/4 0 @baseLineHeight;
     font-size: 18px;
     font-weight: 200;
-    line-height: @baseLineHeight * 1.5;
+    line-height: 1.5em;
     color: @HeroLeadColor;
   }
 	.pl-hero-image{
