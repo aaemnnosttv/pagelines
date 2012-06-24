@@ -38,6 +38,7 @@ class PageLinesLess {
 			'plRoot'				=> sprintf( "\"%s\"", PARENT_URL ),
 			'plSectionsRoot'		=> sprintf( "\"%s\"", SECTION_ROOT ),
 			'plChildRoot'			=> sprintf( "\"%s\"", CHILD_URL ),
+			'plExtendRoot'            => sprintf( "\"%s\"", PL_EXTEND_URL ),
 			'pl-base'				=> $this->base_color, 
 			'pl-text'				=> pl_hashify( pl_text_color() ), 
 			'pl-link'				=> pl_hashify( pl_link_color() ),
