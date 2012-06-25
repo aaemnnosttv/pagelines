@@ -4,6 +4,10 @@
 
 ********************************************************
 
+Version 2.2.2
+    - CORE - Added new LESS variable @{plExtendRoot}
+    - Bugs - Fixed supersize on fixed width mode
+
 Version 2.2.1
 	- CORE - Added Minification option under Advanced tab.
 	- Bugs - CSS Minification disabled by default ( fixes a Plesk issue ).
