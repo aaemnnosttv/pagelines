@@ -182,10 +182,11 @@ class PageLinesRenderCSS {
 		if ( ! $version )
 			$version = '1';
 		if ( '' != get_option('permalink_structure') && ! $this->check_compat() )
-			return sprintf( '%s/pagelines-compiled-css-%s/', PARENT_URL, $version );
+			$url = sprintf( '%s/pagelines-compiled-css-%s/', PARENT_URL, $version );
 		else
-			return sprintf( '%s/?pageless=%s', $this->get_base_url(), $version );
+			$url = sprintf( '%s/?pageless=%s', $this->get_base_url(), $version );
 		
+		return apply_filters( 'pl_dynamic_css_url', $url );
 	}
 
 	function get_base_url() {
