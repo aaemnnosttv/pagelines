@@ -418,6 +418,9 @@ function pagelines_supersize_bg(){
 *
 */
 function pagelines_runtime_supersize(){
+
+	if ( has_action( 'pl_no_supersize' ) )
+    return;
 	
 	global $pagelines_ID;
 	$oset = array('post_id' => $pagelines_ID);
