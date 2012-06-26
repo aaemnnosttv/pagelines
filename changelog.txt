@@ -7,7 +7,8 @@
 Version 2.2.2
     - CORE - Added new LESS variable @{plExtendRoot}.
 	- CORE - Added filter pl_dynamic_css_url.
-    - Bugs - Fixed supersize on fixed width mode.
+	- Bugs - Fixed dark background option on features
+    - Bugs - Fixed supersize on fixed width mode
 
 Version 2.2.1
 	- CORE - Added Minification option under Advanced tab.
