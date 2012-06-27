@@ -23,7 +23,7 @@ class PageLinesFoundry {
 	
 	function set_gfont_protocol() {
 		
-		if ( is_ssl() )
+		if ( is_ssl() || has_action( 'pl_force_ssl' ) )
 			$prot = 'https://';
 		else
 			$prot = 'http://';
