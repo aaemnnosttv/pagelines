@@ -496,11 +496,10 @@ class PageLinesRenderCSS {
 		$available = $load_sections->pagelines_register_sections( true, true );
 
 		$disabled = get_option( 'pagelines_sections_disabled', array() );
-		foreach( $disabled as $type ) {
-			foreach( $type as $disable )
-				if( isset( $avaliable[$type][$disable] ) )
-					unset( $avalable[$type][$disable] );
-			}	
+
+		foreach( $disabled as $type => $class ) 			
+			unset( $available[$type][key( $class )] );
+
 		foreach( $available as $t ) {		
 			foreach( $t as $key => $data ) {
 				if ( $data['less'] ) {
