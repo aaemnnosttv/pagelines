@@ -393,9 +393,10 @@ class PageLines_ShortCodes {
 		$name = $t->labels->name;
 
 		$type = sprintf( '%s%s%s', $atts['before'], $name, $atts['after'] );
-
-		$output = sprintf( '<span class="type sc"><a href="%s">%s</a></span> ', get_post_type_archive_link( $t->slug ), $type );
-
+		if( $t->has_archive )
+			$output = sprintf( '<span class="type sc"><a href="%s">%s</a></span> ', get_post_type_archive_link( $t->name ), $type );
+		else
+			$output = sprintf( '<span class="type sc">%s</span> ', $type );
 		return apply_filters( 'pagelines_post_type_shortcode', $output, $atts );
 	}
 	
