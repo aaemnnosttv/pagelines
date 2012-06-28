@@ -6,7 +6,6 @@
 	Description: Pagination - A numerical post/page navigation. (Supports WP-PageNavi)
 	Class Name: PageLinesPagination
 	Workswith: main
-	Failswith: pagelines_special_pages()
 */
 
 /**
