@@ -212,6 +212,9 @@ class PageLinesRenderCSS {
 			
 		if( site_url() !== get_home_url() )
 			return true;
+		
+		if ( 'nginx' == substr($_SERVER['SERVER_SOFTWARE'], 0, 5) )
+			return false;
 			
 		global $is_apache;
 		if ( ! $is_apache )
