@@ -186,6 +186,9 @@ class PageLinesRenderCSS {
 		else
 			$url = sprintf( '%s/?pageless=%s', $this->get_base_url(), $version );
 		
+		if ( has_action( 'pl_force_ssl' ) )
+			$url = str_replace( 'http://', 'https://', $url );
+		
 		return apply_filters( 'pl_dynamic_css_url', $url );
 	}
 
