@@ -109,17 +109,17 @@ class PageLinesMorefoot extends PageLinesSection {
 				
 				'left'	=> array(
 					'name'			=> 'MoreFoot Left', 
-					'description' 	=> __('Left sidebar in <strong>morefoot</strong> section.', 'pagelines'),
+					'description' 	=> __('Left sidebar in morefoot section.', 'pagelines'),
 					'default'		=> $left
 				),
 				'middle'	=> array(
 					'name'			=> 'MoreFoot Middle', 
-					'description' 	=> __('Middle sidebar in <strong>morefoot</strong> section.', 'pagelines'),
+					'description' 	=> __('Middle sidebar in morefoot section.', 'pagelines'),
 					'default'		=> $middle
 				),
 				'right'	=> array(
 					'name'			=> 'MoreFoot Right', 
-					'description' 	=> __('Right sidebar in <strong>morefoot</strong> section.', 'pagelines'),
+					'description' 	=> __('Right sidebar in morefoot section.', 'pagelines'),
 					'default'		=> $right
 				),
 			);		
