@@ -14,7 +14,7 @@ class PageLinesAccount {
 	function __construct(){
 		
 		add_action( 'admin_init', array(&$this, 'update_lpinfo' ) );
-		
+		add_filter( 'pagelines_account_array', 'PageLinesWelcome::get_intro' );		
 	}
 	
 	/**
@@ -84,8 +84,6 @@ class PageLinesAccount {
 
 	function pl_add_live_chat_dash(){
 		$ext = new PageLinesSupportPanel();
-
-
 
 		$a = array(
 			'icon'			=> PL_ADMIN_ICONS.'/balloon.png',

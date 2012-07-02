@@ -10,8 +10,7 @@ class PageLinesWelcome {
 	/**
      * PHP5 Constructor
      */
-	function __contruct(){ }
-	
+	function __contruct(){}
 
 	/**
      * Get Welcome
@@ -36,8 +35,6 @@ class PageLinesWelcome {
 			'icon'			=> PL_ADMIN_ICONS . '/light-bulb.png', 
 			'excerpt-trim'	=> false
 		); 
-		
-		
 
 		$view = $this->get_welcome_billboard();
 		
@@ -58,7 +55,6 @@ class PageLinesWelcome {
 		$view .= $this->get_support_banner();
 
 		$view .= $dash->wrap_dashboard_pane('support-plugins', $args);
-		
 
 		return apply_filters('pagelines_welcome_intro', $view);
 	}
@@ -123,31 +119,38 @@ class PageLinesWelcome {
 	/**
      * Get Intro
      *
-     * Includes the 'welcome.php' file from Child-Theme's root folder if it exists; else, the PageLines default 'welcome.php' file is returned.
+     * Includes the 'welcome.php' file from Child-Theme's root folder if it exists.
      *
      * @uses    default_headers
      *
      * @return  string
      */
-	function get_intro() {
+	function get_intro( $o ) {
 		
 		if ( is_file( get_stylesheet_directory() . '/welcome.php' ) ) {
 			
 			ob_start();
 				include( get_stylesheet_directory() . '/welcome.php' );
-			return ob_get_clean();	
+			$welcome =  ob_get_clean();	
 			
-		} else {
+			$a = array();
 			
-			ob_start();
-			include( PL_ADMIN . '/t.welcome.php' );
-			$intro = ob_get_clean();
-			
-			return $this->default_headers() . $intro;
+			if ( is_file( get_stylesheet_directory() . '/welcome.png' ) )
+				$icon = get_stylesheet_directory() . '/welcome.png';
+			else
+				$icon =  PL_ADMIN_ICONS . '/welcome.png';
+			$a['welcome'] = array(
+				'icon'			=> $icon,
+				'hide_pagelines_introduction'	=> array(
+					'type'			=> 'text_content',
+					'flag'			=> 'hide_option',
+					'exp'			=> $welcome
+				)
+			);		
+		$o = array_merge( $a, $o );
 		}
+	return $o;
 	}
-	
-
 
 	/**
      * Get Welcome Billboard
