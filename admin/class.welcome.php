@@ -136,7 +136,7 @@ class PageLinesWelcome {
 			$a = array();
 			
 			if ( is_file( get_stylesheet_directory() . '/welcome.png' ) )
-				$icon = get_stylesheet_directory() . '/welcome.png';
+				$icon = get_stylesheet_directory_uri() . '/welcome.png';
 			else
 				$icon =  PL_ADMIN_ICONS . '/welcome.png';
 			$a['welcome'] = array(
