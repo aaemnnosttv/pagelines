@@ -1080,7 +1080,6 @@ class PageLines_ShortCodes {
 
         $atts = shortcode_atts( $defaults, $atts );
 		$open = ( $atts['open'] == 'yes' ) ? 'in' : '';
-		plprint( $open, 'open' );
 	    $out = sprintf( '<div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#%1$s" href="#collapse%3$s">%2$s</a></div><div id="collapse%3$s" class="accordion-body collapse %4$s"><div class="accordion-inner">%5$s</div></div></div>',
 	      	$atts['name'],
 	        $atts['heading'],
