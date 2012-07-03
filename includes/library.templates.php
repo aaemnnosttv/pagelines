@@ -238,8 +238,6 @@ function pagelines_search_form( $echo = true ){
 function pagelines_head_common(){
 	global $pagelines_ID;
 	$oset = array('post_id' => $pagelines_ID);
-
-	
 	
 	pagelines_register_hook('pagelines_code_before_head'); // Hook 
 
@@ -249,10 +247,9 @@ function pagelines_head_common(){
 
 	echo pl_source_comment('Title');
 
-	// Draw Page <title> Tag
-	pagelines_title_tag();
-		
-
+	// Draw Page <title> Tag. We use a filter to apply the actual titles.
+	
+	printf( '<title>%s</title>', wp_title( '',false ) );
 		
 	// Allow for extension deactivation of all css
 	if(!has_action('override_pagelines_css_output')){	
@@ -439,11 +436,11 @@ function pagelines_runtime_supersize(){
 
 	
 /**
- * PageLines Title Tag
+ * PageLines Title Tag ( deprecated )
  *
  * Checks for AIO or WPSEO functionality, if they both do not exist then this will define the HTML <title> tag for the theme.
  *
- * @since   ...
+ * @TODO deleteme
  *
  * @internal filter pagelines_meta_title provided for over-writing the default title text.
  */
@@ -470,7 +467,38 @@ function pagelines_title_tag(){
 	echo apply_filters( 'pagelines_meta_title', $title );
 	
 	echo "</title>";
-}	
+}
+
+/**
+ * PageLines Title Tag Filter
+ *
+ * Filters wp_title so SEO plugins can override.
+ *
+ * @since 2.2.2
+ *
+ * @internal filter pagelines_meta_title provided for over-writing the default title text.
+ */
+function pagelines_filter_wp_title( $title ) {
+	global $wp_query, $s, $paged, $page;
+	$sep = __( '|','pagelines' );
+	$new_title = get_bloginfo( 'name' ) . ' ';
+	$bloginfo_description = get_bloginfo( 'description' );	
+	if ( ( is_home () || is_front_page() ) && ! empty( $bloginfo_description ) && !$paged && !$page ) {
+		$new_title .= $sep . ' ' . $bloginfo_description;
+	} elseif ( is_category() ) {
+		$new_title .= $sep . ' ' . single_cat_title( '', false );
+	} elseif ( is_single() || is_page() ) { 
+		$new_title .= $sep . ' ' . single_post_title( '', false );
+	} elseif ( is_search() ) { 
+		$new_title .= $sep . ' ' . sprintf( __( 'Search Results: %s','pagelines' ), esc_html( $s ) );
+	} else
+		$new_title .= $sep . ' ' . $title;
+	if ( $paged || $page ) {
+		$new_title .= ' ' . $sep . ' ' . sprintf( __( 'Page: %s', 'pagelines' ), max( $paged, $page ) );
+	}
+    return apply_filters( 'pagelines_meta_title', $new_title );
+}
+add_filter( 'wp_title', 'pagelines_filter_wp_title' );
 	
 /**
  * 
