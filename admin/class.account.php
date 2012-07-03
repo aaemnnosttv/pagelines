@@ -14,7 +14,7 @@ class PageLinesAccount {
 	function __construct(){
 		
 		add_action( 'admin_init', array(&$this, 'update_lpinfo' ) );
-		add_filter( 'pagelines_account_array', 'PageLinesWelcome::get_intro' );		
+		add_filter( 'pagelines_account_array', 'PageLinesWelcome::get_intro', 15 );		
 	}
 	
 	/**
