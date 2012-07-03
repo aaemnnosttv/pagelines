@@ -911,7 +911,7 @@
 	function login( $type, $file, $path, $uploader, $checked ) {
 		
 		_e( 'Moving to account setup..', 'pagelines' );
-		$this->page_reload( PL_ACCOUNT_URL.'#Your_Account' );
+		$this->page_reload( PL_MAIN_DASH . '#Your_Account' );
 		
 	}
 	
