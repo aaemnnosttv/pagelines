@@ -62,17 +62,87 @@ class PageLinesRenderCSS {
 
 		global $pagelines_template;
 				
-		add_filter('query_vars', array( &$this, 'pagelines_add_trigger' ) );
-		add_action('template_redirect', array( &$this, 'pagelines_less_trigger' ) );
+		add_filter( 'query_vars', array( &$this, 'pagelines_add_trigger' ) );
+		add_action( 'template_redirect', array( &$this, 'pagelines_less_trigger' ) , 15);
+		
+		if( !VPRO || defined( 'LESS_FILE_MODE' ) )
+			add_action( 'template_redirect', array( &$this, 'less_file_mode' ) );
 		add_action( 'wp_print_styles', array( &$this, 'load_less_css' ), 11 );
 		add_action( 'pagelines_head_last', array( &$this, 'draw_inline_custom_css' ) , 25 );
 		add_action( 'wp_head', array(&$pagelines_template, 'print_template_section_head' ), 12 );
 		add_action( 'extend_flush', array( &$this, 'flush_version' ) );	
 		add_filter( 'pagelines_insert_core_less', array( &$this, 'pagelines_insert_core_less_callback' ) );
-		add_action('admin_notices', array(&$this,'less_error_report') );
+		add_action( 'admin_notices', array(&$this,'less_error_report') );
 		add_action( 'wp_before_admin_bar_render', array( &$this, 'less_css_bar' ) );
 	}
+	
+	function less_file_mode() {
+		
+		$upload_dir = wp_upload_dir();
+		$folder = $upload_dir['basedir'] . '/pagelines/';
+		$url = $upload_dir['baseurl'] . '/pagelines/';
+		$file = sprintf( 'compiled-css-%s.css', ploption( 'pl_save_version' ) );
 
+		if( file_exists( $folder . $file ) ){			
+			define( 'DYNAMIC_FILE_URL', $url . $file );
+			return;
+		}
+		
+		$a = $this->get_compiled_core();
+		$b = $this->get_compiled_sections();
+		$gfonts = preg_match( '#(@import[^;]*;)#', $a['type'], $g ); 
+		$out = '';
+		if ( $gfonts ) {
+			$out .= $g[1];
+			$a['type'] = str_replace( $g[1], '', $a['type'] );
+		}
+		$out .= $this->minify( $a['core'] );
+		$out .= $this->minify( $b['sections'] );
+		$out .= $this->minify( $a['type'] );
+		$out .= $this->minify( $a['dynamic'] );
+		$mem = ( function_exists('memory_get_usage') ) ? round( memory_get_usage() / 1024 / 1024, 2 ) : 0;
+		$out .= sprintf( __( 'CSS was compiled at %s and took %s seconds using %sMB of unicorn dust.', 'pagelines' ), date( DATE_RFC822, $a['time'] ), $a['c_time'],  $mem );
+		$this->write_css_file( $out );
+		
+	}
+	
+	function write_css_file( $txt ){
+	add_filter('request_filesystem_credentials', '__return_true' );
+
+		$method = '';
+		$url = 'themes.php?page=pagelines';
+
+		$upload_dir = wp_upload_dir();
+		$User = posix_getpwuid( posix_geteuid() );
+		$File = posix_getpwuid( fileowner( __FILE__ ) );
+		if( $User['name'] !== $File['name'] )
+			return;
+		
+		
+		$folder = $upload_dir['basedir'] . '/pagelines';
+		
+		$file = sprintf( 'compiled-css-%s.css', ploption( 'pl_save_version' ) );
+		
+		if( !is_dir( $folder ) )
+			wp_mkdir_p( $folder );
+
+		include_once( ABSPATH . 'wp-admin/includes/file.php' );
+
+	if ( is_writable( $folder ) ){
+		$creds = request_filesystem_credentials($url, $method, false, false, null);
+		if ( ! WP_Filesystem($creds) )
+			return false;
+	}
+
+			global $wp_filesystem;
+			if( is_object( $wp_filesystem ) )
+				$wp_filesystem->put_contents( trailingslashit( $folder ) . $file, $txt, FS_CHMOD_FILE);
+			else
+				return false;
+
+			define( 'DYNAMIC_FILE_URL', sprintf( '%s/pagelines/%s', $upload_dir['baseurl'], $file ) );
+	}
+	
 	function less_css_bar() {
 		foreach ( $this->types as $t ) {		
 			if ( ploption( "pl_less_error_{$t}" ) ) {
@@ -186,6 +256,9 @@ class PageLinesRenderCSS {
 		else
 			$url = sprintf( '%s/?pageless=%s', $this->get_base_url(), $version );
 		
+		if ( defined( 'DYNAMIC_FILE_URL' ) )
+			$url = DYNAMIC_FILE_URL;
+		
 		if ( has_action( 'pl_force_ssl' ) )
 			$url = str_replace( 'http://', 'https://', $url );
 		
@@ -210,6 +283,9 @@ class PageLinesRenderCSS {
 		if ( defined( 'PLL_INC') )
 			return true;
 			
+		if ( ! VPRO )
+			return true;
+
 		if ( defined( 'PL_NO_DYNAMIC_URL' ) )
 			return true;
 			
@@ -459,8 +535,16 @@ class PageLinesRenderCSS {
 	 *  @since 2.2
 	 */
 	function flush_version( $rules = true ) {
-		
+
 		$types = array( 'sections', 'core', 'custom' );
+		
+		$upload_dir = wp_upload_dir();
+		$folder = $upload_dir['basedir'] . '/pagelines/';
+		
+		$file = sprintf( 'compiled-css-%s.css', ploption( 'pl_save_version' ) );
+		if( is_file( $folder . $file ) )
+			@unlink( $folder . $file );
+		
 		if( $rules )
 			flush_rewrite_rules( true );
 		plupop( 'pl_save_version', time() );
@@ -476,7 +560,9 @@ class PageLinesRenderCSS {
 				set_transient( "pagelines_{$t}_css_backup", $compiled, 604800 );
 		
 			delete_transient( "pagelines_{$t}_css" );	
-		}	
+		}
+		
+		
 	}
 	
 	function pagelines_insert_core_less_callback( $code ) {
