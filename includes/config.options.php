@@ -902,8 +902,8 @@ class PageLinesOptionsArray {
 					'type'		=> 'check',
 					'inputlabel'=> __( 'Enable Code Prettify?', 'pagelines' ),
 					'title'		=> __( 'Google Prettify Code', 'pagelines' ),
-					'shortexp'	=> __( 'Adds syntax highlighting for code. Includes necessary code to make it work.', 'pagelines' ),
-					'exp'		=> __( "To use this feature you will need to add a class of 'prettyprint' to code or pre tags. Optionally you can include a 'linenums' class as well. Finally you can use the [pl_codebox] shortcode.", 'pagelines' )
+					'shortexp'	=> __( 'Adds pretty syntax highlighting for code.', 'pagelines' ),
+					'exp'		=> __( "Add a class of 'prettyprint' to code or pre tags, or optionally use the [pl_codebox] shortcode. Wrap the codebox shortcode using [pl_raw] if Wordpress inserts line breaks.", 'pagelines' )
 			),
 			'partner_link' 	=> array(
 					'default'	=> '',
