@@ -302,13 +302,11 @@ function pl_page_show_columns($name) {
 				printf( '<a href="%s">%s</a>', admin_url( sprintf( 'post.php?post=%s&action=edit', $post->ID ) ), __( 'No Template Assigned', 'pagelines' ) ) ;
 				break;
 			}
-				
-			$data = pl_file_get_contents( $file );
-			
-			preg_match( '/Template Name:(.*)/', $data, $out );
-			
-			if ( isset( $out[1] ) )
-				$template = $out[1];
+
+			$data = get_file_data( $file, array( 'name' => 'Template Name' ) );
+
+			if ( is_array( $data ) && isset( $data['name'] ) )
+				$template = $data['name'];
 			else
 				$template = __( 'Default', 'pagelines' );
 			
