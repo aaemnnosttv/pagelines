@@ -9,6 +9,7 @@ Version 2.2.2
 	- CORE - Added filter pl_dynamic_css_url.
 	- CORE - Added pl_force_ssl action.
 	- CORE - Main CSS and gfont will be https if pl_force_ssl is used.
+	- CORE - Added option to NavBar to display title on small screens
 	- Bugs - Fixed accordion shortcode open status
 	- Bugs - Fixed dark background option on features.
     - Bugs - Fixed supersize on fixed width mode.

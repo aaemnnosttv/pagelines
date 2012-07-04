@@ -131,7 +131,19 @@ body.navbar_fixed .fixed_width #page .page-canvas{margin-top: 42px; padding-top:
 		box-shadow: 0 1px 0 #fff;
 	}
 	
+// Hide Title on Fixed Crackbar
+#navbar.fixed-top { .navbar-title {display:none;} }
 
+// CrackBar Title Defaults
+span.navbar-title {
+	display: inline-block;
+	color:rgba(255,255,255,0.8);
+	margin-top: 8px;
+	font-size: 16px;
+	font-weight: bold;
+	letter-spacing: 0.061em;
+}
+@media (min-width:767px) {span.navbar-title{display:none;}}
 
 /*  Searchform 
  ************************************************************/

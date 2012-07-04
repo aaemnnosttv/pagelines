@@ -124,6 +124,13 @@ class PLNavBar extends PageLinesSection {
 				'exp'					=> __( '', 'pagelines' ) 
 			 
 			),
+			'navbar_title' => array(
+					'type' 		=> 'text',
+					'inputlabel'=> 'NavBar Title',					
+					'title'		=> __( 'NavBar Title', 'pagelines' ),
+					'shortexp'	=> __( 'Applies text to NavBar on small screens. Not available on Fixed NavBar', 'pagelines' ),
+					'exp'		=> __( 'Add text to the NavBar to serve as a title, but only displayed on small screens.', 'pagelines' )
+			),
 			
 			
 		);
@@ -214,11 +221,16 @@ class PLNavBar extends PageLinesSection {
 	
 	$brand = (ploption('navbar_logo') || ploption('navbar_logo') != '') ? sprintf('<img src="%s" />', ploption('navbar_logo')) : sprintf('<h2 class="plbrand-text">%s</h2>', get_bloginfo('name'));
 
+    $navbartitle = ploption( 'navbar_title', $this->oset );
 	
 	?>
 	<div class="navbar fix <?php echo $width_class.' '.$theme_class; ?>">
 	  <div class="navbar-inner <?php echo $content_width_class;?>">
 	    <div class="navbar-content-pad fix">
+	    	<?php
+	   			if($navbartitle)
+				printf('<span class="navbar-title">%s</span>',$navbartitle);
+			?>	
 	      <a href="javascript:void(0)" class="nav-btn nav-btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
