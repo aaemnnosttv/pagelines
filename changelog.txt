@@ -9,12 +9,23 @@ Version 2.2.2
 	- CORE - Added filter pl_dynamic_css_url.
 	- CORE - Added pl_force_ssl action.
 	- CORE - Main CSS and gfont will be https if pl_force_ssl is used.
-	- CORE - Added option to NavBar to display title on small screens
-	- Bugs - Fixed accordion shortcode open status
+	- CORE - Added option to NavBar to display title on small screens.
+	- CORE - Added .tac utility class to text-align center elements.
+	- CORE - Added file based css cache LESS_FILE_MODE must be defined.
+	- CORE - Child themes can now use welcome.php to customize the dashboard, adds a new tab.
+	- CORE - Use wp_title() filters for TITLE, good for SEO plugins.
+	- Bugs - Fixed template dropdown in edit page.
+	- Bugs - Fixed accordion shortcode open status.
 	- Bugs - Fixed dark background option on features.
     - Bugs - Fixed supersize on fixed width mode.
 	- Bugs - Fixed [post_type] shortcode ( undefined index ).
 	- Bugs - Allow NGINX to use pretty urls with css.
+	- Bugs - Fix Carousel to work without captions.
+	- Bugs - Fix Pagination section not working in archives etc.
+	- Bugs - Fix MoreFoot widget description.
+	- Bugs - Fix wrong admin URL in admin-bar.
+	- Bugs - Fix Login URL in dashboard.
+	- Bugs - Fix PrettyPrint description.
 
 Version 2.2.1
 	- CORE - Added Minification option under Advanced tab.
