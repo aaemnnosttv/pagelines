@@ -1409,19 +1409,6 @@ class lessc {
 		$this->allParsedFiles[realpath($file)] = filemtime($file);
 	}
 
-
-	// compile file $in to file $out if $in is newer than $out
-	// returns true when it compiles, false otherwise
-	public static function ccompile($in, $out) {
-		if (!is_file($out) || filemtime($in) > filemtime($out)) {
-			$less = new lessc($in);
-			file_put_contents($out, $less->parse());
-			return true;
-		}
-
-		return false;
-	}
-
 	/**
 	 * Execute lessphp on a .less file or a lessphp cache structure
 	 *

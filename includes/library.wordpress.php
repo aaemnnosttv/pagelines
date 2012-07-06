@@ -11,7 +11,7 @@ function pl_get_comments_link( $post_id ){
 	 	  	  $comments = __('Add Comment', 'pagelines');
 	 	  }
 	 	  elseif($num_comments > 1){
-	 	  	  $comments = $num_comments.' '. __('Comments');
+	 	  	  $comments = $num_comments.' '. __( 'Comments', 'pagelines' );
 	 	  }
 	 	  else{
 	 	  	   $comments ="1 Comment";
