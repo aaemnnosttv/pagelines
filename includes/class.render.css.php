@@ -65,7 +65,7 @@ class PageLinesRenderCSS {
 		add_filter( 'query_vars', array( &$this, 'pagelines_add_trigger' ) );
 		add_action( 'template_redirect', array( &$this, 'pagelines_less_trigger' ) , 15);
 		
-		if( defined( 'LESS_FILE_MODE' ) )
+		if( defined( 'LESS_FILE_MODE' ) && LESS_FILE_MODE )
 			add_action( 'template_redirect', array( &$this, 'less_file_mode' ) );
 
 		add_action( 'wp_print_styles', array( &$this, 'load_less_css' ), 11 );
