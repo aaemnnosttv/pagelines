@@ -70,7 +70,8 @@ class PageLinesRenderCSS {
 
 		add_action( 'wp_print_styles', array( &$this, 'load_less_css' ), 11 );
 		add_action( 'pagelines_head_last', array( &$this, 'draw_inline_custom_css' ) , 25 );
-		add_action( 'wp_head', array(&$pagelines_template, 'print_template_section_head' ), 12 );
+		add_action( 'wp_head', array( &$pagelines_template, 'print_template_section_head' ), 12 );
+		add_action( 'wp_head', array( &$this, 'do_background_image' ), 13 );
 		add_action( 'extend_flush', array( &$this, 'flush_version' ) );	
 		add_filter( 'pagelines_insert_core_less', array( &$this, 'pagelines_insert_core_less_callback' ) );
 		add_action( 'admin_notices', array(&$this,'less_error_report') );
@@ -103,12 +104,11 @@ class PageLinesRenderCSS {
 		$out .= $this->minify( $a['dynamic'] );
 		$mem = ( function_exists('memory_get_usage') ) ? round( memory_get_usage() / 1024 / 1024, 2 ) : 0;
 		$out .= sprintf( __( 'CSS was compiled at %s and took %s seconds using %sMB of unicorn dust.', 'pagelines' ), date( DATE_RFC822, $a['time'] ), $a['c_time'],  $mem );
-		$this->write_css_file( $out );
-		
+		$this->write_css_file( $out );	
 	}
 	
 	function write_css_file( $txt ){
-	add_filter('request_filesystem_credentials', '__return_true' );
+		add_filter('request_filesystem_credentials', '__return_true' );
 
 		$method = '';
 		$url = 'themes.php?page=pagelines';
@@ -143,6 +143,32 @@ class PageLinesRenderCSS {
 
 			define( 'DYNAMIC_FILE_URL', sprintf( '%s/pagelines/%s', $upload_dir['baseurl'], $file ) );
 	}
+
+	function do_background_image() {
+			
+		global $pagelines_ID;
+		$oset = array( 'post_id' => $pagelines_ID );
+		$oid = 'page_background_image';
+		$sel = '#page';
+		
+		if( !ploption('supersize_bg', $oset) && ploption( $oid . '_url', $oset)){
+			
+			$bg_repeat = (ploption($oid.'_repeat', $oset)) ? ploption($oid.'_repeat', $oset) : 'no-repeat';
+			$bg_attach = (ploption($oid.'_attach', $oset)) ? ploption($oid.'_attach', $oset): 'scroll';
+			$bg_pos_vert = (ploption($oid.'_pos_vert', $oset) || ploption($oid.'_pos_vert', $oset) == 0 ) ? (int) ploption($oid.'_pos_vert', $oset) : '0';
+			$bg_pos_hor = (ploption($oid.'_pos_hor', $oset) || ploption($oid.'_pos_hor', $oset) == 0 ) ? (int) ploption($oid.'_pos_hor', $oset) : '50';
+			$bg_selector = (ploption($oid.'_selector', $oset)) ? ploption($oid.'_selector', $oset) : $sel;
+			$bg_url = ploption($oid.'_url', $oset);
+			
+			$css = sprintf('%s{ background-image:url(%s);', $bg_selector, $bg_url);
+			$css .= sprintf('background-repeat: %s;', $bg_repeat);
+			$css .= sprintf('background-attachment: %s;', $bg_attach);
+			$css .= sprintf('background-position: %s%% %s%%;}', $bg_pos_hor, $bg_pos_vert);
+			echo inline_css_markup( 'pagelines-page-bg', $css );
+			
+		}	
+	}
+
 	
 	function less_css_bar() {
 		foreach ( $this->types as $t ) {		
