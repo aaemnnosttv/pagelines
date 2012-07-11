@@ -10,6 +10,7 @@ class PageLinesRenderCSS {
 	
 	function __construct() {
 		
+		$this->url_string = '%s/?pageless=%s';
 		$this->ctimout = 86400;
 		$this->btimeout = 604800;
 		$this->types = array( 'sections', 'core', 'custom' );
@@ -280,9 +281,13 @@ class PageLinesRenderCSS {
 			$version = '1';
 		if ( '' != get_option('permalink_structure') && ! $this->check_compat() )
 			$url = sprintf( '%s/pagelines-compiled-css-%s/', PARENT_URL, $version );
-		else
-			$url = sprintf( '%s/?pageless=%s', $this->get_base_url(), $version );
-		
+		else {
+			
+			if ( false !== ( strpos( $this->get_base_url(), '?' ) ) )
+				$this->url_string = '%s&pageless=%s';
+			
+			$url = sprintf( $this->url_string, untrailingslashit( $this->get_base_url() ), $version );
+		}
 		if ( defined( 'DYNAMIC_FILE_URL' ) )
 			$url = DYNAMIC_FILE_URL;
 		
@@ -302,11 +307,19 @@ class PageLinesRenderCSS {
 						
 			return sprintf( '%s/%s/', get_home_url(), $lang->slug );
 		}
+
+		if(function_exists('icl_get_home_url')) {
+		    return icl_get_home_url();
+		  }
+
 		return get_home_url();		
 	}
 
 	function check_compat() {
 		
+		if ( function_exists( 'icl_get_home_url' ) )
+			return true;
+
 		if ( defined( 'PLL_INC') )
 			return true;
 			
