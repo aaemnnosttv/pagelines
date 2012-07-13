@@ -11,6 +11,7 @@ Version 2.2.3
 	- Bugs - Fixed background images not working.
 	- Bugs - IE8 fixes for navbar.
 	- Bugs - Fix css url when WPML switches url for custom languages.
+	- Bugs - Hero section, open link in new window.
 
 Version 2.2.2
     - CORE - Added new LESS variable @{plExtendRoot}.
