@@ -19,7 +19,7 @@ function do_special_content_wrap(){
 		isset($pagelines_render)
 		|| class_exists('SkinPageLinesWiki')
 		|| function_exists('vanilla_dcss')
-		|| (function_exists('is_jigoshop') && is_jigoshop() && class_exists('PageLinesJigoShop'))
+	//	|| (function_exists('is_jigoshop') && is_jigoshop() && class_exists('PageLinesJigoShop'))
 	)
 		return false; 
 	else 
