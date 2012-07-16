@@ -11,7 +11,7 @@ class PageLinesRenderCSS {
 	function __construct() {
 		
 		$this->url_string = '%s/?pageless=%s';
-		$this->ctimout = 86400;
+		$this->ctimeout = 86400;
 		$this->btimeout = 604800;
 		$this->types = array( 'sections', 'core', 'custom' );
 		$this->lessfiles = $this->get_core_lessfiles();
