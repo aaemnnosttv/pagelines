@@ -632,8 +632,19 @@ class PageLinesRenderCSS {
 
 		foreach( $disabled as $type => $class ) 			
 			unset( $available[$type][key( $class )] );
+		/*
+		* We need to reorder the array so sections css is loaded in the right order.
+		* Core, then pagelines-sections, followed by anything else. 
+		*/
+		$sections = array();
+		$sections['parent'] = $available['parent'];
+		unset( $available['parent'] );
+		$sections['child'] = $available['child'];
+		unset( $available['child'] );
+		if ( is_array( $available ) )
+			$sections = array_merge( $sections, $available );
 
-		foreach( $available as $t ) {		
+		foreach( $sections as $t ) {		
 			foreach( $t as $key => $data ) {
 				if ( $data['less'] ) {
 					if ( is_file( $data['base_dir'] . '/style.less' ) )
