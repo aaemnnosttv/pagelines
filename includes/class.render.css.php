@@ -148,11 +148,12 @@ class PageLinesRenderCSS {
 	function do_background_image() {
 			
 		global $pagelines_ID;
+		if ( is_archive() || is_home() )
+			$pagelines_ID = null;
 		$oset = array( 'post_id' => $pagelines_ID );
 		$oid = 'page_background_image';
-		$sel = '#page';
-		
-		if( !ploption('supersize_bg', $oset) && ploption( $oid . '_url', $oset)){
+		$sel = '.full_width #page .page-canvas, body.fixed_width';		
+		if( !ploption('supersize_bg', $oset) && ploption( $oid . '_url', $oset )){
 			
 			$bg_repeat = (ploption($oid.'_repeat', $oset)) ? ploption($oid.'_repeat', $oset) : 'no-repeat';
 			$bg_attach = (ploption($oid.'_attach', $oset)) ? ploption($oid.'_attach', $oset): 'scroll';
