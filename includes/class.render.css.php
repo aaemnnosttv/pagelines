@@ -152,7 +152,7 @@ class PageLinesRenderCSS {
 			$pagelines_ID = null;
 		$oset = array( 'post_id' => $pagelines_ID );
 		$oid = 'page_background_image';
-		$sel = '.full_width #page .page-canvas, body.fixed_width';		
+		$sel = cssgroup('page_background_image');		
 		if( !ploption('supersize_bg', $oset) && ploption( $oid . '_url', $oset )){
 			
 			$bg_repeat = (ploption($oid.'_repeat', $oset)) ? ploption($oid.'_repeat', $oset) : 'no-repeat';
