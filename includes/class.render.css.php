@@ -115,6 +115,10 @@ class PageLinesRenderCSS {
 		$url = 'themes.php?page=pagelines';
 
 		$upload_dir = wp_upload_dir();
+		
+		if ( ! function_exists( 'posix_geteuid') || ! function_exists( 'posix_getpwuid' ) )
+			return;
+		
 		$User = posix_getpwuid( posix_geteuid() );
 		$File = posix_getpwuid( fileowner( __FILE__ ) );
 		if( $User['name'] !== $File['name'] )

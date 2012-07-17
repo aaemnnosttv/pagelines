@@ -184,11 +184,15 @@ class PageLinesDebug {
 				'level'	=> false
 			);
 			
-			$processUser = posix_getpwuid(posix_geteuid());
+			
+			
+			$processUser = ( ! function_exists( 'posix_geteuid') || ! function_exists( 'posix_getpwuid' ) ) ? 'posix functions are disabled on this host!' : posix_getpwuid(posix_geteuid());
+			if ( is_array( $processUser ) )
+				$processUser = $processUser['name'];
 			
 			$this->debug_info[] = array(
 				'title'	=> 'PHP User',
-				'value' => $processUser['name'],
+				'value' => $processUser,
 				'level'	=> false
 			);
 
