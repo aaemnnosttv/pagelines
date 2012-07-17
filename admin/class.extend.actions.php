@@ -39,8 +39,10 @@
 			$path =  $_POST['extend_path'];
 			$product = $_POST['extend_product'];
 			$dash = isset( $_POST['extend_dash'] ) ? $_POST['extend_dash'] : false;
+	
+	
 			
-		if ( $uploader = 'pagelines_ajax_extend_it_callback' )
+		if ( $uploader === 'pagelines_ajax_extend_it_callback' )
 			$uploader = false;
 
 		// 3. Do our thing...
@@ -235,6 +237,7 @@
 			$_POST['extend_path']	= $out[1];
 			$_POST['extend_type']	= 'section';
 			$_POST['extend_product']= '';
+
 			$this->extend_it_callback( $uploader, null );
 			exit;
 		}	
@@ -636,7 +639,7 @@
 	function section_install( $type, $file, $path, $uploader, $checked ) {
 
 		$this->wp_libs();
-				
+			
 		if ( !$checked )
 			$this->check_creds( 'extend', WP_PLUGIN_DIR );		
 		global $wp_filesystem;
@@ -646,7 +649,8 @@
 		$time = 0;
 		
 		$url = ( $uploader ) ? $file : $this->make_url( $type, $path );
-		$out = @$upgrader->install( $url );		
+		$out = @$upgrader->install( $url );
+
 		$wp_filesystem->move( trailingslashit( $wp_filesystem->wp_plugins_dir() ) . $path, sprintf( '%s/pagelines-sections/%s', trailingslashit( $wp_filesystem->wp_plugins_dir() ), $path ) );
 		
 		$this->sections_reset();
