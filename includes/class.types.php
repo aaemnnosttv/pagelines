@@ -36,7 +36,7 @@ class PageLinesPostType {
 				'capability_type'	=> 'post',  
 				'hierarchical' 		=> false,  
 				'rewrite' 			=> false,  
-				'supports' 			=> array( 'title', 'editor', 'thumbnail' ), 
+				'supports' 			=> array( 'title', 'editor', 'thumbnail', 'revisions' ), 
 				'menu_icon' 		=> PL_ADMIN_IMAGES . '/favicon-pagelines.ico', 
 				'taxonomies'		=> array(),
 				'menu_position'		=> 20, 
