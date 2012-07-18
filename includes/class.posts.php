@@ -625,8 +625,10 @@ class PageLinesPosts {
 
 		if(!VPRO) 
 			return false;
-
-		if(is_home() && ploption('blog_layout_mode') == 'magazine' && $count <= ploption('full_column_posts') && $paged == 0)
+		
+		$archives = apply_filters( 'pagelines_full_width_archives', false );
+		
+		if( ( is_home() || $archives ) && ploption('blog_layout_mode') == 'magazine' && $count <= ploption('full_column_posts') && $paged == 0)
 			return false;
 
 		elseif(ploption('blog_layout_mode') != 'magazine') 
