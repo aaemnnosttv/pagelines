@@ -46,17 +46,33 @@ function pagelines_special_content_wrap_top(){
 	
 }
 
+function pagelines_special_content_wrap_finish_before_sidebar_left() {
+	
+	if ( 'two-sidebar-center' === pl_layout_mode() ) {
+		?><div id="sidebar1" class="scolumn fix">
+			<div class="scolumn-pad">
+				<section id="sb_primary" class="copy no_clone section-sb_primary">
+					<div class="copy-pad">
+		<?php pagelines_draw_sidebar('sb_primary', 'Primary Sidebar', 'includes/widgets.default'); ?>
+					</div>
+				</section>
+			</div>
+		</div>
+		<?php
+	}
+}
+
 /**
  * If the extension runs the sidebar, close down some markup before
  * 
  **/
 function pagelines_special_content_wrap_finish_before_sidebar(){
 
-	?>	
-								</div>
+								?></div>
 							</div>
-						</div>		
-	<?php 
+						<?php pagelines_special_content_wrap_finish_before_sidebar_left(); ?>
+					</div>					
+<?php
 }
 
 /**
