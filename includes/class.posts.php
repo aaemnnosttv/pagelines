@@ -389,7 +389,7 @@ class PageLinesPosts {
 		
 		$percent_width  = ( $mode == 'top' ) ? 100 : 25;
 		
-        $style = ( 'top' == $mode ) ? 'width: 100%' : sprintf( 'width: %s%%; max-width: %spx', $percent_width, $thumb_width );
+        $style = ( 'top' == $mode ) ? 'width: 100%' : sprintf( 'width: %s%%; max-width: %spx', apply_filters( 'pagelines_thumb_width', $percent_width ), $thumb_width );
 		
 		if ( $mode == 'left-excerpt' )
 			$classes .= ' alignleft';
