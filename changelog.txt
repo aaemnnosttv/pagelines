@@ -3,6 +3,10 @@
   PageLines Framework Release Notes:  
 
 ********************************************************
+
+Version 2.2.5
+    - CORE - Added new LESS variable @{plPluginsRoot}.
+
 Version 2.2.4
 	- Bugs - Fixed background selectors.
 	- Bugs - Typo in CSS cache timeout settings.
