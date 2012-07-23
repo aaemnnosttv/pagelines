@@ -6,6 +6,12 @@
 
 Version 2.2.5
     - CORE - Added new LESS variable @{plPluginsRoot}.
+	- CORE - New filter 'pagelines_thumb_width' use to set thumb widths.
+	- CORE - Added revisions flag to PL CPT's.
+	- Bugs - Added ShareBar to pages.
+	- Bugs - Fixed Jigoshop wrapper divs.
+	- Bugs - Do not use POSIX functions if the host has removed them from PHP.
+	- Bugs - Fixed section uploader in WordPress 3.4
 
 Version 2.2.4
 	- Bugs - Fixed background selectors.
