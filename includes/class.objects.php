@@ -152,7 +152,7 @@ function pledit( $id = '', $type = 'post' ){
 	}
 	
 	if( $link ){
-		$button = sprintf(' <a class="pledit" href="%s"><span class="pledit-pad">(<em>edit</em>)</span></a> ', $link);
+		$button = sprintf(' <a class="pledit" href="%s"><span class="pledit-pad">(<em>%s</em>)</span></a> ', $link, __( 'edit', 'pagelines' ) );
 		return $button;
 	} else 
 		return '';	
