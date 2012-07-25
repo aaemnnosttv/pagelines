@@ -40,17 +40,17 @@ a {
 .badge {
   // Important (red)
   &-important         { background-color: @errorText;  }
-  &-important[href]   { background-color: darken(@errorText, 10%); }
+  &-important[href]:hover   { background-color: darken(@errorText, 10%); }
   // Warnings (orange)
   &-warning           { background-color: @orange; }
-  &-warning[href]     { background-color: darken(@orange, 10%); }
+  &-warning[href]:hover     { background-color: darken(@orange, 10%); }
   // Success (green)
   &-success           { background-color: @successText; }
-  &-success[href]     { background-color: darken(@successText, 10%); }
+  &-success[href]:hover     { background-color: darken(@successText, 10%); }
   // Info (turquoise)
   &-info              { background-color: @btnPrimaryBackground; }
-  &-info[href]        { background-color: darken(@btnPrimaryBackground, 10%); }
+  &-info[href]:hover        { background-color: darken(@btnPrimaryBackground, 10%); }
   // Inverse (black)
   &-inverse           { background-color: @grayDark; }
-  &-inverse[href]     { background-color: darken(@grayDark, 10%); }
+  &-inverse[href]:hover     { background-color: darken(@grayDark, 10%); }
 }
