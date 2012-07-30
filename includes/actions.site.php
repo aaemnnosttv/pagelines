@@ -87,7 +87,7 @@ add_action('pagelines_head', 'pagelines_head_common');
  */
 function pagelines_add_google_profile( $contactmethods ) {
 	// Add Google Profiles
-	$contactmethods['google_profile'] = __( 'Google Profile URL', 'pageines' );
+	$contactmethods['google_profile'] = __( 'Google Profile URL', 'pagelines' );
 	return $contactmethods;
 }
 add_filter( 'user_contactmethods', 'pagelines_add_google_profile', 10, 1);
