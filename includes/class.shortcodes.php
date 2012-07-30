@@ -63,6 +63,8 @@ class PageLines_ShortCodes {
 		// Make widgets process shortcodes
 		add_filter( 'widget_text', 'do_shortcode' );	
 //		add_action( 'template_redirect', array( &$this, 'filters' ) );
+		add_action('wp_footer',array( &$this, 'print_carousel_js' ), 21);
+		
 	}
 
 	private function shortcodes_core() {
@@ -1099,49 +1101,91 @@ class PageLines_ShortCodes {
 	 * @example <code>[pl_carousel name="PageLinesCarousel"][pl_carouselimage first="yes" title="Feature 1" imageurl="" ]Image 1 Caption[/pl_carouselimage][pl_carouselimage title="Feature 2" imageurl=""]Image 2 Caption[/pl_carouselimage][pl_carouselimage title="Feature 3" imageurl=""]Image 3 Caption[/pl_carouselimage][/pl_carousel]</code>
 	 */
     function pl_carousel_shortcode( $atts, $content = null ) {
-	    
+   
+		global $carousel_js;
+
+		if ( isset($atts['speed']) && '0' === $atts['speed'] )
+			$atts['speed'] = 'pause'; // 0 will be striped by array_filter	
+
+		// remove any empty array keys that have empty values to enforce defaults (eg: name="" or speed="") that would otherwise break things
+		$atts = array_filter($atts);
+
 	    $defaults = array(
-	    	'name' => 'PageLines Carousel',
+			'name'  => 'PageLines Carousel',
+			'speed' => 5000 // default bootstrap transition time
 	    );
 
 	    $atts = shortcode_atts( $defaults, $atts );
 
-	    	ob_start();
-				
-				?>
-				<script>
-	            	jQuery(function(){
-						jQuery('.carousel').carousel();
-					});
-				</script><?php
+	    $carousel_id = sanitize_title_with_dashes( $atts['name'], null, 'save' ); // convert it to a valid id attribute if it isn't.
+	    $speed = absint($atts['speed']);
 
-		   		printf( '<div id="%2$s" class="carousel slide"><div class="carousel-inner">%1$s</div><a class="carousel-control left" href="#%2$s" data-slide="prev">&lsaquo;</a><a class="carousel-control right" href="#%2$s" data-slide="next">&rsaquo;</a></div>',
-					do_shortcode( $content ),
-			        $atts['name']
-		        );
-        
-        	return ob_get_clean();
+	    if ( ! isset($carousel_js) )
+	    	$carousel_js = array();
+	    else {
+	    	if ( array_key_exists($carousel_id, $carousel_js) )
+	    		$carousel_id = $carousel_id.'-'.count($carousel_js);
+	    }
 
+	    // store away the values for consolidated output in the footer
+	    $carousel_js[$carousel_id] = array( 
+	    	'id' => $carousel_id,
+	    	'speed' => $speed
+	    	);
+
+		return sprintf( '<div id="%2$s" class="carousel slide"><div class="carousel-inner">%1$s</div><a class="carousel-control left" href="#%2$s" data-slide="prev">&lsaquo;</a><a class="carousel-control right" href="#%2$s" data-slide="next">&rsaquo;</a></div>',
+		do_shortcode( $content ),
+		$carousel_id
+		);
 	}
 	//Carousel Images
 	function pl_carouselimage_shortcode( $atts, $content = null ) {
-	    
+
+		// remove any empty string attributes to use defaults
+		$atts = array_filter($atts);
+
 	    extract( shortcode_atts( array(
 		    'first' => '',
 		    'title' => '',
-		    'imageurl' => '',
+		    'imageurl' => 'http://placehold.it/1200x300&text=Specify+a+url+using+the+imageurl=&quot;&quot;+attribute!', // fallback "reminder" image
 		    'caption' => '',
 	    ), $atts ) );
 
 	    $first = ( $first == 'yes' ) ? 'active' : '';
-	    $content = ( $content <> '' ) ? "<div class='carousel-caption'><h4>$title</h4><p>$content</p></div></div>" : '';
+	    $content = ( $content <> '' ) ? "<div class='carousel-caption'><h4>$title</h4><p>$content</p></div>" : ''; // changed to work without captions
 
-		return sprintf( '<div class="item %s"><img src="%s">%s',
+		return sprintf( '<div class="item %s"><img src="%s">%s</div>', // changed to work without captions
 				$first,
 				$imageurl,
 				do_shortcode( $content )
 				);
+	}
 
+	function print_carousel_js() {
+
+		global $carousel_js;
+		
+		if ( ! isset($carousel_js) )
+			return;
+		echo "<!-- carousel_js -->\n";
+
+		if ( isset($carousel_js) && is_array($carousel_js) ) : ?>
+			<script type="text/javascript">
+			(function($) {
+			<?php
+
+				foreach ($carousel_js as $c) {
+					printf("\n$('#%s').carousel({ interval: %s })",
+						$c['id'],
+						( 'pause' == $c['speed'] ) ? 0 : $c['speed']
+						);
+				}
+			?>
+
+		})(jQuery);
+</script>
+		<?php
+		endif;
 	}
 
 	/**
