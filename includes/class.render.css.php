@@ -73,7 +73,7 @@ class PageLinesRenderCSS {
 		add_action( 'pagelines_head_last', array( &$this, 'draw_inline_custom_css' ) , 25 );
 		add_action( 'wp_head', array( &$pagelines_template, 'print_template_section_head' ), 12 );
 		add_action( 'wp_head', array( &$this, 'do_background_image' ), 13 );
-		add_action( 'extend_flush', array( &$this, 'flush_version' ) );	
+		add_action( 'extend_flush', array( &$this, 'flush_version' ), 1 );	
 		add_filter( 'pagelines_insert_core_less', array( &$this, 'pagelines_insert_core_less_callback' ) );
 		add_action( 'admin_notices', array(&$this,'less_error_report') );
 		add_action( 'wp_before_admin_bar_render', array( &$this, 'less_css_bar' ) );
@@ -81,12 +81,24 @@ class PageLinesRenderCSS {
 	
 	function less_file_mode() {
 		
-		$upload_dir = wp_upload_dir();
-		$folder = $upload_dir['basedir'] . '/pagelines/';
-		$url = $upload_dir['baseurl'] . '/pagelines/';
-		$file = sprintf( 'compiled-css-%s.css', ploption( 'pl_save_version' ) );
+		if ( ! get_theme_mod( 'pl_save_version' ) )
+			return;
 
-		if( file_exists( $folder . $file ) ){			
+
+		$folder = $this->get_uploads_folder();
+
+		if ( is_multisite() ) {
+
+			$url = content_url( 'files/pagelines/' );
+			
+		} else {
+		$upload_dir = wp_upload_dir();
+		$url = $upload_dir['baseurl'] . '/pagelines/';
+	}
+
+		$file = sprintf( 'compiled-css-%s.css', get_theme_mod( 'pl_save_version' ) );
+
+		if( file_exists( $folder . $file ) ){
 			define( 'DYNAMIC_FILE_URL', $url . $file );
 			return;
 		}
@@ -124,10 +136,8 @@ class PageLinesRenderCSS {
 		if( $User['name'] !== $File['name'] )
 			return;
 		
-		
-		$folder = $upload_dir['basedir'] . '/pagelines';
-		
-		$file = sprintf( 'compiled-css-%s.css', ploption( 'pl_save_version' ) );
+		$folder = $this->get_uploads_folder();
+		$file = sprintf( 'compiled-css-%s.css', get_theme_mod( 'pl_save_version' ) );
 		
 		if( !is_dir( $folder ) )
 			wp_mkdir_p( $folder );
@@ -145,8 +155,15 @@ class PageLinesRenderCSS {
 				$wp_filesystem->put_contents( trailingslashit( $folder ) . $file, $txt, FS_CHMOD_FILE);
 			else
 				return false;
+				if ( is_multisite() ) {
 
-			define( 'DYNAMIC_FILE_URL', sprintf( '%s/pagelines/%s', $upload_dir['baseurl'], $file ) );
+					$url = content_url( 'files/pagelines/' );
+
+				} else {
+				$upload_dir = wp_upload_dir();
+				$url = $upload_dir['baseurl'] . '/pagelines/';
+			}
+			define( 'DYNAMIC_FILE_URL', sprintf( '%s/%s', $url, $file ) );
 	}
 
 	function do_background_image() {
@@ -281,7 +298,7 @@ class PageLinesRenderCSS {
 
 	function get_dynamic_url() {
 		
-		$version = ploption( "pl_save_version" );
+		$version = get_theme_mod( "pl_save_version" );
 		if ( ! $version )
 			$version = '1';
 		if ( '' != get_option('permalink_structure') && ! $this->check_compat() )
@@ -583,16 +600,17 @@ class PageLinesRenderCSS {
 
 		$types = array( 'sections', 'core', 'custom' );
 		
-		$upload_dir = wp_upload_dir();
-		$folder = $upload_dir['basedir'] . '/pagelines/';
+
+		$folder = $this->get_uploads_folder();
 		
-		$file = sprintf( 'compiled-css-%s.css', ploption( 'pl_save_version' ) );
+		$file = sprintf( 'compiled-css-%s.css', get_theme_mod( 'pl_save_version' ) );
+		
 		if( is_file( $folder . $file ) )
 			@unlink( $folder . $file );
 		
 		if( $rules )
 			flush_rewrite_rules( true );
-		plupop( 'pl_save_version', time() );
+		set_theme_mod( 'pl_save_version', time() );
 
 		$types = array( 'sections', 'core', 'custom' );
 		
@@ -609,6 +627,23 @@ class PageLinesRenderCSS {
 		
 		
 	}
+	
+	function get_uploads_folder() {
+		
+		if ( is_multisite() ) {
+			
+			global $blog_id;
+			
+			$folder = BLOGUPLOADDIR . '/pagelines/';
+		} else {
+			
+			$upload_dir = wp_upload_dir();
+			$folder = $upload_dir['basedir'] . '/pagelines/';
+		}	
+		return $folder;
+		
+	}
+	
 	
 	function pagelines_insert_core_less_callback( $code ) {
 
