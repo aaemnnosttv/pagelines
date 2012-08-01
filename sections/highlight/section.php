@@ -59,10 +59,11 @@ class PageLinesHighlight extends PageLinesSection {
 					'_highlight_splash_position' => array(
 						'version' 		=> 'pro',
 						'type' 			=> 'select',		
-						'inputlabel' 		=> 'Highlight Image Position',
+						'inputlabel' 		=> 'Highlight Image Style',
 						'selectvalues'=> array(
-							'top'			=> array( 'name' => 'Top' ),
-							'bottom'	 	=> array( 'name' => 'Bottom' )
+							'top'			=> array( 'name' => 'Image on top of text' ),
+							'bottom'	 	=> array( 'name' => 'Image on bottom of text' ), 
+							'notext'	 	=> array( 'name' => 'No text, just the image' )
 						),
 					),
 					'_highlight_image_frame' => array(
@@ -105,13 +106,17 @@ class PageLinesHighlight extends PageLinesSection {
 			
 				if( $h_splash_position == 'top' && $h_splash)
 					printf('<div class="highlight-splash hl-image-top %s"><img src="%s" alt="" /></div>', $frame_class, $h_splash);
-					
-				if($h_head)
-					printf('<h1 class="highlight-head">%s</h1>', __( $h_head, 'pagelines' ) );
 				
-				if($h_subhead)
-					printf('<h3 class="highlight-subhead subhead">%s</h3>', __( $h_subhead, 'pagelines' ) );
+				if( $h_splash_position != 'notext' ){
 					
+					if($h_head)
+						printf('<h1 class="highlight-head">%s</h1>', __( $h_head, 'pagelines' ) );
+				
+					if($h_subhead)
+						printf('<h3 class="highlight-subhead subhead">%s</h3>', __( $h_subhead, 'pagelines' ) );
+						
+				}	
+				
 				if( $h_splash_position != 'top' && $h_splash)
 					printf('<div class="highlight-splash hl-image-bottom %s"><img src="%s" alt="" /></div>', $frame_class, apply_filters( 'pl_highlight_splash', $h_splash ) );
 			?> 
