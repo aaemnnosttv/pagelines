@@ -601,7 +601,7 @@ class PageLinesRenderCSS {
 		$types = array( 'sections', 'core', 'custom' );
 		
 
-		$folder = $this->get_uploads_folder();
+		$folder = self::get_uploads_folder();
 		
 		$file = sprintf( 'compiled-css-%s.css', get_theme_mod( 'pl_save_version' ) );
 		
