@@ -89,7 +89,8 @@ class PageLinesRenderCSS {
 
 		if ( is_multisite() ) {
 
-			$url = content_url( 'files/pagelines/' );
+			global $blog_id;
+			$url = content_url( sprintf( 'blogs.dir/%s/files/pagelines/', $blog_id ) );
 			
 		} else {
 		$upload_dir = wp_upload_dir();
@@ -157,13 +158,14 @@ class PageLinesRenderCSS {
 				return false;
 				if ( is_multisite() ) {
 
-					$url = content_url( 'files/pagelines/' );
+					global $blog_id;
+					$url = content_url( sprintf( 'blogs.dir/%s/files/pagelines/', $blog_id ) );
 
 				} else {
 				$upload_dir = wp_upload_dir();
 				$url = $upload_dir['baseurl'] . '/pagelines/';
 			}
-			define( 'DYNAMIC_FILE_URL', sprintf( '%s/%s', $url, $file ) );
+			define( 'DYNAMIC_FILE_URL', sprintf( '%s%s', $url, $file ) );
 	}
 
 	function do_background_image() {
@@ -298,9 +300,19 @@ class PageLinesRenderCSS {
 
 	function get_dynamic_url() {
 		
+		global $blog_id;
 		$version = get_theme_mod( "pl_save_version" );
+
 		if ( ! $version )
 			$version = '1';
+
+		if ( is_multisite() )
+			$id = $blog_id;
+		else
+			$id = '1';
+				
+		$version = sprintf( '%s_%s', $id, $version );
+				
 		if ( '' != get_option('permalink_structure') && ! $this->check_compat() )
 			$url = sprintf( '%s/pagelines-compiled-css-%s/', PARENT_URL, $version );
 		else {
@@ -544,6 +556,7 @@ class PageLinesRenderCSS {
 	}
 	
 	function pagelines_less_trigger() {
+		global $blog_id;
 		if( intval( get_query_var( 'pageless' ) ) ) {
 			header( 'Content-type: text/css' );
 			header( 'Expires: ' );
@@ -562,7 +575,11 @@ class PageLinesRenderCSS {
 			echo $this->minify( $a['type'] );
 			echo $this->minify( $a['dynamic'] );
 			$mem = ( function_exists('memory_get_usage') ) ? round( memory_get_usage() / 1024 / 1024, 2 ) : 0;
-			pl_debug( sprintf( __( 'CSS was compiled at %s and took %s seconds using %sMB of unicorn dust.', 'pagelines' ), date( DATE_RFC822, $a['time'] ), $a['c_time'],  $mem ) );		
+			if ( is_multisite() )
+				$blog = sprintf( ' on blog [%s]', $blog_id );
+			else
+				$blog = '';
+			echo sprintf( __( '%s/* CSS was compiled at %s and took %s seconds using %sMB of unicorn dust%s.*/', 'pagelines' ), "\n", date( DATE_RFC822, $a['time'] ), $a['c_time'],  $mem, $blog );		
 			die();
 		}
 	}
