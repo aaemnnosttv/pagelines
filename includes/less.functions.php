@@ -98,7 +98,7 @@ class PageLinesLess {
 	
 		$pless = $this->add_constants( '' ) . $this->add_bootstrap() . $pless;
 		try {
-			$css = $this->lparser->parse( $pless );
+			$css = $this->lparser->compile( $pless );
 		} 
 			catch ( Exception $e) {		
 				plupop( "pl_less_error_{$type}", $e->getMessage() );
