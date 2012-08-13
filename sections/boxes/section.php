@@ -323,7 +323,7 @@ class PageLinesBoxes extends PageLinesSection {
 		
 		$image = ($box_icon) ? self::_get_box_image( $p, $box_icon, $box_link, $this->thumb_size, $box_target) : '';
 	
-		$title_text = ($box_link) ? sprintf('<a href="%s">%s</a>', $box_link, $p->post_title ) : $p->post_title; 
+		$title_text = ($box_link) ? sprintf('<a %s href="%s">%s</a>', $box_target, $box_link, $p->post_title ) : $p->post_title; 
 	
 		$title = do_shortcode(sprintf('<div class="fboxtitle"><h3>%s</h3></div>', $title_text));
 
