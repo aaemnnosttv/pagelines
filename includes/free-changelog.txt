@@ -1,0 +1,6 @@
+= 1.2.4 =
+
+* Remove Placeholdit links from shortcode class.
+* Upgrade LESS subsystem to 0.3.7.
+* Bootstrap form css fixes.
+* Various MU fixes.
