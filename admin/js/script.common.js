@@ -46,6 +46,13 @@ jQuery(document).ready(function(){
 	jQuery('#message.slideup_message').delay(5000).slideUp('fast');
 	
 	
+	/**
+	 * Textarea CODE
+	 */
+
+	var editor = CodeMirror.fromTextArea(document.getElementById("pagelines-settings-two_customcss"), {
+	    lineNumbers: true
+	  });
 	
 	
 	jQuery('.graphic_selector .graphic_select_border').click(function(){
@@ -172,7 +179,6 @@ function TemplateSetupDoneSaving( text ){
 	jQuery('.selected_builder .confirm_save').removeClass('ajax-saving');
 	jQuery('.selected_builder .confirm_save_pad').text( text ).show().delay(1500).fadeOut(700);
 }
-
 
 /**
  * Typography

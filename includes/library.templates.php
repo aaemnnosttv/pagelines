@@ -323,7 +323,6 @@ function pagelines_head_common(){
 }
 
 function load_prettify(){
-	//add_action( 'pl_body_attributes', create_function( '',  'echo "onload="prettyprint();"' ) );
 	
 	wp_enqueue_script( 'prettify', PL_JS . '/prettify/prettify.js' );
 	wp_enqueue_style( 'prettify', PL_JS . '/prettify/prettify.css' );
