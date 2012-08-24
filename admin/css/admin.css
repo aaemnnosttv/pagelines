@@ -1298,7 +1298,10 @@
 					padding: 0;
 				}
 		
-		
+
+
+
+
 /* Live Iframe */ 
 
 .live_chat_wrap {
@@ -3035,7 +3038,14 @@ font-weight: bold;
 	border-radius: 6px;
 }
 
-
+/* CodeMirror */ 
+.CodeMirror{
+	background: #fff;
+	box-shadow: inset 2px 2px 4px  #eee;
+}
+.CodeMirror-gutter{
+	box-shadow: 1px 0 4px #f7f7f7;
+}
 
 /* universal stuff */
 	.spamp {
