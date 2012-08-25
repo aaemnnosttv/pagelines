@@ -53,7 +53,9 @@ jQuery(document).ready(function(){
 	if(jQuery("#pagelines-settings-two_customcss").length){
 		var editor = CodeMirror.fromTextArea(jQuery("#pagelines-settings-two_customcss").get(0), {
 	    	name: "less", 
-			lineNumbers: true
+			lineNumbers: true, 
+			mode: "text/x-less", 
+			tabMode: "indent"
 		});
 	}
 	if(jQuery("#pagelines-settings-two_headerscripts").length){

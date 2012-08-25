@@ -1011,7 +1011,7 @@ class PageLinesOptionsArray {
 					'type' 		=> 'code',
 					'height'	=> '300px',
 					'layout' 	=> 'full',
-					'inputlabel'=> __( 'CSS Rules', 'pagelines' ),
+					'inputlabel'=> __( 'CSS/LESS Rules', 'pagelines' ),
 					'title' 	=> __( 'Custom CSS / LESS', 'pagelines' ),
 					'shortexp' 	=> __( 'Insert custom CSS or LESS styling here. It will be stored in the DB and not overwritten. <br/>Note: The professional way to customize your site is using a child theme, or customization plugin', 'pagelines' ),
 					'exp' 		=> $this->css_examples(),
