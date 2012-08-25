@@ -214,7 +214,11 @@ function pagelines_theme_settings_scripts() {
 	
 	// Prettify
 	wp_enqueue_script( 'codemirror', PL_ADMIN_JS . '/codemirror/codemirror.js' );
-	wp_enqueue_script( 'codemirror-html', PL_ADMIN_JS . '/codemirror/less/less.js' );
+	wp_enqueue_script( 'codemirror-css', PL_ADMIN_JS . '/codemirror/css/css.js' );
+	wp_enqueue_script( 'codemirror-less', PL_ADMIN_JS . '/codemirror/less/less.js' );
+	wp_enqueue_script( 'codemirror-js', PL_ADMIN_JS . '/codemirror/javascript/javascript.js' );
+	wp_enqueue_script( 'codemirror-xml', PL_ADMIN_JS . '/codemirror/xml/xml.js' );
+	wp_enqueue_script( 'codemirror-html', PL_ADMIN_JS . '/codemirror/htmlmixed/htmlmixed.js' );
 	wp_enqueue_style( 'codemirror', PL_ADMIN_JS . '/codemirror/codemirror.css' );
 	
 	// Color Picker
