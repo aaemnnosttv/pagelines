@@ -50,9 +50,11 @@ jQuery(document).ready(function(){
 	 * Textarea CODE
 	 */
 
-	var editor = CodeMirror.fromTextArea(document.getElementById("pagelines-settings-two_customcss"), {
-	    lineNumbers: true
-	  });
+	if(jQuery("#pagelines-settings-two_customcss").length){
+		var editor = CodeMirror.fromTextArea(jQuery("#pagelines-settings-two_customcss").get(0), {
+	    	lineNumbers: true
+		});
+	}
 	
 	
 	jQuery('.graphic_selector .graphic_select_border').click(function(){
