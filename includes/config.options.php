@@ -951,15 +951,6 @@ class PageLinesOptionsArray {
 					'shortexp'	=> __( 'Strips whitespace from compiled CSS.', 'pagelines' ),
 					'exp'		=> ""
 			),
-			'hide_pagelines_introduction' => array(
-					'default'	=> '',
-					'version'	=> 'pro',
-					'type'		=> 'check',
-					'inputlabel'=> __( 'Hide the introduction?', 'pagelines' ),
-					'title'		=> __( 'Show Theme Introduction', 'pagelines' ),
-					'shortexp'	=> __( 'Uncheck this option to show theme introduction', 'pagelines' ),
-					'exp'		=> ""
-			),
 			'hide_controls_meta'	 => array(
 					'default' 		=> 'publish_posts',
 					'version'		=> 'pro',
