@@ -156,3 +156,19 @@ function pagelines_check_child_less() {
 	if ( is_file( $lessfile ) )
 		pagelines_insert_core_less( $lessfile );
 }
+
+add_action( 'template_redirect', 'pagelines_check_customizer' );
+
+function pagelines_check_customizer() {
+	global $wp_customize;
+	if ( isset( $wp_customize ) ) {
+		
+		$theme = get_option( 'current_theme' );
+		
+		// active theme were ok
+		if ( 'PageLines Framework' === $theme )
+			return;
+		
+		die( 'Sorry preview is disabled, enable PageLines Framework.');  	
+	}
+}
