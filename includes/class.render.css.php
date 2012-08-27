@@ -7,9 +7,11 @@ class PageLinesRenderCSS {
 	var $types;
 	var $ctimeout;
 	var $btimeout;
+	var $blog_id;
 	
 	function __construct() {
 		
+		global $blog_id;
 		$this->url_string = '%s/?pageless=%s';
 		$this->ctimeout = 86400;
 		$this->btimeout = 604800;
@@ -700,10 +702,9 @@ class PageLinesRenderCSS {
 		unset( $available['child'] );
 		if ( is_array( $available ) )
 			$sections = array_merge( $sections, $available );
-
 		foreach( $sections as $t ) {		
 			foreach( $t as $key => $data ) {
-				if ( $data['less'] ) {
+				if ( $data['less'] && $data['loadme'] ) {						
 					if ( is_file( $data['base_dir'] . '/style.less' ) )
 						$out .= pl_file_get_contents( $data['base_dir'] . '/style.less' );
 					elseif( is_file( $data['base_dir'] . '/color.less' ))

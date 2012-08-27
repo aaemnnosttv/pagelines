@@ -10,6 +10,10 @@
 
 class PageLinesRegister {
 	
+	function __construct() {
+		$this->username = get_pagelines_credentials( 'user' );
+		$this->password = get_pagelines_credentials( 'pass' );
+	}
 	/**
 	 *  Scans THEMEDIR/sections recursively for section files and auto loads them.
 	 *  Child section folder also scanned if found and dependencies resolved.
@@ -88,6 +92,13 @@ class PageLinesRegister {
 			if(is_array($type)){
 				
 				foreach( $type as $section ) {
+					
+					if ( ! isset( $section['loadme'] ) )
+						$section['loadme'] = false;
+											
+					if ( 'parent' == $section['type'] || ! is_multisite() ) {
+						$section['loadme'] = true;
+					}						
 					/**
 					* Checks to see if we are a child section, if so disable the parent
 					* Also if a parent section and disabled, skip.
@@ -115,7 +126,7 @@ class PageLinesRegister {
 						'base_file' => $section['base_file'],
 						'name'		=> $section['name']
 					);
-					if ( isset( $dep ) ) { // do we have a dependency?
+					if ( isset( $dep ) && $section['loadme'] ) { // do we have a dependency?
 						if ( !class_exists( $dep ) && is_file( $dep_data['base_file'] ) ) {
 							include( $dep_data['base_file'] );
 							$pl_section_factory->register( $dep, $dep_data );
@@ -147,6 +158,10 @@ class PageLinesRegister {
 
 		if ( 'parent' != $type && ! is_dir($dir) ) 
 			return;			
+
+		if ( is_multisite() ) {
+			$store_sections = $this->get_latest_cached( 'sections' );
+		}
 
 		$default_headers = array(
 			'External'		=> 'External',
@@ -185,7 +200,9 @@ class PageLinesRegister {
 				
 				$base_url = null;
 				$base_dir = null;
-				
+				$load = true;
+				$price = '';
+				$uid = '';
 				$headers = get_file_data( $fullFileName, $default_headers );
 
 				// If no pagelines class headers ignore this file.
@@ -228,10 +245,30 @@ class PageLinesRegister {
 					$base_dir =  sprintf( '%ssections%s', $dir, $folder );;
 					
 				}
-				
 				$base_dir = ( isset( $base_dir ) ) ? $base_dir : PL_SECTIONS . $folder;
 				$base_url = ( isset( $base_url ) ) ? $base_url : SECTION_ROOT . $folder;
-			
+							
+				// do we need to load this section?
+				if ( 'child' == $type && is_multisite() ) {
+					$load = false;
+					$slug = basename( $folder );				
+					$purchased = ( isset( $store_sections->$slug->purchased ) ) ? $store_sections->$slug->purchased : '';
+					$plus = ( isset( $store_sections->$slug->plus_product ) ) ? $store_sections->$slug->plus_product : '';
+					$price = ( isset( $store_sections->$slug->price ) ) ? $store_sections->$slug->price : '';
+					$uid = ( isset( $store_sections->$slug->uid ) ) ? $store_sections->$slug->uid : '';
+					if ( 'purchased' === $purchased ) {				
+						$load = true;
+					} elseif( $plus && pagelines_check_credentials( 'plus' ) ) {
+						$load = true;
+					} else {
+						
+						$disabled = get_option( 'pagelines_sections_disabled', array( 'child' => array(), 'parent' => array() ) );
+						$disabled['child'][$headers['classname']] = true; 
+						update_option( 'pagelines_sections_disabled', $disabled );	
+					}
+				}
+				if ( $load )
+					$purchased = 'purchased';
 				$sections[$headers['classname']] = array(
 					'class'			=> $headers['classname'],
 					'depends'		=> $headers['depends'],
@@ -257,6 +294,10 @@ class PageLinesRegister {
 					'classes'		=> $headers['classes'],
 					'screenshot'	=> ( is_file( $base_dir . '/thumb.png' ) ) ? $base_url . '/thumb.png' : '',
 					'less'			=> ( is_file( $base_dir . '/color.less' ) || is_file( $base_dir . '/style.less' ) ) ? true : false,
+					'loadme'		=> $load,
+					'price'			=> $price,
+					'purchased'		=> $purchased,
+					'uid'			=> $uid
 				);	
 			}
 		}
@@ -299,5 +340,45 @@ class PageLinesRegister {
 				continue;
 			pagelines_register_sidebar( pagelines_standard_sidebar( $sidebar['name'], $sidebar['description'] ) );
 		}
-	}	
+	}
+	
+	/**
+	* Simple cache.
+	* @return object
+	*/
+	function get_latest_cached( $type, $flush = null ) {
+		
+		$url = trailingslashit( PL_API . $type );
+		$options = array(
+			'body' => array(
+				'username'	=>	( $this->username != '' ) ? $this->username : false,
+				'password'	=>	( $this->password != '' ) ? $this->password : false,
+				'flush'		=>	$flush
+			)
+		);
+		
+		if ( false === ( $api_check = get_transient( 'pagelines_extend_' . $type ) ) ) {
+			
+			// ok no transient, we need an update...
+			
+			$response = pagelines_try_api( $url, $options );
+			
+			if ( $response !== false ) {
+				
+				// ok we have the data parse and store it
+				
+				$api = wp_remote_retrieve_body( $response );
+				set_transient( 'pagelines_extend_' . $type, true, 86400 );
+				update_option( 'pagelines_extend_' . $type, $api );
+			} 
+
+		}
+		$api = get_option( 'pagelines_extend_' . $type, false );	
+
+		if( ! $api )
+			return __( '<h2>Unable to fetch from API</h2>', 'pagelines' );
+
+		return json_decode( $api );
+	}
+	
 } // end class

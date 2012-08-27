@@ -52,7 +52,7 @@ class ExtensionThemes extends PageLinesExtensions {
 		foreach( $get_themes as $theme => $theme_data ) {
 
 			$up = null;
-
+			$purchased = null;
 			// Now we add our data...
 			$theme_file = $theme_data['Stylesheet Files'][0];
 			$pl_theme_data = get_file_data( $theme_file, $default_headers );
@@ -73,6 +73,8 @@ class ExtensionThemes extends PageLinesExtensions {
 			$subscribed = ( isset( $themes[ $theme_data['Stylesheet'] ]['subscribed'] ) ) ? $themes[ $theme_data['Stylesheet'] ]['subscribed'] : null;
 			if ( in_array( $theme, $themes ) )
 				continue;
+				
+			$purchased = ( isset( $themes[ $theme_data['Stylesheet'] ]['purchased'] ) ) ? $themes[ $theme_data['Stylesheet'] ]['purchased'] : '';
 			// If we got this far, theme is a pagelines child theme not handled by the API
 			// So we need to inject it into our themes array.
 			
@@ -93,6 +95,8 @@ class ExtensionThemes extends PageLinesExtensions {
 			$new_theme['subscribed']	= $subscribed;
 			$new_theme['count']			= null;
 			$new_theme['slug']			= ( isset( $themes[$theme_data['Stylesheet']]['slug'] ) ) ? $themes[$theme_data['Stylesheet']]['slug'] : null;
+			if ( $purchased )
+				$new_theme['purchased']		= $purchased;
 			$themes[$theme_data['Stylesheet']] = $new_theme;		
 		}
 		return $themes;

@@ -635,6 +635,12 @@ function extension_array(  ){
 				)		
 		)
 	);
+	if( EXTEND_NETWORK ) {
+		unset( $d['Sections']['htabs']['get_new_sections']);
+		unset( $d['Plugins']['htabs']['get_new_plugins']);
+		unset( $d['Themes']['htabs']['get_new_themes']);
+		unset( $d['Integrations']);
+	}
 
 	return apply_filters('extension_array', $d); 
 }
