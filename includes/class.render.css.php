@@ -30,6 +30,10 @@ class PageLinesRenderCSS {
 	function get_core_lessfiles(){
 		
 		$files = array(
+			'reset', 
+			'pl-core', 
+			'pl-wordpress',
+			'pl-plugins',
 			'grid',
 			'alerts',
 			'labels-badges',

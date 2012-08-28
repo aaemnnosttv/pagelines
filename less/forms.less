@@ -312,3 +312,38 @@ select#multiSelect {width:220px;}
 
 //Border Radius Fix
 textarea, input {.border-radius;}
+
+
+// BUTTON INPUTS
+// -------------------
+input[type="submit"], .submit, input[type="button"], .button, input[type="reset"], .reset{
+	padding: 4px 9px;
+	cursor: pointer;
+	text-decoration: none;
+	.box-sizing(content-box);
+	.border-radius(4px);
+	color:#000000; 
+	text-shadow:0 1px 0 rgba(255,255,255,0.5); 
+	border:1px solid #bbbbbb; 
+	#gradient > .vertical(#ffffff, #dcdcdc);
+	box-shadow: inset 1px 1px 0px #FFF;
+	
+	&:hover{
+		color:#000000; 
+		text-decoration: none;
+		text-shadow:0 1px 0 rgba(255,255,255,0.5); 
+		border:1px solid #aeaeae; 
+		#gradient > .vertical(#f3f3f3, #cfcfcf);
+	}
+	&:active{
+		color:#000000; 
+		text-shadow:0 1px 0 rgba(255,255,255,0.5); 
+		border:1px solid #8e8e8e; 
+		#gradient > .vertical(#afafaf, #d3d3d3);
+		box-shadow: none;
+	}
+} 
+
+input[type="image"]{
+	box-shadow: none; 
+}

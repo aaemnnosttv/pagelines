@@ -1,0 +1,126 @@
+/* @ WP125 Advertising Widget */
+#page .widget_wp125{
+	padding: 0;
+	&.widget{
+		border:none;
+		padding:0;
+		margin:0 0 1em 0;
+		.wtitle{
+			display: none;
+		}
+		.winner {
+			padding:0;
+			line-height: 1px;
+		}
+	}
+	.winner  { width:100%;  }
+	.wp125ad{
+		padding: 0;
+		width: auto;
+		float: left;
+		max-width: 50%;
+		a{ 
+			margin: 6px;
+			padding: 5px;
+			margin: 2px 5px 5px 5px;
+			display: inline-block;
+			border: 1px solid transparent;
+			img{
+				width: 125px;
+				height: auto;
+				display: block;
+			}
+		}
+	}
+	
+}
+
+/* @ Typekit */
+	.typekit-badge{ display: none !important; }
+
+/* FlickrRSS Widget */
+.widget_flickrRSS{
+	&.widget{
+		ul{ 
+			margin: 7px 0px 0px 0px; 
+			li{display:inline-block;padding:0;margin:0;border-bottom:none;}
+		}
+	}
+	a{
+		display: inline-block; 
+		margin: 8px 12px 2px 5px; 
+		img{
+			display: block;
+			font-size: 10px;
+			border-width: 0px 1px 1px 0px;
+			border-style:solid; 
+			padding: 3px; 
+		}
+	}
+}
+
+
+/* @ Special Posts  */ 
+.widget div.srp-thumbnail-box{ padding-right: 15px; }
+.widget .srp-widget-singlepost{
+	font-size: .85em;
+	margin: 0;
+	padding: 1.2em 0;
+}
+.srp-widget-title-link{
+	font-size: .9em;
+	line-height: 1.2em;
+}
+.srp-widget-excerpt{
+	line-height: 1.5em;
+}
+.srp-widget-thmblink{
+	display: block;
+	padding: 3px;
+	text-decoration: none;
+	border: none;
+	text-shadow: none;
+	width: 50px;
+	img{display: block;}
+}
+
+
+
+/* @ Pagination & WP-PageNavi Plugin */
+#page .wp-pagenavi {
+	margin:1.6em .4em 1.6em 0;
+	font-size: .9em;
+	overflow:hidden;
+	span.pages { border:none; background: transparent; }
+	a, .current, .extend{
+		padding: 3px 7px 4px 7px;
+		border: none;
+		font-weight: normal;
+	}
+	a, span{
+		.border-radius(5px);
+	}
+}
+
+/* @Disqus */
+#site #dsq-content{
+	text-shadow: none;
+	a{
+		text-shadow: none;
+	}
+	.dsq-request-user-info td a{
+
+		font-weight: normal;
+		font-size: 1.2em;
+	}
+	.dsq-brlink {display: none;}
+	.dsq-request-user-info td small a {font-style:italic;}
+	h3 {
+		line-height:1.5em;
+		margin-bottom:1em;
+	}
+}
+
+
+	#comments p.form-allowed-tags{width: auto;margin-bottom: 1.6em; }
+
