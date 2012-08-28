@@ -79,6 +79,8 @@ class PageLinesRenderCSS {
 		add_filter( 'pagelines_insert_core_less', array( &$this, 'pagelines_insert_core_less_callback' ) );
 		add_action( 'admin_notices', array(&$this,'less_error_report') );
 		add_action( 'wp_before_admin_bar_render', array( &$this, 'less_css_bar' ) );
+		if ( defined( 'PL_CSS_FLUSH' ) )
+			do_action( 'extend_flush' );
 	}
 	
 	function less_file_mode() {
@@ -642,9 +644,7 @@ class PageLinesRenderCSS {
 				set_transient( "pagelines_{$t}_css_backup", $compiled, 604800 );
 		
 			delete_transient( "pagelines_{$t}_css" );	
-		}
-		
-		
+		}	
 	}
 	
 	function get_uploads_folder() {
