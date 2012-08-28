@@ -19,9 +19,8 @@
 	margin-bottom: 1em;
 }
 	.wp-caption-text { text-align: center; margin:0;padding:6px 0 2px; }
-	.wp-caption-dd { padding: 0 4px 5px;	margin: 0;	}
+	.wp-caption-dd { padding: 0 4px 5px; margin: 0;	}
 	.wp-caption img { margin: 0; padding: 0; border: 0 none; }
-	.wp-caption-dd { padding: 0 4px 5px; margin: 0; }
 	
 /* WordPress Calendar */
 #calendar_wrap {
@@ -110,19 +109,19 @@ a.rsswidget img{position:relative;top:1px;}
 .reply a{  font-size: .8em;  }
 #respond{
 	form{ margin-left: 27px;}
-	h3 {
+	#reply-title {
 		padding-left: 25px;
-		background:url("sections/comments/icon-pencil.png") no-repeat scroll 0 3px transparent;
+		background:url(@{plRoot}/sections/comments/icon-pencil.png) no-repeat scroll 0 3px transparent;
 		small{ 
-			font-style:italic;
-			font-size: .9em;
+			font-size: @miniFontSize;
+			
 		}
 	}
 }
 
 h3#comments-title { 
 	padding-left: 22px;
-	background:url("sections/comments/icon-comment.png") no-repeat scroll 0 3px transparent; 
+	background:url(@{plRoot}/sections/comments/icon-comment.png) no-repeat scroll 0 3px transparent; 
 }
 
 	
