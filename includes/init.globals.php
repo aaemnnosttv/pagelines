@@ -1,10 +1,10 @@
 <?php 
-
+ 
 /**
  * Define framework version
  */
-define( 'CORE_VERSION', get_theme_mod( 'pagelines_version', pl_get_theme_data( get_template_directory(), 'Version' ) ) );
-define( 'CHILD_VERSION', get_theme_mod( 'pagelines_child_version', pl_get_theme_data( get_stylesheet_directory(), 'Version' ) ) );
+define( 'CORE_VERSION', get_theme_mod( 'pagelines_version' ) );
+define( 'CHILD_VERSION', get_theme_mod( 'pagelines_child_version' ) );
 
 /**
  * Set Theme Name

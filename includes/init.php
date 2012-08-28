@@ -7,18 +7,6 @@
 */
 
 /**
-* Before we start, check for PHP4. It is not supported and crashes with a parse error.
-* We have to do it here before any other files are loaded.
-*
-* This can be removed with WordPress 3.2, which will only support PHP 5.2 */ 
-if( floatval( phpversion() ) < 5.0 ) {
-	echo '<div style="border: 1px red solid">This server is running <strong>PHP ' . phpversion() . '</strong> we are switching back to the default theme for you!<br />';
-	echo 'Please contact your host and switch to PHP5 before activating PageLines Framework. <a href="' . get_admin_url() . '">Site admin</a></div>';
-	switch_theme( 'twentyten', 'twentyten');
-	die(); // Brutal but we need to suppress those ugly php errors!
-}
-
-/**
  * Run the starting hook
  */
 do_action('pagelines_hook_pre', 'core'); // Hook
@@ -32,6 +20,27 @@ if ( is_file( PL_INCLUDES . '/library.pagelines.php' ) )
  * Load deprecated functions
  */
 require_once (PL_INCLUDES.'/deprecated.php');
+
+/**
+ * Check if version has changed.
+ */
+$installed = get_theme_mod( 'pagelines_version' );
+$actual = pl_get_theme_data( get_template_directory(), 'Version' );
+
+// if new version do some housekeeping.
+if ( version_compare( $actual, $installed ) > 0 ) {
+
+		delete_transient( 'pagelines_theme_update' );
+		delete_transient( 'pagelines_extend_themes' );
+		delete_transient( 'pagelines_extend_sections' );
+		delete_transient( 'pagelines_extend_plugins' );
+		delete_transient( 'pagelines_extend_integrations' );		
+		delete_transient( 'pagelines_sections_cache' );
+		remove_theme_mod( 'available_updates' );
+		remove_theme_mod( 'pending_updates' );
+}
+set_theme_mod( 'pagelines_version', $actual );
+set_theme_mod( 'pagelines_child_version', pl_get_theme_data( get_stylesheet_directory(), 'Version' ) );
 
 /**
  * Setup all the globals for the framework
