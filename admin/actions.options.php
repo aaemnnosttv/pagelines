@@ -246,9 +246,6 @@ add_action( 'admin_head', 'load_head' );
  *
  */
 function load_head(){
-
-	// CSS Objects
-	printf( '<link rel="stylesheet" href="%s/objects.css?ver=%s" type="text/css" media="screen" />', PL_CSS, CORE_VERSION );
 	
 	// Admin CSS
 	printf( '<link rel="stylesheet" href="%s/admin.css?ver=%s" type="text/css" media="screen" />', PL_ADMIN_CSS, CORE_VERSION );
