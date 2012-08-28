@@ -46,7 +46,6 @@ class PageLinesRenderCSS {
 			'utilities',
 			'pl-objects',
 			'pl-tables',
-			'pl-editor',
 			'wells',
 			'forms',
 			'blockquotes',
