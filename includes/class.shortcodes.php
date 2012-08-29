@@ -1035,7 +1035,9 @@ class PageLines_ShortCodes {
 	    	<script>
                 	jQuery(function(){
 						 jQuery("a[rel=popover]")
-      					.popover()
+      					.popover({
+      						trigger: 'hover',
+      					})
       					.click(function(e) {
         					e.preventDefault()
       					});
