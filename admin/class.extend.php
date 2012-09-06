@@ -116,7 +116,7 @@
 				'condition'	=> $this->show_login_button( $type, $key, $ext, $tab ),				
 				'type'		=> $type,
 				'file'		=> $this->get_the_file( 'login', $type, $key, $ext, $tab ),
-				'text'		=> __( 'Login to purchase &rarr;', 'pagelines' ),
+				'text'		=> __( 'Login to install or purchase &rarr;', 'pagelines' ),
 				'dtext'		=> __( 'Redirecting', 'pagelines' ),
 			),
 			'purchase'	=> array(
