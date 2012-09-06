@@ -58,6 +58,7 @@ function pagelines_check_php(){
 	}
 }
 
+
 /**
  * Ajax Callback
  *
@@ -84,12 +85,13 @@ function pagelines_ajax_callback() {
 	// Uploads
 	if( $save_type == 'upload' ) {
 	
-		$arr_file_type = wp_check_filetype( basename( $_FILES[$button_id]['name'] ) );
+		
+		$arr_file_type = wp_check_filetype( basename( $_FILES[$button_id]['name'] ));
 		
 		$uploaded_file_type = $arr_file_type['type'];
 		
 		// Set an array containing a list of acceptable formats
-		$allowed_file_types = array( 'image/jpg','image/jpeg','image/gif','image/png', 'image/x-icon' );
+		$allowed_file_types = array( 'image/jpg','image/jpeg','image/gif','image/png', 'image/x-icon');
 	
 		if( in_array( $uploaded_file_type, $allowed_file_types ) ) {
 
