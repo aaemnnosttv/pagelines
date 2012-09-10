@@ -12,19 +12,29 @@
  * @ Lists
  **********************************************************************/
 
-	/* @ Inline List - Horizontal non-floated navigation/menu  */
-	ul.inline-list { list-style-type: none; }
-	ul.inline-list li { display: inline ; padding: 0px 3px; }
-
-	/* @ Tabbed List - Horizontal floated list, tab and navigation effects */
-	ul.tabbed-list {
-		list-style-type: none; 
-		margin:0;
-		width: 100%; /* clear IE 7 */
+/* @ Inline List - Horizontal non-floated navigation/menu  */
+ul.inline-list { 
+	list-style-type: none; 
+	li { 
+		display: inline ; 
+		padding: 0px 3px; 
 	}
-	ul.tabbed-list li, ul.tabbed-list lh {margin: 0; padding: 0; float: left;}
-	ul.tabbed-list li a, ul.tabbed-list lh a{display: block; }
+}
 
+/* @ Tabbed List - Horizontal floated list, tab and navigation effects */
+ul.tabbed-list {
+	list-style-type: none; 
+	margin:0;
+	width: 100%; /* clear IE 7 */
+	li, lh{
+		margin: 0; 
+		padding: 0; 
+		float: left;
+		a{
+			display: block;
+		}
+	}
+}
 /* 
  * @ Media / Image Format
  **********************************************************************/
@@ -61,9 +71,6 @@
 		}
 	}
 }
-
-
-
 
 /*
  *  @ Vignettes

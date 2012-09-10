@@ -122,5 +122,73 @@
 }
 
 
-	#comments p.form-allowed-tags{width: auto;margin-bottom: 1.6em; }
+// CFORMS
+.cform {
+
+	input {
+		padding: 5px;
+		font-size: 1.1em;
+	}
+
+	fieldset{
+		border:none;
+	}
+
+	input[type="text"].cf_error:focus {
+		border-color: rgba(82, 168, 236, 0.8);
+	}
+
+	label {
+		display:block;
+		margin:0;
+		text-align:left;
+	}
+
+	legend{display: none;}
+
+	.contentcontainer  .cform {
+		margin:5px 50px;
+		padding:0px 0;
+	}
+	ol, li {list-style-type: none; margin:0;padding:0;}
+	li {margin-bottom: .7em;}
+	.single {width: 97%;}
+	.area {width: 97%;}
+	.emailreqtxt,.reqtxt{font-style: italic;}
+	.cf_hidden {display: none;}
+
+	.success {
+		padding: 15px; 
+		margin-bottom: .5em; 
+		font-size:1.4em;
+	}
+}
+/* Mailing List Form */
+.mailinglist .cform {
+	ol{width:262px; float: left;}
+	.single{width:97%}
+	.sendbutton{margin:21px 0 0 10px;padding: 3px 0 2px 0;}
+	.linklove a{display: none;}
+}
+
+
+/* Contact Forms 7 */ 
+#page div.wpcf7-mail-sent-ok{
+	border: 1px solid @successBorder;
+	background: @successBackground;
+}
+
+#page span.wpcf7-not-valid-tip{
+	border:1px solid @warningBorder;
+	background: @warningBackground;		
+}
+#page div.wpcf7-validation-errors{
+	border: 1px solid @errorBorder;
+	background: @errorBackground;
+}
+#page div.wpcf7-mail-sent-ok, #page span.wpcf7-not-valid-tip, #page div.wpcf7-validation-errors{
+	text-shadow: 0 1px 0 rgba(255,255,255,.8);
+	text-align: center;
+	.box-shadow (inset 1px 1px 2px rgba(255,255,255,.5));
+}
 

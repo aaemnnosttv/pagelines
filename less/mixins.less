@@ -284,8 +284,10 @@
 // User select
 // For selecting text on the page
 .user-select(@select) {
+-webkit-touch-callout: @select;
   -webkit-user-select: @select;
      -moz-user-select: @select;
+	  -ms-user-select: @select;
        -o-user-select: @select;
           user-select: @select;
 }

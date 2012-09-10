@@ -1,6 +1,3 @@
-@light-base = lighten( @pl-base, @invert-light  );
-@dark-base = darken( @pl-base, @invert-dark  );
-
 /* secondary text */
 hr, .fpost, .clip_box, .widget-title, .metabar a, #morefoot .widget-title, #site #dsq-content h3, .navigation_wrap, .setup_area, .fpost .post-thumb img, .clip .clip-thumb img, .author-thumb img, ul.sf-menu ul li{
 	border-color: @dark-base;
@@ -13,24 +10,24 @@ hr, .fpost, .clip_box, .widget-title, .metabar a, #morefoot .widget-title, #site
 	background-color: @dark-base;
 	color: fadeout(@pl-text, 40%);
 }
-	.cnt-comments a, #wp-calendar caption, .searchform .searchfield, .wp-caption, .commentlist .alt, #wp-calendar #today, .post-nav, .current_posts_info, .success,  .content-pagination a .cp-num, .hentry table .alternate td, .playpause, .main-nav li:hover, .main-nav .current-page-ancestor a,  .main-nav li.current-page-ancestor ul a, .main-nav li.current_page_item a, .main-nav li.current-menu-item a, .sf-menu li li, .sf-menu li li li{
+	#wp-calendar caption, .wp-caption, #wp-calendar #today, .success,  .content-pagination a .cp-num, .hentry table .alternate td, .playpause, .main-nav li:hover, .main-nav .current-page-ancestor a,  .main-nav li.current-page-ancestor ul a, .main-nav li.current_page_item a, .main-nav li.current-menu-item a, .sf-menu li li, .sf-menu li li li{
 		background-color: @dark-base;
 	}
 	
-		.post-nav a, .post-nav a:visited, .main_nav .current-menu-item a, .main_nav li a:hover, .main_nav li a:hover, {
+		.main_nav .current-menu-item a, .main_nav li a:hover, .main_nav li a:hover, {
 			color: fadeout(@pl-text, 30%);
 		}
 
-	.cnt-comments a:hover, #wp-calendar thead th, .item-avatar a, #page .wp-pagenavi a:hover, #page .wp-pagenavi .extend, .content-pagination .cp-num, .content-pagination a:hover .cp-num, ins, .main-nav li a:hover, .main-nav .current-page-ancestor .current_page_item a, .main-nav li.current-page-ancestor ul a:hover{
+	#wp-calendar thead th, .item-avatar a, #page .wp-pagenavi a:hover, #page .wp-pagenavi .extend, .content-pagination .cp-num, .content-pagination a:hover .cp-num, ins, .main-nav li a:hover, .main-nav .current-page-ancestor .current_page_item a, .main-nav li.current-page-ancestor ul a:hover{
 		background-color: lighten(@dark-base, 1.6);
 	}
 
-	.searchform .searchfield, .wp-caption, #soapbox .fboxinfo, code, pre{
+	.wp-caption, #soapbox .fboxinfo, code, pre{
 		background-color: @dark-base;
 		border: 1px solid darken(@dark-base, 8); 
 	}
 	
-	#page .wp-pagenavi .current, .alt #commentform textarea{
+	#page .wp-pagenavi .current{
 		color: fadeout(@pl-text, 20%);
 		background-color: darken(@dark-base, @invert-dark);
 	}
@@ -45,27 +42,22 @@ hr, .fpost, .clip_box, .widget-title, .metabar a, #morefoot .widget-title, #site
 		color: @pl-header;
 	}
 	
-	#page, #subnav ul li a:active, .commentlist cite a, .metabar a:hover, .post-nav a:hover, #site #dsq-content .dsq-request-user-info td a, #page .wp-pagenavi a:hover, #page .wp-pagenavi .current,  .content-pagination a:hover .cp-num{
+	#page, #subnav ul li a:active, .metabar a:hover,  #site #dsq-content .dsq-request-user-info td a, #page .wp-pagenavi a:hover, #page .wp-pagenavi .current,  .content-pagination a:hover .cp-num{
 		color: @pl-text;
 	}
 	
-	.mastmeta, .cnt-comments a, .cnt-comments a:hover, .tcolor2, .lcolor2 a, .subhead, .widget-title, #branding .site-description, #callout, #commentform .required, #postauthor .subtext, .commentlist .comment-meta  a, .content-pagination span, .content-pagination a .cp-num, .comment.alt .comment-author, .tcolor3, .lcolor3 a, .main_nav a, .widget-title a, h3.widget-title a, #subnav_row li a, .metabar em, .metabar a, .tags, #commentform label, .form-allowed-tags code, .rss-date, .comment.alt, .reply a, .auxilary a, .cform .emailreqtxt,.cform .reqtxt, code, pre{
+	.mastmeta, .tcolor2, .lcolor2 a, .subhead, .widget-title, #branding .site-description, #callout, #postauthor .subtext, .content-pagination span, .content-pagination a .cp-num, .tcolor3, .lcolor3 a, .main_nav a, .widget-title a, h3.widget-title a, #subnav_row li a, .metabar em, .metabar a, .tags,  .rss-date, .auxilary a, code, pre{
 		color: fadeout(@pl-text, 40%);
 	}
 	
 	a, #subnav_row li.current_page_item a, #subnav_row li a:hover, .branding h1 a:hover{
 		color: @pl-link;
 	}
-		a:hover, .commentlist cite a:hover, .headline h1 a:hover{
+		a:hover, .headline h1 a:hover{
 			color: fadeout(@pl-link, 20%);
 		}
 		
-	#footer, #footer li.link-list a, #footer .latest_posts li .list-excerpt, #footer .widget-title{
-		color: fadeout(@pl-footer, 40%);
-	}
-		#footer a, #footer li h5 a{
-			color: @pl-footer;
-		}
+
 
 /* 
  * Thumbs and other images 
@@ -91,6 +83,3 @@ hr, .fpost, .clip_box, .widget-title, .metabar a, #morefoot .widget-title, #site
 	color: fadeout(@pl-text, 40%);
 }
 
-.commentlist img.avatar {
-	border:1px solid darken(@dark-base, 8);
-}
