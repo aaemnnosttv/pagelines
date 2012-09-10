@@ -263,8 +263,9 @@ class PageLinesRegister {
 					} else {
 						
 						$disabled = get_option( 'pagelines_sections_disabled', array( 'child' => array(), 'parent' => array() ) );
-						$disabled['child'][$headers['classname']] = true; 
-						update_option( 'pagelines_sections_disabled', $disabled );	
+						
+						if ( ! isset( $disabled['child'][$headers['classname']] ) )
+							$load = true;
 					}
 				}
 				if ( $load )
