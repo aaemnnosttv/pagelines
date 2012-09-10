@@ -711,13 +711,18 @@ function pagelines_main_logo( $location = null ){
 	
 	if(ploption('pagelines_custom_logo', $oset) || apply_filters('pagelines_site_logo', '') || apply_filters('pagelines_logo_url', '')){
 		
-
 		$logo = apply_filters('pagelines_logo_url', esc_url(ploption('pagelines_custom_logo', $oset) ), $location);
 
 
 		$logo_url = ( esc_url(ploption('pagelines_custom_logo_url', $oset) ) ) ? esc_url(ploption('pagelines_custom_logo_url', $oset) ) : home_url();
 		
-		$site_logo = sprintf( '<a class="plbrand mainlogo-link" href="%s" title="%s"><img class="mainlogo-img" src="%s" alt="%s" /></a>', $logo_url, get_bloginfo('name'), $logo, get_bloginfo('name'));
+		$site_logo = sprintf( 
+			'<a class="plbrand mainlogo-link" href="%s" title="%s"><img class="mainlogo-img" src="%s" alt="%s" /></a>', 
+			$logo_url, 
+			get_bloginfo('name'),
+			$logo, 
+			get_bloginfo('name')
+		);
 		
 		echo apply_filters('pagelines_site_logo', $site_logo, $location);
 		
