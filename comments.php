@@ -43,7 +43,7 @@ if(!have_comments() && !comments_open())
 			?></h3>
 
 			<ol class="commentlist">
-				<?php wp_list_comments(array('avatar_size' => 45)); ?>
+				<?php wp_list_comments(array('avatar_size' => 65)); ?>
 			</ol>
 			<?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : // Are there comments to navigate through? ?>
 						<div class="navigation fix">
