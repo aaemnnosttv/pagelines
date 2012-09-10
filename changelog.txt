@@ -4,6 +4,21 @@
 
 ********************************************************
 
+Version 2.3
+
+	- NEW - Added code styling to all code areas.
+	- NEW - Use native WordPress media library for all images.
+	- CORE - Upgraded to latest LESS compiler.
+	- Bugs - Boxes, open in new window if selected.
+	- Bugs - Stop banner images overflowing.
+	- Bugs - Make (edit) translatable.
+	- Bugs - Fix carousel shortcode.
+	- Bugs - Fix feature slides appearing before js is ready.
+	- Bugs - Fix nav dropdown in ie8.
+	- Bugs - Various multisite fixes.
+	- Bugs - Flush css when framework is updated.
+
+
 Version 2.2.5
     - CORE - Added new LESS variable @{plPluginsRoot}.
 	- CORE - New filter 'pagelines_thumb_width' use to set thumb widths.
