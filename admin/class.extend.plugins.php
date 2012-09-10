@@ -8,7 +8,7 @@ class ExtensionPlugins extends PageLinesExtensions {
 	* @TODO document
 	*
 	*/
-	function __contruct() {
+	function __construct() {
 		
 		add_filter( 'http_request_args', array( &$this, 'pagelines_plugins_remove' ), 10, 2 );
 	}
