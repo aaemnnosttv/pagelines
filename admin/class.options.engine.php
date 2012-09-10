@@ -848,8 +848,15 @@ class OptEngine {
 		}else
 			$active_image_url = false;
 				
-		if($active_image_url)
-			printf('<img class="pagelines_image_preview %s" id="image_%s" src="%s" style="max-width:%spx"/>', $special_image_class, $button_id, $active_image_url, $o['imagepreview']);
+		if($active_image_url){
+			printf(
+				'<img class="pagelines_image_preview %s" id="image_%s" src="%s" style="max-width:%spx"/>', 
+				$special_image_class, $button_id, 
+				$active_image_url, 
+				$o['imagepreview']
+			);
+		}
+		
 	}
 	
 
