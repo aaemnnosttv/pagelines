@@ -4,11 +4,7 @@
 class PageLinesDashboard {
 	
 	
-	function __contruct(){
-		
-		
-		
-	}
+	function __contruct(){}
 	
 	function draw(){
 		
@@ -24,8 +20,9 @@ class PageLinesDashboard {
 			'icon'	=> PL_ADMIN_ICONS . '/download.png',
 			'excerpt-trim'	=> 0
 		); 
-
-		$dashboards = $this->dashboard_pane('updates', $args); 
+		
+		if ( ! EXTEND_NETWORK )
+			$dashboards = $this->dashboard_pane('updates', $args); 
 		
 		// PageLines Blog Dashboard
 		
@@ -234,9 +231,9 @@ class PageLinesDashboard {
 	function get_upgrade_button( $data, $mode = 'upgrade' ) {
 		
 		global $extension_control;
-		
-		if ( 'install_rss' === $mode ):
-		$button = '';
+		$button = '';		
+		if ( 'install_rss' === $mode && ! EXTEND_NETWORK ):
+
 			// we need to convert a rss url into hardcore API data
 			$slug = basename( $data['link'] );
 			$type = basename( str_replace( $slug, '', $data['link'] ) );
