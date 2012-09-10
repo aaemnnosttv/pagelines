@@ -530,3 +530,83 @@ function pagelines_error_messages(){
 <?php 	endforeach;	
 	endif;
 }
+
+$custom_attach = new PLImageUploader();
+
+class PLImageUploader{
+	function __construct() {
+		if ( isset( $_REQUEST['context'] ) && $_REQUEST['context'] == 'pl-custom-attach' ) {
+			
+			$this->option_id = (isset( $_REQUEST['oid'] )) ? $_REQUEST['oid'] : '';
+
+			add_filter( 'attachment_fields_to_edit', array( $this, 'attachment_fields_to_edit' ), 15, 2 );
+			add_filter( 'media_upload_tabs', array( $this, 'filter_upload_tabs' ) );
+			add_filter( 'media_upload_mime_type_links', '__return_empty_array' );
+			add_action( 'media_upload_library' , array( $this, 'the_js' ), 15 );
+		}
+	}
+
+	
+	function the_js(){
+		?>
+		
+		<script type="text/javascript">
+		jQuery(document).ready(function(){ 
+			jQuery('.pl-frame-button').on('click', function(){
+				
+				var optID = '#'+jQuery(this).data('selector')
+				var previewSel = '.pre_'+jQuery(this).data('selector')
+				var imgURL = jQuery(this).data('imgurl')
+				
+				jQuery(optID, top.document).val(imgURL)
+				jQuery(previewSel, top.document).attr('src', imgURL)
+				parent.eval('tb_remove()')
+			});
+		}); 
+		</script>
+		</script>
+		
+		<?php
+	}
+	
+	/**
+	 * Replace default attachment actions with "Set as header" link.
+	 *
+	 * @since 3.4.0
+	 */
+	function attachment_fields_to_edit( $form_fields, $post ) {
+		
+		$form_fields = array();
+		
+		$attach_id = $post->ID;
+		
+		$image_url = wp_get_attachment_url($attach_id);
+		
+		$form_fields['buttons'] = array( 
+			'tr' => sprintf(
+						'<tr class="submit"><td></td>
+							<td>
+							<span class="pl-frame-button  admin-blue button" title="3212" data-selector="%s" data-imgurl="%s">%s</span>
+							</td></tr>',  
+							$this->option_id,
+							$image_url,
+							__( 'Select This Image For Option', 'pagelines' )
+					)	
+		);
+		$form_fields['context'] = array( 
+			'input' => 'hidden', 
+			'value' => 'pl-custom-attach' 
+		);
+
+		return $form_fields;
+	}
+
+	/**
+	 * Leave only "Media Library" tab in the uploader window.
+	 *
+	 * @since 3.4.0
+	 */
+	function filter_upload_tabs() {
+		return array( 'library' => __('Media Library') );
+	}
+}

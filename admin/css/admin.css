@@ -858,7 +858,7 @@
 			
 	
 		.sl-blue.superlink-wrap{border-top: 1px solid #999;border-left: 1px solid #999;}
-		.extend_button, .sl-blue .superlink, .ohead .superlink.osave {
+		.extend_button, .sl-blue .superlink, .ohead .superlink.osave, .admin-blue {
 			background: #82a2ca url(../images/superlink-sprite-blue.png) 0 0 repeat-x;
 			color:#fff;
 			text-shadow: #2d4a79 0 -1px 0;
@@ -867,13 +867,16 @@
 			border-bottom: 1px solid #2d4a79;
 			
 		}
-			.extend_button:hover, .sl-blue .superlink:hover, .ohead .osave:hover{
+			.extend_button:hover, .sl-blue .superlink:hover, .ohead .osave:hover, .admin-blue:hover{
 				background: #82a2ca url(../images/superlink-sprite-blue.png) 0 -35px repeat-x; color: #fff;
 				border: 1px solid #2d4a79;
 				border-right: 1px solid #2d4a79;
 				border-bottom: 1px solid #2d4a79;
 			}
-			.extend_button:active, .sl-blue .superlink:active, .ohead .osave:active{background: #82a2ca url(../images/superlink-sprite-blue.png) 0 -70px repeat-x; color: #eee}
+			.extend_button:active, .sl-blue .superlink:active, .ohead .osave:active, .admin-blue:active{
+				background: #82a2ca url(../images/superlink-sprite-blue.png) 0 -70px repeat-x; 
+				color: #eee;
+			}
 			
 		.sl-red.superlink-wrap{border-top: 1px solid #999;border-left: 1px solid #999;}
 		.sl-red .superlink{
@@ -918,6 +921,10 @@
 			height: 25px;
 			padding: 3px 8px;
 		}
+
+.blue-button{
+	
+}
 
 	
 /* @ Below Footer Controls */

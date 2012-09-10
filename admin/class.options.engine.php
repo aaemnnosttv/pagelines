@@ -826,7 +826,7 @@ class OptEngine {
 		
 		$button_id = (isset($o['special'])) ? $oid.'OID'.$o['special'] : $oid;
 		
-		$up_button = $this->input_button( $button_id, __( 'Upload Image', 'pagelines' ), 'image_upload_button', 'title="'.$this->settings_field.'"' );
+		$up_button = $this->input_button( $button_id, __( 'Upload Image', 'pagelines' ), 'image_upload_button admin-blue', 'title="'.$this->settings_field.'"' );
 		
 		$reset_button = sprintf('<span title="%1$s" id="%2$s" class="image_reset_button button reset_%1$s">Remove</span>', $button_id, $this->settings_field); 
 		
@@ -834,11 +834,26 @@ class OptEngine {
 		
 		$preview_size = $this->input_hidden('', 'img_size_'.$oid, $o['imagepreview'], 'image_preview_size'); 
 		
+		ob_start();
+			$image_library_url = get_upload_iframe_src( 'image', null, 'library' );
+			$image_library_url = remove_query_arg( 'TB_iframe', $image_library_url );
+			$image_library_url = add_query_arg( array('oid' => $o['input_id'], 'context' => 'pl-custom-attach', 'TB_iframe' => 1), $image_library_url );
+		?>
+
+			<a id="choose-from-library-link" class="button thickbox" href="<?php echo esc_url( $image_library_url ); ?>">
+				<?php _e( 'Select From Library' ); ?>
+			</a>
+	
+		<?php 
+		$media_lib = ob_get_clean();
+		
 		// Output
 		$label = $this->input_label($oid, $o['inputlabel']);
-		printf('<p>%s %s<br/> %s %s %s %s</p>',$label, $up_url, $up_button, $reset_button, $ajax_url, $preview_size);		
+		printf('<p>%s %s<br/> %s %s %s %s %s</p>',$label, $up_url, $up_button, $media_lib, $reset_button, $ajax_url, $preview_size);		
 		
 		$special_image_class = '';
+		
+		$select_class = sprintf('pre_%s', $o['input_id']);
 		
 		if($o['val'])
 			$active_image_url = $o['val'];
@@ -848,15 +863,16 @@ class OptEngine {
 		}else
 			$active_image_url = false;
 				
-		if($active_image_url){
-			printf(
-				'<img class="pagelines_image_preview %s" id="image_%s" src="%s" style="max-width:%spx"/>', 
-				$special_image_class, $button_id, 
-				$active_image_url, 
-				$o['imagepreview']
-			);
-		}
-		
+		printf(
+			'<img class="pagelines_image_preview %s %s" id="image_%s" src="%s" style="max-width:%spx; %s"/>', 
+			$special_image_class, 
+			$select_class,
+			$button_id, 
+			$active_image_url, 
+			$o['imagepreview'], 
+			(!$active_image_url) ? 'display: none;' : ''
+		);
+	
 	}
 	
 

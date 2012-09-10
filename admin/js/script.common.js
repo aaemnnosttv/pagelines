@@ -117,8 +117,10 @@ jQuery(document).ready(function(){
 				else{
 
 					var previewSize = clickedObject.parent().find('.image_preview_size').attr('value');
-
-					var buildReturn = '<img style="max-width:'+previewSize+'px;" class="pagelines_image_preview" id="image_'+clickedID+'" src="'+response+'" alt="" />';
+					
+					var preSelector = 'pre_' + clickedObject.parent().find('.uploaded_url').attr('id');
+					
+					var buildReturn = '<img style="max-width:'+previewSize+'px;" class="pagelines_image_preview '+preSelector+'" id="image_'+clickedID+'" src="'+response+'" alt="" />';
 
 					clickedObject.parent().find('.uploaded_url').val(response);
 
