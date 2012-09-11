@@ -39,6 +39,7 @@ body.navbar_fixed {
 	}
 
 	.navline {
+		
 		float: left;
 		position: relative;
 		left: 0;
@@ -47,7 +48,7 @@ body.navbar_fixed {
 		font-size: .9em;
 		.pldrop ul{
 			display: none;
-		}
+		}  
 		> .dropdown > .dropdown-menu{
 			&:before {
 			  content: '';
@@ -70,6 +71,9 @@ body.navbar_fixed {
 			  top: -6px;
 			  left: 10px;
 			}
+		}
+		.caret{
+			border-top-color:  rgba(255,255,255,.5);
 		}
 		&.pull-right {
 			float: right;
@@ -229,13 +233,12 @@ body.navbar_fixed {
 				}
 			}
 			
-			
+			.caret{
+				border-top-color:  rgba(0,0,0,.5);
+			}
 		}
+	
 		
-
-		.caret{
-			border-top-color:  rgba(0,0,0,.5);
-		}
 		.nav-btn-navbar .icon-bar{
 			background:rgba(0,0,0,.7);
 			box-shadow: 0 1px 0 #fff;

@@ -47,16 +47,22 @@ class PageLinesOptionsArray {
 				'shortexp' 		=> __( 'Login or Register for a Free PageLines Account', 'pagelines' ),
 				'exp' 			=> __( 'Logging in with your PageLines account will allow you to purchase items from the PageLines Store, and more.', 'pagelines' )
 			),
-			'pagelines_custom_logo' => array(
-				'default' 		=> PL_IMAGES.'/logo.png',
-				'type' 			=> 'image_upload',
-				'imagepreview' 	=> '270',
-				'inputlabel' 	=> __( 'Upload custom logo', 'pagelines' ),
-				'title'			=> __( 'Custom Header Image', 'pagelines' ),						
+			'pl_logo'	=> array(
+			
+				'type' 			=> 	'multi_option',
+				'selectvalues'	=> array(
+					'pagelines_custom_logo' => array(
+						'default' 		=> PL_IMAGES.'/logo.png',
+						'type' 			=> 'image_upload',
+						'imagepreview' 	=> '270',
+						'inputlabel' 	=> __( 'Upload custom logo', 'pagelines' )
+					)
+				),
+				'title' 		=> __( 'Custom Logo', 'pagelines' ),						
 				'shortexp' 		=> __( 'Input full URL to your custom header or logo image', 'pagelines' ),
-				'exp' 			=> __( 'Optional way to replace <strong>heading</strong> and <strong>description</strong> text for your website ' . 
-						    		'with an image.', 'pagelines' )
+				'exp'			=> ''
 			),
+			
 			'pagelines_favicon'		=> array(
 				'version' 		=> 'pro',
 				'default' 		=> 	PL_ADMIN_IMAGES . "/favicon-pagelines.ico",
@@ -108,7 +114,12 @@ class PageLinesOptionsArray {
 				'version' 		=> 'pro',
 				'type' 			=> 	'multi_option',
 				'selectvalues'	=> array(
-					'watermark_image'	=> array('type' =>'image_upload', 'inputlabel' => 'Watermark Image', 'default' => PL_IMAGES.'/pagelines.png'), 
+					'watermark_image'	=> array(
+						'type' 			=> 'image_upload', 
+						'inputlabel' 	=> 'Watermark Image', 
+						'default' 		=> PL_IMAGES.'/pagelines.png', 
+				
+					), 
 					'watermark_link'	=> array('type' => 'text', 'inputlabel' => 'Watermark Link (Blank for None)', 'default' => 'http://www.pagelines.com'),
 					'watermark_alt'		=> array('type' => 'text', 'inputlabel' => 'Watermark Link alt text', 'default' => 'Build a website with PageLines' ),
 					'watermark_hide'	=> array('type' => 'check', 'inputlabel' => "Hide Watermark")
