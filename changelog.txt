@@ -8,6 +8,8 @@ Version 2.3
 
 	- NEW - Added code styling to all code areas.
 	- NEW - Use native WordPress media library for all images.
+	- NEW - Bootstrap NavBar gets child submenus.
+	- CORE - Upgraded to latest bootstrap.
 	- CORE - Upgraded to latest LESS compiler.
 	- Bugs - Boxes, open in new window if selected.
 	- Bugs - Stop banner images overflowing.
