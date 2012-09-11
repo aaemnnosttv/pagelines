@@ -11,12 +11,7 @@ body{
 	line-height: @baseLineHeight; // 21
 }
 
-
 p {
-  // margin: 0 0 @baseLineHeight / 2;
-  // font-family: @baseFontFamily;
-  // font-size: @baseFontSize;
-  // line-height: @baseLineHeight;
 	margin: 1.6em 0;
 	hyphenate: auto;
 	hyphenate-before: 2;
@@ -231,12 +226,17 @@ dd {
 // Links
 a {
 	text-decoration:none;
+	&:focus{
+		outline:1px dotted invert;
+	}
+	&:active, &:focus{
+		outline: none !important;
+	}
 }
-a:focus{ outline:1px dotted invert; }
 
-a:active, a:focus, input.searchfield:active {
-   outline: none !important;
-   // ie-dummy: expression(this.hideFocus=true);
+
+input.searchfield:active {
+   	outline: none !important;
 }
 
 
@@ -248,16 +248,16 @@ hr {
 	border: 0;
 	border-top: 1px solid @hrBorder;
 	border-bottom: 1px solid @white;
+	&.soften {
+		height: 1px;
+		background-image: -webkit-linear-gradient(left, transparent, rgba(0, 0, 0, .1), transparent);
+		background-image: -moz-linear-gradient(left, transparent, rgba(0, 0, 0, .1), transparent);
+		background-image: -ms-linear-gradient(left, transparent, rgba(0, 0, 0, .1), transparent);
+		background-image: -o-linear-gradient(left, transparent, rgba(0, 0, 0, .1), transparent);
+		border: 0;
+	}
 }
 
-hr.soften {
-	height: 1px;
-	background-image: -webkit-linear-gradient(left, transparent, rgba(0, 0, 0, .1), transparent);
-	background-image: -moz-linear-gradient(left, transparent, rgba(0, 0, 0, .1), transparent);
-	background-image: -ms-linear-gradient(left, transparent, rgba(0, 0, 0, .1), transparent);
-	background-image: -o-linear-gradient(left, transparent, rgba(0, 0, 0, .1), transparent);
-	border: 0;
-}
 
 // Emphasis
 strong {

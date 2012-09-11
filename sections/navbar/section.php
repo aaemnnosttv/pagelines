@@ -252,7 +252,7 @@ class PLNavBar extends PageLinesSection {
 							'menu'				=> $menu,
 							'container'			=> null, 
 							'container_class'	=> '', 
-							'depth'				=> 2, 
+							'depth'				=> 3, 
 							'fallback_cb'		=> ''
 						) 
 					);

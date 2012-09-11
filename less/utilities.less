@@ -3,7 +3,8 @@
 // -----------
 // Image Frame
 // -----------
-.pl-imageframe img, img.pl-imageframe {
+.pl-imageframe img, 
+img.pl-imageframe {
 	padding: 4px;
 	background: @baseLighter;
 	border: 1px solid @baseLighterMore;
@@ -47,29 +48,6 @@
 .invisible {
   visibility: hidden;
 }
-
-
-// -----------
-// CLOSE ICONS
-// -----------
-.close {
-  float: right;
-  font-size: 20px;
-  font-family: @baseFontFamily;
-  font-weight: bold;
-  line-height: @baseLineHeight;
-  color: @black;
-  text-shadow: 0 1px 0 rgba(255,255,255,1);
-  .opacity(20);
-  &:hover {
-    color: @black;
-    text-decoration: none;
-    .opacity(40);
-    cursor: pointer;
-  }
-}
-
-.hentry .close:hover {text-decoration:none;}
 
 
 // -----------

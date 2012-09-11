@@ -53,7 +53,9 @@ class PageLinesRenderCSS {
 			'wells',
 			'forms',
 			'blockquotes',
-			
+			'breadcrumbs', 
+			'close', 
+			'pager'
 		);
 		return $files;
 	}
