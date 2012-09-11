@@ -621,10 +621,14 @@ function pagelines_pagination() {
 	if(function_exists('wp_pagenavi') && show_posts_nav() && VPRO):
 		wp_pagenavi(); 
 	elseif (show_posts_nav()) : ?>
-		<div class="page-nav-default fix">
-			<span class="previous-entries"><?php next_posts_link(__('&larr; Previous Entries','pagelines')) ?></span>
-			<span class="next-entries"><?php previous_posts_link(__('Next Entries &rarr;','pagelines')) ?></span>
-		</div>
+		<ul class="pager page-nav-default fix">
+			<li class="previous previous-entries">
+				<?php next_posts_link(__('&larr; Previous Entries','pagelines')) ?>
+			</li>
+			<li class="next next-entries">
+			<?php previous_posts_link(__('Next Entries &rarr;','pagelines')) ?>
+			</li>
+		</ul>
 <?php endif;
 }
 
