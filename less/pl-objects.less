@@ -324,10 +324,27 @@ body #page .blink-wrap	.blink{
 }
 
 /* Misc */
-#supersized-loader { position:absolute; top:50%; left:50%; z-index:10; width:60px; height:60px; margin:-30px 0 0 -30px; text-indent:-999em; background-color:#111; -webkit-border-radius:5px; -moz-border-radius:5px; border-radius:5px;}
+#supersized-loader { position:absolute; top:50%; left:50%; z-index:10; width:60px; height:60px; margin:-30px 0 0 -30px; text-indent:-999em; background-color:#111; .border-radius(5px); }
 
-#supersized { position:fixed; left:0; top:0; overflow:hidden; z-index:-999; height:100%; width:100%; }
-#supersized img{ height:auto; width:auto; position:relative; outline:none; border:none; -ms-interpolation-mode:bicubic; image-rendering: optimizeQuality; }
+#supersized { 
+	position:fixed; 
+	left:0; 
+	top:0; 
+	overflow:hidden; 
+	z-index:-999; 
+	height:100%; 
+	width:100%;
+	background-size: cover;
+	img{ 
+		height:auto; 
+		width:auto; 
+		position:relative; 
+		outline:none; 
+		border:none; 
+		-ms-interpolation-mode:bicubic;
+		image-rendering: optimizeQuality; 
+	}
+}
 
 /* Spinner */
 .spinner{
