@@ -112,6 +112,7 @@ define( 'PL_EXTEND_THEMES_DIR', WP_CONTENT_DIR .'/themes/' );
 define( 'PL_EXTEND_SECTIONS_PLUGIN', 'pagelines-sections.php' );
 define( 'PL_STORE_URL', 'http://www.pagelines.com/store' );
 define( 'CORE_LESS', PARENT_DIR . '/less' );
+define( 'CHILD_LESS', CHILD_DIR . '/less' );
 
 if ( is_multisite() && ! is_super_admin() )
 	define( 'EXTEND_NETWORK', true);

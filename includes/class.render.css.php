@@ -507,14 +507,7 @@ class PageLinesRenderCSS {
 	 *  @since 2.2
 	 */
 	function get_core_lesscode() {
-		
-			global $disabled_settings;
 			
-			$add_color = (isset($disabled_settings['color_control'])) ? false : true;
-			
-			if ( ! $add_color ) {
-				array_pop( $this->lessfiles );
-			}			
 			return $this->load_core_cssfiles( apply_filters( 'pagelines_core_less_files', $this->lessfiles ) );	
 	}
 
@@ -529,9 +522,8 @@ class PageLinesRenderCSS {
 	
 		$code = '';
 		foreach( $files as $less ) {
-			
-			$file = sprintf( '%s/%s.less', CORE_LESS, $less );
-			$code .= pl_file_get_contents( $file );
+
+			$code .= PageLinesLess::load_less_file( $less );
 		}
 		return apply_filters( 'pagelines_insert_core_less', $code );
 	}

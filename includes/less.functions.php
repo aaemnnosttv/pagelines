@@ -112,11 +112,26 @@ class PageLinesLess {
 
 	private function add_bootstrap( ) {
 		
-		$vars = pl_file_get_contents( sprintf( '%s/variables.less', CORE_LESS ) );
-		$mixins = pl_file_get_contents( sprintf( '%s/mixins.less', CORE_LESS ) );
+		$vars = $this->load_less_file( 'variables' );
+		$mixins = $this->load_less_file( 'mixins' );
 	
 		return $vars . $mixins;
 	}
+
+	function load_less_file( $file ) {
+
+		$file = sprintf( '%s.less', $file );
+		$parent = sprintf( '%s/%s', CORE_LESS, $file );
+		$child = sprintf( '%s/%s', CHILD_LESS, $file );
+
+		// check for child 1st if not load the main file.
+
+		if ( is_file( $child ) )
+			return pl_file_get_contents( $child );
+		else
+			return pl_file_get_contents( $parent );
+	}
+
 
 	private function add_core_less($pless){
 	
