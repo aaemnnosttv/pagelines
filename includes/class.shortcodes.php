@@ -992,6 +992,7 @@ class PageLines_ShortCodes {
 
 	    $defaults = array(
 	    	'tip' => 'Tip',
+	    	'position'  => 'Right'
 	    );
 
         $atts = shortcode_atts( $defaults, $atts );
@@ -1005,8 +1006,9 @@ class PageLines_ShortCodes {
 					});
 				</script><?php
 
-			printf( '<a href="#" rel="tooltip" title="%s">%s</a>',
+			printf( '<a href="#" rel="tooltip" title="%s" data-placement="%s">%s</a>',
 				$atts['tip'],
+				$atts['position'],
 				do_shortcode( $content )
 			);
 
@@ -1024,7 +1026,8 @@ class PageLines_ShortCodes {
 
 	    $defaults = array(
 	    	'title' => 'Popover Title',
-	    	'content' => 'Content'
+	    	'content' => 'Content',
+	    	'position'  => 'Right'
 	    );
 
 	    $atts = shortcode_atts( $defaults, $atts );
@@ -1036,7 +1039,7 @@ class PageLines_ShortCodes {
                 	jQuery(function(){
 						 jQuery("a[rel=popover]")
       					.popover({
-      						trigger: 'hover',
+      						trigger: 'hover'
       					})
       					.click(function(e) {
         					e.preventDefault()
@@ -1044,9 +1047,10 @@ class PageLines_ShortCodes {
 					});
 	    	</script><?php
 
-    	printf( '<a href="#" rel="popover" title="%s" data-content="%s">%s</a>',
+    	printf( '<a href="#" rel="popover" title="%s" data-content="%s" data-placement="%s">%s</a>',
 			$atts['title'],
 			$atts['content'],
+			$atts['position'],
 			do_shortcode( $content )
 		);
 
