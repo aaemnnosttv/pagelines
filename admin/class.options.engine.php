@@ -841,7 +841,7 @@ class OptEngine {
 		?>
 
 			<a id="choose-from-library-link" class="button thickbox" href="<?php echo esc_url( $image_library_url ); ?>">
-				<?php _e( 'Select From Library' ); ?>
+				<?php _e( 'Select From Library', 'pagelines' ); ?>
 			</a>
 	
 		<?php 
