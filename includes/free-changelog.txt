@@ -1,3 +1,20 @@
+= 1.2.5 =
+
+* Refactored alot of css into LESS files.
+* Added code styling to all code areas.
+* Use native WordPress media library for all images.
+* Bootstrap NavBar gets child submenus.
+* Upgraded to latest bootstrap.
+* Upgraded to latest LESS compiler.
+* Boxes, open in new window if selected.
+* Stop banner images overflowing.
+* Make (edit) translatable.
+* Fix carousel shortcode.
+* Fix feature slides appearing before js is ready.
+* Fix nav dropdown in ie8.
+* Various multisite fixes.
+* Flush css when framework is updated.
+
 = 1.2.4 =
 
 * Remove Placeholdit links from shortcode class.

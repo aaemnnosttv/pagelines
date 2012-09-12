@@ -11,6 +11,7 @@ Version 2.3
 	- NEW - Bootstrap NavBar gets child submenus.
 	- CORE - Upgraded to latest bootstrap.
 	- CORE - Upgraded to latest LESS compiler.
+	- CORE - Child themes can now override core less files. 
 	- Bugs - Boxes, open in new window if selected.
 	- Bugs - Stop banner images overflowing.
 	- Bugs - Make (edit) translatable.
