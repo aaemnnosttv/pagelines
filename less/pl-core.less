@@ -3,7 +3,8 @@
 
 #site { 
 	position:relative; 
-	#page, #dynamic-content { 
+	#page, 
+	#dynamic-content { 
 		min-height: 400px; 
 		zoom:1;
 		.page-canvas{ 
@@ -13,7 +14,8 @@
 }	
 
 .fixed_width{
-	#page, #footer{
+	#page, 
+	#footer{
 		width: 100%; 
 		margin: 0 auto; 
 		position: relative;
@@ -29,29 +31,43 @@
 	}
 }
 
+#content .content-pad{
+	padding-top: 10px; 
+}
+
 /* @ Footer */
 #footer {
 	clear:both;
 	overflow:hidden;
 	text-align: left;
 	position: relative;
-
-}
-#footer, #footer li.link-list a, #footer .latest_posts li .list-excerpt, #footer .widget-title{
 	color: fadeout(@pl-footer, 40%);
-}
-	#footer a, #footer li h5 a{
+	li.link-list a, 
+	.widget-title{
+		color: fadeout(@pl-footer, 40%);
+	}
+	a, 
+	li h5 a{
 		color: @pl-footer;
 	}
+}
 	
-section.container, .hentry, .clip_box, .widget{
+section.container, 
+.hentry, 
+.clip_box, 
+.widget{
 	margin: 0;
 } 
 section.copy{
 	margin: 1.6em 0;
 }
 
-.mcolumn-pad, .copy-pad, .scolumn-pad, .sidebar_widgets, .entry_content, .post-excerpt{
+.mcolumn-pad, 
+.copy-pad, 
+.scolumn-pad, 
+.sidebar_widgets, 
+.entry_content, 
+.post-excerpt{
 	> :first-child{
 		margin-top: 0;
 	}
@@ -60,19 +76,15 @@ section.copy{
 	}
 }
 
-.mcolumn-pad > article .hentry-pad:first-of-type {
-	padding-top: 0;
-}
-
-.clip_box .hentry, .pprow .widget {
+.clip_box .hentry, 
+.pprow .widget {
 	margin:0;
 }
 
-#content .content-pad{
-	padding-top: 10px; 
-}
 
-#nav, #secondnav{
+
+#nav, 
+#secondnav{
 	.content-pad{
 		padding-top: 5px;
 		padding-bottom: 5px;
@@ -86,7 +98,8 @@ section.copy{
 	float:right;
 }
 
-.two-sidebar-left, .one-sidebar-left{
+.two-sidebar-left, 
+.one-sidebar-left{
 	#column-wrap{  
 		float: right;
 	}
@@ -97,26 +110,29 @@ section.copy{
 		float: right;
 	}
 }
-
-.two-sidebar-center #column-main { 
-	float: right;
-}
 #column-main { 
 	float: left; 
 	display: inline; 
-	width: 630px; 
 }
 
-/* Don't confuse with .full_width design mode added to 'body'.. */
-
-#sidebar1, #sidebar2{ 
-	float: left; 
-	overflow:hidden;
+.two-sidebar-center #column-main { 
+	float: right;
+	.mcolumn-pad{ 
+		padding-right: 20px; 
+		padding-left: 20px;
+	}
 }
-
-.two-sidebar-center #column-main .mcolumn-pad{ 
-	padding-right: 20px; 
-	padding-left: 20px;
+.one-sidebar-right, 
+.two-sidebar-right{
+	#column-main .mcolumn-pad{
+		padding: 14px 30px 0 15px;
+	}
+}
+.one-sidebar-left, 
+.two-sidebar-left{
+	#column-main .mcolumn-pad{
+		padding: 14px 15px 0 30px;
+	}
 }
 .fullwidth #column-main { 
 	float: none; 
@@ -124,18 +140,21 @@ section.copy{
 		padding-right: 15px; 
 		padding-left: 15px;
 	}
-} 
+}
+.mcolumn-pad > article .hentry-pad:first-of-type {
+	padding-top: 0;
+}
 
-.one-sidebar-right, .two-sidebar-right{
-	#column-main .mcolumn-pad{
-		padding: 14px 30px 0 15px;
-	}
+
+/* Don't confuse with .full_width design mode added to 'body'.. */
+
+#sidebar1, 
+#sidebar2{ 
+	float: left; 
+	overflow:hidden;
 }
-.one-sidebar-left, .two-sidebar-left{
-	#column-main .mcolumn-pad{
-		padding: 14px 15px 0 30px;
-	}
-}
+
+
 
 /* Fixed Width Design Mode
  ****************************/
@@ -151,47 +170,20 @@ body.fixed_width{
 		background: transparent; 
 		margin: 0 auto; 
 	}
-	#morefoot .dcol-pad { 
+	.section-morefoot .dcol-pad { 
 		padding: 15px;
 	}
-	#branding .content-pad{ 
+	.section-branding .content-pad{ 
 		padding: 25px;
 	}
 	#header .searchform {
 		margin-right: 10px;
 	}
-	#boxes .dcol-pad {
+	.section-boxes .dcol-pad {
 		padding: 10px;
 	}
 }
 
-/* @ Header Special Cases */
-h1 + img, h2 + img{
-	margin-top:1em;
-}
-
-.main_nav, 
-.widget-title, 
-#footer li h5 a, 
-.subhead, 
-.main_nav, 
-#postauthor .subtext, 
-.author-details, 
-.post-nav, 
-.current_posts_info, 
-#secondnav{ 
-	font-size: 86%; 
-}
-
-/* Posts Meta & Excerpts */
-
-
-#simple_footer_nav #logo h1 { font-size:2em; }
-
-h2.notfound-splash { font-size: 8em; }
-
-.content-pagination .cp-num, .content-pagination a:hover .cp-num{ line-height: 0.9em; }
-	
 /* @ #header */	
 #header .outline{
 	position: relative;
@@ -199,8 +191,18 @@ h2.notfound-splash { font-size: 8em; }
 	z-index:15; /* ie drop-down fix */
 }
 
-// Is this used in Brandnav?
+.widget-title, 
+#footer li h5 a, 
+.main_nav, 
+.author-details, 
+.post-nav, 
+.current_posts_info, 
+#secondnav{ 
+	font-size: 86%; 
+}
 
+
+// Is this used in Brandnav?
 a.site-title{
 	display: block;
 	margin: .3em 0 .15em;
@@ -215,11 +217,6 @@ a.site-title{
 
 // Main Nav
 // ---------
-
-ul.sf-menu ul li:last-child{border-bottom: none}
-#subnav ul li a:active{text-decoration:none;}
-
-
 .main_nav_container{
 	width: 100%;
 	float: left;
@@ -237,14 +234,27 @@ ul.sf-menu ul li:last-child{border-bottom: none}
 	}
 }
 .sf-menu{
-	li:hover ul,li.sfHover ul{
+	li:hover ul,
+	li.sfHover ul{
 		top: 33px;
 	}
+	ul li:last-child{
+		border-bottom: none
+	}
+}
+#subnav ul li a:active{
+	text-decoration:none;
 }
 
-.main_nav_container.nosearch, .nosearch .main_nav{ margin-right: 0; } /* No search adjustment */
+
+/* No search adjustment */
+.main_nav_container.nosearch, 
+.nosearch .main_nav{ 
+	margin-right: 0; 
+} 
 
 .main_nav{
+	font-size: 86%; 
 	ul{
 		list-style: none;
 		display: block;
@@ -274,18 +284,7 @@ ul.sf-menu ul li:last-child{border-bottom: none}
 		}
 	}
 }
-		
-/*IE6 border color (transparent border fix)*/
-*html .main_nav li a{ 
-	border-color: white; 
-}
 	
-
-.billboard { 
-	padding: 60px 15px; 
-	margin: 0 0 2.5em 0; 
-}
-
 /* @ Posts */
 .fpost{
 	.post-excerpt .post-thumb.img {
@@ -318,7 +317,8 @@ ul.sf-menu ul li:last-child{border-bottom: none}
 	margin-bottom: .8em;
 }
 
-.post-meta .c_img, .hentry .c_img{ 
+.post-meta .c_img, 
+.hentry .c_img{ 
 	display: block;  
 	border: 1px solid transparent; 
 	padding: 4px; 
@@ -326,39 +326,38 @@ ul.sf-menu ul li:last-child{border-bottom: none}
 	line-height:1em; 
 }
 
-/* @ Post Title Area */
-.post-title-section{
-	padding-bottom: 6px;
-}
 
 .post-meta { 
 	margin-bottom: 1.71em; 
 	&.post-nocontent{
 		margin-bottom: 0;
 	}
-}
-
-.metabar{ 
-	font-size: 80%;
-	line-height: 1.6em; 
-	em{
-		font-style: normal;
-		color: @textColorAlt;
-		a{
+	.post-title-section{
+		padding-bottom: 6px;
+	}
+	.metabar{ 
+		font-size: 80%;
+		line-height: 1.6em; 
+		em{
+			font-style: normal;
 			color: @textColorAlt;
-		}
-		a:hover{
-			text-decoration: none;
-			color: @pl-text;
+			a{
+				color: @textColorAlt;
+			}
+			a:hover{
+				text-decoration: none;
+				color: @pl-text;
+			}
 		}
 	}
 }
+
+
 	
-.entry_content img { 
-	max-width: 100%;
-}
 
 
+// HENTRY = Standard Long Form Text Formatting
+// -------------------------------------------------
 .hentry{
 	clear: both; 
 	.hentry-pad{
@@ -377,32 +376,39 @@ ul.sf-menu ul li:last-child{border-bottom: none}
 	a:hover{
 		text-decoration: underline;
 	}
-	&.clip{
-		float: left; 
-		clear: none;
-	}
-	&.clip-right{
-		float: right; 
-		clear: none;
-	}
+
 }
 
-.hentry, .clip_box{
+.entry_content img { 
+	max-width: 100%;
+}
+// Belongs under postloop 
+.hentry, 
+.clip_box{
 	margin-bottom: 1.8em
 }
 
-.hentry, .fpost .post-excerpt {
+.hentry, 
+.fpost .post-excerpt {
 	font-size: 1.03em; 
 	line-height: 1.55em;
 }
+	
+.tags {
+	font-size: 80%;
+	font-style: italic;
+	color: @textColorAlt;
+}	
 			
-/* @ Clips */	
-#pagelines_content .clip{ 
-	width:47%;
-}
-
+// Clips - Only used in blog listing
+// ------------------------------------
 .clip{
-
+	width:47%;
+	clear: none;
+	float: left;
+	&.clip-right{
+		float: right; 	
+	}
 	.post-meta .c_img { 
 		padding: 2px;
 	}
@@ -432,25 +438,15 @@ ul.sf-menu ul li:last-child{border-bottom: none}
 		}
 	} 
 	
-	.entry-title, .metabar{
+	.entry-title, 
+	.metabar{
 		padding: 0;
 	}
 }
-	
-.tags {
-	font-size: 80%;
-	font-style: italic;
-	color: @textColorAlt;
-}
-
-/* @ Sidebar */
-#sidebar-wrap #sidebar_universal{ 
-	padding: 2em 1em 0 1em; 
-}
-
 
 /* @ Post Navigation */
-.post-nav, .current_posts_info {
+.post-nav, 
+.current_posts_info {
 	clear: both;
 	padding:5px 10px;
 	position: relative;
@@ -490,6 +486,11 @@ ul.sf-menu ul li:last-child{border-bottom: none}
 	padding: 100px; 
 	min-height: 350px; 
 }
+h2.notfound-splash { font-size: 8em; }
+.billboard { 
+	padding: 60px 15px; 
+	margin: 0 0 2.5em 0; 
+}
 
 /* @ Previewing Alert */ 
 h2.notavail{ 
@@ -498,17 +499,20 @@ h2.notavail{
 
 /* @ Content Pagination */
 .content-pagination { 
+
 	clear:both; 
 	.cp-desc { 
 		font-style: italic;
 	}
-	a .cp-num{
-		color: @textColorAlt;
-	}
-	a:hover{
+	a{
+		background-color: @dark-base;
 		text-decoration:none;
 		.cp-num{
-			color: @pl-text;
+			color: @textColorAlt;
+			line-height: 0.9em;
+		}
+		&:hover{
+			background-color: lighten(@dark-base, 1.6);
 		}
 	}
 	.cp-num, a:hover .cp-num{
@@ -520,32 +524,25 @@ h2.notavail{
 	span{
 		color: @textColorAlt;
 	}
-}
-
-.content-pagination{
-	.cp-num{
-		background-color: lighten(@dark-base, 1.6);
-	}
-	a{
-		background-color: @dark-base;
-		&:hover{
-			background-color: lighten(@dark-base, 1.6);
-		}
-	}
+	
 }
 
 
 /* secondary text */
 
-hr, .fpost, .clip_box, .navigation_wrap, .setup_area, .fpost .post-thumb img, .clip .clip-thumb img, .author-thumb img{
+hr, 
+.fpost, 
+.clip_box, 
+.navigation_wrap, 
+.setup_area, 
+.fpost .post-thumb img, 
+.clip .clip-thumb img, 
+.author-thumb img{
 	border-color: @dark-base;
 }
 
-	.success, .hentry table .alternate td, .playpause{
-		background-color: @dark-base;
-	}
-
-	.item-avatar a, ins{
+	.item-avatar a, 
+	ins{
 		background-color: lighten(@dark-base, 1.6);
 	}
 
@@ -554,7 +551,14 @@ hr, .fpost, .clip_box, .navigation_wrap, .setup_area, .fpost .post-thumb img, .c
 /* 
  * Text Colors 
  ***********************************/
-h1, h2, h3, h4, h5, h6, a.site-title, .entry-title a{
+h1, 
+h2, 
+h3, 
+h4, 
+h5, 
+h6, 
+a.site-title, 
+.entry-title a{
 	> a{
 		color: @pl-header;
 	}
@@ -571,10 +575,11 @@ a{
 		color: fadeout(@pl-link, 20%);
 	}
 }	
-	
-	.mastmeta, .tcolor2, .lcolor2 a, .subhead, #postauthor .subtext, .tcolor3, .lcolor3 a,  .rss-date, .auxilary a{
-		color: @textColorAlt;
-	}
+
+.subhead{
+	color: @textColorAlt;
+	font-size: 86%; 
+}
 	
 
 
@@ -633,7 +638,8 @@ body{
 		form {
 			margin-left: 0;
 		}
-		.one-sidebar-right #column-main .mcolumn-pad, .two-sidebar-right #column-main .mcolumn-pad {
+		.one-sidebar-right #column-main .mcolumn-pad, 
+		.two-sidebar-right #column-main .mcolumn-pad {
 			padding:15px;
 		}
 	}
@@ -684,7 +690,8 @@ body{
 		        width: 100%;
 		    }
 			#brandnav .mainlogo-link {float: none} 
-			.main_nav .main-nav, #brandnav .brandnav-nav{
+			.main_nav .main-nav, 
+			#brandnav .brandnav-nav{
 				margin-top: 10px; 
 				width: 100%; 
 				float: none;
@@ -713,7 +720,13 @@ body{
 	}	
 }
 
-#column-wrap,  #sidebar-wrap, .clip, #column-main, #sidebar1, .content, #page{ 
+#column-wrap,  
+#sidebar-wrap, 
+.clip, 
+#column-main, 
+#sidebar1, 
+.content, 
+#page{ 
 	.transition(all .2s linear);
 }
 

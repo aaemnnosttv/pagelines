@@ -137,6 +137,13 @@ h1, h2, h3, h4, h5, h6 {
     + p {margin-top:0;}
   }
 }
+
+/* @ Header Special Cases */
+h1 + img, 
+h2 + img{
+	margin-top:1em;
+}
+
 // Page header
 .page-header {
 	padding-bottom: @baseLineHeight - 1;
@@ -165,7 +172,8 @@ h1, h2, h3, h4, h5, h6 {
 
 ol,ul{list-style-type:none}
 
-.hentry ul, .hentry ol {
+.hentry ul, 
+.hentry ol {
   padding: 0;
   margin: 0 0 @baseLineHeight / 2 25px;
 }

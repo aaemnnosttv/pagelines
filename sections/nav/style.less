@@ -24,14 +24,17 @@ ul.sf-menu ul li{
 
 .main-nav{
 	li{
-		a:hover, &.current_page_item > a, &.current-page-ancestor > a{
+		a:hover, 
+		&.current_page_item > a, 
+		&.current-page-ancestor > a{
 			background-color: @dark-base;
 			&:hover{
 				background-color: lighten(@dark-base, 1.6);
 			}
 		}
 	}
-	.current-menu-item a, li a:hover, li a:hover, {
+	.current-menu-item a, 
+	li a:hover{
 		color: fadeout(@pl-text, 30%);
 	}
 	li a:hover, .current-page-ancestor .current_page_item a{

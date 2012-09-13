@@ -5,9 +5,9 @@
 .mediablock .mediablock-content, body .clip .clip-header{ width: auto; }
 
 input.searchfield {
-
+	background: #fff !important;
 	padding: 5px 30px 7px 7px !important;
-
+	color: #000;
 }
 
 #branding .mainlogo-link, #branding .mainlogo-img {
