@@ -46,6 +46,7 @@ class PageLinesRenderCSS {
 			'responsive',
 			'navs',
 			'modals',
+			'thumbnails',
 			'component-animations',
 			'utilities',
 			'pl-objects',

@@ -61,6 +61,7 @@ ul.tabbed-list {
 			float:right; 
 			margin-left: 15px;
 		}
+		
 		img{
 			display: inline-block;  
 			vertical-align: bottom;
@@ -69,7 +70,21 @@ ul.tabbed-list {
 			width: auto\9;
 			
 		}
+		.thumbnail{
+			display: inline-block;
+			padding: 3px;
+			border: 1px solid @baseContrast;
+			.border-radius(4px);
+			.box-shadow(0 1px 3px rgba(0,0,0,.055));
+			.transition(all .2s ease-in-out);
+			
+			&[href]:hover{
+					border-color: @linkColor;
+					.box-shadow(0 1px 4px rgba(0,105,214,.25));
+			}
+		}
 	}
+	
 }
 
 /*
