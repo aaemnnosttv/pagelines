@@ -58,6 +58,7 @@ section.container,
 .widget{
 	margin: 0;
 } 
+
 section.copy{
 	margin: 1.6em 0;
 }
@@ -629,10 +630,13 @@ body{
 @media screen and (max-width:800px){
 	
 	.responsive{
-		#site .content, #footer .content, &.fixed_width #page{
+		#site .content, #footer .content, 
+		&.fixed_width #page{
 			width: 97%;
 		}
-		#page #pagelines_content #column-wrap, #page #pagelines_content #sidebar-wrap, &.fixed_width #site .content{
+		#page #pagelines_content #column-wrap, 
+		#page #pagelines_content #sidebar-wrap,
+		&.fixed_width #site .content{
 			width: 100%;
 		}
 		form {
@@ -681,15 +685,20 @@ body{
 	
 }
 	
-@media screen and (max-width:450px) { 
-	html { -webkit-text-size-adjust: none; }
+@media screen and ( max-width : @resPhoneLandscape ) { 
+	html { 
+		-webkit-text-size-adjust: none; 
+	}
 	
 	.responsive{
 		#page {
 			#pagelines_content .clip {
 		        width: 100%;
 		    }
-			#brandnav .mainlogo-link {float: none} 
+			#brandnav .mainlogo-link {
+				float: none
+			} 
+			
 			.main_nav .main-nav, 
 			#brandnav .brandnav-nav{
 				margin-top: 10px; 
