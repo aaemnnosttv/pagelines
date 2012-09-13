@@ -1,10 +1,25 @@
+// Colors.less
+// Variables to customize color inside PageLines
+// -----------------------------------------------------
+
+// Text Color Variables
+// -------------------------
+@textColor:             @pl-text;
+@textColorAlt: 			fadeout(@textColor, 30%);
+@textColorSubtle: 		fadeout(@textColor, 40%);
+
+// Links
+// -------------------------
+@linkColor:             #08c;
+@linkColorHover:        darken(@linkColor, 15%);
+
 // Base Color Variables
 // -------------------------
 @dark-base:             darken( @pl-base, @invert-dark  );
 @light-base:            lighten( @pl-base, @invert-light  );
 @baseContrastSlight: 	lighten(@pl-base, @invert-light*.4);
 @baseContrast: 			lighten(@pl-base, @invert-light);
-@baseContrastMore: 		lighten(@pl-base, @invert-light);
+@baseContrastMore: 		lighten(@baseContrast, @invert-light);
 @baseContrastDark: 		darken(@pl-base, @invert-dark);
 @baseContrastDarkMore: 	darken(@baseContrastDark, @invert-dark);
 @baseLighter: 			lighten(@pl-base, 5%);
@@ -23,7 +38,6 @@
 @grayLighter:           #eee;
 @white:                 #fff;
 
-
 // Accent colors
 // -------------------------
 @blue:                  #049cdb;
@@ -34,11 +48,6 @@
 @orange:                #f89406;
 @pink:                  #c3325f;
 @purple:                #7a43b6;
-
-// Links
-// -------------------------
-@linkColor:             #08c;
-@linkColorHover:        darken(@linkColor, 15%);
 
 // Buttons
 // -------------------------
@@ -88,26 +97,26 @@
 
 // Input placeholder text color
 // -------------------------
-@placeholderText:         rgba(0,0,0,.4);
+@placeholderText:         		rgba(0,0,0,.4);
 
 // Hr border color
 // -------------------------
-@hrBorder:                @baseContrastDark;
+@hrBorder:                		@baseContrastDark;
 
 // Form states and alerts
 // -------------------------
-@warningText:             #c09853;
-@warningBackground:       #fcf8e3;
-@warningBorder:           darken(spin(@warningBackground, -10), 3%);
+@warningText:             		#c09853;
+@warningBackground:       		#fcf8e3;
+@warningBorder:           		darken(spin(@warningBackground, -10), 3%);
 
-@errorText:               #b94a48;
-@errorBackground:         #f2dede;
-@errorBorder:             darken(spin(@errorBackground, -10), 3%);
+@errorText:               		#b94a48;
+@errorBackground:         		#f2dede;
+@errorBorder:             		darken(spin(@errorBackground, -10), 3%);
 
-@successText:             #468847;
-@successBackground:       #dff0d8;
-@successBorder:           darken(spin(@successBackground, -10), 5%);
+@successText:             		#468847;
+@successBackground:       		#dff0d8;
+@successBorder:           		darken(spin(@successBackground, -10), 5%);
 
-@infoText:                #3a87ad;
-@infoBackground:          #d9edf7;
-@infoBorder:              darken(spin(@infoBackground, -10), 7%);
+@infoText:                		#3a87ad;
+@infoBackground:          		#d9edf7;
+@infoBorder:              		darken(spin(@infoBackground, -10), 7%);
