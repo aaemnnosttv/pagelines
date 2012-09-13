@@ -36,7 +36,7 @@ class PageLinesPostAuthor extends PageLinesSection {
 				</a>
 			</div>
 			<div class="bd">
-				<small class="subtext"><?php _e('About The Author', 'pagelines');?></small>
+				<small class="author-note"><?php _e('Author', 'pagelines');?></small>
 				<h2>
 					<?php echo get_the_author(); ?>
 				</h2>
