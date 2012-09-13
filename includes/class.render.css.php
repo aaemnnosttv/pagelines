@@ -213,7 +213,7 @@ class PageLinesRenderCSS {
 				$wp_admin_bar->add_menu( array(
 					'parent' => false, 
 					'id' => 'less_error',
-					'title' => sprintf( '<span style="color:red">%s</span>', __( 'LESS Compile error!', 'pagelines' ) ),
+					'title' => sprintf( '<span class="label label-warning pl-admin-bar-label">%s</span>', __( 'LESS Compile error!', 'pagelines' ) ),
 					'href' => admin_url( PL_SETTINGS_URL ),
 					'meta' => false
 				));
