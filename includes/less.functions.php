@@ -122,9 +122,9 @@ class PageLinesLess {
 
 	function load_less_file( $file ) {
 
-		$file = sprintf( '%s.less', $file );
+		$file 	= sprintf( '%s.less', $file );
 		$parent = sprintf( '%s/%s', CORE_LESS, $file );
-		$child = sprintf( '%s/%s', CHILD_LESS, $file );
+		$child 	= sprintf( '%s/%s', CHILD_LESS, $file );
 
 		// check for child 1st if not load the main file.
 
