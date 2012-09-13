@@ -378,9 +378,11 @@ a.site-title{
 }
 	
 .tags {
-	font-size: 80%;
-	font-style: italic;
+	font-size: 86%;
 	color: @textColorAlt;
+	.note{
+		.noteText();
+	}
 }	
 	
 	
@@ -490,42 +492,11 @@ h2.notavail{
 	margin-bottom: 1.5em; 
 }	
 
-/* @ Content Pagination */
-.content-pagination { 
-
-	clear:both; 
-	.cp-desc { 
-		font-style: italic;
-	}
-	a{
-		background-color: @dark-base;
-		text-decoration:none;
-		.cp-num{
-			color: @textColorAlt;
-			line-height: 0.9em;
-		}
-		&:hover{
-			background-color: lighten(@dark-base, 1.6);
-		}
-	}
-	.cp-num, a:hover .cp-num{
-		margin: 0 2px;
-		text-decoration: none;
-		display: inline-block;
-		padding: 3px 7px 6px;
-	}
-	span{
-		color: @textColorAlt;
-	}
-	
-}
-
 
 /* secondary text */
 
 hr, 
 .fpost, 
-
 .navigation_wrap, 
 .setup_area, 
 .fpost .post-thumb img, 

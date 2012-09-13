@@ -244,11 +244,27 @@ class PageLinesPosts {
 			
 			echo apply_filters( 'the_content', $content );
 	
-			if( is_single() || is_page() )
-				wp_link_pages( array( 'before' => __( "<p class='content-pagination'><span class='cp-desc'>pages:</span>", 'pagelines' ), 'after' => '</p>', 'pagelink' => '<span class="cp-num">%</span>' ) );
-		
+			if( is_single() || is_page() ){
+				
+				$pgn = array( 
+					'before' 			=> __( "<div class='pagination'><span class='desc'>pages:</span><ul>", 'pagelines' ), 
+					'after' 			=> '</ul></div>', 
+					'link_before'		=> '<span class="pg">', 
+					'link_after'		=> '</span>'
+				);
+				
+				wp_link_pages( $pgn );
+			}
+			
 			if ( is_single() && get_the_tags() )
-				printf( '<div class="p tags">%s&nbsp;</div>', get_the_tag_list( __( 'Tagged with: ', 'pagelines' ), ' &bull; ', '' ) );
+				printf( 
+					'<div class="p tags">%s&nbsp;</div>', 
+					get_the_tag_list( 
+						__( '<span class="note">Tagged with &rarr;</span> ', 'pagelines' ), 
+						' &bull; ', 
+						''
+					)	 
+				);
 	
 			pagelines_register_hook( 'pagelines_loop_after_post_content', 'theloop' ); // Hook 
 		
