@@ -52,12 +52,10 @@
 	}
 }
 	
-section.container, 
-.hentry, 
-.clip_box, 
-.widget{
+section.container{
 	margin: 0;
-} 
+}
+
 
 section.copy{
 	margin: 1.6em 0;
@@ -76,13 +74,6 @@ section.copy{
 		margin-bottom: 0;
 	}
 }
-
-.clip_box .hentry, 
-.pprow .widget {
-	margin:0;
-}
-
-
 
 #nav, 
 #secondnav{
@@ -218,13 +209,16 @@ a.site-title{
 
 // Main Nav
 // ---------
-.main_nav_container{
-	width: 100%;
-	float: left;
-	margin-right: -230px;
-}
+
+// Only in Nav
 .navigation_wrap{
 	position: relative;
+	.main_nav_container{
+		width: 100%;
+		float: left;
+		margin-right: -230px;
+	}
+	
 	.main_nav {			
 		margin-right: 230px;
 		text-align: left;
@@ -234,26 +228,8 @@ a.site-title{
 		height: 31px;
 	}
 }
-.sf-menu{
-	li:hover ul,
-	li.sfHover ul{
-		top: 33px;
-	}
-	ul li:last-child{
-		border-bottom: none
-	}
-}
-#subnav ul li a:active{
-	text-decoration:none;
-}
 
-
-/* No search adjustment */
-.main_nav_container.nosearch, 
-.nosearch .main_nav{ 
-	margin-right: 0; 
-} 
-
+// Both Nav and Brandnav
 .main_nav{
 	font-size: 86%; 
 	ul{
@@ -284,6 +260,28 @@ a.site-title{
 			}
 		}
 	}
+}
+
+// Superfish Drop Down
+.sf-menu{
+	li{
+		&:hover ul,
+		&.sfHover ul{
+			top: 33px;
+		}
+		ul li:last-child{
+			border-bottom: none
+		}
+	}
+}
+#subnav ul li a:active{
+	text-decoration:none;
+}
+
+/* No search adjustment */
+.main_nav_container.nosearch, 
+.nosearch .main_nav{ 
+	margin-right: 0; 
 }
 	
 /* @ Posts */
@@ -318,6 +316,12 @@ a.site-title{
 	margin-bottom: .8em;
 }
 
+
+// Belongs under postloop 
+
+// Hentry format/sizing needs to be moved to be conextual
+// Henry is going to represent all long form text styling
+
 .post-meta .c_img, 
 .hentry .c_img{ 
 	display: block;  
@@ -326,7 +330,6 @@ a.site-title{
 	max-width: 98%;
 	line-height:1em; 
 }
-
 
 .post-meta { 
 	margin-bottom: 1.71em; 
@@ -353,43 +356,22 @@ a.site-title{
 	}
 }
 
-
-	
-
-
-// HENTRY = Standard Long Form Text Formatting
-// -------------------------------------------------
-.hentry{
-	clear: both; 
+.hentry {
+	clear: both;
+	margin: 0 0 1.8em;
 	.hentry-pad{
 		padding: 0 0 25px;
 	}
-	h1, h2{
-		margin: 1em 0;
+	.entry-title{ 
+		margin:0; 
 	}
-	h3, h4, h5, h6{
-		margin: 1.4em 0 .6em;
-	}
-	.entry-title{  margin:0; }
-	ul, ol{
-		margin: 1.7em 0 1.7em 1.7em;
-	}
-	a:hover{
-		text-decoration: underline;
-	}
-
+	
 }
 
 .entry_content img { 
 	max-width: 100%;
 }
-// Belongs under postloop 
-.hentry, 
-.clip_box{
-	margin-bottom: 1.8em
-}
 
-.hentry, 
 .fpost .post-excerpt {
 	font-size: 1.03em; 
 	line-height: 1.55em;
@@ -400,13 +382,21 @@ a.site-title{
 	font-style: italic;
 	color: @textColorAlt;
 }	
-			
+	
+	
 // Clips - Only used in blog listing
 // ------------------------------------
+.clip_box{
+	margin: 0 0 1.8em;
+	border-color: @dark-base;
+}
 .clip{
 	width:47%;
 	clear: none;
 	float: left;
+	.hentry{ 
+		margin: 0;
+	}
 	&.clip-right{
 		float: right; 	
 	}
@@ -482,12 +472,14 @@ a.site-title{
 	
 }
 
-/* 404 */ 
-#notfound, #previewing-posttypes{ 
+/* Blows up text huge */ 
+.boomboard{ 
 	padding: 100px; 
 	min-height: 350px; 
+	h2.hugetext { 
+		font-size: 8em;
+	}
 }
-h2.notfound-splash { font-size: 8em; }
 .billboard { 
 	padding: 60px 15px; 
 	margin: 0 0 2.5em 0; 
@@ -533,7 +525,7 @@ h2.notavail{
 
 hr, 
 .fpost, 
-.clip_box, 
+
 .navigation_wrap, 
 .setup_area, 
 .fpost .post-thumb img, 

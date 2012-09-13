@@ -39,22 +39,7 @@ p {
  * Common Text
  *****************************/
 
-	.hentry{
-		ol{
-			list-style:decimal
-			ol{
-				list-style:lower-roman
-				ol{
-					list-style:lower-alpha
-				}
-			}
-		}
-		ul{
-			list-style:disc;
-		}
-		
-	}
-	
+
 	dt {font-weight:bold;}
 	dd {font-style: italic;}
 	sup {font-size:.7em;vertical-align: top;vertical-align:super;}
@@ -170,13 +155,46 @@ h2 + img{
 
 
 
-ol,ul{list-style-type:none}
-
-.hentry ul, 
-.hentry ol {
-  padding: 0;
-  margin: 0 0 @baseLineHeight / 2 25px;
+ol,
+ul{
+	list-style-type:none
 }
+
+// HENTRY = Standard Long Form Text Formatting
+// -------------------------------------------------
+.hentry{
+	
+	ul, ol{
+		padding: 0;
+	//	margin: 0 0 @baseLineHeight / 2 25px;
+		margin: 1.7em 0 1.7em 1.7em;
+	}
+	ol{
+		list-style:decimal
+		ol{
+			list-style:lower-roman
+			ol{
+				list-style:lower-alpha
+			}
+		}
+	}
+	ul{
+		list-style:disc;
+	}
+	
+	h1, h2{
+		margin: 1em 0;
+	}
+	h3, h4, h5, h6{
+		margin: 1.4em 0 .6em;
+	}
+
+	a:hover{
+		text-decoration: underline;
+	}
+
+}
+
 ul ul,
 ul ol,
 ol ol,
@@ -215,6 +233,7 @@ dt {
 dd {
   margin-left: @baseLineHeight / 2;
 }
+
 // Horizontal layout (like forms)
 .dl-horizontal {
   dt {
@@ -227,9 +246,6 @@ dd {
     margin-left: 130px;
   }
 }
-
-// MISC
-// ----
 
 // Links
 a {
