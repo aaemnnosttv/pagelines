@@ -20,7 +20,7 @@ class PageLinesNoPosts extends PageLinesSection {
 	* Section template.
 	*/
    function section_template() { ?>
-	<div id="notfound">
+	<div class="notfound boomboard">
 	<?php if(current_user_can( 'edit_posts' ) && isset($_GET['boxes']) || isset($_GET['feature']) || isset($_GET['banners']) ):?>
 	
 			<h2 class="notavail center"><?php _e('Direct Previewing <em>of</em> &quot;Special Post Types&quot; Not Available... Yet','pagelines');?></h2>
@@ -31,7 +31,7 @@ class PageLinesNoPosts extends PageLinesSection {
 	
 	<?php else: ?>
 			
-				<h2 class="notfound-splash center"><?php _e('404!','pagelines');?></h2>
+				<h2 class="hugetext center"><?php _e('404!','pagelines');?></h2>
 				<p class="subhead center"><?php _e('Sorry, This Page Does not exist.', 'pagelines');?><br/><?php _e('Go','pagelines');?> <a href="<?php echo home_url(); ?>"><?php _e('home','pagelines');?></a> <?php _e('or try a search?', 'pagelines');?></p>
 			
 	<?php endif;?>
