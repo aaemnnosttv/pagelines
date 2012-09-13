@@ -682,15 +682,13 @@ function pagelines_draw_css( $css_url, $id = '', $enqueue = false){
  *
  */
 function pagelines_load_css( $css_url, $id, $hash = CORE_VERSION, $enqueue = true){
-	
-	
+		
 	if(pagelines_bbpress_forum()){
 		printf('<link rel="stylesheet" id="%s"  href="%s?ver=%s" type="text/css" />%s', $id, $css_url, $hash, "\n");
 	} else {
 		wp_register_style($id, $css_url, array(), $hash, 'all');
 	    wp_enqueue_style( $id );
 	}
-	
 
 }
 

@@ -118,42 +118,6 @@
 	img{display: block;}
 }
 
-
-
-/* @ Pagination & WP-PageNavi Plugin */
-#page .wp-pagenavi {
-	margin:1.6em .4em 1.6em 0;
-	font-size: .9em;
-	overflow:hidden;
-	span.pages { border:none; background: transparent; }
-	a, .current, .extend{
-		padding: 3px 7px 4px 7px;
-		border: none;
-		font-weight: normal;
-	}
-	a, span{
-		.border-radius(5px);
-	}
-	a, .current, .extend, span.pages{
-		color: fadeout(@pl-text, 70%);
-	}
-	a:hover, .extend{
-		background-color: lighten(@dark-base, 1.6);
-	}
-	a:hover, .current{
-		color: @pl-text;
-	}
-	.current{
-		color: fadeout(@pl-text, 20%);
-		background-color: darken(@dark-base, @invert-dark);
-	}
-	a{
-		background-color: @dark-base;
-		color: fadeout(@pl-text, 40%);
-	}
-	
-}
-
 /* @Disqus */
 #site #dsq-content{
 	text-shadow: none;

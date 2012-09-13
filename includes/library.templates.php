@@ -619,7 +619,13 @@ function pagelines_font_replacement( $default_font = ''){
  */
 function pagelines_pagination() {
 	if(function_exists('wp_pagenavi') && show_posts_nav() && VPRO):
-		wp_pagenavi(); 
+		
+		$args = array(
+			'before' => '<div class="pagination pagenavi">', 
+			'after' => '</div>', 
+		); 
+		wp_pagenavi( $args );
+		 
 	elseif (show_posts_nav()) : ?>
 		<ul class="pager page-nav-default fix">
 			<li class="previous previous-entries">
