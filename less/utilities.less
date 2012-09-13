@@ -70,15 +70,17 @@ code {
   padding: 2px 4px;
 }
 
-code, .prettyprint{
-	background-color: #f7f7f9;
-	border: 1px solid #e1e1e8;
+code, 
+.prettyprint{
+	background-color: @baseContrastSlight;
+	border: 1px solid @baseContrastDarkMore;
 }
 
-	.prettyprint.linenums {
-	  -webkit-box-shadow: inset 40px 0 0 #fbfbfc, inset 41px 0 0 #ececf0;
-	     -moz-box-shadow: inset 40px 0 0 #fbfbfc, inset 41px 0 0 #ececf0;
-	          box-shadow: inset 40px 0 0 #fbfbfc, inset 41px 0 0 #ececf0;
+	
+	.prettify-on .prettyprint.linenums {
+	  -webkit-box-shadow: inset 40px 0 0 @dark-base, inset 41px 0 0 @baseContrastDarkMore;
+	     -moz-box-shadow: inset 40px 0 0 @dark-base, inset 41px 0 0 @baseContrastDarkMore;
+	          box-shadow: inset 40px 0 0 @dark-base, inset 41px 0 0 @baseContrastDarkMore;
 	}
 	
 	ol.linenums li{
