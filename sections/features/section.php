@@ -86,8 +86,15 @@ class PageLinesFeatures extends PageLinesSection {
 		
 		$wrap_class = '.'.$clone_class."_wrap";
 		
-?><script type="text/javascript">/* <![CDATA[ */ jQuery(document).ready(function () {
+?>
+
+<script type="text/javascript">
+/* <![CDATA[ */ jQuery(document).ready(function () {
 	
+	jQuery('#feature-area').css('overflow', 'hidden');
+	
+	
+		
 <?php if( ! ploption( 'feature_height_mode', $oset ) || ploption( 'feature_height_mode', $oset ) == 'aspect' ) :
 		
 		printf( '$aspect%s = %s;', $clone_id,(ploption( 'feature_aspect', $oset ) ) ? ploption( 'feature_aspect', $oset ) : 2.5 );
@@ -96,11 +103,14 @@ class PageLinesFeatures extends PageLinesSection {
 		
 		printf( '$height_selectors%s = "%s";', $clone_id, $this->selectors( '', $wrap_class.' ' ) );
 	?>
+	jQuery(window).load(function() {
 	
-	$the_width<?php echo $clone_id;?> = jQuery($width_area<?php echo $clone_id;?>).width();
-		
-	$new_height<?php echo $clone_id;?> = $the_width<?php echo $clone_id;?> / $aspect<?php echo $clone_id;?>;
-	jQuery($height_selectors<?php echo $clone_id;?>).height($new_height<?php echo $clone_id;?>);
+		$the_width<?php echo $clone_id;?> = jQuery($width_area<?php echo $clone_id;?>).width();
+	
+		$new_height<?php echo $clone_id;?> = $the_width<?php echo $clone_id;?> / $aspect<?php echo $clone_id;?>;
+		jQuery($height_selectors<?php echo $clone_id;?>).height($new_height<?php echo $clone_id;?>);
+	
+	});
 	
 	jQuery(window).resize(function() {
 		$response_width<?php echo $clone_id;?> = jQuery($width_area<?php echo $clone_id;?>).width();
@@ -111,30 +121,35 @@ class PageLinesFeatures extends PageLinesSection {
 <?php 
 
 	endif;
-	//Feature Cycle Setup
-	printf( "jQuery('%s').cycle({ %s });", $selector, $args );
 	
-	$this->_js_feature_loop( $fmode, $f, $clone_class );
+	?>
+	jQuery(window).load(function() {
+	<?php
+		//Feature Cycle Setup
+		printf( "jQuery('%s').cycle({ %s });", $selector, $args );
+	
+		$this->_js_feature_loop( $fmode, $f, $clone_class );
 
-	if( $playpause ):
-	?>	
+		if( $playpause ):
+		?>	
 	
-		var cSel = '<?php echo $selector;?>';
-		var ppSel = '<?php echo $playpause_selector;?>';
+			var cSel = '<?php echo $selector;?>';
+			var ppSel = '<?php echo $playpause_selector;?>';
 		
-		jQuery(ppSel).click(function() { 
-			if (jQuery(ppSel).hasClass('pause')) {  
-				jQuery(cSel).cycle('pause'); jQuery(ppSel).removeClass('pause').addClass('resume');
-			} else { 
-				jQuery(ppSel).removeClass('resume').addClass('pause'); jQuery(cSel).cycle('resume', true);
-			}
-		});
+			jQuery(ppSel).click(function() { 
+				if (jQuery(ppSel).hasClass('pause')) {  
+					jQuery(cSel).cycle('pause'); jQuery(ppSel).removeClass('pause').addClass('resume');
+				} else { 
+					jQuery(ppSel).removeClass('resume').addClass('pause'); jQuery(cSel).cycle('resume', true);
+				}
+			});
 	<?php endif;?>
 	
-	
+	});	
 });
 
 /* ]]> */ </script>
+
 <?php }
 
 
