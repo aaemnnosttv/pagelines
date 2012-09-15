@@ -7,6 +7,7 @@
 @textColor:             @pl-text;
 @textColorAlt: 			fadeout(@textColor, 30%);
 @textColorSubtle: 		fadeout(@textColor, 40%);
+@textColorLight: 		fadeout(@textColor, 70%);
 
 // Links
 // -------------------------
@@ -20,7 +21,7 @@
 @baseContrastSlight: 	lighten(@pl-base, @invert-light*.4);
 @baseContrast: 			lighten(@pl-base, @invert-light);
 @baseContrastMore: 		lighten(@baseContrast, @invert-light);
-@baseContrastDark: 		darken(@pl-base, @invert-dark);
+@baseContrastDark: 		darken(@baseContrast, @invert-dark);
 @baseContrastDarkMore: 	darken(@baseContrastDark, @invert-dark);
 @baseLighter: 			lighten(@pl-base, 5%);
 @baseLighterMore: 		lighten(@pl-base, 10%);
