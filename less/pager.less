@@ -15,7 +15,7 @@
 	span {
 		display: inline-block;
 		padding: 5px 14px;
-		box-shadow: 1px 1px 0 @baseLighterMore, inset 1px 1px 0 @baseLighterMore;
+		.box-shadow(~"1px 1px 0 @baseLighterMore, inset 1px 1px 0 @baseLighterMore");
 		.buttonBackground(@baseContrastSlight, darken(@baseContrastSlight, 3));
 		border: 1px solid @baseContrastDark;
 		.border-radius(15px);
@@ -25,7 +25,7 @@
 	  background-color: @baseContrastMore;
 	}
 	a:active{
-		box-shadow: 1px 1px 0 @baseLighterMore, inset 1px 1px 0 rgba(0,0,0,.2);
+		.box-shadow(~"1px 1px 0 @baseLighterMore, inset 1px 1px 0 rgba(0,0,0,.2)");
 		background-color: @baseContrastDark;
 		border: 1px solid @baseContrastDarkMore;
 	}
