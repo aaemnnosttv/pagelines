@@ -450,7 +450,7 @@ class PageLinesFeatures extends PageLinesSection {
 							
 								<div class="feature-pad fset_height fix">
 									<div class="fcontent scale_text fset_height <?php echo $fcontent_class;?>">
-										<div class="dcol-pad fix">
+										<div class="fcontent-pad fix">
 												<?php
 												
 													

@@ -2,28 +2,6 @@
 	width: 100% !important;
 }
 
-#feature-area {
-	display: block;
-	position: relative;
-	width: 100%;
-	box-shadow: 0 2px 5px rgba(0,0,0,.3);
-	overflow: visible;
-	.fcontainer{	
-		width: 100%;
-		&.fstyle-nobg { background: none; }
-		&.fstyle-lightbg { 
-			background: #fff; 
-			.fcontent, .fcontent a{
-				background: rgba(255,255,255,.7); 
-				text-shadow: 0 0 2px #fff;
-			}
-		}
-	}
-	object, iframe{
-		width: 100%;
-		height: 100%;
-	}
-}
 
 .fset_height, #feature_slider .text-bottom .fmedia .dcol-pad,
 #feature_slider .text-bottom .feature-pad,
@@ -58,6 +36,13 @@
 	position:relative;
 	z-index:0;
 	width: 100%;
+	#feature-area {
+		display: block;
+		position: relative;
+		width: 100%;
+		box-shadow: 0 2px 5px rgba(0,0,0,.3);
+		overflow: visible;
+	}
 	.fmedia, 
 	.fcontent{
 		float: left;
@@ -65,16 +50,68 @@
 	.fcontent { 
 		width: 33%; 
 		min-width: 220px;
-		.plmore{
-			display: inline-block;
-			background: rgba(0,0,0, .3);
-			padding: 3px 8px;
-			margin: 0 5px;
+		background: rgba(0,0,0,.35);
+		display: inline;
+		position: relative;
+		h1, 
+		h2, 
+		h3, 
+		h4, 
+		h5, 
+		a{
+			color: #fff;
+			text-shadow: #000 0 -1px 0 ;
+		}
+		color: #fff;
+		text-shadow: #000 0 -1px 0 ;	
+
+		.fcontent-pad{
+			padding: 40px 30px 20px 30px;
+		}
+		a{
+			background: rgba(255,255,255, .35);
 			border:none;
+			padding: 0 3px;
+			opacity: 1;
 			&:hover{
-				background: rgba(0,0,0, .6);
+				opacity: .8;
+			}
+			&:active{
+				opacity: .6;
 			}
 		}
+		
+		
+		
+		.fheading {
+			padding: .8em 0;
+			margin-bottom: .2em;
+		}
+		.ftitle{
+			
+			font-size: @h2Size;
+			line-height: 1.3em;
+			vertical-align: middle;
+			a{
+				text-decoration: none;
+				border: none;
+			}
+			small {
+				line-height: 25px;
+				display:block;
+				font-size: 16px;
+			}
+		}
+		.flink { 
+			float: left; 
+			margin-top: .4em;
+		}
+		.post-edit-link {
+			position: absolute; 
+			top: 10px; 
+			right: 10px;
+		}
+		
 	}
 	.fmedia {  
 		width: 67%;
@@ -156,47 +193,46 @@
 			}
 		}
 	}		
+
+	
+	object, iframe{
+		width: 100%;
+		height: 100%;
+	}
+	
 	
 	.fcontainer{
-		&.fstyle-nobg .fcontent{
-			background: none;
-		}
-		.fcontent{
-			h1, h2, h3, h4, h5{
-				color: #fff;
-				text-shadow: #000 0 -1px 0 ;
-			}
-		}
-		&.fstyle-lightbg,
-		&.fstyle-nobg{
+		width: 100%;
+		
+		&.fstyle-nobg { 
+			background: none; 
 			.fcontent{
-				h1, h2, h3, h4, h5{
-					color: #000;
-					text-shadow: none;
-				}
+				background: none;
 			}
 		}
-	}
-	.fcontent, .fcontent a{
-		color: #fff;
-		text-shadow: #000 0 -1px 0 ;	
-		line-height: 1.63em;
-	}
-	.fcontent{
-		background: rgba(0,0,0,.35);
-		display: inline;
-		position: relative;
-		.dcol-pad{
-			padding: 40px 30px 20px 30px;
+		
+		&.fstyle-lightbg { 
+
+			.fcontent{
+				background: rgba(255,255,255,.7);
+				h1, 
+				h2,
+				h3, 
+				h4, 
+				h5, 
+				a{
+					color: #000;
+					text-shadow: 0 1px 0 rgba(255,255,255,.5);
+				}
+				color: #000;
+				text-shadow: 0 1px 0 rgba(255,255,255,.5);
+			}
+
 		}
-		.ftitle a{
-			text-decoration: none;
-			border: none;
-		}
-		a:hover{
-			color: rgba(255, 255, 255, .7);
-		}
+		
 	}
+
+	
 }
 
 .feature-wrap a{
@@ -208,31 +244,7 @@
 	}
 }
 		
-/* Feature Text Styling */
-.fcontent {
-	.fheading {
-		padding: .8em 0;
-		margin-bottom: .2em;
-	}
-	.ftitle{
-		vertical-align: middle;
-		small {
 
-			line-height: 25px;
-			display:block;
-			font-size: 16px;
-		}
-	}
-	.flink { 
-		float: left; 
-		margin-top: .4em;
-	}
-	.post-edit-link {
-		position: absolute; 
-		top: 10px; 
-		right: 10px;
-	}
-}
 
 			
 /* @ Feature Footer */
