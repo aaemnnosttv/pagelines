@@ -3,9 +3,9 @@
 }
 
 .fset_height, 
-#feature_slider .text-bottom .fmedia .dcol-pad,
+#feature_slider .text-bottom .fmedia .fmedia-pad,
 #feature_slider .text-bottom .feature-pad,
-#feature_slider .text-none .fmedia .dcol-pad{
+#feature_slider .text-none .fmedia .fmedia-pad{
 	height: 380px;
 	overflow:hidden;
 }
@@ -103,7 +103,7 @@
 		width: 67%;
 	    padding: 0;  
 		overflow:hidden;
-		.dcol-pad {
+		.fmedia-pad {
 			overflow: hidden;
 			padding: 0;
 			text-align: center;
@@ -129,7 +129,7 @@
 			top: 0px;
 			left: 0px; 
 			width: 100%; 
-			.dcol-pad{
+			.fmedia-pad{
 				padding: 0px;
 		
 			}
@@ -143,7 +143,7 @@
 			width: 100%; 
 			height: auto !important;
 			font-size: 1em;
-			.dcol-pad{
+			.fcontent-pad{
 				padding: 10px;
 				border-right:none;
 			}
@@ -174,7 +174,7 @@
 		}
 		.fmedia{ 
 			width: 100%; 
-			.dcol-pad{
+			.fmedia-pad{
 				padding: 0px;
 			}
 		}
@@ -257,24 +257,49 @@
 	text-indent:-1000em;
 }
 
-#featurenav a, 
-#feature-footer span.playpause{
-	padding: 1px 8px;
-	margin: 0 8px 4px 0;
-	font-size: .86em;
-	display: inline-block;
+
+/* @ Feature Play/Pause */
+#feature-footer span.playpause {
 	background-color: @dark-base;
+	.user-select(none);
+	cursor: pointer;
+	display: block;
+	float:right;
+	padding: 1px 1px 1px 2px;
+	margin-right: 0;
+	width: 22px;
+	height: 21px;
+	.box-sizing(border-box);
+	&.pause span{
+		display: block;
+		background: transparent url(@{plSectionsRoot}/features/images/feature-pause.png) no-repeat 3px 4px;
+	}
+	&.resume span{
+		display: block;
+		background: transparent url(@{plSectionsRoot}/features/images/feature-play.png) no-repeat 3px 4px;
+	}
 }
 #featurenav {
 	text-align: center;
 	a{
+		margin: 0 8px 4px 0;
+		padding: 1px 10px 0;
+		.border-radius(12px);
+		.box-sizing(border-box);
 		background: darken(@pl-base, @invert-dark);
+		display: inline-block;
+		font-size: 12px; 
+		line-height: 20px;
+		text-align: center;
+		
+		box-shadow: inset 0 1px 3px rgba(0,0,0,.3), 0 1px 0 rgba(255,255,255, .2);
 		color: fadeout(@pl-text, 60%);
 		&.activeSlide{
 			background: darken(@pl-base, @invert-dark+7);
 			color: fadeout(@pl-text, 30%);
 		}
-		span#next, span#prev {
+		span#next, 
+		span#prev {
 			background: #000;
 			width:10px;
 			height:10px;
@@ -298,7 +323,8 @@
 				background: url(@{plSectionsRoot}/features/images/feature-thumb-overlay.png) no-repeat 0 0;
 			}
 		}
-		&.activeSlide, &:active{
+		&.activeSlide, 
+		&:active{
 			span.nav_thumb span.nav_overlay{
 				background: url(@{plSectionsRoot}/features/images/feature-thumb-overlay.png) no-repeat 0 -30px;
 			}
@@ -311,28 +337,10 @@
 	margin: 0;
 	padding: 0;
 	border:none;
+	border-radius(0px);
 }
 
-				
-/* @ Feature Play/Pause */
-#feature-footer span.playpause {
-	.user-select(none);
-	cursor: pointer;
-	display: block;
-	float:right;
-	padding: 1px 1px 1px 2px;
-	margin-right: 0;
-	width: 21px;
-	height: 21px;
-	&.pause span{
-		display: block;
-		background: transparent url(@{plSectionsRoot}/features/images/feature-pause.png) no-repeat 4px 5px;
-	}
-	&.resume span{
-		display: block;
-		background: transparent url(@{plSectionsRoot}/features/images/feature-play.png) no-repeat 4px 5px;
-	}
-}
+
 				
 @media screen and (max-width:600px) {
 	.responsive #page #feature_slider {
@@ -347,7 +355,7 @@
 			display:inline-block;
 			-webkit-backface-visibility: hidden; // Hide the slides before JS is loaded
 		}
-		.fcontent .dcol-pad {
+		.fcontent .fcontent-pad {
 			padding: 3%;
 			height: auto;
 		}
