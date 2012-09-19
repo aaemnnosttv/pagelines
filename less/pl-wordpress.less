@@ -9,8 +9,8 @@
 	border-radius: 3px;
 	max-width: 98%;
 	margin-bottom: 1em;
-	background-color: @dark-base;
-	border: 1px solid darken(@dark-base, 8);
+	background-color: @baseContrastSlight;
+	border: 1px solid @baseContrastDark;
 	.wp-caption-text { 
 		font-size: 11px; 
 		line-height: 16px;
@@ -21,8 +21,11 @@
 	img { 
 		display: inline-block;
 		margin: 0; 
-		padding: 0;
+		padding: 2px;
 		border: 0 none; 
+		background: rgba(255,255,255,.6);
+		.box-sizing(border-box);
+		
 	}
 	.wp-caption-dd { 
 		font-size: 11px; 
