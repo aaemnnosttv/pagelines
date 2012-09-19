@@ -33,43 +33,40 @@
 }
 	
 /* WordPress Calendar */
-#calendar_wrap {
+#wp-calendar{
 	overflow: hidden;
 	padding: 0;
 	text-align:center;
 	padding: 8px 15px;
 	margin: 0;
-	#wp-calendar{
-		text-align:center;
-		margin-top:5px;
-		width:100%;
-		border-collapse: collapse;
-		thead th, caption{
-			background-color: @dark-base;
-			color: fadeout(@pl-text, 40%);
-		}
-		caption {
-			background-color: @dark-base;
-			font-size: .9em;
-			padding: 2px;
-			font-weight: normal;
-			font-weight: bold;
-		}
-		thead th { 
-			background-color: lighten(@dark-base, 1.6);
-			padding: 2px; 
-			font-size: .9em;
-		}
-		td{
-			padding:4px 8px;
-		}
-		#today{
-			background-color: @dark-base;
-			font-weight: bold;
-		}
+	text-align:center;
+	margin-top:5px;
+	width:100%;
+	border-collapse: collapse;
+	thead th, caption{
+		background-color: @dark-base;
+		color: fadeout(@pl-text, 40%);
+	}
+	caption {
+		background-color: @dark-base;
+		font-size: .9em;
+		padding: 2px;
+		font-weight: normal;
+		font-weight: bold;
+	}
+	thead th { 
+		background-color: lighten(@dark-base, 1.6);
+		padding: 2px; 
+		font-size: .9em;
+	}
+	td{
+		padding:4px 8px;
+	}
+	#today{
+		background-color: @dark-base;
+		font-weight: bold;
 	}
 }
-
 
 // Align Search Left In Widgets
 .widget {
