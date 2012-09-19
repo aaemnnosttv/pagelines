@@ -9,6 +9,9 @@ Version 2.3
 	- NEW - Added code styling to all code areas.
 	- NEW - Use native WordPress media library for all images.
 	- NEW - Bootstrap NavBar gets child submenus.
+	- NEW - Masthead section updated with video option
+	- NEW - Added "position" to Tooltip and Popover shortcodes
+	- NEW - Added alt tag option to Quickslider images
 	- CORE - Upgraded to latest bootstrap.
 	- CORE - Upgraded to latest LESS compiler.
 	- CORE - Child themes can now override core less files. 
