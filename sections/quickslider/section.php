@@ -66,6 +66,8 @@ jQuery(window).load(function() {var theSlider = jQuery('.flexslider.<?php echo $
 				if(ploption('quick_image_'.$i, $this->oset)){
 					
 					$the_text = ploption('quick_text_'.$i, $this->tset);
+
+					$img_alt = ploption('quick_img_alt_'.$i,$this->tset);
 					
 					$tlocation = ploption('quick_text_location_'.$i, $this->oset);
 					
@@ -81,7 +83,7 @@ jQuery(window).load(function() {var theSlider = jQuery('.flexslider.<?php echo $
 							
 					$text = ($the_text) ? sprintf('<p class="flex-caption" style="%s">%s</p>', $caption_style, $the_text) : '';
 					
-					$img = sprintf('<img src="%s" />', ploption( 'quick_image_'.$i, $this->tset ) );
+					$img = sprintf('<img src="%s" alt="%s"/>', ploption( 'quick_image_'.$i, $this->tset ),$img_alt );
 					
 					$slide = (ploption('quick_link_'.$i, $this->oset)) ? sprintf('<a href="%s">%s</a>', ploption('quick_link_'.$i, $this->oset), $img ) : $img;						
 					$output .= sprintf('<li>%s %s</li>',$slide, $text);
@@ -191,6 +193,10 @@ jQuery(window).load(function() {var theSlider = jQuery('.flexslider.<?php echo $
 						'quick_image_'.$i 	=> array(
 							'inputlabel' 	=> __( 'Slide Image', 'pagelines' ), 
 							'type'			=> 'image_upload'
+						),
+						'quick_img_alt_'.$i 	=> array(
+							'inputlabel' 	=> __( 'Image Alt', 'pagelines' ), 
+							'type'			=> 'text'
 						),
 						'quick_text_'.$i 	=> array(
 							'inputlabel'	=> __( 'Slide Text', 'pagelines' ), 
