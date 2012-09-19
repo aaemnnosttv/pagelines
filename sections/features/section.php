@@ -169,7 +169,12 @@ class PageLinesFeatures extends PageLinesSection {
 
 	function selectors( $clone_id, $prepend = ''){
 		
-		$base = array( '.fset_height', '#feature_slider .text-bottom .fmedia .dcol-pad', '#feature_slider .text-bottom .feature-pad', '#feature_slider .text-none .fmedia .dcol-pad');
+		$base = array( 
+			'.fset_height', 
+			'#feature_slider .text-bottom .fmedia .fmedia-pad', 
+			'#feature_slider .text-bottom .feature-pad', 
+			'#feature_slider .text-none .fmedia .fmedia-pad'
+		);
 		
 		$selectors = array();
 		
@@ -450,7 +455,7 @@ class PageLinesFeatures extends PageLinesSection {
 							
 								<div class="feature-pad fset_height fix">
 									<div class="fcontent scale_text fset_height <?php echo $fcontent_class;?>">
-										<div class="dcol-pad fix">
+										<div class="fcontent-pad fix">
 												<?php
 												
 													
@@ -475,7 +480,7 @@ class PageLinesFeatures extends PageLinesSection {
 									</div>
 						
 									<div class="fmedia fset_height" style="">
-										<div class="dcol-pad">
+										<div class="fmedia-pad">
 											<?php 
 											
 											pagelines_register_hook( 'pagelines_feature_media_top', $this->id ); // Hook 

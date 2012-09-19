@@ -13,7 +13,9 @@
 			line-height: 1px;
 		}
 	}
-	.winner  { width:100%;  }
+	.winner  { 
+		width:100%;
+	}
 	.wp125ad{
 		padding: 0;
 		width: auto;
@@ -25,39 +27,37 @@
 			margin: 2px 5px 5px 5px;
 			display: inline-block;
 			border: 1px solid transparent;
+			background: @light-base; 
+			border: 1px solid lighten(@light-base, 4); 
+			box-shadow: 0 1px 2px rgba(0,0,0, .4);
 			img{
 				width: 125px;
 				height: auto;
 				display: block;
+				box-shadow: 0 1px 2px lighten(@light-base, 8);
+			}
+		
+			&:hover{
+				background: lighten(@light-base, 4); 
 			}
 		}
 	}
-	.wp125ad a{
-		background: @light-base; 
-		border: 1px solid lighten(@light-base, 4); 
-		box-shadow: 0 1px 2px rgba(0,0,0, .4);
-		img{
-			box-shadow: 0 1px 2px lighten(@light-base, 8);
-		}
-		&:hover{
-			background: lighten(@light-base, 4); 
-		}
-	}
 
 }
 
 
 
 
-
-
-
-.widget div.srp-widget-singlepost{
-	border-bottom: 1px solid @dark-base;
+.widget ul.twitter .twitter-item{
+	font-weight: normal;
+	font-style: italic;
+	margin-bottom: .4em;
+	font-size: .9em;
 }
-.widget .srp-widget-date{
-	color: fadeout(@pl-text, 40%);
-}
+
+
+
+
 
 
 /* @ Typekit */
@@ -84,7 +84,8 @@
 	}
 }
 
-.widget_flickrRSS a img, .srp-widget-thmblink{ 
+.widget_flickrRSS a img, 
+.srp-widget-thmblink{ 
 	background: @light-base; 
 	border: 1px solid lighten(@light-base, 4); 
 	box-shadow: 0 1px 2px rgba(0,0,0, .4);
@@ -95,16 +96,26 @@
 }
 
 /* @ Special Posts  */ 
-.widget div.srp-thumbnail-box{ padding-right: 15px; }
-.widget .srp-widget-singlepost{
-	font-size: .85em;
-	margin: 0;
-	padding: 1.2em 0;
+
+.widget {
+	div.srp-widget-singlepost{
+		border-bottom: 1px solid @dark-base;
+		font-size: .85em;
+		margin: 0;
+		padding: 1.2em 0;
+	}
+	.srp-widget-title-link{
+		font-size: .9em;
+		line-height: 1.2em;
+	}
+	.srp-widget-date{
+		color: fadeout(@pl-text, 40%);
+	}
+	div.srp-thumbnail-box{ 
+		padding-right: 15px; 
+	}
 }
-.srp-widget-title-link{
-	font-size: .9em;
-	line-height: 1.2em;
-}
+
 .srp-widget-excerpt{
 	line-height: 1.5em;
 }
@@ -194,22 +205,26 @@
 
 
 /* Contact Forms 7 */ 
-#page div.wpcf7-mail-sent-ok{
-	border: 1px solid @successBorder;
-	background: @successBackground;
-}
 
-#page span.wpcf7-not-valid-tip{
-	border:1px solid @warningBorder;
-	background: @warningBackground;		
-}
-#page div.wpcf7-validation-errors{
-	border: 1px solid @errorBorder;
-	background: @errorBackground;
-}
-#page div.wpcf7-mail-sent-ok, #page span.wpcf7-not-valid-tip, #page div.wpcf7-validation-errors{
-	text-shadow: 0 1px 0 rgba(255,255,255,.8);
-	text-align: center;
-	.box-shadow (inset 1px 1px 2px rgba(255,255,255,.5));
+#page {
+	div.wpcf7-mail-sent-ok{
+		border: 1px solid @successBorder;
+		background: @successBackground;
+	}
+	span.wpcf7-not-valid-tip{
+		border:1px solid @warningBorder;
+		background: @warningBackground;		
+	}
+	div.wpcf7-validation-errors{
+		border: 1px solid @errorBorder;
+		background: @errorBackground;
+	}
+	div.wpcf7-mail-sent-ok,
+	span.wpcf7-not-valid-tip, 
+	div.wpcf7-validation-errors{
+		text-shadow: 0 1px 0 rgba(255,255,255,.8);
+		text-align: center;
+		.box-shadow (inset 1px 1px 2px rgba(255,255,255,.5));
+	}
 }
 

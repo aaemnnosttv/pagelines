@@ -56,7 +56,9 @@ class PageLinesRenderCSS {
 			'breadcrumbs', 
 			'close', 
 			'pager', 
-			'pagination'
+			'pagination',
+			'progress-bars', 
+			'icons'
 		);
 		return $files;
 	}

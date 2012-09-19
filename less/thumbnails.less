@@ -1,7 +1,9 @@
 // Make wrapper ul behave like the grid
-.pl-thumbnails, .gallery{
+body .pl-thumbnails, 
+body .gallery{
 	margin-left: -@gridGutterWidth;
 	list-style: none;
+	
 	.clearfix();
 	> li{
 	  float: left; // Explicity set the float since we don't require .span* classes

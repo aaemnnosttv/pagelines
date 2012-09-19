@@ -17,6 +17,22 @@
 class PLMasthead extends PageLinesSection {
     
     var $tabID = 'masthead_meta';
+
+    function section_head() {
+
+    	if(ploption('pagelines_masthead_html',$this->oset)) { ?>
+	    		<script>
+	    		  jQuery(document).ready(function(){
+				    jQuery(".video-splash").fitVids();
+				  });
+	    		</script>
+	    	<?php }
+    }
+
+     function section_scripts() {
+     	if(ploption('pagelines_masthead_html',$this->oset))
+    	wp_enqueue_script('fitvid',$this->base_url.'/jquery.fitvids.js',array('jquery'));
+    }
 	
 	function section_optionator( $settings ){
 		
@@ -37,7 +53,16 @@ class PLMasthead extends PageLinesSection {
 							'type' 			=> 'text',
 							'inputlabel' 	=> 'Masthead Image Alt',	
 						),
-					)			
+						'pagelines_masthead_html'   => array(
+							'type' 			=> 'textarea',
+							'inputlabel' 	=> 'Masthead Video (optional, to be used instead of image)',
+						),
+						'masthead_html_width'   => array(
+							'type' 			=> 'text_small',
+							'inputlabel' 	=> 'Maxium width of splash in px (default is full width)',
+						),
+					),
+					'exp'                   => 'Upload an image to serve as a splash image, or use an embed code for full width video.',			
 				),
 				'pagelines_masthead_text' => array(
 						'type' 				=> 'text_multi',
@@ -157,6 +182,8 @@ class PLMasthead extends PageLinesSection {
 		$mast_tag = ploption('pagelines_masthead_tagline', $this->oset);
 		$mast_menu = (ploption('masthead_menu', $this->oset)) ? ploption('masthead_menu', $this->oset) : null;
 		$masthead_meta = ploption('masthead_meta', $this->oset);
+
+		$masthtmlwidth = (ploption('masthead_html_width',$this->oset)) ? ploption('masthead_html_width',$this->oset).'px' : '';
 		
 		
 		// A Responsive, Drag &amp; Drop Platform for Beautiful Websites
@@ -168,8 +195,14 @@ class PLMasthead extends PageLinesSection {
 	<header class="jumbotron masthead <?php echo $classes;?>">
 	  	<?php
 
+	  		$theimg = sprintf('<img class="masthead-img" src="%s" alt="%s"/>',$mast_img, $mast_imgalt);
+	  		$masthtml = ploption('pagelines_masthead_html',$this->oset);
+
 	  		if($mast_img)
-	  			printf('<div class="splash"><img class="masthead-img" src="%s" alt="%s"/></div>',$mast_img, $mast_imgalt);
+	  			printf('<div class="splash" style="max-width:%s;margin:0 auto;">%s</div>',$masthtmlwidth,$theimg);
+
+	  		if($masthtml)
+	  			printf('<div class="video-splash" style="max-width:%s;margin:0 auto;">%s</div>',$masthtmlwidth,$masthtml);
 
 	  	?>
 

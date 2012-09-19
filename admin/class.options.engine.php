@@ -1378,13 +1378,8 @@ class OptEngine {
 			$updates_exp .= sprintf( '<br /><br />%s', pagelines_check_credentials( 'message' ) );
 		}
 		if ( 'true' === pagelines_check_credentials( 'plus' ) )
-			$updates_exp .= sprintf( '<br /><br />%s', __( 'Active Plus account.', 'pagelines') );
-		if ( EXTEND_NETWORK && pagelines_check_credentials() ){
-			$updates_exp .= __( '<br /><br />Install, delete and upgrades are disabled for non Network Admins', 'pagelines' );
-		}
-		
-			
-		?>
+			$updates_exp .= sprintf( '<br /><br />%s', __( 'Active Plus account.', 'pagelines') );			
+?>
 	<div class="pl_form">
 		<div class="pl_form_feedback">
 			<?php echo $updates_exp; ?>
