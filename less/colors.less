@@ -16,18 +16,20 @@
 
 // Base Color Variables
 // -------------------------
-@dark-base:             darken( @pl-base, @invert-dark  );
-@light-base:            lighten( @pl-base, @invert-light  );
-@baseContrastSlight: 	lighten(@pl-base, @invert-light*.4);
-@baseContrast: 			lighten(@pl-base, @invert-light);
-@baseContrastMore: 		lighten(@baseContrast, @invert-light);
-@baseContrastDark: 		darken(@baseContrast, @invert-dark);
-@baseContrastDarkMore: 	darken(@baseContrastDark, @invert-dark);
+// Ordered from returning light value to dark
+
 @baseLighter: 			lighten(@pl-base, 5%);
 @baseLighterMore: 		lighten(@pl-base, 10%);
 @baseLighterMost: 		lighten(@pl-base, 15%);
-@baseDarker: 			darken(@pl-base, 5%);
+@baseContrastSlight: 	lighten(@pl-base, @invert-light*.4);
+  @baseDarker: 			darken(@pl-base, 5%); // Same as @dark-base
+  @dark-base:           darken( @pl-base, @invert-dark  ); // Same as @baseDarker
 @baseDarkerMore: 		darken(@pl-base, 8%);
+  @light-base:          lighten( @pl-base, @invert-light  );  // Same as @baseContrast
+  @baseContrast: 	    lighten(@pl-base, @invert-light); // Same as @light-base
+@baseContrastDark: 		darken(@baseContrast, @invert-dark);
+@baseContrastMore: 		lighten(@baseContrast, @invert-light);
+@baseContrastDarkMore: 	darken(@baseContrastDark, @invert-dark);
 
 // Grays
 // -------------------------
