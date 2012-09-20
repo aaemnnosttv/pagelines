@@ -2,6 +2,6 @@
 
 // Internal build versions.
 
-$platform_build = '2.2.5';
+$platform_build = '2.3';
 
 $free_build = '1.2.5';
