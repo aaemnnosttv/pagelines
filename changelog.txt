@@ -23,6 +23,7 @@ Version 2.3
 	- Bugs - Fix nav dropdown in ie8.
 	- Bugs - Various multisite fixes.
 	- Bugs - Flush css when framework is updated.
+	- Bugs - Fix Quickslider nav in IE.
 
 
 Version 2.2.5
