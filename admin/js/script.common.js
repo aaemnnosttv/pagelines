@@ -51,17 +51,11 @@ jQuery(document).ready(function(){
 	 */
 
 	if(jQuery("#pagelines-settings-two_customcss").length){
-		var editor = CodeMirror.fromTextArea(jQuery("#pagelines-settings-two_customcss").get(0), {
-	    	name: "less", 
-			lineNumbers: true, 
-			mode: "text/x-less", 
-			tabMode: "indent"
-		});
+		var editor = CodeMirror.fromTextArea(jQuery("#pagelines-settings-two_customcss").get(0), cm_customcss);
 	}
+
 	if(jQuery("#pagelines-settings-two_headerscripts").length){
-		var editor2 = CodeMirror.fromTextArea(jQuery("#pagelines-settings-two_headerscripts").get(0), {
-	    	name: "htmlmixed", mode: "text/html", tabMode: "indent", lineNumbers: true
-		});
+		var editor2 = CodeMirror.fromTextArea(jQuery("#pagelines-settings-two_headerscripts").get(0), cm_headers);
 	}
 	
 	

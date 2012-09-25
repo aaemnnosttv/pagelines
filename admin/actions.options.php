@@ -235,6 +235,22 @@ function pagelines_theme_settings_scripts() {
 	// PageLines CSS objects
 	pagelines_load_css_relative( 'css/objects.css', 'pagelines-objects' );
 	
+	$custom_css = array(
+
+			'lineNumbers'	=>	true,
+			'mode'	=> 'text/x-less',
+			'lineWrapping'	=> true,	
+	);
+	
+	$headers = array(
+
+			'lineNumbers'	=>	true,
+			'mode'	=> 'text/html',
+			'lineWrapping'	=> true,
+	);	
+	
+	wp_localize_script( 'script-pagelines-common', 'cm_customcss', apply_filters( 'pagelines_customcss_cm_options', $custom_css ) );
+	wp_localize_script( 'script-pagelines-common', 'cm_headers', apply_filters( 'pagelines_headerscripts_cm_options', $headers ) );
 }
 
 add_action( 'admin_head', 'load_head' );
