@@ -379,6 +379,8 @@ class PageLinesFeatures extends PageLinesSection {
 						setup_postdata( $post ); 
 
 						$oset = array( 'post_id' => $post->ID );
+						
+						$target = apply_filters( 'pagelines_features_target', '', $post );
 
 						$feature_style = ( ploption( 'feature-style', $oset ) ) ? ploption( 'feature-style', $oset ) : 'text-left';
 						
@@ -437,7 +439,7 @@ class PageLinesFeatures extends PageLinesSection {
 						$feature_wrap_markup = ( $feature_style == 'text-none' && isset( $action ) ) ? 'a' : 'div';
 						$feature_wrap_link = ( $feature_style == 'text-none' && isset( $action ) ) ? sprintf( 'href="%s"', $action ) : '';
 						
-						$more_link = ( $feature_style != 'text-none' && $action ) ? sprintf( ' <a class="plmore" href="%s" >%s</a>', $action, $flink_text ) : '';
+						$more_link = ( $feature_style != 'text-none' && $action ) ? sprintf( ' <a %s class="plmore" href="%s" >%s</a>', $target, $action, $flink_text ) : '';
 						
 						$background_css = ( $feature_background_image ) ? sprintf('style="background-image: url(\'%s\');"', $feature_background_image ) : '';
 
@@ -461,7 +463,7 @@ class PageLinesFeatures extends PageLinesSection {
 													
 													pagelines_register_hook( 'pagelines_feature_text_top', $this->id ); // Hook 
 													
-													$link = ( $feature_source == 'posts' || $feature_source == 'posts_all' ) ? sprintf( '<a href="%s">%s</a>', $action, $post->post_title ) : $post->post_title;
+													$link = ( $feature_source == 'posts' || $feature_source == 'posts_all' ) ? sprintf( '<a %s href="%s">%s</a>', $target, $action, $post->post_title ) : $post->post_title;
 													
 													$title = sprintf( '<div class="fheading"> <h2 class="ftitle">%s</h2> </div>', $link );
 													
