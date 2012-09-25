@@ -86,7 +86,7 @@ class PageLinesUpdateCheck {
 		
 		$pagelines_update = $this->pagelines_theme_update_check();
 
-		if ( !is_super_admin() || !$pagelines_update )
+		if ( ! is_super_admin() || ! $pagelines_update || ! current_user_can( 'edit_themes' ) )
 			return false;
 			
 		if ( $this->username == '' || $this->password == '' || $pagelines_update['package'] == 'bad' ) {
