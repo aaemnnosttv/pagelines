@@ -10,7 +10,7 @@ Version 2.3.1
 	- CORE - Better minification rules.
 	- CORE - Fix compatibility with WordPress 3.5 alpha.
 	- CORE - Add version to admin scripts.
-	- Bugs - NavBar dropdown fox for IE8.
+	- Bugs - NavBar dropdown fix for IE8.
 	- Bugs - Features, add filter for target: pagelines_features_target.
 	- Bugs - Only show update nags to admins.
 	- Bugs - Fix cut and paste in wp-admin.
