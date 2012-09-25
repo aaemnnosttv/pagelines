@@ -281,8 +281,8 @@ function pagelines_head_common(){
 			pagelines_load_css_relative('css/multisite.css', 'pagelines-multisite');
 		
 		// Allow for PHP include of Framework CSS
-		if( !apply_filters( 'disable_pl_framework_css', '' ) )
-			pagelines_load_css(  PARENT_URL.'/style.css', 'pagelines-framework', pagelines_get_style_ver( true ));
+//		if( !apply_filters( 'disable_pl_framework_css', '' ) )
+//			pagelines_load_css(  PARENT_URL.'/style.css', 'pagelines-framework', pagelines_get_style_ver( true ));
 	
 		// RTL Language Support
 		if(is_rtl()) 
@@ -357,7 +357,7 @@ function pagelines_meta_tags(){
 function pagelines_source_attribution() {
 	
 	echo "\n\n<!-- "; 
-	printf ( "Site Crafted Using PageLines - WordPress - HTML5 ( %s ) - www.PageLines.com ", get_pagelines_credentials( 'licence' ) );
+	printf ( "Site Crafted Using PageLines v%s - WordPress - HTML5 ( %s ) - www.PageLines.com ", CORE_VERSION, get_pagelines_credentials( 'licence' ) );
 
 	echo "-->\n";
 }
