@@ -183,6 +183,7 @@ body.navbar_fixed {
 	&.pl-color-black-trans{
 		#gradient > .vertical(rgba(0,0,0,0.8), rgba(0,0,0,0.9));
 		border-top: 1px solid rgba(0,0,0,.9);
+		filter: progid:DXImageTransform.Microsoft.gradient(gradientType=1, startColorStr='#00000000', EndColorStr='#ff111111'); /* IE6–IE9 */
 	}
 	&.pl-color-red{
 		#gradient > .vertical(#ee5f5b, #bd362f);
@@ -331,7 +332,7 @@ span.navbar-title {
 } 
 .collapse {
 	position: relative;
-	height: 0;
+	height: auto; // this was height:0; but testing height: auto for IE8
 	overflow: hidden;
 	.transition(height 0.35s ease);
 	&.in{
