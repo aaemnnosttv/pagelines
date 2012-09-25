@@ -13,7 +13,8 @@ Version 2.3.1
 	- Bugs - NavBar dropdown fox for IE8.
 	- Bugs - Features, add filter for target: pagelines_features_target.
 	- Bugs - Only show update nags to admins.
-	- Bugs - Fix cut and paste in wp-admin.	
+	- Bugs - Fix cut and paste in wp-admin.
+	- Bugs - Add linewrapping to code editors.
 
 Version 2.3
 
