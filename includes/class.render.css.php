@@ -708,8 +708,14 @@ class PageLinesRenderCSS {
 
 		$disabled = get_option( 'pagelines_sections_disabled', array() );
 
-		foreach( $disabled as $type => $class ) 			
-			unset( $available[$type][key( $class )] );
+		/*
+		* Filter out disabled sections
+		*/
+		foreach( $disabled as $type => $data )
+			if ( isset( $disabled[$type] ) )
+				foreach( $data as $class => $state )
+					unset( $available[$type][ $class ] );
+
 		/*
 		* We need to reorder the array so sections css is loaded in the right order.
 		* Core, then pagelines-sections, followed by anything else. 
