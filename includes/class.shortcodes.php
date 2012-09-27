@@ -1390,17 +1390,24 @@ class PageLines_ShortCodes {
     		'type' =>'',
 	    	'id' =>'',
 	    	'width' => '',
-	    	'height' => ''
+	    	'height' => '',
+	    	'related' => '',
 	    	), $atts ) );
 
         if ($atts['type'] == 'youtube') {
 	    
-	    	$out = sprintf('<div class="pl-video"><iframe src="http://www.youtube.com/embed/%2$s?wmode=transparent" width="%3$s" height="%4$s" frameborder="0" allowfullscreen wmode="transparent"></iframe></div>',$type,$id,$width,$height);
+	    	$out = sprintf('<div class="pl-video"><iframe src="http://www.youtube.com/embed/%s" width="%s" height="%s" frameborder="0" allowfullscreen wmode="transparent"></iframe></div>',$id,$width,$height);
 	    	return $out;
+
+	    	if ($att['related'] == 'on') {
+
+	    		$out = sprintf('<div class="pl-video"><iframe src="http://www.youtube.com/embed/%s?rel=0" width="%s" height="%s" frameborder="0" allowfullscreen wmode="transparent"></iframe></div>',$id,$width,$height);
+		    	return $out;
+	    	}
 
 	    } elseif ($atts['type'] == 'vimeo') {
 
-	    $out = sprintf('<div class="pl-video"><iframe src="http://player.vimeo.com/video/%2$s" width="%3$s" height="%4$s"  frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen wmode="transparent"></iframe></div>',$type,$id,$width,$height);
+	    $out = sprintf('<div class="pl-video"><iframe src="http://player.vimeo.com/video/%s" width="%s" height="%s"  frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen wmode="transparent"></iframe></div>',$id,$width,$height);
 	    	return $out;
 	    }
     }
