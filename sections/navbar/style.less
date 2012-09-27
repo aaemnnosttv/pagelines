@@ -333,7 +333,6 @@ span.navbar-title {
 .nav-collapse.collapse {
 	position: relative;
 	height: auto; // this was height:0; but testing height: auto for IE8
-	overflow:visible; /* fallback for ie8*/
 	overflow: hidden;
 	.transition(height 0.35s ease);
 	&.in{
@@ -490,11 +489,12 @@ body.navbar_fixed {
 
 } //-- End Media Query --// 	
 
+@media (min-width:767px) {
 
+	.nav-collapse.collapse {
+		height: auto !important;
+		overflow: visible !important;
+	}
 
-.nav-collapse.collapse {
-	height: auto !important;
-	overflow: visible !important;
 }
-
 
