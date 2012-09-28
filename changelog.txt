@@ -15,6 +15,9 @@ Version 2.3.1
 	- Bugs - Only show update nags to admins.
 	- Bugs - Fix cut and paste in wp-admin.
 	- Bugs - Add linewrapping to code editors.
+	- Bugs - Video shortcode, added related.
+	- Bugs - LESS sections handling, do not compile disabled sections.
+	- Bugs - Various IE8 fixes.
 
 Version 2.3
 
