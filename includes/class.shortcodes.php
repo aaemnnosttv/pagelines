@@ -992,7 +992,7 @@ class PageLines_ShortCodes {
 
 	    $defaults = array(
 	    	'tip' => 'Tip',
-	    	'position'  => 'Right'
+	    	'position'  => 'right'
 	    );
 
         $atts = shortcode_atts( $defaults, $atts );
@@ -1027,7 +1027,7 @@ class PageLines_ShortCodes {
 	    $defaults = array(
 	    	'title' => 'Popover Title',
 	    	'content' => 'Content',
-	    	'position'  => 'Right'
+	    	'position'  => 'right'
 	    );
 
 	    $atts = shortcode_atts( $defaults, $atts );
