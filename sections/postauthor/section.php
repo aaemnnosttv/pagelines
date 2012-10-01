@@ -42,14 +42,13 @@ class PageLinesPostAuthor extends PageLinesSection {
 				</h2>
 				<p><?php the_author_meta('description', $post->post_author); ?></p>
 				<div class="author-details">
-					<?php if($link != ''): ?>
-					<a href="<?php $link; ?>" target="_blank">
-						<?php _e('Visit Authors Website', 'pagelines');?> &rarr;
-					</a>
-					<?php endif;?>
-			<?php	$google_profile = get_the_author_meta( 'google_profile' );
+					<?php if($link != ''):
+						printf( '<a href="%s" target="_blank">%s</a>', $link, __( 'Visit Authors Website &rarr;', 'pagelines') );
+					endif;
+					
+					$google_profile = get_the_author_meta( 'google_profile' );
 					if ( $google_profile ) {
-						echo '<br /><a href="' . $google_profile . '" rel="me">Authors Google Profile &rarr;</a>';
+						printf( '<br /><a href="%s" rel="me">%s</a>',  $google_profile, __( 'Authors Google Profile &rarr;', 'pagelines' ) );
 					} ?>
 				</div>
 			</div>
