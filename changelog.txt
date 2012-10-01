@@ -18,6 +18,7 @@ Version 2.3.1
 	- Bugs - Video shortcode, added related.
 	- Bugs - LESS sections handling, do not compile disabled sections.
 	- Bugs - Various IE8 fixes.
+	- Bugs - Fix tooltip/rollover position.
 
 Version 2.3
 
