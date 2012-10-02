@@ -413,7 +413,12 @@
 		border-bottom: none;
 	
 	}
-	.horizontal-tabs .ui-tabs-selected a, .horizontal-tabs .ui-tabs-selected a:hover, .htabs-menu .horizontal-tabs .ht-special.ui-tabs-selected a{
+	.horizontal-tabs .ui-tabs-selected a, 
+	.horizontal-tabs .ui-tabs-selected a:hover, 
+	.htabs-menu .horizontal-tabs .ht-special.ui-tabs-selected a,
+	.horizontal-tabs .ui-state-active a, 
+	.horizontal-tabs .ui-state-active a:hover, 
+	.htabs-menu .horizontal-tabs .ht-special.ui-state-active a{
 		color: #222;
 		background: #F7F7F7;
 		border: 1px solid #ccc;
@@ -456,11 +461,15 @@
 			border-left: 1px solid #ccc;
 		}
 		
-	.subtabs-menu .subtabs .ui-tabs-selected a, .subtabs-menu .subtabs .ui-tabs-selected  a:hover{
+	.subtabs-menu .subtabs .ui-tabs-selected a,
+	.subtabs-menu .subtabs .ui-tabs-selected  a:hover,
+	.subtabs-menu .subtabs .ui-state-active a,
+	.subtabs-menu .subtabs .ui-state-active  a:hover{
 		background: #ddd url(../images/sprite-subtabs.png) repeat-x 0 -50px;
 		border-bottom: 1px solid #aaa;
 	}
-		.subtabs-menu .subtabs .ui-tabs-selected a .st-pad{
+		.subtabs-menu .subtabs .ui-tabs-selected a .st-pad,
+		.subtabs-menu .subtabs .ui-state-active a .st-pad{
 			border-right: 1px solid #aaa;
 			border-top: 1px solid #eee;
 			border-left: 1px solid #eee;
@@ -562,7 +571,9 @@
 				color:#000;
 				background:#fff;
 			}
-			.plist li a:active, .plist li.ui-tabs-selected a{
+			.plist li a:active, 
+			.plist li.ui-tabs-selected a,
+			.plist li.ui-state-active a{
 				color:#000;
 				background:#dadada;
 				border:1px solid #aaa;
@@ -570,7 +581,9 @@
 				border-bottom:1px solid #f7f7f7;
 				
 			}
-				.plist li a:active .metatab_pad, .plist li.ui-tabs-selected a .metatab_pad{
+				.plist li a:active .metatab_pad,
+				.plist li.ui-tabs-selected a .metatab_pad,
+				.plist li.ui-state-active a .metatab_pad{
 					border: 1px solid transparent;
 					border: 1px solid #bbb;
 					border-right: 1px solid #ccc;
@@ -1679,7 +1692,8 @@ font-weight: bold;
 			border-bottom: 1px solid #ddd;
 			padding: 8px 14px;
 		}
-		.pagelines_metapanel ul.pagelines_metapanel_tabs li.ui-tabs-selected a{
+		.pagelines_metapanel ul.pagelines_metapanel_tabs li.ui-tabs-selected a,
+		.pagelines_metapanel ul.pagelines_metapanel_tabs li.ui-state-active a{
 			background: #e1e1e1;
 			border-top: 1px solid #bbb;
 			border-bottom: 1px solid transparent;

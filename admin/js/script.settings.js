@@ -430,7 +430,6 @@ function toggleControls(button){
 				var primarysidebar = jQuery("."+LayoutMode+" #layout-sidebar-1 .loelement-pad .width span").html();
 				var maincontent = jQuery("."+LayoutMode+" #layout-main-content .loelement-pad .width span").html();
 				var wcontent = jQuery("."+LayoutMode+" #contentwidth .loelement-pad span").html();
-				console.log(wcontent)
 				
 				jQuery(".layout_controls #input-content-width").val(wcontent);
 
