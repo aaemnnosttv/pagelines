@@ -1,3 +1,7 @@
+= 1.2.7 =
+
+* Revert fix for compatibility with WordPress 3.5 (layout editor broke).
+
 = 1.2.6 =
 
 * remove main style.css from HEAD, not needed now as it contains no actual css.

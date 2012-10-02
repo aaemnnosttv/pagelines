@@ -4,6 +4,11 @@
 
 ********************************************************
 
+
+Version 2.3.2
+
+	- CORE - Revert fix for compatibility with WordPress 3.5 (layout editor broke).
+
 Version 2.3.1
 
 	- CORE - remove main style.css from HEAD, not needed now as it contains no actual css.
