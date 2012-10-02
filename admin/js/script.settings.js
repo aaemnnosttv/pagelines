@@ -393,8 +393,8 @@ function toggleControls(button){
 		function deactivateCurrentBuilder() {
 			// Deactivate old builder
 			jQuery('.layout_controls').find('.layouteditor').removeClass('selectededitor');
-			if ( window['OuterLayout'] ) window['OuterLayout'].destroy();
-			if ( window['InnerLayout'] ) window['InnerLayout'].destroy();
+		//	if ( window['OuterLayout'] ) window['OuterLayout'].destroy();
+		//	if ( window['InnerLayout'] ) window['InnerLayout'].destroy();
 		}
 
 
@@ -404,12 +404,13 @@ function toggleControls(button){
 		*
 		*/
 		function updateDimensions( LayoutMode, Source ) {
-			var contentwidth = jQuery("."+LayoutMode+"  #contentwidth").width() * 2 - 24;
-			var builderwidth = jQuery(".layout-main-content").width() * 2;
-			var contentpercent = (contentwidth / builderwidth) * 100;
-			var innereastwidth = jQuery("."+LayoutMode+"  .innereast").width() * 2;
-			var innerwestwidth = jQuery("."+LayoutMode+"  .innerwest").width() * 2;
-			var gutterwidth = (jQuery("."+LayoutMode+" #innerlayout .gutter").width()+2) * 2;
+			
+			var contentwidth = jQuery("."+LayoutMode+"  #contentwidth").width() * 2 - 24
+			, 	builderwidth = jQuery(".layout-main-content").width() * 2
+			, 	contentpercent = (contentwidth / builderwidth) * 100
+			, 	innereastwidth = jQuery("."+LayoutMode+"  .innereast").width() * 2
+			, 	innerwestwidth = jQuery("."+LayoutMode+"  .innerwest").width() * 2
+			, 	gutterwidth = (jQuery("."+LayoutMode+" #innerlayout .gutter").width()+2) * 2;
 				
 			
 			// Don't trigger if content is 0px wide. This means the function was triggered in error or by a browser quirk. (e.g. dragging a tab in Firefox)
@@ -429,10 +430,11 @@ function toggleControls(button){
 				var primarysidebar = jQuery("."+LayoutMode+" #layout-sidebar-1 .loelement-pad .width span").html();
 				var maincontent = jQuery("."+LayoutMode+" #layout-main-content .loelement-pad .width span").html();
 				var wcontent = jQuery("."+LayoutMode+" #contentwidth .loelement-pad span").html();
+				console.log(wcontent)
+				
+				jQuery(".layout_controls #input-content-width").val(wcontent);
 
-				jQuery(".layout_controls").find("#input-content-width").val(wcontent);
-
-				jQuery(".layout_controls").find("#input-responsive-width").val(contentpercent);
+				jQuery(".layout_controls #input-responsive-width").val(contentpercent);
 
 				jQuery("."+LayoutMode+" #input-primarysidebar-width").val(primarysidebar);
 
@@ -441,12 +443,19 @@ function toggleControls(button){
 				
 				
 				if(Source == 'margin-resize'){
-					var theLayoutModes = new Array('fullwidth', 'one-sidebar-right', 'one-sidebar-left', 'two-sidebar-right', 'two-sidebar-left', 'two-sidebar-center');
-				
+					var theLayoutModes = new Array(
+						'fullwidth', 
+						'one-sidebar-right', 
+						'one-sidebar-left', 
+						'two-sidebar-right', 
+						'two-sidebar-left', 
+						'two-sidebar-center'
+					);
+					
 					for( var i = 0; i < theLayoutModes.length; i++){
 					
 						if(theLayoutModes[i] != LayoutMode){
-					
+				
 							if(theLayoutModes[i] == 'two-sidebar-right' || theLayoutModes[i] == 'two-sidebar-left' || theLayoutModes[i] == 'two-sidebar-center'){
 								
 								var modeContent = jQuery("."+theLayoutModes[i]+" #layout-main-content .loelement-pad .width span").html();
@@ -488,7 +497,8 @@ function toggleControls(button){
 	function setLayoutBuilder(LayoutMode, margin, innereast, innerwest, gutter){
 
 		
-		var MainLayoutBuilder, InnerLayoutBuilder;
+		var MainLayoutBuilder
+		, 	InnerLayoutBuilder;
 	
 		window['OuterLayout'] = jQuery("."+LayoutMode+" .layout-main-content").layout({ 
 
@@ -497,7 +507,7 @@ function toggleControls(button){
 			,	west__paneSelector: 	".margin-west"
 			,	closable:				false	// pane can open & close
 			,	resizable:				true	// when open, pane can be resized 
-			,	slidable:				false
+			,	slidable:				true
 			,	resizeWhileDragging:	true
 			,	west__resizable:		true	// Set to TRUE to activate dynamic margin
 			,	east__resizable:		true	// Set to TRUE to activate dynamic margin
@@ -508,9 +518,9 @@ function toggleControls(button){
 			, 	east__maxSize:  		188
 			, 	west__maxSize:  		188
 			, 	west__onresize: function (pane, $Pane, paneState) {
-			    var width  = paneState.innerWidth;
-				var realwidth = width * 2;
-				var currentElement = jQuery("."+LayoutMode+" .margin-east");
+			    var width  = paneState.innerWidth
+				, 	realwidth = width * 2
+				, 	currentElement = jQuery("."+LayoutMode+" .margin-east");
 				
 				// This will fire in Firefox in strange times, make sure it's visible before doing anything
 				if(currentElement.is(':visible')){
@@ -536,6 +546,7 @@ function toggleControls(button){
 				}
 			}
 		});
+	
 		window['InnerLayout'] = jQuery("."+LayoutMode+" .layout-inner-content").layout({ 
 
 				    	closable: 				true 

@@ -8,7 +8,15 @@
 /*
  * WordPress Overrides
  */
-#adminmenu .wp-menu-image img { padding: 4px 0 0 1px; }
+
+	
+#optionstable .button, 
+#optionstable .button-secondary, 
+#optionstable .submit input, 
+#optionstable input[type="button"], 
+#optionstable input[type="submit"]{
+	box-shadow: none;
+}
 	
 #dialog{display: none;}
 .pagelines_ui .ui-dialog { 
@@ -1822,22 +1830,21 @@ font-weight: bold;
 			background: #f7f7f7;
 		}
 
-	.gutter-west-open,.gutter-east-open{
 	
-		border-left: 1px dotted #5484C6;
-		border-right: 1px dotted #5484C6;
-		background: #CBE3FF;
-	}
-
-	.gutter-west-hover,.gutter-east-hover{
-		border-left: 1px dotted #5484C6;
-		border-right: 1px dotted #5484C6;
-	}
-	
-	.pagelines-resizer-east, .pagelines-resizer-west{
+	.pagelines-resizer-east, 
+	.pagelines-resizer-west,
+	.gutter-west-open,
+	.gutter-east-open{
 			border-left: 1px dotted #5484C6;
 			border-right: 1px dotted #5484C6;
 			background: #CBE3FF;
+			cursor: col-resize !important;
+	}
+	.pagelines-resizer-east:hover, 
+	.pagelines-resizer-west:hover,
+	.gutter-west-open:hover,
+	.gutter-east-open:hover{
+			background: #b2d5ff;
 	}
 	
 	.layoutinputs, .sel_layout_exp{
