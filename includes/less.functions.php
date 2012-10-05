@@ -36,9 +36,9 @@ class PageLinesLess {
 		// PageLines Variables
 		$constants = array(
 			'plRoot'				=> sprintf( "\"%s\"", PL_PARENT_URL ),
-			'plSectionsRoot'		=> sprintf( "\"%s\"", SECTION_ROOT ),
+			'plSectionsRoot'		=> sprintf( "\"%s\"", PL_SECTION_ROOT ),
 			'plPluginsRoot'		    => sprintf( "\"%s\"", WP_PLUGIN_URL ),
-			'plChildRoot'			=> sprintf( "\"%s\"", CHILD_URL ),
+			'plChildRoot'			=> sprintf( "\"%s\"", PL_CHILD_URL ),
 			'plExtendRoot'            => sprintf( "\"%s\"", PL_EXTEND_URL ),
 			'pl-base'				=> $this->base_color, 
 			'pl-text'				=> pl_hashify( pl_text_color() ), 
@@ -123,8 +123,8 @@ class PageLinesLess {
 	function load_less_file( $file ) {
 
 		$file 	= sprintf( '%s.less', $file );
-		$parent = sprintf( '%s/%s', CORE_LESS, $file );
-		$child 	= sprintf( '%s/%s', CHILD_LESS, $file );
+		$parent = sprintf( '%s/%s', PL_CORE_LESS, $file );
+		$child 	= sprintf( '%s/%s', PL_CHILD_LESS, $file );
 
 		// check for child 1st if not load the main file.
 

@@ -76,3 +76,6 @@ function pl_get_themes() {
  */
 define( 'CORE_VERSION', get_theme_mod( 'pagelines_version' ) );
 define( 'THEMENAME', 'PageLines' );
+define( 'CHILD_URL', get_stylesheet_directory_uri() );
+define( 'CHILD_IMAGES', CHILD_URL . '/images' );
+define( 'CHILD_DIR', get_stylesheet_directory() );

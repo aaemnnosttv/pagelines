@@ -36,7 +36,7 @@ class PageLinesSection {
 				'description' 		=> null, 
 				'required'			=> null,
 				'version'			=> 'all', 
-				'base_url'			=> SECTION_ROOT,
+				'base_url'			=> PL_SECTION_ROOT,
 				'dependence'		=> '', 
 				'posttype'			=> '',
 				'failswith'			=> array(), 

@@ -708,7 +708,7 @@ function pagelines_load_css_relative( $relative_style_url, $id){
 		
 		$cache_ver = pl_cache_version( get_stylesheet_directory() . $rurl );
 		
-		pagelines_load_css( CHILD_URL . $rurl , $id, $cache_ver);
+		pagelines_load_css( PL_CHILD_URL . $rurl , $id, $cache_ver);
 		 
 	} elseif(is_file(get_template_directory() . $rurl) ){
 		

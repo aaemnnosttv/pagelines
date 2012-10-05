@@ -24,8 +24,8 @@ define('PL_PARENT_DIR', get_template_directory());
 define('PL_CHILD_DIR', get_stylesheet_directory());
 
 define('PL_PARENT_URL', get_template_directory_uri());
-define('CHILD_URL', get_stylesheet_directory_uri());
-define('CHILD_IMAGES', CHILD_URL . '/images');
+define('PL_CHILD_URL', get_stylesheet_directory_uri());
+define('PL_CHILD_IMAGES', PL_CHILD_URL . '/images' );
 
 /**
  * Define Settings Constants for option DB storage
@@ -85,7 +85,7 @@ define('PL_SECTIONS', get_template_directory() . '/sections');
 /**
  * Define web constants
  */
-define('SECTION_ROOT', PL_PARENT_URL . '/sections');
+define('PL_SECTION_ROOT', PL_PARENT_URL . '/sections');
 
 /**
  * Define theme web constants
@@ -111,8 +111,8 @@ define( 'PL_EXTEND_FUNCTIONS', EXTEND_CHILD_DIR . '/functions.php' );
 define( 'PL_EXTEND_THEMES_DIR', WP_CONTENT_DIR .'/themes/' );
 define( 'PL_EXTEND_SECTIONS_PLUGIN', 'pagelines-sections.php' );
 define( 'PL_STORE_URL', 'http://www.pagelines.com/store' );
-define( 'CORE_LESS', PL_PARENT_DIR . '/less' );
-define( 'CHILD_LESS', PL_CHILD_DIR . '/less' );
+define( 'PL_CORE_LESS', PL_PARENT_DIR . '/less' );
+define( 'PL_CHILD_LESS', PL_CHILD_DIR . '/less' );
 
 if ( is_multisite() && ! is_super_admin() )
 	define( 'EXTEND_NETWORK', true);

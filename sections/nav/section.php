@@ -25,7 +25,7 @@ class PageLinesNav extends PageLinesSection {
 	*/
 	function section_persistent(){
 		self::$nav_dir = PL_SECTIONS.'/nav';
-		self::$nav_url = SECTION_ROOT.'/nav';
+		self::$nav_url = PL_SECTION_ROOT.'/nav';
 		register_nav_menus( array( 'primary' => __( 'Primary Website Navigation', 'pagelines' ) ) );
 
 	}
