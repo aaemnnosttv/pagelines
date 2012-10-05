@@ -211,7 +211,7 @@ class PageLinesRegister {
 				
 				preg_match( '#[\/|\-]sections[\/|\\\]([^\/|\\\]+)#', $fullFileName, $out );
 				
- 				$version = ( '' != $headers['version'] ) ? $headers['version'] : CORE_VERSION;
+ 				$version = ( '' != $headers['version'] ) ? $headers['version'] : PL_CORE_VERSION;
 				
 				$folder = sprintf( '/%s', $out[1] );
 

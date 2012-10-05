@@ -681,7 +681,7 @@ function pagelines_draw_css( $css_url, $id = '', $enqueue = false){
  *  @since 1.3.0
  *
  */
-function pagelines_load_css( $css_url, $id, $hash = CORE_VERSION, $enqueue = true){
+function pagelines_load_css( $css_url, $id, $hash = PL_CORE_VERSION, $enqueue = true){
 		
 	if(pagelines_bbpress_forum()){
 		printf('<link rel="stylesheet" id="%s"  href="%s?ver=%s" type="text/css" />%s', $id, $css_url, $hash, "\n");
@@ -727,7 +727,7 @@ function pagelines_load_css_relative( $relative_style_url, $id){
  *
  *
  */
-function pl_cache_version( $path, $version = CORE_VERSION ){
+function pl_cache_version( $path, $version = PL_CORE_VERSION ){
 	$date_modified = filemtime( $path );
 	$cache_ver = str_replace('.', '', $version) . '-' . date('mdGis', $date_modified);
 	
@@ -750,12 +750,12 @@ function pagelines_get_style_ver( $tpath = false ){
 		$cache_ver = str_replace('.', '', CHILD_VERSION) . '-' . date('mdGis', $date_modified); 
 	} elseif(is_file(get_stylesheet_directory() .'/style.css') && !$tpath ){
 		$date_modified = filemtime( get_stylesheet_directory() .'/style.css' );
-		$cache_ver = str_replace('.', '', CORE_VERSION) .'-'.date('mdGis', $date_modified);
+		$cache_ver = str_replace('.', '', PL_CORE_VERSION) .'-'.date('mdGis', $date_modified);
 	} elseif(is_file(get_template_directory() .'/style.css')){
 		$date_modified = filemtime( get_template_directory() .'/style.css' );
-		$cache_ver = str_replace('.', '', CORE_VERSION) .'-'.date('mdGis', $date_modified);
+		$cache_ver = str_replace('.', '', PL_CORE_VERSION) .'-'.date('mdGis', $date_modified);
 	} else {
-		$cache_ver = CORE_VERSION;
+		$cache_ver = PL_CORE_VERSION;
 	}
 	
 	

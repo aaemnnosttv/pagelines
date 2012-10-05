@@ -107,7 +107,7 @@ class PageLinesDebug {
 
 			$this->debug_info[] = array(
 				'title'	=> 'Framework Version',
-				'value' => CORE_VERSION,
+				'value' => PL_CORE_VERSION,
 				'level'	=> false
 			);
 			$this->debug_info[] = array(

@@ -70,3 +70,8 @@ function pl_get_themes() {
 
 	return $theme_data;	
 }
+/**
+ * Deprecated constants, removing after a couple of revision, this will ensure store products get time to update.
+ *
+ */
+define( 'CORE_VERSION', get_theme_mod( 'pagelines_version' ) );

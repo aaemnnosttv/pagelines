@@ -3,7 +3,7 @@
 /**
  * Define framework version
  */
-define( 'CORE_VERSION', get_theme_mod( 'pagelines_version' ) );
+define( 'PL_CORE_VERSION', get_theme_mod( 'pagelines_version' ) );
 define( 'CHILD_VERSION', get_theme_mod( 'pagelines_child_version' ) );
 
 /**

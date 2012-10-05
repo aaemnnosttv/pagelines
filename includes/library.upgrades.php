@@ -76,7 +76,7 @@ class PageLinesUpgradePaths {
 		
 		// possible 'reset options'
 		if ( ! $version ) {
-			plupop( 'pagelines_version', CORE_VERSION );
+			plupop( 'pagelines_version', PL_CORE_VERSION );
 			return;
 		}
 		
@@ -87,7 +87,7 @@ class PageLinesUpgradePaths {
 		if ( isset( $pagelines['enable_sidebar_reorder'] ) && $pagelines['enable_sidebar_reorder'] ) {
 			
 			// no need to do this...
-			plupop( 'pagelines_version', CORE_VERSION );
+			plupop( 'pagelines_version', PL_CORE_VERSION );
 			return;
 		}
 		$sidebars = get_option( 'sidebars_widgets' );
@@ -109,7 +109,7 @@ class PageLinesUpgradePaths {
 			
 		);
 		update_option( 'sidebars_widgets', $new_sidebars );
-		plupop( 'pagelines_version', CORE_VERSION );
+		plupop( 'pagelines_version', PL_CORE_VERSION );
 		return;	
 	}
 
@@ -154,7 +154,7 @@ class PageLinesUpgradePaths {
 					plupop( $key, $data );
 			}
 		}
-		plupop( 'pagelines_version', CORE_VERSION );
+		plupop( 'pagelines_version', PL_CORE_VERSION );
 	}
 
 	/**

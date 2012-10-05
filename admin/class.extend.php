@@ -81,7 +81,7 @@
 	 function master_array( $type, $key, $ext, $tab ){
 		
 		$a = array( 
-			'plversion'		=>	CORE_VERSION,
+			'plversion'		=>	PL_CORE_VERSION,
 			'price'		=>	'free',
 			'featured'	=>	'false',
 			'type'		=>	'internal',
@@ -249,7 +249,7 @@
 	 function show_in_tab( $type, $key, $ext, $tab ){
 
 		$a = array( 
-			'plversion'			=>	CORE_VERSION,
+			'plversion'			=>	PL_CORE_VERSION,
 			'price'				=>	'free',
 			'featured'			=>	'false',
 			'loaded' 			=> ( isset( $ext['status']['status'] ) ) ? true : false,
@@ -336,7 +336,7 @@
 	 *
 	 */
 	 function version_check( $version ){
-		return ( version_compare( CORE_VERSION, $version ) >= 0 ) ? true : false;
+		return ( version_compare( PL_CORE_VERSION, $version ) >= 0 ) ? true : false;
 	}
 	
 

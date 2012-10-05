@@ -357,7 +357,7 @@ function pagelines_meta_tags(){
 function pagelines_source_attribution() {
 	
 	echo "\n\n<!-- "; 
-	printf ( "Site Crafted Using PageLines v%s - WordPress - HTML5 ( %s ) - www.PageLines.com ", CORE_VERSION, get_pagelines_credentials( 'licence' ) );
+	printf ( "Site Crafted Using PageLines v%s - WordPress - HTML5 ( %s ) - www.PageLines.com ", PL_CORE_VERSION, get_pagelines_credentials( 'licence' ) );
 
 	echo "-->\n";
 }
@@ -542,7 +542,7 @@ function pagelines_fix_ie( ){
 
 	// If IE7 add the Internet Explorer 7 specific stylesheet
 	if ( $ie_ver == 7 )
-		wp_enqueue_style('ie7-style', PL_CSS  . '/ie7.css', array(), CORE_VERSION);
+		wp_enqueue_style('ie7-style', PL_CSS  . '/ie7.css', array(), PL_CORE_VERSION);
 } 
 
 /**

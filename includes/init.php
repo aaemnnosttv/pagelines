@@ -270,4 +270,4 @@ if ( is_admin() )
 require_once (PL_ADMIN.'/class.updates.php');
 
 if ( is_admin() )
-	new PageLinesUpdateCheck( CORE_VERSION );
+	new PageLinesUpdateCheck( PL_CORE_VERSION );

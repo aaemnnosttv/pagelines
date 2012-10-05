@@ -199,38 +199,38 @@ function pagelines_theme_settings_scripts() {
 	// Add Body Class
 	add_filter( 'admin_body_class', 'pagelines_admin_body_class' );
 
-	wp_enqueue_script( 'jquery-ajaxupload', PL_ADMIN_JS . '/jquery.ajaxupload.js', array( 'jquery' ), CORE_VERSION );
-	wp_enqueue_script( 'jquery-cookie', PL_ADMIN_JS . '/jquery.ckie.js', array( 'jquery' ), CORE_VERSION ); 
+	wp_enqueue_script( 'jquery-ajaxupload', PL_ADMIN_JS . '/jquery.ajaxupload.js', array( 'jquery' ), PL_CORE_VERSION );
+	wp_enqueue_script( 'jquery-cookie', PL_ADMIN_JS . '/jquery.ckie.js', array( 'jquery' ), PL_CORE_VERSION ); 
 	wp_enqueue_script( 'jquery-ui-core' );
 	wp_enqueue_script( 'jquery-ui-tabs' );
 	wp_enqueue_script( 'jquery-ui-dialog' );
-	wp_enqueue_script( 'script-pagelines-settings', PL_ADMIN_JS . '/script.settings.js', array( 'jquery' ), CORE_VERSION );
+	wp_enqueue_script( 'script-pagelines-settings', PL_ADMIN_JS . '/script.settings.js', array( 'jquery' ), PL_CORE_VERSION );
 
-	wp_enqueue_script( 'jquery-ui-effects', PL_ADMIN_JS . '/jquery.effects.js', array( 'jquery' ), CORE_VERSION ); // just has highlight effect
+	wp_enqueue_script( 'jquery-ui-effects', PL_ADMIN_JS . '/jquery.effects.js', array( 'jquery' ), PL_CORE_VERSION ); // just has highlight effect
 	wp_enqueue_script( 'jquery-ui-draggable' );	
 	wp_enqueue_script( 'jquery-ui-sortable' );
-	wp_enqueue_script( 'script-pagelines-common', PL_ADMIN_JS . '/script.common.js', array( 'jquery' ), CORE_VERSION );	
+	wp_enqueue_script( 'script-pagelines-common', PL_ADMIN_JS . '/script.common.js', array( 'jquery' ), PL_CORE_VERSION );	
 	
 	// Prettify
-	wp_enqueue_script( 'codemirror', PL_ADMIN_JS . '/codemirror/codemirror.js', array( 'jquery' ), CORE_VERSION );
-	wp_enqueue_script( 'codemirror-css', PL_ADMIN_JS . '/codemirror/css/css.js', array( 'jquery' ), CORE_VERSION );
-	wp_enqueue_script( 'codemirror-less', PL_ADMIN_JS . '/codemirror/less/less.js', array( 'jquery' ), CORE_VERSION );
-	wp_enqueue_script( 'codemirror-js', PL_ADMIN_JS . '/codemirror/javascript/javascript.js', array( 'jquery' ), CORE_VERSION );
-	wp_enqueue_script( 'codemirror-xml', PL_ADMIN_JS . '/codemirror/xml/xml.js', array( 'jquery' ), CORE_VERSION );
-	wp_enqueue_script( 'codemirror-html', PL_ADMIN_JS . '/codemirror/htmlmixed/htmlmixed.js', array( 'jquery' ), CORE_VERSION );
+	wp_enqueue_script( 'codemirror', PL_ADMIN_JS . '/codemirror/codemirror.js', array( 'jquery' ), PL_CORE_VERSION );
+	wp_enqueue_script( 'codemirror-css', PL_ADMIN_JS . '/codemirror/css/css.js', array( 'jquery' ), PL_CORE_VERSION );
+	wp_enqueue_script( 'codemirror-less', PL_ADMIN_JS . '/codemirror/less/less.js', array( 'jquery' ), PL_CORE_VERSION );
+	wp_enqueue_script( 'codemirror-js', PL_ADMIN_JS . '/codemirror/javascript/javascript.js', array( 'jquery' ), PL_CORE_VERSION );
+	wp_enqueue_script( 'codemirror-xml', PL_ADMIN_JS . '/codemirror/xml/xml.js', array( 'jquery' ), PL_CORE_VERSION );
+	wp_enqueue_script( 'codemirror-html', PL_ADMIN_JS . '/codemirror/htmlmixed/htmlmixed.js', array( 'jquery' ), PL_CORE_VERSION );
 	wp_enqueue_style( 'codemirror', PL_ADMIN_JS . '/codemirror/codemirror.css' );
 	
 	// Color Picker
-	wp_enqueue_script( 'colorpicker-js', PL_ADMIN_JS . '/colorpicker/js/colorpicker.js', array( 'jquery' ), CORE_VERSION );
+	wp_enqueue_script( 'colorpicker-js', PL_ADMIN_JS . '/colorpicker/js/colorpicker.js', array( 'jquery' ), PL_CORE_VERSION );
 	wp_enqueue_style( 'colorpicker', PL_ADMIN_JS . '/colorpicker/css/colorpicker.css' ); 
 
-	wp_enqueue_script( 'jquery-colorbox', PL_ADMIN_JS . '/colorbox/jquery.colorbox-min.js', array( 'jquery' ), CORE_VERSION );
+	wp_enqueue_script( 'jquery-colorbox', PL_ADMIN_JS . '/colorbox/jquery.colorbox-min.js', array( 'jquery' ), PL_CORE_VERSION );
 	wp_enqueue_style( 'colorbox', PL_ADMIN_JS . '/colorbox/colorbox.css' ); 	
 	
 	wp_enqueue_script( 'thickbox' );	
 	wp_enqueue_style( 'thickbox' ); 
 	
-	wp_enqueue_script( 'jquery-layout', PL_ADMIN_JS . '/jquery.layout.js', array( 'jquery' ), CORE_VERSION );
+	wp_enqueue_script( 'jquery-layout', PL_ADMIN_JS . '/jquery.layout.js', array( 'jquery' ), PL_CORE_VERSION );
 	
 	// PageLines CSS objects
 	pagelines_load_css_relative( 'css/objects.css', 'pagelines-objects' );
@@ -263,7 +263,7 @@ add_action( 'admin_head', 'load_head' );
 function load_head(){
 	
 	// Admin CSS
-	printf( '<link rel="stylesheet" href="%s/admin.css?ver=%s" type="text/css" media="screen" />', PL_ADMIN_CSS, CORE_VERSION );
+	printf( '<link rel="stylesheet" href="%s/admin.css?ver=%s" type="text/css" media="screen" />', PL_ADMIN_CSS, PL_CORE_VERSION );
 	
 	
 	
