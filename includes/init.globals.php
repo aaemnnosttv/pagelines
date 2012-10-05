@@ -4,26 +4,26 @@
  * Define framework version
  */
 define( 'PL_CORE_VERSION', get_theme_mod( 'pagelines_version' ) );
-define( 'CHILD_VERSION', get_theme_mod( 'pagelines_child_version' ) );
+define( 'PL_CHILD_VERSION', get_theme_mod( 'pagelines_child_version' ) );
 
 /**
  * Set Theme Name
  */
 $theme = 'PageLines';
 
-define('CORE_LIB', PL_INCLUDES); // Deprecated, but used in bbPress forum < 1.2.3
+define( 'PL_CORE_LIB', PL_INCLUDES); // Deprecated, but used in bbPress forum < 1.2.3
 
-define('THEMENAME', $theme);
-define('CHILDTHEMENAME', get_option('stylesheet'));
+define( 'PL_THEMENAME', $theme );
+define( 'PL_CHILDTHEMENAME', get_option('stylesheet') );
 
-define('NICETHEMENAME', pl_get_theme_data( get_template_directory(), 'Name' ) );
-define('NICECHILDTHEMENAME',  pl_get_theme_data( get_stylesheet_directory(), 'Name' ) );
+define('PL_NICETHEMENAME', pl_get_theme_data( get_template_directory(), 'Name' ) );
+define('PL_NICECHILDTHEMENAME',  pl_get_theme_data( get_stylesheet_directory(), 'Name' ) );
 
 
-define('PARENT_DIR', get_template_directory());
-define('CHILD_DIR', get_stylesheet_directory());
+define('PL_PARENT_DIR', get_template_directory());
+define('PL_CHILD_DIR', get_stylesheet_directory());
 
-define('PARENT_URL', get_template_directory_uri());
+define('PL_PARENT_URL', get_template_directory_uri());
 define('CHILD_URL', get_stylesheet_directory_uri());
 define('CHILD_IMAGES', CHILD_URL . '/images');
 
@@ -55,7 +55,7 @@ define( 'PAGELINES_TEMPLATE_MAP_LEGACY', 'pagelines_template_map' );
  * Define PL Admin Paths
  */
 define( 'PL_ADMIN', get_template_directory() . '/admin' );
-define( 'PL_ADMIN_URI', PARENT_URL . '/admin' );
+define( 'PL_ADMIN_URI', PL_PARENT_URL . '/admin' );
 define( 'PL_ADMIN_CSS', PL_ADMIN_URI . '/css' );
 define( 'PL_ADMIN_JS', PL_ADMIN_URI . '/js' );
 define( 'PL_ADMIN_IMAGES', PL_ADMIN_URI . '/images' );
@@ -85,14 +85,14 @@ define('PL_SECTIONS', get_template_directory() . '/sections');
 /**
  * Define web constants
  */
-define('SECTION_ROOT', PARENT_URL . '/sections');
+define('SECTION_ROOT', PL_PARENT_URL . '/sections');
 
 /**
  * Define theme web constants
  */
-define('PL_CSS', PARENT_URL . '/css');
-define('PL_JS', PARENT_URL . '/js');
-define('PL_IMAGES', PARENT_URL . '/images');
+define('PL_CSS', PL_PARENT_URL . '/css');
+define('PL_JS', PL_PARENT_URL . '/js');
+define('PL_IMAGES', PL_PARENT_URL . '/images');
 
 /**
  * Define Extension Constants
@@ -111,8 +111,8 @@ define( 'PL_EXTEND_FUNCTIONS', EXTEND_CHILD_DIR . '/functions.php' );
 define( 'PL_EXTEND_THEMES_DIR', WP_CONTENT_DIR .'/themes/' );
 define( 'PL_EXTEND_SECTIONS_PLUGIN', 'pagelines-sections.php' );
 define( 'PL_STORE_URL', 'http://www.pagelines.com/store' );
-define( 'CORE_LESS', PARENT_DIR . '/less' );
-define( 'CHILD_LESS', CHILD_DIR . '/less' );
+define( 'CORE_LESS', PL_PARENT_DIR . '/less' );
+define( 'CHILD_LESS', PL_CHILD_DIR . '/less' );
 
 if ( is_multisite() && ! is_super_admin() )
 	define( 'EXTEND_NETWORK', true);

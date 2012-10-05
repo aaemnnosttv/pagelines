@@ -282,7 +282,7 @@ function pagelines_head_common(){
 		
 		// Allow for PHP include of Framework CSS
 //		if( !apply_filters( 'disable_pl_framework_css', '' ) )
-//			pagelines_load_css(  PARENT_URL.'/style.css', 'pagelines-framework', pagelines_get_style_ver( true ));
+//			pagelines_load_css(  PL_PARENT_URL.'/style.css', 'pagelines-framework', pagelines_get_style_ver( true ));
 	
 		// RTL Language Support
 		if(is_rtl()) 

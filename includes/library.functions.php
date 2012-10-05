@@ -113,7 +113,7 @@ function pl_meta_set_url( $tab = null ){
  * @link        http://www.pagelines.com/wiki/Pagelines_body_classes
  *
  * @uses        ploption
- * @uses        CHILDTHEMENAME (constant)
+ * @uses        PL_CHILDTHEMENAME (constant)
  *
  * @return      string $body_classes - PageLines default body classes
  */
@@ -133,7 +133,7 @@ function pagelines_body_classes(){
 		'custom %s %s %s %s %s %s', 
 		$canvas_shadow, 
 		$responsive, 
-		strtolower(CHILDTHEMENAME), 
+		strtolower( PL_CHILDTHEMENAME ), 
 		$pagelines_template->template_type, 
 		$design_mode, 
 		$special_body_class
@@ -714,7 +714,7 @@ function pagelines_load_css_relative( $relative_style_url, $id){
 		
 		$cache_ver = pl_cache_version( get_template_directory() . $rurl ); 
 		
-		pagelines_load_css( PARENT_URL . $rurl , $id, $cache_ver);
+		pagelines_load_css( PL_PARENT_URL . $rurl , $id, $cache_ver);
 		
 	} 
 	
@@ -747,7 +747,7 @@ function pagelines_get_style_ver( $tpath = false ){
 	// Get cache number that accounts for edits to base.css or style.css
 	if( is_file(get_stylesheet_directory() .'/base.css') && !$tpath ){
 		$date_modified = filemtime( get_stylesheet_directory() .'/base.css' );
-		$cache_ver = str_replace('.', '', CHILD_VERSION) . '-' . date('mdGis', $date_modified); 
+		$cache_ver = str_replace('.', '', PL_CHILD_VERSION) . '-' . date('mdGis', $date_modified); 
 	} elseif(is_file(get_stylesheet_directory() .'/style.css') && !$tpath ){
 		$date_modified = filemtime( get_stylesheet_directory() .'/style.css' );
 		$cache_ver = str_replace('.', '', PL_CORE_VERSION) .'-'.date('mdGis', $date_modified);

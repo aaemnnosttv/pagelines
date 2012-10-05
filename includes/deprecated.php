@@ -75,3 +75,4 @@ function pl_get_themes() {
  *
  */
 define( 'CORE_VERSION', get_theme_mod( 'pagelines_version' ) );
+define( 'THEMENAME', 'PageLines' );

@@ -876,7 +876,7 @@ function pagelines_import_export(){
 				header('Cache-Control: public, must-revalidate');
 				header('Pragma: hack');
 				header('Content-Type: text/plain');
-				header( 'Content-Disposition: attachment; filename="' . THEMENAME . '-Settings-' . date('Ymd') . '.dat"' );						
+				header( 'Content-Disposition: attachment; filename="' . PL_THEMENAME . '-Settings-' . date('Ymd') . '.dat"' );						
 				echo json_encode( $options );
 				exit();
 			} 

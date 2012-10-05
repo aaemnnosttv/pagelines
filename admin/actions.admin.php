@@ -295,7 +295,7 @@ function pl_page_show_columns($name) {
 				break;
 			}
 
-			$file = sprintf( '%s/%s', PARENT_DIR, $template );
+			$file = sprintf( '%s/%s', PL_PARENT_DIR, $template );
 			
 			if ( !is_file( $file ) )
 				$file = sprintf( '%s/%s', CHILD_DIR, $template );

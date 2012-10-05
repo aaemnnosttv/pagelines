@@ -112,7 +112,7 @@ class PageLinesBoxes extends PageLinesSection {
 			
 			$type_metapanel_settings = array(
 					'id' 		=> 'boxes-metapanel',
-					'name' 		=> THEMENAME.' Box Options',
+					'name' 		=> PL_THEMENAME . ' Box Options',
 					'posttype' 	=> $post_types,
 				);
 			
