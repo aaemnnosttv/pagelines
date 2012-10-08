@@ -1153,7 +1153,7 @@ class PageLines_ShortCodes {
 	    extract( shortcode_atts( array(
 		    'first' => '',
 		    'title' => '',
-		    'imageurl' => sprintf( '%s/screenshot.png', PARENT_URL ), // fallback "reminder" image
+		    'imageurl' => sprintf( '%s/screenshot.png', PL_PARENT_URL ), // fallback "reminder" image
 		    'caption' => '',
 	    ), $atts ) );
 
