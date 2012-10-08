@@ -738,7 +738,7 @@ function pagelines_settings_defaults() {
 			
 			foreach($options as $oid => $o ){
 
-				if($o['type']=='layout'){
+				if( isset( $o['type'] ) &&  'layout' == $o['type'] ){
 					
 					$dlayout = new PageLinesLayout;
 					$default_options['layout'] = $dlayout->default_layout_setup();
@@ -817,8 +817,10 @@ function pagelines_process_reset_options( $option_array = null ) {
 */
 function pagelines_is_multi_option( $oid, $o ){
 	
-	if(
-		$o['type'] == 'text_multi' 
+	if ( ! isset( $o['type'] ) )
+		return false;
+	
+	if( $o['type'] == 'text_multi' 
 		|| $o['type'] == 'check_multi' 
 		|| $o['type'] == 'color_multi'
 		|| $o['type'] == 'image_upload_multi'
@@ -827,7 +829,6 @@ function pagelines_is_multi_option( $oid, $o ){
 		return true;
 	} else
 		return false;
-	
 }
 
 
