@@ -15,7 +15,7 @@ class PageLinesCoreExtensions {
 		// PageLines Plus
 		$args = array(
 			'title'			=> __( 'Available Plus Extensions', 'pagelines' ),
-			'data'			=> PageLines_RSS::get_dash_rss( array( 'feed' => 'http://api.pagelines.com/rss/plus.php', 'items' => 15 ) ), 
+			'data'			=> PageLines_RSS::get_dash_rss( array( 'feed' => 'http://api.pagelines.com/rss/plus.php', 'items' => 50 ) ), 
 			'icon'			=> PL_ADMIN_ICONS . '/plusbtn.png', 
 			'excerpt-trim'	=> false, 
 			'format'		=> 'plus-extensions'
