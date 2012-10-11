@@ -122,7 +122,7 @@ class PageLinesRenderCSS {
 		$gfonts = preg_match( '#(@import[^;]*;)#', $a['type'], $g ); 
 		$out = '';
 		if ( $gfonts ) {
-			$out .= $g[1];
+			$a['core'] = sprintf( "%s\n%s", $g[1], $a['core'] );
 			$a['type'] = str_replace( $g[1], '', $a['type'] );
 		}
 		$out .= $this->minify( $a['core'] );
@@ -572,7 +572,7 @@ class PageLinesRenderCSS {
 			$gfonts = preg_match( '#(@import[^;]*;)#', $a['type'], $g ); 
 			
 			if ( $gfonts ) {
-				echo $g[1];
+				$a['core'] = sprintf( "%s\n%s", $g[1], $a['core'] );
 				$a['type'] = str_replace( $g[1], '', $a['type'] );
 			}
 			echo $this->minify( $a['core'] );
