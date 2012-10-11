@@ -28,7 +28,7 @@ class PageLinesFoundry {
 		else
 			$prot = 'http://';
 		
-		$this->gfont_base_uri = $prot . $this->gfont_base_uri;
+		$this->gfont_base_uri = $prot . apply_filters( 'pagelines_gfont_baseurl', $this->gfont_base_uri );
 	}
 	/**
 	*
