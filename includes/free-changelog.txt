@@ -1,3 +1,12 @@
+
+= 1.2.8 =
+
+* Added pagelines_gfont_baseurl filter for google fonts.
+* Properly namespace all CONSTANTS.
+* Fixed PageLines admin area in WordPress 3.5b1.
+* Updated Twitter icon per guidelines
+* Fixed rare php notices on settings reset if WP_DEBUG is on.
+
 = 1.2.7 =
 
 * Revert fix for compatibility with WordPress 3.5 (layout editor broke).
