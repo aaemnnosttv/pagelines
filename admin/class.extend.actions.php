@@ -493,7 +493,7 @@
 	*/
 	function pro_fail( $type, $file, $path, $uploader, $checked ) {
 		
-		printf( __( 'This %s is free with a Pro license.', 'pagelines' ), $path );
+		printf( __( 'This %s needs a Pro license.', 'pagelines' ), $path );
 		
 	}
 	
