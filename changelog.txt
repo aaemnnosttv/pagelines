@@ -11,6 +11,7 @@ Version 2.3.3
 	- CORE - Fixed PageLines admin area in WordPress 3.5b1.
     - CORE - Updated Twitter icon per guidelines
 	- Bugs - Fixed rare php notices on settings reset if WP_DEBUG is on.
+	- Bugs - Store logic fix.
 
 Version 2.3.2
 
