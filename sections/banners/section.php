@@ -276,10 +276,9 @@ class PageLinesBanners extends PageLinesSection {
 	*
 	*/
 	function _get_banner_media( $oset ){
-		
 			
 			if(plmeta('the_banner_image', $oset))
-				$banner_media = '<img src="'.plmeta('the_banner_image', $oset).'" alt="'.get_the_title().'" />';
+				$banner_media = '<img src="'.plmeta('the_banner_image', $oset).'" alt="'.get_the_title( $oset['post_id'] ).'" />';
 			elseif(plmeta('the_banner_media', $oset))
 				$banner_media = do_shortcode( plmeta('the_banner_media', $oset) );
 			else 
