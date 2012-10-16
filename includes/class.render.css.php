@@ -130,7 +130,11 @@ class PageLinesRenderCSS {
 		$out .= $this->minify( $a['type'] );
 		$out .= $this->minify( $a['dynamic'] );
 		$mem = ( function_exists('memory_get_usage') ) ? round( memory_get_usage() / 1024 / 1024, 2 ) : 0;
-		$out .= sprintf( __( 'CSS was compiled at %s and took %s seconds using %sMB of unicorn dust.', 'pagelines' ), date( DATE_RFC822, $a['time'] ), $a['c_time'],  $mem );
+		if ( is_multisite() )
+			$blog = sprintf( ' on blog [%s]', $blog_id );
+		else
+			$blog = '';
+		$out .= sprintf( __( '%s/* CSS was compiled at %s and took %s seconds using %sMB of unicorn dust%s.*/', 'pagelines' ), "\n", date( DATE_RFC822, $a['time'] ), $a['c_time'], $mem, $blog );
 		$this->write_css_file( $out );	
 	}
 	
