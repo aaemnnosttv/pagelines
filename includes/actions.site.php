@@ -170,3 +170,12 @@ function pagelines_check_customizer() {
 		die( 'Sorry preview is disabled, enable PageLines Framework.');  	
 	}
 }
+
+add_action( 'init', 'pagelines_check_less_reset', 999 );
+
+function pagelines_check_less_reset() {
+
+	if( isset( $_GET['pl_reset_less'] ) && ! defined( 'PL_CSS_FLUSH' ) )
+		do_action( 'extend_flush' );
+
+}
