@@ -548,8 +548,8 @@ class PageLinesTemplateBuilder {
 	 * On some template areas, e.g. posts, single, 404, they have their own interface.. so none is needed
 	 */
 	function show_sc( $t ){
-			
-		return ( $t == 'posts' || $t == 'single' || $t == '404' ) ? false : true;
+		
+		return ( is_pagelines_special( array( 'type' => $t ) ) ) ? false : true;
 	}
 
 	
