@@ -4,6 +4,17 @@
 
 ********************************************************
 
+Version 2.3.4
+
+	- CORE - Add SECTION_ROOT to deprecated.php
+	- CORE - Updated twitter logo.
+	- CORE - Added Flush Less button to adminbar if debug is on under advanced settings.
+	- CORE - Removed customcss from kses whitelist, should stop people adding script tags to css and breaking everything.
+	- Bugs - Fix pl_video shortcode, height and width are now working.
+	- Bugs - Fixed 'Hide by default' bug.
+	- Bugs - Banner Section - Fix alt image text.
+	- Bugs - Fix debug comment in css.
+
 Version 2.3.3
 
 	- CORE - Added pagelines_gfont_baseurl filter for google fonts.
