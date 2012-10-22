@@ -473,7 +473,7 @@ function get_pagelines_option_id( $oid, $sub_oid = null, $grand_oid = null, $nam
 function pagelines_settings_callback( $input ) {
 
 	// We whitelist some of the settings, these need to have html/js/css.
-	$whitelist = array( 'excerpt_tags', 'headerscripts', 'customcss', 'footerscripts', 'asynch_analytics', 'typekit_script', 'footer_terms', 'footer_more' );
+	$whitelist = array( 'excerpt_tags', 'headerscripts', 'footerscripts', 'asynch_analytics', 'typekit_script', 'footer_terms', 'footer_more' );
 
 	if(is_array($input)){
 		
