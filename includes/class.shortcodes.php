@@ -1389,14 +1389,15 @@ class PageLines_ShortCodes {
     	extract( shortcode_atts( array(
     		'type' =>'',
 	    	'id' =>'',
-	    	'width' => '',
-	    	'height' => '',
+	    	'width' => '100%',
+	    	'height' => '100%',
 	    	'related' => '',
 	    	), $atts ) );
 
         if ($atts['type'] == 'youtube') {
 	    
 	    	$out = sprintf('<div class="pl-video"><iframe src="http://www.youtube.com/embed/%s" width="%s" height="%s" frameborder="0" allowfullscreen wmode="transparent"></iframe></div>',$id,$width,$height);
+
 	    	return $out;
 
 	    	if ($att['related'] == 'on') {
