@@ -15,6 +15,7 @@ Version 2.3.4
 	- Bugs - Fixed 'Hide by default' bug.
 	- Bugs - Banner Section - Fix alt image text.
 	- Bugs - Fix debug comment in css.
+	- Bugs - Fix footcols in fixed mode.
 
 Version 2.3.3
 
