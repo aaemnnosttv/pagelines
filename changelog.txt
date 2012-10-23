@@ -16,6 +16,7 @@ Version 2.3.4
 	- Bugs - Banner Section - Fix alt image text.
 	- Bugs - Fix debug comment in css.
 	- Bugs - Fix footcols in fixed mode.
+	- Bugs - Add separate video classes and fix vimeo black borders.
 
 Version 2.3.3
 
