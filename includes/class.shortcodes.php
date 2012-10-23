@@ -428,12 +428,21 @@ class PageLines_ShortCodes {
 		comments_number( $atts['zero'], $atts['one'], $atts['more'] );
 		$comments = ob_get_clean();
 
-		$comments = sprintf( '<a href="%s">%s</a>', get_comments_link(), $comments );
+		$comments = sprintf( '<a href="%s">%s</a>', $this->get_comment_link(), $comments );
 
 		$output = sprintf( '<span class="post-comments sc">%2$s%1$s%3$s</span>', $comments, $atts['before'], $atts['after'] );
 
 		return apply_filters( 'pagelines_post_comments_shortcode', $output, $atts );
-
+	}
+	
+	function get_comment_link() {
+		
+		$comment = '#wp-comments';
+		
+		if( function_exists( 'livefyre_show_comments' ) )
+			$comment = '#lf_comment_stream';
+		
+		return sprintf( '%s%s', get_permalink(), $comment );
 	}
 	
 	/**
