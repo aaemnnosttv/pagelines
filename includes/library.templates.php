@@ -794,17 +794,40 @@ function pagelines_settings_menu_link(  ){
 		$wp_admin_bar->add_menu( array( 'id' => 'special_settings', 'title' => __('Edit Meta', 'pagelines'), 'href' => $spurl ) );
 	}
 
-	if( is_pl_debug() && ! is_admin()) {
-		
-		if ( '' != get_option('permalink_structure') )
-			$uri = home_url( sprintf( '/%s?pl_reset_less=1', $_SERVER['REQUEST_URI'] ) );
-		else
-			if( '/' != $_SERVER['REQUEST_URI'] )
-				$uri = home_url( sprintf( '/%s&pl_reset_less=1', $_SERVER['REQUEST_URI'] ) );
-			else
-				$uri = home_url( sprintf( '/%s?pl_reset_less=1', $_SERVER['REQUEST_URI'] ) );
-		$wp_admin_bar->add_menu( array( 'id' => 'pl_flush', 'title' => __('Flush LESS', 'pagelines'), 'href' => $uri ) );
+	if ( is_pl_debug() && ! is_admin() ) {
+
+		$wp_admin_bar->add_menu(
+			array(
+				'id'    => 'pl_flush',
+				'title' => __('Flush LESS', 'pagelines'),
+				'href'  => get_pl_reset_less_url()
+				) );
 	}
+}
+
+function get_pl_reset_less_url() {
+
+	$flush = array( 'pl_reset_less' => 1 );
+
+	$request = explode( '?', $_SERVER['REQUEST_URI'] );
+
+	$page = $request[0];
+
+	$query = array();
+
+	if ( isset( $request[1] ) )
+		wp_parse_str( $request[1], $query );
+
+	$query = wp_parse_args( $flush, $query );
+
+	$url = sprintf( '%s://%s%s?%s',
+		is_ssl() ? 'https' : 'http',
+		$_SERVER['HTTP_HOST'],
+		$page,
+		http_build_query( $query )
+		);
+
+	return $url;
 }
 
 /**
