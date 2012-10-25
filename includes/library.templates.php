@@ -500,7 +500,7 @@ function pagelines_filter_wp_title( $title ) {
 	$bloginfo_description = get_bloginfo( 'description' );
 	if( is_feed() ) {
 		$new_title = $title;
-	} elseif ( ( is_home () || is_front_page() ) && ! empty( $bloginfo_description ) && ! $paged && ! $page ) {
+	} elseif ( ( is_home () || is_front_page() ) && ! empty( $bloginfo_description ) ) {
 		$new_title .= $sep . ' ' . $bloginfo_description;
 	} elseif ( is_category() ) {
 		$new_title .= $sep . ' ' . single_cat_title( '', false );
@@ -510,7 +510,7 @@ function pagelines_filter_wp_title( $title ) {
 		$new_title .= $sep . ' ' . sprintf( __( 'Search Results: %s','pagelines' ), esc_html( $s ) );
 	} else
 		$new_title .= $sep . ' ' . $title;
-	if ( $paged || $page ) {
+	if ( $paged >= 2 || $page >= 2 ) {
 		$new_title .= ' ' . $sep . ' ' . sprintf( __( 'Page: %s', 'pagelines' ), max( $paged, $page ) );
 	}
     return apply_filters( 'pagelines_meta_title', $new_title );

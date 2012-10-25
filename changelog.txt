@@ -17,6 +17,7 @@ Version 2.3.4
 	- Bugs - Fix debug comment in css.
 	- Bugs - Fix footcols in fixed mode.
 	- Bugs - Add separate video classes and fix vimeo black borders.
+	- Bugs - Fix wp_title Paged bug.
 
 Version 2.3.3
 
