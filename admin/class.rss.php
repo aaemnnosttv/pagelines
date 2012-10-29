@@ -69,11 +69,14 @@ class PageLines_RSS {
 			$date = $item->get_date();
 
 			$link = esc_url( $item->get_link() );
-			if( $args['community'] )
-				$link = esc_url( $item->get_description() );
 			$title = $item->get_title();
-
 			$content = $item->get_content();
+			if( $args['community'] ) {
+								
+				$d = self::com_url( $item->get_description() );
+				$link = $d[0];
+				$content = $d[1];				
+			}
 
 		$out[] = array(
 			'title'	=>	$title,
@@ -89,4 +92,10 @@ class PageLines_RSS {
 		return $out;
 	}
 	
+	function com_url( $d ) {
+		
+		preg_match( '#<p>(http://[^<]*)</p>#', $d, $out );
+		$d = str_replace( $out[0], '', $d );		
+		return array( $out[1], $d );
+	}
 }	
