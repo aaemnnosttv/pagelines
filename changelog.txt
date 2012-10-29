@@ -4,6 +4,13 @@
 
 ********************************************************
 
+Version 2.3.5
+
+	- Bugs - Fix LESS validation and \'escape\' bug in customcss box.
+	- Bugs - Fix accordian shortcode if %s is in the content, props Evan.
+	- Bugs - Fix community links in dashboard, props Evan.
+	- Bugs - Fix Linkedin option in the sharebar, props Evan.
+
 Version 2.3.4
 
 	- CORE - Add SECTION_ROOT to deprecated.php
