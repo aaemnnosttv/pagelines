@@ -1076,15 +1076,20 @@ class PageLines_ShortCodes {
 	function pl_accordion_shortcode( $atts, $content = null ) {
 
 		$defaults = array(
-			'name' => '',
-	    );
-         
-        $atts = shortcode_atts( $defaults, $atts );
 
-	    $out = sprintf( '<div id="%s" class="accordion">'.do_shortcode( $content ).'</div>',$atts['name'] );
-	        
-	    return $out;
+			'name' => '',
+
+		);
+
+		$atts = shortcode_atts( $defaults, $atts );
+
+		$out = sprintf( '<div id="%s" class="accordion">%s</div>',
+		$atts['name'],
+		do_shortcode( $content )
+		);
+	return $out;
 	}
+
 	//Accordion Content
 	function pl_accordioncontent_shortcode( $atts, $content = null, $open = null ) {
 	    
