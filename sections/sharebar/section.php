@@ -139,7 +139,7 @@ class PageLinesShareBar extends PageLinesSection {
 		ob_start();
 		?>
 			<script src="http://platform.linkedin.com/in.js" type="text/javascript"></script>
-			<script width="100" type="IN/Share" data-url="<?php echo $a['perm'];?>" data-width="<?php echo $a['width'];?>" data-counter="right"></script>
+			<script width="100" type="IN/Share" data-url="<?php echo $a['permalink'];?>" data-width="<?php echo $a['width'];?>" data-counter="right"></script>
 
 		<?php 
 
