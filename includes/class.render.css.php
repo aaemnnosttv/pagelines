@@ -486,7 +486,7 @@ class PageLinesRenderCSS {
 			$start_time = microtime(true);
 			build_pagelines_layout();
 
-			$custom = pl_strip_js( ploption( 'customcss' ) );
+			$custom = stripslashes( ploption( 'customcss' ) );
 
 			$pless = new PagelinesLess();
 			$custom =  $pless->raw_less( $custom, 'custom' );

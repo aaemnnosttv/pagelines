@@ -479,8 +479,11 @@ function pagelines_settings_callback( $input ) {
 		
 		// We run through the $input array, if it is not in the whitelist we run it through the wp filters.
 		foreach ($input as $name => $value){
-			if ( !is_array( $value ) && !in_array( $name, apply_filters( 'pagelines_settings_whitelist', $whitelist ) ) ) 
-				$input[$name] = wp_filter_nohtml_kses( $value );
+			if ( !is_array( $value ) && !in_array( $name, apply_filters( 'pagelines_settings_whitelist', $whitelist ) ) )
+				if ( 'customcss' == $name)
+					$input[$name] = wp_strip_all_tags( $value, false );
+				else
+					$input[$name] = wp_filter_nohtml_kses( $value );
 		}
 		
 	}
