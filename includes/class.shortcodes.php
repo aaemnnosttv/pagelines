@@ -194,13 +194,16 @@ class PageLines_ShortCodes {
 	    // or with options
 	    // [googlemap width="200" height="200" address="San Francisco, CA 92109"] 
 	function googleMaps( $atts, $content = null ) {
-	       extract( shortcode_atts( array(
-	          "width"       =>  '480',
-	          "height"      =>  '480',
-	          "address"   =>   ''
-	       ), $atts ) );
-	       $src = "http://maps.google.com/maps?f=q&source=s_q&hl=en&q=".$address;
-	       return '<iframe width="'.$width.'" height="'.$height.'" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="'.$src.'&amp;output=embed"></iframe>';
+	
+		 extract( shortcode_atts( array(
+
+		 'width'	=> '480',
+		 'height'	=> '480',
+		 'locale'	=> 'en',
+		 'address'	=> ''
+	 ), $atts ) );
+	 $src = "http://maps.google.com/maps?f=q&source=s_q&hl=".$locale."&q=".$address;
+	 return '<iframe width="'.$width.'" height="'.$height.'" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="'.$src.'&amp;output=embed"></iframe>';
 	}
 
 	// 5. GOOGLE CHARTS  //////////////////////////////////////////////////
