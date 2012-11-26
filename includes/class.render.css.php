@@ -349,15 +349,6 @@ class PageLinesRenderCSS {
 	}
 
 	function get_base_url() {
-		
-		if ( defined( 'PLL_INC') ) {
-			
-			global $post;
-			
-			$lang = Polylang_Base::get_post_language( $post->ID );
-						
-			return sprintf( '%s/%s/', get_home_url(), $lang->slug );
-		}
 
 		if(function_exists('icl_get_home_url')) {
 		    return icl_get_home_url();
