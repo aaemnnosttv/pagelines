@@ -49,27 +49,35 @@ function pagelines_non_meta_data_page(){
 
 
 /**
+ * is_pagelines_special() REVISED
  *
- * @TODO document
+ * A few conditional functions that were being used were unnecessary
+ * (is_author, is_category, & is_tag) as these are all covered by is_archive
+ * 
+ * $special_types should be a filterable array to allow ploption to be used for extended special option values,
+ * or anytime the passed $args['type'] would be used/compared (in admin)
+ * 
+ * Filterable return value - could be used for example to return false for the blog home,
+ * letting the page meta values take precedence instead of the special.  Just a thought.
  *
  */
-function is_pagelines_special($args = array()){
-	if(is_404() || is_home() || is_author() || is_search() || is_archive() || is_category() || is_tag() ) 
-		return true; 
-	elseif( isset($args['type']) && (
-				$args['type'] == 'posts'
-				|| $args['type'] == 'archive'
-				|| $args['type'] == 'category'
-				|| $args['type'] == 'search'
-				|| $args['type'] == 'tag'
-				|| $args['type'] == 'author'
-				|| $args['type'] == '404_page'
-			))
-		return true;
-	elseif(pl_is_integration())
-		return true;
+function is_pagelines_special( $args = array() ) {
+
+	$special_types = apply_filters( 'pagelines_special_types', array('posts','archive','category','search','tag','author','404_page') );
+
+	if ( is_404() || is_home() || is_search() || is_archive() || pl_is_cpt() ) 
+		$special = true;
+
+	elseif ( isset( $args['type'] ) && in_array( $args['type'], $special_types ) )		   
+		$special = true;
+
+	elseif ( pl_is_integration() )
+		$special = true;
+
 	else 
-		return false;
+		$special = false;
+
+	return apply_filters( 'is_pagelines_special', $special, $args );
 }
 
 
