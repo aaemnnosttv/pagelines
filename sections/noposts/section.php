@@ -5,7 +5,7 @@
 	Author URI: http://www.pagelines.com
 	Description: Shown when no posts or 404 is returned
 	Class Name: PageLinesNoPosts
-	Workswith: 404
+	Workswith: 404_page
 */
 
 /**
