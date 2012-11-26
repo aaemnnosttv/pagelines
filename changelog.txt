@@ -4,6 +4,15 @@
 
 ********************************************************
 
+Version 2.3.6
+
+	- Bugs - Plus themes bug fixed.
+	- Bugs - Watermark url if box is blank.
+	- Bugs - Add locale to googlemaps shortcode.
+	- Bugs - Noposts section was not selectable in 404 page area.
+	- Bugs - removed polylang check ( uses ICL code anyway ).
+	- Bugs - Add CPT support to is_pagelines_special() and make filterable, props Evan.
+
 Version 2.3.5
 
 	- Bugs - Fix LESS validation and \'escape\' bug in customcss box.
