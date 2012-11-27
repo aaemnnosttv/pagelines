@@ -12,6 +12,7 @@ Version 2.3.6
 	- Bugs - Noposts section was not selectable in 404 page area.
 	- Bugs - removed polylang check ( uses ICL code anyway ).
 	- Bugs - Add CPT support to is_pagelines_special() and make filterable, props Evan.
+	- CORE - LESS_FILE_MODE is on by defualt now.
 
 Version 2.3.5
 
