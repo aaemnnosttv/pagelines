@@ -777,32 +777,30 @@ function pagelines_get_style_ver( $tpath = false ){
  * 
  * @since 1.5.0
  */
-function plprint( $data, $title = false, $echo = false){
-
-	if( is_pl_debug() && current_user_can('manage_options') ){
-		
-		ob_start();
-	
-			echo 'echo "<pre class=\'plprint\'>';
-	
-			if($title) 
-				echo sprintf('<h3>%s</h3>', $title);
-		
-			echo esc_html( print_r( $data, TRUE ) );
-		
-			echo '</pre>";';
-		
-			$data = ob_get_contents();
-		
-		ob_end_clean();
-
-		if( $echo )
-			echo $data;
-		else 
-			add_action( 'shutdown', create_function( '', $data ) );
-		
-	}
-
+function plprint( $data, $title = false, $echo = false) {
+ 
+	if ( ! is_pl_debug() || ! current_user_can('manage_options') )
+		return;
+ 
+	ob_start();
+ 
+		echo '<pre class="plprint">';
+ 
+		if ( $title )
+			printf('<h3>%s</h3>', $title);
+ 
+		echo esc_html( print_r( $data, true ) );
+ 
+		echo '</pre>';
+ 
+	$data = ob_get_clean();
+ 
+	if ( $echo )
+		echo $data;
+	elseif ( false === $echo )
+		add_action( 'shutdown', create_function( '', sprintf('echo \'%s\';', $data) ) );
+	else
+		return $data;
 }
 
 function plcomment( $data, $title = 'DEBUG', $type = 'html' ) {
