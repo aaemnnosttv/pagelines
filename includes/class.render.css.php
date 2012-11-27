@@ -87,6 +87,7 @@ class PageLinesRenderCSS {
 		add_action( 'wp_before_admin_bar_render', array( &$this, 'less_css_bar' ) );
 		if ( defined( 'PL_CSS_FLUSH' ) )
 			do_action( 'extend_flush' );
+		do_action( 'pagelines_max_mem' );
 	}
 	
 	function less_file_mode() {

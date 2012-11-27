@@ -1,4 +1,4 @@
 <?php
 if( !defined('VPRO' ) )
 	define( 'VPRO', true );
-@ini_set('memory_limit', WP_MAX_MEMORY_LIMIT );
+add_action( 'pagelines_max_mem', create_function('',"@ini_set('memory_limit',WP_MAX_MEMORY_LIMIT);") );
