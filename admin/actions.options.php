@@ -32,7 +32,7 @@ function pagelines_add_admin_menus() {
 
 	$_pagelines_special_hook = pagelines_insert_menu( PL_MAIN_DASH, __( 'Page Options', 'pagelines' ), 'edit_theme_options', 'pagelines_special', 'pagelines_build_special' );
 	
-	$_pagelines_templates_hook = pagelines_insert_menu( PL_MAIN_DASH, __( 'Drag <span class="spamp">&amp;</span> Drop', 'pagelines' ), 'edit_theme_options', 'pagelines_templates', 'pagelines_build_templates_interface' );
+	$_pagelines_templates_hook = pagelines_insert_menu( PL_MAIN_DASH, __( "Drag <span class='spamp'>&amp;</span> Drop", 'pagelines' ), 'edit_theme_options', 'pagelines_templates', 'pagelines_build_templates_interface' );
 	
 	$_pagelines_ext_hook = pagelines_insert_menu( PL_MAIN_DASH, __( 'Store', 'pagelines' ), 'edit_theme_options', PL_ADMIN_STORE_SLUG, 'pagelines_build_extension_interface' );
 
@@ -86,7 +86,7 @@ function pagelines_build_option_interface(){
 function pagelines_build_templates_interface(){ 
 	
 	$args = array(
-		'title'			=> __( 'Drag <span class="spamp">&amp;</span> Drop Template Setup', 'pagelines' ), 
+		'title'			=> __( "Drag <span class='spamp'>&amp;</span> Drop Template Setup", 'pagelines' ), 
 		'settings' 		=> PAGELINES_TEMPLATES,
 		'callback'		=> 'templates_array',
 		'basic_reset'	=> true,

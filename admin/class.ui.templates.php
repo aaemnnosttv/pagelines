@@ -507,7 +507,7 @@ class PageLinesTemplateBuilder {
 				
 				$clone_js = (VPRO) ? sprintf('onClick="cloneSection(\'%s\');"', $a['id']) : '';
 				
-				$clone_text = (VPRO) ? 	__( 'Clone', 'pagelines' ) : __( 'Clone <span class="sss-tag">(PRO)</span>', 'pagelines' );
+				$clone_text = (VPRO) ? 	__( 'Clone', 'pagelines' ) : __( "Clone <span class='sss-tag'>(PRO)</span>", 'pagelines' );
 				
 				$clone_class = (!VPRO) ?  'disabled_clone_button' : '';
 				

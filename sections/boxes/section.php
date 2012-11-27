@@ -184,7 +184,7 @@ class PageLinesBoxes extends PageLinesSection {
 										'top_thumbs'	=> array('name' => __( 'Image On Top', 'pagelines') ), 
 										'only_thumbs'	=> array('name' => __( "Only The Image, No Text", 'pagelines') )
 									), 
-								'inputlabel' => __( 'Box Thumb Style (optional - defaults to "At Left")', 'pagelines'),				
+								'inputlabel' => __( 'Box Thumb Style (optional - defaults to Image At Left)', 'pagelines'),				
 
 							),
 							'box_thumb_size' => array(
@@ -240,7 +240,7 @@ class PageLinesBoxes extends PageLinesSection {
 						'size'			=> 'small',
 						'inputlabel' 	=> __( 'More Link Text', 'pagelines'),
 						'title' 		=> __( 'More Link Text', 'pagelines'),
-						'shortexp' 		=> __( 'Enter text for "more" links on linked box elements for this page.', 'pagelines'),
+						'shortexp' 		=> __( 'Enter text for More links on linked box elements for this page.', 'pagelines'),
 						'exp'			=> __( 'If this option is blank (and not set in defaults), no more text will show.<br/><br/> This option can be overridden in individual box settings.', 'pagelines')
 					),
 					'box_class' => array(

@@ -119,7 +119,7 @@ class PageLinesCarousel extends PageLinesSection {
 							'posts' 		=> array( 'name' => __( 'Post Thumbnails (posts)', 'pagelines' ) ),							
 							'flickr'		=> array( 'name' => __( 'Flickr', 'pagelines' ) ),
 							'ngen_gallery' 	=> array( 'name' => __( 'NextGen Gallery', 'pagelines' ) ), 
-							'hook'			=> array( 'name' => __( 'Hook: "pagelines_carousel_list"', 'pagelines' ) )
+							'hook'			=> array( 'name' => __( 'Hook: pagelines_carousel_list', 'pagelines' ) )
 						),					
 						'title' 	=> __( 'Carousel Image/Link Mode (Carousel Page Template)', 'pagelines' ),
 						'shortexp' 	=> __( 'Select the mode that the carousel should use for its thumbnails.', 'pagelines' ),

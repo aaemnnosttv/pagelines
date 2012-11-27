@@ -36,7 +36,7 @@ class PageLinesFeatures extends PageLinesSection {
 					'version'	=> 'pro',
 					'type'		=> 'check',
 					'inputlabel'=> __( 'Enable Feature Metapanel on Posts?', 'pagelines' ),
-					'title'		=> __( 'Feature Section - Enable "Post-As-Feature" Control Metapanel', 'pagelines' ),
+					'title'		=> __( 'Feature Section - Enable Post-As-Feature Control Metapanel', 'pagelines' ),
 					'shortexp'	=> __( 'Shows as metapanel for controlling the appearance of posts inside the feature slider.', 'pagelines' ),
 					'exp'		=> __( 'If you are using the feature slider in posts or post category mode, you may want to control the appearance of the posts inside the feature. Enable this option to show the posts metapanel.', 'pagelines' )
 				),
@@ -604,7 +604,7 @@ class PageLinesFeatures extends PageLinesSection {
 							'title' 			=> __( 'Feature Link URL', 'pagelines' ),
 							'label'				=> __( 'Enter Feature Link URL', 'pagelines' ),
 							'type' 				=> 'text', 
-							'exp'				=> __( 'Adds a "More" link to your text. If you have "Full Width Background Image" mode selected, the entire slide will be linked.', 'pagelines' )
+							'exp'				=> __( 'Adds a More link to your text. If you have Full Width Background Image mode selected, the entire slide will be linked.', 'pagelines' )
 						),
 					'feature-link-text' => array(
 							'default'		=> 'More',

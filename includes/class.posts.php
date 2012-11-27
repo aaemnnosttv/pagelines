@@ -260,7 +260,7 @@ class PageLinesPosts {
 				printf( 
 					'<div class="p tags">%s&nbsp;</div>', 
 					get_the_tag_list( 
-						__( '<span class="note">Tagged with &rarr;</span> ', 'pagelines' ), 
+						__( "<span class='note'>Tagged with &rarr;</span> ", 'pagelines' ), 
 						' &bull; ', 
 						''
 					)	 
