@@ -4,6 +4,12 @@
 
 ********************************************************
 
+Version 2.3.7
+
+	- CORE - Update Bootstrap core js.
+	- Bugs - Fix PHP warning if sections plugin is not installed.
+	- Bugs - CPT post-meta options were being ignored.
+
 Version 2.3.6
 
 	- Bugs - Plus themes bug fixed.
