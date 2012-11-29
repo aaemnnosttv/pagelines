@@ -65,7 +65,7 @@ function is_pagelines_special( $args = array() ) {
 
 	$special_types = apply_filters( 'pagelines_special_types', array('posts','archive','category','search','tag','author','404_page') );
 
-	if ( is_404() || is_home() || is_search() || is_archive() || pl_is_cpt() ) 
+	if ( is_404() || is_home() || is_search() || is_archive() ) 
 		$special = true;
 
 	elseif ( isset( $args['type'] ) && in_array( $args['type'], $special_types ) )		   
