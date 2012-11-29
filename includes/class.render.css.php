@@ -719,11 +719,11 @@ class PageLinesRenderCSS {
 		$sections = array();
 		$sections['parent'] = $available['parent'];
 		unset( $available['parent'] );
-		$sections['child'] = $available['child'];
+		$sections['child'] = (array) $available['child'];
 		unset( $available['child'] );
 		if ( is_array( $available ) )
 			$sections = array_merge( $sections, $available );
-		foreach( $sections as $t ) {		
+		foreach( $sections as $t ) {
 			foreach( $t as $key => $data ) {
 				if ( $data['less'] && $data['loadme'] ) {						
 					if ( is_file( $data['base_dir'] . '/style.less' ) )
