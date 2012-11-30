@@ -86,30 +86,24 @@ class PageLinesRenderCSS {
 		add_action( 'admin_notices', array(&$this,'less_error_report') );
 		add_action( 'wp_before_admin_bar_render', array( &$this, 'less_css_bar' ) );
 		if ( defined( 'PL_CSS_FLUSH' ) )
-			do_action( 'extend_flush' );
+			do_action( 'extend_flush' );		
 		do_action( 'pagelines_max_mem' );
 	}
 	
 	function less_file_mode() {
 		
+		global $blog_id;
 		if ( ! get_theme_mod( 'pl_save_version' ) )
 			return;
-
 
 		if( defined( 'LESS_FILE_MODE' ) && false == LESS_FILE_MODE )
 			return;
 
-		$folder = $this->get_uploads_folder();
+		if( defined( 'PL_NO_DYNAMIC_URL' ) && true == PL_NO_DYNAMIC_URL )
+			return;
 
-		if ( is_multisite() ) {
-
-			global $blog_id;
-			$url = content_url( sprintf( 'blogs.dir/%s/files/pagelines/', $blog_id ) );
-			
-		} else {
-		$upload_dir = wp_upload_dir();
-		$url = $upload_dir['baseurl'] . '/pagelines/';
-	}
+		$folder = $this->get_css_dir( 'path' );
+		$url = $this->get_css_dir( 'url' );
 
 		$file = sprintf( 'compiled-css-%s.css', get_theme_mod( 'pl_save_version' ) );
 
@@ -139,13 +133,21 @@ class PageLinesRenderCSS {
 		$this->write_css_file( $out );	
 	}
 	
+	function get_css_dir( $type = '' ) {
+		
+		$folder = wp_upload_dir();
+		
+		if( 'path' == $type )
+			return trailingslashit( $folder['basedir'] ) . 'pagelines'; 
+		else
+			return trailingslashit( $folder['baseurl'] ) . 'pagelines'; 	
+	}
+	
 	function write_css_file( $txt ){
 		add_filter('request_filesystem_credentials', '__return_true' );
 
 		$method = '';
 		$url = 'themes.php?page=pagelines';
-
-		$upload_dir = wp_upload_dir();
 		
 		if ( ! function_exists( 'posix_geteuid') || ! function_exists( 'posix_getpwuid' ) )
 			return;
@@ -155,7 +157,7 @@ class PageLinesRenderCSS {
 		if( $User['name'] !== $File['name'] )
 			return;
 		
-		$folder = $this->get_uploads_folder();
+		$folder = $this->get_css_dir( 'path' );
 		$file = sprintf( 'compiled-css-%s.css', get_theme_mod( 'pl_save_version' ) );
 		
 		if( !is_dir( $folder ) )
@@ -174,16 +176,9 @@ class PageLinesRenderCSS {
 				$wp_filesystem->put_contents( trailingslashit( $folder ) . $file, $txt, FS_CHMOD_FILE);
 			else
 				return false;
-				if ( is_multisite() ) {
+			$url = $this->get_css_dir( 'url' );
 
-					global $blog_id;
-					$url = content_url( sprintf( 'blogs.dir/%s/files/pagelines/', $blog_id ) );
-
-				} else {
-				$upload_dir = wp_upload_dir();
-				$url = $upload_dir['baseurl'] . '/pagelines/';
-			}
-			define( 'DYNAMIC_FILE_URL', sprintf( '%s%s', $url, $file ) );
+			define( 'DYNAMIC_FILE_URL', sprintf( '%s/%s', $url, $file ) );
 	}
 
 	function do_background_image() {
@@ -360,6 +355,9 @@ class PageLinesRenderCSS {
 
 	function check_compat() {
 		
+		if( defined( 'LESS_FILE_MODE' ) && false == LESS_FILE_MODE && is_multisite() )
+			return true;
+			
 		if ( function_exists( 'icl_get_home_url' ) )
 			return true;
 
@@ -638,7 +636,7 @@ class PageLinesRenderCSS {
 		$types = array( 'sections', 'core', 'custom' );
 		
 
-		$folder = self::get_uploads_folder();
+		$folder = trailingslashit( self::get_css_dir( 'path' ) );
 		
 		$file = sprintf( 'compiled-css-%s.css', get_theme_mod( 'pl_save_version' ) );
 		
@@ -661,24 +659,7 @@ class PageLinesRenderCSS {
 		
 			delete_transient( "pagelines_{$t}_css" );	
 		}	
-	}
-	
-	function get_uploads_folder() {
-		
-		if ( is_multisite() ) {
-			
-			global $blog_id;
-			
-			$folder = BLOGUPLOADDIR . '/pagelines/';
-		} else {
-			
-			$upload_dir = wp_upload_dir();
-			$folder = $upload_dir['basedir'] . '/pagelines/';
-		}	
-		return $folder;
-		
-	}
-	
+	}	
 	
 	function pagelines_insert_core_less_callback( $code ) {
 
