@@ -7,6 +7,7 @@
 Version 2.3.7
 
 	- CORE - Update Bootstrap core js.
+	- CORE - Update css/less system to work with wp 3.5 MU sites.
 	- Bugs - Fix PHP warning if sections plugin is not installed.
 	- Bugs - CPT post-meta options were being ignored.
 
