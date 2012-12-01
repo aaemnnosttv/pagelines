@@ -142,7 +142,7 @@ jQuery(window).load(function() {
 			$array['quick_slides'] = array(
 				'type' 			=> 'count_select',
 				'count_start'	=> 1, 
-				'count_end'		=> 10,
+				'count_number'	=> 10,
 				'default'		=> '3',
 				'inputlabel' 	=> __( 'Number of Slides to Configure', 'pagelines' ),
 				'title' 		=> __( 'Number of Slides', 'pagelines' ),
