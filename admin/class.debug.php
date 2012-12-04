@@ -134,7 +134,6 @@ class PageLinesDebug {
 				'level'	=> false
 			);
 
-
 			$this->debug_info[] = array(
 				'title'	=> 'PHP Safe Mode',
 				'value' => ( (bool) ini_get('safe_mode') ) ? 'Yes!':'',
@@ -149,19 +148,19 @@ class PageLinesDebug {
 
 			$this->debug_info[] = array(
 				'title'	=> 'PHP Register Globals',
-				'value' => ( (bool) ini_get('register_globals') ) ? 'Yes':'',
+				'value' => ( (bool) ini_get('register_globals') ) ? 'Yes (bad)':'',
 				'level'	=> false
 			);
 
 			$this->debug_info[] = array(
 				'title'	=> 'PHP Magic Quotes gpc',
-				'value' => ( (bool) ini_get('magic_quotes_gpc') ) ? 'Yes':'',
+				'value' => ( (bool) ini_get('magic_quotes_gpc') ) ? 'Yes (bad)':'',
 				'level'	=> false
 			);
 
 			$this->debug_info[] = array(
 				'title'	=> 'PHP memory',
-				'value' => ( !ini_get('memory_limit') || ( intval(ini_get('memory_limit')) <= 128 ) ) ? intval(ini_get('memory_limit') ):'',
+				'value' => intval(ini_get('memory_limit') ),
 				'level'	=> false
 			);
 
@@ -170,13 +169,35 @@ class PageLinesDebug {
 				'value' => ( version_compare( $wpdb->get_var("SELECT VERSION() AS version"), '6' ) < 0  ) ? $wpdb->get_var("SELECT VERSION() AS version"):'',
 				'level'	=> false
 			);
+			$ex_dir = PL_EXTEND_DIR;
 
-			$this->debug_info[] = array(
-				'title'	=> 'Sections DIR',
-				'value' => ( !is_writable( PL_EXTEND_DIR ) ) ? "Unable to write to <code>{PL_EXTEND_DIR}</code>":'',
-				'level'	=> true,
-				'extra' => $uploads['path']
-			);
+			if( ! is_dir( $ex_dir ) ) {
+
+				$this->debug_info[] = array(
+					'title'	=> 'Sections Plugin',
+					'value' => 'Not Installed!',
+					'level'	=> true,
+				);
+
+			}
+
+			if( is_dir( $ex_dir ) ) {
+				$this->debug_info[] = array(
+					'title'	=> 'Sections DIR',
+					'value' => ( !is_writable( PL_EXTEND_DIR ) ) ? "Not Writable!":'Writable.',
+					'level'	=> true,
+					'extra' => PL_EXTEND_DIR
+				);
+			}
+
+			include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+			if( is_dir( $ex_dir ) && ! is_plugin_active( 'pagelines-sections/pagelines-sections.php' ) ) {
+				$this->debug_info[] = array(
+					'title'	=> 'Sections Plugin',
+					'value' => 'Not Active!',
+					'level'	=> true,
+				);
+			}
 
 			$this->debug_info[] = array(
 				'title'	=> 'PHP type',
