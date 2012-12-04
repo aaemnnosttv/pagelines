@@ -8,6 +8,12 @@ Version 2.3.7
 
 	- CORE - Update Bootstrap core js.
 	- CORE - Update css/less system to work with wp 3.5 MU sites.
+	- CORE - Make pledit filterable. 'pagelines_pledit_filter'
+	- CORE - Clear cache on sections dragged.
+	- CORE - Attempt to clear super cache and w3 cache files on save.
+	- CORE - Added some debugging info.
+	- Bugs - Use clearfix() Fixes the 5px blank space bug.
+	- Bugs - Navbar fix on touchscreens.
 	- Bugs - Fix PHP warning if sections plugin is not installed.
 	- Bugs - CPT post-meta options were being ignored.
 
