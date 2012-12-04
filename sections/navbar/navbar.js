@@ -32,3 +32,14 @@ jQuery(document).ready(function(){
 	jQuery(".dropdown-toggle").dropdown()
 
 })
+
+jQuery(document).ready(function(){
+	touchFix();
+}); 
+
+function touchFix(){
+	jQuery('body')
+		.on('touchstart.dropdown', '.dropdown-menu', function (e) {e.stopPropagation();})
+		.on('touchstart.dropdown', '.dropdown-submenu', function (e) {e.preventDefault();});
+}
+
