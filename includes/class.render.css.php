@@ -634,7 +634,6 @@ class PageLinesRenderCSS {
 	function flush_version( $rules = true ) {
 
 		$types = array( 'sections', 'core', 'custom' );
-		
 
 		$folder = trailingslashit( self::get_css_dir( 'path' ) );
 		
@@ -642,6 +641,20 @@ class PageLinesRenderCSS {
 		
 		if( is_file( $folder . $file ) )
 			@unlink( $folder . $file );
+
+		// Attempt to flush super-cache and w3 cache.
+		
+		if( function_exists( 'prune_super_cache' ) ) {
+			global $cache_path;
+			$GLOBALS["super_cache_enabled"] = 1;
+        	prune_super_cache( $cache_path . 'supercache/', true );
+        	prune_super_cache( $cache_path, true );
+		}
+		if( class_exists('W3_Plugin_TotalCacheAdmin') ) {
+		    $plugin_totalcacheadmin = & w3_instance('W3_Plugin_TotalCacheAdmin');
+
+		    $plugin_totalcacheadmin->flush_all();
+		}
 		
 		if( $rules )
 			flush_rewrite_rules( true );
