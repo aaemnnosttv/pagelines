@@ -197,11 +197,11 @@ ul.tabbed-list {
 		border-radius: 4px;
 	}
 	
+/* @ Clearfixing */
 
-	
-	/* @ Clearfixing */
-		.fix:after{content:".";display:block;height:0;clear:both;visibility:hidden;} .fix{display:inline-block;} * html .fix{height:1%;} .fix{display:block;}
-		.clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden;} .clearfix{display:inline-block;} * html .clearfix{height:1%;} .clearfix{display:block;}
+.fix{
+	.clearfix();
+}
 	
 /* @ Buttons */
 .blink-wrap{
