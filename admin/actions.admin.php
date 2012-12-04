@@ -174,6 +174,8 @@ function ajax_save_template_map() {
 
     save_template_map( $templatemap );
 
+	PageLinesRenderCSS::flush_version( false );
+	
     echo true;
 
     die();
