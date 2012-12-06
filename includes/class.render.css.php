@@ -107,11 +107,14 @@ class PageLinesRenderCSS {
 
 		$file = sprintf( 'compiled-css-%s.css', get_theme_mod( 'pl_save_version' ) );
 
-		if( file_exists( $folder . $file ) ){
-			define( 'DYNAMIC_FILE_URL', $url . $file );
+		if( file_exists( trailingslashit( $folder ) . $file ) ){
+			define( 'DYNAMIC_FILE_URL', trailingslashit( $url ) . $file );
 			return;
 		}
 		
+		if( false == $this->check_posix() )
+			return;
+
 		$a = $this->get_compiled_core();
 		$b = $this->get_compiled_sections();
 		$gfonts = preg_match( '#(@import[^;]*;)#', $a['type'], $g ); 
@@ -133,6 +136,22 @@ class PageLinesRenderCSS {
 		$this->write_css_file( $out );	
 	}
 	
+	function check_posix() {
+		
+		if ( true == apply_filters( 'render_css_posix_', false ) )
+			return true;
+
+		if ( ! function_exists( 'posix_geteuid') || ! function_exists( 'posix_getpwuid' ) )
+			return false;
+		
+		$User = posix_getpwuid( posix_geteuid() );
+		$File = posix_getpwuid( fileowner( __FILE__ ) );
+		if( $User['name'] !== $File['name'] )
+			return false;
+			
+		return true;
+	}
+	
 	function get_css_dir( $type = '' ) {
 		
 		$folder = wp_upload_dir();
@@ -144,19 +163,12 @@ class PageLinesRenderCSS {
 	}
 	
 	function write_css_file( $txt ){
+
 		add_filter('request_filesystem_credentials', '__return_true' );
 
 		$method = '';
 		$url = 'themes.php?page=pagelines';
-		
-		if ( ! function_exists( 'posix_geteuid') || ! function_exists( 'posix_getpwuid' ) )
-			return;
-		
-		$User = posix_getpwuid( posix_geteuid() );
-		$File = posix_getpwuid( fileowner( __FILE__ ) );
-		if( $User['name'] !== $File['name'] )
-			return;
-		
+				
 		$folder = $this->get_css_dir( 'path' );
 		$file = sprintf( 'compiled-css-%s.css', get_theme_mod( 'pl_save_version' ) );
 		
