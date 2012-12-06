@@ -77,7 +77,7 @@ class PageLinesRenderCSS {
 		add_filter( 'query_vars', array( &$this, 'pagelines_add_trigger' ) );
 		add_action( 'template_redirect', array( &$this, 'pagelines_less_trigger' ) , 15);
 		add_action( 'template_redirect', array( &$this, 'less_file_mode' ) );
-		add_action( 'wp_print_styles', array( &$this, 'load_less_css' ), 11 );
+		add_action( 'wp_enqueue_scripts', array( &$this, 'load_less_css' ) );
 		add_action( 'pagelines_head_last', array( &$this, 'draw_inline_custom_css' ) , 25 );
 		add_action( 'wp_head', array( &$pagelines_template, 'print_template_section_head' ), 12 );
 		add_action( 'wp_head', array( &$this, 'do_background_image' ), 13 );
