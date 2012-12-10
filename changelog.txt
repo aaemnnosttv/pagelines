@@ -4,6 +4,11 @@
 
 ********************************************************
 
+Version 2.3.8
+
+	- Bugs - Use enqueue properly.
+	- CORE - Better POSIX check, plus filter added to override 'render_css_posix_'. 
+
 Version 2.3.7
 
 	- CORE - Update Bootstrap core js.
