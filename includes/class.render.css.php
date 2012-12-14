@@ -154,7 +154,7 @@ class PageLinesRenderCSS {
 	
 	function get_css_dir( $type = '' ) {
 		
-		$folder = wp_upload_dir();
+		$folder = apply_filters( 'pagelines_css_upload_dir', wp_upload_dir() );
 		
 		if( 'path' == $type )
 			return trailingslashit( $folder['basedir'] ) . 'pagelines'; 
@@ -337,9 +337,11 @@ class PageLinesRenderCSS {
 			$id = '1';
 				
 		$version = sprintf( '%s_%s', $id, $version );
+
+		$parent = apply_filters( 'pl_parent_css_url', PL_PARENT_URL );
 				
 		if ( '' != get_option('permalink_structure') && ! $this->check_compat() )
-			$url = sprintf( '%s/pagelines-compiled-css-%s/', PL_PARENT_URL, $version );
+			$url = sprintf( '%s/pagelines-compiled-css-%s/', $parent, $version );
 		else {
 			
 			if ( false !== ( strpos( $this->get_base_url(), '?' ) ) )
