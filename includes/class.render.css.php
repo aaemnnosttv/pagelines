@@ -43,7 +43,6 @@ class PageLinesRenderCSS {
 			'dropdowns',
 			'accordion',
 			'carousel',
-			'responsive',
 			'navs',
 			'modals',
 			'thumbnails',
@@ -58,7 +57,8 @@ class PageLinesRenderCSS {
 			'pager', 
 			'pagination',
 			'progress-bars', 
-			'icons'
+			'icons',
+			'responsive',
 		);
 		return $files;
 	}
