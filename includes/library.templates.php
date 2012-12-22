@@ -529,13 +529,13 @@ add_filter( 'wp_title', 'pagelines_filter_wp_title' );
 function pagelines_fix_ie( ){
 	
 	$ie_ver = pl_detect_ie();
-	if( ploption('google_ie') && ( $ie_ver < 8 ) )
-		echo '<script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE8.js"></script>'."\n";
-	
+	if( ploption('google_ie') && ( $ie_ver < 9 ) ) {
+		printf( '<script src="//ie7-js.googlecode.com/svn/version/2.1(beta4)/IE%s.js"></script>%s', $ie_ver +1 , "\n" );
+	}
 	if ( $ie_ver < 9 ){
 		printf(
 			'%2$s<script src="%1$s"></script>%2$s', 
-			'http://html5shim.googlecode.com/svn/trunk/html5.js', 
+			'//html5shim.googlecode.com/svn/trunk/html5.js', 
 			"\n"
 		);
 	}
