@@ -1326,7 +1326,7 @@ class PageLines_ShortCodes {
 					});
 				</script><?php
  
-		   		printf( '<div id="modal_%6$s" class="modal hide fade" style="display:none;"><div class="modal-header"><a class="close" data-dismiss="modal">×</a><h3>%s</h3></div><div class="modal-body"><p>%4$s</p></div><div class="modal-footer"><a href="#" class="btn btn-%3$s" data-dismiss="modal">%7$s</a></div></div><a data-toggle="modal" href="#modal_%6$s" class="%2$s %2$s-%3$s">%5$s</a>',
+		   		printf( '<div id="modal_%6$s" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-header"><a class="close" data-dismiss="modal" aria-hidden="true">×</a><h3>%s</h3></div><div class="modal-body"><p>%4$s</p></div><div class="modal-footer"><a href="#" class="btn btn-%3$s" data-dismiss="modal" aria-hidden="true">%7$s</a></div></div><a data-toggle="modal" role="button" href="#modal_%6$s" class="%2$s %2$s-%3$s">%5$s</a>',
 				$title,
 				$type,
 				$colortype,

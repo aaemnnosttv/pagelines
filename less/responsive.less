@@ -93,6 +93,16 @@
     padding-left: 10px;
     padding-right: 10px;
   }
+// Modals
+  .modal {
+	top:   50px;
+    left:  10px;
+    right: 10px;
+  }
+  .modal-header .close {
+    padding: 10px;
+    margin: -10px;
+  }
 
   // Carousel
   .carousel-caption {
@@ -160,7 +170,17 @@
   .input-append input[class*="span"] {
     width: auto;
   }
-
+  // Modals
+  .modal {
+    position: fixed;
+    top:   50px;
+    left:  20px;
+    right: 20px;
+    width: auto;
+    margin: 0;
+    &.fade  { top: -100px; }
+    &.fade.in { top: 50px; }
+  }
 }
 
 
