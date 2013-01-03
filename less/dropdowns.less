@@ -39,26 +39,25 @@
 // The dropdown menu (ul)
 // ----------------------
 body .dropdown-menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  z-index: @zindexDropdown;
-  display: none; // none by default, but block on "open" of the menu
-  float: left;
-  min-width: 160px;
-  padding: 5px 0;
-  margin: 2px 0 0; // override default ul
-  list-style: none;
-  background-color: @dropdownBackground;
-  border: 1px solid #ccc; // Fallback for IE7-8
-  border: 1px solid @dropdownBorder;
-  *border-right-width: 2px;
-  *border-bottom-width: 2px;
-  .border-radius(6px);
-  .box-shadow(0 5px 10px rgba(0,0,0,.2));
-  -webkit-background-clip: padding-box;
-     -moz-background-clip: padding;
-          background-clip: padding-box;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	z-index: @zindexDropdown;
+	display: none; // none by default, but block on "open" of the menu
+	float: left;
+	min-width: 160px;
+	padding: 5px 0;
+	margin: 2px 0 0; // override default ul
+	list-style: none;
+	background-color: @dropdownBackground;
+	border: 1px solid #ccc; // Fallback for IE7-8
+	border: 1px solid @dropdownBorder;
+	*border-right-width: 2px;
+	*border-bottom-width: 2px;
+	.border-radius(6px);
+	.box-shadow(0 5px 10px rgba(0,0,0,.2));
+	.background-clip(padding-box);
+
 
   // Aligns the dropdown menu to right
   &.pull-right {
@@ -166,13 +165,11 @@ body .dropdown-menu {
   position: relative;
 }
 .dropdown-submenu > .dropdown-menu {
-  top: 0;
-  left: 100%;
-  margin-top: -6px;
-  margin-left: -1px;
-  -webkit-border-radius: 0 6px 6px 6px;
-     -moz-border-radius: 0 6px 6px 6px;
-          border-radius: 0 6px 6px 6px;
+	top: 0;
+	left: 100%;
+	margin-top: -6px;
+	margin-left: -1px;
+	.border-radius(0 6px 6px 6px);
 }
 .dropdown-submenu:hover > .dropdown-menu {
   display: block;
