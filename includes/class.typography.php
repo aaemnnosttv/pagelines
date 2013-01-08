@@ -7,7 +7,7 @@
  */
 class PageLinesFoundry {
 	
-	var $gfont_base_uri = 'fonts.googleapis.com/css?v2&family=';
+	var $gfont_base_uri = '//fonts.googleapis.com/css?v2&family=';
 	var $foundry;
 	
 	/**
@@ -16,20 +16,10 @@ class PageLinesFoundry {
 	 */
 	function __construct( ) {
 
-		$this->set_gfont_protocol();
+		$this->gfont_base_uri = apply_filters( 'pagelines_gfont_baseurl', $this->gfont_base_uri );
 		$this->foundry = $this->get_type_foundry();
+	}
 
-	}
-	
-	function set_gfont_protocol() {
-		
-		if ( is_ssl() || has_action( 'pl_force_ssl' ) )
-			$prot = 'https://';
-		else
-			$prot = 'http://';
-		
-		$this->gfont_base_uri = $prot . apply_filters( 'pagelines_gfont_baseurl', $this->gfont_base_uri );
-	}
 	/**
 	*
 	* @TODO document
