@@ -71,15 +71,16 @@ body .dropdown-menu {
   }
 
   // Links within the dropdown menu
-  a {
-    display: block;
-    padding: 3px 20px;
-    clear: both;
-    font-weight: normal;
-    line-height: @baseLineHeight;
-    color: @dropdownLinkColor;
-    white-space: nowrap;
-  }
+	li > a,
+	li > span {
+	  display: block;
+	  padding: 3px 20px;
+	  clear: both;
+	  font-weight: normal;
+	  line-height: @baseLineHeight;
+	  color: @dropdownLinkColor;
+	  white-space: nowrap;
+	}
 }
 
 // Hover state
@@ -115,9 +116,12 @@ body .dropdown-menu {
 }
 // Nuke hover effects
 .dropdown-menu .disabled > a:hover {
-  text-decoration: none;
-  background-color: transparent;
-  cursor: default;
+	text-decoration: none;
+	text-shadow: none;
+	background-color: transparent;
+	background-image: none; // Remove CSS gradient
+	.reset-filter();
+	cursor: default;
 }
 
 // Open state for the dropdown
