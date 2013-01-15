@@ -232,6 +232,8 @@ class PLNavBar extends PageLinesSection {
 	
 	$theme_class = ($theme) ? sprintf(' pl-color-%s', $theme) : ' pl-color-black-trans';
 	
+	$theme_class = ( ploption( 'navbar_enable_hover' ) ) ? $theme_class . ' plnav_hover' : $theme_class;
+	
 	$brand = (ploption('navbar_logo') || ploption('navbar_logo') != '') ? sprintf('<img src="%s" />', ploption('navbar_logo')) : sprintf('<h2 class="plbrand-text">%s</h2>', get_bloginfo('name'));
 
     $navbartitle = ploption( 'navbar_title', $this->oset );

@@ -40,7 +40,30 @@ body.navbar_fixed {
 	&.navbar-content-width{
 		.border-radius( 4px );
 	}
+	&.plnav_hover {
+		.sub-menu .dropdown-menu {
+			position: absolute;
+			top: 0;
+			left: 100%;
+			margin-top: -1px;
+			visibility: hidden;
+		}
+		.dropdown-menu li:hover .sub-menu {
+		  	visibility: visible;
+		  	margin-top:-6px;
 
+		  	&:hover {
+		  		.border-radius(0 5px 5px 0);
+		  	}
+		}
+		.dropdown:hover .dropdown-menu {
+			margin-top:0;
+		  	display: block;
+		  	&:hover{
+		  		.border-radius(5px 0 0 5px);
+		  	}
+		}
+	}
 	.navline {
 		float: left;
 		position: relative;
