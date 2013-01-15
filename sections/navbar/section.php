@@ -64,25 +64,25 @@ class PLNavBar extends PageLinesSection {
 					'fixed_navbar_theme' => array(
 							'default'		=> 'black-trans',
 							'type' 			=> 'select',
-							'inputlabel' 	=> 'Fixed NavBar - Select Theme',
+							'inputlabel' 	=> __( 'Fixed NavBar - Select Theme', 'pagelines' ),
 							'selectvalues'	=> array(
-								'black-trans'	=> array('name'	=>'Black Transparent (Default)'),
-								'blue'			=> array('name'	=>'Blue'),
-								'grey'			=> array('name'	=>'Light Grey'),
-								'orange'		=> array('name'	=>'Orange'),
-								'red'			=> array('name'	=>'Red'),
+								'black-trans'	=> array( 'name'	=> __( 'Black Transparent (Default)', 'pagelines' ) ),
+								'blue'			=> array( 'name'	=> __( 'Blue', 'pagelines' ) ),
+								'grey'			=> array( 'name'	=> __( 'Light Grey', 'pagelines' ) ),
+								'orange'		=> array( 'name'	=> __( 'Orange', 'pagelines' ) ),
+								'red'			=> array( 'name'	=> __( 'Red', 'pagelines' ) ),
 							),
 						),
 					'navbar_theme' => array(
 							'default'		=> 'black-trans',
 							'type' 			=> 'select',
-							'inputlabel' 	=> 'Standard NavBar - Select Theme',
+							'inputlabel' 	=> __( 'Standard NavBar - Select Theme', 'pagelines' ),
 							'selectvalues'	=> array(
-								'black-trans'	=> array('name'	=>'Black Transparent (Default)'),
-								'blue'			=> array('name'	=>'Blue'),
-								'grey'			=> array('name'	=>'Light Grey'),
-								'orange'		=> array('name'	=>'Orange'),
-								'red'			=> array('name'	=>'Red'),
+								'black-trans'	=> array( 'name'	=> __( 'Black Transparent (Default)', 'pagelines' ) ),
+								'blue'			=> array( 'name'	=> __( 'Blue', 'pagelines' ) ),
+								'grey'			=> array( 'name'	=> __( 'Light Grey', 'pagelines' ) ),
+								'orange'		=> array( 'name'	=> __( 'Orange', 'pagelines' ) ),
+								'red'			=> array( 'name'	=> __( 'Red', 'pagelines' ) ),
 							),
 						),
 				),
@@ -99,12 +99,12 @@ class PLNavBar extends PageLinesSection {
 					'fixed_navbar_menu' => array(
 							'default'		=> 'black-trans',
 							'type' 			=> 'select_menu',
-							'inputlabel' 	=> 'Fixed NavBar - Select Menu',
+							'inputlabel' 	=> __( 'Fixed NavBar - Select Menu', 'pagelines' ),
 						),
 					'navbar_menu' => array(
 							'default'		=> 'black-trans',
 							'type' 			=> 'select_menu',
-							'inputlabel' 	=> 'Standard NavBar - Select Menu',
+							'inputlabel' 	=> __( 'Standard NavBar - Select Menu', 'pagelines' ),
 						),
 				),
 				'title'					=> __( 'NavBar and Fixed NavBar Menu', 'pagelines' ),						
@@ -117,32 +117,35 @@ class PLNavBar extends PageLinesSection {
 				'default' => '',
 				'type' => 'check_multi',
 				'selectvalues'=> array(
-		
-					'fixed_navbar_alignment' => array(
-							'inputlabel' 	=> 'Fixed NavBar - Align Menu Right? (Defaults Left)',
+					
+					'navbar_enable_hover'		=>	array(
+						'inputlabel'			=> __( 'Activate dropdowns on hover.', 'pagelines' ),
+					),
+					
+					'fixed_navbar_alignment'	=> array(
+							'inputlabel'		=> __( 'Fixed NavBar - Align Menu Right? (Defaults Left)', 'pagelines' ),
 						),
-					'fixed_navbar_hidesearch' => array(
-							'inputlabel' 	=> 'Fixed NavBar - Hide Searchform?',
+					'fixed_navbar_hidesearch'	=> array(
+							'inputlabel'		=> __( 'Fixed NavBar - Hide Searchform?', 'pagelines' ),
 						),
-					'navbar_alignment' => array(
-							'inputlabel' 	=> 'Standard NavBar - Align Menu Right? (Defaults Left)',
+					'navbar_alignment'			=> array(
+							'inputlabel'		=> __( 'Standard NavBar - Align Menu Right? (Defaults Left)', 'pagelines' ),
 						),
-					'navbar_hidesearch' => array(
-							'inputlabel' 	=> 'Standard NavBar - Hide Searchform?',
+					'navbar_hidesearch'			=> array(
+							'inputlabel'		=> __(  'Standard NavBar - Hide Searchform?', 'pagelines' ),
 						),
 				),
 				'inputlabel'			=> __( 'Configure Options for NavBars', 'pagelines' ),
 				'title'					=> __( 'NavBar and Fixed NavBar Configuration Options', 'pagelines' ),						
 				'shortexp'				=> __( 'Control various appearance options for the NavBars', 'pagelines' ),
-				'exp'					=> __( '', 'pagelines' ) 
-			 
+				'exp'					=> ''			 
 			),
 			'navbar_title' => array(
 					'type' 		=> 'text',
-					'inputlabel'=> 'NavBar Title',					
+					'inputlabel'=> __( 'NavBar Title', 'pagelines' ),				
 					'title'		=> __( 'NavBar Title', 'pagelines' ),
 					'shortexp'	=> __( 'Applies text to NavBar on small screens. Not available on Fixed NavBar', 'pagelines' ),
-					'exp'		=> __( 'Add text to the NavBar to serve as a title, but only displayed on small screens.', 'pagelines' )
+					'exp'		=> __( 'Add text to the NavBar to serve as a title, but only displayed on small screens.', 'pagelines' ),
 			),
 			
 			
