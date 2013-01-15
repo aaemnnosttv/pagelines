@@ -178,3 +178,14 @@ function pagelines_check_less_reset() {
 		do_action( 'extend_flush' );
 
 }
+
+add_action( 'wp_head', 'pagelines_google_author_head' );
+
+function pagelines_google_author_head() {
+	global $post;
+	if( ! is_page() && ! is_single() && ! is_author() )
+		return;
+	$google_profile = get_the_author_meta( 'google_profile', $post->post_author );
+	if ( '' != $google_profile )
+		printf( '<link rel="author" href="%s" />%s', $google_profile, "\n" );
+}
