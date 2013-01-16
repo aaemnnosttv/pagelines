@@ -8,7 +8,7 @@
 Version 2.4
 
 	- NEW - Upgrade the PageLinesFont to FontAwesome v3.
-	- NEW - Added filter 'pagelines_css_upload_dir'.
+	- NEW - Make css save directory filterable: pagelines_css_upload_dir.
 	- NEW - Added @pl-min-height variable to LESS system.
 	- NEW - Add Google Plus! profile to HEAD of page.
 	- NEW - Enable dropdown on hover for navbar.
