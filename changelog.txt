@@ -4,6 +4,25 @@
 
 ********************************************************
 
+
+Version 2.4
+
+	- NEW - Upgrade the PageLinesFont to FontAwesome v3.
+	- NEW - Filter: pagelines_css_upload_dir.
+	- NEW - Added @pl-min-height variable.
+	- NEW - Add G+ profile to HEAD of page.
+	- NEW - Enable dropdown on hover for navbar.
+	- CORE - Load shims with // fixes ssl issues.
+	- CORE - Load google fonts with //
+	- CORE - Make all navbar options translatable.
+	- CORE - Update LESS plugin and use class_exists to check if already loaded.
+	- BUGS - Remove supersize loader.
+	- BUGS - LESS: Fix hardcoded tooltip colours.
+	- BUGS - LESS: Typo in masthead.
+	- BUGS - LESS: Fixed bugs in forms.less and progressbars.less and dropdowns.less.
+	- BUGS - LESS: Modals media queries were missing.
+	- BUGS - LESS: Load responsive last.
+		
 Version 2.3.8
 
 	- Bugs - Use enqueue properly.
