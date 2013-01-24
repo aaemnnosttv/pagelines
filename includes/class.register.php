@@ -1,15 +1,15 @@
-<?php 
+<?php
 /**
  * Controls and Manages PageLines Extension
  *
- * 
+ *
  *
  * @author		PageLines
  * @copyright	2011 PageLines
  */
 
 class PageLinesRegister {
-	
+
 	function __construct() {
 		$this->username = get_pagelines_credentials( 'user' );
 		$this->password = get_pagelines_credentials( 'pass' );
@@ -37,7 +37,7 @@ class PageLinesRegister {
 	function pagelines_register_sections( $reset = null, $echo = null ){
 
 		global $pl_section_factory;
-		
+
 		if ( $reset === true )
 			delete_transient( 'pagelines_sections_cache' );
 
@@ -48,9 +48,9 @@ class PageLinesRegister {
 		$section_dirs =  array(
 
 			'child'		=> PL_EXTEND_DIR,
-			'parent'	=> PL_SECTIONS			
+			'parent'	=> PL_SECTIONS
 			);
-		
+
 		if ( is_child_theme() && is_dir( get_stylesheet_directory()  . '/sections' ) )
 			$section_dirs = array_merge( array( 'custom' => get_stylesheet_directory()  . '/sections' ), $section_dirs );
 
@@ -61,11 +61,11 @@ class PageLinesRegister {
 		* If not populate array and prime cache
 		*/
 		if ( ! $sections = get_transient( 'pagelines_sections_cache' ) ) {
-			
+
 			foreach ( $section_dirs as $type => $dir ) {
 				$sections[$type] = $this->pagelines_getsections( $dir, $type );
 			}
-			
+
 			// check for deps within the main parent sections, load last if found.
 			foreach ($sections['parent'] as $key => $section ) {
 
@@ -78,37 +78,37 @@ class PageLinesRegister {
 			* TODO switch this to activation/deactivation interface
 			* TODO better idea, clear cached vars on settings save.
 			*/
-			set_transient( 'pagelines_sections_cache', $sections, 86400 );	
+			set_transient( 'pagelines_sections_cache', $sections, 86400 );
 		}
-		
+
 		if ( true === $echo )
 			return $sections;
-		
+
 		// filter main array containing child and parent and any custom sections
 		$sections = apply_filters( 'pagelines_section_admin', $sections );
 		$disabled = get_option( 'pagelines_sections_disabled', array( 'child' => array(), 'parent' => array(), 'custom' => array() ) );
 
 		foreach ( $sections as $type ) {
 			if(is_array($type)){
-				
+
 				foreach( $type as $section ) {
-					
+
 					if ( ! isset( $section['loadme'] ) )
 						$section['loadme'] = false;
-											
+
 					if ( 'parent' == $section['type'] || ! is_multisite() ) {
 						$section['loadme'] = true;
-					}						
+					}
 					/**
 					* Checks to see if we are a child section, if so disable the parent
 					* Also if a parent section and disabled, skip.
 					*/
-					if ( 'parent' != $section['type'] && isset( $sections['parent'][$section['class']]) )					
+					if ( 'parent' != $section['type'] && isset( $sections['parent'][$section['class']]) )
 						$disabled['parent'][$section['class']] = true;
 
 					if (isset( $disabled[$section['type']][$section['class']] ) && ! $section['persistant'] )
 						continue;
-					
+
 					// consolidate array vars
 					$dep = ( 'parent' != $section['type'] && $section['depends'] != '') ? $section['depends'] : null;
 					$parent_dep = (isset($sections['parent'][$section['depends']])) ? $sections['parent'][$section['depends']] : null;
@@ -135,7 +135,7 @@ class PageLinesRegister {
 						if ( !class_exists( $section['class'] ) && is_file( $section['base_file'] ) ) {
 							include( $section['base_file'] );
 							$pl_section_factory->register( $section['class'], $section_data );
-						}	
+						}
 					} else {
 							if ( !class_exists( $section['class'] ) && is_file( $section['base_file'] ) && ! isset( $disabled['parent'][$section['depends']] ) ) {
 								include( $section['base_file'] );
@@ -146,18 +146,18 @@ class PageLinesRegister {
 			}
 		}
 		pagelines_register_hook('pagelines_register_sections'); // Hook
-	}		
+	}
 	/**
-	 * 
-	 * Helper function 
+	 *
+	 * Helper function
 	 * Returns array of section files.
 	 * @return array of php files
 	 * @author Simon Prosser
 	 **/
 	function pagelines_getsections( $dir, $type ) {
 
-		if ( 'parent' != $type && ! is_dir($dir) ) 
-			return;			
+		if ( 'parent' != $type && ! is_dir($dir) )
+			return;
 
 		if ( is_multisite() ) {
 			$store_sections = $this->get_latest_cached( 'sections' );
@@ -183,21 +183,21 @@ class PageLinesRegister {
 			'format'		=> 'Format',
 			'classes'		=> 'Classes'
 			);
-			
+
 		$sections = array();
-		
+
 		// setup out directory iterator.
 		// symlinks were only supported after 5.3.1
 		// so we need to check first ;)
 		$it = ( strnatcmp( phpversion(), '5.3.1' ) >= 0 ) ? new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $dir, FilesystemIterator::FOLLOW_SYMLINKS) , RecursiveIteratorIterator::SELF_FIRST ) : new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $dir, RecursiveIteratorIterator::CHILD_FIRST ) );
-		
+
 		foreach( $it as $fullFileName => $fileSPLObject ) {
-			
+
 			if ( basename( $fullFileName) == PL_EXTEND_SECTIONS_PLUGIN )
-				continue;	
-				
+				continue;
+
 			if (pathinfo($fileSPLObject->getFilename(), PATHINFO_EXTENSION ) == 'php') {
-				
+
 				$base_url = null;
 				$base_dir = null;
 				$load = true;
@@ -208,29 +208,29 @@ class PageLinesRegister {
 				// If no pagelines class headers ignore this file.
 				if ( !$headers['classname'] )
 					continue;
-				
+
 				preg_match( '#[\/|\-]sections[\/|\\\]([^\/|\\\]+)#', $fullFileName, $out );
-				
+
  				$version = ( '' != $headers['version'] ) ? $headers['version'] : PL_CORE_VERSION;
-				
+
 				$folder = sprintf( '/%s', $out[1] );
 
 				$base_dir = get_template_directory()  . '/sections' . $folder;
 
 				if ( 'child' == $type ) {
-					
+
 					$base_url =  PL_EXTEND_URL . $folder;
 					$base_dir =  PL_EXTEND_DIR . $folder;
-					
+
 				}
 
 				if ( 'custom' == $type ) {
-					
+
 					$base_url =  get_stylesheet_directory_uri()  . '/sections' . $folder;
 					$base_dir =  get_stylesheet_directory()  . '/sections' . $folder;
-					
+
 				}
-				
+
 				/*
 				* Look for custom dirs.
 				*/
@@ -240,30 +240,30 @@ class PageLinesRegister {
 					$file = basename( $dir );
 					$path = plugin_dir_path( $file );
 					$url = plugins_url( $file );
-					
+
 					$base_url = sprintf( '%s/sections%s', $url, $folder );
 					$base_dir =  sprintf( '%ssections%s', $dir, $folder );;
-					
+
 				}
 				$base_dir = ( isset( $base_dir ) ) ? $base_dir : PL_SECTIONS . $folder;
 				$base_url = ( isset( $base_url ) ) ? $base_url : PL_SECTION_ROOT . $folder;
-							
+
 				// do we need to load this section?
 				if ( 'child' == $type && is_multisite() ) {
 					$load = false;
-					$slug = basename( $folder );				
+					$slug = basename( $folder );
 					$purchased = ( isset( $store_sections->$slug->purchased ) ) ? $store_sections->$slug->purchased : '';
 					$plus = ( isset( $store_sections->$slug->plus_product ) ) ? $store_sections->$slug->plus_product : '';
 					$price = ( isset( $store_sections->$slug->price ) ) ? $store_sections->$slug->price : '';
 					$uid = ( isset( $store_sections->$slug->uid ) ) ? $store_sections->$slug->uid : '';
-					if ( 'purchased' === $purchased ) {				
+					if ( 'purchased' === $purchased ) {
 						$load = true;
 					} elseif( $plus && pagelines_check_credentials( 'plus' ) ) {
 						$load = true;
 					} else {
-						
+
 						$disabled = get_option( 'pagelines_sections_disabled', array( 'child' => array(), 'parent' => array() ) );
-						
+
 						if ( ! isset( $disabled['child'][$headers['classname']] ) )
 							$load = true;
 					}
@@ -299,17 +299,17 @@ class PageLinesRegister {
 					'price'			=> $price,
 					'purchased'		=> $purchased,
 					'uid'			=> $uid
-				);	
+				);
 			}
 		}
 		return $sections;
 	}
-		
+
 	function register_sidebars() {
-		
+
 		// This array contains the sidebars in the correct order.
 		$sidebars = array(
-			
+
 			'sb_primary' => array(
 				'name'	=>	__( 'Primary Sidebar', 'pagelines' ),
 				'description'	=>	__( 'The main widgetized sidebar.', 'pagelines')
@@ -342,13 +342,13 @@ class PageLinesRegister {
 			pagelines_register_sidebar( pagelines_standard_sidebar( $sidebar['name'], $sidebar['description'] ) );
 		}
 	}
-	
+
 	/**
 	* Simple cache.
 	* @return object
 	*/
 	function get_latest_cached( $type, $flush = null ) {
-		
+
 		$url = trailingslashit( PL_API . $type );
 		$options = array(
 			'body' => array(
@@ -357,29 +357,29 @@ class PageLinesRegister {
 				'flush'		=>	$flush
 			)
 		);
-		
+
 		if ( false === ( $api_check = get_transient( 'pagelines_extend_' . $type ) ) ) {
-			
+
 			// ok no transient, we need an update...
-			
+
 			$response = pagelines_try_api( $url, $options );
-			
+
 			if ( $response !== false ) {
-				
+
 				// ok we have the data parse and store it
-				
+
 				$api = wp_remote_retrieve_body( $response );
 				set_transient( 'pagelines_extend_' . $type, true, 86400 );
 				update_option( 'pagelines_extend_' . $type, $api );
-			} 
+			}
 
 		}
-		$api = get_option( 'pagelines_extend_' . $type, false );	
+		$api = get_option( 'pagelines_extend_' . $type, false );
 
 		if( ! $api )
 			return __( '<h2>Unable to fetch from API</h2>', 'pagelines' );
 
 		return json_decode( $api );
 	}
-	
+
 } // end class

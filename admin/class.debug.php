@@ -25,7 +25,7 @@ class PageLinesDebug {
 
 	// Array of debugging information
 	var $debug_info = array();
-	
+
 
 	/**
 	*
@@ -33,29 +33,29 @@ class PageLinesDebug {
 	*
 	*/
 	function __construct( ) {
-	
+
 		$this->wp_debug_info();
 		$this->debug_info_template();
 	}
-	
+
 	/**
 	 * Main output.
 	 * @return str Formatted results for page.
 	 *
 	 */
 	function debug_info_template(){
-		
+
 		$out = '';
 		foreach($this->debug_info as $element ) {
-			
+
 			if ( $element['value'] ) {
-				
+
 				$out .= '<h4>'.ucfirst($element['title']).' : '. ucfirst($element['value']);
 				$out .= (isset($element['extra'])) ? "<br /><code>{$element['extra']}</code>" : '';
 				$out .= '</h4>';
 			}
 		}
-		wp_die( $out, 'PageLines Debug Info', array( 'response' => 200, 'back_link' => true) );		
+		wp_die( $out, 'PageLines Debug Info', array( 'response' => 200, 'back_link' => true) );
 	}
 
 	/**
@@ -63,30 +63,30 @@ class PageLinesDebug {
 	 * @return array Test results.
 	 */
 	function wp_debug_info(){
-		
+
 		global $wpdb, $wp_version, $platform_build;
-		
+
 			// Set data & variables first
 			$uploads = wp_upload_dir();
 			// Get user role
 			$current_user = wp_get_current_user();
 			$user_roles = $current_user->roles;
 			$user_role = array_shift($user_roles);
-		
+
 			// Format data for processing by a template
-		
+
 			$this->debug_info[] = array(
 				'title'	=> 'WordPress Version',
-				'value' => $wp_version, 
+				'value' => $wp_version,
 				'level'	=> false,
 			);
-		
+
 			$this->debug_info[] = array(
 				'title'	=> 'Multisite Enabled',
 				'value' => ( is_multisite() ) ? 'Yes' : 'No',
 				'level'	=> false
 			);
-		
+
 			$this->debug_info[] = array(
 				'title'	=> 'Current Role',
 				'value' => $user_role,
@@ -204,13 +204,13 @@ class PageLinesDebug {
 				'value' => php_sapi_name(),
 				'level'	=> false
 			);
-			
-			
-			
+
+
+
 			$processUser = ( ! function_exists( 'posix_geteuid') || ! function_exists( 'posix_getpwuid' ) ) ? 'posix functions are disabled on this host!' : posix_getpwuid(posix_geteuid());
 			if ( is_array( $processUser ) )
 				$processUser = $processUser['name'];
-			
+
 			$this->debug_info[] = array(
 				'title'	=> 'PHP User',
 				'value' => $processUser,
@@ -222,13 +222,13 @@ class PageLinesDebug {
 				'value' => PHP_OS,
 				'level'	=> false
 			);
-			
+
 			if ( get_pagelines_option('disable_updates') == true || ( is_multisite() && ! is_super_admin() ) ) {
 				$this->debug_info[] = array(
 					'title'	=> 'Automatic Updates',
 					'value' => 'Disabled',
 					'level'	=> false
-				);	
+				);
 			} else {
 				$this->debug_info[] = array(
 					'title'	=> 'Launchpad',
@@ -272,8 +272,8 @@ class PageLinesDebug {
 }
 
 if ( ! is_admin() ) {
-	
+
 	if( isset( $_GET['pldebug'] ) )
 		new PageLinesDebug;
-	
+
 }

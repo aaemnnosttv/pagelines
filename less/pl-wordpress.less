@@ -11,30 +11,30 @@
 	margin-bottom: 1em;
 	background-color: @baseContrastSlight;
 	border: 1px solid @baseContrastDark;
-	.wp-caption-text { 
-		font-size: 11px; 
+	.wp-caption-text {
+		font-size: 11px;
 		line-height: 16px;
-		text-align: center; 
+		text-align: center;
 		margin:0;
-		padding:6px 0 2px; 
+		padding:6px 0 2px;
 	}
-	img { 
+	img {
 		display: inline-block;
-		margin: 0; 
+		margin: 0;
 		padding: 2px;
-		border: 0 none; 
+		border: 0 none;
 		background: rgba(255,255,255,.6);
 		.box-sizing(border-box);
-		
+
 	}
-	.wp-caption-dd { 
-		font-size: 11px; 
-		line-height: 17px; 
-		padding: 0 4px 5px; 
+	.wp-caption-dd {
+		font-size: 11px;
+		line-height: 17px;
+		padding: 0 4px 5px;
 		margin: 0;
 	}
 }
-	
+
 /* WordPress Calendar */
 #wp-calendar{
 	overflow: hidden;
@@ -57,9 +57,9 @@
 		font-weight: normal;
 		font-weight: bold;
 	}
-	thead th { 
+	thead th {
 		background-color: lighten(@dark-base, 1.6);
-		padding: 2px; 
+		padding: 2px;
 		font-size: .9em;
 	}
 	td{
@@ -100,11 +100,11 @@
 	&.widget_recent_comments li{
 		padding: 4px;
 	}
-	.textwidget { 
-		padding: 5px 2px; 
+	.textwidget {
+		padding: 5px 2px;
 	}
-	ul { 
-		margin:0 0 10px .4em; 
+	ul {
+		margin:0 0 10px .4em;
 		&.sub-menu{
 			margin:0px;
 		}
@@ -113,22 +113,22 @@
 			list-style:none;
 			display: block;
 			padding: 0 2px;
-			a:hover{ 
-				text-decoration: underline; 
+			a:hover{
+				text-decoration: underline;
 			}
-			ul li{ 
-				margin-left: .3em; 
+			ul li{
+				margin-left: .3em;
 			}
 		}
 	}
-	
+
 }
 // Not needed?
 .pprow .widget {
 	margin:0;
 }
 
-ul.sidebar_widgets{ 
+ul.sidebar_widgets{
 	list-style-type: none;
 }
 
@@ -136,17 +136,17 @@ ul.sidebar_widgets{
 
 /* @ Comments */
 
-.wp-comments{ 
-	margin: 1em 0 0; 
+.wp-comments{
+	margin: 1em 0 0;
 	padding-top: 40px;
     margin-top: -40px;
-	.wp-comments-pad{ 
-		padding: 10px 0; 
+	.wp-comments-pad{
+		padding: 10px 0;
 		> #respond{
 			input[type="text"], textarea{
 				background: @baseContrastSlight;
 				border: 1px solid darken(@baseContrastSlight, 10);
-				color: @pl-text; 
+				color: @pl-text;
 			}
 		}
 	}
@@ -155,25 +155,25 @@ ul.sidebar_widgets{
 #respond{
 	margin: 20px 0;
 	text-align: left;
-	form{ 
+	form{
 		margin-left: 27px;
 	}
 	#reply-title {
 		padding-left: 25px;
 		background:url(@{plRoot}/sections/comments/icon-reply@2x.png) no-repeat  0 50%;
 		background-size: 17px;
-		small{ 
+		small{
 			font-size: @miniFontSize;
 			a{color: @pl-link;}
 		}
 	}
-	#commentform { 
-		margin-top: 10px; 
+	#commentform {
+		margin-top: 10px;
 		p{
 			margin: 0 0 10px;
 		}
-		small { 
-			font-size: 90%; 
+		small {
+			font-size: 90%;
 		}
 		label{
 			display: inline;
@@ -190,9 +190,9 @@ ul.sidebar_widgets{
 		.required{
 			color: fadeout(@pl-text, 40%);
 		}
-		
-		p.logged-in-as, 
-		p.comment-form-comment, 
+
+		p.logged-in-as,
+		p.comment-form-comment,
 		p.form-submit{
 			margin: .3em 0;
 		}
@@ -201,13 +201,13 @@ ul.sidebar_widgets{
 		}
 	}
 }
-	
+
 p.form-allowed-tags{
 	width: auto;
 	margin-bottom: 1.6em;
-	font-size: .85em; 
+	font-size: .85em;
 	code{
-		background: transparent; 
+		background: transparent;
 		border: none;
 		display: block;
 		font-size: 10px;
@@ -216,57 +216,57 @@ p.form-allowed-tags{
 		padding: 0;
 	}
 }
- 
+
 .nocommentform, .nocomments{
-	display:none; 
+	display:none;
 }
 
 /* List of Comments */
-#comments-title { 
+#comments-title {
 	padding-left: 22px;
-	background:url(@{plRoot}/sections/comments/icon-comment@2x.png) no-repeat 0 30%; 
+	background:url(@{plRoot}/sections/comments/icon-comment@2x.png) no-repeat 0 30%;
 	background-size: 17px 17px;
 }
 
-	
+
 .commentlist {
 	list-style-type:none;
 	margin: 10px 0px 10px 18px;
 	line-height: 1.6em;
 	padding-left: 75px;
-	
+
 	p{
-		margin: 0px 0 1em 5px; 
+		margin: 0px 0 1em 5px;
 	}
 	> li {
 		margin-bottom: 1em;
 	}
-	li{ 
+	li{
 		padding: 10px 20px 10px 10px;
 		background: @baseContrastSlight;
-		
+
 		li.alt{
 			background: lighten(@baseContrastSlight, 3);
 		}
 	}
-	img.avatar {  
+	img.avatar {
 		box-shadow: 0 1px 2px rgba(0,0,0,.2);
-		background: @baseContrastSlight; 
-		float: left;  
-		margin: -5px 5px 5px -85px;  
-		position: relative; 
+		background: @baseContrastSlight;
+		float: left;
+		margin: -5px 5px 5px -85px;
+		position: relative;
 		padding: 2px;
 		.box-sizing(border-box);
 	}
-	cite { 
-		font-weight: bold; 
+	cite {
+		font-weight: bold;
 		font-style: normal;
 	}
 	.comment-author{
 		font-size: 1.1em;
 	}
 	.comment-awaiting-moderation{
-		background: @baseContrast; 
+		background: @baseContrast;
 		color: @textColorSubtle;
 		padding: 0 5px;
 		display: inline-block;
@@ -288,7 +288,7 @@ p.form-allowed-tags{
 			display: inline-block;
 			font-size: 10px;
 			line-height: 15px;
-			background: @baseContrast; 
+			background: @baseContrast;
 			color: @textColorSubtle;
 			padding: 1px 8px;
 			opacity: .8;
@@ -296,7 +296,7 @@ p.form-allowed-tags{
 				opacity: 1;
 			}
 			&:active{
-				opacity: .8;	
+				opacity: .8;
 			}
 		}
 	}
@@ -306,7 +306,7 @@ p.form-allowed-tags{
 		.comment-body{
 			padding-left: 50px;
 		}
-		img.avatar {  
+		img.avatar {
 			width: 40px;
 			margin-top: 0;
 			margin-left: -50px;
@@ -333,8 +333,8 @@ p.form-allowed-tags{
 
 /* Search Reader Text */
 .screen-reader-text {
-	display:none; 
-}  
+	display:none;
+}
 #wpstats{
 	width:0px;
 	height:0px;

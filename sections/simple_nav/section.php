@@ -27,7 +27,7 @@ class SimpleNav extends PageLinesSection {
 	/**
 	* Section template.
 	*/
-   function section_template() { 
+   function section_template() {
 
 	if(function_exists('wp_nav_menu'))
 		wp_nav_menu( array('menu_class'  => 'inline-list simplenav font-sub', 'theme_location'=>'simple_nav','depth' => 1,  'fallback_cb'=>'simple_nav_fallback') );

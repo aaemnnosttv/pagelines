@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 add_action('before_signup_form', 'add_multisite_markup_top');
 

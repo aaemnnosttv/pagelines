@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  *
  *  PageLines Integration Functions
@@ -6,34 +6,34 @@
  */
 
 class PageLinesIntegration {
-	
+
 	public $lesscode = '';
-	
+
 
 	/**
 	*
 	* @TODO document
 	*
 	*/
-	function __construct( $integration = ''){  
-		
-		
+	function __construct( $integration = ''){
+
+
 		$this->integration = $integration;
-		
+
 		global $pl_integration;
 		$pl_integration = $this->integration;
-		
+
 		add_filter('pagelines_lesscode', array(&$this, 'load_less'));
-		
-	}
-	
-	public function add_less( $path){
-	
-		if(is_file($path))
-			$this->lesscode .= pl_file_get_contents($path);	
 
 	}
-	
+
+	public function add_less( $path){
+
+		if(is_file($path))
+			$this->lesscode .= pl_file_get_contents($path);
+
+	}
+
 
 	/**
 	*
@@ -41,13 +41,13 @@ class PageLinesIntegration {
 	*
 	*/
 	function load_less( $lesscode ){
-		
+
 		return $lesscode . $this->lesscode;
-		
+
 	}
-	
+
 	public function parse_header(){
-		
+
 		ob_start();
 			get_header();
 		$raw = ob_get_clean();
@@ -55,25 +55,25 @@ class PageLinesIntegration {
 		$css 	= $this->regex_parse( array( 'buffer' => $raw, 'type' => 'css' ) );
 		$js 	= $this->regex_parse( array( 'buffer' => $raw, 'type' => 'js' ) );
 		$divs 	= $this->regex_parse( array( 'buffer' => $raw, 'type' => 'divs' ) );
-		
+
 		return array('css' => $css, 'js' => $js, 'divs' => $divs);
-		
+
 	}
-	
+
 	public function parse_footer(){
-		
+
 		ob_start();
 			get_footer();
 			// wp_footer();
 			// 		wp_print_scripts();
 		$raw = ob_get_clean();
-		
+
 		return array('raw' => $raw);
-		
+
 	}
-	
+
 	public function regex_parse( $args ){
-		
+
 		$defaults = array(
 
 			'buffer'=>	'',
@@ -123,5 +123,5 @@ class PageLinesIntegration {
 
 		}
 
-	}	
+	}
 }

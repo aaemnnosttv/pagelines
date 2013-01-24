@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 // Internal build versions.
 

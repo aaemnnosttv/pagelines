@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * HEADER
  *
@@ -25,21 +25,21 @@ pagelines_register_hook('pagelines_before_html'); // Hook
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
-<?php 		
-		pagelines_register_hook('pagelines_head'); // Hook 
-		
-		wp_head(); // Hook (WordPress) 
-			
+<?php
+		pagelines_register_hook('pagelines_head'); // Hook
+
+		wp_head(); // Hook (WordPress)
+
 		pagelines_register_hook('pagelines_head_last'); // Hook ?>
 
 </head>
-<?php 
+<?php
 
 echo pl_source_comment('Start >> HTML Body', 1); ?>
 <body <?php body_class( pagelines_body_classes() ); ?>>
-<?php 
+<?php
 pagelines_register_hook('pagelines_before_site'); // Hook
-	
+
 if(has_action('override_pagelines_body_output')):
 	do_action('override_pagelines_body_output');
 
@@ -57,8 +57,8 @@ else:  ?>
 			</header>
 			<?php pagelines_register_hook('pagelines_before_main'); // Hook ?>
 			<div id="page-main" class="container-group">
-				<div id="dynamic-content" class="outline">	
-<?php 
+				<div id="dynamic-content" class="outline">
+<?php
 				pagelines_special_content_wrap_top();
 
 endif;

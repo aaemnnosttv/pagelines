@@ -2,23 +2,23 @@
 	width: 100% !important;
 }
 
-.fset_height, 
+.fset_height,
 #feature_slider .text-bottom .fmedia .fmedia-pad,
 #feature_slider .text-bottom .feature-pad,
 #feature_slider .text-none .fmedia .fmedia-pad{
 	height: 380px;
 	overflow:hidden;
 }
-		
+
 .fexcerpt{
 	p {
 		margin: .5em 0
 	}
-	:first-child{ 
+	:first-child{
 		margin-top: 0;
 	}
 }
-			
+
 
 #feature_slider{
 	position:relative;
@@ -32,27 +32,27 @@
 		box-shadow: 0 2px 5px rgba(0,0,0,.3), inset 0 0 15px rgba(0,0,0,.5);
 		overflow: visible;
 	}
-	.fmedia, 
+	.fmedia,
 	.fcontent{
 		float: left;
 	}
-	.fcontent { 
-		width: 33%; 
+	.fcontent {
+		width: 33%;
 		min-width: 220px;
 		background: rgba(0,0,0,.35);
 		display: inline;
 		position: relative;
-		h1, 
-		h2, 
-		h3, 
-		h4, 
-		h5, 
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
 		a{
 			color: #fff;
 			text-shadow: #000 0 -1px 0 ;
 		}
 		color: #fff;
-		text-shadow: #000 0 -1px 0 ;	
+		text-shadow: #000 0 -1px 0 ;
 
 		.fcontent-pad{
 			padding: 40px 30px 20px 30px;
@@ -74,7 +74,7 @@
 			margin-bottom: .2em;
 		}
 		.ftitle{
-			
+
 			font-size: @h2Size;
 			line-height: 1.3em;
 			vertical-align: middle;
@@ -88,20 +88,20 @@
 				font-size: 16px;
 			}
 		}
-		.flink { 
-			float: left; 
+		.flink {
+			float: left;
 			margin-top: .4em;
 		}
 		.post-edit-link {
-			position: absolute; 
-			top: 10px; 
+			position: absolute;
+			top: 10px;
 			right: 10px;
 		}
-		
+
 	}
-	.fmedia {  
+	.fmedia {
 		width: 67%;
-	    padding: 0;  
+	    padding: 0;
 		overflow:hidden;
 		.fmedia-pad {
 			overflow: hidden;
@@ -123,24 +123,24 @@
 			position: relative;
 			padding: 0px;
 		}
-		.fmedia{ 
-			float:none; 
-			position: absolute; 
+		.fmedia{
+			float:none;
+			position: absolute;
 			top: 0px;
-			left: 0px; 
-			width: 100%; 
+			left: 0px;
+			width: 100%;
 			.fmedia-pad{
 				padding: 0px;
-		
+
 			}
 		}
 		.fcontent{
-			float:none; 
-			position: absolute; 
+			float:none;
+			position: absolute;
 			bottom: 0px;
-			left: 0px; 
+			left: 0px;
 			z-index: 200;
-			width: 100%; 
+			width: 100%;
 			height: auto !important;
 			font-size: 1em;
 			.fcontent-pad{
@@ -153,7 +153,7 @@
 				width: 33%;
 			}
 			.ftext {
-			
+
 				font-size: 12px;
 				padding: 3px 20px;
 				line-height: 1.5em;
@@ -169,24 +169,24 @@
 		}
 	}
 	.text-none{
-		.fcontent{ 
-			display: none; 
+		.fcontent{
+			display: none;
 		}
-		.fmedia{ 
-			width: 100%; 
+		.fmedia{
+			width: 100%;
 			.fmedia-pad{
 				padding: 0px;
 			}
 		}
-	}		
+	}
 
-	
+
 	object, iframe{
 		width: 100%;
 		height: 100%;
 	}
-	
-	
+
+
 	.fcontainer{
 		width: 100%;
 		.feature-wrap{
@@ -203,25 +203,25 @@
 				background-position: center center;
 				background-repeat: no-repeat;
 			}
-		
+
 		}
-		
-		&.fstyle-nobg { 
-			background: none; 
+
+		&.fstyle-nobg {
+			background: none;
 			.fcontent{
 				background: none;
 			}
 		}
-		
-		&.fstyle-lightbg { 
+
+		&.fstyle-lightbg {
 
 			.fcontent{
 				background: rgba(255,255,255,.7);
-				h1, 
+				h1,
 				h2,
-				h3, 
-				h4, 
-				h5, 
+				h3,
+				h4,
+				h5,
 				a{
 					color: #000;
 					text-shadow: 0 1px 0 rgba(255,255,255,.5);
@@ -232,7 +232,7 @@
 		}
 	}
 }
-		
+
 /* @ Feature Footer */
 #feature-footer{
 	z-index:100;
@@ -288,29 +288,29 @@
 		.box-sizing(border-box);
 		background: darken(@pl-base, @invert-dark);
 		display: inline-block;
-		font-size: 12px; 
+		font-size: 12px;
 		line-height: 20px;
 		text-align: center;
-		
+
 		box-shadow: inset 0 1px 3px rgba(0,0,0,.3), 0 1px 0 rgba(255,255,255, .2);
 		color: fadeout(@pl-text, 60%);
 		&.activeSlide{
 			background: darken(@pl-base, @invert-dark+7);
 			color: fadeout(@pl-text, 30%);
 		}
-		span#next, 
+		span#next,
 		span#prev {
 			background: #000;
 			width:10px;
 			height:10px;
 		}
-		span.nav_thumb, 
+		span.nav_thumb,
 		span.nav_thumb span.nav_overlay{
 			width: 50px;
 			vertical-align: middle;
 			height: 30px;
 			display: inline-block;
-			margin-right:10px;	
+			margin-right:10px;
 
 		}
 		span.nav_thumb{
@@ -323,7 +323,7 @@
 				background: url(@{plSectionsRoot}/features/images/feature-thumb-overlay.png) no-repeat 0 0;
 			}
 		}
-		&.activeSlide, 
+		&.activeSlide,
 		&:active{
 			span.nav_thumb span.nav_overlay{
 				background: url(@{plSectionsRoot}/features/images/feature-thumb-overlay.png) no-repeat 0 -30px;
@@ -337,7 +337,7 @@
 	margin: 0;
 	padding: 0;
 	border:none;
-	width: 50px; 
+	width: 50px;
 	height: 30px;
 	margin: 0 5px;
 	box-shadow: none;
@@ -345,16 +345,16 @@
 }
 
 
-				
+
 @media screen and (max-width:600px) {
 	.responsive #page #feature_slider {
-		.fcontainer .fcontent{ 
-			float:none; 
-			position: absolute; 
+		.fcontainer .fcontent{
+			float:none;
+			position: absolute;
 			bottom: 0px;
-			left: 0px; 
+			left: 0px;
 			z-index: 200;
-			width: 100%; 
+			width: 100%;
 			height: auto !important;
 			display:inline-block;
 			-webkit-backface-visibility: hidden; // Hide the slides before JS is loaded
@@ -364,5 +364,5 @@
 			height: auto;
 		}
 	}
-	
+
 }

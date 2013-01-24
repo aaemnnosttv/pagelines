@@ -16,20 +16,20 @@
 		overflow: hidden;
 		display: none; /* Prevents all images from showing on load; must be shown using JS ahead of carousel init. */
 	}
-	.jcarousel-clip-horizontal { 
-		width: 100%; 
+	.jcarousel-clip-horizontal {
+		width: 100%;
 	}
 	.content{
-		ul li{ 
-			float: left; 
-			text-align: center; 
-			position: relative; 
-			img { 
-				padding: 3px;  
+		ul li{
+			float: left;
+			text-align: center;
+			position: relative;
+			img {
+				padding: 3px;
 				margin: 2px;
 			}
-			a{ 
-				position: relative; 
+			a{
+				position: relative;
 				display: inline-block;
 				span.list-title{
 					color: #fff;
@@ -38,7 +38,7 @@
 					font-family: @buttonFontFamily;
 					font-weight: 300;
 					font-size: 10px;
-					
+
 					line-height: 1.4em;
 					position: absolute;
 					width: 100%;
@@ -50,19 +50,19 @@
 				&:hover span.list-title {
 					display: block;
 				}
-				img, 
+				img,
 				&:hover img{
 					background: lighten(@baseContrast, 15 );
 					box-shadow: 0 1px 4px darken(@baseContrast, 25 );
 				}
 			}
-			
-			
+
+
 		}
-		
+
 	}
-	
-	.jcarousel-next, 
+
+	.jcarousel-next,
 	.jcarousel-prev {
 		z-index: 3;
 	    position: absolute;
@@ -72,7 +72,7 @@
 		cursor: pointer;
 		opacity: .5;
 	}
-	.jcarousel-next { 
+	.jcarousel-next {
 	    right: 15px;
 	    background: transparent url(@{plSectionsRoot}/carousel/images/carousel_navright.png) no-repeat 0 0;
 	}
@@ -80,7 +80,7 @@
 	    left: 15px;
 	    background: transparent url(@{plSectionsRoot}/carousel/images/carousel_navleft.png) no-repeat 0 0;
 	}
-	
+
 }
 
 

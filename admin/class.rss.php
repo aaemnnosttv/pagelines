@@ -1,14 +1,14 @@
 <?php
 
 class PageLines_RSS {
-	
+
 	function __construct() {
-		
+
 
 	 	}
 
 
-	
+
 		/**
 		 * Store RSS worker
 		 *
@@ -16,7 +16,7 @@ class PageLines_RSS {
 		 * @since   2.2
 		 */
 		function get_dash_rss( $args = array() ) {
-			
+
 			$defaults = array(
 
 				'feed'		=>	'http://api.pagelines.com/rss/rss2.php',
@@ -25,11 +25,11 @@ class PageLines_RSS {
 			);
 
 			$args = wp_parse_args( $args, $defaults );
-			
+
 			$out = array();
 
 			$this->items = $args['items'];
-			$this->feed_url = $args['feed'];	
+			$this->feed_url = $args['feed'];
 
 		   	$rss = fetch_feed( $this->feed_url );
 
@@ -44,7 +44,7 @@ class PageLines_RSS {
 		}
 
 		if ( !$rss->get_item_quantity() ) {
-			
+
 			$out[] = array(
 				'title'	=>	'RSS',
 				'test'	=>	'Apparently, there is nothing new yet!'
@@ -55,7 +55,7 @@ class PageLines_RSS {
 		}
 
 		$items = $this->items;
-		
+
 		foreach ( $rss->get_items(0, $items) as $item ) {
 
 
@@ -72,10 +72,10 @@ class PageLines_RSS {
 			$title = $item->get_title();
 			$content = $item->get_content();
 			if( $args['community'] ) {
-								
+
 				$d = self::com_url( $item->get_description() );
 				$link = $d[0];
-				$content = $d[1];				
+				$content = $d[1];
 			}
 
 		$out[] = array(
@@ -91,11 +91,11 @@ class PageLines_RSS {
 
 		return $out;
 	}
-	
+
 	function com_url( $d ) {
-		
+
 		preg_match( '#<p>(http://[^<]*)</p>#', $d, $out );
-		$d = str_replace( $out[0], '', $d );		
+		$d = str_replace( $out[0], '', $d );
 		return array( $out[1], $d );
 	}
-}	
+}

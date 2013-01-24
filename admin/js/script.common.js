@@ -12,8 +12,8 @@
  *
  */
 jQuery(document).ready(function(){
-	
-	jQuery('.sc_save_check').click( function(){		
+
+	jQuery('.sc_save_check').click( function(){
 		var sectionBar = jQuery(this).parents('li').find('div.section-bar').each( function() {
 			if( jQuery(this).hasClass('hidden-section') ) {
 				jQuery(this).removeClass('hidden-section');
@@ -21,31 +21,31 @@ jQuery(document).ready(function(){
 				jQuery(this).addClass('hidden-section');
 			}
 		});
-		
+
 		formData = jQuery("#pagelines-settings-form");
 		serializedData = jQuery(formData).serialize();
-		
+
 		jQuery.ajax({
 			type: 'POST',
 			url: 'options.php',
 			data: serializedData,
-			beforeSend: function(){ 
+			beforeSend: function(){
 				TemplateSetupStartSave();
 			},
 			success: function(response) {
 				TemplateSetupDoneSaving( 'Section Options Saved!' );
 			}
 		});
-		
+
 		return true;
-	});	
-	
+	});
+
 	/**
 	 * Hide Error messages after 5 seconds
 	 */
 	jQuery('#message.slideup_message').delay(5000).slideUp('fast');
-	
-	
+
+
 	/**
 	 * Textarea CODE
 	 */
@@ -57,13 +57,13 @@ jQuery(document).ready(function(){
 	if(jQuery("#pagelines-settings-two_headerscripts").length){
 		var editor2 = CodeMirror.fromTextArea(jQuery("#pagelines-settings-two_headerscripts").get(0), cm_headers);
 	}
-	
-	
+
+
 	jQuery('.graphic_selector .graphic_select_border').click(function(){
 		GraphicSelect(this);
 	});
-	
-	
+
+
 	/**
 	 * AJAX Image Uploading
 	 */
@@ -80,27 +80,27 @@ jQuery(document).ready(function(){
 			  data: { // Additional data to send
 					action: 'pagelines_ajax_post_action',
 					type: 'upload',
-					oid: clickedID, 
+					oid: clickedID,
 					setting: settingID
 				},
 			  autoSubmit: true, // Submit file after selection
 			  responseType: false,
 			  onChange: function(file, extension){},
 			  onSubmit: function(file, extension){
-					clickedObject.text('Uploading'); // change button text, when user selects file	
+					clickedObject.text('Uploading'); // change button text, when user selects file
 					this.disable(); // If you want to allow uploading only 1 file at time, you can disable upload button
 					interval = window.setInterval(function(){
 						var text = clickedObject.text();
 						if (text.length < 13){	clickedObject.text(text + '.'); }
-						else { clickedObject.text('Uploading'); } 
+						else { clickedObject.text('Uploading'); }
 					}, 200);
 			  },
 			  onComplete: function(file, response) {
 				//alert(response); // Debugging
 				window.clearInterval(interval);
-				clickedObject.text('Upload Image');	
+				clickedObject.text('Upload Image');
 				this.enable(); // enable upload button
-				
+
 				// If there was an error
 				if(response.search('Upload Error') > -1){
 					var buildReturn = '<span class="upload-error">' + response + '</span>';
@@ -111,19 +111,19 @@ jQuery(document).ready(function(){
 				else{
 
 					var previewSize = clickedObject.parent().find('.image_preview_size').attr('value');
-					
+
 					var preSelector = 'pre_' + clickedObject.parent().find('.uploaded_url').attr('id');
-					
+
 					var buildReturn = '<img style="max-width:'+previewSize+'px;" class="pagelines_image_preview '+preSelector+'" id="image_'+clickedID+'" src="'+response+'" alt="" />';
 
 					clickedObject.parent().find('.uploaded_url').val(response);
 
 					jQuery(".upload-error").remove();
-					jQuery("#image_" + clickedID).remove();	
+					jQuery("#image_" + clickedID).remove();
 					clickedObject.parent().after( buildReturn );
 					jQuery('img#image_' + clickedID).fadeIn();
 					clickedObject.next('span').fadeIn();
-					
+
 				}
 			  }
 			});
@@ -136,9 +136,9 @@ jQuery(document).ready(function(){
 		jQuery('.image_reset_button').click(function(){
 
 			var clickedObject = jQuery(this);
-			var theID = jQuery(this).attr('title');	
+			var theID = jQuery(this).attr('title');
 			var settingID = jQuery(this).attr('id');
-			
+
 			var actionURL = jQuery(this).parent().find('.ajax_action_url').val();
 
 			var ajax_url = actionURL;
@@ -146,7 +146,7 @@ jQuery(document).ready(function(){
 			var data = {
 				action: 'pagelines_ajax_post_action',
 				type: 'image_reset',
-				oid: theID, 
+				oid: theID,
 				setting: settingID
 			};
 
@@ -155,10 +155,10 @@ jQuery(document).ready(function(){
 				var button_to_hide = jQuery('.reset_' + theID);
 				image_to_remove.fadeOut(500,function(){ jQuery(this).remove(); });
 				button_to_hide.fadeOut();
-				clickedObject.parent().find('.uploaded_url').val('');				
+				clickedObject.parent().find('.uploaded_url').val('');
 			});
 
-			return false; 
+			return false;
 
 		});
 
@@ -181,7 +181,7 @@ function TemplateSetupStartSave(){
  *
  */
 function TemplateSetupDoneSaving( text ){
-	jQuery('.selected_builder .ttitle').effect("highlight", {color: "#ddd"}, 2000); 
+	jQuery('.selected_builder .ttitle').effect("highlight", {color: "#ddd"}, 2000);
 	jQuery('.selected_builder .confirm_save').removeClass('ajax-saving');
 	jQuery('.selected_builder .confirm_save_pad').text( text ).show().delay(1500).fadeOut(700);
 }
@@ -191,31 +191,31 @@ function TemplateSetupDoneSaving( text ){
  * Creates a preview of a font in admin
  */
 function PageLinesStyleFont(element, property){
-	
+
 	var currentSelect = jQuery(element).attr("id");
-	
+
 	var selectedOption = '#'+currentSelect +' option:selected';
 
 	if(jQuery(element).hasClass("fontselector")) {
-		
+
 		var previewProp = jQuery(selectedOption).attr("id");
-		
+
 		var gFontKey = jQuery('#'+currentSelect +' option:selected').attr("title");
 
 		var gFontBase = 'http://fonts.googleapis.com/css?family=';
-		
+
 		var stylesheetId = '#' + currentSelect + '_style';
-		
+
 		jQuery(stylesheetId).attr("href", gFontBase + gFontKey);
 	} else {
-		
+
 		var previewProp = jQuery(selectedOption).val();
-		
+
 	}
-	
+
 	jQuery(element).parent().parent().parent().find('.font_preview_pad').css(property, previewProp);
-	
-	
+
+
 }
 
 /**
@@ -223,13 +223,13 @@ function PageLinesStyleFont(element, property){
  * Changes input val based on image click....
  */
 function GraphicSelect ( ClickedLayout ){
-	
+
 	if( !jQuery(ClickedLayout).hasClass('disabled_option') ){
-		
+
 		jQuery(ClickedLayout).parent().parent().find('.graphic_select_border').removeClass('selectedgraphic');
 		jQuery(ClickedLayout).addClass('selectedgraphic');
 		jQuery(ClickedLayout).parent().find('.graphic_select_input').attr("checked", "checked");
-	
+
 	}
 }
 
@@ -241,9 +241,9 @@ function GraphicSelect ( ClickedLayout ){
  * ###########################
  */
 function setColorPicker(optionid, color){
-	
-	jQuery('#'+optionid+'_picker').children('div').css('backgroundColor', color);    
-	
+
+	jQuery('#'+optionid+'_picker').children('div').css('backgroundColor', color);
+
 	jQuery('#'+optionid+'_picker').plColorPicker({
 		color: color,
 		onShow: function (colpkr) {
@@ -258,9 +258,9 @@ function setColorPicker(optionid, color){
 			jQuery('#'+optionid+'_picker').children('div').css('backgroundColor', '#'+hex);
 			jQuery('#'+optionid+'_picker').next('input').attr('value', '#'+hex);
 		},
-		
+
 	});
-	
+
 	jQuery('#'+optionid).plColorPicker({
 		color: color,
 		onSubmit: function(hsb, hex, rgb, el) {
@@ -274,7 +274,7 @@ function setColorPicker(optionid, color){
 		onChange: function (hsb, hex, rgb) {
 			jQuery( '#'+optionid ).attr('value', '#'+hex);
 			jQuery(this).parent().find('#'+optionid+'_picker').children('div').css('backgroundColor', '#'+hex);
-			
+
 		},
 	})
 	.bind('keyup', function(){
@@ -284,7 +284,7 @@ function setColorPicker(optionid, color){
 		}
 		jQuery(this).ColorPickerSetColor( str );
 	});
-	
+
 }
 
 
@@ -294,19 +294,19 @@ function setColorPicker(optionid, color){
  *
  */
 function PageLinesSimpleToggle(showElement, hideElement){
-	
+
 	jQuery(hideElement).hide();
 	jQuery(hideElement+'_button').removeClass('active_button');
-	
+
 	if( jQuery(showElement).is(':visible')) {
 		jQuery(showElement).fadeOut();
 		jQuery(showElement+'_button').removeClass('active_button');
 	} else {
 		jQuery(showElement+'_button').addClass('active_button');
 		jQuery(showElement).fadeIn();
-		
+
 	}
-	
+
 }
 
 
@@ -327,31 +327,31 @@ function animate_pl_button(){
  *
  */
 function PageLinesSlideToggle(toggle_element, toggle_input, text_element, show_text, hide_text, option){
-	var opt_value; 
+	var opt_value;
 	var input_flag;
-	
+
 	if(jQuery(toggle_input).val() == 'show'){
 		input_flag = 'hide';
 		jQuery(toggle_input).val(input_flag);
 		jQuery(toggle_element).fadeOut();
-		
+
 		opt_value = input_flag;
-		
+
 		jQuery(text_element).html(hide_text);
-		
+
 		jQuery(toggle_element).css('display', 'none');
 	} else {
 		input_flag = 'show';
-		
+
 		jQuery(toggle_input).val(input_flag);
 		jQuery(toggle_element).fadeIn();
-		
+
 		opt_value = input_flag;
 		jQuery(text_element).html(show_text);
-		
+
 		jQuery(toggle_element).css('display', 'block');
 	}
-	
+
 	var data = {
 		action: 'pagelines_ajax_save_option',
 		option_name: option,
@@ -360,7 +360,7 @@ function PageLinesSlideToggle(toggle_element, toggle_input, text_element, show_t
 
 	// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
 	jQuery.post(ajaxurl, data, function(response) { });
-	
+
 }
 
 /*
@@ -377,7 +377,7 @@ function PageLinesSlideToggle(toggle_element, toggle_input, text_element, show_t
  */
 function sendEmailToMothership( email, input_id ){
 	// validate that shit
-	
+
 	jQuery('.the_email_response').html('');
 	jQuery(".the_email_response").hide();
 	var hasError = false;
@@ -387,21 +387,21 @@ function sendEmailToMothership( email, input_id ){
 	    jQuery(".the_email_response").html('<span class="email_error">You\'re silly... The email field is blank!</span>').show().delay(2000).slideUp();
 	    hasError = true;
 	}
-	
+
 	else if(!emailReg.test(email)) {
 	    jQuery(".the_email_response").html('<span class="email_error">Hmm... doesn\'t seem like a valid email!</span>').show().delay(2000).slideUp();
 	    hasError = true;
 	}
-	
+
 	if(hasError == true) { return false; }
-	
+
 	var data = {
 		email: email
 	};
-	
-	
+
+
 	var option_name = 'pagelines_email_sent';
-	
+
 	jQuery.ajax({
 		type: 'GET',
 		url: "http://api.pagelines.com/subscribe/index.php?",
@@ -410,7 +410,7 @@ function sendEmailToMothership( email, input_id ){
 		success: function(response) {
 			if(response == 1){
 				jQuery(".the_email_response").html('Email Sent!').show().delay(2000).slideUp();
-				
+
 				var data = {
 						action: 'pagelines_ajax_save_option',
 						option_name: option_name,
@@ -425,17 +425,17 @@ function sendEmailToMothership( email, input_id ){
 					success: function(response) {
 					}
 				});
-				
+
 			} else if(response == 0){
 				jQuery(".the_email_response").html('Email Already Submitted!').show().delay(2000).slideUp();
 			}else if(response == -1){
 				jQuery(".the_email_response").html('There was an error on our side. Sorry about that...').show().delay(2000).slideUp();
-			}			
-			
-		
+			}
+
+
 		}
 	});
-	
+
 
 }
 
@@ -446,7 +446,7 @@ function sendEmailToMothership( email, input_id ){
  */
 
 jQuery.fn.center = function ( relative_element ) {
-	
+
     this.css("position","absolute");
     this.css("top", ( jQuery(window).height() - this.height() ) / 4+jQuery(window).scrollTop() + "px");
     this.css("left", ( jQuery(relative_element).width() - this.width() ) / 2+jQuery(relative_element).scrollLeft() + "px");

@@ -25,7 +25,7 @@ if ($.support == undefined) {
 */
 function debug(s) {
 	$.fn.cycle.debug && log(s);
-}		
+}
 /**
 *
 * @TODO do
@@ -73,7 +73,7 @@ $.fn.cycle = function(options, arg2) {
 			return;
 
 		opts.updateActivePagerLink = opts.updateActivePagerLink || $.fn.cycle.updateActivePagerLink;
-		
+
 		// stop existing slideshow for this container (if there is one)
 		if (this.cycleTimeout)
 			clearTimeout(this.cycleTimeout);
@@ -197,7 +197,7 @@ function handleArguments(cont, options, arg2) {
 		return false;
 	}
 	return options;
-	
+
 
 	/**
 	*
@@ -243,7 +243,7 @@ function destroy(opts) {
 		$(opts.next).unbind(opts.prevNextEvent);
 	if (opts.prev)
 		$(opts.prev).unbind(opts.prevNextEvent);
-	
+
 	if (opts.pager || opts.pagerAnchorBuilder)
 		$.each(opts.pagerAnchors || [], function() {
 			this.unbind().remove();
@@ -376,7 +376,7 @@ function buildOptions($cont, $slides, els, options, o) {
 	    	});
 	  	});
 	}
-		
+
 	// stretch container
 	var reshape = opts.containerResize && !$cont.innerHeight();
 	if (reshape) { // do this only if container has no size http://tinyurl.com/da2oa9
@@ -462,7 +462,7 @@ function buildOptions($cont, $slides, els, options, o) {
 			opts.speed = $.fx.speeds[opts.speed] || parseInt(opts.speed,10);
 		if (!opts.sync)
 			opts.speed = opts.speed / 2;
-		
+
 		var buffer = opts.fx == 'none' ? 0 : opts.fx == 'shuffle' ? 500 : 250;
 		while((opts.timeout - opts.speed) < buffer) // sanitize timeout
 			opts.timeout += opts.speed;
@@ -725,7 +725,7 @@ function go(els, opts, manual, fwd) {
 		};
 
 		debug('tx firing('+fx+'); currSlide: ' + opts.currSlide + '; nextSlide: ' + opts.nextSlide);
-		
+
 		// get ready to perform the transition
 		opts.busy = 1;
 		if (opts.fxFn) // fx function provided?
@@ -774,7 +774,7 @@ function go(els, opts, manual, fwd) {
 	}
 	if (changed && opts.pager)
 		opts.updateActivePagerLink(opts.pager, opts.currSlide, opts.activePagerClass);
-	
+
 	// stage the next transition
 	var ms = 0;
 	if (opts.timeout && !opts.continuous)
@@ -881,7 +881,7 @@ $.fn.cycle.createPagerAnchor = function(i, el, $p, els, opts) {
 	}
 	else
 		a = '<a href="#">'+(i+1)+'</a>';
-		
+
 	if (!a)
 		return;
 	var $a = $(a);
@@ -917,22 +917,22 @@ $.fn.cycle.createPagerAnchor = function(i, el, $p, els, opts) {
 		go(els,opts,1,opts.currSlide < i); // trigger the trans
 //		return false; // <== allow bubble
 	});
-	
+
 	if ( ! /^click/.test(opts.pagerEvent) && !opts.allowPagerClickBubble)
 		$a.bind('click.cycle', function(){return false;}); // suppress click
-	
+
 	var cont = opts.$cont[0];
 	var pauseFlag = false; // https://github.com/malsup/cycle/issues/44
 	if (opts.pauseOnPagerHover) {
 		$a.hover(
-			function() { 
+			function() {
 				pauseFlag = true;
-				cont.cyclePause++; 
+				cont.cyclePause++;
 				triggerPause(cont,true,true);
-			}, function() { 
-				pauseFlag && cont.cyclePause--; 
+			}, function() {
+				pauseFlag && cont.cyclePause--;
 				triggerPause(cont,true,true);
-			} 
+			}
 		);
 	}
 };
@@ -1022,7 +1022,7 @@ $.fn.cycle.custom = function(curr, next, opts, cb, fwd, speedOverride) {
 	};
 	$l.animate(opts.animOut, speedOut, easeOut, function() {
 		$l.css(opts.cssAfter);
-		if (!opts.sync) 
+		if (!opts.sync)
 			fn();
 	});
 	if (opts.sync) fn();

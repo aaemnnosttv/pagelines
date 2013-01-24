@@ -5,7 +5,7 @@
 .pagination {
 	height: @baseLineHeight * 2;
 	margin: @baseLineHeight 0;
-	
+
 	.wp-pagenavi{
 		// Reset
 		span.pages{
@@ -21,21 +21,21 @@
 			font-weight: normal;
 		}
 		a, span.current{
-			.box-shadow(0 1px 2px rgba(0,0,0,.05));	
+			.box-shadow(0 1px 2px rgba(0,0,0,.05));
 		}
 	}
 	ul{
-		.box-shadow(0 1px 2px rgba(0,0,0,.05));	
+		.box-shadow(0 1px 2px rgba(0,0,0,.05));
 		.border-radius(3px);
 	}
 	ul, &.pagenavi {
 		display: inline-block;
 		.ie7-inline-block();
 		margin: 0;
-		> a span.pg, 
-		> span.pg, 
-		.wp-pagenavi a, 
-		.wp-pagenavi span.current, 
+		> a span.pg,
+		> span.pg,
+		.wp-pagenavi a,
+		.wp-pagenavi span.current,
 		.wp-pagenavi span.extend{
 			float: left;
 			padding: 0 14px;
@@ -46,9 +46,9 @@
 			border-left-width: 0;
 			color: @textColorSubtle;
 		}
-		> span.pg, 
-		> a:hover span.pg, 
-		.wp-pagenavi a:hover, 
+		> span.pg,
+		> a:hover span.pg,
+		.wp-pagenavi a:hover,
 		.wp-pagenavi span.current{
 			box-shadow: inset 1px 1px 0 @baseLighterMore;
 			background-color: @baseContrastSlight;
@@ -57,7 +57,7 @@
 		}
 		> li{
 		  display: inline;
-			> a, 
+			> a,
 			> span{
 				float: left;
 				padding: 0 14px;
@@ -68,8 +68,8 @@
 				border-left-width: 0;
 				color: @textColorAlt;
 			}
-			&.active > a, 
-			&.active > span, 
+			&.active > a,
+			&.active > span,
 			> a:hover{
 				background-color: @baseContrast;
 				text-decoration: none;
@@ -81,19 +81,19 @@
 			cursor: default;
 		}
 		> li:first-child > a,
-		li:first-child > span, 
+		li:first-child > span,
 		> a:first-child > span,
-		> span:first-child, 
-		.wp-pagenavi > span.pages + a, 
+		> span:first-child,
+		.wp-pagenavi > span.pages + a,
 		.wp-pagenavi > span.pages + span.current{
 			border-left-width: 1px;
 			.border-radius(3px 0 0 3px);
 		}
 		> li:last-child > a,
-		li:last-child > span, 
-		> a:last-child > span, 
-		> span:last-child, 
-		.wp-pagenavi a:last-child, 
+		li:last-child > span,
+		> a:last-child > span,
+		> span:last-child,
+		.wp-pagenavi a:last-child,
 		.wp-pagenavi span:last-child{
 			.border-radius(0 3px 3px 0);
 		}
@@ -105,10 +105,10 @@
 			  cursor: default;
 		}
 	}
-	.desc, .wp-pagenavi span.pages { 
+	.desc, .wp-pagenavi span.pages {
 		.noteText();
 		line-height: (@baseLineHeight * 1.5) - 2;
-	
+
 		@media (max-width: 767px) { display: none;}
 	}
 }

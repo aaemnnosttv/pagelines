@@ -17,7 +17,7 @@ ul.sf-menu li:hover { visibility:		inherit; /* fixes IE7 'sticky bug' */ }
 ul.sf-menu li {
 	float:			left;
 	position:		relative;
-	margin:			0;	
+	margin:			0;
 }
 
 ul.sf-menu li a{ padding: 10px 15px 10px; }

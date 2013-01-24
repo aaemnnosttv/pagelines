@@ -19,8 +19,8 @@ class PageLinesPostsInfo extends PageLinesSection {
 	/**
 	* Section template.
 	*/
-   function section_template() { 	
-	
+   function section_template() {
+
 		if( is_category() || is_archive() || is_search() || is_author() ):
 			echo '<div class="current_posts_info">';
 			if( is_search() ):
@@ -30,8 +30,8 @@ class PageLinesPostsInfo extends PageLinesSection {
 			elseif( is_tag() ):
 				printf( '%s <strong>"%s"</strong>', __( 'Currently viewing the tag:', 'pagelines' ), single_tag_title( false, false ) );
 			elseif( is_archive() ):
-			
-				if (is_author()) { 
+
+				if (is_author()) {
 					global $author;
 					global $author_name;
 					$curauth = ( isset( $_GET['author_name'] ) ) ? get_user_by( 'slug', $author_name ) : get_userdata( intval( $author ) );
@@ -45,10 +45,10 @@ class PageLinesPostsInfo extends PageLinesSection {
 				} else {
 					if ( is_post_type_archive() )
 						$title =  post_type_archive_title( null,false );
-					if ( ! isset( $title ) ) {	
+					if ( ! isset( $title ) ) {
 						$o = get_queried_object();
 						if ( isset( $o->name ) )
-							$title = $o->name;	
+							$title = $o->name;
 					}
 					if ( ! isset( $title ) )
 						$title = the_date();

@@ -54,23 +54,23 @@
  */
 
 class PageLines_ShortCodes {
-	
-	
+
+
 	function __construct() {
-						
+
 		self::register_shortcodes( $this->shortcodes_core() );
-		
+
 		// Make widgets process shortcodes
-		add_filter( 'widget_text', 'do_shortcode' );	
+		add_filter( 'widget_text', 'do_shortcode' );
 //		add_action( 'template_redirect', array( &$this, 'filters' ) );
 		add_action('wp_footer',array( &$this, 'print_carousel_js' ), 21);
-		
+
 	}
 
 	private function shortcodes_core() {
-		
-		$core = array( 
-			
+
+		$core = array(
+
 			'button'					=>	array( 'function' => 'pagelines_button_shortcode' ),
 			'post_time'					=>	array( 'function' => 'pagelines_post_time_shortcode' ),
 
@@ -121,15 +121,15 @@ class PageLines_ShortCodes {
 			'pl_raw'					=>	array( 'function' => 'do_raw' ),
 			'pl_video'					=>	array( 'function' => 'pl_video_shortcode' )
 			);
-		
+
 		return $core;
 	}
 
 	function do_raw() {
-		
+
 		global $post;
 		$str = $post->post_content;
-		
+
 		$start = '[pl_raw]';
 		$end = '[/pl_raw]';
 		$stpos = strpos( $str, $start );
@@ -153,9 +153,9 @@ class PageLines_ShortCodes {
 
 	 	//convert the page name to a page ID
 	 	$bookmark = get_bookmark( $id );
-	
+
 		if( isset( $text ) ) $ltext = $text;
-		else $ltext = $bookmark->link_name;; 
+		else $ltext = $bookmark->link_name;;
 
 
 		$pagelink = "<a href=\"".$bookmark->link_url."\" target=\"".$bookmark->link_target."\">".$ltext."</a>";
@@ -184,7 +184,7 @@ class PageLines_ShortCodes {
 	// 3. Function for getting template path
 	// USAGE: [themeurl]
 	function get_themeurl( $atts ){ return get_template_directory_uri();	 }
-	
+
 	// 4. GOOGLE MAPS //////////////////////////////////////////////////
 
 	    // you can use the default width and height
@@ -192,9 +192,9 @@ class PageLines_ShortCodes {
 	    // Example:
 	    // [googlemap address="san diego, ca"]
 	    // or with options
-	    // [googlemap width="200" height="200" address="San Francisco, CA 92109"] 
+	    // [googlemap width="200" height="200" address="San Francisco, CA 92109"]
 	function googleMaps( $atts, $content = null ) {
-	
+
 		 extract( shortcode_atts( array(
 
 		 'width'	=> '480',
@@ -209,7 +209,7 @@ class PageLines_ShortCodes {
 	// 5. GOOGLE CHARTS  //////////////////////////////////////////////////
 
 		// Gets Google charts
-		// USAGE 
+		// USAGE
 		//		[chart data="0,12,24,26,32,64,54,24,22,20,8,2,0,0,3" bg="F7F9FA" size="200x100" type="sparkline"]
 		//		[chart data="41.52,37.79,20.67,0.03" bg="F7F9FA" labels="Reffering+sites|Search+Engines|Direct+traffic|Other" colors="058DC7,50B432,ED561B,EDEF00" size="488x200" title="Traffic Sources" type="pie"]
 
@@ -255,8 +255,8 @@ class PageLines_ShortCodes {
 				$string .= '&chf='.$bg.'';
 
 		return '<img title="'.$title.'" src="http://chart.apis.google.com/chart?cht='.$charttype.''.$string.$advanced.'" alt="'.$title.'" />';
-	}	
-	
+	}
+
 	// 6. GET POST FIELD BY OFFSET //////////////////////////////////////////////////
 	// Get a post based on offset from the last post published (0 for last post)
 	// USAGE: [postfeed field="post_title"  offset="0" customfield="true" ]
@@ -275,7 +275,7 @@ class PageLines_ShortCodes {
 		}
 		return $postfield;
 	}
-	
+
 	// 7. Created a container for dynamic html layout
 	// USAGE: [cbox width="50%" leftgutter="15px" rightgutter="0px"] html box content[/cbox]
 	function dynamic_box( $atts, $content = null ) {
@@ -284,7 +284,7 @@ class PageLines_ShortCodes {
 	 	extract( shortcode_atts( array( 'width' => '30%', 'leftgutter' => '10px', 'rightgutter' => '0px' ), $atts ) );
 
 	 	$cbox = '<div class="cbox" style="float:left;width:'.$width.';"><div class="cbox_pad" style="margin: 0px '.$rightgutter.' 0px '.$leftgutter.'">'.do_shortcode( $content ).'</div></div>';
- 	
+
 	return $cbox;
 	}
 
@@ -294,15 +294,15 @@ class PageLines_ShortCodes {
 
 	 	//extract page name from the shortcode attributes
 	 	extract( shortcode_atts( array( 'id' => 'container', 'class' => '' ), $atts ) );
-	
+
  		$container = '<div style="width: 100%;" class="container">'.do_shortcode( $content ).'<div class="clear"></div></div>';
 
 	 	return $container;
 	}
-	
+
 	/**
 	 * 9. This function produces the edit post link for logged in users
-	 * 
+	 *
 	 * @example <code>[post_edit]</code> is the default usage
 	 * @example <code>[post_edit link="Edit", before="<b>" after="</b>"]</code>
 	 */
@@ -325,10 +325,10 @@ class PageLines_ShortCodes {
 		return apply_filters( 'pagelines_post_edit_shortcode', $output, $atts );
 
 	}
-	
+
 	/**
 	 * 10. This function produces the category link list
-	 * 
+	 *
 	 * @example <code>[post_categories]</code> is the default usage
 	 * @example <code>[post_categories sep=", "]</code>
 	 */
@@ -348,10 +348,10 @@ class PageLines_ShortCodes {
 		return apply_filters( 'pagelines_post_categories_shortcode', $output, $atts );
 
 	}
-	
+
 	/**
 	 * 11. This function produces the tag link list
-	 * 
+	 *
 	 * @example <code>[post_tags]</code> is the default usage
 	 * @example <code>[post_tags sep=", " before="Tags: " after="bar"]</code>
 	 */
@@ -373,10 +373,10 @@ class PageLines_ShortCodes {
 		return apply_filters( 'pagelines_post_tags_shortcode', $output, $atts );
 
 	}
-	
+
 	/**
 	 * 12. This function produces a post type link.
-	 * 
+	 *
 	 * @example <code>[post_type]</code> is the default usage
 	 * @example <code>[post_type before="Type: " after="bar"]</code>
 	 */
@@ -387,14 +387,14 @@ class PageLines_ShortCodes {
 			'after' => ''
 		);
 		$atts = shortcode_atts( $defaults, $atts );
-		
+
 		global $post;
-		
+
 		if ( $post->post_type == 'post' )
 			return;
-		
+
 		$t = get_post_type_object( $post->post_type );
-				
+
 		$name = $t->labels->name;
 
 		$type = sprintf( '%s%s%s', $atts['before'], $name, $atts['after'] );
@@ -404,10 +404,10 @@ class PageLines_ShortCodes {
 			$output = sprintf( '<span class="type sc">%s</span> ', $type );
 		return apply_filters( 'pagelines_post_type_shortcode', $output, $atts );
 	}
-	
+
 	/**
 	 * 13. This function produces the comment link
-	 * 
+	 *
 	 * @example <code>[post_comments]</code> is the default usage
 	 * @example <code>[post_comments zero="No Comments" one="1 Comment" more="% Comments"]</code>
 	 */
@@ -437,20 +437,20 @@ class PageLines_ShortCodes {
 
 		return apply_filters( 'pagelines_post_comments_shortcode', $output, $atts );
 	}
-	
+
 	function get_comment_link() {
-		
+
 		$comment = '#wp-comments';
-		
+
 		if( function_exists( 'livefyre_show_comments' ) )
 			$comment = '#lf_comment_stream';
-		
+
 		return sprintf( '%s%s', get_permalink(), $comment );
 	}
-	
+
 	/**
 	 * 14. This function produces the author of the post (link to author archive)
-	 * 
+	 *
 	 * @example <code>[post_author_posts_link]</code> is the default usage
 	 * @example <code>[post_author_posts_link before="<b>" after="</b>"]</code>
 	 */
@@ -471,10 +471,10 @@ class PageLines_ShortCodes {
 
 		return apply_filters( 'pagelines_post_author_shortcode', $output, $atts );
 	}
-	
+
 	/**
 	 * 15. This function produces the author of the post (link to author URL)
-	 * 
+	 *
 	 * @example <code>[post_author_link]</code> is the default usage
 	 * @example <code>[post_author_link before="<b>" after="</b>"]</code>
 	 */
@@ -502,13 +502,13 @@ class PageLines_ShortCodes {
 		return apply_filters( 'pagelines_post_author_link_shortcode', $output, $atts );
 
 	}
-	
+
 	/**
 	 * 16. This function produces the author of the post (display name)
-	 * 
+	 *
 	 * @example <code>[post_author]</code> is the default usage
 	 * @example <code>[post_author before="<b>" after="</b>"]</code>
-	 */	
+	 */
 	function pagelines_post_author_shortcode( $atts ) {
 
 		$defaults = array(
@@ -529,8 +529,8 @@ class PageLines_ShortCodes {
 
 	/**
 	 * 17. Post Date
-	 * 
-	 */	
+	 *
+	 */
 	function pagelines_post_date_shortcode( $atts ) {
 
 		$defaults = array(
@@ -552,11 +552,11 @@ class PageLines_ShortCodes {
 		return apply_filters( 'pagelines_post_date_shortcode', $output, $atts );
 
 	}
-	
-	
+
+
 	/**
 	 * 18.Shortcode to display Pinterest button
-	 * 
+	 *
 	 * @example <code>[pinterest_button img=""]</code> is the default usage
 	 * @example <code>[pinterest_button img=""]</code>
 	 */
@@ -566,10 +566,10 @@ class PageLines_ShortCodes {
 				'url' => get_permalink(),
 				'img' => '',
 				'title' => urlencode( the_title_attribute( array( 'echo' => false ) ) ),
-			); 	
+			);
 
 			$atts = shortcode_atts( $defaults, $atts );
-			
+
 			$out = sprintf( '<a href="http://pinterest.com/pin/create/button/?url=%s&amp;media=%s&amp;description=%s" class="pin-it-button" count-layout="horizontal"><img style="border:0px;" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a><script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>',
 			$atts['url'],
 			$atts['img'],
@@ -582,7 +582,7 @@ class PageLines_ShortCodes {
 
 	/**
 	 * 1X.Shortcode to display Google Plus 1 Button
-	 * 
+	 *
 	 * @example <code>[google_plus]</code> is the default usage
 	 * @example <code>[google_plus size="" count=""]</code>
 	 * @example available attributes for size include small, medium, and tall
@@ -594,9 +594,9 @@ class PageLines_ShortCodes {
     		'size' => 'medium',
     		'count' => 'inline',
     		'url' => get_permalink()
-    	
+
 	    );
-    	
+
     	$atts = shortcode_atts($defaults, $atts);
 
     	ob_start();
@@ -618,32 +618,32 @@ class PageLines_ShortCodes {
 
 	/**
 	 * . Shortcode to display Linkedin Share Button
-	 * 
+	 *
 	 * @example <code>[linkedin]</code> is the default usage
 	 * @example <code>[linkedin count="vertical"]</code>
 	 */
     function pl_linkedinshare_button ($atts) {
-    	
+
 			$defaults = array(
-				'url'	=> get_permalink(), 
+				'url'	=> get_permalink(),
 				'count'	=> 'horizontal'
-			); 	
+			);
 
 			$atts = wp_parse_args( $atts, $defaults );
 
 
-            $out = sprintf( '<script src="//platform.linkedin.com/in.js" type="text/javascript"></script><script type="IN/Share" data-url="%s" data-counter="%s"></script>',   
+            $out = sprintf( '<script src="//platform.linkedin.com/in.js" type="text/javascript"></script><script type="IN/Share" data-url="%s" data-counter="%s"></script>',
 					$atts['url'],
 					$atts['count']
 				);
-           
+
            return $out;
 
     }
-		
+
 	/**
 	 * 19. Shortcode to display Tweet button
-	 * 
+	 *
 	 * @example <code>[twitter_button type=""]</code> is the default usage
 	 * @example <code>[twitter_button type="follow"]</code>
 	 */
@@ -651,46 +651,46 @@ class PageLines_ShortCodes {
 
 		$defaults = array(
 			'type'      => '',
-			'permalink'	=> get_permalink(), 
-			'handle'	=> ( ploption( 'twittername' ) ) ? ploption( 'twittername' ) : 'PageLines' , 
+			'permalink'	=> get_permalink(),
+			'handle'	=> ( ploption( 'twittername' ) ) ? ploption( 'twittername' ) : 'PageLines' ,
 			'title'		=> ''
-			); 	
+			);
 
 			$a = wp_parse_args( $args, $defaults );
 
 			if ($a['type'] == 'follow') {
 
-				$out = sprintf( '<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script><a href="https://twitter.com/%1$s" class="twitter-follow-button" data-show-count="true">Follow @%1$s</a>', 
+				$out = sprintf( '<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script><a href="https://twitter.com/%1$s" class="twitter-follow-button" data-show-count="true">Follow @%1$s</a>',
 					$a['handle']
 						);
 
 			} else {
 
-				$out = sprintf( '<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script><a href="https://twitter.com/share" class="twitter-share-button" data-url="%s" data-text="%s" data-via="%s">Tweet</a>',   
+				$out = sprintf( '<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script><a href="https://twitter.com/share" class="twitter-share-button" data-url="%s" data-text="%s" data-via="%s">Tweet</a>',
 					$a['type'],
-					$a['permalink'], 
+					$a['permalink'],
 					$a['title'],
 					$a['handle']
 					);
 			}
 			return $out;
 	}
-		
+
 	/**
 	 * 20. Shortcode to display Facebook Like button
-	 * 
+	 *
 	 * @example <code>[like_button]</code> is the default usage
 	 * @example <code>[like_button]</code>
 	 */
 	function pl_facebook_shortcode( $args ){
 
 			$defaults = array(
-				'url'	=> get_permalink(), 
+				'url'	=> get_permalink(),
 				'width'		=> '80',
-			); 
+			);
 
 			$a = wp_parse_args( $args, $defaults );
-			
+
 			ob_start();
 				// Facebook
 				?>
@@ -703,17 +703,17 @@ class PageLines_ShortCodes {
 						}(document, 'script', 'facebook-jssdk'));
 				</script><?php
 				printf( '<div class="fb-like" data-href="%s" data-send="false" data-layout="button_count" data-width="%s" data-show-faces="false" data-font="arial" style="vertical-align: top"></div>',
-					$a['url'], 
+					$a['url'],
 					$a['width']
 				);
 
 			return ob_get_clean();
 
 		}
-			
+
 	/**
 	 * 21. This function/shortcode will show all authors on a post
-	 * 
+	 *
 	 * @example <code>[show_authors]</code> is the default usage
 	 * @example <code>[show_authors]</code>
 	 */
@@ -739,13 +739,13 @@ class PageLines_ShortCodes {
 
 	/**
 	 * 22.Bootstrap Code Shortcode
-	 * 
+	 *
 	 * @example <code>[pl_codebox]...[/pl_codebox]</code> is the default usage
 	 * @example <code>[pl_codebox scrollable="yes"].box{margin:0 auto;}[/pl_codebox]</code> for lots of code
 	 */
 
 	function pl_codebox_shortcode ( $atts, $content = null ) {
-		
+
 	    extract( shortcode_atts( array(
 			'scrollable' => 'no',
 			'linenums' => 'yes',
@@ -758,7 +758,7 @@ class PageLines_ShortCodes {
 
 		// Grab Shortcodes
 		$pattern = array(
-		
+
 			'#([a-z]+\=[\'|"][^\'|"]*[\'|"])#m',
 			'#(\[[^]]*])#m',
 
@@ -782,13 +782,13 @@ class PageLines_ShortCodes {
 
 	/**
 	 * 23. Bootstrap Labels Shortcode
-	 * 
+	 *
 	 * @example <code>[pl_label type=""]My Label[/pl_label]</code> is the default usage
 	 * @example <code>[pl_label type="info"]label[/pl_label]</code>
 	 * @example Available types include info, success, warning, error
 	 */
 	function pl_label_shortcode( $atts, $content = null ) {
-	    
+
 	    $defaults = array(
 	    	'type' => 'info',
 	    );
@@ -805,17 +805,17 @@ class PageLines_ShortCodes {
 
 	/**
 	 * 24. Bootstrap Badges Shortcode
-	 * 
+	 *
 	 * @example <code>[pl_badge type="info"]My badge[/pl_badge]</code> is the default usage
 	 * @example <code>[pl_badge type="info"]badge[/pl_badge]</code>
 	 * @example Available types include info, success, warning, error
 	 */
 	function pl_badge_shortcode( $atts, $content = null ) {
-	    
+
 	    $defaults = array(
 	    	'type' => 'info',
 	    );
-		
+
 		$atts = shortcode_atts( $defaults, $atts );
 
 	    $out = sprintf( '<span class="badge badge-%s">%s</span>',
@@ -826,10 +826,10 @@ class PageLines_ShortCodes {
 	    return $out;
 	}
 
-	
+
 	/**
 	 * 25. Bootstrap Alertbox Shortcode
-	 * 
+	 *
 	 * @example <code>[pl_alertbox type="info"]My alert[/pl_alertbox]</code> is the default usage
 	 * @example <code>[pl_alertbox type="info" closable="yes"]My alert[/pl_alertbox]</code> makes an alert that can be toggled away with a close button
 	 * @example <code>[pl_alertbox type="info"]<h4 class="pl-alert-heading">Heading</h4>My alert[/pl_alertbox]</code>
@@ -851,10 +851,10 @@ class PageLines_ShortCodes {
 				do_shortcode( $content )
 		);
 
-        if ( $atts['closable'] === 'yes' ) {	
-			
+        if ( $atts['closable'] === 'yes' ) {
+
 			return $closed;
-        
+
     	}
 
 	    $out = sprintf( '<div class="alert alert-%s alert-block">%2$s</div>',
@@ -864,22 +864,22 @@ class PageLines_ShortCodes {
 
 		return $out;
 	}
-	
+
 	/**
 	 * 26. Bootstrap Blockquote Shortcode
-	 * 
+	 *
 	 * @example <code>[pl_blockquote pull="" cite=""]My quote[/pl_blockquote]</code> is the default usage
 	 * @example <code>[pl_blockquote pull="right" cite="Someone Famous"]My quote pulled right with source[/pl_blockquote]</code>
 	 */
 	function pl_blockquote_shortcode( $atts, $content = null) {
 
 		$defaults = array(
-			'pull'	=> '', 
+			'pull'	=> '',
 			'cite'	=> ''
-		); 
+		);
 
 		$atts = shortcode_atts( $defaults, $atts );
-		
+
 		$out = sprintf( '<blockquote class="pull-%1$s"><p>%3$s<small>%2$s</small></p></blockquote>',
 					$atts['pull'],
 					$atts['cite'],
@@ -889,10 +889,10 @@ class PageLines_ShortCodes {
 		return $out;
 
 	}
-	
+
 	/**
 	 * 27. Bootstrap Button Shortcode
-	 * 
+	 *
 	 * @example <code>[pl_button type="" size="" link="" target=""]...[/pl_button]</code> is the default usage
 	 * @example <code>[pl_button type="info" size="small" link="#" target="blank"]My Button[/pl_button]</code>
 	 * @example Available types include info, success, warning, danger, inverse
@@ -911,7 +911,7 @@ class PageLines_ShortCodes {
 
 	    $target = ( $target == 'blank' ) ? '_blank' : '';
 
-	    $out = sprintf( '<a href="%1$s" target="%2$s" class="btn btn-%3$s btn-%4$s">%5$s</a>', 
+	    $out = sprintf( '<a href="%1$s" target="%2$s" class="btn btn-%3$s btn-%4$s">%5$s</a>',
 					$atts['link'],
 					$atts['target'],
 					$atts['type'],
@@ -925,7 +925,7 @@ class PageLines_ShortCodes {
 
 	/**
 	 * 28. Bootstrap Button Group Shortcode - Builds a group of buttons as a menu
-	 * 
+	 *
 	 * @example <code>[pl_buttongroup]<a href="#" class="btn btn-info">...[/pl_buttongroup]</code> is the default usage
 	 * @example <code>[pl_buttongroup]<a href="#" class="btn btn-info"><a href="#" class="btn btn-info"><a href="#" class="btn btn-info">[/pl_button]</code>
 	 * @example Available types include info, success, warning, danger, inverse
@@ -938,10 +938,10 @@ class PageLines_ShortCodes {
 
 	}
 
-	
+
 	/**
 	 * 29. Bootstrap Dropdown Button Shortcode - Builds a button with contained dropdown menu
-	 * 
+	 *
 	 * @example <code>[pl_buttondropdown size="" type="" label=""]<li><a href="#">...</a></li>[/pl_buttondropdown]</code> is the default usage
 	 * @example <code>[pl_buttondropdown size="large" type="info" label="button"]<li><a href="#"></li><li><a href="#"></li><li><a href="#"></li>[/pl_buttondropdown]</code>
 	 * @example Available types include info, success, warning, danger, inverse
@@ -962,20 +962,20 @@ class PageLines_ShortCodes {
 	        $atts['label'],
 			do_shortcode( $content )
 	    );
-	        
+
 	    return $out;
 	}
 
 
 	/**
 	 * 30. Bootstrap Split Button Dropdown - Builds a button with split button dropdown caret
-	 * 
+	 *
 	 * @example <code>[pl_splitbuttondropdown size="" type="" label=""]<li><a href="#">...</a></li>[/pl_splitbuttondropdown]</code> is the default usage
 	 * @example <code>[pl_splitbuttondropdown size="large" type="info" label="button"]<li><a href="#"></li><li><a href="#"></li><li><a href="#"></li>[/pl_splitbuttondropdown]</code>
 	 * @example Available types include info, success, warning, danger, inverse
 	 */
 	function pl_splitbuttondropdown_shortcode( $atts, $content = null ) {
-	    
+
 	    $defaults = array(
 		    'size' => '',
 		    'type' => '',
@@ -990,13 +990,13 @@ class PageLines_ShortCodes {
 	        $atts['label'],
 			do_shortcode( $content )
 	    );
-	        
+
 	    return $out;
 	}
 
 	 /**
 	 * 31. Bootstrap Tooltips
-	 * 
+	 *
 	 * @example <code>[pl_tooltip tip=""]...[/pl_tooltip]</code> is the default usage
 	 * @example <code>This is a [pl_tooltip tip="Cool"]tooltip[/pl_tooltip] example.</code>
 	 */
@@ -1010,7 +1010,7 @@ class PageLines_ShortCodes {
         $atts = shortcode_atts( $defaults, $atts );
 
 			ob_start();
-				
+
 				?>
 				<script>
                 	jQuery(function(){
@@ -1030,7 +1030,7 @@ class PageLines_ShortCodes {
 
 	/**
 	 * 32. Bootstrap Popovers
-	 * 
+	 *
 	 * @example <code>[pl_popover title="" content=""]...[/pl_popover]</code> is the default usage
 	 * @example <code>This is a [pl_popover title="Popover Title" content="Some content that you can have inside the Popover"]popover[/pl_popover] example.</code>
 	 */
@@ -1074,7 +1074,7 @@ class PageLines_ShortCodes {
 
 	/**
 	 * 33. Bootstrap Accordion - Collapsable Content
-	 * 
+	 *
 	 * @example <code>[pl_accordion name="accordion"] [accordioncontent name="accordion" number="1" heading="Tile 1"]Content 1 [/accordioncontent] [accordioncontent name="accordion" number="2" heading="Title 2"]Content 2 [/accordioncontent] [/pl_accordion]</code> is the default usage
 	 */
 	function pl_accordion_shortcode( $atts, $content = null ) {
@@ -1096,7 +1096,7 @@ class PageLines_ShortCodes {
 
 	//Accordion Content
 	function pl_accordioncontent_shortcode( $atts, $content = null, $open = null ) {
-	    
+
 	    $defaults = array(
 		    'name' => '',
 		    'heading' => '',
@@ -1114,22 +1114,22 @@ class PageLines_ShortCodes {
 			do_shortcode( $content )
 
 	    );
-	        
+
 	    return $out;
 	}
 
 	/**
 	 * 34. Bootstrap Carousel
-	 * 
+	 *
 	 * @example <code>[pl_carousel name=""][pl_carouselimage first="yes" title="" imageurl="" ]Caption[/pl_carouselimage][pl_carouselimage title="" imageurl="" ]Caption[/pl_carouselimage][/pl_carousel]</code> is the default usage
 	 * @example <code>[pl_carousel name="PageLinesCarousel"][pl_carouselimage first="yes" title="Feature 1" imageurl="" ]Image 1 Caption[/pl_carouselimage][pl_carouselimage title="Feature 2" imageurl=""]Image 2 Caption[/pl_carouselimage][pl_carouselimage title="Feature 3" imageurl=""]Image 3 Caption[/pl_carouselimage][/pl_carousel]</code>
 	 */
     function pl_carousel_shortcode( $atts, $content = null ) {
-   
+
 		global $carousel_js;
 
 		if ( isset($atts['speed']) && '0' === $atts['speed'] )
-			$atts['speed'] = 'pause'; // 0 will be striped by array_filter	
+			$atts['speed'] = 'pause'; // 0 will be striped by array_filter
 
 		// remove any empty array keys that have empty values to enforce defaults (eg: name="" or speed="") that would otherwise break things
 		$atts = array_filter($atts);
@@ -1152,7 +1152,7 @@ class PageLines_ShortCodes {
 	    }
 
 	    // store away the values for consolidated output in the footer
-	    $carousel_js[$carousel_id] = array( 
+	    $carousel_js[$carousel_id] = array(
 	    	'id' => $carousel_id,
 	    	'speed' => $speed
 	    	);
@@ -1188,7 +1188,7 @@ class PageLines_ShortCodes {
 	function print_carousel_js() {
 
 		global $carousel_js;
-		
+
 		if ( ! isset($carousel_js) )
 			return;
 		echo "<!-- carousel_js -->\n";
@@ -1214,7 +1214,7 @@ class PageLines_ShortCodes {
 
 	/**
 	 * 35. Bootstrap Tabs
-	 * 
+	 *
 	 * @example <code>[pl_tabs][pl_tabtitlesection type=""][pl_tabtitle active="" number="1"]...[/pl_tabtitle][pl_tabtitle number="2"]...[/pl_tabtitle][/pl_tabtitlesection][pl_tabcontentsection][pl_tabcontent active="" number="1"]...[/pl_tabcontent][pl_tabcontent number=""]...[/pl_tabcontent][/pl_tabcontentsection][/pl_tabs]</code> is the default usage
 	 * @example <code>[pl_tabs][pl_tabtitlesection type="tabs"][pl_tabtitle active="yes" number="1"]Title 1[/pl_tabtitle][pl_tabtitle number="2"]Title 2[/pl_tabtitle][/pl_tabtitlesection][pl_tabcontentsection][pl_tabcontent active="yes" number="1"]Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac mi enim, at consectetur justo.[/pl_tabcontent][pl_tabcontent number="2"]Second content there.[/pl_tabcontent][/pl_tabcontentsection][/pl_tabs]</code>
 	 * @example Available types include tabs, pills
@@ -1228,7 +1228,7 @@ class PageLines_ShortCodes {
 
 	//Tab Titles Section
 		function pl_tabtitlesection_shortcode( $atts, $content = null ) {
-		        
+
 			extract( shortcode_atts( array(
 		    	'type' => '',
 		    ), $atts ) );
@@ -1249,26 +1249,26 @@ class PageLines_ShortCodes {
 			$type,
 			do_shortcode( $content )
 			);
-		        
+
 		    return ob_get_clean();
 		}
 
 	//Tab Titles
 		function pl_tabtitle_shortcode( $atts, $content = null ) {
-		         
+
 		    extract( shortcode_atts( array(
 				'active' => '',
 				'number' => ''
 			), $atts ) );
 
 		    $active = ( $active == 'yes' ) ? "class='active'" : '';
-		    
+
 		    $out = sprintf( '<li %s><a href="#%s" data-toggle="tab">%s</a></li>',
 					$active,
 					$number,
 					do_shortcode( $content )
 					);
-		        
+
 		    return $out;
 		}
 
@@ -1286,7 +1286,7 @@ class PageLines_ShortCodes {
 			    'active' => '',
 			    'number' => ''
 		    ), $atts ) );
- 	        
+
 		    $active = ( $active == 'yes' ) ? "active" : '';
 
 		    return sprintf( '<div class="tab-pane %s" id="%s"><p>%s</p></div>',
@@ -1294,19 +1294,19 @@ class PageLines_ShortCodes {
 					$number,
 					do_shortcode( $content )
 					);
-		        
+
 		}
 
 	/**
 	 * 36. Bootstrap Modal Popup Window
-	 * 
+	 *
 	 * @example <code>[pl_modal title="" type="" colortype="" label=""]...[/pl_modal]</code>
 	 * @example <code>[pl_modal title="Title" type="label" colortype="info" label="Click Me!"]Some content here for the cool modal pop up. You can have all kinds of cool stuff in here.[/pl_modal]</code>
 	 * @example available types include button, label, and badge
 	 * @example available color types include default, success, warning, important, info, and inverse
-	 */	
+	 */
 	function pl_modal_shortcode( $atts, $content = null ) {
- 
+
 	    extract( shortcode_atts( array(
 		    'title'		=> '',
 		    'type'		=> '',
@@ -1314,9 +1314,9 @@ class PageLines_ShortCodes {
 		    'label' 	=> '',
 			'hash'		=> rand()
 	    ), $atts ) );
- 
+
 	    	ob_start();
- 
+
 	    		?>
 				<script>
 	            	jQuery(function(){
@@ -1326,7 +1326,7 @@ class PageLines_ShortCodes {
 						});
 					});
 				</script><?php
- 
+
 		   		printf( '<div id="modal_%6$s" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-header"><a class="close" data-dismiss="modal" aria-hidden="true">×</a><h3>%s</h3></div><div class="modal-body"><p>%4$s</p></div><div class="modal-footer"><a href="#" class="btn btn-%3$s" data-dismiss="modal" aria-hidden="true">%7$s</a></div></div><a data-toggle="modal" role="button" href="#modal_%6$s" class="%2$s %2$s-%3$s">%5$s</a>',
 				$title,
 				$type,
@@ -1336,20 +1336,20 @@ class PageLines_ShortCodes {
 				$hash,
 				__( 'Close', 'pagelines' )
 		        );
- 
+
         	return ob_get_clean();
- 
+
 	}
-		
+
 	/**
 	 * 37. This function produces the time of post publication
-	 * 
+	 *
 	 * @example <code>[post_time]</code> is the default usage</code>
 	 * @example <code>[post_time format="g:i a" before="<b>" after="</b>"]</code>
-	 */	
+	 */
 	function pagelines_post_time_shortcode( $atts ) {
 
-		$defaults = array( 
+		$defaults = array(
 			'format' => get_option( 'time_format' ),
 			'before' => '',
 			'after' => '',
@@ -1368,24 +1368,24 @@ class PageLines_ShortCodes {
 		return apply_filters( 'pagelines_post_time_shortcode', $output, $atts );
 
 	}
-	
+
 	/**
 	 * 38. Used to create general buttons and button links
-	 * 
+	 *
 	 * @example <code>[button]</code> is the default usage
 	 * @example <code>[button format="edit_post" before="<b>" after="</b>"]</code>
 	 */
 	function pagelines_button_shortcode( $atts ) {
 
 		$defaults = array(
-			'color'	=> 'grey', 
+			'color'	=> 'grey',
 			'size'	=> 'normal',
-			'align'	=> 'right', 
+			'align'	=> 'right',
 			'style'	=> '',
-			'type'	=> 'button', 
+			'type'	=> 'button',
 			'text'	=> '&nbsp;',
-			'pid'	=> 0, 
-			'class'	=> null, 
+			'pid'	=> 0,
+			'class'	=> null,
 		);
 		$atts = shortcode_atts( $defaults, $atts );
 
@@ -1399,12 +1399,12 @@ class PageLines_ShortCodes {
 
 	/**
 	 * XX. Responsive Videos
-	 * 
+	 *
 	 * @example <code>[pl_video]</code> is the default usage
 	 * @example <code>[pl_video type="youtube" url="urltovideo"]</code>
 	 */
     function pl_video_shortcode ($atts) {
-    	
+
     	extract( shortcode_atts( array(
     		'type' =>'',
 	    	'id' =>'',
@@ -1414,7 +1414,7 @@ class PageLines_ShortCodes {
 	    	), $atts ) );
 
         if ($atts['type'] == 'youtube') {
-	    
+
 	    	$out = sprintf('<div class="pl-video youtube"><iframe src="http://www.youtube.com/embed/%s" width="%s" height="%s" frameborder="0" allowfullscreen wmode="transparent"></iframe></div>',$id,$width,$height);
 
 	    	return $out;
@@ -1440,7 +1440,7 @@ class PageLines_ShortCodes {
 		 *  Prevent AUTOP inside of shortcodes (breaking shortcodes - removed)
 		 */
 		remove_filter( 'the_content', 'wpautop' );
-		add_filter( 'the_content', 'wpautop' , 12);		
+		add_filter( 'the_content', 'wpautop' , 12);
 		remove_filter( 'the_content', 'wptexturize' );
 		add_filter( 'the_content', 'wptexturize' , 12);
 	}
@@ -1449,9 +1449,9 @@ class PageLines_ShortCodes {
 
 		foreach ( $shortcodes as $shortcode => $data ) {
 			add_shortcode( $shortcode, array( &$this, $data['function']) );
-		}	
+		}
 	}
-//		
+//
 } // end of class
 //
 new PageLines_ShortCodes;

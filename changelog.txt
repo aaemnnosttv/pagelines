@@ -1,6 +1,6 @@
 ********************************************************
 
-  PageLines Framework Release Notes:  
+  PageLines Framework Release Notes:
 
 ********************************************************
 
@@ -22,11 +22,11 @@ Version 2.4
 	- Bugs - LESS: Fixed bugs in forms.less and progressbars.less and dropdowns.less.
 	- Bugs - LESS: Modals media queries were missing.
 	- Bugs - LESS: Load responsive last.
-		
+
 Version 2.3.8
 
 	- Bugs - Use enqueue properly.
-	- CORE - Better POSIX check, plus filter added to override 'render_css_posix_'. 
+	- CORE - Better POSIX check, plus filter added to override 'render_css_posix_'.
 
 Version 2.3.7
 
@@ -49,7 +49,7 @@ Version 2.3.6
 	- Bugs - Noposts section was not selectable in 404 page area.
 	- Bugs - removed polylang check ( uses ICL code anyway ).
 	- Bugs - Fix Pinterest button, props nick + mikey.
-	- Bugs - Fix offset in grids props nick.	
+	- Bugs - Fix offset in grids props nick.
 	- Bugs - Add CPT support to is_pagelines_special() and make filterable, props Evan.
 	- CORE - Updated plprint() and made it LESS friendly.
 	- CORE - LESS_FILE_MODE is on by defualt now.
@@ -116,7 +116,7 @@ Version 2.3
 	- NEW - Added alt tag option to Quickslider images
 	- CORE - Upgraded to latest bootstrap.
 	- CORE - Upgraded to latest LESS compiler.
-	- CORE - Child themes can now override core less files. 
+	- CORE - Child themes can now override core less files.
 	- Bugs - Boxes, open in new window if selected.
 	- Bugs - Stop banner images overflowing.
 	- Bugs - Make (edit) translatable.
@@ -189,7 +189,7 @@ Version 2.2
 	- NEW - New section! Navbar - Brand new navigation system with themes!
 	- NEW - New section! Hero - Quickly give a beautiful overview.
 	- NEW - Integration of Twitter Bootstrap (http://twitter.github.com/bootstrap/)
-	- NEW - New shortcode system - Modals, Buttons, Etc.. 
+	- NEW - New shortcode system - Modals, Buttons, Etc..
 	- NEW - Performance enhancements & cleaner source markup.. Oh! and unicorn dust.
 	- NEW - Quickslider text options
 	- NEW - Fixed navigation bar with four color schemes.
@@ -205,7 +205,7 @@ Version 2.2
 	- NEW - Dashboard shows latest community posts, store updates and blog RSS feeds.
 	- NEW - Special thanks to the PageLines Beta Testing group, along with Mikey Z, Nigel, Danny, Posey, Jamie, Ian, David, and the rest of the unicorns in the Upper East side (no Unicorns were harmed in the making of this version).
 	- CORE - Added [post_authors] shortcode for metabar.
-	- CORE - New Quickslider default images. 
+	- CORE - New Quickslider default images.
 	- CORE - Added [post_type] shortcode for metabar.
 	- CORE - Added title/alt to watermark.
 	- CORE - Store layout tweaks.
@@ -233,7 +233,7 @@ Version 2.1.7
 	- CORE - Add three new google fonts to typography.
 
 Version 2.1.6
-	
+
 	- CORE - Responsive fixes.
 	- CORE - Page titles default to ON.
 	- CORE - Fix untranslated strings banners/carousel/boxes.
@@ -278,7 +278,7 @@ Version 2.1.2
 	- Bugs - Change action time for sidebar loading
 	- Bugs - Fix HTML5 validation
 	- Bugs - Re-add youtube link
-	- Bugs - Escape JS in feature titles 
+	- Bugs - Escape JS in feature titles
 
 Version 2.1.1
 	- Bugs - IE8 <img> css
@@ -315,7 +315,7 @@ Version 2.1
 Version 2.0.2
 	- CORE - Template Name Convention Change
 	- CORE - Modifications for free version
-------------------------------------- 
+-------------------------------------
 
 Version 2.0.1
 	- Feature Section
@@ -331,7 +331,7 @@ Version 2.0.1
 ------------------------------------- Date: 12-22-2011
 
 Version 2.0.0
-	
+
 	Official Release 2.0.0!
 	- Special Thanks to
 		- Chris Johnston (Awesome New Documentation)
@@ -345,33 +345,33 @@ Version 2.0.0
 	- Bugs - Screenshot url fix.
 	- Fix sandbox urls.
 	- MU - multisite fixes and css tweaks.
-	
+
 	Release Candidate Three
 	- Localization - Translation fixes.
 	- Bugs - Layout bug fixed.
 	- Docs - Inline help added (chris).
 	- Bugs - Screenshot url fix.
 	- Bugs - base_url fix.
-	
+
 	Release Candidate Two
 	- Welcome Screen Changes
 	- Fixed Layout Management Bug
 	- Add class to feature link
 	- Misc improvements
-	
+
 	Release Candidate One
 	- Integrations - Special Settings fixed.
 	- Section - Refined Carousel
 	- Bugs - Fixed special option handling
 	- Store - New interface
-	
+
 	BETA - 32
 	- Store - Error Fix
-	
+
 	BETA - 31
 	- Integrations Special Settings.
 	- IE Handling.
-	
+
 	BETA - 30
 	- Extension - Added new footer hooks.
 
@@ -394,12 +394,12 @@ Version 2.0.0
 	- Refined the 'store'
 	- Bug fixes
 	- Integrations.
-	
+
 	BETA - 24
 	- LESS CSS - New Color Api for Section Extension (lessphp.org)
 	- Integrations - Add Vanilla Theme.
 	- Integrations - Add MediaWiki Theme.
-	
+
 	BETA - 23
 	- Bug Fix - wamp has curl disabled by default props Chris.
 	- Bug Fix - various.
@@ -409,7 +409,7 @@ Version 2.0.0
 	- New Child Theming Refinements
 	- Bug Fixes and Refinements
 	- Child Theme panel hiding functions added.
-	
+
 	BETA - 21
 	- Huge memory savings.
 	- New theming options.
@@ -425,10 +425,10 @@ Version 2.0.0
 	BETA - 19
 	- Add support for profiles section.
 	- Add plugins sandboxing.
-	
+
 	BETA - 18
 	- Bug Fix - Meta not saving.
-	
+
 	BETA - 17
 	- Bug Fix - Sections all had same ID.
 	- Bug Fix - Windows sections all had same icon.
@@ -489,6 +489,6 @@ Version 2.0.0
 	- Admin Rewrite
 	- Responsive Design
 	- Advanced Template Selector
-	- Improved Graphics 
+	- Improved Graphics
 	- Updated JS Libs
 	- Rewrote Option Engine

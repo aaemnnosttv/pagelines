@@ -1,8 +1,8 @@
 <?php
 /**
- * 
  *
- *  CSS Selector Groups 
+ *
+ *  CSS Selector Groups
  *  for dynamic CSS control
  *
  *  @package PageLines Framework
@@ -12,7 +12,7 @@
  */
 
 class PageLinesCSSGroups{
-	
+
 	/**
 	 * PHP5 constructor
 	 */
@@ -23,7 +23,7 @@ class PageLinesCSSGroups{
 		add_filter('pagelines_css_group', array(&$this, 'extend_selectors'), 10, 2);
 
 	}
-	
+
 
 	/**
 	*
@@ -31,22 +31,22 @@ class PageLinesCSSGroups{
 	*
 	*/
 	function extend_selectors($sel, $group){
-		
+
 		global $add_selectors;
-		
+
 		if(is_array($add_selectors) && !empty($add_selectors)){
 			foreach($add_selectors as $key => $s){
-				
+
 				if($group == $s['group'])
 					$sel .= ','.$s['sel'];
-				
+
 			}
 		}
-			
+
 		return $sel;
-			
+
 	}
-	
+
 
 	/**
 	*
@@ -54,13 +54,13 @@ class PageLinesCSSGroups{
 	*
 	*/
 	function get_groups(){
-		
+
 		$s = array();
 
 		/**
 		 * Layout Width Control
 		 */
-		// $s['page_width'] = 'body.fixed_width #page, body.fixed_width #footer, body.canvas .page-canvas'; 
+		// $s['page_width'] = 'body.fixed_width #page, body.fixed_width #footer, body.canvas .page-canvas';
 		// $s['content_width'] = '#site .content, .wcontent, #footer .content';
 
 		/**
@@ -71,7 +71,7 @@ class PageLinesCSSGroups{
 		$s['pagebg'] = 'body #page .page-canvas';
 
 		$s['contentbg'] = '.canvas .page-canvas, .thepage .content, .sf-menu li, #primary-nav ul.sf-menu a:focus, .sf-menu a:hover, .sf-menu a:active, .commentlist ul.children .even';
-		
+
 		$s['cascade'] = '.commentlist ul.children .even';
 
 		$s['page_background_image'] = '.full_width #page .page-canvas, body.fixed_width';
@@ -93,7 +93,7 @@ class PageLinesCSSGroups{
 		$s['border_layout'] = '';
 		$s['border_layout_darker'] = '';
 		$s['border_layout_lighter'] = '';
-		
+
 		$s['border_primary'] = '';
 		$s['border_primary_darker'] = '';
 		$s['border_primary_lighter'] = '';
@@ -129,31 +129,31 @@ class PageLinesCSSGroups{
 		$s['footer_highlight'] = '';
 
 		/**
-		 * Text Shadows & Effects 
+		 * Text Shadows & Effects
 		 */
 		$s['text_shadow_color']	= '';
 		$s['footer_text_shadow_color'] = '';
 
 		/**
-		 * Typography 
+		 * Typography
 		 */
 
 		$s['type_headers'] = '.thead, h1, h2, h3, h4, h5, h6, .site-title';
 		$s['type_primary'] = 'body, .font1, .font-primary, .commentlist';
 		$s['type_secondary'] = '.font-sub, ul.main-nav, #secondnav, .metabar, .post-nav, .subtext, .subhead, .widget-title, .reply a, .editpage, #page .wp-pagenavi, .post-edit-link, #wp-calendar caption, #wp-calendar thead th, .soapbox-links a, .fancybox, .standard-form .admin-links, .pagelines-blink, .ftitle small';
 		$s['type_inputs'] = 'input[type="text"], input[type="password"], textarea, #dsq-content textarea';
-		
+
 		return $s;
-		
+
 	}
 
 
-	public function get_css_group( $group ){		
-		
+	public function get_css_group( $group ){
+
 		if( is_array($group) ){
-			
+
 			$sel = '';
-			
+
 			foreach($group as $g)
 				$sel .= $this->return_group( $g );
 
@@ -161,9 +161,9 @@ class PageLinesCSSGroups{
 
 		} else
 			return $this->return_group( $group );
-		
+
 	}
-	
+
 
 	/**
 	*
@@ -171,14 +171,14 @@ class PageLinesCSSGroups{
 	*
 	*/
 	function return_group( $g ){
-		
+
 		if( isset( $this->s[ $g ] ) )
 			return apply_filters('pagelines_css_group', $this->s[ $g ], $g);
-		else	
+		else
 			return apply_filters('pagelines_css_group_'.$g, '');
-			
+
 	}
-	
+
 }
 
 /**
@@ -187,14 +187,14 @@ class PageLinesCSSGroups{
 *
 */
 function cssgroup( $group ){
-	
+
 	global $css_groups;
 
 	if(!isset($css_groups))
 		$GLOBALS['css_groups'] = new PageLinesCSSGroups();
 
 	$get = $css_groups->get_css_group( $group );
-	
+
 	return $get;
 }
 
@@ -207,6 +207,6 @@ function cssgroup( $group ){
 function pl_add_selectors( $group, $selectors ){
 
 	global $add_selectors;
-	
-	$add_selectors[] = array( 'group' => $group, 'sel' => $selectors);	
+
+	$add_selectors[] = array( 'group' => $group, 'sel' => $selectors);
 }

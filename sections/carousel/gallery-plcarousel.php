@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
 Template Page for the gallery overview
 
@@ -11,14 +11,14 @@ Follow variables are useable :
  You can check the content when you insert the tag <?php var_dump($variable) ?>
  If you would like to show the timestamp of the image ,you can use <?php echo $exif['created_timestamp'] ?>
 */
- 
-if (!defined ('ABSPATH')) 
+
+if (!defined ('ABSPATH'))
 	die ('No direct access allowed');
 
-if (!empty ($gallery)) : 
-	
+if (!empty ($gallery)) :
+
 	foreach ( $images as $image ) : ?>
-	
+
 	<li id="ngg-image-<?php echo $image->pid ?>" class="list-item ngg-gallery-thumbnail-box" <?php echo $image->style ?> >
 		<a href="<?php echo $image->imageURL ?>" title="<?php echo $image->description ?>" <?php echo $image->thumbcode ?> >
 			<?php if ( !$image->hidden ) { ?>
@@ -26,8 +26,8 @@ if (!empty ($gallery)) :
 			<?php } ?>
 		</a>
 	</li>
-	
+
 <?php
-	endforeach; 
-endif; 
+	endforeach;
+endif;
 

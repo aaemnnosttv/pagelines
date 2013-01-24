@@ -4,7 +4,7 @@
 	Author: PageLines
 	Author URI: http://www.pagelines.com
 	Description: The main widgetized sidebar.
-	Class Name: PrimarySidebar	
+	Class Name: PrimarySidebar
 	Workswith: sidebar1, sidebar2, sidebar_wrap
 	Persistant: true
 */
@@ -20,7 +20,7 @@ class PrimarySidebar extends PageLinesSection {
 	/**
 	* Section template.
 	*/
-   function section_template() { 
+   function section_template() {
 	 	 pagelines_draw_sidebar($this->id, $this->name, 'includes/widgets.default');
 	}
 

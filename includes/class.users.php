@@ -1,6 +1,6 @@
-<?php 
+<?php
 /**
- * 
+ *
  *
  *  API for Working with WordPress Users
  *
@@ -30,7 +30,7 @@ class UserEngine {
 
 			'meta_order'	=> true,
 			'order_field'	=> 'pl_profile_priority'
-			
+
 		);
 
 		$this->args = wp_parse_args($args, $additional_defaults);
@@ -39,7 +39,7 @@ class UserEngine {
 
 		if($this->args['meta_order'])
 			uasort($users, array(&$this, 'order'));
-		
+
 		return $users;
 	}
 
@@ -58,7 +58,7 @@ class UserEngine {
 			return 0;
 
 		return ($ap < $bp) ? -1 : 1;
-		
+
 
 	}
 
@@ -71,10 +71,10 @@ class UserEngine {
 *
 */
 function pagelines_get_users( $args ){
-	
+
 	$users = new UserEngine();
 
 	$u = $users->get_users($args);
-	
+
 	return $u;
 }

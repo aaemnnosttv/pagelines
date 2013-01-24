@@ -96,7 +96,7 @@ function pl_strip_js($text) {
  *
  */
 function pl_strip_only($str, $tags, $stripContent = false) {
-	
+
 	$content = '';
 	if (!is_array($tags)) {
 		$tags = (strpos($str, '>') !== false ? explode('>', str_replace('<', '', $tags)) : array($tags));

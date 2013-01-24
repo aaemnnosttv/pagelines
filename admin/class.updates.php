@@ -1,8 +1,8 @@
-<?php 
+<?php
 class PageLinesUpdateCheck {
 
     function __construct( $version = null ){
-	
+
 		global $current_user;
     	$this->url_theme = apply_filters( 'pagelines_theme_update_url', PL_API . 'v3' );
     	$this->theme  = 'PageLines';
@@ -34,12 +34,12 @@ class PageLinesUpdateCheck {
 		} else {
 			add_action('admin_notices', array(&$this,'pagelines_theme_update_nag') );
 			add_filter('site_transient_update_themes', array(&$this,'pagelines_theme_update_push') );
-			add_filter('transient_update_themes', array(&$this,'pagelines_theme_update_push') );		
+			add_filter('transient_update_themes', array(&$this,'pagelines_theme_update_push') );
 			add_action('load-update.php', array(&$this,'pagelines_theme_clear_update_transient') );
 			add_action('load-themes.php', array(&$this,'pagelines_theme_clear_update_transient') );
 		}
 	}
-	
+
 		/**
 		 * TODO Document!
 		 */
@@ -49,14 +49,14 @@ class PageLinesUpdateCheck {
 
 			if ( $pagelines_update && isset( $pagelines_update['package'] ) && $pagelines_update['package'] !== 'bad' ) {
 				$value->response['pagelines'] = $pagelines_update;
-								
-				$this->site_tran->response['pagelines'] = $pagelines_update;				
+
+				$this->site_tran->response['pagelines'] = $pagelines_update;
 				set_site_transient( 'update_themes', $this->site_tran );
 				return $this->site_tran;
 			}
 			return $value;
 		}
-	
+
 	/**
 	 * TODO Document!
 	 */
@@ -78,39 +78,39 @@ class PageLinesUpdateCheck {
 	}
 
 
-	
+
 	/**
 	 * TODO Document!
 	 */
 	function pagelines_theme_update_nag() {
-		
+
 		$pagelines_update = $this->pagelines_theme_update_check();
 
 		if ( ! is_super_admin() || ! $pagelines_update || ! current_user_can( 'edit_themes' ) )
 			return false;
-			
+
 		if ( $this->username == '' || $this->password == '' || $pagelines_update['package'] == 'bad' ) {
-			
+
 			//	add_filter('pagelines_admin_notifications', array(&$this,'bad_creds') );
 
 		}
-			
+
 		echo '<div class="updated fade update-nag">';
-		
+
 		printf( '%s Framework %s is available.', $this->theme, esc_html( $pagelines_update['new_version'] ) );
-		
-		printf( 
-			' %s', 
-			( $pagelines_update['package'] != 'bad' ) 
-				? sprintf( 'You should <a href="%s">update now</a>.', admin_url('update-core.php') ) 
-				: sprintf( '<a href="%s">Click here</a> to setup your PageLines account.', PLAdminPaths::account() ) 
+
+		printf(
+			' %s',
+			( $pagelines_update['package'] != 'bad' )
+				? sprintf( 'You should <a href="%s">update now</a>.', admin_url('update-core.php') )
+				: sprintf( '<a href="%s">Click here</a> to setup your PageLines account.', PLAdminPaths::account() )
 		);
 
 		echo ( $pagelines_update['extra'] ) ? sprintf('<br />%s', $pagelines_update['extra'] ) : '';
 		echo '</div>';
-		
-	}	
-	
+
+	}
+
 	/**
 	 * TODO Document!
 	 */
@@ -150,9 +150,9 @@ class PageLinesUpdateCheck {
 			$this->set_transients( $pagelines_update, 60*60*24 );
 			if ( isset( $pagelines_update['licence'] ) )
 				update_pagelines_licence( $pagelines_update['licence'] );
-				
+
 			$this->pagelines_get_user_updates();
-			
+
 		}
 
 		// If we're already using the latest version, return FALSE
@@ -161,13 +161,13 @@ class PageLinesUpdateCheck {
 
 		return $pagelines_update;
 	}
-	
-	
+
+
 	function set_transients( $pagelines_update, $time ) {
-		
-		set_transient( EXTEND_UPDATE, $pagelines_update, $time ); 	
+
+		set_transient( EXTEND_UPDATE, $pagelines_update, $time );
 	}
-	
+
 	function pagelines_get_user_updates() {
 
 		$options = array(

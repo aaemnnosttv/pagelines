@@ -1478,7 +1478,7 @@ if( ! class_exists( 'lessc' ) ) {
 			if (is_null($color)) {
 				$this->throwError('color expected for red()');
 			}
-		
+
 			return $color[1];
 		}
 
@@ -1487,7 +1487,7 @@ if( ! class_exists( 'lessc' ) ) {
 			if (is_null($color)) {
 				$this->throwError('color expected for green()');
 			}
-		
+
 			return $color[2];
 		}
 
@@ -1496,7 +1496,7 @@ if( ! class_exists( 'lessc' ) ) {
 			if (is_null($color)) {
 				$this->throwError('color expected for blue()');
 			}
-		
+
 			return $color[3];
 		}
 

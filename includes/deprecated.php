@@ -31,17 +31,17 @@ function cmath( $color ) {
 }
 
 function pl_get_theme_data( $stylesheet = null, $header = 'Version') {
-	
+
 	if ( function_exists( 'wp_get_theme' ) ) {
 		return wp_get_theme( basename( $stylesheet ) )->get( $header );
 	} else {
-		$data = get_theme_data( sprintf( '%s/themes/%s/style.css', WP_CONTENT_DIR, basename( $stylesheet ) ) );	
+		$data = get_theme_data( sprintf( '%s/themes/%s/style.css', WP_CONTENT_DIR, basename( $stylesheet ) ) );
 		return $data[ $header ];
 	}
 }
 
 function pl_get_themes() {
-	
+
 	if ( ! class_exists( 'WP_Theme' ) )
 		return get_themes();
 
@@ -68,7 +68,7 @@ function pl_get_themes() {
 		);
 	}
 
-	return $theme_data;	
+	return $theme_data;
 }
 /**
  * Deprecated constants, removing after a couple of revision, this will ensure store products get time to update.

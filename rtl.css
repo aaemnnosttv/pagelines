@@ -29,9 +29,9 @@ Description: Starter creating RTL support for Platform.  Note, we don't speak or
  * @todo Fix graphics - 'arrow-ffffff.png', 'shadow.png', and 'more-left.png'
  */
 
-body { 
+body {
 	font-smooth: always;
-	direction:rtl;	
+	direction:rtl;
 	unicode-bidi: embed;
 }
 
@@ -44,12 +44,12 @@ div#item-header div#item-header-avatar {
 }
 
 .fpost .post-title h2 { font-size: 1.5em; line-height: 1.6em; }
-	
+
 .fpost .metabar { text-transform: none; }
 
-	
-.fpost .post-title h2 a:hover { text-decoration: none; }	
-	
+
+.fpost .post-title h2 a:hover { text-decoration: none; }
+
 .hentry a:hover { text-decoration: none; }
 
 #branding .content-pad { padding: 25px 0 25px 0; }
@@ -254,7 +254,7 @@ margin-right:0;
 
 #callout .content-pad{	padding:30px 0 30px 17px;}
 
-#callout .callout_text{	
+#callout .callout_text{
 float: right;
 }
 		#callout .callout_text-pad{
@@ -270,7 +270,7 @@ letter-spacing:0;
 #footer .widget-title {
     font-size: 1.1em;
    }
-   
+
 /* SubNav Area */
 #subnav_row {
 display: block;

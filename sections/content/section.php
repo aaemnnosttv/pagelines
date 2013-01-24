@@ -3,7 +3,7 @@
 	Section: Content
 	Author: PageLines
 	Author URI: http://www.pagelines.com
-	Description: Main site content area. Holds sidebars, page content, etc.. 
+	Description: Main site content area. Holds sidebars, page content, etc..
 	Class Name: PageLinesContent
 	Workswith: templates
 	Cloning: false
@@ -21,7 +21,7 @@ class PageLinesContent extends PageLinesSection {
 	/**
 	* Section template.
 	*/
-   function section_template() {  
+   function section_template() {
 	 	global $pagelines_layout;
 ?>
 		<div id="pagelines_content" class="<?php echo $pagelines_layout->layout_mode;?> fix">
@@ -45,7 +45,7 @@ class PageLinesContent extends PageLinesSection {
 					</div>
 					<?php pagelines_register_hook( 'pagelines_content_after_sidebar1', 'maincontent' ); // Hook ?>
 				<?php endif;?>
-			</div>	
+			</div>
 			<?php get_sidebar(); ?>
 		</div>
 <?php }

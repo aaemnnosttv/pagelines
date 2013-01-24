@@ -1,29 +1,29 @@
 // PageLines Theme Styles & Defaults
 // ------------------------------------
 
-#site { 
-	position:relative; 
-	#page, 
-	#dynamic-content { 
-		min-height: @pl-min-height; 
+#site {
+	position:relative;
+	#page,
+	#dynamic-content {
+		min-height: @pl-min-height;
 		zoom:1;
-		.page-canvas{ 
+		.page-canvas{
 			margin: 0 auto;
 		}
 	}
-}	
+}
 
 .fixed_width{
-	#page, 
+	#page,
 	#footer{
-		width: 100%; 
-		margin: 0 auto; 
+		width: 100%;
+		margin: 0 auto;
 		position: relative;
 	}
 }
 
-.content { 
-	width: 100%; 
+.content {
+	width: 100%;
 	margin: 0 auto;
 	position: relative;
 	.content-pad{
@@ -32,7 +32,7 @@
 }
 
 #content .content-pad{
-	padding-top: 10px; 
+	padding-top: 10px;
 }
 
 /* @ Footer */
@@ -41,16 +41,16 @@
 	text-align: left;
 	position: relative;
 	color: fadeout(@pl-footer, 40%);
-	li.link-list a, 
+	li.link-list a,
 	.widget-title{
 		color: fadeout(@pl-footer, 40%);
 	}
-	a, 
+	a,
 	li h5 a{
 		color: @pl-footer;
 	}
 }
-	
+
 section.container{
 	margin: 0;
 }
@@ -60,11 +60,11 @@ section.copy{
 	margin: 1.6em 0;
 }
 
-.mcolumn-pad, 
-.copy-pad, 
-.scolumn-pad, 
-.sidebar_widgets, 
-.entry_content, 
+.mcolumn-pad,
+.copy-pad,
+.scolumn-pad,
+.sidebar_widgets,
+.entry_content,
 .post-excerpt{
 	> :first-child{
 		margin-top: 0;
@@ -74,13 +74,13 @@ section.copy{
 	}
 }
 
-#nav, 
+#nav,
 #secondnav{
 	.content-pad{
 		padding-top: 5px;
 		padding-bottom: 5px;
 	}
-}		
+}
 
 #column-wrap {
 	float: left;
@@ -89,9 +89,9 @@ section.copy{
 	float:right;
 }
 
-.two-sidebar-left, 
+.two-sidebar-left,
 .one-sidebar-left{
-	#column-wrap{  
+	#column-wrap{
 		float: right;
 	}
 	#sidebar-wrap{
@@ -101,34 +101,34 @@ section.copy{
 		float: right;
 	}
 }
-#column-main { 
-	float: left; 
-	display: inline; 
+#column-main {
+	float: left;
+	display: inline;
 }
 
-.two-sidebar-center #column-main { 
+.two-sidebar-center #column-main {
 	float: right;
-	.mcolumn-pad{ 
-		padding-right: 20px; 
+	.mcolumn-pad{
+		padding-right: 20px;
 		padding-left: 20px;
 	}
 }
-.one-sidebar-right, 
+.one-sidebar-right,
 .two-sidebar-right{
 	#column-main .mcolumn-pad{
 		padding: 14px 30px 0 15px;
 	}
 }
-.one-sidebar-left, 
+.one-sidebar-left,
 .two-sidebar-left{
 	#column-main .mcolumn-pad{
 		padding: 14px 15px 0 30px;
 	}
 }
-.fullwidth #column-main { 
-	float: none; 
-	.mcolumn-pad{ 
-		padding-right: 15px; 
+.fullwidth #column-main {
+	float: none;
+	.mcolumn-pad{
+		padding-right: 15px;
 		padding-left: 15px;
 	}
 }
@@ -139,9 +139,9 @@ section.copy{
 
 /* Don't confuse with .full_width design mode added to 'body'.. */
 
-#sidebar1, 
-#sidebar2{ 
-	float: left; 
+#sidebar1,
+#sidebar2{
+	float: left;
 	overflow:hidden;
 }
 
@@ -157,14 +157,14 @@ body.fixed_width{
 	&.content-shadow .page-canvas{
 		box-shadow: 0 1px 5px rgba(0,0,0, .8);
 	}
-	#footer{ 
-		background: transparent; 
-		margin: 0 auto; 
+	#footer{
+		background: transparent;
+		margin: 0 auto;
 	}
-	.section-morefoot .dcol-pad { 
+	.section-morefoot .dcol-pad {
 		padding: 15px;
 	}
-	.section-branding .content-pad{ 
+	.section-branding .content-pad{
 		padding: 25px;
 	}
 	#header .searchform {
@@ -175,21 +175,21 @@ body.fixed_width{
 	}
 }
 
-/* @ #header */	
+/* @ #header */
 #header .outline{
 	position: relative;
 	zoom: 1;
 	z-index:15; /* ie drop-down fix */
 }
 
-.widget-title, 
-#footer li h5 a, 
-.main_nav, 
-.author-details, 
-.post-nav, 
-.current_posts_info, 
-#secondnav{ 
-	font-size: 86%; 
+.widget-title,
+#footer li h5 a,
+.main_nav,
+.author-details,
+.post-nav,
+.current_posts_info,
+#secondnav{
+	font-size: 86%;
 }
 
 
@@ -197,10 +197,10 @@ body.fixed_width{
 a.site-title{
 	display: block;
 	margin: .3em 0 .15em;
-	font-size: 2.6em; 
+	font-size: 2.6em;
 	line-height: 1.1em;
 }
-.site-description { 
+.site-description {
 	margin-left: .2em;
 	font-size: 86%;
 	color: @textColorAlt;
@@ -217,8 +217,8 @@ a.site-title{
 		float: left;
 		margin-right: -230px;
 	}
-	
-	.main_nav {			
+
+	.main_nav {
 		margin-right: 230px;
 		text-align: left;
 		margin-top: 0px;
@@ -230,7 +230,7 @@ a.site-title{
 
 // Both Nav and Brandnav
 .main_nav{
-	font-size: 86%; 
+	font-size: 86%;
 	ul{
 		list-style: none;
 		display: block;
@@ -243,13 +243,13 @@ a.site-title{
 			padding: 0px;
 			float: left;
 			text-align: right;
-			a{	
+			a{
 				line-height: 1em;
 				padding: 10px 15px;
 				text-decoration: none;
 				display: block;
 				border: 1px solid transparent;
-				border-bottom:none;	
+				border-bottom:none;
 			}
 		}
 		ul {
@@ -278,69 +278,69 @@ a.site-title{
 }
 
 /* No search adjustment */
-.main_nav_container.nosearch, 
-.nosearch .main_nav{ 
-	margin-right: 0; 
+.main_nav_container.nosearch,
+.nosearch .main_nav{
+	margin-right: 0;
 }
-	
+
 /* @ Posts */
 .fpost{
 	.post-excerpt .post-thumb.img {
 		margin-right: 13px
 	}
-	.post-thumb.img { 
+	.post-thumb.img {
 		margin-right: 20px;
 	}
-	.textcontent { 
-		margin: 20px 10px 0 0; 
+	.textcontent {
+		margin: 20px 10px 0 0;
 	}
 	.media .img img{
-		max-width: 100%; 
-		height: auto; 
+		max-width: 100%;
+		height: auto;
 		margin: 0 auto;
 	}
-	.post-title h2 a:hover{	
+	.post-title h2 a:hover{
 		text-decoration: underline;
 	}
-	.post-excerpt { 
-		margin: .6em 0; 
+	.post-excerpt {
+		margin: .6em 0;
 	}
 	&.post .entry{
 		margin-bottom: 1em;
 		padding: 1em 0;
 	}
 }
-			
+
 .full_img {
 	margin-bottom: .8em;
 }
 
 
-// Belongs under postloop 
+// Belongs under postloop
 
 // Hentry format/sizing needs to be moved to be conextual
 // Henry is going to represent all long form text styling
 
-.post-meta .c_img, 
-.hentry .c_img{ 
-	display: block;  
-	border: 1px solid transparent; 
-	padding: 4px; 
+.post-meta .c_img,
+.hentry .c_img{
+	display: block;
+	border: 1px solid transparent;
+	padding: 4px;
 	max-width: 98%;
-	line-height:1em; 
+	line-height:1em;
 }
 
-.post-meta { 
-	margin-bottom: 1.71em; 
+.post-meta {
+	margin-bottom: 1.71em;
 	&.post-nocontent{
 		margin-bottom: 0;
 	}
 	.post-title-section{
 		padding-bottom: 6px;
 	}
-	.metabar{ 
+	.metabar{
 		font-size: 80%;
-		line-height: 1.6em; 
+		line-height: 1.6em;
 		em{
 			font-style: normal;
 			color: @textColorAlt;
@@ -361,36 +361,36 @@ a.site-title{
 	.hentry-pad{
 		padding: 0 0 25px;
 	}
-	.entry-title{ 
-		margin:0; 
+	.entry-title{
+		margin:0;
 	}
-	
+
 }
 
-.entry_content img { 
+.entry_content img {
 	max-width: 100%;
 }
 
 .fpost .post-excerpt {
-	font-size: 1.03em; 
+	font-size: 1.03em;
 	line-height: 1.55em;
 }
-	
+
 .tags {
 	font-size: 86%;
 	color: @textColorAlt;
 	.note{
 		.noteText();
 	}
-}	
-	
+}
+
 .pledit{
 	opacity: .7;
 	&:hover{
 		opacity: 1;
 	}
-}	
-	
+}
+
 // Clips - Only used in blog listing
 // ------------------------------------
 .clip_box{
@@ -401,16 +401,16 @@ a.site-title{
 	width:47%;
 	clear: none;
 	float: left;
-	.hentry{ 
+	.hentry{
 		margin: 0;
 	}
 	&.clip-right{
-		float: right; 	
+		float: right;
 	}
-	.post-meta .c_img { 
+	.post-meta .c_img {
 		padding: 2px;
 	}
-	.clip-header { 
+	.clip-header {
 		padding: 4px 0 4px 0;
 		display: table-cell;
 		width: 10000px;
@@ -423,7 +423,7 @@ a.site-title{
 		img{
 			padding: 2px;
 			display:block;
-			margin:0 0 0.4em;	
+			margin:0 0 0.4em;
 		}
 	}
 	.post-excerpt{
@@ -434,9 +434,9 @@ a.site-title{
 		.post-thumb.img {
 			margin-right: 10px
 		}
-	} 
-	
-	.entry-title, 
+	}
+
+	.entry-title,
 	.metabar{
 		padding: 0;
 	}
@@ -445,7 +445,7 @@ a.site-title{
 
 
 /* @ Post Navigation */
-.post-nav, 
+.post-nav,
 .current_posts_info {
 	clear: both;
 	padding:5px 10px;
@@ -456,7 +456,7 @@ a.site-title{
 		color: @textColorSubtle;
 		&:hover{
 			color: @textColor;
-			
+
 		}
 	}
 	.previous a {
@@ -478,57 +478,57 @@ a.site-title{
 			background-size: 16px 16px;
 		}
 	}
-	
+
 }
 
-/* Blows up text huge */ 
-.boomboard{ 
-	padding: 100px; 
-	min-height: 350px; 
-	h2.hugetext { 
+/* Blows up text huge */
+.boomboard{
+	padding: 100px;
+	min-height: 350px;
+	h2.hugetext {
 		font-size: 8em;
 	}
 }
-.billboard { 
-	padding: 60px 15px; 
-	margin: 0 0 2.5em 0; 
+.billboard {
+	padding: 60px 15px;
+	margin: 0 0 2.5em 0;
 }
 
-/* @ Previewing Alert */ 
-h2.notavail{ 
-	margin-bottom: 1.5em; 
-}	
+/* @ Previewing Alert */
+h2.notavail{
+	margin-bottom: 1.5em;
+}
 
 
 /* secondary text */
 
-hr, 
-.fpost, 
-.navigation_wrap, 
-.setup_area, 
-.fpost .post-thumb img, 
-.clip .clip-thumb img, 
+hr,
+.fpost,
+.navigation_wrap,
+.setup_area,
+.fpost .post-thumb img,
+.clip .clip-thumb img,
 .author-thumb img{
 	border-color: @dark-base;
 }
 
-	.item-avatar a, 
+	.item-avatar a,
 	ins{
 		background-color: lighten(@dark-base, 1.6);
 	}
 
 
 
-/* 
- * Text Colors 
+/*
+ * Text Colors
  ***********************************/
-h1, 
-h2, 
-h3, 
-h4, 
-h5, 
-h6, 
-a.site-title, 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a.site-title,
 .entry-title a{
 	> a{
 		color: @pl-header;
@@ -539,27 +539,27 @@ a.site-title,
 #page{
 	color: @pl-text;
 }
-	
+
 a{
 	color: @pl-link;
 	&:hover{
 		color: fadeout(@pl-link, 20%);
 	}
-}	
+}
 
 .subhead{
 	color: @textColorAlt;
-	font-size: 86%; 
+	font-size: 86%;
 }
-	
 
 
-/* 
- * Thumbs and other images 
+
+/*
+ * Thumbs and other images
  ***********************************/
-.post-meta .c_img{ 
-	background: @light-base; 
-	border: 1px solid lighten(@light-base, 4); 
+.post-meta .c_img{
+	background: @light-base;
+	border: 1px solid lighten(@light-base, 4);
 	box-shadow: 0 1px 2px rgba(0,0,0, .4);
 	img{
 		box-shadow: 0 1px 2px lighten(@light-base, 8);
@@ -568,24 +568,24 @@ a{
 
 
 /* @ PageLines Leaf */
-#cred { 
+#cred {
 	text-align: center;
-	padding: 15px; 
-	
-	a.plimage { 
+	padding: 15px;
+
+	a.plimage {
 		text-align: center;
-		
+
 	}
 }
 
-/* 
+/*
  * Responsive Design
  ****************************************/
 
 body{
 	.content img {
-		max-width: 100%; 
-		height: auto; 
+		max-width: 100%;
+		height: auto;
 		width: auto\9; /* ie8 */
 	}
 	.entry_content{
@@ -598,13 +598,13 @@ body{
 }
 
 @media screen and (max-width:800px){
-	
+
 	.responsive{
-		#site .content, #footer .content, 
+		#site .content, #footer .content,
 		&.fixed_width #page{
 			width: 97%;
 		}
-		#page #pagelines_content #column-wrap, 
+		#page #pagelines_content #column-wrap,
 		#page #pagelines_content #sidebar-wrap,
 		&.fixed_width #site .content{
 			width: 100%;
@@ -612,16 +612,16 @@ body{
 		form {
 			margin-left: 0;
 		}
-		.one-sidebar-right #column-main .mcolumn-pad, 
+		.one-sidebar-right #column-main .mcolumn-pad,
 		.two-sidebar-right #column-main .mcolumn-pad {
 			padding:15px;
 		}
 	}
 
 }
-	
-@media screen and (max-width:600px) { 
-	
+
+@media screen and (max-width:600px) {
+
 	.responsive{
 		.navigation_wrap{
 			text-align: center;
@@ -650,18 +650,18 @@ body{
 		}
 		*/
 	}
-   
+
 	.scale_text{
 		font-size: .85em;
 	}
-	
+
 }
-	
-@media screen and ( max-width : @resPhoneLandscape ) { 
-	html { 
-		-webkit-text-size-adjust: none; 
+
+@media screen and ( max-width : @resPhoneLandscape ) {
+	html {
+		-webkit-text-size-adjust: none;
 	}
-	
+
 	.responsive{
 		#page {
 			#pagelines_content .clip {
@@ -669,12 +669,12 @@ body{
 		    }
 			#brandnav .mainlogo-link {
 				float: none
-			} 
-			
-			.main_nav .main-nav, 
+			}
+
+			.main_nav .main-nav,
 			#brandnav .brandnav-nav{
-				margin-top: 10px; 
-				width: 100%; 
+				margin-top: 10px;
+				width: 100%;
 				float: none;
 			}
 			.main_nav{
@@ -698,16 +698,16 @@ body{
 			display:inline-block;
 			float: none;
 		}
-	}	
+	}
 }
 
-#column-wrap,  
-#sidebar-wrap, 
-.clip, 
-#column-main, 
-#sidebar1, 
-.content, 
-#page{ 
+#column-wrap,
+#sidebar-wrap,
+.clip,
+#column-main,
+#sidebar1,
+.content,
+#page{
 	.transition(all .2s linear);
 }
 

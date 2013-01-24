@@ -380,12 +380,12 @@
 // Common Highlight
 .highlightMe(){
 	.buttonBackground(@btnPrimaryBackground, @btnPrimaryBackgroundHighlight);
-	color: #fff; 
+	color: #fff;
 	text-shadow: 0 -1px 0 rgba(0,0,0,.7);
 	border-color: @btnPrimaryBackground;
 	box-shadow: inset 1px 1px 0 rgba(255,255,255,.2);
-	a{ 
-		color:#fff; 
+	a{
+		color:#fff;
 		text-shadow: 0 -1px 0 rgba(0,0,0,.7);
 	}
 }
@@ -499,7 +499,7 @@
 	                  transparent 50%, @alt 50%, @alt 75%,
 	                  transparent 75%, transparent);
   }
- 
+
 }
 
 // Reset filters for IE
@@ -635,7 +635,7 @@
 		.span (@columns) {
 			width: (@fluidGridColumnWidth * @columns) + (@fluidGridGutterWidth * (@columns - 1));
 		}
-		
+
 		.offsetX (@index) when (@index > 0) {
 		  (~".offset@{index}") { .offset(@index); }
 		  .offsetX(@index - 1);
@@ -644,15 +644,15 @@
 
 		.offset (@columns) {
 			@offsetMargin: (@fluidGridColumnWidth * @columns) + (@fluidGridGutterWidth * (@columns + 1));
-			&.sortable_first, 
+			&.sortable_first,
 			&:first-child{
 				margin-left: @offsetMargin - @fluidGridGutterWidth;
 			}
 			margin-left: @offsetMargin;
 		}
 
-		.row, 
-		.row-fluid, 
+		.row,
+		.row-fluid,
 		.editor-row {
 			width: 100%;
 			.clearfix();
@@ -660,10 +660,10 @@
 				float: left;
 				margin-left: @fluidGridGutterWidth;
 				margin-bottom:@gridRowSpace;
-			 	
-				
+
+
 			}
-			> [class*="span"]:first-child, 
+			> [class*="span"]:first-child,
 			.sortable_first {
 				margin-left: 0;
 				clear: both;
@@ -699,6 +699,6 @@
 
   	}
 
-	
+
 
 }

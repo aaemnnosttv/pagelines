@@ -5,7 +5,7 @@
 
 /**
  * Show Options Panel after theme activation
- * 
+ *
  * @package PageLines Framework
  * @subpackage Redirects
  * @since 1.0.0
@@ -15,7 +15,7 @@ if( is_admin() && isset($_GET['activated'] ) && $pagenow == "themes.php" )
 
 /**
  * Add Javascript for Layout Controls from the Layout UI class
- * 
+ *
  * @package PageLines Framework
  * @subpackage LayoutUI
  * @since 2.0.b3
@@ -37,9 +37,9 @@ add_action( 'pagelines_admin_head', array(&$layout_control_js, 'layout_control_j
  * @return  string
  */
 function pagelines_admin_body_class( $class ){
-	
+
 	$class = $class.'pagelines_ui';
-	
+
 	return $class;
 }
 /**
@@ -64,7 +64,7 @@ function pagelines_check_php(){
  *
  * AJAX OPTION SAVING
  * Used to save via AJAX theme options and image uploads
- * 
+ *
  * @package PageLines Framework
  * @since 1.2.0
  */
@@ -78,33 +78,33 @@ function pagelines_ajax_callback() {
 	$setting = $_POST['setting'];
 	$button_id = $_POST['oid'];
 
-	$pieces = explode( 'OID', $_POST['oid'] );		
+	$pieces = explode( 'OID', $_POST['oid'] );
 	$oid = $pieces[0];
 	$parent_oid = ( isset($pieces[1]) ) ? $pieces[1] : null;
 
 	// Uploads
 	if( $save_type == 'upload' ) {
-	
-		
+
+
 		$arr_file_type = wp_check_filetype( basename( $_FILES[$button_id]['name'] ));
-		
+
 		$uploaded_file_type = $arr_file_type['type'];
-		
+
 		// Set an array containing a list of acceptable formats
 		$allowed_file_types = array( 'image/jpg','image/jpeg','image/gif','image/png', 'image/x-icon');
-	
+
 		if( in_array( $uploaded_file_type, $allowed_file_types ) ) {
 
 			$filename = $_FILES[ $button_id ];
-			$filename['name'] = preg_replace( '/[^a-zA-Z0-9._\-]/', '', $filename['name'] ); 
-			
+			$filename['name'] = preg_replace( '/[^a-zA-Z0-9._\-]/', '', $filename['name'] );
+
 			$override['test_form'] = false;
-			$override['action'] = 'wp_handle_upload';    
-			
+			$override['action'] = 'wp_handle_upload';
+
 			$uploaded_file = wp_handle_upload( $filename, $override );
-			
+
 			$upload_tracking[] = $button_id;
-			
+
 			plupop( $oid, $uploaded_file['url'], array( 'setting' => $setting, 'parent' => $parent_oid ) );
 
 			$name = 'PageLines- ' . addslashes( $filename['name'] );
@@ -119,24 +119,24 @@ function pagelines_ajax_callback() {
 			$attach_id = wp_insert_attachment( $attachment, $uploaded_file['file'] );
 			$attach_data = wp_generate_attachment_metadata( $attach_id, $uploaded_file['file'] );
 			wp_update_attachment_metadata( $attach_id,  $attach_data );
-			
+
 		} else
 			$uploaded_file['error'] = __( 'Unsupported file type!', 'pagelines' );
-	
+
 		if( !empty( $uploaded_file['error'] ) )
 			echo sprintf( __('Upload Error: %s', 'pagelines' ) , $uploaded_file['error'] );
 		else{
 			//print_r($r);
 			echo $uploaded_file['url']; // Is the Response
-		
+
 		}
 	} elseif( $save_type == 'image_reset' ){
 		plupop( $oid, null, array( 'setting' => $setting, 'parent' => $parent_oid ) );
 	}
-	
+
 	die();
 }
-	
+
 /**
  * (AJAX) Save Template Map
  *
@@ -175,12 +175,12 @@ function ajax_save_template_map() {
     save_template_map( $templatemap );
 
 	PageLinesRenderCSS::flush_version( false );
-	
+
     echo true;
 
     die();
 }
-	
+
 /**
  * Ajax Save Options Callback
  *
@@ -213,7 +213,7 @@ function pagelines_ajax_save_option_callback() {
  */
 add_action( 'admin_init', 'pagelines_inline_help' );
 function pagelines_inline_help() {
-	
+
 	$pl_help = new PageLines_Inline_Help;
 }
 
@@ -265,13 +265,13 @@ add_action('manage_posts_custom_column',  'pl_posts_show_columns');
 function pl_posts_show_columns($name) {
     global $post;
     switch ($name) {
-	
+
 		case 'feature':
 			if( has_post_thumbnail( $post->ID )) {
 				the_post_thumbnail( array(48,48) );
 			}
-		
-		break;		
+
+		break;
     }
 }
 
@@ -291,17 +291,17 @@ function pl_page_show_columns($name) {
     switch ($name) {
         case 'template':
             $template = get_post_meta( $post->ID, '_wp_page_template', true );
-            
-			if ( 'default' == $template ) {	
+
+			if ( 'default' == $template ) {
 				_e( 'Default', 'pagelines' );
 				break;
 			}
 
 			$file = sprintf( '%s/%s', PL_PARENT_DIR, $template );
-			
+
 			if ( !is_file( $file ) )
 				$file = sprintf( '%s/%s', CHILD_DIR, $template );
-			
+
 			if ( !is_file( $file ) ) {
 				printf( '<a href="%s">%s</a>', admin_url( sprintf( 'post.php?post=%s&action=edit', $post->ID ) ), __( 'No Template Assigned', 'pagelines' ) ) ;
 				break;
@@ -313,16 +313,16 @@ function pl_page_show_columns($name) {
 				$template = $data['name'];
 			else
 				$template = __( 'Default', 'pagelines' );
-			
+
 			echo $template;
 		break;
-		
+
 		case 'feature':
 			if( has_post_thumbnail( $post->ID )) {
 				the_post_thumbnail( array(48,48) );
 			}
-		
-		break;		
+
+		break;
     }
 }
 

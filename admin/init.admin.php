@@ -2,7 +2,7 @@
 /**
  * Admin main init.
  *
- * 
+ *
  * @author PageLines
  *
  * @since 2.0.b21
@@ -82,7 +82,7 @@ require_once( PL_ADMIN . '/class.rss.php' );
 /**
  * Load admin actions
  */
-require_once (PL_ADMIN.'/actions.admin.php'); 
+require_once (PL_ADMIN.'/actions.admin.php');
 
 /**
  * Load option actions

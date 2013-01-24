@@ -1,6 +1,6 @@
 <?php
 /**
- * 
+ *
  *
  *  Account Handling In Admin
  *
@@ -12,15 +12,15 @@
 class PageLinesAccount {
 
 	function __construct(){
-		
+
 		add_action( 'admin_init', array(&$this, 'update_lpinfo' ) );
-		add_filter( 'pagelines_account_array', array( &$this, 'get_intro' ) );		
+		add_filter( 'pagelines_account_array', array( &$this, 'get_intro' ) );
 	}
-	
+
 	/**
 	 * Save our credentials
-	 * 
-	 */	
+	 *
+	 */
 	function update_lpinfo() {
 
 		if ( isset( $_POST['form_submitted'] ) && $_POST['form_submitted'] === 'plinfo' ) {
@@ -30,14 +30,14 @@ class PageLinesAccount {
 			else
 				set_pagelines_credentials( $_POST['lp_username'], $_POST['lp_password'] );
 
-			PagelinesExtensions::flush_caches();		
+			PagelinesExtensions::flush_caches();
 
 			wp_redirect( PLAdminPaths::account( '&plinfo=true' ) );
 
 			exit;
 		}
 	}
-	
+
 	/**
 	 *
 	 *  Returns Extension Array Config
@@ -73,12 +73,12 @@ class PageLinesAccount {
 					'default'	=> '',
 					'type'		=> 'import_export',
 					'layout'	=> 'full',
-					'title'		=> __( 'Import/Export PageLines Settings', 'pagelines' ),						
+					'title'		=> __( 'Import/Export PageLines Settings', 'pagelines' ),
 					'shortexp'	=> __( 'Use this form to upload PageLines settings from another install.', 'pagelines' ),
 				)
 			);
 
-		return apply_filters( 'pagelines_account_array', $d ); 
+		return apply_filters( 'pagelines_account_array', $d );
 	}
 
 	/**
@@ -91,15 +91,15 @@ class PageLinesAccount {
      * @return  string
      */
 	function get_intro( $o ) {
-		
+
 		if ( is_file( get_stylesheet_directory() . '/welcome.php' ) ) {
-			
+
 			ob_start();
 				include( get_stylesheet_directory() . '/welcome.php' );
-			$welcome =  ob_get_clean();	
-			
+			$welcome =  ob_get_clean();
+
 			$a = array();
-			
+
 			if ( is_file( get_stylesheet_directory() . '/welcome.png' ) )
 				$icon = get_stylesheet_directory_uri() . '/welcome.png';
 			else
@@ -111,7 +111,7 @@ class PageLinesAccount {
 					'flag'			=> 'hide_option',
 					'exp'			=> $welcome
 				)
-			);		
+			);
 		$o = array_merge( $a, $o );
 		}
 	return $o;
@@ -137,7 +137,7 @@ class PageLinesAccount {
 		$url = pagelines_check_credentials( 'vchat' );
 
 		$iframe = ( $url ) ? sprintf( '<iframe class="live_chat_iframe" src="%s"></iframe>', $url ) : false;
-		$rand = 
+		$rand =
 		ob_start();
 		?>
 
@@ -154,10 +154,10 @@ class PageLinesAccount {
 		</div>
 		<div class="live_chat_wrap fix">
 
-			<?php 
+			<?php
 
 			if($iframe):
-				echo $iframe; 
+				echo $iframe;
 			else:?>
 
 				<div class="live_chat_up_bill">
@@ -168,11 +168,11 @@ class PageLinesAccount {
 
 					else
 						if ( !VPLUS )
-							printf( '<a class="button" href="%s">%s</a>', pl_get_plus_link(), __( 'Upgrade to PageLines Plus', 'pagelines' ) );?>			 
+							printf( '<a class="button" href="%s">%s</a>', pl_get_plus_link(), __( 'Upgrade to PageLines Plus', 'pagelines' ) );?>
 				</div>
 			<?php endif;	?>
 		</div>
-		<?php 
+		<?php
 
 		$bill = ob_get_clean();
 
@@ -274,5 +274,5 @@ class PageLinesAccount {
 		);
 
 		return apply_filters('pagelines_options_welcome', $a);
-	}	
+	}
 }

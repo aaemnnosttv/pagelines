@@ -19,13 +19,13 @@
 
 if(!have_comments() && !comments_open())
 	return;
-	
+
 ?>
 
 <div id="comments" class="wp-comments">
 	<div class="wp-comments-pad">
-	<?php 
-	
+	<?php
+
 		/* Stop the rest of comments.php from being processed,
 		 * but don't kill the script entirely -- we still have
 		 * to fully load the template.
@@ -33,9 +33,9 @@ if(!have_comments() && !comments_open())
 		if ( post_password_required() ){
 			printf('<p class="nopassword">%s</p></div></div>', __( 'This post is password protected. Enter the password to view any comments.', 'pagelines' ) );
 			return;
-			
+
 		}
-		
+
 		if ( have_comments() ) : ?>
 			<h3 id="comments-title"><?php
 			printf( _n( 'One Response to %2$s', '%1$s Responses to %2$s', get_comments_number(), 'pagelines' ),
@@ -52,7 +52,7 @@ if(!have_comments() && !comments_open())
 						</div> <!-- .navigation -->
 			<?php endif; // check for comment navigation ?>
 
-			
+
 <?php 	else : // or, if we don't have comments:
 
 			/* If there are no comments and comments are closed,
@@ -63,9 +63,9 @@ if(!have_comments() && !comments_open())
 			<p class="nocomments"><?php _e('Comments are closed.', 'pagelines');?></p>
 		<?php endif; // end ! comments_open() ?>
 
-<?php 
-		endif; // end have_comments() 
-	 
+<?php
+		endif; // end have_comments()
+
 	comment_form(); ?>
 	</div>
 </div>

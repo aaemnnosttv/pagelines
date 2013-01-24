@@ -20,8 +20,8 @@
 	<div class="widget-pad">
 		<h3 class="widget-title"><?php _e('Calendar','pagelines'); ?></h3>
 
-			<?php get_calendar( ); ?> 
-		
+			<?php get_calendar( ); ?>
+
 	</div>
 </li>
 

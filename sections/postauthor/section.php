@@ -4,7 +4,7 @@
 	Author: PageLines
 	Author URI: http://www.pagelines.com
 	Description: Adds post author to page/single post.
-	Class Name: PageLinesPostAuthor	
+	Class Name: PageLinesPostAuthor
 	Workswith: main-single, author
 	Failswith: archive, category, posts, tags, search, 404_page
 */
@@ -20,15 +20,15 @@ class PageLinesPostAuthor extends PageLinesSection {
 	/**
 	* Section template.
 	*/
-   function section_template() { 
-	global $post; 
+   function section_template() {
+	global $post;
 	setup_postdata($post);
-	
-	ob_start(); 
+
+	ob_start();
 		the_author_meta('url');
 	$link = ob_get_clean();
 ?>
-		
+
 		<div class="media author-info">
 			<div class="img thumbnail author-thumb">
 				<a class="thumbnail" href="<?php echo $link; ?>" target="_blank">
@@ -45,14 +45,14 @@ class PageLinesPostAuthor extends PageLinesSection {
 					<?php if($link != ''):
 						printf( '<a href="%s" target="_blank">%s</a>', $link, __( 'Visit Authors Website &rarr;', 'pagelines') );
 					endif;
-					
+
 					$google_profile = get_the_author_meta( 'google_profile' );
 					if ( $google_profile ) {
 						printf( '<br /><a href="%s" rel="me">%s</a>',  $google_profile, __( 'Authors Google Profile &rarr;', 'pagelines' ) );
 					} ?>
 				</div>
 			</div>
-		
+
 		</div>
 		<div class="clear"></div>
 <?php	}

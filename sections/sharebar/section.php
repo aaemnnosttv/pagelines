@@ -6,7 +6,7 @@
 	Description: Adds ways to share content on pages/single posts
 	Class Name: PageLinesShareBar
 	Workswith: main
-	Failswith: pagelines_special_pages() 
+	Failswith: pagelines_special_pages()
 	Cloning: true
 */
 
@@ -52,8 +52,8 @@ class PageLinesShareBar extends PageLinesSection {
     <?php }
 
 	function get_shares(){
-		
-		global $post; 
+
+		global $post;
 
 		$perm = get_permalink($post->ID);
 		$title = wp_strip_all_tags( get_the_title( $post->ID ) );
@@ -62,29 +62,29 @@ class PageLinesShareBar extends PageLinesSection {
 		$desc = wp_strip_all_tags( pl_short_excerpt($post->ID, 10, '') );
 
 		$out = '';
-	
+
 		if(ploption('share_google'))
 			$out .= self::google(array('permalink' => $perm));
-		
+
 		if(ploption('share_twitter'))
 			$out .= self::twitter(array('permalink' => $perm, 'title' => $title));
-			
+
 		if(ploption('share_facebook'))
-			$out .= self::facebook(array('permalink' => $perm));	
-			
-		if(ploption('share_linkedin'))	
+			$out .= self::facebook(array('permalink' => $perm));
+
+		if(ploption('share_linkedin'))
 			$out .= self::linkedin(array('permalink' => $perm, 'title' => $title));
-		
+
 		if(ploption('share_pinterest'))
 			$out .= self::pinterest(array('permalink' => $perm, 'image' => $thumb, 'desc' => $desc));
-			
+
 		if(ploption('share_buffer'))
 			$out .= self::buffer(array('permalink' => $perm, 'title' => $title));
-		
+
 		if(ploption('share_stumble'))
 			$out .= self::stumbleupon(array('permalink' => $perm, 'title' => $title));
-		
-		
+
+
 
 		return $out;
 	}
@@ -95,57 +95,57 @@ class PageLinesShareBar extends PageLinesSection {
 	 *
 	 */
 	function pinterest( $args ){
-		
+
 		$defaults = array(
-			'permalink'	=> '', 
+			'permalink'	=> '',
 			'width'		=> '80',
-			'hash'		=> ploption('site-hashtag'), 
-			'handle'	=> ploption('twittername'), 
+			'hash'		=> ploption('site-hashtag'),
+			'handle'	=> ploption('twittername'),
 			'title'		=> '',
-			'image'		=> '', 
+			'image'		=> '',
 			'desc'		=> ''
-		); 	
-		
+		);
+
 		$a = wp_parse_args($args, $defaults);
 		ob_start();
 		?>
-		
+
 		<div class="pin_wrap"><a href="http://pinterest.com/pin/create/button/?url=<?php echo $a['permalink'];?>&media=<?php echo urlencode($a['image']);?>&description=<?php echo urlencode($a['desc']);?>" class="pin-it-button" count-layout="none"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a></div>
 		<script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
-		<?php 
+		<?php
 
 		return ob_get_clean();
-		
-		
+
+
 	}
 
-	
+
 	/**
 	 *
 	 * LinkedIn Button
 	 *
 	 */
 	function linkedin( $args ){
-		
+
 		$defaults = array(
-			'permalink'	=> '', 
+			'permalink'	=> '',
 			'width'		=> '80',
-			'hash'		=> ploption('site-hashtag'), 
-			'handle'	=> ploption('twittername'), 
+			'hash'		=> ploption('site-hashtag'),
+			'handle'	=> ploption('twittername'),
 			'title'		=> '',
-		); 	
-		
+		);
+
 		$a = wp_parse_args($args, $defaults);
 		ob_start();
 		?>
 			<script src="http://platform.linkedin.com/in.js" type="text/javascript"></script>
 			<script width="100" type="IN/Share" data-url="<?php echo $a['permalink'];?>" data-width="<?php echo $a['width'];?>" data-counter="right"></script>
 
-		<?php 
+		<?php
 
 		return ob_get_clean();
-		
-		
+
+
 	}
 
 
@@ -155,62 +155,62 @@ class PageLinesShareBar extends PageLinesSection {
 	 *
 	 */
 	function stumbleupon( $args ){
-		
+
 		$defaults = array(
-			'permalink'	=> '', 
+			'permalink'	=> '',
 			'width'		=> '80',
-			'hash'		=> ploption('site-hashtag'), 
-			'handle'	=> ploption('twittername'), 
+			'hash'		=> ploption('site-hashtag'),
+			'handle'	=> ploption('twittername'),
 			'title'		=> '',
-		); 	
-		
+		);
+
 		$a = wp_parse_args($args, $defaults);
 		ob_start();
 		?>
 			<su:badge layout="2" ></su:badge>
 
-			 <script type="text/javascript"> 
-			 (function() { 
-			     var li = document.createElement('script'); li.type = 'text/javascript'; li.async = true; 
-			      li.src = 'https://platform.stumbleupon.com/1/widgets.js'; 
-			      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(li, s); 
-			 })(); 
+			 <script type="text/javascript">
+			 (function() {
+			     var li = document.createElement('script'); li.type = 'text/javascript'; li.async = true;
+			      li.src = 'https://platform.stumbleupon.com/1/widgets.js';
+			      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(li, s);
+			 })();
 			 </script>
 
-		<?php 
+		<?php
 
 		return ob_get_clean();
-		
-		
+
+
 	}
-	
-	
+
+
 	/**
 	*
 	* Buffer Social Button
 	*
 	*/
 	function buffer( $args ){
-		
+
 		$defaults = array(
-			'permalink'	=> '', 
+			'permalink'	=> '',
 			'width'		=> '80',
-			'hash'		=> ploption('site-hashtag'), 
-			'handle'	=> ploption('twittername'), 
+			'hash'		=> ploption('site-hashtag'),
+			'handle'	=> ploption('twittername'),
 			'title'		=> '',
-		); 	
-		
+		);
+
 		$a = wp_parse_args($args, $defaults);
-		
-		
+
+
 		return sprintf(
-			'<a href="http://bufferapp.com/add" class="buffer-add-button" data-text="%s" data-url="%s" data-count="horizontal" data-via="%s">Buffer</a><script type="text/javascript" src="http://static.bufferapp.com/js/button.js"></script>', 
-			$a['title'], 
-			$a['permalink'], 
+			'<a href="http://bufferapp.com/add" class="buffer-add-button" data-text="%s" data-url="%s" data-count="horizontal" data-via="%s">Buffer</a><script type="text/javascript" src="http://static.bufferapp.com/js/button.js"></script>',
+			$a['title'],
+			$a['permalink'],
 			$a['handle']
 		);
-		
-		
+
+
 	}
 
 	/**
@@ -219,35 +219,35 @@ class PageLinesShareBar extends PageLinesSection {
 	*
 	*/
 	function twitter( $args ){
-		
+
 		$defaults = array(
-			'permalink'	=> '', 
+			'permalink'	=> '',
 			'width'		=> '80',
-			'hash'		=> ploption('site-hashtag'), 
-			'handle'	=> ploption('twittername'), 
+			'hash'		=> ploption('site-hashtag'),
+			'handle'	=> ploption('twittername'),
 			'title'		=> '',
-		); 	
-		
+		);
+
 		$a = wp_parse_args($args, $defaults);
-		
+
 		ob_start();
-		
+
 			// Twitter
 			printf(
-				'<a href="https://twitter.com/share" class="twitter-share-button" data-url="%s" data-text="%s" data-via="%s" data-hashtags="%s">Tweet</a>', 
-				$a['permalink'], 
+				'<a href="https://twitter.com/share" class="twitter-share-button" data-url="%s" data-text="%s" data-via="%s" data-hashtags="%s">Tweet</a>',
+				$a['permalink'],
 				$a['title'],
-				(ploption('twitter_via')) ? $a['handle'] : '', 
+				(ploption('twitter_via')) ? $a['handle'] : '',
 				(ploption('twitter_hash')) ? $a['hash'] : ''
 			);
-		
+
 		?>
 		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-		
-		<?php 
-		
+
+		<?php
+
 		return ob_get_clean();
-		
+
 	}
 
 
@@ -257,19 +257,19 @@ class PageLinesShareBar extends PageLinesSection {
 	*
 	*/
 	function google( $args ){
-		
+
 		$defaults = array(
-			'permalink'	=> '', 
+			'permalink'	=> '',
 			'width'		=> '80',
-		); 
-		
+		);
+
 		$a = wp_parse_args($args, $defaults);
-		
+
 		ob_start();
-		
+
 			// G+
 			printf('<div class="g-plusone" data-size="medium" data-width="%s" data-href="%s"></div>', $a['width'], $a['permalink']);
-	
+
 		?>
 		<!-- Place this render call where appropriate -->
 		<script type="text/javascript">
@@ -279,11 +279,11 @@ class PageLinesShareBar extends PageLinesSection {
 		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
 		  })();
 		</script>
-		
-		<?php 
-		
+
+		<?php
+
 		return ob_get_clean();
-		
+
 	}
 
 
@@ -293,15 +293,15 @@ class PageLinesShareBar extends PageLinesSection {
 	*
 	*/
 	function facebook( $args ){
-		
+
 		$defaults = array(
-			'permalink'	=> '', 
+			'permalink'	=> '',
 			'width'		=> '80',
-		); 
-		
+		);
+
 		$a = wp_parse_args($args, $defaults);
-		
-		
+
+
 		ob_start();
 			// Facebook
 			?>
@@ -315,12 +315,12 @@ class PageLinesShareBar extends PageLinesSection {
 			</script>
 			<?php
 			printf(
-				'<div class="fb-like" data-href="%s" data-send="false" data-layout="button_count" data-width="%s" data-show-faces="false" data-font="arial" style="vertical-align: top"></div>', 
-				$a['permalink'], 
+				'<div class="fb-like" data-href="%s" data-send="false" data-layout="button_count" data-width="%s" data-show-faces="false" data-font="arial" style="vertical-align: top"></div>',
+				$a['permalink'],
 				$a['width']);
-				
+
 		return ob_get_clean();
-		
+
 	}
 
 }

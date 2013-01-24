@@ -2,7 +2,7 @@
 /**
  * Upgrader skin and other functions.
  *
- * 
+ *
  * @author PageLines
  *
  * @since 2.0.b10
@@ -18,7 +18,7 @@ class PageLines_Upgrader_Skin extends WP_Upgrader_Skin {
 	function __construct( $args = array() ) {
 		parent::__construct($args);
 	}
-	
+
 
 	/**
 	*
@@ -26,7 +26,7 @@ class PageLines_Upgrader_Skin extends WP_Upgrader_Skin {
 	*
 	*/
 	function header() { }
-	
+
 
 	/**
 	*
@@ -34,7 +34,7 @@ class PageLines_Upgrader_Skin extends WP_Upgrader_Skin {
 	*
 	*/
 	function footer(){ }
-	
+
 
 	/**
 	*
@@ -42,18 +42,18 @@ class PageLines_Upgrader_Skin extends WP_Upgrader_Skin {
 	*
 	*/
 	function feedback($string) {
-	
+
 		$string = str_replace( 'downloading_package', '', $string );
 		$string = str_replace( 'unpack_package', '', $string );
 		$string = str_replace( 'installing_package', '', $string );
-		$string = str_replace( 'process_failed', '', $string );	
+		$string = str_replace( 'process_failed', '', $string );
 		$string = str_replace( 'process_success', '', $string );
 		$string = str_replace( 'parent_theme_search', '', $string );
 		$string = str_replace( 'parent_theme_currently_installed', '', $string );
-		
+
 		// if anything left, must be a fatal error!
-		
-		if ( $string )	{			
+
+		if ( $string )	{
 			if ( strstr( $string, 'Download failed' ) ) {
 				_e( "Could not connect to download.<br/><a href='#'>Reload Page</a>", 'pagelines' );
 				exit();
@@ -61,17 +61,17 @@ class PageLines_Upgrader_Skin extends WP_Upgrader_Skin {
 			if ( strstr( $string, 'Destination folder already exists' ) ) {
 				$string = str_replace( 'Destination folder already exists.', '', $string );
 				printf( __('Destination folder already exists %s', 'pagelines' ), $string );
-				exit;				
+				exit;
 			}
 			if ( strstr( $string, 'Could not' ) ) {
 				printf( __('Permissions Error<br /> %s', 'pagelines' ), $string );
-				exit;	
+				exit;
 			}
 				// fatal error?
 				wp_die( sprintf( '<h1>Fatal error!</h1><strong>%s</strong>', $string ) );
 		}
 	}
-	
+
 
 	/**
 	*
@@ -90,7 +90,7 @@ class PageLines_Upgrader_Skin extends WP_Upgrader_Skin {
 }
 
 class PageLines_Section_Installer extends Plugin_Upgrader {
-	
+
 
 	/**
 	*
@@ -100,7 +100,7 @@ class PageLines_Section_Installer extends Plugin_Upgrader {
 	function __construct( $args = array() ) {
 		parent::__construct($args);
 	}
-	
+
 
 	/**
 	*

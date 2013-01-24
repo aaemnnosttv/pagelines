@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 // ====================================
 // = Build PageLines Option Interface =
@@ -31,15 +31,15 @@ function pagelines_add_admin_menus() {
 	$_pagelines_options_page_hook = pagelines_insert_menu( PL_MAIN_DASH, __( 'Site Options', 'pagelines' ), 'edit_theme_options', 'pagelines', 'pagelines_build_option_interface' );
 
 	$_pagelines_special_hook = pagelines_insert_menu( PL_MAIN_DASH, __( 'Page Options', 'pagelines' ), 'edit_theme_options', 'pagelines_special', 'pagelines_build_special' );
-	
+
 	$_pagelines_templates_hook = pagelines_insert_menu( PL_MAIN_DASH, __( "Drag <span class='spamp'>&amp;</span> Drop", 'pagelines' ), 'edit_theme_options', 'pagelines_templates', 'pagelines_build_templates_interface' );
-	
+
 	$_pagelines_ext_hook = pagelines_insert_menu( PL_MAIN_DASH, __( 'Store', 'pagelines' ), 'edit_theme_options', PL_ADMIN_STORE_SLUG, 'pagelines_build_extension_interface' );
 
 }
 
 /**
- * 
+ *
  * PageLines menu wrapper
  */
 function pagelines_insert_menu( $page_title, $menu_title, $capability, $menu_slug, $function ) {
@@ -51,7 +51,7 @@ function pagelines_insert_menu( $page_title, $menu_title, $capability, $menu_slu
 
 /**
  * Full version menu wrapper.
- * 
+ *
  */
 function pagelines_add_admin_menu() {
 		global $menu;
@@ -71,7 +71,7 @@ function pagelines_add_admin_menu() {
  * @TODO document
  *
  */
-function pagelines_build_option_interface(){ 
+function pagelines_build_option_interface(){
 	pagelines_register_hook( 'pagelines_before_optionUI' );
 	$args = array(
 		'sanitize' 		=> 'pagelines_settings_callback',
@@ -83,21 +83,21 @@ function pagelines_build_option_interface(){
  * Build Extension Interface
  * Will handle adding additional sections, plugins, child themes
  */
-function pagelines_build_templates_interface(){ 
-	
+function pagelines_build_templates_interface(){
+
 	$args = array(
-		'title'			=> __( "Drag <span class='spamp'>&amp;</span> Drop Template Setup", 'pagelines' ), 
+		'title'			=> __( "Drag <span class='spamp'>&amp;</span> Drop Template Setup", 'pagelines' ),
 		'settings' 		=> PAGELINES_TEMPLATES,
 		'callback'		=> 'templates_array',
 		'basic_reset'	=> true,
-		'reset_cb'		=> 'reset_templates_to_default', 
-		'show_save'		=> false, 
-		'show_reset'	=> false, 
+		'reset_cb'		=> 'reset_templates_to_default',
+		'show_save'		=> false,
+		'show_reset'	=> false,
 		'tabs'			=> false
 	);
-	
+
 	$optionUI = new PageLinesOptionsUI( $args );
-	
+
 }
 
 
@@ -105,14 +105,14 @@ function pagelines_build_templates_interface(){
  * Build Extension Interface
  * Will handle adding additional sections, plugins, child themes
  */
-function pagelines_build_extension_interface(){ 
-	
+function pagelines_build_extension_interface(){
+
 	$args = array(
-		'title'			=> __( 'The PageLines Store', 'pagelines' ), 
+		'title'			=> __( 'The PageLines Store', 'pagelines' ),
 		'settings' 		=> PAGELINES_EXTENSION,
 		'callback'		=> 'extension_array',
-		'show_save'		=> false, 
-		'show_reset'	=> false, 
+		'show_save'		=> false,
+		'show_reset'	=> false,
 		'fullform'		=> false,
 		'reset_store'	=> true
 	);
@@ -123,16 +123,16 @@ function pagelines_build_extension_interface(){
  * Build Extension Interface
  * Will handle adding additional sections, plugins, child themes
  */
-function pagelines_build_account_interface(){ 
-	
+function pagelines_build_account_interface(){
+
 	global $account_control;
-	
+
 	$args = array(
 		'title'			=> __( 'PageLines Dashboard', 'pagelines' ),
 		'settings' 		=> PAGELINES_ACCOUNT,
 		'callback'		=> array( $account_control, 'pagelines_account_array' ),
-		'show_save'		=> false, 
-		'show_reset'	=> false, 
+		'show_save'		=> false,
+		'show_reset'	=> false,
 		'fullform'		=> false,
 	);
 	$optionUI = new PageLinesOptionsUI( $args );
@@ -143,13 +143,13 @@ function pagelines_build_account_interface(){
  * Build Meta Interface
  * Will handle meta for non-meta pages.. e.g. tags, categories
  */
-function pagelines_build_special(){ 
-	
+function pagelines_build_special(){
+
 	$args = array(
-		'title'			=> __( 'Page Option Setup', 'pagelines' ), 
+		'title'			=> __( 'Page Option Setup', 'pagelines' ),
 		'settings' 		=> PAGELINES_SPECIAL,
 		'callback'		=> 'special_page_settings_array',
-		'show_reset'	=> false, 
+		'show_reset'	=> false,
 		'basic_reset'	=> true
 	);
 	$optionUI = new PageLinesOptionsUI( $args );
@@ -172,14 +172,14 @@ function pagelines_theme_settings_init() {
 	global $_pagelines_special_hook;
 	global $_pagelines_templates_hook;
 	global $_pagelines_account_hook;
-	
+
 	// Call only on PL pages
 	add_action( "admin_print_scripts-{$_pagelines_options_page_hook}", 'pagelines_theme_settings_scripts' );
 	add_action( "admin_print_scripts-{$_pagelines_ext_hook}", 'pagelines_theme_settings_scripts' );
 	add_action( "admin_print_scripts-{$_pagelines_special_hook}", 'pagelines_theme_settings_scripts' );
 	add_action( "admin_print_scripts-{$_pagelines_templates_hook}", 'pagelines_theme_settings_scripts' );
 	add_action( "admin_print_scripts-{$_pagelines_account_hook}", 'pagelines_theme_settings_scripts' );
-	
+
 	// WordPress Page types
 	add_action( 'load-post.php',  'pagelines_theme_settings_scripts' );
 	add_action( 'load-post-new.php',  'pagelines_theme_settings_scripts' );
@@ -195,22 +195,22 @@ function pagelines_theme_settings_init() {
  *
  */
 function pagelines_theme_settings_scripts() {
-	
+
 	// Add Body Class
 	add_filter( 'admin_body_class', 'pagelines_admin_body_class' );
 
 	wp_enqueue_script( 'jquery-ajaxupload', PL_ADMIN_JS . '/jquery.ajaxupload.js', array( 'jquery' ), PL_CORE_VERSION );
-	wp_enqueue_script( 'jquery-cookie', PL_ADMIN_JS . '/jquery.ckie.js', array( 'jquery' ), PL_CORE_VERSION ); 
+	wp_enqueue_script( 'jquery-cookie', PL_ADMIN_JS . '/jquery.ckie.js', array( 'jquery' ), PL_CORE_VERSION );
 	wp_enqueue_script( 'jquery-ui-core' );
 	wp_enqueue_script( 'jquery-ui-tabs' );
 	wp_enqueue_script( 'jquery-ui-dialog' );
 	wp_enqueue_script( 'script-pagelines-settings', PL_ADMIN_JS . '/script.settings.js', array( 'jquery' ), PL_CORE_VERSION );
 
 	wp_enqueue_script( 'jquery-ui-effects', PL_ADMIN_JS . '/jquery.effects.js', array( 'jquery' ), PL_CORE_VERSION ); // just has highlight effect
-	wp_enqueue_script( 'jquery-ui-draggable' );	
+	wp_enqueue_script( 'jquery-ui-draggable' );
 	wp_enqueue_script( 'jquery-ui-sortable' );
-	wp_enqueue_script( 'script-pagelines-common', PL_ADMIN_JS . '/script.common.js', array( 'jquery' ), PL_CORE_VERSION );	
-	
+	wp_enqueue_script( 'script-pagelines-common', PL_ADMIN_JS . '/script.common.js', array( 'jquery' ), PL_CORE_VERSION );
+
 	// Prettify
 	wp_enqueue_script( 'codemirror', PL_ADMIN_JS . '/codemirror/codemirror.js', array( 'jquery' ), PL_CORE_VERSION );
 	wp_enqueue_script( 'codemirror-css', PL_ADMIN_JS . '/codemirror/css/css.js', array( 'jquery' ), PL_CORE_VERSION );
@@ -219,36 +219,36 @@ function pagelines_theme_settings_scripts() {
 	wp_enqueue_script( 'codemirror-xml', PL_ADMIN_JS . '/codemirror/xml/xml.js', array( 'jquery' ), PL_CORE_VERSION );
 	wp_enqueue_script( 'codemirror-html', PL_ADMIN_JS . '/codemirror/htmlmixed/htmlmixed.js', array( 'jquery' ), PL_CORE_VERSION );
 	wp_enqueue_style( 'codemirror', PL_ADMIN_JS . '/codemirror/codemirror.css' );
-	
+
 	// Color Picker
 	wp_enqueue_script( 'colorpicker-js', PL_ADMIN_JS . '/colorpicker/js/colorpicker.js', array( 'jquery' ), PL_CORE_VERSION );
-	wp_enqueue_style( 'colorpicker', PL_ADMIN_JS . '/colorpicker/css/colorpicker.css' ); 
+	wp_enqueue_style( 'colorpicker', PL_ADMIN_JS . '/colorpicker/css/colorpicker.css' );
 
 	wp_enqueue_script( 'jquery-colorbox', PL_ADMIN_JS . '/colorbox/jquery.colorbox-min.js', array( 'jquery' ), PL_CORE_VERSION );
-	wp_enqueue_style( 'colorbox', PL_ADMIN_JS . '/colorbox/colorbox.css' ); 	
-	
-	wp_enqueue_script( 'thickbox' );	
-	wp_enqueue_style( 'thickbox' ); 
-	
+	wp_enqueue_style( 'colorbox', PL_ADMIN_JS . '/colorbox/colorbox.css' );
+
+	wp_enqueue_script( 'thickbox' );
+	wp_enqueue_style( 'thickbox' );
+
 	wp_enqueue_script( 'jquery-layout', PL_ADMIN_JS . '/jquery.layout.js', array( 'jquery' ), PL_CORE_VERSION );
-	
+
 	// PageLines CSS objects
 	pagelines_load_css_relative( 'css/objects.css', 'pagelines-objects' );
-	
+
 	$custom_css = array(
 
 			'lineNumbers'	=>	true,
 			'mode'	=> 'text/x-less',
-			'lineWrapping'	=> true,	
+			'lineWrapping'	=> true,
 	);
-	
+
 	$headers = array(
 
 			'lineNumbers'	=>	true,
 			'mode'	=> 'text/html',
 			'lineWrapping'	=> true,
-	);	
-	
+	);
+
 	wp_localize_script( 'script-pagelines-common', 'cm_customcss', apply_filters( 'pagelines_customcss_cm_options', $custom_css ) );
 	wp_localize_script( 'script-pagelines-common', 'cm_headers', apply_filters( 'pagelines_headerscripts_cm_options', $headers ) );
 }
@@ -261,13 +261,13 @@ add_action( 'admin_head', 'load_head' );
  *
  */
 function load_head(){
-	
+
 	// Admin CSS
 	printf( '<link rel="stylesheet" href="%s/admin.css?ver=%s" type="text/css" media="screen" />', PL_ADMIN_CSS, PL_CORE_VERSION );
-	
-	
-	
-	if( ploption( 'pagelines_favicon' ) )  
+
+
+
+	if( ploption( 'pagelines_favicon' ) )
 		printf( '<link rel="shortcut icon" href="%s" type="image/x-icon" />', ploption( 'pagelines_favicon' ) );
 
 	// Load on PageLines pages
@@ -285,12 +285,12 @@ add_action( 'admin_init', 'pagelines_register_settings', 5 );
  *
  */
 function pagelines_register_settings() {
-	
-	
+
+
 	register_setting( PAGELINES_SETTINGS, PAGELINES_SETTINGS, 'pagelines_settings_callback' );
 	register_setting( PAGELINES_SPECIAL, PAGELINES_SPECIAL );
 	register_setting( PAGELINES_TEMPLATES, PAGELINES_TEMPLATES );
-	
+
 	/* Typography Options */
 	$GLOBALS['pl_foundry'] = new PageLinesFoundry;
 
@@ -300,40 +300,40 @@ function pagelines_register_settings() {
 	pagelines_import_export();
 
 	pagelines_process_reset_options();
-	
+
 	if ( !isset($_REQUEST['page'] ) || $_REQUEST['page'] != 'pagelines' )
 		return;
-	
-	global $new_default_settings; 
-	
+
+	global $new_default_settings;
+
 	/*
 		New Default Options in Child Themes
 	*/
 	if( !isset( $_GET['newoptions'] ) && pagelines_activate_or_reset() && !empty($new_default_settings ) ){
-		
+
 		$type = sprintf( '&%s=true', pagelines_activate_or_reset() );
-		
+
 		foreach( $new_default_settings as $key => $set )
 			plupop( $set['key'], $set['value'], array( 'parent' => $set['parent'], 'subkey' => $set['subkey'], 'setting' => $set['setting'] ) );
-		
+
 		wp_redirect( admin_url( PL_SETTINGS_URL.'&newoptions=true'.$type ) );
 	}
-	
+
 	/*
 		Handle Reset of Options
 	*/
 	if ( ploption( 'reset') ) {
-		
+
 		update_option( PAGELINES_SETTINGS, pagelines_settings_defaults() );
-		
+
 		global $extension_control;
-		
+
 		$extension_control->flush_caches();
-		
+
 		wp_redirect( admin_url( PL_SETTINGS_URL.'&reset=true' ) );
-		
+
 		exit;
-		
+
 	}
 
 }
@@ -347,7 +347,7 @@ function pagelines_register_settings() {
  *
  */
 function pagelines_enable_debug( $option_array ) {
- 
+
 	$debug = new PageLinesDebug;
  	$debug_option_array['debug'] = array(
  		'debug_info' => array(
@@ -365,91 +365,91 @@ function pagelines_enable_debug( $option_array ) {
  *
  */
 function pagelines_admin_confirms(){
-	
+
 	$confirms = array();
-	
+
 	if( isset( $_GET['settings-updated'] ) )
 		$confirms[]['text'] = sprintf( __( "%s Settings Saved. &nbsp;<a class='sh_preview' href='%s/' target='_blank'>View Your Site &rarr;</a>", 'pagelines' ), PL_NICECHILDTHEMENAME, home_url() );
 	if( isset($_GET['pageaction']) ){
-	
+
 		if( $_GET['pageaction']=='activated' && !isset($_GET['settings-updated']) ){
 			$confirms['activated']['text'] = sprintf( __( 'Congratulations! %s Has Been Successfully Activated.', 'pagelines' ), PL_NICECHILDTHEMENAME );
 			$confirms['activated']['class'] = 'activated';
 		}
-	
+
 		elseif( $_GET['pageaction']=='import' && isset($_GET['imported'] )){
 			$confirms['settings-import']['text'] = __( 'Congratulations! New settings have been successfully imported.', 'pagelines' );
 			$confirms['settings-import']['class'] = "settings-import";
 		}
-	
+
 		elseif( $_GET['pageaction']=='import' && isset($_GET['error']) && !isset($_GET['settings-updated']) ){
 			$confirms['settings-import-error']['text'] = __( 'There was an error with import. Please make sure you are using the correct file.', 'pagelines' );
 		}
-	
+
 	}
-	
+
 	if( isset( $_GET['reset'] ) ){
-		
+
 		if( isset( $_GET['opt_id'] ) && $_GET['opt_id'] == 'resettemplates' )
 			$confirms['reset']['text'] = __( 'Template Configuration Restored To Default.', 'pagelines' );
-			
+
 		elseif( isset($_GET['opt_id'] ) && $_GET['opt_id'] == 'resetlayout' )
 			$confirms['reset']['text'] = __( 'Layout Dimensions Restored To Default.', 'pagelines' );
 
 		else
 			$confirms['reset']['text'] = __( 'Settings Restored To Default.', 'pagelines' );
-		
+
 	}
 	if ( isset( $_GET['plinfo'] ) )
 		$confirms[]['text'] = __( 'Launchpad settings saved.', 'pagelines' );
-		
+
 	if ( isset( $_GET['extend_upload'] ) )
 		$confirms[]['text'] = sprintf( __( 'Successfully uploaded your %s', 'pagelines' ), $_GET['extend_upload'] );
-		
+
 	if ( isset( $_GET['extend_text'] ) )
 		switch( $_GET['extend_text'] ) {
-			
+
 			case 'section_delete':
 				$confirms[]['text'] = __( 'Section was deleted.', 'pagelines' );
 			break;
-			
+
 			case 'section_install':
 				$confirms[]['text'] = __( 'Section was installed.', 'pagelines' );
 			break;
-			
+
 			case 'section_upgrade':
 				$confirms[]['text'] = __( 'Section was upgraded.', 'pagelines' );
 			break;
-			
+
 			case 'plugin_install':
 				$confirms[]['text'] = __( 'Plugin was installed.', 'pagelines' );
 			break;
-			
+
 			case 'plugin_delete':
 				$confirms[]['text'] = __( 'Plugin was deleted.', 'pagelines' );
 			break;
-			
+
 			case 'plugin_upgrade':
 				$confirms[]['text'] = __( 'Plugin was upgraded.', 'pagelines' );
 			break;
-			
+
 			case 'theme_install':
 				$confirms[]['text'] = __( 'Theme installed.', 'pagelines' );
 			break;
-			
+
 			case 'theme_upgrade':
 				$confirms[]['text'] = __( 'Theme upgraded.', 'pagelines' );
 			break;
 			case 'theme_delete';
 				$confirms[]['text'] = __( 'Theme deleted.', 'pagelines' );
 			break;
-			
+
 		}
 		if ( ! empty( $confirms ) )
 			do_action( 'extend_flush' );
-		
+
 	return apply_filters( 'pagelines_admin_confirms', $confirms );
-	
+
  }
 
 
@@ -459,65 +459,21 @@ function pagelines_admin_confirms(){
  * @TODO document
  *
  */
-function pagelines_draw_confirms(){ 
-	
+function pagelines_draw_confirms(){
+
 	$confirms = pagelines_admin_confirms();
 	$save_text = sprintf( '%s Settings Saved. &nbsp;<a class="btag" href="%s/" target="_blank">View Your Site &rarr;</a>', PL_NICECHILDTHEMENAME, home_url());
 	printf( '<div id="message" class="confirmation slideup_message fade c_ajax"><div class="confirmation-pad c_response">%s</div></div>', $save_text);
 
 	if( !empty( $confirms ) ){
 		foreach ( $confirms as $c ){
-		
+
 			$class = ( isset($c['class'] ) ) ? $c['class'] : null;
-			
+
 			printf( '<div id="message" class="confirmation slideup_message fade %s"><div class="confirmation-pad">%s</div></div>', $class, $c['text'] );
 		}
 	}
 
-} 
-
-
-/**
- *
- * @TODO document
- *
- */
-function pagelines_admin_errors(){
-	
-	$errors = array();
-	
-	if( ie_version() && ie_version() < 8){
-		
-		$errors['ie']['title'] = sprintf( __( 'You are using Internet Explorer version: %s', 'pagelines' ), ie_version() );
-		$errors['ie']['text'] = __( "Advanced options don't support Internet Explorer version 7 or lower. Please switch to a standards based browser that will allow you to easily configure your site (e.g. Firefox, Chrome, Safari, even IE8 or better would work).", 'pagelines' );
-		
-	}
-	
-	if( floatval( phpversion() ) < 5.0){
-		$errors['php']['title'] = sprintf( __( 'You are using PHP version %s', 'pagelines' ), phpversion() );
-		$errors['php']['text'] = __( 'Version 5 or higher is required for this theme to work correctly. Please check with your host about upgrading to a newer version.', 'pagelines' );
-	}
-	if ( isset( $_GET['extend_error'] ) ) {
-		$errors['extend']['title'] = __( 'Extension problem found', 'pagelines' );
-		
-		switch( $_GET['extend_error'] ) {
-			
-			case 'blank':
-				$errors['extend']['text'] = __( 'No file selected!', 'pagelines' );
-			break;
-			
-			case 'filename':
-				$errors['extend']['text'] = __( 'The file did not appear to be a PageLines section.', 'pagelines' );
-			break;
-			
-			default:
-				$errors['extend']['text'] = sprintf( __( 'Unknown error: %s', 'pagelines' ), $_GET['extend_error'] );
-			break;
-		}
-
-	}
-	return apply_filters( 'pagelines_admin_notifications', $errors );
-	
 }
 
 
@@ -526,12 +482,56 @@ function pagelines_admin_errors(){
  * @TODO document
  *
  */
-function pagelines_error_messages(){ 
-	
+function pagelines_admin_errors(){
+
+	$errors = array();
+
+	if( ie_version() && ie_version() < 8){
+
+		$errors['ie']['title'] = sprintf( __( 'You are using Internet Explorer version: %s', 'pagelines' ), ie_version() );
+		$errors['ie']['text'] = __( "Advanced options don't support Internet Explorer version 7 or lower. Please switch to a standards based browser that will allow you to easily configure your site (e.g. Firefox, Chrome, Safari, even IE8 or better would work).", 'pagelines' );
+
+	}
+
+	if( floatval( phpversion() ) < 5.0){
+		$errors['php']['title'] = sprintf( __( 'You are using PHP version %s', 'pagelines' ), phpversion() );
+		$errors['php']['text'] = __( 'Version 5 or higher is required for this theme to work correctly. Please check with your host about upgrading to a newer version.', 'pagelines' );
+	}
+	if ( isset( $_GET['extend_error'] ) ) {
+		$errors['extend']['title'] = __( 'Extension problem found', 'pagelines' );
+
+		switch( $_GET['extend_error'] ) {
+
+			case 'blank':
+				$errors['extend']['text'] = __( 'No file selected!', 'pagelines' );
+			break;
+
+			case 'filename':
+				$errors['extend']['text'] = __( 'The file did not appear to be a PageLines section.', 'pagelines' );
+			break;
+
+			default:
+				$errors['extend']['text'] = sprintf( __( 'Unknown error: %s', 'pagelines' ), $_GET['extend_error'] );
+			break;
+		}
+
+	}
+	return apply_filters( 'pagelines_admin_notifications', $errors );
+
+}
+
+
+/**
+ *
+ * @TODO document
+ *
+ */
+function pagelines_error_messages(){
+
 	$errors = pagelines_admin_errors();
-	if( !empty( $errors ) ): 
+	if( !empty( $errors ) ):
 		foreach ( $errors as $e ): ?>
-	<div id="message" class="confirmation plerror fade">	
+	<div id="message" class="confirmation plerror fade">
 		<div class="confirmation-pad">
 				<div class="confirmation-head">
 					<?php echo $e['title'];?>
@@ -541,8 +541,8 @@ function pagelines_error_messages(){
 				</div>
 		</div>
 	</div>
-	
-<?php 	endforeach;	
+
+<?php 	endforeach;
 	endif;
 }
 
@@ -551,7 +551,7 @@ $custom_attach = new PLImageUploader();
 class PLImageUploader{
 	function __construct() {
 		if ( isset( $_REQUEST['context'] ) && $_REQUEST['context'] == 'pl-custom-attach' ) {
-			
+
 			$this->option_id = (isset( $_REQUEST['oid'] )) ? $_REQUEST['oid'] : '';
 
 			add_filter( 'attachment_fields_to_edit', array( $this, 'attachment_fields_to_edit' ), 15, 2 );
@@ -561,56 +561,56 @@ class PLImageUploader{
 		}
 	}
 
-	
+
 	function the_js(){
 		?>
-		
+
 		<script type="text/javascript">
-		jQuery(document).ready(function(){ 
+		jQuery(document).ready(function(){
 			jQuery('.pl-frame-button').on('click', function(){
-				
+
 				var optID = '#'+jQuery(this).data('selector')
 				var previewSel = '.pre_'+jQuery(this).data('selector')
 				var imgURL = jQuery(this).data('imgurl')
-				
+
 				jQuery(optID, top.document).val(imgURL)
 				jQuery(previewSel, top.document).attr('src', imgURL)
 				parent.eval('tb_remove()')
 			});
-		}); 
+		});
 		</script>
 		</script>
-		
+
 		<?php
 	}
-	
+
 	/**
 	 * Replace default attachment actions with "Set as header" link.
 	 *
 	 * @since 3.4.0
 	 */
 	function attachment_fields_to_edit( $form_fields, $post ) {
-		
+
 		$form_fields = array();
-		
+
 		$attach_id = $post->ID;
-		
+
 		$image_url = wp_get_attachment_url($attach_id);
-		
-		$form_fields['buttons'] = array( 
+
+		$form_fields['buttons'] = array(
 			'tr' => sprintf(
 						'<tr class="submit"><td></td>
 							<td>
 							<span class="pl-frame-button  admin-blue button" title="3212" data-selector="%s" data-imgurl="%s">%s</span>
-							</td></tr>',  
+							</td></tr>',
 							$this->option_id,
 							$image_url,
 							__( 'Select This Image For Option', 'pagelines' )
-					)	
+					)
 		);
-		$form_fields['context'] = array( 
-			'input' => 'hidden', 
-			'value' => 'pl-custom-attach' 
+		$form_fields['context'] = array(
+			'input' => 'hidden',
+			'value' => 'pl-custom-attach'
 		);
 
 		return $form_fields;

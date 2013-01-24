@@ -1,6 +1,6 @@
 <?php
 /**
- * 
+ *
  *
  *  Layout Control Interface
  *
@@ -18,12 +18,12 @@ class PageLinesLayoutControl {
 	 * Construct
 	 */
 	function __construct() {
-		
-		
+
+
 	}
 
 	/**
-	 * 
+	 *
 	 *
 	 *  Main Layout Drag and Drop
 	 *
@@ -61,7 +61,7 @@ class PageLinesLayoutControl {
 							</div>
 							<?php endforeach;?>
 						</div>
-					</div>	
+					</div>
 				</div>
 				<?php
 
@@ -114,47 +114,47 @@ class PageLinesLayoutControl {
 
 					<div class="layoutinputs">
 						<div class="layoutinputs-pad fix">
-							<?php 
-							
+							<?php
+
 								// Content Width
 								$id = 'input-content-width';
 								$value = $buildlayout->content->width;
 								$name = get_pagelines_option_name('layout', 'content_width');
-							
+
 								// Output
 								$input = OptEngine::input_text($id, $name, $value, 'small-text', 'text', 'readonly');
 								echo OptEngine::input_label_inline($id, $input, 'Global Content Width (px)', 'lbl-layout');
-								
+
 								// Main Column
 								$id = 'input-maincolumn-width';
 								$value = $buildlayout->main_content->width;
 								$name = get_pagelines_option_name('layout', $layout, 'maincolumn_width');
-								
+
 								// Output
-								
+
 								$input = OptEngine::input_text($id, $name, $value, 'small-text', 'text', 'readonly');
 								echo OptEngine::input_label_inline($id, $input, 'Main Column Width (px)', 'lbl-layout');
-								
+
 								// Sidebar 1
 								$id = 'input-primarysidebar-width';
 								$value = $buildlayout->sidebar1->width;
 								$name = get_pagelines_option_name('layout', $layout, 'primarysidebar_width');
-						
+
 								// Output
-								
+
 								$input = OptEngine::input_text($id, $name, $value, 'small-text', 'text', 'readonly');
 								echo OptEngine::input_label_inline($id, $input, 'Sidebar1 Width (px)', 'lbl-layout');
-								
+
 								// Responsive
 								$id = 'input-responsive-width';
 								$value = ($buildlayout->content->width / $buildlayout->builder->width) * 100;
 								$name = get_pagelines_option_name('layout', 'responsive_width');
-						
+
 								// Output
 								$input = OptEngine::input_text($id, $name, $value, 'small-text', 'text', 'readonly');
 								echo OptEngine::input_label_inline($id, $input, 'Content Percent (%)', 'lbl-layout');
-								
-							
+
+
 							?>
 						</div>
 					</div>
@@ -164,7 +164,7 @@ class PageLinesLayoutControl {
 		</div>
 	</div>
 	<?php }
-	
+
 
 	/**
 	*
@@ -181,7 +181,7 @@ class PageLinesLayoutControl {
 
 					global $pagelines_layout;
 					$saved_layout = $pagelines_layout->layout_map['saved_layout'];
-					
+
 					foreach(get_the_layouts() as $layout): ?>
 					<div class="layout-select-item">
 						<span class="layout-image-border <?php if($saved_layout == $layout) echo 'selectedlayout';?>">
@@ -191,9 +191,9 @@ class PageLinesLayoutControl {
 					</div>
 					<?php endforeach;?>
 				</div>
-				
+
 			</div>
-			
+
 		</div>
 		<div class="sel_layout_exp">
 			<div class="sel_layout_exp_pad">
@@ -214,14 +214,14 @@ class PageLinesLayoutControl {
 jQuery(document).ready(function(){
 
 		/*
-			Layout Builder Control	
+			Layout Builder Control
 		*/
 			// Default Layout Select
 			jQuery(' .layout-select-default .layout-image-border').click(function(){
 				LayoutSelectControl(this);
 			});
 
-			<?php 
+			<?php
 				$the_last_edited = (pagelines_sub_option('layout', 'last_edit')) ? pagelines_sub_option('layout', 'last_edit') : null;
 
 				// Set up layout object for loaded page
@@ -261,28 +261,28 @@ jQuery(document).ready(function(){
 				jQuery('.'+LayoutMode).addClass('selectededitor');
 
 			<?php foreach(get_the_layouts() as $layout):
-			
+
 					$mylayout = new PageLinesLayout($layout);
 					$default_margin = $mylayout->margin->bwidth;
 					$ewidth = $mylayout->east->bwidth;
 					$wwidth = $mylayout->west->bwidth;
 				?>
-					if (LayoutMode == '<?php echo $layout;?>') { 
+					if (LayoutMode == '<?php echo $layout;?>') {
 						marginwidth = mwidth + 2;
 						innereastwidth = <?php echo $ewidth;?>;
-						innerwestwidth = <?php echo $wwidth;?>; 
+						innerwestwidth = <?php echo $wwidth;?>;
 						gtrwidth = 10
 					}
-					
+
 			<?php endforeach;?>
 
 				setLayoutBuilder(LayoutMode, marginwidth, innereastwidth, innerwestwidth, gtrwidth);
 
-			});	
+			});
 
 
 });
-		
+
 /*]]>*/</script><?php }
 
 }

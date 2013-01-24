@@ -1,6 +1,6 @@
 <?php
 /**
- * 
+ *
  *
  *  Typography Control
  *
@@ -17,13 +17,13 @@ class PageLinesTypeUI {
 	/**
 	 * Construct
 	 */
-	function __construct() { 
-		
-		global $pl_foundry; 
+	function __construct() {
+
+		global $pl_foundry;
 
 		$this->foundry = $pl_foundry;
 		$this->fonts = $pl_foundry->foundry;
-	
+
 	}
 
 	/**
@@ -31,21 +31,21 @@ class PageLinesTypeUI {
 	 *  Main Layout Drag and Drop
 	 *
 	 */
-	function build_typography_control($oid, $o){ 
+	function build_typography_control($oid, $o){
 
 
 		$preview_styles = '';
 
 		$preview_styles = $this->foundry->get_type_css( ploption($oid) );
-		
+
 		echo OptEngine::input_label( get_pagelines_option_id($oid, 'font'), __('Select Font', 'pagelines'));
-		
+
 		$opts = $this->get_opts($oid, $o, pagelines_sub_option($oid, 'font'));
-		
+
 		$extra = 'onChange="PageLinesStyleFont(this, \'font-family\')" size="1"';
-		
+
 		echo OptEngine::input_select( get_pagelines_option_id($oid, 'font'), get_pagelines_option_name($oid, 'font'), $opts, 'fontselector', $extra);
-		
+
 		?>
 		<div class="font_preview_wrap">
 			<?php echo OptEngine::input_label( '', __('Preview', 'pagelines')); ?>
@@ -71,10 +71,10 @@ class PageLinesTypeUI {
 
 
 	<?php
-	
-	
+
+
 	}
-	
+
 
 	/**
 	*
@@ -82,14 +82,14 @@ class PageLinesTypeUI {
 	*
 	*/
 	function fonts_option($oid, $o){
-	
-	
+
+
 		echo OptEngine::input_label($o['input_id'], $o['inputlabel']);
 		echo OptEngine::input_select($o['input_id'], $o['input_name'], $this->get_opts($oid, $o, $o['val']), 'fontselector');
-		
-		
+
+
 	}
-	
+
 
 	/**
 	*
@@ -97,27 +97,27 @@ class PageLinesTypeUI {
 	*
 	*/
 	function get_opts($oid, $o, $val){
-		
+
 		$opts = '';
 		foreach($this->fonts as $fid => $f){
 			$free = (isset($f['free']) && $f['free']) ? true : false;
 
 			if(!VPRO && !$free){
 			}else{
-				$font_name = $f['name']; 
+				$font_name = $f['name'];
 
 				if($f['web_safe']) $font_name .= ' *';
 				if($f['google']) $font_name .= ' G';
-			
+
 				$title = sprintf('title="%s"', $this->foundry->gfont_key($fid));
-			
+
 				$opts .= OptEngine::input_option( $fid, selected( $fid, $val, false), $font_name, $f['family'], $title);
 			}
-			
+
 		}
-		
+
 		return $opts;
-		
+
 	}
 
 
@@ -137,7 +137,7 @@ class PageLinesTypeUI {
 		// Small Caps?
 		$this->_get_type_select($oid, array('id' => 'variant', 'inputlabel' => 'Variant', 'prop' => 'font-variant',  'selectvalues' => array('normal' => 'Normal', 'small-caps' => 'Small-Caps'), 'default' => 'normal'));
 
-		// Bold? 
+		// Bold?
 		$this->_get_type_select($oid, array('id' => 'weight', 'inputlabel' => 'Weight', 'prop' => 'font-weight', 'selectvalues' => array('normal' => 'Normal', 'bold' => 'Bold', 'lighter' => 'Light'), 'default' => 'normal'));
 
 		// Italic?
@@ -163,7 +163,7 @@ class PageLinesTypeUI {
 	* @TODO document
 	*
 	*/
-	function _get_type_em_select($oid, $o){ 
+	function _get_type_em_select($oid, $o){
 
 		$option_value = ( pagelines_sub_option($oid, 'kern') ) ? pagelines_sub_option($oid, 'kern') : '0.00em';
 		?>
@@ -171,12 +171,12 @@ class PageLinesTypeUI {
 			<?php echo OptEngine::input_label( get_pagelines_option_id($oid, 'kern'), __('Letter Spacing', 'pagelines')); ?>
 			<select id="<?php pagelines_option_id($oid, 'kern'); ?>" name="<?php pagelines_option_name($oid, 'kern'); ?>" onChange="PageLinesStyleFont(this, 'letter-spacing')">
 				<option value="">&mdash;SELECT&mdash;</option>
-				<?php 
+				<?php
 					$count_start = -.3;
 					for($i = $count_start; $i <= 1; $i += 0.05){
-						
+
 						$em = number_format(round($i, 2), 2).'em';
-						
+
 						printf('<option value="%1$s" %2$s>%1$s</option>', $em, selected($em, $option_value, false));
 					}
 				?>
@@ -190,7 +190,7 @@ class PageLinesTypeUI {
 	* @TODO document
 	*
 	*/
-	function _get_type_select($oid, $o){ 
+	function _get_type_select($oid, $o){
 
 		$option_value = ( pagelines_sub_option($oid, $o['id']) ) ? pagelines_sub_option($oid, $o['id']) : $o['default'];
 		?>

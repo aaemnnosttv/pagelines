@@ -10,7 +10,7 @@
 /**
  * Special content wrap is for plugins that operate outside of pagelines
  * We started doing things manually, so there are legacy extensions still using manual methodology
- * 
+ *
  * @uses $pagelines_render // this is set in the main pagelines setup_pagelines_template(); function
  **/
 function do_special_content_wrap(){
@@ -21,8 +21,8 @@ function do_special_content_wrap(){
 		|| function_exists('vanilla_dcss')
 	//	|| (function_exists('is_jigoshop') && is_jigoshop() && class_exists('PageLinesJigoShop'))
 	)
-		return false; 
-	else 
+		return false;
+	else
 		return true;
 }
 
@@ -32,22 +32,22 @@ function pagelines_special_content_wrap_top(){
 		add_action('pagelines_after_sidebar_wrap', 'pagelines_special_content_wrap_finish_after_sidebar');
 		add_action('pagelines_before_sidebar_wrap', 'pagelines_special_content_wrap_finish_before_sidebar');
 		add_action('pagelines_start_footer', 'pagelines_special_content_wrap_finish_after_content');
-	?>	
+	?>
 		<section id="content" class="container fix">
 				<div class="content">
 					<div class="content-pad">
 						<div id="pagelines_content" class="fix">
-							
+
 							<div id="column-wrap" class="fix">
 								<div id="column-main" class="mcolumn fix">
 									<div class="mcolumn-pad">
 	<?php endif;
-	
-	
+
+
 }
 
 function pagelines_special_content_wrap_finish_before_sidebar_left() {
-	
+
 	if ( 'two-sidebar-center' === pl_layout_mode() ) {
 		?><div id="sidebar1" class="scolumn fix">
 			<div class="scolumn-pad">
@@ -64,20 +64,20 @@ function pagelines_special_content_wrap_finish_before_sidebar_left() {
 
 /**
  * If the extension runs the sidebar, close down some markup before
- * 
+ *
  **/
 function pagelines_special_content_wrap_finish_before_sidebar(){
 
 								?></div>
 							</div>
 						<?php pagelines_special_content_wrap_finish_before_sidebar_left(); ?>
-					</div>					
+					</div>
 <?php
 }
 
 /**
  * If the extension runs the sidebar, close down some markup after
- * 
+ *
  **/
 function pagelines_special_content_wrap_finish_after_sidebar(){
 	?>
@@ -93,7 +93,7 @@ function pagelines_special_content_wrap_finish_after_sidebar(){
  */
 function pagelines_special_content_wrap_finish_after_content(){
 	global $sidebar_was_run;
-	
+
 	if(!isset($sidebar_was_run)):?>
 						</div>
 					</div>
@@ -128,12 +128,12 @@ function pagelines_special_content_wrap_finish_after_content(){
  * @uses    pagelines_default_widget
  */
 function pagelines_draw_sidebar($id, $name, $default = null, $element = 'ul'){
-	
+
 	printf('<%s id="%s" class="sidebar_widgets fix">', $element, 'list_'.$id);
-	
+
 	if (!dynamic_sidebar($name))
-		pagelines_default_widget( $id, $name, $default); 
-	
+		pagelines_default_widget( $id, $name, $default);
+
 	printf('</%s>', $element);
 
 }
@@ -154,21 +154,21 @@ function pagelines_draw_sidebar($id, $name, $default = null, $element = 'ul'){
  */
 function pagelines_default_widget($id, $name, $default){
 	if(isset($default) && !pagelines('sidebar_no_default')):
-	
-		get_template_part( $default ); 
-		
+
+		get_template_part( $default );
+
 	elseif( current_user_can('edit_themes') ):
-	?>	
+	?>
 
 	<li class="widget widget-default setup_area no_<?php echo $id;?>">
 		<div class="widget-pad">
 			<h3 class="widget-title">Add Widgets (<?php echo $name;?>)</h3>
-			<p class="fix">This is your <?php echo $name;?> but it needs some widgets!<br/> Easy! Just add some content to it in your <a href="<?php echo admin_url('widgets.php');?>">widgets panel</a>.	
+			<p class="fix">This is your <?php echo $name;?> but it needs some widgets!<br/> Easy! Just add some content to it in your <a href="<?php echo admin_url('widgets.php');?>">widgets panel</a>.
 			</p>
 			<p>
 				<a href="<?php echo admin_url('widgets.php');?>" class="button"><?php _e('Add Widgets &rarr;', 'pagelines');?></a>
 			</p>
-		
+
 		</div>
 	</li>
 
@@ -210,9 +210,9 @@ function pagelines_standard_sidebar($name, $description){
  * @param string $name Function name, to be used in the input
  * @param string $text The text of the confirmation
  */
-function pl_action_confirm($name, $text){ 
+function pl_action_confirm($name, $text){
 	?>
-	<script language="jscript" type="text/javascript"> function <?php echo $name;?>(){	
+	<script language="jscript" type="text/javascript"> function <?php echo $name;?>(){
 			var a = confirm ("<?php echo esc_js( $text );?>");
 			if(a) {
 				jQuery("#input-full-submit").val(1);
@@ -234,12 +234,12 @@ function pl_action_confirm($name, $text){
  *
  * @return  mixed|void - if $echo is false, returns $searchform
  */
-function pagelines_search_form( $echo = true ){ 
+function pagelines_search_form( $echo = true ){
 
-	$searchfield = sprintf('<input type="text" value="" name="s" class="searchfield" placeholder="%s" />', __('Search', 'pagelines'));	
-	
+	$searchfield = sprintf('<input type="text" value="" name="s" class="searchfield" placeholder="%s" />', __('Search', 'pagelines'));
+
 	$searchform = sprintf('<form method="get" class="searchform" onsubmit="this.submit();return false;" action="%s/" ><fieldset>%s</fieldset></form>', home_url(), $searchfield);
-	
+
 	if ( $echo )
 		echo apply_filters('pagelines_search_form', $searchform);
 	else
@@ -254,8 +254,8 @@ function pagelines_search_form( $echo = true ){
 function pagelines_head_common(){
 	global $pagelines_ID;
 	$oset = array('post_id' => $pagelines_ID);
-	
-	pagelines_register_hook('pagelines_code_before_head'); // Hook 
+
+	pagelines_register_hook('pagelines_code_before_head'); // Hook
 
 	printf('<meta http-equiv="Content-Type" content="%s; charset=%s" />',  get_bloginfo('html_type'),  get_bloginfo('charset'));
 
@@ -264,64 +264,64 @@ function pagelines_head_common(){
 	echo pl_source_comment('Title');
 
 	// Draw Page <title> Tag. We use a filter to apply the actual titles.
-	
+
 	printf( '<title>%s</title>', wp_title( '',false ) );
-		
+
 	// Allow for extension deactivation of all css
-	if(!has_action('override_pagelines_css_output')){	
+	if(!has_action('override_pagelines_css_output')){
 
 		// Get CSS Objects & Grids
 //		pagelines_load_css_relative('css/objects.css', 'pagelines-objects');
-		
+
 		// CSS Animations
 //		wp_enqueue_style('animate', PL_CSS.'/animate.css'); TODO do we need this?
-		
+
 		// Multisite CSS
 		if(is_multisite())
 			pagelines_load_css_relative('css/multisite.css', 'pagelines-multisite');
-		
+
 		// Allow for PHP include of Framework CSS
 //		if( !apply_filters( 'disable_pl_framework_css', '' ) )
 //			pagelines_load_css(  PL_PARENT_URL.'/style.css', 'pagelines-framework', pagelines_get_style_ver( true ));
-	
+
 		// RTL Language Support
-		
+
 		// wordpress autoloads from child theme so if child theme has no rtl we need to load ours.
-		if( ( is_rtl() && is_child_theme() && ! is_file( sprintf( '%s/rtl.css', get_stylesheet_directory() ) ) ) || ( is_rtl() && ! is_child_theme() ) ) 
-			add_action( 'wp_print_styles', create_function( '', 'pagelines_load_css_relative( "rtl.css", "pagelines-rtl" );' ), 99 );		
+		if( ( is_rtl() && is_child_theme() && ! is_file( sprintf( '%s/rtl.css', get_stylesheet_directory() ) ) ) || ( is_rtl() && ! is_child_theme() ) )
+			add_action( 'wp_print_styles', create_function( '', 'pagelines_load_css_relative( "rtl.css", "pagelines-rtl" );' ), 99 );
 	}
-		
+
 	if ( ploption( 'facebook_headers' ) && ! has_action( 'disable_facebook_headers' ) && VPRO )
 		pagelines_facebook_header();
-		
+
 	// Fix IE and special handling
 	if ( pl_detect_ie() )
 		pagelines_fix_ie();
-	
-	// Cufon replacement 
+
+	// Cufon replacement
 	pagelines_font_replacement();
-	
+
 	if(ploption('load_prettify_libs'))
 		load_prettify();
-	
+
 	add_action( 'wp_head', create_function( '',  'echo pl_source_comment("Start >> Meta Tags and Inline Scripts", 2);' ), 0 );
-	
+
 	add_action( 'wp_print_styles', create_function( '',  'echo pl_source_comment("Styles");' ), 0 );
-	
+
 	add_action( 'wp_print_scripts', create_function( '',  'echo pl_source_comment("Scripts");' ), 0 );
-	
+
 	add_action( 'wp_print_footer_scripts', create_function( '',  'echo pl_source_comment("Footer Scripts");' ), 0 );
-	
+
 	add_action( 'admin_bar_menu', create_function( '',  'echo pl_source_comment("WordPress Admin Bar");' ), 0 );
-	
+
 	add_action( 'wp_head', 'pagelines_meta_tags', 9 );
-	
+
 	// Headerscripts option > custom code
 	if ( ploption( 'headerscripts' ) )
 		add_action( 'wp_head', create_function( '',  'print_pagelines_option("headerscripts");' ), 25 );
 
 	if( ploption('asynch_analytics'))
-		add_action( 'pagelines_head_last', create_function( '',  'echo ploption("asynch_analytics");' ), 25 );		
+		add_action( 'pagelines_head_last', create_function( '',  'echo ploption("asynch_analytics");' ), 25 );
 }
 
 function load_prettify(){
@@ -329,20 +329,20 @@ function load_prettify(){
 	wp_enqueue_script( 'prettify', PL_JS . '/prettify/prettify.js' );
 	wp_enqueue_style( 'prettify', PL_JS . '/prettify/prettify.css' );
 	add_action( 'wp_head', create_function( '',  'echo pl_js_wrap("prettyPrint()");' ), 14 );
-	
+
 
 }
 
 
 function pagelines_meta_tags(){
-	
+
 	global $pagelines_ID;
 	$oset = array('post_id' => $pagelines_ID);
-	
+
 	// Meta Images
 	if(ploption('pagelines_favicon') && VPRO)
 		printf('<link rel="shortcut icon" href="%s" type="image/x-icon" />%s', ploption('pagelines_favicon'), "\n");
-	
+
 	if(ploption('pagelines_touchicon'))
 		printf('<link rel="apple-touch-icon" href="%s" />%s', ploption('pagelines_touchicon'), "\n");
 
@@ -353,12 +353,12 @@ function pagelines_meta_tags(){
 	// Removes viewport scaling on Phones, Tablets, etc.
 	if(!ploption('disable_mobile_view', $oset) && !apply_filters( 'disable_mobile_view', '' ))
 		echo '<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />';
-		
+
 }
 
 function pagelines_source_attribution() {
-	
-	echo "\n\n<!-- "; 
+
+	echo "\n\n<!-- ";
 	printf ( "Site Crafted Using PageLines v%s - WordPress - HTML5 ( %s ) - www.PageLines.com ", PL_CORE_VERSION, get_pagelines_credentials( 'licence' ) );
 
 	echo "-->\n";
@@ -369,7 +369,7 @@ function pl_source_comment( $text, $spacing = 1 ) {
 	$newline = ($spacing) ? "\n" : '';
 
 	$double = ($spacing == 2) ? "\n\n" : $newline;
-	
+
 	return sprintf( '%s<!-- %s -->%s', $double, $text, $newline);
 
 }
@@ -389,14 +389,14 @@ function pagelines_facebook_header() {
 		return;
 
 	global $pagelines_ID;
-	
+
 	if ( ! $pagelines_ID )
 		return;
 
 	$fb_img = apply_filters('pl_opengraph_image', pl_the_thumbnail_url( $pagelines_ID, 'full' ) );
-		
-	echo pl_source_comment('Facebook Open Graph');	
-		
+
+	echo pl_source_comment('Facebook Open Graph');
+
 	printf( "<meta property='og:title' content='%s' />\n", get_the_title($pagelines_ID));
 	printf( "<meta property='og:url' content='%s' />\n", get_permalink($pagelines_ID));
 	printf( "<meta property='og:site_name' content='%s' />\n", get_bloginfo( 'name' ));
@@ -414,16 +414,16 @@ function pagelines_facebook_header() {
 *
 */
 function pagelines_supersize_bg(){
-	
+
 	global $pagelines_ID;
 	$oset = array('post_id' => $pagelines_ID);
 	$url = ploption('page_background_image_url', $oset);
 
-	if(ploption('supersize_bg') && $url && !pl_is_disabled('color_control')){ 
-	
-		wp_enqueue_script('pagelines-supersize' );			
+	if(ploption('supersize_bg') && $url && !pl_is_disabled('color_control')){
+
+		wp_enqueue_script('pagelines-supersize' );
 		add_action('wp_head', 'pagelines_runtime_supersize', 20);
-	}	
+	}
 }
 
 /**
@@ -435,23 +435,23 @@ function pagelines_runtime_supersize(){
 
 	if ( has_action( 'pl_no_supersize' ) )
     return;
-	
+
 	global $pagelines_ID;
 	$oset = array('post_id' => $pagelines_ID);
 	$url = ploption('page_background_image_url', $oset);
 	?>
-	
+
 	<script type="text/javascript"> /* <![CDATA[ */
 	jQuery(document).ready(function(){
 		jQuery.supersized({ slides  :  	[ { image : '<?php echo $url; ?>' } ] });
 	});/* ]]> */
 	</script>
-	
+
 <?php
 }
 
 
-	
+
 /**
  * PageLines Title Tag ( deprecated )
  *
@@ -479,10 +479,10 @@ function pagelines_title_tag(){
 		$title .= ( $paged >= 2 || $page >= 2 ) ? ' | ' . sprintf( __( 'Page %s', 'pagelines' ), max( $paged, $page ) ) : '';
 	} else
 		$title = trim( wp_title( '', false ) );
-	
+
 	// Print the title.
 	echo apply_filters( 'pagelines_meta_title', $title );
-	
+
 	echo "</title>";
 }
 
@@ -506,9 +506,9 @@ function pagelines_filter_wp_title( $title ) {
 		$new_title .= $sep . ' ' . $bloginfo_description;
 	} elseif ( is_category() ) {
 		$new_title .= $sep . ' ' . single_cat_title( '', false );
-	} elseif ( is_single() || is_page() ) { 
+	} elseif ( is_single() || is_page() ) {
 		$new_title .= $sep . ' ' . single_post_title( '', false );
-	} elseif ( is_search() ) { 
+	} elseif ( is_search() ) {
 		$new_title .= $sep . ' ' . sprintf( __( 'Search Results: %s','pagelines' ), esc_html( $s ) );
 	} else
 		$new_title .= $sep . ' ' . $title;
@@ -518,9 +518,9 @@ function pagelines_filter_wp_title( $title ) {
     return apply_filters( 'pagelines_meta_title', $new_title );
 }
 add_filter( 'wp_title', 'pagelines_filter_wp_title' );
-	
+
 /**
- * 
+ *
  *  Fix IE to the extent possible
  *
  *  @package PageLines Framework
@@ -529,15 +529,15 @@ add_filter( 'wp_title', 'pagelines_filter_wp_title' );
  *
  */
 function pagelines_fix_ie( ){
-	
+
 	$ie_ver = pl_detect_ie();
 	if( ploption('google_ie') && ( $ie_ver < 9 ) ) {
 		printf( '<script src="//ie7-js.googlecode.com/svn/version/2.1(beta4)/IE%s.js"></script>%s', $ie_ver +1 , "\n" );
 	}
 	if ( $ie_ver < 9 ){
 		printf(
-			'%2$s<script src="%1$s"></script>%2$s', 
-			'//html5shim.googlecode.com/svn/trunk/html5.js', 
+			'%2$s<script src="%1$s"></script>%2$s',
+			'//html5shim.googlecode.com/svn/trunk/html5.js',
 			"\n"
 		);
 	}
@@ -545,10 +545,10 @@ function pagelines_fix_ie( ){
 	// If IE7 add the Internet Explorer 7 specific stylesheet
 	if ( $ie_ver == 7 )
 		wp_enqueue_style('ie7-style', PL_CSS  . '/ie7.css', array(), PL_CORE_VERSION);
-} 
+}
 
 /**
- * 
+ *
  *  Cufon Font Replacement
  *
  *  @package PageLines Framework
@@ -557,18 +557,18 @@ function pagelines_fix_ie( ){
  *
  */
 function pagelines_font_replacement( $default_font = ''){
-	
+
 	if(ploption('typekit_script')){
 		echo pagelines_option('typekit_script');
 	}
-	
+
 	if(ploption('fontreplacement')){
 		global $cufon_font_path;
-		
+
 		if(ploption('font_file')) $cufon_font_path = ploption('font_file');
 		elseif($default_font) $cufon_font_path = PL_JS.'/'.$default_font;
 		else $cufon_font_path = null;
-		
+
 		// ===============================
 		// = Hook JS Libraries to Footer =
 		// ===============================
@@ -580,19 +580,19 @@ function pagelines_font_replacement( $default_font = ''){
 		*
 		*/
 		function font_replacement_scripts(){
-			
+
 			global $cufon_font_path;
 
 			wp_register_script('cufon', PL_ADMIN_JS.'/type.cufon.js', 'jquery', '1.09i', true);
 			wp_print_scripts('cufon');
-			
+
 			if(isset($cufon_font_path)){
 				wp_register_script('cufon_font', $cufon_font_path, 'cufon');
 				wp_print_scripts('cufon_font');
 			}
-		
+
 		}
-		
+
 		add_action('wp_head', 'cufon_inline_script');
 
 		/**
@@ -601,9 +601,9 @@ function pagelines_font_replacement( $default_font = ''){
 		*
 		*/
 		function cufon_inline_script(){
-			?><script type="text/javascript"><?php 
-			if(pagelines('replace_font')): 
-				?>jQuery(document).ready(function () { Cufon.replace('<?php echo ploption("replace_font"); ?>', {hover: true}); });<?php 
+			?><script type="text/javascript"><?php
+			if(pagelines('replace_font')):
+				?>jQuery(document).ready(function () { Cufon.replace('<?php echo ploption("replace_font"); ?>', {hover: true}); });<?php
 			endif;
 			?></script><?php
 		 }
@@ -611,7 +611,7 @@ function pagelines_font_replacement( $default_font = ''){
 }
 
 /**
- * 
+ *
  *  Pagination Function
  *
  *  @package PageLines Framework
@@ -621,13 +621,13 @@ function pagelines_font_replacement( $default_font = ''){
  */
 function pagelines_pagination() {
 	if(function_exists('wp_pagenavi') && show_posts_nav() && VPRO):
-		
+
 		$args = array(
-			'before' => '<div class="pagination pagenavi">', 
-			'after' => '</div>', 
-		); 
+			'before' => '<div class="pagination pagenavi">',
+			'after' => '</div>',
+		);
 		wp_pagenavi( $args );
-		 
+
 	elseif (show_posts_nav()) : ?>
 		<ul class="pager page-nav-default fix">
 			<li class="previous previous-entries">
@@ -641,7 +641,7 @@ function pagelines_pagination() {
 }
 
 /**
- * 
+ *
  *  Fallback for navigation, if it isn't set up
  *
  *  @package PageLines Framework
@@ -651,7 +651,7 @@ function pagelines_pagination() {
  */
 function pagelines_nav_fallback() {
 	global $post; ?>
-	
+
 	<ul id="menu-nav" class="main-nav<?php echo pagelines_nav_classes();?>">
 		<?php wp_list_pages( 'title_li=&sort_column=menu_order&depth=3'); ?>
 	</ul><?php
@@ -659,18 +659,18 @@ function pagelines_nav_fallback() {
 
 
 /**
- * 
+ *
  *  Blank Nav Fallback
  *
  */
 function blank_nav_fallback() {
-	
+
 	if(current_user_can('edit_themes'))
 		printf( __( "<ul class='inline-list'>Please select a nav menu for this area in the <a href='%s'>WordPress menu admin</a>.</ul>", 'pagelines' ), admin_url('nav-menus.php') );
 }
 
 /**
- * 
+ *
  *  Returns child pages for subnav, setup in hierarchy
  *
  *  @package PageLines Framework
@@ -678,14 +678,14 @@ function blank_nav_fallback() {
  *  @since 1.1.0
  *
  */
-function pagelines_page_subnav(){ 
-	global $post; 
+function pagelines_page_subnav(){
+	global $post;
 	if(!is_404() && isset($post) && is_object($post) && !pagelines_option('hide_sub_header') && ($post->post_parent || wp_list_pages('title_li=&child_of='.$post->ID.'&echo=0'))):?>
 	<ul class="secondnav_menu lcolor3">
-		<?php 
+		<?php
 			if(count($post->ancestors)>=2){
 				$reverse_ancestors = array_reverse($post->ancestors);
-				$children = wp_list_pages('title_li=&depth=1&child_of='.$reverse_ancestors[0].'&echo=0&sort_column=menu_order');	
+				$children = wp_list_pages('title_li=&depth=1&child_of='.$reverse_ancestors[0].'&echo=0&sort_column=menu_order');
 			}elseif($post->post_parent){ $children = wp_list_pages('title_li=&depth=1&child_of='.$post->post_parent.'&echo=0&sort_column=menu_order');
 			}else{	$children = wp_list_pages('title_li=&depth=1&child_of='.$post->ID.'&echo=0&sort_column=menu_order');}
 
@@ -712,54 +712,54 @@ function pagelines_page_subnav(){
  * @uses        (filters) pagelines_logo_url, pagelines_site_logo, pagelines_custom_logo_url, pagelines_site_title
  *
  */
-function pagelines_main_logo( $location = null ){ 
-	
-	global $pagelines_ID; 
-	
+function pagelines_main_logo( $location = null ){
+
+	global $pagelines_ID;
+
 	if ( is_pagelines_special() )
 		$pagelines_ID = false;
-	
+
 	$oset = array( 'post_id' => $pagelines_ID );
-	
+
 	if(ploption('pagelines_custom_logo', $oset) || apply_filters('pagelines_site_logo', '') || apply_filters('pagelines_logo_url', '')){
-		
+
 		$logo = apply_filters('pagelines_logo_url', esc_url(ploption('pagelines_custom_logo', $oset) ), $location);
 
 
 		$logo_url = ( esc_url(ploption('pagelines_custom_logo_url', $oset) ) ) ? esc_url(ploption('pagelines_custom_logo_url', $oset) ) : home_url();
-		
-		$site_logo = sprintf( 
-			'<a class="plbrand mainlogo-link" href="%s" title="%s"><img class="mainlogo-img" src="%s" alt="%s" /></a>', 
-			$logo_url, 
+
+		$site_logo = sprintf(
+			'<a class="plbrand mainlogo-link" href="%s" title="%s"><img class="mainlogo-img" src="%s" alt="%s" /></a>',
+			$logo_url,
 			get_bloginfo('name'),
-			$logo, 
+			$logo,
 			get_bloginfo('name')
 		);
-		
+
 		echo apply_filters('pagelines_site_logo', $site_logo, $location);
-		
+
 	} else {
-		
+
 		$site_title = sprintf( '<div class="title-container"><a class="home site-title" href="%s" title="%s">%s</a><h6 class="site-description subhead">%s</h6></div>', esc_url(home_url()), __('Home','pagelines'), get_bloginfo('name'), get_bloginfo('description'));
-		
-		echo apply_filters('pagelines_site_title', $site_title, $location);	
-	}		
+
+		echo apply_filters('pagelines_site_title', $site_title, $location);
+	}
 }
 
 /**
- * 
+ *
  * Wraps in standard js on ready format
  *
  * @since 2.0.0
  */
 function pl_js_wrap( $js ){
-	
+
 	return sprintf('<script type="text/javascript">/*<![CDATA[*/ jQuery(document).ready(function(){ %s }); /*]]>*/</script>', $js);
-	
+
 }
 
 /**
- * 
+ *
  *  Adds PageLines to Admin Bar
  *
  *  @package PageLines Framework
@@ -767,12 +767,12 @@ function pl_js_wrap( $js ){
  *  @since 1.3.0
  *
  */
-function pagelines_settings_menu_link(  ){ 
+function pagelines_settings_menu_link(  ){
 	global $wp_admin_bar;
-	
+
 	global $pagelines_template;
 
-	
+
 	if ( !current_user_can('edit_theme_options') )
 		return;
 
@@ -789,9 +789,9 @@ function pagelines_settings_menu_link(  ){
 		$page_type = __('Template: ', 'pagelines') . ucfirst($template_name );
 		$wp_admin_bar->add_menu( array( 'id' => 'template_type', 'title' => $page_type, 'href' => admin_url( PL_TEMPLATE_SETUP_URL ) ) );
 	}
-	
+
 	$spurl = pl_special_url( $template_name );
-	
+
 	if( $template_name && is_pagelines_special() && $spurl){
 		$wp_admin_bar->add_menu( array( 'id' => 'special_settings', 'title' => __('Edit Meta', 'pagelines'), 'href' => $spurl ) );
 	}
@@ -838,9 +838,9 @@ function get_pl_reset_less_url() {
 *
 */
 function pl_special_url( $t ){
-	
+
 	$t = strtolower( trim($t) );
-	
+
 	if($t == 'blog')
 		$slug = 'blog_page';
 	elseif($t == 'category')
@@ -855,7 +855,7 @@ function pl_special_url( $t ){
 		$slug = '404_page';
 	elseif($t == 'author')
 		$slug = 'author_posts';
-	else 
+	else
 		return false;
 
 	$rurl = sprintf(PL_SPECIAL_OPTS_URL.'%s', '#'.$slug);
@@ -865,7 +865,7 @@ function pl_special_url( $t ){
 }
 
 /**
- * 
+ *
  *  PageLines Attribution
  *
  *  @package PageLines Framework
@@ -877,22 +877,22 @@ function pagelines_cred(){
 
 	if ( VPRO && ploption( 'watermark_hide' ) && ! has_action( 'show_pagelines_leaf' ) )
 		return;
-						
+
 	$image = (VPRO && ploption('watermark_image')) ? ploption('watermark_image') : PL_IMAGES.'/pagelines.png';
-		
+
 	$alt = (VPRO) ? ploption( 'watermark_alt' ) : 'Build a website with PageLines';
-		
+
 	$url = ploption('watermark_link');
 
 	if ( ! VPRO )
 		$url = 'http://www.pagelines.com';
-			
+
 	$img 	= sprintf('<img src="%s" alt="%s" />', $image, $alt);
-		
+
 	$link = ( '' != $url && ! apply_filters('no_leaf_link', '') ) ? sprintf('<a class="plimage" target="_blank" href="%s" title="%s">%s</a>', $url, $alt, $img ) : $img;
-		
+
 	$cred = sprintf('<div id="cred" class="pagelines" style="display: block; visibility: visible;">%s</div><div class="clear"></div>', $link);
-	
+
 	echo apply_filters('pagelines_leaf', $cred);
 }
 

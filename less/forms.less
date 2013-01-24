@@ -92,11 +92,11 @@ input[type="color"],
 // Declare width for legacy (can't be on input[type=*] selectors or it's too specific)
 input,
 textarea,
-.uneditable-input, 
+.uneditable-input,
 .add-on  {
 	.box-sizing(border-box);
 }
-input{ 
+input{
 	width: 220px;
 }
 // Reset height since textareas have rows
@@ -658,9 +658,9 @@ legend + .control-group {
 // PageLines Styles
 // ---------------------------------------------------------------
 
-/* Placeholder */ 
-.placeholder();	
-			
+/* Placeholder */
+.placeholder();
+
 /* @ Search Form */
 .searchform {
 	position: relative;
@@ -681,22 +681,22 @@ legend + .control-group {
 		border: 1px solid darken(@dark-base, 8);
 		.transition(all .7s);
 		&:focus{
-			
+
 			background-color:#fff;
 			color:#000;
-			width: 150px;	
+			width: 150px;
 		}
 	}
 
 }
 
 
-.billboard .searchfield, 
+.billboard .searchfield,
 .boomboard .searchfield{
 	float: none;
 }
-	
-.navigation_wrap .searchform { 
+
+.navigation_wrap .searchform {
 	position: absolute;
 	right: 3px;
 	bottom: 2px;
@@ -707,41 +707,41 @@ legend + .control-group {
 // BUTTON INPUTS
 // -------------------
 input[type="submit"],
-.submit, 
-input[type="button"], 
-.button, 
-input[type="reset"], 
+.submit,
+input[type="button"],
+.button,
+input[type="reset"],
 .reset{
 	padding: 4px 9px;
 	cursor: pointer;
 	text-decoration: none;
 	.box-sizing(content-box);
 	.border-radius(4px);
-	color:#000000; 
-	text-shadow:0 1px 0 rgba(255,255,255,0.5); 
-	border:1px solid #bbbbbb; 
+	color:#000000;
+	text-shadow:0 1px 0 rgba(255,255,255,0.5);
+	border:1px solid #bbbbbb;
 	#gradient > .vertical(#ffffff, #dcdcdc);
 	box-shadow: inset 1px 1px 0px #FFF;
-	font-family: @buttonFontFamily; 
-	
+	font-family: @buttonFontFamily;
+
 	&:hover{
-		color:#000000; 
+		color:#000000;
 		text-decoration: none;
-		text-shadow:0 1px 0 rgba(255,255,255,0.5); 
-		border:1px solid #aeaeae; 
+		text-shadow:0 1px 0 rgba(255,255,255,0.5);
+		border:1px solid #aeaeae;
 		#gradient > .vertical(#f3f3f3, #cfcfcf);
 	}
 	&:active{
-		color:#000000; 
-		text-shadow:0 1px 0 rgba(255,255,255,0.5); 
-		border:1px solid #8e8e8e; 
+		color:#000000;
+		text-shadow:0 1px 0 rgba(255,255,255,0.5);
+		border:1px solid #8e8e8e;
 		#gradient > .vertical(#afafaf, #d3d3d3);
 		box-shadow: none;
 	}
-} 
+}
 
 input[type="image"]{
-	box-shadow: none; 
+	box-shadow: none;
 }
 
 

@@ -9,13 +9,13 @@
  * Sets default global settings -- NOTE only fires first time
  */
 if(!get_option(PAGELINES_SETTINGS))
-	add_option( PAGELINES_SETTINGS, pagelines_settings_defaults() ); 
+	add_option( PAGELINES_SETTINGS, pagelines_settings_defaults() );
 
 /**
  * Set options globals, cache?
  */
-$GLOBALS['global_pagelines_settings'] = get_option( PAGELINES_SETTINGS );	
-$GLOBALS['pagelines_special_meta'] = get_option( PAGELINES_SPECIAL );	
+$GLOBALS['global_pagelines_settings'] = get_option( PAGELINES_SETTINGS );
+$GLOBALS['pagelines_special_meta'] = get_option( PAGELINES_SPECIAL );
 
 /**
  * Singleton >> Integrations Handling

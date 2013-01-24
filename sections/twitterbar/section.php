@@ -22,23 +22,23 @@ class PageLinesTwitterBar extends PageLinesSection {
 	/**
 	* Section template.
 	*/
-	function section_template() { 
+	function section_template() {
 
 		if( !pagelines('twittername') ) :
 			printf('<div class="tbubble"><div class="tbubble-pad">%s</div></div>', __('Set your Twitter account name in your settings to use the TwitterBar Section.', 'pagelines'));
 
 			return;
 		endif;
-	
+
 		$account = ploption('twittername');
-	
+
 		$twitter = sprintf(
 			'<span class="twitter">%s &nbsp;&mdash;&nbsp;<a class="twitteraccount" href="http://twitter.com/#!/%s">%s</a></span>',
-			pagelines_tweet_clickable( pagelines_get_tweets( $account, true ) ), 
+			pagelines_tweet_clickable( pagelines_get_tweets( $account, true ) ),
 			$account,
 			$account
 		);
-	
-		printf('<div class="tbubble"><div class="tbubble-pad">%s</div></div>', $twitter);	
+
+		printf('<div class="tbubble"><div class="tbubble-pad">%s</div></div>', $twitter);
 	}
 }

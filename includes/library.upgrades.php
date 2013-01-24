@@ -1,7 +1,7 @@
 <?php
 
 class PageLinesUpgradePaths {
-	
+
 
 	/**
 	*
@@ -9,7 +9,7 @@ class PageLinesUpgradePaths {
 	*
 	*/
 	function __construct() {
-  
+
 		if ( ! VPRO && 'pagelines' == basename( pl_get_uri( false ) ) ) {
 
 			update_option( PAGELINES_SETTINGS, pagelines_settings_defaults() );
@@ -18,13 +18,13 @@ class PageLinesUpgradePaths {
 
 		/**
 		* Insure the correct default logo is being displayed after import.
-		*/      
+		*/
 		if ( ! VPRO && 'logo-platform.png' == basename( ploption( 'pagelines_custom_logo' ) ) )
 			plupop( 'pagelines_custom_logo',  PL_IMAGES . '/logo.png' );
 
 		/**
 		* Fix broken repeated excerpt problem on pagelines.com
-		*/      
+		*/
 		if ( ! VPRO && 'pagelines' == basename( pl_get_uri( false ) ) ) {
 
 			if ( ! isset( $a['content_blog'] ) || true != $a['content_blog'] )
@@ -35,20 +35,20 @@ class PageLinesUpgradePaths {
 
 		/**
 		* Fix broken templates
-		*/    
+		*/
 		$t = ( array ) get_option( PAGELINES_TEMPLATE_MAP, the_template_map() );
 		$s = ( array ) get_option( PAGELINES_SPECIAL );
 
 		$t['main']['templates']['posts']['sections'] = array( 'PageLinesQuickSlider', 'PageLinesBoxes' );
 		$s['posts']['_pagelines_layout_mode'] = 'fullwidth';
-		update_option( PAGELINES_SPECIAL, $s );   
-		update_option( PAGELINES_TEMPLATE_MAP, $t );  
+		update_option( PAGELINES_SPECIAL, $s );
+		update_option( PAGELINES_TEMPLATE_MAP, $t );
 		plupop( 'pagelines_version', CORE_VERSION );
 		}
 
 		/**
 		* Upgrade from Platform(pro) to PageLines and import settings.
-		*/  
+		*/
 		$pagelines = get_option( PAGELINES_SETTINGS );
 		$platform = get_option( PAGELINES_SETTINGS_LEGACY );
 
@@ -62,38 +62,38 @@ class PageLinesUpgradePaths {
 		}
 
 		if ( is_array( $platform ) ) {
-			$this->upgrade( $platform );      
+			$this->upgrade( $platform );
 		}
 
 	}
 
 	function rebuild_sidebars( $pagelines ) {
-		
+
 		if ( ! VPRO )
 			return;
 
 		$version = ( isset( $pagelines['pagelines_version'] ) ) ? $pagelines['pagelines_version'] : '';
-		
+
 		// possible 'reset options'
 		if ( ! $version ) {
 			plupop( 'pagelines_version', PL_CORE_VERSION );
 			return;
 		}
-		
+
 		// if on version 2.2 in settings
-		if ( version_compare( $version, '2.2-b1' ) >= 0 || version_compare( get_theme_mod( 'pagelines_version' ), '2.2-b1' ) >= 0 ) 
+		if ( version_compare( $version, '2.2-b1' ) >= 0 || version_compare( get_theme_mod( 'pagelines_version' ), '2.2-b1' ) >= 0 )
 			return;
-		
+
 		if ( isset( $pagelines['enable_sidebar_reorder'] ) && $pagelines['enable_sidebar_reorder'] ) {
-			
+
 			// no need to do this...
 			plupop( 'pagelines_version', PL_CORE_VERSION );
 			return;
 		}
 		$sidebars = get_option( 'sidebars_widgets' );
-		
+
 		$new_sidebars = array(
-			
+
 			'wp_inactive_widgets'	=> $sidebars['wp_inactive_widgets'],
 			'sidebar-1'	=>	$sidebars['sidebar-7'],
 			'sidebar-2'	=>	$sidebars['sidebar-8'],
@@ -106,11 +106,11 @@ class PageLinesUpgradePaths {
 			'sidebar-9'	=>	$sidebars['sidebar-4'],
 			'sidebar-10'=>	$sidebars['sidebar-1'],
 			'array_version'	=> $sidebars['array_version']
-			
+
 		);
 		update_option( 'sidebars_widgets', $new_sidebars );
 		plupop( 'pagelines_version', PL_CORE_VERSION );
-		return;	
+		return;
 	}
 
 
@@ -121,11 +121,11 @@ class PageLinesUpgradePaths {
 	*/
 	function upgrade( $settings ) {
 
-		
+
 			// beta versions will all be using the old array...
 			if ( isset( $settings['pl_login_image']) )
 				$this->beta_upgrade( $settings );
-			else 
+			else
 				$this->full_upgrade( $settings );
 	}
 
@@ -135,20 +135,20 @@ class PageLinesUpgradePaths {
 	*
 	*/
 	function full_upgrade( $settings ) {
-		
+
 		// here we go, 1st were gonna set the defaults
 		add_option( PAGELINES_SETTINGS, pagelines_settings_defaults() );
 		add_option( PAGELINES_TEMPLATE_MAP, get_option( PAGELINES_TEMPLATE_MAP_LEGACY ) );
-		
+
 		$defaults = get_option( PAGELINES_SETTINGS );
 
 		// copy the template-maps
 		update_option( PAGELINES_TEMPLATE_MAP, get_option( PAGELINES_TEMPLATE_MAP_LEGACY ) );
 
 		// now were gonna merge...
-	
+
 		foreach( $settings as $key => $data ) {
-		
+
 			if ( isset( $defaults[$key]) ) {
 				if ( !empty( $data ) )
 					plupop( $key, $data );
@@ -163,10 +163,10 @@ class PageLinesUpgradePaths {
 	*
 	*/
 	function beta_upgrade( $settings ) {
-		
+
 		update_option( PAGELINES_SETTINGS, $settings );
-		update_option( PAGELINES_TEMPLATE_MAP, get_option( PAGELINES_TEMPLATE_MAP_LEGACY ) );		
-	}		
+		update_option( PAGELINES_TEMPLATE_MAP, get_option( PAGELINES_TEMPLATE_MAP_LEGACY ) );
+	}
 }
 
 new PageLinesUpgradePaths;

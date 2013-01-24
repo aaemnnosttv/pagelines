@@ -20,7 +20,7 @@ class TertiarySidebar extends PageLinesSection {
 	/**
 	* Section template.
 	*/
-   function section_template() { 
+   function section_template() {
 	 	 pagelines_draw_sidebar($this->id, $this->name);
 	}
 }

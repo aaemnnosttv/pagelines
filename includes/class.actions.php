@@ -1,7 +1,7 @@
 <?php
 
 /**
- * 
+ *
  *
  *  PageLines Actions
  *
@@ -12,7 +12,7 @@
  *
  */
 class PageLinesActions(){
-	
+
 
 	/**
 	*
@@ -20,9 +20,9 @@ class PageLinesActions(){
 	*
 	*/
 	function __contruct(){
-		
+
 	}
-	
+
 
 	/**
 	*
@@ -30,8 +30,8 @@ class PageLinesActions(){
 	*
 	*/
 	function get_hooks_array(){
-		
-		
+
+
 		global $pl_section_factory;
 
 		$hooks['core'] = array(
@@ -89,10 +89,10 @@ class PageLinesActions(){
 		}
 
 		return apply_filters('pagelines_hooks', $hooks);
-		
-		
+
+
 	}
-	
+
 
 	/**
 	*
@@ -137,7 +137,7 @@ class PageLinesActions(){
 											<div class="pl_title_sub">
 												<p>The action map will create a visualization of hooks (places you can insert code) on the front end of your site.</p>
 
-												<p><strong>Note:</strong> This will only be visible to administrators.</p> 
+												<p><strong>Note:</strong> This will only be visible to administrators.</p>
 											</div>
 										</div>
 									</div>
@@ -172,16 +172,16 @@ class PageLinesActions(){
 		</form>
 		<?php
 	}
-	
+
 
 	/**
 	*
 	* @TODO document
 	*
 	*/
-	function _do_hook_field($hook){ 
+	function _do_hook_field($hook){
 
-		$opt_text = actions_option($hook);	
+		$opt_text = actions_option($hook);
 
 		$last_selected = actions_option('action_select');
 
@@ -194,7 +194,7 @@ class PageLinesActions(){
 		</div>
 
 	<?php }
-	
+
 }
 
 
@@ -208,9 +208,9 @@ class PageLinesActions(){
 *
 */
 function pagelines_get_hooks() {
-	
+
 	global $pl_section_factory;
-	
+
 	$hooks['core'] = array(
 		'pagelines_before_html',
 		'pagelines_before_site',
@@ -255,16 +255,16 @@ function pagelines_get_hooks() {
 		'pagelines_morefoot',
 		'pagelines_after_morefoot'
 		);
-		
+
 	foreach($pl_section_factory->sections as $s){
-		
+
 		$hooks[ $s->id ][] = 'pagelines_before_'.$s->id;
-		
+
 		// $hooks[] = 'pagelines_inside_top_'.$s->id;
 		// 	$hooks[] = 'pagelines_inside_bottom_'.$s->id;
 		// 	$hooks[] = 'pagelines_after_'.$s->id;
 	}
-	
+
 	return apply_filters('pagelines_hooks', $hooks);
 }
 

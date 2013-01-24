@@ -1,54 +1,54 @@
 /*
    objects.css
    PageLines Objects - CSS Framework
-   
+
    Created by Andrew Powers on 2011-05-30.
    Copyright 2011 PageLines. All rights reserved.
 */
 
 
-		
-/* 
+
+/*
  * @ Lists
  **********************************************************************/
 
 /* @ Inline List - Horizontal non-floated navigation/menu  */
-ul.inline-list { 
-	list-style-type: none; 
-	li { 
-		display: inline ; 
-		padding: 0px 3px; 
+ul.inline-list {
+	list-style-type: none;
+	li {
+		display: inline ;
+		padding: 0px 3px;
 	}
 }
 
 /* @ Tabbed List - Horizontal floated list, tab and navigation effects */
 ul.tabbed-list {
-	list-style-type: none; 
+	list-style-type: none;
 	margin:0;
 	width: 100%; /* clear IE 7 */
 	li, lh{
-		margin: 0; 
-		padding: 0; 
+		margin: 0;
+		padding: 0;
 		float: left;
 		a{
 			display: block;
 		}
 	}
 }
-/* 
+/*
  * @ Media / Image Format
  **********************************************************************/
 
 .media{
 	overflow:hidden;
-	overflow: visible; 
+	overflow: visible;
 	zoom: 1;
 	.bd{
-		display:table-cell; 
-		vertical-align: top; 
-		width: 10000px; 
-		*display:block; 
-		*width:auto; 
+		display:table-cell;
+		vertical-align: top;
+		width: 10000px;
+		*display:block;
+		*width:auto;
 		zoom:1;
 	}
 	.bd > :first-child{margin-top:0;}
@@ -58,17 +58,17 @@ ul.tabbed-list {
 		margin-right: 15px;
 		text-align: center;
 		&.rtimg{
-			float:right; 
+			float:right;
 			margin-left: 15px;
 		}
-		
+
 		img{
-			display: inline-block;  
+			display: inline-block;
 			vertical-align: bottom;
-			max-width: 100%; 
-			height: auto; 
+			max-width: 100%;
+			height: auto;
 			width: auto\9;
-			
+
 		}
 		.thumbnail{
 			display: inline-block;
@@ -77,14 +77,14 @@ ul.tabbed-list {
 			.border-radius(4px);
 			.box-shadow(0 1px 3px rgba(0,0,0,.055));
 			.transition(all .2s ease-in-out);
-			
+
 			&[href]:hover{
 					border-color: @linkColor;
 					.box-shadow(0 1px 4px rgba(0,105,214,.25));
 			}
 		}
 	}
-	
+
 }
 
 /*
@@ -110,14 +110,14 @@ ul.tabbed-list {
 	}
 
 /*
- *  @ PageLines Proto CSS Grid 
+ *  @ PageLines Proto CSS Grid
  ***********************************/
 
 	.pprow { width: 100%; margin: 0 auto; }
 	.pp2, .pp3, .pp4, .pp5, .pp6 {margin: 0; padding:0; margin-right: 4%; float: left; border: none;}
 	.pp3{margin-right: 3%;}
 	.pp4, .pp5, .pp6{margin-right: 2%;}
-	
+
 	.pp1 { width: 100%; float: left;}
 	.pp2 { width: 48%; }
 	.pp3 { width: 31.333333333%; }
@@ -126,7 +126,7 @@ ul.tabbed-list {
 	.pp6 { width: 15%; }
 	.pplast { margin-right: 0; }
 
-	
+
 	.ppfull{
 		.pp2, .pp3, .pp4, .pp5, .pp6{
 			margin-right: 0;
@@ -137,16 +137,16 @@ ul.tabbed-list {
 		.pp5 { width: 20%; }
 		.pp6 { width: 16.66666667%; }
 	}
-	
-	
 
-	@media screen and (max-width:650px) { 	
+
+
+	@media screen and (max-width:650px) {
 		.responsive #site{
 			.pp2, .pp3, .ppfree{
 				width: 100%;
 				margin-right: 0;
 			}
-			
+
 			.pprand{
 				width: 100% !important;
 				float: none;
@@ -155,9 +155,9 @@ ul.tabbed-list {
 				}
 			}
 		}
-			
+
 	}
-	@media screen and (max-width:700px) { 	
+	@media screen and (max-width:700px) {
 		.responsive #site{
 			.pp4, .pp5, .pp6{
 				width: 100%;
@@ -165,14 +165,14 @@ ul.tabbed-list {
 			}
 		}
 	}
-	
+
 	.pp2, .pp3, .pp4, .pp5, .pp6, .ppfree {
-	 	transition:all .2s linear; 
-	    -o-transition:all .2s linear; 
-	    -moz-transition:all .2s linear; 
+	 	transition:all .2s linear;
+	    -o-transition:all .2s linear;
+	    -moz-transition:all .2s linear;
 	    -webkit-transition:all .2s linear;
 	}
-	
+
 /* @ Banner */
 	.banner_pad{
 		padding: 2em;
@@ -184,8 +184,8 @@ ul.tabbed-list {
 			background-position: 0 4px;
 			background-repeat: no-repeat;
 		}
-	
-	
+
+
 /* @ Border Tricks */
 	body .ntb{border-top: none}
 	body .nbb{border-bottom: none}
@@ -196,13 +196,13 @@ ul.tabbed-list {
 		-webkit-border-radius: 4px;
 		border-radius: 4px;
 	}
-	
+
 /* @ Clearfixing */
 
 .fix{
 	.clearfix();
 }
-	
+
 /* @ Buttons */
 .blink-wrap{
 	padding:0;
@@ -211,7 +211,7 @@ ul.tabbed-list {
 	font-family: helvetica, arial, sans-serif;
 }
 body #page .blink-wrap	.blink{
-	
+
 	display: block;
 	text-decoration: none;
 	margin:0;
@@ -232,20 +232,20 @@ body #page .blink-wrap	.blink{
 		border: 1px solid transparent;
 		border-top: 1px solid #f7f7f7;
 		border-left: 1px solid #f7f7f7;}
-	
+
 	body #page .blink-wrap .blink:hover{
 		background: #82a2ca url(@{plRoot}/images/blink-sprite-grey.png) 0 -35px repeat-x;
 		border: 1px solid #aaa;
 		border-top: 1px solid #fff;
 		border-left: 1px solid #fff;
-		
+
 	}
 	body #page .blink-wrap .blink:active{background: #82a2ca url(@{plRoot}/images/blink-sprite-grey.png) 0 -70px repeat-x;border: 1px solid #666;color: #fff; text-shadow: #000 0 -1px 0}
 	body #page .blink-wrap .blink:active .blink-pad{border: 1px solid transparent;}
-	
+
 	.bl-align-right{float:right; margin: 2px 0 2px 5px;}
 
-/* Tag Button */ 
+/* Tag Button */
 .btag, .boxtags a{
 	font-family: helvetica, arial, sans-serif;
 	text-shadow: #315f9b 0 -1px 0;
@@ -276,7 +276,7 @@ body #page .blink-wrap	.blink{
 	border-right: 1px solid #bbb;
 }
 	a.btag.grey:hover, .boxtags a:hover{ background: #ccc; color: #000; }
-	
+
 	.btag.grdnt{
 		box-shadow: inset 1px 1px 0 rgba(255,255,255,.5), 1px 1px 0 rgba(255,255,255,.5);
 		border:1px solid #ccc;
@@ -285,22 +285,22 @@ body #page .blink-wrap	.blink{
 		text-shadow: 0 1px 0 rgba(255,255,255, .7);
 		color:#AAA;
 		background:#ddd;
-		background:-moz-linear-gradient(top, #eee 0%, #ccc 100%); 
-		background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#eee),color-stop(100%,#ccc)); 
-		background:-webkit-linear-gradient(top,#eee 0%,#ccc 100%); 
-		background:-o-linear-gradient(top,#eee 0%,#ccc 100%); 
-		background:-ms-linear-gradient(top,#eee 0%,#ccc 100%); 
+		background:-moz-linear-gradient(top, #eee 0%, #ccc 100%);
+		background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#eee),color-stop(100%,#ccc));
+		background:-webkit-linear-gradient(top,#eee 0%,#ccc 100%);
+		background:-o-linear-gradient(top,#eee 0%,#ccc 100%);
+		background:-ms-linear-gradient(top,#eee 0%,#ccc 100%);
 		background:linear-gradient(top,#eee 0%,#ccc 100%);
 	}
-	
-/* @ Grid */ 
+
+/* @ Grid */
 .grid-element, .media_overview{ margin-bottom: 12px; }
 	.grid-img-frame{
 		max-width: 100%;
 	}
 	.grid-img-pad{
 		width: 100%;
-		float:left; 
+		float:left;
 	}
 .vignette{position: relative;}
 
@@ -326,8 +326,8 @@ body #page .blink-wrap	.blink{
 			line-height: 1em;
 		}
 .hovercard {
-	position: absolute; 
-	bottom: 20px; 
+	position: absolute;
+	bottom: 20px;
 	background: rgba(0,0,0, .6);
 	text-shadow: none;
 	color:#fff;
@@ -342,35 +342,35 @@ body #page .blink-wrap	.blink{
 /* Misc */
 #supersized-loader { .hidden }
 
-#supersized { 
-	position:fixed; 
-	left:0; 
-	top:0; 
-	overflow:hidden; 
-	z-index:-999; 
-	height:100%; 
+#supersized {
+	position:fixed;
+	left:0;
+	top:0;
+	overflow:hidden;
+	z-index:-999;
+	height:100%;
 	width:100%;
 	background-size: cover;
-	img{ 
-		height:auto; 
-		width:auto; 
-		position:relative; 
-		outline:none; 
-		border:none; 
+	img{
+		height:auto;
+		width:auto;
+		position:relative;
+		outline:none;
+		border:none;
 		-ms-interpolation-mode:bicubic;
-		image-rendering: optimizeQuality; 
+		image-rendering: optimizeQuality;
 	}
 }
 
 /* Spinner */
 .spinner{
-	
+
 	position: absolute;
 	width: 54px;
 	height: 54px;
-	top: 50%; 
+	top: 50%;
 	left: 50%;
-	margin-left: -27px; 
+	margin-left: -27px;
 	margin-top: -27px;
 	display: inline-block;
 
@@ -386,7 +386,7 @@ body #page .blink-wrap	.blink{
 	  -webkit-border-radius: 50px;
 	}
 
-	.bar1 {-webkit-transform:rotate(0deg) translate(0, -142%); -webkit-animation-delay: 0s;}    
+	.bar1 {-webkit-transform:rotate(0deg) translate(0, -142%); -webkit-animation-delay: 0s;}
 	.bar2 {-webkit-transform:rotate(30deg) translate(0, -142%); -webkit-animation-delay: -0.9167s;}
 	.bar3 {-webkit-transform:rotate(60deg) translate(0, -142%); -webkit-animation-delay: -0.833s;}
 	.bar4 {-webkit-transform:rotate(90deg) translate(0, -142%); -webkit-animation-delay: -0.75s;}
@@ -398,8 +398,8 @@ body #page .blink-wrap	.blink{
 	.bar10 {-webkit-transform:rotate(270deg) translate(0, -142%); -webkit-animation-delay: -0.25s;}
 	.bar11 {-webkit-transform:rotate(300deg) translate(0, -142%); -webkit-animation-delay: -0.1667s;}
 	.bar12 {-webkit-transform:rotate(330deg) translate(0, -142%); -webkit-animation-delay: -0.0833s;}
-	
-} 
+
+}
 
  @-webkit-keyframes fade {
   from {opacity: 1;}
