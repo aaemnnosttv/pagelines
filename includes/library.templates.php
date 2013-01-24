@@ -285,8 +285,10 @@ function pagelines_head_common(){
 //			pagelines_load_css(  PL_PARENT_URL.'/style.css', 'pagelines-framework', pagelines_get_style_ver( true ));
 	
 		// RTL Language Support
-		if(is_rtl()) 
-			pagelines_load_css_relative( 'rtl.css', 'pagelines-rtl');
+		
+		// wordpress autoloads from child theme so if child theme has no rtl we need to load ours.
+		if( ( is_rtl() && is_child_theme() && ! is_file( sprintf( '%s/rtl.css', get_stylesheet_directory() ) ) ) || ( is_rtl() && ! is_child_theme() ) ) 
+			add_action( 'wp_print_styles', create_function( '', 'pagelines_load_css_relative( "rtl.css", "pagelines-rtl" );' ), 99 );		
 	}
 		
 	if ( ploption( 'facebook_headers' ) && ! has_action( 'disable_facebook_headers' ) && VPRO )
