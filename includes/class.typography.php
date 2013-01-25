@@ -81,13 +81,6 @@ class PageLinesFoundry {
 				'google' => true,
 				'monospace' => false
 			),
-			'chau_philomene_one' => array(
-				'name' => '"Chau Philomene One"',
-				'family' => '"Chau Philomene One", sans-serif',
-				'web_safe' => true,
-				'google' => array('400','400italic'),
-				'monospace' => false
-			),
 			'courier_new' => array(
 				'name' => 'Courier',
 				'family' => 'Courier, Verdana, sans-serif',
