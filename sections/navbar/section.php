@@ -33,7 +33,7 @@ class PLNavBar extends PageLinesSection {
 		<?php
 	}
 
-	function section_persistent(){
+	function section_persistent() {
 
 
 		$header_options = array(
@@ -166,13 +166,11 @@ class PLNavBar extends PageLinesSection {
 
 		if(ploption('navbar_fixed')){
 
-			build_passive_section(array('sid' => $this->class_name));
+			build_passive_section( array( 'sid' => $this->class_name ) );
 
 			add_action( 'pagelines_before_page', create_function( '',  'echo pl_source_comment("Fixed NavBar Section");' ) );
-			add_action('pagelines_before_page', array(&$this,'passive_section_template'), 10, 2);
-
-
-			pagelines_add_bodyclass('navbar_fixed');
+			add_action( 'pagelines_before_page', array( &$this,'passive_section_template' ), 10, 2);
+			pagelines_add_bodyclass( 'navbar_fixed' );
 		}
 
 
@@ -182,15 +180,15 @@ class PLNavBar extends PageLinesSection {
 	/**
 	 * Load styles and scripts
 	 */
-	function section_styles(){
+	function section_styles() {
 
 		wp_enqueue_script( 'navbar', $this->base_url.'/navbar.js', array( 'jquery' ) );
 	}
 
-	function before_section_template( $location = ''){
+	function before_section_template( $location = '' ) {
 
-		$format = ($location == 'passive') ? 'open' : 'standard';
-		$this->special_classes = ($location == 'passive') ? ' fixed-top' : '';
+		$format = ( $location == 'passive' ) ? 'open' : 'standard';
+		$this->special_classes = ( $location == 'passive' ) ? ' fixed-top' : '';
 		$this->settings['format'] = $format;
 
 	}
@@ -198,47 +196,35 @@ class PLNavBar extends PageLinesSection {
 	/**
 	* Section template.
 	*/
-   function section_template($clone_id, $location = '') {
+   function section_template( $clone_id, $location = '' ) {
 
-	$passive = ($location == 'passive') ? true : false;
+	$passive = ( $location == 'passive' ) ? true : false;
 
 	// if fixed mode
-	if($passive){
+	if( $passive ){
 
 		$width_class = 'navbar-full-width';
 		$content_width_class = 'content';
-		$theme = (ploption('fixed_navbar_theme')) ? ploption('fixed_navbar_theme') : false;
-
-		$align = (ploption('fixed_navbar_alignment')) ? ploption('fixed_navbar_alignment') : false;
-
-		$hidesearch = (ploption('fixed_navbar_hidesearch')) ? ploption('fixed_navbar_hidesearch') : false;
-
-		$menu = (ploption('fixed_navbar_menu')) ? ploption('fixed_navbar_menu') : null;
+		$theme = ( ploption('fixed_navbar_theme' ) ) ? ploption( 'fixed_navbar_theme' ) : false;
+		$align = ( ploption( 'fixed_navbar_alignment' ) ) ? ploption( 'fixed_navbar_alignment' ) : false;
+		$hidesearch = ( ploption( 'fixed_navbar_hidesearch' ) ) ? ploption( 'fixed_navbar_hidesearch' ) : false;
+		$menu = ( ploption( 'fixed_navbar_menu' ) ) ? ploption( 'fixed_navbar_menu' ) : null;
 
 	} else {
 
 		$width_class = 'navbar-content-width';
 		$content_width_class = '';
-
-		$theme = (ploption('navbar_theme')) ? ploption('navbar_theme') : false;
-
-		$align = (ploption('navbar_alignment')) ? ploption('navbar_alignment') : false;
-
-		$hidesearch = (ploption('navbar_hidesearch')) ? ploption('navbar_hidesearch') : false;
-
-		$menu = (ploption('navbar_menu')) ? ploption('navbar_menu') : null;
+		$theme = ( ploption( 'navbar_theme' ) ) ? ploption( 'navbar_theme' ) : false;
+		$align = ( ploption('navbar_alignment' ) ) ? ploption( 'navbar_alignment' ) : false;
+		$hidesearch = ( ploption( 'navbar_hidesearch' ) ) ? ploption( 'navbar_hidesearch' ) : false;
+		$menu = ( ploption( 'navbar_menu' ) ) ? ploption( 'navbar_menu' ) : null;
 	}
 
-	$pull = ($align) ? 'right' : 'left';
-
-	$align_class = sprintf('pull-%s', $pull);
-
-	$theme_class = ($theme) ? sprintf(' pl-color-%s', $theme) : ' pl-color-black-trans';
-
+	$pull = ( $align ) ? 'right' : 'left';
+	$align_class = sprintf( 'pull-%s', $pull );
+	$theme_class = ( $theme ) ? sprintf( ' pl-color-%s', $theme ) : ' pl-color-black-trans';
 	$theme_class = ( ploption( 'navbar_enable_hover' ) ) ? $theme_class . ' plnav_hover' : $theme_class;
-
-	$brand = (ploption('navbar_logo') || ploption('navbar_logo') != '') ? sprintf('<img src="%s" />', ploption('navbar_logo')) : sprintf('<h2 class="plbrand-text">%s</h2>', get_bloginfo('name'));
-
+	$brand = ( ploption( 'navbar_logo' ) || ploption( 'navbar_logo' ) != '') ? sprintf( '<img src="%s" alt="%s" />', ploption( 'navbar_logo' ), esc_attr( get_bloginfo('name') ) ) : sprintf( '<h2 class="plbrand-text">%s</h2>', get_bloginfo( 'name' ) );
     $navbartitle = ploption( 'navbar_title', $this->oset );
 
 	?>
@@ -247,21 +233,22 @@ class PLNavBar extends PageLinesSection {
 	    <div class="navbar-content-pad fix">
 	    	<?php
 	   			if($navbartitle)
-				printf('<span class="navbar-title">%s</span>',$navbartitle);
+				printf( '<span class="navbar-title">%s</span>',$navbartitle );
 			?>
 	      <a href="javascript:void(0)" class="nav-btn nav-btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	      </a>
-			<?php if($passive): ?>
-				<a class="plbrand" href="<?php echo esc_url(home_url());?>">
-					<?php echo apply_filters('navbar_brand', $brand);	?>
-				</a>
-			<?php endif; ?>
-
+			<?php if($passive):
+				printf( '<a class="plbrand" href="%s" title="%s">%s</a>',
+					esc_url( home_url() ),
+					esc_attr( get_bloginfo('name') ),
+					apply_filters('navbar_brand', $brand)
+				 );
+			endif; ?>
 	      		<div class="nav-collapse collapse">
-	       <?php 	if(!$hidesearch)
+	       <?php 	if( !$hidesearch )
 						get_search_form();
 					if ( is_array( wp_get_nav_menu_items( $menu ) ) || has_nav_menu( 'primary' ) ) {
 					wp_nav_menu(
@@ -287,7 +274,7 @@ class PLNavBar extends PageLinesSection {
 	function nav_fallback( $align_class ) {
 
 		printf( '<ul id="menu-main" class="font-sub navline pldrop %s">', $align_class );
-		wp_list_pages( 'title_li=&sort_column=menu_order&depth=2');
+		wp_list_pages( 'title_li=&sort_column=menu_order&depth=2' );
 		echo '</ul>';
 	}
 }
