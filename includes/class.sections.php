@@ -780,9 +780,9 @@ function setup_section_notify( $section, $text, $url = null, $ltext = null, $tab
 
 
 	if(current_user_can('edit_themes')){
-
-		$banner_title = sprintf('<h3 class="banner_title wicon" style="background-image: url(%s);">%s</h3>', $section->icon, $section->name);
-
+	
+		$banner_title = sprintf('<strong><i class="icon-pencil"></i> %s</strong>', $section->name);
+		
 		$tab = ( !isset( $tab) && isset($section->tabID)) ? $section->tabID : $tab;
 
 		$url = (isset($url)) ? $url : pl_meta_set_url( $tab );
@@ -790,8 +790,8 @@ function setup_section_notify( $section, $text, $url = null, $ltext = null, $tab
 		$link_text = (isset($ltext)) ? $ltext : __('Set Meta', 'pagelines');
 
 		$link = sprintf('<a href="%s">%s</a>', $url, $link_text . ' &rarr;');
-
-		return sprintf('<div class="banner setup_area"><div class="banner_pad">%s <div class="banner_text subhead">%s<br/> %s</div></div></div>', $banner_title, $text, $link);
+		
+		return sprintf('<div class="setup-section"><div class="setup-section-pad">%s <br/><small class="banner_text subhead">%s %s</small></div></div>', $banner_title, $text, $link);
 	}
 
 }
@@ -808,7 +808,7 @@ function splice_section_slug( $slug ){
 
 	$pieces = explode('ID', $slug);
 	$section = (string) $pieces[0];
-	$clone_id = (isset($pieces[1])) ? $pieces[1] : null;
-
+	$clone_id = (isset($pieces[1])) ? $pieces[1] : 1;
+	
 	return array('section' => $section, 'clone_id' => $clone_id);
 }
