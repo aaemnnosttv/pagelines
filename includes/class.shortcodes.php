@@ -1292,9 +1292,8 @@ class PageLines_ShortCodes {
 		    return sprintf( '<div class="tab-pane %s" id="%s"><p>%s</p></div>',
 					$active,
 					$number,
-					do_shortcode( $content )
+					do_shortcode( apply_filters( 'the_content',$content ) )
 					);
-
 		}
 
 	/**
