@@ -1311,6 +1311,7 @@ class PageLines_ShortCodes {
 		    'type'		=> '',
 		    'colortype' => '',
 		    'label' 	=> '',
+		    'show'		=> 'false',
 			'hash'		=> rand()
 	    ), $atts ) );
 
@@ -1321,7 +1322,7 @@ class PageLines_ShortCodes {
 	            	jQuery(function(){
 						jQuery('#modal_<?php echo $hash; ?>').modal({
 							keyboard: true
-							, show: false
+							, show: <?php echo $show; ?>
 						});
 					});
 				</script><?php
