@@ -97,7 +97,7 @@ class PageLinesFeatures extends PageLinesSection {
 
 <?php if( ! ploption( 'feature_height_mode', $oset ) || ploption( 'feature_height_mode', $oset ) == 'aspect' ) :
 
-		printf( '$aspect%s = %s;', $clone_id,(ploption( 'feature_aspect', $oset ) ) ? ploption( 'feature_aspect', $oset ) : 2.5 );
+		printf( '$aspect%s = %s;', $clone_id,( ploption( 'feature_aspect', $oset ) && is_numeric( ploption( 'feature_aspect', $oset ) ) ) ? ploption( 'feature_aspect', $oset ) : 2.5 );
 
 		printf( '$width_area%s = "%s #feature-area";', $clone_id, $wrap_class );
 
