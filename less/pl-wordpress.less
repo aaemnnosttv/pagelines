@@ -318,17 +318,20 @@ p.form-allowed-tags{
 // Special/Misc WordPress Stuff
 // ----------------------------------------------------------------------
 
-#wpadminbar .pl-admin-bar-label{
-	font-family: @buttonFontFamily;
-	font-size: .846em;
-	font-weight: bold;
-	line-height: 14px; // ensure proper line-height if floated
-	color: @white;
-	vertical-align: baseline;
-	white-space: nowrap;
-	text-shadow: 0 -1px 0 rgba(0,0,0,.35);
-	padding: 3px 4px 2px;
-	.border-radius(3px);
+#wpadminbar {
+	min-width: 800px;
+	.pl-admin-bar-label{
+		font-family: @buttonFontFamily;
+		font-size: .846em;
+		font-weight: bold;
+		line-height: 14px; // ensure proper line-height if floated
+		color: @white;
+		vertical-align: baseline;
+		white-space: nowrap;
+		text-shadow: 0 -1px 0 rgba(0,0,0,.35);
+		padding: 3px 4px 2px;
+		.border-radius(3px);
+	}
 }
 
 /* Search Reader Text */
