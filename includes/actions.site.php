@@ -112,7 +112,7 @@ function gallery_filter( $a, $template_name) {
 	if ( $template_name == 'gallery-plcarousel')
 		return sprintf( '%s/carousel/gallery-plcarousel.php', PL_SECTIONS);
 	else
-		return false;
+		return $a;
 }
 
 new PageLinesRenderCSS;
