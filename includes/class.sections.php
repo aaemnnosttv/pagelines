@@ -372,7 +372,12 @@ class PageLinesSection {
 		$this->format	= ( $this->format ) ? $this->format : 'textured';
 		$this->classes	= ( $this->classes ) ? sprintf( ' %s', ltrim( $this->classes ) )  : '';
 	}
-
+	
+	/**
+     * Scripts to be loaded inline after page load
+     *
+     */
+	function section_on_ready(){}
 
     /**
      * Section Admin

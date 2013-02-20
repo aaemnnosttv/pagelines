@@ -268,14 +268,8 @@ function pagelines_head_common(){
 	printf( '<title>%s</title>', wp_title( '',false ) );
 
 	// Allow for extension deactivation of all css
-	if(!has_action('override_pagelines_css_output')){
-
-		// Get CSS Objects & Grids
-//		pagelines_load_css_relative('css/objects.css', 'pagelines-objects');
-
-		// CSS Animations
-//		wp_enqueue_style('animate', PL_CSS.'/animate.css'); TODO do we need this?
-
+	if(!has_action('override_pagelines_css_output')){	
+		
 		// Multisite CSS
 		if(is_multisite())
 			pagelines_load_css_relative('css/multisite.css', 'pagelines-multisite');
@@ -315,7 +309,9 @@ function pagelines_head_common(){
 	add_action( 'admin_bar_menu', create_function( '',  'echo pl_source_comment("WordPress Admin Bar");' ), 0 );
 
 	add_action( 'wp_head', 'pagelines_meta_tags', 9 );
-
+	
+	add_action( 'wp_head', 'pl_scripts_on_ready', 10 );
+	
 	// Headerscripts option > custom code
 	if ( ploption( 'headerscripts' ) )
 		add_action( 'wp_head', create_function( '',  'print_pagelines_option("headerscripts");' ), 25 );
@@ -330,9 +326,22 @@ function load_prettify(){
 	wp_enqueue_style( 'prettify', PL_JS . '/prettify/prettify.css' );
 	add_action( 'wp_head', create_function( '',  'echo pl_js_wrap("prettyPrint()");' ), 14 );
 
-
 }
 
+function pl_scripts_on_ready(){
+	
+echo pl_source_comment("On Ready"); ?>
+<script> /* <![CDATA[ */
+!function ($) {
+jQuery(document).ready(function() {
+<?php pagelines_register_hook('pl_scripts_on_ready'); // Hook ?>
+})
+}(window.jQuery);
+/* ]]> */
+</script>
+
+<?php 
+}
 
 function pagelines_meta_tags(){
 

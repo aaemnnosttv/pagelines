@@ -787,7 +787,38 @@ class PageLinesTemplate {
 	function run_before_page(){
 
 	}
-
+	
+	function print_on_ready_scripts() {
+		
+		foreach( (array) $this->allsections as $sid){
+			
+			/**
+			 * If this is a cloned element, remove the clone flag before instantiation here.
+			 */
+			$p = splice_section_slug($sid);
+			$section = $p['section'];
+			$clone_id = $p['clone_id'];
+			
+			if( $this->in_factory( $section ) ){
+				
+				$s = $this->factory[$section];
+				$s->setup_oset( $clone_id );
+				
+				ob_start();
+					
+					$s->section_on_ready( $clone_id );	
+					
+				$scripts = ob_get_clean();
+				
+				if($scripts != ''){
+					echo sprintf("\n/* %s Script */\n", $this->factory[$section]->name);
+					echo $scripts;
+				}
+						
+			}	
+		}
+	}
+	
 	function print_template_section_head() {
 
 		foreach( (array) $this->allsections as $sid){
