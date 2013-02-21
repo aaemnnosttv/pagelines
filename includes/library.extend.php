@@ -145,3 +145,9 @@ function pagelines_store_object_sort( $object ) {
       return FALSE;
     }
 }
+
+function pl_is_section_active( $class ) {
+
+	if( class_exists( $class ) )
+		return true;
+}
