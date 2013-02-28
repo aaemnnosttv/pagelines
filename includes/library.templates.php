@@ -532,14 +532,10 @@ function pagelines_fix_ie( ){
 
 	$ie_ver = pl_detect_ie();
 	if( ploption('google_ie') && ( $ie_ver < 9 ) ) {
-		printf( '<script src="//ie7-js.googlecode.com/svn/version/2.1(beta4)/IE%s.js"></script>%s', $ie_ver +1 , "\n" );
-	}
-	if ( $ie_ver < 9 ){
-		printf(
-			'%2$s<script src="%1$s"></script>%2$s',
-			'//html5shim.googlecode.com/svn/trunk/html5.js',
-			"\n"
-		);
+		$compat = sprintf( '//ie7-js.googlecode.com/svn/version/2.1(beta4)/IE%1$s.js', $ie_ver +1 );
+		$shiv = '//html5shim.googlecode.com/svn/trunk/html5.js';
+		wp_enqueue_script( 'ie-compat', $compat );
+		wp_enqueue_script( 'html5shiv', $shiv );
 	}
 
 	// If IE7 add the Internet Explorer 7 specific stylesheet
