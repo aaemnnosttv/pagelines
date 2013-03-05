@@ -39,7 +39,7 @@
  */
 if( ! class_exists( 'lessc' ) ) {
 	class lessc {
-	static public $VERSION = "v0.3.8";
+	static public $VERSION = "v0.3.9";
 	static protected $TRUE = array("keyword", "true");
 	static protected $FALSE = array("keyword", "false");
 
@@ -112,7 +112,7 @@ if( ! class_exists( 'lessc' ) ) {
 
 		$this->addParsedFile($realPath);
 		$parser = $this->makeParser($realPath);
-		$root = $parser->parse(file_get_contents($realPath));
+		$root = $parser->parse( pl_file_get_contents( $realPath ) );
 
 		// set the parents of all the block props
 		foreach ($root->props as $prop) {
@@ -1128,7 +1128,7 @@ if( ! class_exists( 'lessc' ) ) {
 	 * Expects H to be in range of 0 to 360, S and L in 0 to 100
 	 */
 	protected function toRGB($color) {
-		if ($color == 'color') return $color;
+		if ($color[0] == 'color') return $color;
 
 		$H = $color[1] / 360;
 		$S = $color[2] / 100;
@@ -1685,13 +1685,9 @@ if( ! class_exists( 'lessc' ) ) {
 		$this->allParsedFiles = array();
 		$this->addParsedFile($fname);
 
-		$out = $this->compile(file_get_contents($fname), $fname);
+		$out = $this->compile( pl_file_get_contents($fname), $fname );
 
 		$this->importDir = $oldImport;
-
-		if ($outFname !== null) {
-			return file_put_contents($outFname, $out);
-		}
 
 		return $out;
 	}
@@ -3357,8 +3353,7 @@ class lessc_parser {
 	}
 
 }
-
-	}
+}
 if ( ! class_exists( 'lessc_formatter_classic' ) ) {
 class lessc_formatter_classic {
 	public $indentChar = "  ";
@@ -3456,26 +3451,24 @@ class lessc_formatter_classic {
 }
 }
 if( ! class_exists( 'lessc_formatter_compressed' ) ) {
-class lessc_formatter_compressed extends lessc_formatter_classic {
-	public $disableSingle = true;
-	public $open = "{";
-	public $selectorSeparator = ",";
-	public $assignSeparator = ":";
-	public $break = "";
-	public $compressColors = true;
-
-	public function indentStr($n = 0) {
-		return "";
+	class lessc_formatter_compressed extends lessc_formatter_classic {
+		public $disableSingle = true;
+		public $open = "{";
+		public $selectorSeparator = ",";
+		public $assignSeparator = ":";
+		public $break = "";
+		public $compressColors = true;
+		public function indentStr($n = 0) {
+			return "";
+		}
 	}
-}
 }
 
 if( ! class_exists( 'lessc_formatter_lessjs' ) ) {
-class lessc_formatter_lessjs extends lessc_formatter_classic {
-	public $disableSingle = true;
-	public $breakSelectors = true;
-	public $assignSeparator = ": ";
-	public $selectorSeparator = ",";
-}
-
+	class lessc_formatter_lessjs extends lessc_formatter_classic {
+		public $disableSingle = true;
+		public $breakSelectors = true;
+		public $assignSeparator = ": ";
+		public $selectorSeparator = ",";
+	}
 }
