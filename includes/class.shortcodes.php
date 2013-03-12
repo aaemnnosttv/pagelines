@@ -252,7 +252,7 @@ class PageLines_ShortCodes {
 				if ( $colors ) $string .= '&chco='.$colors.'';
 				$string .= '&chs='.$size.'';
 				$string .= '&chd=t:'.$data.'';
-				$string .= '&chf='.$bg.'';
+				$string .= '&chf=bg,s,'.$bg.'';
 
 		return '<img title="'.$title.'" src="http://chart.apis.google.com/chart?cht='.$charttype.''.$string.$advanced.'" alt="'.$title.'" />';
 	}
