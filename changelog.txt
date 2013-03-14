@@ -4,6 +4,32 @@
 
 ********************************************************
 
+Version 2.4.1
+
+	- NEW - Added section_on_ready() to section class ( wraps js in jQuery(document).ready(function() and loads into HEAD ).
+	- NEW - Enable HTML in popovers.
+	- NEW - Enable auto 'show' mode to modal popup.
+	- NEW - Added pl_is_section_active( $class ).
+	- NEW - New setup notifications.
+	- CORE - Update Bootstrap to latest 2.3.1.
+	- CORE - Update LESS compiler.
+	- CORE - Updated SHIV code and detection function.
+	- CORE - Removed unlisted font from typography.
+	- CORE - Whitespace cleanup.
+	- CORE - Added dailymotion to pl_video shortcode.
+	- Bugs - RTL CSS detection fixed.
+	- Bugs - Better googlefont URL code.
+	- Bugs - Fix small nextgen template issue.
+	- Bugs - Fix google graph backgrounds.
+	- Bugs - Fixed columns bug in wp-admin, props Evan.
+	- Bugs - Navbar: Added title/alt to fixed nav mode.
+	- Bugs - Features: Check aspect ratio is valid and numeric.
+	- Bugs - LESS: Fixed searchform line-height in IE9/10.
+	- Bugs - LESS: Remove square corners on dropdown hovers.
+	- Bugs - LESS: Fix features nobg mode.
+	- Bugs - LESS: Fixed nested ol/ul/li, props Mikey.
+	- Bugs - LESS: Callout selector and styling fixes.
+	- Bugs - LESS: Adminbar CSS fixes.
 
 Version 2.4
 
