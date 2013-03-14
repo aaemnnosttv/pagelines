@@ -65,7 +65,7 @@ ul.activity-list li div.activity-content { margin-left:0;	margin-right:75px; }
 
 body #primary-nav ul.sf-menu li { float:right; }
 
-.font-sub, #primary-nav li a, .metabar, .subtext, .subhead, .widget-title, .post-comments, .reply a, .editpage, .site-description, .fcontent .flink, .post-edit-link, #wp-calendar caption, #wp-calendar thead th, #callout .callout_copy, #breadcrumb, .ticker-wrap, h5.sidebartitle, #highlight .highlight-subhead, .soapbox-links a, .fancybox, .standard-form .admin-links, #featurenav a, #feature-footer span.playpause {
+.font-sub, #primary-nav li a, .metabar, .subtext, .subhead, .widget-title, .post-comments, .reply a, .editpage, .site-description, .fcontent .flink, .post-edit-link, #wp-calendar caption, #wp-calendar thead th, .section-callout .callout_copy, #breadcrumb, .ticker-wrap, h5.sidebartitle, #highlight .highlight-subhead, .soapbox-links a, .fancybox, .standard-form .admin-links, #featurenav a, #feature-footer span.playpause {
     letter-spacing: normal;
     text-transform: none;
 }
@@ -235,7 +235,7 @@ form#whats-new-form #whats-new-submit {
 	text-transform: none;
 }
 
-#callout .callout_copy {
+.section-callout .callout_copy {
 font-size:1.1em;
 letter-spacing:0;
 text-transform: none;
@@ -252,20 +252,20 @@ margin-left:10px;
 margin-right:0;
 }
 
-#callout .content-pad{	padding:30px 0 30px 17px;}
+.section-callout .content-pad{	padding:30px 0 30px 17px;}
 
-#callout .callout_text{
+.section-callout .callout_text{
 float: right;
 }
-		#callout .callout_text-pad{
+		.section-callout .callout_text-pad{
 padding: 0 0 0 10px;
 }
-		#callout .callout_copy{
+		.section-callout .callout_copy{
 text-transform: none;
 letter-spacing:0;
 }
 
-#callout .callout_image {float: left;}
+.section-callout .callout_image {float: left;}
 
 #footer .widget-title {
     font-size: 1.1em;

@@ -65,11 +65,14 @@
 
 // Media Queries
 @media (max-width: 480px) {
-	#callout .btn {display:block;}
+	.section-callout .btn {display:block;}
 	.callout_action {
 		width:100%;
 		margin-bottom: .5*@baseLineHeight;
+		&.img.rtimg {
+			margin-left:0;
+			margin-right:0;
+		}
 	}
-	.callout_action.img.rtimg {margin-left:0;margin-right:0;}
 	.callout_text {text-align:center;}
 }
