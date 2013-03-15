@@ -956,7 +956,7 @@ function pagelines_get_tweets( $username, $latest = null) {
 		if ( 'error' != $tweets ) { // Tweets are good, return the array or a single if asked for ($latest)
 
 			if ( $latest && is_array( $tweets ) && isset( $tweets[0]['text'] ) )
-				return  $tweets[0]['text'];
+				return  $tweets[0];
 			elseif ( is_array( $latest ) )
 				return $latest;
 		} else {
@@ -1009,7 +1009,7 @@ function pagelines_tweet_clickable( $tweet ) {
 	$link_pattern = '<a href="http://twitter.com/$1" title="$1 profile on Twitter" rel="nofollow">@$1</a>';
 	$tweet = preg_replace($regex,$link_pattern,$tweet);
 	$regex = '/\#([a-zA-Z0-9_]*)/';
-	$link_pattern = '<a href="http://search.twitter.com/search?q=%23$1" title="search for $1 on Twitter" rel="nofollow">#$1</a>';
+	$link_pattern = '<a href="https://twitter.com/search?q=%23$1&src=hash" title="Search for $1 on Twitter" rel="nofollow">#$1</a>';
 	$tweet = preg_replace($regex,$link_pattern,$tweet);
 
 	return $tweet;
