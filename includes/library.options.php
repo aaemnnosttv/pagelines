@@ -994,46 +994,50 @@ function get_pagelines_credentials( $t ) {
  */
 function pagelines_check_credentials( $type = 'setup' ) {
 
+
+	if ( ! is_array( $data = get_transient( EXTEND_UPDATE ) ) )
+		return false;
+
 	switch( $type ) {
 
 		case 'setup':
-			if ( is_array( $a = get_transient( EXTEND_UPDATE ) ) && isset($a['credentials']) && $a['credentials'] === 'true' )
+			if (  isset( $data['credentials'] ) && $data['credentials'] === 'true' )
 				return true;
 			else
 				return false;
 		break;
 
 		case 'licence':
-			if ( is_array( $a = get_transient( EXTEND_UPDATE ) ) && isset($a['licence']) )
-				return $a['licence'];
+			if ( isset( $data['licence'] ) )
+				return $data['licence'];
 		break;
 
 		case 'error':
-			if ( is_array( $a = get_transient( EXTEND_UPDATE ) ) && isset($a['api_error']) )
-				return $a['api_error'];
+			if ( isset( $data['api_error'] ) )
+				return $data['api_error'];
 		break;
 
 		case 'ssl':
-			if ( is_array( $a = get_transient( EXTEND_UPDATE ) ) && isset($a['ssl']) )
+			if ( isset( $data['ssl'] ) )
 				return true;
 		break;
 
 		case 'echo':
-			return get_transient( EXTEND_UPDATE );
+			return $data;
 		break;
 
 		case 'plus':
-			if ( is_array( $a = get_transient( EXTEND_UPDATE ) ) && isset($a['plus']) )
-				return $a['plus'];
+			if ( isset( $data['plus'] ) )
+				return $data['plus'];
 		break;
 
 		case 'message':
-		if ( is_array( $a = get_transient( EXTEND_UPDATE ) ) && isset($a['message']) )
-			return $a['message'];
+		if ( isset( $data['message'] ) )
+			return $data['message'];
 
 		case 'vchat':
-		if ( is_array( $a = get_transient( EXTEND_UPDATE ) ) && isset($a['chat_url']) )
-			return $a['chat_url'];
+		if ( isset( $data['chat_url'] ) )
+			return $data['chat_url'];
 		else
 			return false;
 	}

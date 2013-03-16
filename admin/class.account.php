@@ -13,7 +13,7 @@ class PageLinesAccount {
 
 	function __construct(){
 
-		add_action( 'admin_init', array(&$this, 'update_lpinfo' ) );
+		add_action( 'admin_init', array( &$this, 'update_lpinfo' ) );
 		add_filter( 'pagelines_account_array', array( &$this, 'get_intro' ) );
 	}
 
@@ -23,6 +23,11 @@ class PageLinesAccount {
 	 */
 	function update_lpinfo() {
 
+		if( defined( 'PL_GLOBAL_USER' ) && defined( 'PL_GLOBAL_PASS' ) && ! pagelines_check_credentials() ) {
+			set_pagelines_credentials( PL_GLOBAL_USER, PL_GLOBAL_PASS );
+			PagelinesExtensions::flush_caches();
+			return;
+		}
 		if ( isset( $_POST['form_submitted'] ) && $_POST['form_submitted'] === 'plinfo' ) {
 
 			if ( isset( $_POST['creds_reset'] ) )
