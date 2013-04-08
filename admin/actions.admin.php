@@ -353,7 +353,7 @@ function pagelines_check_folders() {
 		if( 'pagelines' == $folder )
 			return;
 
-		echo '<div class="error update-nag">';
-		printf( '<h3>Install Error!</h3><p>PageLines Framework must be in a folder called <strong>pagelines</strong> to work<br /><br />Current path: %s<br /></p>', get_template_directory() );
+		echo '<div class="updated">';
+		printf( "<p><h3>Install Error!</h3><br />PageLines Framework must be installed in a folder called 'pagelines' to work with child themes and extensions.<br /><br />Current path: %s<br /></p>", get_template_directory() );
 		echo '</div>';
 }
