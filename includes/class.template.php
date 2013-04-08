@@ -93,7 +93,7 @@ class PageLinesTemplate {
      *
      * @return mixed|void
      */
-	function page_type_breaker(){
+	public function page_type_breaker(){
 		global $post;
 		global $pl_integration;
 
