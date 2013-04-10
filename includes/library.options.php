@@ -894,11 +894,7 @@ function pagelines_import_export(){
 			$error_type = $_FILES['file']['error'];
 			wp_redirect( admin_url(PL_IMPORT_EXPORT_URL.'&pageaction=import&error=file&'.$error_type) );
 		} else {
-			ob_start();
-			include($_FILES['file']['tmp_name']);
-			$raw_options = ob_get_contents();
-			ob_end_clean();
-
+			$raw_options = pl_file_get_contents( $_FILES['file']['tmp_name'] );
 			$all_options = json_decode(json_encode(json_decode($raw_options)), true);
 
 			if ( !isset( $_POST['pagelines_layout'] ) && is_array( $all_options) && isset( $all_options['pagelines_settings'] ) && is_array( $all_options['pagelines_settings'] ) )
