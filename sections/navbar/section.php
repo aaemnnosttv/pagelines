@@ -205,26 +205,26 @@ class PLNavBar extends PageLinesSection {
 
 		$width_class = 'navbar-full-width';
 		$content_width_class = 'content';
-		$theme = ( ploption('fixed_navbar_theme' ) ) ? ploption( 'fixed_navbar_theme' ) : false;
-		$align = ( ploption( 'fixed_navbar_alignment' ) ) ? ploption( 'fixed_navbar_alignment' ) : false;
-		$hidesearch = ( ploption( 'fixed_navbar_hidesearch' ) ) ? ploption( 'fixed_navbar_hidesearch' ) : false;
-		$menu = ( ploption( 'fixed_navbar_menu' ) ) ? ploption( 'fixed_navbar_menu' ) : null;
+		$theme = ( ploption('fixed_navbar_theme', $this->oset ) ) ? ploption( 'fixed_navbar_theme', $this->oset ) : false;
+		$align = ( ploption( 'fixed_navbar_alignment', $this->oset ) ) ? ploption( 'fixed_navbar_alignment', $this->oset ) : false;
+		$hidesearch = ( ploption( 'fixed_navbar_hidesearch', $this->oset ) ) ? ploption( 'fixed_navbar_hidesearch', $this->oset ) : false;
+		$menu = ( ploption( 'fixed_navbar_menu', $this->oset ) ) ? ploption( 'fixed_navbar_menu', $this->oset ) : null;
 
 	} else {
 
 		$width_class = 'navbar-content-width';
 		$content_width_class = '';
-		$theme = ( ploption( 'navbar_theme' ) ) ? ploption( 'navbar_theme' ) : false;
-		$align = ( ploption('navbar_alignment' ) ) ? ploption( 'navbar_alignment' ) : false;
-		$hidesearch = ( ploption( 'navbar_hidesearch' ) ) ? ploption( 'navbar_hidesearch' ) : false;
-		$menu = ( ploption( 'navbar_menu' ) ) ? ploption( 'navbar_menu' ) : null;
+		$theme = ( ploption( 'navbar_theme', $this->oset ) ) ? ploption( 'navbar_theme', $this->oset ) : false;
+		$align = ( ploption('navbar_alignment', $this->oset ) ) ? ploption( 'navbar_alignment', $this->oset ) : false;
+		$hidesearch = ( ploption( 'navbar_hidesearch', $this->oset ) ) ? ploption( 'navbar_hidesearch', $this->oset ) : false;
+		$menu = ( ploption( 'navbar_menu', $this->oset ) ) ? ploption( 'navbar_menu', $this->oset ) : null;
 	}
 
 	$pull = ( $align ) ? 'right' : 'left';
 	$align_class = sprintf( 'pull-%s', $pull );
 	$theme_class = ( $theme ) ? sprintf( ' pl-color-%s', $theme ) : ' pl-color-black-trans';
-	$theme_class = ( ploption( 'navbar_enable_hover' ) ) ? $theme_class . ' plnav_hover' : $theme_class;
-	$brand = ( ploption( 'navbar_logo' ) || ploption( 'navbar_logo' ) != '') ? sprintf( '<img src="%s" alt="%s" />', ploption( 'navbar_logo' ), esc_attr( get_bloginfo('name') ) ) : sprintf( '<h2 class="plbrand-text">%s</h2>', get_bloginfo( 'name' ) );
+	$theme_class = ( ploption( 'navbar_enable_hover', $this->oset ) ) ? $theme_class . ' plnav_hover' : $theme_class;
+	$brand = ( ploption( 'navbar_logo', $this->oset ) || ploption( 'navbar_logo', $this->oset ) != '') ? sprintf( '<img src="%s" alt="%s" />', ploption( 'navbar_logo', $this->oset ), esc_attr( get_bloginfo('name') ) ) : sprintf( '<h2 class="plbrand-text">%s</h2>', get_bloginfo( 'name' ) );
     $navbartitle = ploption( 'navbar_title', $this->oset );
 
 	?>
