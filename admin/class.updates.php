@@ -94,23 +94,23 @@ class PageLinesUpdateCheck {
 			//	add_filter('pagelines_admin_notifications', array(&$this,'bad_creds') );
 
 		}
-
-		echo '<div class="updated fade update-nag">';
-
-		printf( '%s Framework %s is available.', $this->theme, esc_html( $pagelines_update['new_version'] ) );
-
-		printf(
-			' %s',
-			( $pagelines_update['package'] != 'bad' )
-				? sprintf( 'You should <a href="%s">update now</a>.', admin_url('update-core.php') )
-				: sprintf( '<a href="%s">Click here</a> to setup your PageLines account.', PLAdminPaths::account() )
+			
+		echo '<div class="updated">';
+		
+		printf( '<p>%s Framework %s is available.', $this->theme, esc_html( $pagelines_update['new_version'] ) );
+		
+		printf( 
+			' %s', 
+			( $pagelines_update['package'] != 'bad' ) 
+				? sprintf( 'You should <a href="%s">update now</a>.', admin_url('update-core.php') ) 
+				: sprintf( '<a href="%s">Click here</a> to setup your PageLines account.', PLAdminPaths::account() ) 
 		);
 
 		echo ( $pagelines_update['extra'] ) ? sprintf('<br />%s', $pagelines_update['extra'] ) : '';
-		echo '</div>';
-
-	}
-
+		echo '</div></p>';
+		
+	}	
+	
 	/**
 	 * TODO Document!
 	 */
