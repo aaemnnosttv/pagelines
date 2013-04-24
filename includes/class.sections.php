@@ -636,7 +636,19 @@ class PageLinesSection {
 		$this->tset = $this->oset;
 		$this->tset['translate'] = true;
 	}
-
+	
+	/**
+     * Backports from v3. Wrapper for ploption.
+     *
+     * @package     PageLines Framework
+     * @subpackage  Sections
+     * @since       2.4.2
+     *
+     * @param       $option
+     */
+	function opt($option) {
+		return ploption( $option, $this->oset );
+	}
 }
 /********** END OF SECTION CLASS  **********/
 
