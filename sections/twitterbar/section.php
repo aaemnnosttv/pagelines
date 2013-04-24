@@ -48,7 +48,7 @@ class PageLinesTwitterBar extends PageLinesSection {
 				$account
 			);
 		else
-			$twitter = sprintf( '<span class=""twitter">%s</span>', __( 'Twitter error.', 'pagelines' ) );
+			$twitter = sprintf( '<span class="twitter">%s</span>', __( 'Twitter error.', 'pagelines' ) );
 
 		printf('<div class="tbubble"><div class="tbubble-pad">%s</div></div>', $twitter);
 	}
