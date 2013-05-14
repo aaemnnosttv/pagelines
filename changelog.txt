@@ -4,6 +4,17 @@
 
 ********************************************************
 
+Version 2.4.2
+
+	- NEW - Allow global store login by defining PL_GLOBAL_USER and PL_GLOBAL_PASS.
+	- NEW - Twitter user popover and url formatting.
+	- CORE - Register easing and veiwport scripts.
+	- CORE - Better update messages.
+	- CORE - Add $this->oset to navbar options, allows per page navbar styles etc.
+	- Bugs - Fixed imported. Should stop white screen on import with mod_sec/suhosin.
+	- Bugs - Use esc_attr on banner image alt.
+	- Bugs - Twitter: Fixed typo.
+
 Version 2.4.1
 
 	- NEW - Added section_on_ready() to section class ( wraps js in jQuery(document).ready(function() and loads into HEAD ).
