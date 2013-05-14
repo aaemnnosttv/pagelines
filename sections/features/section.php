@@ -436,8 +436,9 @@ class PageLinesFeatures extends PageLinesSection {
 						$feature_media = ploption( 'feature-media', $oset );
 						$feature_media_full = ploption( 'feature-media-full', $oset );
 
-						$feature_wrap_markup = ( $feature_style == 'text-none' && isset( $action ) ) ? 'a' : 'div';
-						$feature_wrap_link = ( $feature_style == 'text-none' && isset( $action ) ) ? sprintf( 'href="%s"', $action ) : '';
+						$feature_wrap_markup = ( $feature_style == 'text-none' && $action ) ? 'a' : 'div';
+
+						$feature_wrap_link = ( $feature_style == 'text-none' && $action ) ? sprintf( 'href="%s"', $action ) : '';
 
 						$more_link = ( $feature_style != 'text-none' && $action ) ? sprintf( ' <a %s class="plmore" href="%s" >%s</a>', $target, $action, $flink_text ) : '';
 
