@@ -39,7 +39,10 @@ class PageLinesTwitterBar extends PageLinesSection {
 
 		$tweet_data = pagelines_get_tweets( $account, true );
 
-		if( isset( $tweet_data['text'] ) )
+		if( ! is_array( $tweet_data ) && '' == $tweet_data )
+			$tweet_data = __( 'Unknown Twitter error.', 'pagelines' );
+
+		if( isset( $tweet_data['text'] ) && isset( $tweet_data['user']['id'] ) )
 			$twitter = sprintf(
 				'<span class="twitter">%s &nbsp;&mdash;&nbsp;<a class="twitteraccount" href="http://twitter.com/#!/%s" %s>%s</a></span>',
 				pagelines_tweet_clickable( $tweet_data['text'] ),
@@ -48,7 +51,7 @@ class PageLinesTwitterBar extends PageLinesSection {
 				$account
 			);
 		else
-			$twitter = sprintf( '<span class="twitter">%s</span>', __( 'Twitter error.', 'pagelines' ) );
+			$twitter = sprintf( '<span class="twitter">%s</span>', $tweet_data );
 
 		printf('<div class="tbubble"><div class="tbubble-pad">%s</div></div>', $twitter);
 	}
