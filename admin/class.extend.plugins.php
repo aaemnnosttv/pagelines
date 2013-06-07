@@ -97,6 +97,9 @@ class ExtensionPlugins extends PageLinesExtensions {
 			$new_key = rtrim( str_replace( basename( $ext ), '', $ext ), '/' );
 			unset( $ext_plugins[$ext] );
 
+			if ( isset( $plugins[$new_key]['plus_product']) && $plugins[$new_key]['plus_product'] && VPLUS )
+				$plugins[$new_key]['purchased'] = 'purchased';
+
 			if ( !array_key_exists( $new_key, $plugins ) ) {
 
 				$a = get_file_data( WP_PLUGIN_DIR . '/' . $ext, $default_headers );

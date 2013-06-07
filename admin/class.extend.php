@@ -375,7 +375,7 @@
 			if( $this->is_installed($type, $key, $ext)
 				&& ! $this->in_the_store( $type, $key, $ext, $tab )
 				&& $this->upgrade_available( $this->get_api_version($type, $key, $ext), $this->get_the_version($type, $key, $ext) )
-				&& $this->is_owned( $ext )
+				&& $this->is_purchased( $type, $key, $ext )
 				&& $this->updates_configured()
 			){
 				return true;
@@ -385,20 +385,13 @@
 
 		if( $this->is_installed( $type, $key, $ext )
 			&& $this->upgrade_available( $this->get_api_version( $type, $key, $ext ), $ext['version'] )
-			&& $this->is_owned( $ext )
+			&& $this->is_purchased( $type, $key, $ext )
 			&& $this->updates_configured()
 		){
 			return true;
 		} else
 			return false;
 	}
-
-
-	function is_owned( $ext ) {
-		if( isset( $ext['purchased'] ) && 'purchased' == $ext['purchased'] )
-			return true;
-	}
-
 
 	 /**
 	 *
@@ -742,7 +735,6 @@
 			return ( isset( $ext['purchased'] ) && $ext['purchased'] == 'purchased' ) ? true : false;
 
 		} else {
-
 			if( isset( $ext['purchased'] ) )
 				return true;
 			else
@@ -1560,7 +1552,7 @@
 
 			$ext = $d[ $o['type'] ];
 
-			$id = ( $this->updates_configured() && $this->is_installed( $o['type'], $key, $ext ) && $this->is_owned( $ext ) ) ? $this->get_product_id( $ext ) : false;
+			$id = ( $this->updates_configured() && $this->is_installed( $o['type'], $key, $ext ) && $this->is_purchased( $o['type'], $key, $ext ) ) ? $this->get_product_id( $ext ) : false;
 
 			if( $id ) {
 				$version = $this->get_the_version( $o['type'], $key, $ext );
@@ -1569,6 +1561,8 @@
 					$updates[$id] = $version;
 			}
 		}
+	if ( ! $this->updates_configured() )
+		$updates = array();
 	set_theme_mod( 'available_updates', $updates );
 	}
 

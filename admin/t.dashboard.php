@@ -308,7 +308,7 @@ class PageLinesDashboard {
 			'text'	=>	false
 		);
 
-		if ( EXTEND_NETWORK )
+		if ( EXTEND_NETWORK || ! pagelines_check_credentials() )
 			return $default;
 
 		$updates = json_decode( get_theme_mod( 'pending_updates' ) );

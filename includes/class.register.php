@@ -247,29 +247,12 @@ class PageLinesRegister {
 				}
 				$base_dir = ( isset( $base_dir ) ) ? $base_dir : PL_SECTIONS . $folder;
 				$base_url = ( isset( $base_url ) ) ? $base_url : PL_SECTION_ROOT . $folder;
-
-				// do we need to load this section?
-				if ( 'child' == $type && is_multisite() ) {
-					$load = false;
-					$slug = basename( $folder );
-					$purchased = ( isset( $store_sections->$slug->purchased ) ) ? $store_sections->$slug->purchased : '';
-					$plus = ( isset( $store_sections->$slug->plus_product ) ) ? $store_sections->$slug->plus_product : '';
-					$price = ( isset( $store_sections->$slug->price ) ) ? $store_sections->$slug->price : '';
-					$uid = ( isset( $store_sections->$slug->uid ) ) ? $store_sections->$slug->uid : '';
-					if ( 'purchased' === $purchased ) {
-						$load = true;
-					} elseif( $plus && pagelines_check_credentials( 'plus' ) ) {
-						$load = true;
-					} else {
-
-						$disabled = get_option( 'pagelines_sections_disabled', array( 'child' => array(), 'parent' => array() ) );
-
-						if ( ! isset( $disabled['child'][$headers['classname']] ) )
-							$load = true;
-					}
-				}
-				if ( $load )
+				$slug = basename( $folder );
+				$purchased = ( isset( $store_sections->$slug->purchased ) ) ? $store_sections->$slug->purchased : '';
+				$plus = ( isset( $store_sections->$slug->plus_product ) ) ? $store_sections->$slug->plus_product : '';
+				if( $plus && pagelines_check_credentials( 'plus' ) )
 					$purchased = 'purchased';
+
 				$sections[$headers['classname']] = array(
 					'class'			=> $headers['classname'],
 					'depends'		=> $headers['depends'],
