@@ -376,6 +376,7 @@
 				&& ! $this->in_the_store( $type, $key, $ext, $tab )
 				&& $this->upgrade_available( $this->get_api_version($type, $key, $ext), $this->get_the_version($type, $key, $ext) )
 				&& $this->is_owned( $ext )
+				&& $this->updates_configured()
 			){
 				return true;
 			} else
@@ -384,6 +385,8 @@
 
 		if( $this->is_installed( $type, $key, $ext )
 			&& $this->upgrade_available( $this->get_api_version( $type, $key, $ext ), $ext['version'] )
+			&& $this->is_owned( $ext )
+			&& $this->updates_configured()
 		){
 			return true;
 		} else
@@ -1557,7 +1560,7 @@
 
 			$ext = $d[ $o['type'] ];
 
-			$id = ( $this->is_installed( $o['type'], $key, $ext ) && $this->is_owned( $ext ) ) ? $this->get_product_id( $ext ) : false;
+			$id = ( $this->updates_configured() && $this->is_installed( $o['type'], $key, $ext ) && $this->is_owned( $ext ) ) ? $this->get_product_id( $ext ) : false;
 
 			if( $id ) {
 				$version = $this->get_the_version( $o['type'], $key, $ext );
