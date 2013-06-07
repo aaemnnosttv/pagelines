@@ -371,10 +371,11 @@
 			return false;
 
 		if ( $type == 'plugin' ) {
-
+			
 			if( $this->is_installed($type, $key, $ext)
 				&& ! $this->in_the_store( $type, $key, $ext, $tab )
 				&& $this->upgrade_available( $this->get_api_version($type, $key, $ext), $this->get_the_version($type, $key, $ext) )
+				&& $this->is_owned( $ext )
 			){
 				return true;
 			} else
@@ -387,7 +388,12 @@
 			return true;
 		} else
 			return false;
+	}
 
+
+	function is_owned( $ext ) {
+		if( isset( $ext['purchased'] ) && 'purchased' == $ext['purchased'] )
+			return true;
 	}
 
 
@@ -1551,7 +1557,7 @@
 
 			$ext = $d[ $o['type'] ];
 
-			$id = ( $this->is_installed( $o['type'], $key, $ext ) ) ? $this->get_product_id( $ext ) : false;
+			$id = ( $this->is_installed( $o['type'], $key, $ext ) && $this->is_owned( $ext ) ) ? $this->get_product_id( $ext ) : false;
 
 			if( $id ) {
 				$version = $this->get_the_version( $o['type'], $key, $ext );
