@@ -4,6 +4,10 @@
 
 ********************************************************
 
+Version 2.4.3
+
+	- Bugs - Store: Check user owns an item before offering an update.
+
 Version 2.4.2
 
 	- NEW - Allow global store login by defining PL_GLOBAL_USER and PL_GLOBAL_PASS.
