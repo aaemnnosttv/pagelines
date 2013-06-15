@@ -646,8 +646,11 @@ class PageLinesSection {
      *
      * @param       $option
      */
-	function opt($option) {
-		return ploption( $option, $this->oset );
+	function opt( $option ) {
+		if( isset( $this->oset ) )
+			return ploption( $option, $this->oset );
+		else
+			return ploption( $option );
 	}
 }
 /********** END OF SECTION CLASS  **********/
