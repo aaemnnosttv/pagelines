@@ -124,6 +124,11 @@
 			.ajax-saved.uploading .uploading-text{display: inline;}
 
 
+		.toplevel_page_PageLines-Admin .wp-menu-image{
+			background: transparent url('../images/favicon-pagelines.png') no-repeat 50% 50%;
+			background-size: 20px 20px;
+		}
+
 /*
  * Common Admin Elements
  */
@@ -258,19 +263,8 @@
 		margin-bottom: 8px;
 	}
 
-	#tabs, #optionsheader, #optionsfooter, .picker_panel, .tgraph-controls, .template_layout .sbank-area, .the_template_builder{
-
-		-moz-box-shadow: 0 1px 4px #DDD;
-		-webkit-box-shadow: 0 1px 4px #DDD;
-		box-shadow: 0 1px 4px #CCC;
-	}
-
-
 	#tabs {
-		border: 1px solid #ccc;
-		border-top: none;
-		border-bottom: none;
-		background: #eee;
+
 	}
 	.tabtitle {
 
@@ -302,16 +296,14 @@
 			display: block;
 			text-decoration:none;
 			color: #000;
-			border-bottom: 1px solid #ccc;
-			border-top: 1px solid #fff;
-			border-left: 1px solid #fff;
-			background: url(../images/tabsnav-item.png) repeat-x left bottom;
+			border-bottom: 1px solid #EEE;
 		}
 
 			#tabsnav li span.graphic.top{
-				border-top:1px solid #fff;
 				background: none;
-				height: 20px;
+				border: none;
+				 border-top: 1px solid #eee;
+				height: 0;
 				padding: 0;
 			}
 			#tabsnav li span.graphic.bottom{
@@ -321,21 +313,15 @@
 				padding:0;
 			}
 
-			#tabsnav li a:hover{
+			#tabsnav li a:hover,
+			#tabsnav li a:focus,
+			#tabsnav li.ui-state-active a,
+			#tabsnav li.ui-state-active a:hover{
 				background:#f7f7f7;
+				outline: 0;
+				
+			}
 
-				border-top: 1px solid #fff;
-				border-left: 1px solid #fff;
-				border-right: none;
-				border-bottom: 1px solid #ddd;
-			}
-			#tabsnav li.ui-state-active a, #tabsnav li.ui-state-active a:hover{
-					border-top: 1px solid #aaa;
-					border-left: 1px solid #aaa;
-					border-right: none;
-					border-bottom: 1px solid transparent;
-					background: #dedede;
-			}
 			#tabsnav li a span.icn {
 				padding-left: 25px;
 				display: block;
@@ -368,11 +354,11 @@
 	#thetabs {
 		margin-left: 170px;
 		min-width: 753px;
-		background: #f7f7f7;
-		border-left: 1px solid #ccc;
+		background: #FAFAFA;
+		border: 1px solid #ddd;
 	}
 
-	.no_tabs #thetabs{margin-left: 0; border-left: none;}
+	.no_tabs #thetabs{margin-left: 0;}
 
 		.no_tabs #thetabs .optin{
 
@@ -415,6 +401,8 @@
 	}
 	.horizontal-tabs .ui-tabs-selected a,
 	.horizontal-tabs .ui-tabs-selected a:hover,
+	.horizontal-tabs .ui-tabs-selected a:active,
+	.horizontal-tabs .ui-tabs-selected a:focus,
 	.htabs-menu .horizontal-tabs .ht-special.ui-tabs-selected a,
 	.horizontal-tabs .ui-state-active a,
 	.horizontal-tabs .ui-state-active a:hover,
@@ -426,6 +414,7 @@
 		border-right: 1px solid #ccc;
 		margin-bottom: -1px !important;
 		text-shadow: #fff 0 1px 0;
+		outline: 0;
 	}
 
 			.horizontal-tabs a:hover{color:#000}
@@ -435,6 +424,7 @@
 				border: 1px solid #bbb;
 				border-right: 1px solid #aaa;
 				border-bottom: none;
+				outline: 0;
 			}
 
 	.subtabs.horizontal-tabs{
@@ -604,14 +594,10 @@
 /* @ Option Title Area */
 	.optiontitle {
 		line-height: 1.4em;
-		background: #eee;
-		border-top: 1px solid #ddd;
-		border-bottom: 1px solid #ccc;
+		background: #f1f1f1;
 		width: 100%;
 	}
 		.optiontitle-pad{
-			border-top: 1px solid #fff;
-			border-left: 1px solid #fff;
 			padding: 10px 15px;
 		}
 		.optiontitle small {
@@ -760,38 +746,29 @@
 
 
 /* 	@ Options Panel Header & Footer */
-	#optionsheader{
-		border: 1px solid #ccc;
-		border-bottom: 1px solid #bbb;
-	}
 
-	#optionsfooter{
-		background: #eee;
-		border: 1px solid #bbb;
-		margin-bottom: 1em;
-	}
 		#optionsfooter .superlink-wrap{float: right}
-		.ohead{
-			background: #eaeaea url(../images/bg-optionheader.png) repeat-x;
-		}
+
 		.ohead-pad{
-			padding: 6px 8px 4px 15px;
-			border-top: 1px solid #f7f7f7;
-			border-bottom: 1px solid #ccc;
+			padding: 6px 0 3px 0;
 		}
 
 		.ohead-title{
 			float:left;
-			font-size: 1.7em;
+			font-size: 2em;
 			line-height: 1.45em;
-			font-weight: bold;
+			font-weight: 300;
 			font-style: normal;
-			color: #AAA;
 			margin-left: 5px;
 		}
 			.le-title{color:#c1c1c1;}
-		.ohead-title-right{float:right}
-
+		.ohead-title-right{
+			float:right;
+		}
+		.ohead-title-right .superlink-wrap{
+			margin-right: 0;
+			margin-top: 2px;
+		}
 
 /* @ The Amazing Superlink! */
 
@@ -1654,16 +1631,11 @@ font-weight: bold;
 .pl_mp{
 	margin: 20px 10px;
 	min-width: 650px;
-	-moz-box-shadow: 0 1px 4px #bbb;
-   -webkit-box-shadow:0 1px 4px #bbb;
-  	box-shadow: 0 1px 4px #bbb;
 }
 
 .pagelines_metapanel {
-	background: #eee;
-	border: 1px solid #ccc;
-	border-top: 1px solid #bbb;
-	text-shadow: #fff 0 1px 0;
+	background: #fff;
+	border: 1px solid #ddd;
 }
 	.pagelines_metapanel_pad {
 		border-top: 1px solid #fff;
@@ -1719,7 +1691,7 @@ font-weight: bold;
 		width: 72%;
 		float: left;
 	}
-		#plpanel .mp_panel, .mp_panel{background:#f7f7f7;}
+		#plpanel .mp_panel, .mp_panel{background:#2;}
 		.mp_panel.hide_tabs{width: 100%; margin-left: 0%}
 		.mp_panel.hide_tabs .mp_panel_pad{border-left: none;}
 		.mp_panel.hide_tabs .optiontitle-pad {border-left: none;}
@@ -1776,9 +1748,7 @@ font-weight: bold;
 
 		.mp_bar .superlink-wrap{float: right;}
 		.mp_bar .sl-pagelines{float: left;}
-		.mp_bar{border: 1px solid #ccc;}
 		.mp_head{border-bottom: none}
-		.mp_footer{ border-top: 1px solid #fff; border-bottom: 1px solid #bbb; }
 		.mp_bar_pad{ padding: 5px 10px; }
 
 /* @ Layout Builder */

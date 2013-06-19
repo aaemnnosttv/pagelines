@@ -75,11 +75,6 @@ class PageLinesOptionsUI {
 						<div id="optionsheader" class="fix">
 							<div class="ohead fix">
 								<div class="ohead-pad fix">
-									<div id="the_pl_button" class="sl-black superlink-wrap">
-										<a class="superlink" href="<?php echo home_url(); ?>/" target="_blank" title="View Site &rarr;">
-											<span class="superlink-pagelines">&nbsp;<span class="slpl">View Site</span></span>
-										</a>
-									</div>
 									<div class="ohead-title">
 										<?php
 
@@ -90,7 +85,7 @@ class PageLinesOptionsUI {
 											else
 												$title_tag = 'Lite Edition';
 
-											$panel_title = sprintf('%s <span class="btag grdnt">%s</span>', $this->set['title'], $title_tag );
+											$panel_title = sprintf('%s', $this->set['title'] );
 
 											echo apply_filters( 'pagelines_settings_main_title', $panel_title );
 
@@ -178,10 +173,6 @@ class PageLinesOptionsUI {
 										<input type="hidden" name='reset_store' value="true" />
 										<input class="superlink osave" type="submit" name="submit" value="<?php _e('Refresh Store', 'pagelines');?>" />
 									</form>
-								</div>
-								<?php else: ?>
-								<div class="superlink-wrap">
-									<a class="superlink" href="http://www.pagelines.com?ref=admin-foot"><span class="superlink-pad"><?php _e('Visit PageLines Site &rarr;','pagelines');?></span></a>
 								</div>
 							<?php endif;?>
 						</div>
