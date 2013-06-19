@@ -35,6 +35,9 @@ class PageLinesTwitterBar extends PageLinesSection {
 			return;
 		endif;
 
+		echo setup_section_notify($this, 'Twitter API 1.0 Deprecated.', 'http://www.pagelines.com/forum/topic/27565-unknown-twitter-error/', 'Forum post.' );
+
+		/*
 		$account = ploption('twittername');
 
 		$tweet_data = pagelines_get_tweets( $account, true );
@@ -54,5 +57,6 @@ class PageLinesTwitterBar extends PageLinesSection {
 			$twitter = sprintf( '<span class="twitter">%s</span>', $tweet_data );
 
 		printf('<div class="tbubble"><div class="tbubble-pad">%s</div></div>', $twitter);
+		*/
 	}
 }
