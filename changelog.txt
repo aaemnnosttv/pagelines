@@ -4,6 +4,11 @@
 
 ********************************************************
 
+Version 2.4.4
+
+	- CORE - Changes to admin UI, new favicon.
+	- CORE - Twitterbar: Disable section and add message about API.
+
 Version 2.4.3
 
 	- Bugs - Store: Check user owns an item before offering an update.
