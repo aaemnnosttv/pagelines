@@ -1,0 +1,379 @@
+#cycle {
+	width: 100% !important;
+}
+
+.fset_height,
+#feature_slider .text-bottom .fmedia .fmedia-pad,
+#feature_slider .text-bottom .feature-pad,
+#feature_slider .text-none .fmedia .fmedia-pad{
+	height: 380px;
+	overflow:hidden;
+}
+
+.fexcerpt{
+	p {
+		margin: .5em 0
+	}
+	:first-child{
+		margin-top: 0;
+	}
+}
+
+
+#feature_slider{
+	position:relative;
+	z-index:0;
+	width: 100%;
+	#feature-area {
+		display: block;
+		position: relative;
+		width: 100%;
+		background: url(@{plRoot}/sections/features/images/black-linen.png);
+		box-shadow: 0 2px 5px rgba(0,0,0,.3), inset 0 0 15px rgba(0,0,0,.5);
+		overflow: visible;
+	}
+	.fmedia,
+	.fcontent{
+		float: left;
+	}
+	.fcontent {
+		width: 33%;
+		min-width: 220px;
+		background: rgba(0,0,0,.35);
+		display: inline;
+		position: relative;
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		a{
+			color: #fff;
+			text-shadow: #000 0 -1px 0 ;
+		}
+		color: #fff;
+		text-shadow: #000 0 -1px 0 ;
+
+		.fcontent-pad{
+			padding: 40px 30px 20px 30px;
+		}
+		a{
+			background: rgba(255,255,255, .35);
+			border:none;
+			padding: 0 3px;
+			opacity: 1;
+			&:hover{
+				opacity: .8;
+			}
+			&:active{
+				opacity: .6;
+			}
+		}
+		.fheading {
+			padding: .8em 0;
+			margin-bottom: .2em;
+		}
+		.ftitle{
+
+			font-size: @h2Size;
+			line-height: 1.3em;
+			vertical-align: middle;
+			a{
+				text-decoration: none;
+				border: none;
+			}
+			small {
+				line-height: 25px;
+				display:block;
+				font-size: 16px;
+			}
+		}
+		.flink {
+			float: left;
+			margin-top: .4em;
+		}
+		.post-edit-link {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+		}
+
+	}
+	.fmedia {
+		width: 67%;
+	    padding: 0;
+		overflow:hidden;
+		.fmedia-pad {
+			overflow: hidden;
+			padding: 0;
+			text-align: center;
+		}
+	}
+	.text-right, .text-left{
+		.fexcerpt{
+			overflow: hidden;
+		}
+	}
+	.text-right{
+		.fcontent{ float:right; }
+		.fmedia{ float:left; }
+	}
+	.text-bottom{
+		.feature-pad{
+			position: relative;
+			padding: 0px;
+		}
+		.fmedia{
+			float:none;
+			position: absolute;
+			top: 0px;
+			left: 0px;
+			width: 100%;
+			.fmedia-pad{
+				padding: 0px;
+
+			}
+		}
+		.fcontent{
+			float:none;
+			position: absolute;
+			bottom: 0px;
+			left: 0px;
+			z-index: 200;
+			width: 100%;
+			height: auto !important;
+			font-size: 1em;
+			.fcontent-pad{
+				padding: 10px;
+				border-right:none;
+			}
+			.fheading {
+				padding: 0 10px;
+				float: left;
+				width: 33%;
+			}
+			.ftext {
+
+				font-size: 12px;
+				padding: 3px 20px;
+				line-height: 1.5em;
+				overflow:hidden;
+				float: left;
+				width: 50%;
+			}
+			.flink {
+				position: absolute;
+				right: 10px;
+				bottom: 10px;
+			}
+		}
+	}
+	.text-none{
+		.fcontent{
+			display: none;
+		}
+		.fmedia{
+			width: 100%;
+			.fmedia-pad{
+				padding: 0px;
+			}
+		}
+	}
+
+
+	object, iframe{
+		width: 100%;
+		height: 100%;
+	}
+
+
+	.fcontainer{
+		width: 100%;
+		.feature-wrap{
+			display: block;
+			position: relative;
+			max-width: 100%;
+			border:none;
+			&.bg_cover{
+				background-position: center center;
+				background-repeat: no-repeat;
+		        .background-size(cover);
+			}
+			&.bg_standard{
+				background-position: center center;
+				background-repeat: no-repeat;
+			}
+
+		}
+
+		&.fstyle-nobg {
+			background: none;
+			.fcontent{
+				background: none;
+				h1,
+				h2,
+				h3,
+				h4,
+				h5,
+				a{
+				color: #000;
+				text-shadow: 0 1px 0 rgba(255,255,255,.5);
+				}
+				color: #000;
+				text-shadow: 0 1px 0 rgba(255,255,255,.5);
+			}
+		}
+
+		&.fstyle-lightbg {
+
+			.fcontent{
+				background: rgba(255,255,255,.7);
+				h1,
+				h2,
+				h3,
+				h4,
+				h5,
+				a{
+					color: #000;
+					text-shadow: 0 1px 0 rgba(255,255,255,.5);
+				}
+				color: #000;
+				text-shadow: 0 1px 0 rgba(255,255,255,.5);
+			}
+		}
+	}
+}
+
+/* @ Feature Footer */
+#feature-footer{
+	z-index:100;
+	position: relative;
+	.feature-footer-pad{
+		padding:8px;
+		border: 1px solid transparent;
+	}
+	&.nonav{
+		border:none;
+		.feature-footer-pad {
+			display: none;
+		}
+	}
+}
+
+#feature-footer.dots a{
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	padding: 0;
+	text-indent:-1000em;
+}
+
+
+/* @ Feature Play/Pause */
+#feature-footer span.playpause {
+	background-color: @dark-base;
+	.user-select(none);
+	cursor: pointer;
+	display: block;
+	float:right;
+	padding: 1px 1px 1px 2px;
+	margin-right: 0;
+	width: 22px;
+	height: 21px;
+	.box-sizing(border-box);
+	&.pause span{
+		display: block;
+		background: transparent url(@{plSectionsRoot}/features/images/feature-pause.png) no-repeat 3px 4px;
+	}
+	&.resume span{
+		display: block;
+		background: transparent url(@{plSectionsRoot}/features/images/feature-play.png) no-repeat 3px 4px;
+	}
+}
+#featurenav {
+	text-align: center;
+	a{
+		margin: 0 8px 4px 0;
+		padding: 1px 10px 0;
+		.border-radius(12px);
+		.box-sizing(border-box);
+		background: darken(@pl-base, @invert-dark);
+		display: inline-block;
+		font-size: 12px;
+		line-height: 20px;
+		text-align: center;
+
+		box-shadow: inset 0 1px 3px rgba(0,0,0,.3), 0 1px 0 rgba(255,255,255, .2);
+		color: fadeout(@pl-text, 60%);
+		&.activeSlide{
+			background: darken(@pl-base, @invert-dark+7);
+			color: fadeout(@pl-text, 30%);
+		}
+		span#next,
+		span#prev {
+			background: #000;
+			width:10px;
+			height:10px;
+		}
+		span.nav_thumb,
+		span.nav_thumb span.nav_overlay{
+			width: 50px;
+			vertical-align: middle;
+			height: 30px;
+			display: inline-block;
+			margin-right:10px;
+
+		}
+		span.nav_thumb{
+			background-color:#fff;
+			background-position: center center;
+			background-repeat: no-repeat;
+			.background-size(cover);
+			span.nav_overlay{
+				margin:0;
+				background: url(@{plSectionsRoot}/features/images/feature-thumb-overlay.png) no-repeat 0 0;
+			}
+		}
+		&.activeSlide,
+		&:active{
+			span.nav_thumb span.nav_overlay{
+				background: url(@{plSectionsRoot}/features/images/feature-thumb-overlay.png) no-repeat 0 -30px;
+			}
+		}
+	}
+}
+
+#features .thumbs #featurenav a{
+	background: none;
+	margin: 0;
+	padding: 0;
+	border:none;
+	width: 50px;
+	height: 30px;
+	margin: 0 5px;
+	box-shadow: none;
+	.border-radius(0px);
+}
+
+
+
+@media screen and (max-width:600px) {
+	.responsive #page #feature_slider {
+		.fcontainer .fcontent{
+			float:none;
+			position: absolute;
+			bottom: 0px;
+			left: 0px;
+			z-index: 200;
+			width: 100%;
+			height: auto !important;
+			display:inline-block;
+			-webkit-backface-visibility: hidden; // Hide the slides before JS is loaded
+		}
+		.fcontent .fcontent-pad {
+			padding: 3%;
+			height: auto;
+		}
+	}
+
+}

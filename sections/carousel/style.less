@@ -1,0 +1,88 @@
+/**
+ * The buttons are added dynamically by jCarousel before
+ * the <ul> list (inside the <div> described above) and
+ * have the classnames "jcarousel-next" and "jcarousel-prev".
+ */
+
+
+
+.section-carousel{
+	.thecarousel{
+		#gradient > .vertical(lighten(@baseContrast, 6), @baseContrast);
+		border:1px solid @baseContrastDark;
+		box-shadow: inset 1px 1px 0 lighten(@baseContrast, 10);
+		position: relative;
+	    padding: 15px 67px 15px ;
+		overflow: hidden;
+		display: none; /* Prevents all images from showing on load; must be shown using JS ahead of carousel init. */
+	}
+	.jcarousel-clip-horizontal {
+		width: 100%;
+	}
+	.content{
+		ul li{
+			float: left;
+			text-align: center;
+			position: relative;
+			img {
+				padding: 3px;
+				margin: 2px;
+			}
+			a{
+				position: relative;
+				display: inline-block;
+				span.list-title{
+					color: #fff;
+					text-shadow: #000 0 -1px 0;
+					background: rgba(0,0,0, .75);
+					font-family: @buttonFontFamily;
+					font-weight: 300;
+					font-size: 10px;
+
+					line-height: 1.4em;
+					position: absolute;
+					width: 100%;
+					right: 0;
+					bottom: 1px;
+					display: none;
+					filter:alpha(opacity=75);
+				}
+				&:hover span.list-title {
+					display: block;
+				}
+				img,
+				&:hover img{
+					background: lighten(@baseContrast, 15 );
+					box-shadow: 0 1px 4px darken(@baseContrast, 25 );
+				}
+			}
+
+
+		}
+
+	}
+
+	.jcarousel-next,
+	.jcarousel-prev {
+		z-index: 3;
+	    position: absolute;
+		top: 30%;
+	    width: 40px;
+	    height: 40px;
+		cursor: pointer;
+		opacity: .5;
+	}
+	.jcarousel-next {
+	    right: 15px;
+	    background: transparent url(@{plSectionsRoot}/carousel/images/carousel_navright.png) no-repeat 0 0;
+	}
+	.jcarousel-prev {
+	    left: 15px;
+	    background: transparent url(@{plSectionsRoot}/carousel/images/carousel_navleft.png) no-repeat 0 0;
+	}
+
+}
+
+
+
+

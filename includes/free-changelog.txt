@@ -1,0 +1,56 @@
+= 1.2.9 =
+
+* Store logic fix.
+
+= 1.2.8 =
+
+* Added pagelines_gfont_baseurl filter for google fonts.
+* Properly namespace all CONSTANTS.
+* Fixed PageLines admin area in WordPress 3.5b1.
+* Updated Twitter icon per guidelines
+* Fixed rare php notices on settings reset if WP_DEBUG is on.
+
+= 1.2.7 =
+
+* Revert fix for compatibility with WordPress 3.5 (layout editor broke).
+
+= 1.2.6 =
+
+* remove main style.css from HEAD, not needed now as it contains no actual css.
+* Better minification rules.
+* Fix compatibility with WordPress 3.5 alpha.
+* Add version to admin scripts.
+* NavBar dropdown fix for IE8.
+* Features, add filter for target: pagelines_features_target.
+* Only show update nags to admins.
+* Fix cut and paste in wp-admin.
+* Add linewrapping to code editors.
+* Video shortcode, added related.
+* LESS sections handling, do not compile disabled sections.
+* Various IE8 fixes.
+* Fix tooltip/rollover position.
+* Fix Author profile links.
+
+= 1.2.5 =
+
+* Refactored alot of css into LESS files.
+* Added code styling to all code areas.
+* Use native WordPress media library for all images.
+* Bootstrap NavBar gets child submenus.
+* Upgraded to latest bootstrap.
+* Upgraded to latest LESS compiler.
+* Boxes, open in new window if selected.
+* Stop banner images overflowing.
+* Make (edit) translatable.
+* Fix carousel shortcode.
+* Fix feature slides appearing before js is ready.
+* Fix nav dropdown in ie8.
+* Various multisite fixes.
+* Flush css when framework is updated.
+
+= 1.2.4 =
+
+* Remove Placeholdit links from shortcode class.
+* Upgrade LESS subsystem to 0.3.7.
+* Bootstrap form css fixes.
+* Various MU fixes.
