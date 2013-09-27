@@ -165,7 +165,7 @@ class PageLinesCarousel extends PageLinesSection {
 			register_metatab($metatab_settings, $metatab_array);
 	}
 
-   function section_template( $clone_id ) {
+   function section_template( $clone_id = null ) {
 
 		$carousel_class = (isset($clone_id) && $clone_id != 1) ? 'crsl'.$clone_id : 'crsl';
 

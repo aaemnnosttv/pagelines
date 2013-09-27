@@ -202,7 +202,7 @@ class PageLinesBanners extends PageLinesSection {
 	/**
 	* Section template.
 	*/
-   function section_template( $clone_id ) {
+   function section_template( $clone_id = null ) {
 
 		// Options
 			$set = (ploption('banner_set', $this->oset)) ? ploption('banner_set', $this->oset) : null;

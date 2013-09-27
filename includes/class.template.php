@@ -93,7 +93,7 @@ class PageLinesTemplate {
      *
      * @return mixed|void
      */
-	public function page_type_breaker(){
+	public static function page_type_breaker(){
 		global $post;
 		global $pl_integration;
 
@@ -179,7 +179,7 @@ class PageLinesTemplate {
 	/**
 	 * Get current post type, set as GET on 'add new' pages
 	 */
-	function current_admin_post_type(){
+	static function current_admin_post_type(){
 		global $pagenow;
 		global $post;
 

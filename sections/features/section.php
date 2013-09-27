@@ -58,7 +58,7 @@ class PageLinesFeatures extends PageLinesSection {
 	* @TODO document
 	*
 	*/
-	function section_head( $clone_id ) {
+	function section_head( $clone_id = null ) {
 
 		global $pagelines_ID;
 
@@ -251,7 +251,7 @@ class PageLinesFeatures extends PageLinesSection {
 	* @TODO document
 	*
 	*/
-	function section_template( $clone_id ) {
+	function section_template( $clone_id = null ) {
 
 		// $this->set set in pagelines_feature_set, better way to do this?
 		$this->draw_features( $this->post_set[ $clone_id ], $this->set, $clone_id );

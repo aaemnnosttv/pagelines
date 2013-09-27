@@ -137,7 +137,7 @@ class PLheroUnit extends PageLinesSection {
 	/**
 	* Section template.
 	*/
-   function section_template( $clone_id ) {
+   function section_template( $clone_id = null ) {
 
 		$hero_lt_width = ploption( 'herounit_left_width', $this->oset );
 			 if ( ! $hero_lt_width )$hero_lt_width = 'span6';

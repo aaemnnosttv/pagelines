@@ -196,81 +196,83 @@ class PLNavBar extends PageLinesSection {
 	/**
 	* Section template.
 	*/
-   function section_template( $clone_id, $location = '' ) {
+  	function section_template( $clone_id = null, $location = '' ) {
 
-	$passive = ( $location == 'passive' ) ? true : false;
+		$passive = ( $location == 'passive' ) ? true : false;
 
-	// if fixed mode
-	if( $passive ){
+		// if fixed mode
+		if( $passive ){
 
-		$width_class = 'navbar-full-width';
-		$content_width_class = 'content';
-		$theme = ( ploption('fixed_navbar_theme', $this->oset ) ) ? ploption( 'fixed_navbar_theme', $this->oset ) : false;
-		$align = ( ploption( 'fixed_navbar_alignment', $this->oset ) ) ? ploption( 'fixed_navbar_alignment', $this->oset ) : false;
-		$hidesearch = ( ploption( 'fixed_navbar_hidesearch', $this->oset ) ) ? ploption( 'fixed_navbar_hidesearch', $this->oset ) : false;
-		$menu = ( ploption( 'fixed_navbar_menu', $this->oset ) ) ? ploption( 'fixed_navbar_menu', $this->oset ) : null;
+			$width_class = 'navbar-full-width';
+			$content_width_class = 'content';
+			$theme = ( ploption('fixed_navbar_theme', $this->oset ) ) ? ploption( 'fixed_navbar_theme', $this->oset ) : false;
+			$align = ( ploption( 'fixed_navbar_alignment', $this->oset ) ) ? ploption( 'fixed_navbar_alignment', $this->oset ) : false;
+			$hidesearch = ( ploption( 'fixed_navbar_hidesearch', $this->oset ) ) ? ploption( 'fixed_navbar_hidesearch', $this->oset ) : false;
+			$menu = ( ploption( 'fixed_navbar_menu', $this->oset ) ) ? ploption( 'fixed_navbar_menu', $this->oset ) : null;
 
-	} else {
+		} else {
 
-		$width_class = 'navbar-content-width';
-		$content_width_class = '';
-		$theme = ( ploption( 'navbar_theme', $this->oset ) ) ? ploption( 'navbar_theme', $this->oset ) : false;
-		$align = ( ploption('navbar_alignment', $this->oset ) ) ? ploption( 'navbar_alignment', $this->oset ) : false;
-		$hidesearch = ( ploption( 'navbar_hidesearch', $this->oset ) ) ? ploption( 'navbar_hidesearch', $this->oset ) : false;
-		$menu = ( ploption( 'navbar_menu', $this->oset ) ) ? ploption( 'navbar_menu', $this->oset ) : null;
-	}
+			$width_class = 'navbar-content-width';
+			$content_width_class = '';
+			$theme = ( ploption( 'navbar_theme', $this->oset ) ) ? ploption( 'navbar_theme', $this->oset ) : false;
+			$align = ( ploption('navbar_alignment', $this->oset ) ) ? ploption( 'navbar_alignment', $this->oset ) : false;
+			$hidesearch = ( ploption( 'navbar_hidesearch', $this->oset ) ) ? ploption( 'navbar_hidesearch', $this->oset ) : false;
+			$menu = ( ploption( 'navbar_menu', $this->oset ) ) ? ploption( 'navbar_menu', $this->oset ) : null;
+		}
 
-	$pull = ( $align ) ? 'right' : 'left';
-	$align_class = sprintf( 'pull-%s', $pull );
-	$theme_class = ( $theme ) ? sprintf( ' pl-color-%s', $theme ) : ' pl-color-black-trans';
-	$theme_class = ( ploption( 'navbar_enable_hover', $this->oset ) ) ? $theme_class . ' plnav_hover' : $theme_class;
-	$brand = ( ploption( 'navbar_logo', $this->oset ) || ploption( 'navbar_logo', $this->oset ) != '') ? sprintf( '<img src="%s" alt="%s" />', ploption( 'navbar_logo', $this->oset ), esc_attr( get_bloginfo('name') ) ) : sprintf( '<h2 class="plbrand-text">%s</h2>', get_bloginfo( 'name' ) );
-    $navbartitle = ploption( 'navbar_title', $this->oset );
+		$pull = ( $align ) ? 'right' : 'left';
+		$align_class = sprintf( 'pull-%s', $pull );
+		$theme_class = ( $theme ) ? sprintf( ' pl-color-%s', $theme ) : ' pl-color-black-trans';
+		$theme_class = ( ploption( 'navbar_enable_hover', $this->oset ) ) ? $theme_class . ' plnav_hover' : $theme_class;
+		$brand = ( ploption( 'navbar_logo', $this->oset ) || ploption( 'navbar_logo', $this->oset ) != '') ? sprintf( '<img src="%s" alt="%s" />', ploption( 'navbar_logo', $this->oset ), esc_attr( get_bloginfo('name') ) ) : sprintf( '<h2 class="plbrand-text">%s</h2>', get_bloginfo( 'name' ) );
+		$navbartitle = ploption( 'navbar_title', $this->oset );
 
-	?>
-	<div class="navbar fix <?php echo $width_class.' '.$theme_class; ?>">
-	  <div class="navbar-inner <?php echo $content_width_class;?>">
-	    <div class="navbar-content-pad fix">
-	    	<?php
-	   			if($navbartitle)
-				printf( '<span class="navbar-title">%s</span>',$navbartitle );
-			?>
-	      <a href="javascript:void(0)" class="nav-btn nav-btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	      </a>
-			<?php if($passive):
-				printf( '<a class="plbrand" href="%s" title="%s">%s</a>',
-					esc_url( home_url() ),
-					esc_attr( get_bloginfo('name') ),
-					apply_filters('navbar_brand', $brand)
-				 );
-			endif; ?>
-	      		<div class="nav-collapse collapse">
-	       <?php 	if( !$hidesearch )
-						get_search_form();
-					if ( is_array( wp_get_nav_menu_items( $menu ) ) || has_nav_menu( 'primary' ) ) {
-					wp_nav_menu(
-						array(
-							'menu_class'		=> 'font-sub navline pldrop ' . $align_class,
-							'menu'				=> $menu,
-							'container'			=> null,
-							'container_class'	=> '',
-							'depth'				=> 3,
-							'fallback_cb'		=> ''
-						)
-					);
-					} else {
-						$this->nav_fallback( $align_class );
-					}
-	?>
+		?>
+		<div class="navbar fix <?php echo $width_class.' '.$theme_class; ?>">
+		  <div class="navbar-inner <?php echo $content_width_class;?>">
+			<div class="navbar-content-pad fix">
+				<?php
+					if($navbartitle)
+					printf( '<span class="navbar-title">%s</span>',$navbartitle );
+				?>
+			  <a href="javascript:void(0)" class="nav-btn nav-btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			  </a>
+				<?php if($passive):
+					printf( '<a class="plbrand" href="%s" title="%s">%s</a>',
+						esc_url( home_url() ),
+						esc_attr( get_bloginfo('name') ),
+						apply_filters('navbar_brand', $brand)
+					 );
+				endif; ?>
+					<div class="nav-collapse collapse">
+			   <?php 	if( !$hidesearch )
+							get_search_form();
+						if ( is_array( wp_get_nav_menu_items( $menu ) ) || has_nav_menu( 'primary' ) ) {
+						wp_nav_menu(
+							array(
+								'menu_class'		=> 'font-sub navline pldrop ' . $align_class,
+								'menu'				=> $menu,
+								'container'			=> null,
+								'container_class'	=> '',
+								'depth'				=> 3,
+								'fallback_cb'		=> ''
+							)
+						);
+						} else {
+							$this->nav_fallback( $align_class );
+						}
+		?>
+					</div>
+					<div class="clear"></div>
 				</div>
-				<div class="clear"></div>
 			</div>
 		</div>
-	</div>
-<?php }
+	<?php
+	}
+
 	function nav_fallback( $align_class ) {
 
 		printf( '<ul id="menu-main" class="font-sub navline pldrop %s">', $align_class );

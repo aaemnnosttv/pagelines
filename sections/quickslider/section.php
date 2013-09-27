@@ -26,7 +26,7 @@ class PageLinesQuickSlider extends PageLinesSection {
 		wp_enqueue_script( 'flexslider', $this->base_url.'/flexslider/jquery.flexslider-min.js', array( 'jquery' ) );
 	}
 
-	function section_head($clone_id){
+	function section_head($clone_id = null){
 
 		$animation = (ploption('quick_transition', $this->oset) == 'slide_v' || ploption('quick_transition', $this->oset) == 'slide_h') ? 'slide' : 'fade';
 		$transfer = (ploption('quick_transition', $this->oset) == 'slide_v') ? 'vertical' : 'horizontal';
@@ -56,7 +56,7 @@ jQuery(window).load(function() {
 	/**
 	* Section template.
 	*/
-   function section_template( $clone_id ) {
+   function section_template( $clone_id = null ) {
 
 	$control_nav = (!ploption('quick_nav', $this->oset) || ploption('quick_nav', $this->oset) == 'both' || ploption('quick_nav', $this->oset) == 'control_only') ? 'true' : 'false';
 
