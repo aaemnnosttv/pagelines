@@ -1546,7 +1546,7 @@ class OptEngine {
 	* @TODO document
 	*
 	*/
-	function superlink($text, $mode = 'grey', $class = '', $type = '', $extra='', $name = ''){
+	static function superlink( $text, $mode = 'grey', $class = '', $type = '', $extra='', $name = '' ) {
 
 		if( false !== strpos($type, 'http') )
 			$att = 'a';
@@ -1574,7 +1574,7 @@ class OptEngine {
 	* @TODO document
 	*
 	*/
-	function input_hidden($id, $name, $value, $class = ''){
+	static function input_hidden($id, $name, $value, $class = ''){
 		return sprintf('<input type="hidden" id="%s" name="%s" value="%s" class="%s" />', $id, $name, $value, $class);
 	}
 
@@ -1583,7 +1583,7 @@ class OptEngine {
 	* @TODO document
 	*
 	*/
-	function input_textarea($id, $name, $value, $class = 'regular-text', $extra = '', $placeholder = '' ){
+	static function input_textarea($id, $name, $value, $class = 'regular-text', $extra = '', $placeholder = '' ){
 		return sprintf('<textarea id="%s" name="%s" class="html-textarea %s" %s/>%s</textarea>', $id, $name, $class, $extra, $value );
 	}
 
@@ -1593,7 +1593,7 @@ class OptEngine {
 	* @TODO document
 	*
 	*/
-	function input_text($id, $name, $value, $class = 'regular-text', $attr = 'text', $extra = '', $placeholder = ''){
+	static function input_text($id, $name, $value, $class = 'regular-text', $attr = 'text', $extra = '', $placeholder = ''){
 		return sprintf('<input type="%s" id="%s" name="%s" value="%s" class="%s" placeholder="%s" %s />', $attr, $id, $name, $value, $class, $placeholder, $extra);
 	}
 
@@ -1603,7 +1603,7 @@ class OptEngine {
 	* @TODO document
 	*
 	*/
-	function input_checkbox($id, $name, $value, $class = 'admin_checkbox'){
+	static function input_checkbox($id, $name, $value, $class = 'admin_checkbox'){
 		return sprintf('<input type="checkbox" id="%s" name="%s" class="%s" %s />', $id, $name, $class, $value);
 	}
 
@@ -1613,7 +1613,7 @@ class OptEngine {
 	* @TODO document
 	*
 	*/
-	function input_label_inline($id, $input, $text, $class = 'inln'){
+	static function input_label_inline($id, $input, $text, $class = 'inln'){
 		return sprintf('<label for="%s" class="lbl %s">%s <span>%s</span></label>', $id, $class, $input, $text);
 	}
 
@@ -1623,7 +1623,7 @@ class OptEngine {
 	* @TODO document
 	*
 	*/
-	function input_radio($id, $name, $value, $checked, $class = ''){
+	static function input_radio($id, $name, $value, $checked, $class = ''){
 		return sprintf('<input type="radio" id="%s" name="%s" value="%s" class="%s" %s> ', $id, $name, $value, $class, $checked);
 	}
 
@@ -1633,7 +1633,7 @@ class OptEngine {
 	* @TODO document
 	*
 	*/
-	function input_label($id, $text, $class = 'context'){
+	static function input_label($id, $text, $class = 'context'){
 		return sprintf('<label for="%s" class="lbl %s">%s</label>', $id, $class, $text);
 	}
 
@@ -1643,7 +1643,7 @@ class OptEngine {
 	* @TODO document
 	*
 	*/
-	function input_select($id, $name, $opts, $class = '', $extra = ''){
+	static function input_select($id, $name, $opts, $class = '', $extra = ''){
 		return sprintf('<select id="%s" name="%s" class="%s" %s><option value="">&mdash;SELECT&mdash;</option>%s</select>', $id, $name, $class, $extra, $opts);
 	}
 
@@ -1653,7 +1653,7 @@ class OptEngine {
 	* @TODO document
 	*
 	*/
-	function input_option($value, $selected, $text, $id = '', $extra = ''){
+	static function input_option($value, $selected, $text, $id = '', $extra = ''){
 		return sprintf('<option id=\'%s\' value="%s" %s %s >%s</option>', $id, $value, $extra, $selected, $text);
 	}
 
@@ -1663,7 +1663,7 @@ class OptEngine {
 	* @TODO document
 	*
 	*/
-	function input_button($id, $text, $class = '', $extra = ''){
+	static function input_button($id, $text, $class = '', $extra = ''){
 		return sprintf('<span id=\'%s\' class="%s button" %s >%s</span>', $id, $class, $extra, $text);
 	}
 

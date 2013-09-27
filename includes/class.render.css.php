@@ -153,7 +153,7 @@ class PageLinesRenderCSS {
 		return true;
 	}
 
-	function get_css_dir( $type = '' ) {
+	static function get_css_dir( $type = '' ) {
 
 		$folder = apply_filters( 'pagelines_css_upload_dir', wp_upload_dir() );
 
@@ -646,7 +646,7 @@ class PageLinesRenderCSS {
 	 *  @package PageLines Framework
 	 *  @since 2.2
 	 */
-	function flush_version( $rules = true ) {
+	static function flush_version( $rules = true ) {
 
 		$types = array( 'sections', 'core', 'custom' );
 
