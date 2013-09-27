@@ -1865,7 +1865,8 @@ font-weight: bold;
 
 
 	/* Layout Selector */
-	.layoutinput, .graphic_select_input{display:none;}
+	input[type=radio].layoutinput,
+	input[type=radio].graphic_select_input { display:none; }
 
 	.layout-selections{
 		width: 700px;
