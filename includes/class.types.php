@@ -20,7 +20,7 @@ class PageLinesPostType {
 	 * PHP5 constructor
 	 *
 	 */
-	function __construct($id, $settings, $taxonomies = array(), $columns = array(), $column_display_function = '') {
+	function __construct($id, $settings, $taxonomies = array(), $columns = false, $column_display_function = '') {
 
 		$this->id = $id;
 		$this->taxonomies = $taxonomies;
@@ -152,7 +152,12 @@ class PageLinesPostType {
 	* @TODO document
 	*
 	*/
-	function register_columns(){
+	function register_columns()
+	{
+		// if no column array is passed, use wp default
+		// (title, date)
+		if ( !is_array( $this->columns ) )
+			return;
 
 		add_filter( "manage_edit-{$this->id}_columns", array( &$this, 'set_columns' ) );
 		add_action( "manage_{$this->id}_posts_custom_column",  array( &$this, 'set_column_values' ) );
