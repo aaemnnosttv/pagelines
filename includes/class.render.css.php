@@ -547,7 +547,7 @@ class PageLinesRenderCSS {
 	 *  @package PageLines Framework
 	 *  @since 2.2
 	 */
-	function pagelines_less_rewrite( $wp_rewrite ) {
+	static function pagelines_less_rewrite( $wp_rewrite ) {
 
 	    $less_rule = array(
 	        '(.*)pagelines-compiled-css' => '/?pageless=1'
