@@ -2,38 +2,33 @@
 
 class PageLines_RSS {
 
-	function __construct() {
+	static $items, $feed_url;
 
+	/**
+	 * Store RSS worker
+	 *
+	 * @package PageLines Framework
+	 * @since   2.2
+	 */
+	static function get_dash_rss( $args = array() ) {
 
-	 	}
+		$defaults = array(
 
+			'feed'		=>	'http://api.pagelines.com/rss/rss2.php',
+			'items'		=>	3,
+			'community'	=>	false
+		);
 
+		$args = wp_parse_args( $args, $defaults );
 
-		/**
-		 * Store RSS worker
-		 *
-		 * @package PageLines Framework
-		 * @since   2.2
-		 */
-		function get_dash_rss( $args = array() ) {
+		$out = array();
 
-			$defaults = array(
+		self::$items = $args['items'];
+		self::$feed_url = $args['feed'];
 
-				'feed'		=>	'http://api.pagelines.com/rss/rss2.php',
-				'items'		=>	3,
-				'community'	=>	false
-			);
+	   	$rss = fetch_feed( self::$feed_url );
 
-			$args = wp_parse_args( $args, $defaults );
-
-			$out = array();
-
-			$this->items = $args['items'];
-			$this->feed_url = $args['feed'];
-
-		   	$rss = fetch_feed( $this->feed_url );
-
-			if ( is_wp_error($rss) ) {
+		if ( is_wp_error($rss) ) {
 
 			$out[] = array(
 				'title'	=>	'RSS Error',
@@ -54,7 +49,7 @@ class PageLines_RSS {
 			return $out;
 		}
 
-		$items = $this->items;
+		$items = self::$items;
 
 		foreach ( $rss->get_items(0, $items) as $item ) {
 
@@ -92,7 +87,7 @@ class PageLines_RSS {
 		return $out;
 	}
 
-	function com_url( $d ) {
+	static function com_url( $d ) {
 
 		preg_match( '#<p>(http://[^<]*)</p>#', $d, $out );
 		$d = str_replace( $out[0], '', $d );
