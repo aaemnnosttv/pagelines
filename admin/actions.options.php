@@ -26,15 +26,15 @@ function pagelines_add_admin_menus() {
 	global $_pagelines_account_hook;
 
 
-	$_pagelines_account_hook = pagelines_insert_menu( PL_MAIN_DASH, __( 'Dashboard', 'pagelines' ), 'edit_theme_options', PL_MAIN_DASH, 'pagelines_build_account_interface' );
+	$_pagelines_account_hook = pagelines_insert_menu( __( 'Dashboard', 'pagelines' ), '', 'edit_theme_options', PL_MAIN_DASH, 'pagelines_build_account_interface' );
 
-	$_pagelines_options_page_hook = pagelines_insert_menu( PL_MAIN_DASH, __( 'Site Options', 'pagelines' ), 'edit_theme_options', 'pagelines', 'pagelines_build_option_interface' );
+	$_pagelines_options_page_hook = pagelines_insert_menu( __( 'Site Options', 'pagelines' ), '', 'edit_theme_options', 'pagelines', 'pagelines_build_option_interface' );
 
-	$_pagelines_special_hook = pagelines_insert_menu( PL_MAIN_DASH, __( 'Page Options', 'pagelines' ), 'edit_theme_options', 'pagelines_special', 'pagelines_build_special' );
+	$_pagelines_special_hook = pagelines_insert_menu( __( 'Page Options', 'pagelines' ), '', 'edit_theme_options', 'pagelines_special', 'pagelines_build_special' );
 
-	$_pagelines_templates_hook = pagelines_insert_menu( PL_MAIN_DASH, __( "Drag <span class='spamp'>&amp;</span> Drop", 'pagelines' ), 'edit_theme_options', 'pagelines_templates', 'pagelines_build_templates_interface' );
+	$_pagelines_templates_hook = pagelines_insert_menu( __( "Drag <span class='spamp'>&amp;</span> Drop", 'pagelines' ), '', 'edit_theme_options', 'pagelines_templates', 'pagelines_build_templates_interface' );
 
-	$_pagelines_ext_hook = pagelines_insert_menu( PL_MAIN_DASH, __( 'Store', 'pagelines' ), 'edit_theme_options', PL_ADMIN_STORE_SLUG, 'pagelines_build_extension_interface' );
+	$_pagelines_ext_hook = pagelines_insert_menu( __( 'Store', 'pagelines' ), '', 'edit_theme_options', PL_ADMIN_STORE_SLUG, 'pagelines_build_extension_interface' );
 
 }
 
@@ -43,6 +43,9 @@ function pagelines_add_admin_menus() {
  * PageLines menu wrapper
  */
 function pagelines_insert_menu( $page_title, $menu_title, $capability, $menu_slug, $function ) {
+
+	if ( !$menu_title )
+		$menu_title = $page_title;
 
 	return add_submenu_page( PL_MAIN_DASH, $page_title, $menu_title, $capability, $menu_slug, $function );
 
