@@ -124,7 +124,7 @@
 			.ajax-saved.uploading .uploading-text{display: inline;}
 
 
-		.toplevel_page_PageLines-Admin .wp-menu-image{
+		#toplevel_page_PageLines-Admin .wp-menu-image{
 			background: transparent url('../images/favicon-pagelines.png') no-repeat 50% 50%;
 			background-size: 20px 20px;
 		}
