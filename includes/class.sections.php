@@ -640,17 +640,25 @@ class PageLinesSection {
 	/**
      * Backports from v3. Wrapper for ploption.
      *
+     * ploption
+     * $this->opt
+     * ...
+     *
      * @package     PageLines Framework
      * @subpackage  Sections
      * @since       2.4.2
      *
-     * @param       $option
+     * @param       $key
+     * @param 		$oset - @since 2.4.5.2
      */
-	function opt( $option ) {
-		if( isset( $this->oset ) )
-			return ploption( $option, $this->oset );
-		else
-			return ploption( $option );
+	function opt( $key, $oset = false )
+	{
+		$o = is_array( $oset ) ? $oset : array();
+
+		if ( isset( $this->oset ) && is_array( $this->oset ) )
+			$o = array_merge( $this->oset, $o );
+
+		return ploption( $key, $o );
 	}
 }
 /********** END OF SECTION CLASS  **********/
