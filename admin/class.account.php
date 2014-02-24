@@ -57,13 +57,13 @@ class PageLinesAccount {
 
 			$d['_getting_started'] = $this->pl_add_welcome();
 
-			$d['_plus_extensions'] = $this->pl_add_extensions_dash();
-			$d['_live_chat'] = $this->pl_add_live_chat_dash();
+			//$d['_plus_extensions'] = $this->pl_add_extensions_dash();
+			//$d['_live_chat'] = $this->pl_add_live_chat_dash();
 			$d['_resources'] = $this->pl_add_support_dash();
 
 
 
-			$d['Your_Account']	= array(
+			/*$d['Your_Account']	= array(
 				'icon'			=> PL_ADMIN_ICONS.'/user.png',
 				'credentials' 	=> array(
 					'type'		=> 'updates_setup',
@@ -71,7 +71,7 @@ class PageLinesAccount {
 					'shortexp'	=> __( 'Get your latest updates automatically, direct from PageLines.', 'pagelines' ),
 					'layout'	=> 'full',
 				)
-			);
+			);*/
 			$d['Import-Export']	= array(
 				'icon'			=> PL_ADMIN_ICONS.'/extend-inout.png',
 				'import_set'	=> array(

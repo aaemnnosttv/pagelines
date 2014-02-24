@@ -56,8 +56,8 @@ class PageLinesDashboard {
 			'icon'		=> PL_ADMIN_ICONS . '/store.png',
 			'footer' 	=> sprintf('Visit <a href="%s">PageLines Store</a>', 'http://www.pagelines.com/store/')
 		);
+		//$dashboards .= $this->dashboard_pane('store', $args);
 
-		$dashboards .= $this->dashboard_pane('store', $args);
 
 		// PageLines Plus
 		$args = array(
@@ -67,8 +67,8 @@ class PageLinesDashboard {
 			'icon'		=> PL_ADMIN_ICONS . '/plusbtn.png',
 			'footer' 	=> sprintf('Visit <a href="%s">Plus Overview</a>', 'http://www.pagelines.com/plus/')
 		);
+		//$dashboards .= $this->dashboard_pane('extensions', $args);
 
-		$dashboards .= $this->dashboard_pane('extensions', $args);
 
 
 		return $this->dashboard_wrap($dashboards);
