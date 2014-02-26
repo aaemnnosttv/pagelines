@@ -15,14 +15,21 @@
  * @package PageLines Framework
  * @author PageLines
  */
-class PageLinesPostLoop extends PageLinesSection {
+class PageLinesPostLoop extends PageLinesSection
+{
 
-	/**
-	* Section template.
-	*/
-   function section_template() {
-		//Included in theme root for easy editing.
-		$theposts = new PageLinesPosts();
+	function section_persistent()
+	{
+		if ( file_exists("{$this->base_dir}/inc/PageLinesPosts.php") )
+		{
+			require_once "{$this->base_dir}/inc/PageLinesPosts.php";
+		}
+	}
+
+	function section_template()
+	{
+   		$posts_class = apply_filters( 'pagelines_posts_class', 'PageLinesPosts' );
+		$theposts = new $posts_class();
 		$theposts->load_loop();
 	}
 

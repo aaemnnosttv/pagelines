@@ -114,11 +114,6 @@ require_once( PL_INCLUDES . '/config.selectors.php' );
  */
 require_once( PL_INCLUDES . '/class.types.php' );
 
-/**
- * Posts Handling
- */
-require_once( PL_INCLUDES . '/class.posts.php' );
-
 
 /**
  * Load layout class and setup layout singleton
