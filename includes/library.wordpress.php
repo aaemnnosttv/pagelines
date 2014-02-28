@@ -62,66 +62,55 @@ function pl_theme_support(  ){
 /**
  *  Fix The WordPress Login Image URL
  */
+function fix_wp_login_imageurl( $url )
+{
+	return home_url();
+}
 add_filter('login_headerurl', 'fix_wp_login_imageurl');
 
 /**
- *
- * @TODO document
- *
- */
-function fix_wp_login_imageurl( $url ){
-	return home_url();
-}
-
-/**
  *  Fix The WordPress Login Image Title
  */
+function fix_wp_login_imagetitle( $url )
+{
+	return get_bloginfo('name');
+}
 add_filter('login_headertitle', 'fix_wp_login_imagetitle');
 
 /**
- *
- * @TODO document
- *
- */
-function fix_wp_login_imagetitle( $url ){
-	return get_bloginfo('name');
-}
-
-/**
  *  Fix The WordPress Login Image Title
  */
-if ( VPRO )
-	add_action('login_head', 'pl_fix_login_image');
+function pl_fix_login_image()
+{
+	if ( !$image_url = ploption('pl_login_image') )
+		return;
 
-/**
- *
- * @TODO document
- *
- */
-function pl_fix_login_image( ){
-
-	$image_url = (ploption('pl_login_image')) ? ploption('pl_login_image') : PL_ADMIN_IMAGES . '/login-pl.png';
-
-	$css = sprintf('body #login h1 a{background: url(%s) no-repeat top center;height: 80px;background-size:auto;}', $image_url);
+	$css = "
+		body #login h1 a {
+			display:block;
+			height: 80px;
+			width: auto;
+			background: url($image_url) no-repeat top center;
+			background-size:auto;
+		}";
 
 	inline_css_markup('pagelines-login-css', $css);
 }
+add_action('login_head', 'pl_fix_login_image');
 
 /**
  *  Fix The WordPress Favicon by Site Title
  */
-add_action('admin_head', 'pl_fix_admin_favicon');
+function pl_fix_admin_favicon()
+{
+	if ( !$image_url = ploption('pagelines_favicon') )
+		return;
 
-/**
- *
- * @TODO document
- *
- */
-function pl_fix_admin_favicon( ){
-
-	$image_url = (ploption('pagelines_favicon')) ? ploption('pagelines_favicon') : PL_ADMIN_IMAGES . '/favicon-pagelines.png';
-
-	$css = sprintf('#wphead #header-logo{background: url(%s) no-repeat scroll center center;}', $image_url);
+	$css = "
+		#wphead #header-logo {
+			background: url($image_url) no-repeat scroll center center;
+		}";
 
 	inline_css_markup('pagelines-wphead-img', $css);
 }
+add_action('admin_head', 'pl_fix_admin_favicon');
