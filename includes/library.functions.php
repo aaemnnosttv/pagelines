@@ -1233,12 +1233,12 @@ function pl_get_uri( $full = true ) {
  *
  * @return bool
  */
-function is_pl_debug() {
-
+function is_pl_debug()
+{
 	if ( defined( 'PL_DEV' ) && PL_DEV )
 		return true;
-	if ( ploption( 'enable_debug' ) )
-		return true;
+
+	return ( ploption( 'enable_debug' ) );
 }
 
 /**

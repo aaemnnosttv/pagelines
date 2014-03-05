@@ -365,14 +365,16 @@ function pagelines_source_attribution() {
 	echo "-->\n";
 }
 
-function pl_source_comment( $text, $spacing = 1 ) {
+function pl_source_comment( $text, $spacing = 1 )
+{
+	if ( !is_pl_debug() || !is_user_logged_in() )
+		return;
 
-	$newline = ($spacing) ? "\n" : '';
+	$newline = $spacing ? "\n" : '';
+	$double  = ($spacing == 2) ? "\n\n" : $newline;
+	$comment = sprintf( '%s<!-- %s -->%s', $double, $text, $newline);
 
-	$double = ($spacing == 2) ? "\n\n" : $newline;
-
-	return sprintf( '%s<!-- %s -->%s', $double, $text, $newline);
-
+	return apply_filters( 'pl_source_comment', $comment, $text );
 }
 
 
