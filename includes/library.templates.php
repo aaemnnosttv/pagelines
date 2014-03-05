@@ -257,15 +257,7 @@ function pagelines_head_common(){
 
 	pagelines_register_hook('pagelines_code_before_head'); // Hook
 
-	printf('<meta http-equiv="Content-Type" content="%s; charset=%s" />',  get_bloginfo('html_type'),  get_bloginfo('charset'));
-
-	pagelines_source_attribution();
-
-	echo pl_source_comment('Title');
-
-	// Draw Page <title> Tag. We use a filter to apply the actual titles.
-
-	printf( '<title>%s</title>', wp_title( '',false ) );
+	//pagelines_source_attribution();
 
 	// Allow for extension deactivation of all css
 	if(!has_action('override_pagelines_css_output')){	

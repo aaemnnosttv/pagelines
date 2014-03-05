@@ -25,6 +25,9 @@ pagelines_register_hook('pagelines_before_html'); // Hook
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
+		<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+		<meta charset="<?php bloginfo( 'charset' ); ?>">
+		<title><?php wp_title( '|', true, 'right' ); ?></title>
 <?php
 		pagelines_register_hook('pagelines_head'); // Hook
 
