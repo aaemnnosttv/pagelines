@@ -1150,7 +1150,7 @@ function the_sub_templates( $t = 'templates' ){
 	$map = array(
 		'default' => array(
 				'name'			=> __( 'Default', 'pagelines' ),
-				'sections' 		=> ($t == 'main') ? array('PageLinesPostLoop', 'PageLinesComments') : array('PageLinesContent'),
+				'sections' 		=> ($t == 'main') ? array('PageLinesPostLoop') : array('PageLinesContent'),
 				'page_type'		=> 'page'
 		),
 		'alpha' => array(
