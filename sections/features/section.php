@@ -160,7 +160,7 @@ class PageLinesFeatures extends PageLinesSection {
 	*/
 	function _feature_css( $clone_id, $oset){
 
-		$height = ( ploption( 'feature_stage_height', $oset ) ) ? ploption( 'feature_stage_height', $oset ).'px' : '380px';
+		$height = ( ploption( 'feature_stage_height', $oset ) ) ? ploption( 'feature_stage_height', $oset ).'px' : '';
 
 		$selectors = $this->selectors( $clone_id );
 		$css = sprintf( '%s{height:%s;}', $selectors, $height );
