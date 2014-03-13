@@ -804,24 +804,24 @@ function get_unavailable_section_areas(){
  *
  * @return  string
  */
-function setup_section_notify( $section, $text, $url = null, $ltext = null, $tab = null){
+function setup_section_notify( $section, $text, $url = null, $atext = null, $tab = null )
+{
+	if ( !current_user_can('edit_theme_options') )
+		return;
 
-
-	if(current_user_can('edit_themes')){
+	$title     = "<strong><i class='icon-pencil'></i> $section->name</strong>";
+	$tab       = ( !isset( $tab) && isset($section->tabID)) ? $section->tabID : $tab;
+	$url       = ( isset( $url ) ) ? $url : pl_meta_set_url( $tab );
+	$link_text = ( isset( $atext ) ) ? $atext : __('Set Meta', 'pagelines');
+	$link      = "<a href='$url'>$link_text &rarr;</a>";
 	
-		$banner_title = sprintf('<strong><i class="icon-pencil"></i> %s</strong>', $section->name);
-		
-		$tab = ( !isset( $tab) && isset($section->tabID)) ? $section->tabID : $tab;
-
-		$url = (isset($url)) ? $url : pl_meta_set_url( $tab );
-
-		$link_text = (isset($ltext)) ? $ltext : __('Set Meta', 'pagelines');
-
-		$link = sprintf('<a href="%s">%s</a>', $url, $link_text . ' &rarr;');
-		
-		return sprintf('<div class="setup-section"><div class="setup-section-pad">%s <br/><small class="banner_text subhead">%s %s</small></div></div>', $banner_title, $text, $link);
-	}
-
+	return <<<HTML
+<div class="setup-section">
+	<div class="setup-section-pad">$title <br/>
+	<small class="banner_text subhead">$text $link</small>
+	</div>
+</div>
+HTML;
 }
 
 /**
