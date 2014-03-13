@@ -1191,37 +1191,31 @@ function the_sub_templates( $t = 'templates' ){
 		'tag' => array(
 				'name'			=> __( 'Tag', 'pagelines' ),
 				'sections' 		=> ($t == 'main') ? array( 'PageLinesPostsInfo', 'PageLinesPostLoop', 'PageLinesPagination' ) : array('PageLinesContent'),
-				'version'		=> 'pro',
 				'page_type'		=> 'special'
 			),
 		'archive' => 	array(
 				'name'			=> __( 'Archive', 'pagelines' ),
 				'sections' 		=> ($t == 'main') ? array( 'PageLinesPostsInfo', 'PageLinesPostLoop', 'PageLinesPagination' ) : array('PageLinesContent'),
-				'version'		=> 'pro',
 				'page_type'		=> 'special'
 			),
 		'category' => 	array(
 				'name'			=> __( 'Category', 'pagelines' ),
 				'sections' 		=> ($t == 'main') ? array( 'PageLinesPostsInfo', 'PageLinesPostLoop', 'PageLinesPagination' ) : array('PageLinesContent'),
-				'version'		=> 'pro',
 				'page_type'		=> 'special'
 			),
 		'search' => 	array(
 				'name'			=> __( 'Search', 'pagelines' ),
 				'sections' 		=> ($t == 'main') ? array( 'PageLinesPostsInfo', 'PageLinesPostLoop', 'PageLinesPagination' ) : array('PageLinesContent'),
-				'version'		=> 'pro',
 				'page_type'		=> 'special'
 			),
 		'author' => 	array(
 				'name'			=> __( 'Author', 'pagelines' ),
 				'sections' 		=> ($t == 'main') ? array( 'PageLinesPostsInfo', 'PageLinesPostLoop', 'PageLinesPagination' ) : array('PageLinesContent'),
-				'version'		=> 'pro',
 				'page_type'		=> 'special'
 			),
 		'404_page' => 	array(
 				'name'			=> __( '404 Error', 'pagelines' ),
 				'sections' 		=> ($t == 'main') ? array( ) : array('PageLinesNoPosts'),
-				'version'		=> 'pro',
 				'page_type'		=> 'special'
 			),
 
