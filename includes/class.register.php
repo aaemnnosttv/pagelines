@@ -294,35 +294,38 @@ class PageLinesRegister {
 		$sidebars = array(
 
 			'sb_primary' => array(
-				'name'	=>	__( 'Primary Sidebar', 'pagelines' ),
-				'description'	=>	__( 'The main widgetized sidebar.', 'pagelines')
+				'name'        => __( 'Primary Sidebar', 'pagelines' ),
+				'description' => __( 'The main widgetized sidebar.', 'pagelines')
 			),
 			'sb_secondary' => array(
-				'name'	=>	sprintf( '%s%s', __( 'Secondary Sidebar', 'pagelines' ), ( !VPRO ) ? ' (Pro Only)' : '' ),
-				'description'	=>	__( 'The secondary widgetized sidebar for the theme.', 'pagelines')
+				'name'        => sprintf( __( 'Secondary Sidebar', 'pagelines' ) ),
+				'description' => __( 'The secondary widgetized sidebar for the theme.', 'pagelines')
 			),
 			'sb_tertiary' => array(
-				'name'	=>	__( 'Tertiary Sidebar', 'pagelines' ),
-				'description'	=>	__( 'A 3rd widgetized sidebar for the theme that can be used in standard sidebar templates.', 'pagelines')
+				'name'        => __( 'Tertiary Sidebar', 'pagelines' ),
+				'description' => __( 'A 3rd widgetized sidebar for the theme that can be used in standard sidebar templates.', 'pagelines')
 			),
 			'sb_universal' => array(
-				'name'	=>	__( 'Universal Sidebar', 'pagelines' ),
-				'description'	=>	__( 'A universal widgetized sidebar', 'pagelines'),
-				'pro'	=> true
+				'name'        => __( 'Universal Sidebar', 'pagelines' ),
+				'description' => __( 'A universal widgetized sidebar', 'pagelines'),
 			),
 			'sb_fullwidth' => array(
-				'name'	=>	__( 'Full Width Sidebar', 'pagelines' ),
-				'description'	=>	__( 'Shows full width widgetized sidebar.', 'pagelines')
+				'name'        => __( 'Full Width Sidebar', 'pagelines' ),
+				'description' => __( 'Shows full width widgetized sidebar.', 'pagelines')
 			),
 			'sb_content' => array(
-				'name'	=>	__( 'Content Sidebar', 'pagelines' ),
-				'description'	=>	__( 'Displays a widgetized sidebar inside the main content area. Set it up in the widgets panel.', 'pagelines')
+				'name'        => __( 'Content Sidebar', 'pagelines' ),
+				'description' => __( 'Displays a widgetized sidebar inside the main content area. Set it up in the widgets panel.', 'pagelines')
 			),
 		);
-		foreach( $sidebars as $key => $sidebar ) {
-			if ( isset( $sidebar['pro'] ) && ! VPRO )
-				continue;
-			pagelines_register_sidebar( pagelines_standard_sidebar( $sidebar['name'], $sidebar['description'] ) );
+
+		$args = pagelines_standard_sidebar( 'Name', 'Description' ); // get base args to merge with
+
+		foreach ( $sidebars as $id => $sidebar )
+		{
+			$sidebar['id'] = $id;
+			$sidebar = array_merge( $args, $sidebar );
+			register_sidebar( $sidebar );
 		}
 	}
 

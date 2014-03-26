@@ -6,8 +6,6 @@
 	Description: The secondary widgetized sidebar for the theme.
 	Class Name: SecondarySidebar
 	Workswith: sidebar1, sidebar2, sidebar_wrap
-	Persistant: true
-	Edition: pro
 */
 
 /**

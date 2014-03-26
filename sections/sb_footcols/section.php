@@ -6,7 +6,6 @@
 	Description: A 5 column widgetized sidebar in the footer
 	Class Name: PageLinesFootCols
 	Workswith: morefoot, footer
-	Persistant: true
 */
 
 /**
@@ -31,13 +30,14 @@ class PageLinesFootCols extends PageLinesSection {
 		$this->markup_end 	= '</div></div>';
 
 
-		pagelines_register_sidebar(array(
-			'name'=>$this->name,
-			'description'	=> __('Use this sidebar if you want to use widgets in your footer columns instead of the default.', 'pagelines'),
-		    'before_widget' => $this->markup_start,
-		    'after_widget' 	=> $this->markup_end,
-		    'before_title' 	=> '<h3 class="widget-title">',
-		    'after_title' 	=> '</h3>'
+		pagelines_register_sidebar( array(
+			'id'            => $this->id,
+			'name'          => $this->name,
+			'description'   => __('Use this sidebar if you want to use widgets in your footer columns instead of the default.', 'pagelines'),
+			'before_widget' => $this->markup_start,
+			'after_widget'  => $this->markup_end,
+			'before_title'  => '<h3 class="widget-title">',
+			'after_title'   => '</h3>'
 		) );
 
 		register_nav_menus( array(

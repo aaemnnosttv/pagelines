@@ -5,9 +5,7 @@
 	Author URI: http://www.pagelines.com
 	Description: Shows full width widgetized sidebar.
 	Class Name: FullWidthSidebar
-	Edition: pro
 	Workswith: templates, footer, morefoot
-	Persistant: true
 */
 
 /**
