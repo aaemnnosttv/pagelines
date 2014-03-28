@@ -22,13 +22,12 @@ class PageLinesFootCols extends PageLinesSection {
 	/**
 	* PHP that always loads no matter if section is added or not.
 	*/
-	function section_persistent(){
-
+	function section_persistent()
+	{
 		$per_row = (ploption('footer_num_columns')) ? ploption('footer_num_columns') : 5;
 
 		$this->markup_start = sprintf( '<div class="pp%s footcol"><div class="footcol-pad">', $per_row );
 		$this->markup_end 	= '</div></div>';
-
 
 		pagelines_register_sidebar( array(
 			'id'            => $this->id,
@@ -43,8 +42,6 @@ class PageLinesFootCols extends PageLinesSection {
 		register_nav_menus( array(
 			'footer_nav' => __( 'Page Navigation in Footer Columns', 'pagelines' )
 		) );
-
-
 	}
 
 	/**

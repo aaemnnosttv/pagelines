@@ -27,17 +27,15 @@ class PageLinesMorefoot extends PageLinesSection {
 		// Register Section Sidebars
 		foreach ( $this->master as $key => $i )
 		{
-			pagelines_register_sidebar(
-				array(
-					'id'            => sanitize_title( $i['name'] ),
-					'name'          => $i['name'],
-					'description'   => $i['description'],
-					'before_widget' => '<div id="%1$s" class="%2$s widget fix"><div class="widget-pad">',
-					'after_widget'  => '</div></div>',
-					'before_title'  => '<h3 class="widget-title">',
-					'after_title'   => '</h3>'
-				)
-			);
+			pagelines_register_sidebar( array(
+				'id'            => sanitize_title( $i['name'] ),
+				'name'          => $i['name'],
+				'description'   => $i['description'],
+				'before_widget' => '<div id="%1$s" class="%2$s widget fix"><div class="widget-pad">',
+				'after_widget'  => '</div></div>',
+				'before_title'  => '<h3 class="widget-title">',
+				'after_title'   => '</h3>'
+			) );
 		}
 	}
 
