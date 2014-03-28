@@ -292,40 +292,36 @@ class PageLinesRegister {
 
 		// This array contains the sidebars in the correct order.
 		$sidebars = array(
-
 			'sb_primary' => array(
 				'name'        => __( 'Primary Sidebar', 'pagelines' ),
-				'description' => __( 'The main widgetized sidebar.', 'pagelines')
+				'description' => __( 'The main widgetized sidebar.', 'pagelines' )
 			),
 			'sb_secondary' => array(
-				'name'        => sprintf( __( 'Secondary Sidebar', 'pagelines' ) ),
-				'description' => __( 'The secondary widgetized sidebar for the theme.', 'pagelines')
+				'name'        => __( 'Secondary Sidebar', 'pagelines' ),
+				'description' => __( 'The secondary widgetized sidebar for the theme.', 'pagelines' )
 			),
 			'sb_tertiary' => array(
 				'name'        => __( 'Tertiary Sidebar', 'pagelines' ),
-				'description' => __( 'A 3rd widgetized sidebar for the theme that can be used in standard sidebar templates.', 'pagelines')
+				'description' => __( 'A 3rd widgetized sidebar for the theme that can be used in standard sidebar templates.', 'pagelines' )
 			),
 			'sb_universal' => array(
 				'name'        => __( 'Universal Sidebar', 'pagelines' ),
-				'description' => __( 'A universal widgetized sidebar', 'pagelines'),
+				'description' => __( 'A universal widgetized sidebar', 'pagelines' ),
 			),
 			'sb_fullwidth' => array(
 				'name'        => __( 'Full Width Sidebar', 'pagelines' ),
-				'description' => __( 'Shows full width widgetized sidebar.', 'pagelines')
+				'description' => __( 'Shows full width widgetized sidebar.', 'pagelines' )
 			),
 			'sb_content' => array(
 				'name'        => __( 'Content Sidebar', 'pagelines' ),
-				'description' => __( 'Displays a widgetized sidebar inside the main content area. Set it up in the widgets panel.', 'pagelines')
+				'description' => __( 'Displays a widgetized sidebar inside the main content area. Set it up in the widgets panel.', 'pagelines' )
 			),
 		);
-
-		$args = pagelines_standard_sidebar( 'Name', 'Description' ); // get base args to merge with
-
-		foreach ( $sidebars as $id => $sidebar )
+	
+		foreach ( $sidebars as $id => $args )
 		{
-			$sidebar['id'] = $id;
-			$sidebar = array_merge( $args, $sidebar );
-			register_sidebar( $sidebar );
+			$args['id'] = $id;
+			pl_register_sidebar( $args );
 		}
 	}
 

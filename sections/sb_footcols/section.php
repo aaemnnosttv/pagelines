@@ -29,14 +29,12 @@ class PageLinesFootCols extends PageLinesSection {
 		$this->markup_start = sprintf( '<div class="pp%s footcol"><div class="footcol-pad">', $per_row );
 		$this->markup_end 	= '</div></div>';
 
-		pagelines_register_sidebar( array(
+		pl_register_sidebar( array(
 			'id'            => $this->id,
 			'name'          => $this->name,
 			'description'   => __('Use this sidebar if you want to use widgets in your footer columns instead of the default.', 'pagelines'),
 			'before_widget' => $this->markup_start,
 			'after_widget'  => $this->markup_end,
-			'before_title'  => '<h3 class="widget-title">',
-			'after_title'   => '</h3>'
 		) );
 
 		register_nav_menus( array(
@@ -51,7 +49,7 @@ class PageLinesFootCols extends PageLinesSection {
 
 		$default = array();
 
-		if(ploption('footer_logo') && VPRO)
+		if ( ploption('footer_logo') )
 			$default[] = sprintf( '<a href="%s" class="home" title="%s"><img src="%s" alt="%s"/></a>',  home_url(),  __('Home', 'pagelines'), ploption('footer_logo'),  get_bloginfo('name') );
 		else
 			$default[] = sprintf( '<h3 class="site-title"><a class="home" href="%s" title="%s">%s</a></h3>', home_url(), __('Home', 'pagelines'), get_bloginfo('name') );

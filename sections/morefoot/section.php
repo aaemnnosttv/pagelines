@@ -27,7 +27,7 @@ class PageLinesMorefoot extends PageLinesSection {
 		// Register Section Sidebars
 		foreach ( $this->master as $key => $i )
 		{
-			pagelines_register_sidebar( array(
+			pl_register_sidebar( array(
 				'id'            => sanitize_title( $i['name'] ),
 				'name'          => $i['name'],
 				'description'   => $i['description'],
