@@ -192,14 +192,15 @@ function pagelines_default_widget($id, $name, $default){
  *
  * @return  array - all sidebar parameters
  */
-function pagelines_standard_sidebar($name, $description){
+function pagelines_standard_sidebar( $name, $description )
+{
 	return array(
-		'name'=> $name,
-		'description' => $description,
-	    'before_widget' => '<li id="%1$s" class="%2$s widget fix"><div class="widget-pad">',
-	    'after_widget' => '</div></li>',
-	    'before_title' => '<h3 class="widget-title">',
-	    'after_title' => '</h3>'
+		'name'          => $name,
+		'description'   => $description,
+		'before_widget' => '<li id="%1$s" class="%2$s widget fix"><div class="widget-pad">',
+		'after_widget'  => '</div></li>',
+		'before_title'  => '<h3 class="widget-title">',
+		'after_title'   => '</h3>'
 	);
 }
 
