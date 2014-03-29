@@ -689,66 +689,57 @@ class PageLinesRenderCSS {
 		}
 	}
 
-	function pagelines_insert_core_less_callback( $code ) {
-
+	function pagelines_insert_core_less_callback( $code )
+	{
 		global $pagelines_raw_lesscode_external;
-		$out = '';
-		if ( is_array( $pagelines_raw_lesscode_external ) && ! empty( $pagelines_raw_lesscode_external ) ) {
 
-			foreach( $pagelines_raw_lesscode_external as $file ) {
+		if (
+			is_array( $pagelines_raw_lesscode_external )
+			&& ! empty( $pagelines_raw_lesscode_external )
+			)
+		{
+			$less = array();
 
-				if( is_file( $file ) )
-					$out .= pl_file_get_contents( $file );
-			}
-			return $code . $out;
+			foreach ( $pagelines_raw_lesscode_external as $file )
+				$less[] = pl_file_get_contents( $file );
+
+			$less = join("\n", $less);
+
+			return "$code\n$less";
 		}
+
 		return $code;
 	}
 
-	function get_all_active_sections() {
-
-		$out = '';
+	function get_all_active_sections()
+	{
 		global $load_sections;
+		// refresh sections cache
 		$available = $load_sections->pagelines_register_sections( true, true );
 
-		$disabled = get_option( 'pagelines_sections_disabled', array() );
+		$less = array();
 
-		/*
-		* Filter out disabled sections
-		*/
-		foreach( $disabled as $type => $data )
-			if ( isset( $disabled[$type] ) )
-				foreach( $data as $class => $state )
-					unset( $available[$type][ $class ] );
-
-		/*
-		* We need to reorder the array so sections css is loaded in the right order.
-		* Core, then pagelines-sections, followed by anything else.
-		*/
-		$sections = array();
-		$sections['parent'] = $available['parent'];
-		unset( $available['parent'] );
-		$sections['child'] = (array) $available['child'];
-		unset( $available['child'] );
-		if ( is_array( $available ) )
-			$sections = array_merge( $sections, $available );
-		foreach( $sections as $t ) {
-			foreach( $t as $key => $data ) {
-				if ( $data['less'] && $data['loadme'] ) {
-					if ( is_file( $data['base_dir'] . '/style.less' ) )
-						$out .= pl_file_get_contents( $data['base_dir'] . '/style.less' );
-					elseif( is_file( $data['base_dir'] . '/color.less' ))
-						$out .= pl_file_get_contents( $data['base_dir'] . '/color.less' );
-				}
-			}
+		foreach ( pl_get_sections() as $s )
+		{
+			$data = $s->sinfo;
+			if ( $data['less'] && $data['loadme'] )
+			{
+				if ( is_file( "{$s->base_dir}/style.less" ) )
+					$less[] = pl_file_get_contents( "{$s->base_dir}/style.less" );
+				elseif ( is_file( "{$s->base_dir}/color.less" ) )
+					$less[] = pl_file_get_contents( "{$s->base_dir}/color.less" );
 		}
-		return apply_filters('pagelines_lesscode', $out);
 	}
 
-} //end of PageLinesRenderCSS
+		$less = join( "\n", $less );
 
-function pagelines_insert_core_less( $file ) {
+		return apply_filters('pagelines_lesscode', $less);
+	}
 
+} // PageLinesRenderCSS
+
+function pagelines_insert_core_less( $file )
+{
 	global $pagelines_raw_lesscode_external;
 
 	if( !is_array( $pagelines_raw_lesscode_external ) )
