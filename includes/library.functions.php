@@ -1038,21 +1038,15 @@ function pl_admin_is_page(){
  * @TODO document
  *
  */
-function pl_file_get_contents( $filename ) {
+function pl_file_get_contents( $filename )
+{
+	if ( !is_file( $filename ) )
+		return false;
 
-	if ( is_file( $filename ) ) {
-
-		$file = file( $filename, FILE_SKIP_EMPTY_LINES );
-		$out = '';
-		if( is_array( $file ) )
-			foreach( $file as $contents )
-				$out .= $contents;
-
-		if( $out )
-			return $out;
-		else
-			return false;
-	}
+	if ( is_array( $file = file( $filename ) ) )
+		return join( "\n", $file );
+	else
+		return false;
 }
 
 
