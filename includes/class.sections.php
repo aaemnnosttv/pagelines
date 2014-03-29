@@ -840,3 +840,17 @@ function splice_section_slug( $slug ){
 	
 	return array('section' => $section, 'clone_id' => $clone_id);
 }
+
+
+/**
+ * [pl_get_sections description]
+ *
+ * @since	2.4.6
+ * 
+ * @return [type] [description]
+ */
+function pl_get_sections()
+{
+	global $pl_section_factory;
+	return $pl_section_factory->sections;
+}
