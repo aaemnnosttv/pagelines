@@ -146,8 +146,12 @@ function pagelines_store_object_sort( $object ) {
     }
 }
 
-function pl_is_section_active( $class ) {
+function pl_is_section_active( $class )
+{
+	return class_exists( $class );
+}
 
-	if( class_exists( $class ) )
-		return true;
+function pl_purge_section_cache()
+{
+	delete_transient( 'pagelines_sections_cache' );
 }
