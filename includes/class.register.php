@@ -246,7 +246,6 @@ class PageLinesRegister
 					$section_slug
 				);
 				$base_dir = dirname( $fullFileName );
-				ddprint( array( $base_dir, $base_url ), $section_slug );
 			}
 
 
