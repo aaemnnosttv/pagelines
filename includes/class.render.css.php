@@ -27,8 +27,8 @@ class PageLinesRenderCSS {
 	 *  @package PageLines Framework
 	 *  @since 2.2
 	 */
-	function get_core_lessfiles(){
-
+	function get_core_lessfiles()
+	{
 		$files = array(
 			'reset',
 			'pl-core',
@@ -60,7 +60,8 @@ class PageLinesRenderCSS {
 			'icons',
 			'responsive',
 		);
-		return $files;
+		
+		return apply_filters( 'pagelines_core_less_files', $files );
 	}
 
 	/**
@@ -518,9 +519,9 @@ class PageLinesRenderCSS {
 	 *  @package PageLines Framework
 	 *  @since 2.2
 	 */
-	function get_core_lesscode() {
-
-			return $this->load_core_cssfiles( apply_filters( 'pagelines_core_less_files', $this->lessfiles ) );
+	function get_core_lesscode()
+	{
+		return $this->load_core_cssfiles( $this->get_core_lessfiles() );
 	}
 
 	/**
@@ -530,14 +531,15 @@ class PageLinesRenderCSS {
 	 *  @package PageLines Framework
 	 *  @since 2.2
 	 */
-	function load_core_cssfiles( $files ) {
-
-		$code = '';
-		foreach( $files as $less ) {
-
-			$code .= PageLinesLess::load_less_file( $less );
-		}
-		return apply_filters( 'pagelines_insert_core_less', $code );
+	function load_core_cssfiles( $files )
+	{
+		$less = pl_load_less_files( $files );
+		
+		/**
+		 * filter 'pagelines_insert_core_less'
+		 * @param	$less	string	
+		 */
+		return apply_filters( 'pagelines_insert_core_less', $less );
 	}
 
 	/**
@@ -692,7 +694,7 @@ class PageLinesRenderCSS {
 	function pagelines_insert_core_less_callback( $code )
 	{
 		global $pagelines_raw_lesscode_external;
-
+	
 		if (
 			is_array( $pagelines_raw_lesscode_external )
 			&& ! empty( $pagelines_raw_lesscode_external )
@@ -728,8 +730,8 @@ class PageLinesRenderCSS {
 					$less[] = pl_file_get_contents( "{$s->base_dir}/style.less" );
 				elseif ( is_file( "{$s->base_dir}/color.less" ) )
 					$less[] = pl_file_get_contents( "{$s->base_dir}/color.less" );
+			}
 		}
-	}
 
 		$less = join( "\n", $less );
 
@@ -742,7 +744,7 @@ function pagelines_insert_core_less( $file )
 {
 	global $pagelines_raw_lesscode_external;
 
-	if( !is_array( $pagelines_raw_lesscode_external ) )
+	if ( !is_array( $pagelines_raw_lesscode_external ) )
 		$pagelines_raw_lesscode_external = array();
 
 	$pagelines_raw_lesscode_external[] = $file;
