@@ -369,3 +369,53 @@ function pl_hashify( $color ){
 
 	return sprintf('#%s', $clean_hex);
 }
+/**
+ * Get the first found less file
+ * Checks child theme first, then parent
+ *
+ * @since	2.4.6
+ * 
+ * @param  [type] $filename [description]
+ * @return [type]           [description]
+ */
+function pl_locate_less( $filename )
+{
+	return locate_template( array("less/$filename.less") );
+}
+
+/**
+ * [pl_load_less_file description]
+ *
+ * @since	2.4.6
+ * 
+ * @param  [type] $filename [description]
+ * @return [type]           [description]
+ */
+function pl_load_less_file( $filename )
+{
+	return pl_file_get_contents( pl_locate_less( $filename ) );
+}
+
+/**
+ * [pl_load_less_files description]
+ *
+ * @since	2.4.6
+ * 
+ * @param  array	$files	array of filenames array( 'reset','colors','other' )
+ * @return array/string		associative array of filename => loaded less,
+ * 							or a string of all files' contents	
+ */
+function pl_load_less_files( $files, $as = 'string' )
+{
+	$loaded = array_map( 'pl_load_less_file', $files );
+
+	if ( 'array' == $as )
+	{
+		// convert to associative
+		// use filenames as keys
+		return array_combine( $files, $loaded );
+	}
+
+	elseif ( 'string' == $as )
+		return join( "\n", $loaded );
+}
