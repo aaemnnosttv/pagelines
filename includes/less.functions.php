@@ -95,9 +95,9 @@ class PageLinesLess {
 		return $this->raw_parse($lesscode, $type);
 	}
 
-	private function raw_parse( $pless, $type ) {
-
-		$pless = $this->add_constants( '' ) . $this->add_bootstrap() . $pless;
+	private function raw_parse( $pless, $type )
+	{
+		$pless = $this->add_constants() . $this->add_bootstrap() . $pless;
 		try {
 			$css = $this->lparser->compile( $pless );
 		}
@@ -111,13 +111,19 @@ class PageLinesLess {
 		return $css;
 	}
 
-	private function add_bootstrap( )
+	private function add_bootstrap()
 	{
-		return $this->load_less_file( 'variables' )
-		. $this->load_less_file( 'colors' )
-		. $this->load_less_file( 'mixins' );
+		return pl_load_less_files( array('variables','colors','mixins') );
 	}
 
+	/**
+	 * [load_less_file description]
+	 *
+	 * @deprecated	2.4.6 - use pl_load_less_file()
+	 * 
+	 * @param  [type] $file [description]
+	 * @return [type]       [description]
+	 */
 	static function load_less_file( $file )
 	{
 		$file 	= sprintf( '%s.less', $file );
@@ -143,7 +149,7 @@ class PageLinesLess {
 
 	}
 
-	private function add_constants( $pless ) {
+	private function add_constants( $pless = '' ) {
 
 		$prepend = '';
 
@@ -369,6 +375,7 @@ function pl_hashify( $color ){
 
 	return sprintf('#%s', $clean_hex);
 }
+
 /**
  * Get the first found less file
  * Checks child theme first, then parent
