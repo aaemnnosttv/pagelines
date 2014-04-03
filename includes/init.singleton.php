@@ -35,7 +35,7 @@ $GLOBALS['global_meta_options'] = get_global_meta_options();
  * @global object $pl_section_factory
  * @since 1.0.0
  */
-$GLOBALS['pl_section_factory'] = new PageLinesSectionFactory();
+$GLOBALS['pl_section_factory'] = PageLinesSectionFactory::get_instance();
 
 
 /**

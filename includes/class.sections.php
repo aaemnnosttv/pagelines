@@ -660,68 +660,56 @@ class PageLinesSection {
 
 		return ploption( $key, $o );
 	}
-}
-/********** END OF SECTION CLASS  **********/
+} // PageLinesSection
 
-/**
- * PageLines Section Factory (class)
- *
- * Singleton that registers and instantiates PageLinesSection classes.
- *
- * @package     PageLines Framework
- * @subpackage  Sections
- * @since       1.0.0
- */
-class PageLinesSectionFactory {
-	var $sections  = array();
-	var $unavailable_sections  = array();
 
+class PageLinesSectionFactory
+{
 
 	/**
-     * Constructor
-     *
-     * @TODO document
-     */
-	function __contruct() { }
+	 * Sections container
+	 * Needs to stay public for backwards compatibility
+	 * @var array
+	 */
+	public $sections = array();
 
+	private static $instance;
 
-    /**
-     * Register
-     *
-     * @since   ...
-     *
-     * @param   $section_class
-     * @param   $args
-     *
-     * @TODO document
-     */
-	function register($section_class, $args) {
+	protected function __construct() {}
 
-		if(class_exists($section_class))
-			$this->sections[$section_class] = new $section_class( $args );
+	public static function get_instance()
+	{
+		if ( is_null( self::$instance ) )
+			self::$instance = new self();
 
-		/** Unregisters version-controlled sections */
-		if(!VPRO && $this->sections[$section_class]->settings['version'] == 'pro') {
-			$this->unavailable_sections[] = $this->sections[$section_class];
-			$this->unregister($section_class);
-		}
+		return self::$instance;
 	}
 
-
-    /**
-     * Unregister
-     *
-     * @since   ...
-     *
-     * @param   $section_class
-     * @TODO document
-     */
-	function unregister($section_class) {
-		if ( isset($this->sections[$section_class]) )
-			unset($this->sections[$section_class]);
+	function register( $section_class, $args )
+	{
+		if ( class_exists( $section_class ) && is_subclass_of( $section_class, 'PageLinesSection' ) )
+			$this->sections[ $section_class ] = new $section_class( $args );
 	}
 
-}
+	function unregister( $section_class )
+	{
+		unset( $this->sections[ $section_class ] );
+	}
+
+	function get_section( $class )
+	{
+		if ( isset( $this->sections[ $class ] ) )
+			return $this->sections[ $class ];
+		else
+			return false;
+	}
+
+	function get_sections()
+	{
+		return $this->sections;
+	}
+
+} // PageLinesSectionFactory
 
 /**
  * Load Section Persistent
