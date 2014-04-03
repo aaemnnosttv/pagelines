@@ -1,12 +1,19 @@
 PL 2.X Changelog
 ================
 
+#### 2.4.6
+
+- Sections now detected within plugins (just like DMS)
+- Fix a rare condition that could break compiled less output
+- Sidebars upgraded to protect against a bug which could create problems in rare cases
+- Misc cleanup and optimization
+
 #### 2.4.5.3
 
-- fix login image styling
-- add `site-wrap` class to `#site`
-- add chromeframe meta tag
-- hide core html source comments by default (enable `PL_DEV` to show)
+- Fix login image styling
+- Add `site-wrap` class to `#site`
+- Add chromeframe meta tag
+- Hide core html source comments by default (enable `PL_DEV` to show)
 
 #### 2.4.5.2
 
