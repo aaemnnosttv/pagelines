@@ -372,7 +372,7 @@ class PageLinesSection {
 		$this->format	= ( $this->format ) ? $this->format : 'textured';
 		$this->classes	= ( $this->classes ) ? sprintf( ' %s', ltrim( $this->classes ) )  : '';
 	}
-	
+
 	/**
      * Scripts to be loaded inline after page load
      *
@@ -636,7 +636,7 @@ class PageLinesSection {
 		$this->tset = $this->oset;
 		$this->tset['translate'] = true;
 	}
-	
+
 	/**
      * Backports from v3. Wrapper for ploption.
      *
@@ -722,13 +722,10 @@ class PageLinesSectionFactory
  *
  * @uses        section_persistent
  */
-function load_section_persistent(){
-	global $pl_section_factory;
-
-	foreach($pl_section_factory->sections as $section)
-		$section->section_persistent();
-
-
+function load_section_persistent()
+{
+	foreach ( pl_get_sections() as $s )
+		$s->section_persistent();
 }
 
 /**
@@ -742,13 +739,10 @@ function load_section_persistent(){
  *
  * @uses        section_admin
  */
-function load_section_admin(){
-
-	global $pl_section_factory;
-
-	foreach($pl_section_factory->sections as $section)
-		$section->section_admin();
-
+function load_section_admin()
+{
+	foreach ( pl_get_sections() as $s )
+		$s->section_admin();
 }
 
 /**
@@ -802,7 +796,7 @@ function setup_section_notify( $section, $text, $url = null, $atext = null, $tab
 	$url       = ( isset( $url ) ) ? $url : pl_meta_set_url( $tab );
 	$link_text = ( isset( $atext ) ) ? $atext : __('Set Meta', 'pagelines');
 	$link      = "<a href='$url'>$link_text &rarr;</a>";
-	
+
 	return <<<HTML
 <div class="setup-section">
 	<div class="setup-section-pad">$title <br/>
@@ -815,30 +809,33 @@ HTML;
 /**
  * Splice Section Slug
  *
+ * @todo	refactor this to explode with a | or other invalid class name character
+ *
  * @param   $slug
  *
- * @return  array
- * @TODO document
+ * @return  array	section class and clone id
  */
-function splice_section_slug( $slug ){
+function splice_section_slug( $slug )
+{
+	$pieces   = explode('ID', $slug);
+	$sclass   = (string) $pieces[0];
+	$clone_id = isset( $pieces[1] ) ? $pieces[1] : 1;
 
-	$pieces = explode('ID', $slug);
-	$section = (string) $pieces[0];
-	$clone_id = (isset($pieces[1])) ? $pieces[1] : 1;
-	
-	return array('section' => $section, 'clone_id' => $clone_id);
+	return array(
+		'section'  => $sclass,
+		'clone_id' => $clone_id
+	);
 }
 
 
 /**
- * [pl_get_sections description]
+ * Get Sections from Factory
  *
  * @since	2.4.6
- * 
- * @return [type] [description]
+ *
+ * @return array	section object instances
  */
 function pl_get_sections()
 {
-	global $pl_section_factory;
-	return $pl_section_factory->sections;
+	return PageLinesSectionFactory::get_instance()->get_sections();
 }
