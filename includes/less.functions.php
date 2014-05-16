@@ -120,7 +120,7 @@ class PageLinesLess {
 	 * [load_less_file description]
 	 *
 	 * @deprecated	2.4.6 - use pl_load_less_file()
-	 * 
+	 *
 	 * @param  [type] $file [description]
 	 * @return [type]       [description]
 	 */
@@ -381,7 +381,7 @@ function pl_hashify( $color ){
  * Checks child theme first, then parent
  *
  * @since	2.4.6
- * 
+ *
  * @param  [type] $filename [description]
  * @return [type]           [description]
  */
@@ -394,7 +394,7 @@ function pl_locate_less( $filename )
  * [pl_load_less_file description]
  *
  * @since	2.4.6
- * 
+ *
  * @param  [type] $filename [description]
  * @return [type]           [description]
  */
@@ -407,10 +407,10 @@ function pl_load_less_file( $filename )
  * [pl_load_less_files description]
  *
  * @since	2.4.6
- * 
+ *
  * @param  array	$files	array of filenames array( 'reset','colors','other' )
  * @return array/string		associative array of filename => loaded less,
- * 							or a string of all files' contents	
+ * 							or a string of all files' contents
  */
 function pl_load_less_files( $files, $as = 'string' )
 {
@@ -425,4 +425,16 @@ function pl_load_less_files( $files, $as = 'string' )
 
 	elseif ( 'string' == $as )
 		return join( "\n", $loaded );
+}
+
+/**
+ * Less Dev Mode Helper
+ *
+ * @since  2.4.7
+ *
+ * @return bool
+ */
+function pl_less_dev()
+{
+	return ( defined('PL_LESS_DEV') && PL_LESS_DEV );
 }
