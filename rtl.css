@@ -1,33 +1,7 @@
 /*
-PageLines Framework RTL Style
-Description: Starter creating RTL support for Platform.  Note, we don't speak or write in RTL languages so there will be issues. You can use this as a starter and override in a child theme.
+PL2X RTL Style
+Description: Starter creating RTL support for PL2X.  Note, we don't speak or write in RTL languages so there will be issues. You can use this as a starter and override in a child theme.
 */
-
-/**
- * PageLines Framework RTL Style
- *
- * Base file creating RTL support for Platform.
- * Please note, we don't speak or write in RTL languages so there may be issues.
- * You can use this as a starter and override in a child theme.
- *
- * If you have improvements or modifications to this stylesheet, please submit
- * them to hello@pagelines.com
- *
- * @package     PageLines Framework
- * @since       1.0
- *
- * Special Thanks to Sourena from Alefba.us. He created this file and
- * specializes in RTL language support.
- * @author      Sourena
- * @link        http://alefba.us/
- * @version     1.0.0
- *
- * @internal    last revised February 25, 2012
- * @version     2.1.1
- * Remove `px` from zero values as not necessary; fix comment list missing `px`
- *
- * @todo Fix graphics - 'arrow-ffffff.png', 'shadow.png', and 'more-left.png'
- */
 
 body {
 	font-smooth: always;

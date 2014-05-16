@@ -5,21 +5,8 @@
  * This file controls the sidebar wrap template; which depending on the mode
  * container one or both sidebars from layout.
  *
- * @package     PageLines Framework
+ * @package     PL2X
  * @since       1.0
- *
- * @link        http://www.pagelines.com/
- * @link        http://www.pagelines.com/tour
- *
- * @author      PageLines   http://www.pagelines.com/
- * @copyright   Copyright (c) 2008-2012, PageLines  hello@pagelines.com
- *
- * @internal    This is used by BuddyPress as well and should play nice with child themes.
- *
- * @internal    last revised February 2, 2012
- * @version     ...
- *
- * @todo Define version
  */
 
 if(has_action('override_pagelines_sidebar_wrap')):

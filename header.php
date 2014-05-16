@@ -6,19 +6,8 @@
  * Navigation) for each page in your theme. You can control what shows up where
  * using WordPress and PageLines PHP conditionals.
  *
- * @package     PageLines Framework
+ * @package     PL2X
  * @since       1.0
- *
- * @link        http://www.pagelines.com/
- * @link        http://www.pagelines.com/tour
- *
- * @author      PageLines   http://www.pagelines.com/
- * @copyright   Copyright (c) 2008-2012, PageLines  hello@pagelines.com
- *
- * @internal    last revised January 23, 2012
- * @version     ...
- *
- * @todo Define version
  */
 
 pagelines_register_hook('pagelines_before_html'); // Hook

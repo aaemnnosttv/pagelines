@@ -6,19 +6,8 @@
  * elements in your site footer. You can control what shows up where using
  * WordPress and PageLines PHP conditionals
  *
- * @package     PageLines Framework
+ * @package     PL2X
  * @since       1.0
- *
- * @link        http://www.pagelines.com/
- * @link        http://www.pagelines.com/tour
- *
- * @author      PageLines   http://www.pagelines.com/
- * @copyright   Copyright (c) 2008-2012, PageLines  hello@pagelines.com
- *
- * @internal    last revised February November 21, 2011
- * @version     ...
- *
- * @todo Define version
  */
 
 if(!has_action('override_pagelines_body_output')):

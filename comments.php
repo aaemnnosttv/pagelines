@@ -4,17 +4,8 @@
  *
  * The template for displaying Comments.
  *
- * @package     PageLines Framework
+ * @package     PL2X
  * @since       1.0
- *
- * @link        http://www.pagelines.com/
- * @link        http://www.pagelines.com/tour
- *
- * @author      PageLines   http://www.pagelines.com/
- * @copyright   Copyright (c) 2012, PageLines   hello@pagelines.com
- *
- * @internal    last revised February 23, 2012
- * @version     2.1.1
  */
 
 if(!have_comments() && !comments_open())
