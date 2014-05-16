@@ -749,3 +749,12 @@ function pagelines_insert_core_less( $file )
 
 	$pagelines_raw_lesscode_external[] = $file;
 }
+/**
+ * Purge Cached CSS
+ *
+ * @since  2.4.7
+ */
+function pl_purge_css()
+{
+	PageLinesRenderCSS::flush_version( false );
+}

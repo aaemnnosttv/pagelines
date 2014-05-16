@@ -155,3 +155,20 @@ function pl_purge_section_cache()
 {
 	delete_transient( 'pagelines_sections_cache' );
 }
+
+function pl_validate_section_cache()
+{
+	$sections = get_transient( 'pagelines_sections_cache' );
+
+	if ( !is_array( $sections ) )
+		return false;
+
+	foreach ( $sections as $s )
+	{
+		if ( empty( $s['base_file'] ) || !is_readable( $s['base_file'] ) )
+			return false;
+	}
+
+	// all systems go
+	return true;
+}

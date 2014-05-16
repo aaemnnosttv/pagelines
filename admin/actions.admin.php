@@ -333,27 +333,26 @@ function pl_page_show_columns($name) {
  * @package PageLines Framework
  * @since   2.2
  */
+function pagelines_set_versions()
+{
+	if ( !pl_validate_section_cache() )
+		pl_purge_section_cache();
+
+	if ( current_user_can( 'edit_theme_options' ) && pl_less_dev() )
+		pl_purge_css();
+}
 add_action( 'admin_init', 'pagelines_set_versions' );
-function pagelines_set_versions() {
-	if ( current_user_can( 'edit_themes' ) ) {
-		delete_transient( 'pagelines_sections_cache' );
-		if( defined( 'PL_LESS_DEV' ) && PL_LESS_DEV )
-			PageLinesRenderCSS::flush_version( false );
-	}
-	set_theme_mod( 'pagelines_version', pl_get_theme_data( get_template_directory(), 'Version' ) );
-	set_theme_mod( 'pagelines_child_version', pl_get_theme_data( get_stylesheet_directory(), 'Version' ) );
-}
 
-// make sure were running out of 'pagelines' folder.
+// make sure we're running out of 'pagelines' folder.
+function pagelines_check_folders()
+{
+	$folder = basename( get_template_directory() );
+
+	if ( 'pagelines' == $folder )
+		return;
+
+	echo '<div class="updated">';
+	printf( "<p><h3>Install Error!</h3><br />PageLines Framework must be installed in a folder called 'pagelines' to work with child themes and extensions.<br /><br />Current path: %s<br /></p>", get_template_directory() );
+	echo '</div>';
+}
 add_action( 'admin_notices', 'pagelines_check_folders' );
-function pagelines_check_folders() {
-
-		$folder = basename( get_template_directory() );
-
-		if( 'pagelines' == $folder )
-			return;
-
-		echo '<div class="updated">';
-		printf( "<p><h3>Install Error!</h3><br />PageLines Framework must be installed in a folder called 'pagelines' to work with child themes and extensions.<br /><br />Current path: %s<br /></p>", get_template_directory() );
-		echo '</div>';
-}

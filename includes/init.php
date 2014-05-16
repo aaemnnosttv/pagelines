@@ -13,210 +13,190 @@ do_action('pagelines_hook_pre', 'core'); // Hook
 
 define('PL_INCLUDES', get_template_directory() . '/includes');
 
-if ( is_file( PL_INCLUDES . '/library.pagelines.php' ) )
-	require_once( PL_INCLUDES . '/library.pagelines.php');
+require_once( PL_INCLUDES . '/library.pagelines.php' );
 
 /**
  * Load deprecated functions
  */
-require_once (PL_INCLUDES.'/deprecated.php');
+pl_include( 'deprecated' );
 
 /**
- * Check if version has changed.
+ * Version
  */
-$installed = get_theme_mod( 'pagelines_version' );
-$actual = pl_get_theme_data( get_template_directory(), 'Version' );
-
-// if new version do some housekeeping.
-if ( version_compare( $actual, $installed ) > 0 ) {
-
-		delete_transient( 'pagelines_theme_update' );
-		delete_transient( 'pagelines_extend_themes' );
-		delete_transient( 'pagelines_extend_sections' );
-		delete_transient( 'pagelines_extend_plugins' );
-		delete_transient( 'pagelines_extend_integrations' );
-		delete_transient( 'pagelines_sections_cache' );
-		remove_theme_mod( 'available_updates' );
-		remove_theme_mod( 'pending_updates' );
-		define( 'PL_CSS_FLUSH', true );
-}
-set_theme_mod( 'pagelines_version', $actual );
-set_theme_mod( 'pagelines_child_version', pl_get_theme_data( get_stylesheet_directory(), 'Version' ) );
+pl_include( 'init.version' );
 
 /**
  * Setup all the globals for the framework
  */
-require_once( PL_INCLUDES . '/init.globals.php');
+pl_include( 'init.globals' );
 
 /**
  * Localization - Needs to come after config_theme and before localized config files
  */
-require_once( PL_INCLUDES . '/library.I18n.php');
+pl_include( 'library.I18n' );
 
 /**
  * Load core functions
  */
-require_once( PL_INCLUDES . '/library.functions.php');
+pl_include( 'library.functions' );
 
 /**
  * Load Options Functions
  */
-require_once( PL_INCLUDES . '/library.options.php' );
+pl_include( 'library.options' );
 
 /**
  * Load template related functions
  */
-require_once( PL_INCLUDES . '/library.templates.php');
+pl_include( 'library.templates' );
 
 /**
  * Load template related functions
  */
-require_once( PL_INCLUDES . '/library.wordpress.php');
+pl_include( 'library.wordpress' );
 
 /**
  * Load shortcode library
  */
-require_once( PL_INCLUDES . '/class.shortcodes.php');
+pl_include( 'class.shortcodes' );
 
 /**
  * Load Extension library
  */
-require_once( PL_INCLUDES . '/library.extend.php');
+pl_include( 'library.extend' );
 
 /**
  * Load Layouts library
  */
-require_once( PL_INCLUDES . '/library.layouts.php');
+pl_include( 'library.layouts' );
 
 /**
  * Load Layouts library
  */
-require_once( PL_INCLUDES . '/library.theming.php');
+pl_include( 'library.theming' );
 
 /**
  * Theme configuration files
  */
-require_once( PL_INCLUDES . '/config.options.php' );
+pl_include( 'config.options' );
 
 /**
  * Theme/Framework Welcome
  */
-require_once( PL_ADMIN . '/class.welcome.php' );
+pl_admin_include( 'class.welcome' );
 
 /**
  * Dynamic CSS Selectors
  */
-require_once( PL_INCLUDES . '/config.selectors.php' );
-
+pl_include( 'config.selectors' );
 
 /**
  * Load Custom Post Type Class
  */
-require_once( PL_INCLUDES . '/class.types.php' );
-
+pl_include( 'class.types' );
 
 /**
  * Load layout class and setup layout singleton
  * @global object $pagelines_layout
  */
-require_once( PL_INCLUDES . '/class.layout.php' );
+pl_include( 'class.layout' );
 
-require_once( PL_INCLUDES . '/library.layout.php' );
+pl_include( 'library.layout' );
 
 /**
- * Users Handling
+ * User Handling
  */
-require_once( PL_INCLUDES . '/class.users.php' );
+pl_include( 'class.users' );
 
 /**
  * Load sections handling class
  */
-require_once( PL_INCLUDES . '/class.sections.php' );
+pl_include( 'class.sections' );
 
 /**
  * Load template handling class
  */
-require_once( PL_INCLUDES . '/class.template.php' );
+pl_include( 'class.template' );
 
 /**
  * Load Data Handling
  */
-require_once( PL_ADMIN . '/library.data.php' );
+pl_admin_include( 'library.data' );
 
 /**
  * Load HTML Objects
  */
-require_once( PL_INCLUDES . '/class.objects.php' );
+pl_include( 'class.objects' );
 
 
 /**
  * Load Type Foundry Class
  */
-require_once( PL_INCLUDES . '/class.typography.php' );
+pl_include( 'class.typography' );
 
 /**
  * Load Colors
  */
-require_once( PL_INCLUDES . '/class.colors.php' );
+pl_include( 'class.colors' );
 
 /**
  * Load dynamic CSS handling
  */
-require_once( PL_INCLUDES . '/class.css.php' );
+pl_include( 'class.css' );
 
 /**
  * Load metapanel option handling class
  */
-require_once( PL_ADMIN . '/class.options.metapanel.php' );
+pl_admin_include( 'class.options.metapanel' );
 
 /**
  * Load Profile Handling
  */
-require_once( PL_ADMIN . '/class.profiles.php' );
+pl_admin_include( 'class.profiles' );
 
 
-include( PL_INCLUDES . '/library.upgrades.php' );
+pl_include( 'library.upgrades' );
 /**
  * Load Singleton Globals
  */
-require_once( PL_INCLUDES . '/init.singleton.php' );
+pl_include( 'init.singleton' );
 
 
 /**
  * Add Extension Handlers
  */
-require_once( PL_INCLUDES . '/class.register.php' );
+pl_include( 'class.register' );
 
 /**
  * Add Integration Functionality
  */
-require_once( PL_INCLUDES . '/class.integration.php' );
+pl_include( 'class.integration' );
 
 /**
  * Add Multisite
  */
-if(is_multisite())
-	require_once( PL_INCLUDES . '/library.multisite.php' );
+if ( is_multisite() )
+	pl_include( 'library.multisite' );
 
 /**
  * Add Integration Functionality
  */
-require_once( PL_INCLUDES . '/class.themesupport.php' );
+pl_include( 'class.themesupport' );
 
 /**
  * Add Less Extension
  */
-require_once( PL_INCLUDES . '/less.plugin.php' );
+pl_include( 'less.plugin' );
 
 /**
  * Add Less Functions
  */
-require_once( PL_INCLUDES . '/less.functions.php' );
+pl_include( 'less.functions' );
 
 /**
  * Add WordPress Plugin Support
  */
-require_once( PL_INCLUDES . '/library.plugins.php' );
+pl_include( 'library.plugins' );
 
 
 /**
@@ -226,30 +206,39 @@ $load_sections = new PageLinesRegister();
 $load_sections->pagelines_register_sections();
 $load_sections->register_sidebars();
 
+/**
+ * Setup
+ */
 pagelines_register_hook('pagelines_setup'); // Hook
 
-load_section_persistent(); // Load persistent section functions (e.g. custom post types)
+/**
+ * Load persistent section functions (e.g. custom post types)
+ */
+load_section_persistent();
 
-if(is_admin())
-	load_section_admin(); // Load admin only functions from sections
+if ( is_admin() )
+	load_section_admin();
 
-do_global_meta_options(); // Load the global meta settings tab
+/**
+ * Load the global meta settings tab
+ */
+do_global_meta_options();
 
 
 /**
  * Build Version
  */
-require_once( PL_INCLUDES . '/version.php' );
+pl_include( 'version' );
 
-require_once( PL_INCLUDES . '/class.render.css.php' );
+pl_include( 'class.render.css' );
 
 /**
  * Load site actions
  */
-require_once (PL_INCLUDES.'/actions.site.php');
+pl_include( 'actions.site' );
 
 if ( ploption( 'enable_debug' ) )
-	require_once ( PL_ADMIN . '/class.debug.php');
+	pl_admin_include( 'class.debug' );
 
 /**
  * Run the pagelines_init Hook
@@ -257,12 +246,13 @@ if ( ploption( 'enable_debug' ) )
 pagelines_register_hook('pagelines_hook_init'); // Hook
 
 if ( is_admin() )
-	include( PL_ADMIN . '/init.admin.php' );
+	pl_admin_include( 'init.admin' );
 
 /**
  * Load updater class
  */
-require_once (PL_ADMIN.'/class.updates.php');
-
-if ( is_admin() )
-	new PageLinesUpdateCheck( PL_CORE_VERSION );
+// uses github-updater plugin for updates since 2.4.5.2
+//pl_admin_include( 'class.updates' );
+//
+//if ( is_admin() )
+//	new PageLinesUpdateCheck( PL_CORE_VERSION );
