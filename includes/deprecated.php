@@ -59,3 +59,4 @@ define( 'CHILD_URL'		, get_stylesheet_directory_uri() );
 define( 'CHILD_IMAGES'	, CHILD_URL . '/images' );
 define( 'CHILD_DIR'		, get_stylesheet_directory() );
 define( 'SECTION_ROOT'	, get_template_directory_uri() . '/sections');
+define( 'PL_CORE_LIB'	, PL_INCLUDES); // Used in bbPress forum < 1.2.3
