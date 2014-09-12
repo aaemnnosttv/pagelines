@@ -10,7 +10,12 @@ add_action( 'pagelines_max_mem', create_function('',"@ini_set('memory_limit',WP_
 
 function pl_include( $file )
 {
-	require_once( PL_INCLUDES . "/$file.php" );
+	$filepath = PL_INCLUDES . "/$file.php";
+
+	if ( defined('PL_DEV') && PL_DEV && !is_readable( $filepath ) )
+		wp_die( "File not readable: $filepath", 'Missing/Unreadable File' );
+
+	require_once( $filepath );
 }
 
 function pl_admin_include( $file )
