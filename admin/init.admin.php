@@ -11,82 +11,81 @@
 /**
  * Load account handling
  */
-require_once ( PL_ADMIN . '/paths.admin.php' );
+pl_admin_include( 'paths.admin' );
 
 /**
  * Load Drag and Drop UI
  */
-require_once( PL_ADMIN . '/class.ui.templates.php' );
+pl_admin_include( 'class.ui.templates' );
 
 /**
  * Load Layout Controls
  */
-require_once( PL_ADMIN . '/class.ui.layout.php' );
+pl_admin_include( 'class.ui.layout' );
 
 /**
  * Load Type Control
  */
-require_once( PL_ADMIN . '/class.ui.typography.php' );
+pl_admin_include( 'class.ui.typography' );
 
 /**
  * Load options UI
  */
-
-require_once( PL_ADMIN . '/class.options.ui.php' );
+pl_admin_include( 'class.options.ui' );
 
 /**
  * Load options engine and breaker
  */
-require_once( PL_ADMIN . '/class.options.engine.php' );
+pl_admin_include( 'class.options.engine' );
 
 /**
  * Load Panel UI
  */
-
-require_once( PL_ADMIN . '/class.options.panel.php' );
+pl_admin_include( 'class.options.panel' );
 
 /**
  * Load inline help
  */
-require_once (PL_ADMIN . '/library.help.php' );
+pl_admin_include( 'library.help' );
 
 /**
  * Load account handling
  */
-require_once ( PL_ADMIN . '/class.account.php' );
+pl_admin_include( 'class.account' );
 global $account_control;
 $account_control = new PageLinesAccount;
 
 /**
  * Load store class
  */
-require_once ( PL_ADMIN . '/class.extend.php' );
-require_once ( PL_ADMIN . '/class.extend.ui.php' );
-require_once ( PL_ADMIN . '/class.extend.actions.php' );
+pl_admin_include( 'class.extend' );
+pl_admin_include( 'class.extend.ui' );
+pl_admin_include( 'class.extend.actions' );
 
-require_once ( PL_ADMIN . '/class.extend.integrations.php' );
-require_once ( PL_ADMIN . '/class.extend.themes.php' );
-require_once ( PL_ADMIN . '/class.extend.plugins.php' );
-require_once ( PL_ADMIN . '/class.extend.sections.php' );
+pl_admin_include( 'class.extend.integrations' );
+pl_admin_include( 'class.extend.themes' );
+pl_admin_include( 'class.extend.plugins' );
+pl_admin_include( 'class.extend.sections' );
 
 global $extension_control;
 $extension_control = new PagelinesExtensions;
 
-require_once( PL_ADMIN . '/class.rss.php' );
+pl_admin_include( 'class.rss' );
 
 /**
  * Load admin actions
  */
-require_once (PL_ADMIN.'/actions.admin.php');
+pl_admin_include( 'actions.admin' );
+pl_admin_include( 'actions.ajax' );
 
 /**
  * Load option actions
  */
-require_once (PL_ADMIN.'/actions.options.php');
+pl_admin_include( 'actions.options' );
 
 /**
  * Load Dashboard Template
  */
-require_once (PL_ADMIN.'/t.dashboard.php');
-require_once (PL_ADMIN.'/t.extensions.php');
-require_once (PL_ADMIN.'/t.support.php');
+pl_admin_include( 't.dashboard' );
+pl_admin_include( 't.extensions' );
+pl_admin_include( 't.support' );
