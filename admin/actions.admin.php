@@ -36,14 +36,9 @@ add_action( 'pagelines_admin_head', array(&$layout_control_js, 'layout_control_j
  *
  * @return  string
  */
-function pagelines_admin_body_class( $class ){
-
-	$class = $class.'pagelines_ui';
-
-	return $class;
-}
-
-
+function pagelines_admin_body_class( $class )
+{
+	return "{$class}pagelines_ui";
 }
 
 
@@ -57,11 +52,15 @@ function pagelines_admin_body_class( $class ){
  *
  * @uses    PageLines_Inline_Help
  */
-add_action( 'admin_init', 'pagelines_inline_help' );
-function pagelines_inline_help() {
+function pagelines_inline_help()
+{
+	global $pl_help;
+	if ( !($pl_help instanceof PageLines_Inline_Help) )
+		$pl_help = new PageLines_Inline_Help;
 
-	$pl_help = new PageLines_Inline_Help;
+	return $pl_help;
 }
+add_action( 'admin_init', 'pagelines_inline_help' );
 
 /**
  * Page Columns
@@ -74,13 +73,12 @@ function pagelines_inline_help() {
  * @param   $columns
  * @return  array
  */
-add_filter('manage_edit-page_columns', 'pl_page_columns');
-function pl_page_columns($columns) {
-
-    	$columns['template'] = 'PageLines Template';
-
+function pl_page_columns( $columns )
+{
+	$columns['template'] = 'PageLines Template';
 	return $columns;
 }
+add_filter( 'manage_edit-page_columns', 'pl_page_columns' );
 
 /**
  * Post Columns
@@ -91,12 +89,12 @@ function pl_page_columns($columns) {
  * @param   $columns
  * @return  array
  */
-add_filter('manage_edit-post_columns', 'pl_post_columns');
-function pl_post_columns($columns) {
-
-    	$columns['feature'] = 'Featured Image';
+function pl_post_columns( $columns )
+{
+	$columns['feature'] = 'Featured Image';
 	return $columns;
 }
+add_filter( 'manage_edit-post_columns', 'pl_post_columns' );
 
 /**
  * Posts Show Columns
@@ -107,19 +105,18 @@ function pl_post_columns($columns) {
  * @param   $name
  *
  */
-add_action('manage_posts_custom_column',  'pl_posts_show_columns');
-function pl_posts_show_columns($name) {
-    global $post;
-    switch ($name) {
-
+function pl_posts_show_columns( $name )
+{
+    switch ( $name )
+    {
 		case 'feature':
-			if( has_post_thumbnail( $post->ID )) {
+			if ( has_post_thumbnail( $post->ID ) )
 				the_post_thumbnail( array(48,48) );
-			}
 
-		break;
+			break;
     }
 }
+add_action( 'manage_posts_custom_column', 'pl_posts_show_columns' );
 
 /**
  * Page Show Columns
@@ -131,10 +128,11 @@ function pl_posts_show_columns($name) {
  *
  * @uses    pl_file_get_contents
  */
-add_action( 'manage_pages_custom_column', 'pl_page_show_columns' );
-function pl_page_show_columns($name) {
+function pl_page_show_columns($name)
+{
     global $post;
-    switch ($name) {
+    switch ( $name )
+    {
         case 'template':
             $template = get_post_meta( $post->ID, '_wp_page_template', true );
 
@@ -143,34 +141,33 @@ function pl_page_show_columns($name) {
 				break;
 			}
 
-			$file = sprintf( '%s/%s', PL_PARENT_DIR, $template );
-
-			if ( !is_file( $file ) )
-				$file = sprintf( '%s/%s', CHILD_DIR, $template );
-
-			if ( !is_file( $file ) ) {
-				printf( '<a href="%s">%s</a>', admin_url( sprintf( 'post.php?post=%s&action=edit', $post->ID ) ), __( 'No Template Assigned', 'pagelines' ) ) ;
+			if ( !$file = locate_template( array( $template ) ) )
+			{
+				printf( '<a href="%s">%s</a>',
+					get_edit_post_link( $post->ID ),
+					__( 'No Template Assigned', 'pagelines' )
+				);
 				break;
 			}
 
 			$data = get_file_data( $file, array( 'name' => 'Template Name' ) );
 
-			if ( is_array( $data ) && isset( $data['name'] ) )
+			if ( isset( $data['name'] ) )
 				$template = $data['name'];
 			else
 				$template = __( 'Default', 'pagelines' );
 
 			echo $template;
-		break;
+			break;
 
 		case 'feature':
-			if( has_post_thumbnail( $post->ID )) {
+			if ( has_post_thumbnail( $post->ID ) )
 				the_post_thumbnail( array(48,48) );
-			}
 
-		break;
+			break;
     }
 }
+add_action( 'manage_pages_custom_column', 'pl_page_show_columns' );
 
 /**
  * Setup Versions and flush caches.
