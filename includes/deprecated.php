@@ -7,6 +7,25 @@
  */
 
 /**
+ * Checks if PHP5
+ *
+ * Tests for installed version of PHP higher than 5.0 and prints message if version is found to be lower.
+ *
+ * @deprecated WordPress requires PHP 5.2.4
+ * 
+ * @package PageLines Framework
+ * @subpackage Functions Library
+ * @since 4.0.0
+ */
+function pagelines_check_php()
+{
+	if ( version_compare( phpversion(), 5.0, '<' ) )
+	{
+		printf( __( "<div class='config-error'><h2>PHP Version Problem</h2>Looks like you are using PHP version: <strong>%s</strong>. To run this framework you will need PHP <strong>5.0</strong> or better...<br/><br/> Don't worry though! Just check with your host about a quick upgrade.</div>", 'pagelines' ), phpversion() );
+	}
+}
+
+/**
  * pagelines_register_section()
  *
  * @since 1.0

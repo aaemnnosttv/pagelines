@@ -42,21 +42,6 @@ function pagelines_admin_body_class( $class ){
 
 	return $class;
 }
-/**
- * Checks if PHP5
- *
- * Tests for installed version of PHP higher than 5.0 and prints message if version is found to be lower.
- *
- * @package PageLines Framework
- * @subpackage Functions Library
- * @since 4.0.0
- */
-add_action( 'pagelines_before_optionUI', 'pagelines_check_php' );
-function pagelines_check_php(){
-	if( floatval( phpversion() ) < 5.0 ){
-		printf( __( "<div class='config-error'><h2>PHP Version Problem</h2>Looks like you are using PHP version: <strong>%s</strong>. To run this framework you will need PHP <strong>5.0</strong> or better...<br/><br/> Don't worry though! Just check with your host about a quick upgrade.</div>", 'pagelines' ), phpversion() );
-	}
-}
 
 
 /**
