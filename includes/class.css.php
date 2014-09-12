@@ -10,8 +10,9 @@
  *  @since 4.0
  *
  */
-class PageLinesCSS {
-
+class PageLinesCSS
+{
+	public $css;
 
 	/**
 	*

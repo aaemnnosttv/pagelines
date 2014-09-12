@@ -301,7 +301,7 @@ class PageLinesRenderCSS {
 
 		$typography = $pagelines_dynamic_css->css;
 
-		unset( $pagelines_dynamic_css->css );
+		$pagelines_dynamic_css->css = '';
 		$pagelines_dynamic_css->layout();
 		$pagelines_dynamic_css->options();
 
