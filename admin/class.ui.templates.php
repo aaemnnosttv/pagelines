@@ -11,8 +11,8 @@
  *
  */
 
-class PageLinesTemplateBuilder {
-
+class PageLinesTemplateBuilder
+{
 
 	/**
 	 * Construct
@@ -450,8 +450,8 @@ class PageLinesTemplateBuilder {
 	* @TODO document
 	*
 	*/
-	function draw_section( $args ){
-
+	function draw_section( $args )
+	{
 		$defaults = array(
 			'section'		=> '',
 			'sid'			=> '',
@@ -547,9 +547,9 @@ class PageLinesTemplateBuilder {
 	 * Show section control?
 	 * On some template areas, e.g. posts, single, 404, they have their own interface.. so none is needed
 	 */
-	function show_sc( $t ){
-
-		return ( is_pagelines_special( array( 'type' => $t ) ) ) ? false : true;
+	function show_sc( $type )
+	{
+		return is_pagelines_special( array( 'type' => $type ) );
 	}
 
 
@@ -559,12 +559,11 @@ class PageLinesTemplateBuilder {
 	* @TODO document
 	*
 	*/
-	function section_setup_controls(){
-
+	function section_setup_controls()
+	{
 		$onclick = "PageLinesSlideToggle('.s-description', '.describe_toggle', '.setup_control_text','Hide Section Descriptions', 'Show Section Descriptions', 'pl_section_desc_toggle');";
 
 		printf('<div class="section_setup_controls fix"><span class="setup_control" onClick="%s"><span class="setup_control_text">%s Section Descriptions</span></span></div>', $onclick, ( $this->help() ) ? 'Hide' : 'Show' );
-
 	}
 
 	/**
@@ -578,15 +577,18 @@ class PageLinesTemplateBuilder {
 	 *  @since 4.0
 	 *
 	 */
-	function section_control_interface($oid, $o){
+	function section_control_interface( $oid, $o )
+	{
 
-		if(isset($_GET['page']) && $_GET['page'] == 'pagelines_meta')
+		if ( isset( $_GET['page'] ) && $_GET['page'] == 'pagelines_meta' )
 			return;
 
-		if( isset($o['special']) ){
-			$this->template->adjust_template_type($o['special']);
+		if ( !empty( $o['special'] ) )
+		{
+			$this->template->adjust_template_type( $o['special'] );
 			$is_special = true;
-		} else
+		}
+		else
 			$is_special = false;
 
 		$integration = ( $o['scontrol'] == 'integration' ) ? true : false;
@@ -681,10 +683,11 @@ class PageLinesTemplateBuilder {
 	* @TODO document
 	*
 	*/
-	function sc_inputs( $template_slug, $sections, $o){
+	function sc_inputs( $template_slug, $sections, $o )
+	{
 		global $post;
 
-		$is_special = (isset($o['special'])) ? true : false;
+		$is_special = !empty( $o['special'] ) ? true : false;
 
 		// No sections in area
 		if(empty($sections)){
@@ -743,9 +746,9 @@ class PageLinesTemplateBuilder {
 	* @TODO document
 	*
 	*/
-	function help_control(){
-		if(!$this->help())
-			return 'style="display:none"';
+	function help_control()
+	{
+		return ( !$this->help() ) ? 'style="display:none"' : '';
 	}
 
 
@@ -754,14 +757,18 @@ class PageLinesTemplateBuilder {
 	* @TODO document
 	*
 	*/
-	function help(){
-		if(  get_option('pl_section_desc_toggle') == 'hide' || get_option('pl_section_desc_toggle') == false || !get_option('pl_section_desc_toggle') )
+	function help()
+	{
+		if ( get_option('pl_section_desc_toggle') == 'hide'
+			|| get_option('pl_section_desc_toggle') == false
+			|| !get_option('pl_section_desc_toggle')
+		)
 			return false;
 		else
 			return true;
 	}
 
-}
+} // PageLinesTemplateBuilder
 
 
 
@@ -770,12 +777,12 @@ class PageLinesTemplateBuilder {
  *
  * @since 2.0.0
  */
-function templates_array(){
-
+function templates_array()
+{
 	$return = array();
 
 	$return['template_setup'] = array(
-		'icon'			=> PL_ADMIN_ICONS.'/dragdrop.png',
+		'icon'			=> PL_ADMIN_ICONS . '/dragdrop.png',
 		'templates'		=> array(
 			'default'	=> '',
 			'type'		=> 'templates',

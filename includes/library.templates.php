@@ -261,8 +261,8 @@ function pagelines_head_common(){
 	//pagelines_source_attribution();
 
 	// Allow for extension deactivation of all css
-	if(!has_action('override_pagelines_css_output')){	
-		
+	if(!has_action('override_pagelines_css_output')){
+
 		// Multisite CSS
 		if(is_multisite())
 			pagelines_load_css_relative('css/multisite.css', 'pagelines-multisite');
@@ -302,9 +302,9 @@ function pagelines_head_common(){
 	add_action( 'admin_bar_menu', create_function( '',  'echo pl_source_comment("WordPress Admin Bar");' ), 0 );
 
 	add_action( 'wp_head', 'pagelines_meta_tags', 9 );
-	
+
 	add_action( 'wp_head', 'pl_scripts_on_ready', 10 );
-	
+
 	// Headerscripts option > custom code
 	if ( ploption( 'headerscripts' ) )
 		add_action( 'wp_head', create_function( '',  'print_pagelines_option("headerscripts");' ), 25 );
@@ -321,19 +321,17 @@ function load_prettify(){
 
 }
 
-function pl_scripts_on_ready(){
-	
-echo pl_source_comment("On Ready"); ?>
+function pl_scripts_on_ready()
+{
+	echo pl_source_comment("On Ready");
+	?>
 <script> /* <![CDATA[ */
-!function ($) {
-jQuery(document).ready(function() {
+jQuery(document).ready(function($) {
 <?php pagelines_register_hook('pl_scripts_on_ready'); // Hook ?>
-})
-}(window.jQuery);
+});
 /* ]]> */
 </script>
-
-<?php 
+	<?php
 }
 
 function pagelines_meta_tags(){
@@ -843,25 +841,31 @@ function pl_special_url( $t ){
 
 	if($t == 'blog')
 		$slug = 'blog_page';
+
 	elseif($t == 'category')
 		$slug = 'category_page';
+
 	elseif($t == 'archive')
 		$slug = 'archive_page';
+
 	elseif($t == 'search')
 		$slug = 'search_results';
+
 	elseif($t == 'tag')
 		$slug = 'tag_listing';
+
 	elseif($t == '404_error')
 		$slug = '404_page';
+
 	elseif($t == 'author')
 		$slug = 'author_posts';
+
 	else
 		return false;
 
-	$rurl = sprintf(PL_SPECIAL_OPTS_URL.'%s', '#'.$slug);
+	$rurl = PL_SPECIAL_OPTS_URL . "#$slug";
 
 	return admin_url( $rurl );
-
 }
 
 /**

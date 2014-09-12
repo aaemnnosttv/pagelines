@@ -201,9 +201,12 @@ class PageLinesTemplate {
 	 * TODO Account for different types of loads. e.g sidebar2 should only load if it is shown in the layout
 	 *
 	 */
-	function load_sections_on_hook_names(){
-
-		foreach( $this->map as $hook => $h ){
+	function load_sections_on_hook_names()
+	{
+		foreach( $this->map as $hook => $h )
+		{
+			if ( !$hook )
+				continue;
 
 			$tsections = $this->sections_at_hook( $hook, $h );
 
@@ -786,38 +789,38 @@ class PageLinesTemplate {
 	function run_before_page(){
 
 	}
-	
+
 	function print_on_ready_scripts() {
-		
+
 		foreach( (array) $this->allsections as $sid){
-			
+
 			/**
 			 * If this is a cloned element, remove the clone flag before instantiation here.
 			 */
 			$p = splice_section_slug($sid);
 			$section = $p['section'];
 			$clone_id = $p['clone_id'];
-			
+
 			if( $this->in_factory( $section ) ){
-				
+
 				$s = $this->factory[$section];
 				$s->setup_oset( $clone_id );
-				
+
 				ob_start();
-					
-					$s->section_on_ready( $clone_id );	
-					
+
+					$s->section_on_ready( $clone_id );
+
 				$scripts = ob_get_clean();
-				
+
 				if($scripts != ''){
 					echo sprintf("\n/* %s Script */\n", $this->factory[$section]->name);
 					echo $scripts;
 				}
-						
-			}	
+
+			}
 		}
 	}
-	
+
 	function print_template_section_head() {
 
 		foreach( (array) $this->allsections as $sid){
@@ -1071,13 +1074,9 @@ function workaround_pagelines_template_styles(){
 	Each top level needs a hook; and the top-level template needs to be included
 	as an arg in said hook...
 */
-function the_template_map() {
-
+function the_template_map()
+{
 	$template_map = array();
-
-	$page_templates = the_sub_templates('templates');
-	$content_templates = the_sub_templates('main');
-
 	$template_map['header'] = array(
 		'hook' 			=> 'pagelines_header',
 		'name'			=> __( 'Site Header', 'pagelines' ),
@@ -1096,14 +1095,14 @@ function the_template_map() {
 		'hook'			=> 'pagelines_template',
 		'name'			=> __( 'Page Templates', 'pagelines' ),
 		'markup'		=> 'content',
-		'templates'		=> $page_templates,
+		'templates'		=> the_sub_templates('templates'),
 	);
 
 	$template_map['main'] = array(
 		'hook'			=> 'pagelines_main',
 		'name'			=> __( 'Text Content Area', 'pagelines' ),
 		'markup'		=> 'copy',
-		'templates'		=> $content_templates,
+		'templates'		=> the_sub_templates('main'),
 	);
 
 	$template_map['morefoot'] = array(
@@ -1136,7 +1135,7 @@ function the_template_map() {
 		'sections' 		=> array()
 	);
 
-	return apply_filters( PAGELINES_TEMPLATE_MAP, $template_map);
+	return apply_filters( PAGELINES_TEMPLATE_MAP, $template_map );
 }
 
 
@@ -1234,11 +1233,11 @@ function the_sub_templates( $t = 'templates' ){
 /**
  * Builds a sections for use outside of drag drop setup
  */
-function build_passive_section( $args = array() ){
-
+function build_passive_section( $args = array() )
+{
 	global $passive_sections;
 
-	if(!isset($passive_sections))
+	if ( !is_array( $passive_sections ) )
 		$passive_sections = array();
 
 	$defaults = array(
@@ -1246,48 +1245,40 @@ function build_passive_section( $args = array() ){
 	);
 
 	$s = wp_parse_args($args, $defaults);
-
-	$new = array($s['sid']);
-
-	$passive_sections = array_merge($new, $passive_sections);
-
+	$new = array( $s['sid'] );
+	$passive_sections = array_merge( $new, $passive_sections );
 }
 
 /**
  * Handles custom post types, and adds panel if applicable
  */
-function custom_post_type_handler( $area = 'main' ){
+function custom_post_type_handler( $map, $area )
+{
 	global $post;
 
 	// Get all 'public' post types
 	$pts = get_post_types( array( 'publicly_queryable' => true ) );
 
-
-	if(isset($pts['page']))
-		unset($pts['page']);
-
-	if(isset($pts['post']))
-		unset($pts['post']);
-
-	if(isset($pts['attachment']))
-		unset($pts['attachment']);
-
+	unset( $pts['page'] );
+	unset( $pts['post'] );
+	unset( $pts['attachment'] );
 
 	$post_type_array = array();
 
-	foreach( $pts as $public_post_type ){
-
-		$dragdrop = apply_filters('pl_cpt_dragdrop', true, $public_post_type, $area);
-
-		if( $dragdrop ){
-
+	foreach ( $pts as $public_post_type )
+	{
+		/**
+		 * filter 'pl_cpt_dragdrop'
+		 * @param  bool							whether to add cpt to drag-drop control area
+		 * @param  string	$public_post_type	post type name
+		 * @param  string	$area				drag-drop area (templates|main)
+		 */
+		if ( apply_filters('pl_cpt_dragdrop', true, $public_post_type, $area) )
+		{
 			$post_type_data = get_post_type_object( $public_post_type );
-
-			$sections = ( $area == 'templates' ) ? 'PageLinesContent' : 'PageLinesPostLoop';
-
+			$sections       = ( $area == 'templates' ) ? 'PageLinesContent' : 'PageLinesPostLoop';
 			$sections_array = apply_filters( 'pl_default_sections', array( $sections ), $area, $public_post_type );
-
-			$cpt_plural = strtolower(get_post_type_plural( $public_post_type ));
+			$cpt_plural     = strtolower(get_post_type_plural( $public_post_type ));
 
 			$post_type_array[ $cpt_plural ] = array(
 				'name'		=> ui_key($cpt_plural),
@@ -1301,5 +1292,7 @@ function custom_post_type_handler( $area = 'main' ){
 			);
 		}
 	}
-	return $post_type_array;
+
+	return !empty( $post_type_array ) ? array_merge( $map, $post_type_array ) : $map;
 }
+add_filter( 'the_sub_templates', 'custom_post_type_handler', 10, 2 );

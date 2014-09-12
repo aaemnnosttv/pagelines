@@ -60,7 +60,7 @@ class PageLinesRenderCSS {
 			'icons',
 			'responsive',
 		);
-		
+
 		return apply_filters( 'pagelines_core_less_files', $files );
 	}
 
@@ -98,10 +98,10 @@ class PageLinesRenderCSS {
 		if ( ! get_theme_mod( 'pl_save_version' ) )
 			return;
 
-		if( defined( 'LESS_FILE_MODE' ) && false == LESS_FILE_MODE )
+		if ( defined( 'LESS_FILE_MODE' ) && false == LESS_FILE_MODE )
 			return;
 
-		if( defined( 'PL_NO_DYNAMIC_URL' ) && true == PL_NO_DYNAMIC_URL )
+		if ( defined( 'PL_NO_DYNAMIC_URL' ) && true == PL_NO_DYNAMIC_URL )
 			return;
 
 		$folder = $this->get_css_dir( 'path' );
@@ -109,12 +109,12 @@ class PageLinesRenderCSS {
 
 		$file = sprintf( 'compiled-css-%s.css', get_theme_mod( 'pl_save_version' ) );
 
-		if( file_exists( trailingslashit( $folder ) . $file ) ){
+		if ( file_exists( trailingslashit( $folder ) . $file ) ){
 			define( 'DYNAMIC_FILE_URL', trailingslashit( $url ) . $file );
 			return;
 		}
 
-		if( false == $this->check_posix() )
+		if ( false == $this->check_posix() )
 			return;
 
 		$a = $this->get_compiled_core();
@@ -148,7 +148,7 @@ class PageLinesRenderCSS {
 
 		$User = posix_getpwuid( posix_geteuid() );
 		$File = posix_getpwuid( fileowner( __FILE__ ) );
-		if( $User['name'] !== $File['name'] )
+		if ( $User['name'] !== $File['name'] )
 			return false;
 
 		return true;
@@ -158,7 +158,7 @@ class PageLinesRenderCSS {
 
 		$folder = apply_filters( 'pagelines_css_upload_dir', wp_upload_dir() );
 
-		if( 'path' == $type )
+		if ( 'path' == $type )
 			return trailingslashit( $folder['basedir'] ) . 'pagelines';
 		else
 			return trailingslashit( $folder['baseurl'] ) . 'pagelines';
@@ -174,7 +174,7 @@ class PageLinesRenderCSS {
 		$folder = $this->get_css_dir( 'path' );
 		$file = sprintf( 'compiled-css-%s.css', get_theme_mod( 'pl_save_version' ) );
 
-		if( !is_dir( $folder ) )
+		if ( !is_dir( $folder ) )
 			wp_mkdir_p( $folder );
 
 		include_once( ABSPATH . 'wp-admin/includes/file.php' );
@@ -186,7 +186,7 @@ class PageLinesRenderCSS {
 	}
 
 			global $wp_filesystem;
-			if( is_object( $wp_filesystem ) )
+			if ( is_object( $wp_filesystem ) )
 				$wp_filesystem->put_contents( trailingslashit( $folder ) . $file, $txt, FS_CHMOD_FILE);
 			else
 				return false;
@@ -203,7 +203,7 @@ class PageLinesRenderCSS {
 		$oset = array( 'post_id' => $pagelines_ID );
 		$oid = 'page_background_image';
 		$sel = cssgroup('page_background_image');
-		if( !ploption('supersize_bg', $oset) && ploption( $oid . '_url', $oset )){
+		if ( !ploption('supersize_bg', $oset) && ploption( $oid . '_url', $oset )){
 
 			$bg_repeat = (ploption($oid.'_repeat', $oset)) ? ploption($oid.'_repeat', $oset) : 'no-repeat';
 			$bg_attach = (ploption($oid.'_attach', $oset)) ? ploption($oid.'_attach', $oset): 'scroll';
@@ -278,7 +278,7 @@ class PageLinesRenderCSS {
 	 */
 	function draw_inline_dynamic_css() {
 
-		if( has_filter( 'disable_dynamic_css' ) )
+		if ( has_filter( 'disable_dynamic_css' ) )
 			return;
 
 		$css = $this->get_dynamic_css();
@@ -362,7 +362,7 @@ class PageLinesRenderCSS {
 
 	function get_base_url() {
 
-		if(function_exists('icl_get_home_url')) {
+		if (function_exists('icl_get_home_url')) {
 		    return icl_get_home_url();
 		  }
 
@@ -371,7 +371,7 @@ class PageLinesRenderCSS {
 
 	function check_compat() {
 
-		if( defined( 'LESS_FILE_MODE' ) && false == LESS_FILE_MODE && is_multisite() )
+		if ( defined( 'LESS_FILE_MODE' ) && false == LESS_FILE_MODE && is_multisite() )
 			return true;
 
 		if ( function_exists( 'icl_get_home_url' ) )
@@ -386,7 +386,7 @@ class PageLinesRenderCSS {
 		if ( defined( 'PL_NO_DYNAMIC_URL' ) )
 			return true;
 
-		if( site_url() !== get_home_url() )
+		if ( site_url() !== get_home_url() )
 			return true;
 
 		if ( 'nginx' == substr($_SERVER['SERVER_SOFTWARE'], 0, 5) )
@@ -534,10 +534,10 @@ class PageLinesRenderCSS {
 	function load_core_cssfiles( $files )
 	{
 		$less = pl_load_less_files( $files );
-		
+
 		/**
 		 * filter 'pagelines_insert_core_less'
-		 * @param	$less	string	
+		 * @param	$less	string
 		 */
 		return apply_filters( 'pagelines_insert_core_less', $less );
 	}
@@ -573,7 +573,7 @@ class PageLinesRenderCSS {
 
 	function pagelines_less_trigger() {
 		global $blog_id;
-		if( intval( get_query_var( 'pageless' ) ) ) {
+		if ( intval( get_query_var( 'pageless' ) ) ) {
 			header( 'Content-type: text/css' );
 			header( 'Expires: ' );
 			header( 'Cache-Control: max-age=604100, public' );
@@ -608,10 +608,10 @@ class PageLinesRenderCSS {
 	 *  @since 2.2
 	 */
 	function minify( $css ) {
-		if( is_pl_debug() )
+		if ( is_pl_debug() )
 			return $css;
 
-		if( ! ploption( 'pl_minify') )
+		if ( ! ploption( 'pl_minify') )
 			return $css;
 
 		$data = $css;
@@ -648,38 +648,36 @@ class PageLinesRenderCSS {
 	 *  @package PageLines Framework
 	 *  @since 2.2
 	 */
-	static function flush_version( $rules = true ) {
+	static function flush_version( $rules = true )
+	{
+		$types    = array( 'sections', 'core', 'custom' );
+		$folder   = untrailingslashit( self::get_css_dir( 'path' ) );
+		$file     = sprintf( 'compiled-css-%s.css', get_theme_mod( 'pl_save_version' ) );
+		$filepath = path_join( $folder, $file );
 
-		$types = array( 'sections', 'core', 'custom' );
-
-		$folder = trailingslashit( self::get_css_dir( 'path' ) );
-
-		$file = sprintf( 'compiled-css-%s.css', get_theme_mod( 'pl_save_version' ) );
-
-		if( is_file( $folder . $file ) )
-			@unlink( $folder . $file );
+		if ( is_file( $filepath ) )
+			@unlink( $filepath );
 
 		// Attempt to flush super-cache and w3 cache.
 
-		if( function_exists( 'prune_super_cache' ) ) {
+		if ( function_exists( 'prune_super_cache' ) ) {
 			global $cache_path;
 			$GLOBALS["super_cache_enabled"] = 1;
         	prune_super_cache( $cache_path . 'supercache/', true );
         	prune_super_cache( $cache_path, true );
 		}
-		if( class_exists('W3_Plugin_TotalCacheAdmin') ) {
+		if ( class_exists('W3_Plugin_TotalCacheAdmin') ) {
 		    $plugin_totalcacheadmin = & w3_instance('W3_Plugin_TotalCacheAdmin');
-
 		    $plugin_totalcacheadmin->flush_all();
 		}
 
-		if( $rules )
+		if ( $rules )
 			flush_rewrite_rules( true );
 		set_theme_mod( 'pl_save_version', time() );
 
 		$types = array( 'sections', 'core', 'custom' );
 
-		foreach( $types as $t ) {
+		foreach ( $types as $t ) {
 
 			$compiled = get_transient( "pagelines_{$t}_css" );
 			$backup = get_transient( "pagelines_{$t}_css_backup" );
@@ -694,7 +692,7 @@ class PageLinesRenderCSS {
 	function pagelines_insert_core_less_callback( $code )
 	{
 		global $pagelines_raw_lesscode_external;
-	
+
 		if (
 			is_array( $pagelines_raw_lesscode_external )
 			&& ! empty( $pagelines_raw_lesscode_external )
@@ -749,6 +747,7 @@ function pagelines_insert_core_less( $file )
 
 	$pagelines_raw_lesscode_external[] = $file;
 }
+
 /**
  * Purge Cached CSS
  *

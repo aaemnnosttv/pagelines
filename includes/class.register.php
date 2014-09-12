@@ -131,16 +131,14 @@ class PageLinesRegister
 						$pl_section_factory->register( $section['class'], $section_data );
 					}
 				}
-				else
+				elseif (
+					!class_exists( $section['class'] )
+					&& is_file( $section['base_file'] )
+					&& !isset( $disabled['parent'][ $section['depends'] ] )
+					)
 				{
-					if ( !class_exists( $section['class'] )
-						&& is_file( $section['base_file'] )
-						&& !isset( $disabled['parent'][ $section['depends'] ] )
-						)
-					{
-						include( $section['base_file'] );
-						$pl_section_factory->register( $section['class'], $section_data );
-					}
+					include( $section['base_file'] );
+					$pl_section_factory->register( $section['class'], $section_data );
 				}
 			}
 		}
