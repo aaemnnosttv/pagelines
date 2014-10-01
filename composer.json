@@ -1,0 +1,17 @@
+{
+    "name": "aaemnnosttv/pagelines",
+    "type": "wordpress-theme",
+    "description": "PageLines 2.X is a fork of the PageLines Framework which was discontinued with the launch of PageLines DMS on July 24th, 2013.",
+    "homepage": "https://github.com/aaemnnosttv/pagelines",
+    "require": {
+        "composer/installers": "v1.0.18"
+    },
+    "license": "GPL-2.0",
+    "authors": [
+        {
+            "name": "Evan Mattson",
+            "email": "me@aaemnnost.tv"
+        }
+    ],
+    "minimum-stability": "stable"
+}
