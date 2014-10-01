@@ -1,6 +1,10 @@
 PL 2.X Changelog
 ================
 
+#### 2.4.7
+- Add support for [Composer](http://getcomposer.org/)
+- Fix undefined property notice
+
 #### 2.4.6
 
 - Sections now detected within plugins (just like DMS)
