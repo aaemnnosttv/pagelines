@@ -387,7 +387,10 @@ function pl_hashify( $color ){
  */
 function pl_locate_less( $filename )
 {
-	return locate_template( array("less/$filename.less") );
+	if ( path_is_absolute( $filename ) && file_exists( $filename ) )
+		return $filename;
+	else
+		return locate_template( array("less/$filename","less/$filename.less") );
 }
 
 /**
