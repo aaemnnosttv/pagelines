@@ -373,70 +373,11 @@ function PageLinesSlideToggle(toggle_element, toggle_input, text_element, show_t
 /**
  *
  * @TODO document
- *
+ * @deprecated old function to send an email to pagelines.com
  */
-function sendEmailToMothership( email, input_id ){
-	// validate that shit
-
-	jQuery('.the_email_response').html('');
-	jQuery(".the_email_response").hide();
-	var hasError = false;
-	var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-
-	if( email == '') {
-	    jQuery(".the_email_response").html('<span class="email_error">You\'re silly... The email field is blank!</span>').show().delay(2000).slideUp();
-	    hasError = true;
-	}
-
-	else if(!emailReg.test(email)) {
-	    jQuery(".the_email_response").html('<span class="email_error">Hmm... doesn\'t seem like a valid email!</span>').show().delay(2000).slideUp();
-	    hasError = true;
-	}
-
-	if(hasError == true) { return false; }
-
-	var data = {
-		email: email
-	};
-
-
-	var option_name = 'pagelines_email_sent';
-
-	jQuery.ajax({
-		type: 'GET',
-		url: "http://api.pagelines.com/subscribe/index.php?",
-		dataType: "json",
-		data: data,
-		success: function(response) {
-			if(response == 1){
-				jQuery(".the_email_response").html('Email Sent!').show().delay(2000).slideUp();
-
-				var data = {
-						action: 'pagelines_ajax_save_option',
-						option_name: option_name,
-						option_value: email
-					};
-
-				// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
-				jQuery.ajax({
-					type: 'POST',
-					url: ajaxurl,
-					data: data,
-					success: function(response) {
-					}
-				});
-
-			} else if(response == 0){
-				jQuery(".the_email_response").html('Email Already Submitted!').show().delay(2000).slideUp();
-			}else if(response == -1){
-				jQuery(".the_email_response").html('There was an error on our side. Sorry about that...').show().delay(2000).slideUp();
-			}
-
-
-		}
-	});
-
-
+function sendEmailToMothership( email, input_id ) {
+	
+	return;
 }
 
 /*
