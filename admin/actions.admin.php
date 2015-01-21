@@ -189,18 +189,20 @@ function ajax_save_template_map() {
  * @since   ...
  *
  */
-add_action( 'wp_ajax_pagelines_ajax_save_option', 'pagelines_ajax_save_option_callback' );
-function pagelines_ajax_save_option_callback() {
-    /** This is how you get access to the database */
-	global $wpdb;
+function pagelines_ajax_save_option_callback()
+{
+	$data = filter_input_array(INPUT_POST, array(
+		'option_name'  => array(),
+		'option_value' => array()
+	));
 
-	$option_name = $_POST['option_name'];
-	$option_value = $_POST['option_value'];
-
-	update_option( $option_name, $option_value );
+	// validate the capability and the option to be updated
+	if ( current_user_can('edit_theme_options') && in_array($data['option_name'], pl_option_keys()) )
+		update_option( $data['option_name'], $data['option_value'] );
 
 	die();
 }
+add_action( 'wp_ajax_pagelines_ajax_save_option', 'pagelines_ajax_save_option_callback' );
 
 /**
  * Inline Help
