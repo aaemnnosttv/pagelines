@@ -5,6 +5,25 @@
 // ==============================
 
 /**
+ * Get all core option keys
+ * @since 2.4.7.1
+ *
+ * @return array
+ */
+function pl_option_keys()
+{
+	return array(
+		PAGELINES_SETTINGS,
+		PAGELINES_EXTENSION,
+		PAGELINES_ACCOUNT,
+		PAGELINES_SPECIAL,
+		PAGELINES_TEMPLATES,
+		PAGELINES_TEMPLATE_MAP,
+		'pl_section_desc_toggle',
+	);
+}
+
+/**
  *  Determines if on a foreign integration page
  *
  * @since 2.0.0
