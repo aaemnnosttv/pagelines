@@ -405,6 +405,12 @@ class PageLinesRenderCSS
 			return true;
 	}
 
+	function has_compiled( $type )
+	{
+		$c = $this->get_compiled( $type );
+		return ! empty( $c['compiled'] );
+	}
+
 	function get_compiled( $type )
 	{
 		$cache_key  = "pagelines_{$type}_css";
