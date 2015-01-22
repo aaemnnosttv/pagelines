@@ -8,8 +8,6 @@ class PageLinesRenderCSS
 
 	private static $types = array( 'core','sections','extended','custom' );
 
-	const COMPILED_FILENAME_FORMAT = 'compiled-css-%s-%s.css';
-
 	const AGE_LIMIT_COMPILED = 86400;
 
 	const AGE_LIMIT_BACKUP = 604800;
@@ -74,7 +72,6 @@ class PageLinesRenderCSS
 	{
 		global $pagelines_template;
 
-		// add_action( 'init'                      , array( $this, 'register_styles') );
 		add_filter( 'query_vars'                , array( $this, 'pagelines_add_trigger' ) );
 		add_action( 'template_redirect'         , array( $this, 'pagelines_less_trigger' ) , 15);
 		add_action( 'template_redirect'         , array( $this, 'less_file_mode' ) );
@@ -96,10 +93,8 @@ class PageLinesRenderCSS
 
 	public static function get_compiled_filename( $type )
 	{
-		return sprintf( 'compiled-css-%s-%s.css',
-			get_theme_mod( 'pl_save_version' ),
-			$type
-		);
+		$stamp = get_theme_mod('pl_save_version');
+		return "compiled-css-$stamp-$type.css";
 	}
 
 	function less_file_mode()
@@ -327,15 +322,13 @@ class PageLinesRenderCSS
 
 	/**
 	 *
-	 *  Enqueue the dynamic css file.
+	 *  Enqueue the dynamic css files.
 	 *
 	 *  @package PageLines Framework
 	 *  @since 2.2
 	 */
 	function load_less_css()
 	{
-		// wp_register_style( 'pagelines-less',  $this->get_dynamic_url(), false, null, 'all' );
-
 		$css_url = $this->get_css_dir('url');
 		$css_path = $this->get_css_dir('path');
 
@@ -391,31 +384,24 @@ class PageLinesRenderCSS
 		return get_home_url();
 	}
 
-	function check_compat() {
-
-		if( defined( 'LESS_FILE_MODE' ) && false == LESS_FILE_MODE && is_multisite() )
+	function check_compat()
+	{
+		if ( defined( 'LESS_FILE_MODE' ) && false == LESS_FILE_MODE && is_multisite() )
 			return true;
 
 		if ( function_exists( 'icl_get_home_url' ) )
 			return true;
 
-		if ( defined( 'PLL_INC') )
-			return true;
-
-		if ( ! VPRO )
-			return true;
-
 		if ( defined( 'PL_NO_DYNAMIC_URL' ) )
 			return true;
 
-		if( site_url() !== get_home_url() )
+		if ( site_url() !== get_home_url() )
 			return true;
 
 		if ( 'nginx' == substr($_SERVER['SERVER_SOFTWARE'], 0, 5) )
 			return false;
 
-		global $is_apache;
-		if ( ! $is_apache )
+		if ( empty($GLOBALS['is_apache']) )
 			return true;
 	}
 
@@ -629,55 +615,55 @@ class PageLinesRenderCSS
 	 *  @package PageLines Framework
 	 *  @since 2.2
 	 */
-	public static function pagelines_less_rewrite( $wp_rewrite ) {
-
+	public static function pagelines_less_rewrite( $wp_rewrite )
+	{
 	    $less_rule = array(
-	        '(.*)pagelines-compiled-css' => '/?pageless=1'
+	        self::LESS_REWRITE_REGEX => self::LESS_REWRITE_REQUEST
 	    );
 	    $wp_rewrite->rules = $less_rule + $wp_rewrite->rules;
 	}
 
 	// flush_rules() if our rules are not yet included
-	public static function check_rules(){
+	public static function check_rules()
+	{
 		$rules = get_option( 'rewrite_rules' );
-		if ( ! isset( $rules['(.*)pagelines-compiled-css'] ) ) {
-			global $wp_rewrite;
-		   	$wp_rewrite->flush_rules();
-		}
+
+		if ( empty( $rules[ self::LESS_REWRITE_REGEX ] ) )
+			flush_rewrite_rules();
 	}
 
-	function pagelines_add_trigger( $vars ) {
+	function pagelines_add_trigger( $vars )
+	{
 	    $vars[] = 'pageless';
 	    return $vars;
 	}
 
-	function pagelines_less_trigger() {
-		global $blog_id;
-		if( intval( get_query_var( 'pageless' ) ) ) {
-			header( 'Content-type: text/css' );
-			header( 'Expires: ' );
-			header( 'Cache-Control: max-age=604100, public' );
+	function pagelines_less_trigger()
+	{
+		if ( ! $type = get_query_var('pageless') )
+			return;
 
-			$a = $this->get_compiled_core();
-			$b = $this->get_compiled_sections();
-			$gfonts = preg_match( '#(@import[^;]*;)#', $a['type'], $g );
+		header( 'Content-type: text/css' );
+		header( 'Expires: ' );
+		header( 'Cache-Control: max-age=604100, public' );
 
-			if ( $gfonts ) {
-				$a['core'] = sprintf( "%s\n%s", $g[1], $a['core'] );
-				$a['type'] = str_replace( $g[1], '', $a['type'] );
-			}
-			echo $this->minify( $a['core'] );
-			echo $this->minify( $b['sections'] );
-			echo $this->minify( $a['type'] );
-			echo $this->minify( $a['dynamic'] );
-			$mem = ( function_exists('memory_get_usage') ) ? round( memory_get_usage() / 1024 / 1024, 2 ) : 0;
-			if ( is_multisite() )
-				$blog = sprintf( ' on blog [%s]', $blog_id );
-			else
-				$blog = '';
-			echo sprintf( __( '%s/* CSS was compiled at %s and took %s seconds using %sMB of unicorn dust%s.*/', 'pagelines' ), "\n", date( DATE_RFC822, $a['time'] ), $a['c_time'],  $mem, $blog );
-			die();
-		}
+		$c = $this->get_compiled( $type );
+		echo $this->minify($c['compiled']);
+
+		exit;
+	}
+
+	/**
+	 * Whether or not uncompressed styles should be served.
+	 * @return [type] [description]
+	 */
+	public static function serve_pristine()
+	{
+		return (
+			(defined('SCRIPT_DEBUG') && SCRIPT_DEBUG)
+			|| is_pl_debug()
+			|| ! ploption('pl_minify')
+			);
 	}
 
 	/**
@@ -689,7 +675,7 @@ class PageLinesRenderCSS
 	 */
 	function minify( $css )
 	{
-		if ( is_pl_debug() || ! ploption('pl_minify') )
+		if ( self::serve_pristine() )
 			return $css;
 
 		return $this->_minify( $css );
@@ -750,15 +736,14 @@ class PageLinesRenderCSS
 		foreach ( self::$types as $t )
 		{
 			$css_path = self::get_css_dir('path');
+
 			foreach ( array($t,"$t.min") as $type )
 			{
 				$filename = self::get_compiled_filename( $type );
 				$filepath = path_join($css_path, $filename);
 
 				if ( is_file( $filepath ) )
-				{
 					@unlink( $filepath );
-				}
 			}
 
 			$compiled = get_transient( "pagelines_{$t}_css" );
