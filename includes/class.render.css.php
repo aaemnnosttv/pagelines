@@ -12,6 +12,10 @@ class PageLinesRenderCSS
 
 	const AGE_LIMIT_BACKUP = 604800;
 
+	const LESS_REWRITE_REGEX = '(?:.*)pagelines-compiled-css-(?:[\d_]+)\/([^\/]+)';
+
+	const LESS_REWRITE_REQUEST = 'index.php?pageless=$matches[1]';
+
 	private function __construct()
 	{
 		$this->actions();
@@ -329,51 +333,58 @@ class PageLinesRenderCSS
 	 */
 	function load_less_css()
 	{
-		$css_url = $this->get_css_dir('url');
-		$css_path = $this->get_css_dir('path');
-
 		foreach ( self::$types as $type )
 		{
-			$load = ( is_pl_debug() || ! ploption('pl_minify') ) ? $type : "$type.min";
-			$filename = self::get_compiled_filename( $load );
-			
-			if ( file_exists( path_join($css_path,$filename) ) )
-			{
-				wp_enqueue_style("pl-$type", "$css_url/$filename", false, null);
-			}
+			if ( $this->has_compiled( $type ) )
+				wp_enqueue_style("pl-$type", $this->get_dynamic_url($type), false, null, 'all');
 		}
-
 	}
 
-	function get_dynamic_url() {
+	function get_dynamic_url( $type )
+	{
+		// file mode
+		$css_path = $this->get_css_dir('path');
+		$css_url  = $this->get_css_dir('url');
+		$load     = self::serve_pristine() ? $type : "$type.min";
+		$filename = self::get_compiled_filename( $load );
 
-		global $blog_id;
-		$version = get_theme_mod( "pl_save_version" );
-
-		if ( ! $version )
-			$version = '1';
-
-		if ( is_multisite() )
-			$id = $blog_id;
+		if ( file_exists( path_join($css_path,$filename) ) )
+			$url = "$css_url/$filename";
 		else
-			$id = '1';
+		{
+			if ( ! $version = get_theme_mod('pl_save_version') )
+				$version = '1';
 
-		$version = sprintf( '%s_%s', $id, $version );
+			$id = get_current_blog_id();
+			$version = "{$id}_$version";
 
-		$parent = apply_filters( 'pl_parent_css_url', PL_PARENT_URL );
+			/**
+			 * Filter 'pl_parent_css_url'
+			 * @param string template uri
+			 */
+			$parent = apply_filters( 'pl_parent_css_url', PL_PARENT_URL, $type );
 
-		if ( '' != get_option('permalink_structure') && ! $this->check_compat() )
-			$url = sprintf( '%s/pagelines-compiled-css-%s/', $parent, $version );
-		else {
-			$url = add_query_arg(array('pageless' => $version), $this->get_base_url());
+			if ( get_option('permalink_structure') && ! $this->check_compat() )
+				$url = "$parent/pagelines-compiled-css-$version/$type/";
+			else
+				$url = add_query_arg(array('pageless' => $type, 'ver' => $version), $this->get_base_url());
 		}
-		if ( defined( 'DYNAMIC_FILE_URL' ) )
-			$url = DYNAMIC_FILE_URL;
 
-		if ( has_action( 'pl_force_ssl' ) )
+		/**
+		 * Filter 'pl_force_ssl'
+		 * @param  bool whether or not to force https protocol
+		 * @param  string url
+		 * @param  string type [description]
+		 */
+		if ( apply_filters( 'pl_force_ssl', false, $url, $type ) )
 			$url = str_replace( 'http://', 'https://', $url );
 
-		return apply_filters( 'pl_dynamic_css_url', $url );
+		/**
+		 * Filter 'pl_dynamic_css_url'
+		 * @param string url
+		 * @param string type
+		 */
+		return apply_filters( 'pl_dynamic_css_url', $url, $type );
 	}
 
 	function get_base_url()
