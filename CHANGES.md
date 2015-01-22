@@ -1,7 +1,12 @@
 PL 2.X Changelog
 ================
 
+#### 2.4.8
+
+- Sucuri [security update](http://blog.sucuri.net/2015/01/security-advisory-vulnerabilities-in-pagelinesplatform-theme-for-wordpress.html)
+
 #### 2.4.7
+
 - Add support for [Composer](http://getcomposer.org/)
 - Fix undefined property notice
 
