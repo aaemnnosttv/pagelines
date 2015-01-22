@@ -115,7 +115,7 @@ function gallery_filter( $a, $template_name) {
 		return $a;
 }
 
-new PageLinesRenderCSS;
+PageLinesRenderCSS::instance();
 
 add_action( 'template_redirect', 'pl_check_integrations' );
 
