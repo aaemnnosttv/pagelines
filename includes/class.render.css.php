@@ -335,6 +335,9 @@ class PageLinesRenderCSS
 	{
 		foreach ( self::$types as $type )
 		{
+			if ( 'custom' == $type )
+				continue;
+			
 			if ( $this->has_compiled( $type ) )
 				wp_enqueue_style("pl-$type", $this->get_dynamic_url($type), false, null, 'all');
 		}
