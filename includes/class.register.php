@@ -403,8 +403,9 @@ function pl_get_section_dirs()
 		$slug = dirname( $plugin );
 		$path = path_join( WP_PLUGIN_DIR, "$slug/sections" );
 
-		if ( is_dir( $path ) && is_plugin_active( $plugin ) )
+		if ( is_dir( $path ) && is_plugin_active( $plugin ) ) {
 			$section_dirs[ $slug ] = $path;
+		}
 	}
 
 	$section_dirs['child']  = PL_EXTEND_DIR;
