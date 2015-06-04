@@ -262,7 +262,7 @@ if ( is_admin() )
 /**
  * Load updater class
  */
-require_once (PL_ADMIN.'/class.updates.php');
-
-if ( is_admin() )
-	new PageLinesUpdateCheck( PL_CORE_VERSION );
+//require_once (PL_ADMIN.'/class.updates.php');
+//
+//if ( is_admin() )
+//	new PageLinesUpdateCheck( PL_CORE_VERSION );
