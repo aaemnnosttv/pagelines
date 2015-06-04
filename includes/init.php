@@ -243,6 +243,10 @@ require_once( PL_INCLUDES . '/version.php' );
 
 require_once( PL_INCLUDES . '/class.render.css.php' );
 
+if ( defined ( 'WP_CLI' ) && WP_CLI ) {
+	require_once( PL_INCLUDES . '/cli.commands.php' );
+}
+
 /**
  * Load site actions
  */
