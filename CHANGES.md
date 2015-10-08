@@ -1,6 +1,12 @@
 PL 2.X Changelog
 ================
 
+#### 2.5.0
+
+- Separate compiled LESS into 3 files (core, sections, extended)
+- Add `pl2x` WP_CLI command, currently llows for purging cache `wp pl2x purge`
+- Various fixes and optimizations
+
 #### 2.4.8
 
 - Sucuri [security update](http://blog.sucuri.net/2015/01/security-advisory-vulnerabilities-in-pagelinesplatform-theme-for-wordpress.html)
