@@ -1063,7 +1063,7 @@ function pl_file_get_contents( $filename )
 		return false;
 
 	if ( is_array( $file = file( $filename ) ) )
-		return join( "\n", $file );
+		return join( $file );
 	else
 		return false;
 }

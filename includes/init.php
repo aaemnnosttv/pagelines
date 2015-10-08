@@ -243,6 +243,10 @@ require_once( PL_INCLUDES . '/version.php' );
 
 require_once( PL_INCLUDES . '/class.render.css.php' );
 
+if ( defined ( 'WP_CLI' ) && WP_CLI ) {
+	require_once( PL_INCLUDES . '/cli.commands.php' );
+}
+
 /**
  * Load site actions
  */
@@ -262,7 +266,7 @@ if ( is_admin() )
 /**
  * Load updater class
  */
-require_once (PL_ADMIN.'/class.updates.php');
-
-if ( is_admin() )
-	new PageLinesUpdateCheck( PL_CORE_VERSION );
+//require_once (PL_ADMIN.'/class.updates.php');
+//
+//if ( is_admin() )
+//	new PageLinesUpdateCheck( PL_CORE_VERSION );
