@@ -222,6 +222,7 @@ require_once( PL_INCLUDES . '/library.plugins.php' );
 /**
  * Register and load all sections
  */
+global $load_sections;
 $load_sections = new PageLinesRegister();
 $load_sections->pagelines_register_sections();
 $load_sections->register_sidebars();
