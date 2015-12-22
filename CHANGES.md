@@ -1,6 +1,9 @@
 PL 2.X Changelog
 ================
 
+#### 2.5.1
+- Fix error with WP CLI
+
 #### 2.5.0
 
 - Separate compiled LESS into 3 files (core, sections, extended)
