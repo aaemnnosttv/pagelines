@@ -2,4 +2,4 @@
 
 // Internal build versions.
 
-$platform_build = '2.5.1';
+$platform_build = '2.5.2';
