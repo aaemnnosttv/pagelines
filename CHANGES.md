@@ -1,6 +1,9 @@
 PL 2.X Changelog
 ================
 
+#### 2.5.2
+- Fix "PageLines Meta Settings" metabox not displaying on post-new.php for custom post types
+
 #### 2.5.1
 - Fix error with WP CLI
 
