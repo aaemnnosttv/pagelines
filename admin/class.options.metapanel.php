@@ -107,19 +107,20 @@ class PageLinesMetaPanel {
 	* @TODO document
 	*
 	*/
-	function get_the_post_types(){
+	function get_the_post_types() {
+		$types = array( 'post', 'page' );
+		$current_type = filter_input(INPUT_GET, 'post_type');
+		$post_id = filter_input(INPUT_GET, 'post') ?: filter_input(INPUT_POST, 'post_ID');
 
-		// if not in this array, then show the
-		$post_id = ( isset( $_GET['post'] ) ) ? $_GET['post'] : ( isset($_POST['post_ID']) ? $_POST['post_ID'] : null );
+		if (! $current_type && $post_id) {
+			$current_type = get_post_type( $post_id );
+		}
 
+		if ( $current_type && ! in_array( $current_type, $this->blacklist ) ) {
+			$types[] = $current_type;
+		}
 
-		if( isset( $post_id ) && !in_array( get_post_type( $post_id ), $this->blacklist ) )
-			$pt = array( 'post', 'page', get_post_type( $post_id ) );
-		else
-			$pt = array( 'post', 'page' );
-
-
-		return $pt;
+		return $types;
 	}
 
 
