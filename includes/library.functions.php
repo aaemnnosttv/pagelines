@@ -814,12 +814,13 @@ function plprint( $data, $title = false, $echo = false) {
 
 	$data = ob_get_clean();
 
-	if ( $echo )
+	if ( $echo ) {
 		echo $data;
-	elseif ( false === $echo )
-		add_action( 'shutdown', create_function( '', sprintf('echo \'%s\';', $data) ) );
-	else
+	} elseif ( false === $echo ) {
+		add_action( 'shutdown', function() use($data) { echo "$data"; } );
+	} else {
 		return $data;
+	}
 }
 
 function plcomment( $data, $title = 'DEBUG', $type = 'html' ) {
@@ -1322,8 +1323,7 @@ function pl_debug( $text = '', $before = "\n/*", $after = '*/' ) {
 	if ( ! is_pl_debug() )
 		return;
 
-	$out = sprintf( 'echo "%s %s %s";', $before, $text, $after );
-	add_action( 'shutdown', create_function( '', $out ), 9999 );
+	add_action( 'shutdown', function() use($before, $text, $after) { echo "$before $text $after"; }, 9999 );
 
 }
 

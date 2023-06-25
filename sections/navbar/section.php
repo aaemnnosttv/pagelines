@@ -168,7 +168,7 @@ class PLNavBar extends PageLinesSection {
 
 			build_passive_section( array( 'sid' => $this->class_name ) );
 
-			add_action( 'pagelines_before_page', create_function( '',  'echo pl_source_comment("Fixed NavBar Section");' ) );
+			add_action( 'pagelines_before_page', function() { echo pl_source_comment("Fixed NavBar Section"); } );
 			add_action( 'pagelines_before_page', array( &$this,'passive_section_template' ), 10, 2);
 			pagelines_add_bodyclass( 'navbar_fixed' );
 		}
